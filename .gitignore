@@ -1,0 +1,7 @@
+app/build
+app/src/main/libs
+build
+gradle
+.gradle
+app/src/main/obj
+.idea

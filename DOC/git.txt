@@ -1,0 +1,52 @@
+Initial push
+--------
+cd StudioProjects/wX
+git init
+git remote add origin https://gitlab.com/joshua.tee/wx.git
+git add .
+git commit -m "1st commit"
+git commit -a -m "version number"
+git push -u origin master
+
+
+Clone to another system
+------
+git clone https://gitlab.com/joshua.tee/wx.git
+
+#git push -u origin --all
+#git push -u origin --tags
+
+
+remove subdir from git tracking
+---------------------------
+Step 1. Add the folder path to your repo's root .gitignore file.
+
+path_to_your_folder/
+
+Step 2. Remove the folder from your local git tracking, but keep it on your disk.
+
+git rm -r --cached path_to_your_folder/
+
+Step 3. Push your changes to your git repo.
+
+The folder will be considered "deleted" from Git's point of view (i.e. they are in past history, but not in the latest commit, and people pulling from this repo will get the files removed from their trees), but stay on your working directory because you've used --cached.
+https://stackoverflow.com/questions/24290358/remove-a-folder-from-git-tracking
+
+remove history for directory deleted above
+------------------------------
+
+repeat commands for directories in .gitignore
+
+DIR="app/build"
+git filter-branch --tree-filter "rm -rf $DIR" --prune-empty HEAD
+#echo node_modules/ >> .gitignore
+#git add .gitignore
+git commit -m 'Removing $DIR from git history'
+git gc
+git push origin master --force
+
+--- .gitignore ---
+app/build
+app/src/main/libs
+build/intermediates
+.gradle
