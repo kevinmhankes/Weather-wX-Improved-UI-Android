@@ -5,3 +5,4 @@ gradle
 .gradle
 app/src/main/obj
 .idea
+.DS_Store
