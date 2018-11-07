@@ -5,7 +5,7 @@
 // TODO base velocity legend
 // TODO SPC MESO rescan for _sf
 
-55039 2018_11_06 (bugfix) UtilityLocation.getXYFromAddressOSM was not optimal
+55039 2018_11_07 (bugfix) UtilityLocation.getXYFromAddressOSM was not optimal
 55038 2018_11_06 remove uneeded RadarType.kt
                  add new SPC MESO parm: "Bulk Shear - Sfc-3km", "shr3"
                  (bugfix) "Bulk Shear - Sfc-1km" was incorrectly srh1 and not shr1
