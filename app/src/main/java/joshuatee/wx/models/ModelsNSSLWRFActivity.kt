@@ -435,7 +435,7 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                 displayData.param[1] = params[0]
                 displayData.paramLabel[1] = labels[0]
             }
-        spSector.refreshData(this, UtilityModelNSSLWRFInterface.sectorsLong)
+        //spSector.refreshData(this, UtilityModelNSSLWRFInterface.sectorsLong)
         //spSector.setSelection(sectorOrig)
         drw.updateLists(this, labels, params)
         spRun.setSelection(0)
@@ -445,63 +445,5 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         spTime.list.clear()
         (startStep..endStep).forEach { spTime.list.add(String.format(Locale.US, "%02d", it)) }
     }
-
-   /* private fun setupHRRRV3() {
-        val params = UtilityModelNSSLWRFInterface.paramsNsslHrrrv3
-        val labels = UtilityModelNSSLWRFInterface.labelsNsslHrrrv3
-        (0 until numPanes).forEach {
-            displayData.param[it] = params[0]
-            displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
-            displayData.paramLabel[it] = params[0]
-            displayData.paramLabel[it] = Utility.readPref(this, prefParamLabel + it.toString(), displayData.paramLabel[0])
-        }
-        if (!UtilityModels.parmInArray(params, displayData.param[0])) {
-            displayData.param[0] = params[0]
-            displayData.paramLabel[0] = labels[0]
-        }
-        if (numPanes > 1)
-            if (!UtilityModels.parmInArray(params, displayData.param[1])) {
-                displayData.param[1] = params[0]
-                displayData.paramLabel[1] = labels[0]
-            }
-        spSector.refreshData(this, UtilityModelNSSLWRFInterface.sectorsLong)
-        //spSector.setSelection(sectorOrig)
-        drw.updateLists(this, labels, params)
-        spRun.setSelection(0)
-        spTime.setSelection(0)
-        //spRun.list.clear()
-        //(0..23).forEach { spRun.list.add(String.format(Locale.US, "%02d", it) + "Z") }
-        spTime.list.clear()
-        (0..36).forEach { spTime.list.add(String.format(Locale.US, "%02d", it)) }
-    }
-
-    private fun setupWrf3km() {
-        val params = UtilityModelNSSLWRFInterface.paramsNsslWrf
-        val labels = UtilityModelNSSLWRFInterface.labelsNsslWrf
-        (0 until numPanes).forEach {
-            displayData.param[it] = params[0]
-            displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
-            displayData.paramLabel[it] = params[0]
-            displayData.paramLabel[it] = Utility.readPref(this, prefParamLabel + it.toString(), displayData.paramLabel[0])
-        }
-        if (!UtilityModels.parmInArray(params, displayData.param[0])) {
-            displayData.param[0] = params[0]
-            displayData.paramLabel[0] = labels[0]
-        }
-        if (numPanes > 1)
-            if (!UtilityModels.parmInArray(params, displayData.param[1])) {
-                displayData.param[1] = params[0]
-                displayData.paramLabel[1] = labels[0]
-            }
-        spSector.refreshData(this, UtilityModelNSSLWRFInterface.sectorsLong)
-        //spSector.setSelection(sectorOrig)
-        drw.updateLists(this, labels, params)
-        spRun.setSelection(0)
-        spTime.setSelection(0)
-        //spRun.list.clear()
-        //(0..23).forEach { spRun.list.add(String.format(Locale.US, "%02d", it) + "Z") }
-        spTime.list.clear()
-        (0..36).forEach { spTime.list.add(String.format(Locale.US, "%02d", it)) }
-    }*/
 }
 
