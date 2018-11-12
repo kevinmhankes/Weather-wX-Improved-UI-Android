@@ -70,7 +70,7 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     private var prefModel = ""
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
-    private lateinit var imageMap: ObjectImageMap
+    //private lateinit var imageMap: ObjectImageMap
     private lateinit var turl: Array<String>
     private lateinit var miStatus: MenuItem
     private lateinit var spRun: ObjectSpinner
@@ -127,26 +127,10 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         }
         miStatus = m.findItem(R.id.action_status)
         miStatus.title = "in through"
-        //if (turl[1] == "false") {
         m.findItem(R.id.action_map).isVisible = false
-        //}
         spTime = ObjectSpinner(this, this, R.id.spinner_time)
         spTime.setOnItemSelectedListener(this)
         displayData = DisplayData(this, this, this, numPanes, spTime)
-        imageMap = if (UIPreferences.fabInModels && numPanes < 2) {
-            ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(displayData.img[0], fab1.fab, fab2.fab))
-        } else {
-            ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(displayData.img[0]))
-        }
-        imageMap.addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
-            override fun onImageMapClicked(id: Int, im2: ImageMap) {
-                im2.visibility = View.GONE
-                sector = UtilityImageMap.maptoWFO(id)
-                mapSwitch(sector.toUpperCase(Locale.US))
-            }
-
-            override fun onBubbleClicked(id: Int) {}
-        })
         spRun = ObjectSpinner(this, this, R.id.spinner_run)
         spRun.setOnItemSelectedListener(this)
         spSector = ObjectSpinner(this, this, R.id.spinner_sector, UtilityModelNSSLWRFInterface.sectorsLong)
@@ -167,8 +151,6 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             }
             GetContent().execute()
         }
-        //setupModel()
-        //GetRunStatus().execute()
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
@@ -217,9 +199,7 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         override fun onPreExecute() {
             run = spRun.selectedItem.toString()
             time = spTime.selectedItem.toString()
-            //if (prefModel == "NCAR_ENSEMBLE") {
-                sector = spSector.selectedItem.toString()
-            //}
+            sector = spSector.selectedItem.toString()
             Utility.writePref(contextg, prefSector, sector)
         }
 
@@ -257,7 +237,6 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item))
             return true
         when (item.itemId) {
-            R.id.action_map -> imageMap.toggleMap()
             R.id.action_back -> UtilityModels.moveBack(spTime)
             R.id.action_forward -> UtilityModels.moveForward(spTime)
             R.id.action_animate -> GetAnimate().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
@@ -321,7 +300,8 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         override fun onPostExecute(result: String) {
             spRun.clear()
             spRun.addAll(rtd.listRun)
-            miStatus.title = "in through " + rtd.imageCompleteStr
+            //miStatus.title = "in through " + rtd.imageCompleteStr
+            miStatus.isVisible = false
             spRun.notifyDataSetChanged()
             (0 until spTime.size()).forEach { spTime[it] = spTime[it] + " " + UtilityModels.convertTimeRuntoTimeString(rtd.timeStrConv.replace("Z", ""), spTime[it], false) }
             spTime.notifyDataSetChanged()
@@ -331,29 +311,6 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             }
         }
     }
-
-    /*private fun setupModel() {
-        (0 until numPanes).forEach {
-            displayData.param[it] = UtilityModelNSSLWRFInterface.paramsNsslWrf[0]
-            displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[it])
-            displayData.paramLabel[it] = UtilityModelNSSLWRFInterface.labelsNsslWrf[0]
-            displayData.paramLabel[it] = Utility.readPref(this, prefParamLabel + it.toString(), displayData.paramLabel[it])
-
-        }
-        if (!UtilityModels.parmInArray(UtilityModelNSSLWRFInterface.paramsNsslWrf, displayData.param[0])) {
-            displayData.param[0] = "speed500_mean"
-            displayData.paramLabel[0] = "500 mb Wind/Height"
-        }
-        if (numPanes > 1)
-            if (!UtilityModels.parmInArray(UtilityModelNSSLWRFInterface.paramsNsslWrf, displayData.param[1])) {
-                displayData.param[1] = "speed500_mean"
-                displayData.paramLabel[1] = "500 mb Wind/Height"
-            }
-        spRun.setSelection(0)
-        spTime.setSelection(0)
-        spTime.clear()
-        (0 until 37).forEach { spTime.add(String.format(Locale.US, "%02d", it)) }
-    }*/
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
@@ -379,47 +336,7 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         super.onStop()
     }
 
-    private fun mapSwitch(loc: String) {
-        if (UIPreferences.fabInModels && numPanes == 1) {
-            fab1.setVisibility(View.VISIBLE)
-            fab2.setVisibility(View.VISIBLE)
-        }
-        sector = loc
-        GetContent().execute()
-    }
-
-    /*private fun setupWrf() {
-        (0 until numPanes).forEach {
-            displayData.param[it] = UtilityModelNSSLWRFInterface.paramsNsslWrf[0]
-            displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
-            displayData.paramLabel[it] = UtilityModelNSSLWRFInterface.paramsNsslWrf[0]
-            displayData.paramLabel[it] = Utility.readPref(this, prefParamLabel + it.toString(), displayData.paramLabel[0])
-        }
-        if (!UtilityModels.parmInArray(UtilityModelNSSLWRFInterface.paramsNsslWrf, displayData.param[0])) {
-            displayData.param[0] = UtilityModelNSSLWRFInterface.paramsNsslWrf[0]
-            displayData.paramLabel[0] = UtilityModelNSSLWRFInterface.labelsNsslWrf[0]
-        }
-        if (numPanes > 1)
-            if (!UtilityModels.parmInArray(UtilityModelNSSLWRFInterface.paramsNsslWrf, displayData.param[1])) {
-                displayData.param[1] = UtilityModelNSSLWRFInterface.paramsNsslWrf[0]
-                displayData.paramLabel[1] = UtilityModelNSSLWRFInterface.labelsNsslWrf[0]
-            }
-        spSector.refreshData(this, UtilityModelNSSLWRFInterface.sectorsLong)
-        //spSector.setSelection(sectorOrig)
-        drw.updateLists(this, UtilityModelNSSLWRFInterface.paramsNsslWrf, UtilityModelNSSLWRFInterface.paramsNsslWrf)
-        spRun.setSelection(0)
-        spTime.setSelection(0)
-        //spRun.list.clear()
-        //(0..23).forEach { spRun.list.add(String.format(Locale.US, "%02d", it) + "Z") }
-        spTime.list.clear()
-        (0..36).forEach { spTime.list.add(String.format(Locale.US, "%02d", it)) }
-    }*/
-
-    private fun setupModel(params:  List<String>, labels: List<String>, startStep: Int, endStep: Int) {
-        //val params = UtilityModelNSSLWRFInterface.paramsNsslFv3
-        //val labels = UtilityModelNSSLWRFInterface.labelsNsslFv3
-        //val startStep = 0
-        //val endStep = 60
+    private fun setupModel(params: List<String>, labels: List<String>, startStep: Int, endStep: Int) {
         (0 until numPanes).forEach {
             displayData.param[it] = params[0]
             displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
