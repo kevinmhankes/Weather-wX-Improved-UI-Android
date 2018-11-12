@@ -66,10 +66,9 @@ internal object UtilityModelNSSLWRFInputOutput {
             return runTimeData*/
         }
 
-    fun getImage(context: Context, sectorF: String, param: String, runF: String, timeF: String): Bitmap {
+    fun getImage(context: Context, modelF: String, sectorF: String, param: String, runF: String, timeF: String): Bitmap {
 
-        // FIXME
-        val modelF = "WRF"
+        //val modelF = "WRF"
         val time = timeF.split(" ")[0]
         var sectorIndex = 0
         if (sectorF==""){
@@ -118,9 +117,9 @@ internal object UtilityModelNSSLWRFInputOutput {
         return url.getImage()*/
     }
 
-    fun getAnimation(context: Context, sector: String, param: String, run: String, spinnerTimeValue: Int, listTime: List<String>): AnimationDrawable {
+    fun getAnimation(context: Context, model: String, sector: String, param: String, run: String, spinnerTimeValue: Int, listTime: List<String>): AnimationDrawable {
         if (spinnerTimeValue == -1) return AnimationDrawable()
-        val bmAl = (spinnerTimeValue until listTime.size).mapTo(mutableListOf()) { k -> getImage(context, sector, param, run, listTime[k].split(" ").dropLastWhile { it.isEmpty() }[0]) }
+        val bmAl = (spinnerTimeValue until listTime.size).mapTo(mutableListOf()) { k -> getImage(context, model, sector, param, run, listTime[k].split(" ").dropLastWhile { it.isEmpty() }[0]) }
         return UtilityImgAnim.getAnimationDrawableFromBMList(context, bmAl)
     }
 }

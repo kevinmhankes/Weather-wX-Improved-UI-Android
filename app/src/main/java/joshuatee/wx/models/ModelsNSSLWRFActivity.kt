@@ -66,6 +66,7 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     private var numPanes = 1
     private var numPanesStr = "1"
     private var curImg = 0
+    private var model = "WRF"
     private var prefModel = ""
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
@@ -92,12 +93,13 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         numPanesStr = turl[0]
         numPanes = numPanesStr.toIntOrNull() ?: 0
         if (numPanes == 1) {
-            super.onCreate(savedInstanceState, R.layout.activity_models_generic, R.menu.models_generic, false, true)
+            super.onCreate(savedInstanceState, R.layout.activity_models_nssl, R.menu.models_generic, false, true)
         } else {
-            super.onCreate(savedInstanceState, R.layout.activity_models_generic_multipane, R.menu.models_generic, false, true)
+            super.onCreate(savedInstanceState, R.layout.activity_models_nssl_multipane, R.menu.models_generic, false, true)
         }
         toolbarBottom.setOnMenuItemClickListener(this)
         prefModel = turl[2]
+        model = Utility.readPref(this, prefModel, "WRF")
         prefSector = "MODEL_" + prefModel + numPanesStr + "_SECTOR_LAST_USED"
         prefParam = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED"
         prefParamLabel = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED_LABEL"
@@ -125,9 +127,9 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         }
         miStatus = m.findItem(R.id.action_status)
         miStatus.title = "in through"
-        if (turl[1] == "false") {
-            m.findItem(R.id.action_map).isVisible = false
-        }
+        //if (turl[1] == "false") {
+        m.findItem(R.id.action_map).isVisible = false
+        //}
         spTime = ObjectSpinner(this, this, R.id.spinner_time)
         spTime.setOnItemSelectedListener(this)
         displayData = DisplayData(this, this, this, numPanes, spTime)
@@ -150,6 +152,9 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         spSector = ObjectSpinner(this, this, R.id.spinner_sector, UtilityModelNSSLWRFInterface.sectorsLong)
         spSector.setOnItemSelectedListener(this)
         spSector.setSelection(Utility.readPref(this, prefSector, UtilityModelNSSLWRFInterface.sectorsLong[0]))
+        val spModel = ObjectSpinner(this, this, R.id.spinner_model, UtilityModelNSSLWRFInterface.models)
+        spModel.setOnItemSelectedListener(this)
+        spModel.setSelection(model)
         drw = ObjectNavDrawer(this, UtilityModelNSSLWRFInterface.labelsNsslWrf, UtilityModelNSSLWRFInterface.paramsNsslWrf)
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             drw.listView.setItemChecked(position, false)
@@ -162,14 +167,46 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             }
             GetContent().execute()
         }
-        setupModel()
-        GetRunStatus().execute()
+        //setupModel()
+        //GetRunStatus().execute()
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        if (firstRunTimeSet) {
-            GetContent().execute()
-        }
+        if (parent.id == R.id.spinner_model) {
+            firstRunTimeSet = false
+            when (parent.selectedItemPosition) {
+                0 -> {
+                    model = "WRF"
+                    Utility.writePref(this, prefModel, model)
+                    setupModel(UtilityModelNSSLWRFInterface.paramsNsslWrf, UtilityModelNSSLWRFInterface.labelsNsslWrf, 1, 36)
+                }
+                1 -> {
+                    model = "FV3"
+                    Utility.writePref(this, prefModel, model)
+                    setupModel(UtilityModelNSSLWRFInterface.paramsNsslFv3, UtilityModelNSSLWRFInterface.labelsNsslFv3, 1, 60)
+                }
+                2 -> {
+                    model = "HRRRV3"
+                    Utility.writePref(this, prefModel, model)
+                    setupModel(UtilityModelNSSLWRFInterface.paramsNsslHrrrv3, UtilityModelNSSLWRFInterface.labelsNsslHrrrv3, 1, 36)
+                }
+                3 -> {
+                    model = "WRF_3KM"
+                    Utility.writePref(this, prefModel, model)
+                    setupModel(UtilityModelNSSLWRFInterface.paramsNsslWrf, UtilityModelNSSLWRFInterface.labelsNsslWrf, 1, 36)
+                }
+            }
+            GetRunStatus().execute()
+        } else if (firstRunTimeSet)
+            GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+        //if (parent.id == R.id.spinner_run)
+        //    UtilityModels.updateTime(UtilityString.getLastXChars(spRun.selectedItem.toString(), 2),
+        //            rtd.mostRecentRun, spTime.list, spTime.arrayAdapter, "", false)
+
+        // original code
+        //if (firstRunTimeSet) {
+        //    GetContent().execute()
+        //}
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -187,7 +224,7 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         }
 
         override fun doInBackground(vararg params: String): String {
-            (0 until numPanes).forEach { displayData.bitmap[it] = UtilityModelNSSLWRFInputOutput.getImage(contextg, sector, displayData.param[it], run, time) }
+            (0 until numPanes).forEach { displayData.bitmap[it] = UtilityModelNSSLWRFInputOutput.getImage(contextg, model, sector, displayData.param[it], run, time) }
             return "Executed"
         }
 
@@ -263,7 +300,7 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         }
 
         override fun doInBackground(vararg params: String): String {
-            (0 until numPanes).forEach { displayData.animDrawable[it] = UtilityModelNSSLWRFInputOutput.getAnimation(contextg, sector, displayData.param[it], run, spinnerTimeValue, spTime.list) }
+            (0 until numPanes).forEach { displayData.animDrawable[it] = UtilityModelNSSLWRFInputOutput.getAnimation(contextg, model, sector, displayData.param[it], run, spinnerTimeValue, spTime.list) }
             return "Executed"
         }
 
@@ -295,7 +332,7 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         }
     }
 
-    private fun setupModel() {
+    /*private fun setupModel() {
         (0 until numPanes).forEach {
             displayData.param[it] = UtilityModelNSSLWRFInterface.paramsNsslWrf[0]
             displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[it])
@@ -316,7 +353,7 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         spTime.setSelection(0)
         spTime.clear()
         (0 until 37).forEach { spTime.add(String.format(Locale.US, "%02d", it)) }
-    }
+    }*/
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
@@ -350,5 +387,121 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         sector = loc
         GetContent().execute()
     }
+
+    /*private fun setupWrf() {
+        (0 until numPanes).forEach {
+            displayData.param[it] = UtilityModelNSSLWRFInterface.paramsNsslWrf[0]
+            displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
+            displayData.paramLabel[it] = UtilityModelNSSLWRFInterface.paramsNsslWrf[0]
+            displayData.paramLabel[it] = Utility.readPref(this, prefParamLabel + it.toString(), displayData.paramLabel[0])
+        }
+        if (!UtilityModels.parmInArray(UtilityModelNSSLWRFInterface.paramsNsslWrf, displayData.param[0])) {
+            displayData.param[0] = UtilityModelNSSLWRFInterface.paramsNsslWrf[0]
+            displayData.paramLabel[0] = UtilityModelNSSLWRFInterface.labelsNsslWrf[0]
+        }
+        if (numPanes > 1)
+            if (!UtilityModels.parmInArray(UtilityModelNSSLWRFInterface.paramsNsslWrf, displayData.param[1])) {
+                displayData.param[1] = UtilityModelNSSLWRFInterface.paramsNsslWrf[0]
+                displayData.paramLabel[1] = UtilityModelNSSLWRFInterface.labelsNsslWrf[0]
+            }
+        spSector.refreshData(this, UtilityModelNSSLWRFInterface.sectorsLong)
+        //spSector.setSelection(sectorOrig)
+        drw.updateLists(this, UtilityModelNSSLWRFInterface.paramsNsslWrf, UtilityModelNSSLWRFInterface.paramsNsslWrf)
+        spRun.setSelection(0)
+        spTime.setSelection(0)
+        //spRun.list.clear()
+        //(0..23).forEach { spRun.list.add(String.format(Locale.US, "%02d", it) + "Z") }
+        spTime.list.clear()
+        (0..36).forEach { spTime.list.add(String.format(Locale.US, "%02d", it)) }
+    }*/
+
+    private fun setupModel(params:  List<String>, labels: List<String>, startStep: Int, endStep: Int) {
+        //val params = UtilityModelNSSLWRFInterface.paramsNsslFv3
+        //val labels = UtilityModelNSSLWRFInterface.labelsNsslFv3
+        //val startStep = 0
+        //val endStep = 60
+        (0 until numPanes).forEach {
+            displayData.param[it] = params[0]
+            displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
+            displayData.paramLabel[it] = params[0]
+            displayData.paramLabel[it] = Utility.readPref(this, prefParamLabel + it.toString(), displayData.paramLabel[0])
+        }
+        if (!UtilityModels.parmInArray(params, displayData.param[0])) {
+            displayData.param[0] = params[0]
+            displayData.paramLabel[0] = labels[0]
+        }
+        if (numPanes > 1)
+            if (!UtilityModels.parmInArray(params, displayData.param[1])) {
+                displayData.param[1] = params[0]
+                displayData.paramLabel[1] = labels[0]
+            }
+        spSector.refreshData(this, UtilityModelNSSLWRFInterface.sectorsLong)
+        //spSector.setSelection(sectorOrig)
+        drw.updateLists(this, labels, params)
+        spRun.setSelection(0)
+        spTime.setSelection(0)
+        //spRun.list.clear()
+        //(0..23).forEach { spRun.list.add(String.format(Locale.US, "%02d", it) + "Z") }
+        spTime.list.clear()
+        (startStep..endStep).forEach { spTime.list.add(String.format(Locale.US, "%02d", it)) }
+    }
+
+   /* private fun setupHRRRV3() {
+        val params = UtilityModelNSSLWRFInterface.paramsNsslHrrrv3
+        val labels = UtilityModelNSSLWRFInterface.labelsNsslHrrrv3
+        (0 until numPanes).forEach {
+            displayData.param[it] = params[0]
+            displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
+            displayData.paramLabel[it] = params[0]
+            displayData.paramLabel[it] = Utility.readPref(this, prefParamLabel + it.toString(), displayData.paramLabel[0])
+        }
+        if (!UtilityModels.parmInArray(params, displayData.param[0])) {
+            displayData.param[0] = params[0]
+            displayData.paramLabel[0] = labels[0]
+        }
+        if (numPanes > 1)
+            if (!UtilityModels.parmInArray(params, displayData.param[1])) {
+                displayData.param[1] = params[0]
+                displayData.paramLabel[1] = labels[0]
+            }
+        spSector.refreshData(this, UtilityModelNSSLWRFInterface.sectorsLong)
+        //spSector.setSelection(sectorOrig)
+        drw.updateLists(this, labels, params)
+        spRun.setSelection(0)
+        spTime.setSelection(0)
+        //spRun.list.clear()
+        //(0..23).forEach { spRun.list.add(String.format(Locale.US, "%02d", it) + "Z") }
+        spTime.list.clear()
+        (0..36).forEach { spTime.list.add(String.format(Locale.US, "%02d", it)) }
+    }
+
+    private fun setupWrf3km() {
+        val params = UtilityModelNSSLWRFInterface.paramsNsslWrf
+        val labels = UtilityModelNSSLWRFInterface.labelsNsslWrf
+        (0 until numPanes).forEach {
+            displayData.param[it] = params[0]
+            displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
+            displayData.paramLabel[it] = params[0]
+            displayData.paramLabel[it] = Utility.readPref(this, prefParamLabel + it.toString(), displayData.paramLabel[0])
+        }
+        if (!UtilityModels.parmInArray(params, displayData.param[0])) {
+            displayData.param[0] = params[0]
+            displayData.paramLabel[0] = labels[0]
+        }
+        if (numPanes > 1)
+            if (!UtilityModels.parmInArray(params, displayData.param[1])) {
+                displayData.param[1] = params[0]
+                displayData.paramLabel[1] = labels[0]
+            }
+        spSector.refreshData(this, UtilityModelNSSLWRFInterface.sectorsLong)
+        //spSector.setSelection(sectorOrig)
+        drw.updateLists(this, labels, params)
+        spRun.setSelection(0)
+        spTime.setSelection(0)
+        //spRun.list.clear()
+        //(0..23).forEach { spRun.list.add(String.format(Locale.US, "%02d", it) + "Z") }
+        spTime.list.clear()
+        (0..36).forEach { spTime.list.add(String.format(Locale.US, "%02d", it)) }
+    }*/
 }
 
