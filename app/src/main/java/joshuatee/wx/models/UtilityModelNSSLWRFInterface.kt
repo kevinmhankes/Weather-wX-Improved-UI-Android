@@ -111,7 +111,7 @@ internal object UtilityModelNSSLWRFInterface {
             "sbcape",
             "srh01",
             "srh03",
-            "stp",
+            "stpfixed",
 
             "qpf_001h",
             "qpf_006h",

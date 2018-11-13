@@ -70,7 +70,6 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     private var prefModel = ""
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
-    //private lateinit var imageMap: ObjectImageMap
     private lateinit var turl: Array<String>
     private lateinit var miStatus: MenuItem
     private lateinit var spRun: ObjectSpinner
@@ -179,16 +178,9 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                 }
             }
             GetRunStatus().execute()
-        } else if (firstRunTimeSet)
+        } else if (firstRunTimeSet) {
             GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
-        //if (parent.id == R.id.spinner_run)
-        //    UtilityModels.updateTime(UtilityString.getLastXChars(spRun.selectedItem.toString(), 2),
-        //            rtd.mostRecentRun, spTime.list, spTime.arrayAdapter, "", false)
-
-        // original code
-        //if (firstRunTimeSet) {
-        //    GetContent().execute()
-        //}
+        }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -226,6 +218,8 @@ class ModelsNSSLWRFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             }
             if (numPanes > 1) {
                 UtilityModels.setSubtitleRestoreIMGXYZOOM(displayData.img, toolbar, "(" + (curImg + 1).toString() + ")" + displayData.param[0] + "/" + displayData.param[1])
+            } else {
+                toolbar.subtitle = displayData.paramLabel[0]
             }
             imageLoaded = true
         }
