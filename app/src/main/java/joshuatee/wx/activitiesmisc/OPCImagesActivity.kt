@@ -42,7 +42,6 @@ import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
 import kotlinx.coroutines.*
-//import kotlinx.coroutines.CoroutineDispatcher
 
 class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener, Toolbar.OnMenuItemClickListener {
 
@@ -93,48 +92,13 @@ class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener, Toolbar.O
             title = drw.getLabel(position)
             imgUrl = drw.getToken(position)
             imgIdx = position
-            //GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
             getContent()
         }
-        //GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
         getContent()
     }
 
-   /* @SuppressLint("StaticFieldLeak")
-    private inner class GetContent : AsyncTask<String, String, String>() {
-
-        internal var getUrl = ""
-
-        override fun onPreExecute() {
-            toolbar.subtitle = title
-            if (imgUrl.contains("http://graphical.weather.gov/images/conus/")) {
-                getUrl = imgUrl + timePeriod.toString() + "_conus.png"
-                actionBack.isVisible = true
-                actionForward.isVisible = true
-            } else {
-                actionBack.isVisible = false
-                actionForward.isVisible = false
-                getUrl = imgUrl
-            }
-            Utility.writePref(contextg, "OPC_IMG_FAV_TITLE", title)
-            Utility.writePref(contextg, "OPC_IMG_FAV_URL", imgUrl)
-            Utility.writePref(contextg, "OPC_IMG_FAV_IDX", imgIdx)
-        }
-
-        override fun doInBackground(vararg params: String): String {
-            bitmap = getUrl.getImage()
-            return "Executed"
-        }
-
-        override fun onPostExecute(result: String) {
-            img.setImageBitmap(bitmap)
-            firstRun = UtilityImg.firstRunSetZoomPosn(firstRun, img, "OPCIMG")
-            imageLoaded = true
-        }
-    }*/
-
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        var getUrl = ""
+        val getUrl: String
         toolbar.subtitle = title
         if (imgUrl.contains("http://graphical.weather.gov/images/conus/")) {
             getUrl = imgUrl + timePeriod.toString() + "_conus.png"
@@ -149,31 +113,14 @@ class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener, Toolbar.O
         Utility.writePref(contextg, "OPC_IMG_FAV_URL", imgUrl)
         Utility.writePref(contextg, "OPC_IMG_FAV_IDX", imgIdx)
 
-        //async { bitmap = getUrl.getImage() }.await()
-        //bitmap = result.await()
-
-        bitmap = withContext(Dispatchers.IO) { getUrl.getImage() }
+        //bitmap = withContext(Dispatchers.IO) { getUrl.getImage() }
+        val result = async(Dispatchers.IO) { getUrl.getImage() }
+        bitmap = result.await()
 
         img.setImageBitmap(bitmap)
         firstRun = UtilityImg.firstRunSetZoomPosn(firstRun, img, "OPCIMG")
         imageLoaded = true
     }
-
-   /*fun getContent2() {
-        GlobalScope.launch(uiDispatcher) {
-            var data = ""
-            async { data = downloadDataBlocking() }.await()
-            // process the data on the UI thread
-            textView.text = data
-        }
-    }*/
-
-
-    //val result1 = async { dataProvider.loadData() }
-    //val result2 = async { dataProvider.loadData() }
-
-    //val data = "${result1.await()}\n${result2.await()}"
-
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
