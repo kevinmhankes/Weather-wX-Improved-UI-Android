@@ -23,7 +23,7 @@ package joshuatee.wx.activitiesmisc
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.AsyncTask
+//import android.os.AsyncTask
 import android.os.Bundle
 import android.content.res.Configuration
 import androidx.appcompat.widget.Toolbar
@@ -42,8 +42,15 @@ import joshuatee.wx.ui.UtilityToolbar
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
+import kotlinx.coroutines.*
+//import java.util.*
+//import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.CoroutineDispatcher
 
 class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener, Toolbar.OnMenuItemClickListener {
+
+    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private lateinit var job: Job
 
     private var bitmap = UtilityImg.getBlankBitmap()
     private var timePeriod = 1
@@ -91,12 +98,14 @@ class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener, Toolbar.O
             title = drw.getLabel(position)
             imgUrl = drw.getToken(position)
             imgIdx = position
-            GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+            //GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+            getContent()
         }
-        GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+        //GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+        getContent()
     }
 
-    @SuppressLint("StaticFieldLeak")
+   /* @SuppressLint("StaticFieldLeak")
     private inner class GetContent : AsyncTask<String, String, String>() {
 
         internal var getUrl = ""
@@ -127,7 +136,38 @@ class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener, Toolbar.O
             firstRun = UtilityImg.firstRunSetZoomPosn(firstRun, img, "OPCIMG")
             imageLoaded = true
         }
+    }*/
+
+    fun getContent() = GlobalScope.launch(uiDispatcher + job) {
+        var getUrl = ""
+        toolbar.subtitle = title
+        if (imgUrl.contains("http://graphical.weather.gov/images/conus/")) {
+            getUrl = imgUrl + timePeriod.toString() + "_conus.png"
+            actionBack.isVisible = true
+            actionForward.isVisible = true
+        } else {
+            actionBack.isVisible = false
+            actionForward.isVisible = false
+            getUrl = imgUrl
+        }
+        Utility.writePref(contextg, "OPC_IMG_FAV_TITLE", title)
+        Utility.writePref(contextg, "OPC_IMG_FAV_URL", imgUrl)
+        Utility.writePref(contextg, "OPC_IMG_FAV_IDX", imgIdx)
+
+        val result = async { getUrl.getImage() }
+        bitmap = result.await()
+
+        img.setImageBitmap(bitmap)
+        firstRun = UtilityImg.firstRunSetZoomPosn(firstRun, img, "OPCIMG")
+        imageLoaded = true
     }
+
+
+    //val result1 = async { dataProvider.loadData() }
+    //val result2 = async { dataProvider.loadData() }
+
+    //val data = "${result1.await()}\n${result2.await()}"
+
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
@@ -146,11 +186,13 @@ class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener, Toolbar.O
         when (item.itemId) {
             R.id.action_forward -> {
                 timePeriod += 1
-                GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+                //GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+                getContent()
             }
             R.id.action_back -> {
                 timePeriod -= 1
-                GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+                //GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+                getContent()
             }
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
@@ -191,7 +233,8 @@ class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener, Toolbar.O
         }
         title = UtilityOPCImages.LABELS[imgIdx]
         imgUrl = UtilityOPCImages.URL_INDEX[imgIdx]
-        GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+        //GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+        getContent()
     }
 
     private fun showPrevImg() {
@@ -201,6 +244,7 @@ class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener, Toolbar.O
         }
         title = UtilityOPCImages.LABELS[imgIdx]
         imgUrl = UtilityOPCImages.URL_INDEX[imgIdx]
-        GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+        //GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+        getContent()
     }
 }
