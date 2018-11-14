@@ -23,7 +23,6 @@ package joshuatee.wx.activitiesmisc
 
 import android.annotation.SuppressLint
 import android.content.Context
-//import android.os.AsyncTask
 import android.os.Bundle
 import android.content.res.Configuration
 import androidx.appcompat.widget.Toolbar
@@ -43,15 +42,11 @@ import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
 import kotlinx.coroutines.*
-//import java.util.*
-//import java.util.concurrent.TimeUnit
-import kotlinx.coroutines.CoroutineDispatcher
+//import kotlinx.coroutines.CoroutineDispatcher
 
 class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener, Toolbar.OnMenuItemClickListener {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private lateinit var job: Job
-
     private var bitmap = UtilityImg.getBlankBitmap()
     private var timePeriod = 1
     private var firstRun = false
@@ -138,7 +133,7 @@ class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener, Toolbar.O
         }
     }*/
 
-    fun getContent() = GlobalScope.launch(uiDispatcher + job) {
+    private fun getContent() = GlobalScope.launch(uiDispatcher) {
         var getUrl = ""
         toolbar.subtitle = title
         if (imgUrl.contains("http://graphical.weather.gov/images/conus/")) {
@@ -154,13 +149,24 @@ class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener, Toolbar.O
         Utility.writePref(contextg, "OPC_IMG_FAV_URL", imgUrl)
         Utility.writePref(contextg, "OPC_IMG_FAV_IDX", imgIdx)
 
-        val result = async { getUrl.getImage() }
-        bitmap = result.await()
+        //async { bitmap = getUrl.getImage() }.await()
+        //bitmap = result.await()
+
+        bitmap = withContext(Dispatchers.IO) { getUrl.getImage() }
 
         img.setImageBitmap(bitmap)
         firstRun = UtilityImg.firstRunSetZoomPosn(firstRun, img, "OPCIMG")
         imageLoaded = true
     }
+
+   /*fun getContent2() {
+        GlobalScope.launch(uiDispatcher) {
+            var data = ""
+            async { data = downloadDataBlocking() }.await()
+            // process the data on the UI thread
+            textView.text = data
+        }
+    }*/
 
 
     //val result1 = async { dataProvider.loadData() }

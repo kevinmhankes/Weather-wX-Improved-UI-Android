@@ -42,6 +42,7 @@ import joshuatee.wx.ui.TouchImageView2
 import joshuatee.wx.ui.UtilityToolbar
 import joshuatee.wx.ui.OnSwipeTouchListener
 import joshuatee.wx.util.*
+import kotlinx.coroutines.*
 
 class GOES16Activity : VideoRecordActivity(), View.OnClickListener, Toolbar.OnMenuItemClickListener {
 
@@ -49,6 +50,7 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener, Toolbar.OnMe
         const val RID: String = ""
     }
 
+    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmap = UtilityImg.getBlankBitmap()
     private var firstRun = false
     private var imageLoaded = false
@@ -171,25 +173,32 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener, Toolbar.OnMe
         when (item.itemId) {
             R.id.action_pin -> UtilityShortcut.createShortcut(this, ShortcutType.GOES16)
             R.id.action_a24 -> {
-                frameCnt = 24; GetAnimate().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+                frameCnt = 24
+                getAnimate()
             }
             R.id.action_a36 -> {
-                frameCnt = 36; GetAnimate().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+                frameCnt = 36
+                getAnimate()
             }
             R.id.action_a48 -> {
-                frameCnt = 48; GetAnimate().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+                frameCnt = 48
+                getAnimate()
             }
             R.id.action_a60 -> {
-                frameCnt = 60; GetAnimate().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+                frameCnt = 60
+                getAnimate()
             }
             R.id.action_a72 -> {
-                frameCnt = 72; GetAnimate().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+                frameCnt = 72
+                getAnimate()
             }
             R.id.action_a84 -> {
-                frameCnt = 84; GetAnimate().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+                frameCnt = 84
+                getAnimate()
             }
             R.id.action_a96 -> {
-                frameCnt = 96; GetAnimate().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+                frameCnt = 96
+                getAnimate()
             }
             R.id.action_FD -> {
                 sector = "FD"; GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
@@ -276,7 +285,7 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener, Toolbar.OnMe
         super.onStop()
     }
 
-    @SuppressLint("StaticFieldLeak")
+  /*  @SuppressLint("StaticFieldLeak")
     private inner class GetAnimate : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
@@ -287,6 +296,11 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener, Toolbar.OnMe
         override fun onPostExecute(result: String) {
             UtilityImgAnim.startAnimation(animDrawable, img)
         }
+    }*/
+
+    fun getAnimate() = GlobalScope.launch(uiDispatcher) {
+        animDrawable = withContext(Dispatchers.IO) { UtilityGOES16.getAnimation(contextg, productCode, sector, frameCnt) }
+        UtilityImgAnim.startAnimation(animDrawable, img)
     }
 
     private fun showNextImg() {
