@@ -11,7 +11,7 @@
                  java.lang.IndexOutOfBoundsException:
                  lint cleanup
                  (bugfix) ncep models - sector did not always show
-                 (new feature) test coroutines in OPC
+                 (new feature) test coroutines in OPC and GOES16
 55041 2018_11_12 (bugfix) NSL WRF website was changed completely, add other models
 55040 2018_11_12 (bugfix) NSL WRF website was changed completely, fix WRF as a starter
 55039 2018_11_07 (bugfix) UtilityLocation.getXYFromAddressOSM was not optimal
