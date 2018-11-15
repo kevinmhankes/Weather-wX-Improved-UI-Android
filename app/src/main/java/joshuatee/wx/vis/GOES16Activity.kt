@@ -102,35 +102,6 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener, Toolbar.OnMe
         getContent()
     }
 
-    /*@SuppressLint("StaticFieldLeak")
-    private inner class GetContent : AsyncTask<String, String, String>() {
-
-        var timeStamp = ""
-
-        override fun onPreExecute() {
-            writePrefs()
-            //firstRun = UtilityImg.firstRunSetZoomPosn(firstRun, img, "GOES16_IMG")
-        }
-
-        override fun doInBackground(vararg params: String): String {
-            val urlAndTime = UtilityGOES16.getUrl(productCode, sector)
-            bitmap = urlAndTime[0].getImage()
-            timeStamp = urlAndTime[1]
-            return "Executed"
-        }
-
-        override fun onPostExecute(result: String) {
-            img.setImageBitmap(bitmap)
-            if (!firstRun) {
-                img.setZoom("GOES16_IMG")
-                firstRun = true
-                //firstRun = UtilityImg.firstRunSetZoomPosn(firstRun, img, "GOES16_IMG")
-            }
-            imageLoaded = true
-            toolbar.subtitle = imageTitle
-        }
-    }*/
-
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         writePrefs()
         val urlAndTime = withContext(Dispatchers.IO) { UtilityGOES16.getUrl(productCode, sector) }
