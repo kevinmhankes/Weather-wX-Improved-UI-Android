@@ -7,6 +7,7 @@
 // TODO add other models to new NWS WRF, remove global icon
 // TODO optimize model setup in esrl,ncep like nssl
 
+55046 2018_11_16 coroutine conversion (partial): WXGLRadarActivity, WXGLRadarActivityMultiPane, USNWSMosaicActivity, SunMoonActivity
 55045 2018_11_15 coroutine conversion: LocationFragment
 55044 2018_11_15 coroutine conversion: USAlertsDetailActivity, AFDActivity, HourlyActivity, SPCSWOSummaryActivity, SPCSWOActivity, SPCMesoActivity, WPCImagesActivity, WPCTextProductsActivity
                  NHCActivity

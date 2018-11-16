@@ -75,6 +75,7 @@ import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
+import kotlinx.coroutines.*
 
 class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListener {
 
@@ -92,6 +93,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         const val RID: String = ""
     }
 
+    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var numPanes = 4
     private var numPanesArr = listOf<Int>()
     private var mHandler: Handler? = null
@@ -317,31 +319,34 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         super.onRestart()
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private inner class GetContent : AsyncTask<String, String, String>() {
+    private fun getContent(glv: WXGLSurfaceView, ogl: WXGLRender, z: Int) = GlobalScope.launch(uiDispatcher) {
 
-        lateinit var glv: WXGLSurfaceView
-        lateinit var ogl: WXGLRender
-        var z = 0
+        //@SuppressLint("StaticFieldLeak")
+        //private inner class GetContent : AsyncTask<String, String, String>() {
 
-        fun setVars(glvg: WXGLSurfaceView, OGLRg: WXGLRender, zee: Int) {
-            this.glv = glvg
-            this.ogl = OGLRg
-            this.z = zee
-        }
+        //lateinit var glv: WXGLSurfaceView
+        //lateinit var ogl: WXGLRender
+        //var z = 0
 
-        override fun onPreExecute() {
-            if ((oglrArr[z].product == "N0Q" || oglrArr[z].product == "N1Q" || oglrArr[z].product == "N2Q" || oglrArr[z].product == "N3Q" || oglrArr[z].product == "L2REF") && WXGLNexrad.isRIDTDWR(oglrArr[z].rid)) oglrArr[z].product = "TZL"
-            if (oglrArr[z].product == "TZL" && !WXGLNexrad.isRIDTDWR(oglrArr[z].rid)) oglrArr[z].product = "N0Q"
-            if ((oglrArr[z].product == "N0U" || oglrArr[z].product == "N1U" || oglrArr[z].product == "N2U" || oglrArr[z].product == "N3U" || oglrArr[z].product == "L2VEL") && WXGLNexrad.isRIDTDWR(oglrArr[z].rid)) oglrArr[z].product = "TV0"
-            if (oglrArr[z].product == "TV0" && !WXGLNexrad.isRIDTDWR(oglrArr[z].rid)) oglrArr[z].product = "N0U"
-            //prodArr[z] = WXGLNexrad.checkTdwrProd(prodArr[z],WXGLNexrad.isRIDTDWR(rid1Arr[z]))
-            toolbar.subtitle = ""
-            setToolbarTitle()
-            initWXOGLGeom(glv, ogl, z)
-        }
+        //fun setVars(glvg: WXGLSurfaceView, OGLRg: WXGLRender, zee: Int) {
+        //this.glv = glvg
+        //this.ogl = OGLRg
+        //this.z = zee
+        //}
 
-        override fun doInBackground(vararg params: String): String {
+        //override fun onPreExecute() {
+        if ((oglrArr[z].product == "N0Q" || oglrArr[z].product == "N1Q" || oglrArr[z].product == "N2Q" || oglrArr[z].product == "N3Q" || oglrArr[z].product == "L2REF") && WXGLNexrad.isRIDTDWR(oglrArr[z].rid)) oglrArr[z].product = "TZL"
+        if (oglrArr[z].product == "TZL" && !WXGLNexrad.isRIDTDWR(oglrArr[z].rid)) oglrArr[z].product = "N0Q"
+        if ((oglrArr[z].product == "N0U" || oglrArr[z].product == "N1U" || oglrArr[z].product == "N2U" || oglrArr[z].product == "N3U" || oglrArr[z].product == "L2VEL") && WXGLNexrad.isRIDTDWR(oglrArr[z].rid)) oglrArr[z].product = "TV0"
+        if (oglrArr[z].product == "TV0" && !WXGLNexrad.isRIDTDWR(oglrArr[z].rid)) oglrArr[z].product = "N0U"
+        //prodArr[z] = WXGLNexrad.checkTdwrProd(prodArr[z],WXGLNexrad.isRIDTDWR(rid1Arr[z]))
+        toolbar.subtitle = ""
+        setToolbarTitle()
+        initWXOGLGeom(glv, ogl, z)
+        //}
+
+        //override fun doInBackground(vararg params: String): String {
+        withContext(Dispatchers.IO) {
             ogl.constructPolygons("", "", true)
             if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) {
                 ogl.constructSpotters()
@@ -369,24 +374,24 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 ogl.constructLocationDot(locXCurrent, locYCurrent, false)
             else
                 ogl.deconstructLocationDot()
-            return "Executed"
+            //return "Executed"
         }
 
-        override fun onPostExecute(result: String) {
-            if (!oglInView) {
-                glviewShow()
-                oglInView = true
-            }
-            if (ridChanged && !restartedZoom) ridChanged = false
-            if (restartedZoom) {
-                restartedZoom = false
-                ridChanged = false
-            }
-            if (PolygonType.SPOTTER_LABELS.pref) UtilityWXGLTextObject.updateSpotterLabels(numPanes, wxgltextArr)
-            glv.requestRender()
-            setSubTitle()
-            animRan = false
+        //override fun onPostExecute(result: String) {
+        if (!oglInView) {
+            glviewShow()
+            oglInView = true
         }
+        if (ridChanged && !restartedZoom) ridChanged = false
+        if (restartedZoom) {
+            restartedZoom = false
+            ridChanged = false
+        }
+        if (PolygonType.SPOTTER_LABELS.pref) UtilityWXGLTextObject.updateSpotterLabels(numPanes, wxgltextArr)
+        glv.requestRender()
+        setSubTitle()
+        animRan = false
+        //}
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -1055,16 +1060,18 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         }
     }
 
-    private fun getContent(glvg: WXGLSurfaceView, OGLRg: WXGLRender, curRadar: Int) {
-        val gc = GetContent()
-        gc.setVars(glvg, OGLRg, curRadar)
-        gc.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+    private fun getContentWrapper(glvg: WXGLSurfaceView, OGLRg: WXGLRender, curRadar: Int) {
+        //val gc = GetContent()
+        //gc.setVars(glvg, OGLRg, curRadar)
+        //gc.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+        getContent(glvg, OGLRg, curRadar)
     }
 
     fun getContentSingleThreaded(glvg: WXGLSurfaceView, OGLRg: WXGLRender, curRadar: Int) {
-        val gc = GetContent()
-        gc.setVars(glvg, OGLRg, curRadar)
-        gc.execute()
+        //val gc = GetContent()
+        //gc.setVars(glvg, OGLRg, curRadar)
+        //gc.execute()
+        getContent(glvg, OGLRg, curRadar)
     }
 }
 
