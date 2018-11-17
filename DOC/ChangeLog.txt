@@ -11,7 +11,8 @@
 55048 2018_11_16 coroutine conversion: SPCTstormOutlookActivity, SPCSWOStateGraphicsActivity, SPCSoundingsActivity
                                         SPCMCDWShowActivity, SPCMCDWShowSummaryActivity, LSRbyWFOActivity, NWSGOESFullDiskActivity, SettingsLocationGenericActivity
                                         ModelsESRLActivity, ModelsGLCFSActivity, ModelsNCEPActivity, ModelsNSSLWRFActivity
-                                        CanadaAlertsActivity, CanadaHourlyActivity, CanadaRadarActivity, CanadaTextActivity
+                                        CanadaAlertsActivity, CanadaHourlyActivity, CanadaRadarActivity, CanadaTextActivity, ModelsSPCHREFActivity
+                                        ModelsSPCHRRRActivity, ModelsSPCSREFActivity, ModelsWPCGEFSActivity
 55047 2018_11_16 coroutine conversion: ImageShowActivity, LightningActivity, SpottersActivity, SevereDashboardActivity, USWarningsImpactActivity, USWarningsWithRadarActivity
                  SPCFireOutlookActivity, SPCCompmapActivity
 55046 2018_11_16 coroutine conversion (partial): WXGLRadarActivity, WXGLRadarActivityMultiPane, USNWSMosaicActivity, SunMoonActivity
