@@ -7,7 +7,8 @@
 // TODO add other models to new NWS WRF, remove global icon
 // TODO optimize model setup in esrl,ncep like nssl
 
-55048 2018_11_16 coroutine conversion: SPCTstormOutlookActivity, SPCSWOStateGraphicsActivity, SPCSoundingsActivity
+55049 2018_11_17 coroutine conversion: BackgroundFetch
+55048 2018_11_17 coroutine conversion: SPCTstormOutlookActivity, SPCSWOStateGraphicsActivity, SPCSoundingsActivity
                                         SPCMCDWShowActivity, SPCMCDWShowSummaryActivity, LSRbyWFOActivity, NWSGOESFullDiskActivity, SettingsLocationGenericActivity
                                         ModelsESRLActivity, ModelsGLCFSActivity, ModelsNCEPActivity, ModelsNSSLWRFActivity
                                         CanadaAlertsActivity, CanadaHourlyActivity, CanadaRadarActivity, CanadaTextActivity, ModelsSPCHREFActivity

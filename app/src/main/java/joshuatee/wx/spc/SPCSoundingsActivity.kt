@@ -97,7 +97,9 @@ class SPCSoundingsActivity : BaseActivity(), OnClickListener, OnItemSelectedList
             star.setIcon(MyApplication.STAR_ICON)
         else
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        bitmap = withContext(Dispatchers.IO) { UtilitySPCSoundings.getImage(contextg, nwsOffice) }
+        withContext(Dispatchers.IO) {
+            bitmap = UtilitySPCSoundings.getImage(contextg, nwsOffice)
+        }
         img.visibility = View.VISIBLE
         img.setImageBitmap(bitmap)
         img.setMaxZoom(4f)
