@@ -34,4 +34,4 @@ Submission process forthcoming. I also need to review this document more thoroug
 13. Please respect the code of conduct as documented here (I still need to review this more thoroughly):
 https://gitlab.com/joshua.tee/wx/blob/master/DOC/CODEOFCONDUCT.md
 
-14. For the time being I will marge all patches myself into the main branch.
+14. For the time being I will merge all patches myself into the main branch.
