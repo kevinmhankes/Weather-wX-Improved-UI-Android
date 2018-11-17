@@ -33,7 +33,6 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.opengl.GLSurfaceView
-import android.os.AsyncTask
 import android.os.Bundle
 import android.os.SystemClock
 import androidx.core.app.NavUtils
@@ -429,8 +428,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         //}
     }
 
-
-    private fun AnimateRadar(frameCntStr: String) = GlobalScope.launch(uiDispatcher) {
+    private fun getAnimate(frameCntStr: String) = GlobalScope.launch(uiDispatcher) {
         if (!oglInView) {
             img.visibility = View.GONE
             glview.visibility = View.VISIBLE
@@ -484,7 +482,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     else
                         oglr.constructPolygons("nexrad_anim" + r.toString(), urlStr, true)
                     //publishProgress((r + 1).toString(), animArray.size.toString())
-                    launch (uiDispatcher) {
+                    launch(uiDispatcher) {
                         progressUpdate((r + 1).toString(), animArray.size.toString())
                     }
                     glview.requestRender()
@@ -511,88 +509,88 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private inner class AnimateRadarD : AsyncTask<String, String, String>() {
+    /* @SuppressLint("StaticFieldLeak")
+     private inner class AnimateRadarD : AsyncTask<String, String, String>() {
 
-        override fun onPreExecute() {
-            if (!oglInView) {
-                img.visibility = View.GONE
-                glview.visibility = View.VISIBLE
-                oglInView = true
-            }
-            inOglAnim = true
-            animRan = true
-        }
+         override fun onPreExecute() {
+             if (!oglInView) {
+                 img.visibility = View.GONE
+                 glview.visibility = View.VISIBLE
+                 oglInView = true
+             }
+             inOglAnim = true
+             animRan = true
+         }
 
-        override fun doInBackground(vararg params: String): String {
-            val frameCntStr = params[0]
-            frameCntStrGlobal = frameCntStr
-            var animArray = oglr.rdDownload.getRadarByFTPAnimation(contextg, frameCntStr)
-            var fh: File
-            var timeMilli: Long
-            var priorTime: Long
-            try {
-                animArray.indices.forEach {
-                    fh = File(contextg.filesDir, animArray[it])
-                    contextg.deleteFile("nexrad_anim" + it.toString())
-                    if (!fh.renameTo(File(contextg.filesDir, "nexrad_anim" + it.toString())))
-                        UtilityLog.d("wx", "Problem moving to " + "nexrad_anim" + it.toString())
-                }
-            } catch (e: Exception) {
-                UtilityLog.HandleException(e)
-            }
-            var loopCnt = 0
-            while (inOglAnim) {
-                if (animTriggerDownloads) {
-                    animArray = oglr.rdDownload.getRadarByFTPAnimation(contextg, frameCntStr)
-                    try {
-                        animArray.indices.forEach {
-                            fh = File(contextg.filesDir, animArray[it])
-                            contextg.deleteFile("nexrad_anim" + it.toString())
-                            if (!fh.renameTo(File(contextg.filesDir, "nexrad_anim" + it.toString())))
-                                UtilityLog.d("wx", "Problem moving to " + "nexrad_anim" + it.toString())
-                        }
-                    } catch (e: Exception) {
-                        UtilityLog.HandleException(e)
-                    }
-                    animTriggerDownloads = false
-                }
-                for (r in 0 until animArray.size) {
-                    while (inOglAnimPaused) SystemClock.sleep(delay.toLong())
-                    // formerly priorTime was set at the end but that is goofed up with pause
-                    priorTime = System.currentTimeMillis()
-                    // added because if paused and then another icon life vel/ref it won't load correctly, likely timing issue
-                    if (!inOglAnim) break
-                    // if the first pass has completed, for L2 no longer uncompress, use the existing decomp files
-                    if (loopCnt > 0)
-                        oglr.constructPolygons("nexrad_anim" + r.toString(), urlStr, false)
-                    else
-                        oglr.constructPolygons("nexrad_anim" + r.toString(), urlStr, true)
-                    publishProgress((r + 1).toString(), animArray.size.toString())
-                    glview.requestRender()
-                    timeMilli = System.currentTimeMillis()
-                    if ((timeMilli - priorTime) < delay)
-                        SystemClock.sleep(delay - ((timeMilli - priorTime)))
-                    if (!inOglAnim) break
-                    if (r == (animArray.size - 1)) SystemClock.sleep(delay.toLong() * 2)
-                }
-                loopCnt += 1
-            }
-            return "Executed"
-        }
+         override fun doInBackground(vararg params: String): String {
+             val frameCntStr = params[0]
+             frameCntStrGlobal = frameCntStr
+             var animArray = oglr.rdDownload.getRadarByFTPAnimation(contextg, frameCntStr)
+             var fh: File
+             var timeMilli: Long
+             var priorTime: Long
+             try {
+                 animArray.indices.forEach {
+                     fh = File(contextg.filesDir, animArray[it])
+                     contextg.deleteFile("nexrad_anim" + it.toString())
+                     if (!fh.renameTo(File(contextg.filesDir, "nexrad_anim" + it.toString())))
+                         UtilityLog.d("wx", "Problem moving to " + "nexrad_anim" + it.toString())
+                 }
+             } catch (e: Exception) {
+                 UtilityLog.HandleException(e)
+             }
+             var loopCnt = 0
+             while (inOglAnim) {
+                 if (animTriggerDownloads) {
+                     animArray = oglr.rdDownload.getRadarByFTPAnimation(contextg, frameCntStr)
+                     try {
+                         animArray.indices.forEach {
+                             fh = File(contextg.filesDir, animArray[it])
+                             contextg.deleteFile("nexrad_anim" + it.toString())
+                             if (!fh.renameTo(File(contextg.filesDir, "nexrad_anim" + it.toString())))
+                                 UtilityLog.d("wx", "Problem moving to " + "nexrad_anim" + it.toString())
+                         }
+                     } catch (e: Exception) {
+                         UtilityLog.HandleException(e)
+                     }
+                     animTriggerDownloads = false
+                 }
+                 for (r in 0 until animArray.size) {
+                     while (inOglAnimPaused) SystemClock.sleep(delay.toLong())
+                     // formerly priorTime was set at the end but that is goofed up with pause
+                     priorTime = System.currentTimeMillis()
+                     // added because if paused and then another icon life vel/ref it won't load correctly, likely timing issue
+                     if (!inOglAnim) break
+                     // if the first pass has completed, for L2 no longer uncompress, use the existing decomp files
+                     if (loopCnt > 0)
+                         oglr.constructPolygons("nexrad_anim" + r.toString(), urlStr, false)
+                     else
+                         oglr.constructPolygons("nexrad_anim" + r.toString(), urlStr, true)
+                     publishProgress((r + 1).toString(), animArray.size.toString())
+                     glview.requestRender()
+                     timeMilli = System.currentTimeMillis()
+                     if ((timeMilli - priorTime) < delay)
+                         SystemClock.sleep(delay - ((timeMilli - priorTime)))
+                     if (!inOglAnim) break
+                     if (r == (animArray.size - 1)) SystemClock.sleep(delay.toLong() * 2)
+                 }
+                 loopCnt += 1
+             }
+             return "Executed"
+         }
 
-        override fun onProgressUpdate(vararg values: String) {
-            if ((values[1].toIntOrNull() ?: 0) > 1) {
-                val tmpArrAnim = Utility.readPref(contextg, "WX_RADAR_CURRENT_INFO", "").split(" ")
-                if (tmpArrAnim.size > 3)
-                    toolbar.subtitle = tmpArrAnim[3] + " (" + values[0] + "/" + values[1] + ")"
-                else
-                    toolbar.subtitle = ""
-            } else {
-                toolbar.subtitle = "Problem downloading"
-            }
-        }
-    }
+         override fun onProgressUpdate(vararg values: String) {
+             if ((values[1].toIntOrNull() ?: 0) > 1) {
+                 val tmpArrAnim = Utility.readPref(contextg, "WX_RADAR_CURRENT_INFO", "").split(" ")
+                 if (tmpArrAnim.size > 3)
+                     toolbar.subtitle = tmpArrAnim[3] + " (" + values[0] + "/" + values[1] + ")"
+                 else
+                     toolbar.subtitle = ""
+             } else {
+                 toolbar.subtitle = "Problem downloading"
+             }
+         }
+     }*/
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
@@ -707,7 +705,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             R.id.action_a72 -> animateRadar("72")
             R.id.action_a144 -> animateRadar("144")
             R.id.action_a3 -> animateRadar("3")
-            R.id.action_NVW -> GetContentVWP().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+            R.id.action_NVW -> getContentVWP()
             R.id.action_fav -> {
                 if (inOglAnim) {
                     inOglAnimPaused = if (!inOglAnimPaused) {
@@ -738,7 +736,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         anim.setIcon(MyApplication.ICON_STOP)
         star.setIcon(MyApplication.ICON_PAUSE)
         //AnimateRadar().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, frameCnt)
-        AnimateRadar(frameCnt)
+        getAnimate(frameCnt)
     }
 
     private fun changeProd(prodF: String, canTilt: Boolean) {
@@ -1020,7 +1018,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 val polygonUrl = UtilityWXOGL.showTextProducts(glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
                 if (polygonUrl != "") ObjectIntent(this, USAlertsDetailActivity::class.java, USAlertsDetailActivity.URL, arrayOf(polygonUrl, ""))
             } else if (strName.contains("Show nearest observation"))
-                GetMetar().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+                getMetar()
             else if (strName.contains("Show nearest meteogram")) {
                 // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php
                 // http://www.nws.noaa.gov/mdl/gfslamp/meteo.php?BackHour=0&TempBox=Y&DewBox=Y&SkyBox=Y&WindSpdBox=Y&WindDirBox=Y&WindGustBox=Y&CigBox=Y&VisBox=Y&ObvBox=Y&PtypeBox=N&PopoBox=Y&LightningBox=Y&ConvBox=Y&sta=KTEW
@@ -1126,33 +1124,13 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private inner class GetMetar : AsyncTask<String, String, String>() {
-
-        var txt = ""
-
-        override fun doInBackground(vararg params: String): String {
-            txt = UtilityMetar.findClosestMetar(contextg, LatLon(glview.newY.toDouble(), glview.newX.toDouble() * -1.0))
-            return "Executed"
-        }
-
-        override fun onPostExecute(result: String) {
-            UtilityAlertDialog.showHelpText(txt, act)
-        }
+    private fun getMetar() = GlobalScope.launch(uiDispatcher) {
+        val txt = withContext(Dispatchers.IO) { UtilityMetar.findClosestMetar(contextg, LatLon(glview.newY.toDouble(), glview.newX.toDouble() * -1.0)) }
+        UtilityAlertDialog.showHelpText(txt, act)
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private inner class GetContentVWP : AsyncTask<String, String, String>() {
-
-        var txt = ""
-
-        override fun doInBackground(vararg params: String): String {
-            txt = UtilityWXOGL.getVWP(contextg, oglr.rid)
-            return "Executed"
-        }
-
-        override fun onPostExecute(result: String) {
-            ObjectIntent(contextg, TextScreenActivity::class.java, TextScreenActivity.URL, arrayOf(txt, oglr.rid + " VAD Wind Profile"))
-        }
+    private fun getContentVWP() = GlobalScope.launch(uiDispatcher) {
+        val txt = withContext(Dispatchers.IO) { UtilityWXOGL.getVWP(contextg, oglr.rid) }
+        ObjectIntent(contextg, TextScreenActivity::class.java, TextScreenActivity.URL, arrayOf(txt, oglr.rid + " VAD Wind Profile"))
     }
 }
