@@ -21,9 +21,7 @@
 
 package joshuatee.wx.spc
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -65,7 +63,6 @@ class SPCSoundingsActivity : BaseActivity(), OnClickListener, OnItemSelectedList
     private lateinit var sp: ObjectSpinner
     private lateinit var contextg: Context
 
-    @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_spcsoundings, R.menu.spcsoundings, true)
         toolbarBottom.setOnMenuItemClickListener(this)
@@ -100,9 +97,7 @@ class SPCSoundingsActivity : BaseActivity(), OnClickListener, OnItemSelectedList
             star.setIcon(MyApplication.STAR_ICON)
         else
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-
         bitmap = withContext(Dispatchers.IO) { UtilitySPCSoundings.getImage(contextg, nwsOffice) }
-
         img.visibility = View.VISIBLE
         img.setImageBitmap(bitmap)
         img.setMaxZoom(4f)
@@ -110,24 +105,15 @@ class SPCSoundingsActivity : BaseActivity(), OnClickListener, OnItemSelectedList
         imageLoaded = true
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private inner class GetContentSPCPlot : AsyncTask<String, String, String>() {
-
-        override fun doInBackground(vararg params: String): String {
+    private fun getContentSPCPlot() = GlobalScope.launch(uiDispatcher) {
+        imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/$upperAir"
+        withContext(Dispatchers.IO) {
             val date = UtilityString.getHTMLandParse("${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/", "/obswx/maps/" + upperAir + "_([0-9]{6}_[0-9]{2}).gif")
             bitmap = UtilityImg.getBitmapAddWhiteBG(contextg, imgUrl + "_" + date + ".gif")
-            return "Executed"
         }
-
-        override fun onPostExecute(result: String) {
-            img.visibility = View.VISIBLE
-            img.setImageBitmap(bitmap)
-            img.setMaxZoom(4f)
-        }
-
-        override fun onPreExecute() {
-            imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/$upperAir"
-        }
+        img.visibility = View.VISIBLE
+        img.setImageBitmap(bitmap)
+        img.setMaxZoom(4f)
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -150,7 +136,7 @@ class SPCSoundingsActivity : BaseActivity(), OnClickListener, OnItemSelectedList
 
     private fun setPlotAndGet(upperAir: String) {
         this.upperAir = upperAir
-        GetContentSPCPlot().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+        getContentSPCPlot()
     }
 
     private fun mapSwitch(loc: String) {

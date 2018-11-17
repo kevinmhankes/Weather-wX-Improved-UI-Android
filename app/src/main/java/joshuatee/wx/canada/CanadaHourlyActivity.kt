@@ -22,7 +22,6 @@
 package joshuatee.wx.canada
 
 import android.annotation.SuppressLint
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout

@@ -378,10 +378,6 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".nhc.NHCImageShowActivity"
-      android:parentActivityName="WX" >
-  </activity>
-  <activity
       android:name=".activitiesmisc.LightningActivity"
       android:parentActivityName="WX" >
   </activity>

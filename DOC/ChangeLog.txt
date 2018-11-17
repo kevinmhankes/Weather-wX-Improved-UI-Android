@@ -12,7 +12,8 @@
                                         ModelsESRLActivity, ModelsGLCFSActivity, ModelsNCEPActivity, ModelsNSSLWRFActivity
                                         CanadaAlertsActivity, CanadaHourlyActivity, CanadaRadarActivity, CanadaTextActivity, ModelsSPCHREFActivity
                                         ModelsSPCHRRRActivity, ModelsSPCSREFActivity, ModelsWPCGEFSActivity, WPCMPDShowSummaryActivity, WPCRainfallForecastActivity
-                                        Widget*
+                                        Widget*, SettingsLocationCanadaActivity, NHCStormActivity, ObservationsActivity, AdhocForecastActivity
+                 remove NHCImageShowActivity
 55047 2018_11_16 coroutine conversion: ImageShowActivity, LightningActivity, SpottersActivity, SevereDashboardActivity, USWarningsImpactActivity, USWarningsWithRadarActivity
                  SPCFireOutlookActivity, SPCCompmapActivity
 55046 2018_11_16 coroutine conversion (partial): WXGLRadarActivity, WXGLRadarActivityMultiPane, USNWSMosaicActivity, SunMoonActivity
