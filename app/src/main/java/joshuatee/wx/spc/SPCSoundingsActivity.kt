@@ -39,6 +39,7 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.*
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
+import kotlinx.coroutines.*
 
 class SPCSoundingsActivity : BaseActivity(), OnClickListener, OnItemSelectedListener, OnMenuItemClickListener {
 
@@ -46,6 +47,7 @@ class SPCSoundingsActivity : BaseActivity(), OnClickListener, OnItemSelectedList
         const val URL: String = ""
     }
 
+    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var imgUrl = ""
     private lateinit var img: TouchImageView2
     private lateinit var imageMap: ObjectImageMap
@@ -93,33 +95,19 @@ class SPCSoundingsActivity : BaseActivity(), OnClickListener, OnItemSelectedList
         super.onRestart()
     }
 
-    // FIXME not working after change on map
-    @SuppressLint("StaticFieldLeak")
-    private inner class GetContent : AsyncTask<String, String, String>() {
+    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        if (MyApplication.sndFav.contains(":$nwsOffice:"))
+            star.setIcon(MyApplication.STAR_ICON)
+        else
+            star.setIcon(MyApplication.STAR_OUTLINE_ICON)
 
-        override fun doInBackground(vararg params: String): String {
-            bitmap = UtilitySPCSoundings.getImage(contextg, nwsOffice)
-            return "Executed"
-        }
+        bitmap = withContext(Dispatchers.IO) { UtilitySPCSoundings.getImage(contextg, nwsOffice) }
 
-        override fun onPostExecute(result: String) {
-            img.visibility = View.VISIBLE
-            img.setImageBitmap(bitmap)
-            img.setMaxZoom(4f)
-            //val soundingSector = Utility.readPref(contextg, "SOUNDING_SECTOR", "")
-            //if (!firstRun && nwsOffice == soundingSector) {
-            img.setZoom("SOUNDING")
-            //    firstRun = true
-            //}
-            imageLoaded = true
-        }
-
-        override fun onPreExecute() {
-            if (MyApplication.sndFav.contains(":$nwsOffice:"))
-                star.setIcon(MyApplication.STAR_ICON)
-            else
-                star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        }
+        img.visibility = View.VISIBLE
+        img.setImageBitmap(bitmap)
+        img.setMaxZoom(4f)
+        img.setZoom("SOUNDING")
+        imageLoaded = true
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -190,7 +178,7 @@ class SPCSoundingsActivity : BaseActivity(), OnClickListener, OnItemSelectedList
                 2 -> ObjectIntent(this, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, arrayOf("SND"))
                 else -> {
                     nwsOffice = ridArrLoc[pos].split(" ").getOrNull(0) ?: ""
-                    GetContent().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+                    getContent()
                 }
             }
         }

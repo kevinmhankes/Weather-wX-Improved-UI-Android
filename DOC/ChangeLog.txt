@@ -8,6 +8,8 @@
 // TODO optimize model setup in esrl,ncep like nssl
 // TODO NHC test SST
 
+55048 2018_11_16 coroutine conversion: SPCTstormOutlookActivity, SPCSWOStateGraphicsActivity, SPCSoundingsActivity
+                                        SPCMCDWShowActivity, SPCMCDWShowSummaryActivity
 55047 2018_11_16 coroutine conversion: ImageShowActivity, LightningActivity, SpottersActivity, SevereDashboardActivity, USWarningsImpactActivity, USWarningsWithRadarActivity
                  SPCFireOutlookActivity, SPCCompmapActivity
 55046 2018_11_16 coroutine conversion (partial): WXGLRadarActivity, WXGLRadarActivityMultiPane, USNWSMosaicActivity, SunMoonActivity
