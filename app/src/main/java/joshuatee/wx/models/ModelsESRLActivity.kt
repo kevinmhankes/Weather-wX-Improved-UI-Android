@@ -161,30 +161,41 @@ class ModelsESRLActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
             when (parent.selectedItemPosition) {
                 3 -> {
                     model = "RAP"
-                    Utility.writePref(this, prefModel, model)
-                    setupRAP()
+                    setupModel(UtilityModelESRLInterface.MODEL_RAP_PARAMS,
+                            UtilityModelESRLInterface.MODEL_RAP_PARAMS_LABELS,
+                            UtilityModelESRLInterface.LIST_SECTOR_ARR_RAP,
+                            0, 39)
                 }
                 4 -> {
                     model = "RAP_NCEP"
-                    Utility.writePref(this, prefModel, model)
-                    setupRAP()
+                    setupModel(UtilityModelESRLInterface.MODEL_RAP_PARAMS,
+                            UtilityModelESRLInterface.MODEL_RAP_PARAMS_LABELS,
+                            UtilityModelESRLInterface.LIST_SECTOR_ARR_RAP,
+                            0, 39)
                 }
                 0 -> {
                     model = "HRRR"
-                    Utility.writePref(this, prefModel, model)
-                    setupHRRR()
+                    setupModel(UtilityModelESRLInterface.MODEL_HRRR_PARAMS,
+                            UtilityModelESRLInterface.MODEL_HRRR_PARAMS_LABELS,
+                            UtilityModelESRLInterface.LIST_SECTOR_ARR_HRRR,
+                            0, 36)
                 }
                 1 -> {
                     model = "HRRR_AK"
-                    Utility.writePref(this, prefModel, model)
-                    setupHRRRAK()
+                    setupModel(UtilityModelESRLInterface.MODEL_HRRR_PARAMS,
+                            UtilityModelESRLInterface.MODEL_HRRR_PARAMS_LABELS,
+                            UtilityModelESRLInterface.LIST_SECTOR_ARR_HRRR_AK,
+                            0, 36)
                 }
                 2 -> {
                     model = "HRRR_NCEP"
-                    Utility.writePref(this, prefModel, model)
-                    setupHRRR()
+                    setupModel(UtilityModelESRLInterface.MODEL_HRRR_PARAMS,
+                            UtilityModelESRLInterface.MODEL_HRRR_PARAMS_LABELS,
+                            UtilityModelESRLInterface.LIST_SECTOR_ARR_HRRR,
+                            0, 36)
                 }
             }
+            Utility.writePref(this, prefModel, model)
             getRunStatus()
         } else if (firstRunTimeSet)
             getContent()
@@ -304,7 +315,7 @@ class ModelsESRLActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         spTime.arrayAdapter.notifyDataSetChanged()
     }
 
-    private fun setupHRRR() {
+   /* private fun setupHRRR() {
         (0 until numPanes).forEach {
             displayData.param[it] = UtilityModelESRLInterface.MODEL_HRRR_PARAMS[0]
             displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
@@ -329,9 +340,9 @@ class ModelsESRLActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         (0..23).forEach { spRun.list.add(String.format(Locale.US, "%02d", it) + "Z") }
         spTime.list.clear()
         (0..36).forEach { spTime.list.add(String.format(Locale.US, "%02d", it)) }
-    }
+    }*/
 
-    private fun setupHRRRAK() {
+    /*private fun setupHRRRAK() {
         (0 until numPanes).forEach {
             displayData.param[it] = UtilityModelESRLInterface.MODEL_HRRR_PARAMS[0]
             displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
@@ -356,33 +367,63 @@ class ModelsESRLActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         (0..23).forEach { spRun.list.add(String.format(Locale.US, "%02d", it) + "Z") }
         spTime.list.clear()
         (0..36).forEach { spTime.list.add(String.format(Locale.US, "%02d", it)) }
-    }
+    }*/
 
-    private fun setupRAP() {
+
+
+        /*private fun setupRAP() {
+            (0 until numPanes).forEach {
+                displayData.param[it] = UtilityModelESRLInterface.MODEL_RAP_PARAMS[0]
+                displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
+                displayData.paramLabel[it] = UtilityModelESRLInterface.MODEL_RAP_PARAMS_LABELS[0]
+                displayData.paramLabel[it] = Utility.readPref(this, prefParamLabel + it.toString(), displayData.paramLabel[0])
+            }
+            if (!UtilityModels.parmInArray(UtilityModelESRLInterface.MODEL_RAP_PARAMS, displayData.param[0])) {
+                displayData.param[0] = UtilityModelESRLInterface.MODEL_RAP_PARAMS[0]
+                displayData.paramLabel[0] = UtilityModelESRLInterface.MODEL_RAP_PARAMS_LABELS[0]
+            }
+            if (numPanes > 1)
+                if (!UtilityModels.parmInArray(UtilityModelESRLInterface.MODEL_RAP_PARAMS, displayData.param[1])) {
+                    displayData.param[1] = UtilityModelESRLInterface.MODEL_RAP_PARAMS[0]
+                    displayData.paramLabel[1] = UtilityModelESRLInterface.MODEL_RAP_PARAMS_LABELS[0]
+                }
+            spSector.refreshData(this, UtilityModelESRLInterface.LIST_SECTOR_ARR_RAP)
+            spSector.setSelection(sectorOrig)
+            drw.updateLists(this, UtilityModelESRLInterface.MODEL_RAP_PARAMS_LABELS, UtilityModelESRLInterface.MODEL_RAP_PARAMS)
+            spRun.setSelection(0)
+            spTime.setSelection(0)
+            spRun.list.clear()
+            (0..23).forEach { spRun.list.add(String.format(Locale.US, "%02d", it) + "Z") }
+            spTime.list.clear()
+            (0..39).forEach { spTime.list.add(String.format(Locale.US, "%02d", it)) }
+        }*/
+
+    private fun setupModel(params: List<String>, labels: List<String>, sectors: List<String>, startStepTime: Int, endStepTime: Int) {
         (0 until numPanes).forEach {
-            displayData.param[it] = UtilityModelESRLInterface.MODEL_RAP_PARAMS[0]
+            displayData.param[it] = params[0]
             displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
-            displayData.paramLabel[it] = UtilityModelESRLInterface.MODEL_RAP_PARAMS_LABELS[0]
+            displayData.paramLabel[it] = params[0]
             displayData.paramLabel[it] = Utility.readPref(this, prefParamLabel + it.toString(), displayData.paramLabel[0])
         }
-        if (!UtilityModels.parmInArray(UtilityModelESRLInterface.MODEL_RAP_PARAMS, displayData.param[0])) {
-            displayData.param[0] = UtilityModelESRLInterface.MODEL_RAP_PARAMS[0]
-            displayData.paramLabel[0] = UtilityModelESRLInterface.MODEL_RAP_PARAMS_LABELS[0]
+        if (!UtilityModels.parmInArray(params, displayData.param[0])) {
+            displayData.param[0] = params[0]
+            displayData.paramLabel[0] = labels[0]
         }
         if (numPanes > 1)
-            if (!UtilityModels.parmInArray(UtilityModelESRLInterface.MODEL_RAP_PARAMS, displayData.param[1])) {
-                displayData.param[1] = UtilityModelESRLInterface.MODEL_RAP_PARAMS[0]
-                displayData.paramLabel[1] = UtilityModelESRLInterface.MODEL_RAP_PARAMS_LABELS[0]
+            if (!UtilityModels.parmInArray(params, displayData.param[1])) {
+                displayData.param[1] = params[0]
+                displayData.paramLabel[1] = labels[0]
             }
-        spSector.refreshData(this, UtilityModelESRLInterface.LIST_SECTOR_ARR_RAP)
+        spSector.refreshData(this, sectors)
         spSector.setSelection(sectorOrig)
-        drw.updateLists(this, UtilityModelESRLInterface.MODEL_RAP_PARAMS_LABELS, UtilityModelESRLInterface.MODEL_RAP_PARAMS)
+        drw.updateLists(this, labels, params)
         spRun.setSelection(0)
         spTime.setSelection(0)
         spRun.list.clear()
+        // FIXME make 0,23 params?
         (0..23).forEach { spRun.list.add(String.format(Locale.US, "%02d", it) + "Z") }
         spTime.list.clear()
-        (0..39).forEach { spTime.list.add(String.format(Locale.US, "%02d", it)) }
+        (startStepTime..endStepTime).forEach { spTime.list.add(String.format(Locale.US, "%02d", it)) }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
