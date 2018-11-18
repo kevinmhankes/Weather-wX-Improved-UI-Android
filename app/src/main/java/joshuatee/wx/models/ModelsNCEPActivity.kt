@@ -158,7 +158,7 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         }
         (0 until 24).forEach { spRun.add(String.format(Locale.US, "%02d", it) + "Z") }
         (0 until 16).forEach { spRun.add(String.format(Locale.US, "%03d", it) + "00") }
-        setupListRunZ()
+        setupListRunZ(4)
         spRun.notifyDataSetChanged()
         spRun.setSelection(0)
         spTime.setSelection(0)
@@ -188,7 +188,7 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
                     setupModel(UtilityModelNCEPInterface.MODEL_NAM_PARAMS,
                             UtilityModelNCEPInterface.MODEL_NAM_PARAMS_LABELS,
                             UtilityModelNCEPInterface.LIST_SECTOR_ARR_NAM,
-                            0, 85, 3)
+                            0, 85, 3, 4)
 
                 }
                 4 -> {
@@ -228,7 +228,7 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
                     setupModel(UtilityModelNCEPInterface.MODEL_NAEFS_PARAMS,
                             UtilityModelNCEPInterface.MODEL_NAEFS_PARAMS_LABELS,
                             UtilityModelNCEPInterface.LIST_SECTOR_ARR_NAEFS,
-                            6, 385, 6)
+                            6, 385, 6, 4)
                 }
                 11 -> {
                     model = "POLAR"
@@ -239,35 +239,35 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
                     setupModel(UtilityModelNCEPInterface.MODEL_WW_3_PARAMS,
                             UtilityModelNCEPInterface.MODEL_WW_3_PARAMS_LABELS,
                             UtilityModelNCEPInterface.LIST_SECTOR_ARR_WW_3,
-                            0, 127, 6)
+                            0, 127, 6, 4)
                 }
                 13 -> {
                     model = "WW3-ENP"
                     setupModel(UtilityModelNCEPInterface.MODEL_WW_3_ENP_PARAMS,
                             UtilityModelNCEPInterface.MODEL_WW_3_ENP_PARAMS_LABELS,
                             UtilityModelNCEPInterface.LIST_SECTOR_ARR_WW_3_ENP,
-                            0, 127, 6)
+                            0, 127, 6, 4)
                 }
                 14 -> {
                     model = "WW3-WNA"
                     setupModel(UtilityModelNCEPInterface.MODEL_WW_3_WNA_PARAMS,
                             UtilityModelNCEPInterface.MODEL_WW_3_WNA_PARAMS_LABELS,
                             UtilityModelNCEPInterface.LIST_SECTOR_ARR_WW_3_WNA,
-                            0, 127, 6)
+                            0, 127, 6, 4)
                 }
                 15 -> {
                     model = "ESTOFS"
                     setupModel(UtilityModelNCEPInterface.MODEL_ESTOFS_PARAMS,
                             UtilityModelNCEPInterface.MODEL_ESTOFS_PARAMS_LABELS,
                             UtilityModelNCEPInterface.LIST_SECTOR_ARR_ESTOFS,
-                            0, 181, 1)
+                            0, 181, 1, 4)
                 }
                 16 -> {
                     model = "FIREWX"
                     setupModel(UtilityModelNCEPInterface.MODEL_FIREWX_PARAMS,
                             UtilityModelNCEPInterface.MODEL_FIREWX_PARAMS_LABELS,
                             UtilityModelNCEPInterface.LIST_SECTOR_ARR_FIREWX,
-                            0, 37, 1)
+                            0, 37, 1, 4)
                 }
             }
             Utility.writePref(this, prefModel, model)
@@ -429,22 +429,31 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         drw.updateLists(this, UtilityModelNCEPInterface.MODEL_GFS_PARAMS_LABELS, UtilityModelNCEPInterface.MODEL_GFS_PARAMS)
         spRun.setSelection(0)
         spTime.setSelection(0)
-        setupListRunZ()
+        setupListRunZ(4)
         spTime.clear()
         (0..241 step 3).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
         (252..385 step 12).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
     }
 
-    private fun setupListRunZ() {
+    private fun setupListRunZ(numberRuns: Int) {
         spRun.clear()
-        spRun.add("00Z")
-        spRun.add("06Z")
-        spRun.add("12Z")
-        spRun.add("18Z")
+        when (numberRuns) {
+            2 -> {
+                spRun.add("00Z")
+                spRun.add("12Z")
+            }
+            4 -> {
+                spRun.add("00Z")
+                spRun.add("06Z")
+                spRun.add("12Z")
+                spRun.add("18Z")
+            }
+            24 -> (0..23).forEach { spRun.add(String.format(Locale.US, "%02d", it) + "Z") }
+        }
         spRun.notifyDataSetChanged()
     }
 
-    private fun setupModel(params: List<String>, labels: List<String>, sectors: List<String>, startStepTime: Int, endStepTime: Int, stepAmount: Int) {
+    private fun setupModel(params: List<String>, labels: List<String>, sectors: List<String>, startStepTime: Int, endStepTime: Int, stepAmount: Int, numberRuns: Int) {
         (0 until numPanes).forEach {
             displayData.param[it] = params[0]
             displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
@@ -464,7 +473,7 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         drw.updateLists(this, labels, params)
         spRun.setSelection(0)
         spTime.setSelection(0)
-        setupListRunZ()
+        setupListRunZ(numberRuns)
         spTime.clear()
         (startStepTime..endStepTime step stepAmount).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
     }
@@ -518,13 +527,17 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         spRun.setSelection(0)
         spTime.setSelection(0)
         spRun.clear()
-        for (i in (0 until 24)) {
-            spRun.add(String.format(Locale.US, "%02d", i) + "Z")
-        }
+        //for (i in (0 until 24)) {
+        //    spRun.add(String.format(Locale.US, "%02d", i) + "Z")
+        //}
+        setupListRunZ(24)
+        //(0..23).forEach { spRun.add(String.format(Locale.US, "%02d", it) + "Z") }
         spTime.clear()
-        for (i in (0 until 22)) {
-            spTime.add(String.format(Locale.US, "%03d", i))
-        }
+        // FIXME should be higher?
+        (0..22).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
+        //for (i in (0 until 22)) {
+        //    spTime.add(String.format(Locale.US, "%03d", i))
+        //}
     }
 
     private fun setupGEFSSPAG() {
@@ -547,7 +560,7 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         drw.updateLists(this, UtilityModelNCEPInterface.MODEL_GEFS_SPAG_PARAMS_LABELS, UtilityModelNCEPInterface.MODEL_GEFS_SPAG_PARAMS)
         spRun.setSelection(0)
         spTime.setSelection(0)
-        setupListRunZ()
+        setupListRunZ(4)
         spTime.clear()
         (0..181 step 6).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
         (192..385 step 12).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
@@ -576,7 +589,7 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         drw.updateLists(this, UtilityModelNCEPInterface.MODEL_GEFS_MNSPRD_PARAMS_LABELS, UtilityModelNCEPInterface.MODEL_GEFS_MNSPRD_PARAMS)
         spRun.setSelection(0)
         spTime.setSelection(0)
-        setupListRunZ()
+        setupListRunZ(4)
         spTime.clear()
         (0..181 step 6).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
         (192..385 step 12).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
@@ -602,13 +615,13 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         drw.updateLists(this, UtilityModelNCEPInterface.MODEL_HRW_NMM_PARAMS_LABELS, UtilityModelNCEPInterface.MODEL_HRW_NMM_PARAMS)
         spRun.setSelection(0)
         spTime.setSelection(1)
-        spRun.clear()
-        spRun.add("00Z")
-        spRun.add("12Z")
+        //spRun.clear()
+        //spRun.add("00Z")
+        //spRun.add("12Z")
+        setupListRunZ(2)
         spTime.clear()
         (0 until 49).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
     }
-
 
 
  /*   private fun setupNAEFS() {
@@ -792,7 +805,7 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         addItemsOnSpinnerSectors(UtilityModelNCEPInterface.LIST_SECTOR_ARR_NAM_4_KM)
         drw.updateLists(this, UtilityModelNCEPInterface.MODEL_NAM_4_KM_PARAMS_LABELS, UtilityModelNCEPInterface.MODEL_NAM_4_KM_PARAMS)
         spRun.setSelection(0)
-        setupListRunZ()
+        setupListRunZ(4)
         spTime.clear()
         (0..60 step 1).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
         spTime.setSelection(1)
