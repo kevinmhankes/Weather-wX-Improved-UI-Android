@@ -193,7 +193,10 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
                 }
                 4 -> {
                     model = "RAP"
-                    setupRAP()
+                    setupModel(UtilityModelNCEPInterface.MODEL_RAP_PARAMS,
+                            UtilityModelNCEPInterface.MODEL_RAP_PARAMS_LABELS,
+                            UtilityModelNCEPInterface.LIST_SECTOR_ARR_RAP,
+                            0, 39, 1, 24)
                 }
                 0 -> {
                     model = "HRRR"
@@ -506,7 +509,8 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
 
 
 
-    private fun setupRAP() {
+
+  /*  private fun setupRAP() {
         (0 until numPanes).forEach {
             displayData.param[it] = "500_vort_ht"
             displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
@@ -533,12 +537,11 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         setupListRunZ(24)
         //(0..23).forEach { spRun.add(String.format(Locale.US, "%02d", it) + "Z") }
         spTime.clear()
-        // FIXME should be higher?
-        (0..22).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
+        (0..39).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
         //for (i in (0 until 22)) {
         //    spTime.add(String.format(Locale.US, "%03d", i))
         //}
-    }
+    }*/
 
     private fun setupGEFSSPAG() {
         (0 until numPanes).forEach {
