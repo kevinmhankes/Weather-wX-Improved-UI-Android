@@ -200,7 +200,10 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
                 }
                 0 -> {
                     model = "HRRR"
-                    setupHRRR()
+                    setupModel(UtilityModelNCEPInterface.MODEL_HRRR_PARAMS,
+                            UtilityModelNCEPInterface.MODEL_HRRR_PARAMS_LABELS,
+                            UtilityModelNCEPInterface.LIST_SECTOR_ARR_HRRR,
+                            0, 18, 1, 24)
                 }
                 3 -> {
                     model = "NAM-HIRES"
@@ -208,11 +211,17 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
                 }
                 5 -> {
                     model = "HRW-NMMB"
-                    setupHRWNMM()
+                    setupModel(UtilityModelNCEPInterface.MODEL_HRW_NMM_PARAMS,
+                            UtilityModelNCEPInterface.MODEL_HRW_NMM_PARAMS_LABELS,
+                            UtilityModelNCEPInterface.LIST_SECTOR_ARR_HRW_NMM,
+                            0, 49, 1, 2)
                 }
                 6 -> {
                     model = "HRW-ARW"
-                    setupHRWNMM()
+                    setupModel(UtilityModelNCEPInterface.MODEL_HRW_NMM_PARAMS,
+                            UtilityModelNCEPInterface.MODEL_HRW_NMM_PARAMS_LABELS,
+                            UtilityModelNCEPInterface.LIST_SECTOR_ARR_HRW_NMM,
+                            0, 49, 1, 2)
                 }
                 7 -> {
                     model = "GEFS-SPAG"
@@ -224,7 +233,10 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
                 }
                 9 -> {
                     model = "SREF"
-                    setupSREF()
+                    setupModel(UtilityModelNCEPInterface.MODEL_SREF_PARAMS,
+                            UtilityModelNCEPInterface.MODEL_SREF_PARAMS_LABELS,
+                            UtilityModelNCEPInterface.LIST_SECTOR_ARR_SREF,
+                            0, 88, 3, 5)
                 }
                 10 -> {
                     model = "NAEFS"
@@ -235,7 +247,10 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
                 }
                 11 -> {
                     model = "POLAR"
-                    setupPOLAR()
+                    setupModel(UtilityModelNCEPInterface.MODEL_POLAR_PARAMS,
+                            UtilityModelNCEPInterface.MODEL_POLAR_PARAMS_LABELS,
+                            UtilityModelNCEPInterface.LIST_SECTOR_ARR_POLAR,
+                            24, 385, 24, 1)
                 }
                 12 -> {
                     model = "WW3"
@@ -441,6 +456,7 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
     private fun setupListRunZ(numberRuns: Int) {
         spRun.clear()
         when (numberRuns) {
+            1 -> spRun.add("00Z")
             2 -> {
                 spRun.add("00Z")
                 spRun.add("12Z")
@@ -450,6 +466,12 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
                 spRun.add("06Z")
                 spRun.add("12Z")
                 spRun.add("18Z")
+            }
+            5 -> {  // FIXME use enum
+                spRun.add("03Z")
+                spRun.add("09Z")
+                spRun.add("15Z")
+                spRun.add("21Z")
             }
             24 -> (0..23).forEach { spRun.add(String.format(Locale.US, "%02d", it) + "Z") }
         }
@@ -475,10 +497,14 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         addItemsOnSpinnerSectors(sectors)
         drw.updateLists(this, labels, params)
         spRun.setSelection(0)
-        spTime.setSelection(0)
+        spTime.setSelection(1)
         setupListRunZ(numberRuns)
         spTime.clear()
-        (startStepTime..endStepTime step stepAmount).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
+        if (model == "HRRR") {
+            (startStepTime..endStepTime step stepAmount).forEach { spTime.add(String.format(Locale.US, "%03d" + "00", it)) }
+        } else {
+            (startStepTime..endStepTime step stepAmount).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
+        }
     }
 
 
@@ -598,7 +624,9 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         (192..385 step 12).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
     }
 
-    private fun setupHRWNMM() {
+
+
+    /*private fun setupHRWNMM() {
         (0 until numPanes).forEach {
             displayData.param[it] = "sim_radar_1km"
             displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
@@ -624,7 +652,7 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         setupListRunZ(2)
         spTime.clear()
         (0 until 49).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
-    }
+    }*/
 
 
  /*   private fun setupNAEFS() {
@@ -652,7 +680,9 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         (6..385 step 6).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
     }*/
 
-    private fun setupPOLAR() {
+
+
+   /* private fun setupPOLAR() {
         (0 until numPanes).forEach {
             displayData.param[it] = "ice_drift"
             displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
@@ -676,7 +706,7 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         spRun.add("00Z")
         spTime.clear()
         (24..385 step 24).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
-    }
+    }*/
 
 
 
@@ -759,7 +789,9 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         (0..127 step 6).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
     }*/
 
-    private fun setupHRRR() {
+
+
+  /*  private fun setupHRRR() {
         (0 until numPanes).forEach {
             displayData.param[it] = "sim_radar_1km"
             displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
@@ -787,7 +819,7 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         for (i in (0 until 19)) {
             spTime.add(String.format(Locale.US, "%03d", i) + "00")
         }
-    }
+    }*/
 
     private fun setupNAM4KM() {
         (0 until numPanes).forEach {
@@ -814,7 +846,9 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         spTime.setSelection(1)
     }
 
-    private fun setupSREF() {
+
+
+    /*private fun setupSREF() {
         (0 until numPanes).forEach {
             displayData.param[it] = "mslp"
             displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
@@ -841,7 +875,7 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         spRun.add("21Z")
         spTime.clear()
         (0..88 step 3).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
-    }
+    }*/
 
 
 
