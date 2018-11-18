@@ -228,11 +228,17 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
                 }
                 7 -> {
                     model = "GEFS-SPAG"
-                    setupGEFSSPAG()
+                    setupModel(UtilityModelNCEPInterface.MODEL_GEFS_SPAG_PARAMS,
+                            UtilityModelNCEPInterface.MODEL_GEFS_SPAG_PARAMS_LABELS,
+                            UtilityModelNCEPInterface.LIST_SECTOR_ARR_GEFS_SPAG,
+                            0, 385, 6, 4)
                 }
                 8 -> {
                     model = "GEFS-MEAN-SPRD"
-                    setupGEFSMNSPRD()
+                    setupModel(UtilityModelNCEPInterface.MODEL_GEFS_MNSPRD_PARAMS,
+                            UtilityModelNCEPInterface.MODEL_GEFS_MNSPRD_PARAMS_LABELS,
+                            UtilityModelNCEPInterface.LIST_SECTOR_ARR_GEFS_MNSPRD,
+                            0, 385, 6, 4)
                 }
                 9 -> {
                     model = "SREF"
@@ -503,67 +509,14 @@ class ModelsNCEPActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCli
         spTime.setSelection(1)
         setupListRunZ(numberRuns)
         spTime.clear()
-        if (model == "HRRR") {
-            (startStepTime..endStepTime step stepAmount).forEach { spTime.add(String.format(Locale.US, "%03d" + "00", it)) }
-        } else {
-            (startStepTime..endStepTime step stepAmount).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
-        }
-    }
-
-
-    private fun setupGEFSSPAG() {
-        (0 until numPanes).forEach {
-            displayData.param[it] = "500_510_552_ht"
-            displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
-            displayData.paramLabel[it] = "500mb 510/552 Height Contours"
-            displayData.paramLabel[it] = Utility.readPref(this, prefParamLabel + it.toString(), displayData.paramLabel[0])
-        }
-        if (!UtilityModels.parmInArray(UtilityModelNCEPInterface.MODEL_GEFS_SPAG_PARAMS, displayData.param[0])) {
-            displayData.param[0] = "500_510_552_ht"
-            displayData.paramLabel[0] = "500mb 510/552 Height Contours"
-        }
-        if (numPanes > 1)
-            if (!UtilityModels.parmInArray(UtilityModelNCEPInterface.MODEL_GEFS_SPAG_PARAMS, displayData.param[1])) {
-                displayData.param[1] = "500_510_552_ht"
-                displayData.paramLabel[1] = "500mb 510/552 Height Contours"
+        when (model) {
+            "HRRR" -> (startStepTime..endStepTime step stepAmount).forEach { spTime.add(String.format(Locale.US, "%03d" + "00", it)) }
+            "GEFS-SPAG", "GEFS-MEAN-SPRD" -> {
+                (0..181 step 6).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
+                (192..385 step 12).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
             }
-        addItemsOnSpinnerSectors(UtilityModelNCEPInterface.LIST_SECTOR_ARR_GEFS_SPAG)
-        drw.updateLists(this, UtilityModelNCEPInterface.MODEL_GEFS_SPAG_PARAMS_LABELS, UtilityModelNCEPInterface.MODEL_GEFS_SPAG_PARAMS)
-        spRun.setSelection(0)
-        spTime.setSelection(0)
-        setupListRunZ(4)
-        spTime.clear()
-        (0..181 step 6).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
-        (192..385 step 12).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
-    }
-
-    private fun setupGEFSMNSPRD() {
-        (0 until numPanes).forEach {
-            displayData.param[it] = "mslp"
-            displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[0])
-            displayData.paramLabel[it] = "Mean Sea Level Pressure"
-            displayData.paramLabel[it] = Utility.readPref(this, prefParamLabel + it.toString(), displayData.paramLabel[0])
+            else -> (startStepTime..endStepTime step stepAmount).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
         }
-
-        if (!UtilityModels.parmInArray(UtilityModelNCEPInterface.MODEL_GEFS_MNSPRD_PARAMS, displayData.param[0])) {
-            displayData.param[0] = "mslp"
-            displayData.paramLabel[0] = "Mean Sea Level Pressure"
-        }
-
-        if (numPanes > 1)
-            if (!UtilityModels.parmInArray(UtilityModelNCEPInterface.MODEL_GEFS_MNSPRD_PARAMS, displayData.param[1])) {
-                displayData.param[1] = "mslp"
-                displayData.paramLabel[1] = "Mean Sea Level Pressure"
-            }
-
-        addItemsOnSpinnerSectors(UtilityModelNCEPInterface.LIST_SECTOR_ARR_GEFS_MNSPRD)
-        drw.updateLists(this, UtilityModelNCEPInterface.MODEL_GEFS_MNSPRD_PARAMS_LABELS, UtilityModelNCEPInterface.MODEL_GEFS_MNSPRD_PARAMS)
-        spRun.setSelection(0)
-        spTime.setSelection(0)
-        setupListRunZ(4)
-        spTime.clear()
-        (0..181 step 6).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
-        (192..385 step 12).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
