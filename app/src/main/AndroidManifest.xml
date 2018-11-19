@@ -291,6 +291,10 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
+      android:name=".models.ModelsGenericActivity"
+      android:parentActivityName="WX" >
+  </activity>
+  <activity
       android:name=".spc.SPCSWOSummaryActivity"
       android:label="@string/title_activity_spcswosummary"
       android:parentActivityName="WX" >

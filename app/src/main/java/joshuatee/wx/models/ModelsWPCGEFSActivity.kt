@@ -109,7 +109,7 @@ class ModelsWPCGEFSActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         displayData = DisplayData(this, this, this, numPanes, spTime)
         spRun = ObjectSpinner(this, this, R.id.spinner_run)
         spRun.setOnItemSelectedListener(this)
-        spSector = ObjectSpinner(this, this, R.id.spinner_sector, UtilityModelWPCGEFSInterface.SECTORS)
+        spSector = ObjectSpinner(this, this, R.id.spinner_sector, UtilityModelWPCGEFSInterface.sectors)
         spSector.setOnItemSelectedListener(this)
         sector = Utility.readPref(this, prefSector, "S19")
         spSector.setSelection(sector)
@@ -126,7 +126,7 @@ class ModelsWPCGEFSActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         Utility.writePref(this, prefModel, model)
         setupModel(UtilityModelWPCGEFSInterface.PARAMS,
                 UtilityModelWPCGEFSInterface.LABELS,
-                UtilityModelWPCGEFSInterface.SECTORS,
+                UtilityModelWPCGEFSInterface.sectors,
                 0, 241, 6, 0)
         getRunStatus()
     }
