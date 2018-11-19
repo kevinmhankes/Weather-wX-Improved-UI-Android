@@ -116,15 +116,15 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         spRun = ObjectSpinner(this, this, R.id.spinner_run)
         spRun.setOnItemSelectedListener(this)
         // FIXME
-        spSector = ObjectSpinner(this, this, R.id.spinner_sector, UtilityModelWPCGEFSInterface.sectors)
+        spSector = ObjectSpinner(this, this, R.id.spinner_sector, om.sectors)
         spSector.setOnItemSelectedListener(this)
         // FIXME
-        om.sectorOrig = Utility.readPref(this, om.prefSector, UtilityModelWPCGEFSInterface.sectors[0])
+        om.sectorOrig = Utility.readPref(this, om.prefSector, om.sectors[0])
         spSector.setSelection(om.sectorOrig)
-        val spModel = ObjectSpinner(this, this, R.id.spinner_model, UtilityModelWPCGEFSInterface.models)
+        val spModel = ObjectSpinner(this, this, R.id.spinner_model, om.models)
         spModel.setOnItemSelectedListener(this)
         spModel.setSelection(om.model)
-        drw = ObjectNavDrawer(this, UtilityModelWPCGEFSInterface.LABELS, UtilityModelWPCGEFSInterface.PARAMS)
+        drw = ObjectNavDrawer(this, om.labels, om.params)
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             drw.listView.setItemChecked(position, false)
             drw.drawerLayout.closeDrawer(drw.listView)
@@ -144,9 +144,9 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             when (parent.selectedItemPosition) {
                 0 -> {
                     om.model = "WPCGEFS"
-                    setupModel(UtilityModelWPCGEFSInterface.PARAMS,
-                            UtilityModelWPCGEFSInterface.LABELS,
-                            UtilityModelWPCGEFSInterface.sectors,
+                    setupModel(om.params,
+                            om.labels,
+                            om.sectors,
                             0, 241, 6, 0)
                 }
             }
@@ -243,7 +243,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     }
 
     private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
-        om.rtd = withContext(Dispatchers.IO) { UtilityModelWPCGEFSInputOutput.runTime }
+        om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
         spRun.clear()
         spRun.addAll(om.rtd.listRun)
         miStatus.isVisible = false

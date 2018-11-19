@@ -50,6 +50,10 @@ class ObjectModel(val context: Context, var prefModel: String) {
     var modelProvider = "MODEL_$prefModel$numPanesStr"
     var rtd = RunTimeData()
     lateinit var displayData: DisplayData
+    var sectors: List<String> = listOf()
+    var labels: List<String> = listOf()
+    var params: List<String> = listOf()
+    var models: List<String> = listOf()
 
     init {
 
@@ -62,6 +66,10 @@ class ObjectModel(val context: Context, var prefModel: String) {
         prefRunPosn = "MODEL_" + prefModel + numPanesStr + "_RUN_POSN"
         modelProvider = "MODEL_$prefModel"
 
+        sectors = UtilityModelWPCGEFSInterface.sectors
+        labels = UtilityModelWPCGEFSInterface.LABELS
+        params = UtilityModelWPCGEFSInterface.PARAMS
+        models = UtilityModelWPCGEFSInterface.models
     }
 
     fun getImage(): Bitmap {
@@ -70,6 +78,10 @@ class ObjectModel(val context: Context, var prefModel: String) {
 
     fun getAnimate(spinnerTimeValue: Int, timeList: List<String>): AnimationDrawable {
         return UtilityModelWPCGEFSInputOutput.getAnimation(context, sector, displayData.param[curImg], run, spinnerTimeValue, timeList)
+    }
+
+    fun getRunTime(): RunTimeData {
+        return UtilityModelWPCGEFSInputOutput.runTime
     }
 }
 
