@@ -26,6 +26,8 @@ enum class ModelType {
     NSSL,
     ESRL,
     NCEP,
+    SPCHREF,
+    SPCHRRR
 }
 
 

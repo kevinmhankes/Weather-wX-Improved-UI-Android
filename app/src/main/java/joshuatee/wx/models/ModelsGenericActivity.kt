@@ -155,8 +155,9 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         om.run = spRun.selectedItem.toString()
         om.time = spTime.selectedItem.toString()
         om.sector = spSector.selectedItem.toString()
-        // FIXME store in object model
-        om.time = UtilityStringExternal.truncate(om.time, om.timeTruncate)
+        if (om.truncateTime) {
+            om.time = UtilityStringExternal.truncate(om.time, om.timeTruncate)
+        }
         Utility.writePref(contextg, om.prefSector, om.sector)
 
         withContext(Dispatchers.IO) {

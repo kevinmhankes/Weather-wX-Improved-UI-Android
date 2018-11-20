@@ -42,10 +42,11 @@ class ObjectModel(val context: Context, var prefModel: String) {
     private var modelType: ModelType = ModelType.NSSL
     var startStep: Int = 0
     var endStep: Int = 0
-    var stepAmount: Int = 0
+    var stepAmount: Int = 1
     var numberRuns: Int = 0
     var timeTruncate: Int = 2
     var format: String = "%03d"
+    var truncateTime: Boolean = true
     var prefSector: String = "MODEL_" + prefModel + numPanesStr + "_SECTOR_LAST_USED"
     var prefParam: String = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED"
     var prefParamLabel: String = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED_LABEL"
@@ -96,6 +97,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
         return when (modelType) {
             ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getImage(sector, displayData.param[index], run, time)
             ModelType.ESRL -> UtilityModelESRLInputOutput.getImage(model, sectorOrig, sectorInt, displayData.param[index], run, time)
+            ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.getImage(context, model, sector, displayData.param[index], run, time)
             else -> UtilityImg.getBlankBitmap()
         }
     }
@@ -104,6 +106,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
         return when (modelType) {
             ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getAnimation(context, sector, displayData.param[index], run, spinnerTimeValue, timeList)
             ModelType.ESRL -> UtilityModelESRLInputOutput.getAnimation(context, model, sectorOrig, sectorInt, displayData.param[index], run, spinnerTimeValue, timeList)
+            ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.getAnimation(context, model, sector, displayData.param[index], run, spinnerTimeValue, timeList)
             else -> AnimationDrawable()
         }
     }
@@ -112,6 +115,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
         return when (modelType) {
             ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.runTime
             ModelType.ESRL -> UtilityModelESRLInputOutput.getRunTime(model)
+            ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.runTime
             else -> RunTimeData()
         }
     }
@@ -135,7 +139,46 @@ class ObjectModel(val context: Context, var prefModel: String) {
                 }
             }
             ModelType.NSSL -> {
-
+                truncateTime = false
+                when (selectedItemPosition) {
+                    0 -> {
+                        model = "WRF"
+                        params = UtilityModelNSSLWRFInterface.paramsNsslWrf
+                        labels = UtilityModelNSSLWRFInterface.labelsNsslWrf
+                        sectors = UtilityModelNSSLWRFInterface.sectorsLong
+                        startStep = 1
+                        endStep = 36
+                        timeTruncate = 3
+                    }
+                    1 -> {
+                        model = "FV3"
+                        params = UtilityModelNSSLWRFInterface.paramsNsslFv3
+                        labels = UtilityModelNSSLWRFInterface.labelsNsslFv3
+                        sectors = UtilityModelNSSLWRFInterface.sectorsLong
+                        startStep = 1
+                        endStep = 60
+                        timeTruncate = 3
+                    }
+                    2 -> {
+                        model = "HRRRV3"
+                        params = UtilityModelNSSLWRFInterface.paramsNsslHrrrv3
+                        labels = UtilityModelNSSLWRFInterface.labelsNsslHrrrv3
+                        sectors = UtilityModelNSSLWRFInterface.sectorsLong
+                        startStep = 1
+                        endStep = 36
+                        timeTruncate = 3
+                    }
+                    3 -> {
+                        model = "WRF_3KM"
+                        model = "HRRRV3"
+                        params = UtilityModelNSSLWRFInterface.paramsNsslWrf
+                        labels = UtilityModelNSSLWRFInterface.labelsNsslWrf
+                        sectors = UtilityModelNSSLWRFInterface.sectorsLong
+                        startStep = 1
+                        endStep = 36
+                        timeTruncate = 3
+                    }
+                }
             }
             ModelType.ESRL -> {
                 when (selectedItemPosition) {
