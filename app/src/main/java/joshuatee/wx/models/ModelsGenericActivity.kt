@@ -49,9 +49,8 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     // This code provides a native android interface to Weather Models
     //
     // arg1 - number of panes, 1 or 2
-    // arg2 - show map - "true" or "false"
-    // arg3 - pref model token and hash lookup
-    // arg4 - title string
+    // arg2 - pref model token and hash lookup
+    // arg3 - title string
 
     companion object {
         const val INFO: String = ""
@@ -161,7 +160,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         Utility.writePref(contextg, om.prefSector, om.sector)
 
         withContext(Dispatchers.IO) {
-            (0 until om.numPanes).forEach { om.displayData.bitmap[it] = om.getImage() }
+            (0 until om.numPanes).forEach { om.displayData.bitmap[it] = om.getImage(it) }
         }
 
         (0 until om.numPanes).forEach {
@@ -204,7 +203,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                 om.curImg = 1
                 UtilityModels.setSubtitleRestoreIMGXYZOOM(om.displayData.img, toolbar, "(" + (om.curImg + 1).toString() + ")" + om.displayData.param[0] + "/" + om.displayData.param[1])
             }
-            R.id.action_multipane -> ObjectIntent(this, ModelsGenericActivity::class.java, ModelsGenericActivity.INFO, arrayOf("2", turl[1], turl[2], turl[3]))
+            R.id.action_multipane -> ObjectIntent(this, ModelsGenericActivity::class.java, ModelsGenericActivity.INFO, arrayOf("2", turl[1], turl[2]))
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
                     if (isStoragePermissionGranted) {
@@ -228,7 +227,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     private fun getAnimate() = GlobalScope.launch(uiDispatcher) {
         val spinnerTimeValue = spTime.selectedItemPosition
         withContext(Dispatchers.IO) {
-            (0 until om.numPanes).forEach { om.displayData.animDrawable[it] = om.getAnimate(spinnerTimeValue, spTime.list) }
+            (0 until om.numPanes).forEach { om.displayData.animDrawable[it] = om.getAnimate(it, spinnerTimeValue, spTime.list) }
         }
 
         (0 until om.numPanes).forEach { UtilityImgAnim.startAnimation(om.displayData.animDrawable[it], om.displayData.img[it]) }

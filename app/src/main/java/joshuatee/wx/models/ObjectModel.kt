@@ -52,43 +52,56 @@ class ObjectModel(val context: Context, var prefModel: String) {
     var modelProvider: String = "MODEL_$prefModel$numPanesStr"
     var rtd: RunTimeData = RunTimeData()
     lateinit var displayData: DisplayData
-    var sectors: List<String> = listOf()
-    var labels: List<String> = listOf()
-    var params: List<String> = listOf()
-    var models: List<String> = listOf()
+    var sectors: List<String> = listOf("")
+    var labels: List<String> = listOf("")
+    var params: List<String> = listOf("")
+    var models: List<String> = listOf("")
+    var defaultModel: String = ""
 
     init {
 
         when (prefModel) {
-            "WPCGEFS" -> modelType = ModelType.WPCGEFS
-            "NSSL" -> modelType = ModelType.NSSL
+            "WPCGEFS" -> {
+                modelType = ModelType.WPCGEFS
+                defaultModel = "WPCGEFS"
+            }
+            "NSSL" -> {
+                modelType = ModelType.NSSL
+            }
+            "ESRL" -> {
+                modelType = ModelType.ESRL
+            }
+            "NCEP" -> {
+                modelType = ModelType.NCEP
+            }
         }
 
         prefModel += numPanesStr
-        // FIXME needs to be default model string
-        model = Utility.readPref(context, prefModel, "WPCGEFS")
+        model = Utility.readPref(context, prefModel, defaultModel)
         prefSector = "MODEL_" + prefModel + numPanesStr + "_SECTOR_LAST_USED"
         prefParam = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED"
         prefParamLabel = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED_LABEL"
         prefRunPosn = "MODEL_" + prefModel + numPanesStr + "_RUN_POSN"
         modelProvider = "MODEL_$prefModel"
 
-        sectors = UtilityModelWPCGEFSInterface.sectors
-        labels = UtilityModelWPCGEFSInterface.LABELS
-        params = UtilityModelWPCGEFSInterface.PARAMS
-        models = UtilityModelWPCGEFSInterface.models
+        //sectors = UtilityModelWPCGEFSInterface.sectors
+        //labels = UtilityModelWPCGEFSInterface.LABELS
+        //params = UtilityModelWPCGEFSInterface.PARAMS
+        //models = UtilityModelWPCGEFSInterface.models
     }
 
-    fun getImage(): Bitmap {
+    fun getImage(index: Int): Bitmap {
         return when (modelType) {
-            ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getImage(sector, displayData.param[curImg], run, time)
+            ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getImage(sector, displayData.param[index], run, time)
+            ModelType.ESRL -> UtilityModelESRLInputOutput.getImage(model, sectorOrig, sectorInt, displayData.param[index], run, time)
             else -> UtilityImg.getBlankBitmap()
         }
     }
 
-    fun getAnimate(spinnerTimeValue: Int, timeList: List<String>): AnimationDrawable {
+    fun getAnimate(index: Int, spinnerTimeValue: Int, timeList: List<String>): AnimationDrawable {
         return when (modelType) {
-            ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getAnimation(context, sector, displayData.param[curImg], run, spinnerTimeValue, timeList)
+            ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getAnimation(context, sector, displayData.param[index], run, spinnerTimeValue, timeList)
+            ModelType.ESRL -> UtilityModelESRLInputOutput.getAnimation(context, model, sectorOrig, sectorInt, displayData.param[index], run, spinnerTimeValue, timeList)
             else -> AnimationDrawable()
         }
     }
@@ -96,6 +109,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
     fun getRunTime(): RunTimeData {
         return when (modelType) {
             ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.runTime
+            ModelType.ESRL -> UtilityModelESRLInputOutput.getRunTime(model)
             else -> RunTimeData()
         }
     }
@@ -119,6 +133,60 @@ class ObjectModel(val context: Context, var prefModel: String) {
             }
             ModelType.NSSL -> {
 
+            }
+            ModelType.ESRL -> {
+                when (selectedItemPosition) {
+                    3 -> {
+                        model = "RAP"
+                        params = UtilityModelESRLInterface.paramsRap
+                        labels = UtilityModelESRLInterface.labelsRap
+                        sectors = UtilityModelESRLInterface.sectorsRap
+                        startStep = 0
+                        endStep = 39
+                        stepAmount = 1
+                        format = "%02d"
+                    }
+                    4 -> {
+                        model = "RAP_NCEP"
+                        params = UtilityModelESRLInterface.paramsRap
+                        labels = UtilityModelESRLInterface.labelsRap
+                        sectors = UtilityModelESRLInterface.sectorsRap
+                        startStep = 0
+                        endStep = 39
+                        stepAmount = 1
+                        format = "%02d"
+                    }
+                    0 -> {
+                        model = "HRRR"
+                        params = UtilityModelESRLInterface.paramsHrrr
+                        labels = UtilityModelESRLInterface.labelsHrrr
+                        sectors = UtilityModelESRLInterface.sectorsHrrr
+                        startStep = 0
+                        endStep = 36
+                        stepAmount = 1
+                        format = "%02d"
+                    }
+                    1 -> {
+                        model = "HRRR_AK"
+                        params = UtilityModelESRLInterface.paramsHrrr
+                        labels = UtilityModelESRLInterface.labelsHrrr
+                        sectors = UtilityModelESRLInterface.sectorsHrrrAk
+                        startStep = 0
+                        endStep = 36
+                        stepAmount = 1
+                        format = "%02d"
+                    }
+                    2 -> {
+                        model = "HRRR_NCEP"
+                        params = UtilityModelESRLInterface.paramsHrrr
+                        labels = UtilityModelESRLInterface.labelsHrrr
+                        sectors = UtilityModelESRLInterface.sectorsHrrr
+                        startStep = 0
+                        endStep = 36
+                        stepAmount = 1
+                        format = "%02d"
+                    }
+                }
             }
         }
 

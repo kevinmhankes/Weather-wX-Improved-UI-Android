@@ -24,8 +24,8 @@ package joshuatee.wx.objects
 enum class ModelType {
     WPCGEFS,
     NSSL,
-
-
+    ESRL,
+    NCEP,
 }
 
 
