@@ -21,34 +21,36 @@
 
 package joshuatee.wx.models
 
-import android.view.MenuItem
-import joshuatee.wx.ui.ObjectFab
-import joshuatee.wx.ui.ObjectNavDrawer
-import joshuatee.wx.ui.ObjectSpinner
 import joshuatee.wx.util.Utility
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
+import joshuatee.wx.objects.ModelType
+import joshuatee.wx.util.UtilityImg
 
 class ObjectModel(val context: Context, var prefModel: String) {
 
-    var run = "00Z"
-    var time = "00"
-
-    var sector = ""
-    var numPanes = 1
-    var numPanesStr = "1"
-    var model = "WRF"
-    var sectorInt = 0
-    var sectorOrig = ""
-    var curImg = 0
-
-    var prefSector = "MODEL_" + prefModel + numPanesStr + "_SECTOR_LAST_USED"
-    var prefParam = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED"
-    var prefParamLabel = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED_LABEL"
-    var prefRunPosn = "MODEL_" + prefModel + numPanesStr + "_RUN_POSN"
-    var modelProvider = "MODEL_$prefModel$numPanesStr"
-    var rtd = RunTimeData()
+    var run: String = "00Z"
+    var time: String = "00"
+    var sector: String = ""
+    var numPanes: Int = 1
+    var numPanesStr: String = "1"
+    var model: String = "WRF"
+    var sectorInt: Int = 0
+    var sectorOrig: String = ""
+    var curImg: Int = 0
+    private var modelType: ModelType = ModelType.NSSL
+    var startStep: Int = 0
+    var endStep: Int = 0
+    var stepAmount: Int = 0
+    var numberRuns: Int = 0
+    var format: String = "%03d"
+    var prefSector: String = "MODEL_" + prefModel + numPanesStr + "_SECTOR_LAST_USED"
+    var prefParam: String = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED"
+    var prefParamLabel: String = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED_LABEL"
+    var prefRunPosn: String = "MODEL_" + prefModel + numPanesStr + "_RUN_POSN"
+    var modelProvider: String = "MODEL_$prefModel$numPanesStr"
+    var rtd: RunTimeData = RunTimeData()
     lateinit var displayData: DisplayData
     var sectors: List<String> = listOf()
     var labels: List<String> = listOf()
@@ -57,7 +59,12 @@ class ObjectModel(val context: Context, var prefModel: String) {
 
     init {
 
-        prefModel = prefModel + numPanesStr
+        when (prefModel) {
+            "WPCGEFS" -> modelType = ModelType.WPCGEFS
+            "NSSL" -> modelType = ModelType.NSSL
+        }
+
+        prefModel += numPanesStr
         // FIXME needs to be default model string
         model = Utility.readPref(context, prefModel, "WPCGEFS")
         prefSector = "MODEL_" + prefModel + numPanesStr + "_SECTOR_LAST_USED"
@@ -73,15 +80,48 @@ class ObjectModel(val context: Context, var prefModel: String) {
     }
 
     fun getImage(): Bitmap {
-        return UtilityModelWPCGEFSInputOutput.getImage(sector, displayData.param[curImg], run, time)
+        return when (modelType) {
+            ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getImage(sector, displayData.param[curImg], run, time)
+            else -> UtilityImg.getBlankBitmap()
+        }
     }
 
     fun getAnimate(spinnerTimeValue: Int, timeList: List<String>): AnimationDrawable {
-        return UtilityModelWPCGEFSInputOutput.getAnimation(context, sector, displayData.param[curImg], run, spinnerTimeValue, timeList)
+        return when (modelType) {
+            ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getAnimation(context, sector, displayData.param[curImg], run, spinnerTimeValue, timeList)
+            else -> AnimationDrawable()
+        }
     }
 
     fun getRunTime(): RunTimeData {
-        return UtilityModelWPCGEFSInputOutput.runTime
+        return when (modelType) {
+            ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.runTime
+            else -> RunTimeData()
+        }
+    }
+
+    fun setParams(selectedItemPosition: Int) {
+        when (modelType) {
+            ModelType.WPCGEFS -> {
+                when (selectedItemPosition) {
+                    0 -> {
+                        model = "WPCGEFS"
+                        labels = UtilityModelWPCGEFSInterface.LABELS
+                        params = UtilityModelWPCGEFSInterface.PARAMS
+                        sectors = UtilityModelWPCGEFSInterface.sectors
+                        startStep = 0
+                        endStep = 241
+                        stepAmount = 6
+                        numberRuns = 0
+                        format = "%03d"
+                    }
+                }
+            }
+            ModelType.NSSL -> {
+
+            }
+        }
+
     }
 }
 

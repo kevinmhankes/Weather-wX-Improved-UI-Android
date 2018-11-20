@@ -59,8 +59,8 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var animRan = false
-    var firstRun = false
-    var imageLoaded = false
+    var firstRun: Boolean = false
+    var imageLoaded: Boolean = false
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
     private lateinit var turl: Array<String>
@@ -141,15 +141,8 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         if (parent.id == R.id.spinner_model) {
             firstRunTimeSet = false
-            when (parent.selectedItemPosition) {
-                0 -> {
-                    om.model = "WPCGEFS"
-                    setupModel(om.params,
-                            om.labels,
-                            om.sectors,
-                            0, 241, 6, 0)
-                }
-            }
+            om.setParams(parent.selectedItemPosition)
+            setupModel()
             Utility.writePref(this, om.prefModel, om.model)
             getRunStatus()
         } else if (firstRunTimeSet) {
@@ -281,32 +274,29 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         super.onStop()
     }
 
-    private fun setupModel(params: List<String>, labels: List<String>, sectors: List<String>, startStep: Int, endStep: Int, stepAmount: Int, numberRuns: Int) {
+    private fun setupModel() {
         (0 until om.numPanes).forEach {
-            om.displayData.param[it] = params[0]
+            om.displayData.param[it] = om.params[0]
             om.displayData.param[it] = Utility.readPref(this, om.prefParam + it.toString(), om.displayData.param[0])
-            om.displayData.paramLabel[it] = params[0]
+            om.displayData.paramLabel[it] = om.params[0]
             om.displayData.paramLabel[it] = Utility.readPref(this, om.prefParamLabel + it.toString(), om.displayData.paramLabel[0])
         }
-        if (!UtilityModels.parmInArray(params, om.displayData.param[0])) {
-            om.displayData.param[0] = params[0]
-            om.displayData.paramLabel[0] = labels[0]
+        if (!UtilityModels.parmInArray(om.params, om.displayData.param[0])) {
+            om.displayData.param[0] = om.params[0]
+            om.displayData.paramLabel[0] = om.labels[0]
         }
         if (om.numPanes > 1)
-            if (!UtilityModels.parmInArray(params, om.displayData.param[1])) {
-                om.displayData.param[1] = params[0]
-                om.displayData.paramLabel[1] = labels[0]
+            if (!UtilityModels.parmInArray(om.params, om.displayData.param[1])) {
+                om.displayData.param[1] = om.params[0]
+                om.displayData.paramLabel[1] = om.labels[0]
             }
-        //spSector.refreshData(this, UtilityModelNSSLWRFInterface.sectorsLong)
-        //spSector.setSelection(sectorOrig)
-        spSector.refreshData(this, sectors)
+        spSector.refreshData(this, om.sectors)
         spSector.setSelection(om.sectorOrig)
-        drw.updateLists(this, labels, params)
+        drw.updateLists(this, om.labels, om.params)
         spRun.setSelection(0)
         spTime.setSelection(0)
         spTime.list.clear()
-        // FIXME format list should be paramertized
-        (startStep..endStep step stepAmount).forEach { spTime.list.add(String.format(Locale.US, "%03d", it)) }
+        (om.startStep..om.endStep step om.stepAmount).forEach { spTime.list.add(String.format(Locale.US, om.format, it)) }
     }
 }
 
