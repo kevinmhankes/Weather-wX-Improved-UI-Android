@@ -44,6 +44,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
     var endStep: Int = 0
     var stepAmount: Int = 0
     var numberRuns: Int = 0
+    var timeTruncate: Int = 2
     var format: String = "%03d"
     var prefSector: String = "MODEL_" + prefModel + numPanesStr + "_SECTOR_LAST_USED"
     var prefParam: String = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED"
@@ -70,6 +71,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
             }
             "ESRL" -> {
                 modelType = ModelType.ESRL
+                models = UtilityModelESRLInterface.models
             }
             "NCEP" -> {
                 modelType = ModelType.NCEP
@@ -128,6 +130,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
                         stepAmount = 6
                         numberRuns = 0
                         format = "%03d"
+                        timeTruncate = 3
                     }
                 }
             }
@@ -145,6 +148,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
                         endStep = 39
                         stepAmount = 1
                         format = "%02d"
+                        timeTruncate = 2
                     }
                     4 -> {
                         model = "RAP_NCEP"
@@ -155,6 +159,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
                         endStep = 39
                         stepAmount = 1
                         format = "%02d"
+                        timeTruncate = 2
                     }
                     0 -> {
                         model = "HRRR"
@@ -165,6 +170,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
                         endStep = 36
                         stepAmount = 1
                         format = "%02d"
+                        timeTruncate = 2
                     }
                     1 -> {
                         model = "HRRR_AK"
@@ -175,6 +181,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
                         endStep = 36
                         stepAmount = 1
                         format = "%02d"
+                        timeTruncate = 2
                     }
                     2 -> {
                         model = "HRRR_NCEP"
@@ -185,6 +192,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
                         endStep = 36
                         stepAmount = 1
                         format = "%02d"
+                        timeTruncate = 2
                     }
                 }
             }

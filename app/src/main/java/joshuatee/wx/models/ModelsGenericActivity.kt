@@ -156,7 +156,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         om.time = spTime.selectedItem.toString()
         om.sector = spSector.selectedItem.toString()
         // FIXME store in object model
-        om.time = UtilityStringExternal.truncate(om.time, 3)
+        om.time = UtilityStringExternal.truncate(om.time, om.timeTruncate)
         Utility.writePref(contextg, om.prefSector, om.sector)
 
         withContext(Dispatchers.IO) {
@@ -238,7 +238,8 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
         spRun.clear()
         spRun.addAll(om.rtd.listRun)
-        miStatus.isVisible = false
+        miStatus.isVisible = true
+        miStatus.title = "in through " + om.rtd.imageCompleteStr
         spRun.notifyDataSetChanged()
         // FIXME
         (0 until spTime.size()).forEach { spTime[it] = spTime[it] + " " + UtilityModels.convertTimeRuntoTimeString(om.rtd.timeStrConv.replace("Z", ""), spTime[it], false) }
