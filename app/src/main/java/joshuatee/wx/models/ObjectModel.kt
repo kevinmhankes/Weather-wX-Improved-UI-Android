@@ -39,11 +39,11 @@ class ObjectModel(val context: Context, var prefModel: String) {
     var sectorInt: Int = 0
     var sectorOrig: String = ""
     var curImg: Int = 0
-    private var modelType: ModelType = ModelType.NSSL
+    var modelType: ModelType = ModelType.NSSL
     var startStep: Int = 0
     var endStep: Int = 0
     var stepAmount: Int = 1
-    var numberRuns: Int = 0
+    private var numberRuns: Int = 0
     var timeTruncate: Int = 2
     var format: String = "%03d"
     var truncateTime: Boolean = true
@@ -58,7 +58,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
     var labels: List<String> = listOf("")
     var params: List<String> = listOf("")
     var models: List<String> = listOf("")
-    var defaultModel: String = ""
+    private var defaultModel: String = ""
 
     init {
 
@@ -79,9 +79,14 @@ class ObjectModel(val context: Context, var prefModel: String) {
             "NCEP" -> {
                 modelType = ModelType.NCEP
             }
+            "GLCFS" -> {
+                modelType = ModelType.GLCFS
+                models = UtilityModelGLCFSInterface.models
+                defaultModel = "GLCFS"
+            }
         }
 
-        prefModel += numPanesStr
+        //prefModel += numPanesStr
         model = Utility.readPref(context, prefModel, defaultModel)
         prefSector = "MODEL_" + prefModel + numPanesStr + "_SECTOR_LAST_USED"
         prefParam = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED"
@@ -100,6 +105,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
             ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getImage(sector, displayData.param[index], run, time)
             ModelType.ESRL -> UtilityModelESRLInputOutput.getImage(model, sectorOrig, sectorInt, displayData.param[index], run, time)
             ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.getImage(context, model, sector, displayData.param[index], run, time)
+            ModelType.GLCFS -> UtilityModelGLCFSInputOutput.getImage(sector, displayData.param[index], time)
             else -> UtilityImg.getBlankBitmap()
         }
     }
@@ -109,6 +115,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
             ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getAnimation(context, sector, displayData.param[index], run, spinnerTimeValue, timeList)
             ModelType.ESRL -> UtilityModelESRLInputOutput.getAnimation(context, model, sectorOrig, sectorInt, displayData.param[index], run, spinnerTimeValue, timeList)
             ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.getAnimation(context, model, sector, displayData.param[index], run, spinnerTimeValue, timeList)
+            ModelType.GLCFS -> UtilityModelGLCFSInputOutput.getAnimation(context, sector, displayData.param[index], spinnerTimeValue, timeList)
             else -> AnimationDrawable()
         }
     }
@@ -124,6 +131,21 @@ class ObjectModel(val context: Context, var prefModel: String) {
 
     fun setParams(selectedItemPosition: Int) {
         when (modelType) {
+            ModelType.GLCFS -> {
+                when (selectedItemPosition) {
+                    0 -> {
+                        model = "GLCFS"
+                        labels = UtilityModelGLCFSInterface.labels
+                        params = UtilityModelGLCFSInterface.params
+                        sectors = UtilityModelGLCFSInterface.sectors
+                        startStep = 1
+                        endStep = 48
+                        stepAmount = 1
+                        numberRuns = 0
+                        timeTruncate = 3
+                    }
+                }
+            }
             ModelType.WPCGEFS -> {
                 when (selectedItemPosition) {
                     0 -> {

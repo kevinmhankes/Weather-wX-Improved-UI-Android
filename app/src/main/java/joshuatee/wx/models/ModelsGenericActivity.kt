@@ -38,6 +38,7 @@ import android.widget.AdapterView.OnItemSelectedListener
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.external.UtilityStringExternal
+import joshuatee.wx.objects.ModelType
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.*
@@ -155,6 +156,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         om.run = spRun.selectedItem.toString()
         om.time = spTime.selectedItem.toString()
         om.sector = spSector.selectedItem.toString()
+        om.sectorInt = spSector.selectedItemPosition
         if (om.truncateTime) {
             om.time = UtilityStringExternal.truncate(om.time, om.timeTruncate)
         }
@@ -298,6 +300,13 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         spTime.setSelection(0)
         spTime.list.clear()
         (om.startStep..om.endStep step om.stepAmount).forEach { spTime.list.add(String.format(Locale.US, om.format, it)) }
+
+        when (om.modelType){
+            ModelType.GLCFS -> {
+                (51..121 step 3).forEach { spTime.list.add(String.format(Locale.US, om.format, it)) }
+            }
+            else -> {}
+        }
     }
 }
 
