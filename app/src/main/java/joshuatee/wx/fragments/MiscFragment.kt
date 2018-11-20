@@ -74,7 +74,7 @@ class MiscFragment : Fragment() {
 
     private val allItemList: MutableList<TileObject>
         get() {
-            hm["model_ncep"] = TileObject(R.drawable.ncep, ModelsNCEPActivity::class.java, ModelsNCEPActivity.INFO, arrayOf("1", "NCEP"), resources.getString(R.string.help_ncep_models), "model_ncep")
+            hm["model_ncep"] = TileObject(R.drawable.ncep, ModelsGenericActivity::class.java, ModelsGenericActivity.INFO, arrayOf("1", "NCEP", "NCEP"), resources.getString(R.string.help_ncep_models), "model_ncep")
             //hm["model_hrrr"] = TileObject(R.drawable.hrrrviewer, ModelsESRLActivity::class.java, ModelsESRLActivity.INFO, arrayOf("1", "ESRL"), resources.getString(R.string.help_hrrr_viewer), "model_hrrr")
             hm["model_hrrr"] = TileObject(R.drawable.hrrrviewer, ModelsGenericActivity::class.java, ModelsGenericActivity.INFO, arrayOf("1", "ESRL", "ESRL"), resources.getString(R.string.help_hrrr_viewer), "model_hrrr")
 
