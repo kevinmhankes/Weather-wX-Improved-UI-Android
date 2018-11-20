@@ -69,6 +69,8 @@ class ObjectModel(val context: Context, var prefModel: String) {
             }
             "NSSL" -> {
                 modelType = ModelType.NSSL
+                models = UtilityModelNSSLWRFInterface.models
+                defaultModel = "WRF"
             }
             "ESRL" -> {
                 modelType = ModelType.ESRL
