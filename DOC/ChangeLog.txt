@@ -4,7 +4,10 @@
 // TODO base velocity legend
 // TODO SPC MESO rescan for _sf, convert to list
 // TODO make model activities more consistent, ex SPC SREF does not have setupModel()
+// TODO in initializer for ObjectModel bring in turl[0] (panesStr) and convert to Int in init{}
 
+55056 2018_11_21 continue to migrate SPCSREF
+                 cleanup manifest after recent changes
 55055 2018_11_21 migrate SPCSREF to ObjectModel (partially)
 55054 2018_11_20 bugfix for NSSL - models not showing
                  bugfix for ESRL - sectors not working

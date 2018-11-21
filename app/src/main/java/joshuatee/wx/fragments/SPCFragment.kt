@@ -68,7 +68,7 @@ class SPCFragment : Fragment() {
     private val allItemList: MutableList<TileObject>
         get() {
             hm["spcsref"] = TileObject(R.drawable.spcsref, ModelsSPCSREFActivity::class.java, ModelsSPCSREFActivity.INFO,
-                    arrayOf("1", "SPCSREF"), resources.getString(R.string.help_spc_sref), "spcsref")
+                    arrayOf("1", "SPCSREF", "SPCSREF"), resources.getString(R.string.help_spc_sref), "spcsref")
             hm["spcsummary"] = TileObject(R.drawable.spc_sum, SPCSWOSummaryActivity::class.java, "",
                     arrayOf(), resources.getString(R.string.help_spc_swo_summary), "spcsummary")
             hm["spcswod1"] = TileObject(R.drawable.day1, SPCSWOActivity::class.java, SPCSWOActivity.NO,

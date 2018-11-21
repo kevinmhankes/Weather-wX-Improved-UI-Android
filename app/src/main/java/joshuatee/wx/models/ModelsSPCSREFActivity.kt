@@ -103,9 +103,8 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         turl = intent.getStringArrayExtra(INFO)
         contextg = this
         om = ObjectModel(this, turl[1])
-        //val numPanesStr = turl[0]
         om.numPanesStr = turl[0]
-        //numPanes = numPanesStr.toIntOrNull() ?: 0
+        om.numPanes = om.numPanesStr.toIntOrNull() ?: 0
         if (om.numPanes == 1) {
             super.onCreate(savedInstanceState, R.layout.activity_models_spcsref, R.menu.models_spcsref, false, true)
         } else {
@@ -115,7 +114,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         val menu = toolbarBottom.menu
         star = menu.findItem(R.id.action_fav)
         star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        val prefModel = turl[1]
+        //om.prefModel = turl[1]
         //prefParam = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED"
         //prefParamLabel = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED_LABEL"
         //prefRunPosn = "MODEL_" + prefModel + numPanesStr + "_RUN_POSN"
@@ -146,13 +145,6 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         spTime.setOnItemSelectedListener(this)
         om.displayData = DisplayData(this, this, this, om.numPanes, spTime)
         setupModel()
-        /* (0..88 step 3).forEach { spTime.add("f" + String.format(Locale.US, "%03d", it)) }
-         spTime.notifyDataSetChanged()
-         displayData = DisplayData(this, this, this, numPanes, spTime)
-         (0 until numPanes).forEach {
-             displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), "SREF_H5__")
-             displayData.paramLabel[it] = Utility.readPref(this, prefParamLabel + it.toString(), "[MN]:500MB Height~Wind~Temp~Isotach")
-         }*/
         spRun = ObjectSpinner(this, this, R.id.spinner_run)
         spRun.setOnItemSelectedListener(this)
         favList = UtilityFavorites.setupFavMenuSREF(MyApplication.srefFav, om.displayData.param[curImg])
@@ -191,12 +183,11 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         if (om.truncateTime) {
             om.time = UtilityStringExternal.truncate(om.time, om.timeTruncate)
         }
-        //om.sector = spSector.selectedItem.toString()
-        //om.sectorInt = spSector.selectedItemPosition
 
         withContext(Dispatchers.IO) {
-            //(0 until om.numPanes).forEach { om.displayData.bitmap[it] = UtilityModelsSPCSREFInputOutput.getImage(contextg, om.displayData.param[it], runModelStr, runStr) }
-            (0 until om.numPanes).forEach { om.displayData.bitmap[it] = om.getImage(it) }
+            (0 until om.numPanes).forEach {
+                om.displayData.bitmap[it] = om.getImage(it)
+            }
         }
         (0 until om.numPanes).forEach {
             if (om.numPanes > 1)
@@ -272,7 +263,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                 curImg = 1
                 UtilityModels.setSubtitleRestoreIMGXYZOOM(om.displayData.img, toolbar, "(" + (curImg + 1).toString() + ")" + om.displayData.param[0] + "/" + om.displayData.param[1])
             }
-            R.id.action_multipane -> ObjectIntent(this, ModelsSPCSREFActivity::class.java, ModelsSPCSREFActivity.INFO, arrayOf("2", turl[1]))
+            R.id.action_multipane -> ObjectIntent(this, ModelsSPCSREFActivity::class.java, ModelsSPCSREFActivity.INFO, arrayOf("2", turl[1], turl[2]))
             R.id.action_fav -> toggleFavorite()
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {

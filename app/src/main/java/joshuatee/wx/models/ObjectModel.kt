@@ -61,7 +61,6 @@ class ObjectModel(val context: Context, var prefModel: String) {
     private var defaultModel: String = ""
 
     init {
-
         when (prefModel) {
             "WPCGEFS" -> {
                 modelType = ModelType.WPCGEFS
