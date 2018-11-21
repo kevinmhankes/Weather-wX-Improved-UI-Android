@@ -81,14 +81,13 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         contextg = this
         turl = intent.getStringArrayExtra(INFO)
         om = ObjectModel(this, turl[1], turl[0])
-        //om.numPanesStr = turl[0]
-        //om.numPanes = om.numPanesStr.toIntOrNull() ?: 0
         if (om.numPanes == 1) {
             super.onCreate(savedInstanceState, R.layout.activity_models_generic, R.menu.models_spchrrr, false, true)
         } else {
             super.onCreate(savedInstanceState, R.layout.activity_models_generic_multipane, R.menu.models_spchrrr, false, true)
         }
         toolbarBottom.setOnMenuItemClickListener(this)
+        title = turl[2]
         overlayImg.addAll(Arrays.asList(*TextUtils.split(Utility.readPref(this, "SPCHRRR_OVERLAY", ""), ":")))
         val m = toolbarBottom.menu
         if (om.numPanes < 2) {
@@ -170,6 +169,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         Utility.writePref(contextg, om.prefSector, om.sector)
 
         withContext(Dispatchers.IO) {
+            // fixme
             (0 until om.numPanes).forEach { om.displayData.bitmap[it] = UtilityModelSPCHRRRInputOutput.getImage(contextg, om.sector, om.run, om.time, om.rtd.validTime, overlayImg, om.displayData.param[it]) }
         }
 
@@ -263,6 +263,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         (spinnerTimeValue until spTime.size()).mapTo(timeAl) { spTime.getItemAtPosition(it).toString() }
         withContext(Dispatchers.IO) {
             (0 until om.numPanes).forEach {
+                // fixme
                 om.displayData.animDrawable[it] = UtilityModelSPCHRRRInputOutput.getAnimation(contextg, om.sector, om.run,
                         om.rtd.validTime, spinnerTimeValue, spTime.list, overlayImg, om.displayData.param[it])
             }
@@ -276,8 +277,8 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         spRun.clear()
         spRun.addAll(om.rtd.listRun)
         spRun.notifyDataSetChanged()
-        miStatus.title = "in through " + om.rtd.imageCompleteStr
-        toolbar.title = om.rtd.imageCompleteStr
+        miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
+        //toolbar.title = om.rtd.imageCompleteStr
         spRun.setSelection(0)
         spTime.setSelection(0)
         if (!firstRunTimeSet) {

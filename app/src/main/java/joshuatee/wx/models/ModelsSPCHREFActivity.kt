@@ -74,8 +74,6 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         contextg = this
         turl = intent.getStringArrayExtra(INFO)
         om = ObjectModel(this, turl[1], turl[0])
-        //om.numPanesStr = turl[0]
-        //om.numPanes = om.numPanesStr.toIntOrNull() ?: 0
         if (om.numPanes == 1) {
             super.onCreate(savedInstanceState, R.layout.activity_modelsspchref, R.menu.models_spchref, false, true)
         } else {

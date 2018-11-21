@@ -75,25 +75,18 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     private lateinit var star: MenuItem
     private var firstRun = false
     private var imageLoaded = false
-    //private var numPanes = 0
     private var curImg = 0
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
     private lateinit var turl: Array<String>
     private lateinit var miStatus: MenuItem
-    //private var prefParam = ""
-    //private var prefParamLabel = ""
-    //private var prefRunPosn = ""
-    //private var modelProvider = ""
     private lateinit var spRun: ObjectSpinner
     private lateinit var spTime: ObjectSpinner
     private lateinit var spFav: ObjectSpinner
-    //private var rtd = RunTimeData()
     private lateinit var drw: ObjectNavDrawerCombo
     private var spinnerRunRan = false
     private var spinnerTimeRan = false
     private var firstRunTimeSet = false
-    //private lateinit var displayData: DisplayData
     private lateinit var contextg: Context
     private lateinit var om: ObjectModel
 
@@ -102,8 +95,6 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         turl = intent.getStringArrayExtra(INFO)
         contextg = this
         om = ObjectModel(this, turl[1], turl[0])
-        //om.numPanesStr = turl[0]
-        //om.numPanes = om.numPanesStr.toIntOrNull() ?: 0
         if (om.numPanes == 1) {
             super.onCreate(savedInstanceState, R.layout.activity_models_spcsref, R.menu.models_spcsref, false, true)
         } else {
@@ -113,11 +104,6 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         val menu = toolbarBottom.menu
         star = menu.findItem(R.id.action_fav)
         star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        //om.prefModel = turl[1]
-        //prefParam = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED"
-        //prefParamLabel = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED_LABEL"
-        //prefRunPosn = "MODEL_" + prefModel + numPanesStr + "_RUN_POSN"
-        //modelProvider = "MODEL_$prefModel$numPanesStr"
         title = "SPC SREF"
         val m = toolbarBottom.menu
         if (om.numPanes < 2) {
