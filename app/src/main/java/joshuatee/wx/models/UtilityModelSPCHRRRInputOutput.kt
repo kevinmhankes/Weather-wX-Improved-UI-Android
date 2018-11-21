@@ -63,14 +63,12 @@ internal object UtilityModelSPCHRRRInputOutput {
             imgUrl = layerUrl + getSectorCode(sector).toLowerCase(Locale.US) + "/" + it + "/" + it + ".gif"
             bitmapAl.add(UtilityImg.eraseBG(imgUrl.getImage(), -1))
         }
-        //modelparmsImg.forEach {
         imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/hrrr/data/hrrr3/" +
                 getSectorCode(sector).toLowerCase(Locale.US) + "/R" +
                 run.replace("Z", "") + "_F" +
                 formatTime(time) + "_V" + getValidTime(run, time, validTime) +
                 "_" + getSectorCode(sector) + "_" + param + ".gif"
         bitmapAl.add(UtilityImg.eraseBG(imgUrl.getImage(), -1))
-        //}
         layersAl.add(ColorDrawable(Color.WHITE))
         bitmapAl.mapTo(layersAl) { BitmapDrawable(context.resources, it) }
         return UtilityImg.layerDrawableToBitmap(layersAl)
