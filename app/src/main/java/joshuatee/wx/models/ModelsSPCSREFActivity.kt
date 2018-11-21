@@ -101,9 +101,9 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     override fun onCreate(savedInstanceState: Bundle?) {
         turl = intent.getStringArrayExtra(INFO)
         contextg = this
-        om = ObjectModel(this, turl[1])
-        om.numPanesStr = turl[0]
-        om.numPanes = om.numPanesStr.toIntOrNull() ?: 0
+        om = ObjectModel(this, turl[1], turl[0])
+        //om.numPanesStr = turl[0]
+        //om.numPanes = om.numPanesStr.toIntOrNull() ?: 0
         if (om.numPanes == 1) {
             super.onCreate(savedInstanceState, R.layout.activity_models_spcsref, R.menu.models_spcsref, false, true)
         } else {

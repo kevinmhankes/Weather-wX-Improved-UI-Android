@@ -55,7 +55,6 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     private lateinit var spTime: ObjectSpinner
     private lateinit var spSector: ObjectSpinner
     private var animRan = false
-    //private var paramLabel = ""
     private var spinnerRunRan = false
     private var spinnerTimeRan = false
     private var spinnerSectorRan = false
@@ -65,46 +64,26 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
     private lateinit var miStatus: MenuItem
-    //private val curImg = 0
     private lateinit var drw: ObjectNavDrawerCombo
-    //private val numPanes = 1
     private lateinit var contextg: Context
     private lateinit var om: ObjectModel
     private lateinit var turl: Array<String>
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        //super.onCreate(savedInstanceState, R.layout.activity_modelsspchref, R.menu.models_spchref, false, true)
         contextg = this
         turl = intent.getStringArrayExtra(INFO)
-        om = ObjectModel(this, turl[1])
-        om.numPanesStr = turl[0]
-        om.numPanes = om.numPanesStr.toIntOrNull() ?: 0
+        om = ObjectModel(this, turl[1], turl[0])
+        //om.numPanesStr = turl[0]
+        //om.numPanes = om.numPanesStr.toIntOrNull() ?: 0
         if (om.numPanes == 1) {
             super.onCreate(savedInstanceState, R.layout.activity_modelsspchref, R.menu.models_spchref, false, true)
         } else {
             super.onCreate(savedInstanceState, R.layout.activity_models_spchrefmultipane, R.menu.models_spchref, false, true)
         }
-
         toolbarBottom.setOnMenuItemClickListener(this)
         title = turl[2]
-
-
         val m = toolbarBottom.menu
-        /*fab1 = ObjectFab(this, this, R.id.fab1)
-        fab2 = ObjectFab(this, this, R.id.fab2)
-        val m = toolbarBottom.menu
-        if (UIPreferences.fabInModels) {
-            fab1.setOnClickListener(View.OnClickListener { UtilityModels.moveBack(spTime) })
-            fab2.setOnClickListener(View.OnClickListener { UtilityModels.moveForward(spTime) })
-            val leftArrow = m.findItem(R.id.action_back)
-            val rightArrow = m.findItem(R.id.action_forward)
-            leftArrow.isVisible = false
-            rightArrow.isVisible = false
-        }
-        fab1.setVisibility(View.GONE)
-        fab2.setVisibility(View.GONE)*/
-
         if (om.numPanes < 2) {
             fab1 = ObjectFab(this, this, R.id.fab1)
             fab2 = ObjectFab(this, this, R.id.fab2)
@@ -123,7 +102,6 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         } else {
             m.findItem(R.id.action_multipane).isVisible = false
         }
-
         miStatus = m.findItem(R.id.action_status)
         miStatus.title = "in through"
         spTime = ObjectSpinner(this, this, R.id.spinner_time)
@@ -310,11 +288,6 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     }
 
     override fun onStop() {
-        /* if (imageLoaded) {
-             UtilityImg.imgSavePosnZoom(this, om.displayData.img[om.curImg], om.prefModel)
-             Utility.writePref(this, om.prefRunPosn, spTime.selectedItemPosition)
-         }*/
-
         if (imageLoaded) {
             (0 until om.numPanes).forEach { UtilityImg.imgSavePosnZoom(this, om.displayData.img[it], om.modelProvider + om.numPanes.toString() + it.toString()) }
             Utility.writePref(this, om.prefRunPosn, spTime.selectedItemPosition)

@@ -80,9 +80,9 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     override fun onCreate(savedInstanceState: Bundle?) {
         contextg = this
         turl = intent.getStringArrayExtra(INFO)
-        om = ObjectModel(this, turl[1])
-        om.numPanesStr = turl[0]
-        om.numPanes = om.numPanesStr.toIntOrNull() ?: 0
+        om = ObjectModel(this, turl[1], turl[0])
+        //om.numPanesStr = turl[0]
+        //om.numPanes = om.numPanesStr.toIntOrNull() ?: 0
         if (om.numPanes == 1) {
             super.onCreate(savedInstanceState, R.layout.activity_models_generic, R.menu.models_spchrrr, false, true)
         } else {
@@ -109,17 +109,13 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         } else {
             m.findItem(R.id.action_multipane).isVisible = false
         }
-
-
         miStatus = m.findItem(R.id.action_status)
         miStatus.title = "in through"
-        //model = Utility.readPref(this, prefModel, "HRRR")
         spTime = ObjectSpinner(this, this, R.id.spinner_time)
         om.displayData = DisplayData(this, this, this, om.numPanes, spTime)
         displayData = DisplayData(this, this, this, om.numPanes, spTime)
         spRun = ObjectSpinner(this, this, R.id.spinner_run)
         spSector = ObjectSpinner(this, this, R.id.spinner_sector, UtilityModelSPCHRRRInterface.SECTORS)
-        //sector = Utility.readPref(this, prefSector, "S19")
         spSector.setSelection(om.sector)
         spTime.setOnItemSelectedListener(this)
         spRun.setOnItemSelectedListener(this)

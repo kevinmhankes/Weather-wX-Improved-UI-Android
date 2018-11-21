@@ -28,13 +28,13 @@ import android.graphics.drawable.AnimationDrawable
 import joshuatee.wx.objects.ModelType
 import joshuatee.wx.util.UtilityImg
 
-class ObjectModel(val context: Context, var prefModel: String) {
+class ObjectModel(val context: Context, var prefModel: String, var numPanesStr: String) {
 
     var run: String = "00Z"
     var time: String = "00"
     var sector: String = ""
     var numPanes: Int = 1
-    var numPanesStr: String = "1"
+    //var numPanesStr: String = "1"
     var model: String = "WRF"
     var sectorInt: Int = 0
     var sectorOrig: String = ""
@@ -61,6 +61,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
     private var defaultModel: String = ""
 
     init {
+        numPanes = numPanesStr.toIntOrNull() ?: 0
         when (prefModel) {
             "WPCGEFS" -> {
                 modelType = ModelType.WPCGEFS
