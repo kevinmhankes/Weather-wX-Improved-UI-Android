@@ -86,6 +86,11 @@ class ObjectModel(val context: Context, var prefModel: String) {
                 models = UtilityModelGLCFSInterface.models
                 defaultModel = "GLCFS"
             }
+            "SPCSREF" -> {
+                modelType = ModelType.SPCSREF
+                models = UtilityModelsSPCSREFInterface.models
+                defaultModel = "SREF"
+            }
         }
 
         //prefModel += numPanesStr
@@ -130,6 +135,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
             ModelType.ESRL -> UtilityModelESRLInputOutput.getRunTime(model)
             ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.runTime
             ModelType.NCEP -> UtilityModelNCEPInputOutput.getRunTime(model, displayData.param[0], sector)
+            ModelType.SPCSREF -> UtilityModelsSPCSREFInputOutput.runTime
             else -> RunTimeData()
         }
     }
