@@ -328,10 +328,11 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         }
         spTime.setSelection(0)
         spTime.list.clear()
-        (om.startStep..om.endStep step om.stepAmount).forEach { spTime.list.add(String.format(Locale.US, om.format, it)) }
+
 
         when (om.modelType) {
             ModelType.GLCFS -> {
+                (om.startStep..om.endStep step om.stepAmount).forEach { spTime.list.add(String.format(Locale.US, om.format, it)) }
                 (51..121 step 3).forEach { spTime.list.add(String.format(Locale.US, om.format, it)) }
             }
             ModelType.NCEP -> {
@@ -348,10 +349,12 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                         (252..385 step 12).forEach { spTime.add(String.format(Locale.US, "%03d", it)) }
                     }
                     else -> {
+                        (om.startStep..om.endStep step om.stepAmount).forEach { spTime.list.add(String.format(Locale.US, om.format, it)) }
                     }
                 }
             }
             else -> {
+                (om.startStep..om.endStep step om.stepAmount).forEach { spTime.list.add(String.format(Locale.US, om.format, it)) }
             }
         }
     }
