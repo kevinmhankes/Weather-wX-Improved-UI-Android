@@ -195,7 +195,8 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         //om.sectorInt = spSector.selectedItemPosition
 
         withContext(Dispatchers.IO) {
-            (0 until om.numPanes).forEach { om.displayData.bitmap[it] = UtilityModelsSPCSREFInputOutput.getImage(contextg, om.displayData.param[it], runModelStr, runStr) }
+            //(0 until om.numPanes).forEach { om.displayData.bitmap[it] = UtilityModelsSPCSREFInputOutput.getImage(contextg, om.displayData.param[it], runModelStr, runStr) }
+            (0 until om.numPanes).forEach { om.displayData.bitmap[it] = om.getImage(it) }
         }
         (0 until om.numPanes).forEach {
             if (om.numPanes > 1)
@@ -250,7 +251,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     private fun getAnimate() = GlobalScope.launch(uiDispatcher) {
         val spinnerTimeValue = spTime.selectedItemPosition
         withContext(Dispatchers.IO) {
-            (0 until om.numPanes).forEach { om.displayData.animDrawable[it] = UtilityModelsSPCSREFInputOutput.getAnimation(contextg, om.displayData.param[it], runModelStr, spinnerTimeValue, spTime.list) }
+            (0 until om.numPanes).forEach { om.displayData.animDrawable[it] = om.getAnimate(it, spinnerTimeValue, spTime.list) }
         }
         (0 until om.numPanes).forEach { UtilityImgAnim.startAnimation(om.displayData.animDrawable[it], om.displayData.img[it]) }
         animRan = true

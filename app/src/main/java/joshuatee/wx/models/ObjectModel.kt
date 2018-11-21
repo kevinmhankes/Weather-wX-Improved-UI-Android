@@ -116,6 +116,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
             ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.getImage(context, model, sector, displayData.param[index], run, time)
             ModelType.GLCFS -> UtilityModelGLCFSInputOutput.getImage(sector, displayData.param[index], time)
             ModelType.NCEP -> UtilityModelNCEPInputOutput.getImage(model, sector, displayData.param[index], run, time)
+            ModelType.SPCSREF -> UtilityModelsSPCSREFInputOutput.getImage(context, displayData.param[index], run, time)
             else -> UtilityImg.getBlankBitmap()
         }
     }
@@ -127,6 +128,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
             ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.getAnimation(context, model, sector, displayData.param[index], run, spinnerTimeValue, timeList)
             ModelType.GLCFS -> UtilityModelGLCFSInputOutput.getAnimation(context, sector, displayData.param[index], spinnerTimeValue, timeList)
             ModelType.NCEP -> UtilityModelNCEPInputOutput.getAnimation(context, model, sector, displayData.param[index], run, spinnerTimeValue, timeList)
+            ModelType.SPCSREF -> UtilityModelsSPCSREFInputOutput.getAnimation(context, displayData.param[index], run, spinnerTimeValue, timeList)
             else -> AnimationDrawable()
         }
     }
