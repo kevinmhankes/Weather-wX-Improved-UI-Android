@@ -185,6 +185,15 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         if (spRun.list.size > 0) {
             runModelStr = MyApplication.space.split(spRun.selectedItem.toString().replace("z", ""))[0]
         }
+
+        om.run = spRun.selectedItem.toString()
+        om.time = spTime.selectedItem.toString()
+        if (om.truncateTime) {
+            om.time = UtilityStringExternal.truncate(om.time, om.timeTruncate)
+        }
+        //om.sector = spSector.selectedItem.toString()
+        //om.sectorInt = spSector.selectedItemPosition
+
         withContext(Dispatchers.IO) {
             (0 until om.numPanes).forEach { om.displayData.bitmap[it] = UtilityModelsSPCSREFInputOutput.getImage(contextg, om.displayData.param[it], runModelStr, runStr) }
         }

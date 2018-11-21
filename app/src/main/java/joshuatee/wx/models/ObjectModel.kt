@@ -90,6 +90,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
                 modelType = ModelType.SPCSREF
                 models = UtilityModelsSPCSREFInterface.models
                 defaultModel = "SREF"
+                timeTruncate = 4
             }
         }
 
@@ -109,6 +110,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
 
     fun getImage(index: Int): Bitmap {
         return when (modelType) {
+            // FIXME remove params already part of ObjectModel and update aux methods to use object
             ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getImage(sector, displayData.param[index], run, time)
             ModelType.ESRL -> UtilityModelESRLInputOutput.getImage(model, sectorOrig, sectorInt, displayData.param[index], run, time)
             ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.getImage(context, model, sector, displayData.param[index], run, time)
