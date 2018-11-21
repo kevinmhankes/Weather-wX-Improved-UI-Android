@@ -76,9 +76,9 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
+        contextg = this
         turl = intent.getStringArrayExtra(INFO)
         om = ObjectModel(this, turl[1])
-        contextg = this
         om.numPanesStr = turl[0]
         om.numPanes = om.numPanesStr.toIntOrNull() ?: 0
         if (om.numPanes == 1) {
@@ -87,7 +87,6 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             super.onCreate(savedInstanceState, R.layout.activity_models_generic_multipane, R.menu.models_generic, false, true)
         }
         toolbarBottom.setOnMenuItemClickListener(this)
-
         title = turl[2]
         val m = toolbarBottom.menu
         if (om.numPanes < 2) {
