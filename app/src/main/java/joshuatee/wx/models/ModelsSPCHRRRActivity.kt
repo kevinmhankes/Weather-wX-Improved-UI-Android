@@ -104,9 +104,9 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         if (om.numPanes == 1) {
             super.onCreate(savedInstanceState, R.layout.activity_modelsspchrrr, R.menu.models_spchrrr, false, true)
         } else {
-            super.onCreate(savedInstanceState, R.layout.activity_models_spchrefmultipane, R.menu.models_spchrrr, false, true)
+            super.onCreate(savedInstanceState, R.layout.activity_models_generic_multipane, R.menu.models_spchrrr, false, true)
         }
-        
+
         toolbarBottom.setOnMenuItemClickListener(this)
         title = "HRRR"
         //prefModel = "SPCHRRR"
@@ -187,7 +187,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         }
         //model = "HRRR"
         //Utility.writePref(this, prefModel, model)
-        setupHRRR()
+        setupModel()
         getRunStatus()
     }
 
@@ -371,7 +371,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         getContent()
     }
 
-    private fun setupHRRR() {
+    private fun setupModel() {
         /*param = "refc"
         param = Utility.readPref(this, prefParam, param)
         paramLabel = "Composite Reflectivity"
