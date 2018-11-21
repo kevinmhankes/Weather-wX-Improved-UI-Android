@@ -55,7 +55,7 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     private lateinit var spTime: ObjectSpinner
     private lateinit var spSector: ObjectSpinner
     private var animRan = false
-    private var paramLabel = ""
+    //private var paramLabel = ""
     private var spinnerRunRan = false
     private var spinnerTimeRan = false
     private var spinnerSectorRan = false
@@ -193,12 +193,6 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                 om.displayData.img[it].setImageBitmap(om.displayData.bitmap[it])
         }
 
-        /* (0 until om.numPanes).forEach {
-             om.displayData.img[it].visibility = View.VISIBLE
-             om.displayData.img[it].setImageDrawable(UtilityImg.bitmapToLayerDrawable(contextg, om.displayData.bitmap[curImg]))
-             om.displayData.img[it].setMaxZoom(4f)
-         }*/
-
         animRan = false
         if (!firstRun) {
             (0 until om.numPanes).forEach { UtilityImg.imgRestorePosnZoom(contextg, om.displayData.img[it], om.modelProvider + om.numPanes.toString() + it.toString())  }
@@ -214,7 +208,6 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             toolbar.subtitle = om.displayData.paramLabel[0]
         }
         imageLoaded = true
-        //UtilityModels.setSubtitleRestoreIMGXYZOOM(om.displayData.img, toolbar, "(" + (curImg + 1).toString() + ")" + om.displayData.param[0])
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
@@ -245,9 +238,9 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                     }
                 } else {
                     if (animRan)
-                        UtilityShare.shareAnimGif(this, om.model + " " + paramLabel + " " + spTime.selectedItem.toString(), om.displayData.animDrawable[om.curImg])
+                        UtilityShare.shareAnimGif(this, om.model + " " + om.displayData.paramLabel[om.curImg] + " " + spTime.selectedItem.toString(), om.displayData.animDrawable[om.curImg])
                     else
-                        UtilityShare.shareBitmap(this, om.model + " " + paramLabel + " " + spTime.selectedItem.toString(), om.displayData.bitmap[om.curImg])
+                        UtilityShare.shareBitmap(this, om.model + " " + om.displayData.paramLabel[om.curImg] + " " + spTime.selectedItem.toString(), om.displayData.bitmap[om.curImg])
                 }
             }
             else -> return super.onOptionsItemSelected(item)

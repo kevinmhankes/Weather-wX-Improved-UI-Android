@@ -97,6 +97,12 @@ class ObjectModel(val context: Context, var prefModel: String) {
                 defaultModel = "HREF"
                 timeTruncate = 4
             }
+            "SPCHRRR" -> {
+                modelType = ModelType.SPCHRRR
+                models = UtilityModelSPCHRRRInterface.models
+                defaultModel = "HRRR"
+                timeTruncate = 2
+            }
         }
 
         //prefModel += numPanesStr
