@@ -91,6 +91,12 @@ class ObjectModel(val context: Context, var prefModel: String) {
                 defaultModel = "SREF"
                 timeTruncate = 4
             }
+            "SPCHREF" -> {
+                modelType = ModelType.SPCHREF
+                models = UtilityModelSPCHREFInterface.models
+                defaultModel = "HREF"
+                timeTruncate = 4
+            }
         }
 
         //prefModel += numPanesStr
@@ -116,6 +122,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
             ModelType.GLCFS -> UtilityModelGLCFSInputOutput.getImage(sector, displayData.param[index], time)
             ModelType.NCEP -> UtilityModelNCEPInputOutput.getImage(model, sector, displayData.param[index], run, time)
             ModelType.SPCSREF -> UtilityModelsSPCSREFInputOutput.getImage(context, displayData.param[index], run, time)
+            ModelType.SPCHREF -> UtilityModelSPCHREFInputOutput.getImage(context, sector, run, time, displayData.param[0])
             else -> UtilityImg.getBlankBitmap()
         }
     }
@@ -128,6 +135,7 @@ class ObjectModel(val context: Context, var prefModel: String) {
             ModelType.GLCFS -> UtilityModelGLCFSInputOutput.getAnimation(context, sector, displayData.param[index], spinnerTimeValue, timeList)
             ModelType.NCEP -> UtilityModelNCEPInputOutput.getAnimation(context, model, sector, displayData.param[index], run, spinnerTimeValue, timeList)
             ModelType.SPCSREF -> UtilityModelsSPCSREFInputOutput.getAnimation(context, displayData.param[index], run, spinnerTimeValue, timeList)
+            ModelType.SPCHREF -> UtilityModelSPCHREFInputOutput.getAnimation(context, sector, run, spinnerTimeValue, timeList, displayData.param[0])
             else -> AnimationDrawable()
         }
     }

@@ -5,6 +5,8 @@
 // TODO SPC MESO rescan for _sf, convert to list
 // TODO make model activities more consistent, ex SPC SREF does not have setupModel()
 // TODO in initializer for ObjectModel bring in turl[0] (panesStr) and convert to Int in init{}
+// TODO camelCase all vars in model's interfaces
+// TODO use ObjectModel as arg in ObjectModel's getImg/Anim
 
 55056 2018_11_21 continue to migrate SPCSREF
                  cleanup manifest after recent changes

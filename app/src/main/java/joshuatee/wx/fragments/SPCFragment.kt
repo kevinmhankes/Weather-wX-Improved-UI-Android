@@ -98,7 +98,7 @@ class SPCFragment : Fragment() {
             hm["spchrrr"] = TileObject(R.drawable.spchrrr, ModelsSPCHRRRActivity::class.java, "",
                     arrayOf(""), resources.getString(R.string.help_spchrrr_models), "spchrrr")
             hm["spchref"] = TileObject(R.drawable.spchref, ModelsSPCHREFActivity::class.java, "",
-                    arrayOf(""), resources.getString(R.string.help_spchref_models), "spchref")
+                    arrayOf("1", "SPCHREF", "SPC HREF"), resources.getString(R.string.help_spchref_models), "spchref")
             val tileOrder = "spcsref:spcsummary:spcswod1:spcswod2:spcswod3:spcswod48:spcstormrpt1:spcstormrpt2:spcmcd:spcwat:spcmeso:spcfire:spctstorm:spccompmap:"
             var spcPref: String = Utility.readPref("FRAGMENT_SPC_ORDER", tileOrder)
             if (!spcPref.contains("spchrrr")) {
