@@ -225,7 +225,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             }
             R.id.action_multipane -> ObjectIntent(this, ModelsSPCHRRRActivity::class.java, ModelsSPCHRRRActivity.INFO, arrayOf("2", turl[1], turl[2]))
             R.id.action_back -> UtilityModels.moveBack(spTime)
-            R.id.action_forward -> UtilityModels.moveBack(spTime)
+            R.id.action_forward -> UtilityModels.moveForward(spTime)
             R.id.action_animate -> getAnimate()
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {

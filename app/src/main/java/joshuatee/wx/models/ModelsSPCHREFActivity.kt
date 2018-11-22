@@ -193,7 +193,7 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             return true
         when (item.itemId) {
             R.id.action_back -> UtilityModels.moveBack(spTime)
-            R.id.action_forward -> UtilityModels.moveBack(spTime)
+            R.id.action_forward -> UtilityModels.moveForward(spTime)
             R.id.action_img1 -> {
                 om.curImg = 0
                 UtilityModels.setSubtitleRestoreIMGXYZOOM(om.displayData.img, toolbar, "(" + (om.curImg + 1).toString() + ")" + om.displayData.param[0] + "/" + om.displayData.param[1])
