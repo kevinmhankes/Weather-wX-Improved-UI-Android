@@ -70,11 +70,9 @@ internal object UtilityModelNCEPInputOutput {
 
     fun getAnimation(context: Context, om: ObjectModel, spinnerTimeValue: Int, listTime: List<String>): AnimationDrawable {
         if (spinnerTimeValue == -1) return AnimationDrawable()
-        val bmAl = (spinnerTimeValue until listTime.size)
-                .filter { k -> listTime[k].split(" ").dropLastWhile { it.isEmpty() }.isNotEmpty() }
-                .mapTo(mutableListOf()) { k ->
-                    getImage(om, listTime[k].split(" ").getOrNull(0) ?: "")
-                }
+        val bmAl = (spinnerTimeValue until listTime.size).mapTo(mutableListOf()) {
+            getImage(om, listTime[it].split(" ").getOrNull(0) ?: "")
+        }
         return UtilityImgAnim.getAnimationDrawableFromBMList(context, bmAl)
     }
 }
