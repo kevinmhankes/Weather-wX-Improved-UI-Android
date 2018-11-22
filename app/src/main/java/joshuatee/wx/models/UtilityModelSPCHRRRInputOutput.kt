@@ -77,7 +77,8 @@ internal object UtilityModelSPCHRRRInputOutput {
     fun getAnimation(context: Context, om: ObjectModel, overlayImg: List<String>): AnimationDrawable {
         if (om.spinnerTimeValue == -1) return AnimationDrawable()
         val bmAl = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) { k ->
-            getImage(context, om, om.spTime.list[k].split(" ").dropLastWhile { it.isEmpty() }.getOrNull(0) ?: "", overlayImg)
+            getImage(context, om, om.spTime.list[k].split(" ").dropLastWhile { it.isEmpty() }.getOrNull(0)
+                    ?: "", overlayImg)
         }
         return UtilityImgAnim.getAnimationDrawableFromBMList(context, bmAl)
     }

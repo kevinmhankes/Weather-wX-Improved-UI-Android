@@ -135,6 +135,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
         currentParam = displayData.param[index]
         spinnerTimeValue = spTime.selectedItemPosition
         return when (modelType) {
+            // FIXME remove trailing 2 args
             ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getAnimation(context, this, spinnerTimeValue, spTime.list)
             ModelType.ESRL -> UtilityModelESRLInputOutput.getAnimation(context, this, spinnerTimeValue, spTime.list)
             ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.getAnimation(context, this, spinnerTimeValue, spTime.list)
