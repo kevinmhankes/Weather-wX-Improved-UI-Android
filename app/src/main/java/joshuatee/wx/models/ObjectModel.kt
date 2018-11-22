@@ -136,6 +136,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
     }
 
     fun getAnimate(index: Int, spinnerTimeValue: Int, timeList: List<String>): AnimationDrawable {
+        currentParam = displayData.param[index]
         return when (modelType) {
             ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
             ModelType.ESRL -> UtilityModelESRLInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
