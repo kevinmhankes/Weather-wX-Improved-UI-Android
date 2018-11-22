@@ -32,6 +32,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
     var run: String = "00Z"
     var time: String = "00"
     var sector: String = ""
+    var currentParam: String = ""
     var numPanes: Int = 1
     var model: String = "WRF"
     var sectorInt: Int = 0
@@ -118,29 +119,31 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
         //models = UtilityModelWPCGEFSInterface.models
     }
 
+    // FIXME move spinner for Time into object model
+
     fun getImage(index: Int): Bitmap {
+        currentParam = displayData.param[index]
         return when (modelType) {
-            // FIXME remove params already part of ObjectModel and update aux methods to use object
-            ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getImage(sector, displayData.param[index], run, time)
-            ModelType.ESRL -> UtilityModelESRLInputOutput.getImage(model, sectorOrig, sectorInt, displayData.param[index], run, time)
-            ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.getImage(context, model, sector, displayData.param[index], run, time)
-            ModelType.GLCFS -> UtilityModelGLCFSInputOutput.getImage(sector, displayData.param[index], time)
-            ModelType.NCEP -> UtilityModelNCEPInputOutput.getImage(model, sector, displayData.param[index], run, time)
-            ModelType.SPCSREF -> UtilityModelsSPCSREFInputOutput.getImage(context, displayData.param[index], run, time)
-            ModelType.SPCHREF -> UtilityModelSPCHREFInputOutput.getImage(context, sector, run, time, displayData.param[index])
+            ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getImage(this, time)
+            ModelType.ESRL -> UtilityModelESRLInputOutput.getImage(this, time)
+            ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.getImage(context, this, time)
+            ModelType.GLCFS -> UtilityModelGLCFSInputOutput.getImage(this, time)
+            ModelType.NCEP -> UtilityModelNCEPInputOutput.getImage(this, time)
+            ModelType.SPCSREF -> UtilityModelsSPCSREFInputOutput.getImage(context, this, time)
+            ModelType.SPCHREF -> UtilityModelSPCHREFInputOutput.getImage(context, this, time)
             else -> UtilityImg.getBlankBitmap()
         }
     }
 
     fun getAnimate(index: Int, spinnerTimeValue: Int, timeList: List<String>): AnimationDrawable {
         return when (modelType) {
-            ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getAnimation(context, sector, displayData.param[index], run, spinnerTimeValue, timeList)
-            ModelType.ESRL -> UtilityModelESRLInputOutput.getAnimation(context, model, sectorOrig, sectorInt, displayData.param[index], run, spinnerTimeValue, timeList)
-            ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.getAnimation(context, model, sector, displayData.param[index], run, spinnerTimeValue, timeList)
-            ModelType.GLCFS -> UtilityModelGLCFSInputOutput.getAnimation(context, sector, displayData.param[index], spinnerTimeValue, timeList)
-            ModelType.NCEP -> UtilityModelNCEPInputOutput.getAnimation(context, model, sector, displayData.param[index], run, spinnerTimeValue, timeList)
-            ModelType.SPCSREF -> UtilityModelsSPCSREFInputOutput.getAnimation(context, displayData.param[index], run, spinnerTimeValue, timeList)
-            ModelType.SPCHREF -> UtilityModelSPCHREFInputOutput.getAnimation(context, sector, run, spinnerTimeValue, timeList, displayData.param[index])
+            ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
+            ModelType.ESRL -> UtilityModelESRLInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
+            ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
+            ModelType.GLCFS -> UtilityModelGLCFSInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
+            ModelType.NCEP -> UtilityModelNCEPInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
+            ModelType.SPCSREF -> UtilityModelsSPCSREFInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
+            ModelType.SPCHREF -> UtilityModelSPCHREFInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
             else -> AnimationDrawable()
         }
     }
