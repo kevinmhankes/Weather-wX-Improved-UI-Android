@@ -5,7 +5,8 @@
 // TODO SPC MESO rescan for _sf, convert to list
 // TODO camelCase all vars in model's interfaces
 
-55059 2018_11_22
+55059 2018_11_22 more model refactor and bugfix
+                 add NWS URL const to Myapp and switch to https when possible in response to SCN18-100
 55058 2018_11_22 more model refactor and bugfix
 55057 2018_11_21 bugfix in spc href/hrrr related to forward arrow
                  cleanup

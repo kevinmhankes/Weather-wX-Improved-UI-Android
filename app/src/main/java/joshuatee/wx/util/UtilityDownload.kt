@@ -224,14 +224,14 @@ object UtilityDownload {
         } else if (prod == "SWPC3DAYGEO") {
             text = ("http://services.swpc.noaa.gov/text/3-day-geomag-forecast.txt").getHtmlSep()
         } else if (prod.contains("MIATCP") || prod.contains("MIATCM") || prod.contains("MIATCD") || prod.contains("MIAPWS") || prod.contains("MIAHS")) {
-            text = UtilityString.getNWSPRE("http://www.nhc.noaa.gov/text/$prod.shtml")
+            text = UtilityString.getNWSPRE("${MyApplication.nwsNhcWebsitePrefix}/text/$prod.shtml")
             if (prod.contains("MIATCD")) {
                 text = text.replace("<br><br>", "<BR><BR>")
                 text = text.replace("<br>", " ")
             }
             text = text.replace("^<br>".toRegex(), "")
         } else if (prod.contains("MIAT")) {
-            text = UtilityString.getHTMLandParseSep("http://www.nhc.noaa.gov/ftp/pub/forecasts/discussion/$prod", "(.*)")
+            text = UtilityString.getHTMLandParseSep("${MyApplication.nwsNhcWebsitePrefix}/ftp/pub/forecasts/discussion/$prod", "(.*)")
             text = text.substring(text.indexOf('>') + 1)
             text = text.substring(text.indexOf('>') + 1)
             text = text.substring(text.indexOf('>') + 1)
