@@ -4,7 +4,6 @@
 // TODO base velocity legend
 // TODO SPC MESO rescan for _sf, convert to list
 // TODO camelCase all vars in model's interfaces
-// TODO use ObjectModel as arg in ObjectModel's getImg/Anim
 
 55059 2018_11_22
 55058 2018_11_22 more model refactor and bugfix

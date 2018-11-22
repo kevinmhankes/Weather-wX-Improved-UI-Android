@@ -120,6 +120,11 @@ class MyApplication : Application() {
         const val emailAsString: String = "joshua.tee@gmail.com"
         const val nwsSPCwebsitePrefix: String = "https://www.spc.noaa.gov"
         const val nwsWPCwebsitePrefix: String = "https://www.wpc.ncep.noaa.gov"
+        const val nwsAWCwebsitePrefix: String = "https://www.aviationweather.gov"
+        const val nwsGraphicalWebsitePrefix: String = "http://graphical.weather.gov"
+        const val nwsCPCNcepWebsitePrefix: String = "http://www.cpc.ncep.noaa.gov"
+        const val nwsGoesWebsitePrefix: String = "https://www.goes.noaa.gov"
+
         const val prefSeperator: String = " : : :"
         var uiAnimIconFrames: String = "rid"
         const val WIDGET_FILE_BAK: String = "BAK"

@@ -114,9 +114,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
         prefRunPosn = "MODEL_" + prefModel + numPanesStr + "_RUN_POSN"
         modelProvider = "MODEL_$prefModel"
     }
-
-    // FIXME move spinner for Time into object model
-
+    
     fun getImage(index: Int): Bitmap {
         currentParam = displayData.param[index]
         return when (modelType) {
