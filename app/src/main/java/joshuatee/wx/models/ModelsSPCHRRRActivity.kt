@@ -57,7 +57,6 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var spRun: ObjectSpinner
-    //private lateinit var om.spTime: ObjectSpinner
     private lateinit var spSector: ObjectSpinner
     private var animRan = false
     private var spinnerRunRan = false
@@ -71,7 +70,6 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     private val overlayImg = mutableListOf<String>()
     private lateinit var miStatus: MenuItem
     private lateinit var drw: ObjectNavDrawer
-    private lateinit var displayData: DisplayData
     private lateinit var contextg: Context
     private lateinit var om: ObjectModel
     private lateinit var turl: Array<String>
@@ -112,7 +110,6 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         miStatus.title = "in through"
         om.spTime = ObjectSpinner(this, this, R.id.spinner_time)
         om.displayData = DisplayData(this, this, this, om.numPanes, om.spTime)
-        displayData = DisplayData(this, this, this, om.numPanes, om.spTime)
         spRun = ObjectSpinner(this, this, R.id.spinner_run)
         spSector = ObjectSpinner(this, this, R.id.spinner_sector, UtilityModelSPCHRRRInterface.SECTORS)
         spSector.setSelection(om.sector)
@@ -169,7 +166,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         Utility.writePref(contextg, om.prefSector, om.sector)
         withContext(Dispatchers.IO) {
             (0 until om.numPanes).forEach {
-                om.currentParam = displayData.param[it]
+                om.currentParam = om.displayData.param[it]
                 om.displayData.bitmap[it] = UtilityModelSPCHRRRInputOutput.getImage(contextg, om, om.time, overlayImg)
             }
         }
@@ -238,10 +235,10 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                 } else {
                     if (animRan)
                         UtilityShare.shareAnimGif(this, om.model + " " +
-                                om.displayData.paramLabel[om.curImg] + " " + om.spTime.selectedItem.toString(), displayData.animDrawable[om.curImg])
+                                om.displayData.paramLabel[om.curImg] + " " + om.spTime.selectedItem.toString(), om.displayData.animDrawable[om.curImg])
                     else
                         UtilityShare.shareBitmap(this, om.model + " " +
-                                om.displayData.paramLabel[om.curImg] + " " + om.spTime.selectedItem.toString(), displayData.bitmap[om.curImg])
+                                om.displayData.paramLabel[om.curImg] + " " + om.spTime.selectedItem.toString(), om.displayData.bitmap[om.curImg])
                 }
             }
             else -> return super.onOptionsItemSelected(item)
@@ -260,7 +257,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         om.spinnerTimeValue = om.spTime.selectedItemPosition
         withContext(Dispatchers.IO) {
             (0 until om.numPanes).forEach {
-                om.currentParam = displayData.param[it]
+                om.currentParam = om.displayData.param[it]
                 om.displayData.animDrawable[it] = UtilityModelSPCHRRRInputOutput.getAnimation(contextg, om, overlayImg)
             }
         }
