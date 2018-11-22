@@ -25,7 +25,6 @@ import joshuatee.wx.util.Utility
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
-import joshuatee.wx.objects.ModelType
 import joshuatee.wx.util.UtilityImg
 
 class ObjectModel(val context: Context, var prefModel: String, numPanesStr: String) {
