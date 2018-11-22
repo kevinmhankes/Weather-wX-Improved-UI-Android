@@ -25,6 +25,7 @@ import joshuatee.wx.util.Utility
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
+import joshuatee.wx.ui.ObjectSpinner
 import joshuatee.wx.util.UtilityImg
 
 class ObjectModel(val context: Context, var prefModel: String, numPanesStr: String) {
@@ -58,6 +59,8 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
     var params: List<String> = listOf("")
     var models: List<String> = listOf("")
     private var defaultModel: String = ""
+    var spinnerTimeValue: Int = 0
+    lateinit var spTime: ObjectSpinner
 
     init {
         numPanes = numPanesStr.toIntOrNull() ?: 0
@@ -104,19 +107,12 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                 timeTruncate = 2
             }
         }
-
-        //prefModel += numPanesStr
         model = Utility.readPref(context, prefModel, defaultModel)
         prefSector = "MODEL_" + prefModel + numPanesStr + "_SECTOR_LAST_USED"
         prefParam = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED"
         prefParamLabel = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED_LABEL"
         prefRunPosn = "MODEL_" + prefModel + numPanesStr + "_RUN_POSN"
         modelProvider = "MODEL_$prefModel"
-
-        //sectors = UtilityModelWPCGEFSInterface.sectors
-        //labels = UtilityModelWPCGEFSInterface.LABELS
-        //params = UtilityModelWPCGEFSInterface.PARAMS
-        //models = UtilityModelWPCGEFSInterface.models
     }
 
     // FIXME move spinner for Time into object model
@@ -135,16 +131,17 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
         }
     }
 
-    fun getAnimate(index: Int, spinnerTimeValue: Int, timeList: List<String>): AnimationDrawable {
+    fun getAnimate(index: Int): AnimationDrawable {
         currentParam = displayData.param[index]
+        spinnerTimeValue = spTime.selectedItemPosition
         return when (modelType) {
-            ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
-            ModelType.ESRL -> UtilityModelESRLInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
-            ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
-            ModelType.GLCFS -> UtilityModelGLCFSInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
-            ModelType.NCEP -> UtilityModelNCEPInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
-            ModelType.SPCSREF -> UtilityModelsSPCSREFInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
-            ModelType.SPCHREF -> UtilityModelSPCHREFInputOutput.getAnimation(context, this, spinnerTimeValue, timeList)
+            ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.getAnimation(context, this, spinnerTimeValue, spTime.list)
+            ModelType.ESRL -> UtilityModelESRLInputOutput.getAnimation(context, this, spinnerTimeValue, spTime.list)
+            ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.getAnimation(context, this, spinnerTimeValue, spTime.list)
+            ModelType.GLCFS -> UtilityModelGLCFSInputOutput.getAnimation(context, this, spinnerTimeValue, spTime.list)
+            ModelType.NCEP -> UtilityModelNCEPInputOutput.getAnimation(context, this, spinnerTimeValue, spTime.list)
+            ModelType.SPCSREF -> UtilityModelsSPCSREFInputOutput.getAnimation(context, this, spinnerTimeValue, spTime.list)
+            ModelType.SPCHREF -> UtilityModelSPCHREFInputOutput.getAnimation(context, this, spinnerTimeValue, spTime.list)
             else -> AnimationDrawable()
         }
     }
