@@ -126,6 +126,8 @@ class MyApplication : Application() {
         const val nwsGoesWebsitePrefix: String = "https://www.goes.noaa.gov"
         const val nwsOpcWebsitePrefix: String = "https://www.opc.ncep.noaa.gov"
         const val nwsNhcWebsitePrefix: String = "https://www.nhc.noaa.gov"
+        const val nwsRadarWebsitePrefix: String = "http://radar.weather.gov"
+        const val nwsMagNcepWebsitePrefix: String = "http://mag.ncep.noaa.gov"
 
         const val prefSeperator: String = " : : :"
         var uiAnimIconFrames: String = "rid"
