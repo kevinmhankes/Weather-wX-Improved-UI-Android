@@ -35,14 +35,13 @@ internal object UtilityModelGLCFSInputOutput {
         if (sectorF.split(" ").size > 1) {
             sector = sectorF.split(" ")[1].substring(0, 1).toLowerCase()
         }
-        var time = timeF.replace("00","0")
+        var time = timeF.replace("00", "0")
         val timeInt = time.toIntOrNull() ?: 0
-        if (timeInt > 9){
-            time = time.replace(Regex("^0"),"")
+        if (timeInt > 9) {
+            time = time.replace(Regex("^0"), "")
         }
         val url = "http://www.glerl.noaa.gov/res/glcfs/fcast/$sector$param+$time.gif"
-        val bitmap = url.getImage()
-        return bitmap
+        return url.getImage()
     }
 
     fun getAnimation(context: Context, sector: String, param: String, spinnerTimeValue: Int, listTime: List<String>): AnimationDrawable {
