@@ -51,7 +51,7 @@ object UtilitySunMoon {
         }
         val timeZone = UtilityTime.getDateAsString("Z")
         tzOffset = timeZone.substring(0, 3) + "." + timeZone.substring(3, 5)
-        val url = "http://api.usno.navy.mil/rstt/oneday?date=today&coords=$x,$y&tz=$tzOffset"
+        val url = "${MyApplication.sunMoonDataUrl}/rstt/oneday?date=today&coords=$x,$y&tz=$tzOffset"
         return url.getHtmlUnsafe()
     }
 
@@ -76,7 +76,7 @@ object UtilitySunMoon {
     }
 
     fun getFullMoonDates(): String {
-        val url = "http://api.usno.navy.mil/moon/phase?date=" + UtilityTime.month().toString() + "/" + UtilityTime.day().toString() + "/" + UtilityTime.year().toString() + "&nump=99"
+        val url = "${MyApplication.sunMoonDataUrl}/moon/phase?date=" + UtilityTime.month().toString() + "/" + UtilityTime.day().toString() + "/" + UtilityTime.year().toString() + "&nump=99"
         val text = url.getHtmlUnsafe()
         var fullText = ""
         val phaseArr = text.parseColumn("\"phase\":\"(.*?)\"")
