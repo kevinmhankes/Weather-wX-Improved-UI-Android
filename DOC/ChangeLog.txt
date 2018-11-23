@@ -6,6 +6,7 @@
 // TODO camelCase all vars in model's interfaces
 // TODO NWS URLs http to https const myapp
 
+55060 2018_11_22 bugfix in SPCHRRR
 55059 2018_11_22 more model refactor and bugfix
                  add NWS URL const to Myapp and switch to https when possible in response to SCN18-100
 55058 2018_11_22 more model refactor and bugfix

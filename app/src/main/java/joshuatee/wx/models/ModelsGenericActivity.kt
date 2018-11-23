@@ -233,7 +233,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
 
     private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
         // FIXME NCEP should not have different code
-        if (om.modelType == ModelType.NCEP){
+        if (om.modelType == ModelType.NCEP) {
             om.rtd = withContext(Dispatchers.IO) { UtilityModelNCEPInputOutput.getRunTime(om.model, om.displayData.param[0], om.sectors[0]) }
             om.time = om.rtd.mostRecentRun
             spRun.notifyDataSetChanged()

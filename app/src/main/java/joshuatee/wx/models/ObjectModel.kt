@@ -93,6 +93,9 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                 models = UtilityModelsSPCSREFInterface.models
                 defaultModel = "SREF"
                 timeTruncate = 4
+                startStep = 0
+                endStep = 88
+                stepAmount = 3
             }
             "SPCHREF" -> {
                 modelType = ModelType.SPCHREF
@@ -103,8 +106,12 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
             "SPCHRRR" -> {
                 modelType = ModelType.SPCHRRR
                 models = UtilityModelSPCHRRRInterface.models
+                params = UtilityModelSPCHRRRInterface.PARAMS
+                labels = UtilityModelSPCHRRRInterface.LABELS
                 defaultModel = "HRRR"
                 timeTruncate = 2
+                startStep = 2
+                endStep = 16
             }
         }
         model = Utility.readPref(context, prefModel, defaultModel)
@@ -114,7 +121,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
         prefRunPosn = "MODEL_" + prefModel + numPanesStr + "_RUN_POSN"
         modelProvider = "MODEL_$prefModel"
     }
-    
+
     fun getImage(index: Int): Bitmap {
         currentParam = displayData.param[index]
         return when (modelType) {
@@ -152,12 +159,29 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
             ModelType.NCEP -> UtilityModelNCEPInputOutput.getRunTime(model, displayData.param[0], sector)
             ModelType.SPCSREF -> UtilityModelsSPCSREFInputOutput.runTime
             ModelType.SPCHREF -> UtilityModelSPCHREFInputOutput.runTime
+            ModelType.SPCHRRR -> UtilityModelSPCHRRRInputOutput.runTime
             else -> RunTimeData()
         }
     }
 
     fun setParams(selectedItemPosition: Int) {
         when (modelType) {
+
+            ModelType.SPCHRRR -> {
+                timeTruncate = 3
+                when (selectedItemPosition) {
+                    1 -> {
+                        model = "HRRR"
+                        params = UtilityModelSPCHRRRInterface.models
+                        labels = UtilityModelSPCHRRRInterface.LABELS
+                        sectors = UtilityModelSPCHRRRInterface.SECTORS
+                        startStep = 2
+                        endStep = 16
+                        stepAmount = 1
+                        numberRuns = 4
+                    }
+                }
+            }
             ModelType.NCEP -> {
                 timeTruncate = 3
                 when (selectedItemPosition) {
