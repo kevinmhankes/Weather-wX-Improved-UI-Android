@@ -7,7 +7,7 @@
 // TODO NWS URLs http to https const myapp
 // TODO SPC HREF use long names for sectors
 
-55061 2018_11_23
+55061 2018_11_23 bugfix in SPCHREF and NCEP MAG
 55060 2018_11_23 bugfix in SPCHRRR
 55059 2018_11_22 more model refactor and bugfix
                  add NWS URL const to Myapp and switch to https when possible in response to SCN18-100
