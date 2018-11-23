@@ -270,11 +270,12 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                 tmpStr = MyApplication.space.split(om.spTime[it])[0]
                 om.spTime[it] = tmpStr + " " + UtilityModels.convertTimeRuntoTimeString(om.rtd.mostRecentRun.replace("Z", ""), tmpStr, true)
             }
+            om.spTime.notifyDataSetChanged()
             if (!firstRunTimeSet) {
                 firstRunTimeSet = true
                 om.spTime.setSelection(Utility.readPref(contextg, om.prefRunPosn, 1))
             }
-            om.spTime.notifyDataSetChanged()
+            //om.spTime.notifyDataSetChanged()
         } else {
             om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
             spRun.clear()
