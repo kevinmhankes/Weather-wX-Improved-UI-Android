@@ -37,7 +37,6 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
     var numPanes: Int = 1
     var model: String = "WRF"
     var sectorInt: Int = 0
-    //var sectorOrig: String = ""
     var curImg: Int = 0
     var modelType: ModelType = ModelType.NSSL
     var startStep: Int = 0
@@ -126,6 +125,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
         prefModelIndex = "MODEL_$prefModel${numPanesStr}_INDEX"
         modelIndex = Utility.readPref(context, prefModelIndex, 0)
         setParams(modelIndex)
+        sector = Utility.readPref(context, prefSector, sectors[0])
     }
 
     fun getImage(index: Int): Bitmap {
