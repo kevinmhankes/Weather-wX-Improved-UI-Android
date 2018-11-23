@@ -102,7 +102,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         val menu = toolbarBottom.menu
         star = menu.findItem(R.id.action_fav)
         star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        title = "SPC SREF"
+        title = turl[2]
         val m = toolbarBottom.menu
         if (om.numPanes < 2) {
             fab1 = ObjectFab(this, this, R.id.fab1)
@@ -186,8 +186,11 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             }
             firstRun = true
         }
-        if (om.numPanes > 1)
+        if (om.numPanes > 1) {
             UtilityModels.setSubtitleRestoreIMGXYZOOM(om.displayData.img, toolbar, "(" + (om.curImg + 1).toString() + ")" + om.displayData.param[0] + "/" + om.displayData.param[1])
+        } else {
+            toolbar.subtitle = om.displayData.paramLabel[0]
+        }
         imageLoaded = true
         (0 until om.numPanes).forEach {
             Utility.writePref(contextg, om.prefParam + it.toString(), om.displayData.param[it])
@@ -209,10 +212,10 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         spRun.setSelection(0)
         initSpinnerSetup = true
         miStatus.title = Utility.fromHtml(om.rtd.imageCompleteStr.replace("in through", "-"))
-        val titleTmpArr = MyApplication.space.split(om.rtd.imageCompleteStr.replace("in through", "-"))
-        if (titleTmpArr.size > 2) {
-            toolbar.subtitle = Utility.fromHtml(titleTmpArr[2])
-        }
+        //val titleTmpArr = MyApplication.space.split(om.rtd.imageCompleteStr.replace("in through", "-"))
+        //if (titleTmpArr.size > 2) {
+        //    toolbar.subtitle = Utility.fromHtml(titleTmpArr[2])
+        //}
         if (!firstRunTimeSet) {
             firstRunTimeSet = true
             om.spTime.setSelection(Utility.readPref(contextg, om.prefRunPosn, 0))

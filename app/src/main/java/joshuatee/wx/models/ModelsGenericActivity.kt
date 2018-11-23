@@ -242,7 +242,8 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                 getContent()
             }
             //title = om.rtd.imageCompleteStr
-            miStatus.title = "in through " + om.rtd.imageCompleteStr
+            //miStatus.title = "in through " + om.rtd.imageCompleteStr
+            miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
             var tmpStr: String
             (0 until om.spTime.size()).forEach {
                 tmpStr = MyApplication.space.split(om.spTime[it])[0]
@@ -258,7 +259,8 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             spRun.clear()
             spRun.addAll(om.rtd.listRun)
             miStatus.isVisible = true
-            miStatus.title = "in through " + om.rtd.imageCompleteStr
+            //miStatus.title = "in through " + om.rtd.imageCompleteStr
+            miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
             spRun.notifyDataSetChanged()
             // FIXME
             (0 until om.spTime.size()).forEach { om.spTime[it] = om.spTime[it] + " " + UtilityModels.convertTimeRuntoTimeString(om.rtd.timeStrConv.replace("Z", ""), om.spTime[it], false) }

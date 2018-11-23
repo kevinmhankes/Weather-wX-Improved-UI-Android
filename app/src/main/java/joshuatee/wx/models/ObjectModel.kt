@@ -68,6 +68,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
             "WPCGEFS" -> {
                 modelType = ModelType.WPCGEFS
                 defaultModel = "WPCGEFS"
+                models = UtilityModelWPCGEFSInterface.models
             }
             "NSSL" -> {
                 modelType = ModelType.NSSL
@@ -154,7 +155,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
     fun getRunTime(): RunTimeData {
         return when (modelType) {
             ModelType.WPCGEFS -> UtilityModelWPCGEFSInputOutput.runTime
-            ModelType.ESRL -> UtilityModelESRLInputOutput.getRunTime(model)
+            ModelType.ESRL -> UtilityModelESRLInputOutput.getRunTime(model, displayData.param[0])
             ModelType.NSSL -> UtilityModelNSSLWRFInputOutput.runTime
             ModelType.NCEP -> UtilityModelNCEPInputOutput.getRunTime(model, displayData.param[0], sector)
             ModelType.SPCSREF -> UtilityModelsSPCSREFInputOutput.runTime
