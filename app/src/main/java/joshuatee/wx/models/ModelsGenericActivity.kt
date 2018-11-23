@@ -120,11 +120,8 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         om.displayData = DisplayData(this, this, this, om.numPanes, om.spTime)
         spRun = ObjectSpinner(this, this, R.id.spinner_run)
         spRun.setOnItemSelectedListener(this)
-        // FIXME
         spSector = ObjectSpinner(this, this, R.id.spinner_sector, om.sectors)
         spSector.setOnItemSelectedListener(this)
-        // FIXME
-        //om.sector = Utility.readPref(this, om.prefSector, om.sectors[0])
         spSector.setSelection(om.sector)
         val spModel = ObjectSpinner(this, this, R.id.spinner_model, om.models)
         spModel.setOnItemSelectedListener(this)
