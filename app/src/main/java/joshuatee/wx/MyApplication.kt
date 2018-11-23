@@ -41,6 +41,7 @@ import joshuatee.wx.radarcolorpalettes.ObjectColorPalette
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityHomeScreen
 import joshuatee.wx.util.UtilityCities
+import joshuatee.wx.util.UtilityHttp
 import joshuatee.wx.util.UtilityLog
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -111,6 +112,8 @@ class MyApplication : Application() {
         if (!loadedBuffers) {
             initBuffers(this)
         }
+
+        httpClientUnsafe = UtilityHttp.getUnsafeOkHttpClient()
     }
 
     companion object {
@@ -144,6 +147,7 @@ class MyApplication : Application() {
         const val TEXTVIEW_MAGIC_FUDGE_FACTOR: Float = 4.05f
         var deviceScale: Float = 0f
         var httpClient: OkHttpClient? = null
+        var httpClientUnsafe: OkHttpClient? = null
         lateinit var preferences: SharedPreferences
         private lateinit var preferencesTelecine: SharedPreferences
         lateinit var editor: SharedPreferences.Editor
