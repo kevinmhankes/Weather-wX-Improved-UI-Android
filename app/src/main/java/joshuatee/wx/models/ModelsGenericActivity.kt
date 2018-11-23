@@ -63,8 +63,13 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     var imageLoaded: Boolean = false
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
+    private var spinnerRunRan = false
+    private var spinnerTimeRan = false
+    private var spinnerSectorRan = false
+    private var spinnerModelRan = false
     private lateinit var turl: Array<String>
     private lateinit var miStatus: MenuItem
+    private lateinit var miStatusParam: MenuItem
     private lateinit var contextg: Context
     private lateinit var om: ObjectModel
     private lateinit var spRun: ObjectSpinner
@@ -105,6 +110,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         }
         miStatus = m.findItem(R.id.action_status)
         miStatus.title = "in through"
+        miStatusParam = m.findItem(R.id.action_status_param)
         m.findItem(R.id.action_map).isVisible = false
         om.spTime = ObjectSpinner(this, this, R.id.spinner_time)
         om.spTime.setOnItemSelectedListener(this)
@@ -135,15 +141,29 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        when (parent.id) {
+            R.id.spinner_run -> if (!spinnerRunRan)
+                spinnerRunRan = true
+            R.id.spinner_time -> if (!spinnerTimeRan)
+                spinnerTimeRan = true
+            R.id.spinner_sector -> if (!spinnerSectorRan)
+                spinnerSectorRan = true
+        }
         if (parent.id == R.id.spinner_model) {
+            spinnerRunRan = false
+            spinnerSectorRan = false
+            spinnerTimeRan = false
             firstRunTimeSet = false
+            spinnerModelRan = true
             om.setParams(parent.selectedItemPosition)
             setupModel()
+            //drw.updateLists(this, om.labels, om.params)
             Utility.writePref(this, om.prefModel, om.model)
             getRunStatus()
-        } else if (firstRunTimeSet) {
+        } else if (firstRunTimeSet ) { // && spinnerRunRan && spinnerTimeRan && spinnerSectorRan && spinnerModelRan
             getContent()
         }
+
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -181,6 +201,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             UtilityModels.setSubtitleRestoreIMGXYZOOM(om.displayData.img, toolbar, "(" + (om.curImg + 1).toString() + ")" + om.displayData.param[0] + "/" + om.displayData.param[1])
         } else {
             toolbar.subtitle = om.displayData.paramLabel[0]
+            miStatusParam.title = om.displayData.paramLabel[0]
         }
         imageLoaded = true
     }

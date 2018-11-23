@@ -68,6 +68,10 @@
           android:title=""
           app:showAsAction="never"  />
 
+    <item android:id="@+id/action_status_param"
+        android:title=""
+        app:showAsAction="never"  />
+
 </menu>
 
 
