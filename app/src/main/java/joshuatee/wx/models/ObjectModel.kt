@@ -37,7 +37,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
     var numPanes: Int = 1
     var model: String = "WRF"
     var sectorInt: Int = 0
-    var sectorOrig: String = ""
+    //var sectorOrig: String = ""
     var curImg: Int = 0
     var modelType: ModelType = ModelType.NSSL
     var startStep: Int = 0
@@ -52,8 +52,8 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
     var prefParamLabel: String = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED_LABEL"
     var prefRunPosn: String = "MODEL_" + prefModel + numPanesStr + "_RUN_POSN"
     var modelProvider: String = "MODEL_$prefModel$numPanesStr"
-    var prefModelIndex: String = "MODEL_${prefModel}${numPanesStr}_INDEX"
-    var modelIndex = 0
+    private var prefModelIndex: String = "MODEL_$prefModel${numPanesStr}_INDEX"
+    private var modelIndex = 0
     var rtd: RunTimeData = RunTimeData()
     lateinit var displayData: DisplayData
     var sectors: List<String> = listOf("")
@@ -123,7 +123,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
         prefParamLabel = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED_LABEL"
         prefRunPosn = "MODEL_" + prefModel + numPanesStr + "_RUN_POSN"
         modelProvider = "MODEL_$prefModel"
-        prefModelIndex = "MODEL_${prefModel}${numPanesStr}_INDEX"
+        prefModelIndex = "MODEL_$prefModel${numPanesStr}_INDEX"
         modelIndex = Utility.readPref(context, prefModelIndex, 0)
         setParams(modelIndex)
     }
