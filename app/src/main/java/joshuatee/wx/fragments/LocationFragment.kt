@@ -970,7 +970,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             // Canada legal card
             //
             if (!Location.isUS) {
-                val canLegal = ObjectCALegal(activityReference, UtilityCanada.getLocationURL(x, y))
+                val canLegal = ObjectCALegal(activityReference, UtilityCanada.getLocationUrl(x, y))
                 if (homescreenFavLocal.contains("TXT-7DAY2")) {
                     llCv5V?.addView(canLegal.card)
                 }
