@@ -29,10 +29,12 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.opengl.GLSurfaceView
+import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import androidx.core.app.NavUtils
@@ -46,6 +48,7 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.os.Handler
+import android.view.Window
 
 import joshuatee.wx.R
 import joshuatee.wx.activitiesmisc.ImageShowActivity
@@ -167,6 +170,13 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         super.onCreate(savedInstanceState, R.layout.activity_uswxogl, R.menu.uswxoglradar, true, true)
         toolbarBottom.setOnMenuItemClickListener(this)
         UtilityUI.immersiveMode(this as Activity)
+
+
+        if (UIPreferences.radarStatusBarTransparent && Build.VERSION.SDK_INT >= 21) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.statusBarColor = Color.TRANSPARENT
+        }
+
         act = this
         spotterShowSelected = false
         locXCurrent = joshuatee.wx.settings.Location.x
