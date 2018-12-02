@@ -48,7 +48,6 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.os.Handler
-import android.view.Window
 
 import joshuatee.wx.R
 import joshuatee.wx.activitiesmisc.ImageShowActivity
@@ -181,23 +180,23 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         spotterShowSelected = false
         locXCurrent = joshuatee.wx.settings.Location.x
         locYCurrent = joshuatee.wx.settings.Location.y
-        val turl = intent.getStringArrayExtra(RID)
+        val activityArguments = intent.getStringArrayExtra(RID)
         numPanesArr = (0 until numPanes).toList()
         UtilityFileManagement.deleteCacheFiles(this)
         // for L2 archive called from storm reports
-        if (turl != null) {
-            if (turl.size > 6) {
-                urlStr = turl[4]
-                locXCurrent = turl[5]
-                locYCurrent = turl[6]
+        if (activityArguments != null) {
+            if (activityArguments.size > 6) {
+                urlStr = activityArguments[4]
+                locXCurrent = activityArguments[5]
+                locYCurrent = activityArguments[6]
                 archiveMode = true
-            } else if (turl.size > 4) {
-                spotterId = turl[4]
+            } else if (activityArguments.size > 4) {
+                spotterId = activityArguments[4]
                 spotterShowSelected = true
             }
-            if (turl.size > 3)
+            if (activityArguments.size > 3)
                 fixedSite = true
-            if (turl.size < 7)
+            if (activityArguments.size < 7)
                 archiveMode = false
         }
         contextg = this
@@ -245,15 +244,15 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         initGLVIEW()
         oglr.product = "N0Q"
         oglInView = true
-        if (turl == null)
+        if (activityArguments == null)
             oglr.rid = joshuatee.wx.settings.Location.rid
         else
-            oglr.rid = turl[0]
+            oglr.rid = activityArguments[0]
         // hack, in rare cases a user will save a location that doesn't pick up RID
         if (oglr.rid == "") oglr.rid = "TLX"
         //state = turl[1]
-        if (turl != null && turl.size > 2) {
-            oglr.product = turl[2]
+        if (activityArguments != null && activityArguments.size > 2) {
+            oglr.product = activityArguments[2]
             if (oglr.product == "N0R") {
                 oglr.product = "N0Q"
             }

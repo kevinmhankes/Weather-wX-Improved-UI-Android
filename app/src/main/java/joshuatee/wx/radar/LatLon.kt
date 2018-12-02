@@ -102,13 +102,6 @@ class LatLon() {
             dist = acos(dist)
             dist = UtilityMath.rad2deg(dist)
             dist *= 60.0 * 1.1515
-
-            //if (unit == 'K') {
-            //    dist *= 1.609344
-            //} else if (unit == 'N') {
-            //    dist *= 0.8684
-            //}
-
             when (unit) {
                 DistanceUnit.KM -> dist *= 1.609344
                 DistanceUnit.NAUTICAL_MILE -> dist *= 0.8684

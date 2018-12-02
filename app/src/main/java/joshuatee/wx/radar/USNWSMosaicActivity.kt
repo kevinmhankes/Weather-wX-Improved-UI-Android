@@ -86,11 +86,11 @@ class USNWSMosaicActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
                 if (img.currentZoom < 1.01f) showPrevImg()
             }
         })
-        val turl = intent.getStringArrayExtra(URL)
-        if (turl == null) {
+        val activityArguments = intent.getStringArrayExtra(URL)
+        if (activityArguments == null) {
             nwsRadarMosaicSectorLabelCurrent = Utility.readPref(this, "NWS_RADAR_MOSAIC_SECTOR_CURRENT", "Central Great Lakes")
         } else {
-            if (turl.isNotEmpty() && turl[0] == "location") {
+            if (activityArguments.isNotEmpty() && activityArguments[0] == "location") {
                 val rid1 = Location.rid
                 val ridLoc = Utility.readPref(this, "RID_LOC_$rid1", "")
                 val nwsLocationArr = ridLoc.split(",").dropLastWhile { it.isEmpty() }
@@ -98,7 +98,7 @@ class USNWSMosaicActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
                 nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNWSMosaic.getNWSSectorFromState(state)
                 nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNWSMosaic.getNWSSectorLabelFromCode(nwsRadarMosaicSectorLabelCurrent)
                 doNotSavePref = true
-            } else if (turl.isNotEmpty() && turl[0] == "widget") {
+            } else if (activityArguments.isNotEmpty() && activityArguments[0] == "widget") {
                 val widgetLocNum = Utility.readPref(this, "WIDGET_LOCATION", "1")
                 val rid1 = Location.getRid(this, widgetLocNum)
                 val ridLoc = Utility.readPref(this, "RID_LOC_$rid1", "")
