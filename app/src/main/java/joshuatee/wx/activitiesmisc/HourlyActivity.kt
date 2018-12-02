@@ -61,11 +61,9 @@ class HourlyActivity : BaseActivity() { // AppCompatActivity()
     private var color = 0
     private lateinit var c0: ObjectCardVerticalText
     private var hourlyData = ObjectHourly()
-    private var locNum = 0
-
+    private var locatioNumber = 0
     private val menuItemShare: Int = 1
     private val menuItemSettings: Int = 2
-    //private val menuItemTest: Int = 3
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menu.add(Menu.NONE, menuItemShare, Menu.NONE, "Share").setIcon(R.drawable.ic_share_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
@@ -77,8 +75,8 @@ class HourlyActivity : BaseActivity() { // AppCompatActivity()
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_hourly, null, false)
-        val turl = intent.getStringExtra(LOC_NUM)
-        locNum = (turl.toIntOrNull() ?: 0) - 1
+        val activityArguments = intent.getStringExtra(LOC_NUM)
+        locatioNumber = (activityArguments.toIntOrNull() ?: 0) - 1
         color = R.color.black
         cv1 = ObjectCard(this, color, R.id.cv1)
         cv1.setVisibility(View.GONE)
@@ -87,13 +85,13 @@ class HourlyActivity : BaseActivity() { // AppCompatActivity()
         linearLayout.addView(c0.card)
         c0.setOnClickListener(View.OnClickListener { UtilityToolbar.showHide(toolbar) })
         title = "Hourly"
-        toolbar.subtitle = Location.getName(locNum)
+        toolbar.subtitle = Location.getName(locatioNumber)
         getContent()
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
 
-        val result1 = async(Dispatchers.IO) { UtilityUSHourly.getHourlyString(locNum) }
+        val result1 = async(Dispatchers.IO) { UtilityUSHourly.getHourlyString(locatioNumber) }
         htmlShare = result1.await()
         val result2 = async(Dispatchers.IO) { UtilityUSHourly.getHourlyStringForActivity(htmlShare[1]) }
         hourlyData = result2.await()
@@ -106,7 +104,6 @@ class HourlyActivity : BaseActivity() { // AppCompatActivity()
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             menuItemSettings -> ObjectIntent(this, SettingsMainActivity::class.java)
-            //menuItemTest -> ObjectIntent(this, ModelsGenericActivity::class.java, ModelsGenericActivity.INFO, arrayOf("1", "WPCGEFS", "WPC"))
             menuItemShare -> if (htmlShare.size > 1) {
                 UtilityShare.shareText(this, "Hourly", htmlShare[1])
             }
