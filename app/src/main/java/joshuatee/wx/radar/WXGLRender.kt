@@ -232,6 +232,10 @@ class WXGLRender(private val context: Context) : Renderer {
                     rdL2.decocodeAndPlotNexradL2(context, radarBuffers.fn, prod, radarStatusStr, idxStr, performDecomp)
                     radarBuffers.extractL2Data(rdL2)
                 }
+                product.contains("NSW") -> {
+                    radarL3Object.decocodeAndPlotNexradLevel3FourBit(context, radarBuffers.fn, radarStatusStr)
+                    radarBuffers.extractL3Data(radarL3Object)
+                }
                 product.contains("N0S") -> {
                     radarL3Object.decocodeAndPlotNexradLevel3FourBit(context, radarBuffers.fn, radarStatusStr)
                     radarBuffers.extractL3Data(radarL3Object)
