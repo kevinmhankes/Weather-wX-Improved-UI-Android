@@ -47,11 +47,10 @@ class ObjectColorPalette(val context: Context, private val colormapCode: String)
 
     fun init() {
         when (colormapCode) {
-            // FIXME
             "30" -> {
                 setupBuffers(16)
                 try {
-                    UtilityColorPalette56.gen56()
+                    UtilityColorPalette30.gen30()
                 } catch (e: Exception) {
                     UtilityLog.HandleException(e)
                 }
