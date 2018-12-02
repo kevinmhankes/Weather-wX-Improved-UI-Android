@@ -82,7 +82,7 @@ class FavAddActivity : BaseActivity() {
             }
             "SREF" -> {
                 prefToken = "SREF_FAV"
-                data = UtilityModelsSPCSREFInterface.PARAMS
+                data = UtilityModelsSPCSREFInterface.params
             }
             "SPCMESO" -> {
                 prefToken = "SPCMESO_FAV"

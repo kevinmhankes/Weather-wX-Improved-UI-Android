@@ -109,8 +109,8 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                 modelType = ModelType.SPCHRRR
                 // FIXME remove 3 lines below and test
                 models = UtilityModelSPCHRRRInterface.models
-                params = UtilityModelSPCHRRRInterface.PARAMS
-                labels = UtilityModelSPCHRRRInterface.LABELS
+                params = UtilityModelSPCHRRRInterface.params
+                labels = UtilityModelSPCHRRRInterface.labels
                 defaultModel = "HRRR"
                 timeTruncate = 2
                 startStep = 2
@@ -181,8 +181,8 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                     1 -> {
                         model = "HRRR"
                         params = UtilityModelSPCHRRRInterface.models
-                        labels = UtilityModelSPCHRRRInterface.LABELS
-                        sectors = UtilityModelSPCHRRRInterface.SECTORS
+                        labels = UtilityModelSPCHRRRInterface.labels
+                        sectors = UtilityModelSPCHRRRInterface.sectors
                         startStep = 2
                         endStep = 16
                         stepAmount = 1
