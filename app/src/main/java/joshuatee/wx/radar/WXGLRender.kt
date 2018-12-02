@@ -272,7 +272,7 @@ class WXGLRender(private val context: Context) : Renderer {
         val cB = objColPal.blueValues
         try {
             if (!product.contains("L2")) {
-                totalBins = if (radarBuffers.productCode != 56.toShort()) {
+                totalBins = if (radarBuffers.productCode != 56.toShort() && radarBuffers.productCode != 30.toShort()) {
                     if (!MyApplication.radarUseJni)
                         UtilityWXOGLPerf.decode8BitAndGenRadials(context, radarBuffers)
                     else {

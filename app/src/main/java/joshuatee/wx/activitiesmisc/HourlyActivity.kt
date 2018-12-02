@@ -45,7 +45,7 @@ import com.jjoe64.graphview.DefaultLabelFormatter
 import joshuatee.wx.objects.ObjectIntent
 import kotlinx.coroutines.*
 
-class HourlyActivity : BaseActivity() { // AppCompatActivity()
+class HourlyActivity : BaseActivity() {
 
     // This activity is accessible from the action bar and provides hourly forecast for the current location
     // Possible improvements: better text formatting ( possibly color ), proper handling of "nil", graphs
@@ -68,7 +68,6 @@ class HourlyActivity : BaseActivity() { // AppCompatActivity()
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menu.add(Menu.NONE, menuItemShare, Menu.NONE, "Share").setIcon(R.drawable.ic_share_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menu.add(Menu.NONE, menuItemSettings, Menu.NONE, "Settings")
-        //menu.add(Menu.NONE, menuItemTest, Menu.NONE, "Test Area - WPC GEFS")
         return true
     }
 

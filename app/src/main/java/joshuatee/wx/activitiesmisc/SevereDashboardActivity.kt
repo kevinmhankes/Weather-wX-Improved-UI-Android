@@ -50,7 +50,7 @@ import kotlinx.coroutines.*
 class SevereDashboardActivity : BaseActivity() {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private val bmAl = mutableListOf<Bitmap>()
+    private val bitmaps = mutableListOf<Bitmap>()
     private lateinit var linearLayout: LinearLayout
     private lateinit var contextg: Context
 
@@ -122,10 +122,10 @@ class SevereDashboardActivity : BaseActivity() {
         }
         listOf(snWat, snMcd, snMpd)
                 .asSequence()
-                .filter { it.bmAl.size > 0 }
+                .filter { it.bitmaps.size > 0 }
                 .forEach { severeNotice ->
-                    severeNotice.bmAl.indices.forEach { j ->
-                        val card = ObjectCardImage(contextg, severeNotice.bmAl[j])
+                    severeNotice.bitmaps.indices.forEach { j ->
+                        val card = ObjectCardImage(contextg, severeNotice.bitmaps[j])
                         var cla: Class<*>? = null
                         var claStr = ""
                         val claArgStr = severeNotice.strList[j]
@@ -151,15 +151,15 @@ class SevereDashboardActivity : BaseActivity() {
                         linearLayout.addView(card.card)
                     }
                 }
-        bmAl.addAll(snWat.bmAl)
-        bmAl.addAll(snMcd.bmAl)
-        bmAl.addAll(snMpd.bmAl)
-        bmAl.addAll(bitmapArrRep)
+        bitmaps.addAll(snWat.bitmaps)
+        bitmaps.addAll(snMcd.bitmaps)
+        bitmaps.addAll(snMpd.bitmaps)
+        bitmaps.addAll(bitmapArrRep)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(this, "Severe Dashboard", "", bmAl)
+            R.id.action_share -> UtilityShare.shareText(this, "Severe Dashboard", "", bitmaps)
             R.id.action_pin -> UtilityShortcut.createShortcut(this, ShortcutType.SevereDashboard)
             else -> return super.onOptionsItemSelected(item)
         }

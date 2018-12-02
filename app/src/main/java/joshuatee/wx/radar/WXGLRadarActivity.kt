@@ -701,6 +701,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             R.id.action_vil -> changeProd("DVL", false)
             R.id.action_dsp -> changeProd("DSA", false)
             R.id.action_daa -> changeProd("DAA", false)
+            R.id.action_nsw -> changeProd("NSW", false)
             R.id.action_l2vel -> changeProd("L2VEL", false)
             R.id.action_l2ref -> changeProd("L2REF", false)
             R.id.action_tilt1 -> changeTilt("0")
