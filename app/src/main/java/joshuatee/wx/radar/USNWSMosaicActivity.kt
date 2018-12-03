@@ -110,7 +110,7 @@ class USNWSMosaicActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
                 nwsRadarMosaicSectorLabelCurrent = Utility.readPref(this, "NWS_RADAR_MOSAIC_SECTOR_CURRENT", "Central Great Lakes")
             }
         }
-        sp = ObjectSpinner(this, this, R.id.spinner1, UtilityUSImgNWSMosaic.NWS_SECTORS_LABELS)
+        sp = ObjectSpinner(this, this, R.id.spinner1, UtilityUSImgNWSMosaic.labels)
         sp.setOnItemSelectedListener(this)
         imgIdx = findPosition(nwsRadarMosaicSectorLabelCurrent)
         sp.setSelection(imgIdx)
@@ -121,7 +121,7 @@ class USNWSMosaicActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         if (key == "latest") {
             key = "CONUS"
         }
-        return UtilityUSImgNWSMosaic.NWS_SECTORS_LABELS.indices.firstOrNull { key == UtilityUSImgNWSMosaic.NWS_SECTORS_LABELS[it] }
+        return UtilityUSImgNWSMosaic.labels.indices.firstOrNull { key == UtilityUSImgNWSMosaic.labels[it] }
                 ?: 0
     }
 
@@ -180,12 +180,12 @@ class USNWSMosaicActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
             UtilityToolbar.fullScreenMode(toolbar)
             firstTime = false
         }
-        if (pos == UtilityUSImgNWSMosaic.NWS_SECTORS.size - 1) {
+        if (pos == UtilityUSImgNWSMosaic.sectors.size - 1) {
             nwsRadarMosaicSectorCurrent = "latest"
             nwsRadarMosaicSectorLabelCurrent = "CONUS"
         } else {
-            nwsRadarMosaicSectorCurrent = UtilityUSImgNWSMosaic.NWS_SECTORS[pos]
-            nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNWSMosaic.NWS_SECTORS_LABELS[pos]
+            nwsRadarMosaicSectorCurrent = UtilityUSImgNWSMosaic.sectors[pos]
+            nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNWSMosaic.labels[pos]
         }
         img.resetZoom()
         imgIdx = pos
@@ -209,21 +209,21 @@ class USNWSMosaicActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
 
     private fun showNextImg() {
         imgIdx += 1
-        if (imgIdx == UtilityUSImgNWSMosaic.NWS_SECTORS.size) {
+        if (imgIdx == UtilityUSImgNWSMosaic.sectors.size) {
             imgIdx = 0
         }
-        nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNWSMosaic.NWS_SECTORS_LABELS[imgIdx]
-        nwsRadarMosaicSectorCurrent = UtilityUSImgNWSMosaic.NWS_SECTORS[imgIdx]
+        nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNWSMosaic.labels[imgIdx]
+        nwsRadarMosaicSectorCurrent = UtilityUSImgNWSMosaic.sectors[imgIdx]
         sp.setSelection(imgIdx)
     }
 
     private fun showPrevImg() {
         imgIdx -= 1
         if (imgIdx == -1) {
-            imgIdx = UtilityUSImgNWSMosaic.NWS_SECTORS.size - 1
+            imgIdx = UtilityUSImgNWSMosaic.sectors.size - 1
         }
-        nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNWSMosaic.NWS_SECTORS_LABELS[imgIdx]
-        nwsRadarMosaicSectorCurrent = UtilityUSImgNWSMosaic.NWS_SECTORS[imgIdx]
+        nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNWSMosaic.labels[imgIdx]
+        nwsRadarMosaicSectorCurrent = UtilityUSImgNWSMosaic.sectors[imgIdx]
         sp.setSelection(imgIdx)
     }
 }

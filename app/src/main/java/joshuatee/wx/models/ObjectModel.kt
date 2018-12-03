@@ -385,8 +385,8 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                 when (selectedItemPosition) {
                     0 -> {
                         model = "WPCGEFS"
-                        labels = UtilityModelWPCGEFSInterface.LABELS
-                        params = UtilityModelWPCGEFSInterface.PARAMS
+                        labels = UtilityModelWPCGEFSInterface.labels
+                        params = UtilityModelWPCGEFSInterface.params
                         sectors = UtilityModelWPCGEFSInterface.sectors
                         startStep = 0
                         endStep = 241
