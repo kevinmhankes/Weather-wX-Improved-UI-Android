@@ -271,8 +271,8 @@ internal object UtilityWXOGLPerf {
         var iCount = 0
         if (count * 4 <= outBuff.limit()) {
             while (iCount < count) {
-                outBuff.putFloat( (-((inBuff.getFloat(iCount * 4 + 4) - pnYFloat) * pnScaleFloat) + pnXCenter.toFloat()))
-                outBuff.putFloat( (-((inBuff.getFloat(iCount * 4) - pnXFloat) * pnScaleFloat) + pnYCenter.toFloat()))
+                outBuff.putFloat(iCount * 4, (-((inBuff.getFloat(iCount * 4 + 4) - pnYFloat) * pnScaleFloat) + pnXCenter.toFloat()))
+                outBuff.putFloat(iCount * 4 + 4, -(-((inBuff.getFloat(iCount * 4) - pnXFloat) * pnScaleFloat) + pnYCenter.toFloat()))
                 //outBuff.putFloat(iCount * 4 + 4, -1.0f * (-((M_180_div_PI * log(tan((M_PI_div_4 + inBuff.getFloat(iCount * 4) * M_PI_div_360).toDouble()), E).toFloat() - M_180_div_PI * log(tan((M_PI_div_4 + centerX * M_PI_div_360).toDouble()), E).toFloat()) * oneDegreeScaleFactor) + yImageCenterPixels))
                 //outBuff.putFloat(iCount * 4, -((inBuff.getFloat(iCount * 4 + 4) - centerY) * oneDegreeScaleFactor) + xImageCenterPixels)
                 iCount += 2

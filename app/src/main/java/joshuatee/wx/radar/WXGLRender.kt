@@ -150,6 +150,11 @@ class WXGLRender(private val context: Context) : Renderer {
     private var bgColorFBlue = 0.0f
     val ortInt: Int = 400
     private val provider = ProjectionType.WX_OGL
+    // this controls if the projection is mercator (nexrad) or 4326 / rectangular
+    // after you zoom out past a certain point you need to hide the nexrad, show the mosaic
+    // and reconstruct all geometry and warning/watch lines using 4326 projection (set this variable to false to not use mercator transformation )
+    // so far, only the base geometry ( state lines, county, etc ) respect this setting
+    private var useMercatorProjection = true
     private val rdL2 = WXGLNexradLevel2()
     val radarL3Object: WXGLNexradLevel3 = WXGLNexradLevel3()
     val rdDownload: WXGLDownload = WXGLDownload()
@@ -482,6 +487,8 @@ class WXGLRender(private val context: Context) : Renderer {
         deconstructGenericGeographic(countyLineBuffers)
     }
 
+    // FIXME this check for 4326 will need to be done in other locations as well but for now just testing to see
+    // if the rectangular projection is realized.
     private fun constructGenericGeographic(buffers: ObjectOglBuffers) {
         if (!buffers.isInitialized) {
             buffers.count = buffers.geotype.count
@@ -495,9 +502,18 @@ class WXGLRender(private val context: Context) : Renderer {
             buffers.isInitialized = true
         }
         if (!MyApplication.radarUseJni) {
-            UtilityWXOGLPerf.genMercato(buffers.geotype.relativeBuffer, buffers.floatBuffer, pn, buffers.count)
+            if (useMercatorProjection) {
+                UtilityWXOGLPerf.genMercato(buffers.geotype.relativeBuffer, buffers.floatBuffer, pn, buffers.count)
+            } else {
+                UtilityWXOGLPerf.generate4326Projection(buffers.geotype.relativeBuffer, buffers.floatBuffer, pn, buffers.count)
+            }
         } else {
-            JNI.genMercato(buffers.geotype.relativeBuffer, buffers.floatBuffer, pn.xFloat, pn.yFloat, pn.xCenter.toFloat(), pn.yCenter.toFloat(), pn.oneDegreeScaleFactorFloat, buffers.count)
+            if (useMercatorProjection) {
+                JNI.genMercato(buffers.geotype.relativeBuffer, buffers.floatBuffer, pn.xFloat, pn.yFloat, pn.xCenter.toFloat(), pn.yCenter.toFloat(), pn.oneDegreeScaleFactorFloat, buffers.count)
+            } else {
+                // FIXME - will want native code version for 4326
+                UtilityWXOGLPerf.generate4326Projection(buffers.geotype.relativeBuffer, buffers.floatBuffer, pn, buffers.count)
+            }
         }
         buffers.setToPositionZero()
     }
