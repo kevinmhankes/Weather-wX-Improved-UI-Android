@@ -516,6 +516,7 @@ object UtilityDownload {
             val response = MyApplication.httpClient!!.newCall(request).execute()
             response.body()!!.byteStream()
         } catch (e: IOException) {
+            UtilityLog.HandleException(e)
             null
         }
     }
