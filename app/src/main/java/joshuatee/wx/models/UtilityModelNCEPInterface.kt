@@ -23,7 +23,7 @@ package joshuatee.wx.models
 
 internal object UtilityModelNCEPInterface {
 
-    val MODELS_ARR = listOf(
+    val models = listOf(
             "HRRR",
             "GFS",
             "NAM",
@@ -43,7 +43,7 @@ internal object UtilityModelNCEPInterface {
             "FIREWX"
     )
 
-    val LIST_SECTOR_ARR_GFS = listOf(
+    val sectorsGfs = listOf(
             "NAMER",
             "SAMER",
             "AFRICA",
@@ -60,33 +60,33 @@ internal object UtilityModelNCEPInterface {
             "INDIA"
     )
 
-    val LIST_SECTOR_ARR_NAM = listOf(
+    val sectorsNam = listOf(
             "NAMER",
             "NPAC",
             "EPAC",
             "WNATL"
     )
 
-    val LIST_SECTOR_ARR_NAM_4_KM = listOf(
+    val sectorsNamHires = listOf(
             "CONUS",
             "ALASKA"
     )
 
-    val LIST_SECTOR_ARR_RAP = listOf("CONUS")
+    val sectorsRap = listOf("CONUS")
 
-    val LIST_SECTOR_ARR_HRRR = listOf(
+    val sectorsHrrr = listOf(
             "CENT-US",
             "EAST-US",
             "WEST-US",
             "CONUS"
     )
 
-    val LIST_SECTOR_ARR_SREF = listOf(
+    val sectorsSref = listOf(
             "NAMER",
             "ALASKA"
     )
 
-    val LIST_SECTOR_ARR_NAEFS = listOf(
+    val sectorsNaefs = listOf(
             "NAMER",
             "SAMER",
             "AFRICA",
@@ -102,9 +102,9 @@ internal object UtilityModelNCEPInterface {
             "ARCTIC"
     )
 
-    val LIST_SECTOR_ARR_POLAR = listOf("POLAR")
+    val sectorsPolar = listOf("POLAR")
 
-    val LIST_SECTOR_ARR_HRW_NMM = listOf(
+    val sectorsHrwNmm = listOf(
             "CONUS",
             "HAWAII",
             "GUAM",
@@ -112,7 +112,7 @@ internal object UtilityModelNCEPInterface {
             "PR"
     )
 
-    val LIST_SECTOR_ARR_GEFS_SPAG = listOf(
+    val sectorsGefsSpag = listOf(
             "NAMER",
             "SAMER",
             "AFRICA",
@@ -126,7 +126,7 @@ internal object UtilityModelNCEPInterface {
             "INDIA"
     )
 
-    val LIST_SECTOR_ARR_GEFS_MNSPRD = listOf(
+    val sectorsGefsMnsprd = listOf(
             "NAMER",
             "SAMER",
             "AFRICA",
@@ -142,7 +142,7 @@ internal object UtilityModelNCEPInterface {
             "ARCTIC"
     )
 
-    val LIST_SECTOR_ARR_WW_3 = listOf(
+    val sectorsWw3 = listOf(
             "ATLANTIC",
             "ATLPAC",
             "NPAC",
@@ -150,14 +150,14 @@ internal object UtilityModelNCEPInterface {
             "WNATL"
     )
 
-    val LIST_SECTOR_ARR_WW_3_ENP = listOf(
+    val sectorsWw3Enp = listOf(
             "NPAC",
             "EPAC"
     )
 
-    val LIST_SECTOR_ARR_WW_3_WNA = listOf("WNATL")
+    val sectorsWw3Wna = listOf("WNATL")
 
-    val LIST_SECTOR_ARR_ESTOFS = listOf(
+    val sectorsEstofs = listOf(
             "WGOA",
             "EGOA",
             "WA-OR",
@@ -171,9 +171,9 @@ internal object UtilityModelNCEPInterface {
             "HAWAII"
     )
 
-    val LIST_SECTOR_ARR_FIREWX = listOf("CONUS-AK")
+    val sectorsFirewx = listOf("CONUS-AK")
 
-    val MODEL_GFS_PARAMS = listOf(
+    val paramsGfs = listOf(
             "1000_500_thick",
             "1000_850_thick",
             "850_700_thick",
@@ -206,7 +206,7 @@ internal object UtilityModelNCEPInterface {
             "snodpth_chng"
     )
 
-    val MODEL_GFS_PARAMS_LABELS = listOf(
+    val labelsGfs = listOf(
             "MSLP, 1000-500mb thickness, 0x hr PCPN (in.)",
             "MSLP, 1000-850mb thickness, 0x hr PCPN (in.)",
             "MSLP, 850-700mb thickness, 0x hr PCPN (in.)",
@@ -239,7 +239,7 @@ internal object UtilityModelNCEPInterface {
             "Snow Depth Change for previous 001 hours"
     )
 
-    val MODEL_NAM_PARAMS = listOf(
+    val paramsNam = listOf(
             "precip_p03",
             "precip_p06",
             "precip_p12",
@@ -271,7 +271,7 @@ internal object UtilityModelNCEPInterface {
             "925_temp_ht"
     )
 
-    val MODEL_NAM_PARAMS_LABELS = listOf(
+    val labelsNam = listOf(
             "Total Precipitation every 3 hours",
             "Total Precipitation every 6 hours",
             "Total Precipitation every 12 hours",
@@ -303,7 +303,7 @@ internal object UtilityModelNCEPInterface {
             "925mb Temperature, Wind and Height"
     )
 
-    val MODEL_RAP_PARAMS = listOf(
+    val paramsRap = listOf(
             "precip_p01",
             "precip_ptot",
             "precip_rate",
@@ -329,7 +329,7 @@ internal object UtilityModelNCEPInterface {
             "925_temp_ht"
     )
 
-    val MODEL_RAP_PARAMS_LABELS = listOf(
+    val labelsRap = listOf(
             "Hourly Total Precipitation",
             "Total Accumulated Precipitation",
             "Precipitation Rate",
@@ -355,7 +355,7 @@ internal object UtilityModelNCEPInterface {
             "925mb Temperature, Wind and Height"
     )
 
-    val MODEL_HRRR_PARAMS = listOf(
+    val paramsHrrr = listOf(
             "precip_p01",
             "precip_ptot",
             "precip_type",
@@ -389,7 +389,7 @@ internal object UtilityModelNCEPInterface {
             "ceiling"
     )
 
-    val MODEL_HRRR_PARAMS_LABELS = listOf(
+    val labelsHrrr = listOf(
             "Hourly Total Precipitation",
             "15-hr Total Precipitation",
             "Precipitation Type",
@@ -423,7 +423,7 @@ internal object UtilityModelNCEPInterface {
             "Cloud Ceiling"
     )
 
-    val MODEL_NAM_4_KM_PARAMS = listOf(
+    val paramsNamHires = listOf(
             "1000_500_thick",
             "1000_850_thick",
             "10m_wnd_precip",
@@ -466,7 +466,7 @@ internal object UtilityModelNCEPInterface {
             "precip_ptot"
     )
 
-    val MODEL_NAM_4_KM_PARAMS_LABELS = listOf(
+    val labelsNamHires = listOf(
             "MSLP, 1000-500mb thickness, 6 hourly total precipitation",
             "MSLP, 1000-850mb thickness, 6 hourly total precipitation",
             "MSLP, 10m wind, 6 houly total precip, 2m temperature",
@@ -509,7 +509,7 @@ internal object UtilityModelNCEPInterface {
             "Precipitation Total"
     )
 
-    val MODEL_SREF_PARAMS = listOf(
+    val paramsSref = listOf(
             "precip_p03",
             "precip_p06",
             "precip_p12",
@@ -539,7 +539,7 @@ internal object UtilityModelNCEPInterface {
             "850_wnd"
     )
 
-    val MODEL_SREF_PARAMS_LABELS = listOf(
+    val labelsSref = listOf(
             "Mean 3-hour Precipitation",
             "Mean 6-hour Precipitation",
             "Mean 12-hour Precipitation",
@@ -569,7 +569,7 @@ internal object UtilityModelNCEPInterface {
             "850mb Wind"
     )
 
-    val MODEL_NAEFS_PARAMS = listOf(
+    val paramsNaefs = listOf(
             "10m_wnd",
             "2m_temp",
             "mslp",
@@ -587,7 +587,7 @@ internal object UtilityModelNCEPInterface {
             "925_wnd"
     )
 
-    val MODEL_NAEFS_PARAMS_LABELS = listOf(
+    val labelsNaefs = listOf(
             "10m Winds",
             "2 meter Temperature",
             "Mean Sea Level Pressure",
@@ -605,11 +605,11 @@ internal object UtilityModelNCEPInterface {
             "925mb Winds"
     )
 
-    val MODEL_POLAR_PARAMS = listOf("ice_drift")
+    val paramsPolar = listOf("ice_drift")
 
-    val MODEL_POLAR_PARAMS_LABELS = listOf("Polar Ice Drift")
+    val labelsPolar = listOf("Polar Ice Drift")
 
-    val MODEL_HRW_NMM_PARAMS = listOf(
+    val paramsHrwNmm = listOf(
             "10m_wnd",
             "10m_wnd_sfc_gust",
             "2m_dewp_10m_wnd",
@@ -643,7 +643,7 @@ internal object UtilityModelNCEPInterface {
             "850_temp_ht"
     )
 
-    val MODEL_HRW_NMM_PARAMS_LABELS = listOf(
+    val labelsHrwNmm = listOf(
             "10 meter Wind",
             "10 meter wind gust",
             "2 meter Dew Point and 10 meter wind",
@@ -677,7 +677,7 @@ internal object UtilityModelNCEPInterface {
             "850mb Temperature, Wind, and Height"
     )
 
-    val MODEL_GEFS_SPAG_PARAMS = listOf(
+    val paramsGefsSpag = listOf(
             "200_1176_ht",
             "200_1188_ht",
             "200_1200_ht",
@@ -698,7 +698,7 @@ internal object UtilityModelNCEPInterface {
             "mslp_996_1036_iso"
     )
 
-    val MODEL_GEFS_SPAG_PARAMS_LABELS = listOf(
+    val labelsGefsSpag = listOf(
             "200mb 1176 Height Contours",
             "200mb 1188 Height Contours",
             "200mb 1200 Height Contours",
@@ -719,7 +719,7 @@ internal object UtilityModelNCEPInterface {
             "MSLP 996/1036 Isobar Contours"
     )
 
-    val MODEL_GEFS_MNSPRD_PARAMS = listOf(
+    val paramsGefsMnsprd = listOf(
             "dom_precip_type",
             "precip_p06",
             "precip_p24",
@@ -751,7 +751,7 @@ internal object UtilityModelNCEPInterface {
             "925_wnd"
     )
 
-    val MODEL_GEFS_MNSPRD_PARAMS_LABELS = listOf(
+    val labelsGefsMnsprd = listOf(
             "Dominant Precipitation Type",
             "Mean 6-hour Precipitation",
             "Mean 24-hour Precipitation",
@@ -783,13 +783,13 @@ internal object UtilityModelNCEPInterface {
             "925mb Winds"
     )
 
-    val MODEL_WW_3_PARAMS = listOf(
+    val paramsWw3 = listOf(
             "peak_dir_per",
             "sig_wv_ht",
             "wnd_wv_dir_per"
     )
 
-    val MODEL_WW_3_PARAMS_LABELS = listOf(
+    val labelsWw3 = listOf(
             "Peak Wave Direction and Period (sec)",
             "Significant Wave Height and Wind",
             "Wind Wave Direction and Period (sec)"

@@ -62,7 +62,7 @@ internal object UtilityModelSPCHREFInterface {
         }
     }
 
-    val SECTORS = listOf(
+    val sectors = listOf(
             "conus",
             "cp",
             "ma",

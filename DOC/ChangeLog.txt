@@ -6,6 +6,7 @@
 // TODO camelCase all vars in model's interfaces
 // TODO NWS URLs http to https const myapp
 // TODO SPC HREF use long names for sectors
+// TODO refactor nexrad radar to match architecture of wXL23 Metal to remove code duplicity
 
 55068 2018_12_07 refactor/rename in wpc/spc/vis/models
                  modify zoom levels for additional radar elements per Ely's suggestion
