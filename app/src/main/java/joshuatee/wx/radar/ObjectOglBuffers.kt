@@ -79,6 +79,11 @@ open class ObjectOglBuffers() {
         this.type = type
     }
 
+    constructor(geotype: PolygonType, scaleCutOff: Float) : this() {
+        this.type = geotype
+        this.scaleCutOff = scaleCutOff
+    }
+
     constructor(geotype: GeographyType, scaleCutOff: Float) : this() {
         this.geotype = geotype
         this.scaleCutOff = scaleCutOff

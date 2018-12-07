@@ -77,19 +77,20 @@ class WXGLRender(private val context: Context) : Renderer {
     private var lineIndexBuffer: ByteBuffer = ByteBuffer.allocate(0)
     private var gpsX = 0.toDouble()
     private var gpsY = 0.toDouble()
+    private val zoomToHideMiscFeatures = 0.5f
     private val radarBuffers = ObjectOglRadarBuffers(context, MyApplication.nexradRadarBackgroundColor)
-    private val spotterBuffers = ObjectOglBuffers(PolygonType.SPOTTER)
+    private val spotterBuffers = ObjectOglBuffers(PolygonType.SPOTTER, zoomToHideMiscFeatures)
     private val stateLineBuffers = ObjectOglBuffers(GeographyType.STATE_LINES, 0.0f)
     private val countyLineBuffers = ObjectOglBuffers(GeographyType.COUNTY_LINES, 0.75f)
     private val hwBuffers = ObjectOglBuffers(GeographyType.HIGHWAYS, 0.45f)
     private val hwExtBuffers = ObjectOglBuffers(GeographyType.HIGHWAYS_EXTENDED, 3.00f)
-    private val lakeBuffers = ObjectOglBuffers(GeographyType.LAKES, 0.30f)
-    private val stiBuffers = ObjectOglBuffers(PolygonType.STI)
-    private val wbBuffers = ObjectOglBuffers(PolygonType.WIND_BARB)
-    private val wbGustsBuffers = ObjectOglBuffers(PolygonType.WIND_BARB_GUSTS)
+    private val lakeBuffers = ObjectOglBuffers(GeographyType.LAKES, zoomToHideMiscFeatures)
+    private val stiBuffers = ObjectOglBuffers(PolygonType.STI, zoomToHideMiscFeatures)
+    private val wbBuffers = ObjectOglBuffers(PolygonType.WIND_BARB, zoomToHideMiscFeatures)
+    private val wbGustsBuffers = ObjectOglBuffers(PolygonType.WIND_BARB_GUSTS, zoomToHideMiscFeatures)
     private val mpdBuffers = ObjectOglBuffers(PolygonType.MPD)
-    private val hiBuffers = ObjectOglBuffers(PolygonType.HI)
-    private val tvsBuffers = ObjectOglBuffers(PolygonType.TVS)
+    private val hiBuffers = ObjectOglBuffers(PolygonType.HI, zoomToHideMiscFeatures)
+    private val tvsBuffers = ObjectOglBuffers(PolygonType.TVS, zoomToHideMiscFeatures)
     private val warningFfwBuffers = ObjectOglBuffers(PolygonType.FFW)
     private val warningTstBuffers = ObjectOglBuffers(PolygonType.TST)
     private val warningTorBuffers = ObjectOglBuffers(PolygonType.TOR)
@@ -99,7 +100,7 @@ class WXGLRender(private val context: Context) : Renderer {
     private val swoBuffers = ObjectOglBuffers()
     private val locdotBuffers = ObjectOglBuffers(PolygonType.LOCDOT)
     private val locCircleBuffers = ObjectOglBuffers()
-    private val wbCircleBuffers = ObjectOglBuffers(PolygonType.WIND_BARB_CIRCLE)
+    private val wbCircleBuffers = ObjectOglBuffers(PolygonType.WIND_BARB_CIRCLE, zoomToHideMiscFeatures)
     private val colorSwo = IntArray(5)
     private var breakSize15 = 15000
     private val breakSizeRadar = 15000
@@ -368,10 +369,23 @@ class WXGLRender(private val context: Context) : Renderer {
                 drawElement(it)
             }
         }
-        listOf(spotterBuffers, hiBuffers, tvsBuffers).forEach { drawTriangles(it) }
+        listOf(spotterBuffers, hiBuffers, tvsBuffers).forEach {
+            if (zoom > it.scaleCutOff) {
+                drawTriangles(it)
+            }
+        }
         GLES20.glLineWidth(3.0f)
-        listOf(stiBuffers, wbGustsBuffers, wbBuffers).forEach { drawPolygons(it, 16) }
-        drawTriangles(wbCircleBuffers)
+        listOf(stiBuffers, wbGustsBuffers, wbBuffers).forEach {
+            if (zoom > it.scaleCutOff) {
+                drawPolygons(it, 16)
+            }
+        }
+        listOf(wbCircleBuffers).forEach {
+            if (zoom > it.scaleCutOff) {
+                drawTriangles(it)
+            }
+        }
+        //drawTriangles(wbCircleBuffers)
         GLES20.glLineWidth(defaultLineWidth)
         drawTriangles(locdotBuffers)
         if (MyApplication.locdotFollowsGps && locCircleBuffers.floatBuffer.capacity() != 0 && locCircleBuffers.indexBuffer.capacity() != 0 && locCircleBuffers.colorBuffer.capacity() != 0) {
