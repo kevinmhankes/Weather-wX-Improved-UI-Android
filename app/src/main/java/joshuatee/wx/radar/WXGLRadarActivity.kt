@@ -855,7 +855,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 alertDialogStatusAl.add("Show radar status message")
                 diaStatus!!.show()
             } else {
-                numPanesArr.forEach { wxgltextArr[it].addTV() }
+                numPanesArr.forEach {
+                    wxgltextArr[it].addTV()
+                }
             }
         }
     }

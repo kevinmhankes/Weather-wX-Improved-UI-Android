@@ -134,6 +134,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener, Gestur
                 listener?.onProgressChanged(50000, idx, idxInt)
                 (0 until numPanes).forEach {
                     oglr[it].displayHold = false
+                    wxgl[it].requestRender()
                 }
             }
         }

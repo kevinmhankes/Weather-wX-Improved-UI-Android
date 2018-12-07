@@ -10,6 +10,7 @@
 55068 2018_12_07 refactor/rename in wpc/spc/vis/models
                  modify zoom levels for additional radar elements per Ely's suggestion
                  add rectangular projection code to radar to make easier for Conus radar that Ely is working on
+                 (bugfix/feature) hide certain radar elements on touch per Ely's suggestion
 55067 2018_12_02 refactor/rename in wpc/spc/vis/models
 55066 2018_12_02 goes16 - set zoom to 1.0 on sector change
                  OKHTTP - update from 3.11 to 3.12
