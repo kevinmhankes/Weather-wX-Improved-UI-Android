@@ -110,6 +110,7 @@ class WXGLRender(private val context: Context) : Renderer {
     private var chunkCount = 0
     private var totalBins = 0
     private var totalBinsOgl = 0
+    var displayHold: Boolean = false
     var zoom: Float = 1.0f
         set(scale) {
             field = scale
@@ -369,29 +370,39 @@ class WXGLRender(private val context: Context) : Renderer {
                 drawElement(it)
             }
         }
-        listOf(spotterBuffers, hiBuffers, tvsBuffers).forEach {
-            if (zoom > it.scaleCutOff) {
-                drawTriangles(it)
+
+        // FIXME
+        // whether or not to respect the display being touched needs to be stored in
+        // objectglbuffers. The wXL23 Metal code is more generic and thus each element drawn will need
+        // to be checked. Will do this later when I have more time
+        if (!displayHold) {
+            listOf(spotterBuffers, hiBuffers, tvsBuffers).forEach {
+                if (zoom > it.scaleCutOff) {
+                    drawTriangles(it)
+                }
+            }
+            GLES20.glLineWidth(3.0f)
+            listOf(stiBuffers, wbGustsBuffers, wbBuffers).forEach {
+                if (zoom > it.scaleCutOff) {
+                    drawPolygons(it, 16)
+                }
+            }
+            listOf(wbCircleBuffers).forEach {
+                if (zoom > it.scaleCutOff) {
+                    drawTriangles(it)
+                }
+            }
+            //drawTriangles(wbCircleBuffers)
+            GLES20.glLineWidth(defaultLineWidth)
+            drawTriangles(locdotBuffers)
+            if (MyApplication.locdotFollowsGps && locCircleBuffers.floatBuffer.capacity() != 0 && locCircleBuffers.indexBuffer.capacity() != 0 && locCircleBuffers.colorBuffer.capacity() != 0) {
+                locCircleBuffers.chunkCount = 1
+                drawPolygons(locCircleBuffers, 16)
             }
         }
-        GLES20.glLineWidth(3.0f)
-        listOf(stiBuffers, wbGustsBuffers, wbBuffers).forEach {
-            if (zoom > it.scaleCutOff) {
-                drawPolygons(it, 16)
-            }
-        }
-        listOf(wbCircleBuffers).forEach {
-            if (zoom > it.scaleCutOff) {
-                drawTriangles(it)
-            }
-        }
-        //drawTriangles(wbCircleBuffers)
-        GLES20.glLineWidth(defaultLineWidth)
-        drawTriangles(locdotBuffers)
-        if (MyApplication.locdotFollowsGps && locCircleBuffers.floatBuffer.capacity() != 0 && locCircleBuffers.indexBuffer.capacity() != 0 && locCircleBuffers.colorBuffer.capacity() != 0) {
-            locCircleBuffers.chunkCount = 1
-            drawPolygons(locCircleBuffers, 16)
-        }
+
+
+
         GLES20.glLineWidth(warnLineWidth)
         listOf(warningTstBuffers, warningFfwBuffers, warningTorBuffers).forEach { drawPolygons(it, 8) }
         GLES20.glLineWidth(watmcdLineWidth)
