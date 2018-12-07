@@ -606,6 +606,7 @@ class MyApplication : Application() {
         }
 
         // Radar Preferences
+        // FIXME will need to be HTTPS soon
         const val NWS_RADAR_PUB: String = "http://tgftp.nws.noaa.gov/" //(Official current URL, problem with cricket but so does cp.ncep now )
         //public static final String NWS_RADAR_PUB = "http://tgftp.cp.ncep.noaa.gov/";
         const val nwsRadarLevel2Pub: String = "http://nomads.ncep.noaa.gov/pub/data/nccf/radar/nexrad_level2/"
