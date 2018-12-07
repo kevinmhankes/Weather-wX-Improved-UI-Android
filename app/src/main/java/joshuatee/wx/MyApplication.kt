@@ -129,7 +129,7 @@ class MyApplication : Application() {
         const val nwsGoesWebsitePrefix: String = "https://www.goes.noaa.gov"
         const val nwsOpcWebsitePrefix: String = "http://www.opc.ncep.noaa.gov"
         const val nwsNhcWebsitePrefix: String = "https://www.nhc.noaa.gov"
-        const val nwsRadarWebsitePrefix: String = "http://radar.weather.gov"
+        const val nwsRadarWebsitePrefix: String = "https://radar.weather.gov"
         const val nwsMagNcepWebsitePrefix: String = "https://mag.ncep.noaa.gov"
         const val sunMoonDataUrl: String = "https://api.usno.navy.mil"
 
