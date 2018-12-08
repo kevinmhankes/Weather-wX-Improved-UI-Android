@@ -75,6 +75,19 @@ internal object UtilityModelSPCHREFInterface {
             "sw"
     )
 
+    val sectorsLong = listOf(
+            "CONUS",
+            "Central Plains",
+            "Mid Atlantic",
+            "Midwest",
+            "Northeast",
+            "Northern Plains",
+            "Northwest",
+            "Southeast",
+            "Southern Plains",
+            "Southwest"
+    )
+
     val params = listOf(
             "guidance_hail_spchazcal_004h",
             "guidance_tor_spchazcal_004h",
