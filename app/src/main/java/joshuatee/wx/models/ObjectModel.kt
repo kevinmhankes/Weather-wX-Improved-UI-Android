@@ -325,8 +325,8 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                     }
                     13 -> {
                         model = "WW3-ENP"
-                        params = UtilityModelNCEPInterface.MODEL_WW_3_ENP_PARAMS
-                        labels = UtilityModelNCEPInterface.MODEL_WW_3_ENP_PARAMS_LABELS
+                        params = UtilityModelNCEPInterface.paramsWw3Enp
+                        labels = UtilityModelNCEPInterface.labelsWw3Enp
                         sectors = UtilityModelNCEPInterface.sectorsWw3Enp
                         startStep = 0
                         endStep = 127
@@ -335,8 +335,8 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                     }
                     14 -> {
                         model = "WW3-WNA"
-                        params = UtilityModelNCEPInterface.MODEL_WW_3_WNA_PARAMS
-                        labels = UtilityModelNCEPInterface.MODEL_WW_3_WNA_PARAMS_LABELS
+                        params = UtilityModelNCEPInterface.paramsWw3Wna
+                        labels = UtilityModelNCEPInterface.labelsWw3Wna
                         sectors = UtilityModelNCEPInterface.sectorsWw3Wna
                         startStep = 0
                         endStep = 127
@@ -345,8 +345,8 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                     }
                     15 -> {
                         model = "ESTOFS"
-                        params = UtilityModelNCEPInterface.MODEL_ESTOFS_PARAMS
-                        labels = UtilityModelNCEPInterface.MODEL_ESTOFS_PARAMS_LABELS
+                        params = UtilityModelNCEPInterface.paramsEstofs
+                        labels = UtilityModelNCEPInterface.labelsEstofs
                         sectors = UtilityModelNCEPInterface.sectorsEstofs
                         startStep = 0
                         endStep = 181
@@ -355,8 +355,8 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                     }
                     16 -> {
                         model = "FIREWX"
-                        params = UtilityModelNCEPInterface.MODEL_FIREWX_PARAMS
-                        labels = UtilityModelNCEPInterface.MODEL_FIREWX_PARAMS_LABELS
+                        params = UtilityModelNCEPInterface.paramsFirefx
+                        labels = UtilityModelNCEPInterface.labelsFirefx
                         sectors = UtilityModelNCEPInterface.sectorsFirewx
                         startStep = 0
                         endStep = 37
