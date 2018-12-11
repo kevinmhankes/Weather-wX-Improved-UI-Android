@@ -2,7 +2,9 @@
 // TODO base velocity legend
 // TODO NWS URLs http to https const myapp
 // TODO refactor nexrad radar to match architecture of wXL23 Metal to remove code duplicity
+// TODO reduce complexity and code cleanup (lint)
 
+55070 2018_12_11
 55069 2018_12_11 SPC MESO  _sf, convert to list
                  refactor/rename in models
                  linting based on official kotlin style guide (this will take some time)
