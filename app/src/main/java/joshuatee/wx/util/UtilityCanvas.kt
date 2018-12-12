@@ -47,8 +47,16 @@ internal object UtilityCanvas {
         paint.style = Style.STROKE
         val wallpath = Path()
         wallpath.reset()
-        val paintList = listOf(MyApplication.radarColorFfw, MyApplication.radarColorTstorm, MyApplication.radarColorTor)
-        val warningDataList = listOf(MyApplication.severeDashboardFfw.valueGet(), MyApplication.severeDashboardTst.valueGet(), MyApplication.severeDashboardTor.valueGet())
+        val paintList = listOf(
+            MyApplication.radarColorFfw,
+            MyApplication.radarColorTstorm,
+            MyApplication.radarColorTor
+        )
+        val warningDataList = listOf(
+            MyApplication.severeDashboardFfw.valueGet(),
+            MyApplication.severeDashboardTst.valueGet(),
+            MyApplication.severeDashboardTor.valueGet()
+        )
         if (provider.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
@@ -58,14 +66,24 @@ internal object UtilityCanvas {
             paint.color = paintList[idx]
             var warningHTML = it.replace("\n", "")
             warningHTML = warningHTML.replace(" ", "")
-            val warningAl = UtilityString.parseColumnMutable(warningHTML, RegExp.warningLatLonPattern)
+            val warningAl =
+                UtilityString.parseColumnMutable(warningHTML, RegExp.warningLatLonPattern)
             val vtecAl = warningHTML.parseColumn(RegExp.warningVtecPattern)
-            warningAl.forEachIndexed { i, warn -> warningAl[i] = warn.replace("[", "").replace("]", "").replace(",", " ").replace("-", "") }
+            warningAl.forEachIndexed { i, warn ->
+                warningAl[i] =
+                        warn.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
+            }
             canvasDrawWarningsNewAPI(warningAl, vtecAl, canvas, wallpath, paint, mercato, pn)
         }
     }
 
-    fun drawCitiesUS(context: Context, provider: ProjectionType, bitmap: Bitmap, rid: String, textSize: Int) {
+    fun drawCitiesUS(
+        context: Context,
+        provider: ProjectionType,
+        bitmap: Bitmap,
+        rid: String,
+        textSize: Int
+    ) {
         val mercator = provider.isMercator
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -85,14 +103,27 @@ internal object UtilityCanvas {
         var tmpCoords: DoubleArray
         UtilityCities.CITY_OBJ.indices.forEach {
             tmpCoords = if (mercator) {
-                UtilityCanvasProjection.computeMercatorNumbers(UtilityCities.CITY_OBJ[it]!!.x, UtilityCities.CITY_OBJ[it]!!.y, pn)
+                UtilityCanvasProjection.computeMercatorNumbers(
+                    UtilityCities.CITY_OBJ[it]!!.x,
+                    UtilityCities.CITY_OBJ[it]!!.y,
+                    pn
+                )
             } else {
-                UtilityCanvasProjection.compute4326Numbers(UtilityCities.CITY_OBJ[it]!!.x, UtilityCities.CITY_OBJ[it]!!.y, pn)
+                UtilityCanvasProjection.compute4326Numbers(
+                    UtilityCities.CITY_OBJ[it]!!.x,
+                    UtilityCities.CITY_OBJ[it]!!.y,
+                    pn
+                )
             }
             pixXInit = tmpCoords[0]
             pixYInit = tmpCoords[1]
             if (textSize > 0) {
-                canvas.drawText(MyApplication.comma.split(UtilityCities.CITY_OBJ[it]!!.city)[0], pixXInit.toFloat() + 4, pixYInit.toFloat() - 4, paint)
+                canvas.drawText(
+                    MyApplication.comma.split(UtilityCities.CITY_OBJ[it]!!.city)[0],
+                    pixXInit.toFloat() + 4,
+                    pixYInit.toFloat() - 4,
+                    paint
+                )
                 canvas.drawCircle(pixXInit.toFloat(), pixYInit.toFloat(), 2f, paint)
             } else {
                 canvas.drawCircle(pixXInit.toFloat(), pixYInit.toFloat(), 1f, paint)
@@ -100,7 +131,12 @@ internal object UtilityCanvas {
         }
     }
 
-    fun addLocationDotForCurrentLocation(context: Context, provider: ProjectionType, bitmap: Bitmap, rid: String) {
+    fun addLocationDotForCurrentLocation(
+        context: Context,
+        provider: ProjectionType,
+        bitmap: Bitmap,
+        rid: String
+    ) {
         val mercato = provider.isMercator
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -128,7 +164,13 @@ internal object UtilityCanvas {
         canvas.drawCircle(pixXInit.toFloat(), pixYInit.toFloat(), 2f, paint)
     }
 
-    fun addMCD(context: Context, provider: ProjectionType, bitmap: Bitmap, rid1: String, polyType: PolygonType) {
+    fun addMCD(
+        context: Context,
+        provider: ProjectionType,
+        bitmap: Bitmap,
+        rid1: String,
+        polyType: PolygonType
+    ) {
         val mercato = provider.isMercator
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -156,7 +198,14 @@ internal object UtilityCanvas {
     }
 
     // used by MCD/WAT/MPD
-    private fun canvasDrawWarnings(warningAl: List<String>, canvas: Canvas, wallpath: Path, paint: Paint, mercato: Boolean, pn: ProjectionNumbers) {
+    private fun canvasDrawWarnings(
+        warningAl: List<String>,
+        canvas: Canvas,
+        wallpath: Path,
+        paint: Paint,
+        mercato: Boolean,
+        pn: ProjectionNumbers
+    ) {
         var pixXInit: Double
         var pixYInit: Double
         var tmpCoords: DoubleArray
@@ -199,7 +248,15 @@ internal object UtilityCanvas {
         }
     }
 
-    private fun canvasDrawWarningsNewAPI(warningAl: List<String>, vtecAl: List<String>, canvas: Canvas, wallpath: Path, paint: Paint, mercato: Boolean, pn: ProjectionNumbers) {
+    private fun canvasDrawWarningsNewAPI(
+        warningAl: List<String>,
+        vtecAl: List<String>,
+        canvas: Canvas,
+        wallpath: Path,
+        paint: Paint,
+        mercato: Boolean,
+        pn: ProjectionNumbers
+    ) {
         var pixXInit: Double
         var pixYInit: Double
         var tmpCoords: DoubleArray
@@ -209,7 +266,10 @@ internal object UtilityCanvas {
         var testArr: Array<String>
         warningAl.forEach { warn ->
             polyCount += 1
-            if (vtecAl.isNotEmpty() && vtecAl.size > polyCount && !vtecAl[polyCount].startsWith("0.EXP") && !vtecAl[polyCount].startsWith("0.CAN")) {
+            if (vtecAl.isNotEmpty() && vtecAl.size > polyCount && !vtecAl[polyCount].startsWith("0.EXP") && !vtecAl[polyCount].startsWith(
+                    "0.CAN"
+                )
+            ) {
                 testArr = MyApplication.space.split(warn)
                 val y = testArr.filterIndexed { idx: Int, _: String -> idx and 1 == 0 }.map {
                     it.toDoubleOrNull() ?: 0.0

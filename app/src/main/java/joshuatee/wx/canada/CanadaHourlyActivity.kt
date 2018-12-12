@@ -53,7 +53,12 @@ class CanadaHourlyActivity : BaseActivity() {
         c0 = ObjectCardText(this)
         c0.setOnClickListener(View.OnClickListener { UtilityToolbar.showHide(toolbar) })
         linearLayout.addView(c0.card)
-        linearLayout.addView(ObjectCALegal(this, UtilityCanadaHourly.getHourlyURL(Location.locationIndex)).card)
+        linearLayout.addView(
+            ObjectCALegal(
+                this,
+                UtilityCanadaHourly.getHourlyURL(Location.locationIndex)
+            ).card
+        )
         title = Location.getName(locNumInt) + " hourly forecast"
         getContent()
     }

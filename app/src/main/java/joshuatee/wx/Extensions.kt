@@ -22,6 +22,7 @@
 package joshuatee.wx.Extensions
 
 import android.graphics.Bitmap
+import android.os.Build
 import java.util.regex.Pattern
 
 import joshuatee.wx.util.UtilityString
@@ -50,15 +51,23 @@ fun String.parseColumn(p: Pattern): List<String> {
 }
 
 fun String.getImage(): Bitmap {
-    return UtilityDownload.getBitmapFromURLS(this)
+    return if (Build.VERSION.SDK_INT > 20) {
+        UtilityDownload.getBitmapFromURLS(this)
+    } else {
+        UtilityDownload.getBitmapFromUrlUnsafe(this)
+    }
 }
 
 fun String.getHtml(): String {
-    return UtilityDownload.getStringFromURLS(this)
+    return if (Build.VERSION.SDK_INT > 20) {
+        UtilityDownload.getStringFromURLS(this)
+    } else {
+        UtilityDownload.getStringFromUrlUnsafe(this)
+    }
 }
 
 fun String.getHtmlUnsafe(): String {
-    return UtilityDownload.getStringFromURLSUnsafe(this)
+    return UtilityDownload.getStringFromUrlUnsafe(this)
 }
 
 fun String.getNwsHtml(): String {
@@ -72,7 +81,6 @@ fun String.getHtmlSep(): String {
 fun String.getHtmlSepUnsafe(): String {
     return UtilityDownload.getStringFromURLSepSUnsafe(this)
 }
-
 
 fun String.parseColumnAll(p: Pattern): List<String> {
     return UtilityString.parseColumnAllS(this, p)
