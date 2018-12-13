@@ -67,7 +67,18 @@ object UtilitySpotter {
                 htmlArr.forEach { line ->
                     tmpArr = line.split(";;").dropLastWhile { it.isEmpty() }
                     if (tmpArr.size > 15) {
-                        spotterList.add(Spotter(tmpArr[14], tmpArr[15], tmpArr[4], tmpArr[5], tmpArr[3], tmpArr[11], tmpArr[10], tmpArr[0]))
+                        spotterList.add(
+                            Spotter(
+                                tmpArr[14],
+                                tmpArr[15],
+                                tmpArr[4],
+                                tmpArr[5],
+                                tmpArr[3],
+                                tmpArr[11],
+                                tmpArr[10],
+                                tmpArr[0]
+                            )
+                        )
                         latAl.add(tmpArr[4])
                         lonAl.add(tmpArr[5])
                     }
@@ -108,7 +119,19 @@ object UtilitySpotter {
         htmlArr.forEach { line ->
             tmpArr = line.split(";;").dropLastWhile { it.isEmpty() }
             if (tmpArr.size > 10 && !tmpArr[0].startsWith("#")) {
-                reportsList.add(SpotterReports(tmpArr[9], tmpArr[10], tmpArr[5], tmpArr[6], tmpArr[8], tmpArr[0], tmpArr[3], tmpArr[2], tmpArr[7]))
+                reportsList.add(
+                    SpotterReports(
+                        tmpArr[9],
+                        tmpArr[10],
+                        tmpArr[5],
+                        tmpArr[6],
+                        tmpArr[8],
+                        tmpArr[0],
+                        tmpArr[3],
+                        tmpArr[2],
+                        tmpArr[7]
+                    )
+                )
             }
         }
     }

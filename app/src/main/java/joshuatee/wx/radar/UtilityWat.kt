@@ -30,7 +30,12 @@ import joshuatee.wx.util.ProjectionNumbers
 
 internal object UtilityWat {
 
-    fun addWat(context: Context, provider: ProjectionType, rid1: String, type: PolygonType): List<Double> {
+    fun addWat(
+        context: Context,
+        provider: ProjectionType,
+        rid1: String,
+        type: PolygonType
+    ): List<Double> {
         var testArr: Array<String>
         val warningList = mutableListOf<Double>()
         var prefToken = ""
@@ -66,7 +71,8 @@ internal object UtilityWat {
                     if (x.size == y.size) {
                         j = 1
                         while (j < x.size) {
-                            tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(x[j], y[j], pn)
+                            tmpCoords =
+                                    UtilityCanvasProjection.computeMercatorNumbers(x[j], y[j], pn)
                             warningList.add(tmpCoords[0])
                             warningList.add(tmpCoords[1])
                             warningList.add(tmpCoords[0])
