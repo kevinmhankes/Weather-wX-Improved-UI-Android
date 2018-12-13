@@ -40,7 +40,13 @@ class ObjectSpinner {
     private val spinner1: Spinner
     val list: MutableList<String>
 
-    constructor(activity: Activity, context: Context, spinnerRedId: Int, dataArray: List<String>, initialValue: String) {
+    constructor(
+        activity: Activity,
+        context: Context,
+        spinnerRedId: Int,
+        dataArray: List<String>,
+        initialValue: String
+    ) {
         list = dataArray.toMutableList()
         spinner1 = activity.findViewById(spinnerRedId)
         setupSpinner(spinner1, true)
@@ -85,8 +91,10 @@ class ObjectSpinner {
         spinner1.adapter = arrayAdapter
     }
 
-    private fun findPosition(key: String) = (0 until arrayAdapter.count).firstOrNull { arrayAdapter.getItem(it) != null && arrayAdapter.getItem(it).contains(key) }
-            ?: 0
+    private fun findPosition(key: String) = (0 until arrayAdapter.count).firstOrNull {
+        arrayAdapter.getItem(it) != null && arrayAdapter.getItem(it).contains(key)
+    }
+        ?: 0
 
     fun setSelection(idx: Int) {
         spinner1.setSelection(idx)

@@ -70,7 +70,11 @@ object UtilityImgAnim {
         return retAl
     }
 
-    fun getAnimationDrawableFromURLList(context: Context, urlAl: List<String>, delayF: Int): AnimationDrawable {
+    fun getAnimationDrawableFromURLList(
+        context: Context,
+        urlAl: List<String>,
+        delayF: Int
+    ): AnimationDrawable {
         var delay = delayF
         val animDrawable = AnimationDrawable()
         val bmAl = urlAl.map { it.getImage() }
@@ -85,7 +89,11 @@ object UtilityImgAnim {
         return animDrawable
     }
 
-    fun getAnimationDrawableFromURLListWhiteBG(context: Context, urlAl: List<String>, delayF: Int): AnimationDrawable {
+    fun getAnimationDrawableFromURLListWhiteBG(
+        context: Context,
+        urlAl: List<String>,
+        delayF: Int
+    ): AnimationDrawable {
         var delay = delayF
         val animDrawable = AnimationDrawable()
         val bmAl = urlAl.mapTo(mutableListOf()) { UtilityImg.getBitmapAddWhiteBG(context, it) }
@@ -100,7 +108,11 @@ object UtilityImgAnim {
         return animDrawable
     }
 
-    fun getAnimationDrawableFromBMList(context: Context, bmAl: List<Bitmap>, delayF: Int): AnimationDrawable {
+    fun getAnimationDrawableFromBMList(
+        context: Context,
+        bmAl: List<Bitmap>,
+        delayF: Int
+    ): AnimationDrawable {
         var delay = delayF
         val animDrawable = AnimationDrawable()
         bmAl.forEachIndexed { i, it ->
@@ -128,7 +140,13 @@ object UtilityImgAnim {
         return animDrawable
     }
 
-    fun getAnimationDrawableFromBMListWithCanvas(context: Context, bmAl: List<Bitmap>, delayF: Int, cd: ColorDrawable, bitmapCanvas: Bitmap): AnimationDrawable {
+    fun getAnimationDrawableFromBMListWithCanvas(
+        context: Context,
+        bmAl: List<Bitmap>,
+        delayF: Int,
+        cd: ColorDrawable,
+        bitmapCanvas: Bitmap
+    ): AnimationDrawable {
         var delay = delayF
         val animDrawable = AnimationDrawable()
         val layers = arrayOfNulls<Drawable>(3)
