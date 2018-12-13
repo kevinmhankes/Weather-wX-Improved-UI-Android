@@ -39,7 +39,8 @@ internal object UtilityModelSPCHREFInputOutput {
         get() {
             val runData = RunTimeData()
             val htmlRunstatus = "${MyApplication.nwsSPCwebsitePrefix}/exper/href/".getHtml()
-            val html = htmlRunstatus.parse("\\{model: \"href\",product: \"500mb_mean\",sector: \"conus\",(rd: .[0-9]{8}\",rt: .[0-9]{4}\",\\})")
+            val html =
+                htmlRunstatus.parse("\\{model: \"href\",product: \"500mb_mean\",sector: \"conus\",(rd: .[0-9]{8}\",rt: .[0-9]{4}\",\\})")
             val day = html.parse("rd:.(.*?),.*?").replace("\"", "")
             val time = html.parse("rt:.(.*?)00.,.*?").replace("\"", "")
             val mostRecentRun = day + time

@@ -69,7 +69,12 @@ class SevereDashboardActivity : BaseActivity() {
     }
 
     private fun tvWarnClicked(filter: String) {
-        ObjectIntent(contextg, USWarningsWithRadarActivity::class.java, USWarningsWithRadarActivity.URL, arrayOf(filter, "us"))
+        ObjectIntent(
+            contextg,
+            USWarningsWithRadarActivity::class.java,
+            USWarningsWithRadarActivity.URL,
+            arrayOf(filter, "us")
+        )
     }
 
     private fun refreshDynamicContent() {
@@ -116,41 +121,55 @@ class SevereDashboardActivity : BaseActivity() {
         if (bitmapArrRep.size > 0) {
             bitmapArrRep.indices.forEach { it ->
                 val card = ObjectCardImage(contextg, bitmapArrRep[it])
-                card.setOnClickListener(View.OnClickListener { ObjectIntent(contextg, SPCStormReportsActivity::class.java, SPCStormReportsActivity.NO, arrayOf("today")) })
+                card.setOnClickListener(View.OnClickListener {
+                    ObjectIntent(
+                        contextg,
+                        SPCStormReportsActivity::class.java,
+                        SPCStormReportsActivity.NO,
+                        arrayOf("today")
+                    )
+                })
                 linearLayout.addView(card.card)
             }
         }
         listOf(snWat, snMcd, snMpd)
-                .asSequence()
-                .filter { it.bitmaps.size > 0 }
-                .forEach { severeNotice ->
-                    severeNotice.bitmaps.indices.forEach { j ->
-                        val card = ObjectCardImage(contextg, severeNotice.bitmaps[j])
-                        var cla: Class<*>? = null
-                        var claStr = ""
-                        val claArgStr = severeNotice.strList[j]
-                        when (severeNotice.type) {
-                            PolygonType.MCD -> {
-                                cla = SPCMCDWShowActivity::class.java
-                                claStr = SPCMCDWShowActivity.NO
-                            }
-                            PolygonType.WATCH -> {
-                                cla = SPCMCDWShowActivity::class.java
-                                claStr = SPCMCDWShowActivity.NO
-                            }
-                            PolygonType.MPD -> {
-                                cla = SPCMCDWShowActivity::class.java
-                                claStr = SPCMCDWShowActivity.NO
-                            }
-                            else -> {
-                            }
+            .asSequence()
+            .filter { it.bitmaps.size > 0 }
+            .forEach { severeNotice ->
+                severeNotice.bitmaps.indices.forEach { j ->
+                    val card = ObjectCardImage(contextg, severeNotice.bitmaps[j])
+                    var cla: Class<*>? = null
+                    var claStr = ""
+                    val claArgStr = severeNotice.strList[j]
+                    when (severeNotice.type) {
+                        PolygonType.MCD -> {
+                            cla = SPCMCDWShowActivity::class.java
+                            claStr = SPCMCDWShowActivity.NO
                         }
-                        val cl = cla
-                        val clStr = claStr
-                        card.setOnClickListener(View.OnClickListener { ObjectIntent(contextg, cl!!, clStr, arrayOf(claArgStr, "", severeNotice.toString())) })
-                        linearLayout.addView(card.card)
+                        PolygonType.WATCH -> {
+                            cla = SPCMCDWShowActivity::class.java
+                            claStr = SPCMCDWShowActivity.NO
+                        }
+                        PolygonType.MPD -> {
+                            cla = SPCMCDWShowActivity::class.java
+                            claStr = SPCMCDWShowActivity.NO
+                        }
+                        else -> {
+                        }
                     }
+                    val cl = cla
+                    val clStr = claStr
+                    card.setOnClickListener(View.OnClickListener {
+                        ObjectIntent(
+                            contextg,
+                            cl!!,
+                            clStr,
+                            arrayOf(claArgStr, "", severeNotice.toString())
+                        )
+                    })
+                    linearLayout.addView(card.card)
                 }
+            }
         bitmaps.addAll(snWat.bitmaps)
         bitmaps.addAll(snMcd.bitmaps)
         bitmaps.addAll(snMpd.bitmaps)

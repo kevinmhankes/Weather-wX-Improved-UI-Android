@@ -105,13 +105,19 @@ object UtilityPref2 {
             editor.putString("ALERT_SPCMCD_NOTIFICATION", alertSpcmcdNotificationDefault)
             editor.putString("ALERT_SPCWAT_NOTIFICATION", alertSpcwatNotificationDefault)
             editor.putString("ALERT_SPCSWO_NOTIFICATION", alertSpcswoNotificationDefault)
-            editor.putString("ALERT_SPCSWO_SLIGHT_NOTIFICATION", alertSpcswoSlightNotificationDefault)
+            editor.putString(
+                "ALERT_SPCSWO_SLIGHT_NOTIFICATION",
+                alertSpcswoSlightNotificationDefault
+            )
             editor.putString("ALERT_WPCMPD_NOTIFICATION", alertWpcmpdNotificationDefault)
             editor.putString("ALERT_CC1_NOTIFICATION", alertCcNotificationDefault)
             editor.putString("ALERT_7DAY_1_NOTIFICATION", alert7Day1NotificationDefault)
             editor.putString("ALERT_NOTIFICATION_RADAR1", alertNotificationRadarDefault)
             editor.putString("ALERT_NOTIFICATION_SOUND1", alertNotificationSoundDefault)
-            editor.putString("ALERT_NOTIFICATION_SOUND_TORNADO", alertNotificationSoundTornadoDefault)
+            editor.putString(
+                "ALERT_NOTIFICATION_SOUND_TORNADO",
+                alertNotificationSoundTornadoDefault
+            )
             editor.putString("ALERT_NOTIFICATION_SOUND_SPCMCD", alertNotificationSoundSpcmcdDefault)
             editor.putString("ALERT_NOTIFICATION_SOUND_SPCWAT", alertNotificationSoundSpcwatDefault)
             editor.putString("ALERT_NOTIFICATION_SOUND_SPCSWO", alertNotificationSoundSpcswoDefault)

@@ -71,12 +71,15 @@ internal class SevereNotice(val type: PolygonType) {
         }
         strList.indices.forEach { count ->
             when (type) {
-                PolygonType.MCD -> url = "${MyApplication.nwsSPCwebsitePrefix}/products/md/mcd" + strList[count] + ".gif"
+                PolygonType.MCD -> url = "${MyApplication.nwsSPCwebsitePrefix}/products/md/mcd" +
+                        strList[count] + ".gif"
                 PolygonType.WATCH -> {
                     strList[count] = String.format("%4s", strList[count]).replace(' ', '0')
-                    url = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/ww" + strList[count] + "_radar.gif"
+                    url = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/ww" +
+                            strList[count] + "_radar.gif"
                 }
-                PolygonType.MPD -> url = "${MyApplication.nwsWPCwebsitePrefix}/metwatch/images/mcd" + strList[count] + ".gif"
+                PolygonType.MPD -> url = "${MyApplication.nwsWPCwebsitePrefix}/metwatch/images/mcd" +
+                        strList[count] + ".gif"
                 else -> {
                 }
             }

@@ -69,7 +69,11 @@ class SPCMCDWShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.spcmcdshowdetail)
+        super.onCreate(
+            savedInstanceState,
+            R.layout.activity_linear_layout_bottom_toolbar,
+            R.menu.spcmcdshowdetail
+        )
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)
         c0 = ObjectCardImage(this)
@@ -77,7 +81,12 @@ class SPCMCDWShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
         linearLayout = findViewById(R.id.ll)
         linearLayout.addView(c0.card)
         linearLayout.addView(c1.card)
-        c1.setOnClickListener(View.OnClickListener { UtilityToolbar.showHide(toolbar, toolbarBottom) })
+        c1.setOnClickListener(View.OnClickListener {
+            UtilityToolbar.showHide(
+                toolbar,
+                toolbarBottom
+            )
+        })
         activityArguments = intent.getStringArrayExtra(NO)
         number = activityArguments[0]
         when (activityArguments[2]) {
@@ -107,15 +116,24 @@ class SPCMCDWShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
         (0 until objWatch.wfoArr.size - 1).forEach {
-            menu.add(0, v.id, 0, "Add location: " + objWatch.wfoArr[it] + " - " + Utility.readPref(this, "NWS_LOCATION_" + objWatch.wfoArr[it], ""))
+            menu.add(
+                0,
+                v.id,
+                0,
+                "Add location: " + objWatch.wfoArr[it] + " - " + Utility.readPref(
+                    this,
+                    "NWS_LOCATION_" + objWatch.wfoArr[it],
+                    ""
+                )
+            )
         }
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val itemStr = item.title.toString()
         (0 until objWatch.wfoArr.size - 1)
-                .filter { itemStr.contains(objWatch.wfoArr[it]) }
-                .forEach { saveLocation(objWatch.wfoArr[it]) }
+            .filter { itemStr.contains(objWatch.wfoArr[it]) }
+            .forEach { saveLocation(objWatch.wfoArr[it]) }
         return true
     }
 
@@ -139,10 +157,23 @@ class SPCMCDWShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
             return true
         }
         when (item.itemId) {
-            R.id.action_share_all -> UtilityShare.shareText(this, objWatch.title, Utility.fromHtml(objWatch.text), objWatch.bitmap)
-            R.id.action_share_text -> UtilityShare.shareText(this, objWatch.title, Utility.fromHtml(objWatch.text))
+            R.id.action_share_all -> UtilityShare.shareText(
+                this,
+                objWatch.title,
+                Utility.fromHtml(objWatch.text),
+                objWatch.bitmap
+            )
+            R.id.action_share_text -> UtilityShare.shareText(
+                this,
+                objWatch.title,
+                Utility.fromHtml(objWatch.text)
+            )
             R.id.action_share_url -> UtilityShare.shareText(this, objWatch.title, objWatch.textUrl)
-            R.id.action_share_image -> UtilityShare.shareBitmap(this, objWatch.title, objWatch.bitmap)
+            R.id.action_share_image -> UtilityShare.shareBitmap(
+                this,
+                objWatch.title,
+                objWatch.bitmap
+            )
             else -> return super.onOptionsItemSelected(item)
         }
         return true

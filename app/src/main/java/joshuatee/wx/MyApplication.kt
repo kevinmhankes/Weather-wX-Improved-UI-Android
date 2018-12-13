@@ -71,8 +71,16 @@ class MyApplication : Application() {
         val res = resources
         dm = res.displayMetrics
         deviceScale = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, dm)
-        padding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, res.getDimension(R.dimen.padding_dynamic_tv), dm).toInt()
-        paddingSmall = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, res.getDimension(R.dimen.padding_dynamic_tv_small), dm).toInt()
+        padding = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            res.getDimension(R.dimen.padding_dynamic_tv),
+            dm
+        ).toInt()
+        paddingSmall = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            res.getDimension(R.dimen.padding_dynamic_tv_small),
+            dm
+        ).toInt()
         textSizeSmall = res.getDimension(R.dimen.listitem_text)
         textSizeNormal = res.getDimension(R.dimen.normal_text)
         textSizeLarge = res.getDimension(R.dimen.large_text)
@@ -103,10 +111,10 @@ class MyApplication : Application() {
             response
         }
         httpClient = OkHttpClient.Builder()
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .readTimeout(15, TimeUnit.SECONDS)
-                .addInterceptor(okhttp3Interceptor)
-                .build()
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(15, TimeUnit.SECONDS)
+            .addInterceptor(okhttp3Interceptor)
+            .build()
         UtilityTTS.initTTS(applicationContext)
         UtilityCities.initCitiesArray()
         if (!loadedBuffers) {
@@ -322,11 +330,29 @@ class MyApplication : Application() {
             initRadarPreferences()
             UIPreferences.initPreferences(context)
             radarGeometrySetColors()
-            listOf(94, 99, 134, 135, 159, 161, 163, 165, 172).forEach { radarColorPalette[it.toString()] = getInitialPreferenceString("RADAR_COLOR_PALETTE_" + it.toString(), "CODENH") }
-            cardCorners = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, preferences.getInt("CARD_CORNER_RADIUS", 3).toFloat(), dm) // was 0 as of 2018-10-27
+            listOf(
+                94,
+                99,
+                134,
+                135,
+                159,
+                161,
+                163,
+                165,
+                172
+            ).forEach {
+                radarColorPalette[it.toString()] =
+                        getInitialPreferenceString("RADAR_COLOR_PALETTE_" + it.toString(), "CODENH")
+            }
+            cardCorners = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                preferences.getInt("CARD_CORNER_RADIUS", 3).toFloat(),
+                dm
+            ) // was 0 as of 2018-10-27
             telecineVideoSizePercentage = preferencesTelecine.getInt("video-size", 100)
             telecineSwitchShowCountdown = preferencesTelecine.getBoolean("show-countdown", false)
-            telecineSwitchRecordingNotification = preferencesTelecine.getBoolean("recording-notification", false)
+            telecineSwitchRecordingNotification =
+                    preferencesTelecine.getBoolean("recording-notification", false)
             telecineSwitchShowTouches = false
             vrButton = getInitialPreference("VR_BUTTON", "false")
             radarUseJni = getInitialPreference("RADAR_USE_JNI", "false")
@@ -347,12 +373,15 @@ class MyApplication : Application() {
             unitsF = getInitialPreference("UNITS_F", "true")
             drawToolColor = getInitialPreference("DRAW_TOOL_COLOR", Color.rgb(255, 0, 0))
             widgetTextColor = getInitialPreference("WIDGET_TEXT_COLOR", Color.WHITE)
-            widgetHighlightTextColor = getInitialPreference("WIDGET_HIGHLIGHT_TEXT_COLOR", Color.YELLOW)
+            widgetHighlightTextColor =
+                    getInitialPreference("WIDGET_HIGHLIGHT_TEXT_COLOR", Color.YELLOW)
             widgetNexradSize = getInitialPreference("WIDGET_NEXRAD_SIZE", 10)
             widgetCCShow7Day = getInitialPreference("WIDGET_CC_DONOTSHOW_7_DAY", "true")
             nwsIconTextColor = getInitialPreference("NWS_ICON_TEXT_COLOR", Color.rgb(38, 97, 139))
-            nwsIconBottomColor = getInitialPreference("NWS_ICON_BOTTOM_COLOR", Color.rgb(255, 255, 255))
-            nexradRadarBackgroundColor = getInitialPreference("NEXRAD_RADAR_BACKGROUND_COLOR", Color.rgb(0, 0, 0))
+            nwsIconBottomColor =
+                    getInitialPreference("NWS_ICON_BOTTOM_COLOR", Color.rgb(255, 255, 255))
+            nexradRadarBackgroundColor =
+                    getInitialPreference("NEXRAD_RADAR_BACKGROUND_COLOR", Color.rgb(0, 0, 0))
             wxoglSize = getInitialPreference("WXOGL_SIZE", 8)
             wxoglRememberLocation = getInitialPreference("WXOGL_REMEMBER_LOCATION", "false")
             wxoglRadarAutorefresh = getInitialPreference("RADAR_AUTOREFRESH", "false")
@@ -370,14 +399,22 @@ class MyApplication : Application() {
             spotterFav = getInitialPreferenceString("SPOTTER_FAV", "")
             homescreenFav = getInitialPreferenceString("HOMESCREEN_FAV", HOMESCREEN_FAV_DEFAULT)
             locDisplayImg = homescreenFav.contains("OGL-RADAR") || homescreenFav.contains("NXRD")
-            alertNotificationSoundTornadoCurrent = getInitialPreference("ALERT_NOTIFICATION_SOUND_TORNADO", "")
-            alertNotificationSoundSpcmcd = getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCMCD", "")
-            alertNotificationSoundWpcmpd = getInitialPreference("ALERT_NOTIFICATION_SOUND_WPCMPD", "")
-            alertNotificationSoundNhcEpac = getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_EPAC", "")
-            alertNotificationSoundNhcAtl = getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_ATL", "")
-            alertNotificationSoundSpcwat = getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCWAT", "")
-            alertNotificationSoundSpcswo = getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCSWO", "")
-            alertNotificationSoundTextProd = getInitialPreference("ALERT_NOTIFICATION_SOUND_TEXT_PROD", "")
+            alertNotificationSoundTornadoCurrent =
+                    getInitialPreference("ALERT_NOTIFICATION_SOUND_TORNADO", "")
+            alertNotificationSoundSpcmcd =
+                    getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCMCD", "")
+            alertNotificationSoundWpcmpd =
+                    getInitialPreference("ALERT_NOTIFICATION_SOUND_WPCMPD", "")
+            alertNotificationSoundNhcEpac =
+                    getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_EPAC", "")
+            alertNotificationSoundNhcAtl =
+                    getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_ATL", "")
+            alertNotificationSoundSpcwat =
+                    getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCWAT", "")
+            alertNotificationSoundSpcswo =
+                    getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCSWO", "")
+            alertNotificationSoundTextProd =
+                    getInitialPreference("ALERT_NOTIFICATION_SOUND_TEXT_PROD", "")
             notifSoundRepeat = getInitialPreference("NOTIF_SOUND_REPEAT", "")
             notifTts = getInitialPreference("NOTIF_TTS", "")
             alertBlackoutAmCurrent = getInitialPreference("ALERT_BLACKOUT_AM", -1)
@@ -386,15 +423,18 @@ class MyApplication : Application() {
             alertSpcmcdNotificationCurrent = getInitialPreference("ALERT_SPCMCD_NOTIFICATION", "")
             alertSpcwatNotificationCurrent = getInitialPreference("ALERT_SPCWAT_NOTIFICATION", "")
             alertSpcswoNotificationCurrent = getInitialPreference("ALERT_SPCSWO_NOTIFICATION", "")
-            alertSpcswoSlightNotificationCurrent = getInitialPreference("ALERT_SPCSWO_SLIGHT_NOTIFICATION", "")
+            alertSpcswoSlightNotificationCurrent =
+                    getInitialPreference("ALERT_SPCSWO_SLIGHT_NOTIFICATION", "")
             alertWpcmpdNotificationCurrent = getInitialPreference("ALERT_WPCMPD_NOTIFICATION", "")
             alertBlackoutTornadoCurrent = getInitialPreference("ALERT_BLACKOUT_TORNADO", "")
-            alertNhcEpacNotificationCurrent = getInitialPreference("ALERT_NHC_EPAC_NOTIFICATION", "")
+            alertNhcEpacNotificationCurrent =
+                    getInitialPreference("ALERT_NHC_EPAC_NOTIFICATION", "")
             alertNhcAtlNotificationCurrent = getInitialPreference("ALERT_NHC_ATL_NOTIFICATION", "")
             alertAutocancel = getInitialPreference("ALERT_AUTOCANCEL", "false")
             alertBlackout = getInitialPreference("ALERT_BLACKOUT", "")
             playlistStr = getInitialPreferenceString("PLAYLIST", "")
-            notifTextProdStr = getInitialPreferenceString(UtilityNotificationTextProduct.PREF_TOKEN, "")
+            notifTextProdStr =
+                    getInitialPreferenceString(UtilityNotificationTextProduct.PREF_TOKEN, "")
             radarColorPalette94List = getInitialPreferenceString("RADAR_COLOR_PALETTE_94_LIST", "")
             radarColorPalette99List = getInitialPreferenceString("RADAR_COLOR_PALETTE_99_LIST", "")
             wxoglZoom = preferences.getFloat("WXOGL_ZOOM", wxoglSize.toFloat() / 10.0f)
@@ -431,7 +471,8 @@ class MyApplication : Application() {
             goesVisY = getInitialPreference("GOESVIS_Y", 0.5f)
             goesVisSector = getInitialPreferenceString("GOESVIS_SECTOR", "")
             elevationPref = getInitialPreference("ELEVATION_PREF", 0).toFloat()
-            elevationPref = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, elevationPref, dm)
+            elevationPref =
+                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, elevationPref, dm)
             cardElevation = elevationPref
             fabElevation = elevationPref
             fabElevationDepressed = elevationPref * 2
@@ -506,7 +547,8 @@ class MyApplication : Application() {
             radarColorHwExt = getInitialPreference("RADAR_COLOR_HW_EXT", Color.rgb(91, 91, 91))
             radarColorState = getInitialPreference("RADAR_COLOR_STATE", Color.rgb(142, 142, 142))
             radarColorTstorm = getInitialPreference("RADAR_COLOR_TSTORM", Color.rgb(255, 255, 0))
-            radarColorTstormWatch = getInitialPreference("RADAR_COLOR_TSTORM_WATCH", Color.rgb(255, 187, 0))
+            radarColorTstormWatch =
+                    getInitialPreference("RADAR_COLOR_TSTORM_WATCH", Color.rgb(255, 187, 0))
             radarColorTor = getInitialPreference("RADAR_COLOR_TOR", Color.rgb(243, 85, 243))
             radarColorTorWatch = getInitialPreference("RADAR_COLOR_TOR_WATCH", Color.rgb(255, 0, 0))
             radarColorFfw = getInitialPreference("RADAR_COLOR_FFW", Color.rgb(0, 255, 0))
@@ -520,11 +562,14 @@ class MyApplication : Application() {
             radarColorSti = getInitialPreference("RADAR_COLOR_STI", Color.rgb(255, 255, 255))
             radarColorHi = getInitialPreference("RADAR_COLOR_HI", Color.rgb(0, 255, 0))
             radarColorObs = getInitialPreference("RADAR_COLOR_OBS", Color.rgb(255, 255, 255))
-            radarColorObsWindbarbs = getInitialPreference("RADAR_COLOR_OBS_WINDBARBS", Color.rgb(255, 255, 255))
-            radarColorCountyLabels = getInitialPreference("RADAR_COLOR_COUNTY_LABELS", Color.rgb(234, 214, 123))
+            radarColorObsWindbarbs =
+                    getInitialPreference("RADAR_COLOR_OBS_WINDBARBS", Color.rgb(255, 255, 255))
+            radarColorCountyLabels =
+                    getInitialPreference("RADAR_COLOR_COUNTY_LABELS", Color.rgb(234, 214, 123))
         }
 
-        private fun initRadarGeometryAll(context: Context) = GeographyType.values().forEach { initRadarGeometryByType(context, it) }
+        private fun initRadarGeometryAll(context: Context) =
+            GeographyType.values().forEach { initRadarGeometryByType(context, it) }
 
         fun initRadarGeometryByType(context: Context, type: GeographyType) {
             if (!radarHwEnh) {
@@ -544,15 +589,33 @@ class MyApplication : Application() {
                 countyFileResid = R.raw.countyv2
                 countCounty = 820852
             }
-            val fileidArr = listOf(lakesFileResid, hwFileResid, countyFileResid, stateLinesFileResid, caResid, mxResid, hwExtFileResid)
-            val countArr = listOf(countLakes, countHw, countCounty, countState, caCnt, mxCnt, countHwExt)
-            val prefArr = listOf(true, true, true, true, radarCamxBorders, radarCamxBorders, radarHwEnhExt)
+            val fileidArr = listOf(
+                lakesFileResid,
+                hwFileResid,
+                countyFileResid,
+                stateLinesFileResid,
+                caResid,
+                mxResid,
+                hwExtFileResid
+            )
+            val countArr =
+                listOf(countLakes, countHw, countCounty, countState, caCnt, mxCnt, countHwExt)
+            val prefArr =
+                listOf(true, true, true, true, radarCamxBorders, radarCamxBorders, radarHwEnhExt)
             when (type) {
                 GeographyType.STATE_LINES -> {
                     stateRelativeBuffer = ByteBuffer.allocateDirect(4 * countState)
                     stateRelativeBuffer.order(ByteOrder.nativeOrder())
                     stateRelativeBuffer.position(0)
-                    listOf(3, 4, 5).forEach { loadBuffer(context, fileidArr[it], stateRelativeBuffer, countArr[it], prefArr[it]) }
+                    listOf(3, 4, 5).forEach {
+                        loadBuffer(
+                            context,
+                            fileidArr[it],
+                            stateRelativeBuffer,
+                            countArr[it],
+                            prefArr[it]
+                        )
+                    }
                 }
                 GeographyType.HIGHWAYS -> {
                     hwRelativeBuffer = ByteBuffer.allocateDirect(4 * countHw)
@@ -569,7 +632,13 @@ class MyApplication : Application() {
                         hwExtRelativeBuffer.position(0)
                     }
                     for (s in intArrayOf(6)) {
-                        loadBuffer(context, fileidArr[s], hwExtRelativeBuffer, countArr[s], prefArr[s])
+                        loadBuffer(
+                            context,
+                            fileidArr[s],
+                            hwExtRelativeBuffer,
+                            countArr[s],
+                            prefArr[s]
+                        )
                     }
                 }
                 GeographyType.LAKES -> {
@@ -591,7 +660,13 @@ class MyApplication : Application() {
             }
         }
 
-        private fun loadBuffer(context: Context, fileID: Int, bb: ByteBuffer, count: Int, pref: Boolean) {
+        private fun loadBuffer(
+            context: Context,
+            fileID: Int,
+            bb: ByteBuffer,
+            count: Int,
+            pref: Boolean
+        ) {
             if (pref) {
                 try {
                     val inputStream = context.resources.openRawResource(fileID)
@@ -607,9 +682,11 @@ class MyApplication : Application() {
 
         // Radar Preferences
         // FIXME will need to be HTTPS soon
-        const val NWS_RADAR_PUB: String = "http://tgftp.nws.noaa.gov/" //(Official current URL, problem with cricket but so does cp.ncep now )
+        const val NWS_RADAR_PUB: String =
+            "http://tgftp.nws.noaa.gov/" //(Official current URL, problem with cricket but so does cp.ncep now )
         //public static final String NWS_RADAR_PUB = "http://tgftp.cp.ncep.noaa.gov/";
-        const val nwsRadarLevel2Pub: String = "http://nomads.ncep.noaa.gov/pub/data/nccf/radar/nexrad_level2/"
+        const val nwsRadarLevel2Pub: String =
+            "http://nomads.ncep.noaa.gov/pub/data/nccf/radar/nexrad_level2/"
         var radarWarnings: Boolean = false
         var locdotFollowsGps: Boolean = false
         var dualpaneshareposn: Boolean = false

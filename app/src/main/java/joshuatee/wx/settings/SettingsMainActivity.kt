@@ -67,18 +67,72 @@ class SettingsMainActivity : BaseActivity() {
         val cardRadar = ObjectCardText(this, "Radar", MyApplication.textSizeNormal)
         val cardHS = ObjectCardText(this, "Home Screen", MyApplication.textSizeNormal)
         val cardUI = ObjectCardText(this, "User Interface", MyApplication.textSizeNormal)
-        val cardCtoF = ObjectCardText(this, "Celsius to fahrenheit table", MyApplication.textSizeNormal)
-        val cardDeleteFiles = ObjectCardText(this, "Delete old radar files", MyApplication.textSizeNormal)
-        cardLocations.setOnClickListener(View.OnClickListener { ObjectIntent(contextg, SettingsLocationRecyclerViewActivity::class.java) })
-        cardNotif.setOnClickListener(View.OnClickListener { ObjectIntent(contextg, SettingsNotificationsActivity::class.java) })
-        cardWidgets.setOnClickListener(View.OnClickListener { ObjectIntent(contextg, SettingsWidgetsActivity::class.java) })
-        cardColors.setOnClickListener(View.OnClickListener { ObjectIntent(contextg, SettingsColorsActivity::class.java) })
-        cardPL.setOnClickListener(View.OnClickListener { ObjectIntent(contextg, SettingsPlaylistActivity::class.java) })
-        cardRadar.setOnClickListener(View.OnClickListener { ObjectIntent(contextg, SettingsRadarActivity::class.java) })
-        cardHS.setOnClickListener(View.OnClickListener { ObjectIntent(contextg, SettingsHomeScreenActivity::class.java) })
-        cardUI.setOnClickListener(View.OnClickListener { ObjectIntent(contextg, SettingsUIActivity::class.java) })
-        cardCtoF.setOnClickListener(View.OnClickListener { ObjectIntent(contextg, TextScreenActivity::class.java, TextScreenActivity.URL, arrayOf(UtilityMath.cToFTable(), "Celsius to Fahrenheit table")) })
-        cardDeleteFiles.setOnClickListener(View.OnClickListener { UtilityUI.makeSnackBar(linearLayout, "Deleted old radar files: " + UtilityFileManagement.deleteCacheFiles(contextg)) })
+        val cardCtoF =
+            ObjectCardText(this, "Celsius to fahrenheit table", MyApplication.textSizeNormal)
+        val cardDeleteFiles =
+            ObjectCardText(this, "Delete old radar files", MyApplication.textSizeNormal)
+        cardLocations.setOnClickListener(View.OnClickListener {
+            ObjectIntent(
+                contextg,
+                SettingsLocationRecyclerViewActivity::class.java
+            )
+        })
+        cardNotif.setOnClickListener(View.OnClickListener {
+            ObjectIntent(
+                contextg,
+                SettingsNotificationsActivity::class.java
+            )
+        })
+        cardWidgets.setOnClickListener(View.OnClickListener {
+            ObjectIntent(
+                contextg,
+                SettingsWidgetsActivity::class.java
+            )
+        })
+        cardColors.setOnClickListener(View.OnClickListener {
+            ObjectIntent(
+                contextg,
+                SettingsColorsActivity::class.java
+            )
+        })
+        cardPL.setOnClickListener(View.OnClickListener {
+            ObjectIntent(
+                contextg,
+                SettingsPlaylistActivity::class.java
+            )
+        })
+        cardRadar.setOnClickListener(View.OnClickListener {
+            ObjectIntent(
+                contextg,
+                SettingsRadarActivity::class.java
+            )
+        })
+        cardHS.setOnClickListener(View.OnClickListener {
+            ObjectIntent(
+                contextg,
+                SettingsHomeScreenActivity::class.java
+            )
+        })
+        cardUI.setOnClickListener(View.OnClickListener {
+            ObjectIntent(
+                contextg,
+                SettingsUIActivity::class.java
+            )
+        })
+        cardCtoF.setOnClickListener(View.OnClickListener {
+            ObjectIntent(
+                contextg,
+                TextScreenActivity::class.java,
+                TextScreenActivity.URL,
+                arrayOf(UtilityMath.cToFTable(), "Celsius to Fahrenheit table")
+            )
+        })
+        cardDeleteFiles.setOnClickListener(View.OnClickListener {
+            UtilityUI.makeSnackBar(
+                linearLayout,
+                "Deleted old radar files: " + UtilityFileManagement.deleteCacheFiles(contextg)
+            )
+        })
         linearLayout.addView(cardLocations.card)
         linearLayout.addView(cardNotif.card)
         linearLayout.addView(cardWidgets.card)
@@ -89,15 +143,96 @@ class SettingsMainActivity : BaseActivity() {
         linearLayout.addView(cardUI.card)
         linearLayout.addView(cardCtoF.card)
         linearLayout.addView(cardDeleteFiles.card)
-        linearLayout.addView(ObjectSettingsCheckBox(this, this, "Check for SPC MCD/W", "CHECKSPC", R.string.checkspc_switch_label).card)
-        linearLayout.addView(ObjectSettingsCheckBox(this, this, "Check for WPC MPD", "CHECKWPC", R.string.checkwpc_switch_label).card)
-        linearLayout.addView(ObjectSettingsCheckBox(this, this, "Check for TOR,TST,FFW", "CHECKTOR", R.string.checktor_switch_label).card)
-        linearLayout.addView(ObjectSettingsCheckBox(this, this, "Media control notif", "MEDIA_CONTROL_NOTIF", R.string.media_control_notif_tv).card)
-        linearLayout.addView(ObjectSettingsCheckBox(this, this, "Dual-pane radar from main screen", "DUALPANE_RADAR_ICON", R.string.dualpane_radar_icon_tv).card)
-        linearLayout.addView(ObjectSettingsCheckBox(this, this, "Translate abbreviations", "TRANSLATE_TEXT", R.string.translate_text_label).card)
-        linearLayout.addView(ObjectSettingsNumberPicker(this, this, "Refresh interval for location", "REFRESH_LOC_MIN", R.string.refresh_loc_min_np_label, 30, 0, 120).card)
-        linearLayout.addView(ObjectSettingsNumberPicker(this, this, "ROAMING distance check", "ROAMING_LOCATION_DISTANCE_CHECK", R.string.roaming_location_distance_check_np_label, 5, 1, 120).card)
-        linearLayout.addView(ObjectSettingsNumberPicker(this, this, "Text to speech speed", "TTS_SPEED_PREF", R.string.tts_speed_np_label, 10, 1, 20).card)
+        linearLayout.addView(
+            ObjectSettingsCheckBox(
+                this,
+                this,
+                "Check for SPC MCD/W",
+                "CHECKSPC",
+                R.string.checkspc_switch_label
+            ).card
+        )
+        linearLayout.addView(
+            ObjectSettingsCheckBox(
+                this,
+                this,
+                "Check for WPC MPD",
+                "CHECKWPC",
+                R.string.checkwpc_switch_label
+            ).card
+        )
+        linearLayout.addView(
+            ObjectSettingsCheckBox(
+                this,
+                this,
+                "Check for TOR,TST,FFW",
+                "CHECKTOR",
+                R.string.checktor_switch_label
+            ).card
+        )
+        linearLayout.addView(
+            ObjectSettingsCheckBox(
+                this,
+                this,
+                "Media control notif",
+                "MEDIA_CONTROL_NOTIF",
+                R.string.media_control_notif_tv
+            ).card
+        )
+        linearLayout.addView(
+            ObjectSettingsCheckBox(
+                this,
+                this,
+                "Dual-pane radar from main screen",
+                "DUALPANE_RADAR_ICON",
+                R.string.dualpane_radar_icon_tv
+            ).card
+        )
+        linearLayout.addView(
+            ObjectSettingsCheckBox(
+                this,
+                this,
+                "Translate abbreviations",
+                "TRANSLATE_TEXT",
+                R.string.translate_text_label
+            ).card
+        )
+        linearLayout.addView(
+            ObjectSettingsNumberPicker(
+                this,
+                this,
+                "Refresh interval for location",
+                "REFRESH_LOC_MIN",
+                R.string.refresh_loc_min_np_label,
+                30,
+                0,
+                120
+            ).card
+        )
+        linearLayout.addView(
+            ObjectSettingsNumberPicker(
+                this,
+                this,
+                "ROAMING distance check",
+                "ROAMING_LOCATION_DISTANCE_CHECK",
+                R.string.roaming_location_distance_check_np_label,
+                5,
+                1,
+                120
+            ).card
+        )
+        linearLayout.addView(
+            ObjectSettingsNumberPicker(
+                this,
+                this,
+                "Text to speech speed",
+                "TTS_SPEED_PREF",
+                R.string.tts_speed_np_label,
+                10,
+                1,
+                20
+            ).card
+        )
     }
 
     override fun onStop() {

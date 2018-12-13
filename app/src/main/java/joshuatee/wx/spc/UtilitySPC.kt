@@ -35,7 +35,8 @@ object UtilitySPC {
 
     // TODO use global var for SPC website
 
-    fun getStormReportsTodayUrl(): String = "${MyApplication.nwsSPCwebsitePrefix}/climo/reports/" + "today" + ".gif"
+    fun getStormReportsTodayUrl(): String =
+        "${MyApplication.nwsSPCwebsitePrefix}/climo/reports/" + "today" + ".gif"
 
     internal val tstormOutlookImages: List<Bitmap>
         get() {
@@ -91,13 +92,15 @@ object UtilitySPC {
         if (MyApplication.checkspc) {
             if (!MyApplication.severeDashboardMcd.valueGet().contains(MyApplication.MD_COMP)) {
                 mdPresent = true
-                val al = MyApplication.severeDashboardMcd.valueGet().parseColumn(RegExp.mcdPatternUtilspc)
+                val al = MyApplication.severeDashboardMcd.valueGet()
+                    .parseColumn(RegExp.mcdPatternUtilspc)
                 mdCount = al.size
                 al.forEach { dashboardStrMcd += ":$it" }
             }
             if (!MyApplication.severeDashboardWat.valueGet().contains(MyApplication.WATCH_COMP)) {
                 watchPresent = true
-                val al = MyApplication.severeDashboardWat.valueGet().parseColumn(RegExp.watchPattern)
+                val al =
+                    MyApplication.severeDashboardWat.valueGet().parseColumn(RegExp.watchPattern)
                 watchCount = al.size
                 al.forEach { dashboardStrWat += ":$it" }
             }
@@ -125,11 +128,14 @@ object UtilitySPC {
         var tstormCount = 0
         var floodCount = 0
         if (MyApplication.checktor) {
-            tstormCount = UtilityVTEC.getStormCount(context, MyApplication.severeDashboardTst.valueGet())
+            tstormCount =
+                    UtilityVTEC.getStormCount(context, MyApplication.severeDashboardTst.valueGet())
             if (tstormCount > 0) uswarnPresent = true
-            torCount = UtilityVTEC.getStormCount(context, MyApplication.severeDashboardTor.valueGet())
+            torCount =
+                    UtilityVTEC.getStormCount(context, MyApplication.severeDashboardTor.valueGet())
             if (torCount > 0) uswarnPresent = true
-            floodCount = UtilityVTEC.getStormCount(context, MyApplication.severeDashboardFfw.valueGet())
+            floodCount =
+                    UtilityVTEC.getStormCount(context, MyApplication.severeDashboardFfw.valueGet())
             if (floodCount > 0) uswarnPresent = true
         }
         tabStr = if (uswarnPresent)

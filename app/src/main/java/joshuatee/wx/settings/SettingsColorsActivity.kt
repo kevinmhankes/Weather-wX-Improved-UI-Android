@@ -40,34 +40,35 @@ class SettingsColorsActivity : BaseActivity() {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
         val ll: LinearLayout = findViewById(R.id.ll)
         val mapColorToPref = mapOf(
-                "Highway color" to "RADAR_COLOR_HW",
-                "Secondary Highway color" to "RADAR_COLOR_HW_EXT",
-                "State border color" to "RADAR_COLOR_STATE",
-                "Tstorm warning color" to "RADAR_COLOR_TSTORM",
-                "Tstorm watch color" to "RADAR_COLOR_TSTORM_WATCH",
-                "Tornado warning color" to "RADAR_COLOR_TOR",
-                "Tornado watch color" to "RADAR_COLOR_TOR_WATCH",
-                "Flash flood warning color" to "RADAR_COLOR_FFW",
-                "MCD color" to "RADAR_COLOR_MCD",
-                "MPD color" to "RADAR_COLOR_MPD",
-                "Location dot color" to "RADAR_COLOR_LOCDOT",
-                "Spotter color" to "RADAR_COLOR_SPOTTER",
-                "City color" to "RADAR_COLOR_CITY",
-                "Lakes color" to "RADAR_COLOR_LAKES",
-                "County color" to "RADAR_COLOR_COUNTY",
-                "County labels color" to "RADAR_COLOR_COUNTY_LABELS",
-                "Storm tracks color" to "RADAR_COLOR_STI",
-                "Hail marker color" to "RADAR_COLOR_HI",
-                "Observations color" to "RADAR_COLOR_OBS",
-                "Windbarb color" to "RADAR_COLOR_OBS_WINDBARBS",
-                "Draw tool color" to "DRAW_TOOL_COLOR",
-                "Widget Text color" to "WIDGET_TEXT_COLOR",
-                "Widget Highlight Text color" to "WIDGET_HIGHLIGHT_TEXT_COLOR",
-                "NWS Forecast Icon Text color" to "NWS_ICON_TEXT_COLOR",
-                "NWS Forecast Icon Bottom color" to "NWS_ICON_BOTTOM_COLOR",
-                "Nexrad Radar Background color" to "NEXRAD_RADAR_BACKGROUND_COLOR")
-
-        mapColorToPref.keys.asSequence().sorted().mapTo(colorObjects) { ObjectSettingsColorLabel(this, it, mapColorToPref[it]!!) }
+            "Highway color" to "RADAR_COLOR_HW",
+            "Secondary Highway color" to "RADAR_COLOR_HW_EXT",
+            "State border color" to "RADAR_COLOR_STATE",
+            "Tstorm warning color" to "RADAR_COLOR_TSTORM",
+            "Tstorm watch color" to "RADAR_COLOR_TSTORM_WATCH",
+            "Tornado warning color" to "RADAR_COLOR_TOR",
+            "Tornado watch color" to "RADAR_COLOR_TOR_WATCH",
+            "Flash flood warning color" to "RADAR_COLOR_FFW",
+            "MCD color" to "RADAR_COLOR_MCD",
+            "MPD color" to "RADAR_COLOR_MPD",
+            "Location dot color" to "RADAR_COLOR_LOCDOT",
+            "Spotter color" to "RADAR_COLOR_SPOTTER",
+            "City color" to "RADAR_COLOR_CITY",
+            "Lakes color" to "RADAR_COLOR_LAKES",
+            "County color" to "RADAR_COLOR_COUNTY",
+            "County labels color" to "RADAR_COLOR_COUNTY_LABELS",
+            "Storm tracks color" to "RADAR_COLOR_STI",
+            "Hail marker color" to "RADAR_COLOR_HI",
+            "Observations color" to "RADAR_COLOR_OBS",
+            "Windbarb color" to "RADAR_COLOR_OBS_WINDBARBS",
+            "Draw tool color" to "DRAW_TOOL_COLOR",
+            "Widget Text color" to "WIDGET_TEXT_COLOR",
+            "Widget Highlight Text color" to "WIDGET_HIGHLIGHT_TEXT_COLOR",
+            "NWS Forecast Icon Text color" to "NWS_ICON_TEXT_COLOR",
+            "NWS Forecast Icon Bottom color" to "NWS_ICON_BOTTOM_COLOR",
+            "Nexrad Radar Background color" to "NEXRAD_RADAR_BACKGROUND_COLOR"
+        )
+        mapColorToPref.keys.asSequence().sorted()
+            .mapTo(colorObjects) { ObjectSettingsColorLabel(this, it, mapColorToPref[it]!!) }
         colorObjects.forEach { ll.addView(it.card) }
     }
 

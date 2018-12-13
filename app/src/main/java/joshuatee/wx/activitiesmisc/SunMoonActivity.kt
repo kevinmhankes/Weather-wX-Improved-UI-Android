@@ -48,7 +48,11 @@ class SunMoonActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.shared_tts)
+        super.onCreate(
+            savedInstanceState,
+            R.layout.activity_linear_layout_bottom_toolbar,
+            R.menu.shared_tts
+        )
         toolbarBottom.setOnMenuItemClickListener(this)
         val menu = toolbarBottom.menu
         val playlistMenuItem = menu.findItem(R.id.action_playlist)
@@ -56,7 +60,12 @@ class SunMoonActivity : AudioPlayActivity(), OnMenuItemClickListener {
         val linearLayout: LinearLayout = findViewById(R.id.ll)
         card0 = ObjectCardText(this)
         linearLayout.addView(card0.card)
-        card0.setOnClickListener(View.OnClickListener { UtilityToolbar.showHide(toolbar, toolbarBottom) })
+        card0.setOnClickListener(View.OnClickListener {
+            UtilityToolbar.showHide(
+                toolbar,
+                toolbarBottom
+            )
+        })
         getContent()
     }
 
