@@ -37,7 +37,12 @@ class StartupActivity : Activity() {
             UtilityPref.prefInitTwitterCA(this)
             UtilityPref4.prefInitSoundingSites(this)
         }
-        if (Utility.readPrefWithNull(this, "SND_AOT_X", null) == null) UtilityPref4.prefInitSoundingSitesLoc(this)
+        if (Utility.readPrefWithNull(
+                this,
+                "SND_AOT_X",
+                null
+            ) == null
+        ) UtilityPref4.prefInitSoundingSitesLoc(this)
         MyApplication.initPreferences(this)
         Location.refreshLocationData(this)
         UtilityWXJobService.startService(this)
@@ -48,9 +53,15 @@ class StartupActivity : Activity() {
             ObjectIntent(this, WX::class.java)
         } else {
             val nws1Current = Location.wfo
-            val nws1StateCurrent = Utility.readPref(this, "NWS_LOCATION_$nws1Current", "").split(",")[0]
+            val nws1StateCurrent =
+                Utility.readPref(this, "NWS_LOCATION_$nws1Current", "").split(",")[0]
             val rid1 = Location.getRid(this, Location.currentLocationStr)
-            ObjectIntent(this, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, arrayOf(rid1, nws1StateCurrent))
+            ObjectIntent(
+                this,
+                WXGLRadarActivity::class.java,
+                WXGLRadarActivity.RID,
+                arrayOf(rid1, nws1StateCurrent)
+            )
         }
         finish()
     }

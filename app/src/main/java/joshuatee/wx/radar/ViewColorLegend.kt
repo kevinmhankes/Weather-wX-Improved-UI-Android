@@ -37,7 +37,24 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
 
     private val myPaint = Paint()
     private val paintText = Paint(Paint.ANTI_ALIAS_FLAG)
-    private val h0CLabels = listOf("ND", "BI", "GC", "IC", "DS", "WS", "RA", "HR", "BD", "GR", "HA", "", "", "", "UK", "RF")
+    private val h0CLabels = listOf(
+        "ND",
+        "BI",
+        "GC",
+        "IC",
+        "DS",
+        "WS",
+        "RA",
+        "HR",
+        "BD",
+        "GR",
+        "HA",
+        "",
+        "",
+        "",
+        "UK",
+        "RF"
+    )
 
     init {
         isFocusable = true
@@ -45,9 +62,11 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
     }
 
     private fun setColorWithBuffers(prodId: Int, index: Int, strokeWidth: Int) {
-        myPaint.color = Color.rgb(MyApplication.colorMap[prodId]!!.redValues.get(index).toInt() and 0xFF,
-                MyApplication.colorMap[prodId]!!.greenValues.get(index).toInt() and 0xFF,
-                MyApplication.colorMap[prodId]!!.blueValues.get(index).toInt() and 0xFF)
+        myPaint.color = Color.rgb(
+            MyApplication.colorMap[prodId]!!.redValues.get(index).toInt() and 0xFF,
+            MyApplication.colorMap[prodId]!!.greenValues.get(index).toInt() and 0xFF,
+            MyApplication.colorMap[prodId]!!.blueValues.get(index).toInt() and 0xFF
+        )
         myPaint.strokeWidth = strokeWidth.toFloat()
     }
 
@@ -74,12 +93,23 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
             "N0Q", "L2REF", "TZL" -> {
                 (0 until 256).forEach {
                     setColorWithBuffers(94, 255 - it, strokeWidth)
-                    canvas.drawRect(widthStarting, it * scaledHeight + startHeight, width + widthStarting, it * scaledHeight + scaledHeight + startHeight, myPaint)
+                    canvas.drawRect(
+                        widthStarting,
+                        it * scaledHeight + startHeight,
+                        width + widthStarting,
+                        it * scaledHeight + scaledHeight + startHeight,
+                        myPaint
+                    )
                 }
                 var units = " dBZ"
                 (95 downTo 1).forEach {
                     if (it % 10 == 0) {
-                        canvas.drawText(it.toString() + units, widthStarting + width + textFromLegend, scaledHeightText * (95 - it) + heightFudge + startHeight, paintText)
+                        canvas.drawText(
+                            it.toString() + units,
+                            widthStarting + width + textFromLegend,
+                            scaledHeightText * (95 - it) + heightFudge + startHeight,
+                            paintText
+                        )
                         if (!unitsDrawn) {
                             unitsDrawn = true
                             units = ""
@@ -90,7 +120,13 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
             "N0U", "L2VEL", "TV0" -> {
                 (0 until 256).forEach {
                     setColorWithBuffers(99, 255 - it, strokeWidth)
-                    canvas.drawRect(widthStarting, it * scaledHeight + startHeight, width + widthStarting, it * scaledHeight + scaledHeight + startHeight, myPaint)
+                    canvas.drawRect(
+                        widthStarting,
+                        it * scaledHeight + startHeight,
+                        width + widthStarting,
+                        it * scaledHeight + scaledHeight + startHeight,
+                        myPaint
+                    )
                 }
                 var units = " KT"
                 val max = 122
@@ -106,7 +142,12 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
                     //(122 downTo -130 + 1).forEach {
                     if (it % stepSize == 0) {
                         //canvas.drawText(it.toString() + units, widthStarting + width + textFromLegend, scaledHeightVel * (max - it) + heightFudge + startHeight, paintText) // max was 122
-                        canvas.drawText(it.toString() + units, widthStarting + width + textFromLegend, scaledHeightVel * (122 - it) + heightFudge + startHeight, paintText)
+                        canvas.drawText(
+                            it.toString() + units,
+                            widthStarting + width + textFromLegend,
+                            scaledHeightVel * (122 - it) + heightFudge + startHeight,
+                            paintText
+                        )
                         if (!unitsDrawn) {
                             unitsDrawn = true
                             units = ""
@@ -117,12 +158,23 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
             "DVL" -> {
                 (0 until 256).forEach {
                     setColorWithBuffers(134, 255 - it, strokeWidth)
-                    canvas.drawRect(widthStarting, it * scaledHeight + startHeight, width + widthStarting, it * scaledHeight + scaledHeight + startHeight, myPaint)
+                    canvas.drawRect(
+                        widthStarting,
+                        it * scaledHeight + startHeight,
+                        width + widthStarting,
+                        it * scaledHeight + scaledHeight + startHeight,
+                        myPaint
+                    )
                 }
                 var units = " kg/m2"
                 (70 downTo 1).forEach {
                     if (it % 5 == 0) {
-                        canvas.drawText(it.toString() + units, widthStarting + width + textFromLegend, 3.64f * scaledHeightVel * (70 - it).toFloat() + heightFudge + startHeight, paintText)
+                        canvas.drawText(
+                            it.toString() + units,
+                            widthStarting + width + textFromLegend,
+                            3.64f * scaledHeightVel * (70 - it).toFloat() + heightFudge + startHeight,
+                            paintText
+                        )
                         if (!unitsDrawn) {
                             unitsDrawn = true
                             units = ""
@@ -134,12 +186,23 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
                 scaledHeight = (screenHeight - 2 * startHeight) / 70f
                 (0..70).forEach {
                     setColorWithBuffers(135, 70 - it, strokeWidth)
-                    canvas.drawRect(widthStarting, it * scaledHeight + startHeight, width + widthStarting, it * scaledHeight + scaledHeight + startHeight, myPaint)
+                    canvas.drawRect(
+                        widthStarting,
+                        it * scaledHeight + startHeight,
+                        width + widthStarting,
+                        it * scaledHeight + scaledHeight + startHeight,
+                        myPaint
+                    )
                 }
                 var units = " K FT"
                 (70 downTo 1).forEach {
                     if (it % 5 == 0) {
-                        canvas.drawText(it.toString() + units, widthStarting + width + textFromLegend, 3.64f * scaledHeightVel * (70 - it).toFloat() + heightFudge + startHeight, paintText)
+                        canvas.drawText(
+                            it.toString() + units,
+                            widthStarting + width + textFromLegend,
+                            3.64f * scaledHeightVel * (70 - it).toFloat() + heightFudge + startHeight,
+                            paintText
+                        )
                         if (!unitsDrawn) {
                             unitsDrawn = true
                             units = ""
@@ -150,11 +213,22 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
             "N0X" -> {
                 (0 until 256).forEach {
                     setColorWithBuffers(159, 255 - it, strokeWidth)
-                    canvas.drawRect(widthStarting, it * scaledHeight + startHeight, width + widthStarting, it * scaledHeight + scaledHeight + startHeight, myPaint)
+                    canvas.drawRect(
+                        widthStarting,
+                        it * scaledHeight + startHeight,
+                        width + widthStarting,
+                        it * scaledHeight + scaledHeight + startHeight,
+                        myPaint
+                    )
                 }
                 var units = " dB"
                 (8 downTo -8 + 1).forEach {
-                    canvas.drawText(it.toString() + units, widthStarting + width + textFromLegend, 16f * scaledHeightVel * (8 - it).toFloat() + heightFudge + startHeight, paintText)
+                    canvas.drawText(
+                        it.toString() + units,
+                        widthStarting + width + textFromLegend,
+                        16f * scaledHeightVel * (8 - it).toFloat() + heightFudge + startHeight,
+                        paintText
+                    )
                     if (!unitsDrawn) {
                         unitsDrawn = true
                         units = ""
@@ -164,13 +238,26 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
             "N0C" -> {
                 (0 until 256).forEach {
                     setColorWithBuffers(161, 255 - it, strokeWidth)
-                    canvas.drawRect(widthStarting, it * scaledHeight + startHeight,
-                            width + widthStarting, it * scaledHeight + scaledHeight + startHeight, myPaint)
+                    canvas.drawRect(
+                        widthStarting,
+                        it * scaledHeight + startHeight,
+                        width + widthStarting,
+                        it * scaledHeight + scaledHeight + startHeight,
+                        myPaint
+                    )
                 }
                 var units = " CC"
                 (100 downTo -1 step 1).forEach {
                     if (it % 5 == 0) {
-                        canvas.drawText(UtilityStringExternal.truncate((it / 100.0).toString(), 4) + units, widthStarting + width + textFromLegend, 3f * scaledHeightVel * (100 - it).toFloat() + heightFudge + startHeight, paintText)
+                        canvas.drawText(
+                            UtilityStringExternal.truncate(
+                                (it / 100.0).toString(),
+                                4
+                            ) + units,
+                            widthStarting + width + textFromLegend,
+                            3f * scaledHeightVel * (100 - it).toFloat() + heightFudge + startHeight,
+                            paintText
+                        )
                         if (!unitsDrawn) {
                             unitsDrawn = true
                             units = ""
@@ -181,11 +268,22 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
             "N0K" -> {
                 (0 until 256).forEach {
                     setColorWithBuffers(163, 255 - it, strokeWidth)
-                    canvas.drawRect(widthStarting, it * scaledHeight + startHeight, width + widthStarting, it * scaledHeight + scaledHeight + startHeight, myPaint)
+                    canvas.drawRect(
+                        widthStarting,
+                        it * scaledHeight + startHeight,
+                        width + widthStarting,
+                        it * scaledHeight + scaledHeight + startHeight,
+                        myPaint
+                    )
                 }
                 var units = " PHAS"
                 (10 downTo -3 + 1).forEach {
-                    canvas.drawText(it.toString() + units, widthStarting + width + textFromLegend, 20f * scaledHeightVel * (10 - it).toFloat() + heightFudge + startHeight, paintText)
+                    canvas.drawText(
+                        it.toString() + units,
+                        widthStarting + width + textFromLegend,
+                        20f * scaledHeightVel * (10 - it).toFloat() + heightFudge + startHeight,
+                        paintText
+                    )
                     if (!unitsDrawn) {
                         unitsDrawn = true
                         units = ""
@@ -196,12 +294,23 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
                 scaledHeight = (screenHeight - 2 * startHeight) / 160f
                 (0..159).forEach {
                     setColorWithBuffers(165, 160 - it, strokeWidth)
-                    canvas.drawRect(widthStarting, it * scaledHeight + startHeight, width + widthStarting, it * scaledHeight + scaledHeight + startHeight, myPaint)
+                    canvas.drawRect(
+                        widthStarting,
+                        it * scaledHeight + startHeight,
+                        width + widthStarting,
+                        it * scaledHeight + scaledHeight + startHeight,
+                        myPaint
+                    )
                 }
                 var units = ""
                 (159 downTo -1 + 1).forEach {
                     if (it % 10 == 0) {
-                        canvas.drawText(h0CLabels[it / 10] + units, widthStarting + width + textFromLegend, scaledHeight * (159 - it) + startHeight, paintText)
+                        canvas.drawText(
+                            h0CLabels[it / 10] + units,
+                            widthStarting + width + textFromLegend,
+                            scaledHeight * (159 - it) + startHeight,
+                            paintText
+                        )
                         if (!unitsDrawn) {
                             unitsDrawn = true
                             units = ""
@@ -212,13 +321,23 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
             "DSA", "DAA" -> {
                 (0 until 256).forEach {
                     setColorWithBuffers(172, 255 - it, strokeWidth)
-                    canvas.drawRect(widthStarting, it * scaledHeight + startHeight, width + widthStarting, it * scaledHeight + scaledHeight + startHeight, myPaint)
+                    canvas.drawRect(
+                        widthStarting,
+                        it * scaledHeight + startHeight,
+                        width + widthStarting,
+                        it * scaledHeight + scaledHeight + startHeight,
+                        myPaint
+                    )
                 }
                 var units = " IN"
                 var j = WXGLRadarActivity.dspLegendMax
                 while (j > 0) {
-                    canvas.drawText(UtilityStringExternal.truncate(j.toString(), 4) + units, widthStarting + width + textFromLegend,
-                            255f / WXGLRadarActivity.dspLegendMax * scaledHeightVel * (WXGLRadarActivity.dspLegendMax - j) + heightFudge + startHeight, paintText)
+                    canvas.drawText(
+                        UtilityStringExternal.truncate(j.toString(), 4) + units,
+                        widthStarting + width + textFromLegend,
+                        255f / WXGLRadarActivity.dspLegendMax * scaledHeightVel * (WXGLRadarActivity.dspLegendMax - j) + heightFudge + startHeight,
+                        paintText
+                    )
                     if (!unitsDrawn) {
                         unitsDrawn = true
                         units = ""
