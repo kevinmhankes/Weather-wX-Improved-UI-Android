@@ -65,7 +65,7 @@ internal object UtilityModelESRLInputOutput {
         runData.listRunAdd(sigHtmlTmp)
         runData.mostRecentRun = sigHtmlTmp
         //runData.imageCompleteInt = UtilityString.parseAndCount(htmlRunstatus, ".(allfields).") - 1
-        runData.imageCompleteInt = UtilityString.parseAndCount(htmlRunstatus, ".(${param}).") - 3
+        runData.imageCompleteInt = UtilityString.parseAndCount(htmlRunstatus, ".($param).") - 3
         runData.imageCompleteStr = runData.imageCompleteInt.toString()
         if (sigHtmlTmp != "") {
             var i = 0
