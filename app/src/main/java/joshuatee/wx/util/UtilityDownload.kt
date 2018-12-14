@@ -668,7 +668,7 @@ object UtilityDownload {
         }
     }
 
-    fun getInputStreamFromUrlUnsafe(strURL: String): InputStream? {
+   /* fun getInputStreamFromUrlUnsafe(strURL: String): InputStream? {
         return try {
             val request = Request.Builder().url(strURL).build()
             val response = MyApplication.httpClientUnsafe!!.newCall(request).execute()
@@ -677,7 +677,7 @@ object UtilityDownload {
             UtilityLog.HandleException(e)
             null
         }
-    }
+    }*/
 
     fun getRadarStatusMessage(context: Context, rid: String): String {
         val ridSmall = if (rid.length == 4) {

@@ -149,9 +149,9 @@ class ObjectSpinner {
 
     fun size(): Int = arrayAdapter.count
 
-    fun getItemAtPosition(k: Int): Any {
+    /*fun getItemAtPosition(k: Int): Any {
         return spinner1.getItemAtPosition(k) ?: return ""
-    }
+    }*/
 
     operator fun get(idx: Int): String = list[idx]
 

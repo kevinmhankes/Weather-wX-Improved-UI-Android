@@ -78,9 +78,9 @@ fun String.getHtmlSep(): String {
     return UtilityDownload.getStringFromURLSepS(this)
 }
 
-fun String.getHtmlSepUnsafe(): String {
+/*fun String.getHtmlSepUnsafe(): String {
     return UtilityDownload.getStringFromURLSepSUnsafe(this)
-}
+}*/
 
 fun String.parseColumnAll(p: Pattern): List<String> {
     return UtilityString.parseColumnAllS(this, p)
