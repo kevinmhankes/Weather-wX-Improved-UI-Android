@@ -172,10 +172,10 @@ object UtilityUSImgNWSGOES {
                     if (s == "radar" && sector.contains("eaus")) // eaus has a radar file but it's outdated
                         continue
                     bitmapTmp2 = if (!satSector.contains("west/wfo") && !sector.contains("eaus")) {
-                        val urlArr = UtilityImgAnim.getURLArray(
+                        val urlArr = UtilityImgAnim.getUrlArray(
                             urlS,
                             "<a href=\"([0-9]{7}_[0-9]{4}$s\\.gif)\">.*?",
-                            "1"
+                            1
                         )
                         (urlS + urlArr[0]).getImage()
                     } else {
@@ -214,21 +214,21 @@ object UtilityUSImgNWSGOES {
         satSector: String,
         sector: String,
         imageTypeAnim: String,
-        frameCntStr: String
+        frameCount: Int
     ): AnimationDrawable {
-        val frameCnt = frameCntStr.toIntOrNull() ?: 0
+        //val frameCnt = frameCntStr.toIntOrNull() ?: 0
         val url = "http://www.ssd.noaa.gov/goes/$satSector/$sector/img/"
         val bmAl = mutableListOf<Bitmap>()
         val urlArr: List<String>
         val urlAL = getNWSGOESAnimationURLs(satSector, sector, imageTypeAnim)
-        if (urlAL.size >= frameCnt) {
-            (urlAL.size - frameCnt until urlAL.size).mapTo(bmAl) { urlAL[it].getImage() }
+        if (urlAL.size >= frameCount) {
+            (urlAL.size - frameCount until urlAL.size).mapTo(bmAl) { urlAL[it].getImage() }
         } else {
             try {
-                urlArr = UtilityImgAnim.getURLArray(
+                urlArr = UtilityImgAnim.getUrlArray(
                     url,
                     "<a href=\"([0-9]{7}_[0-9]{4}$imageTypeAnim\\.jpg)\">.*?",
-                    frameCntStr
+                    frameCount
                 )
                 urlArr.mapTo(bmAl) { (url + it).getImage() }
             } catch (e: Exception) {
@@ -238,7 +238,7 @@ object UtilityUSImgNWSGOES {
         val animDrawable = AnimationDrawable()
         var delay = UtilityImg.animInterval(context)
         (0 until bmAl.size).forEach {
-            if (it == frameCnt - 1) {
+            if (it == frameCount - 1) {
                 delay *= 3
             }
             animDrawable.addFrame(BitmapDrawable(context.resources, bmAl[it]), delay)
@@ -251,7 +251,7 @@ object UtilityUSImgNWSGOES {
         satSector: String,
         sector: String,
         imageTypeAnim: String,
-        frameCntStr: String
+        frameCount: Int
     ): AnimationDrawable {
         val url = "http://www.ssd.noaa.gov/$satSector/$sector/img/"
         var imgFormat = ".gif"
@@ -261,10 +261,10 @@ object UtilityUSImgNWSGOES {
         val bmAl = mutableListOf<Bitmap>()
         val urlArr: List<String>
         try {
-            urlArr = UtilityImgAnim.getURLArray(
+            urlArr = UtilityImgAnim.getUrlArray(
                 url,
                 "<a href=\"([0-9]{7}_[0-9]{4}$imageTypeAnim\\$imgFormat)\">.*?",
-                frameCntStr
+                frameCount
             )
             urlArr.mapTo(bmAl) { (url + it).getImage() }
         } catch (e: Exception) {

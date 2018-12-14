@@ -245,33 +245,33 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
             R.id.action_map -> imageMap.toggleMap()
             R.id.action_a12 -> {
                 if (satSector == "jma" || satSector == "eumet")
-                    animateRadarNONGOES("12")
+                    animateRadarNONGOES(12)
                 else
-                    animateRadar("12")
+                    animateRadar(12)
             }
             R.id.action_a18 -> {
                 if (satSector == "jma" || satSector == "eumet")
-                    animateRadarNONGOES("18")
+                    animateRadarNONGOES(18)
                 else
-                    animateRadar("18")
+                    animateRadar(18)
             }
             R.id.action_a36 -> {
                 if (satSector == "jma" || satSector == "eumet")
-                    animateRadarNONGOES("36")
+                    animateRadarNONGOES(36)
                 else
-                    animateRadar("36")
+                    animateRadar(36)
             }
             R.id.action_a6 -> {
                 if (satSector == "jma" || satSector == "eumet")
-                    animateRadarNONGOES("6")
+                    animateRadarNONGOES(6)
                 else
-                    animateRadar("6")
+                    animateRadar(6)
             }
             R.id.action_a -> {
                 if (satSector == "jma" || satSector == "eumet")
-                    animateRadarNONGOES(MyApplication.uiAnimIconFrames)
+                    animateRadarNONGOES(MyApplication.uiAnimIconFrames.toInt())
                 else
-                    animateRadar(MyApplication.uiAnimIconFrames)
+                    animateRadar(MyApplication.uiAnimIconFrames.toInt())
             }
             R.id.action_vis -> {
                 imageTypeNhc = "vis"
@@ -550,27 +550,27 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
         return true
     }
 
-    private fun animateRadar(frameCntStr: String) = GlobalScope.launch(uiDispatcher) {
+    private fun animateRadar(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
         animDrawable = withContext(Dispatchers.IO) {
             UtilityUSImgNWSGOES.getNWSGOESAnim(
                 contextg,
                 satSector,
                 sector,
                 imageTypeNhc,
-                frameCntStr
+                frameCount
             )
         }
         animRan = UtilityImgAnim.startAnimation(animDrawable, img)
     }
 
-    private fun animateRadarNONGOES(frameCntStr: String) = GlobalScope.launch(uiDispatcher) {
+    private fun animateRadarNONGOES(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
         animDrawable = withContext(Dispatchers.IO) {
             UtilityUSImgNWSGOES.getNWSGOESAnimNONGOES(
                 contextg,
                 satSector,
                 sector,
                 imageTypeNhc,
-                frameCntStr
+                frameCount
             )
         }
         animRan = UtilityImgAnim.startAnimation(animDrawable, img)
