@@ -422,21 +422,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     private fun getContent(glv: WXGLSurfaceView, ogl: WXGLRender, z: Int) =
         GlobalScope.launch(uiDispatcher) {
-
-            //@SuppressLint("StaticFieldLeak")
-            //private inner class GetContent : AsyncTask<String, String, String>() {
-
-            //lateinit var glv: WXGLSurfaceView
-            //lateinit var ogl: WXGLRender
-            //var z = 0
-
-            //fun setVars(glvg: WXGLSurfaceView, OGLRg: WXGLRender, zee: Int) {
-            //this.glv = glvg
-            //this.ogl = OGLRg
-            //this.z = zee
-            //}
-
-            //override fun onPreExecute() {
             if ((oglrArr[z].product == "N0Q" || oglrArr[z].product == "N1Q" || oglrArr[z].product == "N2Q" || oglrArr[z].product == "N3Q" || oglrArr[z].product == "L2REF") && WXGLNexrad.isRIDTDWR(
                     oglrArr[z].rid
                 )
@@ -449,13 +434,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             ) oglrArr[z].product = "TV0"
             if (oglrArr[z].product == "TV0" && !WXGLNexrad.isRIDTDWR(oglrArr[z].rid)) oglrArr[z].product =
                     "N0U"
-            //prodArr[z] = WXGLNexrad.checkTdwrProd(prodArr[z],WXGLNexrad.isRIDTDWR(rid1Arr[z]))
             toolbar.subtitle = ""
             setToolbarTitle()
             initWXOGLGeom(glv, ogl, z)
-            //}
-
-            //override fun doInBackground(vararg params: String): String {
             withContext(Dispatchers.IO) {
                 ogl.constructPolygons("", "", true)
                 if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) {
@@ -484,10 +465,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     ogl.constructLocationDot(locXCurrent, locYCurrent, false)
                 else
                     ogl.deconstructLocationDot()
-                //return "Executed"
             }
-
-            //override fun onPostExecute(result: String) {
             if (!oglInView) {
                 glviewShow()
                 oglInView = true
@@ -504,7 +482,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             glv.requestRender()
             setSubTitle()
             animRan = false
-            //}
         }
 
     private fun getAnimate(frameCntStr: String) = GlobalScope.launch(uiDispatcher) {
@@ -596,7 +573,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                             )
                         }
                     }
-                    //publishProgress((r + 1).toString(), (animArray[0].size).toString())
                     launch(uiDispatcher) {
                         progressUpdate((r + 1).toString(), (animArray[0].size).toString())
                     }
@@ -805,7 +781,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private fun animateRadar(frameCnt: String) {
         anim.setIcon(MyApplication.ICON_STOP)
         star.setIcon(MyApplication.ICON_PAUSE)
-        //AnimateRadar().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, frameCnt, oglrArr[curRadar].product)
         getAnimate(frameCnt)
     }
 
