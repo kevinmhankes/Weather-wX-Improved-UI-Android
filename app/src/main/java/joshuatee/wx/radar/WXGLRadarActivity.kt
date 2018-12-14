@@ -255,8 +255,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         else
             oglr.rid = activityArguments[0]
         // hack, in rare cases a user will save a location that doesn't pick up RID
-        if (oglr.rid == "") oglr.rid = "TLX"
-        //state = turl[1]
+        if (oglr.rid == "")
+            oglr.rid = "TLX"
         if (activityArguments != null && activityArguments.size > 2) {
             oglr.product = activityArguments[2]
             if (oglr.product == "N0R") {
@@ -365,10 +365,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-
-        //@SuppressLint("StaticFieldLeak")
-        //private inner class GetContent : AsyncTask<String, String, String>() {
-        //override fun onPreExecute() {
         val ridIsTdwr = WXGLNexrad.isRIDTDWR(oglr.rid)
         if (ridIsTdwr) {
             l3Menu.isVisible = false
@@ -383,7 +379,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         if ((oglr.product == "N0U" || oglr.product == "N1U" || oglr.product == "N2U" || oglr.product == "N3U" || oglr.product == "L2VEL") && ridIsTdwr) oglr.product =
                 "TV0"
         if (oglr.product == "TV0" && !ridIsTdwr) oglr.product = "N0U"
-        //prod = WXGLNexrad.checkTdwrProd(prod, ridIsTdwr)
         title = oglr.product
         if (MyApplication.ridFav.contains(":" + oglr.rid + ":"))
             star.setIcon(MyApplication.STAR_ICON)
@@ -391,9 +386,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         toolbar.subtitle = ""
         if (!oglr.product.startsWith("2")) initWXOGLGeom()
-        //}
 
-        //override fun doInBackground(vararg params: String): String {
         withContext(Dispatchers.IO) {
             oglr.constructPolygons("", urlStr, true)
             if ((PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) && !archiveMode)
@@ -436,10 +429,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             } else {
                 oglr.deconstructSWOLines()
             }
-            //return "Executed"
         }
 
-        //override fun onPostExecute(result: String) {
         if (!oglInView) {
             img.visibility = View.GONE
             glview.visibility = View.VISIBLE
@@ -470,7 +461,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
         oldProd = oglr.product
         val info = Utility.readPref(contextg, "WX_RADAR_CURRENT_INFO", "")
-        //val tmpArr = MyApplication.space.split(info)
         val tmpArr = info.split(" ")
         if (tmpArr.size > 3)
             toolbar.subtitle = tmpArr[3]
@@ -478,7 +468,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             toolbar.subtitle = ""
         animRan = false
         firstRun = false
-        //}
     }
 
     private fun getAnimate(frameCntStr: String) = GlobalScope.launch(uiDispatcher) {
@@ -491,7 +480,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         animRan = true
 
         withContext(Dispatchers.IO) {
-            //val frameCntStr = params[0]
             frameCntStrGlobal = frameCntStr
             var animArray = oglr.rdDownload.getRadarByFTPAnimation(contextg, frameCntStr)
             var fh: File
@@ -570,89 +558,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             toolbar.subtitle = "Problem downloading"
         }
     }
-
-    /* @SuppressLint("StaticFieldLeak")
-     private inner class AnimateRadarD : AsyncTask<String, String, String>() {
-
-         override fun onPreExecute() {
-             if (!oglInView) {
-                 img.visibility = View.GONE
-                 glview.visibility = View.VISIBLE
-                 oglInView = true
-             }
-             inOglAnim = true
-             animRan = true
-         }
-
-         override fun doInBackground(vararg params: String): String {
-             val frameCntStr = params[0]
-             frameCntStrGlobal = frameCntStr
-             var animArray = oglr.rdDownload.getRadarByFTPAnimation(contextg, frameCntStr)
-             var fh: File
-             var timeMilli: Long
-             var priorTime: Long
-             try {
-                 animArray.indices.forEach {
-                     fh = File(contextg.filesDir, animArray[it])
-                     contextg.deleteFile("nexrad_anim" + it.toString())
-                     if (!fh.renameTo(File(contextg.filesDir, "nexrad_anim" + it.toString())))
-                         UtilityLog.d("wx", "Problem moving to " + "nexrad_anim" + it.toString())
-                 }
-             } catch (e: Exception) {
-                 UtilityLog.HandleException(e)
-             }
-             var loopCnt = 0
-             while (inOglAnim) {
-                 if (animTriggerDownloads) {
-                     animArray = oglr.rdDownload.getRadarByFTPAnimation(contextg, frameCntStr)
-                     try {
-                         animArray.indices.forEach {
-                             fh = File(contextg.filesDir, animArray[it])
-                             contextg.deleteFile("nexrad_anim" + it.toString())
-                             if (!fh.renameTo(File(contextg.filesDir, "nexrad_anim" + it.toString())))
-                                 UtilityLog.d("wx", "Problem moving to " + "nexrad_anim" + it.toString())
-                         }
-                     } catch (e: Exception) {
-                         UtilityLog.HandleException(e)
-                     }
-                     animTriggerDownloads = false
-                 }
-                 for (r in 0 until animArray.size) {
-                     while (inOglAnimPaused) SystemClock.sleep(delay.toLong())
-                     // formerly priorTime was set at the end but that is goofed up with pause
-                     priorTime = System.currentTimeMillis()
-                     // added because if paused and then another icon life vel/ref it won't load correctly, likely timing issue
-                     if (!inOglAnim) break
-                     // if the first pass has completed, for L2 no longer uncompress, use the existing decomp files
-                     if (loopCnt > 0)
-                         oglr.constructPolygons("nexrad_anim" + r.toString(), urlStr, false)
-                     else
-                         oglr.constructPolygons("nexrad_anim" + r.toString(), urlStr, true)
-                     publishProgress((r + 1).toString(), animArray.size.toString())
-                     glview.requestRender()
-                     timeMilli = System.currentTimeMillis()
-                     if ((timeMilli - priorTime) < delay)
-                         SystemClock.sleep(delay - ((timeMilli - priorTime)))
-                     if (!inOglAnim) break
-                     if (r == (animArray.size - 1)) SystemClock.sleep(delay.toLong() * 2)
-                 }
-                 loopCnt += 1
-             }
-             return "Executed"
-         }
-
-         override fun onProgressUpdate(vararg values: String) {
-             if ((values[1].toIntOrNull() ?: 0) > 1) {
-                 val tmpArrAnim = Utility.readPref(contextg, "WX_RADAR_CURRENT_INFO", "").split(" ")
-                 if (tmpArrAnim.size > 3)
-                     toolbar.subtitle = tmpArrAnim[3] + " (" + values[0] + "/" + values[1] + ")"
-                 else
-                     toolbar.subtitle = ""
-             } else {
-                 toolbar.subtitle = "Problem downloading"
-             }
-         }
-     }*/
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
@@ -850,7 +755,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private fun animateRadar(frameCnt: String) {
         anim.setIcon(MyApplication.ICON_STOP)
         star.setIcon(MyApplication.ICON_PAUSE)
-        //AnimateRadar().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, frameCnt)
         getAnimate(frameCnt)
     }
 
@@ -1292,7 +1196,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     NavUtils.navigateUpFromSameTask(this)
                 else
                     navigateUp()
-                //true
             }
             else -> {
                 super.onOptionsItemSelected(item)

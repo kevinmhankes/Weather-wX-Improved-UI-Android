@@ -1328,11 +1328,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         UtilityAlertDialog.showHelpText(txt, act)
     }
 
-    /*private fun getContentWrapper(glvg: WXGLSurfaceView, OGLRg: WXGLRender, curRadar: Int) {
-        getContent(glvg, OGLRg, curRadar)
-    }
-*/
-
     fun getContentSingleThreaded(glvg: WXGLSurfaceView, OGLRg: WXGLRender, curRadar: Int) {
         getContent(glvg, OGLRg, curRadar)
     }

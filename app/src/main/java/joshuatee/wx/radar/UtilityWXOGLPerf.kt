@@ -288,6 +288,8 @@ internal object UtilityWXOGLPerf {
         return totalBins
     }
 
+    // FIXME change to mercator
+    // FIXME rename 2 char vars to something better
     fun genMercato(inBuff: ByteBuffer, outBuff: ByteBuffer, pn: ProjectionNumbers, count: Int) {
         val centerX = pn.xFloat
         val centerY = pn.yFloat
