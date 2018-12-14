@@ -326,7 +326,7 @@ class Location(val context: Context, locNumInt: Int) {
             }
             refreshLocationData(context)
             LocalBroadcastManager.getInstance(context).sendBroadcast(Intent("locationadded"))
-            return "Saving location " + locNum + " as " + labelStr + " (" + xStr + "," + yStr + ") " + nwsOfficeShortLower.toUpperCase(
+            return "Saving location $locNum as $labelStr ($xStr,$yStr) " + nwsOfficeShortLower.toUpperCase(
                 Locale.US
             ) + "(" + rid.toUpperCase(Locale.US) + ")"
         }

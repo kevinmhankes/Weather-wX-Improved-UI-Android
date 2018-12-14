@@ -21,7 +21,16 @@
 
 package joshuatee.wx.radar
 
-class Spotter internal constructor(firstName: String, lastName: String, lat: String, lon: String, reportAt: String, email: String, phone: String, uniq: String) {
+class Spotter internal constructor(
+    firstName: String,
+    lastName: String,
+    lat: String,
+    lon: String,
+    reportAt: String,
+    email: String,
+    phone: String,
+    uniq: String
+) {
 
     var firstName: String = ""
     var lastName: String = ""

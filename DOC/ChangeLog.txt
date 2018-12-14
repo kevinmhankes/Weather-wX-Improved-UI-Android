@@ -4,7 +4,8 @@
 // TODO refactor nexrad radar to match architecture of wXL23 Metal to remove code duplicity
 // TODO reduce complexity and code cleanup (lint)
 
-55073 2018_12_13
+55073 2018_12_13 linting based on official kotlin style guide (this will take some time)
+                 Radar: show default message if no radar status message
 55072 2018_12_13 linting based on official kotlin style guide (this will take some time)
 55071 2018_12_12 linting based on official kotlin style guide (this will take some time)
 55070 2018_12_11 linting based on official kotlin style guide (this will take some time)

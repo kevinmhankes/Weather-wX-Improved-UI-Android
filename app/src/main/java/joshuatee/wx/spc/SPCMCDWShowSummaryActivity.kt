@@ -210,7 +210,7 @@ class SPCMCDWShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener 
             miImage.isVisible = true
         } else {
             setTitle(
-                activityLabel + " " + mcdNumbers.toString().replace(
+                "$activityLabel " + mcdNumbers.toString().replace(
                     "[{}]".toRegex(),
                     ""
                 ).replace("\\[|\\]".toRegex(), "").replace("w", "")

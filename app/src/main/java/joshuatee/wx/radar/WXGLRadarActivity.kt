@@ -1236,23 +1236,16 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun getRadarStatus() = GlobalScope.launch(uiDispatcher) {
-        //@SuppressLint("StaticFieldLeak")
-        //private inner class GetRadarStatus : AsyncTask<String, String, String>() {
-
-        //var radarStatus = ""
-
-        //override fun doInBackground(vararg params: String): String {
-        val radarStatus = withContext(Dispatchers.IO) {
+        var radarStatus = withContext(Dispatchers.IO) {
             UtilityDownload.getRadarStatusMessage(
                 contextg,
                 oglr.rid
             )
         }
-        //    return "Executed"
-        //}
-        //override fun onPostExecute(result: String) {
+        if (radarStatus == "") {
+            radarStatus = "The current radar status for " + oglr.rid + " is not available."
+        }
         UtilityAlertDialog.showHelpText(Utility.fromHtml(radarStatus), act)
-        //}
     }
 
     private var legend: ViewColorLegend? = null

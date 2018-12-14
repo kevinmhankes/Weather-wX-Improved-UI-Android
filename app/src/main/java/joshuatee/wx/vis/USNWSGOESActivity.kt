@@ -45,7 +45,8 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelectedListener, OnMenuItemClickListener {
+class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelectedListener,
+    OnMenuItemClickListener {
 
     // NWS GOES Image viewer
     //
@@ -94,8 +95,14 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
         super.onCreate(savedInstanceState, R.layout.activity_usgoes, R.menu.usnwsgoes, true, true)
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)
-        Collections.addAll(mesoImg, *TextUtils.split(Utility.readPref(this, "GOESVISREG_MESO", ""), ":"))
-        Collections.addAll(overlayImg, *TextUtils.split(Utility.readPref(this, "GOESVISREG_OVERLAY", ""), ":"))
+        Collections.addAll(
+            mesoImg,
+            *TextUtils.split(Utility.readPref(this, "GOESVISREG_MESO", ""), ":")
+        )
+        Collections.addAll(
+            overlayImg,
+            *TextUtils.split(Utility.readPref(this, "GOESVISREG_OVERLAY", ""), ":")
+        )
         val menu = toolbarBottom.menu
         miMeso = menu.findItem(R.id.action_meso)
         miRadar = menu.findItem(R.id.action_radar_overlay)
@@ -135,7 +142,8 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
         sp.setSelection(findPosition(nwsOffice.toUpperCase(Locale.US)))
     }
 
-    private fun findPosition(key: String) = (0 until sp.size()).firstOrNull { sp[it].startsWith("$key:") }
+    private fun findPosition(key: String) =
+        (0 until sp.size()).firstOrNull { sp[it].startsWith("$key:") }
             ?: 0
 
     override fun onRestart() {
@@ -151,14 +159,27 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
         if (wfoChoosen && !satSector.contains("wfo")) satSector += "/wfo"
         // EEPAC:EAST needs to be east/epac not to be confused with west/epac
         if (sector == "eepac") sector = "epac"
-        miRadar.isVisible = !(sector == "ceus" || sector == "weus" || sector == "eaus" || sector == "hi" || sector == "ak")
+        miRadar.isVisible =
+                !(sector == "ceus" || sector == "weus" || sector == "eaus" || sector == "hi" || sector == "ak")
         miWv.isVisible = !wfoChoosen
-        miZoomout.isVisible = !(sector == "ceus" || sector == "eaus" || sector.contains("pac") || sector.contains("atl"))
+        miZoomout.isVisible =
+                !(sector == "ceus" || sector == "eaus" || sector.contains("pac") || sector.contains(
+                    "atl"
+                ))
         toolbar.title = imageTypeNhc
         sector = sector.replace(":", "")
 
         withContext(Dispatchers.IO) {
-            bitmap = UtilityUSImgNWSGOES.getGOESMosaic(contextg, satSector, sector, imageTypeNhc, mesoImg, overlayImg, wfoChoosen, true)
+            bitmap = UtilityUSImgNWSGOES.getGOESMosaic(
+                contextg,
+                satSector,
+                sector,
+                imageTypeNhc,
+                mesoImg,
+                overlayImg,
+                wfoChoosen,
+                true
+            )
         }
 
         img.visibility = View.VISIBLE
@@ -180,7 +201,17 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
         sector = sector.replace(":", "")
 
         withContext(Dispatchers.IO) {
-            bitmap = UtilityUSImgNWSGOES.getGOESMosaicNONGOES(contextg, satSector, sector, imageTypeNhc, imgFormat, mesoImg, overlayImg, wfoChoosen, true)
+            bitmap = UtilityUSImgNWSGOES.getGOESMosaicNONGOES(
+                contextg,
+                satSector,
+                sector,
+                imageTypeNhc,
+                imgFormat,
+                mesoImg,
+                overlayImg,
+                wfoChoosen,
+                true
+            )
         }
 
         img.visibility = View.VISIBLE
@@ -325,10 +356,11 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
                     oldSatSector = satSector
                     sector = UtilityGOES.getGOESSectorFromNWSOffice(contextg, sector)
                     wfoChoosen = false
-                    satSector = if (sector == "nw" || sector == "sw" || sector == "wc" || sector == "ak" || sector == "hi")
-                        "west"
-                    else
-                        "east"
+                    satSector =
+                            if (sector == "nw" || sector == "sw" || sector == "wc" || sector == "ak" || sector == "hi")
+                                "west"
+                            else
+                                "east"
                 } else if (sector == "eaus" || sector == "weus") {
                     sector = oldSector
                     satSector = oldSatSector
@@ -519,12 +551,28 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
     }
 
     private fun animateRadar(frameCntStr: String) = GlobalScope.launch(uiDispatcher) {
-        animDrawable = withContext(Dispatchers.IO) { UtilityUSImgNWSGOES.getNWSGOESAnim(contextg, satSector, sector, imageTypeNhc, frameCntStr) }
+        animDrawable = withContext(Dispatchers.IO) {
+            UtilityUSImgNWSGOES.getNWSGOESAnim(
+                contextg,
+                satSector,
+                sector,
+                imageTypeNhc,
+                frameCntStr
+            )
+        }
         animRan = UtilityImgAnim.startAnimation(animDrawable, img)
     }
 
     private fun animateRadarNONGOES(frameCntStr: String) = GlobalScope.launch(uiDispatcher) {
-        animDrawable = withContext(Dispatchers.IO) { UtilityUSImgNWSGOES.getNWSGOESAnimNONGOES(contextg, satSector, sector, imageTypeNhc, frameCntStr) }
+        animDrawable = withContext(Dispatchers.IO) {
+            UtilityUSImgNWSGOES.getNWSGOESAnimNONGOES(
+                contextg,
+                satSector,
+                sector,
+                imageTypeNhc,
+                frameCntStr
+            )
+        }
         animRan = UtilityImgAnim.startAnimation(animDrawable, img)
     }
 
@@ -579,11 +627,12 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
                         if (sector == "afc" || sector == "afg" || sector == "ajk") {
                             sector = "ak"
                         }
-                        satSector = if (sector == "nw" || sector == "sw" || sector == "wc" || sector == "hi" || sector == "ak") {
-                            "west"
-                        } else {
-                            "east"
-                        }
+                        satSector =
+                                if (sector == "nw" || sector == "sw" || sector == "wc" || sector == "hi" || sector == "ak") {
+                                    "west"
+                                } else {
+                                    "east"
+                                }
                         getContent()
                     }
                     "mosaic" -> {
@@ -596,11 +645,12 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
                         if (sector == "afc" || sector == "afg" || sector == "ajk") {
                             sector = "ak"
                         }
-                        satSector = if (sector == "nw" || sector == "sw" || sector == "wc" || sector == "hi" || sector == "ak") {
-                            "west"
-                        } else {
-                            "east"
-                        }
+                        satSector =
+                                if (sector == "nw" || sector == "sw" || sector == "wc" || sector == "hi" || sector == "ak") {
+                                    "west"
+                                } else {
+                                    "east"
+                                }
                         getContent()
                     }
                     "nws_warn" -> {
@@ -625,7 +675,11 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
                     }
                     else -> {
                         sector = nwsOffice
-                        nwsLocationArr = Utility.readPref(contextg, "NWS_LOCATION_" + sector.toUpperCase(Locale.US), "").split(",")
+                        nwsLocationArr = Utility.readPref(
+                            contextg,
+                            "NWS_LOCATION_" + sector.toUpperCase(Locale.US),
+                            ""
+                        ).split(",")
                         val state = nwsLocationArr[0]
                         if (sector == "hfo") {
                             sector = "hi"
@@ -633,11 +687,12 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
                         if (sector == "afc" || sector == "afg" || sector == "ajk") {
                             sector = "ak"
                         }
-                        satSector = if (state == "AZ" || state == "MT" || state == "ID" || state == "NV" || state == "CA" || state == "OR" || state == "UT" || state == "WA") {
-                            "west"
-                        } else {
-                            "east"
-                        }
+                        satSector =
+                                if (state == "AZ" || state == "MT" || state == "ID" || state == "NV" || state == "CA" || state == "OR" || state == "UT" || state == "WA") {
+                                    "west"
+                                } else {
+                                    "east"
+                                }
                         if (sector == "hi" || sector == "ak") {
                             wfoChoosen = false
                             satSector = "west"
