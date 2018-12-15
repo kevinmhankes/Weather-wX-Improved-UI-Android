@@ -34,7 +34,7 @@ object UtilitySunMoon {
     http://aa.usno.navy.mil/data/docs/RS_OneDay.php
     http://api.usno.navy.mil/rstt/oneday?date=today&coords=42.26,-83.73&tz=-5*/
 
-    fun getExtendedSunMoonData(currentLoc: Int): String {
+    fun getExtendedData(currentLoc: Int): String {
         val tzOffset: String
         var x = ""
         var y = ""
@@ -87,7 +87,7 @@ object UtilitySunMoon {
         return Pair(header, content)
     }
 
-    fun getFullMoonDates(): String {
+    fun getFullDates(): String {
         val url =
             "${MyApplication.sunMoonDataUrl}/moon/phase?date=" + UtilityTime.month().toString() + "/" + UtilityTime.day().toString() + "/" + UtilityTime.year().toString() + "&nump=99"
         val text = url.getHtmlUnsafe()

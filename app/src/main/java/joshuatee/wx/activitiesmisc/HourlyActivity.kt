@@ -91,10 +91,10 @@ class HourlyActivity : BaseActivity() {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
 
-        val result1 = async(Dispatchers.IO) { UtilityUSHourly.getHourlyString(locatioNumber) }
+        val result1 = async(Dispatchers.IO) { UtilityUSHourly.getString(locatioNumber) }
         htmlShare = result1.await()
         val result2 =
-            async(Dispatchers.IO) { UtilityUSHourly.getHourlyStringForActivity(htmlShare[1]) }
+            async(Dispatchers.IO) { UtilityUSHourly.getStringForActivity(htmlShare[1]) }
         hourlyData = result2.await()
 
         cv1.setVisibility(View.VISIBLE)

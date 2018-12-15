@@ -56,7 +56,7 @@ class CanadaHourlyActivity : BaseActivity() {
         linearLayout.addView(
             ObjectCALegal(
                 this,
-                UtilityCanadaHourly.getHourlyURL(Location.locationIndex)
+                UtilityCanadaHourly.getUrl(Location.locationIndex)
             ).card
         )
         title = Location.getName(locNumInt) + " hourly forecast"
@@ -64,7 +64,7 @@ class CanadaHourlyActivity : BaseActivity() {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        val html = withContext(Dispatchers.IO) { UtilityCanadaHourly.getHourlyString(locNumInt) }
+        val html = withContext(Dispatchers.IO) { UtilityCanadaHourly.getString(locNumInt) }
         c0.setText(html)
     }
 }

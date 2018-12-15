@@ -104,8 +104,8 @@ class USNWSMosaicActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
                 val nwsLocationArr = ridLoc.split(",").dropLastWhile { it.isEmpty() }
                 val state = nwsLocationArr.getOrNull(0) ?: ""
                 nwsRadarMosaicSectorLabelCurrent =
-                        UtilityUSImgNWSMosaic.getNWSSectorFromState(state)
-                nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNWSMosaic.getNWSSectorLabelFromCode(
+                        UtilityUSImgNWSMosaic.getSectorFromState(state)
+                nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNWSMosaic.getSectorLabelFromCode(
                     nwsRadarMosaicSectorLabelCurrent
                 )
                 doNotSavePref = true
@@ -116,8 +116,8 @@ class USNWSMosaicActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
                 val nwsLocationArr = ridLoc.split(",").dropLastWhile { it.isEmpty() }
                 val state = Utility.readPref(this, "STATE_CODE_" + nwsLocationArr.getOrNull(0), "")
                 nwsRadarMosaicSectorLabelCurrent =
-                        UtilityUSImgNWSMosaic.getNWSSectorFromState(state)
-                nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNWSMosaic.getNWSSectorLabelFromCode(
+                        UtilityUSImgNWSMosaic.getSectorFromState(state)
+                nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNWSMosaic.getSectorLabelFromCode(
                     nwsRadarMosaicSectorLabelCurrent
                 )
             } else {
@@ -150,7 +150,7 @@ class USNWSMosaicActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmap = withContext(Dispatchers.IO) {
-            UtilityUSImgNWSMosaic.nwsMosaic(
+            UtilityUSImgNWSMosaic.get(
                 contextg,
                 nwsRadarMosaicSectorCurrent,
                 true
@@ -172,7 +172,7 @@ class USNWSMosaicActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
 
     private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
         animDrawable = withContext(Dispatchers.IO) {
-            UtilityUSImgNWSMosaic.nwsMosaicAnimation(
+            UtilityUSImgNWSMosaic.getAnimation(
                 contextg,
                 nwsRadarMosaicSectorCurrent,
                 frameCount,

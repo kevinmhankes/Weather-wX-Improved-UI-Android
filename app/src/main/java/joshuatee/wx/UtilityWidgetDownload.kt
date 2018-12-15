@@ -163,11 +163,11 @@ internal object UtilityWidgetDownload {
             }
             val bitmap = if (Location.isUS(widgetLocNum)) {
                 if (k == "usa") {
-                    UtilityUSImgNWSMosaic.nwsMosaic(context, "latest", false)
+                    UtilityUSImgNWSMosaic.get(context, "latest", false)
                 } else {
-                    UtilityUSImgNWSMosaic.nwsMosaic(
+                    UtilityUSImgNWSMosaic.get(
                         context,
-                        UtilityUSImgNWSMosaic.getNWSSectorFromState(state),
+                        UtilityUSImgNWSMosaic.getSectorFromState(state),
                         false
                     )
                 }

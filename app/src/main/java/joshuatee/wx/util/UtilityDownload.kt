@@ -266,11 +266,11 @@ object UtilityDownload {
         } else if (prod == "VFDLOC") {
             text = getTextProduct(context, "vfd" + Location.wfo.toLowerCase(Locale.US))
         } else if (prod == "SUNMOON") {
-            text = UtilitySunMoon.getExtendedSunMoonData(Location.locationIndex)
+            text = UtilitySunMoon.getExtendedData(Location.locationIndex)
             val (_, B) = UtilitySunMoon.parseData(text)
             text = B
         } else if (prod == "HOURLY") {
-            val textArr = UtilityUSHourly.getHourlyString(Location.currentLocation)
+            val textArr = UtilityUSHourly.getString(Location.currentLocation)
             text = textArr[0]
         } else if (prod == "SWPC3DAY") {
             text = "http://services.swpc.noaa.gov/text/3-day-forecast.txt".getHtmlSep()

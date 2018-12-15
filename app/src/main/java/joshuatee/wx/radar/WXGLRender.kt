@@ -715,7 +715,7 @@ class WXGLRender(private val context: Context) : Renderer {
         }
         if (!MyApplication.radarUseJni) {
             if (useMercatorProjection) {
-                UtilityWXOGLPerf.genMercato(
+                UtilityWXOGLPerf.genMercator(
                     buffers.geotype.relativeBuffer,
                     buffers.floatBuffer,
                     pn,

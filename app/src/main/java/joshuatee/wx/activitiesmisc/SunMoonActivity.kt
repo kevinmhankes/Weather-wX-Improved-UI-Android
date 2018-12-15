@@ -71,8 +71,8 @@ class SunMoonActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         withContext(Dispatchers.IO) {
-            content = UtilitySunMoon.getExtendedSunMoonData(Location.locationIndex)
-            contentFull = UtilitySunMoon.getFullMoonDates()
+            content = UtilitySunMoon.getExtendedData(Location.locationIndex)
+            contentFull = UtilitySunMoon.getFullDates()
         }
         val (A, B) = UtilitySunMoon.parseData(content)
         dataA = A

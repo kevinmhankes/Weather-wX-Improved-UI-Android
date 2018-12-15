@@ -88,11 +88,12 @@ internal object UtilityWXOGLPerf {
             var angleVCos: Float
             var angleNext = 0f
             var angle0 = 0f
-            while (r < 360) {
+            val numberOfRadials = 360
+            while (r < numberOfRadials) {
                 numberOfRleHalfwords = dis2.readUnsignedShort()
                 angle = 450f - dis2.readUnsignedShort() / 10f
                 dis2.skipBytes(2)
-                if (r < 359) {
+                if (r < numberOfRadials - 1) {
                     dis2.mark(100000)
                     dis2.skipBytes(numberOfRleHalfwords + 2)
                     angleNext = 450f - dis2.readUnsignedShort() / 10f
@@ -102,7 +103,7 @@ internal object UtilityWXOGLPerf {
                 levelCount = 0
                 binStart = radarBuffers.binSize
                 if (r == 0) angle0 = angle
-                angleV = if (r < 359)
+                angleV = if (r < numberOfRadials - 1)
                     angleNext
                 else
                     angle0
@@ -114,8 +115,10 @@ internal object UtilityWXOGLPerf {
                     } catch (e: Exception) {
                         UtilityLog.HandleException(e)
                     }
-                    if (bin == 0) level = curLevel
-                    if (curLevel == level) levelCount += 1
+                    if (bin == 0)
+                        level = curLevel
+                    if (curLevel == level)
+                        levelCount += 1
                     else {
                         angleVCos = cos((angleV / M_180_div_PI).toDouble()).toFloat()
                         angleVSin = sin((angleV / M_180_div_PI).toDouble()).toFloat()
@@ -288,9 +291,8 @@ internal object UtilityWXOGLPerf {
         return totalBins
     }
 
-    // FIXME change to mercator
     // FIXME rename 2 char vars to something better
-    fun genMercato(inBuff: ByteBuffer, outBuff: ByteBuffer, pn: ProjectionNumbers, count: Int) {
+    fun genMercator(inBuff: ByteBuffer, outBuff: ByteBuffer, pn: ProjectionNumbers, count: Int) {
         val centerX = pn.xFloat
         val centerY = pn.yFloat
         val xImageCenterPixels = pn.xCenter.toFloat()

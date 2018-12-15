@@ -140,11 +140,11 @@ object UtilityUSImgNWSMosaic {
         "HI" to "hawaii"
     )
 
-    internal fun getNWSSectorLabelFromCode(code: String) = sectorToLabel[code] ?: ""
+    internal fun getSectorLabelFromCode(code: String) = sectorToLabel[code] ?: ""
 
-    fun getNWSSectorFromState(state: String): String = stateToSector[state] ?: ""
+    fun getSectorFromState(state: String): String = stateToSector[state] ?: ""
 
-    internal fun nwsMosaicAnimation(
+    internal fun getAnimation(
         context: Context,
         sector: String,
         frameCount: Int,
@@ -210,7 +210,7 @@ object UtilityUSImgNWSMosaic {
         )
     }
 
-    fun nwsMosaic(context: Context, sector: String, isInteractive: Boolean): Bitmap {
+    fun get(context: Context, sector: String, isInteractive: Boolean): Bitmap {
         val imgUrl =
             "${MyApplication.nwsRadarWebsitePrefix}/Conus/RadarImg/" + sector + "_radaronly.gif"
         if (sector == "alaska") {

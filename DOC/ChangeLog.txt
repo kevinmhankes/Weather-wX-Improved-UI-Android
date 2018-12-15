@@ -5,7 +5,8 @@
 // TODO reduce complexity and code cleanup (lint)
 // TODO in various anim code don't use String to represent # of frames, convert to Int
 
-55074 2018_12_14
+55074 2018_12_15 code cleanup
+                 [BUG] upstream goes16 html change broke most products
 55073 2018_12_13 linting based on official kotlin style guide (this will take some time)
                  Radar: show default message if no radar status message
 55072 2018_12_13 linting based on official kotlin style guide (this will take some time)

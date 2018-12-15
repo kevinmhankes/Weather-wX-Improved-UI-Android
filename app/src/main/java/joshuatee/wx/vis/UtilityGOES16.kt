@@ -28,6 +28,7 @@ import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityImgAnim
 
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.MyApplication
 
 object UtilityGOES16 {
 
@@ -45,23 +46,26 @@ object UtilityGOES16 {
     private fun getImageSize(sector: String) = sizeMap[sector] ?: "1200x1200"
 
     fun getUrl(product: String, sector: String): List<String> {
-        val url = when (sector) {
+        /*val url = when (sector) {
             "FD" -> "https://www.star.nesdis.noaa.gov/GOES/GOES16_FullDisk.php"
             "CONUS" -> "https://www.star.nesdis.noaa.gov/GOES/GOES16_CONUS.php"
             else -> "https://www.star.nesdis.noaa.gov/GOES/GOES16_sectors.php?sector=$sector"
-        }
+        }*/
         var sectorLocal = "SECTOR/$sector"
         if (sector == "FD" || sector == "CONUS") {
             sectorLocal = sector
         }
-        val html = url.getHtml()
-        val parseString =
-            "href=.(https://cdn.star.nesdis.noaa.gov/GOES16/ABI/$sectorLocal/$product/[0-9]{11}_GOES16-ABI-$sector-$product-" + getImageSize(
-                sector
-            ) + ".jpg).>"
-        val imgUrl = html.parse(parseString)
-        val timeStamp = imgUrl.parse("$product/([0-9]{11})_GOES16-ABI-$sector")
-        return listOf(imgUrl, timeStamp)
+        //val html = url.getHtml()
+        //val parseString =
+        //    "href=.(https://cdn.star.nesdis.noaa.gov/GOES16/ABI/$sectorLocal/$product/[0-9]{11}_GOES16-ABI-$sector-$product-" + getImageSize(
+        //        sector
+        //    ) + ".jpg).>"
+        //val imgUrl = html.parse(parseString)
+        //val timeStamp = imgUrl.parse("$product/([0-9]{11})_GOES16-ABI-$sector")
+
+        val latestUrl = MyApplication.goes16Url + "/GOES16/ABI/" + sectorLocal + "/" + product + "/latest.jpg"
+        return listOf(latestUrl, "")
+        //return listOf(imgUrl, timeStamp)
     }
 
     fun getAnimation(

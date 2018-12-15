@@ -34,7 +34,7 @@ import joshuatee.wx.Extensions.*
 
 object UtilityUSHourly {
 
-    internal fun getHourlyStringForActivity(html: String): ObjectHourly {
+    internal fun getStringForActivity(html: String): ObjectHourly {
         val startTimes = html.parseColumn("\"startTime\": \"(.*?)\",")
         val temperatures = html.parseColumn("\"temperature\": (.*?),")
         val windSpeeds = html.parseColumn("\"windSpeed\": \"(.*?)\"")
@@ -94,7 +94,7 @@ object UtilityUSHourly {
         .replace("Freezing", "Frz")
         .replace("T-storms", "Tst")
 
-    fun getHourlyString(locNum: Int): List<String> {
+    fun getString(locNum: Int): List<String> {
         val x = UtilityMath.latLonFix(Location.getX(locNum))
         val y = UtilityMath.latLonFix(Location.getY(locNum))
         val sigHtmlTmp =
@@ -106,10 +106,10 @@ object UtilityUSHourly {
             "%-8s",
             "WindDir"
         ) + MyApplication.newline
-        return listOf(header + parseHourly(sigHtmlTmp), sigHtmlTmp)
+        return listOf(header + parse(sigHtmlTmp), sigHtmlTmp)
     }
 
-    private fun parseHourly(html: String): String {
+    private fun parse(html: String): String {
         val startTime = html.parseColumn("\"startTime\": \"(.*?)\",")
         val temperature = html.parseColumn("\"temperature\": (.*?),")
         val windSpeed = html.parseColumn("\"windSpeed\": \"(.*?)\"")
