@@ -79,6 +79,8 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
 
     fun getUrl(): String = tokens[index]
 
+    fun getUrlCount(): Int = tokens.size
+
     fun getLabel(): String = labels[index]
 }
 
