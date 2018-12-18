@@ -49,16 +49,12 @@ import android.widget.TextView
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.fragment.app.Fragment
 import androidx.cardview.widget.CardView
-import joshuatee.wx.radar.LatLon
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.activitiesmisc.SunMoonActivity
 import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.external.UtilityStringExternal
-import joshuatee.wx.radar.UtilityWXGLTextObject
-import joshuatee.wx.radar.UtilityWXOGL
-import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.ObjectCALegal
@@ -71,10 +67,6 @@ import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.ui.ObjectSpinner
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.canada.UtilityCanada
-import joshuatee.wx.radar.WXGLNexrad
-import joshuatee.wx.radar.WXGLRender
-import joshuatee.wx.radar.WXGLSurfaceView
-import joshuatee.wx.radar.WXGLTextObject
 import joshuatee.wx.settings.SettingsLocationGenericActivity
 import joshuatee.wx.spc.SPCSoundingsActivity
 import joshuatee.wx.util.*
@@ -86,6 +78,7 @@ import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
+import joshuatee.wx.radar.*
 import kotlinx.coroutines.*
 
 class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
@@ -962,20 +955,15 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     arrayOf(polygonUrl, "")
                 )
             } else if (strName.contains("Show radar status message")) {
-                getRadarStatus()
+                UtilityRadarUI.getRadarStatus(
+                    activityReference,
+                    activityReference,
+                    uiDispatcher,
+                    oglrArr[idxIntG]
+                )
             }
             dialog.dismiss()
         }
-    }
-
-    private fun getRadarStatus() = GlobalScope.launch(uiDispatcher) {
-        val radarStatus = withContext(Dispatchers.IO) {
-            UtilityDownload.getRadarStatusMessage(
-                activityReference,
-                oglrArr[idxIntG].rid
-            )
-        }
-        UtilityAlertDialog.showHelpText(Utility.fromHtml(radarStatus), activityReference)
     }
 
     private var mActivity: FragmentActivity? = null

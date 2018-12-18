@@ -1167,7 +1167,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     arrayOf(UtilityWXOGL.getMeteogramUrl(obsSite.name), obsSite.name + " Meteogram")
                 )
             } else if (strName.contains("Show radar status message"))
-                getRadarStatus()
+                UtilityRadarUI.getRadarStatus(act, contextg, uiDispatcher, oglrArr[idxIntAl])
         })
     }
 
@@ -1189,20 +1189,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             dialog.dismiss()
         })
         diaTdwr.show()
-    }
-
-    private fun getRadarStatus() = GlobalScope.launch(uiDispatcher) {
-        var radarStatus = withContext(Dispatchers.IO) {
-            UtilityDownload.getRadarStatusMessage(
-                contextg,
-                oglrArr[idxIntAl].rid
-            )
-        }
-        if (radarStatus == "") {
-            radarStatus = "The current radar status for " + oglrArr[idxIntAl].rid +
-                    " is not available."
-        }
-        UtilityAlertDialog.showHelpText(Utility.fromHtml(radarStatus), act)
     }
 
     private fun getContentSerial() {
@@ -1290,6 +1276,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         }
     }
 
+    // FIXME move to UtilityRadarUI
     private fun getMetar() = GlobalScope.launch(uiDispatcher) {
         val txt = withContext(Dispatchers.IO) {
             UtilityMetar.findClosestMetar(

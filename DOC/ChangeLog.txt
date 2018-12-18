@@ -6,7 +6,7 @@
 // TODO in various anim code don't use String to represent # of frames, convert to Int
 // TODO convert to new NavDrawer: USWarningsWith, ModelGeneric, ModelSPCHRRR, SPCCompmap, SPCStormreports, GOES16
 
-55076 2018_12_17
+55076 2018_12_17 add UtilityRadarUI and move status message there
 55075 2018_12_17 in GOESFullDisk and OPC use enhanced NavDrawer Class
 55074 2018_12_15 code cleanup
                  [BUG] upstream goes16 html change broke most products
