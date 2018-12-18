@@ -1108,7 +1108,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     arrayOf(UtilityWXOGL.getMeteogramUrl(obsSite.name), obsSite.name + " Meteogram")
                 )
             } else if (strName.contains("Show radar status message"))
-                getRadarStatus()
+                UtilityRadarUI.getRadarStatus(act, contextg, uiDispatcher, oglr)
             else if (strName.contains("Show nearest forecast")) {
                 ObjectIntent(
                     this,
@@ -1139,7 +1139,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         diaTdwr.show()
     }
 
-    private fun getRadarStatus() = GlobalScope.launch(uiDispatcher) {
+   /* private fun getRadarStatus() = GlobalScope.launch(uiDispatcher) {
         var radarStatus = withContext(Dispatchers.IO) {
             UtilityDownload.getRadarStatusMessage(
                 contextg,
@@ -1150,7 +1150,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             radarStatus = "The current radar status for " + oglr.rid + " is not available."
         }
         UtilityAlertDialog.showHelpText(Utility.fromHtml(radarStatus), act)
-    }
+    }*/
 
     private var legend: ViewColorLegend? = null
 
