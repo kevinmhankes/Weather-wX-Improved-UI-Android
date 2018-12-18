@@ -1075,7 +1075,36 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         })
         diaStatus!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogStatusAl[which]
-            if (strName.contains("Radar:")) {
+            when {
+                strName.contains("Show warning text") -> {
+                    UtilityRadarUI.showNearestWarning(contextg, glview)
+                }
+                strName.contains("Show nearest observation") -> {
+                    // FIXME send glview as arg and do LatLon in method
+                    // FIXME add helper fun to glview to return lat/lon
+                    val location = LatLon(glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
+                    UtilityRadarUI.getMetar(location, act, contextg, uiDispatcher)
+                }
+                strName.contains("Show nearest meteogram") -> {
+                    UtilityRadarUI.showNearestMeteogram(contextg, glview)
+                }
+                strName.contains("Show radar status message") -> {
+                    UtilityRadarUI.getRadarStatus(act, contextg, uiDispatcher, oglr)
+                }
+                strName.contains("Show nearest forecast") -> {
+                    UtilityRadarUI.showNearestForecast(contextg, glview)
+                }
+                else -> {
+                    // FIXME move regex to utilradarui
+                    // FIXME remove ridNew
+                    val ridNew = strName.parse("\\) ([A-Z]{3,4}) ")
+                    oglr.rid = ridNew
+                    ridChanged = true
+                    ridMapSwitch(oglr.rid)
+                }
+            }
+
+            /*if (strName.contains("Radar:")) {
                 val ridNew = strName.parse("\\) ([A-Z]{3,4}) ")
                 oglr.rid = ridNew
                 ridChanged = true
@@ -1083,7 +1112,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             } else if (strName.contains("Show warning text")) {
                 UtilityRadarUI.showNearestWarning(contextg, glview)
             } else if (strName.contains("Show nearest observation")) {
-                // FIXME send glview as arg and do LatLon in method
                 val location = LatLon(glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
                 UtilityRadarUI.getMetar(location, act, contextg, uiDispatcher)
             } else if (strName.contains("Show nearest meteogram")) {
@@ -1092,7 +1120,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 UtilityRadarUI.getRadarStatus(act, contextg, uiDispatcher, oglr)
             else if (strName.contains("Show nearest forecast")) {
                 UtilityRadarUI.showNearestForecast(contextg, glview)
-            }
+            }*/
             dialog.dismiss()
         })
     }

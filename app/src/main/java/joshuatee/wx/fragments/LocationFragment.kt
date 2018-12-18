@@ -928,7 +928,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 val ridNew = strName.parse("\\) ([A-Z]{3,4}) ")
                 val oldRidIdx = oglrArr[idxIntG].rid
                 oglrArr[idxIntG].rid = ridNew
-                oglrArr[idxIntG].rid = ridNew
+                //oglrArr[idxIntG].rid = ridNew
                 if (idxIntG != oglrIdx) {
                     MyApplication.homescreenFav = MyApplication.homescreenFav.replace(
                         "NXRD-$oldRidIdx",
@@ -947,6 +947,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     0.0f,
                     0.0f
                 )
+                // FIXME need ridMapSwitch
                 getRadar(idxIntG)
             } else if (strName.contains("Show warning text")) {
                 UtilityRadarUI.showNearestForecast(activityReference, glviewArr[idxIntG])
