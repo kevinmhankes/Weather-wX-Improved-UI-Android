@@ -1091,9 +1091,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     USAlertsDetailActivity.URL,
                     arrayOf(polygonUrl, "")
                 )
-            } else if (strName.contains("Show nearest observation"))
-                getMetar()
-            else if (strName.contains("Show nearest meteogram")) {
+            } else if (strName.contains("Show nearest observation")) {
+                val location = LatLon(glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
+                UtilityRadarUI.getMetar(location, act, contextg, uiDispatcher)
+            } else if (strName.contains("Show nearest meteogram")) {
                 // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php
                 // http://www.nws.noaa.gov/mdl/gfslamp/meteo.php?BackHour=0&TempBox=Y&DewBox=Y&SkyBox=Y&WindSpdBox=Y&WindDirBox=Y&WindGustBox=Y&CigBox=Y&VisBox=Y&ObvBox=Y&PtypeBox=N&PopoBox=Y&LightningBox=Y&ConvBox=Y&sta=KTEW
 
@@ -1214,7 +1215,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
     }
 
-    private fun getMetar() = GlobalScope.launch(uiDispatcher) {
+  /*  private fun getMetar() = GlobalScope.launch(uiDispatcher) {
         val txt = withContext(Dispatchers.IO) {
             UtilityMetar.findClosestMetar(
                 contextg,
@@ -1222,7 +1223,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             )
         }
         UtilityAlertDialog.showHelpText(txt, act)
-    }
+    }*/
 
     private fun getContentVWP() = GlobalScope.launch(uiDispatcher) {
         val txt = withContext(Dispatchers.IO) { UtilityWXOGL.getVWP(contextg, oglr.rid) }

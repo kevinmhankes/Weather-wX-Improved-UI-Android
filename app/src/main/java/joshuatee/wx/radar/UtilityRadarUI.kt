@@ -31,13 +31,13 @@ internal object UtilityRadarUI {
 
     fun getRadarStatus(
         act: Activity,
-        contextg: Context,
+        context: Context,
         uiDispatcher: CoroutineDispatcher,
         oglr: WXGLRender
     ) = GlobalScope.launch(uiDispatcher) {
         var radarStatus = withContext(Dispatchers.IO) {
             UtilityDownload.getRadarStatusMessage(
-                contextg,
+                context,
                 oglr.rid
             )
         }
@@ -45,5 +45,17 @@ internal object UtilityRadarUI {
             radarStatus = "The current radar status for " + oglr.rid + " is not available."
         }
         UtilityAlertDialog.showHelpText(Utility.fromHtml(radarStatus), act)
+    }
+
+    fun getMetar(
+        location: LatLon,
+        act: Activity,
+        context: Context,
+        uiDispatcher: CoroutineDispatcher
+    ) = GlobalScope.launch(uiDispatcher) {
+        val txt = withContext(Dispatchers.IO) {
+            UtilityMetar.findClosestMetar(context, location)
+        }
+        UtilityAlertDialog.showHelpText(txt, act)
     }
 }

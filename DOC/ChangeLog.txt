@@ -7,6 +7,7 @@
 // TODO convert to new NavDrawer: USWarningsWith, ModelGeneric, ModelSPCHRRR, SPCCompmap, SPCStormreports, GOES16
 
 55076 2018_12_17 add UtilityRadarUI and move status message there
+                 add 3 more entries to long press on location fragment radar to match dedicted radar screens
 55075 2018_12_17 in GOESFullDisk and OPC use enhanced NavDrawer Class
 55074 2018_12_15 code cleanup
                  [BUG] upstream goes16 html change broke most products

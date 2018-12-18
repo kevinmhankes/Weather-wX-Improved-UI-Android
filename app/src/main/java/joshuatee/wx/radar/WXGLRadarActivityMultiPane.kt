@@ -1149,7 +1149,11 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 )
             } else if (strName.contains("Show nearest observation")) {
                 idxIntG = idxIntAl
-                getMetar()
+                val location = LatLon(
+                    glviewArr[idxIntG].newY.toDouble(),
+                    (glviewArr[idxIntG].newX * -1).toDouble()
+                )
+                UtilityRadarUI.getMetar(location, act, contextg, uiDispatcher)
             } else if (strName.contains("Show nearest meteogram")) {
                 // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php
                 idxIntG = idxIntAl
@@ -1277,7 +1281,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     // FIXME move to UtilityRadarUI
-    private fun getMetar() = GlobalScope.launch(uiDispatcher) {
+   /* private fun getMetar() = GlobalScope.launch(uiDispatcher) {
         val txt = withContext(Dispatchers.IO) {
             UtilityMetar.findClosestMetar(
                 contextg,
@@ -1288,7 +1292,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             )
         }
         UtilityAlertDialog.showHelpText(txt, act)
-    }
+    }*/
 
     fun getContentSingleThreaded(glvg: WXGLSurfaceView, OGLRg: WXGLRender, curRadar: Int) {
         getContent(glvg, OGLRg, curRadar)

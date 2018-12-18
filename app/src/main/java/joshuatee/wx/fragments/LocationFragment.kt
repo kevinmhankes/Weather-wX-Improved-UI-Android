@@ -74,6 +74,8 @@ import joshuatee.wx.vis.USNWSGOESActivity
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.activitiesmisc.AdhocForecastActivity
+import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectIntent
@@ -601,6 +603,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     )
                 }
                 alertDialogRadarLongpressAl.add("Show warning text")
+                alertDialogRadarLongpressAl.add("Show nearest observation")
+                alertDialogRadarLongpressAl.add("Show nearest forecast")
+                alertDialogRadarLongpressAl.add("Show nearest meteogram")
                 alertDialogRadarLongpressAl.add("Show radar status message")
                 alertDialogRadarLongpress?.show()
             } else {
@@ -960,6 +965,30 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     activityReference,
                     uiDispatcher,
                     oglrArr[idxIntG]
+                )
+            } else if (strName.contains("Show nearest observation")) {
+                val location = LatLon(
+                    glviewArr[idxIntG].newY.toDouble(),
+                    glviewArr[idxIntG].newX.toDouble() * -1.0
+                )
+                UtilityRadarUI.getMetar(location, activityReference, activityReference, uiDispatcher)
+            } else if (strName.contains("Show nearest meteogram")) {
+                val obsSite = UtilityMetar.findClosestObservation(
+                    activityReference,
+                    LatLon(glviewArr[idxIntG].newY.toDouble(), glviewArr[idxIntG].newX * -1.0)
+                )
+                ObjectIntent(
+                    activityReference,
+                    ImageShowActivity::class.java,
+                    ImageShowActivity.URL,
+                    arrayOf(UtilityWXOGL.getMeteogramUrl(obsSite.name), obsSite.name + " Meteogram")
+                )
+            } else if (strName.contains("Show nearest forecast")) {
+                ObjectIntent(
+                    activityReference,
+                    AdhocForecastActivity::class.java,
+                    AdhocForecastActivity.URL,
+                    arrayOf(glviewArr[idxIntG].newY.toString(), "-" + glviewArr[idxIntG].newX.toString())
                 )
             }
             dialog.dismiss()
