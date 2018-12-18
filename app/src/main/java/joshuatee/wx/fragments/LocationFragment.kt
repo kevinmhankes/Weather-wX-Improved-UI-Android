@@ -949,7 +949,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 )
                 getRadar(idxIntG)
             } else if (strName.contains("Show warning text")) {
-                val polygonUrl = UtilityWXOGL.showTextProducts(
+                /*val polygonUrl = UtilityWXOGL.showTextProducts(
                     glviewArr[idxIntG].newY.toDouble(),
                     (glviewArr[idxIntG].newX * -1.0)
                 )
@@ -958,7 +958,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     USAlertsDetailActivity::class.java,
                     USAlertsDetailActivity.URL,
                     arrayOf(polygonUrl, "")
-                )
+                )*/
+                UtilityRadarUI.showNearestForecast(activityReference, glviewArr[idxIntG])
             } else if (strName.contains("Show radar status message")) {
                 UtilityRadarUI.getRadarStatus(
                     activityReference,
@@ -973,7 +974,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 )
                 UtilityRadarUI.getMetar(location, activityReference, activityReference, uiDispatcher)
             } else if (strName.contains("Show nearest meteogram")) {
-                val obsSite = UtilityMetar.findClosestObservation(
+                UtilityRadarUI.showNearestForecast(activityReference, glviewArr[idxIntG])
+                /*val obsSite = UtilityMetar.findClosestObservation(
                     activityReference,
                     LatLon(glviewArr[idxIntG].newY.toDouble(), glviewArr[idxIntG].newX * -1.0)
                 )
@@ -982,14 +984,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     ImageShowActivity::class.java,
                     ImageShowActivity.URL,
                     arrayOf(UtilityWXOGL.getMeteogramUrl(obsSite.name), obsSite.name + " Meteogram")
-                )
+                )*/
             } else if (strName.contains("Show nearest forecast")) {
-                ObjectIntent(
-                    activityReference,
-                    AdhocForecastActivity::class.java,
-                    AdhocForecastActivity.URL,
-                    arrayOf(glviewArr[idxIntG].newY.toString(), "-" + glviewArr[idxIntG].newX.toString())
-                )
+                UtilityRadarUI.showNearestForecast(activityReference, glviewArr[idxIntG])
             }
             dialog.dismiss()
         }

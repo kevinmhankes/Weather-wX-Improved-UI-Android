@@ -23,6 +23,10 @@ package joshuatee.wx.radar
 
 import android.app.Activity
 import android.content.Context
+import joshuatee.wx.activitiesmisc.AdhocForecastActivity
+import joshuatee.wx.activitiesmisc.ImageShowActivity
+import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
+import joshuatee.wx.objects.ObjectIntent
 
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
@@ -57,5 +61,42 @@ internal object UtilityRadarUI {
             UtilityMetar.findClosestMetar(context, location)
         }
         UtilityAlertDialog.showHelpText(txt, act)
+    }
+
+    fun showNearestForecast(context: Context, glview: WXGLSurfaceView) {
+        ObjectIntent(
+            context,
+            AdhocForecastActivity::class.java,
+            AdhocForecastActivity.URL,
+            arrayOf(glview.newY.toString(), "-" + glview.newX.toString())
+        )
+    }
+
+    fun showNearestMeteogram(context: Context, glview: WXGLSurfaceView) {
+        // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php
+        // http://www.nws.noaa.gov/mdl/gfslamp/meteo.php?BackHour=0&TempBox=Y&DewBox=Y&SkyBox=Y&WindSpdBox=Y&WindDirBox=Y&WindGustBox=Y&CigBox=Y&VisBox=Y&ObvBox=Y&PtypeBox=N&PopoBox=Y&LightningBox=Y&ConvBox=Y&sta=KTEW
+        val obsSite = UtilityMetar.findClosestObservation(
+            context,
+            LatLon(glview.newY.toDouble(), glview.newX * -1.0)
+        )
+        ObjectIntent(
+            context,
+            ImageShowActivity::class.java,
+            ImageShowActivity.URL,
+            arrayOf(UtilityWXOGL.getMeteogramUrl(obsSite.name), obsSite.name + " Meteogram")
+        )
+    }
+
+    fun showNearestWarning(context: Context, glview: WXGLSurfaceView) {
+        val polygonUrl = UtilityWXOGL.showTextProducts(
+            glview.newY.toDouble(),
+            glview.newX.toDouble() * -1.0
+        )
+        if (polygonUrl != "") ObjectIntent(
+            context,
+            USAlertsDetailActivity::class.java,
+            USAlertsDetailActivity.URL,
+            arrayOf(polygonUrl, "")
+        )
     }
 }

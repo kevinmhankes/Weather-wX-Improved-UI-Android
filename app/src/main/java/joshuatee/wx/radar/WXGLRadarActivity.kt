@@ -1081,42 +1081,16 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 ridChanged = true
                 ridMapSwitch(oglr.rid)
             } else if (strName.contains("Show warning text")) {
-                val polygonUrl = UtilityWXOGL.showTextProducts(
-                    glview.newY.toDouble(),
-                    glview.newX.toDouble() * -1.0
-                )
-                if (polygonUrl != "") ObjectIntent(
-                    this,
-                    USAlertsDetailActivity::class.java,
-                    USAlertsDetailActivity.URL,
-                    arrayOf(polygonUrl, "")
-                )
+                UtilityRadarUI.showNearestWarning(contextg, glview)
             } else if (strName.contains("Show nearest observation")) {
                 val location = LatLon(glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
                 UtilityRadarUI.getMetar(location, act, contextg, uiDispatcher)
             } else if (strName.contains("Show nearest meteogram")) {
-                // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php
-                // http://www.nws.noaa.gov/mdl/gfslamp/meteo.php?BackHour=0&TempBox=Y&DewBox=Y&SkyBox=Y&WindSpdBox=Y&WindDirBox=Y&WindGustBox=Y&CigBox=Y&VisBox=Y&ObvBox=Y&PtypeBox=N&PopoBox=Y&LightningBox=Y&ConvBox=Y&sta=KTEW
-
-                val obsSite = UtilityMetar.findClosestObservation(
-                    contextg,
-                    LatLon(glview.newY.toDouble(), glview.newX * -1.0)
-                )
-                ObjectIntent(
-                    this,
-                    ImageShowActivity::class.java,
-                    ImageShowActivity.URL,
-                    arrayOf(UtilityWXOGL.getMeteogramUrl(obsSite.name), obsSite.name + " Meteogram")
-                )
+                UtilityRadarUI.showNearestMeteogram(contextg, glview)
             } else if (strName.contains("Show radar status message"))
                 UtilityRadarUI.getRadarStatus(act, contextg, uiDispatcher, oglr)
             else if (strName.contains("Show nearest forecast")) {
-                ObjectIntent(
-                    this,
-                    AdhocForecastActivity::class.java,
-                    AdhocForecastActivity.URL,
-                    arrayOf(glview.newY.toString(), "-" + glview.newX.toString())
-                )
+                UtilityRadarUI.showNearestForecast(contextg, glview)
             }
             dialog.dismiss()
         })
@@ -1139,19 +1113,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         })
         diaTdwr.show()
     }
-
-   /* private fun getRadarStatus() = GlobalScope.launch(uiDispatcher) {
-        var radarStatus = withContext(Dispatchers.IO) {
-            UtilityDownload.getRadarStatusMessage(
-                contextg,
-                oglr.rid
-            )
-        }
-        if (radarStatus == "") {
-            radarStatus = "The current radar status for " + oglr.rid + " is not available."
-        }
-        UtilityAlertDialog.showHelpText(Utility.fromHtml(radarStatus), act)
-    }*/
 
     private var legend: ViewColorLegend? = null
 

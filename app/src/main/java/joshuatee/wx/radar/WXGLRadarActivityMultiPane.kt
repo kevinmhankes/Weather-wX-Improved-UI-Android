@@ -937,6 +937,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 }
                 alertDialogStatusAl.add("Show warning text")
                 alertDialogStatusAl.add("Show nearest observation")
+                alertDialogStatusAl.add("Show nearest forecast")
                 alertDialogStatusAl.add("Show nearest meteogram")
                 alertDialogStatusAl.add("Show radar status message")
                 diaStatus!!.show()
@@ -1137,7 +1138,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     ridMapSwitch(oglrArr[idxIntAl].rid)
                 }
             } else if (strName.contains("Show warning text")) {
-                val polygonUrl = UtilityWXOGL.showTextProducts(
+                /*val polygonUrl = UtilityWXOGL.showTextProducts(
                     glviewArr[idxIntAl].newY.toDouble(),
                     glviewArr[idxIntAl].newX.toDouble() * -1.0
                 )
@@ -1146,18 +1147,21 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     USAlertsDetailActivity::class.java,
                     USAlertsDetailActivity.URL,
                     arrayOf(polygonUrl, "")
-                )
+                )*/
+                UtilityRadarUI.showNearestForecast(contextg, glviewArr[idxIntAl])
             } else if (strName.contains("Show nearest observation")) {
+                // FIXME Is this statement needed?
                 idxIntG = idxIntAl
                 val location = LatLon(
-                    glviewArr[idxIntG].newY.toDouble(),
-                    (glviewArr[idxIntG].newX * -1).toDouble()
+                    glviewArr[idxIntAl].newY.toDouble(),
+                    (glviewArr[idxIntAl].newX * -1).toDouble()
                 )
                 UtilityRadarUI.getMetar(location, act, contextg, uiDispatcher)
             } else if (strName.contains("Show nearest meteogram")) {
                 // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php
+                // FIXME is this statement needed?
                 idxIntG = idxIntAl
-                val obsSite = UtilityMetar.findClosestObservation(
+                /*val obsSite = UtilityMetar.findClosestObservation(
                     contextg,
                     LatLon(
                         glviewArr[idxIntG].newY.toDouble(),
@@ -1169,9 +1173,13 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     ImageShowActivity::class.java,
                     ImageShowActivity.URL,
                     arrayOf(UtilityWXOGL.getMeteogramUrl(obsSite.name), obsSite.name + " Meteogram")
-                )
-            } else if (strName.contains("Show radar status message"))
+                )*/
+                UtilityRadarUI.showNearestMeteogram(contextg, glviewArr[idxIntAl])
+            } else if (strName.contains("Show radar status message")) {
                 UtilityRadarUI.getRadarStatus(act, contextg, uiDispatcher, oglrArr[idxIntAl])
+            } else if (strName.contains("Show nearest forecast")) {
+                UtilityRadarUI.showNearestForecast(contextg, glviewArr[idxIntAl])
+            }
         })
     }
 
@@ -1279,20 +1287,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 toolbar.subtitle = ""
         }
     }
-
-    // FIXME move to UtilityRadarUI
-   /* private fun getMetar() = GlobalScope.launch(uiDispatcher) {
-        val txt = withContext(Dispatchers.IO) {
-            UtilityMetar.findClosestMetar(
-                contextg,
-                LatLon(
-                    glviewArr[idxIntG].newY.toDouble(),
-                    (glviewArr[idxIntG].newX * -1).toDouble()
-                )
-            )
-        }
-        UtilityAlertDialog.showHelpText(txt, act)
-    }*/
 
     fun getContentSingleThreaded(glvg: WXGLSurfaceView, OGLRg: WXGLRender, curRadar: Int) {
         getContent(glvg, OGLRg, curRadar)
