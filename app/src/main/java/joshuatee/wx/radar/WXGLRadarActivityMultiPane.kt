@@ -1138,16 +1138,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     ridMapSwitch(oglrArr[idxIntAl].rid)
                 }
             } else if (strName.contains("Show warning text")) {
-                /*val polygonUrl = UtilityWXOGL.showTextProducts(
-                    glviewArr[idxIntAl].newY.toDouble(),
-                    glviewArr[idxIntAl].newX.toDouble() * -1.0
-                )
-                if (polygonUrl != "") ObjectIntent(
-                    contextg,
-                    USAlertsDetailActivity::class.java,
-                    USAlertsDetailActivity.URL,
-                    arrayOf(polygonUrl, "")
-                )*/
                 UtilityRadarUI.showNearestForecast(contextg, glviewArr[idxIntAl])
             } else if (strName.contains("Show nearest observation")) {
                 // FIXME Is this statement needed?
@@ -1161,19 +1151,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php
                 // FIXME is this statement needed?
                 idxIntG = idxIntAl
-                /*val obsSite = UtilityMetar.findClosestObservation(
-                    contextg,
-                    LatLon(
-                        glviewArr[idxIntG].newY.toDouble(),
-                        glviewArr[idxIntG].newX.toDouble() * -1.0
-                    )
-                )
-                ObjectIntent(
-                    contextg,
-                    ImageShowActivity::class.java,
-                    ImageShowActivity.URL,
-                    arrayOf(UtilityWXOGL.getMeteogramUrl(obsSite.name), obsSite.name + " Meteogram")
-                )*/
                 UtilityRadarUI.showNearestMeteogram(contextg, glviewArr[idxIntAl])
             } else if (strName.contains("Show radar status message")) {
                 UtilityRadarUI.getRadarStatus(act, contextg, uiDispatcher, oglrArr[idxIntAl])

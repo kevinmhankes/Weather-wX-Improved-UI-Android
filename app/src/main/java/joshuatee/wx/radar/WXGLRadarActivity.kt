@@ -1083,6 +1083,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             } else if (strName.contains("Show warning text")) {
                 UtilityRadarUI.showNearestWarning(contextg, glview)
             } else if (strName.contains("Show nearest observation")) {
+                // FIXME send glview as arg and do LatLon in method
                 val location = LatLon(glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
                 UtilityRadarUI.getMetar(location, act, contextg, uiDispatcher)
             } else if (strName.contains("Show nearest meteogram")) {
