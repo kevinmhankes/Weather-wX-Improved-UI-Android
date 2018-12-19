@@ -1123,40 +1123,50 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         diaStatus!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogStatusAl[which]
             dialog.dismiss()
-            if (strName.contains("Radar:")) {
-                val ridNew = strName.parse("\\) ([A-Z]{3,4}) ")
-                if (MyApplication.dualpaneshareposn) {
-                    numPanesArr.forEach {
-                        oglrArr[it].rid = ridNew
-                        oglrArr[it].rid = ridNew
-                    }
-                    ridChanged = true
-                    ridMapSwitch(oglrArr[curRadar].rid)
-                } else {
-                    oglrArr[idxIntAl].rid = ridNew
-                    ridChanged = true
-                    ridMapSwitch(oglrArr[idxIntAl].rid)
+
+            when {
+
+                strName.contains("Show warning text") -> {
+                    UtilityRadarUI.showNearestForecast(contextg, glviewArr[idxIntAl])
                 }
-            } else if (strName.contains("Show warning text")) {
-                UtilityRadarUI.showNearestForecast(contextg, glviewArr[idxIntAl])
-            } else if (strName.contains("Show nearest observation")) {
-                // FIXME Is this statement needed?
-                idxIntG = idxIntAl
-                val location = LatLon(
-                    glviewArr[idxIntAl].newY.toDouble(),
-                    (glviewArr[idxIntAl].newX * -1).toDouble()
-                )
-                UtilityRadarUI.getMetar(location, act, contextg, uiDispatcher)
-            } else if (strName.contains("Show nearest meteogram")) {
-                // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php
-                // FIXME is this statement needed?
-                idxIntG = idxIntAl
-                UtilityRadarUI.showNearestMeteogram(contextg, glviewArr[idxIntAl])
-            } else if (strName.contains("Show radar status message")) {
-                UtilityRadarUI.getRadarStatus(act, contextg, uiDispatcher, oglrArr[idxIntAl])
-            } else if (strName.contains("Show nearest forecast")) {
-                UtilityRadarUI.showNearestForecast(contextg, glviewArr[idxIntAl])
+                strName.contains("Show nearest observation") -> {
+                    // FIXME Is this statement needed?
+                    idxIntG = idxIntAl
+                    val location = LatLon(
+                        glviewArr[idxIntAl].newY.toDouble(),
+                        (glviewArr[idxIntAl].newX * -1).toDouble()
+                    )
+                    UtilityRadarUI.getMetar(location, act, contextg, uiDispatcher)
+                }
+                strName.contains("Show nearest meteogram") -> {
+                    // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php
+                    // FIXME is this statement needed?
+                    idxIntG = idxIntAl
+                    UtilityRadarUI.showNearestMeteogram(contextg, glviewArr[idxIntAl])
+                }
+                strName.contains("Show radar status message") -> {
+                    UtilityRadarUI.getRadarStatus(act, contextg, uiDispatcher, oglrArr[idxIntAl])
+                }
+                strName.contains("Show nearest forecast") -> {
+                    UtilityRadarUI.showNearestForecast(contextg, glviewArr[idxIntAl])
+                }
+                else -> {
+                    val ridNew = strName.parse("\\) ([A-Z]{3,4}) ")
+                    if (MyApplication.dualpaneshareposn) {
+                        numPanesArr.forEach {
+                            oglrArr[it].rid = ridNew
+                            oglrArr[it].rid = ridNew
+                        }
+                        ridChanged = true
+                        ridMapSwitch(oglrArr[curRadar].rid)
+                    } else {
+                        oglrArr[idxIntAl].rid = ridNew
+                        ridChanged = true
+                        ridMapSwitch(oglrArr[idxIntAl].rid)
+                    }
+                }
             }
+
         })
     }
 
