@@ -26,12 +26,17 @@ import android.content.Context
 import joshuatee.wx.activitiesmisc.AdhocForecastActivity
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
+import joshuatee.wx.external.UtilityStringExternal
+import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.ui.ObjectDialogue
 
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
 internal object UtilityRadarUI {
+
+    val longPressRadarSiteRegex = "\\) ([A-Z]{3,4}) "
 
     fun getRadarStatus(
         act: Activity,
@@ -98,5 +103,61 @@ internal object UtilityRadarUI {
             USAlertsDetailActivity.URL,
             arrayOf(polygonUrl, "")
         )
+    }
+
+    fun addItemsToLongPress(
+        alertDialogStatusAl: MutableList<String>,
+        lat: String,
+        lon: String,
+        context: Context,
+        glview: WXGLSurfaceView,
+        oglr: WXGLRender,
+        diaStatus: ObjectDialogue
+    ) {
+
+        val locX = lat.toDoubleOrNull() ?: 0.0
+        val locY = lon.toDoubleOrNull() ?: 0.0
+        val pointX = glview.newY.toDouble()
+        val pointY = glview.newX * -1.0
+        val dist =
+            LatLon.distance(LatLon(locX, locY), LatLon(pointX, pointY), DistanceUnit.MILE)
+        val ridX = (Utility.readPref(context, "RID_" + oglr.rid + "_X", "0.0")).toDouble()
+        val ridY =
+            -1.0 * (Utility.readPref(context, "RID_" + oglr.rid + "_Y", "0.0")).toDouble()
+        val distRid =
+            LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.MILE)
+
+        diaStatus.setTitle(
+            UtilityStringExternal.truncate(glview.newY.toString(), 6)
+                    + ",-" + UtilityStringExternal.truncate(glview.newX.toString(), 6)
+        )
+        alertDialogStatusAl.add(
+            UtilityStringExternal.truncate(
+                dist.toString(),
+                6
+            ) + " miles from location"
+        )
+        alertDialogStatusAl.add(
+            UtilityStringExternal.truncate(
+                distRid.toString(),
+                6
+            ) + " miles from " + oglr.rid
+        )
+        oglr.ridNewList.mapTo(alertDialogStatusAl) {
+            "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.readPref(
+                context,
+                "RID_LOC_" + it.name,
+                ""
+            )
+        }
+
+        // FIXME show site/office in initial long press for obs / meteogram and radar status
+        alertDialogStatusAl.add("Show warning text")
+        alertDialogStatusAl.add("Show nearest observation")
+        alertDialogStatusAl.add("Show nearest forecast")
+        alertDialogStatusAl.add("Show nearest meteogram")
+        alertDialogStatusAl.add("Show radar status message")
+
+        diaStatus.show()
     }
 }

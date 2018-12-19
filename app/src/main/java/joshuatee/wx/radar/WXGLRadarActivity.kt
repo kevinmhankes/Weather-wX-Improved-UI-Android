@@ -51,18 +51,14 @@ import android.os.Handler
 
 import joshuatee.wx.R
 import joshuatee.wx.activitiesmisc.ImageShowActivity
-import joshuatee.wx.activitiesmisc.AdhocForecastActivity
 import joshuatee.wx.activitiesmisc.TextScreenActivity
-import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.activitiesmisc.WebscreenABModels
-import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.telecine.TelecineService
 import joshuatee.wx.util.ImageMap
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
-import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityFavorites
 import joshuatee.wx.util.UtilityFileManagement
 import joshuatee.wx.util.UtilityImageMap
@@ -78,7 +74,6 @@ import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
 
 import joshuatee.wx.TDWR_RIDS
-import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
@@ -868,7 +863,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         override fun onProgressChanged(progress: Int, idx: Int, idxInt: Int) {
             if (progress != 50000) {
                 alertDialogStatusAl.clear()
-                val locX = locXCurrent.toDoubleOrNull() ?: 0.0
+
+                /*val locX = locXCurrent.toDoubleOrNull() ?: 0.0
                 val locY = locYCurrent.toDoubleOrNull() ?: 0.0
                 val pointX = glview.newY.toDouble()
                 val pointY = glview.newX * -1.0
@@ -901,14 +897,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                         "RID_LOC_" + it.name,
                         ""
                     )
-                }
-                // FIXME show site/office in initial long press for obs / meteogram and radar status
-                alertDialogStatusAl.add("Show warning text")
-                alertDialogStatusAl.add("Show nearest observation")
-                alertDialogStatusAl.add("Show nearest forecast")
-                alertDialogStatusAl.add("Show nearest meteogram")
-                alertDialogStatusAl.add("Show radar status message")
-                diaStatus!!.show()
+                }*/
+
+                UtilityRadarUI.addItemsToLongPress(alertDialogStatusAl, locXCurrent, locYCurrent, contextg, glview, oglr, diaStatus!!)
+                //diaStatus!!.show()
             } else {
                 numPanesArr.forEach {
                     wxgltextArr[it].addTV()
@@ -1093,10 +1085,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     UtilityRadarUI.showNearestForecast(contextg, glview)
                 }
                 else -> {
-                    // FIXME move regex to utilradarui
-                    // FIXME remove ridNew
-                    val ridNew = strName.parse("\\) ([A-Z]{3,4}) ")
-                    oglr.rid = ridNew
+                    oglr.rid = strName.parse(UtilityRadarUI.longPressRadarSiteRegex)
                     ridChanged = true
                     ridMapSwitch(oglr.rid)
                 }

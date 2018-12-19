@@ -46,7 +46,6 @@ import android.os.Handler
 
 import joshuatee.wx.R
 import joshuatee.wx.activitiesmisc.ImageShowActivity
-import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.activitiesmisc.WebscreenABModels
 import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.settings.UtilityLocation
@@ -56,7 +55,6 @@ import joshuatee.wx.util.ImageMap
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
-import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityFileManagement
 import joshuatee.wx.util.UtilityImageMap
 import joshuatee.wx.util.UtilityImg
@@ -128,7 +126,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private var locationManager: LocationManager? = null
     private var animTriggerDownloads = false
     private var curRadar = 0
-    private var idxIntG = 0
     private val alertDialogStatusAl = mutableListOf<String>()
     private lateinit var contextg: Context
     private var idxIntAl = 0
@@ -872,7 +869,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             idxIntAl = idxInt
             if (progress != 50000) {
                 alertDialogStatusAl.clear()
-                var dist = 0.0
+
+                /*var dist = 0.0
                 var distRid = 0.0
                 val locX: Double
                 val locY: Double
@@ -880,7 +878,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 val pointY: Double
                 val ridX: Double
                 val ridY: Double
-                // FIXME remove try and combine var decl
                 try {
                     locX = locXCurrent.toDouble()
                     locY = locYCurrent.toDouble()
@@ -934,13 +931,24 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         "RID_LOC_" + it.name,
                         ""
                     )
-                }
-                alertDialogStatusAl.add("Show warning text")
+                }*/
+
+                UtilityRadarUI.addItemsToLongPress(
+                    alertDialogStatusAl,
+                    locXCurrent,
+                    locYCurrent,
+                    contextg,
+                    glviewArr[idxInt],
+                    oglrArr[idxIntAl],
+                    diaStatus!!
+                )
+                //UtilityRadarUI.addItemsToLongPress(alertDialogStatusAl)
+                /*alertDialogStatusAl.add("Show warning text")
                 alertDialogStatusAl.add("Show nearest observation")
                 alertDialogStatusAl.add("Show nearest forecast")
                 alertDialogStatusAl.add("Show nearest meteogram")
-                alertDialogStatusAl.add("Show radar status message")
-                diaStatus!!.show()
+                alertDialogStatusAl.add("Show radar status message")*/
+                //diaStatus!!.show()
             } else {
                 numPanesArr.forEach { wxgltextArr[it].addTV() }
             }
@@ -997,7 +1005,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 } else
                     ogl.deconstructHWEXTLines()
             }).start()
-            //wxgltextArr[z].setRid(rid)
             wxgltextArr[z].addTV()
             oldRidArr[z] = oglrArr[z].rid
         }
@@ -1122,20 +1129,14 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         })
         diaStatus!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogStatusAl[which]
-            //dialog.dismiss()
             when {
                 strName.contains("Show warning text") -> {
                     UtilityRadarUI.showNearestForecast(contextg, glviewArr[idxIntAl])
                 }
                 strName.contains("Show nearest observation") -> {
-                    // FIXME Is this statement needed?
-                    idxIntG = idxIntAl
                     UtilityRadarUI.getMetar(glviewArr[idxIntAl], act, contextg, uiDispatcher)
                 }
                 strName.contains("Show nearest meteogram") -> {
-                    // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php
-                    // FIXME is this statement needed?
-                    idxIntG = idxIntAl
                     UtilityRadarUI.showNearestMeteogram(contextg, glviewArr[idxIntAl])
                 }
                 strName.contains("Show radar status message") -> {
@@ -1145,7 +1146,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     UtilityRadarUI.showNearestForecast(contextg, glviewArr[idxIntAl])
                 }
                 else -> {
-                    val ridNew = strName.parse("\\) ([A-Z]{3,4}) ")
+                    val ridNew = strName.parse(UtilityRadarUI.longPressRadarSiteRegex)
                     if (MyApplication.dualpaneshareposn) {
                         numPanesArr.forEach {
                             oglrArr[it].rid = ridNew

@@ -21,15 +21,12 @@
 
 package joshuatee.wx.fragments
 
+import android.content.*
 import java.util.Locale
 
-import android.content.BroadcastReceiver
-import android.content.IntentFilter
 import android.graphics.Bitmap
 import android.opengl.GLSurfaceView
 import android.os.Bundle
-import android.content.Context
-import android.content.Intent
 import androidx.fragment.app.FragmentActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.appcompat.app.AlertDialog
@@ -57,15 +54,6 @@ import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityLocation
-import joshuatee.wx.ui.ObjectCALegal
-import joshuatee.wx.ui.ObjectCard
-import joshuatee.wx.ui.ObjectCard7Day
-import joshuatee.wx.ui.ObjectCardCC
-import joshuatee.wx.ui.ObjectCardHSImage
-import joshuatee.wx.ui.ObjectCardHSText
-import joshuatee.wx.ui.ObjectCardText
-import joshuatee.wx.ui.ObjectSpinner
-import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.settings.SettingsLocationGenericActivity
 import joshuatee.wx.spc.SPCSoundingsActivity
@@ -74,13 +62,11 @@ import joshuatee.wx.vis.USNWSGOESActivity
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.activitiesmisc.AdhocForecastActivity
-import joshuatee.wx.activitiesmisc.ImageShowActivity
-import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.radar.*
+import joshuatee.wx.ui.*
 import kotlinx.coroutines.*
 
 class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
@@ -139,7 +125,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private val checkedItem = -1
     private val alertDialogStatusAl = mutableListOf<String>()
     private var idxIntG = 0
-    private var alertDialogRadarLongpress: AlertDialog.Builder? = null
+    private var alertDialogRadarLongpress: ObjectDialogue? = null
     private val alertDialogRadarLongpressAl = mutableListOf<String>()
     private var wxgltextArr = mutableListOf<WXGLTextObject>()
     private var objFcst: ObjectForecastPackage? = null
@@ -562,7 +548,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             if (progress != 50000) {
                 idxIntG = idx
                 alertDialogRadarLongpressAl.clear()
-                val locX = x.toDoubleOrNull() ?: 0.0
+
+                /*  val locX = x.toDoubleOrNull() ?: 0.0
                 val locY = y.toDoubleOrNull() ?: 0.0
                 val pointX = glviewArr[idx].newY.toDouble()
                 val pointY = (glviewArr[idx].newX * -1).toDouble()
@@ -601,13 +588,30 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                         "RID_LOC_" + it.name,
                         ""
                     )
-                }
-                alertDialogRadarLongpressAl.add("Show warning text")
+                }*/
+
+                UtilityRadarUI.addItemsToLongPress(
+                    alertDialogRadarLongpressAl,
+                    x,
+                    y,
+                    activityReference,
+                    glviewArr[idx],
+                    oglrArr[idx],
+                    alertDialogRadarLongpress!!
+                )
+
+                // FIXME standardizeo on var name, others use alertDialogStatusAl or alertDialogRadarLongpressAl
+                // FIXME standardize on name alertDialogRadarLongpress or diaStatus
+
+                //UtilityRadarUI.addItemsToLongPress(alertDialogRadarLongpressAl)
+                /*alertDialogRadarLongpressAl.add("Show warning text")
                 alertDialogRadarLongpressAl.add("Show nearest observation")
                 alertDialogRadarLongpressAl.add("Show nearest forecast")
                 alertDialogRadarLongpressAl.add("Show nearest meteogram")
-                alertDialogRadarLongpressAl.add("Show radar status message")
-                alertDialogRadarLongpress?.show()
+                alertDialogRadarLongpressAl.add("Show radar status message")*/
+                //alertDialogRadarLongpress?.show()
+
+
             } else {
                 (0 until numRadars).forEach { wxgltextArr[it].addTV() }
             }
@@ -910,8 +914,10 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     }
 
     private fun alertDialogRadarLongpress() {
-        alertDialogRadarLongpress = AlertDialog.Builder(activityReference)
-        val arrayAdapterRadar = ArrayAdapter(
+        //alertDialogRadarLongpress = AlertDialog.Builder(activityReference)
+        alertDialogRadarLongpress = ObjectDialogue(activityReference, alertDialogRadarLongpressAl)
+
+        /*val arrayAdapterRadar = ArrayAdapter(
             activityReference,
             R.layout.simple_spinner_item,
             alertDialogRadarLongpressAl
@@ -922,7 +928,13 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         ) { dialog, _ -> dialog.dismiss() }
         alertDialogRadarLongpress?.setSingleChoiceItems(
             arrayAdapterRadar, checkedItem
-        ) { dialog, which ->
+        ) { dialog, which ->*/
+
+        alertDialogRadarLongpress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+            dialog.dismiss()
+            //UtilityUI.immersiveMode(act)
+        })
+        alertDialogRadarLongpress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogRadarLongpressAl[which]
             when {
                 strName.contains("Show warning text") -> {
@@ -951,10 +963,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     UtilityRadarUI.showNearestForecast(activityReference, glviewArr[idxIntG])
                 }
                 else -> {
-                    val ridNew = strName.parse("\\) ([A-Z]{3,4}) ")
+                    val ridNew = strName.parse(UtilityRadarUI.longPressRadarSiteRegex)
                     val oldRidIdx = oglrArr[idxIntG].rid
                     oglrArr[idxIntG].rid = ridNew
-                    //oglrArr[idxIntG].rid = ridNew
                     if (idxIntG != oglrIdx) {
                         MyApplication.homescreenFav = MyApplication.homescreenFav.replace(
                             "NXRD-$oldRidIdx",
@@ -978,7 +989,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 }
             }
             dialog.dismiss()
-        }
+        })
     }
 
     private var mActivity: FragmentActivity? = null
