@@ -115,6 +115,8 @@ internal object UtilityRadarUI {
         alertDialogRadarLongPress: ObjectDialogue
     ) {
 
+        alertDialogRadarLongpressAl.clear()
+
         val locX = lat.toDoubleOrNull() ?: 0.0
         val locY = lon.toDoubleOrNull() ?: 0.0
         val pointX = glview.newY.toDouble()

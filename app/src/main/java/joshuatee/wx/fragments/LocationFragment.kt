@@ -546,50 +546,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private val changeListener = object : WXGLSurfaceView.OnProgressChangeListener {
         override fun onProgressChanged(progress: Int, idx: Int, idxInt: Int) {
             if (progress != 50000) {
+                // FIXME needed?
                 idxIntG = idx
-                alertDialogRadarLongpressAl.clear()
-
-                /*  val locX = x.toDoubleOrNull() ?: 0.0
-                val locY = y.toDoubleOrNull() ?: 0.0
-                val pointX = glviewArr[idx].newY.toDouble()
-                val pointY = (glviewArr[idx].newX * -1).toDouble()
-                val ridX =
-                    (Utility.readPref("RID_" + oglrArr[idx].rid + "_X", "0.0")).toDoubleOrNull()
-                        ?: 0.0
-                val ridY = -1.0 * ((Utility.readPref(
-                    "RID_" + oglrArr[idx].rid + "_Y",
-                    "0.0"
-                )).toDoubleOrNull()
-                    ?: 0.0)
-                val dist =
-                    LatLon.distance(LatLon(locX, locY), LatLon(pointX, pointY), DistanceUnit.MILE)
-                val distRid =
-                    LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.MILE)
-                alertDialogRadarLongpress?.setTitle(
-                    UtilityStringExternal.truncate(
-                        (glviewArr[idx].newY).toString(),
-                        6
-                    ) + ",-" + UtilityStringExternal.truncate((glviewArr[idx].newX).toString(), 6)
-                )
-                alertDialogRadarLongpressAl.add(
-                    UtilityStringExternal.truncate(
-                        dist.toString(),
-                        6
-                    ) + " miles from location"
-                )
-                alertDialogRadarLongpressAl.add(
-                    UtilityStringExternal.truncate(
-                        distRid.toString(),
-                        6
-                    ) + " miles from " + oglrArr[idx].rid
-                )
-                oglrArr[idx].ridNewList.mapTo(alertDialogRadarLongpressAl) {
-                    "Radar: (" + it.distance.toString() + " mi) " + it.name + " " + Utility.readPref(
-                        "RID_LOC_" + it.name,
-                        ""
-                    )
-                }*/
-
                 UtilityRadarUI.addItemsToLongPress(
                     alertDialogRadarLongpressAl,
                     x,
@@ -599,19 +557,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     oglrArr[idx],
                     alertDialogRadarLongPress!!
                 )
-
-                // FIXME standardizeo on var name, others use alertDialogStatusAl or alertDialogRadarLongpressAl
-                // FIXME standardize on name alertDialogRadarLongpress or diaStatus
-
-                //UtilityRadarUI.addItemsToLongPress(alertDialogRadarLongpressAl)
-                /*alertDialogRadarLongpressAl.add("Show warning text")
-                alertDialogRadarLongpressAl.add("Show nearest observation")
-                alertDialogRadarLongpressAl.add("Show nearest forecast")
-                alertDialogRadarLongpressAl.add("Show nearest meteogram")
-                alertDialogRadarLongpressAl.add("Show radar status message")*/
-                //alertDialogRadarLongpress?.show()
-
-
             } else {
                 (0 until numRadars).forEach { wxgltextArr[it].addTV() }
             }
@@ -914,25 +859,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     }
 
     private fun setupAlertDialogRadarLongPress() {
-        //alertDialogRadarLongpress = AlertDialog.Builder(activityReference)
         alertDialogRadarLongPress = ObjectDialogue(activityReference, alertDialogRadarLongpressAl)
-
-        /*val arrayAdapterRadar = ArrayAdapter(
-            activityReference,
-            R.layout.simple_spinner_item,
-            alertDialogRadarLongpressAl
-        )
-        arrayAdapterRadar.setDropDownViewResource(MyApplication.spinnerLayout)
-        alertDialogRadarLongpress?.setNegativeButton(
-            "Cancel"
-        ) { dialog, _ -> dialog.dismiss() }
-        alertDialogRadarLongpress?.setSingleChoiceItems(
-            arrayAdapterRadar, checkedItem
-        ) { dialog, which ->*/
-
         alertDialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
-            //UtilityUI.immersiveMode(act)
         })
         alertDialogRadarLongPress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogRadarLongpressAl[which]
@@ -978,6 +907,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                         )
                     }
                     radarLocationChangedAl[idxIntG] = true
+                    // FIXME need method
                     glviewArr[idxIntG].scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
                     oglrArr[idxIntG].setViewInitial(
                         MyApplication.wxoglSize.toFloat() / 10.0f,

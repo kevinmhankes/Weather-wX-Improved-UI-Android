@@ -864,73 +864,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     private val changeListener = object : WXGLSurfaceView.OnProgressChangeListener {
         override fun onProgressChanged(progress: Int, idx: Int, idxInt: Int) {
+            // FIXME needed?
             idxIntAl = idxInt
             if (progress != 50000) {
-                alertDialogStatusAl.clear()
-
-                /*var dist = 0.0
-                var distRid = 0.0
-                val locX: Double
-                val locY: Double
-                val pointX: Double
-                val pointY: Double
-                val ridX: Double
-                val ridY: Double
-                try {
-                    locX = locXCurrent.toDouble()
-                    locY = locYCurrent.toDouble()
-                    pointX = glviewArr[idxInt].newY.toDouble()
-                    pointY = (glviewArr[idxInt].newX * -1).toDouble()
-                    dist = LatLon.distance(
-                        LatLon(locX, locY),
-                        LatLon(pointX, pointY),
-                        DistanceUnit.MILE
-                    )
-                    ridX = (Utility.readPref(
-                        contextg,
-                        "RID_" + oglrArr[idxIntAl].rid + "_X",
-                        "0.0"
-                    )).toDouble()
-                    ridY = -1.0 * (Utility.readPref(
-                        contextg,
-                        "RID_" + oglrArr[idxIntAl].rid + "_Y",
-                        "0.0"
-                    )).toDouble()
-                    distRid = LatLon.distance(
-                        LatLon(ridX, ridY),
-                        LatLon(pointX, pointY),
-                        DistanceUnit.MILE
-                    )
-                } catch (e: Exception) {
-                    UtilityLog.HandleException(e)
-                }
-                diaStatus!!.setTitle(
-                    UtilityStringExternal.truncate((glviewArr[idxInt].newX).toString(), 6)
-                            + ",-" + UtilityStringExternal.truncate(
-                        (glviewArr[idxInt].newY).toString(),
-                        6
-                    )
-                )
-                alertDialogStatusAl.add(
-                    UtilityStringExternal.truncate(
-                        dist.toString(),
-                        6
-                    ) + " miles from location"
-                )
-                alertDialogStatusAl.add(
-                    UtilityStringExternal.truncate(
-                        distRid.toString(),
-                        6
-                    ) + " miles from " + oglrArr[idxIntAl].rid
-                )
-                oglrArr[idxIntAl].ridNewList.mapTo(alertDialogStatusAl) {
-                    "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.readPref(
-                        contextg,
-                        "RID_LOC_" + it.name,
-                        ""
-                    )
-                }*/
-
                 UtilityRadarUI.addItemsToLongPress(
                     alertDialogStatusAl,
                     locXCurrent,
@@ -940,13 +876,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     oglrArr[idxIntAl],
                     alertDialogRadarLongPress!!
                 )
-                //UtilityRadarUI.addItemsToLongPress(alertDialogStatusAl)
-                /*alertDialogStatusAl.add("Show warning text")
-                alertDialogStatusAl.add("Show nearest observation")
-                alertDialogStatusAl.add("Show nearest forecast")
-                alertDialogStatusAl.add("Show nearest meteogram")
-                alertDialogStatusAl.add("Show radar status message")*/
-                //diaStatus!!.show()
             } else {
                 numPanesArr.forEach { wxgltextArr[it].addTV() }
             }

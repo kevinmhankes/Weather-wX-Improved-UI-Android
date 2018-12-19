@@ -862,43 +862,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
         override fun onProgressChanged(progress: Int, idx: Int, idxInt: Int) {
             if (progress != 50000) {
-                alertDialogStatusAl.clear()
-
-                /*val locX = locXCurrent.toDoubleOrNull() ?: 0.0
-                val locY = locYCurrent.toDoubleOrNull() ?: 0.0
-                val pointX = glview.newY.toDouble()
-                val pointY = glview.newX * -1.0
-                val dist =
-                    LatLon.distance(LatLon(locX, locY), LatLon(pointX, pointY), DistanceUnit.MILE)
-                val ridX = (Utility.readPref(contextg, "RID_" + oglr.rid + "_X", "0.0")).toDouble()
-                val ridY =
-                    -1.0 * (Utility.readPref(contextg, "RID_" + oglr.rid + "_Y", "0.0")).toDouble()
-                val distRid =
-                    LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.MILE)
-                diaStatus!!.setTitle(
-                    UtilityStringExternal.truncate(glview.newY.toString(), 6)
-                            + ",-" + UtilityStringExternal.truncate(glview.newX.toString(), 6)
-                )
-                alertDialogStatusAl.add(
-                    UtilityStringExternal.truncate(
-                        dist.toString(),
-                        6
-                    ) + " miles from location"
-                )
-                alertDialogStatusAl.add(
-                    UtilityStringExternal.truncate(
-                        distRid.toString(),
-                        6
-                    ) + " miles from " + oglr.rid
-                )
-                oglr.ridNewList.mapTo(alertDialogStatusAl) {
-                    "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.readPref(
-                        contextg,
-                        "RID_LOC_" + it.name,
-                        ""
-                    )
-                }*/
-
                 UtilityRadarUI.addItemsToLongPress(
                     alertDialogStatusAl,
                     locXCurrent,
@@ -972,7 +935,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 } else
                     oglr.deconstructHWEXTLines()
             }).start()
-            //wxgltextArr[0].setRid(rid1)
             wxgltextArr[0].addTV()
             oldRid = oglr.rid
         }
