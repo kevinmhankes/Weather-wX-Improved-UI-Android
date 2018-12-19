@@ -36,7 +36,7 @@ import kotlinx.coroutines.*
 
 internal object UtilityRadarUI {
 
-    val longPressRadarSiteRegex = "\\) ([A-Z]{3,4}) "
+    const val longPressRadarSiteRegex = "\\) ([A-Z]{3,4}) "
 
     fun getRadarStatus(
         act: Activity,
@@ -129,6 +129,7 @@ internal object UtilityRadarUI {
         val distRid =
             LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.MILE)
 
+        // FIXME look at iOS version and try to match in data provided and improve formatting
         alertDialogRadarLongPress.setTitle(
             UtilityStringExternal.truncate(glview.newY.toString(), 6)
                     + ",-" + UtilityStringExternal.truncate(glview.newX.toString(), 6)
