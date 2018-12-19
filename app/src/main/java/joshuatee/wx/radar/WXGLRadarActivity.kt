@@ -902,6 +902,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                         ""
                     )
                 }
+                // FIXME show site/office in initial long press for obs / meteogram and radar status
                 alertDialogStatusAl.add("Show warning text")
                 alertDialogStatusAl.add("Show nearest observation")
                 alertDialogStatusAl.add("Show nearest forecast")
@@ -1103,24 +1104,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     ridMapSwitch(oglr.rid)
                 }
             }
-
-            /*if (strName.contains("Radar:")) {
-                val ridNew = strName.parse("\\) ([A-Z]{3,4}) ")
-                oglr.rid = ridNew
-                ridChanged = true
-                ridMapSwitch(oglr.rid)
-            } else if (strName.contains("Show warning text")) {
-                UtilityRadarUI.showNearestWarning(contextg, glview)
-            } else if (strName.contains("Show nearest observation")) {
-                val location = LatLon(glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
-                UtilityRadarUI.getMetar(location, act, contextg, uiDispatcher)
-            } else if (strName.contains("Show nearest meteogram")) {
-                UtilityRadarUI.showNearestMeteogram(contextg, glview)
-            } else if (strName.contains("Show radar status message"))
-                UtilityRadarUI.getRadarStatus(act, contextg, uiDispatcher, oglr)
-            else if (strName.contains("Show nearest forecast")) {
-                UtilityRadarUI.showNearestForecast(contextg, glview)
-            }*/
             dialog.dismiss()
         })
     }

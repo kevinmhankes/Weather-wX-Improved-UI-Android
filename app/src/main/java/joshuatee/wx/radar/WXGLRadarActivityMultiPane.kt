@@ -1122,10 +1122,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         })
         diaStatus!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogStatusAl[which]
-            dialog.dismiss()
-
+            //dialog.dismiss()
             when {
-
                 strName.contains("Show warning text") -> {
                     UtilityRadarUI.showNearestForecast(contextg, glviewArr[idxIntAl])
                 }
@@ -1166,7 +1164,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     }
                 }
             }
-
+            dialog.dismiss()
         })
     }
 

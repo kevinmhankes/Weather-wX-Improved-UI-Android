@@ -924,50 +924,62 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             arrayAdapterRadar, checkedItem
         ) { dialog, which ->
             val strName = alertDialogRadarLongpressAl[which]
-            if (strName.contains("Radar:")) {
-                val ridNew = strName.parse("\\) ([A-Z]{3,4}) ")
-                val oldRidIdx = oglrArr[idxIntG].rid
-                oglrArr[idxIntG].rid = ridNew
-                //oglrArr[idxIntG].rid = ridNew
-                if (idxIntG != oglrIdx) {
-                    MyApplication.homescreenFav = MyApplication.homescreenFav.replace(
-                        "NXRD-$oldRidIdx",
-                        "NXRD-" + oglrArr[idxIntG].rid
-                    )
-                    Utility.writePref(
+            when {
+                strName.contains("Show warning text") -> {
+                    UtilityRadarUI.showNearestForecast(activityReference, glviewArr[idxIntG])
+                }
+                strName.contains("Show radar status message") -> {
+                    UtilityRadarUI.getRadarStatus(
                         activityReference,
-                        "HOMESCREEN_FAV",
-                        MyApplication.homescreenFav
+                        activityReference,
+                        uiDispatcher,
+                        oglrArr[idxIntG]
                     )
                 }
-                radarLocationChangedAl[idxIntG] = true
-                glviewArr[idxIntG].scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
-                oglrArr[idxIntG].setViewInitial(
-                    MyApplication.wxoglSize.toFloat() / 10.0f,
-                    0.0f,
-                    0.0f
-                )
-                // FIXME need ridMapSwitch
-                getRadar(idxIntG)
-            } else if (strName.contains("Show warning text")) {
-                UtilityRadarUI.showNearestForecast(activityReference, glviewArr[idxIntG])
-            } else if (strName.contains("Show radar status message")) {
-                UtilityRadarUI.getRadarStatus(
-                    activityReference,
-                    activityReference,
-                    uiDispatcher,
-                    oglrArr[idxIntG]
-                )
-            } else if (strName.contains("Show nearest observation")) {
-                val location = LatLon(
-                    glviewArr[idxIntG].newY.toDouble(),
-                    glviewArr[idxIntG].newX.toDouble() * -1.0
-                )
-                UtilityRadarUI.getMetar(location, activityReference, activityReference, uiDispatcher)
-            } else if (strName.contains("Show nearest meteogram")) {
-                UtilityRadarUI.showNearestForecast(activityReference, glviewArr[idxIntG])
-            } else if (strName.contains("Show nearest forecast")) {
-                UtilityRadarUI.showNearestForecast(activityReference, glviewArr[idxIntG])
+                strName.contains("Show nearest observation") -> {
+                    val location = LatLon(
+                        glviewArr[idxIntG].newY.toDouble(),
+                        glviewArr[idxIntG].newX.toDouble() * -1.0
+                    )
+                    UtilityRadarUI.getMetar(
+                        location,
+                        activityReference,
+                        activityReference,
+                        uiDispatcher
+                    )
+                }
+                strName.contains("Show nearest meteogram") -> {
+                    UtilityRadarUI.showNearestMeteogram(activityReference, glviewArr[idxIntG])
+                }
+                strName.contains("Show nearest forecast") -> {
+                    UtilityRadarUI.showNearestForecast(activityReference, glviewArr[idxIntG])
+                }
+                else -> {
+                    val ridNew = strName.parse("\\) ([A-Z]{3,4}) ")
+                    val oldRidIdx = oglrArr[idxIntG].rid
+                    oglrArr[idxIntG].rid = ridNew
+                    //oglrArr[idxIntG].rid = ridNew
+                    if (idxIntG != oglrIdx) {
+                        MyApplication.homescreenFav = MyApplication.homescreenFav.replace(
+                            "NXRD-$oldRidIdx",
+                            "NXRD-" + oglrArr[idxIntG].rid
+                        )
+                        Utility.writePref(
+                            activityReference,
+                            "HOMESCREEN_FAV",
+                            MyApplication.homescreenFav
+                        )
+                    }
+                    radarLocationChangedAl[idxIntG] = true
+                    glviewArr[idxIntG].scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
+                    oglrArr[idxIntG].setViewInitial(
+                        MyApplication.wxoglSize.toFloat() / 10.0f,
+                        0.0f,
+                        0.0f
+                    )
+                    // FIXME need ridMapSwitch
+                    getRadar(idxIntG)
+                }
             }
             dialog.dismiss()
         }
