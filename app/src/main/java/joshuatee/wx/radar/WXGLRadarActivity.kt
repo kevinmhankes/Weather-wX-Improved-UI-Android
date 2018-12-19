@@ -1081,10 +1081,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     UtilityRadarUI.showNearestWarning(contextg, glview)
                 }
                 strName.contains("Show nearest observation") -> {
-                    // FIXME send glview as arg and do LatLon in method
-                    // FIXME add helper fun to glview to return lat/lon
-                    val location = LatLon(glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
-                    UtilityRadarUI.getMetar(location, act, contextg, uiDispatcher)
+                    UtilityRadarUI.getMetar(glview, act, contextg, uiDispatcher)
                 }
                 strName.contains("Show nearest meteogram") -> {
                     UtilityRadarUI.showNearestMeteogram(contextg, glview)

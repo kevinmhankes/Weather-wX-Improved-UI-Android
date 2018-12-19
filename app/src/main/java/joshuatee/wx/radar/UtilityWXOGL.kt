@@ -144,6 +144,7 @@ object UtilityWXOGL {
         return sb.toString()
     }
 
+    // FIXME convert to LatLon as single arg
     fun showTextProducts(lat: Double, lon: Double): String {
         var warningHTML =
             MyApplication.severeDashboardTor.valueGet() + MyApplication.severeDashboardTst.valueGet() + MyApplication.severeDashboardFfw.valueGet()

@@ -1130,11 +1130,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 strName.contains("Show nearest observation") -> {
                     // FIXME Is this statement needed?
                     idxIntG = idxIntAl
-                    val location = LatLon(
-                        glviewArr[idxIntAl].newY.toDouble(),
-                        (glviewArr[idxIntAl].newX * -1).toDouble()
-                    )
-                    UtilityRadarUI.getMetar(location, act, contextg, uiDispatcher)
+                    UtilityRadarUI.getMetar(glviewArr[idxIntAl], act, contextg, uiDispatcher)
                 }
                 strName.contains("Show nearest meteogram") -> {
                     // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php

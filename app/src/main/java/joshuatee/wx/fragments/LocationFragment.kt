@@ -937,12 +937,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     )
                 }
                 strName.contains("Show nearest observation") -> {
-                    val location = LatLon(
-                        glviewArr[idxIntG].newY.toDouble(),
-                        glviewArr[idxIntG].newX.toDouble() * -1.0
-                    )
                     UtilityRadarUI.getMetar(
-                        location,
+                        glviewArr[idxIntG],
                         activityReference,
                         activityReference,
                         uiDispatcher

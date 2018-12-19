@@ -52,13 +52,13 @@ internal object UtilityRadarUI {
     }
 
     fun getMetar(
-        location: LatLon,
+        glview: WXGLSurfaceView,
         act: Activity,
         context: Context,
         uiDispatcher: CoroutineDispatcher
     ) = GlobalScope.launch(uiDispatcher) {
         val txt = withContext(Dispatchers.IO) {
-            UtilityMetar.findClosestMetar(context, location)
+            UtilityMetar.findClosestMetar(context, glview.latLon)
         }
         UtilityAlertDialog.showHelpText(txt, act)
     }
@@ -77,7 +77,7 @@ internal object UtilityRadarUI {
         // http://www.nws.noaa.gov/mdl/gfslamp/meteo.php?BackHour=0&TempBox=Y&DewBox=Y&SkyBox=Y&WindSpdBox=Y&WindDirBox=Y&WindGustBox=Y&CigBox=Y&VisBox=Y&ObvBox=Y&PtypeBox=N&PopoBox=Y&LightningBox=Y&ConvBox=Y&sta=KTEW
         val obsSite = UtilityMetar.findClosestObservation(
             context,
-            LatLon(glview.newY.toDouble(), glview.newX * -1.0)
+            glview.latLon
         )
         ObjectIntent(
             context,
