@@ -867,7 +867,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             val strName = alertDialogRadarLongpressAl[which]
             when {
                 strName.contains("Show warning text") -> {
-                    UtilityRadarUI.showNearestForecast(activityReference, glviewArr[idxIntG])
+                    UtilityRadarUI.showNearestWarning(activityReference, glviewArr[idxIntG])
                 }
                 strName.contains("Show radar status message") -> {
                     UtilityRadarUI.getRadarStatus(

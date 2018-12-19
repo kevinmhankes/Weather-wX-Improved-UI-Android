@@ -1058,7 +1058,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             val strName = alertDialogStatusAl[which]
             when {
                 strName.contains("Show warning text") -> {
-                    UtilityRadarUI.showNearestForecast(contextg, glviewArr[idxIntAl])
+                    UtilityRadarUI.showNearestWarning(contextg, glviewArr[idxIntAl])
                 }
                 strName.contains("Show nearest observation") -> {
                     UtilityRadarUI.getMetar(glviewArr[idxIntAl], act, contextg, uiDispatcher)

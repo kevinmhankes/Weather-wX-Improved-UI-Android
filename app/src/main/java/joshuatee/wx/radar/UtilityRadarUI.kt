@@ -130,10 +130,10 @@ internal object UtilityRadarUI {
             LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.MILE)
 
         // FIXME look at iOS version and try to match in data provided and improve formatting
-        alertDialogRadarLongPress.setTitle(
-            UtilityStringExternal.truncate(glview.newY.toString(), 6)
-                    + ",-" + UtilityStringExternal.truncate(glview.newX.toString(), 6)
-        )
+        val latLonTitle = UtilityStringExternal.truncate(glview.newY.toString(), 6) +
+                ", -" +
+                UtilityStringExternal.truncate(glview.newX.toString(), 6)
+        alertDialogRadarLongPress.setTitle(latLonTitle)
         alertDialogRadarLongpressAl.add(
             UtilityStringExternal.truncate(
                 dist.toString(),
@@ -153,14 +153,15 @@ internal object UtilityRadarUI {
                 ""
             )
         }
-
-        // FIXME show site/office in initial long press for obs / meteogram and radar status
+        val obsSite = UtilityMetar.findClosestObservation(
+            context,
+            glview.latLon
+        )
         alertDialogRadarLongpressAl.add("Show warning text")
-        alertDialogRadarLongpressAl.add("Show nearest observation")
-        alertDialogRadarLongpressAl.add("Show nearest forecast")
-        alertDialogRadarLongpressAl.add("Show nearest meteogram")
-        alertDialogRadarLongpressAl.add("Show radar status message")
-
+        alertDialogRadarLongpressAl.add("Show nearest observation: " + obsSite.name)
+        alertDialogRadarLongpressAl.add("Show nearest forecast: " + latLonTitle)
+        alertDialogRadarLongpressAl.add("Show nearest meteogram: " + obsSite.name)
+        alertDialogRadarLongpressAl.add("Show radar status message: " + oglr.rid)
         alertDialogRadarLongPress.show()
     }
 }
