@@ -159,9 +159,37 @@ internal object UtilityRadarUI {
         )
         alertDialogRadarLongpressAl.add("Show warning text")
         alertDialogRadarLongpressAl.add("Show nearest observation: " + obsSite.name)
-        alertDialogRadarLongpressAl.add("Show nearest forecast: " + latLonTitle)
+        alertDialogRadarLongpressAl.add("Show nearest forecast: $latLonTitle")
         alertDialogRadarLongpressAl.add("Show nearest meteogram: " + obsSite.name)
         alertDialogRadarLongpressAl.add("Show radar status message: " + oglr.rid)
         alertDialogRadarLongPress.show()
+    }
+
+    fun doLongPressAction(
+        strName: String,
+        context: Context,
+        act: Activity,
+        glview: WXGLSurfaceView,
+        oglr: WXGLRender,
+        uiDispatcher: CoroutineDispatcher,
+        fn: (strName: String) -> Unit){
+        when {
+            strName.contains("Show warning text") -> {
+                UtilityRadarUI.showNearestWarning(context, glview)
+            }
+            strName.contains("Show nearest observation") -> {
+                UtilityRadarUI.getMetar(glview, act, context, uiDispatcher)
+            }
+            strName.contains("Show nearest meteogram") -> {
+                UtilityRadarUI.showNearestMeteogram(context, glview)
+            }
+            strName.contains("Show radar status message") -> {
+                UtilityRadarUI.getRadarStatus(act, context, uiDispatcher, oglr)
+            }
+            strName.contains("Show nearest forecast") -> {
+                UtilityRadarUI.showNearestForecast(context, glview)
+            }
+            else -> fn(strName)
+        }
     }
 }
