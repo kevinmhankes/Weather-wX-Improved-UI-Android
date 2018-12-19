@@ -106,13 +106,13 @@ internal object UtilityRadarUI {
     }
 
     fun addItemsToLongPress(
-        alertDialogStatusAl: MutableList<String>,
+        alertDialogRadarLongpressAl: MutableList<String>,
         lat: String,
         lon: String,
         context: Context,
         glview: WXGLSurfaceView,
         oglr: WXGLRender,
-        diaStatus: ObjectDialogue
+        alertDialogRadarLongPress: ObjectDialogue
     ) {
 
         val locX = lat.toDoubleOrNull() ?: 0.0
@@ -127,23 +127,23 @@ internal object UtilityRadarUI {
         val distRid =
             LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.MILE)
 
-        diaStatus.setTitle(
+        alertDialogRadarLongPress.setTitle(
             UtilityStringExternal.truncate(glview.newY.toString(), 6)
                     + ",-" + UtilityStringExternal.truncate(glview.newX.toString(), 6)
         )
-        alertDialogStatusAl.add(
+        alertDialogRadarLongpressAl.add(
             UtilityStringExternal.truncate(
                 dist.toString(),
                 6
             ) + " miles from location"
         )
-        alertDialogStatusAl.add(
+        alertDialogRadarLongpressAl.add(
             UtilityStringExternal.truncate(
                 distRid.toString(),
                 6
             ) + " miles from " + oglr.rid
         )
-        oglr.ridNewList.mapTo(alertDialogStatusAl) {
+        oglr.ridNewList.mapTo(alertDialogRadarLongpressAl) {
             "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.readPref(
                 context,
                 "RID_LOC_" + it.name,
@@ -152,12 +152,12 @@ internal object UtilityRadarUI {
         }
 
         // FIXME show site/office in initial long press for obs / meteogram and radar status
-        alertDialogStatusAl.add("Show warning text")
-        alertDialogStatusAl.add("Show nearest observation")
-        alertDialogStatusAl.add("Show nearest forecast")
-        alertDialogStatusAl.add("Show nearest meteogram")
-        alertDialogStatusAl.add("Show radar status message")
+        alertDialogRadarLongpressAl.add("Show warning text")
+        alertDialogRadarLongpressAl.add("Show nearest observation")
+        alertDialogRadarLongpressAl.add("Show nearest forecast")
+        alertDialogRadarLongpressAl.add("Show nearest meteogram")
+        alertDialogRadarLongpressAl.add("Show radar status message")
 
-        diaStatus.show()
+        alertDialogRadarLongPress.show()
     }
 }

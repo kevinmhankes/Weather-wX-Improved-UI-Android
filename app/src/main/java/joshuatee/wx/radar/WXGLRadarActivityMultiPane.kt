@@ -47,7 +47,6 @@ import android.os.Handler
 import joshuatee.wx.R
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.activitiesmisc.WebscreenABModels
-import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.UtilityToolbar
@@ -68,7 +67,6 @@ import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
 
 import joshuatee.wx.TDWR_RIDS
-import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
@@ -133,7 +131,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private var rlArr = mutableListOf<RelativeLayout>()
     private var wxgltextArr = mutableListOf<WXGLTextObject>()
     private lateinit var act: Activity
-    private var diaStatus: ObjectDialogue? = null
+    private var alertDialogRadarLongPress: ObjectDialogue? = null
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -190,7 +188,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             prefPrefix = "WXOGL_QUADPANE"
         }
         contextg = this
-        alertDialogStatus()
+        setupAlertDialogRadarLongPress()
         UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
         val latlonArrD = UtilityLocation.getGPS(this as Context)
         latD = latlonArrD[0]
@@ -940,7 +938,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     contextg,
                     glviewArr[idxInt],
                     oglrArr[idxIntAl],
-                    diaStatus!!
+                    alertDialogRadarLongPress!!
                 )
                 //UtilityRadarUI.addItemsToLongPress(alertDialogStatusAl)
                 /*alertDialogStatusAl.add("Show warning text")
@@ -1121,13 +1119,13 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         }
     }
 
-    private fun alertDialogStatus() {
-        diaStatus = ObjectDialogue(contextg, alertDialogStatusAl)
-        diaStatus!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+    private fun setupAlertDialogRadarLongPress() {
+        alertDialogRadarLongPress = ObjectDialogue(contextg, alertDialogStatusAl)
+        alertDialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(act)
         })
-        diaStatus!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+        alertDialogRadarLongPress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogStatusAl[which]
             when {
                 strName.contains("Show warning text") -> {

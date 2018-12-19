@@ -125,7 +125,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private val checkedItem = -1
     private val alertDialogStatusAl = mutableListOf<String>()
     private var idxIntG = 0
-    private var alertDialogRadarLongpress: ObjectDialogue? = null
+    private var alertDialogRadarLongPress: ObjectDialogue? = null
     private val alertDialogRadarLongpressAl = mutableListOf<String>()
     private var wxgltextArr = mutableListOf<WXGLTextObject>()
     private var objFcst: ObjectForecastPackage? = null
@@ -247,7 +247,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         alertDialogStatus()
-        alertDialogRadarLongpress()
+        setupAlertDialogRadarLongPress()
         val view: View =
             if (android.os.Build.VERSION.SDK_INT < 21 && UIPreferences.themeInt == R.style.MyCustomTheme_white_NOAB)
                 inflater.inflate(R.layout.fragment_location_white, container, false)
@@ -597,7 +597,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     activityReference,
                     glviewArr[idx],
                     oglrArr[idx],
-                    alertDialogRadarLongpress!!
+                    alertDialogRadarLongPress!!
                 )
 
                 // FIXME standardizeo on var name, others use alertDialogStatusAl or alertDialogRadarLongpressAl
@@ -913,9 +913,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         }
     }
 
-    private fun alertDialogRadarLongpress() {
+    private fun setupAlertDialogRadarLongPress() {
         //alertDialogRadarLongpress = AlertDialog.Builder(activityReference)
-        alertDialogRadarLongpress = ObjectDialogue(activityReference, alertDialogRadarLongpressAl)
+        alertDialogRadarLongPress = ObjectDialogue(activityReference, alertDialogRadarLongpressAl)
 
         /*val arrayAdapterRadar = ArrayAdapter(
             activityReference,
@@ -930,11 +930,11 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             arrayAdapterRadar, checkedItem
         ) { dialog, which ->*/
 
-        alertDialogRadarLongpress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+        alertDialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             //UtilityUI.immersiveMode(act)
         })
-        alertDialogRadarLongpress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+        alertDialogRadarLongPress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogRadarLongpressAl[which]
             when {
                 strName.contains("Show warning text") -> {

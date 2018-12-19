@@ -157,7 +157,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private var wxgltextArr = mutableListOf<WXGLTextObject>()
     private lateinit var act: Activity
     private lateinit var sp: ObjectSpinner
-    private var diaStatus: ObjectDialogue? = null
+    private var alertDialogRadarLongPress: ObjectDialogue? = null
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -201,7 +201,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 archiveMode = false
         }
         contextg = this
-        alertDialogStatus()
+        setupAlertDialogRadarLongPress()
         UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
         if (archiveMode && !spotterShowSelected) toolbarBottom.visibility = View.GONE
         val latLonArrD = UtilityLocation.getGPS(this)
@@ -899,8 +899,15 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     )
                 }*/
 
-                UtilityRadarUI.addItemsToLongPress(alertDialogStatusAl, locXCurrent, locYCurrent, contextg, glview, oglr, diaStatus!!)
-                //diaStatus!!.show()
+                UtilityRadarUI.addItemsToLongPress(
+                    alertDialogStatusAl,
+                    locXCurrent,
+                    locYCurrent,
+                    contextg,
+                    glview,
+                    oglr,
+                    alertDialogRadarLongPress!!
+                )
             } else {
                 numPanesArr.forEach {
                     wxgltextArr[it].addTV()
@@ -1060,13 +1067,13 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         latlonArr[1] = lonD.toString()
     }
 
-    private fun alertDialogStatus() {
-        diaStatus = ObjectDialogue(contextg, alertDialogStatusAl)
-        diaStatus!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+    private fun setupAlertDialogRadarLongPress() {
+        alertDialogRadarLongPress = ObjectDialogue(contextg, alertDialogStatusAl)
+        alertDialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(act)
         })
-        diaStatus!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+        alertDialogRadarLongPress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogStatusAl[which]
             when {
                 strName.contains("Show warning text") -> {
@@ -1174,7 +1181,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
     }
 
-  /*  private fun getMetar() = GlobalScope.launch(uiDispatcher) {
+    /*  private fun getMetar() = GlobalScope.launch(uiDispatcher) {
         val txt = withContext(Dispatchers.IO) {
             UtilityMetar.findClosestMetar(
                 contextg,
