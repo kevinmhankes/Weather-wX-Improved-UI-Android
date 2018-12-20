@@ -821,7 +821,15 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             arrayAdapterRadar, checkedItem
         ) { dialog, which ->
             val strName = alertDialogStatusAl[which]
-            when {
+            UtilityLocationFragment.handleIconTap(
+                strName,
+                oglrArr[0],
+                activityReference,
+                ::refreshDynamicContent,
+                ::resetAllGLView,
+                ::getAllRadars
+            )
+            /* when {
                 strName.contains("Edit Location..") -> ObjectIntent(
                     activityReference,
                     SettingsLocationGenericActivity::class.java,
@@ -853,7 +861,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                         arrayOf(ridContext, stateContext, oglrArr[0].product, "")
                     )
                 }
-            }
+            }*/
             dialog.dismiss()
         }
     }
