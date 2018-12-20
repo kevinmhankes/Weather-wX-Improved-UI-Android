@@ -38,7 +38,7 @@ internal object UtilityRadarUI {
 
     const val longPressRadarSiteRegex = "\\) ([A-Z]{3,4}) "
 
-    fun getRadarStatus(
+    private fun getRadarStatus(
         act: Activity,
         context: Context,
         uiDispatcher: CoroutineDispatcher,
@@ -56,7 +56,7 @@ internal object UtilityRadarUI {
         UtilityAlertDialog.showHelpText(Utility.fromHtml(radarStatus), act)
     }
 
-    fun getMetar(
+    private fun getMetar(
         glview: WXGLSurfaceView,
         act: Activity,
         context: Context,
@@ -68,7 +68,7 @@ internal object UtilityRadarUI {
         UtilityAlertDialog.showHelpText(txt, act)
     }
 
-    fun showNearestForecast(context: Context, glview: WXGLSurfaceView) {
+    private fun showNearestForecast(context: Context, glview: WXGLSurfaceView) {
         ObjectIntent(
             context,
             AdhocForecastActivity::class.java,
@@ -77,7 +77,7 @@ internal object UtilityRadarUI {
         )
     }
 
-    fun showNearestMeteogram(context: Context, glview: WXGLSurfaceView) {
+    private fun showNearestMeteogram(context: Context, glview: WXGLSurfaceView) {
         // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php
         // http://www.nws.noaa.gov/mdl/gfslamp/meteo.php?BackHour=0&TempBox=Y&DewBox=Y&SkyBox=Y&WindSpdBox=Y&WindDirBox=Y&WindGustBox=Y&CigBox=Y&VisBox=Y&ObvBox=Y&PtypeBox=N&PopoBox=Y&LightningBox=Y&ConvBox=Y&sta=KTEW
         val obsSite = UtilityMetar.findClosestObservation(
@@ -92,7 +92,7 @@ internal object UtilityRadarUI {
         )
     }
 
-    fun showNearestWarning(context: Context, glview: WXGLSurfaceView) {
+    private fun showNearestWarning(context: Context, glview: WXGLSurfaceView) {
         val polygonUrl = UtilityWXOGL.showTextProducts(
             glview.newY.toDouble(),
             glview.newX.toDouble() * -1.0
@@ -172,7 +172,8 @@ internal object UtilityRadarUI {
         glview: WXGLSurfaceView,
         oglr: WXGLRender,
         uiDispatcher: CoroutineDispatcher,
-        fn: (strName: String) -> Unit){
+        fn: (strName: String) -> Unit
+    ) {
         when {
             strName.contains("Show warning text") -> {
                 UtilityRadarUI.showNearestWarning(context, glview)

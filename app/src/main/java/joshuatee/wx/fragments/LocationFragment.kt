@@ -872,37 +872,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 glviewArr[idxIntG],
                 oglrArr[idxIntG],
                 uiDispatcher,
-                ::longPressRadarSiteSwitch)
-
-            /*when {
-                strName.contains("Show warning text") -> {
-                    UtilityRadarUI.showNearestWarning(activityReference, glviewArr[idxIntG])
-                }
-                strName.contains("Show radar status message") -> {
-                    UtilityRadarUI.getRadarStatus(
-                        activityReference,
-                        activityReference,
-                        uiDispatcher,
-                        oglrArr[idxIntG]
-                    )
-                }
-                strName.contains("Show nearest observation") -> {
-                    UtilityRadarUI.getMetar(
-                        glviewArr[idxIntG],
-                        activityReference,
-                        activityReference,
-                        uiDispatcher
-                    )
-                }
-                strName.contains("Show nearest meteogram") -> {
-                    UtilityRadarUI.showNearestMeteogram(activityReference, glviewArr[idxIntG])
-                }
-                strName.contains("Show nearest forecast") -> {
-                    UtilityRadarUI.showNearestForecast(activityReference, glviewArr[idxIntG])
-                }
-                else -> longPressRadarSiteSwitch(strName)
-            }
-            */
+                ::longPressRadarSiteSwitch
+            )
             dialog.dismiss()
         })
     }

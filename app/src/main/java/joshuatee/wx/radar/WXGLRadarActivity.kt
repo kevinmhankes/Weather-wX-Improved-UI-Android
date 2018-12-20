@@ -1044,25 +1044,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 glview,
                 oglr,
                 uiDispatcher,
-                ::longPressRadarSiteSwitch)
-            /*when {
-                strName.contains("Show warning text") -> {
-                    UtilityRadarUI.showNearestWarning(contextg, glview)
-                }
-                strName.contains("Show nearest observation") -> {
-                    UtilityRadarUI.getMetar(glview, act, contextg, uiDispatcher)
-                }
-                strName.contains("Show nearest meteogram") -> {
-                    UtilityRadarUI.showNearestMeteogram(contextg, glview)
-                }
-                strName.contains("Show radar status message") -> {
-                    UtilityRadarUI.getRadarStatus(act, contextg, uiDispatcher, oglr)
-                }
-                strName.contains("Show nearest forecast") -> {
-                    UtilityRadarUI.showNearestForecast(contextg, glview)
-                }
-                else -> longPressRadarSiteSwitch(strName)
-            }*/
+                ::longPressRadarSiteSwitch
+            )
             dialog.dismiss()
         })
     }
