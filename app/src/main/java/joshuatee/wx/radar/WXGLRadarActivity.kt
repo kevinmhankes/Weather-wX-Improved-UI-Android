@@ -881,7 +881,22 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     // FIXME MIGRATE
     private fun initGLVIEW() {
-        glview.setEGLContextClientVersion(2)
+
+        oglr = WXGLRender(this as Activity)
+
+        UtilityRadarUI.initGlviewSinglePane(
+            glview,
+            glviewArr,
+            oglr,
+            oglrArr,
+            act,
+            archiveMode,
+            toolbar,
+            toolbarBottom,
+            changeListener
+        )
+
+        /*glview.setEGLContextClientVersion(2)
         oglr = WXGLRender(this as Activity)
         oglrArr.clear()
         oglrArr.add(oglr)
@@ -895,7 +910,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         glview.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
         glview.toolbar = toolbar
         glview.toolbarBottom = toolbarBottom
-        glview.archiveMode = archiveMode
+        glview.archiveMode = archiveMode*/
     }
 
     private fun initWXOGLGeom() {

@@ -257,7 +257,18 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 params.width = MyApplication.dm.widthPixels
             }
         }
-        numPanesArr.forEach { initGLVIEW(glviewArr[it], oglrArr[it]) }
+        numPanesArr.forEach {
+            UtilityRadarUI.initGlviewMultiPane(
+                glviewArr[it],
+                glviewArr,
+                oglrArr[it],
+                oglrArr,
+                act,
+                toolbar,
+                toolbarBottom,
+                changeListener
+            )
+        }
         imageMap = ObjectImageMap(
             this,
             this,
@@ -883,7 +894,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     // FIXME MIGRATE
-    private fun initGLVIEW(glv: WXGLSurfaceView, ogl: WXGLRender) {
+   /* private fun initGLVIEW(glv: WXGLSurfaceView, ogl: WXGLRender) {
         glv.setEGLContextClientVersion(2)
         //glv.setEGLConfigChooser(8, 8, 8, 8, 16, 0) // a test to see if android emulator will now work
         glv.setRenderer(ogl)
@@ -893,7 +904,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         glv.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
         glv.toolbar = toolbar
         glv.toolbarBottom = toolbarBottom
-    }
+    }*/
 
     private fun initWXOGLGeom(glv: WXGLSurfaceView, ogl: WXGLRender, z: Int) {
         ogl.initGEOM()

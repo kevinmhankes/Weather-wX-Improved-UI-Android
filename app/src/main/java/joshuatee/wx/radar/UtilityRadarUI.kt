@@ -24,6 +24,7 @@ package joshuatee.wx.radar
 import android.app.Activity
 import android.content.Context
 import android.opengl.GLSurfaceView
+import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.AdhocForecastActivity
 import joshuatee.wx.activitiesmisc.ImageShowActivity
@@ -196,10 +197,6 @@ internal object UtilityRadarUI {
         }
     }
 
-    private var oglrArr = mutableListOf<WXGLRender>()
-    private var glviewArr = mutableListOf<WXGLSurfaceView>()
-    private var wxgltextArr = mutableListOf<WXGLTextObject>()
-
     fun initGlviewFragment(
         glviewloc: WXGLSurfaceView,
         z: Int,
@@ -215,9 +212,55 @@ internal object UtilityRadarUI {
         glviewloc.setRenderVar(oglrArr[z], oglrArr, glviewArr)
         glviewloc.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
         glviewloc.setOnProgressChangeListener(changeListener)
-        //glviewInitialized = true
         oglrArr[z].zoom = MyApplication.wxoglSize.toFloat() / 10.0f
         glviewloc.scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
         return true
+    }
+
+    fun initGlviewMultiPane(
+        glview: WXGLSurfaceView,
+        glviewArr: MutableList<WXGLSurfaceView>,
+        ogl: WXGLRender,
+        oglrArr: MutableList<WXGLRender>,
+        act: Activity,
+        toolbar: Toolbar,
+        toolbarBottom: Toolbar,
+        changeListener: WXGLSurfaceView.OnProgressChangeListener
+    ) {
+        glview.setEGLContextClientVersion(2)
+        glview.setRenderer(ogl)
+        glview.setRenderVar(ogl, oglrArr, glviewArr, act)
+        glview.fullScreen = false
+        glview.setOnProgressChangeListener(changeListener)
+        glview.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
+        glview.toolbar = toolbar
+        glview.toolbarBottom = toolbarBottom
+    }
+
+    fun initGlviewSinglePane(
+        glview: WXGLSurfaceView,
+        glviewArr: MutableList<WXGLSurfaceView>,
+        oglr: WXGLRender,
+        oglrArr: MutableList<WXGLRender>,
+        act: Activity,
+        archiveMode: Boolean,
+        toolbar: Toolbar,
+        toolbarBottom: Toolbar,
+        changeListener: WXGLSurfaceView.OnProgressChangeListener
+
+    ) {
+        glview.setEGLContextClientVersion(2)
+        oglrArr.clear()
+        oglrArr.add(oglr)
+        glviewArr.clear()
+        glviewArr.add(glview)
+        glview.setRenderer(oglr)
+        glview.setRenderVar(oglr, oglrArr, glviewArr, act)
+        glview.fullScreen = true
+        glview.setOnProgressChangeListener(changeListener)
+        glview.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
+        glview.toolbar = toolbar
+        glview.toolbarBottom = toolbarBottom
+        glview.archiveMode = archiveMode
     }
 }
