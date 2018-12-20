@@ -882,6 +882,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         }
     }
 
+    // FIXME MIGRATE
     private fun initGLVIEW(glv: WXGLSurfaceView, ogl: WXGLRender) {
         glv.setEGLContextClientVersion(2)
         //glv.setEGLConfigChooser(8, 8, 8, 8, 16, 0) // a test to see if android emulator will now work

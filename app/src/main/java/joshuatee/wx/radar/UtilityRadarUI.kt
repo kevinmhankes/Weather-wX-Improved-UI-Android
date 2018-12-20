@@ -23,6 +23,8 @@ package joshuatee.wx.radar
 
 import android.app.Activity
 import android.content.Context
+import android.opengl.GLSurfaceView
+import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.AdhocForecastActivity
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
@@ -192,5 +194,30 @@ internal object UtilityRadarUI {
             }
             else -> fn(strName)
         }
+    }
+
+    private var oglrArr = mutableListOf<WXGLRender>()
+    private var glviewArr = mutableListOf<WXGLSurfaceView>()
+    private var wxgltextArr = mutableListOf<WXGLTextObject>()
+
+    fun initGlviewFragment(
+        glviewloc: WXGLSurfaceView,
+        z: Int,
+        oglrArr: MutableList<WXGLRender>,
+        glviewArr: MutableList<WXGLSurfaceView>,
+        wxgltextArr: MutableList<WXGLTextObject>,
+        changeListener: WXGLSurfaceView.OnProgressChangeListener
+    ): Boolean {
+        glviewloc.setEGLContextClientVersion(2)
+        wxgltextArr[z].setOGLR(oglrArr[z])
+        oglrArr[z].idxStr = z.toString()
+        glviewloc.setRenderer(oglrArr[z])
+        glviewloc.setRenderVar(oglrArr[z], oglrArr, glviewArr)
+        glviewloc.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
+        glviewloc.setOnProgressChangeListener(changeListener)
+        //glviewInitialized = true
+        oglrArr[z].zoom = MyApplication.wxoglSize.toFloat() / 10.0f
+        glviewloc.scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
+        return true
     }
 }

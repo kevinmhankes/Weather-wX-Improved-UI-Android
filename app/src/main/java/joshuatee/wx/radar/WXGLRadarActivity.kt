@@ -879,6 +879,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
     }
 
+    // FIXME MIGRATE
     private fun initGLVIEW() {
         glview.setEGLContextClientVersion(2)
         oglr = WXGLRender(this as Activity)

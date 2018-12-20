@@ -104,6 +104,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private val hsImageAl = mutableListOf<ObjectCardHSImage>()
     private var oglrArr = mutableListOf<WXGLRender>()
     private var glviewArr = mutableListOf<WXGLSurfaceView>()
+    private var wxgltextArr = mutableListOf<WXGLTextObject>()
     private var numRadars = 0
     private var oldRidArr = MutableList(2) { "" }
     private val radarLocationChangedAl = mutableListOf<Boolean>()
@@ -124,7 +125,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private var idxIntG = 0
     private var alertDialogRadarLongPress: ObjectDialogue? = null
     private val alertDialogRadarLongpressAl = mutableListOf<String>()
-    private var wxgltextArr = mutableListOf<WXGLTextObject>()
     private var objFcst: ObjectForecastPackage? = null
     private var objHazards: ObjectForecastPackageHazards? = null
     private var objSevenDay: ObjectForecastPackage7Day? = null
@@ -559,14 +559,16 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         }
     }
 
+    // FIXME migrate
     private fun resetGLVIEW(glviewloc: WXGLSurfaceView, OGLRLOC: WXGLRender) {
         glviewloc.scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
         OGLRLOC.setViewInitial(MyApplication.wxoglSize.toFloat() / 10.0f, 0.0f, 0.0f)
         glviewloc.requestRender()
     }
 
+    // FIXME migrate
     private fun initGLVIEW(glviewloc: WXGLSurfaceView, z: Int) {
-        glviewloc.setEGLContextClientVersion(2)
+        /*glviewloc.setEGLContextClientVersion(2)
         wxgltextArr[z].setOGLR(oglrArr[z])
         oglrArr[z].idxStr = z.toString()
         glviewloc.setRenderer(oglrArr[z])
@@ -575,7 +577,16 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         glviewloc.setOnProgressChangeListener(changeListener)
         glviewInitialized = true
         oglrArr[z].zoom = MyApplication.wxoglSize.toFloat() / 10.0f
-        glviewloc.scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
+        glviewloc.scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f*/
+
+        glviewInitialized = UtilityRadarUI.initGlviewFragment(
+            glviewloc,
+            z,
+            oglrArr,
+            glviewArr,
+            wxgltextArr,
+            changeListener
+        )
     }
 
     private val radarTimeStamp: String
