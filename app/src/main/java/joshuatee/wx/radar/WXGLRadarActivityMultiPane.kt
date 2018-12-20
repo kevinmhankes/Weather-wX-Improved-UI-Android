@@ -32,7 +32,6 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.opengl.GLSurfaceView
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
@@ -258,7 +257,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             }
         }
         numPanesArr.forEach {
-            UtilityRadarUI.initGlviewMultiPane(
+            UtilityRadarUI.initGlview(
                 glviewArr[it],
                 glviewArr,
                 oglrArr[it],
@@ -892,19 +891,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             }
         }
     }
-
-    // FIXME MIGRATE
-   /* private fun initGLVIEW(glv: WXGLSurfaceView, ogl: WXGLRender) {
-        glv.setEGLContextClientVersion(2)
-        //glv.setEGLConfigChooser(8, 8, 8, 8, 16, 0) // a test to see if android emulator will now work
-        glv.setRenderer(ogl)
-        glv.setRenderVar(ogl, oglrArr, glviewArr, act)
-        glv.fullScreen = false
-        glv.setOnProgressChangeListener(changeListener)
-        glv.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
-        glv.toolbar = toolbar
-        glv.toolbarBottom = toolbarBottom
-    }*/
 
     private fun initWXOGLGeom(glv: WXGLSurfaceView, ogl: WXGLRender, z: Int) {
         ogl.initGEOM()

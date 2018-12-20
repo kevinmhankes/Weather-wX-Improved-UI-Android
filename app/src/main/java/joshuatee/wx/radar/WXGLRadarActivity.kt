@@ -242,7 +242,20 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         rl = findViewById(R.id.rl)
         rl.addView(glview)
         val rlArr = arrayOf(rl)
-        initGLVIEW()
+        oglr = WXGLRender(this)
+        oglrArr.add(oglr)
+        glviewArr.add(glview)
+        UtilityRadarUI.initGlview(
+            glview,
+            glviewArr,
+            oglr,
+            oglrArr,
+            act,
+            toolbar,
+            toolbarBottom,
+            changeListener,
+            archiveMode
+            )
         oglr.product = "N0Q"
         oglInView = true
         if (activityArguments == null)
@@ -880,21 +893,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     // FIXME MIGRATE
-    private fun initGLVIEW() {
+    //private fun initGLVIEW() {
 
-        oglr = WXGLRender(this as Activity)
 
-        UtilityRadarUI.initGlviewSinglePane(
-            glview,
-            glviewArr,
-            oglr,
-            oglrArr,
-            act,
-            archiveMode,
-            toolbar,
-            toolbarBottom,
-            changeListener
-        )
 
         /*glview.setEGLContextClientVersion(2)
         oglr = WXGLRender(this as Activity)
@@ -911,7 +912,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         glview.toolbar = toolbar
         glview.toolbarBottom = toolbarBottom
         glview.archiveMode = archiveMode*/
-    }
+    //}
 
     private fun initWXOGLGeom() {
         oglr.initGEOM()

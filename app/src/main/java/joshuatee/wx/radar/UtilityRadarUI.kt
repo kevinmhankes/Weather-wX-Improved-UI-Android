@@ -217,43 +217,18 @@ internal object UtilityRadarUI {
         return true
     }
 
-    fun initGlviewMultiPane(
-        glview: WXGLSurfaceView,
-        glviewArr: MutableList<WXGLSurfaceView>,
-        ogl: WXGLRender,
-        oglrArr: MutableList<WXGLRender>,
-        act: Activity,
-        toolbar: Toolbar,
-        toolbarBottom: Toolbar,
-        changeListener: WXGLSurfaceView.OnProgressChangeListener
-    ) {
-        glview.setEGLContextClientVersion(2)
-        glview.setRenderer(ogl)
-        glview.setRenderVar(ogl, oglrArr, glviewArr, act)
-        glview.fullScreen = false
-        glview.setOnProgressChangeListener(changeListener)
-        glview.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
-        glview.toolbar = toolbar
-        glview.toolbarBottom = toolbarBottom
-    }
-
-    fun initGlviewSinglePane(
+    fun initGlview(
         glview: WXGLSurfaceView,
         glviewArr: MutableList<WXGLSurfaceView>,
         oglr: WXGLRender,
         oglrArr: MutableList<WXGLRender>,
         act: Activity,
-        archiveMode: Boolean,
         toolbar: Toolbar,
         toolbarBottom: Toolbar,
-        changeListener: WXGLSurfaceView.OnProgressChangeListener
-
+        changeListener: WXGLSurfaceView.OnProgressChangeListener,
+        archiveMode: Boolean = false
     ) {
         glview.setEGLContextClientVersion(2)
-        oglrArr.clear()
-        oglrArr.add(oglr)
-        glviewArr.clear()
-        glviewArr.add(glview)
         glview.setRenderer(oglr)
         glview.setRenderVar(oglr, oglrArr, glviewArr, act)
         glview.fullScreen = true
