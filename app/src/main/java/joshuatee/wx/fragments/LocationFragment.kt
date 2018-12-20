@@ -29,7 +29,6 @@ import android.opengl.GLSurfaceView
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.appcompat.app.AlertDialog
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -49,7 +48,6 @@ import androidx.cardview.widget.CardView
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
-import joshuatee.wx.activitiesmisc.SunMoonActivity
 import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.settings.Location
@@ -121,8 +119,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private val hazardsCardAl = mutableListOf<ObjectCardText>()
     private val hazardsExpandedAl = mutableListOf<Boolean>()
     private var dataNotInitialized = true
-    private var alertDialogStatus: AlertDialog.Builder? = null
-    private val checkedItem = -1
+    private var alertDialogStatus: ObjectDialogue? = null
     private val alertDialogStatusAl = mutableListOf<String>()
     private var idxIntG = 0
     private var alertDialogRadarLongPress: ObjectDialogue? = null
@@ -246,7 +243,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        alertDialogStatus()
+        setupAlertDialogStatus()
         setupAlertDialogRadarLongPress()
         val view: View =
             if (android.os.Build.VERSION.SDK_INT < 21 && UIPreferences.themeInt == R.style.MyCustomTheme_white_NOAB)
@@ -431,7 +428,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        //sv.smoothScrollTo(0, 0)
         if (glviewInitialized) {
             glviewArr.forEach { it.onResume() }
         }
@@ -573,7 +569,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         glviewloc.setEGLContextClientVersion(2)
         wxgltextArr[z].setOGLR(oglrArr[z])
         oglrArr[z].idxStr = z.toString()
-        //glviewloc.setEGLConfigChooser(8, 8, 8, 8, 16, 0); // a test to see if android emulator will now work
         glviewloc.setRenderer(oglrArr[z])
         glviewloc.setRenderVar(oglrArr[z], oglrArr, glviewArr)
         glviewloc.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
@@ -608,6 +603,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         ) + ")"
     }
 
+    // FIXME migrate
     private fun initWXOGLGeom(glviewloc: WXGLSurfaceView, OGLRLOC: WXGLRender, z: Int) {
         OGLRLOC.initGEOM()
         if (oldRidArr[z] != oglrArr[z].rid) {
@@ -808,18 +804,12 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         linearLayoutHazards?.addView(hazardsCardAl[0].card)
     }
 
-    private fun alertDialogStatus() {
-        alertDialogStatus = AlertDialog.Builder(activityReference)
-        val arrayAdapterRadar =
-            ArrayAdapter(activityReference, R.layout.simple_spinner_item, alertDialogStatusAl)
-        arrayAdapterRadar.setDropDownViewResource(MyApplication.spinnerLayout)
-
-        alertDialogStatus?.setNegativeButton(
-            "Done"
-        ) { dialog, _ -> dialog.dismiss() }
-        alertDialogStatus?.setSingleChoiceItems(
-            arrayAdapterRadar, checkedItem
-        ) { dialog, which ->
+    private fun setupAlertDialogStatus() {
+        alertDialogStatus = ObjectDialogue(activityReference, alertDialogStatusAl)
+        alertDialogStatus!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+            dialog.dismiss()
+        })
+        alertDialogStatus!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogStatusAl[which]
             UtilityLocationFragment.handleIconTap(
                 strName,
@@ -829,41 +819,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 ::resetAllGLView,
                 ::getAllRadars
             )
-            /* when {
-                strName.contains("Edit Location..") -> ObjectIntent(
-                    activityReference,
-                    SettingsLocationGenericActivity::class.java,
-                    SettingsLocationGenericActivity.LOC_NUM,
-                    arrayOf(Location.currentLocationStr, "")
-                )
-                strName.contains("Sun/Moon data") -> ObjectIntent(
-                    activityReference,
-                    SunMoonActivity::class.java
-                )
-                strName.contains("Force Data Refresh") -> refreshDynamicContent()
-                strName.contains("Radar type: Reflectivity") -> {
-                    oglrArr[0].product = "N0Q"
-                    getAllRadars()
-                }
-                strName.contains("Radar type: Velocity") -> {
-                    oglrArr[0].product = "N0U"
-                    getAllRadars()
-                }
-                strName.contains("Reset zoom and center") -> resetAllGLView()
-                else -> {
-                    val ridContext = strName.split(":")[0]
-                    var stateContext = Utility.readPref("RID_LOC_$ridContext", "")
-                    stateContext = stateContext.split(",")[0]
-                    ObjectIntent(
-                        activityReference,
-                        WXGLRadarActivity::class.java,
-                        WXGLRadarActivity.RID,
-                        arrayOf(ridContext, stateContext, oglrArr[0].product, "")
-                    )
-                }
-            }*/
             dialog.dismiss()
-        }
+        })
     }
 
     private fun setupAlertDialogRadarLongPress() {
