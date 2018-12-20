@@ -441,7 +441,20 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     "N0U"
             toolbar.subtitle = ""
             setToolbarTitle()
-            initWXOGLGeom(glv, ogl, z)
+            //initWXOGLGeom(glv, ogl, z)
+            UtilityRadarUI.initWxoglGeom(
+                glv,
+                ogl,
+                z,
+                oldRidArr,
+                oglrArr,
+                wxgltextArr,
+                numPanesArr,
+                imageMap,
+                glviewArr,
+                ::getGPSFromDouble,
+                ::getLatLon
+            )
             withContext(Dispatchers.IO) {
                 ogl.constructPolygons("", "", true)
                 if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) {
@@ -463,8 +476,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     ogl.deconstructTVS()
                 if (MyApplication.locdotFollowsGps) {
                     getGPSFromDouble()
-                    locXCurrent = latlonArr[0]
-                    locYCurrent = latlonArr[1]
+                    //locXCurrent = latlonArr[0]
+                    //locYCurrent = latlonArr[1]
                 }
                 if (PolygonType.LOCDOT.pref || MyApplication.locdotFollowsGps)
                     ogl.constructLocationDot(locXCurrent, locYCurrent, false)
@@ -892,7 +905,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         }
     }
 
-    private fun initWXOGLGeom(glv: WXGLSurfaceView, ogl: WXGLRender, z: Int) {
+    /*private fun initWXOGLGeom(glv: WXGLSurfaceView, ogl: WXGLRender, z: Int) {
         ogl.initGEOM()
         if (oldRidArr[z] != oglrArr[z].rid) {
             ogl.setChunkCount(0)
@@ -951,18 +964,20 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         }).start()
         if (MyApplication.locdotFollowsGps) {
             getGPSFromDouble()
-            locXCurrent = latlonArr[0]
-            locYCurrent = latlonArr[1]
+            //locXCurrent = latlonArr[0]
+            //locYCurrent = latlonArr[1]
         }
-        if (PolygonType.LOCDOT.pref || MyApplication.locdotFollowsGps)
+        if (PolygonType.LOCDOT.pref || MyApplication.locdotFollowsGps) {
+            UtilityLog.d("wx", "LAT: " + locXCurrent)
+            UtilityLog.d("wx", "LON: " + locYCurrent)
             ogl.constructLocationDot(locXCurrent, locYCurrent, false)
-        else
+        } else
             ogl.deconstructLocationDot()
         if (imageMap.map.visibility != View.VISIBLE) {
             numPanesArr.forEach { glviewArr[it].visibility = View.VISIBLE }
         }
     }
-
+*/
     private val handler = Handler()
 
     private val mStatusChecker: Runnable? = object : Runnable {
@@ -1029,8 +1044,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         latD = location.latitude
         lonD = location.longitude
         getGPSFromDouble()
-        locXCurrent = latlonArr[0]
-        locYCurrent = latlonArr[1]
+        //locXCurrent = latlonArr[0]
+        //locYCurrent = latlonArr[1]
         numPanesArr.forEach {
             oglrArr[it].constructLocationDot(locXCurrent, locYCurrent, false)
             glviewArr[it].requestRender()
@@ -1041,10 +1056,14 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         try {
             latlonArr[0] = latD.toString()
             latlonArr[1] = lonD.toString()
+            locXCurrent = latlonArr[0]
+            locYCurrent = latlonArr[1]
         } catch (e: Exception) {
             UtilityLog.HandleException(e)
         }
     }
+
+    private fun getLatLon() = LatLon(locXCurrent, locYCurrent)
 
     private fun setupAlertDialogRadarLongPress() {
         alertDialogRadarLongPress = ObjectDialogue(contextg, alertDialogStatusAl)

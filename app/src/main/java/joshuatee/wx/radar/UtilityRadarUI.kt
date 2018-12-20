@@ -24,6 +24,7 @@ package joshuatee.wx.radar
 import android.app.Activity
 import android.content.Context
 import android.opengl.GLSurfaceView
+import android.view.View
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.AdhocForecastActivity
@@ -31,8 +32,11 @@ import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.objects.DistanceUnit
+import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.ui.ObjectDialogue
+import joshuatee.wx.ui.ObjectImageMap
 
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
@@ -237,5 +241,92 @@ internal object UtilityRadarUI {
         glview.toolbar = toolbar
         glview.toolbarBottom = toolbarBottom
         glview.archiveMode = archiveMode
+    }
+
+    fun initWxoglGeom(
+        glv: WXGLSurfaceView,
+        ogl: WXGLRender,
+        z: Int,
+        oldRidArr: Array<String>,
+        oglrArr: MutableList<WXGLRender>,
+        wxgltextArr: MutableList<WXGLTextObject>,
+        numPanesArr: List<Int>,
+        imageMap: ObjectImageMap,
+        glviewArr: MutableList<WXGLSurfaceView>,
+        fnGps: () -> Unit,
+        fnGetLatLon: () -> LatLon
+    ) {
+        ogl.initGEOM()
+        if (oldRidArr[z] != oglrArr[z].rid) {
+            ogl.setChunkCount(0)
+            ogl.setChunkCountSti(0)
+            ogl.setHiInit(false)
+            ogl.setTvsInit(false)
+            Thread(Runnable {
+                ogl.constructStateLines()
+                glv.requestRender()
+            }).start()
+            Thread(Runnable {
+                if (GeographyType.LAKES.pref)
+                    ogl.constructLakes()
+                else
+                    ogl.deconstructLakes()
+            }).start()
+            Thread(Runnable {
+                if (GeographyType.COUNTY_LINES.pref) {
+                    ogl.constructCounty()
+                    glv.requestRender()
+                } else
+                    ogl.deconstructCounty()
+            }).start()
+            Thread(Runnable {
+                if (GeographyType.HIGHWAYS.pref) {
+                    ogl.constructHWLines()
+                    glv.requestRender()
+                } else
+                    ogl.deconstructHWLines()
+            }).start()
+            Thread(Runnable {
+                if (MyApplication.radarHwEnhExt) {
+                    ogl.constructHWEXTLines()
+                    glv.requestRender()
+                } else
+                    ogl.deconstructHWEXTLines()
+            }).start()
+            wxgltextArr[z].addTV()
+            oldRidArr[z] = oglrArr[z].rid
+        }
+
+        Thread(Runnable {
+            if (PolygonType.TST.pref)
+                ogl.constructWarningLines()
+            else
+                ogl.deconstructWarningLines()
+            if (PolygonType.MCD.pref)
+                ogl.constructWATMCDLines()
+            else
+                ogl.deconstructWATMCDLines()
+            if (PolygonType.MPD.pref)
+                ogl.constructMPDLines()
+            else
+                ogl.deconstructMPDLines()
+            glv.requestRender()
+        }).start()
+        if (MyApplication.locdotFollowsGps) {
+            fnGps()
+            //locXCurrent = latlonArr[0]
+            //locYCurrent = latlonArr[1]
+        }
+        if (PolygonType.LOCDOT.pref || MyApplication.locdotFollowsGps) {
+            val latLon = fnGetLatLon()
+            UtilityLog.d("wx", "LAT: " + latLon.latString)
+            UtilityLog.d("wx", "LON: " + latLon.lonString)
+            ogl.constructLocationDot(latLon.latString, latLon.lonString, false)
+        } else {
+            ogl.deconstructLocationDot()
+        }
+        if (imageMap.map.visibility != View.VISIBLE) {
+            numPanesArr.forEach { glviewArr[it].visibility = View.VISIBLE }
+        }
     }
 }

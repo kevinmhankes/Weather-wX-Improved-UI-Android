@@ -892,28 +892,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
     }
 
-    // FIXME MIGRATE
-    //private fun initGLVIEW() {
-
-
-
-        /*glview.setEGLContextClientVersion(2)
-        oglr = WXGLRender(this as Activity)
-        oglrArr.clear()
-        oglrArr.add(oglr)
-        glviewArr.clear()
-        glviewArr.add(glview)
-        //glview.setEGLConfigChooser(8, 8, 8, 8, 16, 0) // a test to see if android emulator will now work
-        glview.setRenderer(oglr)
-        glview.setRenderVar(oglr, oglrArr, glviewArr, act)
-        glview.fullScreen = true
-        glview.setOnProgressChangeListener(changeListener)
-        glview.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
-        glview.toolbar = toolbar
-        glview.toolbarBottom = toolbarBottom
-        glview.archiveMode = archiveMode*/
-    //}
-
     private fun initWXOGLGeom() {
         oglr.initGEOM()
         if (oldRid != oglr.rid) {
