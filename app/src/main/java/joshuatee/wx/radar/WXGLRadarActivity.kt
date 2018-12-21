@@ -410,8 +410,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
 
         withContext(Dispatchers.IO) {
-
-
             UtilityRadarUI.plotRadar(
                 oglr,
                 urlStr,
@@ -421,48 +419,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 true,
                 archiveMode
             )
-
-            /*oglr.constructPolygons("", urlStr, true)
-            if ((PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) && !archiveMode)
-                oglr.constructSpotters()
-            else
-                oglr.deconstructSpotters()
-            if (PolygonType.STI.pref && !archiveMode)
-                oglr.constructSTILines()
-            else
-                oglr.deconstructSTILines()
-            if (PolygonType.HI.pref && !archiveMode)
-                oglr.constructHI()
-            else
-                oglr.deconstructHI()
-            if (PolygonType.TVS.pref && !archiveMode)
-                oglr.constructTVS()
-            else
-                oglr.deconstructTVS()
-            if (MyApplication.locdotFollowsGps && !archiveMode) {
-                getGPSFromDouble()
-                //locXCurrent = latlonArr[0]
-                //locYCurrent = latlonArr[1]
-            }
-            if (PolygonType.LOCDOT.pref || archiveMode || MyApplication.locdotFollowsGps) {
-                oglr.constructLocationDot(locXCurrent, locYCurrent, archiveMode)
-            } else {
-                oglr.deconstructLocationDot()
-            }
-            if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && !archiveMode) {
-                UtilityMetar.getStateMetarArrayForWXOGL(contextg, oglr.rid)
-            }
-            if (PolygonType.WIND_BARB.pref && !archiveMode) {
-                oglr.constructWBLines()
-            } else {
-                oglr.deconstructWBLines()
-            }
-            if (PolygonType.SWO.pref && !archiveMode) {
-                UtilitySWOD1.getSWO()
-                oglr.constructSWOLines()
-            } else {
-                oglr.deconstructSWOLines()
-            }*/
         }
 
         if (!oglInView) {

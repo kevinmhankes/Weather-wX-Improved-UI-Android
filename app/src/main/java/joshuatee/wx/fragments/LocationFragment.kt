@@ -25,7 +25,6 @@ import android.content.*
 import java.util.Locale
 
 import android.graphics.Bitmap
-import android.opengl.GLSurfaceView
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -599,18 +598,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
 
     // FIXME migrate
     private fun initGLVIEW(glviewloc: WXGLSurfaceView, z: Int) {
-
-       /* glviewloc.setEGLContextClientVersion(2)
-        wxgltextArr[z].setOGLR(oglrArr[z])
-        oglrArr[z].idxStr = z.toString()
-        glviewloc.setRenderer(oglrArr[z])
-        glviewloc.setRenderVar(oglrArr[z], oglrArr, glviewArr)
-        glviewloc.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
-        glviewloc.setOnProgressChangeListener(changeListener)
-        glviewInitialized = true
-        oglrArr[z].zoom = MyApplication.wxoglSize.toFloat() / 10.0f
-        glviewloc.scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f*/
-
         glviewInitialized = UtilityRadarUI.initGlviewFragment(
             glviewloc,
             z,
