@@ -415,8 +415,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 oglr.deconstructTVS()
             if (MyApplication.locdotFollowsGps && !archiveMode) {
                 getGPSFromDouble()
-                locXCurrent = latlonArr[0]
-                locYCurrent = latlonArr[1]
+                //locXCurrent = latlonArr[0]
+                //locYCurrent = latlonArr[1]
             }
             if (PolygonType.LOCDOT.pref || archiveMode || MyApplication.locdotFollowsGps) {
                 oglr.constructLocationDot(locXCurrent, locYCurrent, archiveMode)
@@ -953,8 +953,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }).start()
         if (MyApplication.locdotFollowsGps && !archiveMode) {
             getGPSFromDouble()
-            locXCurrent = latlonArr[0]
-            locYCurrent = latlonArr[1]
+            //locXCurrent = latlonArr[0]
+            //locYCurrent = latlonArr[1]
         }
         if (PolygonType.LOCDOT.pref || MyApplication.locdotFollowsGps) // added locdot gps apr 2016
             oglr.constructLocationDot(locXCurrent, locYCurrent, archiveMode)
@@ -1013,8 +1013,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         latD = location.latitude
         lonD = location.longitude
         getGPSFromDouble()
-        locXCurrent = latlonArr[0]
-        locYCurrent = latlonArr[1]
+        //locXCurrent = latlonArr[0]
+        //locYCurrent = latlonArr[1]
         oglr.constructLocationDot(locXCurrent, locYCurrent, archiveMode)
         glview.requestRender()
     }
@@ -1022,6 +1022,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private fun getGPSFromDouble() {
         latlonArr[0] = latD.toString()
         latlonArr[1] = lonD.toString()
+        locXCurrent = latlonArr[0]
+        locYCurrent = latlonArr[1]
     }
 
     private fun setupAlertDialogRadarLongPress() {
