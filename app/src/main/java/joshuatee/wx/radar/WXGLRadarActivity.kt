@@ -33,7 +33,6 @@ import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.opengl.GLSurfaceView
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
@@ -108,7 +107,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private lateinit var oglr: WXGLRender
     private var oldProd = ""
     private var firstRun = true
-    private var oldRid = ""
+    //private var oldRid = ""
+    private var oldRidArr = Array(1) { "" }
     private var mHandler: Handler? = null
     private var mInterval = 180000 // 180 seconds by default
     private var loopCount = 0
@@ -255,7 +255,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             toolbarBottom,
             changeListener,
             archiveMode
-            )
+        )
         oglr.product = "N0Q"
         oglInView = true
         if (activityArguments == null)
@@ -393,7 +393,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         else
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         toolbar.subtitle = ""
-        if (!oglr.product.startsWith("2")) initWXOGLGeom()
+        if (!oglr.product.startsWith("2"))
+            initWXOGLGeom(0)
 
         withContext(Dispatchers.IO) {
             oglr.constructPolygons("", urlStr, true)
@@ -892,9 +893,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
     }
 
-    private fun initWXOGLGeom() {
+    private fun initWXOGLGeom(z: Int) {
         oglr.initGEOM()
-        if (oldRid != oglr.rid) {
+        if (oldRidArr[z] != oglrArr[z].rid) {  //  oldRid != oglr.rid
             oglr.setChunkCount(0)
             oglr.setChunkCountSti(0)
             oglr.setHiInit(false)
@@ -930,8 +931,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 } else
                     oglr.deconstructHWEXTLines()
             }).start()
-            wxgltextArr[0].addTV()
-            oldRid = oglr.rid
+            wxgltextArr[z].addTV()
+            //oldRid = oglr.rid
+            oldRidArr[z] = oglrArr[z].rid
         }
         Thread(Runnable {
             if (PolygonType.TST.pref && !archiveMode)
