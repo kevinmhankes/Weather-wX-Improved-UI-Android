@@ -410,7 +410,18 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
 
         withContext(Dispatchers.IO) {
-            oglr.constructPolygons("", urlStr, true)
+
+
+            UtilityRadarUI.plotRadar(
+                oglr,
+                urlStr,
+                contextg,
+                ::getGPSFromDouble,
+                ::getLatLon,
+                archiveMode
+            )
+
+            /*oglr.constructPolygons("", urlStr, true)
             if ((PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) && !archiveMode)
                 oglr.constructSpotters()
             else
@@ -450,7 +461,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 oglr.constructSWOLines()
             } else {
                 oglr.deconstructSWOLines()
-            }
+            }*/
         }
 
         if (!oglInView) {

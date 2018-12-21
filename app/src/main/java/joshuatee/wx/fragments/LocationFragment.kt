@@ -25,7 +25,6 @@ import android.content.*
 import java.util.Locale
 
 import android.graphics.Bitmap
-import android.opengl.GLSurfaceView
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -630,76 +629,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         ) + ")"
     }
 
- /*   // FIXME migrate
-    private fun initWXOGLGeom(glviewloc: WXGLSurfaceView, OGLRLOC: WXGLRender, z: Int) {
-        OGLRLOC.initGEOM()
-        if (oldRidArr[z] != oglrArr[z].rid) {
-            OGLRLOC.setChunkCount(0)
-            OGLRLOC.setChunkCountSti(0)
-            OGLRLOC.setHiInit(false)
-            OGLRLOC.setTvsInit(false)
-            Thread(Runnable {
-                OGLRLOC.constructStateLines()
-                glviewloc.requestRender()
-            }).start()
-            Thread(Runnable {
-                if (GeographyType.LAKES.pref)
-                    OGLRLOC.constructLakes()
-                else
-                    OGLRLOC.deconstructLakes()
-            }).start()
-            Thread(Runnable {
-                if (GeographyType.COUNTY_LINES.pref) {
-                    OGLRLOC.constructCounty()
-                    glviewloc.requestRender()
-                } else
-                    OGLRLOC.deconstructCounty()
-            }).start()
-            Thread(Runnable {
-                if (GeographyType.HIGHWAYS.pref) {
-                    OGLRLOC.constructHWLines()
-                    glviewloc.requestRender()
-                } else
-                    OGLRLOC.deconstructHWLines()
-            }).start()
-            Thread(Runnable {
-                if (GeographyType.HIGHWAYS_EXTENDED.pref) {
-                    OGLRLOC.constructHWEXTLines()
-                    glviewloc.requestRender()
-                } else
-                    OGLRLOC.deconstructHWEXTLines()
-            }).start()
-            wxgltextArr[z].addTV()
-            oldRidArr[z] = oglrArr[z].rid
-        }
-        Thread(Runnable {
-            if (PolygonType.TST.pref)
-                OGLRLOC.constructWarningLines()
-            else
-                OGLRLOC.deconstructWarningLines()
-            if (PolygonType.MCD.pref)
-                OGLRLOC.constructWATMCDLines()
-            else
-                OGLRLOC.deconstructWATMCDLines()
-            if (PolygonType.MPD.pref)
-                OGLRLOC.constructMPDLines()
-            else
-                OGLRLOC.deconstructMPDLines()
-            glviewloc.requestRender()
-        }).start()
-        if (PolygonType.LOCDOT.pref) {
-            OGLRLOC.constructLocationDot(Location.x, Location.y, false)
-        } else {
-            OGLRLOC.deconstructLocationDot()
-        }
-        glviewloc.requestRender()
-    }
-*/
     private fun getGPSFromDouble() {
-        //latlonArr[0] = latD.toString()
-        //latlonArr[1] = lonD.toString()
-        //locXCurrent = latlonArr[0]
-        //locYCurrent = latlonArr[1]
     }
 
     private fun getLatLon() = LatLon(Location.x, Location.y)

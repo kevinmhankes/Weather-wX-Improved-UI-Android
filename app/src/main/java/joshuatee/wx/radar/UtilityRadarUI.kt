@@ -322,12 +322,65 @@ internal object UtilityRadarUI {
             val latLon = fnGetLatLon()
             UtilityLog.d("wx", "LAT: " + latLon.latString)
             UtilityLog.d("wx", "LON: " + latLon.lonString)
-            ogl.constructLocationDot(latLon.latString, latLon.lonString, false)
+            ogl.constructLocationDot(latLon.latString, latLon.lonString, archiveMode)
         } else {
             ogl.deconstructLocationDot()
         }
         if (imageMap != null && imageMap.map.visibility != View.VISIBLE) {
             numPanesArr.forEach { glviewArr[it].visibility = View.VISIBLE }
+        }
+    }
+
+    fun plotRadar(
+        oglr: WXGLRender,
+        urlStr: String,
+        context: Context,
+        fnGps: () -> Unit,
+        fnGetLatLon: () -> LatLon,
+        archiveMode: Boolean = false
+    ) {
+        oglr.constructPolygons("", urlStr, true)
+        if ((PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) && !archiveMode)
+            oglr.constructSpotters()
+        else
+            oglr.deconstructSpotters()
+        if (PolygonType.STI.pref && !archiveMode)
+            oglr.constructSTILines()
+        else
+            oglr.deconstructSTILines()
+        if (PolygonType.HI.pref && !archiveMode)
+            oglr.constructHI()
+        else
+            oglr.deconstructHI()
+        if (PolygonType.TVS.pref && !archiveMode)
+            oglr.constructTVS()
+        else
+            oglr.deconstructTVS()
+        if (MyApplication.locdotFollowsGps && !archiveMode) {
+            fnGps()
+        }
+        if (PolygonType.LOCDOT.pref || archiveMode || MyApplication.locdotFollowsGps) {
+            val latLon = fnGetLatLon()
+            UtilityLog.d("wx", "LAT: " + latLon.latString)
+            UtilityLog.d("wx", "LON: " + latLon.lonString)
+            oglr.constructLocationDot(latLon.latString, latLon.lonString, archiveMode)
+            //oglr.constructLocationDot(locXCurrent, locYCurrent, archiveMode)
+        } else {
+            oglr.deconstructLocationDot()
+        }
+        if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && !archiveMode) {
+            UtilityMetar.getStateMetarArrayForWXOGL(context, oglr.rid)
+        }
+        if (PolygonType.WIND_BARB.pref && !archiveMode) {
+            oglr.constructWBLines()
+        } else {
+            oglr.deconstructWBLines()
+        }
+        if (PolygonType.SWO.pref && !archiveMode) {
+            UtilitySWOD1.getSWO()
+            oglr.constructSWOLines()
+        } else {
+            oglr.deconstructSWOLines()
         }
     }
 }

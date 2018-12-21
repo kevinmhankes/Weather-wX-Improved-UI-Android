@@ -66,7 +66,6 @@ import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
 
 import joshuatee.wx.TDWR_RIDS
-import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import kotlinx.coroutines.*
@@ -476,8 +475,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     ogl.deconstructTVS()
                 if (MyApplication.locdotFollowsGps) {
                     getGPSFromDouble()
-                    //locXCurrent = latlonArr[0]
-                    //locYCurrent = latlonArr[1]
                 }
                 if (PolygonType.LOCDOT.pref || MyApplication.locdotFollowsGps)
                     ogl.constructLocationDot(locXCurrent, locYCurrent, false)
