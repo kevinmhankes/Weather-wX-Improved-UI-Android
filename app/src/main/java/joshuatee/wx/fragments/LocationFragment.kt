@@ -59,7 +59,6 @@ import joshuatee.wx.vis.USNWSGOESActivity
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.radar.*
@@ -354,7 +353,15 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         }
         if (MyApplication.locDisplayImg) {
             glviewArr.indices.forEach {
-                initGLVIEW(glviewArr[it], it)
+                //initGLVIEW(glviewArr[it], it)
+                glviewInitialized = UtilityRadarUI.initGlviewFragment(
+                    glviewArr[it],
+                    it,
+                    oglrArr,
+                    glviewArr,
+                    wxgltextArr,
+                    changeListener
+                )
             }
         }
         sv = view.findViewById(R.id.sv)
@@ -445,7 +452,15 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         if (MyApplication.locDisplayImg) {
             if (!glviewInitialized) {
                 glviewArr.indices.forEach {
-                    initGLVIEW(glviewArr[it], it)
+                    //initGLVIEW(glviewArr[it], it)
+                    glviewInitialized = UtilityRadarUI.initGlviewFragment(
+                        glviewArr[it],
+                        it,
+                        oglrArr,
+                        glviewArr,
+                        wxgltextArr,
+                        changeListener
+                    )
                 }
             }
         }
@@ -594,18 +609,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         glviewloc.scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
         OGLRLOC.setViewInitial(MyApplication.wxoglSize.toFloat() / 10.0f, 0.0f, 0.0f)
         glviewloc.requestRender()
-    }
-
-    // FIXME migrate
-    private fun initGLVIEW(glviewloc: WXGLSurfaceView, z: Int) {
-        glviewInitialized = UtilityRadarUI.initGlviewFragment(
-            glviewloc,
-            z,
-            oglrArr,
-            glviewArr,
-            wxgltextArr,
-            changeListener
-        )
     }
 
     private val radarTimeStamp: String
