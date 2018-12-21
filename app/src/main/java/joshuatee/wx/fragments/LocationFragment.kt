@@ -106,7 +106,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private var glviewArr = mutableListOf<WXGLSurfaceView>()
     private var wxgltextArr = mutableListOf<WXGLTextObject>()
     private var numRadars = 0
-    private var oldRidArr = MutableList(2) { "" }
+    private var oldRidArr = Array(2) { "" }
     private val radarLocationChangedAl = mutableListOf<Boolean>()
     // used to track the wxogl # for the wxogl that is tied to current location
     private var oglrIdx = -1
@@ -130,13 +130,14 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private var objSevenDay: ObjectForecastPackage7Day? = null
     private var locationChangedSevenDay = false
     private var locationChangedHazards = false
+    private var numPanesArr = listOf<Int>()
 
     private fun addDynamicCards() {
         var ccAdded = false
         var day7Added = false
         val tmpArr = MyApplication.colon.split(homescreenFavLocal)
         numRadars = tmpArr.count { it == "OGL-RADAR" || it.contains("NXRD-") }
-        oldRidArr = MutableList(numRadars) { "" }
+        oldRidArr = Array(numRadars) { "" }
         val rlArr = mutableListOf<RelativeLayout>()
         glviewArr.clear()
         wxgltextArr.clear()
@@ -236,6 +237,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 z += 1
             }
         } // end of loop over HM tokens
+        numPanesArr = (0 until glviewArr.size).toList()
     }
 
     override fun onCreateView(
@@ -468,7 +470,21 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             oglrArr[idx].product = "TV0"
         if (oglrArr[idx].product == "TV0" && !WXGLNexrad.isRIDTDWR(oglrArr[idx].rid))
             oglrArr[idx].product = "N0U"
-        initWXOGLGeom(glviewArr[idx], oglrArr[idx], idx)
+        //initWXOGLGeom(glviewArr[idx], oglrArr[idx], idx)
+        // numPanesArr = (0 until numPanes).toList()
+        UtilityRadarUI.initWxoglGeom(
+            glviewArr[idx],
+            oglrArr[idx],
+            0,
+            oldRidArr,
+            oglrArr,
+            wxgltextArr,
+            numPanesArr,
+            null,
+            glviewArr,
+            ::getGPSFromDouble,
+            ::getLatLon
+        )
 
         withContext(Dispatchers.IO) {
             if (Location.isUS)
@@ -614,7 +630,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         ) + ")"
     }
 
-    // FIXME migrate
+ /*   // FIXME migrate
     private fun initWXOGLGeom(glviewloc: WXGLSurfaceView, OGLRLOC: WXGLRender, z: Int) {
         OGLRLOC.initGEOM()
         if (oldRidArr[z] != oglrArr[z].rid) {
@@ -678,6 +694,15 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         }
         glviewloc.requestRender()
     }
+*/
+    private fun getGPSFromDouble() {
+        //latlonArr[0] = latD.toString()
+        //latlonArr[1] = lonD.toString()
+        //locXCurrent = latlonArr[0]
+        //locYCurrent = latlonArr[1]
+    }
+
+    private fun getLatLon() = LatLon(Location.x, Location.y)
 
     override fun onPause() {
         if (glviewInitialized) {

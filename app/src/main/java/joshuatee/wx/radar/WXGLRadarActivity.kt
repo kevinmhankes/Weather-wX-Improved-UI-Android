@@ -73,7 +73,6 @@ import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
 
 import joshuatee.wx.TDWR_RIDS
-import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import kotlinx.coroutines.*
@@ -107,7 +106,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private lateinit var oglr: WXGLRender
     private var oldProd = ""
     private var firstRun = true
-    //private var oldRid = ""
     private var oldRidArr = Array(1) { "" }
     private var mHandler: Handler? = null
     private var mInterval = 180000 // 180 seconds by default
@@ -393,8 +391,23 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         else
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         toolbar.subtitle = ""
-        if (!oglr.product.startsWith("2"))
-            initWXOGLGeom(0)
+        if (!oglr.product.startsWith("2")) {
+            //initWXOGLGeom(0)
+            UtilityRadarUI.initWxoglGeom(
+                glview,
+                oglr,
+                0,
+                oldRidArr,
+                oglrArr,
+                wxgltextArr,
+                numPanesArr,
+                imageMap,
+                glviewArr,
+                ::getGPSFromDouble,
+                ::getLatLon,
+                archiveMode
+            )
+        }
 
         withContext(Dispatchers.IO) {
             oglr.constructPolygons("", urlStr, true)
@@ -893,7 +906,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
     }
 
-    private fun initWXOGLGeom(z: Int) {
+    /*private fun initWXOGLGeom(z: Int) {
         oglr.initGEOM()
         if (oldRidArr[z] != oglrArr[z].rid) {  //  oldRid != oglr.rid
             oglr.setChunkCount(0)
@@ -965,7 +978,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         img.visibility = View.GONE
         glview.visibility = View.VISIBLE
     }
-
+*/
     private val handler = Handler()
 
     private val mStatusChecker: Runnable = object : Runnable {
@@ -1027,6 +1040,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         locXCurrent = latlonArr[0]
         locYCurrent = latlonArr[1]
     }
+
+    private fun getLatLon() = LatLon(locXCurrent, locYCurrent)
 
     private fun setupAlertDialogRadarLongPress() {
         alertDialogRadarLongPress = ObjectDialogue(contextg, alertDialogStatusAl)

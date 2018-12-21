@@ -251,10 +251,11 @@ internal object UtilityRadarUI {
         oglrArr: MutableList<WXGLRender>,
         wxgltextArr: MutableList<WXGLTextObject>,
         numPanesArr: List<Int>,
-        imageMap: ObjectImageMap,
+        imageMap: ObjectImageMap?,
         glviewArr: MutableList<WXGLSurfaceView>,
         fnGps: () -> Unit,
-        fnGetLatLon: () -> LatLon
+        fnGetLatLon: () -> LatLon,
+        archiveMode: Boolean = false
     ) {
         ogl.initGEOM()
         if (oldRidArr[z] != oglrArr[z].rid) {
@@ -298,15 +299,15 @@ internal object UtilityRadarUI {
         }
 
         Thread(Runnable {
-            if (PolygonType.TST.pref)
+            if (PolygonType.TST.pref && !archiveMode)
                 ogl.constructWarningLines()
             else
                 ogl.deconstructWarningLines()
-            if (PolygonType.MCD.pref)
+            if (PolygonType.MCD.pref && !archiveMode)
                 ogl.constructWATMCDLines()
             else
                 ogl.deconstructWATMCDLines()
-            if (PolygonType.MPD.pref)
+            if (PolygonType.MPD.pref && !archiveMode)
                 ogl.constructMPDLines()
             else
                 ogl.deconstructMPDLines()
@@ -325,7 +326,7 @@ internal object UtilityRadarUI {
         } else {
             ogl.deconstructLocationDot()
         }
-        if (imageMap.map.visibility != View.VISIBLE) {
+        if (imageMap != null && imageMap.map.visibility != View.VISIBLE) {
             numPanesArr.forEach { glviewArr[it].visibility = View.VISIBLE }
         }
     }
