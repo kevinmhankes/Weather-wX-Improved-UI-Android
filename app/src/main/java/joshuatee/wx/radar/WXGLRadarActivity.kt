@@ -418,6 +418,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 contextg,
                 ::getGPSFromDouble,
                 ::getLatLon,
+                true,
                 archiveMode
             )
 

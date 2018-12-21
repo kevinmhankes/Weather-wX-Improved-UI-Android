@@ -337,6 +337,7 @@ internal object UtilityRadarUI {
         context: Context,
         fnGps: () -> Unit,
         fnGetLatLon: () -> LatLon,
+        showExtras: Boolean,
         archiveMode: Boolean = false
     ) {
         oglr.constructPolygons("", urlStr, true)
@@ -368,19 +369,21 @@ internal object UtilityRadarUI {
         } else {
             oglr.deconstructLocationDot()
         }
-        if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && !archiveMode) {
-            UtilityMetar.getStateMetarArrayForWXOGL(context, oglr.rid)
-        }
-        if (PolygonType.WIND_BARB.pref && !archiveMode) {
-            oglr.constructWBLines()
-        } else {
-            oglr.deconstructWBLines()
-        }
-        if (PolygonType.SWO.pref && !archiveMode) {
-            UtilitySWOD1.getSWO()
-            oglr.constructSWOLines()
-        } else {
-            oglr.deconstructSWOLines()
+        if (showExtras) {
+            if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && !archiveMode) {
+                UtilityMetar.getStateMetarArrayForWXOGL(context, oglr.rid)
+            }
+            if (PolygonType.WIND_BARB.pref && !archiveMode) {
+                oglr.constructWBLines()
+            } else {
+                oglr.deconstructWBLines()
+            }
+            if (PolygonType.SWO.pref && !archiveMode) {
+                UtilitySWOD1.getSWO()
+                oglr.constructSWOLines()
+            } else {
+                oglr.deconstructSWOLines()
+            }
         }
     }
 }

@@ -455,7 +455,17 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 ::getLatLon
             )
             withContext(Dispatchers.IO) {
-                ogl.constructPolygons("", "", true)
+
+                UtilityRadarUI.plotRadar(
+                    ogl,
+                    "",
+                    contextg,
+                    ::getGPSFromDouble,
+                    ::getLatLon,
+                    false
+                )
+
+                /*ogl.constructPolygons("", "", true)
                 if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) {
                     ogl.constructSpotters()
                 } else {
@@ -479,7 +489,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 if (PolygonType.LOCDOT.pref || MyApplication.locdotFollowsGps)
                     ogl.constructLocationDot(locXCurrent, locYCurrent, false)
                 else
-                    ogl.deconstructLocationDot()
+                    ogl.deconstructLocationDot()*/
             }
             if (!oglInView) {
                 glviewShow()
