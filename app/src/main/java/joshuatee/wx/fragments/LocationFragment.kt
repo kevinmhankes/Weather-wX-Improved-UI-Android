@@ -25,6 +25,7 @@ import android.content.*
 import java.util.Locale
 
 import android.graphics.Bitmap
+import android.opengl.GLSurfaceView
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -353,7 +354,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             }
         }
         if (MyApplication.locDisplayImg) {
-            glviewArr.indices.forEach { initGLVIEW(glviewArr[it], it) }
+            glviewArr.indices.forEach {
+                initGLVIEW(glviewArr[it], it)
+            }
         }
         sv = view.findViewById(R.id.sv)
         spinner1.adapter = dataAdapter
@@ -442,7 +445,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         val yOld = y
         if (MyApplication.locDisplayImg) {
             if (!glviewInitialized) {
-                glviewArr.indices.forEach { initGLVIEW(glviewArr[it], it) }
+                glviewArr.indices.forEach {
+                    initGLVIEW(glviewArr[it], it)
+                }
             }
         }
         if (UIPreferences.refreshLocMin != 0 || dataNotInitialized) {
@@ -474,7 +479,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         UtilityRadarUI.initWxoglGeom(
             glviewArr[idx],
             oglrArr[idx],
-            0,
+            idx,
             oldRidArr,
             oglrArr,
             wxgltextArr,
@@ -486,24 +491,35 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         )
 
         withContext(Dispatchers.IO) {
-            if (Location.isUS)
-                oglrArr[idx].constructPolygons("", "", true)
-            if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref)
-                oglrArr[idx].constructSpotters()
-            else
-                oglrArr[idx].deconstructSpotters()
-            if (PolygonType.STI.pref)
-                oglrArr[idx].constructSTILines()
-            else
-                oglrArr[idx].deconstructSTILines()
-            if (PolygonType.HI.pref)
-                oglrArr[idx].constructHI()
-            else
-                oglrArr[idx].deconstructHI()
-            if (PolygonType.TVS.pref)
-                oglrArr[idx].constructTVS()
-            else
-                oglrArr[idx].deconstructTVS()
+            if (Location.isUS) {
+
+                UtilityRadarUI.plotRadar(
+                    oglrArr[idx],
+                    "",
+                    activityReference,
+                    ::getGPSFromDouble,
+                    ::getLatLon,
+                    false
+                )
+
+                /*oglrArr[idx].constructPolygons("", "", true)
+                if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref)
+                    oglrArr[idx].constructSpotters()
+                else
+                    oglrArr[idx].deconstructSpotters()
+                if (PolygonType.STI.pref)
+                    oglrArr[idx].constructSTILines()
+                else
+                    oglrArr[idx].deconstructSTILines()
+                if (PolygonType.HI.pref)
+                    oglrArr[idx].constructHI()
+                else
+                    oglrArr[idx].deconstructHI()
+                if (PolygonType.TVS.pref)
+                    oglrArr[idx].constructTVS()
+                else
+                    oglrArr[idx].deconstructTVS()*/
+            }
         }
 
         if (Location.isUS) {
@@ -583,7 +599,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
 
     // FIXME migrate
     private fun initGLVIEW(glviewloc: WXGLSurfaceView, z: Int) {
-        /*glviewloc.setEGLContextClientVersion(2)
+
+       /* glviewloc.setEGLContextClientVersion(2)
         wxgltextArr[z].setOGLR(oglrArr[z])
         oglrArr[z].idxStr = z.toString()
         glviewloc.setRenderer(oglrArr[z])
