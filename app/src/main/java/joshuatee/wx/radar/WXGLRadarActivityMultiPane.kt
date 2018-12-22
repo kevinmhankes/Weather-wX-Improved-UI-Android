@@ -440,7 +440,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     "N0U"
             toolbar.subtitle = ""
             setToolbarTitle()
-            //initWXOGLGeom(glv, ogl, z)
             UtilityRadarUI.initWxoglGeom(
                 glv,
                 ogl,
@@ -885,79 +884,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         }
     }
 
-    /*private fun initWXOGLGeom(glv: WXGLSurfaceView, ogl: WXGLRender, z: Int) {
-        ogl.initGEOM()
-        if (oldRidArr[z] != oglrArr[z].rid) {
-            ogl.setChunkCount(0)
-            ogl.setChunkCountSti(0)
-            ogl.setHiInit(false)
-            ogl.setTvsInit(false)
-            Thread(Runnable {
-                ogl.constructStateLines()
-                glv.requestRender()
-            }).start()
-            Thread(Runnable {
-                if (GeographyType.LAKES.pref)
-                    ogl.constructLakes()
-                else
-                    ogl.deconstructLakes()
-            }).start()
-            Thread(Runnable {
-                if (GeographyType.COUNTY_LINES.pref) {
-                    ogl.constructCounty()
-                    glv.requestRender()
-                } else
-                    ogl.deconstructCounty()
-            }).start()
-            Thread(Runnable {
-                if (GeographyType.HIGHWAYS.pref) {
-                    ogl.constructHWLines()
-                    glv.requestRender()
-                } else
-                    ogl.deconstructHWLines()
-            }).start()
-            Thread(Runnable {
-                if (MyApplication.radarHwEnhExt) {
-                    ogl.constructHWEXTLines()
-                    glv.requestRender()
-                } else
-                    ogl.deconstructHWEXTLines()
-            }).start()
-            wxgltextArr[z].addTV()
-            oldRidArr[z] = oglrArr[z].rid
-        }
-
-        Thread(Runnable {
-            if (PolygonType.TST.pref)
-                ogl.constructWarningLines()
-            else
-                ogl.deconstructWarningLines()
-            if (PolygonType.MCD.pref)
-                ogl.constructWATMCDLines()
-            else
-                ogl.deconstructWATMCDLines()
-            if (PolygonType.MPD.pref)
-                ogl.constructMPDLines()
-            else
-                ogl.deconstructMPDLines()
-            glv.requestRender()
-        }).start()
-        if (MyApplication.locdotFollowsGps) {
-            getGPSFromDouble()
-            //locXCurrent = latlonArr[0]
-            //locYCurrent = latlonArr[1]
-        }
-        if (PolygonType.LOCDOT.pref || MyApplication.locdotFollowsGps) {
-            UtilityLog.d("wx", "LAT: " + locXCurrent)
-            UtilityLog.d("wx", "LON: " + locYCurrent)
-            ogl.constructLocationDot(locXCurrent, locYCurrent, false)
-        } else
-            ogl.deconstructLocationDot()
-        if (imageMap.map.visibility != View.VISIBLE) {
-            numPanesArr.forEach { glviewArr[it].visibility = View.VISIBLE }
-        }
-    }
-*/
     private val handler = Handler()
 
     private val mStatusChecker: Runnable? = object : Runnable {
@@ -1024,8 +950,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         latD = location.latitude
         lonD = location.longitude
         getGPSFromDouble()
-        //locXCurrent = latlonArr[0]
-        //locYCurrent = latlonArr[1]
         numPanesArr.forEach {
             oglrArr[it].constructLocationDot(locXCurrent, locYCurrent, false)
             glviewArr[it].requestRender()

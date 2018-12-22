@@ -392,7 +392,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         toolbar.subtitle = ""
         if (!oglr.product.startsWith("2")) {
-            //initWXOGLGeom(0)
             UtilityRadarUI.initWxoglGeom(
                 glview,
                 oglr,
@@ -874,79 +873,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
     }
 
-    /*private fun initWXOGLGeom(z: Int) {
-        oglr.initGEOM()
-        if (oldRidArr[z] != oglrArr[z].rid) {  //  oldRid != oglr.rid
-            oglr.setChunkCount(0)
-            oglr.setChunkCountSti(0)
-            oglr.setHiInit(false)
-            oglr.setTvsInit(false)
-            Thread(Runnable {
-                oglr.constructStateLines()
-                glview.requestRender()
-            }).start()
-            Thread(Runnable {
-                if (GeographyType.LAKES.pref)
-                    oglr.constructLakes()
-                else
-                    oglr.deconstructLakes()
-            }).start()
-            Thread(Runnable {
-                if (GeographyType.COUNTY_LINES.pref) {
-                    oglr.constructCounty()
-                    glview.requestRender()
-                } else
-                    oglr.deconstructCounty()
-            }).start()
-            Thread(Runnable {
-                if (GeographyType.HIGHWAYS.pref) {
-                    oglr.constructHWLines()
-                    glview.requestRender()
-                } else
-                    oglr.deconstructHWLines()
-            }).start()
-            Thread(Runnable {
-                if (MyApplication.radarHwEnhExt) {
-                    oglr.constructHWEXTLines()
-                    glview.requestRender()
-                } else
-                    oglr.deconstructHWEXTLines()
-            }).start()
-            wxgltextArr[z].addTV()
-            //oldRid = oglr.rid
-            oldRidArr[z] = oglrArr[z].rid
-        }
-        Thread(Runnable {
-            if (PolygonType.TST.pref && !archiveMode)
-                oglr.constructWarningLines()
-            else
-                oglr.deconstructWarningLines()
-
-            if (PolygonType.MCD.pref && !archiveMode)
-                oglr.constructWATMCDLines()
-            else
-                oglr.deconstructWATMCDLines()
-
-            if (PolygonType.MPD.pref && !archiveMode)
-                oglr.constructMPDLines()
-            else
-                oglr.deconstructMPDLines()
-
-            glview.requestRender()
-        }).start()
-        if (MyApplication.locdotFollowsGps && !archiveMode) {
-            getGPSFromDouble()
-            //locXCurrent = latlonArr[0]
-            //locYCurrent = latlonArr[1]
-        }
-        if (PolygonType.LOCDOT.pref || MyApplication.locdotFollowsGps) // added locdot gps apr 2016
-            oglr.constructLocationDot(locXCurrent, locYCurrent, archiveMode)
-        else
-            oglr.deconstructLocationDot()
-        img.visibility = View.GONE
-        glview.visibility = View.VISIBLE
-    }
-*/
     private val handler = Handler()
 
     private val mStatusChecker: Runnable = object : Runnable {
@@ -996,8 +922,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         latD = location.latitude
         lonD = location.longitude
         getGPSFromDouble()
-        //locXCurrent = latlonArr[0]
-        //locYCurrent = latlonArr[1]
         oglr.constructLocationDot(locXCurrent, locYCurrent, archiveMode)
         glview.requestRender()
     }
@@ -1087,7 +1011,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         val rLParams = RelativeLayout.LayoutParams(
             RelativeLayout.LayoutParams.MATCH_PARENT,
             RelativeLayout.LayoutParams.WRAP_CONTENT
-        ) // change FILL_PARENT
+        )
         rLParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1)
         legend = ViewColorLegend(this as Activity, oglr.product)
         rl.addView(legend, rLParams)
@@ -1108,7 +1032,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         return super.onOptionsItemSelected(item)
     }
 
-    // thanks http://stackoverflow.com/questions/19999619/navutils-navigateupto-does-not-start-any-activity user882209
     private fun navigateUp() {
         val upIntent = NavUtils.getParentActivityIntent(this)
         if (NavUtils.shouldUpRecreateTask(this, upIntent!!) || isTaskRoot) {
@@ -1117,16 +1040,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             NavUtils.navigateUpTo(this, upIntent)
         }
     }
-
-    /*  private fun getMetar() = GlobalScope.launch(uiDispatcher) {
-        val txt = withContext(Dispatchers.IO) {
-            UtilityMetar.findClosestMetar(
-                contextg,
-                LatLon(glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
-            )
-        }
-        UtilityAlertDialog.showHelpText(txt, act)
-    }*/
 
     private fun getContentVWP() = GlobalScope.launch(uiDispatcher) {
         val txt = withContext(Dispatchers.IO) { UtilityWXOGL.getVWP(contextg, oglr.rid) }
