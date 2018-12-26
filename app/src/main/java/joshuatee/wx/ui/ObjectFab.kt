@@ -41,10 +41,10 @@ class ObjectFab {
 
     // FIXME deprecate some of these constructors if possible
 
-    constructor(activity: Activity, context: Context, resId: Int) {
+   /* constructor(activity: Activity, context: Context, resId: Int) {
         fab = activity.findViewById(resId)
         setupFAB(context)
-    }
+    }*/
 
     constructor(activity: Activity, context: Context, resId: Int, fn: View.OnClickListener) {
         fab = activity.findViewById(resId)

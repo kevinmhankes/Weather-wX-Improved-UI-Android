@@ -6,7 +6,7 @@
 // TODO continued work on ObjectFab
 // TODO in general reduce static methods ( object methods ) in favor of instance methods
 
-55082 2018_12_25
+55082 2018_12_25 ObjectFab - rationalize
 55081 2018_12_25 [BUG] AWC forecast URLs changed in WPC IMG
                  refactor NWS Icon and Metar stuff
 55080 2018_12_21 code cleanup, continue moving semi-common code to UtilityRadarUI
