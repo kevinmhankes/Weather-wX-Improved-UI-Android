@@ -39,22 +39,10 @@ class ObjectFab {
 
     val fab: FloatingActionButton
 
-    // FIXME deprecate some of these constructors if possible
-
-   /* constructor(activity: Activity, context: Context, resId: Int) {
-        fab = activity.findViewById(resId)
-        setupFAB(context)
-    }*/
-
     constructor(activity: Activity, context: Context, resId: Int, fn: View.OnClickListener) {
         fab = activity.findViewById(resId)
         setupFAB(context)
         setOnClickListener(fn)
-    }
-
-    constructor(activity: Activity, context: Context, resId: Int, iconID: Int) {
-        fab = activity.findViewById(resId)
-        setupFAB(context, iconID)
     }
 
     constructor(
@@ -97,7 +85,7 @@ class ObjectFab {
         }
     }
 
-    fun setupFAB(context: Context, icon: Int) {
+    private fun setupFAB(context: Context, icon: Int) {
         if (UIPreferences.themeIsWhite) fab.backgroundTintList =
                 ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue_accent))
         fabSetResDrawable(context, icon)
