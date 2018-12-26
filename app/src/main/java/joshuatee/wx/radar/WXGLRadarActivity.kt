@@ -136,7 +136,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private var delay = 0
     private val prefTokenLocation = "RID_LOC_"
     private val prefToken = "RID_FAV"
-    private var frameCntStrGlobal = ""
+    private var frameCountGlobal = 0
     private var locXCurrent = ""
     private var locYCurrent = ""
     private var urlStr = ""
@@ -459,7 +459,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         firstRun = false
     }
 
-    private fun getAnimate(frameCntStr: String) = GlobalScope.launch(uiDispatcher) {
+    private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
         if (!oglInView) {
             img.visibility = View.GONE
             glview.visibility = View.VISIBLE
@@ -469,8 +469,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         animRan = true
 
         withContext(Dispatchers.IO) {
-            frameCntStrGlobal = frameCntStr
-            var animArray = oglr.rdDownload.getRadarByFTPAnimation(contextg, frameCntStr)
+            frameCountGlobal = frameCount
+            var animArray = oglr.rdDownload.getRadarFilesForAnimation(contextg, frameCount)
             var fh: File
             var timeMilli: Long
             var priorTime: Long
@@ -487,7 +487,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             var loopCnt = 0
             while (inOglAnim) {
                 if (animTriggerDownloads) {
-                    animArray = oglr.rdDownload.getRadarByFTPAnimation(contextg, frameCntStr)
+                    animArray = oglr.rdDownload.getRadarFilesForAnimation(contextg, frameCount)
                     try {
                         animArray.indices.forEach {
                             fh = File(contextg.filesDir, animArray[it])
@@ -601,7 +601,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                             this,
                             oglr.rid,
                             oglr.product,
-                            frameCntStrGlobal,
+                            frameCountGlobal,
                             "",
                             true
                         )
@@ -706,14 +706,14 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             R.id.action_tilt2 -> changeTilt("1")
             R.id.action_tilt3 -> changeTilt("2")
             R.id.action_tilt4 -> changeTilt("3")
-            R.id.action_a12 -> animateRadar("12")
-            R.id.action_a18 -> animateRadar("18")
-            R.id.action_a6_sm -> animateRadar("6")
-            R.id.action_a -> animateRadar(MyApplication.uiAnimIconFrames)
-            R.id.action_a36 -> animateRadar("36")
-            R.id.action_a72 -> animateRadar("72")
-            R.id.action_a144 -> animateRadar("144")
-            R.id.action_a3 -> animateRadar("3")
+            R.id.action_a12 -> animateRadar(12)
+            R.id.action_a18 -> animateRadar(18)
+            R.id.action_a6_sm -> animateRadar(6)
+            R.id.action_a -> animateRadar(MyApplication.uiAnimIconFrames.toIntOrNull() ?: 0)
+            R.id.action_a36 -> animateRadar(36)
+            R.id.action_a72 -> animateRadar(72)
+            R.id.action_a144 -> animateRadar(144)
+            R.id.action_a3 -> animateRadar(3)
             R.id.action_NVW -> getContentVWP()
             R.id.action_fav -> {
                 if (inOglAnim) {
@@ -741,10 +741,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         return true
     }
 
-    private fun animateRadar(frameCnt: String) {
+    private fun animateRadar(frameCount: Int) {
         anim.setIcon(MyApplication.ICON_STOP)
         star.setIcon(MyApplication.ICON_PAUSE)
-        getAnimate(frameCnt)
+        getAnimate(frameCount)
     }
 
     private fun changeProd(prodF: String, canTilt: Boolean) {
@@ -1041,6 +1041,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
     }
 
+    // FIXME migrate
     private fun getContentVWP() = GlobalScope.launch(uiDispatcher) {
         val txt = withContext(Dispatchers.IO) { UtilityWXOGL.getVWP(contextg, oglr.rid) }
         ObjectIntent(

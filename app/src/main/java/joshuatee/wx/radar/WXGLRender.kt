@@ -962,7 +962,7 @@ class WXGLRender(private val context: Context) : Renderer {
         var fList = listOf<Double>()
         when (buffers.type) {
             PolygonType.MCD, PolygonType.MPD, PolygonType.WATCH, PolygonType.WATCH_TORNADO -> fList =
-                    UtilityWat.addWat(context, provider, rid, buffers.type).toList()
+                    UtilityWatch.addWat(context, provider, rid, buffers.type).toList()
             PolygonType.TST, PolygonType.TOR, PolygonType.FFW -> fList =
                     WXGLPolygonWarnings.addWarnings(context, provider, rid, buffers.type).toList()
             PolygonType.STI -> fList =

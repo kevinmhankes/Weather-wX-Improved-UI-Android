@@ -885,9 +885,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                         Utility.getCurrentConditionsV2(activityReference, Location.currentLocation)
                 if (homescreenFavLocal.contains("TXT-CC2")) {
                     bmCc = if (Location.isUS) {
-                        UtilityNWS.getIconV2(activityReference, objFcst!!.objCC.iconUrl)
+                        UtilityNWS.getIcon(activityReference, objFcst!!.objCC.iconUrl)
                     } else {
-                        UtilityNWS.getIconV2(
+                        UtilityNWS.getIcon(
                             activityReference,
                             UtilityCanada.translateIconNameCurrentConditions(
                                 objFcst!!.objCC.data1,
@@ -950,7 +950,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 Utility.writePref(activityReference, "FCST", objSevenDay?.sevenDayExtStr ?: "")
                 if (homescreenFavLocal.contains("TXT-7DAY")) {
                     objSevenDay!!.iconAl.mapTo(bmArr) {
-                        UtilityNWS.getIconV2(
+                        UtilityNWS.getIcon(
                             activityReference,
                             it
                         )

@@ -28,7 +28,7 @@ import joshuatee.wx.objects.ProjectionType
 import joshuatee.wx.util.UtilityCanvasProjection
 import joshuatee.wx.util.ProjectionNumbers
 
-internal object UtilityWat {
+internal object UtilityWatch {
 
     fun addWat(
         context: Context,

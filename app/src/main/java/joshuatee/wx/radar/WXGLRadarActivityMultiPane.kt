@@ -108,7 +108,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private lateinit var star: MenuItem
     private lateinit var anim: MenuItem
     private var delay = 0
-    private var frameCntStrGlobal = ""
+    private var frameCountGlobal = 0
     private var locXCurrent = ""
     private var locYCurrent = ""
     private var infoAnim = Array(2) { "" }
@@ -481,7 +481,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             animRan = false
         }
 
-    private fun getAnimate(frameCntStr: String) = GlobalScope.launch(uiDispatcher) {
+    private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
         if (!oglInView) {
             glviewShow()
             oglInView = true
@@ -492,10 +492,10 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             var fh: File
             var timeMilli: Long
             var priorTime: Long
-            frameCntStrGlobal = frameCntStr
-            val animArray = Array(numPanes) { Array(frameCntStr.toIntOrNull() ?: 0) { "" } }
+            frameCountGlobal = frameCount
+            val animArray = Array(numPanes) { Array(frameCount) { "" } }
             numPanesArr.forEach { z ->
-                animArray[z] = oglrArr[z].rdDownload.getRadarByFTPAnimation(contextg, frameCntStr)
+                animArray[z] = oglrArr[z].rdDownload.getRadarFilesForAnimation(contextg, frameCount)
                     .toTypedArray()
                 try {
                     (0 until animArray[z].size).forEach { r ->
@@ -522,7 +522,10 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 if (animTriggerDownloads) {
                     numPanesArr.forEach { z ->
                         animArray[z] =
-                                oglrArr[z].rdDownload.getRadarByFTPAnimation(contextg, frameCntStr)
+                                oglrArr[z].rdDownload.getRadarFilesForAnimation(
+                                    contextg,
+                                    frameCount
+                                )
                                     .toTypedArray()
                         try {
                             (0 until animArray[z].size).forEach { r ->
@@ -639,7 +642,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                             this,
                             oglrArr[curRadar].rid,
                             oglrArr[curRadar].product,
-                            frameCntStrGlobal,
+                            frameCountGlobal,
                             (curRadar + 1).toString(),
                             true
                         )
@@ -740,14 +743,14 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             R.id.action_tilt2 -> changeTilt("1")
             R.id.action_tilt3 -> changeTilt("2")
             R.id.action_tilt4 -> changeTilt("3")
-            R.id.action_a12 -> animateRadar("12")
-            R.id.action_a18 -> animateRadar("18")
-            R.id.action_a6_sm -> animateRadar("6")
-            R.id.action_a -> animateRadar(MyApplication.uiAnimIconFrames)
-            R.id.action_a36 -> animateRadar("36")
-            R.id.action_a72 -> animateRadar("72")
-            R.id.action_a144 -> animateRadar("144")
-            R.id.action_a3 -> animateRadar("3")
+            R.id.action_a12 -> animateRadar(12)
+            R.id.action_a18 -> animateRadar(18)
+            R.id.action_a6_sm -> animateRadar(6)
+            R.id.action_a -> animateRadar(MyApplication.uiAnimIconFrames.toIntOrNull() ?: 0)
+            R.id.action_a36 -> animateRadar(36)
+            R.id.action_a72 -> animateRadar(72)
+            R.id.action_a144 -> animateRadar(144)
+            R.id.action_a3 -> animateRadar(3)
             R.id.action_fav -> {
                 if (inOglAnim) {
                     inOglAnimPaused = if (!inOglAnimPaused) {
@@ -775,10 +778,10 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         return true
     }
 
-    private fun animateRadar(frameCnt: String) {
+    private fun animateRadar(frameCount: Int) {
         anim.setIcon(MyApplication.ICON_STOP)
         star.setIcon(MyApplication.ICON_PAUSE)
-        getAnimate(frameCnt)
+        getAnimate(frameCount)
     }
 
     private fun changeTilt(tiltStr: String) {
