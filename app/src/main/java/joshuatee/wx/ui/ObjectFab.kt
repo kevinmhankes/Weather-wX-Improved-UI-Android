@@ -23,7 +23,6 @@ package joshuatee.wx.ui
 
 import android.app.Activity
 import android.content.Context
-import android.content.ContextWrapper
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -31,7 +30,6 @@ import android.os.Build
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.core.content.ContextCompat
 import android.view.View
-import android.widget.RemoteViews
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
@@ -45,12 +43,12 @@ class ObjectFab {
 
     constructor(activity: Activity, context: Context, resId: Int) {
         fab = activity.findViewById(resId)
-        setupFAB(context, fab)
+        setupFAB(context)
     }
 
     constructor(activity: Activity, context: Context, resId: Int, fn: View.OnClickListener) {
         fab = activity.findViewById(resId)
-        setupFAB(context, fab)
+        setupFAB(context)
         setOnClickListener(fn)
     }
 
@@ -59,7 +57,13 @@ class ObjectFab {
         setupFAB(context, iconID)
     }
 
-    constructor(activity: Activity, context: Context, resId: Int, iconID: Int, fn: View.OnClickListener) {
+    constructor(
+        activity: Activity,
+        context: Context,
+        resId: Int,
+        iconID: Int,
+        fn: View.OnClickListener
+    ) {
         fab = activity.findViewById(resId)
         setupFAB(context, iconID)
         setOnClickListener(fn)
@@ -103,70 +107,15 @@ class ObjectFab {
         }
     }
 
-    companion object {
-
-        // FIXME move below 2 methods to class methods as opposd to companion
-
-        private fun setupFAB(context: Context, fab: FloatingActionButton) {
-            if (UIPreferences.themeIsWhite) {
-                fab.backgroundTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue_accent))
-            }
-            if (android.os.Build.VERSION.SDK_INT > 20) {
-                fab.elevation = MyApplication.fabElevation
-                fab.translationZ = MyApplication.fabElevationDepressed
-            }
-        }
-
-        fun fabSetResDrawable(context: Context, fab: RemoteViews, ib: Int, resdraw: Int) {
-            val wrappedContext = ContextWrapper(context)
-            val d = ContextCompat.getDrawable(wrappedContext, resdraw)!!
-            val b =
-                Bitmap.createBitmap(d.intrinsicWidth, d.intrinsicHeight, Bitmap.Config.ARGB_8888)
-            val c = Canvas(b)
-            d.setBounds(0, 0, c.width, c.height)
-            d.draw(c)
-            fab.setImageViewBitmap(ib, b)
-        }
-
-        /*fun fabSetResDrawable(context: Context, fab: FloatingActionButton, resdraw: Int) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                fab.setImageDrawable(ContextCompat.getDrawable(context, resdraw))
-            } else {
-                //val d = AppCompatDrawableManager.get().getDrawable(context, resdraw)
-                val d = ContextCompat.getDrawable(context, resdraw)!!
-                val b = Bitmap.createBitmap(
-                    d.intrinsicWidth,
-                    d.intrinsicHeight,
-                    Bitmap.Config.ARGB_8888
-                )
-                val c = Canvas(b)
-                d.setBounds(0, 0, c.width, c.height)
-                d.draw(c)
-                fab.setImageBitmap(b)
-            }
-        }*/
-
-       /* private fun setupFAB(context: Context, fab: FloatingActionButton, icon: Int) {
-            if (UIPreferences.themeIsWhite) fab.backgroundTintList =
+    private fun setupFAB(context: Context) {
+        if (UIPreferences.themeIsWhite) {
+            fab.backgroundTintList =
                     ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue_accent))
-            fabSetResDrawable(context, fab, icon)
-            if (android.os.Build.VERSION.SDK_INT > 20) {
-                fab.elevation = MyApplication.fabElevation
-                fab.translationZ = MyApplication.fabElevationDepressed
-            }
-        }*/
-
-      /*  private fun setupFAB(context: Context, fab: ObjectFab, icon: Int) {
-            if (UIPreferences.themeIsWhite) fab.fab.backgroundTintList =
-                    ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue_accent))
-            fab.fabSetResDrawable(context, icon)
-            if (android.os.Build.VERSION.SDK_INT > 20) {
-                fab.fab.elevation = MyApplication.fabElevation
-                fab.fab.translationZ = MyApplication.fabElevationDepressed
-            }
-        }*/
-
+        }
+        if (android.os.Build.VERSION.SDK_INT > 20) {
+            fab.elevation = MyApplication.fabElevation
+            fab.translationZ = MyApplication.fabElevationDepressed
+        }
     }
 }
 

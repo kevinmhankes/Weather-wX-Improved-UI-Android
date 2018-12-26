@@ -4,6 +4,7 @@
 // TODO refactor nexrad radar to match architecture of wXL23 Metal to remove code duplicity
 // TODO convert to new NavDrawer: USWarningsWith, ModelGeneric, ModelSPCHRRR, SPCCompmap, SPCStormreports, GOES16
 // TODO continued work on ObjectFab
+// TODO in general reduce static methods ( object methods ) in favor of instance methods
 
 55082 2018_12_25
 55081 2018_12_25 [BUG] AWC forecast URLs changed in WPC IMG
