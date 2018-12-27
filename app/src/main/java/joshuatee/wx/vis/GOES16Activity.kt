@@ -54,11 +54,8 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
     private var bitmap = UtilityImg.getBlankBitmap()
     private var firstRun = false
     private var imageLoaded = false
-    //private var productCode = "GEOCOLOR"
     private lateinit var img: TouchImageView2
-    private var imageTitle = ""
     private var animDrawable = AnimationDrawable()
-    //private var imgIdx = 0
     private lateinit var drw: ObjectNavDrawer
     private var sector = "cgl"
     private var oldSector = "cgl"
@@ -93,19 +90,16 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
         activityArguments = intent.getStringArrayExtra(RID)
         drw = ObjectNavDrawer(this, UtilityGOES16.labels, UtilityGOES16.codes)
         readPrefs(this)
-        toolbar.subtitle = imageTitle
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             drw.listView.setItemChecked(position, true)
             drw.drawerLayout.closeDrawer(drw.listView)
-            imageTitle = drw.getLabel(position)
-            //productCode = drw.getToken(position)
-            //imgIdx = position
             drw.index = position
             getContent(sector)
         }
         getContent(sector)
     }
 
+    // FIXME
     private fun getContentFixThis() {
         getContent(sector)
     }
@@ -113,6 +107,7 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
     private fun getContent(sectorF: String) = GlobalScope.launch(uiDispatcher) {
         sector = sectorF
         writePrefs()
+        toolbar.subtitle = drw.getLabel()
         val url = withContext(Dispatchers.IO) { UtilityGOES16.getUrl(drw.getUrl(), sector) }
         bitmap = withContext(Dispatchers.IO) { url.getImage() }
         img.setImageBitmap(bitmap)
@@ -121,7 +116,6 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
             firstRun = true
         }
         imageLoaded = true
-        toolbar.subtitle = drw.getLabel()
         if (oldSector != sector) {
             img.setZoom(1.0f)
             oldSector = sector
@@ -140,30 +134,20 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
 
     private fun writePrefs() {
         if (savePrefs) {
-            Utility.writePref(this, "GOES16_IMG_FAV_TITLE", imageTitle)
             Utility.writePref(this, "GOES16_SECTOR", sector)
-            Utility.writePref(this, "GOES16_PROD", drw.getUrl())
             Utility.writePref(this, "GOES16_IMG_FAV_IDX", drw.index)
         }
     }
 
     private fun readPrefs(context: Context) {
         if (activityArguments.isNotEmpty() && activityArguments[0] == "") {
-            imageTitle = Utility.readPref(
-                context,
-                "GOES16_IMG_FAV_TITLE",
-                UtilityGOES16.labels[0]
-            )
             sector = Utility.readPref(context, "GOES16_SECTOR", sector)
-            //productCode = Utility.readPref(context, "GOES16_PROD", productCode)
             drw.index = Utility.readPref(context, "GOES16_IMG_FAV_IDX", 0)
         } else {
             if (activityArguments.size > 1) {
                 sector = activityArguments[0]
                 drw.index = 9
-                //productCode = activityArguments[1]
                 savePrefs = false
-                imageTitle = "06.9 um (Band 9) Mid-Level Water Vapor - IR"
             }
         }
         oldSector = sector
@@ -207,7 +191,7 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
                             fireScreenCaptureIntent()
                     }
                 } else
-                    UtilityShare.shareText(this, imageTitle, "", bitmap)
+                    UtilityShare.shareText(this, drw.getLabel(), "", bitmap)
             }
             else -> return super.onOptionsItemSelected(item)
         }
@@ -244,24 +228,4 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
         }
         UtilityImgAnim.startAnimation(animDrawable, img)
     }
-
-    /*private fun showNextImg() {
-        drw.index += 1
-        if (drw.index == UtilityGOES16.labels.size) {
-            drw.index = 0
-        }
-        imageTitle = UtilityGOES16.labels[drw.index]
-        productCode = drw.getToken(imgIdx)
-        getContent(sector)
-    }
-
-    private fun showPrevImg() {
-        drw.index -= 1
-        if (drw.index == -1) {
-            drw.index = UtilityGOES16.labels.size - 1
-        }
-        imageTitle = UtilityGOES16.labels[imgIdx]
-        productCode = drw.getToken(imgIdx)
-        getContent(sector)
-    }*/
 }
