@@ -7,7 +7,7 @@
 // TODO convert observations to drawer
 // TODO from main submenu move version to settings and remove local forecast
 
-55085 2018_12_27
+55085 2018_12_27 convert observations to use nav drawer
 55084 2018_12_27 reorg GOES16
 55083 2018_12_26 ObjectFab - rationalize
 55082 2018_12_25 ObjectFab - rationalize
