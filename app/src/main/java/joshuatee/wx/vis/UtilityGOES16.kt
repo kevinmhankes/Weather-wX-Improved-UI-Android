@@ -65,27 +65,7 @@ object UtilityGOES16 {
         )
     }
 
-    /*val labelToCode: Map<String, String> = mapOf(
-        "00 True color daytime, multispectral IR at night" to "GEOCOLOR",
-        "00.47 um (Band 1) Blue - Visible" to "01",
-        "00.64 um (Band 2) Red - Visible" to "02",
-        "00.86 um (Band 3) Veggie - Near IR" to "03",
-        "01.37 um (Band 4) Cirrus - Near IR" to "04",
-        "01.6 um (Band 5) Snow/Ice - Near IR" to "05",
-        "02.2 um (Band 6) Cloud Particle - Near IR" to "06",
-        "03.9 um (Band 7) Shortwave Window - IR" to "07",
-        "06.2 um (Band 8) Upper-Level Water Vapor - IR" to "08",
-        "06.9 um (Band 9) Mid-Level Water Vapor - IR" to "09",
-        "07.3 um (Band 10) Lower-level Water Vapor - IR" to "10",
-        "08.4 um (Band 11) Cloud Top - IR" to "11",
-        "09.6 um (Band 12) Ozone - IR" to "12",
-        "10.3 um (Band 13) Clean Longwave Window - IR" to "13",
-        "11.2 um (Band 14) Longwave Window - IR" to "14",
-        "12.3 um (Band 15) Dirty Longwave Window - IR" to "15",
-        "13.3 um (Band 16) CO2 Longwave - IR" to "16"
-    )*/
-
-    val labels = listOf(
+    val labels: List<String> = listOf(
         "00 True color daytime, multispectral IR at night",
         "00.47 um (Band 1) Blue - Visible",
         "00.64 um (Band 2) Red - Visible",
@@ -105,7 +85,7 @@ object UtilityGOES16 {
         "13.3 um (Band 16) CO2 Longwave - IR"
     )
 
-    val codes = listOf(
+    val codes: List<String> = listOf(
         "GEOCOLOR",
         "01",
         "02",
