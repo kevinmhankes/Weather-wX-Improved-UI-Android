@@ -85,10 +85,10 @@
         app:showAsAction="never"
         android:title="@string/label_spotters"/>
 
-    <item
+    <!--<item
         android:id="@+id/action_forecast_webpage"
         app:showAsAction="never"
-        android:title="Local forecast webpage"/>
+        android:title="Local forecast webpage"/>-->
 
     <item
         android:id="@+id/action_settings"
@@ -102,10 +102,10 @@
         app:showAsAction="never"
         android:title="@string/help_menu_item"/>
 
-    <item
+  <!--  <item
         android:id="@+id/action_about"
         android:orderInCategory="100"
         app:showAsAction="never"
-        android:title="@string/action_about"/>
+        android:title="@string/action_about"/>-->
 
 </menu>

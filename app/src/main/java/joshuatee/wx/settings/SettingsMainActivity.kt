@@ -36,11 +36,8 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.ui.UtilityTheme
-import joshuatee.wx.util.UtilityFileManagement
-import joshuatee.wx.util.UtilityLog
-import joshuatee.wx.util.UtilityMath
 import joshuatee.wx.ui.UtilityUI
-import joshuatee.wx.util.Utility
+import joshuatee.wx.util.*
 
 class SettingsMainActivity : BaseActivity() {
 
@@ -59,6 +56,7 @@ class SettingsMainActivity : BaseActivity() {
         }
         toolbar.subtitle = "version: $vers, Please tap on text for additional help."
         val linearLayout: LinearLayout = findViewById(R.id.ll)
+        val cardAbout = ObjectCardText(this, "About wX", MyApplication.textSizeNormal)
         val cardLocations = ObjectCardText(this, "Locations", MyApplication.textSizeNormal)
         val cardNotif = ObjectCardText(this, "Notifications", MyApplication.textSizeNormal)
         val cardWidgets = ObjectCardText(this, "Widgets", MyApplication.textSizeNormal)
@@ -133,6 +131,15 @@ class SettingsMainActivity : BaseActivity() {
                 "Deleted old radar files: " + UtilityFileManagement.deleteCacheFiles(contextg)
             )
         })
+        cardAbout.setOnClickListener(View.OnClickListener {
+            ObjectIntent(
+                contextg,
+                TextScreenActivity::class.java,
+                TextScreenActivity.URL,
+                arrayOf(UtilityMath.cToFTable(), UtilityAlertDialog.showVersion(this, this))
+            )
+        })
+        linearLayout.addView(cardAbout.card)
         linearLayout.addView(cardLocations.card)
         linearLayout.addView(cardNotif.card)
         linearLayout.addView(cardWidgets.card)
