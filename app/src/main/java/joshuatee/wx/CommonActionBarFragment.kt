@@ -92,15 +92,6 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                     helpMi.title = helpStr
                 }
             }
-          /*  R.id.action_forecast_webpage -> ObjectIntent(
-                this,
-                WebscreenABModels::class.java,
-                WebscreenABModels.URL,
-                arrayOf(
-                    "http://forecast.weather.gov/MapClick.php?lon=" + Location.latLon.lonString + "&lat=" + Location.latLon.latString,
-                    "Local forecast"
-                )
-            )*/
             R.id.action_alert -> {
                 if (MyApplication.helpMode) {
                     showHelpCAB(item.itemId)
@@ -237,7 +228,6 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                     }
                 }
             }
-            R.id.action_about -> UtilityAlertDialog.showVersion(this, this)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

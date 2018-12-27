@@ -136,7 +136,7 @@ class SettingsMainActivity : BaseActivity() {
                 contextg,
                 TextScreenActivity::class.java,
                 TextScreenActivity.URL,
-                arrayOf(UtilityMath.cToFTable(), UtilityAlertDialog.showVersion(this, this))
+                arrayOf(UtilityAlertDialog.showVersion(this, this), "About wX")
             )
         })
         linearLayout.addView(cardAbout.card)
