@@ -70,7 +70,7 @@ object UtilityDownload {
                     Utility.readPref(context, "GOES16_PROD", "02"),
                     Utility.readPref(context, "GOES16_SECTOR", "cgl")
                 )
-                bm = urlGoes16[0].getImage()
+                bm = urlGoes16.getImage()
             }
             "VIS_1KM", "VIS_MAIN" -> {
                 needsBitmap = false
@@ -94,7 +94,7 @@ object UtilityDownload {
             }
             "VIS_CONUS" -> {
                 needsBitmap = false
-                bm = UtilityGOES16.getUrl("02", "CONUS")[0].getImage()
+                bm = UtilityGOES16.getUrl("02", "CONUS").getImage()
             }
             "FMAP" -> url = "${MyApplication.nwsWPCwebsitePrefix}/noaa/noaa.gif"
             "FMAP12" -> url = "${MyApplication.nwsWPCwebsitePrefix}/basicwx/92fwbg.gif"
@@ -227,7 +227,7 @@ object UtilityDownload {
             }
             "CONUSWV" -> {
                 needsBitmap = false
-                bm = UtilityGOES16.getUrl("09", "CONUS")[0].getImage()
+                bm = UtilityGOES16.getUrl("09", "CONUS").getImage()
             }
             "LTG" -> {
                 needsBitmap = false

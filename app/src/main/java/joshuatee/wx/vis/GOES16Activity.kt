@@ -60,7 +60,7 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
     private var animDrawable = AnimationDrawable()
     private var imgIdx = 0
     private lateinit var drw: ObjectNavDrawer
-    private var productCodes = mutableListOf<String>()
+    //private var productCodes = mutableListOf<String>()
     private var sector = "cgl"
     private var oldSector = "cgl"
     private var savePrefs = true
@@ -94,10 +94,10 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
         activityArguments = intent.getStringArrayExtra(RID)
         readPrefs(this)
         toolbar.subtitle = imageTitle
-        UtilityGOES16.labelToCode.keys.sorted().forEach {
-            productCodes.add(UtilityGOES16.labelToCode[it] ?: "")
-        }
-        drw = ObjectNavDrawer(this, UtilityGOES16.labelToCode.keys.sorted(), productCodes)
+        //UtilityGOES16.labels.forEach {
+        //    productCodes.add(UtilityGOES16.labelToCode[it] ?: "")
+        //}
+        drw = ObjectNavDrawer(this, UtilityGOES16.labels, UtilityGOES16.codes)
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             drw.listView.setItemChecked(position, true)
             drw.drawerLayout.closeDrawer(drw.listView)
@@ -112,8 +112,8 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
     private fun getContent(sectorF: String) = GlobalScope.launch(uiDispatcher) {
         sector = sectorF
         writePrefs()
-        val urlAndTime = withContext(Dispatchers.IO) { UtilityGOES16.getUrl(productCode, sector) }
-        bitmap = withContext(Dispatchers.IO) { urlAndTime[0].getImage() }
+        val url = withContext(Dispatchers.IO) { UtilityGOES16.getUrl(productCode, sector) }
+        bitmap = withContext(Dispatchers.IO) { url.getImage() }
         img.setImageBitmap(bitmap)
         if (!firstRun) {
             img.setZoom("GOES16_IMG")
@@ -151,7 +151,7 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
             imageTitle = Utility.readPref(
                 context,
                 "GOES16_IMG_FAV_TITLE",
-                UtilityGOES16.labelToCode.keys.sorted()[0]
+                UtilityGOES16.labels[0]
             )
             sector = Utility.readPref(context, "GOES16_SECTOR", sector)
             productCode = Utility.readPref(context, "GOES16_PROD", productCode)
@@ -245,10 +245,10 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
 
     private fun showNextImg() {
         imgIdx += 1
-        if (imgIdx == UtilityGOES16.labelToCode.size) {
+        if (imgIdx == UtilityGOES16.labels.size) {
             imgIdx = 0
         }
-        imageTitle = UtilityGOES16.labelToCode.keys.sorted()[imgIdx]
+        imageTitle = UtilityGOES16.labels[imgIdx]
         productCode = drw.getToken(imgIdx)
         getContent(sector)
     }
@@ -256,9 +256,9 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
     private fun showPrevImg() {
         imgIdx -= 1
         if (imgIdx == -1) {
-            imgIdx = UtilityGOES16.labelToCode.size - 1
+            imgIdx = UtilityGOES16.labels.size - 1
         }
-        imageTitle = UtilityGOES16.labelToCode.keys.sorted()[imgIdx]
+        imageTitle = UtilityGOES16.labels[imgIdx]
         productCode = drw.getToken(imgIdx)
         getContent(sector)
     }
