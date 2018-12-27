@@ -46,13 +46,13 @@ object UtilityGOES16 {
         context: Context,
         product: String,
         sector: String,
-        frameCnt: Int
+        frameCount: Int
     ): AnimationDrawable {
-        val frameCount = frameCnt.toString()
+        val frameCountString = frameCount.toString()
         val url = when (sector) {
-            "FD" -> "https://www.star.nesdis.noaa.gov/GOES/GOES16_FullDisk_Band.php?band=$product&length=$frameCount"
-            "CONUS" -> "https://www.star.nesdis.noaa.gov/GOES/GOES16_CONUS_Band.php?band=$product&length=$frameCount"
-            else -> "https://www.star.nesdis.noaa.gov/GOES/GOES16_sector_band.php?sector=$sector&band=$product&length=$frameCount"
+            "FD" -> "https://www.star.nesdis.noaa.gov/GOES/GOES16_FullDisk_Band.php?band=$product&length=$frameCountString"
+            "CONUS" -> "https://www.star.nesdis.noaa.gov/GOES/GOES16_CONUS_Band.php?band=$product&length=$frameCountString"
+            else -> "https://www.star.nesdis.noaa.gov/GOES/GOES16_sector_band.php?sector=$sector&band=$product&length=$frameCountString"
         }
         val html = url.getHtml().replace("\n", "").replace("\r", "")
         val imageHtml = html.parse("animationImages = \\[(.*?)\\];")
