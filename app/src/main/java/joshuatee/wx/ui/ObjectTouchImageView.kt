@@ -57,6 +57,8 @@ class ObjectTouchImageView {
         if (prefTokenIdx != "") {
             Utility.writePref(context, prefTokenIdx, drw.index)
         }
+        // FIXME implement
+        // firstRunSetZoomPosn()
     }
 
     fun setImageDrawable(animDrawable: AnimationDrawable) {
