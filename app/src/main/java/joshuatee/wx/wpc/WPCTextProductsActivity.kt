@@ -121,7 +121,9 @@ class WPCTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
             this,
             UtilityWPCText.groups,
             UtilityWPCText.longCodes,
-            UtilityWPCText.shortCodes
+            UtilityWPCText.shortCodes,
+            this,
+            ""
         )
         drw.listView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
             drw.drawerLayout.closeDrawer(drw.listView)

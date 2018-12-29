@@ -222,7 +222,9 @@ class SPCMesoActivity : VideoRecordActivity(), OnClickListener, OnMenuItemClickL
             this,
             UtilitySPCMESO.groups,
             UtilitySPCMESO.longCodes,
-            UtilitySPCMESO.shortCodes
+            UtilitySPCMESO.shortCodes,
+            this,
+            ""
         )
         drw.listView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
             drw.drawerLayout.closeDrawer(drw.listView)
