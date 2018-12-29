@@ -88,7 +88,9 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
         }
         img.setBitmap(bitmap)
         img.resetZoom()
+        // FIXME encapsulate on object
         firstRun = img.firstRunSetZoomPosn(firstRun, "OBS")
+        // FIXME encapsulate in object in setBitmap, must have prefTokenIdx in constructor
         Utility.writePref(contextg, prefTokenIdx, drw.index)
     }
 
