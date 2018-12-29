@@ -74,40 +74,42 @@ class ObjectTouchImageView {
     }
 
     fun imgSavePosnZoom(context: Context, prefStr: String) {
-        val poi = img.scrollPosition
-        var z = img.currentZoom
-        if (poi != null) {
-            var x = poi.x
-            var y = poi.y
-            if (x.isNaN()) x = 1.0f
-            if (y.isNaN()) y = 1.0f
-            if (z.isNaN()) z = 1.0f
-            Utility.writePref(context, prefStr + "_X", x)
-            Utility.writePref(context, prefStr + "_Y", y)
-            Utility.writePref(context, prefStr + "_ZOOM", z)
-            when (prefStr) {
-                "SPCHRRR" -> {
-                    MyApplication.spchrrrZoom = z
-                    MyApplication.spchrrrX = x
-                    MyApplication.spchrrrY = y
-                }
-                "SPCSSEO" -> {
-                    MyApplication.spcsseoZoom = z
-                    MyApplication.spcsseoX = x
-                    MyApplication.spcsseoY = y
-                }
-                "GOESVIS" -> {
-                    MyApplication.goesVisZoom = z
-                    MyApplication.goesVisX = x
-                    MyApplication.goesVisY = y
-                }
-                // FIXME
-                "WPCGEFS1" -> {
-                    MyApplication.wpcgefsZoom = z
-                    MyApplication.wpcgefsX = x
-                    MyApplication.wpcgefsY = y
-                }
-                else -> {
+        if (imageLoaded) {
+            val poi = img.scrollPosition
+            var z = img.currentZoom
+            if (poi != null) {
+                var x = poi.x
+                var y = poi.y
+                if (x.isNaN()) x = 1.0f
+                if (y.isNaN()) y = 1.0f
+                if (z.isNaN()) z = 1.0f
+                Utility.writePref(context, prefStr + "_X", x)
+                Utility.writePref(context, prefStr + "_Y", y)
+                Utility.writePref(context, prefStr + "_ZOOM", z)
+                when (prefStr) {
+                    "SPCHRRR" -> {
+                        MyApplication.spchrrrZoom = z
+                        MyApplication.spchrrrX = x
+                        MyApplication.spchrrrY = y
+                    }
+                    "SPCSSEO" -> {
+                        MyApplication.spcsseoZoom = z
+                        MyApplication.spcsseoX = x
+                        MyApplication.spcsseoY = y
+                    }
+                    "GOESVIS" -> {
+                        MyApplication.goesVisZoom = z
+                        MyApplication.goesVisX = x
+                        MyApplication.goesVisY = y
+                    }
+                    // FIXME
+                    "WPCGEFS1" -> {
+                        MyApplication.wpcgefsZoom = z
+                        MyApplication.wpcgefsX = x
+                        MyApplication.wpcgefsY = y
+                    }
+                    else -> {
+                    }
                 }
             }
         }

@@ -51,7 +51,6 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
     private lateinit var img: ObjectTouchImageView
     private var bitmap = UtilityImg.getBlankBitmap()
     private var firstRun = false
-    private var imageLoaded = false
     private val prefTokenIdx = "SFC_OBS_IMG_IDX"
     private lateinit var contextg: Context
     private lateinit var drw: ObjectNavDrawer
@@ -67,18 +66,9 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
         )
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)
+        drw = ObjectNavDrawer(this, UtilityObservations.labels, UtilityObservations.urls)
         img = ObjectTouchImageView(this, R.id.iv)
         img.setListener(this, drw, ::getContentFixThis)
-        /* img.setOnTouchListener(object : OnSwipeTouchListener(this) {
-             override fun onSwipeLeft() {
-                 if (img.currentZoom < 1.01f) UtilityImg.showNextImg(drw, ::getContentFixThis)
-             }
-
-             override fun onSwipeRight() {
-                 if (img.currentZoom < 1.01f) UtilityImg.showPrevImg(drw, ::getContentFixThis)
-             }
-         })*/
-        drw = ObjectNavDrawer(this, UtilityObservations.labels, UtilityObservations.urls)
         drw.index = Utility.readPref(this, prefTokenIdx, 0)
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             drw.listView.setItemChecked(position, false)
@@ -105,7 +95,6 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
         img.setBitmap(bitmap)
         img.resetZoom()
         firstRun = img.firstRunSetZoomPosn(firstRun, "OBS")
-        imageLoaded = true
         Utility.writePref(contextg, prefTokenIdx, drw.index)
     }
 
@@ -151,9 +140,7 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
     }
 
     override fun onStop() {
-        if (imageLoaded) {
-            img.imgSavePosnZoom(this, "OBS")
-        }
+        img.imgSavePosnZoom(this, "OBS")
         super.onStop()
     }
 }
