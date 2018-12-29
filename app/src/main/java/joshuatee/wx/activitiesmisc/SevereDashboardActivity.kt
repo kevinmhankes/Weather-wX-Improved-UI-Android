@@ -82,12 +82,10 @@ class SevereDashboardActivity : BaseActivity() {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-
         val bitmapArrRep = mutableListOf<Bitmap>()
         val snWat = SevereNotice(PolygonType.WATCH)
         val snMcd = SevereNotice(PolygonType.MCD)
         val snMpd = SevereNotice(PolygonType.MPD)
-
         linearLayout.removeAllViews()
         val wTor = SevereWarning(PolygonType.TOR)
         val wTst = SevereWarning(PolygonType.TST)
@@ -110,14 +108,12 @@ class SevereDashboardActivity : BaseActivity() {
             objFfw.setOnClickListener(View.OnClickListener { tvWarnClicked(".*?Flash Flood Warning.*?") })
             linearLayout.addView(objFfw.card)
         }
-
         withContext(Dispatchers.IO) {
             snMcd.getBitmaps(MyApplication.severeDashboardMcd.valueGet())
             snWat.getBitmaps(MyApplication.severeDashboardWat.valueGet())
             snMpd.getBitmaps(MyApplication.severeDashboardMpd.valueGet())
             bitmapArrRep.add((UtilitySPC.getStormReportsTodayUrl()).getImage())
         }
-
         if (bitmapArrRep.size > 0) {
             bitmapArrRep.indices.forEach { it ->
                 val card = ObjectCardImage(contextg, bitmapArrRep[it])

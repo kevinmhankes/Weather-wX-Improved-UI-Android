@@ -162,13 +162,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             this,
             ""
         )
-        drw.listView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
-            drw.drawerLayout.closeDrawer(drw.listView)
-            om.displayData.param[om.curImg] = drw.getToken(groupPosition, childPosition)
-            om.displayData.paramLabel[om.curImg] = drw.getLabel(groupPosition, childPosition)
-            refreshSpinner()
-            true
-        }
+        drw.setListener(::refreshSpinner)
         getRunStatus()
     }
 
@@ -186,10 +180,6 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             star.setIcon(MyApplication.STAR_ICON)
         else
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        //runStr = UtilityStringExternal.truncate(om.spTime.selectedItem.toString(), 4)
-        //if (spRun.list.size > 0) {
-        //    runModelStr = MyApplication.space.split(spRun.selectedItem.toString().replace("z", ""))[0]
-        //}
         om.run = spRun.selectedItem.toString()
         om.time = om.spTime.selectedItem.toString()
         if (om.truncateTime) {
@@ -437,6 +427,8 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     }
 
     private fun refreshSpinner() {
+        om.displayData.param[om.curImg] = drw.getUrl()
+        om.displayData.paramLabel[om.curImg] = drw.getLabel()
         favList = UtilityFavorites.setupFavMenuSREF(
             MyApplication.srefFav,
             om.displayData.param[om.curImg]

@@ -507,7 +507,8 @@ class SPCMesoActivity : VideoRecordActivity(), OnClickListener, OnMenuItemClickL
 
     private fun setAndLaunchSector(sectorNo: String) {
         displayData.img[0].resetZoom()
-        if (numPanes > 1) displayData.img[1].resetZoom()
+        if (numPanes > 1)
+            displayData.img[1].resetZoom()
         sector = sectorNo
         Utility.writePref(this, prefSector, sector)
         getContent()
