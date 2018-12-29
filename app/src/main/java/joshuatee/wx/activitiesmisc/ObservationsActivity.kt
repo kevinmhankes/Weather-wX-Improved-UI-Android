@@ -34,10 +34,7 @@ import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.R
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.ui.ObjectNavDrawer
-import joshuatee.wx.ui.OnSwipeTouchListener
-import joshuatee.wx.ui.TouchImageView2
-import joshuatee.wx.ui.UtilityToolbar
+import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
@@ -51,7 +48,7 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private lateinit var img: TouchImageView2
+    private lateinit var img: ObjectTouchImageView
     private var bitmap = UtilityImg.getBlankBitmap()
     private var firstRun = false
     private var imageLoaded = false
@@ -70,16 +67,17 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
         )
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)
-        img = findViewById(R.id.iv)
-        img.setOnTouchListener(object : OnSwipeTouchListener(this) {
-            override fun onSwipeLeft() {
-                if (img.currentZoom < 1.01f) UtilityImg.showNextImg(drw, ::getContentFixThis)
-            }
+        img = ObjectTouchImageView(this, R.id.iv)
+        img.setListener(this, drw, ::getContentFixThis)
+        /* img.setOnTouchListener(object : OnSwipeTouchListener(this) {
+             override fun onSwipeLeft() {
+                 if (img.currentZoom < 1.01f) UtilityImg.showNextImg(drw, ::getContentFixThis)
+             }
 
-            override fun onSwipeRight() {
-                if (img.currentZoom < 1.01f) UtilityImg.showPrevImg(drw, ::getContentFixThis)
-            }
-        })
+             override fun onSwipeRight() {
+                 if (img.currentZoom < 1.01f) UtilityImg.showPrevImg(drw, ::getContentFixThis)
+             }
+         })*/
         drw = ObjectNavDrawer(this, UtilityObservations.labels, UtilityObservations.urls)
         drw.index = Utility.readPref(this, prefTokenIdx, 0)
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -104,9 +102,9 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
         } else {
             img.setMaxZoom(4f)
         }
-        img.setImageBitmap(bitmap)
+        img.setBitmap(bitmap)
         img.resetZoom()
-        firstRun = UtilityImg.firstRunSetZoomPosn(firstRun, img, "OBS")
+        firstRun = img.firstRunSetZoomPosn(firstRun, "OBS")
         imageLoaded = true
         Utility.writePref(contextg, prefTokenIdx, drw.index)
     }
@@ -154,7 +152,7 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
 
     override fun onStop() {
         if (imageLoaded) {
-            UtilityImg.imgSavePosnZoom(this, img, "OBS")
+            img.imgSavePosnZoom(this, "OBS")
         }
         super.onStop()
     }
