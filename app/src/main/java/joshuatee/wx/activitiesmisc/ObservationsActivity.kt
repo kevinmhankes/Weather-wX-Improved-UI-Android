@@ -49,7 +49,6 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var img: ObjectTouchImageView
     private var bitmap = UtilityImg.getBlankBitmap()
-    private var firstRun = false
     private val prefTokenIdx = "SFC_OBS_IMG_IDX"
     private lateinit var contextg: Context
     private lateinit var drw: ObjectNavDrawer
@@ -67,7 +66,7 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
         title = "Observations"
         toolbarBottom.setOnMenuItemClickListener(this)
         drw = ObjectNavDrawer(this, UtilityObservations.labels, UtilityObservations.urls)
-        img = ObjectTouchImageView(this, R.id.iv)
+        img = ObjectTouchImageView(this, this, R.id.iv, drw, prefTokenIdx)
         img.setListener(this, drw, ::getContentFixThis)
         drw.index = Utility.readPref(this, prefTokenIdx, 0)
         drw.setListener(::getContentFixThis)
@@ -88,10 +87,7 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
         }
         img.setBitmap(bitmap)
         img.resetZoom()
-        // FIXME encapsulate on object
-        firstRun = img.firstRunSetZoomPosn(firstRun, "OBS")
-        // FIXME encapsulate in object in setBitmap, must have prefTokenIdx in constructor
-        Utility.writePref(contextg, prefTokenIdx, drw.index)
+        img.firstRunSetZoomPosn("OBS")
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

@@ -24,6 +24,7 @@ package joshuatee.wx.ui
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.AnimationDrawable
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityImg
@@ -31,17 +32,35 @@ import joshuatee.wx.util.UtilityImg
 class ObjectTouchImageView {
 
     private var img: TouchImageView2
-    // FIXME use this in onstop
+    private val context: Context
     var imageLoaded: Boolean = false
+    var firstRun: Boolean = false
+    var prefTokenIdx = ""
+    val drw: ObjectNavDrawer
 
-    constructor(activity: Activity, resid: Int) {
+    constructor(
+        activity: Activity,
+        context: Context,
+        resid: Int,
+        drw: ObjectNavDrawer,
+        prefTokenIdx: String
+    ) {
         img = activity.findViewById(resid)
-
+        this.context = context
+        this.drw = drw
+        this.prefTokenIdx = prefTokenIdx
     }
 
     fun setBitmap(bitmap: Bitmap) {
         img.setImageBitmap(bitmap)
         imageLoaded = true
+        if (prefTokenIdx != "") {
+            Utility.writePref(context, prefTokenIdx, drw.index)
+        }
+    }
+
+    fun setImageDrawable(animDrawable: AnimationDrawable) {
+        img.setImageDrawable(animDrawable)
     }
 
     fun resetZoom() {
@@ -50,6 +69,10 @@ class ObjectTouchImageView {
 
     fun setMaxZoom(zoom: Float) {
         img.setMaxZoom(zoom)
+    }
+
+    fun setZoom(zoom: Float) {
+        img.setZoom(zoom)
     }
 
     fun setListener(context: Context, drw: ObjectNavDrawer, fn: () -> Unit) {
@@ -64,13 +87,11 @@ class ObjectTouchImageView {
         })
     }
 
-    fun firstRunSetZoomPosn(firstRunF: Boolean, pref: String): Boolean {
-        var firstRun = firstRunF
+    fun firstRunSetZoomPosn(pref: String) {
         if (!firstRun) {
             img.setZoom(pref)
             firstRun = true
         }
-        return firstRun
     }
 
     fun imgSavePosnZoom(context: Context, prefStr: String) {
