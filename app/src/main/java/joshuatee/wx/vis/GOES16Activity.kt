@@ -72,6 +72,7 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
         activityArguments = intent.getStringArrayExtra(RID)
         drw = ObjectNavDrawer(this, UtilityGOES16.labels, UtilityGOES16.codes)
         img = ObjectTouchImageView(this, this, R.id.iv, drw, "")
+        img.setOnClickListener(this)
         img.setMaxZoom(8f)
         img.setListener(this, drw, ::getContentFixThis)
         readPrefs(this)

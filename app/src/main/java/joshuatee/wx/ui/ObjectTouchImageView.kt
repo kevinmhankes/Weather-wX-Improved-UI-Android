@@ -25,6 +25,7 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
+import android.view.View
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityImg
@@ -36,7 +37,16 @@ class ObjectTouchImageView {
     var imageLoaded: Boolean = false
     var firstRun: Boolean = false
     var prefTokenIdx = ""
-    val drw: ObjectNavDrawer
+    var drw: ObjectNavDrawer? = null
+
+    constructor(
+        activity: Activity,
+        context: Context,
+        resid: Int
+    ) {
+        img = activity.findViewById(resid)
+        this.context = context
+    }
 
     constructor(
         activity: Activity,
@@ -54,11 +64,15 @@ class ObjectTouchImageView {
     fun setBitmap(bitmap: Bitmap) {
         img.setImageBitmap(bitmap)
         imageLoaded = true
-        if (prefTokenIdx != "") {
-            Utility.writePref(context, prefTokenIdx, drw.index)
+        if (prefTokenIdx != "" && drw != null) {
+            Utility.writePref(context, prefTokenIdx, drw!!.index)
         }
         // FIXME implement
         // firstRunSetZoomPosn()
+    }
+
+    fun setOnClickListener(listener: View.OnClickListener) {
+        img.setOnClickListener(listener)
     }
 
     fun setImageDrawable(animDrawable: AnimationDrawable) {
