@@ -9,6 +9,7 @@
 
 55088 2018_12_29 WPC Text and SPC SREF , optimize on ObjectNavDrawerCombo
                  [BUG] NSSL WRF was not checking for string size in getImg
+                 add ObjectRecyclerView
 55087 2018_12_29 ObjectTouchImageView and enhance ObjectNavDrawerCombo
 55086 2018_12_28 [BUG] crash on main screen conditions icon
 55085 2018_12_27 convert observations,mosaic to use nav drawer

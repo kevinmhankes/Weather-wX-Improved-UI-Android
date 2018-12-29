@@ -39,7 +39,7 @@ class SettingsPlaylistAutodownloadActivity : BaseActivity() {
 
     private var currHr: Int = 0
     private var currMin: Int = 0
-    private var ridArr = listOf<String>()
+    private var ridArr = mutableListOf<String>()
     private var ridFav = ""
     private val tokenSep = "T"
     private val prefToken = "PLAYLIST_AUTODOWNLOAD_TIMES"
@@ -82,7 +82,7 @@ class SettingsPlaylistAutodownloadActivity : BaseActivity() {
     }
 
     private fun updateList() {
-        ridArr = ridFav.split(tokenSep.toRegex()).dropLastWhile { it.isEmpty() }
+        ridArr = ridFav.split(tokenSep.toRegex()).dropLastWhile { it.isEmpty() }.toMutableList()
     }
 
     private fun deleteFAB() {

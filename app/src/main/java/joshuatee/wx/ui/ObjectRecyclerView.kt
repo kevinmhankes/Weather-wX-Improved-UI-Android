@@ -31,13 +31,13 @@ import joshuatee.wx.R
 class ObjectRecyclerView {
 
     var recyclerView: RecyclerView
-    var ca: SingleTextAdapter
+    var ca: SingleTextAdapterList
 
     constructor(
         context: Context,
         activity: Activity,
         resid: Int,
-        list: List<String>,
+        list: MutableList<String>,
         fn: (Int) -> Unit
     ) {
         recyclerView = activity.findViewById(resid)
@@ -45,9 +45,9 @@ class ObjectRecyclerView {
         val llm = LinearLayoutManager(context)
         llm.orientation = RecyclerView.VERTICAL
         recyclerView.layoutManager = llm
-        ca = SingleTextAdapter(list)
+        ca = SingleTextAdapterList(list)
         recyclerView.adapter = ca
-        ca.setOnItemClickListener(object : SingleTextAdapter.MyClickListener {
+        ca.setOnItemClickListener(object : SingleTextAdapterList.MyClickListener {
             override fun onItemClick(position: Int) {
                 fn(position)
             }
@@ -55,9 +55,29 @@ class ObjectRecyclerView {
 
     }
 
-    fun refreshList(list: List<String>) {
-        ca = SingleTextAdapter(list)
+    fun refreshList(list: MutableList<String>) {
+        ca = SingleTextAdapterList(list)
         recyclerView.adapter = ca
+    }
+
+    fun notifyDataSetChanged() {
+        ca.notifyDataSetChanged()
+    }
+
+    fun setItem(index: Int, str: String) {
+        ca.setItem(index, str)
+    }
+
+    fun getItem(index: Int): String {
+        return ca.getItem(index)
+    }
+
+    fun deleteItem(index: Int) {
+        ca.deleteItem(index)
+    }
+
+    override fun toString(): String {
+        return ca.toString()
     }
 }
 

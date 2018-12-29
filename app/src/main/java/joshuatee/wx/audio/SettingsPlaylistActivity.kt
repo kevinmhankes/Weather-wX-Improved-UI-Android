@@ -119,6 +119,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         toolbar.subtitle = actionMode.getDescription()
         ridFav = Utility.readPref(this, prefToken, "")
         updateList()
+
         val recyclerView: RecyclerView = findViewById(R.id.card_list)
         recyclerView.setHasFixedSize(true)
         val llm = LinearLayoutManager(this)
@@ -131,6 +132,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
                 prodClicked(position)
             }
         })
+
     }
 
     private fun updateList() {
