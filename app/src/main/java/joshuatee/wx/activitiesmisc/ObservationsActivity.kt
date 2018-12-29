@@ -64,18 +64,13 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
             true
         )
         contextg = this
+        title = "Observations"
         toolbarBottom.setOnMenuItemClickListener(this)
         drw = ObjectNavDrawer(this, UtilityObservations.labels, UtilityObservations.urls)
         img = ObjectTouchImageView(this, R.id.iv)
         img.setListener(this, drw, ::getContentFixThis)
         drw.index = Utility.readPref(this, prefTokenIdx, 0)
         drw.setListener(::getContentFixThis)
-        /*drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            drw.listView.setItemChecked(position, false)
-            drw.drawerLayout.closeDrawer(drw.listView)
-            drw.index = position
-            getContent()
-        }*/
         getContent()
     }
 
@@ -84,7 +79,6 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        title = "Observations"
         toolbar.subtitle = drw.getLabel()
         bitmap = withContext(Dispatchers.IO) { drw.getUrl().getImage() }
         if (drw.getUrl().contains("large_latestsfc.gif")) {
