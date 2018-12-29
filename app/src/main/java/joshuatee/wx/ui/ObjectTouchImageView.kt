@@ -32,7 +32,7 @@ import joshuatee.wx.util.UtilityImg
 
 class ObjectTouchImageView {
 
-    private var img: TouchImageView2
+    var img: TouchImageView2
     private val context: Context
     var imageLoaded: Boolean = false
     var firstRun: Boolean = false
