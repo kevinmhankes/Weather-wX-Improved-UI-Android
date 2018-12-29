@@ -73,6 +73,16 @@ class ObjectNavDrawerCombo(
     fun getUrl(): String = getToken(imgGroupIdx, imgIdx)
 
     fun getLabel(): String = getLabel(imgGroupIdx, imgIdx)
+
+    fun setListener(fn: () -> Unit) {
+        listView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
+            drawerLayout.closeDrawer(listView)
+            imgIdx = childPosition
+            imgGroupIdx = groupPosition
+            fn()
+            true
+        }
+    }
 }
 
 

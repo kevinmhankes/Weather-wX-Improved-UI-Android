@@ -5,8 +5,9 @@
 // TODO convert to new NavDrawer: USWarningsWith, ModelGeneric, ModelSPCHRRR, SPCCompmap, SPCStormreports, GOES16
 // TODO in general reduce static methods ( object methods ) in favor of instance methods
 // TODO check image activities for this img.setOnClickListener(this) to show/hide toolbar
+// TODO  look at wpc img and spc meso for optimizations around nav drawer combo
 
-55087 2018_12_28
+55087 2018_12_29 ObjectTouchImageView and enhance ObjectNavDrawerCombo
 55086 2018_12_28 [BUG] crash on main screen conditions icon
 55085 2018_12_27 convert observations,mosaic to use nav drawer
                  remove local forecast item from main menu
