@@ -25,8 +25,6 @@ import android.app.Activity
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import joshuatee.wx.R
-
 
 class ObjectRecyclerViewGeneric {
 
@@ -46,34 +44,8 @@ class ObjectRecyclerViewGeneric {
     }
 
     fun scrollToPosition(position: Int) {
-        // FIXME smooth scroll?
         recyclerView.scrollToPosition(position)
     }
-
-   /* fun refreshList(list: MutableList<String>) {
-        ca = SingleTextAdapterList(list)
-        recyclerView.adapter = ca
-    }
-
-    fun notifyDataSetChanged() {
-        ca.notifyDataSetChanged()
-    }
-
-    fun setItem(index: Int, str: String) {
-        ca.setItem(index, str)
-    }
-
-    fun getItem(index: Int): String {
-        return ca.getItem(index)
-    }
-
-    fun deleteItem(index: Int) {
-        ca.deleteItem(index)
-    }
-
-    override fun toString(): String {
-        return ca.toString()
-    }*/
 }
 
 
