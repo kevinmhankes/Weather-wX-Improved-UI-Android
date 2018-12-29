@@ -27,7 +27,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.Extensions.getImage
 
@@ -70,12 +69,13 @@ class ObservationsActivity : VideoRecordActivity(), View.OnClickListener,
         img = ObjectTouchImageView(this, R.id.iv)
         img.setListener(this, drw, ::getContentFixThis)
         drw.index = Utility.readPref(this, prefTokenIdx, 0)
-        drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+        drw.setListener(::getContentFixThis)
+        /*drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             drw.listView.setItemChecked(position, false)
             drw.drawerLayout.closeDrawer(drw.listView)
             drw.index = position
             getContent()
-        }
+        }*/
         getContent()
     }
 
