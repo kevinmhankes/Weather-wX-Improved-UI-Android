@@ -36,7 +36,6 @@ import android.widget.TextView
 import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.objects.PolygonType
-import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectCardImage
@@ -44,7 +43,6 @@ import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityLog
-import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.UtilityShare
 
 import joshuatee.wx.Extensions.*
@@ -231,22 +229,15 @@ class SPCMCDWShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener 
         val itemStr = item.title.toString()
         (0 until wfos.size - 1)
             .filter { itemStr.contains(wfos[it]) }
-            .forEach { saveLocation(wfos[it]) }
+            .forEach {
+                UtilityLocation.saveLocationForMcd(
+                    wfos[it],
+                    contextg,
+                    linearLayout,
+                    uiDispatcher
+                )
+            }
         return true
-    }
-
-    private fun saveLocation(nwsOffice: String) = GlobalScope.launch(uiDispatcher) {
-        var toastStr = ""
-        withContext(Dispatchers.IO) {
-            // FIXME can this method be in common with WPC and other SPC?
-            val locNumIntCurrent = Location.numLocations + 1
-            val locNumToSaveStr = locNumIntCurrent.toString()
-            val loc = Utility.readPref(contextg, "NWS_LOCATION_$nwsOffice", "")
-            val addrSend = loc.replace(" ", "+")
-            val xyStr = UtilityLocation.getXYFromAddressOSM(addrSend)
-            toastStr = Location.locationSave(contextg, locNumToSaveStr, xyStr[0], xyStr[1], loc)
-        }
-        UtilityUI.makeSnackBar(linearLayout, toastStr)
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
