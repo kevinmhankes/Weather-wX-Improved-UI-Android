@@ -104,10 +104,8 @@ class ObjectNHC(val context: Context, private val dynamicview: LinearLayout) {
             cNotif?.setVisibility(View.GONE)
         }
         if (atlSumList.size < 1) {
-            val cAtl = ObjectCardText(context)
             val noAtl = "There are no tropical cyclones in the Atlantic at this time."
-            cAtl.setText(noAtl)
-            dynamicview.addView(cAtl.card)
+            ObjectCardText(context, dynamicview, noAtl)
             html = noAtl
         } else {
             atlSumList.indices.forEach { k ->
@@ -133,11 +131,9 @@ class ObjectNHC(val context: Context, private val dynamicview: LinearLayout) {
             }
         }
         if (pacSumList.size < 1) {
-            val cPac = ObjectCardText(context)
             val noPac = "There are no tropical cyclones in the Eastern Pacific at this time."
-            cPac.setText(noPac)
+            ObjectCardText(context, dynamicview, noPac)
             html += noPac
-            dynamicview.addView(cPac.card)
         } else {
             pacSumList.indices.forEach { k ->
                 if (pacImg1List[k] != "") {

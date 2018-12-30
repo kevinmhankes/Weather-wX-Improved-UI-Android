@@ -216,13 +216,13 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         return true
     }
 
-    fun getRadarMosiac(sector: String) {
+    private fun getRadarMosiac(sector: String) {
         this.mosaicShown = true
         this.imageType = "rad"
         getMosaic(sector)
     }
 
-    fun getVisOrIr(imageType: String, url: String) {
+    private fun getVisOrIr(imageType: String, url: String) {
         this.imageType = imageType
         this.url = url
         getContent()
