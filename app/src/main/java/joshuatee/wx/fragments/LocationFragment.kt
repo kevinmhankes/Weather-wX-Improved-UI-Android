@@ -53,7 +53,6 @@ import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.settings.SettingsLocationGenericActivity
-import joshuatee.wx.spc.SPCSoundingsActivity
 import joshuatee.wx.util.*
 import joshuatee.wx.vis.USNWSGOESActivity
 
@@ -312,14 +311,14 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 if (Location.isUS) {
                     if (MyApplication.helpMode) {
                         showHelp(helpCurrentGeneric)
-                    } else {
+                    } /*else {
                         ObjectIntent(
                             activityReference,
                             SPCSoundingsActivity::class.java,
                             SPCSoundingsActivity.URL,
                             arrayOf(Utility.readPref("NWS" + Location.currentLocationStr, ""), "")
                         )
-                    }
+                    }*/
                 }
             }
         }
@@ -327,9 +326,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             objectCardCC.textViewBottom.setOnClickListener {
                 if (MyApplication.helpMode) {
                     showHelp(helpForecastGenericStatus)
-                } else {
+                }/* else {
                     refreshDynamicContent()
-                }
+                }*/
             }
         }
         buttonFor.setOnClickListener {
@@ -761,7 +760,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         })
         alertDialogStatus!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogStatusAl[which]
-            if (oglrArr.size > 0){
+            if (oglrArr.size > 0) {
                 UtilityLocationFragment.handleIconTap(
                     strName,
                     oglrArr[0],
@@ -884,9 +883,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     }
 
     private fun getLocationForecast() = GlobalScope.launch(uiDispatcher) {
-
         var bmCc: Bitmap? = null
-
         //
         // Current Conditions
         //
@@ -942,14 +939,11 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     }
 
     private fun getLocationForecastSevenDay() = GlobalScope.launch(uiDispatcher) {
-
         val bmArr = mutableListOf<Bitmap>()
-
         if (locationChangedSevenDay) {
             linearLayoutForecast?.removeAllViewsInLayout()
             locationChangedSevenDay = false
         }
-
         withContext(Dispatchers.IO) {
             try {
                 objSevenDay = Utility.getCurrentSevenDay(Location.currentLocation)
@@ -971,7 +965,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 UtilityLog.HandleException(e)
             }
         }
-
         if (isAdded) {
             bitmapSize = UtilityLocationFragment.setNWSIconSize()
             objSevenDay?.let { _ ->
@@ -1029,13 +1022,11 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     }
 
     private fun getLocationHazards() = GlobalScope.launch(uiDispatcher) {
-
         if (locationChangedHazards) {
             linearLayoutHazards?.removeAllViewsInLayout()
             linearLayoutHazards?.visibility = View.GONE
             locationChangedHazards = false
         }
-
         withContext(Dispatchers.IO) {
             try {
                 objHazards = Utility.getCurrentHazards(Location.currentLocation)
@@ -1044,7 +1035,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 UtilityLog.HandleException(e)
             }
         }
-
         if (isAdded) {
             if (Location.isUS) {
                 var hazardSumAsync = ""

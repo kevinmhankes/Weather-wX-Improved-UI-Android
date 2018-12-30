@@ -68,7 +68,7 @@ class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private var imgUrl = ""
     private var url = ""
     private var text = ""
-    private var title = ""
+    //private var title = ""
     private var wfos = listOf<String>()
     private var product = ""
     private val bitmaps = mutableListOf<Bitmap>()
@@ -77,6 +77,7 @@ class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private lateinit var objCard: ObjectCard
     private lateinit var linearLayout: LinearLayout
     private lateinit var contextg: Context
+    private val titleString = "MPDs"
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,7 +89,7 @@ class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
         val no = intent.getStringExtra(NO)
         imgUrl = "${MyApplication.nwsWPCwebsitePrefix}/metwatch/images/mcd$no.gif"
         url = "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php"
-        setTitle("MPDs")
+        title = titleString
         getContent()
     }
 
@@ -190,13 +191,14 @@ class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, text, product, product)) return true
+        if (audioPlayMenu(item.itemId, text, product, product))
+            return true
         return when (item.itemId) {
             R.id.action_share -> {
                 if (bitmaps.size > 1)
-                    UtilityShare.shareText(this, title, "", bitmaps)
+                    UtilityShare.shareText(this, titleString, "", bitmaps)
                 else if (bitmaps.size == 1)
-                    UtilityShare.shareText(this, title, Utility.fromHtml(text), bitmaps[0])
+                    UtilityShare.shareText(this, titleString, Utility.fromHtml(text), bitmaps[0])
                 true
             }
             else -> super.onOptionsItemSelected(item)

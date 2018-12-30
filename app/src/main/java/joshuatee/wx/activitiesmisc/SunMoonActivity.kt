@@ -53,8 +53,7 @@ class SunMoonActivity : AudioPlayActivity(), OnMenuItemClickListener {
         )
         toolbarBottom.setOnMenuItemClickListener(this)
         val menu = toolbarBottom.menu
-        val playlistMenuItem = menu.findItem(R.id.action_playlist)
-        playlistMenuItem.isVisible = false
+        menu.findItem(R.id.action_playlist).isVisible = false
         val linearLayout: LinearLayout = findViewById(R.id.ll)
         card0 = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         getContent()
