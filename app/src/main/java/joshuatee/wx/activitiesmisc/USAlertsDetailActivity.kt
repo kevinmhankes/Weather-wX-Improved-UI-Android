@@ -51,7 +51,6 @@ class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_usalertsdetail, R.menu.shared_tts)
         title = ""
-        // FIXME make dynamic
         ObjectCard(this, R.id.cv1)
         val m = toolbarBottom.menu
         val tts = m.findItem(R.id.action_playlist)
