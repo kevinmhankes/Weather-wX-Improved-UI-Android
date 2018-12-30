@@ -41,7 +41,6 @@ import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
-import joshuatee.wx.ui.UtilityToolbar
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityLog
@@ -68,7 +67,7 @@ class SPCMCDWShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener 
     private var nothingPresentStr = ""
     private var activityLabel = ""
     private var text = ""
-    private var title = ""
+    private var titleString = ""
     private var product = ""
     private var wfos = listOf<String>()
     private val bitmaps = mutableListOf<Bitmap>()
@@ -128,19 +127,15 @@ class SPCMCDWShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener 
             product = "SPCMCD$number"
             polygonType = PolygonType.MCD
         }
-        setTitle(activityLabel)
+        title = activityLabel
         getContent()
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-
-        var sigHtmlTmp: String
         var mcdList = listOf<String>()
-
         withContext(Dispatchers.IO) {
             try {
-                sigHtmlTmp = url.getHtml()
-                mcdList = sigHtmlTmp.parseColumn(patternStr)
+                mcdList = url.getHtml().parseColumn(patternStr)
                 mcdList.forEach {
                     if (number.contains("at")) {
                         val mcdNo2 = String.format("%4s", it).replace(' ', '0')
@@ -160,22 +155,19 @@ class SPCMCDWShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener 
                 if (number.contains("at")) {
                     textUrl = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/w" +
                             mcdNumbers[0] + ".html"
-                    title = "Watch " + mcdNumbers[0].replace("w", "")
+                    titleString = "Watch " + mcdNumbers[0].replace("w", "")
                     product = "SPCWAT" + mcdNumbers[0].replace("w", "")
                 } else {
                     textUrl = "${MyApplication.nwsSPCwebsitePrefix}/products/md/md" +
                             mcdNumbers[0] + ".html"
-                    title = "MCD " + mcdNumbers[0]
+                    titleString = "MCD " + mcdNumbers[0]
                     product = "SPCMCD" + mcdNumbers[0]
                 }
                 text = UtilityDownload.getTextProduct(contextg, product)
             }
         }
-
         mcdList.indices.forEach { mcdIndex ->
-            val card = ObjectCardImage(contextg)
-            card.setImage(bitmaps[mcdIndex])
-            linearLayout.addView(card.card)
+            val card = ObjectCardImage(contextg, linearLayout, bitmaps[mcdIndex])
             card.setOnClickListener(View.OnClickListener {
                 ObjectIntent(
                     contextg,
@@ -191,16 +183,8 @@ class SPCMCDWShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener 
         if (mcdList.size == 1) {
             val wfoStr = text.parse("ATTN...WFO...(.*?)... ")
             wfos = wfoStr.split("\\.\\.\\.".toRegex()).dropLastWhile { it.isEmpty() }
-            val card2 = ObjectCardText(contextg)
-            card2.setOnClickListener(View.OnClickListener {
-                UtilityToolbar.showHide(
-                    toolbar,
-                    toolbarBottom
-                )
-            })
-            card2.setText(Utility.fromHtml(text))
-            linearLayout.addView(card2.card)
-            setTitle(title)
+            ObjectCardText(contextg, linearLayout, toolbar, toolbarBottom, Utility.fromHtml(text))
+            title = titleString
             if (!number.contains("at")) {
                 toolbar.subtitle = text.parse("Areas affected...(.*?)<BR>")
             }
@@ -209,13 +193,13 @@ class SPCMCDWShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener 
             miUrl.isVisible = true
             miImage.isVisible = true
         } else {
-            setTitle(
-                "$activityLabel " + mcdNumbers.toString().replace(
-                    "[{}]".toRegex(),
-                    ""
-                ).replace("\\[|\\]".toRegex(), "").replace("w", "")
-            )
+            titleString =
+                    "$activityLabel " + mcdNumbers.toString().replace(
+                "[{}]".toRegex(),
+                ""
+            ).replace("\\[|\\]".toRegex(), "").replace("w", "")
             miAll.isVisible = true
+            title = titleString
         }
         val tv: TextView = findViewById(R.id.tv)
         if (mcdList.isEmpty()) {
@@ -253,8 +237,8 @@ class SPCMCDWShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener 
 
     private fun saveLocation(nwsOffice: String) = GlobalScope.launch(uiDispatcher) {
         var toastStr = ""
-        // FIXME not everything needs to be on IO
         withContext(Dispatchers.IO) {
+            // FIXME can this method be in common with WPC and other SPC?
             val locNumIntCurrent = Location.numLocations + 1
             val locNumToSaveStr = locNumIntCurrent.toString()
             val loc = Utility.readPref(contextg, "NWS_LOCATION_$nwsOffice", "")
@@ -272,13 +256,17 @@ class SPCMCDWShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener 
         when (item.itemId) {
             R.id.action_share_all -> {
                 if (bitmaps.size > 1)
-                    UtilityShare.shareText(this, title, "", bitmaps)
+                    UtilityShare.shareText(this, titleString, "", bitmaps)
                 else if (bitmaps.size == 1)
-                    UtilityShare.shareText(this, title, Utility.fromHtml(text), bitmaps[0])
+                    UtilityShare.shareText(this, titleString, Utility.fromHtml(text), bitmaps[0])
             }
-            R.id.action_share_text -> UtilityShare.shareText(this, title, Utility.fromHtml(text))
-            R.id.action_share_url -> UtilityShare.shareText(this, title, textUrl)
-            R.id.action_share_image -> UtilityShare.shareBitmap(this, title, bitmaps[0])
+            R.id.action_share_text -> UtilityShare.shareText(
+                this,
+                titleString,
+                Utility.fromHtml(text)
+            )
+            R.id.action_share_url -> UtilityShare.shareText(this, titleString, textUrl)
+            R.id.action_share_image -> UtilityShare.shareBitmap(this, titleString, bitmaps[0])
             else -> return super.onOptionsItemSelected(item)
         }
         return true

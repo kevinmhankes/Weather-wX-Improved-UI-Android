@@ -129,7 +129,6 @@ class SPCMCDWShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun saveLocation(location: String) = GlobalScope.launch(uiDispatcher) {
-        // FIXME not everything needs to be in IO
         var toastStr = ""
         withContext(Dispatchers.IO) {
             var locNumIntCurrent = Location.numLocations

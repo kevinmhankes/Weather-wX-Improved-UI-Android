@@ -43,7 +43,6 @@ import joshuatee.wx.spc.SPCMCDWShowActivity
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
-import joshuatee.wx.ui.UtilityToolbar
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownload
@@ -68,7 +67,6 @@ class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private var imgUrl = ""
     private var url = ""
     private var text = ""
-    //private var title = ""
     private var wfos = listOf<String>()
     private var product = ""
     private val bitmaps = mutableListOf<Bitmap>()
@@ -77,7 +75,7 @@ class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private lateinit var objCard: ObjectCard
     private lateinit var linearLayout: LinearLayout
     private lateinit var contextg: Context
-    private val titleString = "MPDs"
+    private var titleString = "MPDs"
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,13 +92,9 @@ class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-
-        var sigHtmlTmp: String
         var mpdList = listOf<String>()
-
         withContext(Dispatchers.IO) {
-            sigHtmlTmp = url.getHtml()
-            mpdList = sigHtmlTmp.parseColumn(RegExp.mpdPattern)
+            mpdList = url.getHtml().parseColumn(RegExp.mpdPattern)
             mpdList.forEach {
                 imgUrl = "${MyApplication.nwsWPCwebsitePrefix}/metwatch/images/mcd$it.gif"
                 mpdNumbers.add(it)
@@ -109,15 +103,13 @@ class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
             if (mpdList.size == 1) {
                 imgUrl = "${MyApplication.nwsWPCwebsitePrefix}/metwatch/images/mcd" +
                         mpdNumbers[0] + ".gif"
-                title = "MPD " + mpdNumbers[0]
+                titleString = "MPD " + mpdNumbers[0]
                 product = "WPCMPD" + mpdNumbers[0]
                 text = UtilityDownload.getTextProduct(contextg, product)
             }
         }
-
         mpdList.indices.forEach { mpdIndex ->
-            val card = ObjectCardImage(contextg)
-            card.setImage(bitmaps[mpdIndex])
+            val card = ObjectCardImage(contextg, linearLayout, bitmaps[mpdIndex])
             card.setOnClickListener(View.OnClickListener {
                 ObjectIntent(
                     contextg,
@@ -126,22 +118,15 @@ class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     arrayOf(mpdNumbers[mpdIndex], "", PolygonType.MPD.toString())
                 )
             })
-            linearLayout.addView(card.card)
-            if (mpdList.size == 1) registerForContextMenu(card.img)
+            if (mpdList.size == 1) {
+                registerForContextMenu(card.img)
+            }
         }
         if (mpdList.size == 1) {
             val wfoStr = text.parse("ATTN...WFO...(.*?)...<br>")
             wfos = wfoStr.split("\\.\\.\\.".toRegex()).dropLastWhile { it.isEmpty() }
-            val card2 = ObjectCardText(contextg)
-            card2.setOnClickListener(View.OnClickListener {
-                UtilityToolbar.showHide(
-                    toolbar,
-                    toolbarBottom
-                )
-            })
-            card2.setText(Utility.fromHtml(text))
-            linearLayout.addView(card2.card)
-            setTitle(title)
+            ObjectCardText(contextg, linearLayout, toolbar, toolbarBottom, Utility.fromHtml(text))
+            title = titleString
             toolbar.subtitle = text.parse("AREAS AFFECTED...(.*?)CONCERNING").replace("<BR>", "")
         }
         val tv: TextView = findViewById(R.id.tv)

@@ -71,6 +71,23 @@ class ObjectCardText(private val context: Context) {
     constructor(
         context: Context,
         linearLayout: LinearLayout,
+        toolbar: Toolbar,
+        toolbarBottom: Toolbar,
+        text: String
+    ) : this(context) {
+        linearLayout.addView(card)
+        setOnClickListener(View.OnClickListener {
+            UtilityToolbar.showHide(
+                toolbar,
+                toolbarBottom
+            )
+        })
+        setText(text)
+    }
+
+    constructor(
+        context: Context,
+        linearLayout: LinearLayout,
         toolbar: Toolbar
     ) : this(context) {
         linearLayout.addView(card)
