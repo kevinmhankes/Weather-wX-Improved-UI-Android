@@ -39,7 +39,6 @@ import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
-import joshuatee.wx.ui.UtilityToolbar
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityShare
@@ -76,17 +75,9 @@ class SPCMCDWShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
         )
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)
-        c0 = ObjectCardImage(this)
-        c1 = ObjectCardText(this)
         linearLayout = findViewById(R.id.ll)
-        linearLayout.addView(c0.card)
-        linearLayout.addView(c1.card)
-        c1.setOnClickListener(View.OnClickListener {
-            UtilityToolbar.showHide(
-                toolbar,
-                toolbarBottom
-            )
-        })
+        c0 = ObjectCardImage(this, linearLayout)
+        c1 = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         activityArguments = intent.getStringArrayExtra(NO)
         number = activityArguments[0]
         when (activityArguments[2]) {

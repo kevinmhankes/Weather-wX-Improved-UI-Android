@@ -7,7 +7,7 @@
 // TODO check image activities for this img.setOnClickListener(this) to show/hide toolbar
 // TODO  look at wpc img and spc meso for optimizations around nav drawer combo
 
-55089 2018_12_29
+55089 2018_12_30 misc code refactor
 55088 2018_12_29 WPC Text and SPC SREF , optimize on ObjectNavDrawerCombo
                  [BUG] NSSL WRF was not checking for string size in getImg
                  add ObjectRecyclerView

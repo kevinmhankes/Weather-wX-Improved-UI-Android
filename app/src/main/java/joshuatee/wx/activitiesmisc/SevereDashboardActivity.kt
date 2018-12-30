@@ -65,7 +65,7 @@ class SevereDashboardActivity : BaseActivity() {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
         linearLayout = findViewById(R.id.ll)
         contextg = this
-        refreshDynamicContent()
+        getContent()
     }
 
     private fun tvWarnClicked(filter: String) {
@@ -75,10 +75,6 @@ class SevereDashboardActivity : BaseActivity() {
             USWarningsWithRadarActivity.URL,
             arrayOf(filter, "us")
         )
-    }
-
-    private fun refreshDynamicContent() {
-        getContent()
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
@@ -94,19 +90,16 @@ class SevereDashboardActivity : BaseActivity() {
         wTst.generateString(contextg, MyApplication.severeDashboardTst.valueGet())
         wFfw.generateString(contextg, MyApplication.severeDashboardFfw.valueGet())
         if (wTor.count > 0) {
-            val objTor = ObjectCardText(contextg, wTor.text)
+            val objTor = ObjectCardText(contextg, linearLayout, wTor.text)
             objTor.setOnClickListener(View.OnClickListener { tvWarnClicked(".*?Tornado Warning.*?") })
-            linearLayout.addView(objTor.card)
         }
         if (wTst.count > 0) {
-            val objTst = ObjectCardText(contextg, wTst.text)
+            val objTst = ObjectCardText(contextg, linearLayout, wTst.text)
             objTst.setOnClickListener(View.OnClickListener { tvWarnClicked(".*?Severe Thunderstorm Warning.*?") })
-            linearLayout.addView(objTst.card)
         }
         if (wFfw.count > 0) {
-            val objFfw = ObjectCardText(contextg, wFfw.text)
+            val objFfw = ObjectCardText(contextg, linearLayout, wFfw.text)
             objFfw.setOnClickListener(View.OnClickListener { tvWarnClicked(".*?Flash Flood Warning.*?") })
-            linearLayout.addView(objFfw.card)
         }
         withContext(Dispatchers.IO) {
             snMcd.getBitmaps(MyApplication.severeDashboardMcd.valueGet())
@@ -116,7 +109,7 @@ class SevereDashboardActivity : BaseActivity() {
         }
         if (bitmapArrRep.size > 0) {
             bitmapArrRep.indices.forEach { it ->
-                val card = ObjectCardImage(contextg, bitmapArrRep[it])
+                val card = ObjectCardImage(contextg, linearLayout, bitmapArrRep[it])
                 card.setOnClickListener(View.OnClickListener {
                     ObjectIntent(
                         contextg,
@@ -125,7 +118,6 @@ class SevereDashboardActivity : BaseActivity() {
                         arrayOf("today")
                     )
                 })
-                linearLayout.addView(card.card)
             }
         }
         listOf(snWat, snMcd, snMpd)
@@ -133,7 +125,7 @@ class SevereDashboardActivity : BaseActivity() {
             .filter { it.bitmaps.size > 0 }
             .forEach { severeNotice ->
                 severeNotice.bitmaps.indices.forEach { j ->
-                    val card = ObjectCardImage(contextg, severeNotice.bitmaps[j])
+                    val card = ObjectCardImage(contextg, linearLayout, severeNotice.bitmaps[j])
                     var cla: Class<*>? = null
                     var claStr = ""
                     val claArgStr = severeNotice.strList[j]
@@ -163,7 +155,6 @@ class SevereDashboardActivity : BaseActivity() {
                             arrayOf(claArgStr, "", severeNotice.toString())
                         )
                     })
-                    linearLayout.addView(card.card)
                 }
             }
         bitmaps.addAll(snWat.bitmaps)

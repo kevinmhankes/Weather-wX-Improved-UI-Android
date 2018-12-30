@@ -79,7 +79,7 @@ class SPCMCDWShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener 
     private lateinit var miImage: MenuItem
     private lateinit var miTest: MenuItem
     private lateinit var objCard: ObjectCard
-    private lateinit var ll: LinearLayout
+    private lateinit var linearLayout: LinearLayout
     private lateinit var polygonType: PolygonType
     private lateinit var contextg: Context
 
@@ -93,7 +93,7 @@ class SPCMCDWShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener 
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)
         objCard = ObjectCard(this, R.id.cv1)
-        ll = findViewById(R.id.ll)
+        linearLayout = findViewById(R.id.ll)
         val menu = toolbarBottom.menu
         miAll = menu.findItem(R.id.action_share_all)
         miText = menu.findItem(R.id.action_share_text)
@@ -175,7 +175,7 @@ class SPCMCDWShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener 
         mcdList.indices.forEach { mcdIndex ->
             val card = ObjectCardImage(contextg)
             card.setImage(bitmaps[mcdIndex])
-            ll.addView(card.card)
+            linearLayout.addView(card.card)
             card.setOnClickListener(View.OnClickListener {
                 ObjectIntent(
                     contextg,
@@ -199,7 +199,7 @@ class SPCMCDWShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener 
                 )
             })
             card2.setText(Utility.fromHtml(text))
-            ll.addView(card2.card)
+            linearLayout.addView(card2.card)
             setTitle(title)
             if (!number.contains("at")) {
                 toolbar.subtitle = text.parse("Areas affected...(.*?)<BR>")
@@ -262,7 +262,7 @@ class SPCMCDWShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener 
             val xyStr = UtilityLocation.getXYFromAddressOSM(addrSend)
             toastStr = Location.locationSave(contextg, locNumToSaveStr, xyStr[0], xyStr[1], loc)
         }
-        UtilityUI.makeSnackBar(ll, toastStr)
+        UtilityUI.makeSnackBar(linearLayout, toastStr)
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
