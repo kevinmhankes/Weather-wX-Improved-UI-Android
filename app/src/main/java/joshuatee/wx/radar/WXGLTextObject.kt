@@ -44,7 +44,6 @@ class WXGLTextObject(
     private var OGLR: WXGLRender,
     private val numPanes: Int
 ) {
-
     private var lp: RelativeLayout.LayoutParams
     private var cityextTvArrInit = false
     private var countyLabelsTvArrInit = false

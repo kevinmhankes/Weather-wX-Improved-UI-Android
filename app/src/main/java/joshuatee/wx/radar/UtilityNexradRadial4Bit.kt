@@ -42,10 +42,6 @@ import joshuatee.wx.util.UtilityTime
 
 internal object UtilityNexradRadial4Bit {
 
-    // big thanks to gottipati, harpchad
-    // http://sourceforge.net/projects/nexrad-perl/files/nexrad-perl/
-    // below is mostly a java port of this code
-
     fun decodeAndPlotNexrad(context: Context, bm1: Bitmap, fn: String, prod: String) {
         val canvas = Canvas(bm1)
         val nwsRadarBgBlack = Utility.readPref(context, "NWS_RADAR_BG_BLACK", "")
@@ -228,7 +224,7 @@ internal object UtilityNexradRadial4Bit {
                     }
                     g += 1
                 }
-            } // end dis null check
+            }
         } catch (e: IOException) {
             UtilityLog.HandleException(e)
         }
