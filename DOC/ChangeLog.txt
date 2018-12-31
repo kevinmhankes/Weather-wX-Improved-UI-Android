@@ -4,6 +4,7 @@
 // TODO refactor nexrad radar to match architecture of wXL23 Metal to remove code duplicity
 // TODO convert to new NavDrawer: USWarningsWith, ModelGeneric, ModelSPCHRRR, SPCCompmap, SPCStormreports, GOES16
 // TODO in general reduce static methods ( object methods ) in favor of instance methods
+//
 
 55091 2018_12_31 misc code refactor
 55090 2018_12_30 misc code refactor
