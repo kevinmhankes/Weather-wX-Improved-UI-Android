@@ -61,7 +61,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var animRan = false
     var firstRun: Boolean = false
-    var imageLoaded: Boolean = false
+    private var imageLoaded: Boolean = false
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
     private var spinnerRunRan = false
@@ -333,8 +333,6 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             if (om.model == "CFS" && 0 == spRun.selectedItemPosition) {
                 getContent()
             }
-            //title = om.rtd.imageCompleteStr
-            //miStatus.title = "in through " + om.rtd.imageCompleteStr
             miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
             var tmpStr: String
             (0 until om.spTime.size()).forEach {
@@ -351,13 +349,11 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                 firstRunTimeSet = true
                 om.spTime.setSelection(Utility.readPref(contextg, om.prefRunPosn, 1))
             }
-            //om.spTime.notifyDataSetChanged()
         } else {
             om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
             spRun.clear()
             spRun.addAll(om.rtd.listRun)
             miStatus.isVisible = true
-            //miStatus.title = "in through " + om.rtd.imageCompleteStr
             miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
             spRun.notifyDataSetChanged()
             // FIXME
@@ -559,7 +555,5 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         }
         spRun.notifyDataSetChanged()
     }
-
-
 }
 

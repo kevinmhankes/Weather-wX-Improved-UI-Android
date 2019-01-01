@@ -33,8 +33,6 @@ import joshuatee.wx.RegExp
 
 object UtilitySPC {
 
-    // TODO use global var for SPC website
-
     fun getStormReportsTodayUrl(): String =
         "${MyApplication.nwsSPCwebsitePrefix}/climo/reports/" + "today" + ".gif"
 

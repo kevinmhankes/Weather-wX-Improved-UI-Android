@@ -188,12 +188,12 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
                 "ir",
                 "https://weather.gc.ca/data/satellite/goes_ecan_1070_100.jpg"
             )
-            R.id.action_can -> getRadarMosiac("CAN")
-            R.id.action_pac -> getRadarMosiac("PAC")
-            R.id.action_wrn -> getRadarMosiac("WRN")
-            R.id.action_ont -> getRadarMosiac("ONT")
-            R.id.action_que -> getRadarMosiac("QUE")
-            R.id.action_ern -> getRadarMosiac("ERN")
+            R.id.action_can -> getRadarMosaic("CAN")
+            R.id.action_pac -> getRadarMosaic("PAC")
+            R.id.action_wrn -> getRadarMosaic("WRN")
+            R.id.action_ont -> getRadarMosaic("ONT")
+            R.id.action_que -> getRadarMosaic("QUE")
+            R.id.action_ern -> getRadarMosaic("ERN")
             R.id.action_fav -> toggleFavorite()
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
@@ -216,7 +216,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         return true
     }
 
-    private fun getRadarMosiac(sector: String) {
+    private fun getRadarMosaic(sector: String) {
         this.mosaicShown = true
         this.imageType = "rad"
         getMosaic(sector)

@@ -26,6 +26,7 @@ import android.graphics.Bitmap
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TableLayout
+import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
 
 import joshuatee.wx.util.UtilityImg
@@ -58,6 +59,39 @@ open class ObjectCardImage {
         UtilityImg.resizeViewSetImgInCard(bitmap, img)
         objCard.addView(img)
         linearLayout.addView(card)
+    }
+
+    constructor(context: Context, linearLayout: LinearLayout, toolbar: Toolbar, bitmap: Bitmap) {
+        this.context = context
+        objCard = ObjectCard(context)
+        img = TouchImageView2(context)
+        img.layoutParams = lparams
+        UtilityImg.resizeViewSetImgInCard(bitmap, img)
+        objCard.addView(img)
+        linearLayout.addView(card)
+        setOnClickListener(View.OnClickListener {
+            UtilityToolbar.showHide(toolbar)
+        })
+    }
+
+    // TODO make better use of this and above constructor
+    constructor(
+        context: Context,
+        linearLayout: LinearLayout,
+        toolbar: Toolbar,
+        toolbarBottom: Toolbar,
+        bitmap: Bitmap
+    ) {
+        this.context = context
+        objCard = ObjectCard(context)
+        img = TouchImageView2(context)
+        img.layoutParams = lparams
+        UtilityImg.resizeViewSetImgInCard(bitmap, img)
+        objCard.addView(img)
+        linearLayout.addView(card)
+        setOnClickListener(View.OnClickListener {
+            UtilityToolbar.showHide(toolbar, toolbarBottom)
+        })
     }
 
     constructor(context: Context) {

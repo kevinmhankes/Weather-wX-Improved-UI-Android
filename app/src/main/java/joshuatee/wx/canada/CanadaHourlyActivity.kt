@@ -49,12 +49,7 @@ class CanadaHourlyActivity : BaseActivity() {
         locNumInt = (locNum.toIntOrNull() ?: 0) - 1
         val linearLayout: LinearLayout = findViewById(R.id.ll)
         c0 = ObjectCardText(this, linearLayout, toolbar)
-        linearLayout.addView(
-            ObjectCALegal(
-                this,
-                UtilityCanadaHourly.getUrl(Location.locationIndex)
-            ).card
-        )
+        ObjectCALegal(this, linearLayout, UtilityCanadaHourly.getUrl(Location.locationIndex))
         title = Location.getName(locNumInt) + " hourly forecast"
         getContent()
     }

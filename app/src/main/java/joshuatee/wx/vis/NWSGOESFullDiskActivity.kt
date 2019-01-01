@@ -130,7 +130,6 @@ class NWSGOESFullDiskActivity : VideoRecordActivity(), View.OnClickListener,
     }
 
     override fun onStop() {
-        // FIXME use prefString
         img.imgSavePosnZoom(this, prefImagePosition)
         super.onStop()
     }

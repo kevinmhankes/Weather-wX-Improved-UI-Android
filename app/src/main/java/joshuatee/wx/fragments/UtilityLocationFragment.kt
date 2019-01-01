@@ -232,8 +232,10 @@ object UtilityLocationFragment {
 
     fun extractCAWindDir(fcst: String): String {
         var wdir = fcst.parse(RegExp.ca7DayWinddir1)
-        if (wdir == "") wdir = fcst.parse(RegExp.ca7DayWinddir2)
-        if (wdir != "") wdir = " " + windDirectionMap[wdir]
+        if (wdir == "")
+            wdir = fcst.parse(RegExp.ca7DayWinddir2)
+        if (wdir != "")
+            wdir = " " + windDirectionMap[wdir]
         return wdir
     }
 

@@ -37,10 +37,8 @@ class ObjectSpinner {
 
     var arrayAdapter: ArrayAdapter<String>
         private set
-    private val spinner1: Spinner
+    private val spinner: Spinner
     val list: MutableList<String>
-
-    // FIXME rename spinner1 to spinner
 
     constructor(
         activity: Activity,
@@ -50,47 +48,47 @@ class ObjectSpinner {
         initialValue: String
     ) {
         list = dataArray.toMutableList()
-        spinner1 = activity.findViewById(spinnerRedId)
+        spinner = activity.findViewById(spinnerRedId)
         setupSpinner()
         arrayAdapter = ArrayAdapter(context, R.layout.simple_spinner_item, dataArray)
         arrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
-        spinner1.adapter = arrayAdapter
-        spinner1.setSelection(findPosition(initialValue))
-        spinner1.setBackgroundColor(Color.TRANSPARENT)
+        spinner.adapter = arrayAdapter
+        spinner.setSelection(findPosition(initialValue))
+        spinner.setBackgroundColor(Color.TRANSPARENT)
     }
 
     constructor(activity: Activity, context: Context, spinnerRedId: Int, dataArray: List<String>) {
         list = dataArray.toMutableList()
-        spinner1 = activity.findViewById(spinnerRedId)
+        spinner = activity.findViewById(spinnerRedId)
         setupSpinner()
         arrayAdapter = ArrayAdapter(context, R.layout.simple_spinner_item, dataArray)
         arrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
-        spinner1.adapter = arrayAdapter
-        spinner1.setBackgroundColor(Color.TRANSPARENT)
+        spinner.adapter = arrayAdapter
+        spinner.setBackgroundColor(Color.TRANSPARENT)
     }
 
     constructor(activity: Activity, context: Context, spinnerRedId: Int) {
         list = mutableListOf()
-        spinner1 = activity.findViewById(spinnerRedId)
+        spinner = activity.findViewById(spinnerRedId)
         setupSpinner()
         arrayAdapter = ArrayAdapter(context, R.layout.simple_spinner_item, list)
         arrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
-        spinner1.adapter = arrayAdapter
-        spinner1.setBackgroundColor(Color.TRANSPARENT)
+        spinner.adapter = arrayAdapter
+        spinner.setBackgroundColor(Color.TRANSPARENT)
     }
 
     // dummy used in SPC Meso
     constructor(context: Context) {
         list = mutableListOf()
-        spinner1 = Spinner(context)
-        spinner1.setBackgroundColor(Color.TRANSPARENT)
+        spinner = Spinner(context)
+        spinner.setBackgroundColor(Color.TRANSPARENT)
         arrayAdapter = ArrayAdapter(context, R.layout.simple_spinner_item)
     }
 
     fun refreshData(context: Context, dataArray: List<String>) {
         arrayAdapter = ArrayAdapter(context, R.layout.simple_spinner_item, dataArray)
         arrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
-        spinner1.adapter = arrayAdapter
+        spinner.adapter = arrayAdapter
     }
 
     private fun findPosition(key: String) = (0 until arrayAdapter.count).firstOrNull {
@@ -99,7 +97,7 @@ class ObjectSpinner {
         ?: 0
 
     fun setSelection(idx: Int) {
-        spinner1.setSelection(idx)
+        spinner.setSelection(idx)
     }
 
     fun setSelection(key: String) {
@@ -107,17 +105,17 @@ class ObjectSpinner {
         if (index == -1) {
             index = 0
         }
-        spinner1.setSelection(index)
+        spinner.setSelection(index)
     }
 
     fun setOnItemSelectedListener(l: AdapterView.OnItemSelectedListener) {
-        spinner1.onItemSelectedListener = l
+        spinner.onItemSelectedListener = l
     }
 
-    val selectedItemPosition: Int get() = spinner1.selectedItemPosition
+    val selectedItemPosition: Int get() = spinner.selectedItemPosition
 
     val selectedItem: Any
-        get() = spinner1.selectedItem ?: 0
+        get() = spinner.selectedItem ?: 0
 
     fun addAll(tmpList: List<String>) {
         list.clear()
@@ -146,14 +144,10 @@ class ObjectSpinner {
         list[idx] = value
     }
 
-    // FIXME always seems to be false, remove?
     private fun setupSpinner() {
-        //var tint = ColorStateList.valueOf(UIPreferences.colorBlack)
-        //if (light) {
         val tint = ColorStateList.valueOf(UIPreferences.colorOffwhiteToolbar)
-        //}
         if (android.os.Build.VERSION.SDK_INT > 20) {
-            spinner1.backgroundTintList = tint
+            spinner.backgroundTintList = tint
         }
     }
 }

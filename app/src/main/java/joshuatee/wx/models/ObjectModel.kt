@@ -107,7 +107,6 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
             }
             "SPCHRRR" -> {
                 modelType = ModelType.SPCHRRR
-                // FIXME remove 3 lines below and test
                 models = UtilityModelSPCHRRRInterface.models
                 params = UtilityModelSPCHRRRInterface.params
                 labels = UtilityModelSPCHRRRInterface.labels

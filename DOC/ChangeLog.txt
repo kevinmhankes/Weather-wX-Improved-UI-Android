@@ -6,7 +6,7 @@
 // TODO in general reduce static methods ( object methods ) in favor of instance methods
 //
 
-55092 2019_01_01
+55092 2019_01_01 misc code cleanup, update license for 2019
 55091 2018_12_31 misc code refactor
 55090 2018_12_30 misc code refactor
 55089 2018_12_30 misc code refactor
