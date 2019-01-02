@@ -91,10 +91,7 @@ class AFDActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     private lateinit var c0: ObjectCardText
     private lateinit var spinner1: ObjectSpinner
     private lateinit var contextg: Context
-
-    /**
-     *
-     */
+    
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_afd, R.menu.afd)
