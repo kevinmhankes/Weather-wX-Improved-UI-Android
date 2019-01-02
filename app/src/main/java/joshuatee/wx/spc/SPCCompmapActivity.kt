@@ -29,7 +29,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.AdapterView
 
-import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectNavDrawer

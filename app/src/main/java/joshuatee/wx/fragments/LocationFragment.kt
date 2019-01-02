@@ -1008,7 +1008,11 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             //
             if (!Location.isUS) {
                 if (homescreenFavLocal.contains("TXT-7DAY2")) {
-                    ObjectCALegal(activityReference, linearLayoutForecast!!, UtilityCanada.getLocationUrl(x, y))
+                    ObjectCALegal(
+                        activityReference,
+                        linearLayoutForecast!!,
+                        UtilityCanada.getLocationUrl(x, y)
+                    )
                 }
             }
         }

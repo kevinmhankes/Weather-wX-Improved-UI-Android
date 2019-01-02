@@ -25,8 +25,6 @@ import android.app.Activity
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import joshuatee.wx.R
-
 
 class ObjectRecyclerView {
 

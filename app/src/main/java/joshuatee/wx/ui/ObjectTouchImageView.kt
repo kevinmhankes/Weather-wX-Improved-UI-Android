@@ -34,9 +34,9 @@ class ObjectTouchImageView {
 
     var img: TouchImageView2
     private val context: Context
-    var imageLoaded: Boolean = false
+    private var imageLoaded: Boolean = false
     var firstRun: Boolean = false
-    var prefTokenIdx = ""
+    private var prefTokenIdx = ""
     var drw: ObjectNavDrawer? = null
 
     constructor(

@@ -23,7 +23,6 @@ package joshuatee.wx.ui
 
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.Typeface
 import joshuatee.wx.MyApplication
 
 class ObjectPaintStripe {

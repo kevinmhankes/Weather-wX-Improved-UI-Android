@@ -134,7 +134,7 @@ class ObjectAlertSummary(
                     html += cc.vtec + "<br><br>"
                     val nwsOffice: String
                     val nwsLoc: String
-                    if (cc.vtec.length > 15) {
+                    if (cc.vtec.length > 15 && cc.event != "Special Weather Statement") {
                         nwsOffice = cc.vtec.substring(8, 11)
                         nwsLoc = Utility.readPref(context, "NWS_LOCATION_$nwsOffice", "MI")
                     } else {
