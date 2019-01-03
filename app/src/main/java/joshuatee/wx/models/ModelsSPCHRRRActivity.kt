@@ -146,10 +146,11 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                     this,
                     this,
                     R.id.spinner_sector,
-                    UtilityModelSPCHRRRInterface.sectors
+                    UtilityModelSPCHRRRInterface.sectors,
+                    om.sector
                 )
         // FIXME use different constructor?
-        spSector.setSelection(om.sector)
+        //spSector.setSelection(om.sector)
         spRun.setSelection(0)
         om.spTime.setSelection(0)
         ObjectSpinner(this, this, this, R.id.spinner_model, om.models, om.model)

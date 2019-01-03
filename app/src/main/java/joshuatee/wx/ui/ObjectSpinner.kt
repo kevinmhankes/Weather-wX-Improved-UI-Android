@@ -43,24 +43,6 @@ class ObjectSpinner {
     constructor(
         activity: Activity,
         context: Context,
-        spinnerRedId: Int,
-        dataArray: List<String>,
-        initialValue: String
-    ) {
-        list = dataArray.toMutableList()
-        spinner = activity.findViewById(spinnerRedId)
-        setupSpinner()
-        arrayAdapter = ArrayAdapter(context, R.layout.simple_spinner_item, dataArray)
-        arrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
-        spinner.adapter = arrayAdapter
-        spinner.setSelection(findPosition(initialValue))
-        spinner.setBackgroundColor(Color.TRANSPARENT)
-    }
-
-    // FIXME call one above and then add on last line
-    constructor(
-        activity: Activity,
-        context: Context,
         fn: AdapterView.OnItemSelectedListener,
         spinnerRedId: Int,
         dataArray: List<String>,
@@ -76,7 +58,26 @@ class ObjectSpinner {
         spinner.setBackgroundColor(Color.TRANSPARENT)
         setOnItemSelectedListener(fn)
     }
-    
+
+    constructor(
+        activity: Activity,
+        context: Context,
+        fn: AdapterView.OnItemSelectedListener,
+        spinnerRedId: Int,
+        dataArray: List<String>,
+        inititalPosition: Int
+    ) {
+        list = dataArray.toMutableList()
+        spinner = activity.findViewById(spinnerRedId)
+        setupSpinner()
+        arrayAdapter = ArrayAdapter(context, R.layout.simple_spinner_item, dataArray)
+        arrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
+        spinner.adapter = arrayAdapter
+        spinner.setSelection(inititalPosition)
+        spinner.setBackgroundColor(Color.TRANSPARENT)
+        setOnItemSelectedListener(fn)
+    }
+
     constructor(
         activity: Activity,
         context: Context,
@@ -94,17 +95,6 @@ class ObjectSpinner {
         setOnItemSelectedListener(fn)
     }
 
-    constructor(activity: Activity, context: Context, spinnerRedId: Int) {
-        list = mutableListOf()
-        spinner = activity.findViewById(spinnerRedId)
-        setupSpinner()
-        arrayAdapter = ArrayAdapter(context, R.layout.simple_spinner_item, list)
-        arrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
-        spinner.adapter = arrayAdapter
-        spinner.setBackgroundColor(Color.TRANSPARENT)
-    }
-
-    // FIXME call one above and then add on last line
     constructor(
         activity: Activity,
         context: Context,
@@ -152,7 +142,7 @@ class ObjectSpinner {
         spinner.setSelection(index)
     }
 
-    fun setOnItemSelectedListener(l: AdapterView.OnItemSelectedListener) {
+    private fun setOnItemSelectedListener(l: AdapterView.OnItemSelectedListener) {
         spinner.onItemSelectedListener = l
     }
 
