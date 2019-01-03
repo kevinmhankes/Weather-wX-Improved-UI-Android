@@ -125,8 +125,7 @@ class AFDActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             prefTokenLocation,
             prefToken
         )
-        spinner1 = ObjectSpinner(this, this, R.id.spinner1, ridArrLoc)
-        spinner1.setOnItemSelectedListener(this)
+        spinner1 = ObjectSpinner(this, this, this, R.id.spinner1, ridArrLoc)
         scrollView = findViewById(R.id.sv)
         imageMap = ObjectImageMap(
             this,

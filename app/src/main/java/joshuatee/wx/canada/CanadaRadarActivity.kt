@@ -108,8 +108,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::maptoCARid)
         ridFav = Utility.readPref(this, "RID_CA_FAV", " : : :")
         ridArrLoc = UtilityFavorites.setupFavMenuCA(ridFav, rid1)
-        sp = ObjectSpinner(this, this, R.id.spinner1, ridArrLoc)
-        sp.setOnItemSelectedListener(this)
+        sp = ObjectSpinner(this, this, this, R.id.spinner1, ridArrLoc)
     }
 
     override fun onRestart() {

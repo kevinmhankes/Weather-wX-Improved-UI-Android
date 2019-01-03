@@ -134,11 +134,10 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
             actType = turl[2]
         }
         sp = if (rid == "nhc") {
-            ObjectSpinner(this, this, R.id.spinner1, UtilityGOES.RADS)
+            ObjectSpinner(this, this, this, R.id.spinner1, UtilityGOES.RADS)
         } else {
-            ObjectSpinner(this, this, R.id.spinner1, radsNws)
+            ObjectSpinner(this, this, this, R.id.spinner1, radsNws)
         }
-        sp.setOnItemSelectedListener(this)
         sp.setSelection(findPosition(nwsOffice.toUpperCase(Locale.US)))
     }
 
