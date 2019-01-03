@@ -62,6 +62,17 @@ class ObjectImageMap(
         map.addOnImageMapClickedHandler(h)
     }
 
+    fun addClickHandler(fn: (String) -> Unit, mapFn: (Int) -> String) {
+        addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
+            override fun onImageMapClicked(id: Int, im2: ImageMap) {
+                im2.visibility = View.GONE
+                fn(mapFn(id))
+            }
+
+            override fun onBubbleClicked(id: Int) {}
+        })
+    }
+
     private fun setupImageMap(
         context: Context,
         toolbar: Toolbar,

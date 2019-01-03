@@ -71,7 +71,7 @@ class AFDActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     private lateinit var activityArguments: Array<String>
     private var product = ""
     private var nwsOffice = ""
-    private var sector = ""
+    //private var sector = ""
     private lateinit var imageMap: ObjectImageMap
     private lateinit var scrollView: ScrollView
     private var html = ""
@@ -91,7 +91,7 @@ class AFDActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     private lateinit var c0: ObjectCardText
     private lateinit var spinner1: ObjectSpinner
     private lateinit var contextg: Context
-    
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_afd, R.menu.afd)
@@ -137,7 +137,8 @@ class AFDActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             toolbarBottom,
             listOf<View>(c0.card, scrollView)
         )
-        imageMap.addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
+        imageMap.addClickHandler(::mapSwitch, UtilityImageMap::maptoWFO)
+        /*imageMap.addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
             override fun onImageMapClicked(id: Int, im2: ImageMap) {
                 sector = UtilityImageMap.maptoWFO(id)
                 im2.visibility = View.GONE
@@ -145,7 +146,7 @@ class AFDActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             }
 
             override fun onBubbleClicked(id: Int) {}
-        })
+        })*/
     }
 
     override fun onRestart() {
@@ -283,7 +284,7 @@ class AFDActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     }
 
     private fun mapSwitch(loc: String) {
-        nwsOffice = loc
+        nwsOffice = loc.toUpperCase(Locale.US)
         mapShown = false
         ridArrLoc = UtilityFavorites.setupFavMenu(
             this,

@@ -38,6 +38,7 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.*
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
+import joshuatee.wx.util.UtilityImageMap
 import kotlinx.coroutines.*
 
 class SPCSoundingsActivity : BaseActivity(), OnClickListener, OnItemSelectedListener,
@@ -51,7 +52,7 @@ class SPCSoundingsActivity : BaseActivity(), OnClickListener, OnItemSelectedList
     private var imgUrl = ""
     private lateinit var img: ObjectTouchImageView
     private lateinit var imageMap: ObjectImageMap
-    private var sector = ""
+    //private var sector = ""
     private var nwsOffice = ""
     private var mapShown = false
     private var firstTime = true
@@ -89,15 +90,15 @@ class SPCSoundingsActivity : BaseActivity(), OnClickListener, OnItemSelectedList
         sp.setOnItemSelectedListener(this)
         imageMap =
                 ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
-        imageMap.addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
+        imageMap.addClickHandler(::mapSwitch, UtilityImageMap::maptoSND)
+        /*imageMap.addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
             override fun onImageMapClicked(id: Int, im2: ImageMap) {
                 im2.visibility = View.GONE
-                sector = UtilityImageMap.maptoSND(id)
-                mapSwitch(sector)
+                mapSwitch(UtilityImageMap.maptoSND(id))
             }
 
             override fun onBubbleClicked(id: Int) {}
-        })
+        })*/
     }
 
     override fun onRestart() {
