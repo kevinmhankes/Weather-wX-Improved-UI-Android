@@ -49,7 +49,6 @@ import joshuatee.wx.activitiesmisc.WebscreenABModels
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.UtilityToolbar
-import joshuatee.wx.util.ImageMap
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
@@ -275,14 +274,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             toolbarBottom,
             rlArr.toList() as List<View> + glviewArr.toList() as List<View>
         )
-        imageMap.addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
-            override fun onImageMapClicked(id: Int, im2: ImageMap) {
-                im2.visibility = View.GONE
-                ridMapSwitch(UtilityImageMap.maptoRid(id))
-            }
-
-            override fun onBubbleClicked(id: Int) {}
-        })
+        imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::maptoRid)
         oglInView = true
         numPanesArr.forEach {
             oglrArr[it].rid = Utility.readPref(

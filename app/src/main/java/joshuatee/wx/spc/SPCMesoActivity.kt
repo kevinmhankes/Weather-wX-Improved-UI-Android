@@ -215,8 +215,7 @@ class SPCMesoActivity : VideoRecordActivity(), OnClickListener, OnMenuItemClickL
             MyApplication.spcmesoFav,
             displayData.param[curImg]
         )
-        sp = ObjectSpinner(this, this, R.id.spinner1, favListLabel)
-        sp.setOnItemSelectedListener(this)
+        sp = ObjectSpinner(this, this, this, R.id.spinner1, favListLabel)
         UtilitySPCMESO.createData()
         drw = ObjectNavDrawerCombo(
             this,

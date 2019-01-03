@@ -71,7 +71,6 @@ class AFDActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     private lateinit var activityArguments: Array<String>
     private var product = ""
     private var nwsOffice = ""
-    //private var sector = ""
     private lateinit var imageMap: ObjectImageMap
     private lateinit var scrollView: ScrollView
     private var html = ""
@@ -138,15 +137,6 @@ class AFDActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             listOf<View>(c0.card, scrollView)
         )
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::maptoWFO)
-        /*imageMap.addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
-            override fun onImageMapClicked(id: Int, im2: ImageMap) {
-                sector = UtilityImageMap.maptoWFO(id)
-                im2.visibility = View.GONE
-                mapSwitch(sector.toUpperCase(Locale.US))
-            }
-
-            override fun onBubbleClicked(id: Int) {}
-        })*/
     }
 
     override fun onRestart() {

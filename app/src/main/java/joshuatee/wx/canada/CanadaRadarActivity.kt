@@ -105,14 +105,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         title = "Canada"
         imageMap =
                 ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
-        imageMap.addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
-            override fun onImageMapClicked(id: Int, im2: ImageMap) {
-                im2.visibility = View.GONE
-                ridMapSwitch(UtilityImageMap.maptoCARid(id))
-            }
-
-            override fun onBubbleClicked(id: Int) {}
-        })
+        imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::maptoCARid)
         ridFav = Utility.readPref(this, "RID_CA_FAV", " : : :")
         ridArrLoc = UtilityFavorites.setupFavMenuCA(ridFav, rid1)
         sp = ObjectSpinner(this, this, R.id.spinner1, ridArrLoc)

@@ -66,14 +66,11 @@ class SPCSWOStateGraphicsActivity : BaseActivity(), OnClickListener, OnItemSelec
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_spcswostate, R.menu.spcswostate, true)
         toolbarBottom.setOnMenuItemClickListener(this)
-        val turl = intent.getStringArrayExtra(NO)
-        turlDay = turl[0]
-        val nws1Current = Location.wfo
-        state = Utility.readPref(this, "NWS_LOCATION_$nws1Current", "").split(",")[0]
+        turlDay = intent.getStringArrayExtra(NO)[0]
+        state = Utility.readPref(this, "NWS_LOCATION_${Location.wfo}", "").split(",")[0]
         img = ObjectTouchImageView(this, this, R.id.iv)
         img.setOnClickListener(this)
-        val spinner1 = ObjectSpinner(this, this, R.id.spinner1, STATE_ARR, state)
-        spinner1.setOnItemSelectedListener(this)
+        ObjectSpinner(this, this, this, R.id.spinner1, STATE_ARR, state)
     }
 
     override fun onRestart() {
@@ -82,7 +79,7 @@ class SPCSWOStateGraphicsActivity : BaseActivity(), OnClickListener, OnItemSelec
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        title = "$state SWO D$turlDay"
+        title = "SWO D$turlDay"
         imgUrl = UtilitySPCSWO.getSWOStateURL(state, turlDay)
         bitmap = withContext(Dispatchers.IO) { imgUrl.getImage() }
         img.img.visibility = View.VISIBLE

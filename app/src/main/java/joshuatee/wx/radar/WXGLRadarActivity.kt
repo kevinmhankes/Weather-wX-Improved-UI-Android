@@ -54,7 +54,6 @@ import joshuatee.wx.activitiesmisc.TextScreenActivity
 import joshuatee.wx.activitiesmisc.WebscreenABModels
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.telecine.TelecineService
-import joshuatee.wx.util.ImageMap
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
@@ -229,14 +228,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         img.setMaxZoom(6.0f)
         glview = WXGLSurfaceView(this, 1, numPanes)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf(img, glview))
-        imageMap.addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
-            override fun onImageMapClicked(id: Int, im2: ImageMap) {
-                im2.visibility = View.GONE
-                ridMapSwitch(UtilityImageMap.maptoRid(id))
-            }
-
-            override fun onBubbleClicked(id: Int) {}
-        })
+        imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::maptoRid)
         rl = findViewById(R.id.rl)
         rl.addView(glview)
         val rlArr = arrayOf(rl)
@@ -289,8 +281,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             prefTokenLocation,
             prefToken
         )
-        sp = ObjectSpinner(this, this, R.id.spinner1, ridArrLoc)
-        sp.setOnItemSelectedListener(this)
+        sp = ObjectSpinner(this, this, this, R.id.spinner1, ridArrLoc)
         if (MyApplication.wxoglRadarAutorefresh) {
             // 180000 is 3 min
             mInterval = 60000 * Utility.readPref(this, "RADAR_REFRESH_INTERVAL", 3)
@@ -759,7 +750,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         getContent()
     }
 
-    fun ridMapSwitch(r: String) {
+    private fun ridMapSwitch(r: String) {
         oglr.rid = r
         mapShown = false
         ridArrLoc = UtilityFavorites.setupFavMenu(
