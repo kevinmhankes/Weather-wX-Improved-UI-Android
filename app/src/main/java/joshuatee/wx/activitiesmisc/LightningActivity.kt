@@ -26,21 +26,18 @@ import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.view.View.OnClickListener
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.ObjectTouchImageView
-import joshuatee.wx.ui.UtilityToolbar
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
 
 import kotlinx.coroutines.*
 
-class LightningActivity : VideoRecordActivity(), OnClickListener {
+class LightningActivity : VideoRecordActivity() {
 
     companion object {
         const val URL: String = ""
@@ -65,8 +62,7 @@ class LightningActivity : VideoRecordActivity(), OnClickListener {
         super.onCreate(savedInstanceState, R.layout.activity_image_show, null, true, false)
         contextg = this
         toolbar.setOnClickListener { toolbar.showOverflowMenu() }
-        img = ObjectTouchImageView(this, this, R.id.iv)
-        img.setOnClickListener(this)
+        img = ObjectTouchImageView(this, this, toolbar, R.id.iv)
         sector = Utility.readPref(this, "LIGHTNING_SECTOR", sector)
         period = Utility.readPref(this, "LIGHTNING_PERIOD", period)
         sectorPretty = UtilityLightning.getSectorPretty(sector)
@@ -130,12 +126,6 @@ class LightningActivity : VideoRecordActivity(), OnClickListener {
         this.period = period
         this.periodPretty = periodPretty
         getContent()
-    }
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.iv -> UtilityToolbar.showHide(toolbar)
-        }
     }
 
     override fun onStop() {

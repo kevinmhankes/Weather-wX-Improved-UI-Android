@@ -27,7 +27,6 @@ import android.os.Bundle
 import android.content.res.Configuration
 import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
-import android.view.View
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
@@ -39,8 +38,7 @@ import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
 import kotlinx.coroutines.*
 
-class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener,
-    Toolbar.OnMenuItemClickListener {
+class OPCImagesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmap = UtilityImg.getBlankBitmap()
@@ -62,7 +60,7 @@ class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener,
         toolbarBottom.setOnMenuItemClickListener(this)
         title = "OPC"
         drw = ObjectNavDrawer(this, UtilityOPCImages.labels, UtilityOPCImages.urls)
-        img = ObjectTouchImageView(this, this, R.id.iv, drw, prefTokenIdx)
+        img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, drw, prefTokenIdx)
         img.setListener(this, drw, ::getContentFixThis)
         drw.index = Utility.readPref(this, prefTokenIdx, 0)
         drw.setListener(::getContentFixThis)
@@ -115,12 +113,6 @@ class OPCImagesActivity : VideoRecordActivity(), View.OnClickListener,
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.iv -> UtilityToolbar.showHide(toolbar, toolbarBottom)
-        }
-    }
 
     override fun onStop() {
         img.imgSavePosnZoom(this, "OPCIMG")

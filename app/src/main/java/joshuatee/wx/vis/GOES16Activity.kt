@@ -28,7 +28,6 @@ import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
-import android.view.View
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
@@ -38,8 +37,7 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
-    Toolbar.OnMenuItemClickListener {
+class GOES16Activity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
 
     companion object {
         const val RID: String = ""
@@ -70,8 +68,7 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
         UtilityShortcut.hidePinIfNeeded(toolbarBottom)
         activityArguments = intent.getStringArrayExtra(RID)
         drw = ObjectNavDrawer(this, UtilityGOES16.labels, UtilityGOES16.codes)
-        img = ObjectTouchImageView(this, this, R.id.iv, drw, "")
-        img.setOnClickListener(this)
+        img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, drw, "")
         img.setMaxZoom(8f)
         img.setListener(this, drw, ::getContentFixThis)
         readPrefs(this)
@@ -180,12 +177,6 @@ class GOES16Activity : VideoRecordActivity(), View.OnClickListener,
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.iv -> UtilityToolbar.showHide(toolbar, toolbarBottom)
-        }
-    }
 
     override fun onStop() {
         img.imgSavePosnZoom(this, "GOES16_IMG")

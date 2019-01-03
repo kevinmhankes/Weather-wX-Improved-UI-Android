@@ -26,6 +26,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
 import android.view.View
+import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityImg
@@ -51,6 +52,17 @@ class ObjectTouchImageView {
     constructor(
         activity: Activity,
         context: Context,
+        toolbar: Toolbar,
+        resid: Int
+    ) : this(activity, context, resid) {
+        setOnClickListener(View.OnClickListener {
+            UtilityToolbar.showHide(toolbar)
+        })
+    }
+
+    constructor(
+        activity: Activity,
+        context: Context,
         resid: Int,
         drw: ObjectNavDrawer,
         prefTokenIdx: String
@@ -59,6 +71,36 @@ class ObjectTouchImageView {
         this.context = context
         this.drw = drw
         this.prefTokenIdx = prefTokenIdx
+    }
+
+    constructor(
+        activity: Activity,
+        context: Context,
+        toolbar: Toolbar,
+        toolbarBottom: Toolbar,
+        resid: Int,
+        drw: ObjectNavDrawer,
+        prefTokenIdx: String
+    ) : this(activity, context, resid, drw, prefTokenIdx) {
+        setOnClickListener(View.OnClickListener {
+            UtilityToolbar.showHide(
+                toolbar,
+                toolbarBottom
+            )
+        })
+    }
+
+    constructor(
+        activity: Activity,
+        context: Context,
+        toolbar: Toolbar,
+        resid: Int,
+        drw: ObjectNavDrawer,
+        prefTokenIdx: String
+    ) : this(activity, context, resid, drw, prefTokenIdx) {
+        setOnClickListener(View.OnClickListener {
+            UtilityToolbar.showHide(toolbar)
+        })
     }
 
     fun setBitmap(bitmap: Bitmap) {
