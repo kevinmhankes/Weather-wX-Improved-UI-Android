@@ -36,11 +36,12 @@ import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
 
 import joshuatee.wx.STATE_ARR
+import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import kotlinx.coroutines.*
 
-class SPCSWOStateGraphicsActivity : BaseActivity(), OnItemSelectedListener,
+class SPCSWOStateGraphicsActivity : VideoRecordActivity(), OnItemSelectedListener,
     OnMenuItemClickListener {
 
     // Show state level SPC SWO grapahics for D1-3
@@ -63,7 +64,13 @@ class SPCSWOStateGraphicsActivity : BaseActivity(), OnItemSelectedListener,
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_spcswostate, R.menu.spcswostate, true)
+        super.onCreate(
+            savedInstanceState,
+            R.layout.activity_spcswostate,
+            R.menu.spcswostate,
+            true,
+            true
+        )
         toolbarBottom.setOnMenuItemClickListener(this)
         turlDay = intent.getStringArrayExtra(NO)[0]
         state = Utility.readPref(this, "NWS_LOCATION_${Location.wfo}", "").split(",")[0]
