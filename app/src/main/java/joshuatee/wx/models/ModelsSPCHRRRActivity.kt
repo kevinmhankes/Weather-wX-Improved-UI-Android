@@ -148,12 +148,11 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                     R.id.spinner_sector,
                     UtilityModelSPCHRRRInterface.sectors
                 )
+        // FIXME use different constructor?
         spSector.setSelection(om.sector)
         spRun.setSelection(0)
         om.spTime.setSelection(0)
-        val spModel = ObjectSpinner(this, this, this, R.id.spinner_model, om.models)
-        // FIXME use different constructor?
-        spModel.setSelection(om.model)
+        ObjectSpinner(this, this, this, R.id.spinner_model, om.models, om.model)
         drw = ObjectNavDrawer(
             this,
             UtilityModelSPCHRRRInterface.labels,

@@ -134,17 +134,13 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         miStatus = m.findItem(R.id.action_status)
         miStatus.title = "in through"
         m.findItem(R.id.action_map).isVisible = false
-        om.spTime = ObjectSpinner(this, this, R.id.spinner_time)
-        om.spTime.setOnItemSelectedListener(this)
+        om.spTime = ObjectSpinner(this, this, this, R.id.spinner_time)
         om.displayData = DisplayData(this, this, this, om.numPanes, om.spTime)
-        spRun = ObjectSpinner(this, this, R.id.spinner_run)
-        spRun.setOnItemSelectedListener(this)
-        spSector = ObjectSpinner(this, this, R.id.spinner_sector, om.sectors)
-        spSector.setOnItemSelectedListener(this)
+        spRun = ObjectSpinner(this, this, this, R.id.spinner_run)
+        spSector = ObjectSpinner(this, this, this, R.id.spinner_sector, om.sectors)
+        // FIXME use constructor with init value at end
         spSector.setSelection(om.sector)
-        val spModel = ObjectSpinner(this, this, R.id.spinner_model, om.models)
-        spModel.setOnItemSelectedListener(this)
-        spModel.setSelection(om.model)
+        ObjectSpinner(this, this, this, R.id.spinner_model, om.models, om.model)
         drw = ObjectNavDrawer(this, om.labels, om.params)
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             drw.listView.setItemChecked(position, false)

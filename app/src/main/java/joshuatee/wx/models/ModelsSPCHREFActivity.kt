@@ -120,20 +120,19 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         }
         miStatus = m.findItem(R.id.action_status)
         miStatus.title = "in through"
-        om.spTime = ObjectSpinner(this, this, R.id.spinner_time)
+        om.spTime = ObjectSpinner(this, this, this, R.id.spinner_time)
         om.displayData = DisplayData(this, this, this, om.numPanes, om.spTime)
-        spRun = ObjectSpinner(this, this, R.id.spinner_run)
+        spRun = ObjectSpinner(this, this, this, R.id.spinner_run)
         spSector = ObjectSpinner(
+            this,
             this,
             this,
             R.id.spinner_sector,
             UtilityModelSPCHREFInterface.sectorsLong
         )
         om.sector = Utility.readPref(this, om.prefSector, "S19")
+        // FIXME use constructor with init value at end
         spSector.setSelection(om.sector)
-        om.spTime.setOnItemSelectedListener(this)
-        spRun.setOnItemSelectedListener(this)
-        spSector.setOnItemSelectedListener(this)
         spRun.setSelection(0)
         om.spTime.setSelection(0)
         UtilityModelSPCHREFInterface.createData()
