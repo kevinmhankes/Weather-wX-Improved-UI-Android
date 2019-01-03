@@ -86,6 +86,14 @@ abstract class VideoRecordActivity : AppCompatActivity() {
         UtilityToolbar.fullScreenMode(toolbar, false)
     }
 
+    protected fun checkOverlayPerms() {
+        if (isStoragePermissionGranted) {
+            if (android.os.Build.VERSION.SDK_INT > 22)
+                checkDrawOverlayPermission()
+            else
+                fireScreenCaptureIntent()
+        }
+    }
 
     protected fun fireScreenCaptureIntent() {
         val manager = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager

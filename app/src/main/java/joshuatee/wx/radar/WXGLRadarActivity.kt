@@ -580,12 +580,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20) {
                     showDistanceTool = "true"
-                    if (isStoragePermissionGranted) {
-                        if (android.os.Build.VERSION.SDK_INT > 22)
-                            checkDrawOverlayPermission()
-                        else
-                            fireScreenCaptureIntent()
-                    }
+                    checkOverlayPerms()
                 } else {
                     if (animRan) {
                         val animDrawable = UtilityUSImgWX.animationFromFiles(

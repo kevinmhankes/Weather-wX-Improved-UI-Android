@@ -25,7 +25,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.view.View.OnClickListener
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
@@ -41,7 +40,7 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import kotlinx.coroutines.*
 
-class SPCSWOStateGraphicsActivity : BaseActivity(), OnClickListener, OnItemSelectedListener,
+class SPCSWOStateGraphicsActivity : BaseActivity(), OnItemSelectedListener,
     OnMenuItemClickListener {
 
     // Show state level SPC SWO grapahics for D1-3
@@ -68,8 +67,7 @@ class SPCSWOStateGraphicsActivity : BaseActivity(), OnClickListener, OnItemSelec
         toolbarBottom.setOnMenuItemClickListener(this)
         turlDay = intent.getStringArrayExtra(NO)[0]
         state = Utility.readPref(this, "NWS_LOCATION_${Location.wfo}", "").split(",")[0]
-        img = ObjectTouchImageView(this, this, R.id.iv)
-        img.setOnClickListener(this)
+        img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv)
         ObjectSpinner(this, this, this, R.id.spinner1, STATE_ARR, state)
     }
 
@@ -110,12 +108,6 @@ class SPCSWOStateGraphicsActivity : BaseActivity(), OnClickListener, OnItemSelec
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.iv -> UtilityToolbar.showHide(toolbar, toolbarBottom)
-        }
-    }
 
     override fun onStop() {
         img.imgSavePosnZoom(this, imgPrefToken)

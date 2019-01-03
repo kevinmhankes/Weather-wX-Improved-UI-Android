@@ -274,12 +274,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             )
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
-                    if (isStoragePermissionGranted) {
-                        if (android.os.Build.VERSION.SDK_INT > 22)
-                            checkDrawOverlayPermission()
-                        else
-                            fireScreenCaptureIntent()
-                    }
+                    checkOverlayPerms()
                 } else {
                     if (animRan)
                         UtilityShare.shareAnimGif(

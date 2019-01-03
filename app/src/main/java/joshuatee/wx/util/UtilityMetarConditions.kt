@@ -54,6 +54,7 @@ object UtilityMetarConditions {
 
         "Snow" to "snow",
         "Light Snow" to "snow",
+        "Light Snow, Mist" to "snow",
         "Heavy Snow" to "snow",
         "Snow Showers" to "snow",
         "Light Snow Showers" to "snow",

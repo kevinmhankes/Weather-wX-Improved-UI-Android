@@ -63,6 +63,18 @@ class ObjectTouchImageView {
     constructor(
         activity: Activity,
         context: Context,
+        toolbar: Toolbar,
+        toolbarBottom: Toolbar,
+        resid: Int
+    ) : this(activity, context, resid) {
+        setOnClickListener(View.OnClickListener {
+            UtilityToolbar.showHide(toolbar, toolbarBottom)
+        })
+    }
+
+    constructor(
+        activity: Activity,
+        context: Context,
         resid: Int,
         drw: ObjectNavDrawer,
         prefTokenIdx: String

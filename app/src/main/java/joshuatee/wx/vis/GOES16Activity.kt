@@ -156,12 +156,7 @@ class GOES16Activity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
             R.id.action_taw -> getContent("taw")
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
-                    if (isStoragePermissionGranted) {
-                        if (android.os.Build.VERSION.SDK_INT > 22)
-                            checkDrawOverlayPermission()
-                        else
-                            fireScreenCaptureIntent()
-                    }
+                    checkOverlayPerms()
                 } else
                     UtilityShare.shareText(this, drw.getLabel(), "", bitmap)
             }

@@ -440,12 +440,7 @@ class SPCMesoActivity : VideoRecordActivity(), OnClickListener, OnMenuItemClickL
             R.id.action_a18 -> getAnimate(18)
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20) {
-                    if (isStoragePermissionGranted) {
-                        if (android.os.Build.VERSION.SDK_INT > 22)
-                            checkDrawOverlayPermission()
-                        else
-                            fireScreenCaptureIntent()
-                    }
+                    checkOverlayPerms()
                 } else {
                     var title = sectorMap[sector] + " - " + displayData.paramLabel[0]
                     if (animRan) {
