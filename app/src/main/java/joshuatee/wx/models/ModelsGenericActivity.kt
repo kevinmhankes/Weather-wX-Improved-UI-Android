@@ -214,18 +214,6 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
             }
             firstRun = true
         }
-        /*if (om.numPanes > 1) {
-            UtilityModels.setSubtitleRestoreIMGXYZOOM(
-                om.displayData.img,
-                toolbar,
-                "(" + (om.curImg + 1).toString() + ")" + om.displayData.param[0] + "/" + om.displayData.param[1]
-            )
-            miStatusParam1.title = om.displayData.paramLabel[0]
-            miStatusParam2.title = om.displayData.paramLabel[1]
-        } else {
-            toolbar.subtitle = om.displayData.paramLabel[0]
-            miStatusParam1.title = om.displayData.paramLabel[0]
-        }*/
         UtilityModels.updateToolbarLabels(toolbar, miStatusParam1, miStatusParam2, om)
         imageLoaded = true
     }

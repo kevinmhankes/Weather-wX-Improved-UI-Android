@@ -40,7 +40,12 @@ import joshuatee.wx.util.UtilityShare
 
 object UtilityModels {
 
-    fun updateToolbarLabels(toolbar: Toolbar, miStatusParam1: MenuItem, miStatusParam2: MenuItem, om: ObjectModel) {
+    fun updateToolbarLabels(
+        toolbar: Toolbar,
+        miStatusParam1: MenuItem,
+        miStatusParam2: MenuItem,
+        om: ObjectModel
+    ) {
         if (om.numPanes > 1) {
             UtilityModels.setSubtitleRestoreIMGXYZOOM(
                 om.displayData.img,
