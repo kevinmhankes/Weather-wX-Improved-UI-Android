@@ -272,7 +272,6 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
         spRun.addAll(om.rtd.listRun)
         spRun.notifyDataSetChanged()
         miStatus.title = "in through " + om.rtd.imageCompleteStr
-        toolbar.title = om.rtd.imageCompleteStr
         spRun.setSelection(0)
         om.spTime.setSelection(0)
         if (!firstRunTimeSet) {
