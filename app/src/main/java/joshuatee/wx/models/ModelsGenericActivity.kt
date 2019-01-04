@@ -214,7 +214,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
             }
             firstRun = true
         }
-        if (om.numPanes > 1) {
+        /*if (om.numPanes > 1) {
             UtilityModels.setSubtitleRestoreIMGXYZOOM(
                 om.displayData.img,
                 toolbar,
@@ -225,7 +225,8 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
         } else {
             toolbar.subtitle = om.displayData.paramLabel[0]
             miStatusParam1.title = om.displayData.paramLabel[0]
-        }
+        }*/
+        UtilityModels.updateToolbarLabels(toolbar, miStatusParam1, miStatusParam2, om)
         imageLoaded = true
     }
 

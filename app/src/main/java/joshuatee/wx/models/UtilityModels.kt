@@ -23,6 +23,7 @@ package joshuatee.wx.models
 
 import android.content.Context
 import android.graphics.PointF
+import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import android.widget.ArrayAdapter
 
@@ -39,15 +40,18 @@ import joshuatee.wx.util.UtilityShare
 
 object UtilityModels {
 
-    fun updateToolbarLabels(toolbar: Toolbar, om: ObjectModel) {
+    fun updateToolbarLabels(toolbar: Toolbar, miStatusParam1: MenuItem, miStatusParam2: MenuItem, om: ObjectModel) {
         if (om.numPanes > 1) {
             UtilityModels.setSubtitleRestoreIMGXYZOOM(
                 om.displayData.img,
                 toolbar,
                 "(" + (om.curImg + 1).toString() + ")" + om.displayData.param[0] + "/" + om.displayData.param[1]
             )
+            miStatusParam1.title = om.displayData.paramLabel[0]
+            miStatusParam2.title = om.displayData.paramLabel[1]
         } else {
             toolbar.subtitle = om.displayData.paramLabel[0]
+            miStatusParam1.title = om.displayData.paramLabel[0]
         }
     }
 

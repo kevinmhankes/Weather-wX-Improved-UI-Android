@@ -63,6 +63,8 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
     private lateinit var miStatus: MenuItem
+    private lateinit var miStatusParam1: MenuItem
+    private lateinit var miStatusParam2: MenuItem
     private lateinit var drw: ObjectNavDrawerCombo
     private lateinit var contextg: Context
     private lateinit var om: ObjectModel
@@ -93,6 +95,8 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
         toolbarBottom.setOnMenuItemClickListener(this)
         title = activityArguments[2]
         val m = toolbarBottom.menu
+        miStatusParam1 = m.findItem(R.id.action_status_param1)
+        miStatusParam2 = m.findItem(R.id.action_status_param2)
         if (om.numPanes < 2) {
             fab1 = ObjectFab(
                 this,
@@ -112,6 +116,7 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
             }
             fab1.setVisibility(View.GONE)
             fab2.setVisibility(View.GONE)
+            miStatusParam2.isVisible = false
         } else {
             m.findItem(R.id.action_multipane).isVisible = false
         }
@@ -205,7 +210,7 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
             }
             firstRun = true
         }
-        UtilityModels.updateToolbarLabels(toolbar, om)
+        UtilityModels.updateToolbarLabels(toolbar, miStatusParam1, miStatusParam2, om)
         imageLoaded = true
     }
 

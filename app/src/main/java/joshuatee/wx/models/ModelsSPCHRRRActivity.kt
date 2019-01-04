@@ -68,6 +68,8 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
     private lateinit var fab2: ObjectFab
     private val overlayImg = mutableListOf<String>()
     private lateinit var miStatus: MenuItem
+    private lateinit var miStatusParam1: MenuItem
+    private lateinit var miStatusParam2: MenuItem
     private lateinit var drw: ObjectNavDrawer
     private lateinit var contextg: Context
     private lateinit var om: ObjectModel
@@ -109,6 +111,8 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
             )
         )
         val m = toolbarBottom.menu
+        miStatusParam1 = m.findItem(R.id.action_status_param1)
+        miStatusParam2 = m.findItem(R.id.action_status_param2)
         if (om.numPanes < 2) {
             fab1 = ObjectFab(
                 this,
@@ -128,6 +132,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
             }
             fab1.setVisibility(View.GONE)
             fab2.setVisibility(View.GONE)
+            miStatusParam2.isVisible = false
         } else {
             m.findItem(R.id.action_multipane).isVisible = false
         }
@@ -221,7 +226,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
             }
             firstRun = true
         }
-        UtilityModels.updateToolbarLabels(toolbar, om)
+        UtilityModels.updateToolbarLabels(toolbar, miStatusParam1, miStatusParam2, om)
         imageLoaded = true
     }
 

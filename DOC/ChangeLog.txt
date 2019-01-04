@@ -7,7 +7,7 @@
 // TODO convert other imageMaps to use new clickHandler
 // TODO for HREF/HRRR/SREF add miStatusParam1/2
 
-55093 2019_01_04 misc code refactor
+55094 2019_01_04 misc code refactor
                  enable additional radar content in locfrag
 55093 2019_01_03 [BUG] no vtec nws office for sps in uswarn
                  minor enhancement in ObjectSpinner to handle listener setup in constructors
