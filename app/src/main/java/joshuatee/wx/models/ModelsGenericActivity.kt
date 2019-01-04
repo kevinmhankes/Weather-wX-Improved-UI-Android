@@ -146,14 +146,6 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
             drw.drawerLayout.closeDrawer(drw.listView)
             om.displayData.param[om.curImg] = drw.getToken(position)
             om.displayData.paramLabel[om.curImg] = drw.getLabel(position)
-            (0 until om.numPanes).forEach {
-                Utility.writePref(this, om.prefParam + it.toString(), om.displayData.param[it])
-                Utility.writePref(
-                    this,
-                    om.prefParamLabel + it.toString(),
-                    om.displayData.paramLabel[it]
-                )
-            }
             getContent()
         }
     }
@@ -175,7 +167,6 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
             spinnerModelRan = true
             om.setParams(parent.selectedItemPosition)
             setupModel()
-            //drw.updateLists(this, om.labels, om.params)
             Utility.writePref(this, om.prefModel, om.model)
             getRunStatus()
         } else if (firstRunTimeSet) { // && spinnerRunRan && spinnerTimeRan && spinnerSectorRan && spinnerModelRan
@@ -194,8 +185,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
         if (om.truncateTime) {
             om.time = UtilityStringExternal.truncate(om.time, om.timeTruncate)
         }
-        Utility.writePref(contextg, om.prefSector, om.sector)
-
+        UtilityModels.writePrefs(contextg, om)
         withContext(Dispatchers.IO) {
             (0 until om.numPanes).forEach { om.displayData.bitmap[it] = om.getImage(it) }
         }

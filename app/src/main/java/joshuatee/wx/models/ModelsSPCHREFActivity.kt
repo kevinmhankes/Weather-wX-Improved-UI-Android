@@ -142,14 +142,6 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
             drw.drawerLayout.closeDrawer(drw.listView)
             om.displayData.param[om.curImg] = drw.getToken(groupPosition, childPosition)
             om.displayData.paramLabel[om.curImg] = drw.getLabel(groupPosition, childPosition)
-            (0 until om.numPanes).forEach {
-                Utility.writePref(this, om.prefParam + it.toString(), om.displayData.param[it])
-                Utility.writePref(
-                    this,
-                    om.prefParamLabel + it.toString(),
-                    om.displayData.paramLabel[it]
-                )
-            }
             getContent()
             true
         }
@@ -185,7 +177,7 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
         om.time = om.spTime.selectedItem.toString()
         om.sector = spSector.selectedItem.toString()
         om.time = UtilityStringExternal.truncate(om.time, 2)
-        Utility.writePref(contextg, om.prefSector, om.sector)
+        UtilityModels.writePrefs(contextg, om)
         withContext(Dispatchers.IO) {
             (0 until om.numPanes).forEach { om.displayData.bitmap[it] = om.getImage(it) }
         }
@@ -213,15 +205,7 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
             }
             firstRun = true
         }
-        if (om.numPanes > 1) {
-            UtilityModels.setSubtitleRestoreIMGXYZOOM(
-                om.displayData.img,
-                toolbar,
-                "(" + (om.curImg + 1).toString() + ")" + om.displayData.param[0] + "/" + om.displayData.param[1]
-            )
-        } else {
-            toolbar.subtitle = om.displayData.paramLabel[0]
-        }
+        UtilityModels.updateToolbarLabels(toolbar, om)
         imageLoaded = true
     }
 

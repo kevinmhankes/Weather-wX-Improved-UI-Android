@@ -208,24 +208,8 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
             }
             firstRun = true
         }
-        if (om.numPanes > 1) {
-            UtilityModels.setSubtitleRestoreIMGXYZOOM(
-                om.displayData.img,
-                toolbar,
-                "(" + (om.curImg + 1).toString() + ")" + om.displayData.param[0] + "/" + om.displayData.param[1]
-            )
-        } else {
-            toolbar.subtitle = om.displayData.paramLabel[0]
-        }
-        imageLoaded = true
-        (0 until om.numPanes).forEach {
-            Utility.writePref(contextg, om.prefParam + it.toString(), om.displayData.param[it])
-            Utility.writePref(
-                contextg,
-                om.prefParamLabel + it.toString(),
-                om.displayData.paramLabel[it]
-            )
-        }
+        UtilityModels.updateToolbarLabels(toolbar, om)
+        UtilityModels.writePrefs(contextg, om)
         imageLoaded = true
     }
 
