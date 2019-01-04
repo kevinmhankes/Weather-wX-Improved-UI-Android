@@ -33,7 +33,6 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
-import android.view.View.OnClickListener
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 
@@ -44,12 +43,11 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.ui.ObjectNavDrawer
 import joshuatee.wx.ui.ObjectSpinner
-import joshuatee.wx.ui.UtilityToolbar
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItemClickListener,
+class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
     OnItemSelectedListener {
 
     companion object {
@@ -125,10 +123,8 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             m.findItem(R.id.action_img1).isVisible = false
             m.findItem(R.id.action_img2).isVisible = false
             if (UIPreferences.fabInModels) {
-                val leftArrow = m.findItem(R.id.action_back)
-                val rightArrow = m.findItem(R.id.action_forward)
-                leftArrow.isVisible = false
-                rightArrow.isVisible = false
+                m.findItem(R.id.action_back).isVisible = false
+                m.findItem(R.id.action_forward).isVisible = false
             }
             fab1.setVisibility(View.GONE)
             fab2.setVisibility(View.GONE)
@@ -138,21 +134,16 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         miStatus = m.findItem(R.id.action_status)
         miStatus.title = "in through"
         om.spTime = ObjectSpinner(this, this, this, R.id.spinner_time)
-        om.displayData = DisplayData(this, this, this, om.numPanes, om.spTime)
+        om.displayData = DisplayData(this, this, om.numPanes, om.spTime)
         spRun = ObjectSpinner(this, this, this, R.id.spinner_run)
-        spSector =
-                ObjectSpinner(
-                    this,
-                    this,
-                    this,
-                    R.id.spinner_sector,
-                    UtilityModelSPCHRRRInterface.sectors,
-                    om.sector
-                )
-        // FIXME use different constructor?
-        //spSector.setSelection(om.sector)
-        spRun.setSelection(0)
-        om.spTime.setSelection(0)
+        spSector = ObjectSpinner(
+            this,
+            this,
+            this,
+            R.id.spinner_sector,
+            UtilityModelSPCHRRRInterface.sectors,
+            om.sector
+        )
         ObjectSpinner(this, this, this, R.id.spinner_model, om.models, om.model)
         drw = ObjectNavDrawer(
             this,
@@ -299,20 +290,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    if (animRan)
-                        UtilityShare.shareAnimGif(
-                            this,
-                            om.model + " " +
-                                    om.displayData.paramLabel[om.curImg] + " " + om.spTime.selectedItem.toString(),
-                            om.displayData.animDrawable[om.curImg]
-                        )
-                    else
-                        UtilityShare.shareBitmap(
-                            this,
-                            om.model + " " +
-                                    om.displayData.paramLabel[om.curImg] + " " + om.spTime.selectedItem.toString(),
-                            om.displayData.bitmap[om.curImg]
-                        )
+                    UtilityModels.legacyShare(contextg, animRan, om)
                 }
             }
             else -> return super.onOptionsItemSelected(item)
@@ -399,12 +377,6 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         drw.actionBarDrawerToggle.onConfigurationChanged(newConfig)
-    }
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.iv -> UtilityToolbar.showHide(toolbar, toolbarBottom)
-        }
     }
 
     override fun onStop() {

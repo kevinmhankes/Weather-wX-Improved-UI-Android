@@ -21,6 +21,7 @@
 
 package joshuatee.wx.models
 
+import android.content.Context
 import android.graphics.PointF
 import androidx.appcompat.widget.Toolbar
 import android.widget.ArrayAdapter
@@ -33,8 +34,24 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.ui.ObjectSpinner
 import joshuatee.wx.ui.TouchImageView2
+import joshuatee.wx.util.UtilityShare
 
 object UtilityModels {
+
+    fun legacyShare(context: Context, animRan: Boolean, om: ObjectModel) {
+        if (animRan)
+            UtilityShare.shareAnimGif(
+                context,
+                om.prefModel + " " + om.displayData.paramLabel[0] + " " + om.spTime.selectedItem.toString(),
+                om.displayData.animDrawable[0]
+            )
+        else
+            UtilityShare.shareBitmap(
+                context,
+                om.prefModel + " " + om.displayData.paramLabel[0] + " " + om.spTime.selectedItem.toString(),
+                om.displayData.bitmap[0]
+            )
+    }
 
     fun moveForward(spinnerTime: ObjectSpinner) {
         var timeTmp = spinnerTime.selectedItemPosition

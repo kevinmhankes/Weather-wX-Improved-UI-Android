@@ -44,18 +44,16 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.ui.ObjectNavDrawerCombo
 import joshuatee.wx.ui.ObjectSpinner
-import joshuatee.wx.ui.UtilityToolbar
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
 import joshuatee.wx.util.UtilityFavorites
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.util.UtilityImgAnim
-import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.util.UtilityString
 import kotlinx.coroutines.*
 
-class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItemClickListener,
+class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
     OnItemSelectedListener {
 
     // native interface to the mobile SPC SREF website
@@ -129,10 +127,8 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             m.findItem(R.id.action_img1).isVisible = false
             m.findItem(R.id.action_img2).isVisible = false
             if (UIPreferences.fabInModels) {
-                val leftArrow = m.findItem(R.id.action_back)
-                val rightArrow = m.findItem(R.id.action_forward)
-                leftArrow.isVisible = false
-                rightArrow.isVisible = false
+                m.findItem(R.id.action_back).isVisible = false
+                m.findItem(R.id.action_forward).isVisible = false
             }
             fab1.setVisibility(View.GONE)
             fab2.setVisibility(View.GONE)
@@ -142,7 +138,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         miStatus = m.findItem(R.id.action_status)
         miStatus.title = "in through"
         om.spTime = ObjectSpinner(this, this, this, R.id.spinner_time)
-        om.displayData = DisplayData(this, this, this, om.numPanes, om.spTime)
+        om.displayData = DisplayData(this, this, om.numPanes, om.spTime)
         setupModel()
         spRun = ObjectSpinner(this, this, this, R.id.spinner_run)
         favList = UtilityFavorites.setupFavMenuSREF(
@@ -250,10 +246,6 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
         spRun.setSelection(0)
         initSpinnerSetup = true
         miStatus.title = Utility.fromHtml(om.rtd.imageCompleteStr.replace("in through", "-"))
-        //val titleTmpArr = MyApplication.space.split(om.rtd.imageCompleteStr.replace("in through", "-"))
-        //if (titleTmpArr.size > 2) {
-        //    toolbar.subtitle = Utility.fromHtml(titleTmpArr[2])
-        //}
         if (!firstRunTimeSet) {
             firstRunTimeSet = true
             om.spTime.setSelection(Utility.readPref(contextg, om.prefRunPosn, 0))
@@ -311,19 +303,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    val title = "SREF" + " " + om.displayData.param[0]
-                    if (animRan)
-                        UtilityShare.shareAnimGif(
-                            this,
-                            title + " " + om.spTime.selectedItem.toString(),
-                            om.displayData.animDrawable[0]
-                        )
-                    else
-                        UtilityShare.shareBitmap(
-                            this,
-                            title + " " + om.spTime.selectedItem.toString(),
-                            om.displayData.bitmap[0]
-                        )
+                    UtilityModels.legacyShare(contextg, animRan, om)
                 }
             }
             R.id.action_animate -> getAnimate()
@@ -353,12 +333,6 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnClickListener, OnMenuItem
             "${MyApplication.nwsSPCwebsitePrefix}/exper/sref/about_sref.html",
             this
         )
-    }
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.iv -> UtilityToolbar.showHide(toolbar, toolbarBottom)
-        }
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
