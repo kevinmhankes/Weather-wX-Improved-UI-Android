@@ -507,14 +507,22 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     activityReference,
                     ::getGPSFromDouble,
                     ::getLatLon,
-                    false
+                    true
                 )
             }
         }
 
+        // Showextras a few lines above was changed from false to true along with few lines added below
+        // some time ago there were crashes caused by this additional content but I don't recall the details
+        // guess it's worth another try to see if the issue back then was fixed in the various re-writes that have
+        // occured since
         if (Location.isUS) {
-            if (PolygonType.SPOTTER_LABELS.pref)
+            if (PolygonType.OBS.pref) {
+                UtilityWXGLTextObject.updateObs(numRadars, wxgltextArr)
+            }
+            if (PolygonType.SPOTTER_LABELS.pref) {
                 UtilityWXGLTextObject.updateSpotterLabels(numRadars, wxgltextArr)
+            }
             glviewArr[idx].requestRender()
             if (idx == oglrIdx) {
                 radarTime = radarTimeStamp
