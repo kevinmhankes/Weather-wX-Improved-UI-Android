@@ -48,75 +48,62 @@ class SettingsMainActivity : BaseActivity() {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
         UtilityTheme.setPrimaryColor(this)
         contextg = this
-        var vers = ""
-        try {
-            vers = packageManager.getPackageInfo(packageName, 0).versionName
-        } catch (e: Exception) {
-            UtilityLog.HandleException(e)
-        }
-        toolbar.subtitle = "version: $vers, Please tap on text for additional help."
+        val version = Utility.getVersion(this)
+        toolbar.subtitle = "version: $version, Please tap on text for additional help."
         val linearLayout: LinearLayout = findViewById(R.id.ll)
         val cardAbout = ObjectCardText(this, "About wX", MyApplication.textSizeNormal)
-        val cardLocations = ObjectCardText(this, "Locations", MyApplication.textSizeNormal)
-        val cardNotif = ObjectCardText(this, "Notifications", MyApplication.textSizeNormal)
-        val cardWidgets = ObjectCardText(this, "Widgets", MyApplication.textSizeNormal)
-        val cardColors = ObjectCardText(this, "Colors", MyApplication.textSizeNormal)
-        val cardPL = ObjectCardText(this, "PlayList", MyApplication.textSizeNormal)
-        val cardRadar = ObjectCardText(this, "Radar", MyApplication.textSizeNormal)
-        val cardHS = ObjectCardText(this, "Home Screen", MyApplication.textSizeNormal)
-        val cardUI = ObjectCardText(this, "User Interface", MyApplication.textSizeNormal)
+        val cardLocations = ObjectCardText(
+            this,
+            "Locations",
+            MyApplication.textSizeNormal,
+            SettingsLocationRecyclerViewActivity::class.java
+        )
+        val cardNotif = ObjectCardText(
+            this,
+            "Notifications",
+            MyApplication.textSizeNormal,
+            SettingsNotificationsActivity::class.java
+        )
+        val cardWidgets = ObjectCardText(
+            this,
+            "Widgets",
+            MyApplication.textSizeNormal,
+            SettingsWidgetsActivity::class.java
+        )
+        val cardColors = ObjectCardText(
+            this,
+            "Colors",
+            MyApplication.textSizeNormal,
+            SettingsColorsActivity::class.java
+        )
+        val cardPL = ObjectCardText(
+            this,
+            "PlayList",
+            MyApplication.textSizeNormal,
+            SettingsPlaylistActivity::class.java
+        )
+        val cardRadar = ObjectCardText(
+            this,
+            "Radar",
+            MyApplication.textSizeNormal,
+            SettingsRadarActivity::class.java
+        )
+        val cardHS = ObjectCardText(
+            this,
+            "Home Screen",
+            MyApplication.textSizeNormal,
+            SettingsHomeScreenActivity::class.java
+        )
+        val cardUI = ObjectCardText(
+            this,
+            "User Interface",
+            MyApplication.textSizeNormal,
+            SettingsUIActivity::class.java
+        )
         val cardCtoF =
             ObjectCardText(this, "Celsius to fahrenheit table", MyApplication.textSizeNormal)
         val cardDeleteFiles =
             ObjectCardText(this, "Delete old radar files", MyApplication.textSizeNormal)
-        cardLocations.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                contextg,
-                SettingsLocationRecyclerViewActivity::class.java
-            )
-        })
-        cardNotif.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                contextg,
-                SettingsNotificationsActivity::class.java
-            )
-        })
-        cardWidgets.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                contextg,
-                SettingsWidgetsActivity::class.java
-            )
-        })
-        cardColors.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                contextg,
-                SettingsColorsActivity::class.java
-            )
-        })
-        cardPL.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                contextg,
-                SettingsPlaylistActivity::class.java
-            )
-        })
-        cardRadar.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                contextg,
-                SettingsRadarActivity::class.java
-            )
-        })
-        cardHS.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                contextg,
-                SettingsHomeScreenActivity::class.java
-            )
-        })
-        cardUI.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                contextg,
-                SettingsUIActivity::class.java
-            )
-        })
         cardCtoF.setOnClickListener(View.OnClickListener {
             ObjectIntent(
                 contextg,

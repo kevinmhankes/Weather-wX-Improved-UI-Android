@@ -123,7 +123,7 @@ class MyApplication : Application() {
         }
 
         httpClientUnsafe = UtilityHttp.getUnsafeOkHttpClient()
-        imageCollectionMap = ObjectImagesCollection.intialize()
+        imageCollectionMap = ObjectImagesCollection.initialize()
     }
 
     companion object {

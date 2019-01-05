@@ -37,7 +37,6 @@ import joshuatee.wx.activitiesmisc.*
 import joshuatee.wx.models.ModelsGenericActivity
 import joshuatee.wx.nhc.NHCActivity
 import joshuatee.wx.settings.Location
-import joshuatee.wx.vis.NWSGOESFullDiskActivity
 import joshuatee.wx.vis.GOES16Activity
 import joshuatee.wx.radar.USNWSMosaicActivity
 import joshuatee.wx.radar.WXGLRadarActivity
@@ -175,9 +174,9 @@ class MiscFragment : Fragment() {
             )
             hm["goesfulldisk"] = TileObject(
                 R.drawable.goesfulldisk,
-                NWSGOESFullDiskActivity::class.java,
-                "",
-                arrayOf(),
+                ImageCollectionActivity::class.java,
+                ImageCollectionActivity.TYPE,
+                arrayOf("GOESFD"),
                 resources.getString(R.string.help_goesfulldisk),
                 "goesfulldisk"
             )

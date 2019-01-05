@@ -6,6 +6,7 @@
 // TODO in general reduce static methods ( object methods ) in favor of instance methods
 // TODO convert other imageMaps to use new clickHandler
 // TODO consolidate OPC,NWSGOES, NWS Mosaic, Observations into one activity using class to store pref/lists, etc
+// TODO convert lightning to nav drawer
 
 55095 2019_01_05 misc code refactor
                  [BUG] NWS Radar mosaic was not saving posn correctly

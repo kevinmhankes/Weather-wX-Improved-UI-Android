@@ -23,6 +23,7 @@ package joshuatee.wx.ui
 
 import joshuatee.wx.activitiesmisc.UtilityOPCImages
 import joshuatee.wx.activitiesmisc.UtilityObservations
+import joshuatee.wx.vis.UtilityNWSGOESFullDisk
 
 class ObjectImagesCollection(
     var title: String,
@@ -33,8 +34,8 @@ class ObjectImagesCollection(
 ) {
 
     companion object {
-        fun intialize(): MutableMap<String, ObjectImagesCollection> {
-            var collectionMap: MutableMap<String, ObjectImagesCollection> = mutableMapOf()
+        fun initialize(): MutableMap<String, ObjectImagesCollection> {
+            val collectionMap: MutableMap<String, ObjectImagesCollection> = mutableMapOf()
             collectionMap["OPC"] = ObjectImagesCollection(
                 "OPC",
                 UtilityOPCImages.urls,
@@ -48,6 +49,13 @@ class ObjectImagesCollection(
                 UtilityObservations.labels,
                 "SFC_OBS_IMG_IDX",
                 "OBS"
+            )
+            collectionMap["GOESFD"] = ObjectImagesCollection(
+                "GOESFD",
+                UtilityNWSGOESFullDisk.urls,
+                UtilityNWSGOESFullDisk.labels,
+                "GOESFULLDISK_IMG_FAV_IDX",
+                "GOESFULLDISKIMG"
             )
             return collectionMap
         }
