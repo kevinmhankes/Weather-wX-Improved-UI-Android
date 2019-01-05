@@ -53,7 +53,7 @@ class OPCImagesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
         super.onCreate(
             savedInstanceState,
             R.layout.activity_image_show_navdrawer_bottom_toolbar,
-            R.menu.opcimages,
+            R.menu.imagecollection,
             true,
             true
         )
