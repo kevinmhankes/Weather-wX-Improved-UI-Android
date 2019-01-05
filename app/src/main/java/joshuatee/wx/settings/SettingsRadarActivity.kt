@@ -53,24 +53,20 @@ class SettingsRadarActivity : BaseActivity() {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
         toolbar.subtitle = "Please tap on text for additional help."
         val ll: LinearLayout = findViewById(R.id.ll)
-        val cardColors = ObjectCardText(this, "Colors", MyApplication.textSizeNormal)
+        ObjectCardText(this, ll, "Colors", MyApplication.textSizeNormal, SettingsColorsActivity::class.java)
         cardPal94 = ObjectCardText(
             this,
+            ll,
             resources.getString(R.string.label_settings_color_palette_94) + ": " + MyApplication.radarColorPalette["94"],
             MyApplication.textSizeNormal
         )
         cardPal99 = ObjectCardText(
             this,
+            ll,
             resources.getString(R.string.label_settings_color_palette_99) + ": " + MyApplication.radarColorPalette["99"],
             MyApplication.textSizeNormal
         )
-        val cardRecorder = ObjectCardText(this, "Screen Recorder", MyApplication.textSizeNormal)
-        cardColors.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                this,
-                SettingsColorsActivity::class.java
-            )
-        })
+        ObjectCardText(this, ll, "Screen Recorder", MyApplication.textSizeNormal, SettingsTelecineActivity::class.java)
         cardPal94.setOnClickListener(View.OnClickListener {
             ObjectIntent(
                 this,
@@ -87,16 +83,7 @@ class SettingsRadarActivity : BaseActivity() {
                 arrayOf("99")
             )
         })
-        cardRecorder.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                this,
-                SettingsTelecineActivity::class.java
-            )
-        })
-        ll.addView(cardColors.card)
-        ll.addView(cardPal94.card)
-        ll.addView(cardPal99.card)
-        ll.addView(cardRecorder.card)
+
         ll.addView(
             ObjectSettingsCheckBox(
                 this,
