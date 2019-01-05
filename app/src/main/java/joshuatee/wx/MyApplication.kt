@@ -40,6 +40,7 @@ import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.radarcolorpalettes.ObjectColorPalette
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityHomeScreen
+import joshuatee.wx.ui.ObjectImagesCollection
 import joshuatee.wx.util.UtilityCities
 import joshuatee.wx.util.UtilityHttp
 import joshuatee.wx.util.UtilityLog
@@ -122,6 +123,7 @@ class MyApplication : Application() {
         }
 
         httpClientUnsafe = UtilityHttp.getUnsafeOkHttpClient()
+        imageCollectionMap = ObjectImagesCollection.intialize()
     }
 
     companion object {
@@ -149,6 +151,7 @@ class MyApplication : Application() {
         val HM_CLASS: MutableMap<String, Class<*>> = mutableMapOf()
         val HM_CLASS_ARGS: MutableMap<String, Array<String>> = mutableMapOf()
         val HM_CLASS_ID: MutableMap<String, String> = mutableMapOf()
+        var imageCollectionMap: MutableMap<String, ObjectImagesCollection> = mutableMapOf()
 
         init {
             UtilityHomeScreen.setupMap()

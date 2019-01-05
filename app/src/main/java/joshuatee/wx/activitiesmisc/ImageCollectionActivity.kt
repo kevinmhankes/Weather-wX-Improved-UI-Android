@@ -28,6 +28,7 @@ import android.content.res.Configuration
 import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
 import joshuatee.wx.Extensions.getImage
+import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
@@ -38,15 +39,19 @@ import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
 import kotlinx.coroutines.*
 
-class OPCImagesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
+class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
+
+    companion object {
+        const val TYPE: String = ""
+    }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmap = UtilityImg.getBlankBitmap()
     private lateinit var img: ObjectTouchImageView
     private lateinit var drw: ObjectNavDrawer
     private lateinit var contextg: Context
-    private val prefTokenIdx = "OPC_IMG_FAV_IDX"
-    private val prefImagePosition = "OPCIMG"
+    private lateinit var imageCollection: ObjectImagesCollection
+    private lateinit var activityArguments: Array<String>
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,13 +62,15 @@ class OPCImagesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
             true,
             true
         )
+        activityArguments = intent.getStringArrayExtra(TYPE)
+        imageCollection = MyApplication.imageCollectionMap[activityArguments[0]]!!
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)
-        title = "OPC"
-        drw = ObjectNavDrawer(this, UtilityOPCImages.labels, UtilityOPCImages.urls)
-        img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, drw, prefTokenIdx)
+        title = imageCollection.title
+        drw = ObjectNavDrawer(this, imageCollection.labels, imageCollection.urls)
+        img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, drw, imageCollection.prefTokenIdx)
         img.setListener(this, drw, ::getContentFixThis)
-        drw.index = Utility.readPref(this, prefTokenIdx, 0)
+        drw.index = Utility.readPref(this, imageCollection.prefTokenIdx, 0)
         drw.setListener(::getContentFixThis)
         getContent()
     }
@@ -77,7 +84,7 @@ class OPCImagesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
         val result = async(Dispatchers.IO) { drw.getUrl().getImage() }
         bitmap = result.await()
         img.setBitmap(bitmap)
-        img.firstRunSetZoomPosn(prefImagePosition)
+        img.firstRunSetZoomPosn(imageCollection.prefImagePosition)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -99,7 +106,7 @@ class OPCImagesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityShare.shareBitmap(this, "OPC", bitmap)
+                    UtilityShare.shareBitmap(this, imageCollection.title, bitmap)
                 }
             }
             else -> return super.onOptionsItemSelected(item)
@@ -111,7 +118,7 @@ class OPCImagesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
         drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onStop() {
-        img.imgSavePosnZoom(this, prefImagePosition)
+        img.imgSavePosnZoom(this, imageCollection.prefImagePosition)
         super.onStop()
     }
 }

@@ -179,7 +179,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".activitiesmisc.OPCImagesActivity"
+      android:name=".activitiesmisc.ImageCollectionActivity"
       android:label="@string/title_activity_hourly"
       android:parentActivityName="WX" >
   </activity>

@@ -21,11 +21,28 @@
 
 package joshuatee.wx.ui
 
-class ObjectImagesCollection {
+import joshuatee.wx.activitiesmisc.UtilityOPCImages
 
-    var title: String = ""
-    var imageUrls = listOf("")
-    var imageLabels = listOf("")
-    val prefTokenIdx = ""
-    val prefImagePosition = ""
+class ObjectImagesCollection(
+    var title: String,
+    var urls: List<String>,
+    var labels: List<String>,
+    val prefTokenIdx: String,
+    val prefImagePosition: String
+) {
+
+    companion object {
+        fun intialize(): MutableMap<String, ObjectImagesCollection> {
+            var collectionMap: MutableMap<String, ObjectImagesCollection> = mutableMapOf()
+            collectionMap["OPC"] = ObjectImagesCollection(
+                "OPC",
+                UtilityOPCImages.urls,
+                UtilityOPCImages.labels,
+                "OPC_IMG_FAV_IDX",
+                "OPCIMG"
+            )
+            return collectionMap
+        }
+    }
 }
+
