@@ -46,6 +46,7 @@ class OPCImagesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
     private lateinit var drw: ObjectNavDrawer
     private lateinit var contextg: Context
     private val prefTokenIdx = "OPC_IMG_FAV_IDX"
+    private val prefImagePosition = "OPCIMG"
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +77,7 @@ class OPCImagesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
         val result = async(Dispatchers.IO) { drw.getUrl().getImage() }
         bitmap = result.await()
         img.setBitmap(bitmap)
-        img.firstRunSetZoomPosn("OPCIMG")
+        img.firstRunSetZoomPosn(prefImagePosition)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -110,7 +111,7 @@ class OPCImagesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
         drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onStop() {
-        img.imgSavePosnZoom(this, "OPCIMG")
+        img.imgSavePosnZoom(this, prefImagePosition)
         super.onStop()
     }
 }

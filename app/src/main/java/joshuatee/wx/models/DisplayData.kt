@@ -45,7 +45,7 @@ class DisplayData(
     var bitmap: MutableList<Bitmap> = mutableListOf()
 
     init {
-        (0 until numPanes).forEach { _ ->
+        for (it in 0 until numPanes) {
             img.add(TouchImageView2(context))
             bitmap.add(UtilityImg.getBlankBitmap())
             param.add("")
