@@ -25,7 +25,6 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
-import android.view.View
 import joshuatee.wx.R
 import joshuatee.wx.ui.ObjectSpinner
 import joshuatee.wx.ui.OnSwipeTouchListener
