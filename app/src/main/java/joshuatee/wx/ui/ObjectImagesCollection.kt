@@ -22,6 +22,7 @@
 package joshuatee.wx.ui
 
 import joshuatee.wx.activitiesmisc.UtilityOPCImages
+import joshuatee.wx.activitiesmisc.UtilityObservations
 
 class ObjectImagesCollection(
     var title: String,
@@ -40,6 +41,13 @@ class ObjectImagesCollection(
                 UtilityOPCImages.labels,
                 "OPC_IMG_FAV_IDX",
                 "OPCIMG"
+            )
+            collectionMap["OBSERVATIONS"] = ObjectImagesCollection(
+                "Observations",
+                UtilityObservations.urls,
+                UtilityObservations.labels,
+                "SFC_OBS_IMG_IDX",
+                "OBS"
             )
             return collectionMap
         }

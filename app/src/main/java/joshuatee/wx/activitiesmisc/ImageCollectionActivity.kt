@@ -83,6 +83,11 @@ class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLi
         toolbar.subtitle = drw.getLabel()
         val result = async(Dispatchers.IO) { drw.getUrl().getImage() }
         bitmap = result.await()
+        if (drw.getUrl().contains("large_latestsfc.gif")) {
+            img.setMaxZoom(16f)
+        } else {
+            img.setMaxZoom(4f)
+        }
         img.setBitmap(bitmap)
         img.firstRunSetZoomPosn(imageCollection.prefImagePosition)
     }
