@@ -8,6 +8,7 @@
 // TODO consolidate OPC,NWSGOES, NWS Mosaic, Observations into one activity using class to store pref/lists, etc
 // TODO convert lightning to nav drawer
 
+55096 2019_01_05
 55095 2019_01_05 misc code refactor
                  [BUG] NWS Radar mosaic was not saving posn correctly
                  add ObjectImagesCollection and migrate OPC

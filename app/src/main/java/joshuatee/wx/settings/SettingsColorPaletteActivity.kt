@@ -55,7 +55,6 @@ class SettingsColorPaletteActivity : BaseActivity() {
     private lateinit var rcAdapter: TileAdapterColorPalette
     private var type = ""
     private var globalPosition = 0
-    private lateinit var a: Activity
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
     private var builtinStr = ""
@@ -76,7 +75,6 @@ class SettingsColorPaletteActivity : BaseActivity() {
         )
         val turl = intent.getStringArrayExtra(TYPE)
         type = turl[0]
-        a = this
         contextg = this
         if (type == "94") {
             title = "Color Palette - Reflectivity"
@@ -144,7 +142,6 @@ class SettingsColorPaletteActivity : BaseActivity() {
                         false
                     )
                 }
-                //prefArr.filter { it != "" }.mapTo(allItems) { TileObjectColorPalette(it, toolbar, prefToken, cg, type, false) }
                 builtinStr = "false"
                 allItems.forEach {
                     if (MyApplication.radarColorPalette[type] == it.colorMapLabel && it.builtin) {
@@ -258,7 +255,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                 rcAdapter = TileAdapterColorPalette(rowListItem, UIPreferences.tilesPerRow)
                 rView.adapter = rcAdapter
             } else {
-                UtilityAlertDialog.showHelpText(builtInHelpMsg, a)
+                UtilityAlertDialog.showHelpText(builtInHelpMsg, this)
             }
         } else {
             if (!rowListItem[globalPosition].builtin) {
@@ -292,7 +289,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                 rcAdapter = TileAdapterColorPalette(rowListItem, UIPreferences.tilesPerRow)
                 rView.adapter = rcAdapter
             } else {
-                UtilityAlertDialog.showHelpText(builtInHelpMsg, a)
+                UtilityAlertDialog.showHelpText(builtInHelpMsg, this)
             }
         }
     }
