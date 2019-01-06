@@ -189,16 +189,6 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".activitiesmisc.ObservationsActivity"
-      android:label="Observations"
-      android:parentActivityName="WX" >
-  </activity>
-  <activity
-      android:name=".vis.NWSGOESFullDiskActivity"
-      android:label="@string/title_activity_hourly"
-      android:parentActivityName="WX" >
-  </activity>
-  <activity
       android:name=".vis.GOES16Activity"
       android:label=""
       android:parentActivityName="WX" >

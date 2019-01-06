@@ -313,15 +313,18 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         }
     }
 
+    // FIXME move to utilIO
     private fun readTextFromUri(uri: Uri): String {
-        val stringBuilder = StringBuilder()
+        //val stringBuilder = StringBuilder()
+        var content = ""
         try {
             val inputStream = contentResolver.openInputStream(uri)
             val reader = BufferedReader(InputStreamReader(inputStream!!))
             var line = reader.readLine()
             while (line != null) {
-                stringBuilder.append(line)
-                stringBuilder.append(MyApplication.newline)
+                //stringBuilder.append(line)
+                //stringBuilder.append(MyApplication.newline)
+                content += line + MyApplication.newline
                 line = reader.readLine()
             }
         } catch (e: Exception) {
@@ -337,6 +340,6 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         fileName = fileName.replace(".pal", "")
         name = fileName + "_" + formattedDate
         palTitle.setText(name)
-        return convertPal(stringBuilder.toString())
+        return convertPal(content)
     }
 }
