@@ -29,7 +29,6 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.util.TypedValue
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +39,6 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.ScrollView
 import android.widget.Spinner
-import android.widget.TextView
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.fragment.app.Fragment
 import androidx.cardview.widget.CardView
@@ -71,8 +69,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     //
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private lateinit var sv: ScrollView
-    private lateinit var spinner1: Spinner
+    private lateinit var scrollView: ScrollView
+    private lateinit var spinner: Spinner
     private var lastRefresh = 0.toLong()
     private var ccTime = ""
     private var radarTime = ""
@@ -86,11 +84,11 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private var sevenDayExtShown = false
     private var hazardRaw = ""
     private lateinit var dataAdapter: ArrayAdapter<String>
-    private lateinit var buttonFor: TextView
+    //private lateinit var buttonFor: TextView
     private lateinit var intent: Intent
     private var locationCard: CardView? = null
     private var cardCC: ObjectCardCC? = null
-    private var cv5: ObjectCard? = null
+    //private var cv5: ObjectCard? = null
     private lateinit var linearLayout: LinearLayout
     private val helpForecastGenericStatus = 1
     private val helpCurrentGeneric = 2
@@ -153,12 +151,12 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 linearLayout.addView(linearLayoutHazards)
             } else if (tok == "TXT-7DAY" || tok == "TXT-7DAY2") {
                 if (!day7Added) {
-                    if (tok.contains("TXT-7DAY")) {
-                        linearLayout.addView(linearLayoutForecast)
-                    } else {
-                        linearLayout.addView(cv5?.card)
-                        linearLayout.addView(linearLayoutForecast)
-                    }
+                    //if (tok.contains("TXT-7DAY")) {
+                    linearLayout.addView(linearLayoutForecast)
+                    //} else {
+                    //    linearLayout.addView(cv5?.card)
+                    //    linearLayout.addView(linearLayoutForecast)
+                    //}
                     day7Added = true
                 }
             } else if (tok == "OGL-RADAR") {
@@ -255,16 +253,16 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             )
         )
             needForecastData = true
-        spinner1 = view.findViewById(R.id.spinner1)
+        spinner = view.findViewById(R.id.spinner1)
         if (android.os.Build.VERSION.SDK_INT > 20) {
             if (UIPreferences.themeInt == R.style.MyCustomTheme_white_NOAB) {
-                UtilityUI.setupSpinner(spinner1, false)
+                UtilityUI.setupSpinner(spinner, false)
             }
         }
         dataAdapter = ArrayAdapter(activityReference, R.layout.simple_spinner_item, Location.listOf)
         dataAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
         linearLayout = view.findViewById(R.id.ll)
-        buttonFor = TextView(activityReference)
+        /*buttonFor = TextView(activityReference)
         buttonFor.gravity = Gravity.START
         buttonFor.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         buttonFor.setTextColor(UIPreferences.backgroundColor)
@@ -273,12 +271,19 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             MyApplication.padding,
             MyApplication.padding,
             MyApplication.padding
-        )
+        )*/
         locationCard = view.findViewById(R.id.cv1)
-        cv5 = ObjectCard(activityReference)
+        //cv5 = ObjectCard(activityReference)
         if (homescreenFavLocal.contains("TXT-CC2")) {
             cardCC = ObjectCardCC(activityReference, 2)
-            cardCC?.imageView?.setOnClickListener {
+            cardCC?.setListener(
+                alertDialogStatus,
+                alertDialogStatusAl,
+                ::radarTimestamps,
+                helpCurrentGeneric,
+                ::showHelp
+            )
+            /*cardCC?.imageView?.setOnClickListener {
                 if (MyApplication.helpMode) {
                     showHelp(helpCurrentGeneric)
                 } else {
@@ -294,16 +299,16 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     }
                     alertDialogStatus?.show()
                 }
-            }
+            }*/
         } else {
             cardCC = ObjectCardCC(activityReference, 1)
         }
         if (homescreenFavLocal.contains("TXT-7DAY")) {
             linearLayoutForecast = LinearLayout(activityReference)
             linearLayoutForecast?.orientation = LinearLayout.VERTICAL
-            cv5?.setVisibility(View.GONE)
+            //cv5?.setVisibility(View.GONE)
         } else {
-            cv5?.addView(buttonFor)
+            //    cv5?.addView(buttonFor)
         }
         addDynamicCards()
         cardCC?.let { objectCardCC ->
@@ -321,8 +326,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     }*/
                 }
             }
-        }
-        cardCC?.let { objectCardCC ->
             objectCardCC.textViewBottom.setOnClickListener {
                 if (MyApplication.helpMode) {
                     showHelp(helpForecastGenericStatus)
@@ -331,7 +334,16 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 }*/
             }
         }
-        buttonFor.setOnClickListener {
+        //cardCC?.let { objectCardCC ->
+            //objectCardCC.textViewBottom.setOnClickListener {
+                //if (MyApplication.helpMode) {
+                //    showHelp(helpForecastGenericStatus)
+                //}/* else {
+                    refreshDynamicContent()
+                //}*/
+            //}
+       // }
+        /*buttonFor.setOnClickListener {
             if (MyApplication.helpMode) {
                 showHelp(helpForecastGeneric)
             } else {
@@ -349,7 +361,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     sevenDayExtShown = true
                 }
             }
-        }
+        }*/
         if (MyApplication.locDisplayImg) {
             glviewArr.indices.forEach {
                 glviewInitialized = UtilityRadarUI.initGlviewFragment(
@@ -362,10 +374,10 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 )
             }
         }
-        sv = view.findViewById(R.id.sv)
-        spinner1.adapter = dataAdapter
-        spinner1.onItemSelectedListener = this
-        spinner1.setSelection(currentLoc)
+        scrollView = view.findViewById(R.id.sv)
+        spinner.adapter = dataAdapter
+        spinner.onItemSelectedListener = this
+        spinner.setSelection(currentLoc)
         return view
     }
 
@@ -409,7 +421,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     SettingsLocationGenericActivity.LOC_NUM,
                     arrayOf((pos + 1).toString(), "")
                 )
-                spinner1.setSelection(currentLoc)
+                spinner.setSelection(currentLoc)
             }
         } // end check if current loc is pos
     }
@@ -650,8 +662,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         dataAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
         // fix for 2 or more loc deleted
         currentLoc = Location.currentLocation
-        spinner1.adapter = dataAdapter
-        spinner1.setSelection(Location.currentLocation)
+        spinner.adapter = dataAdapter
+        spinner.setSelection(Location.currentLocation)
     }
 
     private fun setImageOnClick() {
@@ -719,13 +731,15 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         }
     }
 
-    private val radarTimestamps: List<String>
-        get() = (0 until glviewArr.size).mapTo(mutableListOf()) {
+    private fun radarTimestamps(): List<String> {
+        //get() =
+        return (0 until glviewArr.size).mapTo(mutableListOf()) {
             getRadarTimeStamp(
                 oglrArr[it].radarL3Object.timestamp,
                 it
             )
         }
+    }
 
     private fun setupHazardCardsCA(hazUrl: String) {
         linearLayoutHazards?.removeAllViews()
@@ -756,7 +770,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 )
                 hazardsCardAl[expandIndexCa].setText(hazardsSumCa)
                 hazardsExpandedAl[expandIndexCa] = false
-                sv.smoothScrollTo(0, 0)
+                scrollView.smoothScrollTo(0, 0)
             }
         })
         linearLayoutHazards?.addView(hazardsCardAl[0].card)
@@ -981,7 +995,12 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     bmArr.forEachIndexed { idx, bm ->
                         val c7day =
                             ObjectCard7Day(activityReference, bm, Location.isUS, idx, day7Arr)
-                        c7day.setOnClickListener(OnClickListener { sv.smoothScrollTo(0, 0) })
+                        c7day.setOnClickListener(OnClickListener {
+                            scrollView.smoothScrollTo(
+                                0,
+                                0
+                            )
+                        })
                         linearLayoutForecast?.addView(c7day.card)
                     }
                     // sunrise card
@@ -1009,9 +1028,10 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                         UtilityLog.HandleException(e)
                     }
                     linearLayoutForecast?.addView(cardSunrise.card)
-                } else {
-                    buttonFor.text = objSevenDay?.sevenDayShort
                 }
+                //else {
+                //buttonFor.text = objSevenDay?.sevenDayShort
+                //}
             }
             //
             // Canada legal card
