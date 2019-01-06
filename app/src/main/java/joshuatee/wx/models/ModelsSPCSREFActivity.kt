@@ -35,7 +35,6 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 
 import joshuatee.wx.R
-import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.settings.FavAddActivity
 import joshuatee.wx.settings.FavRemoveActivity
 import joshuatee.wx.MyApplication
@@ -148,6 +147,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
         )
         spFav = ObjectSpinner(this, this, this, R.id.spinner1, favList)
         UtilityModelsSPCSREFInterface.createData()
+        om.setUIElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2, spRun, spRun)
         drw = ObjectNavDrawerCombo(
             this,
             UtilityModelsSPCSREFInterface.groups,
@@ -169,49 +169,11 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+    private fun updateStarIcon() {
         if (MyApplication.srefFav.contains(":" + om.displayData.param[om.curImg] + ":"))
             star.setIcon(MyApplication.STAR_ICON)
         else
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        om.run = spRun.selectedItem.toString()
-        om.time = om.spTime.selectedItem.toString()
-        if (om.truncateTime) {
-            om.time = UtilityStringExternal.truncate(om.time, om.timeTruncate)
-        }
-        withContext(Dispatchers.IO) {
-            (0 until om.numPanes).forEach {
-                om.displayData.bitmap[it] = om.getImage(it, listOf(""))
-            }
-        }
-        (0 until om.numPanes).forEach {
-            if (om.numPanes > 1)
-                UtilityImg.resizeViewSetImgByHeight(
-                    om.displayData.bitmap[it],
-                    om.displayData.img[it]
-                )
-            else
-                om.displayData.img[it].setImageBitmap(om.displayData.bitmap[it])
-            om.displayData.img[it].setMaxZoom(4f)
-        }
-        om.animRan = false
-        if (!om.firstRun) {
-            (0 until om.numPanes).forEach {
-                UtilityImg.imgRestorePosnZoom(
-                    contextg,
-                    om.displayData.img[it],
-                    om.modelProvider + om.numPanes.toString() + it.toString()
-                )
-            }
-            if (UIPreferences.fabInModels && om.numPanes < 2) {
-                fab1.setVisibility(View.VISIBLE)
-                fab2.setVisibility(View.VISIBLE)
-            }
-            om.firstRun = true
-        }
-        UtilityModels.updateToolbarLabels(toolbar, miStatusParam1, miStatusParam2, om)
-        UtilityModels.writePrefs(contextg, om)
-        om.imageLoaded = true
     }
 
     private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
@@ -237,7 +199,8 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
         }
         om.spTime.notifyDataSetChanged()
         if (om.spTime.selectedItemPosition == 0 || om.numPanes > 1) {
-            getContent()
+            updateStarIcon()
+            UtilityModels.getContent(contextg, om, listOf(""), uiDispatcher)
         }
     }
 
@@ -326,12 +289,14 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
                     else -> {
                         om.displayData.param[om.curImg] = favList[pos]
                         if (initSpinnerSetup) {
-                            getContent()
+                            updateStarIcon()
+                            UtilityModels.getContent(this, om, listOf(""), uiDispatcher)
                         }
                     }
                 }
             } else {
-                getContent()
+                updateStarIcon()
+                UtilityModels.getContent(this, om, listOf(""), uiDispatcher)
             }
         } else {
             when (parent.id) {
