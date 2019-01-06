@@ -77,18 +77,15 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private var x = ""
     private var y = ""
     private var ts = ""
-    //private var tmpArr = Array(2) { "" }
     private var glviewInitialized = false
     private var hazardsSum = ""
     private var currentLoc = -1
     private var sevenDayExtShown = false
     private var hazardRaw = ""
     private lateinit var dataAdapter: ArrayAdapter<String>
-    //private lateinit var buttonFor: TextView
     private lateinit var intent: Intent
     private var locationCard: CardView? = null
     private var cardCC: ObjectCardCC? = null
-    //private var cv5: ObjectCard? = null
     private lateinit var linearLayout: LinearLayout
     private val helpForecastGenericStatus = 1
     private val helpCurrentGeneric = 2
@@ -151,12 +148,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 linearLayout.addView(linearLayoutHazards)
             } else if (tok == "TXT-7DAY" || tok == "TXT-7DAY2") {
                 if (!day7Added) {
-                    //if (tok.contains("TXT-7DAY")) {
                     linearLayout.addView(linearLayoutForecast)
-                    //} else {
-                    //    linearLayout.addView(cv5?.card)
-                    //    linearLayout.addView(linearLayoutForecast)
-                    //}
                     day7Added = true
                 }
             } else if (tok == "OGL-RADAR") {
@@ -262,18 +254,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         dataAdapter = ArrayAdapter(activityReference, R.layout.simple_spinner_item, Location.listOf)
         dataAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
         linearLayout = view.findViewById(R.id.ll)
-        /*buttonFor = TextView(activityReference)
-        buttonFor.gravity = Gravity.START
-        buttonFor.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-        buttonFor.setTextColor(UIPreferences.backgroundColor)
-        buttonFor.setPadding(
-            MyApplication.padding,
-            MyApplication.padding,
-            MyApplication.padding,
-            MyApplication.padding
-        )*/
         locationCard = view.findViewById(R.id.cv1)
-        //cv5 = ObjectCard(activityReference)
         if (homescreenFavLocal.contains("TXT-CC2")) {
             cardCC = ObjectCardCC(activityReference, 2)
             cardCC?.setListener(
@@ -283,32 +264,12 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 helpCurrentGeneric,
                 ::showHelp
             )
-            /*cardCC?.imageView?.setOnClickListener {
-                if (MyApplication.helpMode) {
-                    showHelp(helpCurrentGeneric)
-                } else {
-                    alertDialogStatusAl.clear()
-                    alertDialogStatusAl.add("Edit Location...")
-                    alertDialogStatusAl.add("Sun/Moon data...")
-                    alertDialogStatusAl.add("Force Data Refresh...")
-                    if (MyApplication.locDisplayImg && Location.isUS) {
-                        alertDialogStatusAl.add("Radar type: Reflectivity")
-                        alertDialogStatusAl.add("Radar type: Velocity")
-                        alertDialogStatusAl.add("Reset zoom and center")
-                        alertDialogStatusAl += radarTimestamps
-                    }
-                    alertDialogStatus?.show()
-                }
-            }*/
         } else {
             cardCC = ObjectCardCC(activityReference, 1)
         }
         if (homescreenFavLocal.contains("TXT-7DAY")) {
             linearLayoutForecast = LinearLayout(activityReference)
             linearLayoutForecast?.orientation = LinearLayout.VERTICAL
-            //cv5?.setVisibility(View.GONE)
-        } else {
-            //    cv5?.addView(buttonFor)
         }
         addDynamicCards()
         cardCC?.let { objectCardCC ->
@@ -316,52 +277,16 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 if (Location.isUS) {
                     if (MyApplication.helpMode) {
                         showHelp(helpCurrentGeneric)
-                    } /*else {
-                        ObjectIntent(
-                            activityReference,
-                            SPCSoundingsActivity::class.java,
-                            SPCSoundingsActivity.URL,
-                            arrayOf(Utility.readPref("NWS" + Location.currentLocationStr, ""), "")
-                        )
-                    }*/
+                    }
                 }
             }
             objectCardCC.textViewBottom.setOnClickListener {
                 if (MyApplication.helpMode) {
                     showHelp(helpForecastGenericStatus)
-                }/* else {
-                    refreshDynamicContent()
-                }*/
-            }
-        }
-        //cardCC?.let { objectCardCC ->
-            //objectCardCC.textViewBottom.setOnClickListener {
-                //if (MyApplication.helpMode) {
-                //    showHelp(helpForecastGenericStatus)
-                //}/* else {
-                    refreshDynamicContent()
-                //}*/
-            //}
-       // }
-        /*buttonFor.setOnClickListener {
-            if (MyApplication.helpMode) {
-                showHelp(helpForecastGeneric)
-            } else {
-                if (sevenDayExtShown) {
-                    buttonFor.text = objSevenDay?.sevenDayShort ?: ""
-                    sevenDayExtShown = false
-                } else {
-                    buttonFor.text = objSevenDay?.sevenDayExtStr +
-                            MyApplication.newline +
-                            MyApplication.newline +
-                            UtilityDownload.getSunriseSunset(
-                                activityReference,
-                                Location.currentLocationStr
-                            )
-                    sevenDayExtShown = true
                 }
             }
-        }*/
+        }
+        refreshDynamicContent()
         if (MyApplication.locDisplayImg) {
             glviewArr.indices.forEach {
                 glviewInitialized = UtilityRadarUI.initGlviewFragment(
@@ -482,7 +407,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     }
 
     override fun onClick(v2: View) {
-        if (MyApplication.helpMode) showHelp(v2.id)
+        if (MyApplication.helpMode)
+            showHelp(v2.id)
     }
 
     private fun getRadar(idx: Int) = GlobalScope.launch(uiDispatcher) {
@@ -510,7 +436,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             ::getGPSFromDouble,
             ::getLatLon
         )
-
         withContext(Dispatchers.IO) {
             if (Location.isUS) {
                 UtilityRadarUI.plotRadar(
@@ -523,7 +448,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 )
             }
         }
-
         // NOTE: below was backed out, data structures for these features only support one radar site
         // so locfrag and multi-pane don't current support. Would be nice to fix someday.
         // Showextras a few lines above was changed from false to true along with few lines added below
@@ -732,7 +656,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     }
 
     private fun radarTimestamps(): List<String> {
-        //get() =
         return (0 until glviewArr.size).mapTo(mutableListOf()) {
             getRadarTimeStamp(
                 oglrArr[it].radarL3Object.timestamp,
@@ -929,7 +852,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 UtilityLog.HandleException(e)
             }
         }
-
         if (isAdded) {
             //
             // Current Conditions
@@ -1029,9 +951,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     }
                     linearLayoutForecast?.addView(cardSunrise.card)
                 }
-                //else {
-                //buttonFor.text = objSevenDay?.sevenDayShort
-                //}
             }
             //
             // Canada legal card

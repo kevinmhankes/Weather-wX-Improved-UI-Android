@@ -346,10 +346,15 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             glviewArr[it].wxgltextArr = wxgltextArr
             wxgltextArr[it].initTV(this)
         }
-        if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref)
+        if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) {
             getContentSerial()
-        else
+        } else {
             getContentParallel()
+        }
+        checkForAutoRefresh()
+    }
+
+    private fun checkForAutoRefresh() {
         if (MyApplication.wxoglRadarAutorefresh) {
             mInterval = 60000 * Utility.readPref(this, "RADAR_REFRESH_INTERVAL", 3)
             locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -385,34 +390,12 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             wxgltextArr[it].addTV()
         }
         // spotter code is serialized for now
-        if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref)
+        if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) {
             getContentSerial()
-        else
+        } else {
             getContentParallel()
-        if (MyApplication.wxoglRadarAutorefresh) {
-            mInterval = 60000 * Utility.readPref(this, "RADAR_REFRESH_INTERVAL", 3)
-            locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            locationManager?.let {
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED
-                    || ContextCompat.checkSelfPermission(
-                        this,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED
-                )
-                    it.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER,
-                        20000.toLong(),
-                        30.toFloat(),
-                        locationListener
-                    )
-            }
-            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-            mHandler = Handler()
-            startRepeatingTask()
         }
+        checkForAutoRefresh()
         super.onRestart()
     }
 
@@ -570,9 +553,12 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     }
                     numPanesArr.forEach { glviewArr[it].requestRender() }
                     timeMilli = System.currentTimeMillis()
-                    if ((timeMilli - priorTime) < delay) SystemClock.sleep(delay - ((timeMilli - priorTime)))
-                    if (!inOglAnim) break
-                    if (r == (animArray[0].size - 1)) SystemClock.sleep(delay.toLong() * 2)
+                    if ((timeMilli - priorTime) < delay)
+                        SystemClock.sleep(delay - ((timeMilli - priorTime)))
+                    if (!inOglAnim)
+                        break
+                    if (r == (animArray[0].size - 1))
+                        SystemClock.sleep(delay.toLong() * 2)
                 }
                 loopCnt += 1
             }
@@ -581,9 +567,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     private fun progressUpdate(vararg values: String) {
-        //This method runs on the UI thread, it receives progress updates
-        //from the background thread and publishes them to the status bar
-        //mNotificationHelper.progressUpdate(progress[0])
         if ((values[1].toIntOrNull() ?: 0) > 1) {
             setSubTitle(values[0], values[1])
         } else {
