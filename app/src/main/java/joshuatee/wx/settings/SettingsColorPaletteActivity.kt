@@ -22,7 +22,6 @@
 package joshuatee.wx.settings
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -73,8 +72,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
             null,
             false
         )
-        val turl = intent.getStringArrayExtra(TYPE)
-        type = turl[0]
+        type = intent.getStringArrayExtra(TYPE)[0]
         contextg = this
         if (type == "94") {
             title = "Color Palette - Reflectivity"
@@ -109,6 +107,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                 itemClicked(position)
             }
         })
+        //rcAdapter.setListener(::itemClicked)
     }
 
     private val allItemList: List<TileObjectColorPalette>
@@ -116,20 +115,13 @@ class SettingsColorPaletteActivity : BaseActivity() {
             val allItems = mutableListOf<TileObjectColorPalette>()
             val cg = applicationContext
             if (type == "94") {
-                val cmCodenh = TileObjectColorPalette("CODENH", toolbar, prefToken, cg, type, true)
-                val cmDKenh = TileObjectColorPalette("DKenh", toolbar, prefToken, cg, type, true)
-                val cmCust = TileObjectColorPalette("CODE", toolbar, prefToken, cg, type, true)
-                val cmNssl = TileObjectColorPalette("NSSL", toolbar, prefToken, cg, type, true)
-                val cmNwsd = TileObjectColorPalette("NWSD", toolbar, prefToken, cg, type, true)
-                val cmAf = TileObjectColorPalette("AF", toolbar, prefToken, cg, type, true)
-                val cmEak = TileObjectColorPalette("EAK", toolbar, prefToken, cg, type, true)
-                allItems.add(cmCodenh)
-                allItems.add(cmDKenh)
-                allItems.add(cmCust)
-                allItems.add(cmNssl)
-                allItems.add(cmNwsd)
-                allItems.add(cmAf)
-                allItems.add(cmEak)
+                allItems.add(TileObjectColorPalette("CODENH", toolbar, prefToken, cg, type, true))
+                allItems.add(TileObjectColorPalette("DKenh", toolbar, prefToken, cg, type, true))
+                allItems.add(TileObjectColorPalette("CODE", toolbar, prefToken, cg, type, true))
+                allItems.add(TileObjectColorPalette("NSSL", toolbar, prefToken, cg, type, true))
+                allItems.add(TileObjectColorPalette("NWSD", toolbar, prefToken, cg, type, true))
+                allItems.add(TileObjectColorPalette("AF", toolbar, prefToken, cg, type, true))
+                allItems.add(TileObjectColorPalette("EAK", toolbar, prefToken, cg, type, true))
                 val prefArr =
                     MyApplication.radarColorPalette94List.split(":").dropLastWhile { it.isEmpty() }
                 prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
@@ -156,12 +148,9 @@ class SettingsColorPaletteActivity : BaseActivity() {
                     }
                 }
             } else {
-                val cmCodenh = TileObjectColorPalette("CODENH", toolbar, prefToken, cg, type, true)
-                val cmAf = TileObjectColorPalette("AF", toolbar, prefToken, cg, type, true)
-                val cmEak2 = TileObjectColorPalette("EAK", toolbar, prefToken, cg, type, true)
-                allItems.add(cmCodenh)
-                allItems.add(cmAf)
-                allItems.add(cmEak2)
+                allItems.add(TileObjectColorPalette("CODENH", toolbar, prefToken, cg, type, true))
+                allItems.add(TileObjectColorPalette("AF", toolbar, prefToken, cg, type, true))
+                allItems.add(TileObjectColorPalette("EAK", toolbar, prefToken, cg, type, true))
                 val prefArr =
                     MyApplication.radarColorPalette99List.split(":").dropLastWhile { it.isEmpty() }
                 prefArr.asSequence().filter { it != "" }.mapTo(allItems) {

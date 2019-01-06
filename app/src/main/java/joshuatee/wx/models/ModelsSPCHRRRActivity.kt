@@ -57,12 +57,9 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var spRun: ObjectSpinner
     private lateinit var spSector: ObjectSpinner
-    private var animRan = false
     private var spinnerRunRan = false
     private var spinnerTimeRan = false
     private var spinnerSectorRan = false
-    private var firstRun = false
-    private var imageLoaded = false
     private var firstRunTimeSet = false
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
@@ -211,8 +208,8 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
             else
                 om.displayData.img[it].setImageBitmap(om.displayData.bitmap[it])
         }
-        animRan = false
-        if (!firstRun) {
+        om.animRan = false
+        if (!om.firstRun) {
             (0 until om.numPanes).forEach {
                 UtilityImg.imgRestorePosnZoom(
                     contextg,
@@ -224,10 +221,10 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 fab1.setVisibility(View.VISIBLE)
                 fab2.setVisibility(View.VISIBLE)
             }
-            firstRun = true
+            om.firstRun = true
         }
         UtilityModels.updateToolbarLabels(toolbar, miStatusParam1, miStatusParam2, om)
-        imageLoaded = true
+        om.imageLoaded = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
@@ -274,12 +271,12 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
             )
             R.id.action_back -> UtilityModels.moveBack(om.spTime)
             R.id.action_forward -> UtilityModels.moveForward(om.spTime)
-            R.id.action_animate -> getAnimate()
+            R.id.action_animate -> UtilityModels.getAnimate(om, overlayImg, uiDispatcher)
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityModels.legacyShare(contextg, animRan, om)
+                    UtilityModels.legacyShare(contextg, om.animRan, om)
                 }
             }
             else -> return super.onOptionsItemSelected(item)
@@ -292,24 +289,6 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
             overlayImg.remove(mesoS)
         else
             overlayImg.add(mesoS)
-    }
-
-    private fun getAnimate() = GlobalScope.launch(uiDispatcher) {
-        om.spinnerTimeValue = om.spTime.selectedItemPosition
-        withContext(Dispatchers.IO) {
-            (0 until om.numPanes).forEach {
-                om.currentParam = om.displayData.param[it]
-                om.displayData.animDrawable[it] =
-                        UtilityModelSPCHRRRInputOutput.getAnimation(contextg, om, overlayImg)
-            }
-        }
-        (0 until om.numPanes).forEach {
-            UtilityImgAnim.startAnimation(
-                om.displayData.animDrawable[it],
-                om.displayData.img[it]
-            )
-        }
-        animRan = true
     }
 
     private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
@@ -369,7 +348,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     override fun onStop() {
-        if (imageLoaded) {
+        if (om.imageLoaded) {
             Utility.writePref(this, "SPCHRRR_OVERLAY", TextUtils.join(":", overlayImg))
             (0 until om.numPanes).forEach {
                 UtilityImg.imgSavePosnZoom(

@@ -53,12 +53,9 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var spRun: ObjectSpinner
     private lateinit var spSector: ObjectSpinner
-    private var animRan = false
     private var spinnerRunRan = false
     private var spinnerTimeRan = false
     private var spinnerSectorRan = false
-    private var firstRun = false
-    private var imageLoaded = false
     private var firstRunTimeSet = false
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
@@ -181,7 +178,10 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
         om.run = spRun.selectedItem.toString()
         om.time = om.spTime.selectedItem.toString()
         om.sector = spSector.selectedItem.toString()
-        om.time = UtilityStringExternal.truncate(om.time, 2)
+        //om.time = UtilityStringExternal.truncate(om.time, 2)
+        if (om.truncateTime) {
+            om.time = UtilityStringExternal.truncate(om.time, om.timeTruncate)
+        }
         UtilityModels.writePrefs(contextg, om)
         withContext(Dispatchers.IO) {
             (0 until om.numPanes).forEach { om.displayData.bitmap[it] = om.getImage(it) }
@@ -195,8 +195,8 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
             else
                 om.displayData.img[it].setImageBitmap(om.displayData.bitmap[it])
         }
-        animRan = false
-        if (!firstRun) {
+        om.animRan = false
+        if (!om.firstRun) {
             (0 until om.numPanes).forEach {
                 UtilityImg.imgRestorePosnZoom(
                     contextg,
@@ -208,10 +208,10 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 fab1.setVisibility(View.VISIBLE)
                 fab2.setVisibility(View.VISIBLE)
             }
-            firstRun = true
+            om.firstRun = true
         }
         UtilityModels.updateToolbarLabels(toolbar, miStatusParam1, miStatusParam2, om)
-        imageLoaded = true
+        om.imageLoaded = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
@@ -239,7 +239,7 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
                     "(" + (om.curImg + 1).toString() + ")" + om.displayData.param[0] + "/" + om.displayData.param[1]
                 )
             }
-            R.id.action_animate -> getAnimate()
+            R.id.action_animate -> UtilityModels.getAnimate(om, listOf(""), uiDispatcher)
             R.id.action_multipane -> ObjectIntent(
                 this,
                 ModelsSPCHREFActivity::class.java,
@@ -250,25 +250,12 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityModels.legacyShare(contextg, animRan, om)
+                    UtilityModels.legacyShare(contextg, om.animRan, om)
                 }
             }
             else -> return super.onOptionsItemSelected(item)
         }
         return true
-    }
-
-    private fun getAnimate() = GlobalScope.launch(uiDispatcher) {
-        withContext(Dispatchers.IO) {
-            (0 until om.numPanes).forEach { om.displayData.animDrawable[it] = om.getAnimate(it) }
-        }
-        (0 until om.numPanes).forEach {
-            UtilityImgAnim.startAnimation(
-                om.displayData.animDrawable[it],
-                om.displayData.img[it]
-            )
-        }
-        animRan = true
     }
 
     private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
@@ -324,7 +311,7 @@ class ModelsSPCHREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     override fun onStop() {
-        if (imageLoaded) {
+        if (om.imageLoaded) {
             (0 until om.numPanes).forEach {
                 UtilityImg.imgSavePosnZoom(
                     this,

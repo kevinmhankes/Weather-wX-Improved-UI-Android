@@ -49,7 +49,6 @@ import joshuatee.wx.util.UtilityAlertDialog
 import joshuatee.wx.util.UtilityFavorites
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.radar.VideoRecordActivity
-import joshuatee.wx.util.UtilityImgAnim
 import joshuatee.wx.util.UtilityString
 import kotlinx.coroutines.*
 
@@ -67,11 +66,8 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var initSpinnerSetup = false
-    private var animRan = false
     private var favList = listOf<String>()
     private lateinit var star: MenuItem
-    private var firstRun = false
-    private var imageLoaded = false
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
     private lateinit var activityArguments: Array<String>
@@ -198,8 +194,8 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 om.displayData.img[it].setImageBitmap(om.displayData.bitmap[it])
             om.displayData.img[it].setMaxZoom(4f)
         }
-        animRan = false
-        if (!firstRun) {
+        om.animRan = false
+        if (!om.firstRun) {
             (0 until om.numPanes).forEach {
                 UtilityImg.imgRestorePosnZoom(
                     contextg,
@@ -211,11 +207,11 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 fab1.setVisibility(View.VISIBLE)
                 fab2.setVisibility(View.VISIBLE)
             }
-            firstRun = true
+            om.firstRun = true
         }
         UtilityModels.updateToolbarLabels(toolbar, miStatusParam1, miStatusParam2, om)
         UtilityModels.writePrefs(contextg, om)
-        imageLoaded = true
+        om.imageLoaded = true
     }
 
     private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
@@ -243,19 +239,6 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
         if (om.spTime.selectedItemPosition == 0 || om.numPanes > 1) {
             getContent()
         }
-    }
-
-    private fun getAnimate() = GlobalScope.launch(uiDispatcher) {
-        withContext(Dispatchers.IO) {
-            (0 until om.numPanes).forEach { om.displayData.animDrawable[it] = om.getAnimate(it) }
-        }
-        (0 until om.numPanes).forEach {
-            UtilityImgAnim.startAnimation(
-                om.displayData.animDrawable[it],
-                om.displayData.img[it]
-            )
-        }
-        animRan = true
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -292,10 +275,10 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityModels.legacyShare(contextg, animRan, om)
+                    UtilityModels.legacyShare(contextg, om.animRan, om)
                 }
             }
-            R.id.action_animate -> getAnimate()
+            R.id.action_animate -> UtilityModels.getAnimate(om, listOf(""), uiDispatcher)
             R.id.action_help -> showHelpTextDialog()
             else -> return super.onOptionsItemSelected(item)
         }
@@ -392,7 +375,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     override fun onStop() {
-        if (imageLoaded) {
+        if (om.imageLoaded) {
             (0 until om.numPanes).forEach {
                 UtilityImg.imgSavePosnZoom(
                     this,

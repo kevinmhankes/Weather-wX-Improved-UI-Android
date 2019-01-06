@@ -34,9 +34,6 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 
-import java.io.BufferedReader
-import java.io.InputStreamReader
-
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
@@ -45,12 +42,7 @@ import joshuatee.wx.radarcolorpalettes.UtilityColorPalette
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectFab
-import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityAlertDialog
-import joshuatee.wx.util.UtilityFileManagement
-import joshuatee.wx.util.UtilityLog
-import joshuatee.wx.util.UtilityShare
-import joshuatee.wx.util.UtilityTime
+import joshuatee.wx.util.*
 
 class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
 
@@ -308,36 +300,20 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
             //val uri: Uri
             resultData?.let {
                 val uri = it.data
-                displaySettings(readTextFromUri(uri))
+                displaySettings(readTextFromUri(uri!!))
             }
         }
     }
 
-    // FIXME move to utilIO
     private fun readTextFromUri(uri: Uri): String {
-        //val stringBuilder = StringBuilder()
-        var content = ""
-        try {
-            val inputStream = contentResolver.openInputStream(uri)
-            val reader = BufferedReader(InputStreamReader(inputStream!!))
-            var line = reader.readLine()
-            while (line != null) {
-                //stringBuilder.append(line)
-                //stringBuilder.append(MyApplication.newline)
-                content += line + MyApplication.newline
-                line = reader.readLine()
-            }
-        } catch (e: Exception) {
-            UtilityLog.HandleException(e)
-        }
+        val content = UtilityIO.readTextFromUri(this, uri)
         val uriArr =
             uri.lastPathSegment.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         var fileName = "map"
         if (uriArr.isNotEmpty()) {
             fileName = uriArr[uriArr.size - 1]
         }
-        fileName = fileName.replace(".txt", "")
-        fileName = fileName.replace(".pal", "")
+        fileName = fileName.replace(".txt", "").replace(".pal", "")
         name = fileName + "_" + formattedDate
         palTitle.setText(name)
         return convertPal(content)
