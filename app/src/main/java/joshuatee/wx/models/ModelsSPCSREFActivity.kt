@@ -181,7 +181,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
         }
         withContext(Dispatchers.IO) {
             (0 until om.numPanes).forEach {
-                om.displayData.bitmap[it] = om.getImage(it)
+                om.displayData.bitmap[it] = om.getImage(it, listOf(""))
             }
         }
         (0 until om.numPanes).forEach {

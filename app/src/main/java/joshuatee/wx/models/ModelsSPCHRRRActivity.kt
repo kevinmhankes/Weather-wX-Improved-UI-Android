@@ -38,7 +38,6 @@ import android.widget.AdapterView.OnItemSelectedListener
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.ui.ObjectNavDrawer
@@ -152,12 +151,13 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
             UtilityModelSPCHRRRInterface.labels,
             UtilityModelSPCHRRRInterface.params
         )
+        om.setUIElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2, spRun, spSector)
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             drw.listView.setItemChecked(position, false)
             drw.drawerLayout.closeDrawer(drw.listView)
             om.displayData.param[om.curImg] = drw.getToken(position)
             om.displayData.paramLabel[om.curImg] = drw.getLabel(position)
-            getContent()
+            UtilityModels.getContent(this, om, overlayImg, uiDispatcher)
         }
         setupModel()
         getRunStatus()
@@ -165,7 +165,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         if (spinnerRunRan && spinnerTimeRan && spinnerSectorRan) {
-            getContent()
+            UtilityModels.getContent(this, om, overlayImg, uiDispatcher)
         } else {
             when (parent.id) {
                 R.id.spinner_run -> if (!spinnerRunRan)
@@ -185,47 +185,6 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
-
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        om.run = spRun.selectedItem.toString()
-        om.time = om.spTime.selectedItem.toString()
-        om.sector = spSector.selectedItem.toString()
-        om.time = UtilityStringExternal.truncate(om.time, 2)
-        UtilityModels.writePrefs(contextg, om)
-        withContext(Dispatchers.IO) {
-            (0 until om.numPanes).forEach {
-                om.currentParam = om.displayData.param[it]
-                om.displayData.bitmap[it] =
-                        UtilityModelSPCHRRRInputOutput.getImage(contextg, om, om.time, overlayImg)
-            }
-        }
-        (0 until om.numPanes).forEach {
-            if (om.numPanes > 1)
-                UtilityImg.resizeViewSetImgByHeight(
-                    om.displayData.bitmap[it],
-                    om.displayData.img[it]
-                )
-            else
-                om.displayData.img[it].setImageBitmap(om.displayData.bitmap[it])
-        }
-        om.animRan = false
-        if (!om.firstRun) {
-            (0 until om.numPanes).forEach {
-                UtilityImg.imgRestorePosnZoom(
-                    contextg,
-                    om.displayData.img[it],
-                    om.modelProvider + om.numPanes.toString() + it.toString()
-                )
-            }
-            if (UIPreferences.fabInModels && om.numPanes < 2) {
-                fab1.setVisibility(View.VISIBLE)
-                fab2.setVisibility(View.VISIBLE)
-            }
-            om.firstRun = true
-        }
-        UtilityModels.updateToolbarLabels(toolbar, miStatusParam1, miStatusParam2, om)
-        om.imageLoaded = true
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
@@ -261,7 +220,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
             R.id.action_layer_cnty -> overlaySelected("cnty")
             R.id.action_layer_clear -> {
                 overlayImg.clear()
-                getContent()
+                UtilityModels.getContent(this, om, overlayImg, uiDispatcher)
             }
             R.id.action_multipane -> ObjectIntent(
                 this,
@@ -304,7 +263,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
             om.spTime.setSelection(Utility.readPref(contextg, om.prefRunPosn, 0))
         }
         om.spTime.notifyDataSetChanged()
-        getContent()
+        UtilityModels.getContent(contextg, om, overlayImg, uiDispatcher)
     }
 
     private fun setupModel() {

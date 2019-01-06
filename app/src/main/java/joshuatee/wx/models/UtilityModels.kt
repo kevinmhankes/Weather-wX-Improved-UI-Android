@@ -45,7 +45,7 @@ import kotlinx.coroutines.*
 
 object UtilityModels {
 
-    fun getContent(context: Context, om: ObjectModel, uiDispatcher: CoroutineDispatcher) =
+    fun getContent(context: Context, om: ObjectModel, overlayImg: List<String>, uiDispatcher: CoroutineDispatcher) =
         GlobalScope.launch(uiDispatcher) {
             om.run = om.spRun.selectedItem.toString()
             om.time = om.spTime.selectedItem.toString()
@@ -56,7 +56,7 @@ object UtilityModels {
             }
             UtilityModels.writePrefs(context, om)
             withContext(Dispatchers.IO) {
-                (0 until om.numPanes).forEach { om.displayData.bitmap[it] = om.getImage(it) }
+                (0 until om.numPanes).forEach { om.displayData.bitmap[it] = om.getImage(it, overlayImg) }
             }
 
             (0 until om.numPanes).forEach {

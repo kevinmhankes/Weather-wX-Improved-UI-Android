@@ -143,7 +143,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
             drw.drawerLayout.closeDrawer(drw.listView)
             om.displayData.param[om.curImg] = drw.getToken(position)
             om.displayData.paramLabel[om.curImg] = drw.getLabel(position)
-            UtilityModels.getContent(this, om, uiDispatcher)
+            UtilityModels.getContent(this, om, listOf(""), uiDispatcher)
         }
     }
 
@@ -167,7 +167,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
             Utility.writePref(this, om.prefModel, om.model)
             getRunStatus()
         } else if (firstRunTimeSet) { // && spinnerRunRan && spinnerTimeRan && spinnerSectorRan && spinnerModelRan
-            UtilityModels.getContent(this, om, uiDispatcher)
+            UtilityModels.getContent(this, om, listOf(""), uiDispatcher)
         }
 
     }
@@ -232,7 +232,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
             spRun.notifyDataSetChanged()
             spRun.setSelection(om.rtd.mostRecentRun)
             if (om.model == "CFS" && 0 == spRun.selectedItemPosition) {
-                UtilityModels.getContent(contextg, om, uiDispatcher)
+                UtilityModels.getContent(contextg, om, listOf(""), uiDispatcher)
             }
             miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
             var tmpStr: String
