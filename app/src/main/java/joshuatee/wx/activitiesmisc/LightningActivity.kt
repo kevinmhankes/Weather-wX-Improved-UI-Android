@@ -24,8 +24,8 @@ package joshuatee.wx.activitiesmisc
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
@@ -37,7 +37,7 @@ import joshuatee.wx.util.UtilityShare
 
 import kotlinx.coroutines.*
 
-class LightningActivity : VideoRecordActivity() {
+class LightningActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
 
     companion object {
         const val URL: String = ""
@@ -52,15 +52,17 @@ class LightningActivity : VideoRecordActivity() {
     private lateinit var img: ObjectTouchImageView
     private lateinit var contextg: Context
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.lightning_activity, menu)
-        return true
-    }
-
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_image_show, null, true, false)
+        super.onCreate(
+            savedInstanceState,
+            R.layout.activity_image_show_bottom_toolbar,
+            R.menu.lightning_activity,
+            true,
+            true
+        )
         contextg = this
+        toolbarBottom.setOnMenuItemClickListener(this)
         toolbar.setOnClickListener { toolbar.showOverflowMenu() }
         img = ObjectTouchImageView(this, this, toolbar, R.id.iv)
         sector = Utility.readPref(this, "LIGHTNING_SECTOR", sector)
@@ -80,7 +82,7 @@ class LightningActivity : VideoRecordActivity() {
         Utility.writePref(contextg, "LIGHTNING_PERIOD", period)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
