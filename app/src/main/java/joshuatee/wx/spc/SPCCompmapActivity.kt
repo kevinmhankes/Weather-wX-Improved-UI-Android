@@ -25,9 +25,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.content.res.Configuration
-import android.view.Menu
 import android.view.MenuItem
 import android.widget.AdapterView
+import androidx.appcompat.widget.Toolbar
 
 import joshuatee.wx.R
 import joshuatee.wx.ui.BaseActivity
@@ -38,7 +38,7 @@ import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
 import kotlinx.coroutines.*
 
-class SPCCompmapActivity : BaseActivity() {
+class SPCCompmapActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var layerStr = ""
@@ -48,15 +48,16 @@ class SPCCompmapActivity : BaseActivity() {
     private var paramList = mutableListOf<String>()
     private lateinit var contextg: Context
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.shared_multigraphics, menu)
-        return true
-    }
-
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer, null, false)
+        super.onCreate(
+            savedInstanceState,
+            R.layout.activity_image_show_navdrawer_bottom_toolbar,
+            R.menu.shared_multigraphics,
+            true
+        )
         contextg = this
+        toolbarBottom.setOnMenuItemClickListener(this)
         paramList = UtilitySPCCompmap.labels.toMutableList()
         drw = ObjectNavDrawer(this, paramList)
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -117,7 +118,10 @@ class SPCCompmapActivity : BaseActivity() {
         drw.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
+
+    override fun onMenuItemClick(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true
         }
