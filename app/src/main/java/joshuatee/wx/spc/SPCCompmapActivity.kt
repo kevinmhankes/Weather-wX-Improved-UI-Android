@@ -103,7 +103,6 @@ class SPCCompmapActivity : BaseActivity() {
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmap = withContext(Dispatchers.IO) { UtilitySPCCompmap.getImage(contextg, layerStr) }
         img.setBitmap(bitmap)
-        img.setMaxZoom(4f)
         img.firstRunSetZoomPosn("SPCCOMPMAP")
         Utility.writePref(contextg, "SPCCOMPMAP_LAYERSTR", layerStr)
     }

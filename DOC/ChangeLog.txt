@@ -7,8 +7,9 @@
 // TODO convert other imageMaps to use new clickHandler
 // TODO consolidate NWSGOES, NWS Mosaic into one activity using class to store pref/lists, etc
 // TODO convert lightning to nav drawer
+// TODO add bottom toolbar to activities that don't have it
 
-55097 2019_01_06
+55097 2019_01_07 misc code refactor, add bottom toolbar to fire/tstorm/swo summary
 55096 2019_01_06 misc code refactor esp in models
                  remove cv5/buttonFor in locfrag, it would appear this really isn't needed anymore
 55095 2019_01_05 misc code refactor

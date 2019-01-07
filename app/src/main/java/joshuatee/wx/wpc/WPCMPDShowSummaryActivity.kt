@@ -82,6 +82,7 @@ class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
         toolbarBottom.setOnMenuItemClickListener(this)
         objCard = ObjectCard(this, R.id.cv1)
         linearLayout = findViewById(R.id.ll)
+        // FIXME make number = intent.getStringArrayExtra(NO)[0]
         val no = intent.getStringExtra(NO)
         imgUrl = "${MyApplication.nwsWPCwebsitePrefix}/metwatch/images/mcd$no.gif"
         url = "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php"
