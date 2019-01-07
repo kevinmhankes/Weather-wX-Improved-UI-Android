@@ -55,6 +55,7 @@ class SPCFireOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
             true
         )
         contextg = this
+        toolbarBottom.setOnMenuItemClickListener(this)
         linearLayout = findViewById(R.id.ll)
         title = "SPC"
         toolbar.subtitle = "Fire Weather Outlook"

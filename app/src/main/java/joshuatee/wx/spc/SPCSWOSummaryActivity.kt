@@ -54,6 +54,7 @@ class SPCSWOSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
             R.menu.spc_swo_summary,
             true
         )
+        toolbarBottom.setOnMenuItemClickListener(this)
         val menu = toolbarBottom.menu
         UtilityShortcut.hidePinIfNeeded(menu)
         contextg = this
