@@ -2,17 +2,15 @@
 // TODO base velocity legend
 // TODO NWS URLs http to https const myapp
 // TODO refactor nexrad radar to match architecture of wXL23 Metal to remove code duplicity
-// TODO convert to new NavDrawer: USWarningsWith, ModelGeneric, ModelSPCHRRR, SPCCompmap, SPCStormreports, GOES16
 // TODO in general reduce static methods ( object methods ) in favor of instance methods
 // TODO convert other imageMaps to use new clickHandler
 // TODO consolidate NWSGOES, NWS Mosaic into one activity using class to store pref/lists, etc
-// TODO convert lightning to nav drawer
-// TODO add bottom toolbar to activities that don't have it ( hourly )
 // TODO look into transparent top toolbar
 // TODO move away from StringBuilder
 // TODO reformat menu/layout
 
-55098 2019_01_07 add bottom toolbar to uswarn/spc compmap/hourly/lightning
+55099 2019_01_08
+55098 2019_01_08 add bottom toolbar to uswarn/spc compmap/hourly/lightning
                  reduce number of string builders
 55097 2019_01_07 misc code refactor, add bottom toolbar to fire/tstorm/swo summary
 55096 2019_01_06 misc code refactor esp in models
