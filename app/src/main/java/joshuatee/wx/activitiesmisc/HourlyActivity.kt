@@ -131,16 +131,12 @@ class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
                     } else {
                         ""
                     }
-                    //UtilityLog.d("wx", value.toString())
                 } else {
                     // show currency for y values
                     super.formatLabel(value, isValueX)
                 }
             }
         }
-        // enable scaling and scrolling
-        //graph.getViewport().setScalable(true)
-        //graph.getViewport().setScalableY(true)
         graph.addSeries(series)
     }
 }

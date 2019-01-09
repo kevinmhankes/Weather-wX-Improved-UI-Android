@@ -6,6 +6,11 @@
 // TODO look into transparent top toolbar
 // TODO reformat menu/layout
 // TODO in settings main show notification count in notification label
+// TODO white space cleanup in menu
+// TODO reformat layout
+// TODO whhite space cleanup in layout
+// TODO publish Android 4 deprecation date
+// TODO camelCase GlobalArrays ( consult wXL23 )
 
 55099 2019_01_09 misc code cleanup and bugfix
 55098 2019_01_08 add bottom toolbar to uswarn/spc compmap/hourly/lightning

@@ -37,7 +37,6 @@ import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.radar.Spotter
 import joshuatee.wx.ui.ObjectCard
-import joshuatee.wx.util.UtilityLog
 
 internal class AdapterSpotter(private val mDataset: MutableList<Spotter>) :
     RecyclerView.Adapter<AdapterSpotter.DataObjectHolder>() {
@@ -60,8 +59,12 @@ internal class AdapterSpotter(private val mDataset: MutableList<Spotter>) :
         }
     }
 
-    fun setOnItemClickListener(myClickListenerloc: MyClickListener) {
-        myClickListener = myClickListenerloc
+    fun setListener(fn: (Int) -> Unit) {
+        myClickListener = object : AdapterSpotter.MyClickListener {
+            override fun onItemClick(position: Int) {
+                fn(position)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataObjectHolder {
