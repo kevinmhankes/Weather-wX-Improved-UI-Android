@@ -12,6 +12,7 @@
 // TODO publish Android 4 deprecation date
 // TODO camelCase GlobalArrays ( consult wXL23 )
 
+55100 2019_01_09
 55099 2019_01_09 misc code cleanup and bugfix
 55098 2019_01_08 add bottom toolbar to uswarn/spc compmap/hourly/lightning
                  reduce number of string builders
