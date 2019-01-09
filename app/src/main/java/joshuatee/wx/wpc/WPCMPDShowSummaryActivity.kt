@@ -129,11 +129,12 @@ class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
             toolbar.subtitle = text.parse("AREAS AFFECTED...(.*?)CONCERNING").replace("<BR>", "")
         }
         val tv: TextView = findViewById(R.id.tv)
-        if (mpdList.isEmpty())
+        if (mpdList.isEmpty()) {
             tv.text = resources.getString(R.string.wpc_mpd_noactive)
-        else
+        } else {
             tv.visibility = View.GONE
-        objCard.setVisibility(View.GONE)
+            objCard.setVisibility(View.GONE)
+        }
     }
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo) {

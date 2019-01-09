@@ -75,6 +75,7 @@ class SPCCompmapActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
             }
         }
         toolbar.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
+        toolbarBottom.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
         img = ObjectTouchImageView(this, this, R.id.iv)
         layerStr = Utility.readPref(this, "SPCCOMPMAP_LAYERSTR", "a7:a19:") // mslp, hpc fronts
         setupInitLayerString()

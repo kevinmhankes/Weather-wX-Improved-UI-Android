@@ -74,16 +74,10 @@ internal class AdapterSpotter(private val mDataset: MutableList<Spotter>) :
         holder.name.text = mDataset[position].lastName + ", " + mDataset[position].firstName
         holder.name.setTextColor(UIPreferences.textHighlightColor)
         holder.time.text = mDataset[position].reportAt
-        holder.time.setTextColor(UIPreferences.backgroundColor)
-        holder.time.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
         holder.email.text = mDataset[position].email.replace(MyApplication.newline, " ")
-        holder.email.setTextColor(UIPreferences.backgroundColor)
-        holder.email.setTextAppearance(holder.email.context, UIPreferences.smallTextTheme)
-        holder.email.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
         val he = holder.email
         val emailAddress = holder.email.text
         holder.email.setOnClickListener {
-            UtilityLog.d("wx", "EMAIL: $emailAddress")
             val intent = Intent(Intent.ACTION_SENDTO)
             intent.data = Uri.parse("mailto:")
             intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(emailAddress))
@@ -91,9 +85,11 @@ internal class AdapterSpotter(private val mDataset: MutableList<Spotter>) :
             he.context.startActivity(Intent.createChooser(intent, "Send Email"))
         }
         holder.phone.text = mDataset[position].phone.replace(MyApplication.newline, " ")
-        holder.phone.setTextColor(UIPreferences.backgroundColor)
-        holder.phone.setTextAppearance(holder.phone.context, UIPreferences.smallTextTheme)
-        holder.phone.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
+        listOf(holder.time, holder.email, holder.phone).forEach {
+            it.setTextColor(UIPreferences.backgroundColor)
+            it.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
+            it.setTextAppearance(it.context, UIPreferences.smallTextTheme)
+        }
         val hp = holder.phone
         holder.phone.setOnClickListener {
             val tm = hp.context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager

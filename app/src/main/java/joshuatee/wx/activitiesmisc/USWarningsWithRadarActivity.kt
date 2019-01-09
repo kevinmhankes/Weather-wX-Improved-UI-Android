@@ -107,6 +107,7 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
             }
             getContent()
         }
+        toolbarBottom.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
         getContent()
     }
 
@@ -175,11 +176,6 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
         }
         UtilityUI.makeSnackBar(linearLayout, toastStr)
     }
-
-    /*override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
-        return super.onOptionsItemSelected(item)
-    }*/
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         withContext(Dispatchers.IO) {

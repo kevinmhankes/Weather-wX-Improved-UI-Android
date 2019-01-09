@@ -72,6 +72,7 @@ class LightningActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
         drw.setListener(::getContentFixThis)
         period = Utility.readPref(this, "LIGHTNING_PERIOD", period)
         periodPretty = UtilityLightning.getTimePretty(period)
+        toolbarBottom.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
         getContent()
     }
 

@@ -73,7 +73,6 @@ class SPCSoundingsActivity : BaseActivity(), OnItemSelectedListener,
         toolbarBottom.setOnMenuItemClickListener(this)
         star = toolbarBottom.menu.findItem(R.id.action_fav)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv)
-        //img.setOnClickListener(this)
         contextg = this
         nwsOffice = UtilityLocation.getNearestSnd(this, Location.latLon)
         locations = UtilityFavorites.setupFavMenu(
