@@ -11,6 +11,8 @@
 // TODO whhite space cleanup in layout
 // TODO publish Android 4 deprecation date
 // TODO camelCase GlobalArrays ( consult wXL23 )
+// TODO add Ely's MCD/MPD/WAT radar long press code
+// TODO NWS HTTPS migration https://www.nco.ncep.noaa.gov/pmb/changes/URL_http_https.shtml
 
 55100 2019_01_09
 55099 2019_01_09 misc code cleanup and bugfix
