@@ -8,7 +8,7 @@
 // TODO in settings main show notification count in notification label
 // TODO white space cleanup in menu
 // TODO reformat layout
-// TODO whhite space cleanup in layout
+// TODO white space cleanup in layout
 // TODO publish Android 4 deprecation date
 // TODO camelCase GlobalArrays ( consult wXL23 )
 // TODO add Ely's MCD/MPD/WAT radar long press code
