@@ -5,7 +5,6 @@ android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
-
     // need $HOME/.gradle/gradle.properties to look like this
     /*
     RELEASE_STORE_FILE=/home/josh/StudioProjects/android.jks
@@ -40,7 +39,7 @@ android {
     }
 
     task buildNative(type: Exec, description: 'Compile JNI source via NDK') {
-        def ndkDir = "../../../$ndkVersion"
+        def ndkDir = "../../../android-ndk-r18b"
         commandLine "$ndkDir/ndk-build",
                 '-C', file('src/main/jni').absolutePath,
                 '-j', Runtime.runtime.availableProcessors(),
@@ -49,7 +48,7 @@ android {
     }
 
     task cleanNative(type: Exec, description: 'Clean JNI object files') {
-        def ndkDir = "../../../$ndkVersion"
+        def ndkDir = "../../../android-ndk-r18b"
         commandLine "$ndkDir/ndk-build",
                 '-C', file('src/main/jni').absolutePath,
                 'clean'
