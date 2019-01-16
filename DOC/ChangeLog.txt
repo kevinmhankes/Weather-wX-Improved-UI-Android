@@ -14,6 +14,7 @@
 // TODO add Ely's MCD/MPD/WAT radar long press code
 // TODO NWS HTTPS migration https://www.nco.ncep.noaa.gov/pmb/changes/URL_http_https.shtml
 
+55103 2019_01_16 [BUG] add exception handling in TouchImageView to catch large images such as GOES16 wide atlantic
 55102 2019_01_16 android studio 3.3 ( Gradle Plugin 3.3 and Gradle 4.10.1 )
 		 [BUG] multipane in models was crashing due to recent refactor
 55101 2019_01_10 xml menu cleanup
