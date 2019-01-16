@@ -14,7 +14,8 @@
 // TODO add Ely's MCD/MPD/WAT radar long press code
 // TODO NWS HTTPS migration https://www.nco.ncep.noaa.gov/pmb/changes/URL_http_https.shtml
 
-55102 2019_01_15 android studio 3.3 ( Gradle Plugin 3.3 and Gradle 4.10.1 )
+55102 2019_01_16 android studio 3.3 ( Gradle Plugin 3.3 and Gradle 4.10.1 )
+		 [BUG] multipane in models was crashing due to recent refactor
 55101 2019_01_10 xml menu cleanup
 55100 2019_01_09 xml layout reformat
 55099 2019_01_09 misc code cleanup and bugfix
