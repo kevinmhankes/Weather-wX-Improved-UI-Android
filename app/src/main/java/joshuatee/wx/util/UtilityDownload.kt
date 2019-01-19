@@ -405,9 +405,13 @@ object UtilityDownload {
                 text = text.replace("<br> {4}<br> {4}".toRegex(), "<BR><BR>")
                 text = text.replace("<br>", " ")
             }
-        } else if (prod.contains("FPCN48"))
+        } else if (prod.contains("FPCN48")) {
             text = "${MyApplication.NWS_RADAR_PUB}/data/raw/fp/fpcn48.cwao..txt".getHtmlSep()
-        else if (prod.contains("PMDTHR")) {
+        } else if (prod.contains("QPFPFD")) {
+            val textUrl = MyApplication.nwsWPCwebsitePrefix + "/discussions/hpcdiscussions.php?disc=qpfpfd"
+            text = textUrl.getHtmlSep()
+            text = text.parse(RegExp.pre2Pattern)
+        } else if (prod.contains("PMDTHR")) {
             text = UtilityString.getHTMLandParseSep(
                 "http://www.cpc.noaa.gov/products/predictions/threats/threats.php",
                 "<div id=\"discDiv\">(.*?)</div>"
