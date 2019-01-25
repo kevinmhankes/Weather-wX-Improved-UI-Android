@@ -247,6 +247,15 @@ class SettingsUIActivity : BaseActivity() {
             ).card
         )
         ll.addView(
+            ObjectSettingsCheckBox(
+                this,
+                this,
+                "Main screen: don't show icons",
+                "UI_LOCFRAG_NO_ICONS",
+                R.string.ui_logfrag_no_icons
+            ).card
+        )
+        ll.addView(
             ObjectSettingsNumberPicker(
                 this,
                 this,

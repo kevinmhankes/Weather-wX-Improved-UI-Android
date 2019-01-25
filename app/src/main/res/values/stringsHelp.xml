@@ -18,6 +18,11 @@
 -->
 
 <resources>
+
+     <string name="ui_logfrag_no_icons">
+         Don\'t show icons on main screen.
+</string>
+
     <string name="widget_prevent_tap">
 Prevent tapping on a widget from opening the app. Please note that after changing this setting you must then delete and re-add any widget that you want this to take effect for.
 </string>
