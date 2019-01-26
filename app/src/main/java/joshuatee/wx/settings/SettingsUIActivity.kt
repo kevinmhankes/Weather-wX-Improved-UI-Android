@@ -246,7 +246,7 @@ class SettingsUIActivity : BaseActivity() {
                 R.string.widget_prevent_tap
             ).card
         )
-        ll.addView(
+       /* ll.addView(
             ObjectSettingsCheckBox(
                 this,
                 this,
@@ -254,7 +254,7 @@ class SettingsUIActivity : BaseActivity() {
                 "UI_LOCFRAG_NO_ICONS",
                 R.string.ui_logfrag_no_icons
             ).card
-        )
+        )*/
         ll.addView(
             ObjectSettingsNumberPicker(
                 this,
