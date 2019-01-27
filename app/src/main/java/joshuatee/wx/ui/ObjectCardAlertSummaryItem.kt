@@ -46,41 +46,37 @@ class ObjectCardAlertSummaryItem(context: Context) {
 
     init {
         val linearLayoutVertical = LinearLayout(context)
-
+        // TODO make ObjectTextView
+        //
+        //
         textViewTop = AppCompatTextView(context)
-        textViewTop.gravity = Gravity.CENTER
+        //textViewTop.gravity = Gravity.CENTER
         textViewTop.setTextColor(Color.BLUE)
         textViewTop.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         textViewTop.setPadding(MyApplication.padding, 2, MyApplication.padding, 0)
-
         textViewTitle = AppCompatTextView(context)
-        textViewTitle.gravity = Gravity.CENTER
+        //textViewTitle.gravity = Gravity.CENTER
         textViewTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         textViewTitle.setPadding(MyApplication.padding, 0, MyApplication.padding, 2)
-
         textViewStart = AppCompatTextView(context)
-        textViewStart.gravity = Gravity.CENTER
+        //textViewStart.gravity = Gravity.CENTER
         textViewStart.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
         textViewStart.setPadding(MyApplication.padding, 0, MyApplication.padding, 2)
-
         textViewEnd = AppCompatTextView(context)
-        textViewEnd.gravity = Gravity.CENTER
+        //textViewEnd.gravity = Gravity.CENTER
         textViewEnd.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
         textViewEnd.setPadding(MyApplication.padding, 0, MyApplication.padding, 2)
-
         textViewBottom = AppCompatTextView(context)
-        textViewBottom.gravity = Gravity.CENTER
+        //textViewBottom.gravity = Gravity.CENTER
         textViewBottom.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
         textViewBottom.setTextColor(UIPreferences.backgroundColor)
         textViewBottom.setTextAppearance(context, UIPreferences.smallTextTheme)
         textViewBottom.setPadding(MyApplication.padding, 0, MyApplication.padding, 2)
-
         linearLayoutVertical.orientation = LinearLayout.VERTICAL
         textViewTop.gravity = Gravity.START
         textViewTitle.gravity = Gravity.START
         textViewStart.gravity = Gravity.START
         textViewEnd.gravity = Gravity.START
-
         textViewBottom.gravity = Gravity.START
         textViewTop.setPadding(
             MyApplication.padding,
@@ -101,7 +97,6 @@ class ObjectCardAlertSummaryItem(context: Context) {
         linearLayoutVertical.addView(textViewTitle)
         linearLayoutVertical.addView(textViewStart)
         linearLayoutVertical.addView(textViewEnd)
-
         linearLayoutVertical.addView(textViewBottom)
         objCard = ObjectCard(context)
         objCard.addView(linearLayoutVertical)
@@ -109,14 +104,6 @@ class ObjectCardAlertSummaryItem(context: Context) {
 
 
     val card: CardView get() = objCard.card
-
-    fun setTopLine(text: String) {
-        textViewTop.text = text
-    }
-
-    fun setBottomLine(text: String) {
-        textViewBottom.text = text
-    }
 
     fun setId(id: Int) {
         objCard.card.id = id
@@ -127,11 +114,9 @@ class ObjectCardAlertSummaryItem(context: Context) {
     }
 
     fun setTextFields(nwsOffice: String, nwsLoc: String, ca: CAPAlert) {
-        var title = ""
-        var startTime = ""
+        val title: String
+        val startTime: String
         var endTime = ""
-        var wfo = ""
-
         if (ca.title.contains("expiring")) {
             val tmpArr = UtilityString.parseMultipe(
                 ca.title,
@@ -141,17 +126,14 @@ class ObjectCardAlertSummaryItem(context: Context) {
             title = tmpArr[0]
             startTime = tmpArr[1]
             endTime = tmpArr[2]
-            wfo = tmpArr[3]
         } else {
             val tmpArr =
                 UtilityString.parseMultipe(ca.title, "(.*?) issued (.*?) by (.*?)$", 3)
             title = tmpArr[0]
             startTime = tmpArr[1]
-            wfo = tmpArr[2]
         }
-
-        setTopLine(nwsOffice + " (" + nwsLoc + ")")
-        setBottomLine(ca.area)
+        textViewTop.text = "$nwsOffice ($nwsLoc)"
+        textViewBottom.text = ca.area
         textViewTitle.text = title
         textViewStart.text = startTime
         textViewEnd.text = endTime
