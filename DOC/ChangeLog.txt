@@ -19,9 +19,10 @@
 // TODO add to homescreen regional mosaic radar
 // TODO add last used to NWS Obs site
 // TODO enhance storm reports card
-// TODO enhance uswarn card
+// TODO make better use of ObjectTextView
 
 55106 2019_01_27 enhance us warning cards in misc uswarn
+                 add ObjectTextView
 55105 2019_01_27 update NDR to r19 and kotlin plugin to 1.3.20
                  add one more condition to UtilityMetarConditions
                  add option to not show icons on mainscreen 7day

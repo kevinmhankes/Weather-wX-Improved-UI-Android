@@ -23,7 +23,6 @@ package joshuatee.wx.ui
 
 import android.content.Context
 import android.graphics.Color
-import androidx.appcompat.widget.AppCompatTextView
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -31,68 +30,34 @@ import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 
 import joshuatee.wx.MyApplication
-import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.CAPAlert
+import joshuatee.wx.objects.TextSize
 import joshuatee.wx.util.UtilityString
 
 class ObjectCardAlertSummaryItem(context: Context) {
 
     private val objCard: ObjectCard
-    private val textViewTop: AppCompatTextView
-    private val textViewTitle: AppCompatTextView
-    private val textViewStart: AppCompatTextView
-    private val textViewEnd: AppCompatTextView
-    private val textViewBottom: AppCompatTextView
+    private val textViewTop: ObjectTextView
+    private val textViewTitle: ObjectTextView
+    private val textViewStart: ObjectTextView
+    private val textViewEnd: ObjectTextView
+    private val textViewBottom: ObjectTextView
 
     init {
         val linearLayoutVertical = LinearLayout(context)
-        // TODO make ObjectTextView
-        // constructor: textSize
-        // methods: setPadding setTextColor
-        textViewTop = AppCompatTextView(context)
-        textViewTop.setTextColor(Color.BLUE)
-        textViewTop.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-        textViewTop.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
-        textViewTitle = AppCompatTextView(context)
-        textViewTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-        textViewTitle.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
-        textViewStart = AppCompatTextView(context)
-        textViewStart.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-        textViewStart.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
-        textViewEnd = AppCompatTextView(context)
-        textViewEnd.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-        textViewEnd.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
-        textViewBottom = AppCompatTextView(context)
-        textViewBottom.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-        textViewBottom.setTextColor(UIPreferences.backgroundColor)
-        textViewBottom.setTextAppearance(context, UIPreferences.smallTextTheme)
-        textViewBottom.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
-        linearLayoutVertical.orientation = LinearLayout.VERTICAL
-        textViewTop.gravity = Gravity.START
-        textViewTitle.gravity = Gravity.START
-        textViewStart.gravity = Gravity.START
-        textViewEnd.gravity = Gravity.START
-        textViewBottom.gravity = Gravity.START
-        textViewTop.setPadding(
-            MyApplication.padding,
-            MyApplication.paddingSmall,
-            MyApplication.paddingSmall,
-            0
-        )
-        textViewTitle.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, 0)
-        textViewBottom.setPadding(
-            MyApplication.padding,
-            0,
-            MyApplication.paddingSmall,
-            MyApplication.paddingSmall
-        )
+        textViewTop = ObjectTextView(context, Color.BLUE)
+        textViewTitle = ObjectTextView(context)
+        textViewStart = ObjectTextView(context, TextSize.SMALL)
+        textViewEnd = ObjectTextView(context, TextSize.SMALL)
+        textViewBottom = ObjectTextView(context)
+        textViewBottom.setAsBackgroundText()
         linearLayoutVertical.orientation = LinearLayout.VERTICAL
         linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
-        linearLayoutVertical.addView(textViewTop)
-        linearLayoutVertical.addView(textViewTitle)
-        linearLayoutVertical.addView(textViewStart)
-        linearLayoutVertical.addView(textViewEnd)
-        linearLayoutVertical.addView(textViewBottom)
+        linearLayoutVertical.addView(textViewTop.tv)
+        linearLayoutVertical.addView(textViewTitle.tv)
+        linearLayoutVertical.addView(textViewStart.tv)
+        linearLayoutVertical.addView(textViewEnd.tv)
+        linearLayoutVertical.addView(textViewBottom.tv)
         objCard = ObjectCard(context)
         objCard.addView(linearLayoutVertical)
     }
