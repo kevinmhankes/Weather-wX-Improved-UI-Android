@@ -48,9 +48,17 @@ class NWSObsSitesActivity : BaseActivity() {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_recyclerview_toolbar, null, false)
+        super.onCreate(
+            savedInstanceState,
+            R.layout.activity_recyclerview_bottom_toolbar,
+            R.menu.nwsobssites,
+            true
+        )
         contextg = this
         title = titleString
+        val menu = toolbarBottom.menu
+        val lastUsedMenuItem = menu.findItem(R.id.action_lastused)
+        lastUsedMenuItem.title = "Last Used:"
         siteDisplay = false
         recyclerView = ObjectRecyclerView(
             this,
