@@ -21,7 +21,8 @@
 // TODO enhance storm reports card
 // TODO enhance uswarn card
 
-55105 2019_01_25 update NDR to r19 and kotlin plugin to 1.3.20
+55106 2019_01_27 enhance us warning cards in misc uswarn
+55105 2019_01_27 update NDR to r19 and kotlin plugin to 1.3.20
                  add one more condition to UtilityMetarConditions
                  add option to not show icons on mainscreen 7day
                  [BUG] switch warning download to JSON after NWS feed stopped working overshutdown
