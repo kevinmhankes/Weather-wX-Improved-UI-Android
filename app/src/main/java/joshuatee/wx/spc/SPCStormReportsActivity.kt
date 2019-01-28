@@ -245,7 +245,7 @@ class SPCStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     //stormCard.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
                     //stormCard.setTextColor(UIPreferences.textHighlightColor)
                     //stormCard.setText(Utility.fromHtml(s.text.toUpperCase()))
-                    stormCard.setTextHeader(s.text)
+                    stormCard.setTextHeader(s)
                     stormCard.setListener(View.OnClickListener {
                         scrollView.smoothScrollTo(
                             0,

@@ -75,11 +75,10 @@ class ObjectCardStormReportItem(context: Context) {
         textViewBottom.text = stormReport.magnitude + " - " + stormReport.damageReport
     }
 
-    fun setTextHeader(header: String) {
-        textViewTop.text = header
+    fun setTextHeader(stormReport: StormReport) {
+        textViewTop.text = stormReport.text.toUpperCase()
         textViewTop.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         textViewTop.setTextColor(UIPreferences.textHighlightColor)
-        //textViewTop.tv.setText(Utility.fromHtml(header.text.toUpperCase()))
         textViewTitle.tv.visibility = View.GONE
         textViewBottom.tv.visibility = View.GONE
     }
