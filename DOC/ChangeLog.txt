@@ -21,8 +21,9 @@
 // TODO enhance storm reports card
 // TODO make better use of ObjectTextView
 
-55106 2019_01_27 enhance us warning cards in misc uswarn
+55106 2019_01_28 enhance us warning cards in misc uswarn
                  add ObjectTextView
+                 add ObjectCardStormReportItem
 55105 2019_01_27 update NDR to r19 and kotlin plugin to 1.3.20
                  add one more condition to UtilityMetarConditions
                  add option to not show icons on mainscreen 7day

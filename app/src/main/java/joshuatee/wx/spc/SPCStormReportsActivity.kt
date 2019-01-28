@@ -60,6 +60,7 @@ import joshuatee.wx.activitiesmisc.WebscreenAB
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.settings.Location
+import joshuatee.wx.ui.ObjectCardStormReportItem
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
@@ -196,7 +197,9 @@ class SPCStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     val freq3 = mapState[s.state]
                     mapState[s.state] = if (freq3 == null) 1 else freq3 + 1
                 }
-                val cTmp = ObjectCardText(contextg, linearLayout, Utility.fromHtml(s.text))
+
+
+                /*val cTmp = ObjectCardText(contextg, linearLayout, Utility.fromHtml(s.text))
                 cTmp.setId(k)
                 out.append(MyApplication.newline)
                 out.append(Utility.fromHtml(s.text))
@@ -212,14 +215,38 @@ class SPCStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                         WebscreenAB.URL,
                         arrayOf(UtilityMap.genMapURL(xStr, yStr, "10"), "$xStr,$yStr")
                     )
+                })*/
+
+                val stormCard = ObjectCardStormReportItem(contextg)
+                stormCard.setId(k)
+                linearLayout.addView(stormCard.card)
+                stormCard.setTextFields(s)
+                //out.append(MyApplication.newline)
+                //out.append(Utility.fromHtml(s.text))
+                if (!s.text.contains("<H2>")) {
+                    registerForContextMenu(stormCard.card)
+                }
+                val xStr = s.lat
+                val yStr = s.lon
+                stormCard.setListener(View.OnClickListener {
+                    ObjectIntent(
+                        contextg,
+                        WebscreenAB::class.java,
+                        WebscreenAB.URL,
+                        arrayOf(UtilityMap.genMapURL(xStr, yStr, "10"), "$xStr,$yStr")
+                    )
                 })
+
+
                 if (s.text.contains("(") && s.text.contains(")")) {
 
                 } else {
-                    cTmp.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-                    cTmp.setTextColor(UIPreferences.textHighlightColor)
-                    cTmp.setText(Utility.fromHtml(s.text.toUpperCase()))
-                    cTmp.setOnClickListener(View.OnClickListener {
+                    // FIXME
+                    //stormCard.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
+                    //stormCard.setTextColor(UIPreferences.textHighlightColor)
+                    //stormCard.setText(Utility.fromHtml(s.text.toUpperCase()))
+                    stormCard.setTextHeader(s.text)
+                    stormCard.setListener(View.OnClickListener {
                         scrollView.smoothScrollTo(
                             0,
                             0
