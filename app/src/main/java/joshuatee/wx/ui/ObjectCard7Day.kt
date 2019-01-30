@@ -23,8 +23,6 @@ package joshuatee.wx.ui
 
 import android.content.Context
 import android.graphics.Bitmap
-import androidx.appcompat.widget.AppCompatTextView
-import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -34,46 +32,44 @@ import androidx.core.widget.TextViewCompat
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.fragments.UtilityLocationFragment
+import joshuatee.wx.objects.TextSize
 
 class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7Arr: List<String>) {
 
     private val objCard: ObjectCard
     private val iv: ImageView
-    private val tv1: AppCompatTextView
-    private val tv2: AppCompatTextView
+    private val tv1: ObjectTextView
+    private val tv2: ObjectTextView
 
     init {
         val llTmp = LinearLayout(context)
         llTmp.orientation = LinearLayout.HORIZONTAL
         val llTmpV = LinearLayout(context)
         llTmpV.orientation = LinearLayout.VERTICAL
-        tv1 = AppCompatTextView(context)
-        // L  T R B
+        tv1 = ObjectTextView(context, TextSize.MEDIUM)
         tv1.setPadding(
             MyApplication.padding,
             MyApplication.paddingSmall,
             MyApplication.paddingSmall,
             0
         )
-        tv1.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         // FIXME better variable names
         TextViewCompat.setAutoSizeTextTypeWithDefaults(
-            tv1,
+            tv1.tv,
             TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
         )
         tv1.maxLines = 1
-        tv2 = AppCompatTextView(context)
+        tv2 = ObjectTextView(context)
         tv2.setPadding(
             MyApplication.padding,
             0,
             MyApplication.paddingSmall,
             MyApplication.paddingSmall
         )
-        tv2.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-        tv2.setTextAppearance(context, UIPreferences.smallTextTheme)
+        tv2.setAsBackgroundText()
         iv = ImageView(context)
-        llTmpV.addView(tv1)
-        llTmpV.addView(tv2)
+        llTmpV.addView(tv1.tv)
+        llTmpV.addView(tv2.tv)
         objCard = ObjectCard(context)
         if (!UIPreferences.locfragDontShowIcons) {
             llTmp.addView(iv)
