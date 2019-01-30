@@ -94,9 +94,13 @@ class ObjectTextView(val context: Context) {
     }
 
     fun setAsBackgroundText() {
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-        tv.setTextColor(UIPreferences.backgroundColor)
+        setAsSmallText()
         tv.setTextAppearance(context, UIPreferences.smallTextTheme)
+    }
+
+    fun setAsSmallText() {
+        tv.setTextColor(UIPreferences.backgroundColor)
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
     }
 
     fun setOnClickListener(fn: View.OnClickListener) {
