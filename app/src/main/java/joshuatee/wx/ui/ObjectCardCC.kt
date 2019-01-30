@@ -47,7 +47,7 @@ class ObjectCardCC(context: Context, version: Int) {
         val llCv2V = LinearLayout(context)
         textViewTop = ObjectTextView(context, TextSize.MEDIUM)
         textViewTop.gravity = Gravity.CENTER
-        textViewTop.setPadding(MyApplication.padding, 2, MyApplication.padding, 0)
+        textViewTop.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
         if (android.os.Build.VERSION.SDK_INT > 20) {
             TextViewCompat.setAutoSizeTextTypeWithDefaults(
                 textViewTop.tv,
@@ -62,7 +62,7 @@ class ObjectCardCC(context: Context, version: Int) {
         tvCc22 = ObjectTextView(context)
         tvCc22.gravity = Gravity.CENTER
         tvCc22.setAsBackgroundText()
-        tvCc22.setPadding(MyApplication.padding, 0, MyApplication.padding, 2)
+        tvCc22.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
         if (version == 2) {
             // specific to 2
             llCv2.orientation = LinearLayout.HORIZONTAL

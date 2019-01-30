@@ -49,7 +49,7 @@ class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7
         tv1 = ObjectTextView(context, TextSize.MEDIUM)
         tv1.setPadding(
             MyApplication.padding,
-            MyApplication.paddingSmall,
+            0,
             MyApplication.paddingSmall,
             0
         )
@@ -64,7 +64,7 @@ class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7
             MyApplication.padding,
             0,
             MyApplication.paddingSmall,
-            MyApplication.paddingSmall
+            0
         )
         tv2.setAsBackgroundText()
         iv = ImageView(context)
