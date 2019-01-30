@@ -273,18 +273,18 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         }
         addDynamicCards()
         cardCC?.let { objectCardCC ->
-            objectCardCC.textViewTop.setOnClickListener {
+            objectCardCC.textViewTop.setOnClickListener(View.OnClickListener {
                 if (Location.isUS) {
                     if (MyApplication.helpMode) {
                         showHelp(helpCurrentGeneric)
                     }
                 }
-            }
-            objectCardCC.textViewBottom.setOnClickListener {
+            })
+            objectCardCC.textViewBottom.setOnClickListener ( View.OnClickListener {
                 if (MyApplication.helpMode) {
                     showHelp(helpForecastGenericStatus)
                 }
-            }
+            })
         }
         refreshDynamicContent()
         if (MyApplication.locDisplayImg) {
@@ -834,7 +834,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         withContext(Dispatchers.IO) {
             try {
                 objFcst =
-                        Utility.getCurrentConditionsV2(activityReference, Location.currentLocation)
+                    Utility.getCurrentConditionsV2(activityReference, Location.currentLocation)
                 if (homescreenFavLocal.contains("TXT-CC2")) {
                     bmCc = if (Location.isUS) {
                         UtilityNWS.getIcon(activityReference, objFcst!!.objCC.iconUrl)

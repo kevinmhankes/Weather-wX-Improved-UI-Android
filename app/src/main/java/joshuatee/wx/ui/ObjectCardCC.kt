@@ -33,6 +33,7 @@ import androidx.core.widget.TextViewCompat
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.objects.TextSize
 import joshuatee.wx.settings.Location
 import joshuatee.wx.util.ObjectForecastPackage
 
@@ -41,33 +42,37 @@ class ObjectCardCC(context: Context, version: Int) {
     private val objCard: ObjectCard
     var imageView: ImageView
         private set
-    val textViewTop: AppCompatTextView
-    val textViewBottom: AppCompatTextView
-    private val tvCc22: AppCompatTextView
+    val textViewTop: ObjectTextView
+    val textViewBottom: ObjectTextView
+    private val tvCc22: ObjectTextView
 
     init {
         val llCv2 = LinearLayout(context)
         val llCv2V = LinearLayout(context)
-        textViewTop = AppCompatTextView(context)
+        textViewTop = ObjectTextView(context, TextSize.MEDIUM)
         textViewTop.gravity = Gravity.CENTER
-        textViewTop.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
+        //textViewTop.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         textViewTop.setPadding(MyApplication.padding, 2, MyApplication.padding, 0)
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(
-            textViewTop,
-            TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
-        )
-        textViewTop.maxLines = 1
-        textViewBottom = AppCompatTextView(context)
+        if (android.os.Build.VERSION.SDK_INT > 20) {
+            TextViewCompat.setAutoSizeTextTypeWithDefaults(
+                textViewTop.tv,
+                TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
+            )
+            textViewTop.maxLines = 1
+        }
+        textViewBottom = ObjectTextView(context)
         textViewBottom.gravity = Gravity.CENTER
-        textViewBottom.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-        textViewBottom.setTextColor(UIPreferences.backgroundColor)
-        textViewBottom.setTextAppearance(context, UIPreferences.smallTextTheme)
+        textViewBottom.setAsBackgroundText()
+        //textViewBottom.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
+        //textViewBottom.setTextColor(UIPreferences.backgroundColor)
+        //textViewBottom.setTextAppearance(context, UIPreferences.smallTextTheme)
         textViewBottom.setPadding(MyApplication.padding, 0, MyApplication.padding, 2)
-        tvCc22 = AppCompatTextView(context)
+        tvCc22 = ObjectTextView(context)
         tvCc22.gravity = Gravity.CENTER
-        tvCc22.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-        tvCc22.setTextColor(UIPreferences.backgroundColor)
-        tvCc22.setTextAppearance(context, UIPreferences.smallTextTheme)
+        tvCc22.setAsBackgroundText()
+        //tvCc22.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
+        //tvCc22.setTextColor(UIPreferences.backgroundColor)
+        //tvCc22.setTextAppearance(context, UIPreferences.smallTextTheme)
         tvCc22.setPadding(MyApplication.padding, 0, MyApplication.padding, 2)
         if (version == 2) {
             // specific to 2
@@ -91,16 +96,16 @@ class ObjectCardCC(context: Context, version: Int) {
             imageView = ImageView(context)
             llCv2V.orientation = LinearLayout.VERTICAL
             llCv2V.gravity = Gravity.CENTER_VERTICAL
-            llCv2V.addView(textViewTop)
-            llCv2V.addView(tvCc22)
-            llCv2V.addView(textViewBottom)
+            llCv2V.addView(textViewTop.tv)
+            llCv2V.addView(tvCc22.tv)
+            llCv2V.addView(textViewBottom.tv)
             llCv2.addView(imageView)
             llCv2.addView(llCv2V)
         } else {
             // legeacy code
             llCv2.orientation = LinearLayout.VERTICAL
-            llCv2.addView(textViewTop)
-            llCv2.addView(textViewBottom)
+            llCv2.addView(textViewTop.tv)
+            llCv2.addView(textViewBottom.tv)
             imageView = ImageView(context)
         }
         objCard = ObjectCard(context)
