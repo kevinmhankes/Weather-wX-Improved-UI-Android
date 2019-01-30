@@ -17,9 +17,6 @@
 // TODO migrate away from US govt website for Sun/Moon data do to cert issues
 // TODO look into ( believe it's good ): https://android-developers.googleblog.com/2019/01/get-your-apps-ready-for-64-bit.html
 // TODO add to homescreen regional mosaic radar
-// TODO add last used to NWS Obs site
-// TODO enhance storm reports card
-// TODO make better use of ObjectTextView .
 
 55107 2019_01_30 make better use of ObjectTextView
                  for 7day card, use text autosize so top line shrinks
