@@ -25,6 +25,7 @@ import android.content.Context
 import androidx.appcompat.widget.AppCompatTextView
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
@@ -32,7 +33,7 @@ import joshuatee.wx.objects.TextSize
 
 class ObjectTextView(val context: Context) {
 
-    val tv: AppCompatTextView
+    var tv: AppCompatTextView
 
     var text: String
         get() = tv.text.toString()
@@ -53,6 +54,18 @@ class ObjectTextView(val context: Context) {
 
     constructor(context: Context, color: Int) : this(context) {
         setTextColor(color)
+    }
+
+    constructor(view: View, resId: Int) : this(view.context) {
+        tv = view.findViewById(resId)
+    }
+
+    constructor(view: View, resId: Int, color: Int) : this(view, resId) {
+        setTextColor(color)
+    }
+
+    constructor(view: View, resId: Int, size: TextSize) : this(view.context, size) {
+        tv = view.findViewById(resId)
     }
 
     constructor(context: Context, size: TextSize) : this(context) {
@@ -84,6 +97,10 @@ class ObjectTextView(val context: Context) {
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
         tv.setTextColor(UIPreferences.backgroundColor)
         tv.setTextAppearance(context, UIPreferences.smallTextTheme)
+    }
+
+    fun setOnClickListener(fn: View.OnClickListener) {
+        tv.setOnClickListener(fn)
     }
 }
 

@@ -197,32 +197,10 @@ class SPCStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     val freq3 = mapState[s.state]
                     mapState[s.state] = if (freq3 == null) 1 else freq3 + 1
                 }
-
-
-                /*val cTmp = ObjectCardText(contextg, linearLayout, Utility.fromHtml(s.text))
-                cTmp.setId(k)
-                out.append(MyApplication.newline)
-                out.append(Utility.fromHtml(s.text))
-                if (!s.text.contains("<H2>")) {
-                    registerForContextMenu(cTmp.tv)
-                }
-                val xStr = s.lat
-                val yStr = s.lon
-                cTmp.setOnClickListener(View.OnClickListener {
-                    ObjectIntent(
-                        contextg,
-                        WebscreenAB::class.java,
-                        WebscreenAB.URL,
-                        arrayOf(UtilityMap.genMapURL(xStr, yStr, "10"), "$xStr,$yStr")
-                    )
-                })*/
-
                 val stormCard = ObjectCardStormReportItem(contextg)
                 stormCard.setId(k)
                 linearLayout.addView(stormCard.card)
                 stormCard.setTextFields(s)
-                //out.append(MyApplication.newline)
-                //out.append(Utility.fromHtml(s.text))
                 if (!s.text.contains("<H2>")) {
                     registerForContextMenu(stormCard.card)
                 }
@@ -236,15 +214,9 @@ class SPCStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                         arrayOf(UtilityMap.genMapURL(xStr, yStr, "10"), "$xStr,$yStr")
                     )
                 })
-
-
                 if (s.text.contains("(") && s.text.contains(")")) {
 
                 } else {
-                    // FIXME
-                    //stormCard.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-                    //stormCard.setTextColor(UIPreferences.textHighlightColor)
-                    //stormCard.setText(Utility.fromHtml(s.text.toUpperCase()))
                     stormCard.setTextHeader(s)
                     stormCard.setListener(View.OnClickListener {
                         scrollView.smoothScrollTo(
