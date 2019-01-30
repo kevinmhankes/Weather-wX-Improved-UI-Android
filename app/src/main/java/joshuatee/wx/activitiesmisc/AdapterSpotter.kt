@@ -26,7 +26,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.recyclerview.widget.RecyclerView
 import android.telephony.TelephonyManager
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -75,7 +74,6 @@ internal class AdapterSpotter(private val mDataset: MutableList<Spotter>) :
 
     override fun onBindViewHolder(holder: DataObjectHolder, position: Int) {
         holder.name.text = mDataset[position].lastName + ", " + mDataset[position].firstName
-        //holder.name.setTextColor(UIPreferences.textHighlightColor)
         holder.time.text = mDataset[position].reportAt
         holder.email.text = mDataset[position].email.replace(MyApplication.newline, " ")
         val he = holder.email
@@ -88,12 +86,7 @@ internal class AdapterSpotter(private val mDataset: MutableList<Spotter>) :
             he.context.startActivity(Intent.createChooser(intent, "Send Email"))
         })
         holder.phone.text = mDataset[position].phone.replace(MyApplication.newline, " ")
-        listOf(holder.time, holder.email, holder.phone).forEach {
-            //it.setTextColor(UIPreferences.backgroundColor)
-            //it.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-            //it.setTextAppearance(it.context, UIPreferences.smallTextTheme)
-            it.setAsBackgroundText()
-        }
+        listOf(holder.time, holder.email, holder.phone).forEach { it.setAsBackgroundText() }
         val hp = holder.phone
         holder.phone.setOnClickListener (View.OnClickListener {
             val tm = hp.context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager

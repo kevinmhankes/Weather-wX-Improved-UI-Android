@@ -22,6 +22,7 @@
 // TODO make better use of ObjectTextView .
 
 55107 2019_01_30 make better use of ObjectTextView
+                 for 7day card, use text autosize so top line shrinks
 55106 2019_01_28 enhance us warning cards in misc uswarn
                  add ObjectTextView
                  add ObjectCardStormReportItem
