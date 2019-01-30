@@ -104,7 +104,7 @@ class SpottersActivity : BaseActivity() {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        spotterlist = withContext(Dispatchers.IO) { UtilitySpotter.spotterData }
+        spotterlist = withContext(Dispatchers.IO) { UtilitySpotter.spotterData }.toMutableList()
         markFavorites()
         ca = AdapterSpotter(spotterlist)
         recyclerView.recyclerView.adapter = ca
