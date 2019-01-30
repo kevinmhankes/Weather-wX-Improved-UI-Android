@@ -23,8 +23,6 @@ package joshuatee.wx.ui
 
 import android.content.Context
 import android.graphics.Bitmap
-import androidx.appcompat.widget.AppCompatTextView
-import android.util.TypedValue
 import android.view.Gravity
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -32,7 +30,6 @@ import androidx.cardview.widget.CardView
 import androidx.core.widget.TextViewCompat
 
 import joshuatee.wx.MyApplication
-import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.TextSize
 import joshuatee.wx.settings.Location
 import joshuatee.wx.util.ObjectForecastPackage
@@ -40,8 +37,7 @@ import joshuatee.wx.util.ObjectForecastPackage
 class ObjectCardCC(context: Context, version: Int) {
 
     private val objCard: ObjectCard
-    var imageView: ImageView
-        private set
+    private var imageView: ImageView
     val textViewTop: ObjectTextView
     val textViewBottom: ObjectTextView
     private val tvCc22: ObjectTextView
@@ -51,7 +47,6 @@ class ObjectCardCC(context: Context, version: Int) {
         val llCv2V = LinearLayout(context)
         textViewTop = ObjectTextView(context, TextSize.MEDIUM)
         textViewTop.gravity = Gravity.CENTER
-        //textViewTop.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         textViewTop.setPadding(MyApplication.padding, 2, MyApplication.padding, 0)
         if (android.os.Build.VERSION.SDK_INT > 20) {
             TextViewCompat.setAutoSizeTextTypeWithDefaults(
@@ -63,16 +58,10 @@ class ObjectCardCC(context: Context, version: Int) {
         textViewBottom = ObjectTextView(context)
         textViewBottom.gravity = Gravity.CENTER
         textViewBottom.setAsBackgroundText()
-        //textViewBottom.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-        //textViewBottom.setTextColor(UIPreferences.backgroundColor)
-        //textViewBottom.setTextAppearance(context, UIPreferences.smallTextTheme)
         textViewBottom.setPadding(MyApplication.padding, 0, MyApplication.padding, 2)
         tvCc22 = ObjectTextView(context)
         tvCc22.gravity = Gravity.CENTER
         tvCc22.setAsBackgroundText()
-        //tvCc22.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-        //tvCc22.setTextColor(UIPreferences.backgroundColor)
-        //tvCc22.setTextAppearance(context, UIPreferences.smallTextTheme)
         tvCc22.setPadding(MyApplication.padding, 0, MyApplication.padding, 2)
         if (version == 2) {
             // specific to 2
