@@ -24,7 +24,6 @@ package joshuatee.wx.ui
 import android.content.Context
 import android.graphics.Bitmap
 import android.view.Gravity
-import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import androidx.core.widget.TextViewCompat
@@ -37,7 +36,7 @@ import joshuatee.wx.util.ObjectForecastPackage
 class ObjectCardCC(context: Context, version: Int) {
 
     private val objCard: ObjectCard
-    private var imageView: ImageView
+    private var imageView = ObjectImageView(context)
     val textViewTop: ObjectTextView
     val textViewBottom: ObjectTextView
     private val tvCc22: ObjectTextView
@@ -82,26 +81,26 @@ class ObjectCardCC(context: Context, version: Int) {
                 MyApplication.paddingSmall,
                 MyApplication.paddingSmall
             )
-            imageView = ImageView(context)
+            //imageView = ImageView(context)
             llCv2V.orientation = LinearLayout.VERTICAL
             llCv2V.gravity = Gravity.CENTER_VERTICAL
             llCv2V.addView(textViewTop.tv)
             llCv2V.addView(tvCc22.tv)
             llCv2V.addView(textViewBottom.tv)
-            llCv2.addView(imageView)
+            llCv2.addView(imageView.image)
             llCv2.addView(llCv2V)
         } else {
             // legeacy code
             llCv2.orientation = LinearLayout.VERTICAL
             llCv2.addView(textViewTop.tv)
             llCv2.addView(textViewBottom.tv)
-            imageView = ImageView(context)
+            //imageView = ImageView(context)
         }
         objCard = ObjectCard(context)
         objCard.addView(llCv2)
     }
 
-    private fun setImage(bitmap: Bitmap, size: Int) {
+    /*private fun setImage(bitmap: Bitmap, size: Int) {
         val paramsIv = imageView.layoutParams
         paramsIv.width = size
         paramsIv.height = size
@@ -113,7 +112,7 @@ class ObjectCardCC(context: Context, version: Int) {
             MyApplication.paddingSmall,
             MyApplication.paddingSmall
         )
-    }
+    }*/
 
     val card: CardView get() = objCard.card
 
@@ -136,7 +135,7 @@ class ObjectCardCC(context: Context, version: Int) {
         helpCurrentGeneric: Int,
         fn: (Int) -> Unit
     ) {
-        imageView.setOnClickListener {
+        imageView.image.setOnClickListener {
             if (MyApplication.helpMode) {
                 fn(helpCurrentGeneric)
             } else {
@@ -157,13 +156,13 @@ class ObjectCardCC(context: Context, version: Int) {
 
     fun updateContent(
         bitmap: Bitmap,
-        size: Int,
+        //size: Int,
         objFcst: ObjectForecastPackage,
         isUS: Boolean,
         ccTime: String,
         radarTime: String
     ) {
-        setImage(bitmap, size)
+        imageView.setImage(bitmap)
         val sep = " - "
         val tmpArrCc = objFcst.objCC.data1.split(sep).dropLastWhile { it.isEmpty() }
         val tempArr: List<String>

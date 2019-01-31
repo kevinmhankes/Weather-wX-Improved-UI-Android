@@ -66,7 +66,6 @@ class AdhocForecastActivity : BaseActivity() {
     private var hazardsSum = ""
     private var hazardRaw = ""
     private lateinit var cardCC: ObjectCardCC
-    private var bitmapSize = 300
     private lateinit var linearLayoutForecast: LinearLayout
     private lateinit var linearLayoutHazards: LinearLayout
     private lateinit var linearLayout: LinearLayout
@@ -120,12 +119,11 @@ class AdhocForecastActivity : BaseActivity() {
         //
         // CC
         //
-        bitmapSize = UtilityLocationFragment.setNWSIconSize()
         objFcst?.let { _ ->
             cardCC.let {
                 ccTime = objFcst!!.objCC.status
                 if (bmCc != null) {
-                    it.updateContent(bmCc!!, bitmapSize, objFcst!!, true, ccTime, radarTime)
+                    it.updateContent(bmCc!!, objFcst!!, true, ccTime, radarTime)
                 }
             }
         }

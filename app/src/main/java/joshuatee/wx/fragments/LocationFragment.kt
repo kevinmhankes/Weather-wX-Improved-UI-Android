@@ -105,7 +105,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     // total # of wxogl
     private var oglrCnt = 0
     private var needForecastData = false
-    private var bitmapSize = 300
     private var linearLayoutForecast: LinearLayout? = null
     // hazards
     private var linearLayoutHazards: LinearLayout? = null
@@ -313,7 +312,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             currentLoc = Location.numLocations - 1
         else
             currentLoc -= 1
-        bitmapSize = UtilityLocationFragment.setNWSIconSize()
+        //bitmapSize = UtilityLocationFragment.setNWSIconSize()
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
@@ -856,7 +855,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             //
             // Current Conditions
             //
-            bitmapSize = UtilityLocationFragment.setNWSIconSize()
             objFcst?.let { _ ->
                 cardCC?.let {
                     if (homescreenFavLocal.contains("TXT-CC2")) {
@@ -864,7 +862,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                         if (bmCc != null) {
                             it.updateContent(
                                 bmCc!!,
-                                bitmapSize,
                                 objFcst!!,
                                 Location.isUS,
                                 ccTime,
@@ -909,7 +906,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             }
         }
         if (isAdded) {
-            bitmapSize = UtilityLocationFragment.setNWSIconSize()
+            //bitmapSize = UtilityLocationFragment.setNWSIconSize()
             objSevenDay?.let { _ ->
                 if (homescreenFavLocal.contains("TXT-7DAY")) {
                     linearLayoutForecast?.removeAllViewsInLayout()
