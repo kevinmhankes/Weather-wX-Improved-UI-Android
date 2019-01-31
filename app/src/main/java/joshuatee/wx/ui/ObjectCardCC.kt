@@ -42,6 +42,7 @@ class ObjectCardCC(context: Context, version: Int) {
     private val tvCc22: ObjectTextView
 
     init {
+        // FIXME better variable names
         val llCv2 = LinearLayout(context)
         val llCv2V = LinearLayout(context)
         textViewTop = ObjectTextView(context, TextSize.MEDIUM)
@@ -63,7 +64,6 @@ class ObjectCardCC(context: Context, version: Int) {
         tvCc22.setAsBackgroundText()
         tvCc22.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
         if (version == 2) {
-            // specific to 2
             llCv2.orientation = LinearLayout.HORIZONTAL
             textViewTop.gravity = Gravity.START
             tvCc22.gravity = Gravity.START
@@ -81,7 +81,6 @@ class ObjectCardCC(context: Context, version: Int) {
                 MyApplication.paddingSmall,
                 MyApplication.paddingSmall
             )
-            //imageView = ImageView(context)
             llCv2V.orientation = LinearLayout.VERTICAL
             llCv2V.gravity = Gravity.CENTER_VERTICAL
             llCv2V.addView(textViewTop.tv)
@@ -94,25 +93,10 @@ class ObjectCardCC(context: Context, version: Int) {
             llCv2.orientation = LinearLayout.VERTICAL
             llCv2.addView(textViewTop.tv)
             llCv2.addView(textViewBottom.tv)
-            //imageView = ImageView(context)
         }
         objCard = ObjectCard(context)
         objCard.addView(llCv2)
     }
-
-    /*private fun setImage(bitmap: Bitmap, size: Int) {
-        val paramsIv = imageView.layoutParams
-        paramsIv.width = size
-        paramsIv.height = size
-        imageView.layoutParams = paramsIv
-        imageView.setImageBitmap(bitmap)
-        imageView.setPadding(
-            MyApplication.paddingSmall,
-            MyApplication.paddingSmall,
-            MyApplication.paddingSmall,
-            MyApplication.paddingSmall
-        )
-    }*/
 
     val card: CardView get() = objCard.card
 
@@ -156,7 +140,6 @@ class ObjectCardCC(context: Context, version: Int) {
 
     fun updateContent(
         bitmap: Bitmap,
-        //size: Int,
         objFcst: ObjectForecastPackage,
         isUS: Boolean,
         ccTime: String,

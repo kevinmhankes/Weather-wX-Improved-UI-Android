@@ -31,7 +31,6 @@ import android.widget.*
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
-import joshuatee.wx.fragments.UtilityLocationFragment
 import joshuatee.wx.fragments.UtilityNWS
 import joshuatee.wx.settings.Location
 import joshuatee.wx.ui.*

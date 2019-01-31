@@ -52,7 +52,6 @@ class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7
             MyApplication.paddingSmall,
             0
         )
-        // FIXME better variable names
         TextViewCompat.setAutoSizeTextTypeWithDefaults(
             topLineText.tv,
             TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
@@ -66,7 +65,6 @@ class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7
             0
         )
         bottomLineText.setAsBackgroundText()
-        //imageView = ImageView(context)
         verticalContainer.addView(topLineText.tv)
         verticalContainer.addView(bottomLineText.tv)
         objCard = ObjectCard(context)

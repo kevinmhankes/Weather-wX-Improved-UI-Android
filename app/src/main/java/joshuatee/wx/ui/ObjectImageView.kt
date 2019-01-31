@@ -27,13 +27,9 @@ import android.widget.ImageView
 import joshuatee.wx.MyApplication
 import joshuatee.wx.fragments.UtilityLocationFragment
 
-class ObjectImageView {
+class ObjectImageView(context: Context) {
 
-    val image: ImageView
-
-    constructor(context: Context) {
-        image = ImageView(context)
-    }
+    val image: ImageView = ImageView(context)
 
     fun setImage(bitmap: Bitmap) {
         image.setImageBitmap(bitmap)

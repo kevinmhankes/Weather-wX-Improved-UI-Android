@@ -279,7 +279,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     }
                 }
             })
-            objectCardCC.textViewBottom.setOnClickListener ( View.OnClickListener {
+            objectCardCC.textViewBottom.setOnClickListener(View.OnClickListener {
                 if (MyApplication.helpMode) {
                     showHelp(helpForecastGenericStatus)
                 }
@@ -312,7 +312,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             currentLoc = Location.numLocations - 1
         else
             currentLoc -= 1
-        //bitmapSize = UtilityLocationFragment.setNWSIconSize()
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
@@ -906,7 +905,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             }
         }
         if (isAdded) {
-            //bitmapSize = UtilityLocationFragment.setNWSIconSize()
             objSevenDay?.let { _ ->
                 if (homescreenFavLocal.contains("TXT-7DAY")) {
                     linearLayoutForecast?.removeAllViewsInLayout()
