@@ -347,7 +347,7 @@ class MyApplication : Application() {
                 172
             ).forEach {
                 radarColorPalette[it.toString()] =
-                    getInitialPreferenceString("RADAR_COLOR_PALETTE_" + it.toString(), "CODENH")
+                    getInitialPreferenceString("RADAR_COLOR_PALETTE_$it", "CODENH")
             }
             cardCorners = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,

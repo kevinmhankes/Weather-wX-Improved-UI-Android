@@ -236,7 +236,7 @@ class SPCStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             if (stateArrayLabel.size > 0) drw.updateLists(activity, stateArrayLabel)
             firstRun = false
         }
-        title = "(" + stormCnt.toString() + ") Storm Reports"
+        title = "($stormCnt) Storm Reports"
         toolbar.subtitle = no
         if (stormCnt > 0) {
             c1.setVisibility(View.VISIBLE)

@@ -480,9 +480,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     if (!inOglAnim) break
                     // if the first pass has completed, for L2 no longer uncompress, use the existing decomp files
                     if (loopCnt > 0)
-                        oglr.constructPolygons("nexrad_anim" + r.toString(), urlStr, false)
+                        oglr.constructPolygons("nexrad_anim$r", urlStr, false)
                     else
-                        oglr.constructPolygons("nexrad_anim" + r.toString(), urlStr, true)
+                        oglr.constructPolygons("nexrad_anim$r", urlStr, true)
                     //publishProgress((r + 1).toString(), animArray.size.toString())
                     launch(uiDispatcher) {
                         progressUpdate((r + 1).toString(), animArray.size.toString())
