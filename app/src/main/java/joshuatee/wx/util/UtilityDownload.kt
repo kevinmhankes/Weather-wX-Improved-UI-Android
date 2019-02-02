@@ -64,8 +64,9 @@ object UtilityDownload {
     private fun get2KMURL() = UtilityImg.getBlankBitmap()
 
     fun getRadarMosiac(context: Context): Bitmap {
-        val widgetLocNum = Utility.readPref(context, "WIDGET_LOCATION", "1")
-        val rid1 = Location.getRid(context, widgetLocNum)
+        //val widgetLocNum = Utility.readPref(context, "WIDGET_LOCATION", "1")
+        val location = Location.currentLocationStr
+        val rid1 = Location.getRid(context, location)
         var bitmap: Bitmap = UtilityImg.getBlankBitmap()
         try {
             if (!UIPreferences.useAwcRadarMosaic) {
@@ -77,7 +78,7 @@ object UtilityDownload {
                     "regional" -> k = "regional"
                     "usa" -> k = "usa"
                 }
-                bitmap = if (Location.isUS(widgetLocNum)) {
+                bitmap = if (Location.isUS(location)) {
                     if (k == "usa") {
                         UtilityUSImgNWSMosaic.get(context, "latest", false)
                     } else {
@@ -88,7 +89,7 @@ object UtilityDownload {
                         )
                     }
                 } else {
-                    val prov = Utility.readPref(context, "NWS" + widgetLocNum + "_STATE", "")
+                    val prov = Utility.readPref(context, "NWS" + location + "_STATE", "")
                     UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(
                         context,
                         UtilityCanada.getECSectorFromProv(prov)
