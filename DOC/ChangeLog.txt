@@ -20,6 +20,7 @@
 
 55109 2019_02_02 code cleanup
                  convert external code to \n
+                 add product types to AWC Radar
 55108 2019_02_02 add AWC radar option and add RAD_2KM to homescreen options
 55107 2019_01_30 make better use of ObjectTextView
                  for 7day card, use text autosize so top line shrinks

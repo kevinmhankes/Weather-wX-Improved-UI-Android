@@ -35,5 +35,39 @@
         android:icon="@drawable/ic_touch_app_24dp"
         android:title="@string/label_pin"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_rad_rala"
+        android:title="Reflectivity"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_rad_cref"
+        android:title="Composite Reflectivity"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_rad_tops18"
+        android:title="Echo Tops"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sat_irbw"
+        android:title="Infrared (BW)"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sat_ircol"
+        android:title="Infrared (Col)"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sat_irnws"
+        android:title="Infrared (NWS)"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sat_vis"
+        android:title="Visible"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sat_wv"
+        android:title="Water Vapor"
+        app:showAsAction="never" />
 </menu>
+
 

@@ -80,22 +80,39 @@ object UtilityAwcRadarMosaic {
     // https://www.aviationweather.gov/data/obs/radar/rad_tops-18_alb.gif
     // https://www.aviationweather.gov/data/obs/radar/rad_cref_bwi.gif
 
-    fun get(sector: String): Bitmap {
-        val product = "rala"
-        return (baseUrl + "rad_" + product + "_" + sector + ".gif").getImage()
+    fun get(sector: String, product: String): Bitmap {
+        var baseAddOn = "radar/"
+        var imageType = ".gif"
+        if (product.contains("sat_")) {
+            baseAddOn = "sat/us/"
+            imageType = ".jpg"
+        }
+        val url = baseUrl + baseAddOn + product + "_" + sector + imageType
+        return url.getImage()
     }
 
-    fun getAnimation(context: Context, sector: String): AnimationDrawable {
+    fun getAnimation(context: Context, sector: String, product: String): AnimationDrawable {
         // image_url[14] = "/data/obs/radar/20190131/22/20190131_2216_rad_rala_dtw.gif";
-        val productUrl = "https://www.aviationweather.gov/radar/plot?region=$sector"
+        // https://www.aviationweather.gov/satellite/plot?region=us&type=wv
+        var baseAddOn = "radar/"
+        var baseAddOnTopUrl = "radar/"
+        var imageType = ".gif"
+        var topUrlAddOn = ""
+        if (product.contains("sat_")) {
+            baseAddOnTopUrl = "satellite/"
+            baseAddOn = "sat/us/"
+            imageType = ".jpg"
+            topUrlAddOn = "&type=" + product.replace("sat_", "")
+        }
+        val productUrl =
+            "https://www.aviationweather.gov/" + baseAddOnTopUrl + "plot?region=" + sector + topUrlAddOn
         val html = productUrl.getHtml()
         val urls = html.parseColumn(
-            "image_url.[0-9]{1,2}. = ./data/obs/radar/([0-9]{8}/[0-9]{2}/[0-9]{8}_[0-9]{4}_rad_rala_"
+            "image_url.[0-9]{1,2}. = ./data/obs/" + baseAddOn + "([0-9]{8}/[0-9]{2}/[0-9]{8}_[0-9]{4}_" + product + "_"
                     + sector
-                    + ".gif)."
+                    + imageType + ")."
         )
-        val bitmaps = urls.map { (baseUrl + it).getImage() }
+        val bitmaps = urls.map { (baseUrl + baseAddOn + it).getImage() }
         return UtilityImgAnim.getAnimationDrawableFromBMList(context, bitmaps)
     }
-
 }

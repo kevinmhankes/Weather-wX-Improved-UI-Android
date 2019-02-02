@@ -94,9 +94,17 @@ object UtilityDownload {
                     )
                 }
             } else {
-                val prefToken = "AWCMOSAIC_PARAM_LAST_USED"
-                val index = Utility.readPref(context, prefToken, 0)
-                bitmap = UtilityAwcRadarMosaic.get(UtilityAwcRadarMosaic.sectors[index])
+                //val prefToken = "AWCMOSAIC_PARAM_LAST_USED"
+                //val index = Utility.readPref(context, prefToken, 0)
+                //bitmap = UtilityAwcRadarMosaic.get(UtilityAwcRadarMosaic.sectors[index])
+
+                var product = "rad_rala"
+                val prefTokenSector = "AWCMOSAIC_SECTOR_LAST_USED"
+                val prefTokenProduct = "AWCMOSAIC_PRODUCT_LAST_USED"
+                var sector = "us"
+                sector = Utility.readPref(prefTokenSector, sector)
+                product = Utility.readPref(prefTokenProduct, product)
+                bitmap = UtilityAwcRadarMosaic.get(sector, product)
             }
         } catch (e: Exception) {
             UtilityLog.HandleException(e)

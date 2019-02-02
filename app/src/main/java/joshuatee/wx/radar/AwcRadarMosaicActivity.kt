@@ -35,6 +35,7 @@ import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.produce
 
 class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
 
@@ -55,7 +56,10 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
     private lateinit var contextg: Context
     private lateinit var drw: ObjectNavDrawer
     private val prefImagePosition = "AWCRADARMOSAIC"
-    private val prefToken = "AWCMOSAIC_PARAM_LAST_USED"
+    private var product = "rad_rala"
+    private val prefTokenSector = "AWCMOSAIC_SECTOR_LAST_USED"
+    private val prefTokenProduct = "AWCMOSAIC_PRODUCT_LAST_USED"
+    private var sector = "us"
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,35 +77,39 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, drw, "")
         img.setMaxZoom(8.0f)
         img.setListener(this, drw, ::getContentFixThis)
-        drw.index = Utility.readPref(this, prefToken, 0)
+        sector = Utility.readPref(prefTokenSector, sector)
+        product = Utility.readPref(prefTokenProduct, product)
+        drw.index = UtilityAwcRadarMosaic.sectors.indexOf(sector)
         drw.setListener(::getContentFixThis)
         toolbarBottom.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
-        getContent()
+        getContent(product)
     }
 
     private fun getContentFixThis() {
-        getContent()
+        getContent(product)
     }
 
     override fun onRestart() {
-        getContent()
+        getContent(product)
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+    private fun getContent(productLocal: String) = GlobalScope.launch(uiDispatcher) {
+        product = productLocal
         toolbar.subtitle = drw.getLabel()
         bitmap = withContext(Dispatchers.IO) {
-            UtilityAwcRadarMosaic.get(drw.getUrl())
+            UtilityAwcRadarMosaic.get(drw.getUrl(), product)
         }
         img.setBitmap(bitmap)
         animRan = false
         img.firstRunSetZoomPosn(prefImagePosition)
-        Utility.writePref(contextg, prefToken, drw.index)
+        Utility.writePref(contextg, prefTokenSector, sector)
+        Utility.writePref(contextg, prefTokenProduct, product)
     }
 
     private fun getAnimate() = GlobalScope.launch(uiDispatcher) {
         animDrawable = withContext(Dispatchers.IO) {
-            UtilityAwcRadarMosaic.getAnimation(contextg, drw.getUrl())
+            UtilityAwcRadarMosaic.getAnimation(contextg, drw.getUrl(), product)
         }
         animRan = UtilityImgAnim.startAnimation(animDrawable, img)
     }
@@ -124,6 +132,15 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
             R.id.action_pin -> UtilityShortcut.createShortcut(this, ShortcutType.RADAR_MOSAIC)
             R.id.action_animate -> getAnimate()
             R.id.action_stop -> animDrawable.stop()
+            R.id.action_stop -> animDrawable.stop()
+            R.id.action_rad_rala -> getContent("rad_rala")
+            R.id.action_rad_cref -> getContent("rad_cref")
+            R.id.action_rad_tops18 -> getContent("rad_tops-18")
+            R.id.action_sat_irbw -> getContent("sat_irbw")
+            R.id.action_sat_ircol -> getContent("sat_ircol")
+            R.id.action_sat_irnws -> getContent("sat_irnws")
+            R.id.action_sat_vis -> getContent("sat_vis")
+            R.id.action_sat_wv -> getContent("sat_wv")
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
