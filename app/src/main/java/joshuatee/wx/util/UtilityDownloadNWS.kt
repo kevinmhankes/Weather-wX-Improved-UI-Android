@@ -93,8 +93,8 @@ object UtilityDownloadNWS {
     fun getNWSStringFromURLJSON(url: String): String =
         getNWSStringFromURLBase(url, "application/geo+json;version=1")
 
-    fun getNWSStringFromURLNoHeader(url: String): String =
-        getNWSStringFromURLBaseNoHeader(url)
+    //fun getNWSStringFromURLNoHeader(url: String): String =
+    //    getNWSStringFromURLBaseNoHeader(url)
 
     //private fun getNWSStringFromURLLDJSON(url: String) = getNWSStringFromURLBase(url, "application/ld+json;version=1")
 
