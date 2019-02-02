@@ -440,9 +440,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             try {
                 animArray.indices.forEach {
                     fh = File(contextg.filesDir, animArray[it])
-                    contextg.deleteFile("nexrad_anim" + it.toString())
-                    if (!fh.renameTo(File(contextg.filesDir, "nexrad_anim" + it.toString())))
-                        UtilityLog.d("wx", "Problem moving to " + "nexrad_anim" + it.toString())
+                    contextg.deleteFile("nexrad_anim$it")
+                    if (!fh.renameTo(File(contextg.filesDir, "nexrad_anim$it")))
+                        UtilityLog.d("wx", "Problem moving to nexrad_anim$it")
                 }
             } catch (e: Exception) {
                 UtilityLog.HandleException(e)
@@ -454,17 +454,17 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     try {
                         animArray.indices.forEach {
                             fh = File(contextg.filesDir, animArray[it])
-                            contextg.deleteFile("nexrad_anim" + it.toString())
+                            contextg.deleteFile("nexrad_anim$it")
                             if (!fh.renameTo(
                                     File(
                                         contextg.filesDir,
-                                        "nexrad_anim" + it.toString()
+                                        "nexrad_anim$it"
                                     )
                                 )
                             )
                                 UtilityLog.d(
                                     "wx",
-                                    "Problem moving to " + "nexrad_anim" + it.toString()
+                                    "Problem moving to nexrad_anim$it"
                                 )
                         }
                     } catch (e: Exception) {

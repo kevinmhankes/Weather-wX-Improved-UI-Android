@@ -65,8 +65,8 @@ class USNWSMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
             savedInstanceState,
             R.layout.activity_nwsmosaic,
             R.menu.nwsmosaic,
-            true,
-            true
+            iconsEvenlySpaced = true,
+            bottomToolbar = true
         )
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)

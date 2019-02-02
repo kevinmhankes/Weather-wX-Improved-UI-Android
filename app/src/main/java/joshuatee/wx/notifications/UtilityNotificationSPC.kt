@@ -408,7 +408,7 @@ internal object UtilityNotificationSPC {
             resultIntent2,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val cancelStr = "spcswoloc" + day.toString() + locNum + threatLevel + validTime
+        val cancelStr = "spcswoloc$day$locNum$threatLevel$validTime"
         if (!(MyApplication.alertOnlyonce && UtilityNotificationUtils.checkToken(
                 context,
                 cancelStr
