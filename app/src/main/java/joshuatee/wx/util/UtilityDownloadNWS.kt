@@ -90,10 +90,10 @@ object UtilityDownloadNWS {
     fun getNWSStringFromURL(url: String): String =
         getNWSStringFromURLBase(url, "application/vnd.noaa.dwml+xml;version=1")
 
-    fun getNWSStringFromURLJSON(url: String) =
+    fun getNWSStringFromURLJSON(url: String): String =
         getNWSStringFromURLBase(url, "application/geo+json;version=1")
 
-    fun getNWSStringFromURLNoHeader(url: String) =
+    fun getNWSStringFromURLNoHeader(url: String): String =
         getNWSStringFromURLBaseNoHeader(url)
 
     //private fun getNWSStringFromURLLDJSON(url: String) = getNWSStringFromURLBase(url, "application/ld+json;version=1")

@@ -48,7 +48,7 @@ object UtilityToolbar {
         if (UIPreferences.radarToolbarTransparent) {
             toolbar.background.mutate().alpha = 0
             toolbar.background.alpha = 0
-            toolbar.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent));
+            toolbar.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
         }
     }
 

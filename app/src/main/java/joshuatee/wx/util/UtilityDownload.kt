@@ -50,9 +50,7 @@ import okhttp3.Request
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.UtilityWidgetDownload
 import joshuatee.wx.canada.UtilityCanada
-import joshuatee.wx.objects.WidgetFile
 import joshuatee.wx.radar.UtilityAwcRadarMosaic
 import joshuatee.wx.radar.UtilityUSImgNWSMosaic
 import joshuatee.wx.vis.UtilityGOES16

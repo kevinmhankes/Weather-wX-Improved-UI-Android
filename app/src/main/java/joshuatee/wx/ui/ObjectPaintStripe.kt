@@ -27,7 +27,7 @@ import joshuatee.wx.MyApplication
 
 class ObjectPaintStripe {
 
-    public val paint = Paint()
+    val paint: Paint = Paint()
 
     init {
         val red = Color.red(MyApplication.nwsIconBottomColor)
