@@ -161,7 +161,7 @@ class BackgroundFetch(val context: Context) {
         if (MyApplication.alertWpcmpdNotificationCurrent || MyApplication.checkwpc || PolygonType.MPD.pref || locationNeedsWpcmpd) {
             try {
                 dataAsString =
-                        "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php".getHtml()
+                    "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php".getHtml()
                 MyApplication.severeDashboardMpd.valueSet(context, dataAsString)
                 if (MyApplication.alertWpcmpdNotificationCurrent || PolygonType.MPD.pref || locationNeedsWpcmpd) {
                     // FIXME matcher

@@ -104,7 +104,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         }
         title = "Canada"
         imageMap =
-                ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
+            ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
         imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::maptoCARid)
         ridFav = Utility.readPref(this, "RID_CA_FAV", " : : :")
         ridArrLoc = UtilityFavorites.setupFavMenuCA(ridFav, rid1)
