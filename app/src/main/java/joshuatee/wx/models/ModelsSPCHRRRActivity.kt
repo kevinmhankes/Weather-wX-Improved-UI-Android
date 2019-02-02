@@ -89,8 +89,8 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 savedInstanceState,
                 R.layout.activity_models_generic_multipane,
                 R.menu.models_spchrrr,
-                false,
-                true
+                iconsEvenlySpaced = false,
+                bottomToolbar = true
             )
         }
         toolbarBottom.setOnMenuItemClickListener(this)
