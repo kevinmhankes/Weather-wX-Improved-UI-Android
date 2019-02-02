@@ -19,8 +19,8 @@
 
 <resources>
 
-     <string name="ui_logfrag_no_icons">
-         Don\'t show icons on main screen.
+     <string name="ui_awc_radar_mosaic">
+         Use the AWC Radar mosaic images instead of the main NWS images.
 </string>
 
     <string name="widget_prevent_tap">

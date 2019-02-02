@@ -246,15 +246,15 @@ class SettingsUIActivity : BaseActivity() {
                 R.string.widget_prevent_tap
             ).card
         )
-       /* ll.addView(
+        ll.addView(
             ObjectSettingsCheckBox(
                 this,
                 this,
-                "Main screen: don't show icons",
-                "UI_LOCFRAG_NO_ICONS",
-                R.string.ui_logfrag_no_icons
+                "Use the AWC Radar mosaic images instead of the main NWS images.",
+                "USE_AWC_RADAR_MOSAIC",
+                R.string.ui_awc_radar_mosaic
             ).card
-        )*/
+        )
         ll.addView(
             ObjectSettingsNumberPicker(
                 this,
