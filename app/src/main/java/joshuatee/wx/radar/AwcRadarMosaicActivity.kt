@@ -32,7 +32,6 @@ import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ShortcutType
-import joshuatee.wx.settings.Location
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
@@ -52,9 +51,7 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
     private var animRan = false
     private var animDrawable = AnimationDrawable()
     private lateinit var img: ObjectTouchImageView
-    private var nwsRadarMosaicSectorLabelCurrent = ""
     private var bitmap = UtilityImg.getBlankBitmap()
-    private var doNotSavePref = false
     private lateinit var contextg: Context
     private lateinit var drw: ObjectNavDrawer
     private val prefImagePosition = "AWCRADARMOSAIC"
@@ -64,15 +61,15 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(
             savedInstanceState,
-            R.layout.activity_nwsmosaic,
-            R.menu.nwsmosaic,
+            R.layout.activity_awcmosaic,
+            R.menu.awcmosaic,
             true,
             true
         )
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)
         UtilityShortcut.hidePinIfNeeded(toolbarBottom)
-        drw = ObjectNavDrawer(this, UtilityUSImgNWSMosaic.labels, UtilityUSImgNWSMosaic.sectors)
+        drw = ObjectNavDrawer(this, UtilityAwcRadarMosaic.labels, UtilityAwcRadarMosaic.sectors)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, drw, "")
         img.setMaxZoom(8.0f)
         img.setListener(this, drw, ::getContentFixThis)
@@ -99,9 +96,10 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
         img.setBitmap(bitmap)
         animRan = false
         img.firstRunSetZoomPosn(prefImagePosition)
+        Utility.writePref(contextg, prefToken, drw.index)
     }
 
-    private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
+    private fun getAnimate() = GlobalScope.launch(uiDispatcher) {
         animDrawable = withContext(Dispatchers.IO) {
             UtilityAwcRadarMosaic.getAnimation(contextg, drw.getUrl())
         }
@@ -124,9 +122,7 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
         }
         when (item.itemId) {
             R.id.action_pin -> UtilityShortcut.createShortcut(this, ShortcutType.RADAR_MOSAIC)
-            R.id.action_a12 -> getAnimate(12)
-            R.id.action_a18 -> getAnimate(18)
-            R.id.action_a6 -> getAnimate(6)
+            R.id.action_animate -> getAnimate()
             R.id.action_stop -> animDrawable.stop()
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
