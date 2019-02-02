@@ -31,7 +31,7 @@ import joshuatee.wx.Extensions.*
 
 object UtilityAwcRadarMosaic {
 
-    private const val baseUrl: String = "https://www.aviationweather.gov/data/obs/radar/"
+    private const val baseUrl: String = "https://www.aviationweather.gov/data/obs/"
 
     val sectors: List<String> = listOf(
         "us",
