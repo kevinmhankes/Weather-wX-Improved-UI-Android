@@ -238,7 +238,7 @@ class WXGLNexradLevel3 internal constructor() {
             dis.skipBytes(32)
             dis.close()
             numberOfRangeBins =
-                    UtilityWXOGLPerfL3FourBit.decode4Bit(context, fn, radialStart, binWord)
+                UtilityWXOGLPerfL3FourBit.decode4Bit(context, fn, radialStart, binWord)
             binSize = WXGLNexrad.getBinSize(productCode.toInt())
         } catch (e: IOException) {
             UtilityLog.HandleException(e)

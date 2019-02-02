@@ -158,7 +158,7 @@ class SPCMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         } else {
             (0 until numPanes).forEach {
                 displayData.param[it] =
-                        Utility.readPref(this, prefParam + it.toString(), displayData.param[it])
+                    Utility.readPref(this, prefParam + it.toString(), displayData.param[it])
                 displayData.paramLabel[it] = Utility.readPref(
                     this,
                     prefParamLabel + it.toString(),
@@ -257,7 +257,7 @@ class SPCMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         withContext(Dispatchers.IO) {
             (0 until numPanes).forEach {
                 displayData.bitmap[it] =
-                        UtilitySPCMESOInputOutput.getImage(contextg, displayData.param[it], sector)
+                    UtilitySPCMESOInputOutput.getImage(contextg, displayData.param[it], sector)
             }
         }
         (0 until numPanes).forEach {

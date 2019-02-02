@@ -207,7 +207,7 @@ class SunCalc {
         return MoonIllumination((1.0 + cos(inc)) / 2.0, 0.5 + 0.5 * inc * retVal / PI, angle)
     }
 
-  /*  private fun hourAngle(h: Double, phi: Double, d: Double): Double {
+    /*  private fun hourAngle(h: Double, phi: Double, d: Double): Double {
         val cosH = (sin(h) - sin(phi) * sin(d)) / (cos(phi) * cos(d))
         if (cosH > 1) {
             throw SolarEventError.sunNeverRise

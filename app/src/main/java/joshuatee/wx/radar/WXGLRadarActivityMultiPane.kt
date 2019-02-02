@@ -406,13 +406,13 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 )
             ) oglrArr[z].product = "TZL"
             if (oglrArr[z].product == "TZL" && !WXGLNexrad.isRIDTDWR(oglrArr[z].rid)) oglrArr[z].product =
-                    "N0Q"
+                "N0Q"
             if ((oglrArr[z].product == "N0U" || oglrArr[z].product == "N1U" || oglrArr[z].product == "N2U" || oglrArr[z].product == "N3U" || oglrArr[z].product == "L2VEL") && WXGLNexrad.isRIDTDWR(
                     oglrArr[z].rid
                 )
             ) oglrArr[z].product = "TV0"
             if (oglrArr[z].product == "TV0" && !WXGLNexrad.isRIDTDWR(oglrArr[z].rid)) oglrArr[z].product =
-                    "N0U"
+                "N0U"
             toolbar.subtitle = ""
             setToolbarTitle()
             UtilityRadarUI.initWxoglGeom(
@@ -497,11 +497,11 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 if (animTriggerDownloads) {
                     numPanesArr.forEach { z ->
                         animArray[z] =
-                                oglrArr[z].rdDownload.getRadarFilesForAnimation(
-                                    contextg,
-                                    frameCount
-                                )
-                                    .toTypedArray()
+                            oglrArr[z].rdDownload.getRadarFilesForAnimation(
+                                contextg,
+                                frameCount
+                            )
+                                .toTypedArray()
                         try {
                             (0 until animArray[z].size).forEach { r ->
                                 fh = File(contextg.filesDir, animArray[z][r])
@@ -1029,7 +1029,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         if (numPanes == 4) {
             numPanesArr.forEach {
                 infoArr[it] =
-                        Utility.readPref(this, "WX_RADAR_CURRENT_INFO" + (it + 1).toString(), "")
+                    Utility.readPref(this, "WX_RADAR_CURRENT_INFO" + (it + 1).toString(), "")
             }
             tmpArr1 = MyApplication.space.split(infoArr[0])
             tmpArr2 = MyApplication.space.split(infoArr[1])
@@ -1043,7 +1043,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         } else if (numPanes == 2) {
             numPanesArr.forEach {
                 infoArr[it] =
-                        Utility.readPref(this, "WX_RADAR_CURRENT_INFO" + (it + 1).toString(), "")
+                    Utility.readPref(this, "WX_RADAR_CURRENT_INFO" + (it + 1).toString(), "")
             }
             tmpArr1 = MyApplication.space.split(infoArr[0])
             tmpArr2 = MyApplication.space.split(infoArr[1])
@@ -1059,7 +1059,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         if (numPanes == 4) {
             numPanesArr.forEach {
                 infoAnim[it] =
-                        Utility.readPref(this, "WX_RADAR_CURRENT_INFO" + (it + 1).toString(), "")
+                    Utility.readPref(this, "WX_RADAR_CURRENT_INFO" + (it + 1).toString(), "")
             }
             tmpArr1 = MyApplication.space.split(infoAnim[0])
             tmpArr2 = MyApplication.space.split(infoAnim[1])
@@ -1073,7 +1073,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         } else if (numPanes == 2) {
             numPanesArr.forEach {
                 infoAnim[it] =
-                        Utility.readPref(this, "WX_RADAR_CURRENT_INFO" + (it + 1).toString(), "")
+                    Utility.readPref(this, "WX_RADAR_CURRENT_INFO" + (it + 1).toString(), "")
             }
             tmpArr1 = MyApplication.space.split(infoAnim[0])
             tmpArr2 = MyApplication.space.split(infoAnim[1])

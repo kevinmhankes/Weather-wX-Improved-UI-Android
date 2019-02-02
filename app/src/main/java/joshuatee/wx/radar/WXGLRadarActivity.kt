@@ -351,10 +351,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             l2Menu.isVisible = true
         }
         if ((oglr.product == "N0Q" || oglr.product == "N1Q" || oglr.product == "N2Q" || oglr.product == "N3Q" || oglr.product == "L2REF") && ridIsTdwr) oglr.product =
-                "TZL"
+            "TZL"
         if (oglr.product == "TZL" && !ridIsTdwr) oglr.product = "N0Q"
         if ((oglr.product == "N0U" || oglr.product == "N1U" || oglr.product == "N2U" || oglr.product == "N3U" || oglr.product == "L2VEL") && ridIsTdwr) oglr.product =
-                "TV0"
+            "TV0"
         if (oglr.product == "TV0" && !ridIsTdwr) oglr.product = "N0U"
         title = oglr.product
         if (MyApplication.ridFav.contains(":" + oglr.rid + ":"))
@@ -745,7 +745,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleFavoriteString(this, oglr.rid, star, prefToken)
         ridArrLoc =
-                UtilityFavorites.setupFavMenu(this, ridFav, oglr.rid, prefTokenLocation, prefToken)
+            UtilityFavorites.setupFavMenu(this, ridFav, oglr.rid, prefTokenLocation, prefToken)
         sp.refreshData(contextg, ridArrLoc)
     }
 

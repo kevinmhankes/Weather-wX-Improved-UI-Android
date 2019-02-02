@@ -319,34 +319,34 @@ class WXGLRender(private val context: Context) : Renderer {
         try {
             if (!product.contains("L2")) {
                 totalBins =
-                        if (radarBuffers.productCode != 56.toShort() && radarBuffers.productCode != 30.toShort()) {
-                            if (!MyApplication.radarUseJni)
-                                UtilityWXOGLPerf.decode8BitAndGenRadials(context, radarBuffers)
-                            else {
-                                JNI.decode8BitAndGenRadials(
-                                    UtilityIO.getFilePath(context, radarBuffers.fn),
-                                    radarL3Object.seekStart,
-                                    radarL3Object.compressedFileSize,
-                                    radarL3Object.iBuff,
-                                    radarL3Object.oBuff,
-                                    radarBuffers.floatBuffer,
-                                    radarBuffers.colorBuffer,
-                                    radarBuffers.binSize,
-                                    Color.red(radarBuffers.bgColor).toByte(),
-                                    Color.green(radarBuffers.bgColor).toByte(),
-                                    Color.blue(radarBuffers.bgColor).toByte(),
-                                    cR,
-                                    cG,
-                                    cB
-                                )
-                            }
-                        } else {
-                            UtilityWXOGLPerf.genRadials(
-                                radarBuffers,
-                                radarL3Object.binWord,
-                                radarL3Object.radialStart
+                    if (radarBuffers.productCode != 56.toShort() && radarBuffers.productCode != 30.toShort()) {
+                        if (!MyApplication.radarUseJni)
+                            UtilityWXOGLPerf.decode8BitAndGenRadials(context, radarBuffers)
+                        else {
+                            JNI.decode8BitAndGenRadials(
+                                UtilityIO.getFilePath(context, radarBuffers.fn),
+                                radarL3Object.seekStart,
+                                radarL3Object.compressedFileSize,
+                                radarL3Object.iBuff,
+                                radarL3Object.oBuff,
+                                radarBuffers.floatBuffer,
+                                radarBuffers.colorBuffer,
+                                radarBuffers.binSize,
+                                Color.red(radarBuffers.bgColor).toByte(),
+                                Color.green(radarBuffers.bgColor).toByte(),
+                                Color.blue(radarBuffers.bgColor).toByte(),
+                                cR,
+                                cG,
+                                cB
                             )
                         }
+                    } else {
+                        UtilityWXOGLPerf.genRadials(
+                            radarBuffers,
+                            radarL3Object.binWord,
+                            radarL3Object.radialStart
+                        )
+                    }
             } else {
                 rdL2.binWord.position(0)
                 totalBins = if (MyApplication.radarUseJni)
@@ -962,11 +962,11 @@ class WXGLRender(private val context: Context) : Renderer {
         var fList = listOf<Double>()
         when (buffers.type) {
             PolygonType.MCD, PolygonType.MPD, PolygonType.WATCH, PolygonType.WATCH_TORNADO -> fList =
-                    UtilityWatch.addWat(context, provider, rid, buffers.type).toList()
+                UtilityWatch.addWat(context, provider, rid, buffers.type).toList()
             PolygonType.TST, PolygonType.TOR, PolygonType.FFW -> fList =
-                    WXGLPolygonWarnings.addWarnings(context, provider, rid, buffers.type).toList()
+                WXGLPolygonWarnings.addWarnings(context, provider, rid, buffers.type).toList()
             PolygonType.STI -> fList =
-                    WXGLNexradLevel3StormInfo.decodeAndPlot(context, idxStr, rid, provider).toList()
+                WXGLNexradLevel3StormInfo.decodeAndPlot(context, idxStr, rid, provider).toList()
             else -> {
             }
         }

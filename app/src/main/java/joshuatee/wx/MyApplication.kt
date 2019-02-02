@@ -347,7 +347,7 @@ class MyApplication : Application() {
                 172
             ).forEach {
                 radarColorPalette[it.toString()] =
-                        getInitialPreferenceString("RADAR_COLOR_PALETTE_" + it.toString(), "CODENH")
+                    getInitialPreferenceString("RADAR_COLOR_PALETTE_" + it.toString(), "CODENH")
             }
             cardCorners = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
@@ -357,7 +357,7 @@ class MyApplication : Application() {
             telecineVideoSizePercentage = preferencesTelecine.getInt("video-size", 100)
             telecineSwitchShowCountdown = preferencesTelecine.getBoolean("show-countdown", false)
             telecineSwitchRecordingNotification =
-                    preferencesTelecine.getBoolean("recording-notification", false)
+                preferencesTelecine.getBoolean("recording-notification", false)
             telecineSwitchShowTouches = false
             vrButton = getInitialPreference("VR_BUTTON", "false")
             radarUseJni = getInitialPreference("RADAR_USE_JNI", "false")
@@ -379,14 +379,14 @@ class MyApplication : Application() {
             drawToolColor = getInitialPreference("DRAW_TOOL_COLOR", Color.rgb(255, 0, 0))
             widgetTextColor = getInitialPreference("WIDGET_TEXT_COLOR", Color.WHITE)
             widgetHighlightTextColor =
-                    getInitialPreference("WIDGET_HIGHLIGHT_TEXT_COLOR", Color.YELLOW)
+                getInitialPreference("WIDGET_HIGHLIGHT_TEXT_COLOR", Color.YELLOW)
             widgetNexradSize = getInitialPreference("WIDGET_NEXRAD_SIZE", 10)
             widgetCCShow7Day = getInitialPreference("WIDGET_CC_DONOTSHOW_7_DAY", "true")
             nwsIconTextColor = getInitialPreference("NWS_ICON_TEXT_COLOR", Color.rgb(38, 97, 139))
             nwsIconBottomColor =
-                    getInitialPreference("NWS_ICON_BOTTOM_COLOR", Color.rgb(255, 255, 255))
+                getInitialPreference("NWS_ICON_BOTTOM_COLOR", Color.rgb(255, 255, 255))
             nexradRadarBackgroundColor =
-                    getInitialPreference("NEXRAD_RADAR_BACKGROUND_COLOR", Color.rgb(0, 0, 0))
+                getInitialPreference("NEXRAD_RADAR_BACKGROUND_COLOR", Color.rgb(0, 0, 0))
             wxoglSize = getInitialPreference("WXOGL_SIZE", 8)
             wxoglRememberLocation = getInitialPreference("WXOGL_REMEMBER_LOCATION", "false")
             wxoglRadarAutorefresh = getInitialPreference("RADAR_AUTOREFRESH", "false")
@@ -405,21 +405,21 @@ class MyApplication : Application() {
             homescreenFav = getInitialPreferenceString("HOMESCREEN_FAV", HOMESCREEN_FAV_DEFAULT)
             locDisplayImg = homescreenFav.contains("OGL-RADAR") || homescreenFav.contains("NXRD")
             alertNotificationSoundTornadoCurrent =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_TORNADO", "")
+                getInitialPreference("ALERT_NOTIFICATION_SOUND_TORNADO", "")
             alertNotificationSoundSpcmcd =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCMCD", "")
+                getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCMCD", "")
             alertNotificationSoundWpcmpd =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_WPCMPD", "")
+                getInitialPreference("ALERT_NOTIFICATION_SOUND_WPCMPD", "")
             alertNotificationSoundNhcEpac =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_EPAC", "")
+                getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_EPAC", "")
             alertNotificationSoundNhcAtl =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_ATL", "")
+                getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_ATL", "")
             alertNotificationSoundSpcwat =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCWAT", "")
+                getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCWAT", "")
             alertNotificationSoundSpcswo =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCSWO", "")
+                getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCSWO", "")
             alertNotificationSoundTextProd =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_TEXT_PROD", "")
+                getInitialPreference("ALERT_NOTIFICATION_SOUND_TEXT_PROD", "")
             notifSoundRepeat = getInitialPreference("NOTIF_SOUND_REPEAT", "")
             notifTts = getInitialPreference("NOTIF_TTS", "")
             alertBlackoutAmCurrent = getInitialPreference("ALERT_BLACKOUT_AM", -1)
@@ -429,17 +429,17 @@ class MyApplication : Application() {
             alertSpcwatNotificationCurrent = getInitialPreference("ALERT_SPCWAT_NOTIFICATION", "")
             alertSpcswoNotificationCurrent = getInitialPreference("ALERT_SPCSWO_NOTIFICATION", "")
             alertSpcswoSlightNotificationCurrent =
-                    getInitialPreference("ALERT_SPCSWO_SLIGHT_NOTIFICATION", "")
+                getInitialPreference("ALERT_SPCSWO_SLIGHT_NOTIFICATION", "")
             alertWpcmpdNotificationCurrent = getInitialPreference("ALERT_WPCMPD_NOTIFICATION", "")
             alertBlackoutTornadoCurrent = getInitialPreference("ALERT_BLACKOUT_TORNADO", "")
             alertNhcEpacNotificationCurrent =
-                    getInitialPreference("ALERT_NHC_EPAC_NOTIFICATION", "")
+                getInitialPreference("ALERT_NHC_EPAC_NOTIFICATION", "")
             alertNhcAtlNotificationCurrent = getInitialPreference("ALERT_NHC_ATL_NOTIFICATION", "")
             alertAutocancel = getInitialPreference("ALERT_AUTOCANCEL", "false")
             alertBlackout = getInitialPreference("ALERT_BLACKOUT", "")
             playlistStr = getInitialPreferenceString("PLAYLIST", "")
             notifTextProdStr =
-                    getInitialPreferenceString(UtilityNotificationTextProduct.PREF_TOKEN, "")
+                getInitialPreferenceString(UtilityNotificationTextProduct.PREF_TOKEN, "")
             radarColorPalette94List = getInitialPreferenceString("RADAR_COLOR_PALETTE_94_LIST", "")
             radarColorPalette99List = getInitialPreferenceString("RADAR_COLOR_PALETTE_99_LIST", "")
             wxoglZoom = preferences.getFloat("WXOGL_ZOOM", wxoglSize.toFloat() / 10.0f)
@@ -477,7 +477,7 @@ class MyApplication : Application() {
             goesVisSector = getInitialPreferenceString("GOESVIS_SECTOR", "")
             elevationPref = getInitialPreference("ELEVATION_PREF", 0).toFloat()
             elevationPref =
-                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, elevationPref, dm)
+                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, elevationPref, dm)
             cardElevation = elevationPref
             fabElevation = elevationPref
             fabElevationDepressed = elevationPref * 2
@@ -553,7 +553,7 @@ class MyApplication : Application() {
             radarColorState = getInitialPreference("RADAR_COLOR_STATE", Color.rgb(142, 142, 142))
             radarColorTstorm = getInitialPreference("RADAR_COLOR_TSTORM", Color.rgb(255, 255, 0))
             radarColorTstormWatch =
-                    getInitialPreference("RADAR_COLOR_TSTORM_WATCH", Color.rgb(255, 187, 0))
+                getInitialPreference("RADAR_COLOR_TSTORM_WATCH", Color.rgb(255, 187, 0))
             radarColorTor = getInitialPreference("RADAR_COLOR_TOR", Color.rgb(243, 85, 243))
             radarColorTorWatch = getInitialPreference("RADAR_COLOR_TOR_WATCH", Color.rgb(255, 0, 0))
             radarColorFfw = getInitialPreference("RADAR_COLOR_FFW", Color.rgb(0, 255, 0))
@@ -568,9 +568,9 @@ class MyApplication : Application() {
             radarColorHi = getInitialPreference("RADAR_COLOR_HI", Color.rgb(0, 255, 0))
             radarColorObs = getInitialPreference("RADAR_COLOR_OBS", Color.rgb(255, 255, 255))
             radarColorObsWindbarbs =
-                    getInitialPreference("RADAR_COLOR_OBS_WINDBARBS", Color.rgb(255, 255, 255))
+                getInitialPreference("RADAR_COLOR_OBS_WINDBARBS", Color.rgb(255, 255, 255))
             radarColorCountyLabels =
-                    getInitialPreference("RADAR_COLOR_COUNTY_LABELS", Color.rgb(234, 214, 123))
+                getInitialPreference("RADAR_COLOR_COUNTY_LABELS", Color.rgb(234, 214, 123))
         }
 
         private fun initRadarGeometryAll(context: Context) =

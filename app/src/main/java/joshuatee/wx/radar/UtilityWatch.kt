@@ -72,7 +72,7 @@ internal object UtilityWatch {
                         j = 1
                         while (j < x.size) {
                             tmpCoords =
-                                    UtilityCanvasProjection.computeMercatorNumbers(x[j], y[j], pn)
+                                UtilityCanvasProjection.computeMercatorNumbers(x[j], y[j], pn)
                             warningList.add(tmpCoords[0])
                             warningList.add(tmpCoords[1])
                             warningList.add(tmpCoords[0])

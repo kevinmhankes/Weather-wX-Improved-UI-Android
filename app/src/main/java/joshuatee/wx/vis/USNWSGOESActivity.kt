@@ -159,12 +159,12 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
         // EEPAC:EAST needs to be east/epac not to be confused with west/epac
         if (sector == "eepac") sector = "epac"
         miRadar.isVisible =
-                !(sector == "ceus" || sector == "weus" || sector == "eaus" || sector == "hi" || sector == "ak")
+            !(sector == "ceus" || sector == "weus" || sector == "eaus" || sector == "hi" || sector == "ak")
         miWv.isVisible = !wfoChoosen
         miZoomout.isVisible =
-                !(sector == "ceus" || sector == "eaus" || sector.contains("pac") || sector.contains(
-                    "atl"
-                ))
+            !(sector == "ceus" || sector == "eaus" || sector.contains("pac") || sector.contains(
+                "atl"
+            ))
         toolbar.title = imageTypeNhc
         sector = sector.replace(":", "")
 
@@ -356,10 +356,10 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
                     sector = UtilityGOES.getGOESSectorFromNWSOffice(contextg, sector)
                     wfoChoosen = false
                     satSector =
-                            if (sector == "nw" || sector == "sw" || sector == "wc" || sector == "ak" || sector == "hi")
-                                "west"
-                            else
-                                "east"
+                        if (sector == "nw" || sector == "sw" || sector == "wc" || sector == "ak" || sector == "hi")
+                            "west"
+                        else
+                            "east"
                 } else if (sector == "eaus" || sector == "weus") {
                     sector = oldSector
                     satSector = oldSatSector
@@ -627,11 +627,11 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
                             sector = "ak"
                         }
                         satSector =
-                                if (sector == "nw" || sector == "sw" || sector == "wc" || sector == "hi" || sector == "ak") {
-                                    "west"
-                                } else {
-                                    "east"
-                                }
+                            if (sector == "nw" || sector == "sw" || sector == "wc" || sector == "hi" || sector == "ak") {
+                                "west"
+                            } else {
+                                "east"
+                            }
                         getContent()
                     }
                     "mosaic" -> {
@@ -645,11 +645,11 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
                             sector = "ak"
                         }
                         satSector =
-                                if (sector == "nw" || sector == "sw" || sector == "wc" || sector == "hi" || sector == "ak") {
-                                    "west"
-                                } else {
-                                    "east"
-                                }
+                            if (sector == "nw" || sector == "sw" || sector == "wc" || sector == "hi" || sector == "ak") {
+                                "west"
+                            } else {
+                                "east"
+                            }
                         getContent()
                     }
                     "nws_warn" -> {
@@ -687,11 +687,11 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
                             sector = "ak"
                         }
                         satSector =
-                                if (state == "AZ" || state == "MT" || state == "ID" || state == "NV" || state == "CA" || state == "OR" || state == "UT" || state == "WA") {
-                                    "west"
-                                } else {
-                                    "east"
-                                }
+                            if (state == "AZ" || state == "MT" || state == "ID" || state == "NV" || state == "CA" || state == "OR" || state == "UT" || state == "WA") {
+                                "west"
+                            } else {
+                                "east"
+                            }
                         if (sector == "hi" || sector == "ak") {
                             wfoChoosen = false
                             satSector = "west"

@@ -81,7 +81,7 @@ class LightningActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        title = "Lightning " +  drw.getLabel()
+        title = "Lightning " + drw.getLabel()
         toolbar.subtitle = periodPretty
         bitmap = withContext(Dispatchers.IO) { UtilityLightning.getImage(drw.getUrl(), period) }
         img.setBitmap(bitmap)

@@ -270,7 +270,7 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
         (0 until om.numPanes).forEach {
             om.displayData.param[it] = om.params[0]
             om.displayData.param[it] =
-                    Utility.readPref(this, om.prefParam + it.toString(), om.displayData.param[it])
+                Utility.readPref(this, om.prefParam + it.toString(), om.displayData.param[it])
             om.displayData.paramLabel[it] = om.labels[0]
             om.displayData.paramLabel[it] = Utility.readPref(
                 this,

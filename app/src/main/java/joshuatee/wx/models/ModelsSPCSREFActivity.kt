@@ -366,7 +366,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
         om.spTime.notifyDataSetChanged()
         (0 until om.numPanes).forEach {
             om.displayData.param[it] =
-                    Utility.readPref(this, om.prefParam + it.toString(), "SREF_H5__")
+                Utility.readPref(this, om.prefParam + it.toString(), "SREF_H5__")
             om.displayData.paramLabel[it] = Utility.readPref(
                 this,
                 om.prefParamLabel + it.toString(),

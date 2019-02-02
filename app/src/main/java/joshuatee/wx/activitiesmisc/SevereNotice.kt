@@ -78,8 +78,9 @@ internal class SevereNotice(val type: PolygonType) {
                     url = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/ww" +
                             strList[count] + "_radar.gif"
                 }
-                PolygonType.MPD -> url = "${MyApplication.nwsWPCwebsitePrefix}/metwatch/images/mcd" +
-                        strList[count] + ".gif"
+                PolygonType.MPD -> url =
+                    "${MyApplication.nwsWPCwebsitePrefix}/metwatch/images/mcd" +
+                            strList[count] + ".gif"
                 else -> {
                 }
             }

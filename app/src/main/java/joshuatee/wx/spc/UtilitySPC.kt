@@ -130,15 +130,15 @@ object UtilitySPC {
         var floodCount = 0
         if (MyApplication.checktor) {
             tstormCount =
-                    UtilityVTEC.getStormCount(context, MyApplication.severeDashboardTst.valueGet())
+                UtilityVTEC.getStormCount(context, MyApplication.severeDashboardTst.valueGet())
             if (tstormCount > 0)
                 uswarnPresent = true
             torCount =
-                    UtilityVTEC.getStormCount(context, MyApplication.severeDashboardTor.valueGet())
+                UtilityVTEC.getStormCount(context, MyApplication.severeDashboardTor.valueGet())
             if (torCount > 0)
                 uswarnPresent = true
             floodCount =
-                    UtilityVTEC.getStormCount(context, MyApplication.severeDashboardFfw.valueGet())
+                UtilityVTEC.getStormCount(context, MyApplication.severeDashboardFfw.valueGet())
             if (floodCount > 0)
                 uswarnPresent = true
         }
