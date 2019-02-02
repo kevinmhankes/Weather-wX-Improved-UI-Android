@@ -145,7 +145,6 @@
     <string name="label_image">Image</string>
     <string name="label_url">URL</string>
     <string name="label_blank"> </string>
-    <string name="label_time_period">Time Period</string>
     <string name="label_min_15">15 min</string>
     <string name="label_hr_2">2 hrs</string>
     <string name="label_hr_12">12 hrs</string>

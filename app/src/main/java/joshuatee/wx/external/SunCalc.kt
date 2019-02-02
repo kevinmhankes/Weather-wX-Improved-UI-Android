@@ -72,13 +72,13 @@ class SunCalc {
 
     companion object {
         const val radPerDegree: Double = PI / 180
-        const private val e = 23.4397 * radPerDegree
+        private const val e = 23.4397 * radPerDegree
         const val j0: Double = 0.0009
-        const val j1970: Double = 2440588.0
+        private const val j1970: Double = 2440588.0
         const val j2000: Double = 2451545.0
         const val secondsPerDay: Double = 86400.0
 
-        fun julianDays(): Double {
+        private fun julianDays(): Double {
             //return timeIntervalSince1970 / Date.secondsPerDay - 0.5 + j1970
             return (System.currentTimeMillis() / 1000) / DateUtils.DAY_IN_MILLIS / DateUtils.SECOND_IN_MILLIS - 0.5 + j1970
         }
