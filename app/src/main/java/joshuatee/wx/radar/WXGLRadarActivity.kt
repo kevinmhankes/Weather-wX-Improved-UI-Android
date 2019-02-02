@@ -162,8 +162,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             savedInstanceState,
             R.layout.activity_uswxogl,
             R.menu.uswxoglradar,
-            true,
-            true
+            iconsEvenlySpaced = true,
+            bottomToolbar = true
         )
         toolbarBottom.setOnMenuItemClickListener(this)
         UtilityUI.immersiveMode(this as Activity)

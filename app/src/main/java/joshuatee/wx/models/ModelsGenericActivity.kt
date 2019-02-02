@@ -84,16 +84,16 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 savedInstanceState,
                 R.layout.activity_models_generic,
                 R.menu.models_generic,
-                false,
-                true
+                iconsEvenlySpaced = false,
+                bottomToolbar = true
             )
         } else {
             super.onCreate(
                 savedInstanceState,
                 R.layout.activity_models_generic_multipane,
                 R.menu.models_generic,
-                false,
-                true
+                iconsEvenlySpaced = false,
+                bottomToolbar = true
             )
         }
         toolbarBottom.setOnMenuItemClickListener(this)

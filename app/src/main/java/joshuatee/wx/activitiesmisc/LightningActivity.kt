@@ -60,8 +60,8 @@ class LightningActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
             savedInstanceState,
             R.layout.activity_image_show_navdrawer_bottom_toolbar,
             R.menu.lightning_activity,
-            true,
-            true
+            iconsEvenlySpaced = true,
+            bottomToolbar = true
         )
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)

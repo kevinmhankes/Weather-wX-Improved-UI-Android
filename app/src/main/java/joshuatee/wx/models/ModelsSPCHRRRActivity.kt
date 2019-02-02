@@ -81,8 +81,8 @@ class ModelsSPCHRRRActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 savedInstanceState,
                 R.layout.activity_models_generic,
                 R.menu.models_spchrrr,
-                false,
-                true
+                iconsEvenlySpaced = false,
+                bottomToolbar = true
             )
         } else {
             super.onCreate(

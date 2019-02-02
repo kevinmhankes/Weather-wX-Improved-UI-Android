@@ -82,8 +82,8 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
             savedInstanceState,
             R.layout.activity_canada_radar,
             R.menu.canada_radar,
-            true,
-            true
+            iconsEvenlySpaced = true,
+            bottomToolbar = true
         )
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)

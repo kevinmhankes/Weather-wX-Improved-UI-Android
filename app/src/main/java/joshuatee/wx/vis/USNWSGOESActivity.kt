@@ -92,7 +92,11 @@ class USNWSGOESActivity : VideoRecordActivity(), OnClickListener, OnItemSelected
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_usgoes, R.menu.usnwsgoes, true, true)
+        super.onCreate(
+            savedInstanceState, R.layout.activity_usgoes, R.menu.usnwsgoes,
+            iconsEvenlySpaced = true,
+            bottomToolbar = true
+        )
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)
         Collections.addAll(
