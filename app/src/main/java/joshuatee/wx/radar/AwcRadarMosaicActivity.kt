@@ -103,7 +103,7 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
         img.setBitmap(bitmap)
         animRan = false
         img.firstRunSetZoomPosn(prefImagePosition)
-        Utility.writePref(contextg, prefTokenSector, sector)
+        Utility.writePref(contextg, prefTokenSector, drw.getUrl())
         Utility.writePref(contextg, prefTokenProduct, product)
     }
 
