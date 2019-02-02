@@ -74,7 +74,7 @@ class USNWSMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
         val activityArguments = intent.getStringArrayExtra(URL)
         if (activityArguments == null) {
             nwsRadarMosaicSectorLabelCurrent =
-                    Utility.readPref(this, "NWS_RADAR_MOSAIC_SECTOR_CURRENT", "Central Great Lakes")
+                Utility.readPref(this, "NWS_RADAR_MOSAIC_SECTOR_CURRENT", "Central Great Lakes")
         } else {
             if (activityArguments.isNotEmpty() && activityArguments[0] == "location") {
                 val rid1 = Location.rid
@@ -82,7 +82,7 @@ class USNWSMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
                 val nwsLocationArr = ridLoc.split(",").dropLastWhile { it.isEmpty() }
                 val state = nwsLocationArr.getOrNull(0) ?: ""
                 nwsRadarMosaicSectorLabelCurrent =
-                        UtilityUSImgNWSMosaic.getSectorFromState(state)
+                    UtilityUSImgNWSMosaic.getSectorFromState(state)
                 nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNWSMosaic.getSectorLabelFromCode(
                     nwsRadarMosaicSectorLabelCurrent
                 )
@@ -94,7 +94,7 @@ class USNWSMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
                 val nwsLocationArr = ridLoc.split(",").dropLastWhile { it.isEmpty() }
                 val state = Utility.readPref(this, "STATE_CODE_" + nwsLocationArr.getOrNull(0), "")
                 nwsRadarMosaicSectorLabelCurrent =
-                        UtilityUSImgNWSMosaic.getSectorFromState(state)
+                    UtilityUSImgNWSMosaic.getSectorFromState(state)
                 nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNWSMosaic.getSectorLabelFromCode(
                     nwsRadarMosaicSectorLabelCurrent
                 )

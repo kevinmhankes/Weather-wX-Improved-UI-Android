@@ -18,7 +18,7 @@
 // TODO look into ( believe it's good ): https://android-developers.googleblog.com/2019/01/get-your-apps-ready-for-64-bit.html
 // TODO add to homescreen regional mosaic radar
 
-55108 2019_02_01
+55108 2019_02_02 add AWC radar option
 55107 2019_01_30 make better use of ObjectTextView
                  for 7day card, use text autosize so top line shrinks
                  [BUG] if search in spotters activity there is no way save app restart or refresh to get back to full spotter list
