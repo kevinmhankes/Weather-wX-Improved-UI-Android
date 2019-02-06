@@ -134,6 +134,7 @@ object UtilityMetarConditions {
         "Freezing Rain in Vicinity" to "fzra",
         "Freezing Drizzle in Vicinity" to "fzra",
         "Light Freezing Drizzle, Snow" to "fzra",  // NEW ADD 2019_01_25
+        "Freezing Rain, Ice Pellets" to "fzra",  // NEW ADD 2019_02_05
 
         "Freezing Rain Rain" to "ra_fzra",
         "Light Freezing Rain Rain" to "ra_fzra",
