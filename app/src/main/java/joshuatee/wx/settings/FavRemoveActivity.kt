@@ -32,8 +32,7 @@ import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.util.UtilityFavorites
 
-import joshuatee.wx.canadaRadars
-import joshuatee.wx.nwsTextProducts
+import joshuatee.wx.GlobalArrays
 import joshuatee.wx.spc.UtilitySPCMESO
 import joshuatee.wx.ui.ObjectRecyclerView
 import joshuatee.wx.util.Utility
@@ -218,7 +217,8 @@ class FavRemoveActivity : BaseActivity() {
                     Utility.readPref(this, prefTokenLocation + shortCode, "")
             "RID" -> tmpLoc = shortCode + ": " +
                     Utility.readPref(this, prefTokenLocation + shortCode, "")
-            "NWSTEXT" -> tmpLoc = nwsTextProducts[UtilityFavorites.findPositionNWSTEXT(shortCode)]
+            "NWSTEXT" -> tmpLoc =
+                GlobalArrays.nwsTextProducts[UtilityFavorites.findPositionNWSTEXT(shortCode)]
             "SREF" -> tmpLoc = shortCode
             "RIDCA" -> tmpLoc = findCARIDLabel(shortCode)
             "SPCMESO" -> tmpLoc = findSPCMesoLabel(shortCode)
@@ -241,8 +241,12 @@ class FavRemoveActivity : BaseActivity() {
     }
 
     private fun findCARIDLabel(rid: String) =
-        (0 until canadaRadars.size).firstOrNull { canadaRadars[it].contains(rid) }
-            ?.let { canadaRadars[it].replace(":", "") }
+        (0 until GlobalArrays.canadaRadars.size).firstOrNull {
+            GlobalArrays.canadaRadars[it].contains(
+                rid
+            )
+        }
+            ?.let { GlobalArrays.canadaRadars[it].replace(":", "") }
             ?: rid
 
     private fun findSPCMesoLabel(rid: String): String {

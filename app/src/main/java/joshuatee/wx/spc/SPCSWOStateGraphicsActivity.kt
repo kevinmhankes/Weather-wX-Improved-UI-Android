@@ -35,7 +35,7 @@ import joshuatee.wx.settings.Location
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
 
-import joshuatee.wx.states
+import joshuatee.wx.GlobalArrays
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
@@ -75,7 +75,7 @@ class SPCSWOStateGraphicsActivity : VideoRecordActivity(), OnItemSelectedListene
         day = intent.getStringArrayExtra(NO)[0]
         state = Utility.readPref(this, "NWS_LOCATION_${Location.wfo}", "").split(",")[0]
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv)
-        ObjectSpinner(this, this, this, R.id.spinner1, states, state)
+        ObjectSpinner(this, this, this, R.id.spinner1, GlobalArrays.states, state)
     }
 
     override fun onRestart() {
@@ -110,7 +110,7 @@ class SPCSWOStateGraphicsActivity : VideoRecordActivity(), OnItemSelectedListene
             firstTime = false
         }
         img.setZoom(1.0f)
-        state = states[pos].split(":")[0]
+        state = GlobalArrays.states[pos].split(":")[0]
         getContent()
     }
 

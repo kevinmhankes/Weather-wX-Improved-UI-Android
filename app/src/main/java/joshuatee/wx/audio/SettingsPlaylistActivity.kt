@@ -44,8 +44,7 @@ import joshuatee.wx.activitiesmisc.TextScreenActivity
 import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.objects.ActionMode
 
-import joshuatee.wx.wfos
-import joshuatee.wx.nwsTextProducts
+import joshuatee.wx.GlobalArrays
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
@@ -91,7 +90,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
             R.id.fab2,
             MyApplication.ICON_ARROW_DOWN,
             View.OnClickListener { toggleMode(ActionMode.DOWN) })
-        diaAfd = ObjectDialogue(this, "Select fixed location AFD products:", wfos)
+        diaAfd = ObjectDialogue(this, "Select fixed location AFD products:", GlobalArrays.wfos)
         diaAfd.setSingleChoiceItems(DialogInterface.OnClickListener { _, which ->
             val strName = diaAfd.getItem(which)
             ridFav = ridFav + ":" + "AFD" +
@@ -101,7 +100,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
             ridArr.add(getLongString("AFD" + strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase()))
             ca.notifyDataSetChanged()
         })
-        diaMain = ObjectDialogue(this, "Select text products:", nwsTextProducts)
+        diaMain = ObjectDialogue(this, "Select text products:", GlobalArrays.nwsTextProducts)
         diaMain.setSingleChoiceItems(DialogInterface.OnClickListener { _, which ->
             val strName = diaMain.getItem(which)
             ridFav = ridFav + ":" +

@@ -30,10 +30,7 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 
 import joshuatee.wx.MyApplication
-import joshuatee.wx.soundingSites
-import joshuatee.wx.wfos
-import joshuatee.wx.radars
-import joshuatee.wx.tdwrRadars
+import joshuatee.wx.GlobalArrays
 import joshuatee.wx.radar.LatLon
 
 import joshuatee.wx.radar.RID
@@ -109,10 +106,10 @@ object UtilityLocation {
     }
 
     fun getNearestOffice(context: Context, officeType: String, location: LatLon): String {
-        var officeArray = radars
+        var officeArray = GlobalArrays.radars
         var prefToken = "RID"
         if (officeType == "WFO") {
-            officeArray = wfos
+            officeArray = GlobalArrays.wfos
             prefToken = "NWS"
         }
         val sites = mutableListOf<RID>()
@@ -135,11 +132,11 @@ object UtilityLocation {
 
     fun getNearestRid(context: Context, location: LatLon, cnt: Int): List<RID> {
         val radarSites = mutableListOf<RID>()
-        radars.forEach {
+        GlobalArrays.radars.forEach {
             val labels = it.split(":")
             radarSites.add(RID(labels[0], getSiteLocation(context, labels[0])))
         }
-        tdwrRadars.forEach {
+        GlobalArrays.tdwrRadars.forEach {
             val labels = it.split(" ")
             radarSites.add(RID(labels[0], getSiteLocation(context, labels[0])))
         }
@@ -153,11 +150,11 @@ object UtilityLocation {
     }
 
     fun getNearestSnd(context: Context, location: LatLon): String {
-        val sites = soundingSites.map { RID(it, getSiteLocation(context, it, "SND")) }
+        val sites = GlobalArrays.soundingSites.map { RID(it, getSiteLocation(context, it, "SND")) }
         var shortestDistance = 1000.00
         var currentDistance: Double
         var bestRid = -1
-        soundingSites.indices.forEach {
+        GlobalArrays.soundingSites.indices.forEach {
             currentDistance = LatLon.distance(location, sites[it].location, DistanceUnit.KM)
             if (currentDistance < shortestDistance) {
                 shortestDistance = currentDistance

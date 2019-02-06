@@ -26,12 +26,7 @@ import android.os.Bundle
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
-import joshuatee.wx.canadaRadars
-import joshuatee.wx.nwsTextProducts
-import joshuatee.wx.soundingSites
-import joshuatee.wx.wfos
-import joshuatee.wx.radars
-import joshuatee.wx.tdwrRadars
+import joshuatee.wx.GlobalArrays
 
 import joshuatee.wx.models.UtilityModelsSPCSREFInterface
 import joshuatee.wx.ui.BaseActivity
@@ -61,30 +56,35 @@ class FavAddActivity : BaseActivity() {
             "SND" -> {
                 prefToken = "SND_FAV"
                 val tmpArr = mutableListOf<String>()
-                soundingSites.indices.forEach {
-                    var tmpLoc = Utility.readPref(this, "NWS_LOCATION_" + soundingSites[it], "")
+                GlobalArrays.soundingSites.indices.forEach {
+                    var tmpLoc =
+                        Utility.readPref(this, "NWS_LOCATION_" + GlobalArrays.soundingSites[it], "")
                     if (tmpLoc == "") {
-                        tmpLoc = Utility.readPref(this, "NWS_SOUNDINGLOCATION_" + soundingSites[it], "")
+                        tmpLoc = Utility.readPref(
+                            this,
+                            "NWS_SOUNDINGLOCATION_" + GlobalArrays.soundingSites[it],
+                            ""
+                        )
                     }
-                    tmpArr.add(soundingSites[it] + " " + tmpLoc)
+                    tmpArr.add(GlobalArrays.soundingSites[it] + " " + tmpLoc)
                 }
                 data = tmpArr.toList()
             }
             "RIDCA" -> {
                 prefToken = "RID_CA_FAV"
-                data = canadaRadars
+                data = GlobalArrays.canadaRadars
             }
             "WFO" -> {
                 prefToken = "WFO_FAV"
-                data = wfos
+                data = GlobalArrays.wfos
             }
             "RID" -> {
                 prefToken = "RID_FAV"
-                data = radars + tdwrRadars
+                data = GlobalArrays.radars + GlobalArrays.tdwrRadars
             }
             "NWSTEXT" -> {
                 prefToken = "NWS_TEXT_FAV"
-                data = nwsTextProducts
+                data = GlobalArrays.nwsTextProducts
             }
             "SREF" -> {
                 prefToken = "SREF_FAV"
@@ -115,10 +115,10 @@ class FavAddActivity : BaseActivity() {
                 }
             }
             "SND" -> {
-                tmpArr = if (soundingSites[position].contains(":")) {
-                    MyApplication.colon.split(soundingSites[position])
+                tmpArr = if (GlobalArrays.soundingSites[position].contains(":")) {
+                    MyApplication.colon.split(GlobalArrays.soundingSites[position])
                 } else {
-                    MyApplication.space.split(soundingSites[position])
+                    MyApplication.space.split(GlobalArrays.soundingSites[position])
                 }
             }
             else -> {

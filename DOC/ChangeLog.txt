@@ -7,8 +7,8 @@
 // TODO NWS HTTPS migration https://www.nco.ncep.noaa.gov/pmb/changes/URL_http_https.shtml
 // TODO migrate away from US govt website for Sun/Moon data do to cert issues
 // TODO change code so that widget location simply follows current location selected
-// TODO convert GlobalArrays to companion object
 
+55111 2019_02_06 turn GlobalArrays into object class
 55110 2019_02_06 additions to UtilityMetarConditions
                  [BUG] misc tab was not reflecting awc mosaic setting
                  camelCase vars in GlobalArrays to match wXL23

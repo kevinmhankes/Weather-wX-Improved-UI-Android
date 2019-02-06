@@ -42,14 +42,13 @@ import android.view.WindowManager
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.os.Handler
+import joshuatee.wx.*
 
-import joshuatee.wx.R
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.activitiesmisc.WebscreenABModels
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.UtilityToolbar
-import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
 import joshuatee.wx.util.UtilityFileManagement
@@ -62,9 +61,7 @@ import joshuatee.wx.ui.ObjectImageMap
 import joshuatee.wx.util.UtilityShare
 
 import joshuatee.wx.Extensions.*
-import joshuatee.wx.UIPreferences
 
-import joshuatee.wx.tdwrRadars
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import kotlinx.coroutines.*
@@ -980,13 +977,13 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     private fun alertDialogTDWR() {
-        val diaTdwr = ObjectDialogue(contextg, tdwrRadars)
+        val diaTdwr = ObjectDialogue(contextg, GlobalArrays.tdwrRadars)
         diaTdwr.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(act)
         })
         diaTdwr.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            val strName = tdwrRadars[which]
+            val strName = GlobalArrays.tdwrRadars[which]
             oglrArr[curRadar].rid = MyApplication.space.split(strName)[0]
             if (oglrArr[curRadar].product == "N0Q")
                 oglrArr[curRadar].product = "TZL"

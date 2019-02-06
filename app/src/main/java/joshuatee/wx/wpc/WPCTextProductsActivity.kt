@@ -49,7 +49,7 @@ import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityFavorites
 import joshuatee.wx.util.UtilityShare
 
-import joshuatee.wx.nwsTextProducts
+import joshuatee.wx.GlobalArrays
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectNavDrawerCombo
 import kotlinx.coroutines.*
@@ -206,14 +206,18 @@ class WPCTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
     private fun findPosition(key: String) =
-        (0 until nwsTextProducts.size).firstOrNull { nwsTextProducts[it].contains(key) }
+        (0 until GlobalArrays.nwsTextProducts.size).firstOrNull {
+            GlobalArrays.nwsTextProducts[it].contains(
+                key
+            )
+        }
             ?: 0
 
     override fun onRestart() {
         if (ridFavOld != MyApplication.nwsTextFav) {
             products = UtilityFavorites.setupFavMenuNWSTEXT(
                 MyApplication.nwsTextFav,
-                nwsTextProducts[findPosition(prod)]
+                GlobalArrays.nwsTextProducts[findPosition(prod)]
             )
             sp.refreshData(this, products)
         }
@@ -230,7 +234,7 @@ class WPCTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
         prod = drw.getUrl()
         products = UtilityFavorites.setupFavMenuNWSTEXT(
             MyApplication.nwsTextFav,
-            nwsTextProducts[findPosition(prod)]
+            GlobalArrays.nwsTextProducts[findPosition(prod)]
         )
         sp.refreshData(this, products)
     }
