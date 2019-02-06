@@ -135,7 +135,7 @@ class MyApplication : Application() {
         const val nwsWPCwebsitePrefix: String = "https://www.wpc.ncep.noaa.gov"
         const val nwsAWCwebsitePrefix: String = "https://www.aviationweather.gov"
         const val nwsGraphicalWebsitePrefix: String = "http://graphical.weather.gov"
-        const val nwsCPCNcepWebsitePrefix: String = "http://www.cpc.ncep.noaa.gov"
+        const val nwsCPCNcepWebsitePrefix: String = "https://www.cpc.ncep.noaa.gov"
         const val nwsGoesWebsitePrefix: String = "https://www.goes.noaa.gov"
         const val nwsOpcWebsitePrefix: String = "https://www.opc.ncep.noaa.gov"
         const val nwsNhcWebsitePrefix: String = "https://www.nhc.noaa.gov"
@@ -688,10 +688,10 @@ class MyApplication : Application() {
         // Radar Preferences
         // FIXME will need to be HTTPS soon
         const val NWS_RADAR_PUB: String =
-            "http://tgftp.nws.noaa.gov/" //(Official current URL, problem with cricket but so does cp.ncep now )
+            "https://tgftp.nws.noaa.gov/" //(Official current URL, problem with cricket but so does cp.ncep now )
         //public static final String NWS_RADAR_PUB = "http://tgftp.cp.ncep.noaa.gov/";
         const val nwsRadarLevel2Pub: String =
-            "http://nomads.ncep.noaa.gov/pub/data/nccf/radar/nexrad_level2/"
+            "https://nomads.ncep.noaa.gov/pub/data/nccf/radar/nexrad_level2/"
         var radarWarnings: Boolean = false
         var locdotFollowsGps: Boolean = false
         var dualpaneshareposn: Boolean = false

@@ -8,6 +8,9 @@
 // TODO migrate away from US govt website for Sun/Moon data do to cert issues
 // TODO change code so that widget location simply follows current location selected
 
+55112 2019_02_06 [BUG] Level2 radar and CPC was no longer working after NWS turned off HTTP
+                proactively change Level3 radar to https
+                [BUG] index for AVC was off in WPC Img
 55111 2019_02_06 turn GlobalArrays into object class
 55110 2019_02_06 additions to UtilityMetarConditions
                  [BUG] misc tab was not reflecting awc mosaic setting
