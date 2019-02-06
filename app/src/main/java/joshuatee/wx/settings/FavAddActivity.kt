@@ -23,7 +23,15 @@ package joshuatee.wx.settings
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import joshuatee.wx.*
+
+import joshuatee.wx.MyApplication
+import joshuatee.wx.R
+import joshuatee.wx.canadaRadars
+import joshuatee.wx.nwsTextProducts
+import joshuatee.wx.soundingSites
+import joshuatee.wx.wfos
+import joshuatee.wx.radars
+import joshuatee.wx.tdwrRadars
 
 import joshuatee.wx.models.UtilityModelsSPCSREFInterface
 import joshuatee.wx.ui.BaseActivity
@@ -53,30 +61,30 @@ class FavAddActivity : BaseActivity() {
             "SND" -> {
                 prefToken = "SND_FAV"
                 val tmpArr = mutableListOf<String>()
-                SND_ARR.indices.forEach {
-                    var tmpLoc = Utility.readPref(this, "NWS_LOCATION_" + SND_ARR[it], "")
+                soundingSites.indices.forEach {
+                    var tmpLoc = Utility.readPref(this, "NWS_LOCATION_" + soundingSites[it], "")
                     if (tmpLoc == "") {
-                        tmpLoc = Utility.readPref(this, "NWS_SOUNDINGLOCATION_" + SND_ARR[it], "")
+                        tmpLoc = Utility.readPref(this, "NWS_SOUNDINGLOCATION_" + soundingSites[it], "")
                     }
-                    tmpArr.add(SND_ARR[it] + " " + tmpLoc)
+                    tmpArr.add(soundingSites[it] + " " + tmpLoc)
                 }
                 data = tmpArr.toList()
             }
             "RIDCA" -> {
                 prefToken = "RID_CA_FAV"
-                data = CA_RID_ARR
+                data = canadaRadars
             }
             "WFO" -> {
                 prefToken = "WFO_FAV"
-                data = WFO_ARR
+                data = wfos
             }
             "RID" -> {
                 prefToken = "RID_FAV"
-                data = RID_ARR + TDWR_RIDS
+                data = radars + tdwrRadars
             }
             "NWSTEXT" -> {
                 prefToken = "NWS_TEXT_FAV"
-                data = NWS_TXT_ARR
+                data = nwsTextProducts
             }
             "SREF" -> {
                 prefToken = "SREF_FAV"
@@ -107,10 +115,10 @@ class FavAddActivity : BaseActivity() {
                 }
             }
             "SND" -> {
-                tmpArr = if (SND_ARR[position].contains(":")) {
-                    MyApplication.colon.split(SND_ARR[position])
+                tmpArr = if (soundingSites[position].contains(":")) {
+                    MyApplication.colon.split(soundingSites[position])
                 } else {
-                    MyApplication.space.split(SND_ARR[position])
+                    MyApplication.space.split(soundingSites[position])
                 }
             }
             else -> {

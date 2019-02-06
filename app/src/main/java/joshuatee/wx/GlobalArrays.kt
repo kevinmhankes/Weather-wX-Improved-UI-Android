@@ -21,7 +21,7 @@
 
 package joshuatee.wx
 
-val NWS_TXT_ARR: List<String> = listOf(
+val nwsTextProducts: List<String> = listOf(
     "pmdspd: Short Range Forecast Discussion",
     "pmdepd: Extended Forecast Discussion",
     "qpfpfd: QPF Discussion",
@@ -126,7 +126,7 @@ val NWS_TXT_ARR: List<String> = listOf(
     "swpcwwa: Advisory Outlook"
 )
 
-val NWS_IMG_ARR: List<String> = listOf(
+val nwsImageProducts: List<String> = listOf(
     "RAD_2KM: Radar Mosaic",
     "GOES16: GOES16 product last viewed",
     "VIS_CONUS: Visible CONUS",
@@ -163,7 +163,7 @@ val NWS_IMG_ARR: List<String> = listOf(
     "SPCMESO6: Favorite #6 (laps)"
 )
 
-val TDWR_RIDS: List<String> = listOf(
+val tdwrRadars: List<String> = listOf(
     "TPHX AZ, Phoenix",
     "TDEN CO, Denver",
     "TFLL FL, Fort Lauderdale",
@@ -212,7 +212,7 @@ val TDWR_RIDS: List<String> = listOf(
     "TJBQ: PR2,"
 )
 
-val SND_ARR: List<String> = listOf(
+val soundingSites: List<String> = listOf(
     "ABR",
     "ALB",
     "ABQ",
@@ -283,7 +283,7 @@ val SND_ARR: List<String> = listOf(
     "76458"
 )
 
-val WFO_ARR: List<String> = listOf(
+val wfos: List<String> = listOf(
     "AFC: AK, Anchorage",
     "AFG: AK, Fairbanks",
     "AJK: AK, Juneau",
@@ -408,7 +408,7 @@ val WFO_ARR: List<String> = listOf(
     "RIW: WY, Riverton"
 )
 
-val RID_ARR: List<String> = listOf(
+val radars: List<String> = listOf(
     "ABC: AK, Bethel",
     "APD: AK, Fairbanks/Pedro Dome",
     "AHG: AK, Kenai",
@@ -571,7 +571,7 @@ val RID_ARR: List<String> = listOf(
     "RIW: WY, Riverton"
 )
 
-val CA_RID_ARR: List<String> = listOf(
+val canadaRadars: List<String> = listOf(
     "WUJ: Aldergrove, BC (near Vancouver)",
     "XPG: Prince George, BC",
     "XSS: Silver Star Mountain, BC (near Vernon)",
@@ -611,7 +611,7 @@ val CA_RID_ARR: List<String> = listOf(
     "ERN"
 )
 
-val STATE_ARR: List<String> = listOf(
+val states: List<String> = listOf(
     "AL: Alabama",
     "AK: Alaska",
     "AZ: Arizona",

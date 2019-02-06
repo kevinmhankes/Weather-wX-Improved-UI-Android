@@ -36,6 +36,7 @@ import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 
 import joshuatee.wx.R
+import joshuatee.wx.wfos
 import joshuatee.wx.audio.UtilityTTS
 import joshuatee.wx.notifications.UtilityNotificationTextProduct
 import joshuatee.wx.MyApplication
@@ -45,7 +46,6 @@ import joshuatee.wx.settings.FavRemoveActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.ui.*
 
-import joshuatee.wx.WFO_ARR
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.util.*
@@ -329,7 +329,7 @@ class AFDActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         val state = ridArrLoc[0].split(" ")[1]
         wfoListPerState = mutableListOf()
         wfoListPerState.clear()
-        WFO_ARR
+        wfos
             .filter { it.contains(state) }
             .forEach { wfoListPerState.add(MyApplication.space.split(it)[0].replace(":", "")) }
         wfoListPerState.sort()

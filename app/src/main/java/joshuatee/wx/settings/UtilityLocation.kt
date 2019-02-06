@@ -28,7 +28,12 @@ import android.location.Location
 import android.location.LocationManager
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import joshuatee.wx.*
+
+import joshuatee.wx.MyApplication
+import joshuatee.wx.soundingSites
+import joshuatee.wx.wfos
+import joshuatee.wx.radars
+import joshuatee.wx.tdwrRadars
 import joshuatee.wx.radar.LatLon
 
 import joshuatee.wx.radar.RID
@@ -104,10 +109,10 @@ object UtilityLocation {
     }
 
     fun getNearestOffice(context: Context, officeType: String, location: LatLon): String {
-        var officeArray = RID_ARR
+        var officeArray = radars
         var prefToken = "RID"
         if (officeType == "WFO") {
-            officeArray = WFO_ARR
+            officeArray = wfos
             prefToken = "NWS"
         }
         val sites = mutableListOf<RID>()
@@ -130,11 +135,11 @@ object UtilityLocation {
 
     fun getNearestRid(context: Context, location: LatLon, cnt: Int): List<RID> {
         val radarSites = mutableListOf<RID>()
-        RID_ARR.forEach {
+        radars.forEach {
             val labels = it.split(":")
             radarSites.add(RID(labels[0], getSiteLocation(context, labels[0])))
         }
-        TDWR_RIDS.forEach {
+        tdwrRadars.forEach {
             val labels = it.split(" ")
             radarSites.add(RID(labels[0], getSiteLocation(context, labels[0])))
         }
@@ -148,11 +153,11 @@ object UtilityLocation {
     }
 
     fun getNearestSnd(context: Context, location: LatLon): String {
-        val sites = SND_ARR.map { RID(it, getSiteLocation(context, it, "SND")) }
+        val sites = soundingSites.map { RID(it, getSiteLocation(context, it, "SND")) }
         var shortestDistance = 1000.00
         var currentDistance: Double
         var bestRid = -1
-        SND_ARR.indices.forEach {
+        soundingSites.indices.forEach {
             currentDistance = LatLon.distance(location, sites[it].location, DistanceUnit.KM)
             if (currentDistance < shortestDistance) {
                 shortestDistance = currentDistance
@@ -201,7 +206,7 @@ object UtilityLocation {
         }
     }
 
-    fun saveLocationForMcd(
+    public fun saveLocationForMcd(
         nwsOffice: String,
         context: Context,
         linearLayout: LinearLayout,
