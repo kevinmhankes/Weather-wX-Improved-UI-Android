@@ -8,6 +8,7 @@
 // TODO migrate away from US govt website for Sun/Moon data do to cert issues
 // TODO change code so that widget location simply follows current location selected
 
+55113 2019_02_10 update to studio 3.3.1 including gradle update and kotlin plugin update
 55112 2019_02_06 [BUG] Level2 radar and CPC was no longer working after NWS turned off HTTP
                 proactively change Level3 radar to https
                 [BUG] index for AVC was off in WPC Img
