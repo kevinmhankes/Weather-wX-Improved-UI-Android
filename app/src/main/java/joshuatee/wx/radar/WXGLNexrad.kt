@@ -114,7 +114,8 @@ object WXGLNexrad {
     }
 
     // FIXME rename and use different split
-    fun isRIDTDWR(rid: String): Boolean = GlobalArrays.tdwrRadars.any { rid == MyApplication.space.split(it)[0] }
+    fun isRIDTDWR(rid: String): Boolean =
+        GlobalArrays.tdwrRadars.any { rid == MyApplication.space.split(it)[0] }
 
     // FIXME rename method and COD_HASH
     fun getTDWRFromRID(rid: String): String = COD_HASH[rid] ?: ""
