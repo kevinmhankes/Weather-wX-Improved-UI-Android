@@ -8,6 +8,8 @@
 // TODO migrate away from US govt website for Sun/Moon data do to cert issues
 // TODO change code so that widget location simply follows current location selected
 
+55114 2019_02_11 code cleanup
+                 tag release to fdroid
 55113 2019_02_10 update to studio 3.3.1 including gradle update and kotlin plugin update
                 [BUG] settings->colors didn't have black bg
 		sunrise/sunset card - text to black and tap scrolls to top
