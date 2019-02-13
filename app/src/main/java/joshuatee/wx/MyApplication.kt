@@ -329,7 +329,8 @@ class MyApplication : Application() {
         var nwsIconSize: Int = 0
         var padding: Int = 0
         var paddingSmall: Int = 0
-        var tabHeaders: Array<String> = arrayOf("", "", "", "")
+        //var tabHeaders: Array<String> = arrayOf("", "", "", "")
+        var tabHeaders: Array<String> = arrayOf("", "", "")
 
         fun initPreferences(context: Context) {
             initRadarPreferences()
@@ -484,7 +485,7 @@ class MyApplication : Application() {
             tabHeaders[0] = getInitialPreferenceString("TAB1_HEADER", "LOCAL")
             tabHeaders[1] = getInitialPreferenceString("TAB2_HEADER", "SPC")
             tabHeaders[2] = getInitialPreferenceString("TAB3_HEADER", "MISC")
-            tabHeaders[3] = getInitialPreferenceString("TAB4_HEADER", "IMAGES")
+            //tabHeaders[3] = getInitialPreferenceString("TAB4_HEADER", "IMAGES")
         }
 
         val locations: MutableList<Location> = mutableListOf()
