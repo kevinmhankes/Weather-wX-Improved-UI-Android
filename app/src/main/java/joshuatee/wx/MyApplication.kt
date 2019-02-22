@@ -134,7 +134,7 @@ class MyApplication : Application() {
         const val nwsSPCwebsitePrefix: String = "https://www.spc.noaa.gov"
         const val nwsWPCwebsitePrefix: String = "https://www.wpc.ncep.noaa.gov"
         const val nwsAWCwebsitePrefix: String = "https://www.aviationweather.gov"
-        const val nwsGraphicalWebsitePrefix: String = "http://graphical.weather.gov"
+        const val nwsGraphicalWebsitePrefix: String = "https://graphical.weather.gov"
         const val nwsCPCNcepWebsitePrefix: String = "https://www.cpc.ncep.noaa.gov"
         const val nwsGoesWebsitePrefix: String = "https://www.goes.noaa.gov"
         const val nwsOpcWebsitePrefix: String = "https://www.opc.ncep.noaa.gov"
