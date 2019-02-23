@@ -14,6 +14,7 @@
 // TODO document or fix changing radar settings and impact on main screen radars
 // TODO UtilityMetar in radar has optimization related to text file loading
 // TODO update too: static final nwsOpcWebsitePrefix = "https://ocean.weather.gov";
+// TODO bug dark blue theme does not work with checkbox
 
 55115 2019_02_13 GOES17 and disable Image tab
 55114 2019_02_11 code cleanup
