@@ -6,8 +6,8 @@
 // TODO add Ely's MCD/MPD/WAT radar long press code
 // TODO NWS HTTPS migration https://www.nco.ncep.noaa.gov/pmb/changes/URL_http_https.shtml
 // TODO migrate away from US govt website for Sun/Moon data do to cert issues
-// TODO change code so that widget location simply follows current location selected
 
+55116 2019_02_16
 55115 2019_02_13 GOES17 and disable Image tab
 55114 2019_02_11 code cleanup
                  tag release to fdroid
