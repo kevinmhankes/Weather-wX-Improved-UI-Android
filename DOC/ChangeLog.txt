@@ -13,10 +13,10 @@
 // https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce
 // TODO document or fix changing radar settings and impact on main screen radars
 // TODO UtilityMetar in radar has optimization related to text file loading
-// TODO update too: static final nwsOpcWebsitePrefix = "https://ocean.weather.gov";
 // TODO bug dark blue theme does not work with checkbox
 
-55116 2019_02_16
+55116 2019_02_24 update OPC URL
+                [BUG] test changing dark blue theme colors to impact checkbox border (buttonTint)
 55115 2019_02_13 GOES17 and disable Image tab
 55114 2019_02_11 code cleanup
                  tag release to fdroid
