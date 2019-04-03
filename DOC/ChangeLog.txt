@@ -22,6 +22,7 @@
 55122 2019_04_03 add LIX sounding LAT/LON data and add to global list
                 wpc images - update CPC hazard URLs
                 remove cloud icon from settings -> homescreen
+                in radar if map shown and go away and then back to app, text labels show over map
 55121 2019_04_03 GOES - fix images that were to large
                 remove experimental forecast images in wpc img
                 remove obsolete precip disc in wpc text

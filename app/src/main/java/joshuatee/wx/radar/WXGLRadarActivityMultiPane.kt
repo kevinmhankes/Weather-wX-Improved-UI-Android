@@ -383,9 +383,10 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         anim.setIcon(MyApplication.ICON_PLAY)
         restartedZoom = true
         numPanesArr.forEach {
-            // FIXME check for imageMap.map.visibility != View.GONE
-            wxgltextArr[it].initTV(this)
-            wxgltextArr[it].addTV()
+            if (imageMap.map.visibility == View.GONE) {
+                wxgltextArr[it].initTV(this)
+                wxgltextArr[it].addTV()
+            }
         }
         // spotter code is serialized for now
         if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) {
