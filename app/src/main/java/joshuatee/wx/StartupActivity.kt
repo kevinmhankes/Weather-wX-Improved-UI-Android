@@ -39,7 +39,7 @@ class StartupActivity : Activity() {
         }
         if (Utility.readPrefWithNull(
                 this,
-                "SND_AOT_X",
+                "SND_LIX_X",
                 null
             ) == null
         ) UtilityPref4.prefInitSoundingSitesLoc(this)
