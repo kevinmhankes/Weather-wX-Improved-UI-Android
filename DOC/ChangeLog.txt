@@ -25,6 +25,7 @@
                 remove experimental forecast images in wpc img
                 remove obsolete precip disc in wpc text
                 update GOES help string to remove reference to overlays
+                android ndk now @ 19c
 55120 2019_03_14 various tooling updates after updating android studio
                 [BUG] GIES16 FD was to large to display
 55116 2019_02_24 update OPC URL
