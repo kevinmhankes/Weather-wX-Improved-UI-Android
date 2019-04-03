@@ -295,6 +295,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         restarted = true
         restartedZoom = true
         numPanesArr.forEach {
+            // FIXME check for imageMap.map.visibility != View.GONE
             wxgltextArr[it].initTV(this)
             wxgltextArr[it].addTV()
         }
