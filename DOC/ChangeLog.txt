@@ -19,7 +19,10 @@
 // TODO WPC Images - remove experimental forecast charts that are now production
 // TODO update CPC Hazards day 3-7
 
-55121 2019_04_02
+55121 2019_04_03 GOES - fix images that were to large
+                remove experimental forecast images in wpc img
+                remove obsolete precip disc in wpc text
+                update GOES help string to remove reference to overlays
 55120 2019_03_14 various tooling updates after updating android studio
                 [BUG] GIES16 FD was to large to display
 55116 2019_02_24 update OPC URL

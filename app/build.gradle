@@ -39,7 +39,7 @@ android {
     }
 
     task buildNative(type: Exec, description: 'Compile JNI source via NDK') {
-        def ndkDir = "../../../android-ndk-r19"
+        def ndkDir = "../../../android-ndk-r19c"
         commandLine "$ndkDir/ndk-build",
                 '-C', file('src/main/jni').absolutePath,
                 '-j', Runtime.runtime.availableProcessors(),
@@ -48,7 +48,7 @@ android {
     }
 
     task cleanNative(type: Exec, description: 'Clean JNI object files') {
-        def ndkDir = "../../../android-ndk-r19"
+        def ndkDir = "../../../android-ndk-r19c"
         commandLine "$ndkDir/ndk-build",
                 '-C', file('src/main/jni').absolutePath,
                 'clean'
