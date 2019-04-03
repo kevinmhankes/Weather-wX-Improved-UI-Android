@@ -19,6 +19,7 @@
 // TODO WPC Images - remove experimental forecast charts that are now production
 // TODO update CPC Hazards day 3-7
 
+55122 2019_04_03 add LIX sounding LAT/LON data and add to global list
 55121 2019_04_03 GOES - fix images that were to large
                 remove experimental forecast images in wpc img
                 remove obsolete precip disc in wpc text
