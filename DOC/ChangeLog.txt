@@ -19,7 +19,7 @@
 // TODO move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/ios)
 
 55123 2019_04_10 add fix for blue/orange themes with regards to outline of checkbox
-                 similar to 55116, not tested yet
+                 similar to 55116
 55122 2019_04_03 add LIX sounding LAT/LON data and add to global list
                 wpc images - update CPC hazard URLs
                 remove cloud icon from settings -> homescreen
