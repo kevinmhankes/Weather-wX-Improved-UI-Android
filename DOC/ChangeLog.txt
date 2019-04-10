@@ -16,9 +16,9 @@
 // TODO bug dark blue theme does not work with checkbox
 // TODO update Hourly activity to move location to subtitle
 // TODO BUG - storm reports show radar doesn't show location dot for report
-// TODO WPC Images - remove experimental forecast charts that are now production
-// TODO update CPC Hazards day 3-7
 
+55123 2019_04_10 add fix for blue/orange themes with regards to outline of checkbox
+                 similar to 55116, not tested yet
 55122 2019_04_03 add LIX sounding LAT/LON data and add to global list
                 wpc images - update CPC hazard URLs
                 remove cloud icon from settings -> homescreen
