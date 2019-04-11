@@ -77,7 +77,6 @@ class GOES16Activity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
         getContent(sector)
     }
 
-    // FIXME
     private fun getContentFixThis() {
         getContent(sector)
     }

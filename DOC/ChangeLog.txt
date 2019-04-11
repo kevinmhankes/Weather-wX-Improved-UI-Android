@@ -6,11 +6,17 @@
 // TODO document or fix changing radar settings and impact on main screen radars
 // TODO UtilityMetar in radar has optimization related to text file loading
 // TODO BUG - storm reports show radar doesn't show location dot for report
-// TODO move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/ios)
+// TODO move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
+// TODO settings location - move to tap item brings up dialogue instead of mode usage
+// TODO storm reports - black bg for cards with titles like iOS/flutter
+// TODO revisit spacing for cards in settings
+// TODO rewrite uswarn
+// TODO add new color pal for ref
 
 55125 2019_04_11 in uswarn remove longpress open radar mosaic which is obsolete
                  in national text products remove canada which is no longer working
                  GOES16 - add title
+                 and utilityRadar and Utility to move off pref data for name/lat/lon
 55124 2019_04_10 revert card corners back to 0
                  SPC HREF updates
                  change default theme to use original wx blue color (from lighter blue)

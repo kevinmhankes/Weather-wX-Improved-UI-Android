@@ -33,8 +33,62 @@ import joshuatee.wx.settings.Location
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.radar.LatLon
+import joshuatee.wx.radar.UtilityRadar
 
 object Utility {
+
+    fun getRadarSiteName(radarSite: String): String {
+        return UtilityRadar.radarIdToName[radarSite] ?: ""
+    }
+
+    fun getRadarSiteLatLon(radarSite: String): LatLon {
+        val lat = UtilityRadar.radarSiteToLat[radarSite] ?: ""
+        val lon = UtilityRadar.radarSiteToLon[radarSite] ?: ""
+        return LatLon(lat, lon)
+    }
+
+    fun getRadarSiteX(radarSite: String): String {
+        return UtilityRadar.radarSiteToLat[radarSite] ?: ""
+    }
+
+    fun getRadarSiteY(radarSite: String): String {
+        return UtilityRadar.radarSiteToLon[radarSite] ?: ""
+    }
+
+    fun getWfoSiteName(wfo: String): String {
+        return UtilityRadar.wfoIdToName[wfo] ?: ""
+    }
+
+    fun getWfoSiteLatLon(wfo: String): LatLon {
+        val lat = UtilityRadar.wfoSitetoLat[wfo] ?: ""
+        val lon = UtilityRadar.wfoSitetoLon[wfo] ?: ""
+        return LatLon(lat, lon)
+    }
+
+    fun getSoundingSiteLatLon(wfo: String): LatLon {
+        val lat = UtilityRadar.soundingSiteToLat[wfo] ?: ""
+        val lon = "-" + (UtilityRadar.soundingSiteToLon[wfo] ?: "")
+        return LatLon(lat, lon)
+    }
+
+    fun getSoundingSiteName(wfo: String): String {
+        var site = UtilityRadar.wfoIdToName[wfo] ?: ""
+        if (site == "") {
+            site = UtilityRadar.soundingIdToName[wfo] ?: ""
+        }
+        return site
+    }
+
+    /*static func generateSoundingNameList() -> [String] {
+        var list = <String>[]
+        GlobalArrays.soundingSites.sort()
+        GlobalArrays.soundingSites.forEach((data) {
+            list.add(data + ": " + getSoundingSiteName(data))
+        });
+        return list
+    }*/
+
+
 
     fun getVersion(context: Context): String {
         var vers = ""
@@ -139,7 +193,7 @@ object Utility {
 
     // FIXME deprecate these
     fun readPref(key: String, value: String): String =
-        MyApplication.preferences.getString(key, value)
+            MyApplication.preferences.getString(key, value)
 
     fun theme(themeStr: String): Int = when {
         themeStr.startsWith("blue") -> R.style.MyCustomTheme_NOAB
@@ -200,14 +254,14 @@ object Utility {
     }
 
     fun getCurrentConditions(context: Context, locNum: Int): ObjectForecastPackage =
-        if (Location.isUS(locNum)) {
-            getCurrentConditionsUS(context, locNum)
-        } else {
-            getCurrentConditionsCanada(locNum)
-        }
+            if (Location.isUS(locNum)) {
+                getCurrentConditionsUS(context, locNum)
+            } else {
+                getCurrentConditionsCanada(locNum)
+            }
 
     fun getHazards(url: String): String =
-        url.parse("<!-- AddThis Button END --> {3}<hr /><br />(.*?)</div>")
+            url.parse("<!-- AddThis Button END --> {3}<hr /><br />(.*?)</div>")
 
     fun fromHtml(source: String): String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY).toString()
