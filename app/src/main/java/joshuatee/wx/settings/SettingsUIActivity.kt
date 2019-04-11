@@ -286,7 +286,7 @@ class SettingsUIActivity : BaseActivity() {
                 "Card corner radius",
                 "CARD_CORNER_RADIUS",
                 R.string.card_corner_radius_np_label,
-                3,
+                0,
                 0,
                 10
             ).card

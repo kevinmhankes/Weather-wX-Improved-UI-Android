@@ -353,7 +353,7 @@ class MyApplication : Application() {
             }
             cardCorners = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
-                preferences.getInt("CARD_CORNER_RADIUS", 3).toFloat(),
+                preferences.getInt("CARD_CORNER_RADIUS", 0).toFloat(),
                 dm
             ) // was 0 as of 2018-10-27
             telecineVideoSizePercentage = preferencesTelecine.getInt("video-size", 100)
