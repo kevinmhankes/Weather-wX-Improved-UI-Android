@@ -1,23 +1,17 @@
 // TODO base velocity legend
-// TODO NWS URLs http to https const myapp
-// TODO in settings main show notification count in notification label
-// TODO publish Android 4 deprecation date
-// TODO camelCase GlobalArrays ( consult wXL23 )
 // TODO add Ely's MCD/MPD/WAT radar long press code
-// TODO NWS HTTPS migration https://www.nco.ncep.noaa.gov/pmb/changes/URL_http_https.shtml
 // TODO migrate away from US govt website for Sun/Moon data do to cert issues
 // TODO change code so that widget location simply follows current location selected
-// TODO https://www.weather.gov/media/notification/scn18-93cps_wpc_days3-7aab.pdf
-// TODO Fix long press warning open radar mosaic
 // TODO OkHttp 3.13 Requires Android 5+ – Square Corner Blog – Medium  
 // https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce
 // TODO document or fix changing radar settings and impact on main screen radars
 // TODO UtilityMetar in radar has optimization related to text file loading
-// TODO bug dark blue theme does not work with checkbox
-// TODO update Hourly activity to move location to subtitle
 // TODO BUG - storm reports show radar doesn't show location dot for report
 // TODO move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/ios)
 
+55125 2019_04_11 in uswarn remove longpress open radar mosaic which is obsolete
+                 in national text products remove canada which is no longer working
+                 GOES16 - add title
 55124 2019_04_10 revert card corners back to 0
                  SPC HREF updates
                  change default theme to use original wx blue color (from lighter blue)

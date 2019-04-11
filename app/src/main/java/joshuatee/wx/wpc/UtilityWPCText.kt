@@ -40,7 +40,7 @@ internal object UtilityWPCText {
         ObjectMenuTitle("SPC", 8),
         ObjectMenuTitle("NHC", 6),
         ObjectMenuTitle("Great Lakes", 7),
-        ObjectMenuTitle("Canada", 8),
+        //ObjectMenuTitle("Canada", 8),
         ObjectMenuTitle("Space Weather", 6)
     )
 
@@ -144,14 +144,15 @@ internal object UtilityWPCText {
         "GLFLO: Lake Ontario - Open Lake Forecast",
         "GLFSL: Saint Lawrence River",
 
-        "focn45: Significant Weather Discussion, PASPC",
+        /*"focn45: Significant Weather Discussion, PASPC",
         "fxcn01: FXCN01",
         "awcn11: Weather Summary S. Manitoba",
         "awcn12: Weather Summary N. Manitoba",
         "awcn13: Weather Summary S. Saskatchewan",
         "awcn14: Weather Summary N. Saskatchewan",
         "awcn15: Weather Summary S. Alberta",
-        "awcn16: Weather Summary N. Alberta",
+        "awcn16: Weather Summary N. Alberta",*/
+
         "swpc3day: NOAA Geomagnetic Activity Observation and Forecast",
         "swpc3daygeo: NOAA Geomagnetic Activity Probabilities",
 
