@@ -166,7 +166,7 @@ class FavRemoveActivity : BaseActivity() {
             else -> {
                 ridFav = " : : "
                 ridArr.indices.forEach { ridFav += ":" + ridArr[it] }
-                Utility.writePref(this, prefToken, ridFav)
+                Utility.writePref(this, prefToken, "$ridFav:")
             }
         }
     }
@@ -192,7 +192,7 @@ class FavRemoveActivity : BaseActivity() {
         }
         ridFav = " : : "
         ridArr.indices.forEach { ridFav = ridFav + ":" + ridArr[it] }
-        Utility.writePref(this, prefToken, ridFav)
+        Utility.writePref(this, prefToken, "$ridFav:")
         when (type) {
             "SPCMESO" -> {
                 ridFavLabel = " : : "

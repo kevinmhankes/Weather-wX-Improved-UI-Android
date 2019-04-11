@@ -14,7 +14,7 @@
 // TODO add new color pal for ref
 // TODO severe dashboard - pull all data regardless of settings
 
-55126 2019_04_11
+55126 2019_04_11 [BUG] fav management issue
 55125 2019_04_11 in uswarn remove longpress open radar mosaic which is obsolete
                  in national text products remove canada which is no longer working
                  GOES16 - add title
