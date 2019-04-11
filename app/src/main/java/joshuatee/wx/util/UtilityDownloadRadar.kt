@@ -29,7 +29,7 @@ object UtilityDownloadRadar {
     // FIXME make URLs global static
 // was getNWSStringFromURLJSON getNWSStringFromURL
 
-    fun getPolygonVTEC(context: Context) {
+    /*fun getPolygonVTEC(context: Context) {
         MyApplication.severeDashboardTst.valueSet(
             context,
             UtilityDownloadNWS.getNWSStringFromURLJSON("https://api.weather.gov/alerts/active?event=Severe%20Thunderstorm%20Warning")
@@ -45,6 +45,25 @@ object UtilityDownloadRadar {
         MyApplication.severeDashboardTor.valueSet(
             context,
             UtilityDownloadNWS.getNWSStringFromURLJSON("https://api.weather.gov/alerts/active?event=Tornado%20Warning")
+        )
+    }*/
+
+    fun getPolygonVTEC(context: Context) {
+        MyApplication.severeDashboardTst.valueSet(
+                context,
+                UtilityDownloadNWS.getNWSStringFromURLJSON("https://api.weather.gov/alerts/active?event=Severe%20Thunderstorm%20Warning")
+        )
+        UtilityLog.d(
+                "wx",
+                "RADAR: " + UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader("https://api.weather.gov/alerts/active?event=Severe%20Thunderstorm%20Warning")
+        )
+        MyApplication.severeDashboardFfw.valueSet(
+                context,
+                UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader("https://api.weather.gov/alerts/active?event=Flash%20Flood%20Warning")
+        )
+        MyApplication.severeDashboardTor.valueSet(
+                context,
+                UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader("https://api.weather.gov/alerts/active?event=Tornado%20Warning")
         )
     }
 }
