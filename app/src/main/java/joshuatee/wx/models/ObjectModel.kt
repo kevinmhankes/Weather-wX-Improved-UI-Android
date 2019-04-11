@@ -29,7 +29,6 @@ import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.ui.ObjectSpinner
-import joshuatee.wx.util.UtilityLog
 
 class ObjectModel(val context: Context, var prefModel: String, numPanesStr: String) {
 

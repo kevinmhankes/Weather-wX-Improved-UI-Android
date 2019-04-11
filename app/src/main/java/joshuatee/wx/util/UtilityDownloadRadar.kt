@@ -51,7 +51,7 @@ object UtilityDownloadRadar {
     fun getPolygonVTEC(context: Context) {
         MyApplication.severeDashboardTst.valueSet(
                 context,
-                UtilityDownloadNWS.getNWSStringFromURLJSON("https://api.weather.gov/alerts/active?event=Severe%20Thunderstorm%20Warning")
+                UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader("https://api.weather.gov/alerts/active?event=Severe%20Thunderstorm%20Warning")
         )
         UtilityLog.d(
                 "wx",

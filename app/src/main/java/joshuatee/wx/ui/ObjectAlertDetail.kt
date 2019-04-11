@@ -31,7 +31,6 @@ import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.CAPAlert
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityString
 
 class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
@@ -86,8 +85,6 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
         val startTime: String
         var endTime = ""
         var wfo = ""
-        UtilityLog.d("wx", url);
-        UtilityLog.d("wx", ca.title);
         if (ca.text.contains("This alert has expired")) {
             tvArr[0].text = ca.text
             tvArr[0].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeLarge)

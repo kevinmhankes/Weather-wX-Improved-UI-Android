@@ -93,8 +93,8 @@ class ObjectCardAlertSummaryItem(context: Context) {
         textViewTop.text = "$nwsOffice ($nwsLoc)"
         textViewBottom.text = ca.area
         textViewTitle.text = title
-        textViewStart.text = "Start: " + startTime
-        textViewEnd.text = "End: " + endTime
+        textViewStart.text = "Start: $startTime"
+        textViewEnd.text = "End: $endTime"
     }
 }
 

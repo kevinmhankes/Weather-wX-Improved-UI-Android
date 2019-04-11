@@ -203,7 +203,7 @@ object UtilityLocation {
         }
     }
 
-    public fun saveLocationForMcd(
+    fun saveLocationForMcd(
         nwsOffice: String,
         context: Context,
         linearLayout: LinearLayout,
