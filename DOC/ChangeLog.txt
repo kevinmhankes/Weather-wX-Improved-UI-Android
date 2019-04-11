@@ -16,7 +16,7 @@
 
 55126 2019_04_11 [BUG] fav management issue
                  [BUG] modify UtilityDownloadRadar to use UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader()
-                 new icon for uswarn
+                 new icon for uswarn 
 55125 2019_04_11 in uswarn remove longpress open radar mosaic which is obsolete
                  in national text products remove canada which is no longer working
                  GOES16 - add title
