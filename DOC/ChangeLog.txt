@@ -12,6 +12,7 @@
 // TODO revisit spacing for cards in settings
 // TODO rewrite uswarn
 // TODO add new color pal for ref
+// TODO severe dashboard - pull all data regardless of settings
 
 55126 2019_04_11
 55125 2019_04_11 in uswarn remove longpress open radar mosaic which is obsolete
