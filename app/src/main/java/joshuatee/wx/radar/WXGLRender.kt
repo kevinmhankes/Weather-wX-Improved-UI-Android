@@ -498,7 +498,7 @@ class WXGLRender(private val context: Context) : Renderer {
             //drawTriangles(wbCircleBuffers)
             //GLES20.glLineWidth(defaultLineWidth)
             // FIXME use new configurable
-            GLES20.glLineWidth(5.0f)
+            GLES20.glLineWidth(locCircleBuffers.geotype.lineWidth)
             drawTriangles(locdotBuffers)
             if (MyApplication.locdotFollowsGps && locCircleBuffers.floatBuffer.capacity() != 0 && locCircleBuffers.indexBuffer.capacity() != 0 && locCircleBuffers.colorBuffer.capacity() != 0) {
                 locCircleBuffers.chunkCount = 1
