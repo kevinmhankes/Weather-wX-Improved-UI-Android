@@ -49,21 +49,29 @@ object UtilityDownloadRadar {
     }*/
 
     fun getPolygonVTEC(context: Context) {
+
+        val baseUrl = "https://api.weather.gov/alerts/active?event="
+        val tstormURl = baseUrl + "Severe%20Thunderstorm%20Warning"
+        val ffwUrl = baseUrl + "Flash%20Flood%20Warning"
+        // Below is for testing
+        //val ffwUrl = baseUrl + "Flood%20Warning"
+        val tornadoUrl = baseUrl + "Tornado%20Warning"
+
         MyApplication.severeDashboardTst.valueSet(
                 context,
-                UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader("https://api.weather.gov/alerts/active?event=Severe%20Thunderstorm%20Warning")
-        )
-        UtilityLog.d(
-                "wx",
-                "RADAR: " + UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader("https://api.weather.gov/alerts/active?event=Severe%20Thunderstorm%20Warning")
+                UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(tstormURl)
         )
         MyApplication.severeDashboardFfw.valueSet(
                 context,
-                UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader("https://api.weather.gov/alerts/active?event=Flash%20Flood%20Warning")
+                UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(ffwUrl)
         )
         MyApplication.severeDashboardTor.valueSet(
                 context,
-                UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader("https://api.weather.gov/alerts/active?event=Tornado%20Warning")
+                UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(tornadoUrl)
+        )
+        UtilityLog.d(
+                "wx",
+                "RADAR: " + MyApplication.severeDashboardFfw.valueGet()
         )
     }
 }

@@ -157,7 +157,6 @@ class FavRemoveActivity : BaseActivity() {
             "SPCMESO" -> {
                 ridFav = " : : "
                 ridArr.indices.forEach { ridFav += ":" + ridArr[it] }
-                // FIXME why does this need a trailing semi-colon
                 Utility.writePref(this, prefToken, "$ridFav:")
                 ridFavLabel = " : : "
                 ridFavLabel += recyclerView.toString()

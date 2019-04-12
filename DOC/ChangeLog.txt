@@ -14,7 +14,8 @@
 // TODO add new color pal for ref
 // TODO severe dashboard - pull all data regardless of settings
 
-55127 2019_04_11 increase thickness of gps location circle
+55127 2019_04_12 increase thickness of gps location circle
+                 UtilityDownloadRadar - refactor
 55126 2019_04_11 [BUG] fav management issue
                  [BUG] modify UtilityDownloadRadar to use UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader()
                  new icon for uswarn
