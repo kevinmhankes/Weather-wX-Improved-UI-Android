@@ -408,6 +408,84 @@ class SettingsRadarActivity : BaseActivity() {
                 10
             ).card
         )
+// FIXME NEW ADD - add help strings
+        ll.addView(
+                ObjectSettingsNumberPicker(
+                        this,
+                        this,
+                        "State line size",
+                        "RADAR_STATE_LINESIZE",
+                        R.string.watmcd_linesize_np,
+                        2,
+                        1,
+                        10
+                ).card
+        )
+        ll.addView(
+                ObjectSettingsNumberPicker(
+                        this,
+                        this,
+                        "County line size",
+                        "RADAR_COUNTY_LINESIZE",
+                        R.string.watmcd_linesize_np,
+                        2,
+                        1,
+                        10
+                ).card
+        )
+        ll.addView(
+                ObjectSettingsNumberPicker(
+                        this,
+                        this,
+                        "HW line size",
+                        "RADAR_HW_LINESIZE",
+                        R.string.watmcd_linesize_np,
+                        2,
+                        1,
+                        10
+                ).card
+        )
+        ll.addView(
+                ObjectSettingsNumberPicker(
+                        this,
+                        this,
+                        "HW EXT line size",
+                        "RADAR_HWEXT_LINESIZE",
+                        R.string.watmcd_linesize_np,
+                        2,
+                        1,
+                        10
+                ).card
+        )
+        ll.addView(
+                ObjectSettingsNumberPicker(
+                        this,
+                        this,
+                        "Lake line size",
+                        "RADAR_LAKE_LINESIZE",
+                        R.string.watmcd_linesize_np,
+                        2,
+                        1,
+                        10
+                ).card
+        )
+        ll.addView(
+                ObjectSettingsNumberPicker(
+                        this,
+                        this,
+                        "GPS Circle line size",
+                        "RADAR_GPSCIRCLE_LINESIZE",
+                        R.string.watmcd_linesize_np,
+                        5,
+                        1,
+                        10
+                ).card
+        )
+
+        // FIXME END NEW ADD
+
+
+
         ll.addView(
             ObjectSettingsNumberPicker(
                 this,
