@@ -15,6 +15,7 @@
 // TODO severe dashboard - pull all data regardless of settings
 // TODO android/kotlin - thicker line for GPS circle, add option for state/count/river/highway line thickness
 // TODO bottomsheetdialog
+// TODO look into slider instead of numberpicker
 
 55128 2019_04_12
 55127 2019_04_12 increase thickness of gps location circle
