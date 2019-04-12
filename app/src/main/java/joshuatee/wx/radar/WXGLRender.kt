@@ -466,9 +466,10 @@ class WXGLRender(private val context: Context) : Renderer {
             }
         }
         GLES20.glLineWidth(defaultLineWidth)
-        // FIXME use new configurables
+        // FIXME needs to be tested
         listOf(countyLineBuffers, stateLineBuffers, hwBuffers, hwExtBuffers, lakeBuffers).forEach {
             if (zoom > it.scaleCutOff) {
+                GLES20.glLineWidth(it.geotype.lineWidth)
                 drawElement(it)
             }
         }

@@ -16,6 +16,8 @@
 // TODO android/kotlin - thicker line for GPS circle, add option for state/count/river/highway line thickness
 // TODO bottomsheetdialog
 // TODO look into slider instead of numberpicker
+// TODO observations - reset x/y/zoom on product change
+// TODO make sure all activities have onRestart
 
 55128 2019_04_12
 55127 2019_04_12 increase thickness of gps location circle

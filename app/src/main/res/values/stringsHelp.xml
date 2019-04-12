@@ -481,11 +481,30 @@ Animation speed. Lower is faster. Default is 5.
       </string>
 
     <string name="warn_linesize_np_label">
-Thickness of lines for warnings. Smaller is thinner. Default is 4.
+Thickness of lines for warnings. Smaller number is thinner. Default is 4.
     </string>
 
     <string name="watmcd_linesize_np">
-Thickness of lines for SPC Watch/MCD. Smaller is thinner. Default is 4.
+Thickness of lines for SPC Watch/MCD. Smaller number is thinner. Default is 4.
+</string>
+
+ <string name="state_linesize_np">
+Thickness of lines for state lines. Smaller number is thinner. Default is 2.
+</string>
+ <string name="county_linesize_np">
+Thickness of lines for county outlines. Smaller number is thinner. Default is 2.
+</string>
+ <string name="hw_linesize_np">
+Thickness of lines for main highways. Smaller number is thinner. Default is 2.
+</string>
+ <string name="hwext_linesize_np">
+Thickness of lines for secondary highways/roads. Smaller number is thinner. Default is 2.
+</string>
+ <string name="lakes_linesize_np">
+Thickness of lines for rivers and lakes. Smaller number is thinner. Default is 2.
+</string>
+ <string name="gpscircle_linesize_np">
+Thickness of lines for the GPS location circle. Smaller number is thinner. Default is 5.
 </string>
 
     <string name="locdot_size_np">
