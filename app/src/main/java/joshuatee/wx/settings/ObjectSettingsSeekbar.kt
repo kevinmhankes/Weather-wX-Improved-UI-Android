@@ -25,8 +25,10 @@ import android.app.Activity
 import android.content.Context
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.NumberPicker
+import android.widget.SeekBar
 import android.widget.TextView
 
 import joshuatee.wx.MyApplication
@@ -39,14 +41,14 @@ import joshuatee.wx.util.UtilityAlertDialog
 // FIXME WIP
 
 internal class ObjectSettingsSeekbar(
-    context: Context,
-    private val activity: Activity,
-    label: String,
-    pref: String,
-    strId: Int,
-    defValue: Int,
-    lowValue: Int,
-    highValue: Int
+        context: Context,
+        private val activity: Activity,
+        label: String,
+        pref: String,
+        strId: Int,
+        defValue: Int,
+        lowValue: Int,
+        highValue: Int
 ) {
 
     private val objCard = ObjectCard(context)
@@ -55,11 +57,11 @@ internal class ObjectSettingsSeekbar(
         val initValue = when (pref) {
             "RADAR_TEXT_SIZE" -> (Utility.readPref(context, pref, defValue.toFloat()) * 10).toInt()
             "UI_ANIM_ICON_FRAMES" -> (Utility.readPref(
-                context,
-                pref,
-                MyApplication.uiAnimIconFrames
+                    context,
+                    pref,
+                    MyApplication.uiAnimIconFrames
             )).toIntOrNull()
-                ?: 0
+                    ?: 0
             "CARD_CORNER_RADIUS" -> (Utility.readPref(context, pref, 3))
             else -> Utility.readPref(context, pref, defValue)
         }
@@ -68,23 +70,23 @@ internal class ObjectSettingsSeekbar(
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         tv.setTextColor(UIPreferences.backgroundColor)
         tv.setPadding(
-            MyApplication.padding,
-            MyApplication.padding,
-            MyApplication.padding,
-            MyApplication.padding
+                MyApplication.padding,
+                MyApplication.padding,
+                MyApplication.padding,
+                MyApplication.padding
         )
         tv.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1.0f
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1.0f
         )
         tv.text = label
         tv.gravity = Gravity.TOP
         tv.setOnClickListener { showHelpText(context.resources.getString(strId)) }
         val ll = LinearLayout(context)
         ll.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
         )
         ll.orientation = LinearLayout.HORIZONTAL
         ll.gravity = Gravity.CENTER_VERTICAL
@@ -103,7 +105,7 @@ internal class ObjectSettingsSeekbar(
             }
             Utility.writePref(context, "RESTART_NOTIF", "true")
         }
-        
+
 
 /* val seekBar = findViewById(R.id.seekBar)
 seekBar.setOnSeekBarChangeListener(seekBarChangeListener)
@@ -112,10 +114,10 @@ tvProgressLabel = findViewById(R.id.textView)
 tvProgressLabel.setText("Progress: " + progress) */
 
 
-val seekBar = SeekBar(this)
-val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-layoutParams.setMargins(30, 30, 30, 30)
-seekBar.setLayoutParams(layoutParams)
+        val seekBar = SeekBar(context)
+        val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        layoutParams.setMargins(30, 30, 30, 30)
+        seekBar.setLayoutParams(layoutParams)
 //val linearLayout = findViewById(R.id.rootContainer)
 //if (linearLayout != null)
 //{
@@ -127,20 +129,20 @@ seekBar.setLayoutParams(layoutParams)
         ll.addView(seekBar)
         objCard.addView(ll)
 
+// FIXME
+       /* val seekBarChangeListener = object:SeekBar.OnSeekBarChangeListener() {
+            override fun onProgressChanged(seekBar:SeekBar, progress:Int, fromUser:Boolean) {
+                // updated continuously as the user slides the thumb
+                //tvProgressLabel.setText("Progress: " + progress)
+            }
+            override fun onStartTrackingTouch(seekBar:SeekBar) {
+                // called when the user first touches the SeekBar
+            }
+            override fun onStopTrackingTouch(seekBar:SeekBar) {
+                // called after the user finishes moving the SeekBar
+            }
+        }*/
 
-val seekBarChangeListener = object:SeekBar.OnSeekBarChangeListener() {
-  fun onProgressChanged(seekBar:SeekBar, progress:Int, fromUser:Boolean) {
-    // updated continuously as the user slides the thumb
-    //tvProgressLabel.setText("Progress: " + progress)
-  }
-  fun onStartTrackingTouch(seekBar:SeekBar) {
-    // called when the user first touches the SeekBar
-  }
-  fun onStopTrackingTouch(seekBar:SeekBar) {
-    // called after the user finishes moving the SeekBar
-  }
-}
-        
         /* 
         SeekBar seekBar = findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(seekBarChangeListener);

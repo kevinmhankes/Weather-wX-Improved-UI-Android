@@ -19,7 +19,7 @@
 // TODO observations - reset x/y/zoom on product change
 // TODO make sure all activities have onRestart
 
-55128 2019_04_12
+55128 2019_04_12 add seekbar code and implement additional configs for line thickness in radar
 55127 2019_04_12 increase thickness of gps location circle
                  UtilityDownloadRadar - refactor
 55126 2019_04_11 [BUG] fav management issue

@@ -105,7 +105,7 @@ enum class GeographyType constructor(
 
             STATE_LINES.lineWidth = MyApplication.radarStateLinesize
             COUNTY_LINES.lineWidth = MyApplication.radarCountyLinesize
-            LAKES.lineWidth = MyApplication.radarLakesLinesize
+            LAKES.lineWidth = MyApplication.radarLakeLinesize
             HIGHWAYS.lineWidth = MyApplication.radarHwLinesize
             HIGHWAYS_EXTENDED.lineWidth = MyApplication.radarHwExtLinesize
         }
