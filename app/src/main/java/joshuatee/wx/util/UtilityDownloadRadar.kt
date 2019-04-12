@@ -69,9 +69,5 @@ object UtilityDownloadRadar {
                 context,
                 UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(tornadoUrl)
         )
-        UtilityLog.d(
-                "wx",
-                "RADAR: " + MyApplication.severeDashboardFfw.valueGet()
-        )
     }
 }

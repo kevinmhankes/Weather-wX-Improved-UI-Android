@@ -13,13 +13,13 @@
 // TODO rewrite uswarn
 // TODO add new color pal for ref
 // TODO severe dashboard - pull all data regardless of settings
-// TODO android/kotlin - thicker line for GPS circle, add option for state/count/river/highway line thickness
 // TODO bottomsheetdialog
 // TODO look into slider instead of numberpicker
-// TODO observations - reset x/y/zoom on product change
 // TODO make sure all activities have onRestart
+// TODO linesize - swo, wb, wbgusts, sti
 
 55128 2019_04_12 add seekbar code and implement additional configs for line thickness in radar
+                 [BUG] uswarn - alter regexp to not pick up occasional bogus data
 55127 2019_04_12 increase thickness of gps location circle
                  UtilityDownloadRadar - refactor
 55126 2019_04_11 [BUG] fav management issue

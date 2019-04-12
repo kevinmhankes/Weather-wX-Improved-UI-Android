@@ -156,7 +156,7 @@ class ObjectAlertSummary(
                         mapButtonZone[i] = firstZone
                         cText.setTextFields(nwsOffice, nwsLoc, cc)
                         val urlStr = cc.url
-                        UtilityLog.d("wx", "URL: " + urlStr)
+                        //UtilityLog.d("wx", "URL: " + urlStr)
                         cText.setListener(View.OnClickListener {
                             ObjectIntent(
                                     context,
