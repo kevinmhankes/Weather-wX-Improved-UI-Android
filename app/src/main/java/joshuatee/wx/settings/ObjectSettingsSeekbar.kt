@@ -94,18 +94,7 @@ internal class ObjectSettingsSeekbar(
         ll.orientation = LinearLayout.VERTICAL
         ll.gravity = Gravity.CENTER_VERTICAL
         ll.addView(tv)
-
-        UtilityLog.d("wx", "INITVALUE " + pref + ": " + initValue)
-
-     /*   nP.setOnValueChangedListener { _, _, newVal ->
-            when (pref) {
-                "RADAR_TEXT_SIZE" -> Utility.writePref(context, pref, newVal / 10.0f)
-                "UI_ANIM_ICON_FRAMES" -> Utility.writePref(context, pref, newVal.toString())
-                else -> Utility.writePref(context, pref, newVal)
-            }
-            Utility.writePref(context, "RESTART_NOTIF", "true")
-        }*/
-
+        //UtilityLog.d("wx", "INITVALUE " + pref + ": " + initValue)
         seekBar = SeekBar(context)
         seekBar.progress = convert(initValue)
         val padding = 30
@@ -134,9 +123,6 @@ internal class ObjectSettingsSeekbar(
                     else -> Utility.writePref(context, pref, newVal)
                 }
                 Utility.writePref(context, "RESTART_NOTIF", "true")
-
-                // Write code to perform some action when touch is stopped.
-                //Toast.makeText(this@MainActivity, "Progress is " + seekBar.progress + "%", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -144,14 +130,12 @@ internal class ObjectSettingsSeekbar(
     private fun convert(value: Int): Int {
         val range = highValue - lowValue
         val modifiedValue = ( (value.toDouble() / range.toDouble()) * 100.0).roundToInt()
-        //UtilityLog.d("wx", modifiedValue.toString())
         return modifiedValue
     }
 
     private fun convertForSave(value: Int): Int {
         val range = highValue - lowValue
-        val modifiedValue = ( (value.toDouble() / 100.0) * range.toFloat()).roundToInt()
-        //UtilityLog.d("wx", modifiedValue.toString())
+        val modifiedValue = ((value.toDouble() / 100.0) * range.toFloat()).roundToInt()
         return modifiedValue
     }
 

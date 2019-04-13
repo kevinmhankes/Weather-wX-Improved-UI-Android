@@ -18,7 +18,7 @@
 // TODO make sure all activities have onRestart
 // TODO linesize - swo, wb, wbgusts, sti
 
-55129 2019_04_12
+55129 2019_04_12 use seekbar in settings
 55128 2019_04_12 add seekbar code and implement additional configs for line thickness in radar
                  [BUG] uswarn - alter regexp to not pick up occasional bogus data
 55127 2019_04_12 increase thickness of gps location circle
