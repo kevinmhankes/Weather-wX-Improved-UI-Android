@@ -22,6 +22,7 @@
 package joshuatee.wx.util
 
 import android.content.Context
+import joshuatee.wx.Extensions.getHtml
 import joshuatee.wx.MyApplication
 
 object UtilityDownloadRadar {
@@ -48,15 +49,14 @@ object UtilityDownloadRadar {
         )
     }*/
 
+    val baseUrl = "https://api.weather.gov/alerts/active?event="
+    val tstormURl = baseUrl + "Severe%20Thunderstorm%20Warning"
+    val ffwUrl = baseUrl + "Flash%20Flood%20Warning"
+    // Below is for testing
+    //val ffwUrl = baseUrl + "Flood%20Warning"
+    val tornadoUrl = baseUrl + "Tornado%20Warning"
+
     fun getPolygonVTEC(context: Context) {
-
-        val baseUrl = "https://api.weather.gov/alerts/active?event="
-        val tstormURl = baseUrl + "Severe%20Thunderstorm%20Warning"
-        val ffwUrl = baseUrl + "Flash%20Flood%20Warning"
-        // Below is for testing
-        //val ffwUrl = baseUrl + "Flood%20Warning"
-        val tornadoUrl = baseUrl + "Tornado%20Warning"
-
         MyApplication.severeDashboardTst.valueSet(
                 context,
                 UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(tstormURl)
@@ -69,5 +69,31 @@ object UtilityDownloadRadar {
                 context,
                 UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(tornadoUrl)
         )
+    }
+
+    // FIXME use in Background fetch
+
+    fun getVtecTstorm(): String {
+        return UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(tstormURl)
+    }
+
+    fun getVtecTor(): String {
+        return UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(tornadoUrl)
+    }
+
+    fun getVtecFfw(): String {
+        return UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(ffwUrl)
+    }
+
+    fun getMcd(): String {
+        return "${MyApplication.nwsSPCwebsitePrefix}/products/md/".getHtml()
+    }
+
+    fun getMpd(): String {
+        return "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php".getHtml()
+    }
+
+    fun getWatch(): String {
+        return "${MyApplication.nwsSPCwebsitePrefix}/products/watch/".getHtml()
     }
 }

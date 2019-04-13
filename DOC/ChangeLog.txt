@@ -14,10 +14,10 @@
 // TODO add new color pal for ref
 // TODO severe dashboard - pull all data regardless of settings
 // TODO bottomsheetdialog
-// TODO look into slider instead of numberpicker
-// TODO make sure all activities have onRestart
 // TODO linesize - swo, wb, wbgusts, sti
 
+55130 2019_04_13 seekbar enhancements
+                 severe dashboard will show all data regardless of settings and will pull data immediately
 55129 2019_04_12 use seekbar in settings
 55128 2019_04_12 add seekbar code and implement additional configs for line thickness in radar
                  [BUG] uswarn - alter regexp to not pick up occasional bogus data

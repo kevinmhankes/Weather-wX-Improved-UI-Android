@@ -42,6 +42,7 @@ import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.spc.SPCMCDWShowActivity
 import joshuatee.wx.spc.SPCStormReportsActivity
 import joshuatee.wx.spc.UtilitySPC
+import joshuatee.wx.util.UtilityDownloadRadar
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.util.UtilityShortcut
 
@@ -86,9 +87,14 @@ class SevereDashboardActivity : BaseActivity() {
         val wTor = SevereWarning(PolygonType.TOR)
         val wTst = SevereWarning(PolygonType.TST)
         val wFfw = SevereWarning(PolygonType.FFW)
-        wTor.generateString(contextg, MyApplication.severeDashboardTor.valueGet())
-        wTst.generateString(contextg, MyApplication.severeDashboardTst.valueGet())
-        wFfw.generateString(contextg, MyApplication.severeDashboardFfw.valueGet())
+        //wTor.generateString(contextg, MyApplication.severeDashboardTor.valueGet())
+        //wTst.generateString(contextg, MyApplication.severeDashboardTst.valueGet())
+        //wFfw.generateString(contextg, MyApplication.severeDashboardFfw.valueGet())
+        withContext(Dispatchers.IO) {
+            wTor.generateString(contextg, UtilityDownloadRadar.getVtecTor())
+            wTst.generateString(contextg, UtilityDownloadRadar.getVtecTstorm())
+            wFfw.generateString(contextg, UtilityDownloadRadar.getVtecFfw())
+        }
         if (wTor.count > 0) {
             val objTor = ObjectCardText(contextg, linearLayout, wTor.text)
             objTor.setOnClickListener(View.OnClickListener { tvWarnClicked(".*?Tornado Warning.*?") })
@@ -102,9 +108,12 @@ class SevereDashboardActivity : BaseActivity() {
             objFfw.setOnClickListener(View.OnClickListener { tvWarnClicked(".*?Flash Flood Warning.*?") })
         }
         withContext(Dispatchers.IO) {
-            snMcd.getBitmaps(MyApplication.severeDashboardMcd.valueGet())
-            snWat.getBitmaps(MyApplication.severeDashboardWat.valueGet())
-            snMpd.getBitmaps(MyApplication.severeDashboardMpd.valueGet())
+            //snMcd.getBitmaps(MyApplication.severeDashboardMcd.valueGet())
+            //snWat.getBitmaps(MyApplication.severeDashboardWat.valueGet())
+            //snMpd.getBitmaps(MyApplication.severeDashboardMpd.valueGet())
+            snMcd.getBitmaps(UtilityDownloadRadar.getMcd())
+            snWat.getBitmaps(UtilityDownloadRadar.getWatch())
+            snMpd.getBitmaps(UtilityDownloadRadar.getMpd())
             bitmapArrRep.add((UtilitySPC.getStormReportsTodayUrl()).getImage())
         }
         if (bitmapArrRep.size > 0) {

@@ -96,6 +96,7 @@ internal class ObjectSettingsSeekbar(
         ll.addView(tv)
         //UtilityLog.d("wx", "INITVALUE " + pref + ": " + initValue)
         seekBar = SeekBar(context)
+        seekBar.max = highValue - lowValue
         seekBar.progress = convert(initValue)
         val padding = 30
         val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -128,14 +129,16 @@ internal class ObjectSettingsSeekbar(
     }
 
     private fun convert(value: Int): Int {
-        val range = highValue - lowValue
-        val modifiedValue = ( (value.toDouble() / range.toDouble()) * 100.0).roundToInt()
+        //val range = highValue - lowValue
+        //val modifiedValue = ( (value.toDouble() / range.toDouble()) * 100.0).roundToInt()
+        val modifiedValue = value - lowValue
         return modifiedValue
     }
 
     private fun convertForSave(value: Int): Int {
-        val range = highValue - lowValue
-        val modifiedValue = ((value.toDouble() / 100.0) * range.toFloat()).roundToInt()
+        //val range = highValue - lowValue
+        //val modifiedValue = ((value.toDouble() / 100.0) * range.toFloat()).roundToInt()
+        val modifiedValue = value + lowValue
         return modifiedValue
     }
 
