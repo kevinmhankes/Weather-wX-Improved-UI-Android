@@ -84,7 +84,13 @@ internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
     }
 
     val textForSubtitle: String
-        get() = text.parse("Areas affected...(.*?)<BR>")
+        get() {
+            var stitle = text.parse("Areas affected...(.*?)<BR>")
+            if (stitle == "" ) {
+                stitle = text.parse("Watch for (.*?)<BR>").condenseSpace()
+            }
+            return stitle
+        }
 }
 
 
