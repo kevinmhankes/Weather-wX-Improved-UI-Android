@@ -39,8 +39,6 @@ import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
 import joshuatee.wx.util.UtilityLog
 
-// FIXME WIP
-
 internal class ObjectSettingsSeekbar(
         context: Context,
         private val activity: Activity,
@@ -48,14 +46,15 @@ internal class ObjectSettingsSeekbar(
         pref: String,
         strId: Int,
         defValue: Int,
-        lowValue: Int,
-        highValue: Int
+        val lowValue: Int,
+        val highValue: Int
 ) {
 
     private val objCard = ObjectCard(context)
+    val initValue: Int
 
     init {
-        val initValue = when (pref) {
+        initValue = when (pref) {
             "RADAR_TEXT_SIZE" -> (Utility.readPref(context, pref, defValue.toFloat()) * 10).toInt()
             "UI_ANIM_ICON_FRAMES" -> (Utility.readPref(
                     context,
@@ -92,29 +91,21 @@ internal class ObjectSettingsSeekbar(
         ll.orientation = LinearLayout.VERTICAL
         ll.gravity = Gravity.CENTER_VERTICAL
         ll.addView(tv)
-        val nP = NumberPicker(context)
-        nP.minValue = lowValue
-        nP.maxValue = highValue
-        nP.wrapSelectorWheel = true
-        nP.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-        nP.value = initValue
-        nP.setOnValueChangedListener { _, _, newVal ->
+
+     /*   nP.setOnValueChangedListener { _, _, newVal ->
             when (pref) {
                 "RADAR_TEXT_SIZE" -> Utility.writePref(context, pref, newVal / 10.0f)
                 "UI_ANIM_ICON_FRAMES" -> Utility.writePref(context, pref, newVal.toString())
                 else -> Utility.writePref(context, pref, newVal)
             }
             Utility.writePref(context, "RESTART_NOTIF", "true")
-        }
+        }*/
 
         val seekBar = SeekBar(context)
-        seekBar.progress = 50
-        //seekBar.min = 25
-        //seekBar.max = 75
+        seekBar.progress = convert(initValue)
         val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         layoutParams.setMargins(30, 30, 30, 30)
-        seekBar.setLayoutParams(layoutParams)
-
+        seekBar.layoutParams = layoutParams
         ll.addView(seekBar)
         objCard.addView(ll)
 
@@ -135,6 +126,13 @@ internal class ObjectSettingsSeekbar(
                 //Toast.makeText(this@MainActivity, "Progress is " + seekBar.progress + "%", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun convert(value: Int): Int {
+        val range = highValue - lowValue
+        val modifiedValue = ( (value.toDouble() / range.toDouble()) * 100.0).toInt()
+        UtilityLog.d("wx", modifiedValue.toString())
+        return modifiedValue
     }
 
     private fun showHelpText(helpStr: String) {
