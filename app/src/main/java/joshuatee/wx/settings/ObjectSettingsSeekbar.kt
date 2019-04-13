@@ -42,7 +42,7 @@ import joshuatee.wx.util.UtilityLog
 internal class ObjectSettingsSeekbar(
         context: Context,
         private val activity: Activity,
-        label: String,
+        val label: String,
         pref: String,
         strId: Int,
         defValue: Int,
@@ -51,7 +51,9 @@ internal class ObjectSettingsSeekbar(
 ) {
 
     private val objCard = ObjectCard(context)
-    val initValue: Int
+    private val initValue: Int
+    private val tv: TextView
+    private val seekBar: SeekBar
 
     init {
         initValue = when (pref) {
@@ -65,7 +67,7 @@ internal class ObjectSettingsSeekbar(
             "CARD_CORNER_RADIUS" -> (Utility.readPref(context, pref, 3))
             else -> Utility.readPref(context, pref, defValue)
         }
-        val tv = TextView(context)
+        tv = TextView(context)
         ObjectCardText.textViewSetup(tv)
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         tv.setTextColor(UIPreferences.backgroundColor)
@@ -80,7 +82,7 @@ internal class ObjectSettingsSeekbar(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 1.0f
         )
-        tv.text = label
+        //tv.text = label
         tv.gravity = Gravity.TOP
         tv.setOnClickListener { showHelpText(context.resources.getString(strId)) }
         val ll = LinearLayout(context)
@@ -92,6 +94,8 @@ internal class ObjectSettingsSeekbar(
         ll.gravity = Gravity.CENTER_VERTICAL
         ll.addView(tv)
 
+        //UtilityLog.d("wx", "INITVALUE " + pref + ": " + initValue)
+
      /*   nP.setOnValueChangedListener { _, _, newVal ->
             when (pref) {
                 "RADAR_TEXT_SIZE" -> Utility.writePref(context, pref, newVal / 10.0f)
@@ -101,19 +105,19 @@ internal class ObjectSettingsSeekbar(
             Utility.writePref(context, "RESTART_NOTIF", "true")
         }*/
 
-        val seekBar = SeekBar(context)
+        seekBar = SeekBar(context)
         seekBar.progress = convert(initValue)
+        val padding = 30
         val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        layoutParams.setMargins(30, 30, 30, 30)
+        layoutParams.setMargins(padding, padding, padding, padding)
         seekBar.layoutParams = layoutParams
         ll.addView(seekBar)
         objCard.addView(ll)
+        updateLabel()
 
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                // Write code to perform some action when progress is changed.
-                //UtilityLog.d("wx", seekBar.progress.toString())
-                tv.text = label + ": " + seekBar.progress.toString()
+                updateLabel()
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -122,6 +126,14 @@ internal class ObjectSettingsSeekbar(
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 UtilityLog.d("wx", "STOP: " + seekBar.progress.toString())
+                val newVal = convertForSave(seekBar.progress)
+                when (pref) {
+                    "RADAR_TEXT_SIZE" -> Utility.writePref(context, pref, newVal / 10.0f)
+                    "UI_ANIM_ICON_FRAMES" -> Utility.writePref(context, pref, newVal.toString())
+                    else -> Utility.writePref(context, pref, newVal)
+                }
+                Utility.writePref(context, "RESTART_NOTIF", "true")
+
                 // Write code to perform some action when touch is stopped.
                 //Toast.makeText(this@MainActivity, "Progress is " + seekBar.progress + "%", Toast.LENGTH_SHORT).show()
             }
@@ -131,8 +143,19 @@ internal class ObjectSettingsSeekbar(
     private fun convert(value: Int): Int {
         val range = highValue - lowValue
         val modifiedValue = ( (value.toDouble() / range.toDouble()) * 100.0).toInt()
-        UtilityLog.d("wx", modifiedValue.toString())
+        //UtilityLog.d("wx", modifiedValue.toString())
         return modifiedValue
+    }
+
+    private fun convertForSave(value: Int): Int {
+        val range = highValue - lowValue
+        val modifiedValue = ( (value.toDouble() / 100.0) * range.toFloat()).toInt()
+        //UtilityLog.d("wx", modifiedValue.toString())
+        return modifiedValue
+    }
+
+    fun updateLabel() {
+        tv.text = label + ": " + convertForSave(seekBar.progress).toString()
     }
 
     private fun showHelpText(helpStr: String) {
