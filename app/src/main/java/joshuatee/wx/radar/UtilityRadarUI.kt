@@ -130,12 +130,9 @@ internal object UtilityRadarUI {
         val pointY = glview.newX * -1.0
         val dist =
             LatLon.distance(LatLon(locX, locY), LatLon(pointX, pointY), DistanceUnit.MILE)
-        val ridX = (Utility.readPref(context, "RID_" + oglr.rid + "_X", "0.0")).toDouble()
-        val ridY =
-            -1.0 * (Utility.readPref(context, "RID_" + oglr.rid + "_Y", "0.0")).toDouble()
-        val distRid =
-            LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.MILE)
-
+        val ridX = Utility.getRadarSiteX(oglr.rid).toDouble()
+        val ridY = -1.0 * Utility.getRadarSiteY(oglr.rid).toDouble()
+        val distRid = LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.MILE)
         // FIXME look at iOS version and try to match in data provided and improve formatting
         val latLonTitle = UtilityStringExternal.truncate(glview.newY.toString(), 6) +
                 ", -" +
