@@ -343,8 +343,58 @@ object UtilityRadar {
             "PLA" to "NA, Lajes Field, Azores",
             "KJK" to "NA, Kunsan Air Base, South Korea",
             "KSG" to "NA, Camp Humphreys, South Korea",
-            "ODN" to "NA, Kadena Air Base, Japan"
-    )
+            "ODN" to "NA, Kadena Air Base, Japan",
+
+            "TLVE" to  "OH, Cleveland",
+            "TADW" to  "MD, Andrews Air Force Base",
+            "TATL" to  "GA, Atlanta",
+            "TBWI" to  "MD, Baltimore/Wash",
+            "TBOS" to  "MA, Boston",
+            "TCLT" to  "NC, Charlotte",
+            "TMDW" to  "IL, Chicago Midway",
+            "TORD" to  "IL, Chicago O'Hare",
+            "TCLE" to  "OH, Cleveland",
+            "TCMH" to  "OH, Columbus",
+            "TCVG" to  "OH, Covington",
+            "TDAL" to  "TX, Dallas Love Field",
+            "TDFW" to  "TX, Dallas/Ft. Worth",
+            "TDAY" to  "OH, Dayton",
+            "TDEN" to  "CO, Denver",
+            "TDTW" to  "MI, Detroit",
+            "TIAD" to  "VA, Dulles",
+            "TFLL" to  "FL, Fort Lauderdale",
+            "THOU" to  "TX, Houston Hobby",
+            "TIAH" to  "TX, Houston International",
+            "TIDS" to  "IN, Indianapolis", // was IDS
+            "TMCI" to  "MO, Kansas City",
+            "TLAS" to  "NV, Las Vegas",
+            "TSDF" to  "KY, Louisville",
+            "TMEM" to  "TN, Memphis",
+            "TMIA" to  "FL, Miami",
+            "TMKE" to  "WI, Milwaukee",
+            "TMSP" to  "MN, Minneapolis",
+            "TBNA" to  "TN, Nashville",
+            "TMSY" to  "LA, New Orleans",
+            "TJFK" to  "NY, New York City",
+            "TEWR" to  "NJ, Newark",
+            "TOKC" to  "OK, Oklahoma City",
+            "TMCO" to  "FL, Orlando International",
+            "TPHL" to  "PA, Philadelphia",
+            "TPHX" to  "AZ, Phoenix",
+            "TPIT" to  "PA, Pittsburgh",
+            "TRDU" to  "NC, Raleigh Durham",
+            "TSLC" to  "UT, Salt Lake City",
+            "TSJU" to  "PR, San Juan",
+            "TSTL" to  "MO, St Louis",
+            "TTPA" to  "FL, Tampa Bay",
+            "TTUL" to  "OK, Tulsa",
+            "TDCA" to  "MD, Washington National",
+            "TPBI" to  "FL, West Palm Beach",
+            "TICT" to  "KS, Wichita"
+
+
+
+            )
 
     val wfoSitetoLat = mapOf(
             "ABC" to "60.79278",
@@ -938,7 +988,54 @@ object UtilityRadar {
             "LGX" to "47.116",
             "DGX" to "32.28",
             "VWX" to "38.26",
-            "HKM" to "20.125"
+            "HKM" to "20.125",
+
+            "TDTW" to  "42.11111",  // Detroit (DTW), MI TDTW DTX 772
+            "TADW" to  "5", //  Andrews Air Force Base (ADW), MD TADW LWX 346
+            "TATL" to  "33.646193", // Atlanta (ATL), GA TATL FFC 1,075
+            "TBNA" to  "35.979079", // Nashville (BNA), TN TBNA OHX 817
+            "TBOS" to  "42.15806", // Boston (BOS), MA TBOS BOX 264
+            "TBWI" to  "39.09056", // Baltimore/Wash (BWI), MD TBWI LWX 342
+            "TLVE" to  "41.289372", // Cleveland (CLE), OH TLVE CLE 931
+            "TCLT" to  "35.337269", // Charlotte (CLT), NC TCLT GSP 871
+            "TCMH" to  "40.00611", // Columbus (CMH), OH TCMH ILN 1,148
+            "TCVG" to  "38.89778", // Covington (CVG), OH TCVG ILN 1,053
+            "TDAL" to  "32.92494", // Dallas Love Field (DAL), TX TDAL FWD 622
+            "TDAY" to  "40.021376", // Dayton (DAY), OH TDAY ILN 1,019
+            "TDCA" to  "38.758853", // Washington National (DCA), MD TDCA LWX 345
+            "TDEN" to  "39.72722", // Denver (DEN), CO TDEN BOU 5,701
+            "TDFW" to  "33.064286", // Dallas/Ft. Worth (DFW), TX TDFW FWD 585
+            "TEWR" to  "40.593397", // Newark (EWR), NJ TEWR OKX 136
+            "TFLL" to  "26.142601", // Fort Lauderdale (FLL), FL TFLL MFL 120
+            "THOU" to  "29.515852", // Houston Hobby (HOU), TX THOU HGX 116
+            "TIAD" to  "39.083667", // Dulles (IAD), VA TIAD LWX 473
+            "TIAH" to  "30.06472", // Houston International (IAH), TX TIAH HGX 253
+            "TICT" to  "37.506844", // Wichita (ICT), KS TICH ICT 1,350
+            "TIDS" to  "39.636556", // Indianapolis (IND), IN TIDS IND 847
+            "TJFK" to  "40.588633", // New York City (JFK), NY TJFK OKX 112
+            "TLAS" to  "36.144", // Las Vegas (LAS), NV TLAS VEF 2,058
+            "TMCI" to  "39.49861", // Kansas City (MCI), MO TMCI EAX 1,090
+            "TMCO" to  "28.343125", // Orlando International (MCO), FL TMCO MLB 169
+            "TMDW" to  "41.6514", // Chicago Midway (MDW), IL TMDW LOT 763
+            "TMEM" to  "34.896044", // Memphis (MEM), TN TMEM MEG 483
+            "TMIA" to  "25.757083", // Miami (MIA), FL TMIA MFL 125
+            "TMKE" to  "42.81944", // Milwaukee (MKE), WI TMKE MKX 933
+            "TMSP" to  "44.870902", // Minneapolis (MSP), MN TMSP MPX 1,120
+            "TMSY" to  "30.021389", // New Orleans (MSY), LA TMSY LIX 99
+            "TOKC" to  "35.27611", // Oklahoma City (OKC), OK TOKC OUN 1,308
+            "TORD" to  "41.796589", // Chicago O'Hare (ORD), IL TORD LOT 744
+            "TPBI" to  "26.687812", // West Palm Beach (PBI), FL TPBI MFL 133
+            "TPHL" to  "39.950061", // Philadelphia (PHL), PA TPHL PHI 153
+            "TPHX" to  "33.420352", // Phoenix (PHX), AZ TPHX PSR 1,089
+            "TPIT" to  "40.501066", // Pittsburgh (PIT), PA TPIT PBZ 1,386
+            "TRDU" to  "36.001401", // Raleigh Durham (RDU), NC TRDU RAH 515
+            "TSDF" to  "38.04581", // Louisville (SDF), KY TSDF LMK 731
+            "TSJU" to  "18.47394", // San Juan (SJU), PR TSJU SJU 157
+            "TSLC" to  "40.967222", // Salt Lake City (SLC), UT TSLC SLC 4,295
+            "TSTL" to  "38.804691", // St Louis (STL), MO TSTL LSX 647
+            "TTPA" to  "27.85867", // Tampa Bay (TPA), FL TTPA TBW 93
+            "TTUL" to  "36.070184" // Tulsa (TUL), OK TTUL TSA 823
+
     )
 
     val radarSiteToLon = mapOf(
@@ -1098,8 +1195,55 @@ object UtilityRadar {
             "LGX" to "124.107",
             "DGX" to "89.984",
             "VWX" to "87.724",
-            "HKM" to "155.778"
-    )
+            "HKM" to "155.778",
+
+            "TDTW" to  "83.515",
+            "TADW" to  "5",
+            "TATL" to  "84.262233",
+            "TBNA" to  "86.661691",
+            "TBOS" to  "70.93389",
+            "TBWI" to  "76.63",
+            "TLVE" to  "82.007419",
+            "TCLT" to  "80.885006",
+            "TCMH" to  "82.71556",
+            "TCVG" to  "84.58028",
+            "TDAL" to  "96.968473",
+            "TDAY" to  "84.123077",
+            "TDCA" to  "76.961837",
+            "TDEN" to  "104.52639",
+            "TDFW" to  "96.915554",
+            "TEWR" to  "74.270164",
+            "TFLL" to  "80.34382",
+            "THOU" to  "95.241692",
+            "TIAD" to  "77.529224",
+            "TIAH" to  "95.5675",
+            "TICT" to  "97.437228",
+            "TIDS" to  "86.435286",
+            "TJFK" to  "73.880303", // NY	FLOYD BENNETT FIELD	40.588633, -73.880303	5647
+            "TLAS" to  "115.007",
+            "TMCI" to  "94.74167",
+            "TMCO" to  "81.324674",
+            "TMDW" to  "87.7294",
+            "TMEM" to  "89.992727",
+            "TMIA" to  "80.491076",
+            "TMKE" to  "88.04611",
+            "TMSP" to  "92.932257",
+            "TMSY" to  "90.402919",
+            "TOKC" to  "97.51",
+            "TORD" to  "87.857628",
+            "TPBI" to  "80.272931",
+            "TPHL" to  "75.069979",
+            "TPHX" to  "112.16318",
+            "TPIT" to  "80.486586",
+            "TRDU" to  "78.697942",
+            "TSDF" to  "85.610641",
+            "TSJU" to  "66.17891",
+            "TSLC" to  "111.929722",
+            "TSTL" to  "90.488558",
+            "TTPA" to  "82.51755",
+            "TTUL" to  "95.826313"
+
+            )
 
     val soundingSiteToLat = mapOf(
             "76225" to "28.70",

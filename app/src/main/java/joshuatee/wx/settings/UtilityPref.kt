@@ -1314,10 +1314,7 @@ object UtilityPref {
             editor.putString("RID_TDAL_Y", "96.968473")
             editor.putString("RID_TDAY_X", "40.021376") // Dayton (DAY), OH TDAY ILN 1,019
             editor.putString("RID_TDAY_Y", "84.123077")
-            editor.putString(
-                "RID_TDCA_X",
-                "38.758853"
-            ) // Washington National (DCA), MD TDCA LWX 345
+            editor.putString("RID_TDCA_X", "38.758853") // Washington National (DCA), MD TDCA LWX 345
             editor.putString("RID_TDCA_Y", "76.961837")
             editor.putString("RID_TDEN_X", "39.72722") // Denver (DEN), CO TDEN BOU 5,701
             editor.putString("RID_TDEN_Y", "104.52639")
@@ -1331,28 +1328,19 @@ object UtilityPref {
             editor.putString("RID_THOU_Y", "95.241692")
             editor.putString("RID_TIAD_X", "39.083667") // Dulles (IAD), VA TIAD LWX 473
             editor.putString("RID_TIAD_Y", "77.529224")
-            editor.putString(
-                "RID_TIAH_X",
-                "30.06472"
-            ) // Houston International (IAH), TX TIAH HGX 253
+            editor.putString("RID_TIAH_X", "30.06472") // Houston International (IAH), TX TIAH HGX 253
             editor.putString("RID_TIAH_Y", "95.5675")
             editor.putString("RID_TICT_X", "37.506844") // Wichita (ICT), KS TICH ICT 1,350
             editor.putString("RID_TICT_Y", "97.437228")
             editor.putString("RID_TIDS_X", "39.636556") // Indianapolis (IND), IN TIDS IND 847
             editor.putString("RID_TIDS_Y", "86.435286")
             editor.putString("RID_TJFK_X", "40.588633") // New York City (JFK), NY TJFK OKX 112
-            editor.putString(
-                "RID_TJFK_Y",
-                "73.880303"
-            ) // NY	FLOYD BENNETT FIELD	40.588633, -73.880303	5647
+            editor.putString("RID_TJFK_Y", "73.880303") // NY	FLOYD BENNETT FIELD	40.588633, -73.880303	5647
             editor.putString("RID_TLAS_X", "36.144") // Las Vegas (LAS), NV TLAS VEF 2,058
             editor.putString("RID_TLAS_Y", "115.007")
             editor.putString("RID_TMCI_X", "39.49861") // Kansas City (MCI), MO TMCI EAX 1,090
             editor.putString("RID_TMCI_Y", "94.74167")
-            editor.putString(
-                "RID_TMCO_X",
-                "28.343125"
-            ) // Orlando International (MCO), FL TMCO MLB 169
+            editor.putString("RID_TMCO_X", "28.343125") // Orlando International (MCO), FL TMCO MLB 169
             editor.putString("RID_TMCO_Y", "81.324674")
             editor.putString("RID_TMDW_X", "41.6514") // Chicago Midway (MDW), IL TMDW LOT 763
             editor.putString("RID_TMDW_Y", "87.7294")

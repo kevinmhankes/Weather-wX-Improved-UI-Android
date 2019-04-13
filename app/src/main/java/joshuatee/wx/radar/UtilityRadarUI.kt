@@ -151,11 +151,11 @@ internal object UtilityRadarUI {
             ) + " miles from " + oglr.rid
         )
         oglr.ridNewList.mapTo(alertDialogRadarLongpressAl) {
-            "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.readPref(
+            "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name) /*Utility.readPref(
                 context,
                 "RID_LOC_" + it.name,
                 ""
-            )
+            )*/
         }
         val obsSite = UtilityMetar.findClosestObservation(
             context,
