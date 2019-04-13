@@ -171,9 +171,16 @@ object UtilityLocation {
         if (officeType == "NWS") {
             addChar = ""
         } // WFO
-        val x = Utility.readPref(context, officeType + "_" + site.toUpperCase() + "_X", "0.0")
-        val y =
-            addChar + Utility.readPref(context, officeType + "_" + site.toUpperCase() + "_Y", "0.0")
+        var x = ""
+        var y = ""
+        if (officeType == "RID") {
+            x = Utility.getRadarSiteX(site.toUpperCase())
+            y = addChar + Utility.getRadarSiteY(site.toUpperCase())
+        } else {
+            x = Utility.readPref(context, officeType + "_" + site.toUpperCase() + "_X", "0.0")
+            y =
+                    addChar + Utility.readPref(context, officeType + "_" + site.toUpperCase() + "_Y", "0.0")
+        }
         return LatLon(x, y)
     }
 

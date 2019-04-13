@@ -23,8 +23,6 @@ package joshuatee.wx.radar
 
 object UtilityRadar {
 
-    // FIXME need tdwr
-
     // grep NWS_LOC UtilityPref.dart |sed "s/Utility.writePref(.NWS_LOCATION_/\"/" | sed 's/",/" to/' | sed "s/);/,/"
 
     val soundingIdToName = mapOf(
@@ -394,7 +392,7 @@ object UtilityRadar {
 
 
 
-            )
+    )
 
     val wfoSitetoLat = mapOf(
             "ABC" to "60.79278",
@@ -1243,7 +1241,7 @@ object UtilityRadar {
             "TTPA" to  "82.51755",
             "TTUL" to  "95.826313"
 
-            )
+    )
 
     val soundingSiteToLat = mapOf(
             "76225" to "28.70",
