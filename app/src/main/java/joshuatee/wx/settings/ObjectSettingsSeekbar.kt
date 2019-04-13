@@ -38,6 +38,7 @@ import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
 import joshuatee.wx.util.UtilityLog
+import kotlin.math.roundToInt
 
 internal class ObjectSettingsSeekbar(
         context: Context,
@@ -45,7 +46,7 @@ internal class ObjectSettingsSeekbar(
         val label: String,
         pref: String,
         strId: Int,
-        defValue: Int,
+        val defValue: Int,
         val lowValue: Int,
         val highValue: Int
 ) {
@@ -64,7 +65,7 @@ internal class ObjectSettingsSeekbar(
                     MyApplication.uiAnimIconFrames
             )).toIntOrNull()
                     ?: 0
-            "CARD_CORNER_RADIUS" -> (Utility.readPref(context, pref, 3))
+            "CARD_CORNER_RADIUS" -> (Utility.readPref(context, pref, 0))
             else -> Utility.readPref(context, pref, defValue)
         }
         tv = TextView(context)
@@ -94,7 +95,7 @@ internal class ObjectSettingsSeekbar(
         ll.gravity = Gravity.CENTER_VERTICAL
         ll.addView(tv)
 
-        //UtilityLog.d("wx", "INITVALUE " + pref + ": " + initValue)
+        UtilityLog.d("wx", "INITVALUE " + pref + ": " + initValue)
 
      /*   nP.setOnValueChangedListener { _, _, newVal ->
             when (pref) {
@@ -142,20 +143,20 @@ internal class ObjectSettingsSeekbar(
 
     private fun convert(value: Int): Int {
         val range = highValue - lowValue
-        val modifiedValue = ( (value.toDouble() / range.toDouble()) * 100.0).toInt()
+        val modifiedValue = ( (value.toDouble() / range.toDouble()) * 100.0).roundToInt()
         //UtilityLog.d("wx", modifiedValue.toString())
         return modifiedValue
     }
 
     private fun convertForSave(value: Int): Int {
         val range = highValue - lowValue
-        val modifiedValue = ( (value.toDouble() / 100.0) * range.toFloat()).toInt()
+        val modifiedValue = ( (value.toDouble() / 100.0) * range.toFloat()).roundToInt()
         //UtilityLog.d("wx", modifiedValue.toString())
         return modifiedValue
     }
 
     fun updateLabel() {
-        tv.text = label + ": " + convertForSave(seekBar.progress).toString()
+        tv.text = label + " (default is " +  defValue.toString() + "): " + convertForSave(seekBar.progress).toString()
     }
 
     private fun showHelpText(helpStr: String) {
