@@ -255,6 +255,20 @@ class SettingsUIActivity : BaseActivity() {
                 R.string.ui_awc_radar_mosaic
             ).card
         )
+
+        ll.addView(
+                ObjectSettingsSeekbar(
+                        this,
+                        this,
+                        "TEST",
+                        "ELEVATION_PREF_TEST",
+                        R.string.elevation_np_label,
+                        3,
+                        0,
+                        30
+                ).card
+        )
+
         ll.addView(
             ObjectSettingsNumberPicker(
                 this,

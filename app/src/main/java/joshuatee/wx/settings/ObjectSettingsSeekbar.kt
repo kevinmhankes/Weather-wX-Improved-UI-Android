@@ -37,6 +37,7 @@ import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
+import joshuatee.wx.util.UtilityLog
 
 // FIXME WIP
 
@@ -88,7 +89,7 @@ internal class ObjectSettingsSeekbar(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
         )
-        ll.orientation = LinearLayout.HORIZONTAL
+        ll.orientation = LinearLayout.VERTICAL
         ll.gravity = Gravity.CENTER_VERTICAL
         ll.addView(tv)
         val nP = NumberPicker(context)
@@ -106,70 +107,34 @@ internal class ObjectSettingsSeekbar(
             Utility.writePref(context, "RESTART_NOTIF", "true")
         }
 
-
-/* val seekBar = findViewById(R.id.seekBar)
-seekBar.setOnSeekBarChangeListener(seekBarChangeListener)
-val progress = seekBar.getProgress()
-tvProgressLabel = findViewById(R.id.textView)
-tvProgressLabel.setText("Progress: " + progress) */
-
-
         val seekBar = SeekBar(context)
+        seekBar.progress = 50
+        //seekBar.min = 25
+        //seekBar.max = 75
         val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         layoutParams.setMargins(30, 30, 30, 30)
         seekBar.setLayoutParams(layoutParams)
-//val linearLayout = findViewById(R.id.rootContainer)
-//if (linearLayout != null)
-//{
-//  linearLayout.addView(seekBar)
-//}
-
-
 
         ll.addView(seekBar)
         objCard.addView(ll)
 
-// FIXME
-       /* val seekBarChangeListener = object:SeekBar.OnSeekBarChangeListener() {
-            override fun onProgressChanged(seekBar:SeekBar, progress:Int, fromUser:Boolean) {
-                // updated continuously as the user slides the thumb
-                //tvProgressLabel.setText("Progress: " + progress)
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                // Write code to perform some action when progress is changed.
+                //UtilityLog.d("wx", seekBar.progress.toString())
+                tv.text = label + ": " + seekBar.progress.toString()
             }
-            override fun onStartTrackingTouch(seekBar:SeekBar) {
-                // called when the user first touches the SeekBar
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                // Write code to perform some action when touch is started.
             }
-            override fun onStopTrackingTouch(seekBar:SeekBar) {
-                // called after the user finishes moving the SeekBar
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                UtilityLog.d("wx", "STOP: " + seekBar.progress.toString())
+                // Write code to perform some action when touch is stopped.
+                //Toast.makeText(this@MainActivity, "Progress is " + seekBar.progress + "%", Toast.LENGTH_SHORT).show()
             }
-        }*/
-
-        /* 
-        SeekBar seekBar = findViewById(R.id.seekBar);
-        seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
-
-        int progress = seekBar.getProgress();
-        tvProgressLabel = findViewById(R.id.textView);
-        tvProgressLabel.setText("Progress: " + progress);
-
-        SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
-
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            // updated continuously as the user slides the thumb
-            tvProgressLabel.setText("Progress: " + progress);
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-            // called when the user first touches the SeekBar
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-            // called after the user finishes moving the SeekBar
-        }
-    }; */
-
+        })
     }
 
     private fun showHelpText(helpStr: String) {
