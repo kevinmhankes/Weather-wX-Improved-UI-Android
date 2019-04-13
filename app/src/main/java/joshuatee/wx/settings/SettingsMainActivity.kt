@@ -192,19 +192,19 @@ class SettingsMainActivity : BaseActivity() {
             ).card
         )
         linearLayout.addView(
-            ObjectSettingsNumberPicker(
+                ObjectSettingsSeekbar(
                 this,
                 this,
                 "Refresh interval for location",
                 "REFRESH_LOC_MIN",
                 R.string.refresh_loc_min_np_label,
-                30,
+                10,
                 0,
                 120
             ).card
         )
         linearLayout.addView(
-            ObjectSettingsNumberPicker(
+                ObjectSettingsSeekbar(
                 this,
                 this,
                 "ROAMING distance check",
@@ -216,7 +216,7 @@ class SettingsMainActivity : BaseActivity() {
             ).card
         )
         linearLayout.addView(
-            ObjectSettingsNumberPicker(
+                ObjectSettingsSeekbar(
                 this,
                 this,
                 "Text to speech speed",
