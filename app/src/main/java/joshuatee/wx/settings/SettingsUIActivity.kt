@@ -316,6 +316,18 @@ class SettingsUIActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
+                ObjectSettingsSeekbar(
+                        this,
+                        this,
+                        "Homescreen text length",
+                        "HOMESCREEN_TEXT_LENGTH_PREF",
+                        R.string.homescreen_text_length_np_label,
+                        500,
+                        50,
+                        1000
+                ).card
+        )
+        /*ll.addView(
                 ObjectSettingsNumberPickerArray(
                         this,
                         this,
@@ -325,7 +337,7 @@ class SettingsUIActivity : BaseActivity() {
                         textSizeArr.size - 1,
                         textSizeArr.toTypedArray()
                 ).card
-        )
+        )*/
     }
 
     override fun onStop() {

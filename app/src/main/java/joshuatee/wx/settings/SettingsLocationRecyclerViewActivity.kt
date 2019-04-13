@@ -40,6 +40,7 @@ import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.ui.ObjectRecyclerViewGeneric
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityLog
 
 class SettingsLocationRecyclerViewActivity : BaseActivity() {
 
@@ -144,6 +145,10 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     }
 
     private fun itemSelected(position: Int) {
+        UtilityLog.d("wx", position.toString())
+        //val bottomSheetFragment = BottomSheetFragment()
+        //bottomSheetFragment.position = position
+        //bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
         when (actionMode) {
             ActionMode.SELECT -> {
                 val locStrPass = (position + 1).toString()
@@ -197,6 +202,8 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
             else -> {
             }
         }
+
+
     }
 
     private fun addItemFAB() {
