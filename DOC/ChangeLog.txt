@@ -11,10 +11,9 @@
 // TODO revisit spacing for cards in settings
 // TODO rewrite uswarn
 // TODO add new color pal for ref
-// TODO bottomsheetdialog in Homescreen, Fav, and PlayList
 // TODO linesize - swo, wb, wbgusts, sti
 
-55133 2019_04_14
+55133 2019_04_14 convert playlist, homescreen, and fav mgt to use bottomsheet
 55132 2019_04_14 convert settings -> location to use bottomsheet
 55131 2019_04_13 seekbar enhancements
                  severe dashboard will show all data regardless of settings and will pull data immediately

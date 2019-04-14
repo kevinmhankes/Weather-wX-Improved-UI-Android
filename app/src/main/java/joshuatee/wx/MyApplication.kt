@@ -731,13 +731,16 @@ class MyApplication : Application() {
         private var radarCamxBorders: Boolean = false
         var radarIconsLevel2: Boolean = false
 
-        // FIXME come up with new data structure to store width of line, likely in radar buffers
         var radarStateLinesize: Int = 0
         var radarCountyLinesize: Int = 0
         var radarHwLinesize: Int = 0
         var radarHwExtLinesize: Int = 0
         var radarLakeLinesize: Int = 0
         var radarGpsCircleLinesize: Int = 0
+
+        var radarStiLinesize: Int = 0
+        var radarSwoLinesize: Int = 0
+        var radarWbLinesize: Int = 0
 
         private fun initRadarPreferences() {
             radarWarnings = getInitialPreference("COD_WARNINGS_DEFAULT", "false")
@@ -784,6 +787,9 @@ class MyApplication : Application() {
             radarLakeLinesize = getInitialPreference("RADAR_LAKE_LINESIZE", 2)
             radarGpsCircleLinesize = getInitialPreference("RADAR_GPSCIRCLE_LINESIZE", 5)
 
+            radarStiLinesize = getInitialPreference("RADAR_STI_LINESIZE", 3)
+            radarSwoLinesize = getInitialPreference("RADAR_SWO_LINESIZE", 3)
+            radarWbLinesize = getInitialPreference("RADAR_WB_LINESIZE", 3)
         }
 
         private fun getInitialPreference(pref: String, initValue: Int): Int {
