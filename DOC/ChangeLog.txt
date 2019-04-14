@@ -11,7 +11,7 @@
 // TODO revisit spacing for cards in settings
 // TODO rewrite uswarn
 // TODO add new color pal for ref
-// TODO bottomsheetdialog
+// TODO bottomsheetdialog in Homescreen, Fav, and PlayList
 // TODO linesize - swo, wb, wbgusts, sti
 
 55133 2019_04_14
