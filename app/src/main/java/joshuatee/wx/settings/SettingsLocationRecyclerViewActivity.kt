@@ -49,7 +49,6 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     private val locArr = mutableListOf<String>()
     private lateinit var recyclerView: ObjectRecyclerViewGeneric
     private lateinit var ca: SettingsLocationAdapterList
-   // private var actionMode = ActionMode.SELECT
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {

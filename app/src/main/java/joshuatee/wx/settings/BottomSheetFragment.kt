@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import joshuatee.wx.util.UtilityLog
 
 class BottomSheetFragment() : BottomSheetDialogFragment() {
 
+    lateinit  var label: TextView
     lateinit  var edit: TextView
     lateinit  var delete: TextView
     lateinit  var moveUp: TextView
@@ -28,6 +28,7 @@ class BottomSheetFragment() : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         fragmentView = inflater.inflate(R.layout.bottom_sheet_layout, container, false)
+        label = fragmentView!!.findViewById(R.id.label)
         edit = fragmentView!!.findViewById(R.id.edit)
         delete = fragmentView!!.findViewById(R.id.delete)
         moveUp = fragmentView!!.findViewById(R.id.moveUp)
@@ -46,6 +47,7 @@ class BottomSheetFragment() : BottomSheetDialogFragment() {
     }
 
     fun initView() {
+        label.text = Location.getName(position)
         edit.setOnClickListener{ fn1(position); dismiss()}
         delete.setOnClickListener{ fn2(position); dismiss()}
         moveUp.setOnClickListener{ fn3(position); dismiss()}
