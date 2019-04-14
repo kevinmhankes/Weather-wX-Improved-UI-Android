@@ -15,6 +15,7 @@
 // TODO bottomsheetdialog
 // TODO linesize - swo, wb, wbgusts, sti
 
+55132 2019_04_13
 55131 2019_04_13 seekbar enhancements
                  severe dashboard will show all data regardless of settings and will pull data immediately
                  add bottom sheet code for future use
