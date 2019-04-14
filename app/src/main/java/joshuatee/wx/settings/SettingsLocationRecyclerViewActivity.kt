@@ -62,7 +62,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
             false
         )
         ObjectFab(this, this, R.id.fab_add, View.OnClickListener { addItemFAB() })
-        ObjectFab(
+        /*ObjectFab(
             this,
             this,
             R.id.fab_delete,
@@ -73,12 +73,13 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
             this,
             this,
             R.id.fabDOWN,
-            View.OnClickListener { toggleMode(ActionMode.DOWN) })
-        if (Location.numLocations == 1) {
+            View.OnClickListener { toggleMode(ActionMode.DOWN) })*/
+        /*if (Location.numLocations == 1) {
             fabUP.setVisibility(View.INVISIBLE)
             fabDOWN.setVisibility(View.INVISIBLE)
-        }
-        toolbar.subtitle = selectStr
+        }*/
+        //toolbar.subtitle = selectStr
+        toolbar.subtitle = "Tap location to edit, delete, or move."
         updateList()
         recyclerView = ObjectRecyclerViewGeneric(this, this, R.id.card_list)
         ca = SettingsLocationAdapterList(locArr)
@@ -153,6 +154,9 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         bottomSheetFragment.fn3 = ::moveUp
         bottomSheetFragment.fn4 = ::moveDown
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+
+
+
         //bottomSheetFragment.initView(::edit, ::delete, ::moveUp, ::moveDown)
 
         /* when (actionMode) {

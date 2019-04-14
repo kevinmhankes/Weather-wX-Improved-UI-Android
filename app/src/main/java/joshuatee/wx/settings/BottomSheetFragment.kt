@@ -37,6 +37,11 @@ class BottomSheetFragment() : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (Location.numLocations == 1) {
+            delete.visibility = View.INVISIBLE
+            moveDown.visibility = View.INVISIBLE
+            moveUp.visibility = View.INVISIBLE
+        }
         initView()
     }
 
