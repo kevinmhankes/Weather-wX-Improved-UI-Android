@@ -127,6 +127,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         bottomSheetFragment.fnList = listOf(::edit, ::delete, ::moveUp, ::moveDown)
         bottomSheetFragment.labelList = listOf("Edit Location", "Delete Location", "Move Up", "Move Down")
         bottomSheetFragment.actContext = this
+        bottomSheetFragment.topLabel = Location.getName(position)
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
     }
 

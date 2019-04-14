@@ -50,6 +50,7 @@ class BottomSheetFragment() : BottomSheetDialogFragment() {
     lateinit var actContext: Context
     lateinit var fnList: List<(Int) -> Unit>
     lateinit var labelList: List<String>
+    lateinit var topLabel: String
     var textViewList = mutableListOf<ObjectTextView>()
     var usedForLocation = false
 
@@ -90,7 +91,7 @@ class BottomSheetFragment() : BottomSheetDialogFragment() {
     }
 
     fun initView() {
-        label.text = Location.getName(position)
+        label.text = topLabel
         //edit.setOnClickListener{ fn1(position); dismiss()}
         //delete.setOnClickListener{ fn2(position); dismiss()}
         //moveUp.setOnClickListener{ fn3(position); dismiss()}
