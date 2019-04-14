@@ -119,10 +119,6 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     private fun itemSelected(position: Int) {
         val bottomSheetFragment = BottomSheetFragment()
         bottomSheetFragment.position = position
-        //bottomSheetFragment.fn1 = ::edit
-       // bottomSheetFragment.fn2 = ::delete
-        //bottomSheetFragment.fn3 = ::moveUp
-       // bottomSheetFragment.fn4 = ::moveDown
         bottomSheetFragment.usedForLocation = true
         bottomSheetFragment.fnList = listOf(::edit, ::delete, ::moveUp, ::moveDown)
         bottomSheetFragment.labelList = listOf("Edit Location", "Delete Location", "Move Up", "Move Down")

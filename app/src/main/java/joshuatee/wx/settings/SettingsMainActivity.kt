@@ -49,7 +49,7 @@ class SettingsMainActivity : BaseActivity() {
         UtilityTheme.setPrimaryColor(this)
         contextg = this
         val version = Utility.getVersion(this)
-        toolbar.subtitle = "version: $version, Please tap on text for additional help."
+        toolbar.subtitle = "v$version, tap on text for additional help."
         val linearLayout: LinearLayout = findViewById(R.id.ll)
         val cardAbout = ObjectCardText(this, "About wX", MyApplication.textSizeNormal)
         val cardLocations = ObjectCardText(
