@@ -72,7 +72,7 @@ class BottomSheetFragment() : BottomSheetDialogFragment() {
             val item = ObjectTextView(actContext, it)
             textViewList.add(item)
             item.setPadding(60, 30, 0, 30)
-            item.gravity = Gravity.CENTER_VERTICAL
+            item.gravity = Gravity.CENTER_HORIZONTAL
             item.tv.setOnClickListener { fnList[index](position); dismiss() }
             linearLayout.addView(item.tv)
         }
