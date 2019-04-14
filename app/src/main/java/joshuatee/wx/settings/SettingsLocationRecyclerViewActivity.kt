@@ -34,7 +34,6 @@ import android.view.View
 import joshuatee.wx.R
 import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.notifications.UtilityWXJobService
-import joshuatee.wx.objects.ActionMode
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.ui.ObjectRecyclerViewGeneric
@@ -50,8 +49,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     private val locArr = mutableListOf<String>()
     private lateinit var recyclerView: ObjectRecyclerViewGeneric
     private lateinit var ca: SettingsLocationAdapterList
-    private var actionMode = ActionMode.SELECT
-    private val selectStr = "Select mode"
+   // private var actionMode = ActionMode.SELECT
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,23 +60,6 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
             false
         )
         ObjectFab(this, this, R.id.fab_add, View.OnClickListener { addItemFAB() })
-        /*ObjectFab(
-            this,
-            this,
-            R.id.fab_delete,
-            View.OnClickListener { toggleMode(ActionMode.DELETE) })
-        val fabUP =
-            ObjectFab(this, this, R.id.fabUP, View.OnClickListener { toggleMode(ActionMode.UP) })
-        val fabDOWN = ObjectFab(
-            this,
-            this,
-            R.id.fabDOWN,
-            View.OnClickListener { toggleMode(ActionMode.DOWN) })*/
-        /*if (Location.numLocations == 1) {
-            fabUP.setVisibility(View.INVISIBLE)
-            fabDOWN.setVisibility(View.INVISIBLE)
-        }*/
-        //toolbar.subtitle = selectStr
         toolbar.subtitle = "Tap location to edit, delete, or move."
         updateList()
         recyclerView = ObjectRecyclerViewGeneric(this, this, R.id.card_list)
@@ -136,15 +117,6 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         title = "Locations (" + ca.itemCount + ")"
     }
 
-    private fun toggleMode(am: ActionMode) {
-        actionMode = if (actionMode == am) {
-            ActionMode.SELECT
-        } else {
-            am
-        }
-        toolbar.subtitle = actionMode.getDescription()
-    }
-
     private fun itemSelected(position: Int) {
         UtilityLog.d("wx", position.toString())
         val bottomSheetFragment = BottomSheetFragment()
@@ -154,19 +126,6 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         bottomSheetFragment.fn3 = ::moveUp
         bottomSheetFragment.fn4 = ::moveDown
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
-
-
-
-        //bottomSheetFragment.initView(::edit, ::delete, ::moveUp, ::moveDown)
-
-        /* when (actionMode) {
-             ActionMode.SELECT -> edit(position)
-             ActionMode.DELETE -> delete(position)
-             ActionMode.UP -> moveUp(position)
-             ActionMode.DOWN -> moveDown(position)
-             else -> {
-             }
-         }*/
     }
 
     private fun edit(position: Int) {

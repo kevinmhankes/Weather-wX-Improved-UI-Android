@@ -7,7 +7,6 @@
 // TODO UtilityMetar in radar has optimization related to text file loading
 // TODO BUG - storm reports show radar doesn't show location dot for report
 // TODO move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
-// TODO settings location - move to tap item brings up dialogue instead of mode usage
 // TODO storm reports - black bg for cards with titles like iOS/flutter
 // TODO revisit spacing for cards in settings
 // TODO rewrite uswarn
@@ -15,7 +14,7 @@
 // TODO bottomsheetdialog
 // TODO linesize - swo, wb, wbgusts, sti
 
-55132 2019_04_13
+55132 2019_04_14 convert settings -> location to use bottomsheet
 55131 2019_04_13 seekbar enhancements
                  severe dashboard will show all data regardless of settings and will pull data immediately
                  add bottom sheet code for future use
