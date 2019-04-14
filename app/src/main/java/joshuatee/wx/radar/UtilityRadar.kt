@@ -1032,8 +1032,20 @@ object UtilityRadar {
             "TSLC" to  "40.967222", // Salt Lake City (SLC), UT TSLC SLC 4,295
             "TSTL" to  "38.804691", // St Louis (STL), MO TSTL LSX 647
             "TTPA" to  "27.85867", // Tampa Bay (TPA), FL TTPA TBW 93
-            "TTUL" to  "36.070184" // Tulsa (TUL), OK TTUL TSA 823
+            "TTUL" to  "36.070184", // Tulsa (TUL), OK TTUL TSA 823
 
+            "latest" to "36.105", // nws conus
+            "centgrtlakes" to "42.127",
+            "uppermissvly" to "42.75",
+            "northrockies" to "42.75",
+            "northeast" to "42.425",
+            "pacnorthwest" to "42.425",
+            "pacsouthwest" to "35.15",
+            "southrockies" to "32.5",
+            "southplains" to "31.6",
+            "southmissvly" to "31.6",
+            "southeast" to "29.86",
+            "hawaii" to "19.91"
     )
 
     val radarSiteToLon = mapOf(
@@ -1239,9 +1251,22 @@ object UtilityRadar {
             "TSLC" to  "111.929722",
             "TSTL" to  "90.488558",
             "TTPA" to  "82.51755",
-            "TTUL" to  "95.826313"
+            "TTUL" to  "95.826313",
 
-    )
+            "latest" to "97.141",
+            "centgrtlakes" to "84.544",
+            "uppermissvly" to "97.10",
+            "northrockies" to "108.60",
+            "northeast" to "74.10",
+            "pacnorthwest" to "120.10",
+            "pacsouthwest" to "120.15",
+            "southrockies" to "110.50",
+            "southplains" to "100.00",
+            "southmissvly" to "90.00",
+            "southeast" to "82.658",
+            "hawaii" to "157.55"
+
+            )
 
     val soundingSiteToLat = mapOf(
             "76225" to "28.70",
