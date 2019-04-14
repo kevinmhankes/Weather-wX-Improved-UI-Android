@@ -16,6 +16,10 @@ class BottomSheetFragment() : BottomSheetDialogFragment() {
     lateinit  var moveUp: TextView
     lateinit  var moveDown: TextView
     var position = -1
+    lateinit var fn1: (pos: Int) -> Unit
+    lateinit var fn2: (pos: Int) -> Unit
+    lateinit var fn3: (pos: Int) -> Unit
+    lateinit var fn4: (pos: Int) -> Unit
 
     private var fragmentView: View? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,8 +40,12 @@ class BottomSheetFragment() : BottomSheetDialogFragment() {
         initView()
     }
 
-    private fun initView() {
-        edit.setOnClickListener {
+    fun initView() {
+        edit.setOnClickListener{ fn1(position); dismiss()}
+        delete.setOnClickListener{ fn2(position); dismiss()}
+        moveUp.setOnClickListener{ fn3(position); dismiss()}
+        moveDown.setOnClickListener{ fn4(position); dismiss()}
+        /*edit.setOnClickListener {
             UtilityLog.d("wx", "edit " + position.toString())
             dismiss()
         }
@@ -52,6 +60,6 @@ class BottomSheetFragment() : BottomSheetDialogFragment() {
         moveDown.setOnClickListener {
             UtilityLog.d("wx", "move down")
             dismiss()
-        }
+        }*/
     }
 }

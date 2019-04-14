@@ -146,17 +146,23 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
 
     private fun itemSelected(position: Int) {
         UtilityLog.d("wx", position.toString())
-        //val bottomSheetFragment = BottomSheetFragment()
-        //bottomSheetFragment.position = position
-        //bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
-        when (actionMode) {
-            ActionMode.SELECT -> edit(position)
-            ActionMode.DELETE -> delete(position)
-            ActionMode.UP -> moveUp(position)
-            ActionMode.DOWN -> moveDown(position)
-            else -> {
-            }
-        }
+        val bottomSheetFragment = BottomSheetFragment()
+        bottomSheetFragment.position = position
+        bottomSheetFragment.fn1 = ::edit
+        bottomSheetFragment.fn2 = ::delete
+        bottomSheetFragment.fn3 = ::moveUp
+        bottomSheetFragment.fn4 = ::moveDown
+        bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+        //bottomSheetFragment.initView(::edit, ::delete, ::moveUp, ::moveDown)
+
+        /* when (actionMode) {
+             ActionMode.SELECT -> edit(position)
+             ActionMode.DELETE -> delete(position)
+             ActionMode.UP -> moveUp(position)
+             ActionMode.DOWN -> moveDown(position)
+             else -> {
+             }
+         }*/
     }
 
     private fun edit(position: Int) {
