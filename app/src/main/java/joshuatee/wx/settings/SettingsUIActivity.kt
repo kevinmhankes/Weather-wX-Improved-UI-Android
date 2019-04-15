@@ -261,7 +261,7 @@ class SettingsUIActivity : BaseActivity() {
                         "UI elevation height",
                         "ELEVATION_PREF",
                         R.string.elevation_np_label,
-                        3,
+                        5,
                         0,
                         30
                 ).card

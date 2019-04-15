@@ -13,12 +13,8 @@
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO elevation default to 5
 // TODO improve settings labels
-// TODO seekbar color for part to right in default theme (color accent)
-<item name="android:progressBackgroundTint">#f4511e</item>
-    <item name="android:progressTint">#388e3c</item>
-    https://stackoverflow.com/questions/16163215/android-styling-seek-bar
 
-55135 2019_04_15
+55135 2019_04_15 seekbar - add background progress tint for white themes
 55134 2019_04_15 increase padding in settings to match Flutter port
 55133 2019_04_14 convert playlist, homescreen, and fav mgt to use bottomsheet
 55132 2019_04_14 convert settings -> location to use bottomsheet

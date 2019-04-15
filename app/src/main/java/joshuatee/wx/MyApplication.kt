@@ -483,7 +483,7 @@ class MyApplication : Application() {
             goesVisX = getInitialPreference("GOESVIS_X", 0.5f)
             goesVisY = getInitialPreference("GOESVIS_Y", 0.5f)
             goesVisSector = getInitialPreferenceString("GOESVIS_SECTOR", "")
-            elevationPref = getInitialPreference("ELEVATION_PREF", 0).toFloat()
+            elevationPref = getInitialPreference("ELEVATION_PREF", 5).toFloat()
             elevationPref =
                 TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, elevationPref, dm)
             cardElevation = elevationPref
