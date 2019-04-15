@@ -312,7 +312,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         bottomSheetFragment.fnList = listOf(::deleteItem, ::moveUpItem, ::moveDownItem)
         bottomSheetFragment.labelList = listOf("Delete Item", "Move Up", "Move Down")
         bottomSheetFragment.actContext = this
-        bottomSheetFragment.topLabel = ""
+        bottomSheetFragment.topLabel = recyclerView.getItem(position)
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
     }
 
