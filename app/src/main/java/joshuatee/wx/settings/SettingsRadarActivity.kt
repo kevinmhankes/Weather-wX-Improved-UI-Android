@@ -58,26 +58,30 @@ class SettingsRadarActivity : BaseActivity() {
                 ll,
                 "Colors",
                 MyApplication.textSizeNormal,
-                SettingsColorsActivity::class.java
+                SettingsColorsActivity::class.java,
+                MyApplication.paddingSettings
         )
         cardPal94 = ObjectCardText(
                 this,
                 ll,
                 resources.getString(R.string.label_settings_color_palette_94) + ": " + MyApplication.radarColorPalette["94"],
-                MyApplication.textSizeNormal
+                MyApplication.textSizeNormal,
+                MyApplication.paddingSettings
         )
         cardPal99 = ObjectCardText(
                 this,
                 ll,
                 resources.getString(R.string.label_settings_color_palette_99) + ": " + MyApplication.radarColorPalette["99"],
-                MyApplication.textSizeNormal
+                MyApplication.textSizeNormal,
+                MyApplication.paddingSettings
         )
         ObjectCardText(
                 this,
                 ll,
                 "Screen Recorder",
                 MyApplication.textSizeNormal,
-                SettingsTelecineActivity::class.java
+                SettingsTelecineActivity::class.java,
+                MyApplication.paddingSettings
         )
         cardPal94.setOnClickListener(View.OnClickListener {
             ObjectIntent(

@@ -137,6 +137,19 @@ class ObjectCardText(private val context: Context) {
         linearLayout.addView(card)
     }
 
+    constructor(context: Context, linearLayout: LinearLayout, text: String, textSize: Float, padding: Int) : this(
+            context,
+            text,
+            textSize
+    ) {
+        this.padding = padding
+        tv.setPadding(padding, padding, padding, padding)
+        tv.text = text
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+        tv.isFocusable = false
+        linearLayout.addView(card)
+    }
+
     constructor(context: Context, text: String, textSize: Float, clazz: Class<*>, padding: Int) : this(
             context,
             text
@@ -181,6 +194,33 @@ class ObjectCardText(private val context: Context) {
             textSize,
             clazz
     ) {
+        tv.text = text
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+        tv.isFocusable = false
+        linearLayout.addView(card)
+        setOnClickListener(View.OnClickListener {
+            ObjectIntent(
+                    context,
+                    clazz
+            )
+        })
+    }
+
+    constructor(
+            context: Context,
+            linearLayout: LinearLayout,
+            text: String,
+            textSize: Float,
+            clazz: Class<*>,
+            padding: Int
+    ) : this(
+            context,
+            text,
+            textSize,
+            clazz
+    ) {
+        this.padding = padding
+        tv.setPadding(padding, padding, padding, padding)
         tv.text = text
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         tv.isFocusable = false
