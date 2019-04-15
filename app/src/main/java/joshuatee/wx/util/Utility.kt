@@ -32,6 +32,7 @@ import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.settings.Location
 
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.GlobalArrays
 import joshuatee.wx.radar.LatLon
 import joshuatee.wx.radar.UtilityRadar
 
@@ -81,7 +82,7 @@ object Utility {
 
     fun generateSoundingNameList(): List<String> {
         var list = mutableListOf<String>()
-        GlobalArrays.soundingSites.sort()
+        GlobalArrays.soundingSites.sorted()
         GlobalArrays.soundingSites.forEach {
             list.add(it + ": " + getSoundingSiteName(it))
         }
