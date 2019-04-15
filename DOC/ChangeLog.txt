@@ -13,7 +13,7 @@
 // TODO add new color pal for ref
 // TODO linesize - swo, wb, wbgusts, sti
 
-55134 2019_04_14
+55134 2019_04_15 increase padding in settings to match Flutter port
 55133 2019_04_14 convert playlist, homescreen, and fav mgt to use bottomsheet
 55132 2019_04_14 convert settings -> location to use bottomsheet
 55131 2019_04_13 seekbar enhancements

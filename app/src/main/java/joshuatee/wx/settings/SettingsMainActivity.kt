@@ -51,59 +51,67 @@ class SettingsMainActivity : BaseActivity() {
         val version = Utility.getVersion(this)
         toolbar.subtitle = "v$version, tap on text for additional help."
         val linearLayout: LinearLayout = findViewById(R.id.ll)
-        val cardAbout = ObjectCardText(this, "About wX", MyApplication.textSizeNormal)
+        val cardAbout = ObjectCardText(this, "About wX", MyApplication.textSizeNormal, MyApplication.paddingSettings)
         val cardLocations = ObjectCardText(
                 this,
                 "Locations",
                 MyApplication.textSizeNormal,
-                SettingsLocationRecyclerViewActivity::class.java
+                SettingsLocationRecyclerViewActivity::class.java,
+                MyApplication.paddingSettings
         )
         val cardNotif = ObjectCardText(
                 this,
                 "Notifications",
                 MyApplication.textSizeNormal,
-                SettingsNotificationsActivity::class.java
+                SettingsNotificationsActivity::class.java,
+                MyApplication.paddingSettings
         )
         val cardWidgets = ObjectCardText(
                 this,
                 "Widgets",
                 MyApplication.textSizeNormal,
-                SettingsWidgetsActivity::class.java
+                SettingsWidgetsActivity::class.java,
+                MyApplication.paddingSettings
         )
         val cardColors = ObjectCardText(
                 this,
                 "Colors",
                 MyApplication.textSizeNormal,
-                SettingsColorsActivity::class.java
+                SettingsColorsActivity::class.java,
+                MyApplication.paddingSettings
         )
         val cardPL = ObjectCardText(
                 this,
                 "PlayList",
                 MyApplication.textSizeNormal,
-                SettingsPlaylistActivity::class.java
+                SettingsPlaylistActivity::class.java,
+                MyApplication.paddingSettings
         )
         val cardRadar = ObjectCardText(
                 this,
                 "Radar",
                 MyApplication.textSizeNormal,
-                SettingsRadarActivity::class.java
+                SettingsRadarActivity::class.java,
+                MyApplication.paddingSettings
         )
         val cardHS = ObjectCardText(
                 this,
                 "Home Screen",
                 MyApplication.textSizeNormal,
-                SettingsHomeScreenActivity::class.java
+                SettingsHomeScreenActivity::class.java,
+                MyApplication.paddingSettings
         )
         val cardUI = ObjectCardText(
                 this,
                 "User Interface",
                 MyApplication.textSizeNormal,
-                SettingsUIActivity::class.java
+                SettingsUIActivity::class.java,
+                MyApplication.paddingSettings
         )
         val cardCtoF =
-                ObjectCardText(this, "Celsius to fahrenheit table", MyApplication.textSizeNormal)
+                ObjectCardText(this, "Celsius to fahrenheit table", MyApplication.textSizeNormal, MyApplication.paddingSettings)
         val cardDeleteFiles =
-                ObjectCardText(this, "Delete old radar files", MyApplication.textSizeNormal)
+                ObjectCardText(this, "Delete old radar files", MyApplication.textSizeNormal, MyApplication.paddingSettings)
         cardCtoF.setOnClickListener(View.OnClickListener {
             ObjectIntent(
                     contextg,
