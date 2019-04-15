@@ -87,9 +87,6 @@ class SevereDashboardActivity : BaseActivity() {
         val wTor = SevereWarning(PolygonType.TOR)
         val wTst = SevereWarning(PolygonType.TST)
         val wFfw = SevereWarning(PolygonType.FFW)
-        //wTor.generateString(contextg, MyApplication.severeDashboardTor.valueGet())
-        //wTst.generateString(contextg, MyApplication.severeDashboardTst.valueGet())
-        //wFfw.generateString(contextg, MyApplication.severeDashboardFfw.valueGet())
         withContext(Dispatchers.IO) {
             wTor.generateString(contextg, UtilityDownloadRadar.getVtecTor())
             wTst.generateString(contextg, UtilityDownloadRadar.getVtecTstorm())
@@ -108,9 +105,6 @@ class SevereDashboardActivity : BaseActivity() {
             objFfw.setOnClickListener(View.OnClickListener { tvWarnClicked(".*?Flash Flood Warning.*?") })
         }
         withContext(Dispatchers.IO) {
-            //snMcd.getBitmaps(MyApplication.severeDashboardMcd.valueGet())
-            //snWat.getBitmaps(MyApplication.severeDashboardWat.valueGet())
-            //snMpd.getBitmaps(MyApplication.severeDashboardMpd.valueGet())
             snMcd.getBitmaps(UtilityDownloadRadar.getMcd())
             snWat.getBitmaps(UtilityDownloadRadar.getWatch())
             snMpd.getBitmaps(UtilityDownloadRadar.getMpd())

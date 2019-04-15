@@ -693,11 +693,10 @@ class MyApplication : Application() {
             }
         }
 
+        //
         // Radar Preferences
-        // FIXME will need to be HTTPS soon
-        const val NWS_RADAR_PUB: String =
-            "https://tgftp.nws.noaa.gov/" //(Official current URL, problem with cricket but so does cp.ncep now )
-        //public static final String NWS_RADAR_PUB = "http://tgftp.cp.ncep.noaa.gov/";
+        //
+        const val NWS_RADAR_PUB: String = "https://tgftp.nws.noaa.gov/"
         const val nwsRadarLevel2Pub: String =
             "https://nomads.ncep.noaa.gov/pub/data/nccf/radar/nexrad_level2/"
         var radarWarnings: Boolean = false
@@ -784,8 +783,6 @@ class MyApplication : Application() {
             radarTvsSize = getInitialPreference("RADAR_TVS_SIZE", 8)
             radarWarnLinesize = getInitialPreference("RADAR_WARN_LINESIZE", 2)
             radarWatmcdLinesize = getInitialPreference("RADAR_WATMCD_LINESIZE", 2)
-
-            // FIXME new datastructure
             radarStateLinesize = getInitialPreference("RADAR_STATE_LINESIZE", 2)
             radarCountyLinesize = getInitialPreference("RADAR_COUNTY_LINESIZE", 2)
             radarHwLinesize = getInitialPreference("RADAR_HW_LINESIZE", 2)

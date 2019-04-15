@@ -146,28 +146,6 @@ object UtilityDownloadNWS {
         return out.toString()
     }
 
-    /*private fun getNWSStringFromURLBaseNoHeader(url: String): String {
-        val out = StringBuilder(5000)
-        try {
-            val request = Request.Builder()
-                .url(url)
-                .header("User-Agent", USER_AGENT_STR)
-                .build()
-            val response = MyApplication.httpClient!!.newCall(request).execute()
-            val inputStream = BufferedInputStream(response.body()!!.byteStream())
-            val br = BufferedReader(InputStreamReader(inputStream))
-            var line: String? = br.readLine()
-            while (line != null) {
-                out.append(line)
-                line = br.readLine()
-            }
-            br.close()
-        } catch (e: Exception) {
-            UtilityLog.HandleException(e)
-        }
-        return out.toString()
-    }*/
-
     fun getNWSStringFromURLSep(strURL: String): String {
         val breakStr = "ABC123_456ZZ"
         val out = StringBuilder(5000)

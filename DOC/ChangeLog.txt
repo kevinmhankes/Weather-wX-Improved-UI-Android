@@ -11,6 +11,12 @@
 // TODO rewrite uswarn
 // TODO add new color pal for ref
 // TODO linesize - swo, wb, wbgusts, sti
+// TODO elevation default to 5
+// TODO improve settings labels
+// TODO seekbar color for part to right in default theme (color accent)
+<item name="android:progressBackgroundTint">#f4511e</item>
+    <item name="android:progressTint">#388e3c</item>
+    https://stackoverflow.com/questions/16163215/android-styling-seek-bar
 
 55135 2019_04_15
 55134 2019_04_15 increase padding in settings to match Flutter port

@@ -52,7 +52,6 @@ class SettingsUIActivity : BaseActivity() {
     private lateinit var et1: EditText
     private lateinit var et2: EditText
     private lateinit var et3: EditText
-    //private lateinit var et4: EditText
     private var tilesPerRowStart = 0
 
     @SuppressLint("MissingSuperCall")
@@ -327,17 +326,6 @@ class SettingsUIActivity : BaseActivity() {
                         1000
                 ).card
         )
-        /*ll.addView(
-                ObjectSettingsNumberPickerArray(
-                        this,
-                        this,
-                        "Homescreen text length",
-                        R.string.homescreen_text_length_np_label,
-                        0,
-                        textSizeArr.size - 1,
-                        textSizeArr.toTypedArray()
-                ).card
-        )*/
     }
 
     override fun onStop() {
@@ -345,11 +333,9 @@ class SettingsUIActivity : BaseActivity() {
         MyApplication.tabHeaders[0] = et1.text.toString()
         MyApplication.tabHeaders[1] = et2.text.toString()
         MyApplication.tabHeaders[2] = et3.text.toString()
-        //MyApplication.tabHeaders[3] = et4.text.toString()
         Utility.writePref(this, "TAB1_HEADER", et1.text.toString())
         Utility.writePref(this, "TAB2_HEADER", et2.text.toString())
         Utility.writePref(this, "TAB3_HEADER", et3.text.toString())
-        //Utility.writePref(this, "TAB4_HEADER", et4.text.toString())
         MyApplication.initPreferences(this)
     }
 
@@ -357,20 +343,16 @@ class SettingsUIActivity : BaseActivity() {
         et1 = findViewById(R.id.tab1_et)
         et2 = findViewById(R.id.tab2_et)
         et3 = findViewById(R.id.tab3_et)
-        //et4 = findViewById(R.id.tab4_et)
         et1.setText(MyApplication.tabHeaders[0])
         et2.setText(MyApplication.tabHeaders[1])
         et3.setText(MyApplication.tabHeaders[2])
-        //et4.setText(MyApplication.tabHeaders[3])
         if (UIPreferences.themeInt == R.style.MyCustomTheme_white_NOAB) {
             et1.setTextColor(Color.BLACK)
             et2.setTextColor(Color.BLACK)
             et3.setTextColor(Color.BLACK)
-            //et4.setTextColor(Color.BLACK)
             et1.setHintTextColor(Color.GRAY)
             et2.setHintTextColor(Color.GRAY)
             et3.setHintTextColor(Color.GRAY)
-            //et4.setHintTextColor(Color.GRAY)
         }
     }
 

@@ -54,7 +54,6 @@ class CAPAlert {
         zones: String,
         vtec: String
     ) {
-        //UtilityLog.d("Wx", url + " " + event)
         this.url = url
         this.title = title
         this.event = event

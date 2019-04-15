@@ -79,16 +79,14 @@ object Utility {
         return site
     }
 
-    /*static func generateSoundingNameList() -> [String] {
-        var list = <String>[]
+    fun generateSoundingNameList(): List<String> {
+        var list = mutableListOf<String>()
         GlobalArrays.soundingSites.sort()
-        GlobalArrays.soundingSites.forEach((data) {
-            list.add(data + ": " + getSoundingSiteName(data))
-        });
+        GlobalArrays.soundingSites.forEach {
+            list.add(it + ": " + getSoundingSiteName(it))
+        }
         return list
-    }*/
-
-
+    }
 
     fun getVersion(context: Context): String {
         var vers = ""

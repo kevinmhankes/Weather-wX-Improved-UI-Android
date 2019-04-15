@@ -56,3 +56,7 @@ app/build
 app/src/main/libs
 build/intermediates
 .gradle
+
+----------------------------
+git reset --hard HEAD
+git reset --hard tagname
