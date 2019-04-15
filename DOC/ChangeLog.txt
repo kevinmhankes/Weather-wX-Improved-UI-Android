@@ -8,7 +8,6 @@
 // TODO BUG - storm reports show radar doesn't show location dot for report
 // TODO move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
 // TODO storm reports - black bg for cards with titles like iOS/flutter
-// TODO revisit spacing for cards in settings
 // TODO rewrite uswarn
 // TODO add new color pal for ref
 // TODO linesize - swo, wb, wbgusts, sti
