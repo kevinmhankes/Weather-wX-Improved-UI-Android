@@ -16,6 +16,7 @@
 55135 2019_04_15 seekbar - add background progress tint for white themes
                  change elevation default to 5 from 3
                  bottomsheet - add labels in playlist, homescreen, fav mgmt
+                 [ELY] integrate code for MPD/MCD/Watch on long press in Radar
 55134 2019_04_15 increase padding in settings to match Flutter port
 55133 2019_04_14 convert playlist, homescreen, and fav mgt to use bottomsheet
 55132 2019_04_14 convert settings -> location to use bottomsheet

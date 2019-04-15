@@ -158,6 +158,17 @@ internal object UtilityRadarUI {
             glview.latLon
         )
         alertDialogRadarLongpressAl.add("Show warning text")
+
+        // Thanks to Ely
+        if (MyApplication.radarWatMcd) {
+            alertDialogRadarLongpressAl.add("Show watch text")
+            alertDialogRadarLongpressAl.add("Show MCD text")
+        }
+        if (MyApplication.radarMpd) {
+            alertDialogRadarLongpressAl.add("Show MPD text")
+        }
+        // end Thanks to Ely
+
         alertDialogRadarLongpressAl.add("Show nearest observation: " + obsSite.name)
         alertDialogRadarLongpressAl.add("Show nearest forecast: $latLonTitle")
         alertDialogRadarLongpressAl.add("Show nearest meteogram: " + obsSite.name)
@@ -178,6 +189,17 @@ internal object UtilityRadarUI {
             strName.contains("Show warning text") -> {
                 UtilityRadarUI.showNearestWarning(context, glview)
             }
+            // Thanks to Ely
+            strName.contains("Show watch text") -> {
+                showNearestWatch(context, act, glview, uiDispatcher)
+            }
+            strName.contains("Show MCD text") -> {
+                showNearestMcd(context, act, glview, uiDispatcher)
+            }
+            strName.contains("Show MPD text") -> {
+                showNearestMpd(context, act, glview, uiDispatcher)
+            }
+            // End Thanks to Ely
             strName.contains("Show nearest observation") -> {
                 UtilityRadarUI.getMetar(glview, act, context, uiDispatcher)
             }
@@ -378,5 +400,47 @@ internal object UtilityRadarUI {
                 oglr.deconstructSWOLines()
             }
         }
+    }
+
+    // Thanks to Ely next 3 methods
+    // FIXME refactor down to one method if possible
+    private fun showNearestWatch(
+            context: Context,
+            act: Activity,
+            glview: WXGLSurfaceView,
+            uiDispatcher: CoroutineDispatcher
+    ) = GlobalScope.launch(uiDispatcher) {
+        var txt = withContext(Dispatchers.IO) {
+            UtilityWatch.showWatchProducts(context, glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
+        }
+        if (txt == "") { txt = "No active watch"}
+        UtilityAlertDialog.showHelpText(txt, act)
+    }
+
+    private fun showNearestMcd(
+            context: Context,
+            act: Activity,
+            glview: WXGLSurfaceView,
+            uiDispatcher: CoroutineDispatcher
+    ) = GlobalScope.launch(uiDispatcher) {
+        var txt = withContext(Dispatchers.IO) {
+            UtilityWatch.showMCDProducts(context, glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
+        }
+        if (txt == "") { txt = "No active MCD"}
+        UtilityAlertDialog.showHelpText(txt, act)
+    }
+
+
+    private fun showNearestMpd(
+            context: Context,
+            act: Activity,
+            glview: WXGLSurfaceView,
+            uiDispatcher: CoroutineDispatcher
+    ) = GlobalScope.launch(uiDispatcher) {
+        var txt = withContext(Dispatchers.IO) {
+            UtilityWatch.showMPDProducts(context, glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
+        }
+        if (txt == "") { txt = "No active MPD"}
+        UtilityAlertDialog.showHelpText(txt, act)
     }
 }

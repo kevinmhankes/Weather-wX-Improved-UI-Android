@@ -27,6 +27,10 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ProjectionType
 import joshuatee.wx.util.UtilityCanvasProjection
 import joshuatee.wx.util.ProjectionNumbers
+import joshuatee.wx.external.ExternalPoint
+import joshuatee.wx.external.ExternalPolygon
+import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityDownload
 
 internal object UtilityWatch {
 
@@ -86,6 +90,159 @@ internal object UtilityWatch {
             }
         }
         return warningList
+    }
+
+    // Thanks to Ely for the following 3 methods to enable long press show mpd/mcd/wat
+    // FIXME refactor down to one method if possible
+    fun showMPDProducts(context: Context, lat: Double, lon: Double): String {
+        var text: String = ""
+        //Log.i(TAG, "Touch lat: "+lat+" lon: "+lon)
+        //get mpd numbers
+        val textMpdNoList = MyApplication.mpdNoList.valueGet()
+        //Log.i(TAG, "textMpdNoList: "+textMpdNoList)
+        val mpdNoArr = MyApplication.colon.split(textMpdNoList)
+        //get mpd latlons
+        val mpdLatLon = MyApplication.mpdLatlon.valueGet()
+        //Log.i(TAG, "mpdLatLon: "+mpdLatLon)
+        val latlonArr = MyApplication.colon.split(mpdLatLon)
+        var x = mutableListOf<Double>()
+        var y = mutableListOf<Double>()
+        var i: Int
+        var testArr: List<String>
+        var z = 0
+        var notFound = true
+        while (z < latlonArr.size) {
+            testArr = latlonArr[z].split(" ")
+            x.clear()
+            y.clear()
+            i = 0
+            while (i < testArr.size) {
+                if (i and 1 == 0) {
+                    x.add(testArr[i].toDoubleOrNull() ?: 0.0)
+                } else {
+                    y.add((testArr[i].toDoubleOrNull() ?: 0.0) * -1)
+                }
+                i += 1
+            }
+            if (y.size > 3 && x.size > 3 && x.size == y.size) {
+                val poly2 = ExternalPolygon.Builder()
+                for (j in x.indices) {
+                    poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
+                }
+                val polygon2 = poly2.build()
+                val contains = polygon2.contains(ExternalPoint(lat.toFloat(), lon.toFloat()))
+                if (contains && notFound) {
+                   // Log.i(TAG, "trying to get mpd #"+mpdNoArr[z])
+                    var mpdPre = UtilityDownload.getTextProduct(context, "WPCMPD"+mpdNoArr[z])
+                    text = Utility.fromHtml(mpdPre)
+                    notFound = false
+                }
+            }
+            z += 1
+        }
+        return text
+    }
+
+    fun showMCDProducts(context: Context, lat: Double, lon: Double): String {
+        var text: String = ""
+        //Log.i(TAG, "Touch lat: "+lat+" lon: "+lon)
+        //get mcd numbers
+        val textMcdNoList = MyApplication.mcdNoList.valueGet()
+        //Log.i(TAG, "textMcdNoList: "+textMcdNoList)
+        val mcdNoArr = MyApplication.colon.split(textMcdNoList)
+        //get mcd latlons
+        val mcdLatLon = MyApplication.mcdLatlon.valueGet()
+        //Log.i(TAG, "mcdLatLon: "+mcdLatLon)
+        val latlonArr = MyApplication.colon.split(mcdLatLon)
+        var x = mutableListOf<Double>()
+        var y = mutableListOf<Double>()
+        var i: Int
+        var testArr: List<String>
+        var z = 0
+        var notFound = true
+        while (z < latlonArr.size) {
+            testArr = latlonArr[z].split(" ")
+            x.clear()
+            y.clear()
+            i = 0
+            while (i < testArr.size) {
+                if (i and 1 == 0) {
+                    x.add(testArr[i].toDoubleOrNull() ?: 0.0)
+                } else {
+                    y.add((testArr[i].toDoubleOrNull() ?: 0.0) * -1)
+                }
+                i += 1
+            }
+            if (y.size > 3 && x.size > 3 && x.size == y.size) {
+                val poly2 = ExternalPolygon.Builder()
+                for (j in x.indices) {
+                    poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
+                }
+                val polygon2 = poly2.build()
+                val contains = polygon2.contains(ExternalPoint(lat.toFloat(), lon.toFloat()))
+                if (contains && notFound) {
+                    //Log.i(TAG, "trying to get mcd #"+mcdNoArr[z])
+                    var mcdPre = UtilityDownload.getTextProduct(context, "SPCMCD"+mcdNoArr[z])
+                    text = Utility.fromHtml(mcdPre)
+                    notFound = false
+                }
+            }
+            z += 1
+
+        }
+
+        return text
+    }
+
+
+    fun showWatchProducts(context: Context, lat: Double, lon: Double): String {
+        var text: String = ""
+        //Log.i(TAG, "Touch lat: "+lat+" lon: "+lon)
+        //get watch numbers
+        val textWatNoList = MyApplication.watchNoList.valueGet()
+        //Log.i(TAG, "textWatNoList: "+textWatNoList)
+        val mcdNoArr = MyApplication.colon.split(textWatNoList)
+        //get Watch latlons
+        val watchLatLon = MyApplication.watchLatlonList.valueGet()
+        //Log.i(TAG, "watchLatLon: "+watchLatLon)
+        val latlonArr = MyApplication.colon.split(watchLatLon)
+        var x = mutableListOf<Double>()
+        var y = mutableListOf<Double>()
+        var i: Int
+        var testArr: List<String>
+        var z = 0
+        var notFound = true
+        while (z < latlonArr.size) {
+            testArr = latlonArr[z].split(" ")
+            x.clear()
+            y.clear()
+            i = 0
+            while (i < testArr.size) {
+                if (i and 1 == 0) {
+                    x.add(testArr[i].toDoubleOrNull() ?: 0.0)
+                } else {
+                    y.add((testArr[i].toDoubleOrNull() ?: 0.0) * -1)
+                }
+                i += 1
+            }
+            if (y.size > 3 && x.size > 3 && x.size == y.size) {
+                val poly2 = ExternalPolygon.Builder()
+                for (j in x.indices) {
+                    poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
+                }
+                val polygon2 = poly2.build()
+                val contains = polygon2.contains(ExternalPoint(lat.toFloat(), lon.toFloat()))
+                if (contains && notFound) {
+                    //Log.i(TAG, "trying to get watch #"+mcdNoArr[z])
+                    var mcdPre = UtilityDownload.getTextProduct(context, "SPCWAT"+mcdNoArr[z])
+                    text = Utility.fromHtml(mcdPre)
+                    notFound = false
+                }
+            }
+            z += 1
+
+        }
+        return text
     }
 }
 

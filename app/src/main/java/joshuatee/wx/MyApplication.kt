@@ -281,6 +281,10 @@ class MyApplication : Application() {
         val severeDashboardMpd: DataStorage = DataStorage("SEVERE_DASHBOARD_MPD")
         val watchLatlon: DataStorage = DataStorage("WATCH_LATLON")
         val watchLatlonTor: DataStorage = DataStorage("WATCH_LATLON_TOR")
+        // Thanks to Ely
+        val watchNoList: DataStorage = DataStorage("WATCH_NO_LIST")
+        val watchLatlonList: DataStorage = DataStorage("WATCH_LATLON_LIST")
+        // End thanks to Ely
         val mcdLatlon: DataStorage = DataStorage("MCD_LATLON")
         val mcdNoList: DataStorage = DataStorage("MCD_NO_LIST")
         val mpdLatlon: DataStorage = DataStorage("MPD_LATLON")
