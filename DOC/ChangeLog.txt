@@ -11,10 +11,10 @@
 // TODO rewrite uswarn
 // TODO add new color pal for ref
 // TODO linesize - swo, wb, wbgusts, sti
-// TODO elevation default to 5
 // TODO improve settings labels
 
 55135 2019_04_15 seekbar - add background progress tint for white themes
+                 change elevation default to 5 from 3
 55134 2019_04_15 increase padding in settings to match Flutter port
 55133 2019_04_14 convert playlist, homescreen, and fav mgt to use bottomsheet
 55132 2019_04_14 convert settings -> location to use bottomsheet
