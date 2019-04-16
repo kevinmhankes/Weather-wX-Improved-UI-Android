@@ -466,6 +466,8 @@ class MyApplication : Application() {
             severeDashboardWat.update(context)
             severeDashboardMcd.update(context)
             severeDashboardMpd.update(context)
+            watchNoList.update(context)
+            watchLatlonList.update(context)
             watchLatlon.update(context)
             watchLatlonTor.update(context)
             mcdLatlon.update(context)
