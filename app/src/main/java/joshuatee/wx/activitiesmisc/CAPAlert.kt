@@ -24,7 +24,6 @@ package joshuatee.wx.activitiesmisc
 import joshuatee.wx.util.UtilityDownloadNWS
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.util.UtilityLog
 
 class CAPAlert {
 

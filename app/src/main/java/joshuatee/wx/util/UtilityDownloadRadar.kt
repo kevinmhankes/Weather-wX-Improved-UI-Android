@@ -49,12 +49,12 @@ object UtilityDownloadRadar {
         )
     }*/
 
-    val baseUrl = "https://api.weather.gov/alerts/active?event="
-    val tstormURl = baseUrl + "Severe%20Thunderstorm%20Warning"
-    val ffwUrl = baseUrl + "Flash%20Flood%20Warning"
+    private const val baseUrl = "https://api.weather.gov/alerts/active?event="
+    private const val tstormURl = baseUrl + "Severe%20Thunderstorm%20Warning"
+    private const val ffwUrl = baseUrl + "Flash%20Flood%20Warning"
     // Below is for testing
     //val ffwUrl = baseUrl + "Flood%20Warning"
-    val tornadoUrl = baseUrl + "Tornado%20Warning"
+    private const val tornadoUrl = baseUrl + "Tornado%20Warning"
 
     fun getPolygonVTEC(context: Context) {
         MyApplication.severeDashboardTst.valueSet(

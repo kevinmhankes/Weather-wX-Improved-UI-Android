@@ -31,7 +31,6 @@ import android.view.View
 import android.widget.LinearLayout
 import joshuatee.wx.Extensions.getImage
 
-import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
@@ -111,7 +110,7 @@ class SevereDashboardActivity : BaseActivity() {
             bitmapArrRep.add((UtilitySPC.getStormReportsTodayUrl()).getImage())
         }
         if (bitmapArrRep.size > 0) {
-            bitmapArrRep.indices.forEach { it ->
+            bitmapArrRep.indices.forEach {
                 val card = ObjectCardImage(contextg, linearLayout, bitmapArrRep[it])
                 card.setOnClickListener(View.OnClickListener {
                     ObjectIntent(

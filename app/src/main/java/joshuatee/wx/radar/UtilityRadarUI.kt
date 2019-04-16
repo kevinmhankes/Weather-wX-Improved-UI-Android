@@ -187,7 +187,7 @@ internal object UtilityRadarUI {
     ) {
         when {
             strName.contains("Show warning text") -> {
-                UtilityRadarUI.showNearestWarning(context, glview)
+                showNearestWarning(context, glview)
             }
             // Thanks to Ely
             strName.contains("Show watch text") -> {
@@ -201,16 +201,16 @@ internal object UtilityRadarUI {
             }
             // End Thanks to Ely
             strName.contains("Show nearest observation") -> {
-                UtilityRadarUI.getMetar(glview, act, context, uiDispatcher)
+                getMetar(glview, act, context, uiDispatcher)
             }
             strName.contains("Show nearest meteogram") -> {
-                UtilityRadarUI.showNearestMeteogram(context, glview)
+                showNearestMeteogram(context, glview)
             }
             strName.contains("Show radar status message") -> {
-                UtilityRadarUI.getRadarStatus(act, context, uiDispatcher, oglr)
+                getRadarStatus(act, context, uiDispatcher, oglr)
             }
             strName.contains("Show nearest forecast") -> {
-                UtilityRadarUI.showNearestForecast(context, glview)
+                showNearestForecast(context, glview)
             }
             else -> fn(strName)
         }

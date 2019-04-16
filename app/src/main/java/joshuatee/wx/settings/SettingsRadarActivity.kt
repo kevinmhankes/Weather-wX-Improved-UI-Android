@@ -623,7 +623,7 @@ class SettingsRadarActivity : BaseActivity() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (ContextCompat.checkSelfPermission(
                             this,
-                            android.Manifest.permission.ACCESS_FINE_LOCATION
+                            Manifest.permission.ACCESS_FINE_LOCATION
                     ) == PackageManager.PERMISSION_GRANTED
             ) {
             } else {

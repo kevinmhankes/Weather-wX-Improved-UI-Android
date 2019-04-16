@@ -312,8 +312,8 @@ class MyApplication : Application() {
         const val ICON_MIC: Int = R.drawable.ic_mic_24dp
         const val ICON_PAUSE: Int = R.drawable.ic_pause_24dp
         const val ICON_PAUSE_PRESSED: Int = R.drawable.ic_pause_white_24dp
-        const val ICON_ARROW_UP: Int = R.drawable.ic_keyboard_arrow_up_24dp
-        const val ICON_ARROW_DOWN: Int = R.drawable.ic_keyboard_arrow_down_24dp
+        //const val ICON_ARROW_UP: Int = R.drawable.ic_keyboard_arrow_up_24dp
+        //const val ICON_ARROW_DOWN: Int = R.drawable.ic_keyboard_arrow_down_24dp
         const val ICON_ADD: Int = R.drawable.ic_add_box_24dp
         const val ICON_BACK: Int = R.drawable.ic_keyboard_arrow_left_24dp
         const val ICON_FORWARD: Int = R.drawable.ic_keyboard_arrow_right_24dp

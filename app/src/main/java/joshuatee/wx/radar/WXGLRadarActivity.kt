@@ -217,7 +217,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             menu.findItem(R.id.action_tilt_blank).isVisible = false
             menu.findItem(R.id.action_tools_blank).isVisible = false
         }
-        if (android.os.Build.VERSION.SDK_INT > 20)
+        if (Build.VERSION.SDK_INT > 20)
             menu.findItem(R.id.action_jellybean_drawtools).isVisible = false
         else
             menu.findItem(R.id.action_share).title = "Share"
@@ -564,7 +564,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 startService(tI)
             }
             R.id.action_share -> {
-                if (android.os.Build.VERSION.SDK_INT > 20) {
+                if (Build.VERSION.SDK_INT > 20) {
                     showDistanceTool = "true"
                     checkOverlayPerms()
                 } else {

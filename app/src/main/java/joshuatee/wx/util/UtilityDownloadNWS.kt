@@ -43,11 +43,11 @@ object UtilityDownloadNWS {
         var y = location.lonString
         x = UtilityMath.latLonFix(x)
         y = UtilityMath.latLonFix(y)
-        return UtilityDownloadNWS.getNWSStringFromURLJSON("https://api.weather.gov/points/$x,$y/forecast")
+        return getNWSStringFromURLJSON("https://api.weather.gov/points/$x,$y/forecast")
     }
 
     fun getHazardData(url: String): String {
-        return UtilityDownloadNWS.getNWSStringFromURLJSON(url)
+        return getNWSStringFromURLJSON(url)
     }
 
     fun get7DayURL(x: String, y: String): String = "https://forecast-v3.weather.gov/point/$x,$y"
@@ -90,7 +90,7 @@ object UtilityDownloadNWS {
     fun getNWSStringFromURL(url: String): String =
         getNWSStringFromURLBase(url, "application/vnd.noaa.dwml+xml;version=1")
 
-    fun getNWSStringFromURLJSON(url: String): String =
+    private fun getNWSStringFromURLJSON(url: String): String =
         getNWSStringFromURLBase(url, "application/geo+json;version=1")
 
     fun getNWSStringFromUrlNoAcceptHeader(url: String): String =

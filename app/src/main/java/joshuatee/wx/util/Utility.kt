@@ -81,7 +81,7 @@ object Utility {
     }
 
     fun generateSoundingNameList(): List<String> {
-        var list = mutableListOf<String>()
+        val list = mutableListOf<String>()
         GlobalArrays.soundingSites.sorted()
         GlobalArrays.soundingSites.forEach {
             list.add(it + ": " + getSoundingSiteName(it))

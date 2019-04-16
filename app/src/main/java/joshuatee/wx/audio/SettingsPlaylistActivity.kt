@@ -172,7 +172,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
     private val isStoragePermissionGranted: Boolean
         get() {
             return if (Build.VERSION.SDK_INT >= 23) {
-                if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     true
                 } else {
                     ActivityCompat.requestPermissions(

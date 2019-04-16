@@ -328,7 +328,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         updateList()
     }
 
-    fun deleteItem(position: Int) {
+    private fun deleteItem(position: Int) {
         if (position < ridArr.size) {
             ridFav = MyApplication.homescreenFav
             ridFav += ":"
