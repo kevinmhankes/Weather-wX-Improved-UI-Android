@@ -94,6 +94,7 @@ class MyApplication : Application() {
         //textSizeNormal = res.getDimension(R.dimen.normal_text)
         //textSizeLarge = res.getDimension(R.dimen.large_text)
 
+        // FIXME needed? dup in UIpref
         val normalTextSize = getInitialPreference("TEXTVIEW_FONT_SIZE", 16) // 14 16 21
         textSizeSmall = UtilityUI.spToPx(normalTextSize - 2, this)
         textSizeNormal = UtilityUI.spToPx(normalTextSize, this)
