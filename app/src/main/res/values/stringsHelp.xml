@@ -20,7 +20,7 @@
 <resources>
 
     <string name="textview_fontsize_np_label">
-         Size of the normal size text. Default is 16. Large and small font are relative to this as well.
+         Size of the normal size text. Default is 16. Large and small font are relative to this as well. A full manual app restart might be required for this (for now). Work in progress.
 </string>
 
      <string name="ui_awc_radar_mosaic">
