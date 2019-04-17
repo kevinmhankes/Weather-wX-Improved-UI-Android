@@ -16,6 +16,7 @@
 55136 2019_04_15 [ELY] left out one thing from MCD/MPD/Watch in 135
                  ObjectWidgetCC - if first element is "" don't update
                  add initial support to set text size (TODO: fix XML references, take effectimmediatley)
+                 settings playlist - fix bug when move item and then view and go back ( onrestart )
 55135 2019_04_15 seekbar - add background progress tint for white themes
                  change elevation default to 5 from 3
                  bottomsheet - add labels in playlist, homescreen, fav mgmt
