@@ -15,7 +15,11 @@
 // TODO add new color pal for ref
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO improve settings labels
+// TODO test Kotlin binding enhancement: import kotlinx.android.synthetic.main.activity_main.*
 
+55138 2019_04_17 (NOT TESTED - WILL NOT COMPILE)
+                ObjectWidgetCC - if first element contains "NA" don't update
+                Hourly: test kotlin binding enhancement
 55137 2019_04_16 lint cleanup
                  wpc/afd/hwo widgets - respect text size setting
 55136 2019_04_15 [ELY] left out one thing from MCD/MPD/Watch in 135
