@@ -113,7 +113,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ObjectSettingsCheckBox(
                         this,
                         this,
-                        "Show WAT/MCD",
+                        "Show SPC MCD/Watches",
                         "RADAR_SHOW_WATCH",
                         R.string.radar_show_watch_default_label
                 ).card
@@ -122,7 +122,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ObjectSettingsCheckBox(
                         this,
                         this,
-                        "Show MPD",
+                        "Show WPC MPDs",
                         "RADAR_SHOW_MPD",
                         R.string.radar_show_mpd_default_label
                 ).card
@@ -149,7 +149,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ObjectSettingsCheckBox(
                         this,
                         this,
-                        "Hw data, show secondary roads",
+                        "Show secondary roads",
                         "RADAR_HW_ENH_EXT",
                         R.string.hw_enh_ext_label
                 ).card
@@ -272,7 +272,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ObjectSettingsCheckBox(
                         this,
                         this,
-                        "Counties - use hires data",
+                        "Counties: use hires data",
                         "RADAR_COUNTY_HIRES",
                         R.string.county_hires_label
                 ).card
@@ -281,7 +281,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ObjectSettingsCheckBox(
                         this,
                         this,
-                        "States - use hires data",
+                        "States: use hires data",
                         "RADAR_STATE_HIRES",
                         R.string.state_hires_label
                 ).card
@@ -317,7 +317,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ObjectSettingsCheckBox(
                         this,
                         this,
-                        "Show Day 1 Conv Otlk",
+                        "Show Day 1 Convective Outlook",
                         "RADAR_SHOW_SWO",
                         R.string.show_swo_label
                 ).card
@@ -326,7 +326,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ObjectSettingsCheckBox(
                         this,
                         this,
-                        "Screen on, auto refresh",
+                        "Screen on and auto refresh",
                         "RADAR_AUTOREFRESH",
                         R.string.autorefresh_label
                 ).card
@@ -404,7 +404,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ObjectSettingsSeekbar(
                         this,
                         this,
-                        "Watch/MCD line size",
+                        "MCD/MPD/Watch line size",
                         "RADAR_WATMCD_LINESIZE",
                         R.string.watmcd_linesize_np,
                         4,
@@ -440,7 +440,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ObjectSettingsSeekbar(
                         this,
                         this,
-                        "HW line size",
+                        "Highway line size",
                         "RADAR_HW_LINESIZE",
                         R.string.hw_linesize_np,
                         2,
@@ -452,7 +452,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ObjectSettingsSeekbar(
                         this,
                         this,
-                        "HW EXT line size",
+                        "Secondary road line size",
                         "RADAR_HWEXT_LINESIZE",
                         R.string.hwext_linesize_np,
                         2,

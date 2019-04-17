@@ -149,7 +149,7 @@ class SettingsMainActivity : BaseActivity() {
                 ObjectSettingsCheckBox(
                         this,
                         this,
-                        "Check for SPC MCD/W",
+                        "Check for SPC MCD/Watches",
                         "CHECKSPC",
                         R.string.checkspc_switch_label
                 ).card
@@ -158,7 +158,7 @@ class SettingsMainActivity : BaseActivity() {
                 ObjectSettingsCheckBox(
                         this,
                         this,
-                        "Check for WPC MPD",
+                        "Check for WPC MPDs",
                         "CHECKWPC",
                         R.string.checkwpc_switch_label
                 ).card
@@ -176,7 +176,7 @@ class SettingsMainActivity : BaseActivity() {
                 ObjectSettingsCheckBox(
                         this,
                         this,
-                        "Media control notif",
+                        "Media control notification",
                         "MEDIA_CONTROL_NOTIF",
                         R.string.media_control_notif_tv
                 ).card
