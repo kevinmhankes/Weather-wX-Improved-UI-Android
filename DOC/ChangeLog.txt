@@ -13,6 +13,7 @@
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO improve settings labels
 
+55137 2019_04_16 lint cleanup
 55136 2019_04_15 [ELY] left out one thing from MCD/MPD/Watch in 135
                  ObjectWidgetCC - if first element is "" don't update
                  add initial support to set text size (TODO: fix XML references, take effectimmediatley)
