@@ -160,7 +160,6 @@
     <string name="label_about_scan">About Scan</string>
     <string name="label_clear_all">Clear all</string>
     <string name="label_reset">Reset</string>
-    <string name="label_mode_delete">Delete mode</string>
     <string name="label_delete_location">Delete location</string>
     <string name="label_speak_location">Speak location</string>
     <string name="label_ca_via_map">Canada via map</string>
