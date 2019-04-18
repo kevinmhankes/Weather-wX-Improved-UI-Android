@@ -17,6 +17,8 @@
 // TODO improve settings labels
 // TODO test Kotlin binding enhancement: import kotlinx.android.synthetic.main.activity_main.*
 
+55139 2019_04_18 AFD, USAlertsDetail, USAlerts: test kotlin binding enhancement
+                 lint cleanup
 55138 2019_04_17 ObjectWidgetCC - if first element contains "NA" don't update
                  Hourly: test kotlin binding enhancement
 		         bottomsheet xml layout - add themed color for linearLayout bg
