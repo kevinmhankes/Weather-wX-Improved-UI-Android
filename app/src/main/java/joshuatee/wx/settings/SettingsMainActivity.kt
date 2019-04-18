@@ -25,7 +25,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
 
 import joshuatee.wx.R
 import joshuatee.wx.audio.SettingsPlaylistActivity
@@ -39,6 +38,8 @@ import joshuatee.wx.ui.UtilityTheme
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.*
 
+import kotlinx.android.synthetic.main.activity_linear_layout.*
+
 class SettingsMainActivity : BaseActivity() {
 
     private lateinit var contextg: Context
@@ -50,7 +51,6 @@ class SettingsMainActivity : BaseActivity() {
         contextg = this
         val version = Utility.getVersion(this)
         toolbar.subtitle = "v$version, tap on text for additional help."
-        val linearLayout: LinearLayout = findViewById(R.id.ll)
         val cardAbout = ObjectCardText(this, "About wX", MyApplication.textSizeNormal, MyApplication.paddingSettings)
         val cardLocations = ObjectCardText(
                 this,
@@ -122,7 +122,7 @@ class SettingsMainActivity : BaseActivity() {
         })
         cardDeleteFiles.setOnClickListener(View.OnClickListener {
             UtilityUI.makeSnackBar(
-                    linearLayout,
+                    ll,
                     "Deleted old radar files: " + UtilityFileManagement.deleteCacheFiles(contextg)
             )
         })
@@ -134,18 +134,18 @@ class SettingsMainActivity : BaseActivity() {
                     arrayOf(UtilityAlertDialog.showVersion(this, this), "About wX")
             )
         })
-        linearLayout.addView(cardAbout.card)
-        linearLayout.addView(cardLocations.card)
-        linearLayout.addView(cardNotif.card)
-        linearLayout.addView(cardWidgets.card)
-        linearLayout.addView(cardColors.card)
-        linearLayout.addView(cardPL.card)
-        linearLayout.addView(cardRadar.card)
-        linearLayout.addView(cardHS.card)
-        linearLayout.addView(cardUI.card)
-        linearLayout.addView(cardCtoF.card)
-        linearLayout.addView(cardDeleteFiles.card)
-        linearLayout.addView(
+        ll.addView(cardAbout.card)
+        ll.addView(cardLocations.card)
+        ll.addView(cardNotif.card)
+        ll.addView(cardWidgets.card)
+        ll.addView(cardColors.card)
+        ll.addView(cardPL.card)
+        ll.addView(cardRadar.card)
+        ll.addView(cardHS.card)
+        ll.addView(cardUI.card)
+        ll.addView(cardCtoF.card)
+        ll.addView(cardDeleteFiles.card)
+        ll.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -154,7 +154,7 @@ class SettingsMainActivity : BaseActivity() {
                         R.string.checkspc_switch_label
                 ).card
         )
-        linearLayout.addView(
+        ll.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -163,7 +163,7 @@ class SettingsMainActivity : BaseActivity() {
                         R.string.checkwpc_switch_label
                 ).card
         )
-        linearLayout.addView(
+        ll.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -172,7 +172,7 @@ class SettingsMainActivity : BaseActivity() {
                         R.string.checktor_switch_label
                 ).card
         )
-        linearLayout.addView(
+        ll.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -181,7 +181,7 @@ class SettingsMainActivity : BaseActivity() {
                         R.string.media_control_notif_tv
                 ).card
         )
-        linearLayout.addView(
+        ll.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -190,7 +190,7 @@ class SettingsMainActivity : BaseActivity() {
                         R.string.dualpane_radar_icon_tv
                 ).card
         )
-        linearLayout.addView(
+        ll.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -199,7 +199,7 @@ class SettingsMainActivity : BaseActivity() {
                         R.string.translate_text_label
                 ).card
         )
-        linearLayout.addView(
+        ll.addView(
                 ObjectSettingsSeekbar(
                         this,
                         this,
@@ -211,7 +211,7 @@ class SettingsMainActivity : BaseActivity() {
                         120
                 ).card
         )
-        linearLayout.addView(
+        ll.addView(
                 ObjectSettingsSeekbar(
                         this,
                         this,
@@ -223,7 +223,7 @@ class SettingsMainActivity : BaseActivity() {
                         120
                 ).card
         )
-        linearLayout.addView(
+        ll.addView(
                 ObjectSettingsSeekbar(
                         this,
                         this,

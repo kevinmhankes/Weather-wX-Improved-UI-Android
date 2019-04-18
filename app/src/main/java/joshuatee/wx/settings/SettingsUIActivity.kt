@@ -24,8 +24,6 @@ package joshuatee.wx.settings
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.LinearLayout
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
@@ -34,6 +32,8 @@ import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
+
+import kotlinx.android.synthetic.main.activity_settings_ui.*
 
 class SettingsUIActivity : BaseActivity() {
 
@@ -49,9 +49,6 @@ class SettingsUIActivity : BaseActivity() {
             "orange"
     )
     private val textSizeArr = mutableListOf<String>()
-    private lateinit var et1: EditText
-    private lateinit var et2: EditText
-    private lateinit var et3: EditText
     private var tilesPerRowStart = 0
 
     @SuppressLint("MissingSuperCall")
@@ -62,8 +59,7 @@ class SettingsUIActivity : BaseActivity() {
         tilesPerRowStart = UIPreferences.tilesPerRow
         setupEditText()
         (0 until 20).forEach { textSizeArr.add(((it + 1) * 50).toString()) }
-        val ll: LinearLayout = findViewById(R.id.ll)
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSpinner(
                         this,
                         this,
@@ -74,7 +70,7 @@ class SettingsUIActivity : BaseActivity() {
                         colorArr
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -83,7 +79,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.icons_spacing_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -92,7 +88,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.fullscreen_mode_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -101,7 +97,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.lock_toolbars_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -110,7 +106,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.simple_mode_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -119,7 +115,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.hide_top_toolbar_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -128,7 +124,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.units_f_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -137,7 +133,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.units_m_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -146,7 +142,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.tile_img_resize_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -155,7 +151,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.fab_in_models_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -164,7 +160,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.nws_text_removelinebreak_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -173,7 +169,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.radar_toolbar_transparent_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -182,7 +178,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.radar_statusbar_transparent_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -191,7 +187,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.radar_immersive_mode_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -200,7 +196,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.record_screen_share_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -209,7 +205,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.prevent_accidental_exit_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -218,7 +214,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.vr_button_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -227,7 +223,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.wfo_remember
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -236,7 +232,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.mainscreen_radar_button
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -245,7 +241,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.widget_prevent_tap
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         this,
@@ -254,7 +250,7 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.ui_awc_radar_mosaic
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekbar(
                         this,
                         this,
@@ -266,7 +262,7 @@ class SettingsUIActivity : BaseActivity() {
                         30
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekbar(
                         this,
                         this,
@@ -278,7 +274,7 @@ class SettingsUIActivity : BaseActivity() {
                         50
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekbar(
                         this,
                         this,
@@ -290,7 +286,7 @@ class SettingsUIActivity : BaseActivity() {
                         10
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekbar(
                         this,
                         this,
@@ -302,7 +298,7 @@ class SettingsUIActivity : BaseActivity() {
                         10
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekbar(
                         this,
                         this,
@@ -314,7 +310,7 @@ class SettingsUIActivity : BaseActivity() {
                         40
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekbar(
                         this,
                         this,
@@ -326,7 +322,7 @@ class SettingsUIActivity : BaseActivity() {
                         1000
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekbar(
                         this,
                         this,
@@ -352,9 +348,6 @@ class SettingsUIActivity : BaseActivity() {
     }
 
     private fun setupEditText() {
-        et1 = findViewById(R.id.tab1_et)
-        et2 = findViewById(R.id.tab2_et)
-        et3 = findViewById(R.id.tab3_et)
         et1.setText(MyApplication.tabHeaders[0])
         et2.setText(MyApplication.tabHeaders[1])
         et3.setText(MyApplication.tabHeaders[2])
