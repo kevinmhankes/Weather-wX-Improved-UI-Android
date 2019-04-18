@@ -15,7 +15,7 @@
 // TODO add new color pal for ref
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO improve settings labels
-// TODO test Kotlin binding enhancement: import kotlinx.android.synthetic.main.activity_main.*
+// TODO test Kotlin binding enhancement
 
 55139 2019_04_18 AFD, USAlertsDetail, USAlerts: test kotlin binding enhancement
                  lint cleanup
