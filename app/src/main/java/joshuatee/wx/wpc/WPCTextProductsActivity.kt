@@ -73,7 +73,6 @@ class WPCTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
     private lateinit var activityArguments: Array<String>
     private var prod = ""
     private var html = ""
-    private lateinit var scrollView: ScrollView
     private var initProd = ""
     private var products = listOf<String>()
     private lateinit var star: MenuItem
