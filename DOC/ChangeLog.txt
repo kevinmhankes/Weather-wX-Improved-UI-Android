@@ -19,6 +19,7 @@
 // TODO test Kotlin binding enhancement
 
 55142 2019_04_18 [BUGFIX] LSRbyWFOActivity is using afd layout so it was crashing after binding conversion
+                [BUGFIX] bottomsheet crashed under certain conditions in settings homescreen and fav mgmt
                 SettingsMainActivity, Settings*, SPCTstormOutlookActivity
                 SPCMCDWShowSummaryActivity, SPCStormReportsActivity, SettingsColorPaletteEditor, SettingsWidgetsActivity, SettingsNotificationsActivity
                 SettingsLocationGenericActivity, SettingsColorPickerActivity, SettingsUIActivity: test kotlin binding enhancement

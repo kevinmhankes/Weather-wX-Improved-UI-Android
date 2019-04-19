@@ -236,7 +236,7 @@ class FavRemoveActivity : BaseActivity() {
     private fun itemClicked(position: Int) {
         val bottomSheetFragment = BottomSheetFragment()
         bottomSheetFragment.position = position
-        bottomSheetFragment.usedForLocation = true
+        bottomSheetFragment.usedForLocation = false
         bottomSheetFragment.fnList = listOf(::deleteItem, ::moveUpItem, ::moveDownItem)
         bottomSheetFragment.labelList = listOf("Delete Item", "Move Up", "Move Down")
         bottomSheetFragment.actContext = this
