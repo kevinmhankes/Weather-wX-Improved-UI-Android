@@ -93,7 +93,7 @@ internal object UtilityWatch {
     }
 
     // Thanks to Ely for the following 3 methods to enable long press show mpd/mcd/wat
-    // FIXME refactor down to one method if possible
+  /*
     fun showMPDProducts(context: Context, lat: Double, lon: Double): String {
         var text = ""
         //Log.i(TAG, "Touch lat: "+lat+" lon: "+lon)
@@ -192,10 +192,10 @@ internal object UtilityWatch {
         }
 
         return text
-    }
+    }*/
 
 
-    fun showWatchProducts(context: Context, lat: Double, lon: Double): String {
+   /* fun showWatchProducts(context: Context, lat: Double, lon: Double): String {
         var text = ""
         //Log.i(TAG, "Touch lat: "+lat+" lon: "+lon)
         //get watch numbers
@@ -235,6 +235,80 @@ internal object UtilityWatch {
                 if (contains && notFound) {
                     //Log.i(TAG, "trying to get watch #"+mcdNoArr[z])
                     val mcdPre = UtilityDownload.getTextProduct(context, "SPCWAT"+mcdNoArr[z])
+                    text = Utility.fromHtml(mcdPre)
+                    notFound = false
+                }
+            }
+            z += 1
+
+        }
+        return text
+    }*/
+
+    fun showProducts(context: Context, lat: Double, lon: Double, type: PolygonType): String {
+        var text = ""
+        val textWatNoList: String
+        val mcdNoArr: Array<String>
+        val watchLatLon: String
+        val productStringPrefix: String
+        when (type) {
+            PolygonType.WATCH -> {
+                textWatNoList = MyApplication.watchNoList.valueGet()
+                mcdNoArr = MyApplication.colon.split(textWatNoList)
+                watchLatLon = MyApplication.watchLatlonList.valueGet()
+                productStringPrefix = "SPCWAT"
+            }
+            PolygonType.MCD -> {
+                textWatNoList = MyApplication.mcdNoList.valueGet()
+                mcdNoArr = MyApplication.colon.split(textWatNoList)
+                watchLatLon = MyApplication.mcdLatlon.valueGet()
+                productStringPrefix = "SPCMCD"
+            }
+            PolygonType.MPD -> {
+                textWatNoList = MyApplication.mpdNoList.valueGet()
+                mcdNoArr = MyApplication.colon.split(textWatNoList)
+                watchLatLon = MyApplication.mpdLatlon.valueGet()
+                productStringPrefix = "WPCMPD"
+            }
+            else -> {
+                textWatNoList = MyApplication.watchNoList.valueGet()
+                mcdNoArr = MyApplication.colon.split(textWatNoList)
+                watchLatLon = MyApplication.watchLatlonList.valueGet()
+                productStringPrefix = ""
+            }
+        }
+
+
+        val latlonArr = MyApplication.colon.split(watchLatLon)
+        val x = mutableListOf<Double>()
+        val y = mutableListOf<Double>()
+        var i: Int
+        var testArr: List<String>
+        var z = 0
+        var notFound = true
+        while (z < latlonArr.size) {
+            testArr = latlonArr[z].split(" ")
+            x.clear()
+            y.clear()
+            i = 0
+            while (i < testArr.size) {
+                if (i and 1 == 0) {
+                    x.add(testArr[i].toDoubleOrNull() ?: 0.0)
+                } else {
+                    y.add((testArr[i].toDoubleOrNull() ?: 0.0) * -1)
+                }
+                i += 1
+            }
+            if (y.size > 3 && x.size > 3 && x.size == y.size) {
+                val poly2 = ExternalPolygon.Builder()
+                for (j in x.indices) {
+                    poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
+                }
+                val polygon2 = poly2.build()
+                val contains = polygon2.contains(ExternalPoint(lat.toFloat(), lon.toFloat()))
+                if (contains && notFound) {
+                    //Log.i(TAG, "trying to get watch #"+mcdNoArr[z])
+                    val mcdPre = UtilityDownload.getTextProduct(context, productStringPrefix + mcdNoArr[z])
                     text = Utility.fromHtml(mcdPre)
                     notFound = false
                 }

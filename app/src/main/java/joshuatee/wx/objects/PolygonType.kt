@@ -26,7 +26,7 @@ import joshuatee.wx.MyApplication
 
 enum class PolygonType constructor(
     var color: Int,
-    private val typeAsString: String,
+    val typeAsString: String,
     var pref: Boolean,
     var size: Float
 ) {

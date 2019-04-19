@@ -191,13 +191,13 @@ internal object UtilityRadarUI {
             }
             // Thanks to Ely
             strName.contains("Show watch text") -> {
-                showNearestWatch(context, act, glview, uiDispatcher)
+                showNearestProduct(context, act, PolygonType.WATCH, glview, uiDispatcher)
             }
             strName.contains("Show MCD text") -> {
-                showNearestMcd(context, act, glview, uiDispatcher)
+                showNearestProduct(context, act, PolygonType.MCD, glview, uiDispatcher)
             }
             strName.contains("Show MPD text") -> {
-                showNearestMpd(context, act, glview, uiDispatcher)
+                showNearestProduct(context, act, PolygonType.MPD, glview, uiDispatcher)
             }
             // End Thanks to Ely
             strName.contains("Show nearest observation") -> {
@@ -403,7 +403,7 @@ internal object UtilityRadarUI {
     }
 
     // Thanks to Ely next 3 methods
-    // FIXME refactor down to one method if possible
+  /*
     private fun showNearestWatch(
             context: Context,
             act: Activity,
@@ -411,7 +411,7 @@ internal object UtilityRadarUI {
             uiDispatcher: CoroutineDispatcher
     ) = GlobalScope.launch(uiDispatcher) {
         var txt = withContext(Dispatchers.IO) {
-            UtilityWatch.showWatchProducts(context, glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
+            UtilityWatch.showProducts(context, glview.newY.toDouble(), glview.newX.toDouble() * -1.0, PolygonType.WATCH)
         }
         if (txt == "") { txt = "No active watch"}
         UtilityAlertDialog.showHelpText(txt, act)
@@ -424,7 +424,7 @@ internal object UtilityRadarUI {
             uiDispatcher: CoroutineDispatcher
     ) = GlobalScope.launch(uiDispatcher) {
         var txt = withContext(Dispatchers.IO) {
-            UtilityWatch.showMCDProducts(context, glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
+            UtilityWatch.showProducts(context, glview.newY.toDouble(), glview.newX.toDouble() * -1.0, PolygonType.MCD)
         }
         if (txt == "") { txt = "No active MCD"}
         UtilityAlertDialog.showHelpText(txt, act)
@@ -438,9 +438,25 @@ internal object UtilityRadarUI {
             uiDispatcher: CoroutineDispatcher
     ) = GlobalScope.launch(uiDispatcher) {
         var txt = withContext(Dispatchers.IO) {
-            UtilityWatch.showMPDProducts(context, glview.newY.toDouble(), glview.newX.toDouble() * -1.0)
+            UtilityWatch.showProducts(context, glview.newY.toDouble(), glview.newX.toDouble() * -1.0, PolygonType.MPD)
         }
         if (txt == "") { txt = "No active MPD"}
+        UtilityAlertDialog.showHelpText(txt, act)
+    }
+*/
+    private fun showNearestProduct(
+            context: Context,
+            act: Activity,
+            type: PolygonType,
+            glview: WXGLSurfaceView,
+            uiDispatcher: CoroutineDispatcher
+    ) = GlobalScope.launch(uiDispatcher) {
+        var txt = withContext(Dispatchers.IO) {
+            UtilityWatch.showProducts(context, glview.newY.toDouble(), glview.newX.toDouble() * -1.0, type)
+        }
+        if (txt == "") {
+            txt = "No active " + type.typeAsString
+        }
         UtilityAlertDialog.showHelpText(txt, act)
     }
 }
