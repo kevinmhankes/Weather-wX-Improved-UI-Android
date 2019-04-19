@@ -28,7 +28,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.LinearLayout
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
@@ -47,11 +46,12 @@ import joshuatee.wx.util.UtilityShortcut
 
 import kotlinx.coroutines.*
 
+import kotlinx.android.synthetic.main.activity_linear_layout.*
+
 class SevereDashboardActivity : BaseActivity() {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private val bitmaps = mutableListOf<Bitmap>()
-    private lateinit var linearLayout: LinearLayout
     private lateinit var contextg: Context
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -63,7 +63,6 @@ class SevereDashboardActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
-        linearLayout = findViewById(R.id.ll)
         contextg = this
         getContent()
     }
@@ -82,7 +81,7 @@ class SevereDashboardActivity : BaseActivity() {
         val snWat = SevereNotice(PolygonType.WATCH)
         val snMcd = SevereNotice(PolygonType.MCD)
         val snMpd = SevereNotice(PolygonType.MPD)
-        linearLayout.removeAllViews()
+        ll.removeAllViews()
         val wTor = SevereWarning(PolygonType.TOR)
         val wTst = SevereWarning(PolygonType.TST)
         val wFfw = SevereWarning(PolygonType.FFW)
@@ -92,15 +91,15 @@ class SevereDashboardActivity : BaseActivity() {
             wFfw.generateString(contextg, UtilityDownloadRadar.getVtecFfw())
         }
         if (wTor.count > 0) {
-            val objTor = ObjectCardText(contextg, linearLayout, wTor.text)
+            val objTor = ObjectCardText(contextg, ll, wTor.text)
             objTor.setOnClickListener(View.OnClickListener { tvWarnClicked(".*?Tornado Warning.*?") })
         }
         if (wTst.count > 0) {
-            val objTst = ObjectCardText(contextg, linearLayout, wTst.text)
+            val objTst = ObjectCardText(contextg, ll, wTst.text)
             objTst.setOnClickListener(View.OnClickListener { tvWarnClicked(".*?Severe Thunderstorm Warning.*?") })
         }
         if (wFfw.count > 0) {
-            val objFfw = ObjectCardText(contextg, linearLayout, wFfw.text)
+            val objFfw = ObjectCardText(contextg, ll, wFfw.text)
             objFfw.setOnClickListener(View.OnClickListener { tvWarnClicked(".*?Flash Flood Warning.*?") })
         }
         withContext(Dispatchers.IO) {
@@ -111,7 +110,7 @@ class SevereDashboardActivity : BaseActivity() {
         }
         if (bitmapArrRep.size > 0) {
             bitmapArrRep.indices.forEach {
-                val card = ObjectCardImage(contextg, linearLayout, bitmapArrRep[it])
+                val card = ObjectCardImage(contextg, ll, bitmapArrRep[it])
                 card.setOnClickListener(View.OnClickListener {
                     ObjectIntent(
                         contextg,
@@ -127,7 +126,7 @@ class SevereDashboardActivity : BaseActivity() {
             .filter { it.bitmaps.size > 0 }
             .forEach { severeNotice ->
                 severeNotice.bitmaps.indices.forEach { j ->
-                    val card = ObjectCardImage(contextg, linearLayout, severeNotice.bitmaps[j])
+                    val card = ObjectCardImage(contextg, ll, severeNotice.bitmaps[j])
                     var cla: Class<*>? = null
                     var claStr = ""
                     val claArgStr = severeNotice.strList[j]

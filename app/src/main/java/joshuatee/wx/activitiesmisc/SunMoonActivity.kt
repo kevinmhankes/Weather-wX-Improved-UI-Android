@@ -24,7 +24,6 @@ package joshuatee.wx.activitiesmisc
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 
 import joshuatee.wx.R
@@ -34,6 +33,8 @@ import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.MyApplication
 import joshuatee.wx.settings.Location
 import kotlinx.coroutines.*
+
+import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class SunMoonActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
@@ -54,8 +55,7 @@ class SunMoonActivity : AudioPlayActivity(), OnMenuItemClickListener {
         toolbarBottom.setOnMenuItemClickListener(this)
         val menu = toolbarBottom.menu
         menu.findItem(R.id.action_playlist).isVisible = false
-        val linearLayout: LinearLayout = findViewById(R.id.ll)
-        card0 = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
+        card0 = ObjectCardText(this, ll, toolbar, toolbarBottom)
         getContent()
     }
 
