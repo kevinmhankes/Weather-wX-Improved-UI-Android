@@ -11,13 +11,13 @@
 // TODO new polygons - snow squall, sps, other
 // TODO fix issue for precip radar products when there is no data
 // TODO move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
-// TODO storm reports - black bg for cards with titles like iOS/flutter
 // TODO rewrite uswarn
 // TODO add new color pal for ref
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO improve settings labels
 // TODO test Kotlin binding enhancement
 
+55144 2019_04_19 storm reports - black background/white text for headers
 55143 2019_04_19 more kotlin binding enhancement
 55142 2019_04_19 [BUGFIX] LSRbyWFOActivity is using afd layout so it was crashing after binding conversion
                 [BUGFIX] bottomsheet crashed under certain conditions in settings homescreen and fav mgmt
