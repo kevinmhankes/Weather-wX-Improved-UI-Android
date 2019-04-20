@@ -104,12 +104,12 @@ class SettingsRadarActivity : BaseActivity() {
                 ObjectSettingsCheckBox(
                         this,
                         this,
-                        "Show warnings",
+                        "Show warnings (TST/TOR/FFW)",
                         "COD_WARNINGS_DEFAULT",
                         R.string.cod_warnings_default_label
                 ).card
         )
-        
+
         MyApplication.radarWarningPolygons.forEach {
             ll.addView(
                     ObjectSettingsCheckBox(
