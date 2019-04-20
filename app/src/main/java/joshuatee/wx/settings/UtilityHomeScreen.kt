@@ -25,10 +25,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.LightningActivity
 import joshuatee.wx.canada.CanadaRadarActivity
 import joshuatee.wx.radar.USNWSMosaicActivity
-import joshuatee.wx.spc.SPCMesoActivity
-import joshuatee.wx.spc.SPCSWOActivity
-import joshuatee.wx.spc.SPCSoundingsActivity
-import joshuatee.wx.spc.SPCStormReportsActivity
+import joshuatee.wx.spc.*
 import joshuatee.wx.vis.GOES16Activity
 import joshuatee.wx.vis.USNWSGOESActivity
 import joshuatee.wx.wpc.WPCImagesActivity
@@ -50,6 +47,10 @@ internal object UtilityHomeScreen {
             MyApplication.HM_CLASS_ARGS[token] = arrayOf(token, number, "SPCMESO")
             MyApplication.HM_CLASS_ID[token] = SPCMesoActivity.INFO
         }
+
+        MyApplication.HM_CLASS["SPC_TST"] = SPCTstormOutlookActivity::class.java
+        MyApplication.HM_CLASS_ARGS["SPC_TST"] = arrayOf("")
+        MyApplication.HM_CLASS_ID["SPC_TST"] = ""
 
         MyApplication.HM_CLASS["STRPT"] = SPCStormReportsActivity::class.java
         MyApplication.HM_CLASS_ARGS["STRPT"] = arrayOf("today")
