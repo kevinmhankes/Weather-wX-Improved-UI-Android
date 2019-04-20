@@ -18,9 +18,10 @@
 // TODO test Kotlin binding enhancement
 // TODO hourly tap to scroll to top
 
-55146 2019_04_19 more kotlin binding enhancement
+55146 2019_04_20 more kotlin binding enhancement
                  lint cleanup
                  [BUG] fix dynamic tab headers, broke after removing images tab
+                 Hourly - if tap in text, scroll back to top
 55145 2019_04_19 refector long press watch/mpd/mcd code
 55144 2019_04_19 storm reports - black background/white text for headers
 55143 2019_04_19 more kotlin binding enhancement

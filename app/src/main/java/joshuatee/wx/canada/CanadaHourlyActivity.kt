@@ -46,8 +46,7 @@ class CanadaHourlyActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
-        val locNum = intent.getStringExtra(LOC_NUM)
-        locNumInt = (locNum.toIntOrNull() ?: 0) - 1
+        locNumInt = (intent.getStringExtra(LOC_NUM).toIntOrNull() ?: 0) - 1
         c0 = ObjectCardText(this, ll, toolbar)
         ObjectCALegal(this, ll, UtilityCanadaHourly.getUrl(Location.locationIndex))
         title = Location.getName(locNumInt) + " hourly forecast"
@@ -55,7 +54,6 @@ class CanadaHourlyActivity : BaseActivity() {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        val html = withContext(Dispatchers.IO) { UtilityCanadaHourly.getString(locNumInt) }
-        c0.setText(html)
+        c0.setText(withContext(Dispatchers.IO) { UtilityCanadaHourly.getString(locNumInt) })
     }
 }

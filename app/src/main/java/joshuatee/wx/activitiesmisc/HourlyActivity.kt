@@ -72,6 +72,7 @@ class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         cv1 = ObjectCard(this, R.color.black, R.id.cv1)
         cv1.setVisibility(View.GONE)
         c0 = ObjectCardVerticalText(this, 5, linearLayout, toolbar)
+        c0.setOnClickListener(View.OnClickListener { sv.scrollTo(0,0)})
         title = "Hourly Forecast"
         toolbar.subtitle = Location.getName(locatioNumber)
         getContent()

@@ -89,11 +89,6 @@ class MyApplication : Application() {
             dm
         ).toInt()
 
-
-        //textSizeSmall = res.getDimension(R.dimen.listitem_text)
-        //textSizeNormal = res.getDimension(R.dimen.normal_text)
-        //textSizeLarge = res.getDimension(R.dimen.large_text)
-
         // FIXME needed? dup in UIpref
         val normalTextSize = getInitialPreference("TEXTVIEW_FONT_SIZE", 16) // 14 16 21
         textSizeSmall = UtilityUI.spToPx(normalTextSize - 2, this)
@@ -142,7 +137,6 @@ class MyApplication : Application() {
     }
 
     companion object {
-
         const val packageNameAsString: String = "joshuatee.wx"
         const val packageNameFileNameAsString: String = "joshuatee_wx"
         const val emailAsString: String = "joshua.tee@gmail.com"
@@ -152,7 +146,6 @@ class MyApplication : Application() {
         const val nwsGraphicalWebsitePrefix: String = "https://graphical.weather.gov"
         const val nwsCPCNcepWebsitePrefix: String = "https://www.cpc.ncep.noaa.gov"
         const val nwsGoesWebsitePrefix: String = "https://www.goes.noaa.gov"
-        //const val nwsOpcWebsitePrefix: String = "https://www.opc.ncep.noaa.gov"
         const val nwsOpcWebsitePrefix: String = "https://ocean.weather.gov"
         const val nwsNhcWebsitePrefix: String = "https://www.nhc.noaa.gov"
         const val nwsRadarWebsitePrefix: String = "https://radar.weather.gov"
@@ -322,8 +315,6 @@ class MyApplication : Application() {
         const val ICON_MIC: Int = R.drawable.ic_mic_24dp
         const val ICON_PAUSE: Int = R.drawable.ic_pause_24dp
         const val ICON_PAUSE_PRESSED: Int = R.drawable.ic_pause_white_24dp
-        //const val ICON_ARROW_UP: Int = R.drawable.ic_keyboard_arrow_up_24dp
-        //const val ICON_ARROW_DOWN: Int = R.drawable.ic_keyboard_arrow_down_24dp
         const val ICON_ADD: Int = R.drawable.ic_add_box_24dp
         const val ICON_BACK: Int = R.drawable.ic_keyboard_arrow_left_24dp
         const val ICON_FORWARD: Int = R.drawable.ic_keyboard_arrow_right_24dp
@@ -332,7 +323,6 @@ class MyApplication : Application() {
         const val MD_COMP: String = "<center>No Mesoscale Discussions are currently in effect."
         const val WATCH_COMP: String = "<center><strong>No watches are currently valid"
         const val MPD_COMP: String = "No MPDs are currently in effect."
-        const val currentConditionsViaMetar: Boolean = true
         var spchrrrZoom: Float = 0f
         var spchrrrX: Float = 0f
         var spchrrrY: Float = 0f
@@ -350,7 +340,6 @@ class MyApplication : Application() {
         var padding: Int = 0
         var paddingSettings: Int = 0
         var paddingSmall: Int = 0
-        //var tabHeaders: Array<String> = arrayOf("", "", "", "")
         var tabHeaders: Array<String> = arrayOf("", "", "")
 
         fun initPreferences(context: Context) {
