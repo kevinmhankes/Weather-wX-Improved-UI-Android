@@ -35,6 +35,7 @@ import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
+import joshuatee.wx.spc.SPCMCDWShowActivity
 import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.ObjectImageMap
 
@@ -413,9 +414,15 @@ internal object UtilityRadarUI {
         var txt = withContext(Dispatchers.IO) {
             UtilityWatch.showProducts(context, glview.newY.toDouble(), glview.newX.toDouble() * -1.0, type)
         }
-        if (txt == "") {
+        ObjectIntent(
+                context,
+                SPCMCDWShowActivity::class.java,
+                SPCMCDWShowActivity.NO,
+                arrayOf(txt, "", type.toString())
+        )
+        /*if (txt == "") {
             txt = "No active " + type.typeAsString
         }
-        UtilityAlertDialog.showHelpText(txt, act)
+        UtilityAlertDialog.showHelpText(txt, act)*/
     }
 }
