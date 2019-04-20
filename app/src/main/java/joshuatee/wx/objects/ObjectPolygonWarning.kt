@@ -36,5 +36,8 @@ class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
         color = Utility.readPref(context, type.prefTokenColor, type.initialColor)
         isEnabled = Utility.readPref(context, type.prefTokenEnabled, "false").startsWith("t")
     }
+
+    val name: String get() = type.urlToken.replace("%20", " ")
+
 }
 

@@ -115,7 +115,7 @@ class SettingsRadarActivity : BaseActivity() {
                     ObjectSettingsCheckBox(
                             this,
                             this,
-                            "Show warning: " + it.type.productCode,
+                            "Show warning: " + it.name,
                             it.type.prefTokenEnabled,
                             R.string.cod_warnings_default_label // FIXME add constructor to take string instead
                     ).card

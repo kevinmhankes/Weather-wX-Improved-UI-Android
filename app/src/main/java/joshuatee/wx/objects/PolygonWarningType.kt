@@ -53,6 +53,24 @@ enum class PolygonWarningType constructor(
             "SEVERE_DASHBOARD_SMW",
             Color.rgb(255, 165, 0)
     ),
+    SnowSquallWarning(
+            "SQW",
+            //"Flood%20Warning",
+            "Snow%20Squall%20Warning",
+            "RADAR_SHOW_SQW",
+            "RADAR_COLOR_SQW",
+            "SEVERE_DASHBOARD_SQW",
+            Color.rgb(199, 21, 133)
+    ),
+    DustStormWarning(
+            "DSW",
+            //"Flood%20Warning",
+            "Dust%20Storm%20Warning",
+            "RADAR_SHOW_DSW",
+            "RADAR_COLOR_DSW",
+            "SEVERE_DASHBOARD_DSW",
+            Color.rgb(255, 228, 196)
+    ),
     SpecialWeatherStatement(
             "SPS",
             "Special%20Weather%20Statement",
