@@ -14,6 +14,7 @@
 // TODO add new color pal for ref
 // TODO linesize - swo, wb, wbgusts, sti
 
+55148 2019_04_20
 55147 2019_04_20 add better framework for radar polygon warnings and test for SMR (special marine warning), SPS
                  add SPC Thunderstorm outlook as homescreen option and method in utilImg to combine list of images vertically
                  change longpress mcd/watch/mpd to use dedicted viewer (SPCMCDShowActivity)

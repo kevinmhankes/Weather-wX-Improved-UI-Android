@@ -69,7 +69,7 @@ class SettingsColorsActivity : BaseActivity() {
         )
 
         MyApplication.radarWarningPolygons.forEach {
-            mapColorToPref[it.type.productCode] = it.type.prefTokenColor
+            mapColorToPref[it.name + " color"] = it.type.prefTokenColor
         }
 
         mapColorToPref.keys.asSequence().sorted()
