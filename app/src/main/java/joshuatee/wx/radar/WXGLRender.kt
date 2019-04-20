@@ -845,6 +845,7 @@ class WXGLRender(private val context: Context) : Renderer {
     fun constructGenericWarningLines() {
         genericWarningBuffers.forEach {
             if (it.warningType!!.isEnabled) {
+                UtilityLog.d("wx", it.warningType!!.type.productCode)
                 constructGenericLines(it)
             } else {
                 deconstructGenericLines(it)
@@ -992,6 +993,7 @@ class WXGLRender(private val context: Context) : Renderer {
             else -> {
                 if (buffers.warningType != null) {
                     fList = WXGLPolygonWarnings.addGenericWarnings(context, provider, rid, buffers.warningType!!).toList()
+                    UtilityLog.d("wx", "SPS: " + fList)
                 }
             }
         }

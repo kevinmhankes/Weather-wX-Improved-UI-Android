@@ -14,7 +14,7 @@
 // TODO add new color pal for ref
 // TODO linesize - swo, wb, wbgusts, sti
 
-55147 2019_04_20 add better framework for radar polygon warnings and test for SMR (special marine warning)
+55147 2019_04_20 add better framework for radar polygon warnings and test for SMR (special marine warning), SPS
                  add SPC Thunderstorm outlook as homescreen option and method in utilImg to combine list of images vertically
 55146 2019_04_20 more kotlin binding enhancement
                  lint cleanup

@@ -54,7 +54,14 @@ enum class PolygonWarningType constructor(
             "RADAR_COLOR_SMW",
             "SEVERE_DASHBOARD_SMW",
             Color.rgb(255, 165, 0)
-            //Color.rgb(219, 112, 147)
+    ),
+    SpecialWeatherStatement(
+            "SPS",
+            "Special%20Weather%20Statement",
+            "RADAR_SHOW_SPS",
+            "RADAR_COLOR_SPS",
+            "SEVERE_DASHBOARD_SPS",
+            Color.rgb(255, 228, 181)
     );
 
     //override fun toString(): String = typeAsString

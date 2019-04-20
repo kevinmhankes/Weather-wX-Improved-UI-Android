@@ -49,7 +49,7 @@ internal object WXGLPolygonWarnings {
             else -> MyApplication.severeDashboardFfw.valueGet()
         }*/
         val prefToken = type.storage.valueGet()
-        //UtilityLog.d("wx", prefToken)
+        UtilityLog.d("wx", "SPS: " + prefToken)
         val pn = ProjectionNumbers(context, rid1, provider)
         var j: Int
         var pixXInit: Double
@@ -62,12 +62,12 @@ internal object WXGLPolygonWarnings {
         }
         val polygonArr = warningHTML.parseColumn(RegExp.warningLatLonPattern)
         val vtecAl = warningHTML.parseColumn(RegExp.warningVtecPattern)
+        UtilityLog.d("wx", polygonArr.toString())
+        UtilityLog.d("wx", vtecAl.toString())
         var polyCount = -1
         polygonArr.forEach { polygon ->
             polyCount += 1
-            if (vtecAl.size > polyCount && !vtecAl[polyCount].startsWith("0.EXP") && !vtecAl[polyCount].startsWith(
-                            "0.CAN"
-                    )
+            if ( type.type == PolygonWarningType.SpecialWeatherStatement || (vtecAl.size > polyCount && !vtecAl[polyCount].startsWith("0.EXP") && !vtecAl[polyCount].startsWith("0.CAN")  )
             ) {
                 val polyTmp =
                         polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
