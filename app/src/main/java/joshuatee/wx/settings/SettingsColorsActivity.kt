@@ -39,7 +39,7 @@ class SettingsColorsActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
-        val mapColorToPref = mapOf(
+        var mapColorToPref = mutableMapOf(
             "Highway color" to "RADAR_COLOR_HW",
             "Secondary Highway color" to "RADAR_COLOR_HW_EXT",
             "State border color" to "RADAR_COLOR_STATE",
@@ -67,6 +67,11 @@ class SettingsColorsActivity : BaseActivity() {
             "NWS Forecast Icon Bottom color" to "NWS_ICON_BOTTOM_COLOR",
             "Nexrad Radar Background color" to "NEXRAD_RADAR_BACKGROUND_COLOR"
         )
+
+        MyApplication.radarWarningPolygons.forEach {
+            mapColorToPref[it.type.productCode] = it.type.prefTokenColor
+        }
+
         mapColorToPref.keys.asSequence().sorted()
             .mapTo(colorObjects) { ObjectSettingsColorLabel(this, it, mapColorToPref[it]!!) }
         colorObjects.forEach { ll.addView(it.card) }

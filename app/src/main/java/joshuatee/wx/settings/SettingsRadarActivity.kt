@@ -630,6 +630,7 @@ class SettingsRadarActivity : BaseActivity() {
         }
         GeographyType.refresh()
         PolygonType.refresh()
+        MyApplication.initGenericRadarWarnings(this)
     }
 
     private fun showGPSPermsDialogue() {

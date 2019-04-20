@@ -326,6 +326,7 @@ internal object UtilityRadarUI {
                 ogl.constructMPDLines()
             else
                 ogl.deconstructMPDLines()
+            ogl.constructGenericWarningLines()
             glv.requestRender()
         }).start()
         if (MyApplication.locdotFollowsGps) {

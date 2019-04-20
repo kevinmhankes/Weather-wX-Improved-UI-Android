@@ -39,10 +39,7 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ProjectionType
 import joshuatee.wx.radarcolorpalettes.ObjectColorPalette
 import joshuatee.wx.settings.UtilityLocation
-import joshuatee.wx.util.ProjectionNumbers
-import joshuatee.wx.util.UtilityCanvasProjection
-import joshuatee.wx.util.UtilityIO
-import joshuatee.wx.util.UtilityLog
+import joshuatee.wx.util.*
 
 class WXGLRender(private val context: Context) : Renderer {
 
@@ -104,6 +101,7 @@ class WXGLRender(private val context: Context) : Renderer {
     private val locCircleBuffers = ObjectOglBuffers()
     private val wbCircleBuffers =
         ObjectOglBuffers(PolygonType.WIND_BARB_CIRCLE, zoomToHideMiscFeatures)
+    private val genericWarningBuffers = mutableListOf<ObjectOglBuffers>()
     private val colorSwo = IntArray(5)
     private var breakSize15 = 15000
     private val breakSizeRadar = 15000
@@ -192,6 +190,9 @@ class WXGLRender(private val context: Context) : Renderer {
         } else {
             JNI.genIndex(triangleIndexBuffer, breakSize15, breakSize15)
             JNI.genIndexLine(lineIndexBuffer, breakSizeLine * 4, breakSizeLine * 2)
+        }
+        MyApplication.radarWarningPolygons.forEach {
+            genericWarningBuffers.add(ObjectOglBuffers(it))
         }
     }
 
@@ -515,6 +516,13 @@ class WXGLRender(private val context: Context) : Renderer {
                 8
             )
         }
+
+        genericWarningBuffers.forEach {
+            if (it.warningType!!.isEnabled) {
+                drawPolygons(it, 8)
+            }
+        }
+
         GLES20.glLineWidth(watmcdLineWidth)
         listOf(
             mpdBuffers,
@@ -834,6 +842,16 @@ class WXGLRender(private val context: Context) : Renderer {
         deconstructGenericLines(warningFfwBuffers)
     }
 
+    fun constructGenericWarningLines() {
+        genericWarningBuffers.forEach {
+            if (it.warningType!!.isEnabled) {
+                constructGenericLines(it)
+            } else {
+                deconstructGenericLines(it)
+            }
+        }
+    }
+
     fun constructLocationDot(locXCurrent: String, locYCurrentF: String, archiveMode: Boolean) {
         var locYCurrent = locYCurrentF
         var locmarkerAl = mutableListOf<Double>()
@@ -972,6 +990,9 @@ class WXGLRender(private val context: Context) : Renderer {
             PolygonType.STI -> fList =
                 WXGLNexradLevel3StormInfo.decodeAndPlot(context, idxStr, rid, provider).toList()
             else -> {
+                if (buffers.warningType != null) {
+                    fList = WXGLPolygonWarnings.addGenericWarnings(context, provider, rid, buffers.warningType!!).toList()
+                }
             }
         }
         buffers.breakSize = 15000
@@ -986,12 +1007,22 @@ class WXGLRender(private val context: Context) : Renderer {
             remainder = totalBinsGeneric - buffers.breakSize * buffers.chunkCount
             buffers.chunkCount = buffers.chunkCount + 1
         }
-        buffers.initialize(
-            4 * 4 * totalBinsGeneric,
-            0,
-            3 * 4 * totalBinsGeneric,
-            buffers.type.color
-        )
+        // FIXME need a better solution then this hack
+        if (buffers.warningType == null) {
+            buffers.initialize(
+                    4 * 4 * totalBinsGeneric,
+                    0,
+                    3 * 4 * totalBinsGeneric,
+                    buffers.type.color
+            )
+        } else {
+            buffers.initialize(
+                    4 * 4 * totalBinsGeneric,
+                    0,
+                    3 * 4 * totalBinsGeneric,
+                    buffers.warningType!!.color
+            )
+        }
         if (MyApplication.radarUseJni) {
             JNI.colorGen(buffers.colorBuffer, 4 * totalBinsGeneric, buffers.colorArray)
         } else {

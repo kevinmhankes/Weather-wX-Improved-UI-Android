@@ -590,11 +590,15 @@ class MyApplication : Application() {
         }
 
         private fun initRadarGeometryAll(context: Context) {
+            initGenericRadarWarnings(context)
+            GeographyType.values().forEach { initRadarGeometryByType(context, it) }
+        }
+
+        fun initGenericRadarWarnings(context: Context) {
             radarWarningPolygons.clear()
             PolygonWarningType.values().forEach {
                 radarWarningPolygons.add(ObjectPolygonWarning(context, it))
             }
-            GeographyType.values().forEach { initRadarGeometryByType(context, it) }
         }
 
         fun initRadarGeometryByType(context: Context, type: GeographyType) {

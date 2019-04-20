@@ -31,6 +31,7 @@ import joshuatee.wx.MyApplication
 // TODO setup datastructures in myApp that are Maps based for example a Map of PolygonWarningType: boolean ( for enablement )
 
 // NWS default colors: https://www.weather.gov/bro/mapcolors
+// BETTER NWS default colors: https://www.weather.gov/help-map
 
 // TODO DSW Dust%20Storm%20Warning
 // TODO SQW Snow%20Squall%20Warning
@@ -47,11 +48,13 @@ enum class PolygonWarningType constructor(
 
     SpecialMarineWarning(
             "SMW",
-            "Special%20Marine%20Warning",    // use for testing "Flood%20Warning"
+            //"Flood%20Warning",
+            "Special%20Marine%20Warning",
             "RADAR_SHOW_SMW",
             "RADAR_COLOR_SMW",
             "SEVERE_DASHBOARD_SMW",
-            Color.rgb(219, 112, 147)
+            Color.rgb(255, 165, 0)
+            //Color.rgb(219, 112, 147)
     );
 
     //override fun toString(): String = typeAsString
