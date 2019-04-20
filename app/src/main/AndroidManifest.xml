@@ -21,8 +21,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="joshuatee.wx"
-    android:versionCode="55145"
-    android:versionName="55145"
+    android:versionCode="55146"
+    android:versionName="55146"
     >
 
  <uses-permission android:name="android.permission.INTERNET" />
@@ -89,11 +89,6 @@
       android:name=".settings.SettingsUIActivity"
       android:label="@string/title_activity_settings_ui"
       android:windowSoftInputMode="stateHidden"
-      android:parentActivityName="WX" >
-  </activity>
-  <activity
-      android:name=".settings.SettingsPrefIO"
-      android:label="@string/title_activity_settings_prefio"
       android:parentActivityName="WX" >
   </activity>
   <activity

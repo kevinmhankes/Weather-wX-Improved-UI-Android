@@ -16,8 +16,10 @@
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO improve settings labels
 // TODO test Kotlin binding enhancement
-// TODO CA and US hourly should not need a string passed to activity
+// TODO hourly tap to scroll to top
 
+55146 2019_04_19 more kotlin binding enhancement
+                 lint cleanup
 55145 2019_04_19 refector long press watch/mpd/mcd code
 55144 2019_04_19 storm reports - black background/white text for headers
 55143 2019_04_19 more kotlin binding enhancement
