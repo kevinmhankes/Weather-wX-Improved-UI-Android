@@ -32,6 +32,10 @@ import joshuatee.wx.MyApplication
 
 // NWS default colors: https://www.weather.gov/bro/mapcolors
 
+// TODO DSW Dust%20Storm%20Warning
+// TODO SQW Snow%20Squall%20Warning
+//
+
 enum class PolygonWarningType constructor(
         var productCode: String,
         var urlToken: String,
@@ -43,11 +47,11 @@ enum class PolygonWarningType constructor(
 
     SpecialMarineWarning(
             "SMW",
-            "Special%20Marine%20Warning",
+            "Special%20Marine%20Warning",    // use for testing "Flood%20Warning"
             "RADAR_SHOW_SMW",
             "RADAR_COLOR_SMW",
             "SEVERE_DASHBOARD_SMW",
-            Color.rgb(135, 135, 135)
+            Color.rgb(219, 112, 147)
     );
 
     //override fun toString(): String = typeAsString
