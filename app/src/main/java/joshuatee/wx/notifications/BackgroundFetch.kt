@@ -80,10 +80,10 @@ class BackgroundFetch(val context: Context) {
         }
         MyApplication.radarWarningPolygons.forEach {
             if (it.isEnabled) {
-                UtilityLog.d("wx", "Download: " + it.type.urlToken)
+                //UtilityLog.d("wx", "Download: " + it.type.urlToken)
                 it.storage.valueSet(context, UtilityDownloadRadar.getVtecByType(it.type))
             } else {
-                UtilityLog.d("wx", "DO NOT Download: " + it.type.urlToken)
+                //UtilityLog.d("wx", "DO NOT Download: " + it.type.urlToken)
                 it.storage.valueSet(context, "")
             }
         }

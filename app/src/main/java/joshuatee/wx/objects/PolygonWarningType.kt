@@ -22,8 +22,6 @@
 package joshuatee.wx.objects
 
 import android.graphics.Color
-import joshuatee.wx.MyApplication
-
 
 // The goal of this enum is to ease adoption of new polygon warnings ( ie those that provide LAT LON )
 // Previous there would by MyApp vars for enablement/color and data storage
@@ -63,51 +61,6 @@ enum class PolygonWarningType constructor(
             "SEVERE_DASHBOARD_SPS",
             Color.rgb(255, 228, 181)
     );
-
-    //override fun toString(): String = typeAsString
-
-    companion object {
-
-        /*fun refresh() {
-
-            MCD.pref = MyApplication.radarWatMcd
-            MPD.pref = MyApplication.radarMpd
-            WATCH.pref = MyApplication.radarWatMcd
-            WATCH_TORNADO.pref = MyApplication.radarWatMcd
-            TST.pref = MyApplication.radarWarnings
-            TOR.pref = MyApplication.radarWarnings
-            FFW.pref = MyApplication.radarWarnings
-            SPOTTER.pref = MyApplication.radarSpotters
-            SPOTTER_LABELS.pref = MyApplication.radarSpottersLabel
-            WIND_BARB_GUSTS.pref = MyApplication.radarObsWindbarbs
-            WIND_BARB.pref = MyApplication.radarObsWindbarbs
-            WIND_BARB_CIRCLE.pref = MyApplication.radarObsWindbarbs
-            LOCDOT.pref = MyApplication.radarLocDot
-            STI.pref = MyApplication.radarSti
-            TVS.pref = MyApplication.radarTvs
-            HI.pref = MyApplication.radarHi
-            OBS.pref = MyApplication.radarObs
-            SWO.pref = MyApplication.radarSwo
-
-            MCD.color = MyApplication.radarColorMcd
-            MPD.color = MyApplication.radarColorMpd
-            WATCH.color = MyApplication.radarColorTstormWatch
-            WATCH_TORNADO.color = MyApplication.radarColorTorWatch
-            TST.color = MyApplication.radarColorTstorm
-            TOR.color = MyApplication.radarColorTor
-            FFW.color = MyApplication.radarColorFfw
-            SPOTTER.color = MyApplication.radarColorSpotter
-            WIND_BARB_GUSTS.color = Color.RED
-            WIND_BARB.color = MyApplication.radarColorObsWindbarbs
-            WIND_BARB_CIRCLE.color = MyApplication.radarColorObsWindbarbs
-            LOCDOT.color = MyApplication.radarColorLocdot
-            STI.color = MyApplication.radarColorSti
-            TVS.color = MyApplication.radarColorTor
-            HI.color = MyApplication.radarColorHi
-            OBS.color = MyApplication.radarColorObs
-            SWO.color = MyApplication.radarColorHi
-        }*/
-    }
 }
 
 

@@ -403,48 +403,6 @@ internal object UtilityRadarUI {
         }
     }
 
-    // Thanks to Ely next 3 methods
-  /*
-    private fun showNearestWatch(
-            context: Context,
-            act: Activity,
-            glview: WXGLSurfaceView,
-            uiDispatcher: CoroutineDispatcher
-    ) = GlobalScope.launch(uiDispatcher) {
-        var txt = withContext(Dispatchers.IO) {
-            UtilityWatch.showProducts(context, glview.newY.toDouble(), glview.newX.toDouble() * -1.0, PolygonType.WATCH)
-        }
-        if (txt == "") { txt = "No active watch"}
-        UtilityAlertDialog.showHelpText(txt, act)
-    }
-
-    private fun showNearestMcd(
-            context: Context,
-            act: Activity,
-            glview: WXGLSurfaceView,
-            uiDispatcher: CoroutineDispatcher
-    ) = GlobalScope.launch(uiDispatcher) {
-        var txt = withContext(Dispatchers.IO) {
-            UtilityWatch.showProducts(context, glview.newY.toDouble(), glview.newX.toDouble() * -1.0, PolygonType.MCD)
-        }
-        if (txt == "") { txt = "No active MCD"}
-        UtilityAlertDialog.showHelpText(txt, act)
-    }
-
-
-    private fun showNearestMpd(
-            context: Context,
-            act: Activity,
-            glview: WXGLSurfaceView,
-            uiDispatcher: CoroutineDispatcher
-    ) = GlobalScope.launch(uiDispatcher) {
-        var txt = withContext(Dispatchers.IO) {
-            UtilityWatch.showProducts(context, glview.newY.toDouble(), glview.newX.toDouble() * -1.0, PolygonType.MPD)
-        }
-        if (txt == "") { txt = "No active MPD"}
-        UtilityAlertDialog.showHelpText(txt, act)
-    }
-*/
     private fun showNearestProduct(
             context: Context,
             act: Activity,

@@ -49,7 +49,7 @@ internal object WXGLPolygonWarnings {
             else -> MyApplication.severeDashboardFfw.valueGet()
         }*/
         val prefToken = type.storage.valueGet()
-        UtilityLog.d("wx", "SPS: " + prefToken)
+        //UtilityLog.d("wx", "SPS: " + prefToken)
         val pn = ProjectionNumbers(context, rid1, provider)
         var j: Int
         var pixXInit: Double
@@ -62,8 +62,8 @@ internal object WXGLPolygonWarnings {
         }
         val polygonArr = warningHTML.parseColumn(RegExp.warningLatLonPattern)
         val vtecAl = warningHTML.parseColumn(RegExp.warningVtecPattern)
-        UtilityLog.d("wx", polygonArr.toString())
-        UtilityLog.d("wx", vtecAl.toString())
+        //UtilityLog.d("wx", polygonArr.toString())
+        //UtilityLog.d("wx", vtecAl.toString())
         var polyCount = -1
         polygonArr.forEach { polygon ->
             polyCount += 1

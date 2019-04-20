@@ -24,28 +24,17 @@ package joshuatee.wx.objects
 import android.content.Context
 import joshuatee.wx.DataStorage
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityLog
 
 class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
 
     var color = 0
-    val storage: DataStorage = DataStorage(type.prefTokenStorage)
+    val storage = DataStorage(type.prefTokenStorage)
     var isEnabled = false
 
     init {
-        UtilityLog.d("wx", type.productCode)
+        storage.update(context)
         color = Utility.readPref(context, type.prefTokenColor, type.initialColor)
         isEnabled = Utility.readPref(context, type.prefTokenEnabled, "false").startsWith("t")
-    }
-
-    companion object {
-        /*fun showWeb(context: Context, url: String) {
-            ObjectIntent(
-                context,
-                Intent.ACTION_VIEW,
-                Uri.parse(url)
-            )
-        }*/
     }
 }
 
