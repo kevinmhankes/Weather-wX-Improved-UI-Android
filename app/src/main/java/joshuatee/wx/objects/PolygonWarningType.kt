@@ -31,13 +31,22 @@ import joshuatee.wx.MyApplication
 // TODO setup datastructures in myApp that are Maps based for example a Map of PolygonWarningType: boolean ( for enablement )
 
 enum class PolygonWarningType constructor(
-    var productCode: String,
-    var urlToken: String,
-    var prefTokenEnabled: String,
-    var prefTokenColor: String
+        var productCode: String,
+        var urlToken: String,
+        var prefTokenEnabled: String,
+        var prefTokenColor: String,
+        var prefTokenStorage: String,
+        var initialColor: Int
 ) {
 
-    SpecialMarineWarning("SMW", "Special%20Marine%20Warning", "RADAR_SHOW_SMW", "RADAR_COLOR_SMW");
+    SpecialMarineWarning(
+            "SMW",
+            "Special%20Marine%20Warning",
+            "RADAR_SHOW_SMW",
+            "RADAR_COLOR_SMW",
+            "SEVERE_DASHBOARD_SMW",
+            Color.rgb(135, 135, 135)
+    );
 
     //override fun toString(): String = typeAsString
 

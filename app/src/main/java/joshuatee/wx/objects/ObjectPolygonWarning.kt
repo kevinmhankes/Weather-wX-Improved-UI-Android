@@ -21,11 +21,19 @@
 
 package joshuatee.wx.objects
 
+import android.content.Context
+import joshuatee.wx.DataStorage
+import joshuatee.wx.util.Utility
 
-class ObjectPolygonWarning() {
+class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
+
+    var color = 0
+    val storage: DataStorage = DataStorage(type.prefTokenStorage)
+    var isEnabled = false
 
     init {
-
+        color = Utility.readPref(context, type.prefTokenColor, type.initialColor)
+        isEnabled = Utility.readPref(context, type.prefTokenEnabled, "false").startsWith("t")
     }
 
     companion object {
