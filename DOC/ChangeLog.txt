@@ -10,8 +10,6 @@
 // TODO new polygons - snow squall, special marine warning
 // TODO fix issue for precip radar products when there is no data
 // TODO move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
-// TODO rewrite uswarn
-// TODO add new color pal for ref
 // TODO linesize - swo, wb, wbgusts, sti
 
 55148 2019_04_20
