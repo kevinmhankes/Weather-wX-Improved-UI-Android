@@ -48,7 +48,6 @@ class WX : CommonActionBarFragment() {
 
     private var backButtonCounter = 0
     private lateinit var vpa: ViewPagerAdapter
-    //private lateinit var mSlidingTabLayout: TabLayout
     private lateinit var miVr: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,11 +83,9 @@ class WX : CommonActionBarFragment() {
         } else {
             fab.setVisibility(View.GONE)
         }
-        val viewPager: ViewPager = findViewById(R.id.pager)
         viewPager.offscreenPageLimit = 4
         vpa = ViewPagerAdapter(supportFragmentManager)
         viewPager.adapter = vpa
-        //mSlidingTabLayout = findViewById(R.id.sliding_tabs)
         slidingTabLayout.tabGravity = TabLayout.GRAVITY_FILL
         slidingTabLayout.setupWithViewPager(viewPager)
         if (android.os.Build.VERSION.SDK_INT > 20) {
