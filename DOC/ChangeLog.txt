@@ -14,10 +14,8 @@
 // TODO rewrite uswarn
 // TODO add new color pal for ref
 // TODO linesize - swo, wb, wbgusts, sti
-// TODO improve settings labels
-// TODO test Kotlin binding enhancement
-// TODO hourly tap to scroll to top
 
+55147 2019_04_20
 55146 2019_04_20 more kotlin binding enhancement
                  lint cleanup
                  [BUG] fix dynamic tab headers, broke after removing images tab

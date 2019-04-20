@@ -24,6 +24,7 @@ package joshuatee.wx.util
 import android.content.Context
 import joshuatee.wx.Extensions.getHtml
 import joshuatee.wx.MyApplication
+import joshuatee.wx.objects.PolygonWarningType
 
 object UtilityDownloadRadar {
 
@@ -83,6 +84,10 @@ object UtilityDownloadRadar {
 
     fun getVtecFfw(): String {
         return UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(ffwUrl)
+    }
+
+    fun getVtecByType(type: PolygonWarningType): String {
+        return UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(baseUrl + type.urlToken)
     }
 
     fun getMcd(): String {
