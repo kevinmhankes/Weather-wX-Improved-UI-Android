@@ -24,6 +24,7 @@ package joshuatee.wx.objects
 import android.content.Context
 import joshuatee.wx.DataStorage
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityLog
 
 class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
 
@@ -32,6 +33,7 @@ class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
     var isEnabled = false
 
     init {
+        UtilityLog.d("wx", type.productCode)
         color = Utility.readPref(context, type.prefTokenColor, type.initialColor)
         isEnabled = Utility.readPref(context, type.prefTokenEnabled, "false").startsWith("t")
     }

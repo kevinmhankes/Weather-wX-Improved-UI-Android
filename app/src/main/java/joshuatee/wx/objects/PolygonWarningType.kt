@@ -30,6 +30,8 @@ import joshuatee.wx.MyApplication
 // Need to modify settings -> radar, settings -> colors, wxrender and i'm sure some other stuff
 // TODO setup datastructures in myApp that are Maps based for example a Map of PolygonWarningType: boolean ( for enablement )
 
+// NWS default colors: https://www.weather.gov/bro/mapcolors
+
 enum class PolygonWarningType constructor(
         var productCode: String,
         var urlToken: String,

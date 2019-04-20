@@ -37,6 +37,8 @@ import java.util.regex.Pattern
 import joshuatee.wx.audio.UtilityTTS
 import joshuatee.wx.notifications.UtilityNotificationTextProduct
 import joshuatee.wx.objects.GeographyType
+import joshuatee.wx.objects.ObjectPolygonWarning
+import joshuatee.wx.objects.PolygonWarningType
 import joshuatee.wx.radarcolorpalettes.ObjectColorPalette
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityHomeScreen
@@ -559,6 +561,7 @@ class MyApplication : Application() {
         var radarColorObs: Int = 0
         var radarColorObsWindbarbs: Int = 0
         var radarColorCountyLabels: Int = 0
+        var radarWarningPolygons = mutableListOf<ObjectPolygonWarning>()
 
         private fun radarGeometrySetColors() {
             radarColorHw = getInitialPreference("RADAR_COLOR_HW", Color.rgb(135, 135, 135))
@@ -586,8 +589,13 @@ class MyApplication : Application() {
                 getInitialPreference("RADAR_COLOR_COUNTY_LABELS", Color.rgb(234, 214, 123))
         }
 
-        private fun initRadarGeometryAll(context: Context) =
+        private fun initRadarGeometryAll(context: Context) {
+            radarWarningPolygons.clear()
+            PolygonWarningType.values().forEach {
+                radarWarningPolygons.add(ObjectPolygonWarning(context, it))
+            }
             GeographyType.values().forEach { initRadarGeometryByType(context, it) }
+        }
 
         fun initRadarGeometryByType(context: Context, type: GeographyType) {
             if (!radarHwEnh) {
