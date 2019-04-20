@@ -41,7 +41,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/sliding_tabs"
+                android:id="@+id/slidingTabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:height="?attr/actionBarSize"
