@@ -20,6 +20,7 @@
 
 55146 2019_04_19 more kotlin binding enhancement
                  lint cleanup
+                 [BUG] fix dynamic tab headers, broke after removing images tab
 55145 2019_04_19 refector long press watch/mpd/mcd code
 55144 2019_04_19 storm reports - black background/white text for headers
 55143 2019_04_19 more kotlin binding enhancement
