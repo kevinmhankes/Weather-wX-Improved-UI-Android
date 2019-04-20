@@ -44,6 +44,7 @@ enum class PolygonWarningType constructor(
         var initialColor: Int
 ) {
 
+    // FIXME all pref Vars should be hanled in object and use product code
     SpecialMarineWarning(
             "SMW",
             //"Flood%20Warning",
