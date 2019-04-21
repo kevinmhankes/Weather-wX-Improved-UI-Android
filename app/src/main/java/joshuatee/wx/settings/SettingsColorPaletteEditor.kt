@@ -305,7 +305,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
     private fun readTextFromUri(uri: Uri): String {
         val content = UtilityIO.readTextFromUri(this, uri)
         val uriArr =
-            uri.lastPathSegment.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            uri.lastPathSegment!!.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         var fileName = "map"
         if (uriArr.isNotEmpty()) {
             fileName = uriArr[uriArr.size - 1]

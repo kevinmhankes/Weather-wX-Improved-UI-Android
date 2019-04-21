@@ -11,6 +11,7 @@
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO in settings -> location show current conditions in 2nd line for all locations
 
+55149 2019_04_21 lint cleanup
 55148 2019_04_21 code cleanup (settings)
                  in location save, determine wfo/rid from NWS API, fall back to closest
 55147 2019_04_20 add better framework for radar polygon warnings and test for SMR (special marine warning), SPS
