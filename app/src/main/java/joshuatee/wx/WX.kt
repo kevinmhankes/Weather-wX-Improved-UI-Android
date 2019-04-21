@@ -28,7 +28,6 @@ import android.content.IntentFilter
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.widget.Toolbar
 import android.view.KeyEvent
 import android.view.MenuItem

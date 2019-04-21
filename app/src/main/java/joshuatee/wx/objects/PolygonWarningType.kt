@@ -23,17 +23,7 @@ package joshuatee.wx.objects
 
 import android.graphics.Color
 
-// The goal of this enum is to ease adoption of new polygon warnings ( ie those that provide LAT LON )
-// Previous there would by MyApp vars for enablement/color and data storage
-// Need to modify settings -> radar, settings -> colors, wxrender and i'm sure some other stuff
-// TODO setup datastructures in myApp that are Maps based for example a Map of PolygonWarningType: boolean ( for enablement )
-
-// NWS default colors: https://www.weather.gov/bro/mapcolors
-// BETTER NWS default colors: https://www.weather.gov/help-map
-
-// TODO DSW Dust%20Storm%20Warning
-// TODO SQW Snow%20Squall%20Warning
-//
+// NWS default colors: https://www.weather.gov/help-map
 
 enum class PolygonWarningType constructor(
         var productCode: String,
@@ -44,7 +34,7 @@ enum class PolygonWarningType constructor(
         var initialColor: Int
 ) {
 
-    // FIXME all pref Vars should be hanled in object and use product code
+    // FIXME all pref Vars should be handled in object and use product code
     SpecialMarineWarning(
             "SMW",
             //"Flood%20Warning",

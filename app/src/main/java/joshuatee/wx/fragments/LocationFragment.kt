@@ -413,13 +413,13 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         if (oglrIdx != -1)
             if (!radarLocationChangedAl[oglrIdx])
                 oglrArr[oglrIdx].rid = Location.rid
-        if (oglrArr[idx].product == "N0Q" && WXGLNexrad.isRIDTDWR(oglrArr[idx].rid))
+        if (oglrArr[idx].product == "N0Q" && WXGLNexrad.isRidTdwr(oglrArr[idx].rid))
             oglrArr[idx].product = "TZL"
-        if (oglrArr[idx].product == "TZL" && !WXGLNexrad.isRIDTDWR(oglrArr[idx].rid))
+        if (oglrArr[idx].product == "TZL" && !WXGLNexrad.isRidTdwr(oglrArr[idx].rid))
             oglrArr[idx].product = "N0Q"
-        if (oglrArr[idx].product == "N0U" && WXGLNexrad.isRIDTDWR(oglrArr[idx].rid))
+        if (oglrArr[idx].product == "N0U" && WXGLNexrad.isRidTdwr(oglrArr[idx].rid))
             oglrArr[idx].product = "TV0"
-        if (oglrArr[idx].product == "TV0" && !WXGLNexrad.isRIDTDWR(oglrArr[idx].rid))
+        if (oglrArr[idx].product == "TV0" && !WXGLNexrad.isRidTdwr(oglrArr[idx].rid))
             oglrArr[idx].product = "N0U"
         UtilityRadarUI.initWxoglGeom(
             glviewArr[idx],

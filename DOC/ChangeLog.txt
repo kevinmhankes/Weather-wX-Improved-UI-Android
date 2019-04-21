@@ -6,11 +6,11 @@
 // TODO UtilityMetar in radar has optimization related to text file loading
 // TODO BUG - storm reports show radar doesn't show location dot for report
 // TODO enhance hourly graphics
-// TODO fix wfo issue for locations
-// TODO new polygons - snow squall, special marine warning
 // TODO fix issue for precip radar products when there is no data
 // TODO move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
 // TODO linesize - swo, wb, wbgusts, sti
+// TODO in settings -> location show current conditions in 2nd line for all locations
+// TODO fix wfo issue for locations - in location save, determine wfo/rid from NWS API, fall back to closest
 
 55148 2019_04_21 code cleanup (settings)
 55147 2019_04_20 add better framework for radar polygon warnings and test for SMR (special marine warning), SPS
