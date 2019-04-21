@@ -32,6 +32,24 @@ import joshuatee.wx.wpc.WPCImagesActivity
 
 internal object UtilityHomeScreen {
 
+    val localChoicesText = listOf(
+            "CC: Current Conditions",
+            "CC2: Current Conditions with image",
+            "HAZ: Hazards", "7DAY: 7 Day Forecast",
+            "7DAY2: 7 Day Forecast with images",
+            "AFDLOC: Area Forecast Discussion",
+            "HWOLOC: Hazardous Weather Outlook",
+            "VFDLOC: Aviation only Area Forecast Discussion",
+            "SUNMOON: Sun/Moon Data",
+            "HOURLY: Hourly Forecast",
+            "CTOF: Celsius to Fahrenheit table"
+    )
+    val localChoicesImg = listOf(
+            "RADAR: Local NEXRAD Radar",
+            "CARAIN: Local CA Radar",
+            "WEATHERSTORY: Local NWS Weather Story"
+    )
+
     fun setupMap() {
         (1..3).forEach {
             val number = it.toString()

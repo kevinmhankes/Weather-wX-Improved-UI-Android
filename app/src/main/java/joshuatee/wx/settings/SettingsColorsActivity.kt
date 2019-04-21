@@ -39,7 +39,7 @@ class SettingsColorsActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
-        var mapColorToPref = mutableMapOf(
+        val mapColorToPref = mutableMapOf(
             "Highway color" to "RADAR_COLOR_HW",
             "Secondary Highway color" to "RADAR_COLOR_HW_EXT",
             "State border color" to "RADAR_COLOR_STATE",

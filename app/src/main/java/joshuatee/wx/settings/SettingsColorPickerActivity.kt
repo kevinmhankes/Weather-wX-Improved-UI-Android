@@ -68,9 +68,7 @@ class SettingsColorPickerActivity : AppCompatActivity(), OnColorChangedListener 
         title = turl[1]
         color = UtilityColor.setColor(prefVal)
         val currentColor = Utility.readPref(this, prefVal, color)
-        //picker = findViewById(R.id.picker)
         buttonDefault.setTextColor(color)
-        //buttonDefault.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
         picker.oldCenterColor = currentColor
         picker.color = currentColor
         picker.addValueBar(vBar)
