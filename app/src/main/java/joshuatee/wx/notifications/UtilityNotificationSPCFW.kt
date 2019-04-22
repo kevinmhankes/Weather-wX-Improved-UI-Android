@@ -30,9 +30,9 @@ import joshuatee.wx.external.ExternalPolygon
 import joshuatee.wx.spc.SPCFireOutlookActivity
 import joshuatee.wx.util.UtilityString
 
-import android.app.Notification
 import android.content.Context
 import android.graphics.Color
+import androidx.core.app.NotificationCompat
 
 import joshuatee.wx.Extensions.*
 
@@ -45,11 +45,11 @@ internal object UtilityNotificationSPCFW {
     }
 
     private fun sendSPCFWNotif(
-        context: Context,
-        locNum: String,
-        day: Int,
-        threatLevel: String,
-        validTime: String
+            context: Context,
+            locNum: String,
+            day: Int,
+            threatLevel: String,
+            validTime: String
     ): String {
         var notifUrls = ""
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
@@ -68,24 +68,24 @@ internal object UtilityNotificationSPCFW {
         val objPI = ObjectPendingIntents(context, SPCFireOutlookActivity::class.java)
         val cancelStr = "spcfwloc$day$locNum$threatLevel$validTime"
         if (!(MyApplication.alertOnlyonce && UtilityNotificationUtils.checkToken(
-                context,
-                cancelStr
-            ))
+                        context,
+                        cancelStr
+                ))
         ) {
             val sound = MyApplication.locations[locNumInt].sound && !inBlackout
             val notifObj = ObjectNotification(
-                context,
-                sound,
-                noMain,
-                noBody,
-                objPI.resultPendingIntent,
-                MyApplication.ICON_ALERT,
-                noSummary,
-                Notification.PRIORITY_DEFAULT,
-                Color.YELLOW,
-                MyApplication.ICON_ACTION,
-                objPI.resultPendingIntent2,
-                context.resources.getString(R.string.read_aloud)
+                    context,
+                    sound,
+                    noMain,
+                    noBody,
+                    objPI.resultPendingIntent,
+                    MyApplication.ICON_ALERT,
+                    noSummary,
+                    NotificationCompat.PRIORITY_HIGH, // was Notification.PRIORITY_DEFAULT
+                    Color.YELLOW,
+                    MyApplication.ICON_ACTION,
+                    objPI.resultPendingIntent2,
+                    context.resources.getString(R.string.read_aloud)
             )
             val noti = UtilityNotification.createNotifBigTextWithAction(notifObj)
             notifObj.sendNotification(context, cancelStr, 1, noti)
@@ -106,17 +106,17 @@ internal object UtilityNotificationSPCFW {
         var urlBlob: String
         for (day in 1..2) {
             val urlLocal =
-                "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/fwdy" + day.toString() + ".html"
+                    "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/fwdy" + day.toString() + ".html"
             urlBlob = UtilityString.getHTMLandParse(
-                urlLocal,
-                "CLICK FOR <a href=.(.*?txt).>DAY [12] FIREWX AREAL OUTLINE PRODUCT .KWNSPFWFD[12].</a>"
+                    urlLocal,
+                    "CLICK FOR <a href=.(.*?txt).>DAY [12] FIREWX AREAL OUTLINE PRODUCT .KWNSPFWFD[12].</a>"
             )
             urlBlob = "${MyApplication.nwsSPCwebsitePrefix}$urlBlob"
             var html = urlBlob.getHtmlSep()
             val validTime = html.parse("VALID TIME ([0-9]{6}Z - [0-9]{6}Z)")
             html = html.replace("<br>", " ")
             val htmlBlob =
-                html.parse("FIRE WEATHER OUTLOOK POINTS DAY $day(.*?&)&") // was (.*?)&&
+                    html.parse("FIRE WEATHER OUTLOOK POINTS DAY $day(.*?&)&") // was (.*?)&&
             for (m in threatList.indices) {
                 retStr = ""
                 val threatLevelCode = threatList[m]
@@ -148,8 +148,8 @@ internal object UtilityNotificationSPCFW {
                     retStr += ":"
                     retStr = retStr.replace(" :", ":")
                     retStr = retStr.replace(
-                        " 99.99 99.99 ",
-                        " "
+                            " 99.99 99.99 ",
+                            " "
                     ) // need for the way SPC ConvO seperates on 8 's
                 } // end looping over polygons of one threat level
                 val x = mutableListOf<Double>()
@@ -194,19 +194,19 @@ internal object UtilityNotificationSPCFW {
                                 locXDbl = MyApplication.locations[n - 1].x.toDoubleOrNull() ?: 0.0
                                 locYDbl = MyApplication.locations[n - 1].y.toDoubleOrNull() ?: 0.0
                                 val contains = polygon2.contains(
-                                    ExternalPoint(
-                                        locXDbl.toFloat(),
-                                        locYDbl.toFloat()
-                                    )
+                                        ExternalPoint(
+                                                locXDbl.toFloat(),
+                                                locYDbl.toFloat()
+                                        )
                                 )
                                 if (contains) {
                                     if (!notifUrls.contains("spcfwloc$day$locNum"))
                                         notifUrls += sendSPCFWNotif(
-                                            context,
-                                            locNum,
-                                            day,
-                                            threatLevelCode,
-                                            validTime
+                                                context,
+                                                locNum,
+                                                day,
+                                                threatLevelCode,
+                                                validTime
                                         )
                                 }
                             }

@@ -135,7 +135,6 @@ object UtilityNotification {
                         )
                         val noti = createNotifBigTextWithAction(notifObj)
                         notifObj.sendNotification(context, cancelStr, 1, noti)
-                        //notifier.notify(cancelStr, 1, noti)
                     }
                     notifUrls += cancelStr + MyApplication.notificationStrSep
                 }

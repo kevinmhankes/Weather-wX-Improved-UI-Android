@@ -28,28 +28,6 @@ import joshuatee.wx.objects.PolygonWarningType
 
 object UtilityDownloadRadar {
 
-    // FIXME make URLs global static
-// was getNWSStringFromURLJSON getNWSStringFromURL
-
-    /*fun getPolygonVTEC(context: Context) {
-        MyApplication.severeDashboardTst.valueSet(
-            context,
-            UtilityDownloadNWS.getNWSStringFromURLJSON("https://api.weather.gov/alerts/active?event=Severe%20Thunderstorm%20Warning")
-        )
-        UtilityLog.d(
-            "wx",
-            "RADAR: " + UtilityDownloadNWS.getNWSStringFromURLJSON("https://api.weather.gov/alerts/active?event=Severe%20Thunderstorm%20Warning")
-        )
-        MyApplication.severeDashboardFfw.valueSet(
-            context,
-            UtilityDownloadNWS.getNWSStringFromURLJSON("https://api.weather.gov/alerts/active?event=Flash%20Flood%20Warning")
-        )
-        MyApplication.severeDashboardTor.valueSet(
-            context,
-            UtilityDownloadNWS.getNWSStringFromURLJSON("https://api.weather.gov/alerts/active?event=Tornado%20Warning")
-        )
-    }*/
-
     private const val baseUrl = "https://api.weather.gov/alerts/active?event="
     private const val tstormURl = baseUrl + "Severe%20Thunderstorm%20Warning"
     private const val ffwUrl = baseUrl + "Flash%20Flood%20Warning"
@@ -71,8 +49,6 @@ object UtilityDownloadRadar {
                 UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(tornadoUrl)
         )
     }
-
-    // FIXME use in Background fetch
 
     fun getVtecTstorm(): String {
         return UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(tstormURl)
