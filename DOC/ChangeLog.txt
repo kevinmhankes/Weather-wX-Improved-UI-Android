@@ -11,8 +11,11 @@
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO in settings -> location show current conditions in 2nd line for all locations
 // TODO test the following (SPC MPD,FW) to remove deprecation warnings: NotificationCompat.PRIORITY_HIGH, // was Notification.PRIORITY_DEFAULT
+// TODO clean out unused resource (old GOES, etc)
+// TODO SPS longpress does not always work well
 
 55149 2019_04_22 lint cleanup
+                 [BUG] widget (legacy cc) cloud icon was not pointing to GOES16
 55148 2019_04_21 code cleanup (settings)
                  in location save, determine wfo/rid from NWS API, fall back to closest
 55147 2019_04_20 add better framework for radar polygon warnings and test for SMR (special marine warning), SPS

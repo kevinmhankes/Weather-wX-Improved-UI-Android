@@ -33,7 +33,6 @@ import joshuatee.wx.settings.Location
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.notifications.*
-import joshuatee.wx.radar.LatLon
 
 // FIXME rename
 object UtilityUSv2 {
@@ -41,7 +40,7 @@ object UtilityUSv2 {
     var obsClosestClass: String = ""
     private val OBS_CODE_TO_LOCATION = mutableMapOf<String, String>()
 
-    internal fun getStatus(context: Context, conditionsTimeStrF: String): String {
+    /*internal fun getStatus(context: Context, conditionsTimeStrF: String): String {
         var conditionsTimeStr = conditionsTimeStrF
         var locationName: String? = OBS_CODE_TO_LOCATION[obsClosestClass]
         if (locationName == null) {
@@ -55,7 +54,7 @@ object UtilityUSv2 {
         return conditionsTimeStr.replace(":00 ", " ") + " " + UtilityString.capitalizeString(
             locationName
         ).trim { it <= ' ' } + " (" + obsClosestClass + ") "  // strip off seconds that is always 00, need to do this here
-    }
+    }*/
 
     internal fun getStatusViaMetar(context: Context, conditionsTimeStr: String): String {
         var locationName: String? = OBS_CODE_TO_LOCATION[obsClosestClass]
@@ -86,7 +85,7 @@ object UtilityUSv2 {
         return locatioName
     }
 
-    internal fun getObsFromLatLon(context: Context, location: LatLon): String {
+    /*internal fun getObsFromLatLon(context: Context, location: LatLon): String {
         var x = location.latString
         var y = location.lonString
         x = UtilityMath.latLonFix(x)
@@ -104,7 +103,7 @@ object UtilityUSv2 {
         }
         obsClosestClass = obsClosest
         return obsClosest
-    }
+    }*/
 
     /*
 
