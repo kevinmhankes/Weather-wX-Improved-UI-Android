@@ -302,14 +302,6 @@ US lightning strikes: An image showing recent lightning strikes CONUS wide. For 
 Twitter widgets: Content is shown for state or Canadian province wx and tornado search via the 2 right most icons in the bottom row.
 </string>
 
-
-    <string name="help_goes_image_browser">
-GOES image browser: Browse GOES provided radar, vis, ir, and wv. Animation and many mesoscale overlays available.
-        Images support pan, pinch zoom, and double tap zoom. GOES has additional enhancements including ( if enabled )
-        polygon warnings and city support.
-</string>
-
-
     <string name="help_hourly_forecast">
 Hourly forecast for the next seven days for the currently active location.
 </string>

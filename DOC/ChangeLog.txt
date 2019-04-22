@@ -13,7 +13,10 @@
 // TODO test the following (SPC MPD,FW) to remove deprecation warnings: NotificationCompat.PRIORITY_HIGH, // was Notification.PRIORITY_DEFAULT
 // TODO clean out unused resource (old GOES, etc)
 // TODO SPS longpress does not always work well
+// TODO remove old GOES activity and related files, change default HOMESCREEN activity to GOES16
 
+55150 2019_04_22 remove unused resources
+                   widget cc - don't update image if NA
 55149 2019_04_22 lint cleanup
                  [BUG] widget (legacy cc) cloud icon was not pointing to GOES16
 55148 2019_04_21 code cleanup (settings)

@@ -42,7 +42,6 @@
     <string name="label_radar_markers">Help - radar markers</string>
     <string name="title_activity_settings_main">Settings</string>
     <string name="title_activity_settings_ui">User Interface Settings</string>
-    <string name="title_activity_settings_prefio">Settings Export/Import</string>
     <string name="title_activity_text_screen">wX</string>
     <string name="about_wx">wX is an efficient and configurable method to access weather content from the NWS,
         Environment Cananda, NSSL WRF, and Blitzortung.org.

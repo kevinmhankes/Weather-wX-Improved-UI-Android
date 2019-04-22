@@ -123,10 +123,14 @@ class ObjectWidgetCC(context: Context) {
                     false
             )
             remoteViews.setImageViewUri(R.id.wind_barb, Uri.parse(""))
-            if (windBardRotate < 500) remoteViews.setImageViewBitmap(R.id.wind_barb, rotatedWb)
+            if (windBardRotate < 500) {
+                remoteViews.setImageViewBitmap(R.id.wind_barb, rotatedWb)
+            }
         }
-        remoteViews.setImageViewUri(R.id.iv, Uri.parse(""))
-        remoteViews.setImageViewBitmap(R.id.iv, bmCc)
+        if (!tmpArrCc[0].contains("NA")) {
+            remoteViews.setImageViewUri(R.id.iv, Uri.parse(""))
+            remoteViews.setImageViewBitmap(R.id.iv, bmCc)
+        }
         if (!MyApplication.widgetPreventTap) {
             UtilityWidget.setupIntent(context, remoteViews, WX::class.java, R.id.layout, "WX")
         }
