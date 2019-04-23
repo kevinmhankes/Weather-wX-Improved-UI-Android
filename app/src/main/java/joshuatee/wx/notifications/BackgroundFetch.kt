@@ -26,9 +26,9 @@ import java.util.regex.Matcher
 import android.graphics.Color
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.app.NotificationManager
-import android.app.Notification
 import android.content.Context
 import android.content.Intent
+import androidx.core.app.NotificationCompat
 import joshuatee.wx.Extensions.getHtml
 
 import joshuatee.wx.MyApplication
@@ -93,8 +93,8 @@ class BackgroundFetch(val context: Context) {
                 UtilityDownloadRadar.getPolygonVTEC(context)
                 if (MyApplication.alertTornadoNotificationCurrent) {
                     notifUrls += UtilityNotificationTornado.checkAndSendTornadoNotification(
-                        context,
-                        MyApplication.severeDashboardTor.valueGet()
+                            context,
+                            MyApplication.severeDashboardTor.valueGet()
                     )
                 }
             } catch (e: Exception) {
@@ -127,36 +127,36 @@ class BackgroundFetch(val context: Context) {
                             noSummary = mcdPre
                             val polygonType = MCD
                             val objPI = ObjectPendingIntents(
-                                context,
-                                SPCMCDWShowActivity::class.java,
-                                SPCMCDWShowActivity.NO,
-                                arrayOf(mdNo, "", polygonType.toString()),
-                                arrayOf(mdNo, "sound", polygonType.toString())
+                                    context,
+                                    SPCMCDWShowActivity::class.java,
+                                    SPCMCDWShowActivity.NO,
+                                    arrayOf(mdNo, "", polygonType.toString()),
+                                    arrayOf(mdNo, "sound", polygonType.toString())
                             )
                             cancelStr = "usspcmcd$mdNo"
                             if (!(MyApplication.alertOnlyonce && UtilityNotificationUtils.checkToken(
-                                    context,
-                                    cancelStr
-                                ))
+                                            context,
+                                            cancelStr
+                                    ))
                             ) {
                                 val sound =
-                                    MyApplication.alertNotificationSoundSpcmcd && !inBlackout
+                                        MyApplication.alertNotificationSoundSpcmcd && !inBlackout
                                 val notifObj = ObjectNotification(
-                                    context,
-                                    sound,
-                                    noMain,
-                                    noBody,
-                                    objPI.resultPendingIntent,
-                                    MyApplication.ICON_MCD,
-                                    noSummary,
-                                    Notification.PRIORITY_DEFAULT,
-                                    Color.YELLOW,
-                                    MyApplication.ICON_ACTION,
-                                    objPI.resultPendingIntent2,
-                                    context.resources.getString(R.string.read_aloud)
+                                        context,
+                                        sound,
+                                        noMain,
+                                        noBody,
+                                        objPI.resultPendingIntent,
+                                        MyApplication.ICON_MCD,
+                                        noSummary,
+                                        NotificationCompat.PRIORITY_HIGH,
+                                        Color.YELLOW,
+                                        MyApplication.ICON_ACTION,
+                                        objPI.resultPendingIntent2,
+                                        context.resources.getString(R.string.read_aloud)
                                 )
                                 val noti =
-                                    UtilityNotification.createNotifBigTextWithAction(notifObj)
+                                        UtilityNotification.createNotifBigTextWithAction(notifObj)
                                 notifObj.sendNotification(context, cancelStr, 1, noti)
                             }
                             notifUrls += cancelStr + MyApplication.notificationStrSep
@@ -173,7 +173,7 @@ class BackgroundFetch(val context: Context) {
         if (MyApplication.alertWpcmpdNotificationCurrent || MyApplication.checkwpc || PolygonType.MPD.pref || locationNeedsWpcmpd) {
             try {
                 dataAsString =
-                    "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php".getHtml()
+                        "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php".getHtml()
                 MyApplication.severeDashboardMpd.valueSet(context, dataAsString)
                 if (MyApplication.alertWpcmpdNotificationCurrent || PolygonType.MPD.pref || locationNeedsWpcmpd) {
                     // FIXME matcher
@@ -193,36 +193,36 @@ class BackgroundFetch(val context: Context) {
                             noSummary = mcdPre
                             val polygonType = MPD
                             val objPI = ObjectPendingIntents(
-                                context,
-                                SPCMCDWShowActivity::class.java,
-                                SPCMCDWShowActivity.NO,
-                                arrayOf(mdNo, "", polygonType.toString()),
-                                arrayOf(mdNo, "sound", polygonType.toString())
+                                    context,
+                                    SPCMCDWShowActivity::class.java,
+                                    SPCMCDWShowActivity.NO,
+                                    arrayOf(mdNo, "", polygonType.toString()),
+                                    arrayOf(mdNo, "sound", polygonType.toString())
                             )
                             cancelStr = "uswpcmpd$mdNo"
                             if (!(MyApplication.alertOnlyonce && UtilityNotificationUtils.checkToken(
-                                    context,
-                                    cancelStr
-                                ))
+                                            context,
+                                            cancelStr
+                                    ))
                             ) {
                                 val sound =
-                                    MyApplication.alertNotificationSoundWpcmpd && !inBlackout
+                                        MyApplication.alertNotificationSoundWpcmpd && !inBlackout
                                 val notifObj = ObjectNotification(
-                                    context,
-                                    sound,
-                                    noMain,
-                                    noBody,
-                                    objPI.resultPendingIntent,
-                                    MyApplication.ICON_MPD,
-                                    noSummary,
-                                    Notification.PRIORITY_DEFAULT,
-                                    Color.GREEN,
-                                    MyApplication.ICON_ACTION,
-                                    objPI.resultPendingIntent2,
-                                    context.resources.getString(R.string.read_aloud)
+                                        context,
+                                        sound,
+                                        noMain,
+                                        noBody,
+                                        objPI.resultPendingIntent,
+                                        MyApplication.ICON_MPD,
+                                        noSummary,
+                                        NotificationCompat.PRIORITY_HIGH,
+                                        Color.GREEN,
+                                        MyApplication.ICON_ACTION,
+                                        objPI.resultPendingIntent2,
+                                        context.resources.getString(R.string.read_aloud)
                                 )
                                 val noti =
-                                    UtilityNotification.createNotifBigTextWithAction(notifObj)
+                                        UtilityNotification.createNotifBigTextWithAction(notifObj)
                                 notifObj.sendNotification(context, cancelStr, 1, noti)
                                 //notifier.notify(cancelStr, 1, noti)
                             }
@@ -254,8 +254,8 @@ class BackgroundFetch(val context: Context) {
                         watchNoList = "$watchNoList$mdNo:"
                         //
                         val mcdPre2 = UtilityString.getHTMLandParseLastMatch(
-                            "${MyApplication.nwsSPCwebsitePrefix}/products/watch/wou$mdNo.html",
-                            RegExp.pre2Pattern
+                                "${MyApplication.nwsSPCwebsitePrefix}/products/watch/wou$mdNo.html",
+                                RegExp.pre2Pattern
                         )
                         // Thanks Ely
                         watchLatlonList += UtilityNotification.storeWatMCDLATLON(mcdPre2)
@@ -274,36 +274,36 @@ class BackgroundFetch(val context: Context) {
                             noSummary = mcdPre
                             val polygonType = WATCH
                             val objPI = ObjectPendingIntents(
-                                context,
-                                SPCMCDWShowActivity::class.java,
-                                SPCMCDWShowActivity.NO,
-                                arrayOf(mdNo, "", polygonType.toString()),
-                                arrayOf(mdNo, "sound", polygonType.toString())
+                                    context,
+                                    SPCMCDWShowActivity::class.java,
+                                    SPCMCDWShowActivity.NO,
+                                    arrayOf(mdNo, "", polygonType.toString()),
+                                    arrayOf(mdNo, "sound", polygonType.toString())
                             )
                             cancelStr = "usspcwat$mdNo"
                             if (!(MyApplication.alertOnlyonce && UtilityNotificationUtils.checkToken(
-                                    context,
-                                    cancelStr
-                                ))
+                                            context,
+                                            cancelStr
+                                    ))
                             ) {
                                 val sound =
-                                    MyApplication.alertNotificationSoundSpcwat && !inBlackout
+                                        MyApplication.alertNotificationSoundSpcwat && !inBlackout
                                 val notifObj = ObjectNotification(
-                                    context,
-                                    sound,
-                                    noMain,
-                                    noBody,
-                                    objPI.resultPendingIntent,
-                                    MyApplication.ICON_ALERT_2,
-                                    noSummary,
-                                    Notification.PRIORITY_DEFAULT,
-                                    Color.YELLOW,
-                                    MyApplication.ICON_ACTION,
-                                    objPI.resultPendingIntent2,
-                                    context.resources.getString(R.string.read_aloud)
+                                        context,
+                                        sound,
+                                        noMain,
+                                        noBody,
+                                        objPI.resultPendingIntent,
+                                        MyApplication.ICON_ALERT_2,
+                                        noSummary,
+                                        NotificationCompat.PRIORITY_HIGH,
+                                        Color.YELLOW,
+                                        MyApplication.ICON_ACTION,
+                                        objPI.resultPendingIntent2,
+                                        context.resources.getString(R.string.read_aloud)
                                 )
                                 val noti =
-                                    UtilityNotification.createNotifBigTextWithAction(notifObj)
+                                        UtilityNotification.createNotifBigTextWithAction(notifObj)
                                 notifObj.sendNotification(context, cancelStr, 1, noti)
                                 //notifier.notify(cancelStr, 1, noti)
                             }
@@ -322,19 +322,19 @@ class BackgroundFetch(val context: Context) {
         notifUrls += UtilityNotificationSPC.sendSWONotifs(context, inBlackout)
         if (MyApplication.alertNhcEpacNotificationCurrent || MyApplication.alertNhcAtlNotificationCurrent)
             notifUrls += UtilityNotificationNHC.sendNHCNotifs(
-                context,
-                MyApplication.alertNhcEpacNotificationCurrent,
-                MyApplication.alertNhcAtlNotificationCurrent
+                    context,
+                    MyApplication.alertNhcEpacNotificationCurrent,
+                    MyApplication.alertNhcAtlNotificationCurrent
             )
 
         // send 7day and current conditions notifications for locations
         (1..Location.numLocations).forEach {
             requestID = System.currentTimeMillis().toInt()
             notifUrls += UtilityNotification.sendNotifCC(
-                context,
-                it.toString(),
-                requestID,
-                requestID + 1
+                    context,
+                    it.toString(),
+                    requestID,
+                    requestID + 1
             )
         }
         // check of any text prod notifs
@@ -374,8 +374,8 @@ class BackgroundFetch(val context: Context) {
         val notifier = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val notifArr = MyApplication.comma.split(oldNotifStr)
         notifArr
-            .filterNot { notifStr.contains(it) }
-            .forEach { notifier.cancel(it, 1) }
+                .filterNot { notifStr.contains(it) }
+                .forEach { notifier.cancel(it, 1) }
         Utility.writePref(context, "NOTIF_STR_OLD", oldNotifStr)
         Utility.writePref(context, "NOTIF_STR", notifStr)
     }

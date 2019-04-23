@@ -21,9 +21,9 @@
 
 package joshuatee.wx.util
 
-import android.app.Notification
 import android.content.Context
 import android.graphics.Color
+import androidx.core.app.NotificationCompat
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
@@ -124,10 +124,10 @@ object UtilityUSv2 {
 	 */
 
     fun checkForNotifications(
-        context: Context,
-        currentLoc: Int,
-        inBlackout: Boolean,
-        tornadoWarningString: String
+            context: Context,
+            currentLoc: Int,
+            inBlackout: Boolean,
+            tornadoWarningString: String
     ): String {
         var html = ObjectForecastPackageHazards.getHazardsHtml(Location.getLatLon(currentLoc))
         var notifUrls = ""
@@ -147,33 +147,33 @@ object UtilityUSv2 {
                     val noBody = title + " " + ca.area + " " + ca.summary
                     val noSummary = title + ": " + ca.area + " " + ca.summary
                     val objPI = ObjectPendingIntents(
-                        context,
-                        USAlertsDetailActivity::class.java,
-                        USAlertsDetailActivity.URL,
-                        arrayOf(url, ""),
-                        arrayOf(url, "sound")
+                            context,
+                            USAlertsDetailActivity::class.java,
+                            USAlertsDetailActivity.URL,
+                            arrayOf(url, ""),
+                            arrayOf(url, "sound")
                     )
                     val tornadoWarningPresent = title.contains(tornadoWarningString)
                     if (!(MyApplication.alertOnlyonce && UtilityNotificationUtils.checkToken(
-                            context,
-                            url
-                        ))
+                                    context,
+                                    url
+                            ))
                     ) {
                         val sound =
-                            MyApplication.locations[currentLoc].sound && !inBlackout || MyApplication.locations[currentLoc].sound && tornadoWarningPresent && MyApplication.alertBlackoutTornadoCurrent
+                                MyApplication.locations[currentLoc].sound && !inBlackout || MyApplication.locations[currentLoc].sound && tornadoWarningPresent && MyApplication.alertBlackoutTornadoCurrent
                         val notifObj = ObjectNotification(
-                            context,
-                            sound,
-                            noMain,
-                            noBody,
-                            objPI.resultPendingIntent,
-                            MyApplication.ICON_ALERT,
-                            noSummary,
-                            Notification.PRIORITY_MAX,
-                            Color.BLUE,
-                            MyApplication.ICON_ACTION,
-                            objPI.resultPendingIntent2,
-                            context.resources.getString(R.string.read_aloud)
+                                context,
+                                sound,
+                                noMain,
+                                noBody,
+                                objPI.resultPendingIntent,
+                                MyApplication.ICON_ALERT,
+                                noSummary,
+                                NotificationCompat.PRIORITY_HIGH,
+                                Color.BLUE,
+                                MyApplication.ICON_ACTION,
+                                objPI.resultPendingIntent2,
+                                context.resources.getString(R.string.read_aloud)
                         )
                         val noti = UtilityNotification.createNotifBigTextWithAction(notifObj)
                         notifObj.sendNotification(context, url, 1, noti)

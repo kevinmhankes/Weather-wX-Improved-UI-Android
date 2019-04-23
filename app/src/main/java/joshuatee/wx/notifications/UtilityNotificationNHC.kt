@@ -21,9 +21,9 @@
 
 package joshuatee.wx.notifications
 
-import android.app.Notification
 import android.content.Context
 import android.graphics.Color
+import androidx.core.app.NotificationCompat
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
@@ -157,7 +157,7 @@ object UtilityNotificationNHC {
                 objPI.resultPendingIntent,
                 iconAlert,
                 noSummary,
-                Notification.PRIORITY_DEFAULT,
+                NotificationCompat.PRIORITY_HIGH,
                 Color.YELLOW,
                 MyApplication.ICON_ACTION,
                 objPI.resultPendingIntent2,

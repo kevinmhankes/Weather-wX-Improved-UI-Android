@@ -13,11 +13,13 @@
 // TODO test the following (SPC MPD,FW) to remove deprecation warnings: NotificationCompat.PRIORITY_HIGH, // was Notification.PRIORITY_DEFAULT
 // TODO clean out unused resource (old GOES, etc)
 // TODO SPS longpress does not always work well
+// TODO in radar cange title bar color if radar is not "current"
 // TODO remove old GOES activity and related files, change default HOMESCREEN activity to GOES16
 
 55151 2019_04_23 lint cleanup
                  in LocationFragment, use GOES16 as the activity to display if a homescreen item has nothing defined ( was USNWSGOESActivity)
                  remove USNWSGOESActivity
+                 Notifications - change Notification.PRIORITY_MAX to NotificationCompat.PRIORITY_HIGH
 55150 2019_04_22 remove unused resources
                    widget cc - don't update image if NA
 55149 2019_04_22 lint cleanup

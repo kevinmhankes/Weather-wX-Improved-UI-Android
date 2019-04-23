@@ -25,12 +25,9 @@
     <string name="spchref_shortcut">SPC HREF</string>
     <string name="read_aloud">Read Aloud</string>
     <string name="stop_audio">Stop Audio</string>
-    <string name="menu_overlays">Overlays</string>
-    <string name="menu_mesoanalysis">Mesoanalysis</string>
     <string name="menu_mosaics">Mosaics</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_clearall">Clear all</string>
-    <string name="menu_zoomout">Zoom out</string>
     <string name="menu_stopanimation">Stop animation</string>
     <string name="app_name">wX</string>
     <string name="action_settings">Settings</string>
@@ -80,8 +77,6 @@
     <string name="label_a84">Animate 84 frames</string>
     <string name="label_a96">Animate 96 frames</string>
     <string name="label_a">Animate frames</string>
-    <string name="label_ir">Infrared</string>
-    <string name="label_wv">Water Vapor</string>
     <string name="label_vis">Visible</string>
     <string name="label_rid_map">Map</string>
     <string name="label_toggle_favorite">Toggle favorite</string>
@@ -130,10 +125,6 @@
     <string name="settings_loc_generic_ca_x">CANADA:%1$s</string>
     <string name="help_menu_item">Help</string>
     <string name="main_screen_ca_disclaimor">Data for Canada forecasts and radar provided by http://weather.gc.ca/canada_e.html. Touch to open external browser to this site.</string>
-    <string name="menu_overlay_counties">Counties</string>
-    <string name="menu_overlay_latlon">Lat/Lon</string>
-    <string name="menu_overlay_roads">Roads</string>
-    <string name="menu_overlay_fronts">Fronts</string>
     <string name="menu_regions">Regions</string>
     <string name="action_radar_site_status_l3">Level 3 Radar Status</string>
     <string name="action_radar_site_status_l2">Level 2 Radar Status</string>

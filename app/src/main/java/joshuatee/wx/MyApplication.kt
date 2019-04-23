@@ -334,10 +334,11 @@ class MyApplication : Application() {
         var spcsseoZoom: Float = 0f
         var spcsseoX: Float = 0f
         var spcsseoY: Float = 0f
+        // FIXME what is this goes being used for? 16?
         var goesVisZoom: Float = 0f
         var goesVisX: Float = 0f
         var goesVisY: Float = 0f
-        var goesVisSector: String = ""
+        //var goesVisSector: String = ""
         var nwsIconSize: Int = 0
         var padding: Int = 0
         var paddingSettings: Int = 0
@@ -489,7 +490,7 @@ class MyApplication : Application() {
             goesVisZoom = getInitialPreference("GOESVIS_ZOOM", 1.0f)
             goesVisX = getInitialPreference("GOESVIS_X", 0.5f)
             goesVisY = getInitialPreference("GOESVIS_Y", 0.5f)
-            goesVisSector = getInitialPreferenceString("GOESVIS_SECTOR", "")
+            //goesVisSector = getInitialPreferenceString("GOESVIS_SECTOR", "")
             elevationPref = getInitialPreference("ELEVATION_PREF", 5).toFloat()
             elevationPref =
                 TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, elevationPref, dm)
