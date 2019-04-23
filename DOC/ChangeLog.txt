@@ -10,12 +10,10 @@
 // TODO move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO in settings -> location show current conditions in 2nd line for all locations
-// TODO test the following (SPC MPD,FW) to remove deprecation warnings: NotificationCompat.PRIORITY_HIGH, // was Notification.PRIORITY_DEFAULT
-// TODO clean out unused resource (old GOES, etc)
 // TODO SPS longpress does not always work well
 // TODO in radar cange title bar color if radar is not "current"
-// TODO remove old GOES activity and related files, change default HOMESCREEN activity to GOES16
 
+55152 2019_04_23
 55151 2019_04_23 lint cleanup
                  in LocationFragment, use GOES16 as the activity to display if a homescreen item has nothing defined ( was USNWSGOESActivity)
                  remove USNWSGOESActivity
