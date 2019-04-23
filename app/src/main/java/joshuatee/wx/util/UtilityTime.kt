@@ -34,7 +34,7 @@ import java.util.TimeZone
 
 object UtilityTime {
 
-    internal fun convertFromUTC(time: String): String {
+    /*internal fun convertFromUTC(time: String): String {
         var returnTime = time
         val inputFormat = SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss", Locale.US)
         inputFormat.timeZone = TimeZone.getTimeZone("UTC")
@@ -46,7 +46,7 @@ object UtilityTime {
             UtilityLog.HandleException(e)
         }
         return returnTime
-    }
+    }*/
 
     internal fun convertFromUTCForMetar(time: String): String {
         var returnTime = time

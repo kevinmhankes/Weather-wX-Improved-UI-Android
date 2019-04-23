@@ -21,28 +21,11 @@
 
 package joshuatee.wx.vis
 
-import java.util.Locale
-
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.drawable.AnimationDrawable
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
-import joshuatee.wx.Extensions.getHtml
-import joshuatee.wx.Extensions.getHtmlSep
-import joshuatee.wx.Extensions.getImage
-
-import joshuatee.wx.MyApplication
-import joshuatee.wx.objects.ProjectionType
-import joshuatee.wx.util.UtilityCanvasMain
-import joshuatee.wx.util.UtilityImg
-import joshuatee.wx.util.UtilityImgAnim
-import joshuatee.wx.util.UtilityLog
-import joshuatee.wx.Extensions.*
+// FIXME remove
 
 object UtilityUSImgNWSGOES {
 
-    fun getGOESMosaic(
+    /*fun getGOESMosaic(
         context: Context,
         satSectorF: String,
         sector: String,
@@ -109,9 +92,9 @@ object UtilityUSImgNWSGOES {
             isInteractive
         )
         return bitmap
-    }
+    }*/
 
-    private fun getNWSGOESOverlayImage(
+   /* private fun getNWSGOESOverlayImage(
         satSectorLocal: String,
         sector: String,
         imageTypeNhc: String,
@@ -132,9 +115,9 @@ object UtilityUSImgNWSGOES {
         } else {
             Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888)
         }
-    }
+    }*/
 
-    internal fun getGOESMosaicNONGOES(
+   /* internal fun getGOESMosaicNONGOES(
         context: Context,
         satSector: String,
         sector: String,
@@ -272,9 +255,9 @@ object UtilityUSImgNWSGOES {
         }
         val delay = UtilityImg.animInterval(context)
         return UtilityImgAnim.getAnimationDrawableFromBMList(context, bmAl, delay)
-    }
+    }*/
 
-    private fun getNWSGOESAnimationURLs(
+    /*private fun getNWSGOESAnimationURLs(
         satSectorLocal: String,
         sector: String,
         imageTypeNhc: String
@@ -293,6 +276,6 @@ object UtilityUSImgNWSGOES {
             }
         }
         return urlAl
-    }
+    }*/
 }
 

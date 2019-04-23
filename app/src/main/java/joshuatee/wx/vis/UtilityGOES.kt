@@ -75,7 +75,7 @@ object UtilityGOES {
         "HI" to "HI"
     )*/
 
-    val RADS: List<String> = listOf(
+    /*val RADS: List<String> = listOf(
         "TATL:EAST: Atlantic Wide View",
         "TPAC:WEST: East & Central Pacific Wide View",
         "EPAC:WEST: East Pacific ",
@@ -104,7 +104,7 @@ object UtilityGOES {
         "JMA:TWPACN: ",
         "EUMET:EATL: East Atlantic",
         "EUMET:NEATL: Northeast Atlantic"
-    )
+    )*/
 
     /*private fun getGOESSectorFromState(state: String) = stateToRegion[state] ?: ""
 
