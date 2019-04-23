@@ -52,7 +52,6 @@ import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.settings.SettingsLocationGenericActivity
 import joshuatee.wx.util.*
-import joshuatee.wx.vis.USNWSGOESActivity
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
@@ -60,6 +59,7 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.radar.*
 import joshuatee.wx.ui.*
+import joshuatee.wx.vis.GOES16Activity
 import kotlinx.coroutines.*
 
 class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
@@ -623,6 +623,12 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     }
                 } else {
                     ObjectIntent(
+                            activityReference,
+                            GOES16Activity::class.java,
+                            GOES16Activity.RID,
+                            arrayOf("")
+                    )
+                    /*ObjectIntent(
                         activityReference,
                         USNWSGOESActivity::class.java,
                         USNWSGOESActivity.RID,
@@ -630,7 +636,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                             "nws",
                             hsImageAl[ii].product.replace("IMG-", "").toLowerCase(Locale.US)
                         )
-                    )
+                    )*/
                 }
             })
         }

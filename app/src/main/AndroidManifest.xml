@@ -514,10 +514,6 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".vis.USNWSGOESActivity"
-      android:parentActivityName="WX" >
-  </activity>
-  <activity
       android:name=".settings.SettingsColorPickerActivity"
       android:parentActivityName="WX" >
   </activity>

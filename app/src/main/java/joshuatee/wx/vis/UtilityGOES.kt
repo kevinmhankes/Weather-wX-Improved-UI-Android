@@ -21,15 +21,9 @@
 
 package joshuatee.wx.vis
 
-import android.content.Context
-import java.util.Locale
-
-import joshuatee.wx.MyApplication
-import joshuatee.wx.util.Utility
-
 object UtilityGOES {
 
-    private val stateToRegion = mapOf(
+   /* private val stateToRegion = mapOf(
         "WA" to "NW",
         "ID" to "NW",
         "OR" to "NW",
@@ -79,7 +73,7 @@ object UtilityGOES {
         "NY" to "NE",
         "AK" to "AK",
         "HI" to "HI"
-    )
+    )*/
 
     val RADS: List<String> = listOf(
         "TATL:EAST: Atlantic Wide View",
@@ -112,7 +106,7 @@ object UtilityGOES {
         "EUMET:NEATL: Northeast Atlantic"
     )
 
-    private fun getGOESSectorFromState(state: String) = stateToRegion[state] ?: ""
+    /*private fun getGOESSectorFromState(state: String) = stateToRegion[state] ?: ""
 
     fun getGOESSectorFromNWSOffice(context: Context, office: String): String =
         getGOESSectorFromState(
@@ -148,5 +142,5 @@ object UtilityGOES {
             else
                 "east"
         return satSectorl
-    }
+    }*/
 }
