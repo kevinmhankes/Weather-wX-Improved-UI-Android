@@ -28,46 +28,27 @@ import android.graphics.Color
 enum class PolygonWarningType constructor(
         var productCode: String,
         var urlToken: String,
-        var prefTokenEnabled: String,
-        var prefTokenColor: String,
-        var prefTokenStorage: String,
         var initialColor: Int
 ) {
-
-    // FIXME all pref Vars should be handled in object and use product code
     SpecialMarineWarning(
             "SMW",
             //"Flood%20Warning",
             "Special%20Marine%20Warning",
-            "RADAR_SHOW_SMW",
-            "RADAR_COLOR_SMW",
-            "SEVERE_DASHBOARD_SMW",
             Color.rgb(255, 165, 0)
     ),
     SnowSquallWarning(
             "SQW",
-            //"Flood%20Warning",
             "Snow%20Squall%20Warning",
-            "RADAR_SHOW_SQW",
-            "RADAR_COLOR_SQW",
-            "SEVERE_DASHBOARD_SQW",
             Color.rgb(199, 21, 133)
     ),
     DustStormWarning(
             "DSW",
-            //"Flood%20Warning",
             "Dust%20Storm%20Warning",
-            "RADAR_SHOW_DSW",
-            "RADAR_COLOR_DSW",
-            "SEVERE_DASHBOARD_DSW",
             Color.rgb(255, 228, 196)
     ),
     SpecialWeatherStatement(
             "SPS",
             "Special%20Weather%20Statement",
-            "RADAR_SHOW_SPS",
-            "RADAR_COLOR_SPS",
-            "SEVERE_DASHBOARD_SPS",
             Color.rgb(255, 228, 181)
     );
 }

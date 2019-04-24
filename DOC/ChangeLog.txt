@@ -1,20 +1,22 @@
 // TODO base velocity legend
-// TODO migrate away from US govt website for Sun/Moon data do to cert issues
+// TODO migrate away from US govt website for Sun/Moon data do to cert issues, use external code that is Local to prevent dependencies ( prefarbly same code used in iOS wXL23)
 // TODO change code so that widget location simply follows current location selected
 // TODO OkHttp 3.13 Requires Android 5+ – Square Corner Blog – Medium  https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce
 // TODO document or fix changing radar settings and impact on main screen radars
 // TODO UtilityMetar in radar has optimization related to text file loading
 // TODO BUG - storm reports show radar doesn't show location dot for report
 // TODO enhance hourly graphics
-// TODO fix issue for precip radar products when there is no data
 // TODO move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
-// TODO linesize - swo, wb, wbgusts, sti
-// TODO in settings -> location show current conditions in 2nd line for all locations
 // TODO SPS longpress does not always work well
 // TODO in radar cange title bar color if radar is not "current"
+// TODO fix issue for precip radar products when there is no data
+// TODO linesize - swo, wb, wbgusts, sti
+// TODO in settings -> location show current conditions in 2nd line for all locations
 
-55152 2019_04_23 lint cleanup
+55152 2019_04_24 lint cleanup
                  [Thanks to Ely] add code for radar beam height in radar long press (TODO: needs verification)
+                 reorg ObjectPolygonWarning, PolygonWarningType
+                 add structural code for current conditions in settings->locations (work in progress, move items, delete, etc)
 55151 2019_04_23 lint cleanup
                  in LocationFragment, use GOES16 as the activity to display if a homescreen item has nothing defined ( was USNWSGOESActivity)
                  remove USNWSGOESActivity

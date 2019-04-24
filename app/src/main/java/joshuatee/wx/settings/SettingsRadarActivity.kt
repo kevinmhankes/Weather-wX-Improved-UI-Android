@@ -99,7 +99,6 @@ class SettingsRadarActivity : BaseActivity() {
                     arrayOf("99")
             )
         })
-
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
@@ -109,19 +108,17 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.cod_warnings_default_label
                 ).card
         )
-
         MyApplication.radarWarningPolygons.forEach {
             ll.addView(
                     ObjectSettingsCheckBox(
                             this,
                             this,
                             "Show " + it.name,
-                            it.type.prefTokenEnabled,
+                            it.prefTokenEnabled,
                             R.string.cod_warnings_default_label // FIXME add constructor to take string instead
                     ).card
             )
         }
-
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,

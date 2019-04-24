@@ -30,6 +30,7 @@ import android.content.IntentFilter
 import android.os.Bundle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.view.View
+import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
 import joshuatee.wx.external.UtilityStringExternal
@@ -38,16 +39,23 @@ import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.ui.ObjectRecyclerViewGeneric
 import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.util.ObjectForecastPackage
+import joshuatee.wx.util.ObjectForecastPackageCurrentConditions
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityLog
+import kotlinx.coroutines.*
 
 class SettingsLocationRecyclerViewActivity : BaseActivity() {
 
     // Activity to manage ( add, delete, edit ) all locations
     //
 
+    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private val locArr = mutableListOf<String>()
     private lateinit var recyclerView: ObjectRecyclerViewGeneric
     private lateinit var ca: SettingsLocationAdapterList
+    private lateinit var contextg: Context
+    private var currentConditions = mutableListOf<ObjectForecastPackage>()
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,13 +73,28 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         recyclerView.recyclerView.adapter = ca
         updateTitle()
         ca.setListener(::itemSelected)
+        contextg = this
+        getContent()
+    }
+
+    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        currentConditions.clear()
+        withContext(Dispatchers.IO) {
+            for (index in MyApplication.locations.indices) {
+                currentConditions.add(Utility.getCurrentConditions(contextg, index))
+                currentConditions[index].objCC.formatCC()
+                UtilityLog.d("wx", currentConditions[index].objCC.ccLine1)
+            }
+        }
+        updateListWithCurrentConditions()
+        ca.notifyDataSetChanged()
     }
 
     private fun updateList() {
         val locNumIntCurrent = Location.numLocations
         locArr.clear()
         (0 until locNumIntCurrent).forEach {
-            val locNumStr = (it + 1).toString()
+            /*val locNumStr = (it + 1).toString()
             val locX = Utility.readPref(this, "LOC" + locNumStr + "_X", "")
             val locY = Utility.readPref(this, "LOC" + locNumStr + "_Y", "")
             val locLabel = Utility.readPref(this, "LOC" + locNumStr + "_LABEL", "")
@@ -80,8 +103,17 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
                 (it + 1).toString() + ": \"" + locLabel + "\" " + "(" + UtilityStringExternal.truncate(
                     locX,
                     6
-                ) + "," + UtilityStringExternal.truncate(locY, 6) + ") " + zone
+                ) + "," + UtilityStringExternal.truncate(locY, 6) + ") " + zone*/
+            val btnStr = ""
             locArr.add(btnStr)
+        }
+    }
+
+    private fun updateListWithCurrentConditions() {
+        val locNumIntCurrent = Location.numLocations
+        locArr.clear()
+        (0 until locNumIntCurrent).forEach {
+            locArr.add(currentConditions[it].objCC.ccLine1)
         }
     }
 
@@ -91,6 +123,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         recyclerView.recyclerView.adapter = ca
         updateTitle()
         Location.refreshLocationData(this)
+        getContent()
         super.onRestart()
     }
 
