@@ -41,6 +41,7 @@ import joshuatee.wx.ui.ObjectImageMap
 
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
+import kotlin.math.roundToInt
 
 internal object UtilityRadarUI {
 
@@ -134,6 +135,7 @@ internal object UtilityRadarUI {
         val ridX = Utility.getRadarSiteX(oglr.rid).toDouble()
         val ridY = -1.0 * Utility.getRadarSiteY(oglr.rid).toDouble()
         val distRid = LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.MILE)
+        val distRidKm = LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.KM)
         // FIXME look at iOS version and try to match in data provided and improve formatting
         val latLonTitle = UtilityStringExternal.truncate(glview.newY.toString(), 6) +
                 ", -" +
@@ -151,6 +153,10 @@ internal object UtilityRadarUI {
                 6
             ) + " miles from " + oglr.rid
         )
+        //val distance = UtilityStringExternal.truncate(distRidKm.toString(), 4).toDouble()
+        val heightAgl = UtilityMath.getRadarBeamHeight(oglr.radarL3Object.degree, distRidKm)
+        val heightMsl = (oglr.radarL3Object.radarHeight + heightAgl)
+        //alertDialogRadarLongpressAl.add("Beam Height MSL: " + heightMsl.roundToInt().toString() + " AGL: " + heightAgl.roundToInt().toString())
         oglr.ridNewList.mapTo(alertDialogRadarLongpressAl) {
             "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name)
         }

@@ -62,6 +62,8 @@ class WXGLNexradLevel3 internal constructor() {
         private set
     var iBuff: ByteBuffer = ByteBuffer.allocate(0)
     var oBuff: ByteBuffer = ByteBuffer.allocate(0)
+    var radarHeight = 0
+    var degree = 0f
 
     init {
         try {
@@ -99,6 +101,7 @@ class WXGLNexradLevel3 internal constructor() {
             val latitudeOfRadar = dis.readInt() / 1000.0
             val longitudeOfRadar = dis.readInt() / 1000.0
             val heightOfRadar = dis.readUnsignedShort().toShort()
+            radarHeight = heightOfRadar.toInt()
             productCode = dis.readUnsignedShort().toShort()
             val operationalMode = dis.readUnsignedShort().toShort()
             //final short        volume_scan_pattern =  (short) dis.readUnsignedShort();
@@ -122,7 +125,13 @@ class WXGLNexradLevel3 internal constructor() {
             // Because the scale for storm total precip ( 172 ) is stored as a float in halfwords 33/34
             // it is necessary to further disect the header. Previously we skipped 74 bytes
             // hw 24-30
-            dis.skipBytes(14)
+
+            //dis.skipBytes(14)
+            dis.skipBytes(10)
+            val elevationNumber = dis.readUnsignedShort()
+            val elevationAngle = dis.readShort()
+            degree = elevationAngle.toInt() / 10f
+
             // hw 31-32 as a int
             //final int             halfword_31 = dis.readUnsignedShort();
             halfword3132 = dis.readFloat()

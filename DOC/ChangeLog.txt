@@ -14,6 +14,7 @@
 // TODO in radar cange title bar color if radar is not "current"
 
 55152 2019_04_23 lint cleanup
+                 [Thanks to Ely] add code for radar beam height in radar long press (TODO: needs verification)
 55151 2019_04_23 lint cleanup
                  in LocationFragment, use GOES16 as the activity to display if a homescreen item has nothing defined ( was USNWSGOESActivity)
                  remove USNWSGOESActivity
