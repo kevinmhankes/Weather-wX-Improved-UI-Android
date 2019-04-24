@@ -156,7 +156,7 @@ internal object UtilityRadarUI {
         //val distance = UtilityStringExternal.truncate(distRidKm.toString(), 4).toDouble()
         val heightAgl = UtilityMath.getRadarBeamHeight(oglr.radarL3Object.degree, distRidKm)
         val heightMsl = (oglr.radarL3Object.radarHeight + heightAgl)
-        //alertDialogRadarLongpressAl.add("Beam Height MSL: " + heightMsl.roundToInt().toString() + " AGL: " + heightAgl.roundToInt().toString())
+        alertDialogRadarLongpressAl.add("Beam Height MSL: " + heightMsl.roundToInt().toString() + " ft, AGL: " + heightAgl.roundToInt().toString() + " ft")
         oglr.ridNewList.mapTo(alertDialogRadarLongpressAl) {
             "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name)
         }

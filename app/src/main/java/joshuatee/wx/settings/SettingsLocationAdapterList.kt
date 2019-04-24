@@ -73,7 +73,7 @@ internal class SettingsLocationAdapterList(private val mDataset: MutableList<Str
         }
 
 
-        holder.currentConditions.text = mDataset[position]
+        holder.currentConditions.text = Location.getObservation(position)
         //holder.currentConditions.tv.visibility = View.INVISIBLE
 
 

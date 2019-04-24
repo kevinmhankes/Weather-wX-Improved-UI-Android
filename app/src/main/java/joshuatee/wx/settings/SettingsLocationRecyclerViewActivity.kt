@@ -106,6 +106,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
                 ) + "," + UtilityStringExternal.truncate(locY, 6) + ") " + zone*/
             val btnStr = ""
             locArr.add(btnStr)
+            MyApplication.locations[it].updateObservation("")
         }
     }
 
@@ -113,6 +114,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         val locNumIntCurrent = Location.numLocations
         locArr.clear()
         (0 until locNumIntCurrent).forEach {
+            MyApplication.locations[it].updateObservation(currentConditions[it].objCC.ccLine1)
             locArr.add(currentConditions[it].objCC.ccLine1)
         }
     }
@@ -145,7 +147,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     }
 
     private fun updateTitle() {
-        title = "Locations (" + ca.itemCount + ")"
+        title = "Locations"
     }
 
     private fun itemSelected(position: Int) {
@@ -171,7 +173,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
             Location.deleteLocation(this, (position + 1).toString())
             ca.deleteItem(position)
             ca.notifyDataSetChanged()
-            updateList()
+            //updateList()
             updateTitle()
             UtilityWXJobService.startService(this)
         } else {

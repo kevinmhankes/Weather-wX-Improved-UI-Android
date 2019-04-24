@@ -11,9 +11,10 @@
 // TODO in radar cange title bar color if radar is not "current"
 // TODO fix issue for precip radar products when there is no data
 // TODO linesize - swo, wb, wbgusts, sti
-// TODO in settings -> location show current conditions in 2nd line for all locations
 
-55153 2019_04_24
+
+55153 2019_04_24 activate radar beam height
+                 continue work on settings->locations obs via additions to Location class
 55152 2019_04_24 lint cleanup
                  [Thanks to Ely] add code for radar beam height in radar long press (TODO: needs verification)
                  reorg ObjectPolygonWarning, PolygonWarningType
