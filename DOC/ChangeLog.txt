@@ -11,9 +11,11 @@
 // TODO in radar cange title bar color if radar is not "current"
 // TODO fix issue for precip radar products when there is no data
 // TODO linesize - swo, wb, wbgusts, sti
+// TODO get rid of ObjectForecastPackage
+// TODO generic methods for move up/down
 
 
-55154 2019_04_24
+55154 2019_04_25
 55153 2019_04_24 activate radar beam height
                  continue work on settings->locations obs via additions to Location class
 55152 2019_04_24 lint cleanup
