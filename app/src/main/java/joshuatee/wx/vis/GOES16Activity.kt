@@ -158,10 +158,12 @@ class GOES16Activity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
             R.id.action_car -> getContent("car")
             R.id.action_eus -> getContent("eus")
             R.id.action_pr -> getContent("pr")
+            R.id.action_cam -> getContent("cam")
             R.id.action_taw -> getContent("taw")
             R.id.action_tpw -> getContent("tpw")
             R.id.action_wus -> getContent("taw")
             R.id.action_eep -> getContent("eep")
+            R.id.action_np -> getContent("np")
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
                     checkOverlayPerms()

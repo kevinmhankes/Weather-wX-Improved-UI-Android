@@ -30,6 +30,7 @@ import joshuatee.wx.util.UtilityImgAnim
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
+import joshuatee.wx.util.UtilityLog
 
 object UtilityGOES16 {
 
@@ -65,18 +66,25 @@ object UtilityGOES16 {
         if (sectorLocal == "mex") {
             fileName = "1000x1000.jpg"
         }
+        if (sectorLocal == "SECTOR/np") {
+            fileName = "1800x1080.jpg"
+        }
+        if (sectorLocal == "SECTOR/cam") {
+            fileName = "1000x1000.jpg"
+        }
         val url =
-            MyApplication.goes16Url + "/" + satellite + "/ABI/" + sectorLocal + "/" + product + "/" + fileName
+                MyApplication.goes16Url + "/" + satellite + "/ABI/" + sectorLocal + "/" + product + "/" + fileName
+        UtilityLog.d("wx", url)
         return url.getImage()
     }
 
     // https://www.star.nesdis.noaa.gov/GOES/sector_band.php?sat=G17&sector=ak&band=GEOCOLOR&length=12
     // https://www.star.nesdis.noaa.gov/GOES/sector_band.php?sat=G16&sector=cgl&band=GEOCOLOR&length=12
     fun getAnimation(
-        context: Context,
-        product: String,
-        sector: String,
-        frameCount: Int
+            context: Context,
+            product: String,
+            sector: String,
+            frameCount: Int
     ): AnimationDrawable {
         val frameCountString = frameCount.toString()
         var satellite = "G16"
@@ -93,89 +101,94 @@ object UtilityGOES16 {
         val imageUrls = imageHtml.parseColumn("'(https.*?jpg)'")
         val bitmaps = imageUrls.map { it.getImage() }
         return UtilityImgAnim.getAnimationDrawableFromBMList(
-            context,
-            bitmaps,
-            UtilityImg.animInterval(context)
+                context,
+                bitmaps,
+                UtilityImg.animInterval(context)
         )
 
     }
 
     val labels: List<String> = listOf(
-        "00 True color daytime, multispectral IR at night",
-        "00.47 um (Band 1) Blue - Visible",
-        "00.64 um (Band 2) Red - Visible",
-        "00.86 um (Band 3) Veggie - Near IR",
-        "01.37 um (Band 4) Cirrus - Near IR",
-        "01.6 um (Band 5) Snow/Ice - Near IR",
-        "02.2 um (Band 6) Cloud Particle - Near IR",
-        "03.9 um (Band 7) Shortwave Window - IR",
-        "06.2 um (Band 8) Upper-Level Water Vapor - IR",
-        "06.9 um (Band 9) Mid-Level Water Vapor - IR",
-        "07.3 um (Band 10) Lower-level Water Vapor - IR",
-        "08.4 um (Band 11) Cloud Top - IR",
-        "09.6 um (Band 12) Ozone - IR",
-        "10.3 um (Band 13) Clean Longwave Window - IR",
-        "11.2 um (Band 14) Longwave Window - IR",
-        "12.3 um (Band 15) Dirty Longwave Window - IR",
-        "13.3 um (Band 16) CO2 Longwave - IR"
+            "00 True color daytime, multispectral IR at night",
+            "00.47 um (Band 1) Blue - Visible",
+            "00.64 um (Band 2) Red - Visible",
+            "00.86 um (Band 3) Veggie - Near IR",
+            "01.37 um (Band 4) Cirrus - Near IR",
+            "01.6 um (Band 5) Snow/Ice - Near IR",
+            "02.2 um (Band 6) Cloud Particle - Near IR",
+            "03.9 um (Band 7) Shortwave Window - IR",
+            "06.2 um (Band 8) Upper-Level Water Vapor - IR",
+            "06.9 um (Band 9) Mid-Level Water Vapor - IR",
+            "07.3 um (Band 10) Lower-level Water Vapor - IR",
+            "08.4 um (Band 11) Cloud Top - IR",
+            "09.6 um (Band 12) Ozone - IR",
+            "10.3 um (Band 13) Clean Longwave Window - IR",
+            "11.2 um (Band 14) Longwave Window - IR",
+            "12.3 um (Band 15) Dirty Longwave Window - IR",
+            "13.3 um (Band 16) CO2 Longwave - IR",
+            "AirMass - RGB composite based on the data from IR and WV"
     )
 
     val codes: List<String> = listOf(
-        "GEOCOLOR",
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16"
+            "GEOCOLOR",
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08",
+            "09",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "AirMass"
     )
 
     private val sectorsInGoes17: List<String> = listOf(
-        "CONUS-G17",
-        "ak",
-        "hi",
-        "pnw",
-        "psw",
-        "tpw",
-        "wus"
+            "CONUS-G17",
+            "ak",
+            "hi",
+            "pnw",
+            "psw",
+            "tpw",
+            "wus",
+            "np"
     )
 
     val sectorToName = mapOf(
-        "FD" to "Full Disk",
-        "CONUS" to "GOES-EAST US",
-        "CONUS-G17" to "GOES-WEST US",
-        "pnw" to "Pacific Northwest",
-        "nr" to "Northern Rockies",
-        "umv" to "Upper Mississippi Valley",
-        "cgl" to "Central Great Lakes",
-        "ne" to "Northeast",
-        "psw" to "Pacific Southwest",
-        "sr" to "Southern Rockies",
-        "sp" to "Southern Plains",
-        "smv" to "Southern Mississippi Valley",
-        "se" to "Southeast",
-        "gm" to "Gulf of Mexico",
-        "car" to "Caribbean",
-        "eus" to "U.S. Atlantic Coast",
-        "pr" to "Puerto Rico",
-        "taw" to "Tropical Atlantic",
-        "ak" to "Alaska",
-        "hi" to "Hawaii",
-        "wus" to "US Pacific Coast",
-        "tpw" to "Tropical Pacific",
-        "eep" to "Eastern Pacific",
-        "can" to "Canada",
-        "mex" to "Mexico"
+            "FD" to "Full Disk",
+            "CONUS" to "GOES-EAST US",
+            "CONUS-G17" to "GOES-WEST US",
+            "pnw" to "Pacific Northwest",
+            "nr" to "Northern Rockies",
+            "umv" to "Upper Mississippi Valley",
+            "cgl" to "Central Great Lakes",
+            "ne" to "Northeast",
+            "psw" to "Pacific Southwest",
+            "sr" to "Southern Rockies",
+            "sp" to "Southern Plains",
+            "smv" to "Southern Mississippi Valley",
+            "se" to "Southeast",
+            "gm" to "Gulf of Mexico",
+            "car" to "Caribbean",
+            "eus" to "U.S. Atlantic Coast",
+            "pr" to "Puerto Rico",
+            "cam" to "Central America",
+            "taw" to "Tropical Atlantic",
+            "ak" to "Alaska",
+            "hi" to "Hawaii",
+            "wus" to "US Pacific Coast",
+            "tpw" to "Tropical Pacific",
+            "eep" to "Eastern Pacific",
+            "np" to "Northern Pacific",
+            "can" to "Canada",
+            "mex" to "Mexico"
     )
 }
 

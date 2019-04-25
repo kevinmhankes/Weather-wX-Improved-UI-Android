@@ -12,11 +12,11 @@
 // TODO fix issue for precip radar products when there is no data
 // TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
 // TODO linesize - swo, wb, wbgusts, sti
-// TODO get rid of ObjectForecastPackage
-// TODO generic methods for move up/down
 
 55154 2019_04_25 lint cleanup
                  remove ObjectForecastPackage.kt
+                 GOES16/17 - add np Northern Pacific 1800x1080 (not yet working), cam Central America 1000x1000
+                 GOES16/17 - new product "AirMass"
 55153 2019_04_24 activate radar beam height
                  continue work on settings->locations obs via additions to Location class
 55152 2019_04_24 lint cleanup

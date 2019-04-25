@@ -159,6 +159,10 @@
                 android:title="Puerto Rico"
                 app:showAsAction="never" />
             <item
+                android:id="@+id/action_cam"
+                android:title="Central America"
+                app:showAsAction="never" />
+            <item
                 android:id="@+id/action_taw"
                 android:title="Tropical Atlantic: wide view"
                 app:showAsAction="never" />
@@ -173,6 +177,10 @@
             <item
                 android:id="@+id/action_eep"
                 android:title="Eastern Pacific"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_np"
+                android:title="Northern Pacific"
                 app:showAsAction="never" />
         </menu>
     </item>
