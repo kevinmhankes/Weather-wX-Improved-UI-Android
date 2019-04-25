@@ -8,14 +8,14 @@
 // TODO enhance hourly graphics
 // TODO move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
 // TODO SPS longpress does not always work well
-// TODO in radar cange title bar color if radar is not "current"
+// TODO in radar change title bar color if radar is not "current"
 // TODO fix issue for precip radar products when there is no data
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO get rid of ObjectForecastPackage
 // TODO generic methods for move up/down
 
 
-55154 2019_04_25
+55154 2019_04_25 lint cleanup
 55153 2019_04_24 activate radar beam height
                  continue work on settings->locations obs via additions to Location class
 55152 2019_04_24 lint cleanup

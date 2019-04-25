@@ -102,22 +102,21 @@ class ObjectForecastPackageCurrentConditions {
 
     // FIXME sync up with flutter/ios port
     fun formatCC() {
-        val sep = " - ";
-        var tmpArrCc = data1.split(sep);
-        var retStr = "";
-        var retStr2 = "";
-        var tempArr = listOf<String>()
+        val sep = " - "
+        val tmpArrCc = data1.split(sep)
+        var retStr = ""
+        //var retStr2 = "";
+        //var tempArr = listOf<String>()
         if (tmpArrCc.size > 4) {
-            tempArr = tmpArrCc[0].split("/");
-            retStr =
-                    tmpArrCc[4].replace("^ ", "") + " " + tempArr[0] + tmpArrCc[2];
-            retStr2 = tempArr[1].replace("^ ", "") +
+            val tmpList = tmpArrCc[0].split("/")
+            retStr = tmpArrCc[4].replace("^ ", "") + " " + tmpList[0] + tmpArrCc[2]
+            /*retStr2 = tempArr[1].replace("^ ", "") +
                     sep +
                     tmpArrCc[1] +
                     sep +
-                    tmpArrCc[3];
+                    tmpArrCc[3];*/
         }
-        ccLine1 = retStr;
+        ccLine1 = retStr
         //ccLine2 = retStr2.trim();
         //ccLine3 = UtilityString.capitalize(locationString);
     }
