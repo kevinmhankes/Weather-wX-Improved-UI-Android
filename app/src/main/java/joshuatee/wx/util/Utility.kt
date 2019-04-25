@@ -207,15 +207,13 @@ object Utility {
         else -> R.style.MyCustomTheme_NOAB
     }
 
-    private fun getCurrentConditionsCanada(locNum: Int): ObjectForecastPackage {
+    private fun getCurrentConditionsCanada(locNum: Int): ObjectForecastPackageCurrentConditions {
         val html = UtilityCanada.getLocationHtml(Location.getLatLon(locNum))
-        val objCC = ObjectForecastPackageCurrentConditions.createForCanada(html)
-        return ObjectForecastPackage(objCC)
+        return ObjectForecastPackageCurrentConditions.createForCanada(html)
     }
 
-    private fun getCurrentConditionsUS(context: Context, locNum: Int): ObjectForecastPackage {
-        val objCC = ObjectForecastPackageCurrentConditions(context, locNum)
-        return ObjectForecastPackage(objCC)
+    private fun getCurrentConditionsUS(context: Context, locNum: Int): ObjectForecastPackageCurrentConditions {
+        return ObjectForecastPackageCurrentConditions(context, locNum)
     }
 
     fun getCurrentHazards(locNum: Int): ObjectForecastPackageHazards {
@@ -246,12 +244,11 @@ object Utility {
         return ObjectForecastPackageHazards(location)
     }
 
-    fun getCurrentConditionsByLatLon(context: Context, location: LatLon): ObjectForecastPackage {
-        val objCC = ObjectForecastPackageCurrentConditions(context, location)
-        return ObjectForecastPackage(objCC)
+    fun getCurrentConditionsByLatLon(context: Context, location: LatLon): ObjectForecastPackageCurrentConditions {
+        return ObjectForecastPackageCurrentConditions(context, location)
     }
 
-    fun getCurrentConditions(context: Context, locNum: Int): ObjectForecastPackage =
+    fun getCurrentConditions(context: Context, locNum: Int): ObjectForecastPackageCurrentConditions =
             if (Location.isUS(locNum)) {
                 getCurrentConditionsUS(context, locNum)
             } else {

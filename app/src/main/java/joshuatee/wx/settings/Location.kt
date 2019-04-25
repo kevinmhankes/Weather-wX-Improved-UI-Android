@@ -66,7 +66,7 @@ class Location(val context: Context, locNumInt: Int) {
     private val dst: String
     val isUS: Boolean
     var observation = ""
-    val prefNumberString: String
+    private val prefNumberString: String
 
     init {
         val jStr = (locNumInt + 1).toString()

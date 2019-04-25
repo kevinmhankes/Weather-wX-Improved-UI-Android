@@ -116,7 +116,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private var idxIntG = 0
     private var alertDialogRadarLongPress: ObjectDialogue? = null
     private val alertDialogRadarLongpressAl = mutableListOf<String>()
-    private var objFcst: ObjectForecastPackage? = null
+    private var objCc: ObjectForecastPackageCurrentConditions? = null
     private var objHazards: ObjectForecastPackageHazards? = null
     private var objSevenDay: ObjectForecastPackage7Day? = null
     private var locationChangedSevenDay = false
@@ -837,17 +837,17 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         //
         withContext(Dispatchers.IO) {
             try {
-                objFcst =
+                objCc =
                     Utility.getCurrentConditions(activityReference, Location.currentLocation)
                 if (homescreenFavLocal.contains("TXT-CC2")) {
                     bmCc = if (Location.isUS) {
-                        UtilityNWS.getIcon(activityReference, objFcst!!.objCC.iconUrl)
+                        UtilityNWS.getIcon(activityReference, objCc!!.iconUrl)
                     } else {
                         UtilityNWS.getIcon(
                             activityReference,
                             UtilityCanada.translateIconNameCurrentConditions(
-                                objFcst!!.objCC.data1,
-                                objFcst!!.objCC.status
+                                objCc!!.data1,
+                                objCc!!.status
                             )
                         )
                     }
@@ -860,22 +860,22 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             //
             // Current Conditions
             //
-            objFcst?.let { _ ->
+            objCc?.let { _ ->
                 cardCC?.let {
                     if (homescreenFavLocal.contains("TXT-CC2")) {
-                        ccTime = objFcst!!.objCC.status
+                        ccTime = objCc!!.status
                         if (bmCc != null) {
                             it.updateContent(
                                 bmCc!!,
-                                objFcst!!,
+                                    objCc!!,
                                 Location.isUS,
                                 ccTime,
                                 radarTime
                             )
                         }
                     } else {
-                        it.setTopLine(objFcst!!.objCC.data1)
-                        ccTime = objFcst!!.objCC.status
+                        it.setTopLine(objCc!!.data1)
+                        ccTime = objCc!!.status
                         it.setStatus(ccTime + radarTime)
                     }
                 }
@@ -1005,7 +1005,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 }
                 hazardsSum = hazardSumAsync
             } else {
-                objFcst?.let {
+                objCc?.let {
                     if (objHazards?.getHazardsShort() != "") {
                         hazardsSum = objHazards!!.getHazardsShort().toUpperCase(Locale.US)
                         if (homescreenFavLocal.contains("TXT-HAZ")) {

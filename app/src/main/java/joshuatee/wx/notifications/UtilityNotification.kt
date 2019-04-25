@@ -252,18 +252,18 @@ object UtilityNotification {
                 notifUrls += url + "7day" + MyApplication.notificationStrSep
             }
             if (currentUpdateTime > lastUpdateTime + 1000 * 60 * ccUpdateInterval) {
-                val objFcst = Utility.getCurrentConditions(context, locNumInt)
+                val objCc = Utility.getCurrentConditions(context, locNumInt)
                 val objHazards = Utility.getCurrentHazards(locNumInt)
                 val objSevenDay = Utility.getCurrentSevenDay(locNumInt)
                 val updateTime = System.currentTimeMillis()
                 Utility.writePref(context, "CC" + locNum + "_LAST_UPDATE", updateTime)
                 if (locNum == widgetLocNum && widgetsEnabled) {
-                    UtilityWidget.widgetDownloadData(context, objFcst, objSevenDay, objHazards)
+                    UtilityWidget.widgetDownloadData(context, objCc, objSevenDay, objHazards)
                 }
                 if (MyApplication.locations[locNumInt].ccNotification) {
                     noMain = locLabelStr
-                    noBody = objFcst.objCC.data1 + MyApplication.newline + objFcst.objCC.status
-                    noSummary = objFcst.objCC.data1 + MyApplication.newline + objFcst.objCC.status
+                    noBody = objCc.data1 + MyApplication.newline + objCc.status
+                    noSummary = objCc.data1 + MyApplication.newline + objCc.status
                     val notifier =
                             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                     val resultIntent: Intent
@@ -297,13 +297,13 @@ object UtilityNotification {
                         }
                     }
                     val bmc = if (Location.isUS(locNumInt)) {
-                        UtilityNWS.getIcon(context, objFcst.objCC.iconUrl)
+                        UtilityNWS.getIcon(context, objCc.iconUrl)
                     } else {
                         UtilityNWS.getIcon(
                                 context,
                                 UtilityCanada.translateIconNameCurrentConditions(
-                                        objFcst.objCC.data1,
-                                        objFcst.objCC.status
+                                        objCc.data1,
+                                        objCc.status
                                 )
                         )
                     }
