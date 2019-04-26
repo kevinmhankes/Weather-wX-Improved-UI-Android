@@ -11,10 +11,9 @@
 // TODO in radar change title bar color if radar is not "current"
 // TODO fix issue for precip radar products when there is no data
 // TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
-// TODO camelCase in notifications dir
 // TODO linesize - swo, wb, wbgusts, sti
 
-55155 2019_04_26
+55155 2019_04_26 camelCase in notifications directory
 55154 2019_04_26 lint cleanup
                  remove ObjectForecastPackage.kt
                  GOES16/17 - add np Northern Pacific 1800x1080, cam Central America 1000x1000

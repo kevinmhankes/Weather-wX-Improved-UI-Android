@@ -36,15 +36,15 @@ import androidx.core.app.NotificationCompat
 
 import joshuatee.wx.Extensions.*
 
-internal object UtilityNotificationSPCFW {
+internal object UtilityNotificationSpcFireWeather {
 
-    fun locationNeedsSPCFW(): Boolean {
+    fun locationNeedsSpcFireWeather(): Boolean {
         return (0 until Location.numLocations).any {
             MyApplication.locations.getOrNull(it)?.notificationSpcfw ?: false
         }
     }
 
-    private fun sendSPCFWNotif(
+    private fun sendSpcFireWeatherNotification(
             context: Context,
             locNum: String,
             day: Int,
@@ -94,7 +94,7 @@ internal object UtilityNotificationSPCFW {
         return notifUrls
     }
 
-    fun sendSPCFWD12LocationNotifs(context: Context): String {
+    fun sendSpcFireWeatherD12LocationNotifications(context: Context): String {
         var notifUrls = ""
         var retStr: String
         val threatList = mutableListOf<String>()
@@ -201,7 +201,7 @@ internal object UtilityNotificationSPCFW {
                                 )
                                 if (contains) {
                                     if (!notifUrls.contains("spcfwloc$day$locNum"))
-                                        notifUrls += sendSPCFWNotif(
+                                        notifUrls += sendSpcFireWeatherNotification(
                                                 context,
                                                 locNum,
                                                 day,

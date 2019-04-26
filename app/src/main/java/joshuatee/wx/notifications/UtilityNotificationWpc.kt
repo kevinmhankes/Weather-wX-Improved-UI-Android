@@ -36,15 +36,15 @@ import androidx.core.app.NotificationCompat
 import joshuatee.wx.objects.PolygonType.MPD
 import joshuatee.wx.util.Utility
 
-internal object UtilityNotificationWPC {
+internal object UtilityNotificationWpc {
 
-    fun locationNeedsMPD(): Boolean {
+    fun locationNeedsMpd(): Boolean {
         return (0 until Location.numLocations).any {
             MyApplication.locations.getOrNull(it)?.notificationWpcmpd ?: false
         }
     }
 
-    fun sendMPDLocationNotifs(context: Context): String {
+    fun sendMpdLocationNotifications(context: Context): String {
         val textMcd = MyApplication.mpdLatlon.valueGet()
         val textMcdNoList = MyApplication.mpdNoList.valueGet()
         val x = mutableListOf<Double>()
@@ -88,7 +88,7 @@ internal object UtilityNotificationWPC {
                                 polygon2.contains(ExternalPoint(locXDbl.toFloat(), locYDbl.toFloat()))
                         if (contains) {
                             //notifUrls += sendMPDNotif(context, locNum, mcdNoArr[z])
-                            notifUrls += sendMPDNotif(context, locNum, Utility.safeGet(mcdNoArr, z))
+                            notifUrls += sendMpdNotification(context, locNum, Utility.safeGet(mcdNoArr, z))
                         }
                     }
                 }
@@ -98,7 +98,7 @@ internal object UtilityNotificationWPC {
         return notifUrls
     }
 
-    private fun sendMPDNotif(context: Context, locNum: String, mdNo: String): String {
+    private fun sendMpdNotification(context: Context, locNum: String, mdNo: String): String {
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
         var notifUrls = ""
         val noMain: String

@@ -43,9 +43,9 @@ import androidx.core.app.NotificationCompat
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.util.Utility
 
-internal object UtilityNotificationSPC {
+internal object UtilityNotificationSpc {
 
-    fun sendSWONotifs(context: Context, inBlackout: Boolean): String {
+    fun sendSwoNotifications(context: Context, inBlackout: Boolean): String {
         var notifUrls = ""
         if (MyApplication.alertSpcswoNotificationCurrent) {
             val urls = arrayOf("SWODY1", "SWODY2", "SWODY3")
@@ -99,20 +99,20 @@ internal object UtilityNotificationSPC {
         return notifUrls
     }
 
-    fun locationNeedsMCD(): Boolean {
+    fun locationNeedsMcd(): Boolean {
         return (0 until Location.numLocations).any {
             //MyApplication.locations[it].notificationMcd
             MyApplication.locations.getOrNull(it)?.notificationMcd ?: false
         }
     }
 
-    fun locationNeedsSWO(): Boolean {
+    fun locationNeedsSwo(): Boolean {
         return (0 until Location.numLocations).any {
             MyApplication.locations.getOrNull(it)?.notificationSwo ?: false
         }
     }
 
-    fun sendSWOLocationNotifs(context: Context): String {
+    fun sendSwoLocationNotifications(context: Context): String {
         var notifUrls = ""
         var retStr: String
         /*	... CATEGORICAL ...
@@ -246,7 +246,7 @@ internal object UtilityNotificationSPC {
         return notifUrls
     }
 
-    fun sendMCDLocationNotifs(context: Context): String {
+    fun sendMcdLocationNotifications(context: Context): String {
         val textMcd = MyApplication.mcdLatlon.valueGet()
         val textMcdNoList = MyApplication.mcdNoList.valueGet()
         val x = mutableListOf<Double>()
@@ -293,7 +293,7 @@ internal object UtilityNotificationSPC {
                         val contains =
                                 polygon2.contains(ExternalPoint(locXDbl.toFloat(), locYDbl.toFloat()))
                         if (contains) {
-                            notifUrls += sendMCDNotif(context, locNum, mcdNoArr[z])
+                            notifUrls += sendMcdNotification(context, locNum, mcdNoArr[z])
                         }
                     }
                 }
@@ -303,7 +303,7 @@ internal object UtilityNotificationSPC {
         return notifUrls
     }
 
-    private fun sendMCDNotif(context: Context, locNum: String, mdNo: String): String {
+    private fun sendMcdNotification(context: Context, locNum: String, mdNo: String): String {
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
         var notifUrls = ""
         val sep = ","
@@ -436,7 +436,7 @@ internal object UtilityNotificationSPC {
         return notifUrls
     }
 
-    fun sendSWOD48LocationNotifs(context: Context): String {
+    fun sendSwoD48LocationNotifications(context: Context): String {
         var notifUrls = ""
         var retStr: String
         val threatList = mutableListOf<String>()

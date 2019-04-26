@@ -69,10 +69,10 @@ class BackgroundFetch(val context: Context) {
         var dataAsString: String
         var m: Matcher
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
-        val locationNeedsMcd = UtilityNotificationSPC.locationNeedsMCD()
-        val locationNeedsSwo = UtilityNotificationSPC.locationNeedsSWO()
-        val locationNeedsSpcfw = UtilityNotificationSPCFW.locationNeedsSPCFW()
-        val locationNeedsWpcmpd = UtilityNotificationWPC.locationNeedsMPD()
+        val locationNeedsMcd = UtilityNotificationSpc.locationNeedsMcd()
+        val locationNeedsSwo = UtilityNotificationSpc.locationNeedsSwo()
+        val locationNeedsSpcfw = UtilityNotificationSpcFireWeather.locationNeedsSpcFireWeather()
+        val locationNeedsWpcmpd = UtilityNotificationWpc.locationNeedsMpd()
         var requestID: Int
         (1..Location.numLocations).forEach {
             requestID = System.currentTimeMillis().toInt()
@@ -319,9 +319,9 @@ class BackgroundFetch(val context: Context) {
             // end of if to test if alerts_spcwat are enabled
         }
         LocalBroadcastManager.getInstance(context).sendBroadcast(Intent("notifran"))
-        notifUrls += UtilityNotificationSPC.sendSWONotifs(context, inBlackout)
+        notifUrls += UtilityNotificationSpc.sendSwoNotifications(context, inBlackout)
         if (MyApplication.alertNhcEpacNotificationCurrent || MyApplication.alertNhcAtlNotificationCurrent)
-            notifUrls += UtilityNotificationNHC.sendNHCNotifs(
+            notifUrls += UtilityNotificationNhc.sendNhcNotifications(
                     context,
                     MyApplication.alertNhcEpacNotificationCurrent,
                     MyApplication.alertNhcAtlNotificationCurrent
@@ -340,17 +340,17 @@ class BackgroundFetch(val context: Context) {
         // check of any text prod notifs
         UtilityNotificationTextProduct.notifyOnAll(context)
         if (locationNeedsMcd) {
-            notifUrls += UtilityNotificationSPC.sendMCDLocationNotifs(context)
+            notifUrls += UtilityNotificationSpc.sendMcdLocationNotifications(context)
         }
         if (locationNeedsSwo) {
-            notifUrls += UtilityNotificationSPC.sendSWOLocationNotifs(context)
-            notifUrls += UtilityNotificationSPC.sendSWOD48LocationNotifs(context)
+            notifUrls += UtilityNotificationSpc.sendSwoLocationNotifications(context)
+            notifUrls += UtilityNotificationSpc.sendSwoD48LocationNotifications(context)
         }
         if (locationNeedsSpcfw) {
-            notifUrls += UtilityNotificationSPCFW.sendSPCFWD12LocationNotifs(context)
+            notifUrls += UtilityNotificationSpcFireWeather.sendSpcFireWeatherD12LocationNotifications(context)
         }
         if (locationNeedsWpcmpd) {
-            notifUrls += UtilityNotificationWPC.sendMPDLocationNotifs(context)
+            notifUrls += UtilityNotificationWpc.sendMpdLocationNotifications(context)
         }
         if (PolygonType.MCD.pref || locationNeedsMcd) {
             // Thanks Ely
