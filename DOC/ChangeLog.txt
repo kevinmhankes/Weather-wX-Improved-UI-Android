@@ -14,6 +14,7 @@
 // TODO camelCase in notifications dir
 // TODO linesize - swo, wb, wbgusts, sti
 
+55155 2019_04_26
 55154 2019_04_26 lint cleanup
                  remove ObjectForecastPackage.kt
                  GOES16/17 - add np Northern Pacific 1800x1080, cam Central America 1000x1000
