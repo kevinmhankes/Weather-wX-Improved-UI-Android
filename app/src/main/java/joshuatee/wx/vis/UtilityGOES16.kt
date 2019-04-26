@@ -63,11 +63,14 @@ object UtilityGOES16 {
         if (sectorLocal == "SECTOR/tpw" || sectorLocal == "SECTOR/taw") {
             fileName = "1800x1080.jpg"
         }
-        if (sectorLocal == "can") {
+        if (sector == "can") {
             fileName = "1125x560.jpg"
         }
-        if (sectorLocal == "mex") {
+        if (sector == "mex") {
             fileName = "1000x1000.jpg"
+        }
+        if (sector == "nsa" || sector == "ssa" ) {
+            fileName = "1800x1080.jpg"
         }
         if (sectorLocal == "SECTOR/np") {
             fileName = "1800x1080.jpg"
@@ -192,7 +195,9 @@ object UtilityGOES16 {
             "eep" to "Eastern Pacific",
             "np" to "Northern Pacific",
             "can" to "Canada",
-            "mex" to "Mexico"
+            "mex" to "Mexico",
+            "nsa" to "South America (north)",
+            "ssa" to "South America (south)"
     )
 }
 

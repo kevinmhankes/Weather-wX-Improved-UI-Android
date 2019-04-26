@@ -16,12 +16,14 @@
 
 55154 2019_04_26 lint cleanup
                  remove ObjectForecastPackage.kt
-                 GOES16/17 - add np Northern Pacific 1800x1080 (not yet working), cam Central America 1000x1000
+                 GOES16/17 - add np Northern Pacific 1800x1080, cam Central America 1000x1000
                  GOES16/17 - add FD for GOES-West
+                 GOES16/17 - add Canada/Mexico/South America (north)/South America (south) under Regional Views
                  GOES16/17 - new product "AirMass"
                  [BUG] UtilityNotificationWPC - use safeGet in once spot
                  [BUG] GOES17 - US Pacific Coast was not properly labeled
                  GOES16/17 - change labels to CONUS/PACUS
+                 lint - remove unused resources: ic_keyboard_arrow_up_24dp ic_keyboard_arrow_down_24dp
 55153 2019_04_24 activate radar beam height
                  continue work on settings->locations obs via additions to Location class
 55152 2019_04_24 lint cleanup
