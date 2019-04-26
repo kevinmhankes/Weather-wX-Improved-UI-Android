@@ -45,6 +45,9 @@ object UtilityGOES16 {
             if (sector == "CONUS-G17") {
                 sectorLocal = "CONUS"
             }
+            if (sector == "FD-G17") {
+                sectorLocal = "FD"
+            }
         }
         // https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/cgl/03/
         // https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/cgl/12/latest.jpg
@@ -152,6 +155,7 @@ object UtilityGOES16 {
 
     private val sectorsInGoes17: List<String> = listOf(
             "CONUS-G17",
+            "FD-G17",
             "ak",
             "hi",
             "pnw",

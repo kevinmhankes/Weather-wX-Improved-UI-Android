@@ -140,6 +140,7 @@ class GOES16Activity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
             R.id.action_a84 -> getAnimate(84)
             R.id.action_a96 -> getAnimate(96)
             R.id.action_FD -> getContent("FD")
+            R.id.action_FD_G17 -> getContent("FD-G17")
             R.id.action_CONUS -> getContent("CONUS")
             R.id.action_CONUS_G17 -> getContent("CONUS-G17")
             R.id.action_pnw -> getContent("pnw")
@@ -161,7 +162,7 @@ class GOES16Activity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
             R.id.action_cam -> getContent("cam")
             R.id.action_taw -> getContent("taw")
             R.id.action_tpw -> getContent("tpw")
-            R.id.action_wus -> getContent("taw")
+            R.id.action_wus -> getContent("wus")
             R.id.action_eep -> getContent("eep")
             R.id.action_np -> getContent("np")
             R.id.action_share -> {

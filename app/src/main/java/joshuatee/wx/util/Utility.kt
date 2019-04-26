@@ -271,6 +271,14 @@ object Utility {
             list[index]
         }
     }
+
+    fun safeGet(list: Array<String>, index: Int): String {
+        return if (list.size <= index) {
+            ""
+        } else {
+            list[index]
+        }
+    }
 }
 
 

@@ -34,6 +34,7 @@ import android.graphics.Color
 import androidx.core.app.NotificationCompat
 
 import joshuatee.wx.objects.PolygonType.MPD
+import joshuatee.wx.util.Utility
 
 internal object UtilityNotificationWPC {
 
@@ -86,7 +87,8 @@ internal object UtilityNotificationWPC {
                         val contains =
                                 polygon2.contains(ExternalPoint(locXDbl.toFloat(), locYDbl.toFloat()))
                         if (contains) {
-                            notifUrls += sendMPDNotif(context, locNum, mcdNoArr[z])
+                            //notifUrls += sendMPDNotif(context, locNum, mcdNoArr[z])
+                            notifUrls += sendMPDNotif(context, locNum, Utility.safeGet(mcdNoArr, z))
                         }
                     }
                 }

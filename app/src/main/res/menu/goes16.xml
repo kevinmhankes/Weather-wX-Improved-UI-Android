@@ -72,15 +72,19 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/action_FD"
-        android:title="Full Disk"
+        android:title="Full Disk: GOES-East"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_FD_G17"
+        android:title="Full Disk: GOES-West"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_CONUS"
-        android:title="GOES-EAST US"
+        android:title="CONUS: GOES-East"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_CONUS_G17"
-        android:title="GOES-WEST US"
+        android:title="PACUS: GOES-West"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_regionalSectors"
@@ -167,11 +171,11 @@
                 android:title="Tropical Atlantic: wide view"
                 app:showAsAction="never" />
             <item
-                android:id="@+id/action_tpw"
+                android:id="@+id/action_wus"
                 android:title="US Pacific Coast"
                 app:showAsAction="never" />
             <item
-                android:id="@+id/action_wus"
+                android:id="@+id/action_tpw"
                 android:title="Tropical Pacific"
                 app:showAsAction="never" />
             <item
