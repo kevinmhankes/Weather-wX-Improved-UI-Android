@@ -179,14 +179,19 @@ object UtilityTime {
 
     fun getMoonTimesForHomescreen(): String {
         var data = ""
+        var moonRise = ""
+        var moonSet = ""
         val sunCalc = SunCalc()
         val now = Calendar.getInstance()
         val formatter = SimpleDateFormat("MM-dd h:mm a", Locale.US)
         val moonTimes = sunCalc.moonTimes(now, Location.latLon)
-        // FIXME improve error handling in getMoonTimesForHomescreen
-        //val moonRise = formatter.format(moonTimes[0]!!.time)
-        //val moonSet = formatter.format(moonTimes[1]!!.time)
-        //val data = "Moonrise: " + moonRise + " Moonset: " + moonSet
+        if (moonTimes[0] != null) {
+            moonRise = formatter.format(moonTimes[0]!!.time)
+        }
+        if (moonTimes[1] != null) {
+            moonSet = formatter.format(moonTimes[1]!!.time)
+        }
+        data = "Moonrise: " + moonRise + " Moonset: " + moonSet
         return data;
     }
 
