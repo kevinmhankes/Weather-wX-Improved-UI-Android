@@ -13,7 +13,7 @@
 // TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
 // TODO linesize - swo, wb, wbgusts, sti
 
-55156 2019_04_26
+55156 2019_04_27 [BUG] check for O.EXP in radar polygons, severe dash, utilVtec since NWS is occasionally showing expired warnings in active url
 55155 2019_04_26 camelCase in notifications directory
 55154 2019_04_26 lint cleanup
                  remove ObjectForecastPackage.kt

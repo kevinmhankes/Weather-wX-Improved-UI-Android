@@ -52,16 +52,19 @@ internal class SevereWarning(private val type: PolygonType) {
             }
         }
         val warningAl = textTor.parseColumn(RegExp.warningVtecPattern)
-        count = warningAl.size
+        //count = warningAl.size
         warningAl.forEach {
-            text += it
-            nwsOfficeArr = it.split(".")
-            if (nwsOfficeArr.size > 1) {
-                nwsOffice = nwsOfficeArr[2]
-                nwsOffice = nwsOffice.replace("^[KP]".toRegex(), "")
-                nwsLoc = Utility.readPref(context, "NWS_LOCATION_$nwsOffice", "")
+            if (!it.startsWith("O.EXP")) {
+                text += it
+                count += 1
+                nwsOfficeArr = it.split(".")
+                if (nwsOfficeArr.size > 1) {
+                    nwsOffice = nwsOfficeArr[2]
+                    nwsOffice = nwsOffice.replace("^[KP]".toRegex(), "")
+                    nwsLoc = Utility.readPref(context, "NWS_LOCATION_$nwsOffice", "")
+                }
+                text += "  " + nwsLoc + MyApplication.newline
             }
-            text += "  " + nwsLoc + MyApplication.newline
         }
         val remover = ExternalDuplicateRemover()
         text = remover.stripDuplicates(text)

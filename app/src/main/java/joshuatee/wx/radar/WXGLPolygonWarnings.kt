@@ -67,8 +67,10 @@ internal object WXGLPolygonWarnings {
         var polyCount = -1
         polygonArr.forEach { polygon ->
             polyCount += 1
+            //UtilityLog.d("wx", "VTEC" + vtecAl[polyCount])
             if ( type.type == PolygonWarningType.SpecialWeatherStatement || (vtecAl.size > polyCount && !vtecAl[polyCount].startsWith("O.EXP") && !vtecAl[polyCount].startsWith("O.CAN")  )
             ) {
+                //UtilityLog.d("wx", vtecAl[polyCount])
                 val polyTmp =
                         polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
                 val testArr = polyTmp.split(" ")
@@ -133,8 +135,8 @@ internal object WXGLPolygonWarnings {
         var polyCount = -1
         polygonArr.forEach { polygon ->
             polyCount += 1
-            if (vtecAl.size > polyCount && !vtecAl[polyCount].startsWith("0.EXP") && !vtecAl[polyCount].startsWith(
-                    "0.CAN"
+            if (vtecAl.size > polyCount && !vtecAl[polyCount].startsWith("O.EXP") && !vtecAl[polyCount].startsWith(
+                    "O.CAN"
                 )
             ) {
                 val polyTmp =
