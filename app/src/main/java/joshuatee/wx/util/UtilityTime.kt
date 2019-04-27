@@ -23,7 +23,10 @@ package joshuatee.wx.util
 
 import joshuatee.wx.external.ExternalSunriseLocation
 import joshuatee.wx.external.ExternalSunriseSunsetCalculator
+import joshuatee.wx.external.SolarEvent
+import joshuatee.wx.external.SunCalc
 import joshuatee.wx.radar.RID
+import joshuatee.wx.settings.Location
 
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -159,4 +162,65 @@ object UtilityTime {
         val officialSunsetCal = calculator.getOfficialSunsetCalendarForDate(Calendar.getInstance())
         return listOf(officialSunriseCal, officialSunsetCal)
     }
+
+    fun getSunTimesForHomescreen(): String {
+        val sunCalc = SunCalc()
+        val now = Calendar.getInstance()
+        val time = Date()
+        now.time = time
+        val formatter = SimpleDateFormat("MM-dd h:mm a", Locale.US)
+        val sunRiseDate = sunCalc.time(now, SolarEvent.sunrise, Location.latLon)
+        val sunSetDate = sunCalc.time(now, SolarEvent.sunset, Location.latLon)
+        val sunRise = formatter.format(sunRiseDate.time)
+        val sunSet = formatter.format(sunSetDate.time)
+        val data = "Sunrise: " + sunRise + " Sunset: " + sunSet
+        return data
+    }
+
+    fun getMoonTimesForHomescreen(): String {
+        var data = ""
+        val sunCalc = SunCalc()
+        val now = Calendar.getInstance()
+        val formatter = SimpleDateFormat("MM-dd h:mm a", Locale.US)
+        val moonTimes = sunCalc.moonTimes(now, Location.latLon)
+        // FIXME improve error handling in getMoonTimesForHomescreen
+        //val moonRise = formatter.format(moonTimes[0]!!.time)
+        //val moonSet = formatter.format(moonTimes[1]!!.time)
+        //val data = "Moonrise: " + moonRise + " Moonset: " + moonSet
+        return data;
+    }
+
+    fun getMoonIlluminationForHomescreen(): String {
+        val sunCalc = SunCalc()
+        val now = Calendar.getInstance()
+        val moonIllumination = sunCalc.moonIllumination(now)
+        // FIXME truncate double
+        val data = moonPhaseFromIllumination(moonIllumination.phase) + " " + moonIllumination.phase.toString()
+        return data;
+    }
+
+    fun moonPhaseFromIllumination(phase: Double): String {
+        var phaseString = ""
+        if (phase < 0.02) {
+            phaseString = "New Moon"
+        } else if (0.02 <= phase && phase < 0.23) {
+            phaseString = "Waxing Crescent"
+        } else if (0.23 <= phase && phase < 0.27) {
+            phaseString = "First Quarter"
+        } else if (0.27 <= phase && phase < 0.47) {
+            phaseString = "Waxing Gibbous"
+        } else if (0.47 <= phase && phase < 0.52) {
+            phaseString = "Full Moon"
+        } else if (0.52 <= phase && phase < 0.73) {
+            phaseString = "Waning Gibbous"
+        } else if (0.73 <= phase && phase < 0.77) {
+            phaseString = "Last Quarter"
+        } else if (0.77 <= phase && phase < 1.01) {
+            phaseString = "Waning Crescent"
+        } else {
+            phaseString = "unknown"
+        }
+        return phaseString
+    }
+
 }

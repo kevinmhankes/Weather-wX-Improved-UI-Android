@@ -40,6 +40,8 @@ import kotlinx.android.synthetic.main.activity_hourly.*
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.DefaultLabelFormatter
+import joshuatee.wx.util.UtilityLog
+import joshuatee.wx.util.UtilityTime
 import kotlinx.coroutines.*
 
 class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
@@ -75,6 +77,8 @@ class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         c0.setOnClickListener(View.OnClickListener { sv.scrollTo(0,0)})
         title = "Hourly Forecast"
         toolbar.subtitle = Location.getName(locatioNumber)
+        UtilityLog.d("wx", UtilityTime.getSunTimesForHomescreen())
+        UtilityLog.d("wx", UtilityTime.getMoonTimesForHomescreen())
         getContent()
     }
 
