@@ -138,10 +138,12 @@ class SunCalc {
     }
 
     fun hoursLater(date: Calendar, h: Double): Calendar {
-        //val cal = Calendar.getInstance()
-        val cal = date
-        cal.timeInMillis += (h * dayMs / 24).toInt()
-        return cal
+        //val cal = date
+        //cal.timeInMillis += (h * dayMs / 24).toInt()
+        //return cal
+        date.add(Calendar.MINUTE, (h * 60).toInt())
+        return date
+
         //return DateTime.fromMillisecondsSinceEpoch(date.millisecondsSinceEpoch + (h * dayMs / 24).toInt())
     }
 
@@ -275,15 +277,20 @@ class SunCalc {
         //val t = DateTime(date.year, date.month, date.day)
         // thanks https://stackoverflow.com/questions/6850874/how-to-create-a-java-date-object-of-midnight-today-and-midnight-tomorrow
         // today
-        val t = GregorianCalendar()
+        //val t = GregorianCalendar()
+
+        val t = Calendar.getInstance()
+        t.time = date.time
         t.set(Calendar.HOUR_OF_DAY, 0);
         t.set(Calendar.MINUTE, 0);
         t.set(Calendar.SECOND, 0);
         t.set(Calendar.MILLISECOND, 0)
+        //UtilityLog.d("wx", "base time: " + t.toString())
         val hc = 0.133 * rad
         var h0 = moonPosition(t, location).altitude - hc
-        var ye = 0.0
+        var ye: Double
         var d: Double
+        var roots: Int
         var x1 = 0.0
         var x2 = 0.0
         var dx: Double
@@ -299,7 +306,7 @@ class SunCalc {
             val xe = -b / (2 * a)
             ye = (a * xe + b) * xe + h1
             d = b * b - 4 * a * h1
-            var roots = 0
+            roots = 0
             if (d >= 0) {
                 dx = sqrt(d) / (abs(a) * 2)
                 x1 = xe - dx
@@ -322,7 +329,7 @@ class SunCalc {
                 }
 
             } else if (roots == 2) {
-                var add = 0.0
+                var add: Double
                 if (ye < 0){
                     add = x2
                 } else {
