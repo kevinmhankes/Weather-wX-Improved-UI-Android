@@ -56,8 +56,8 @@ class SunCalc {
     private fun toJulian(date: Calendar): Double {
         //val cal = Calendar.getInstance()
         //return  date.timeInMillis / dayMs - 0.5 + j1970;
-        // FIXME why was the - 0.05 needed in Dart/Swift
-        return  (date.timeInMillis / dayMs + j1970).toDouble();
+        // FIXME why was the - 0.5 needed in Dart/Swift
+        return  (date.timeInMillis / dayMs - 0.5 + j1970).toDouble();
     } // JS: date.valueOf()
 
     private fun fromJulian(j: Double): Calendar {
@@ -84,10 +84,16 @@ class SunCalc {
     }
 
     private fun altitude(h: Double, phi: Double, dec: Double): Double {
-        return asin(sin(phi) * sin(dec) + cos(phi) * cos(dec) * cos(h))
+
+        val intermediate1 = sin(phi) * sin(dec)
+        val intermediate2 = cos(phi) * cos(dec) * cos(h)
+        val intermediate =  intermediate1 + intermediate2
+        //UtilityLog.d("wx", "moon position: " + h.toString() + " " + cos(h).toString() + " " + intermediate2.toString())
+        return asin(intermediate)
     }
 
     private fun siderealTime(d: Double, lw: Double): Double {
+        //UtilityLog.d("wx","side: " + d.toString() + " " + lw.toString());
         return rad * (280.16 + 360.9856235 * d) - lw
     }
 
@@ -202,6 +208,7 @@ class SunCalc {
         val lw = rad * -1.0 * latlon.lon
         val phi = rad * latlon.lat
         val d = toDays(date)
+        UtilityLog.d("Wx", "days: " + d)
         val c = moonCoordinates(d)
         //print(c.rightAscension);
         //print(c.declination);
@@ -211,7 +218,7 @@ class SunCalc {
         //UtilityLog.d("wx", "alt H: " + H.toString())
         //UtilityLog.d("wx", "alt phi: " + phi.toString())
         //UtilityLog.d("wx", "alt dec: " + c.declination.toString())
-        //UtilityLog.d("wx", "alt h: " + h.toString())
+       // UtilityLog.d("wx", "alt H in moon position: " + h.toString()  + " "+  H.toString() + " " + phi.toString() + " " + c.declination.toString() + " " + d.toString())
         // formula 14.1 of "Astronomical Algorithms" 2nd edition by Jean Meeus (Willmann-Bell, Richmond) 1998.
         val pa = atan2(sin(H), tan(phi) * cos(c.declination) - sin(c.declination) * cos(H))
         h += astroRefraction(h) // altitude correction for refraction
