@@ -12,6 +12,7 @@
 // TODO fix issue for precip radar products when there is no data
 // TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
 // TODO linesize - swo, wb, wbgusts, sti
+// TODO crete UtilityTimeSunMoon
 
 55157 2019_04_27 work on SunCalc
 55156 2019_04_27 [BUG] check for O.EXP in radar polygons, severe dash, utilVtec since NWS is occasionally showing expired warnings in active url
