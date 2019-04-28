@@ -18,6 +18,9 @@ import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
 import java.util.*
 import kotlin.math.*
+import joshuatee.wx.external.MoonPosition
+
+
 
 class AzimuthCoordinate(val azimuth: Double, val altitude: Double)
 class EclipticCoordinate(val rightAscension: Double, val declination: Double)
@@ -88,12 +91,23 @@ class SunCalc {
         return rad * (280.16 + 360.9856235 * d) - lw
     }
 
-    private fun astroRefraction(aH: Double): Double {
+   /* private fun astroRefraction(aH: Double): Double {
         val h: Double = if (aH < 0) {
             0.0
         } else {
             aH
         }
+        return 0.0002967 / tan(h + 0.00312536 / (h + 0.08901179))
+    }*/
+
+    fun astroRefraction(hF: Double): Double {
+        var h = hF
+        if (h < 0)
+        // the following formula works for positive altitudes only.
+            h = 0.0 // if h = -0.08901179 a div/0 would occur.
+
+        // formula 16.4 of "Astronomical Algorithms" 2nd edition by Jean Meeus (Willmann-Bell, Richmond) 1998.
+        // 1.02 / tan(h + 10.26 / (h + 5.10)) h in degrees, result in arc minutes -> converted to rad:
         return 0.0002967 / tan(h + 0.00312536 / (h + 0.08901179))
     }
 
@@ -127,22 +141,25 @@ class SunCalc {
     }
 
     // returns set time for the given sun altitude
-    fun getSetJ(h: Double, lw: Double, phi: Double, dec: Double, n: Double, M: Double, L: Double): Double {
+    private fun getSetJ(h: Double, lw: Double, phi: Double, dec: Double, n: Double, M: Double, L: Double): Double {
         val w = hourAngle(h, phi, dec)
         val a = approximateTransit(w, lw, n)
         return solarTransitJ(a, M, L)
     }
 
-    fun hourAngle(h: Double, phi: Double, d: Double): Double {
+    private fun hourAngle(h: Double, phi: Double, d: Double): Double {
         return acos((sin(h) - sin(phi) * sin(d)) / (cos(phi) * cos(d)))
     }
 
-    fun hoursLater(date: Calendar, h: Double): Calendar {
+    private fun hoursLater(date: Calendar, h: Double): Calendar {
         //val cal = date
         //cal.timeInMillis += (h * dayMs / 24).toInt()
         //return cal
-        date.add(Calendar.MINUTE, (h * 60).toInt())
-        return date
+        //UtilityLog.d("wx", h.toString())
+        val newDate = date.clone() as Calendar
+        newDate.add(Calendar.MINUTE, (h * 60).toInt())
+        //UtilityLog.d("wx", newDate.toString())
+        return newDate
 
         //return DateTime.fromMillisecondsSinceEpoch(date.millisecondsSinceEpoch + (h * dayMs / 24).toInt())
     }
@@ -167,16 +184,39 @@ class SunCalc {
         return AzimuthCoordinate(azimuth(h, phi, c.declination), altitude(h, phi, c.declination))
     }
 
-    fun moonPosition(date: Calendar, location: LatLon): MoonPosition {
+   /* private fun moonPosition(date: Calendar, location: LatLon): MoonPosition {
         val lw = rad * location.lon * -1.0
         val phi = rad * location.lat
         val d = toDays(date)
         val c = moonCoordinates(d)
+        //UtilityLog.d("wx", "base time0: " + c.rightAscension.toString())
+        //UtilityLog.d("wx", "base time0: " + c.declination.toString())
         val h = siderealTime(d, lw) - c.rightAscension
         var h1 = altitude(h, phi, c.declination)
         val pa = atan2(sin(h), tan(phi) * cos(c.declination) - sin(c.declination) * cos(h))
         h1 += astroRefraction(h1)
         return MoonPosition(azimuth(h, phi, c.declination), h1, c.distance, pa)
+    }*/
+
+    private fun moonPosition(date: Calendar, latlon: LatLon): MoonPosition {
+        val lw = rad * -1.0 * latlon.lon
+        val phi = rad * latlon.lat
+        val d = toDays(date)
+        val c = moonCoordinates(d)
+        //print(c.rightAscension);
+        //print(c.declination);
+        val H = siderealTime(d, lw) - c.rightAscension
+
+        var h = altitude(H, phi, c.declination)
+        //UtilityLog.d("wx", "alt H: " + H.toString())
+        //UtilityLog.d("wx", "alt phi: " + phi.toString())
+        //UtilityLog.d("wx", "alt dec: " + c.declination.toString())
+        //UtilityLog.d("wx", "alt h: " + h.toString())
+        // formula 14.1 of "Astronomical Algorithms" 2nd edition by Jean Meeus (Willmann-Bell, Richmond) 1998.
+        val pa = atan2(sin(H), tan(phi) * cos(c.declination) - sin(c.declination) * cos(H))
+        h += astroRefraction(h) // altitude correction for refraction
+        //UtilityLog.d("wx", "altH: " + h)
+        return MoonPosition(azimuth(H, phi, c.declination), h, c.distance, pa)
     }
 
     fun moonIllumination(date: Calendar): MoonIllumination {
@@ -279,15 +319,18 @@ class SunCalc {
         // today
         //val t = GregorianCalendar()
 
-        val t = Calendar.getInstance()
-        t.time = date.time
+        //val t = Calendar.getInstance()
+        //t.time = date.time
+        val t = date.clone() as Calendar
         t.set(Calendar.HOUR_OF_DAY, 0);
         t.set(Calendar.MINUTE, 0);
         t.set(Calendar.SECOND, 0);
         t.set(Calendar.MILLISECOND, 0)
-        //UtilityLog.d("wx", "base time: " + t.toString())
+
+
         val hc = 0.133 * rad
         var h0 = moonPosition(t, location).altitude - hc
+        UtilityLog.d("wx", "base time: " + h0.toString())
         var ye: Double
         var d: Double
         var roots: Int
@@ -336,7 +379,7 @@ class SunCalc {
                     add = x1
                 }
                 riseHour = i + add
-                if (ye < 0){
+                if (ye < 0) {
                     add = x1
                 } else {
                     add = x2
