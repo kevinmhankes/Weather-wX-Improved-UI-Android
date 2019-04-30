@@ -4,6 +4,7 @@
 // TODO OkHttp 3.13 Requires Android 5+ – Square Corner Blog – Medium  https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce
 // TODO document or fix changing radar settings and impact on main screen radars
 // TODO UtilityMetar in radar has optimization related to text file loading
+// TODO color pal editor, make generic so can edit any product
 // TODO BUG - storm reports show radar doesn't show location dot for report
 // TODO enhance hourly graphics
 // TODO move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
@@ -12,6 +13,20 @@
 // TODO fix issue for precip radar products when there is no data
 // TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
 // TODO linesize - swo, wb, wbgusts, sti
+// TODO crete UtilityTimeSunMoon
+// TODO remove NWS Obs: KVVG (Villages)
+
+// TODO HIGH IMPACT CHANGE REQUIRED BY June 24, 2019 for Service Change Notice 19-35
+// https://api.weather.gov/points/38.8904,-77.032/forecast -> https://api.weather.gov/gridpoints/LWX/96,70/forecast
+// https://api.weather.gov/points/38.8904,-77.032/forecast/hourly -> https://api.weather.gov/gridpoints/LWX/96,70/forecast/hourly
+// Details: https://www.weather.gov/documentation/services-web-api
+//
+// Example: https://api.weather.gov/points/39.7456,-97.0892
+//         "forecastOffice": "https://api.weather.gov/offices/TOP",
+//        "forecast": "https://api.weather.gov/gridpoints/TOP/31,80/forecast",
+//        "forecastHourly": "https://api.weather.gov/gridpoints/TOP/31,80/forecast/hourly",
+//        "forecastGridData": "https://api.weather.gov/gridpoints/TOP/31,80",
+//        "forecastZone": "https://api.weather.gov/zones/forecast/KSZ009",
 
 55158 2019_04_30
                 remove FL,THE VILLAGES    ,KVVG
