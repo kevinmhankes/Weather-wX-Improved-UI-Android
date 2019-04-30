@@ -82,8 +82,10 @@ object UtilityUSHourly {
         val x = UtilityMath.latLonFix(Location.getX(locNum))
         val y = UtilityMath.latLonFix(Location.getY(locNum))
         // FIXME move URL itself to downloadNWS
-        val html =
-            UtilityDownloadNWS.getNWSStringFromURL("https://api.weather.gov/points/$x,$y/forecast/hourly")
+        //val html =
+        //    UtilityDownloadNWS.getNWSStringFromURL("https://api.weather.gov/points/$x,$y/forecast/hourly")
+
+        val html = UtilityDownloadNWS.getHourlyData(Location.getLatLon(locNum))
         val header = String.format("%-16s", "Time") + " " + String.format(
             "%-10s",
             "Temp"

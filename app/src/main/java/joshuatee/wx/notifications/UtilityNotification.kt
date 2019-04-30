@@ -240,8 +240,7 @@ object UtilityNotification {
             locLabel = " current conditions"
             locLabelStr = "(" + Location.getName(locNumInt) + ")" + locLabel
             i = 0
-            val url =
-                    UtilityDownloadNWS.get7DayURL(Location.getX(locNumInt), Location.getY(locNumInt))
+            val url = UtilityDownloadNWS.get7DayUrl(Location.getLatLon(locNumInt))
             val currentUpdateTime = System.currentTimeMillis()
             val lastUpdateTime =
                     Utility.readPref(context, "CC" + locNum + "_LAST_UPDATE", 0.toLong())

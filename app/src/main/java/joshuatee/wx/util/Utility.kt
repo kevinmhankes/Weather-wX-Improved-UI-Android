@@ -227,8 +227,8 @@ object Utility {
 
     fun getCurrentSevenDay(locNum: Int): ObjectForecastPackage7Day {
         return if (Location.isUS(locNum)) {
-            val sevenDayJson = UtilityDownloadNWS.get7DayJSON(Location.getLatLon(locNum))
-            ObjectForecastPackage7Day(locNum, sevenDayJson)
+            val html = UtilityDownloadNWS.get7DayData(Location.getLatLon(locNum))
+            ObjectForecastPackage7Day(locNum, html)
         } else {
             val html = UtilityCanada.getLocationHtml(Location.getLatLon(locNum))
             ObjectForecastPackage7Day(locNum, html)
@@ -236,8 +236,8 @@ object Utility {
     }
 
     fun getCurrentSevenDay(location: LatLon): ObjectForecastPackage7Day {
-        val sevenDayJson = UtilityDownloadNWS.get7DayJSON(location)
-        return ObjectForecastPackage7Day(-1, sevenDayJson)
+        val html = UtilityDownloadNWS.get7DayData(location)
+        return ObjectForecastPackage7Day(-1, html)
     }
 
     fun getCurrentHazards(location: LatLon): ObjectForecastPackageHazards {

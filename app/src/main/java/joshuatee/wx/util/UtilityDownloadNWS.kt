@@ -38,21 +38,22 @@ object UtilityDownloadNWS {
     private const val USER_AGENT_STR =
         "Android ${MyApplication.packageNameAsString} ${MyApplication.emailAsString}"
 
-    internal fun get7DayJSON(location: LatLon): String {
+   /* internal fun get7DayJSON(location: LatLon): String {
         var x = location.latString
         var y = location.lonString
         x = UtilityMath.latLonFix(x)
         y = UtilityMath.latLonFix(y)
         return getNWSStringFromURLJSON("https://api.weather.gov/points/$x,$y/forecast")
-    }
+    }*/
 
     fun getHazardData(url: String): String {
         return getNWSStringFromURLJSON(url)
     }
 
-    fun get7DayURL(x: String, y: String): String = "https://forecast-v3.weather.gov/point/$x,$y"
+    //fun get7DayURL(x: String, y: String): String = "https://forecast-v3.weather.gov/point/$x,$y"
 
     fun getLatLonForZone(zone: String): List<String> {
+        // FIXME myapp var
         var html =
             getNWSStringFromURL("https://api.weather.gov/zones/forecast/" + zone.toUpperCase(Locale.US))
         html = html.replace("\n", "")
@@ -188,6 +189,12 @@ object UtilityDownloadNWS {
         val forecastUrl = pointsData.parse("\"forecast\": \"(.*?)\"");
         val data = forecastUrl.getNwsHtml();
         return data;
+    }
+
+    fun get7DayUrl(latLon: LatLon): String {
+        val pointsData = getLocationPointData(latLon);
+        val forecastUrl = pointsData.parse("\"forecast\": \"(.*?)\"");
+        return forecastUrl;
     }
 
     fun getLocationPointData(latLon: LatLon): String {
