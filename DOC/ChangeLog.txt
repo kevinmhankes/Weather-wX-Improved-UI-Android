@@ -14,25 +14,25 @@
 // TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO crete UtilityTimeSunMoon
-// TODO remove NWS Obs: KVVG (Villages)
+// TODO camelCase utilDownloadNws stuff
 
-// TODO HIGH IMPACT CHANGE REQUIRED BY June 24, 2019 for Service Change Notice 19-35
-// https://api.weather.gov/points/38.8904,-77.032/forecast -> https://api.weather.gov/gridpoints/LWX/96,70/forecast
-// https://api.weather.gov/points/38.8904,-77.032/forecast/hourly -> https://api.weather.gov/gridpoints/LWX/96,70/forecast/hourly
-// Details: https://www.weather.gov/documentation/services-web-api
-//
-// Example: https://api.weather.gov/points/39.7456,-97.0892
-//         "forecastOffice": "https://api.weather.gov/offices/TOP",
-//        "forecast": "https://api.weather.gov/gridpoints/TOP/31,80/forecast",
-//        "forecastHourly": "https://api.weather.gov/gridpoints/TOP/31,80/forecast/hourly",
-//        "forecastGridData": "https://api.weather.gov/gridpoints/TOP/31,80",
-//        "forecastZone": "https://api.weather.gov/zones/forecast/KSZ009",
 
 55158 2019_04_30
                 remove FL,THE VILLAGES    ,KVVG
                 from files (line count before removal)
                 2315 us_metar3.txt
                 2732 stations_us4.txt
+                // TODO HIGH IMPACT CHANGE REQUIRED BY June 24, 2019 for Service Change Notice 19-35
+                // https://api.weather.gov/points/38.8904,-77.032/forecast -> https://api.weather.gov/gridpoints/LWX/96,70/forecast
+                // https://api.weather.gov/points/38.8904,-77.032/forecast/hourly -> https://api.weather.gov/gridpoints/LWX/96,70/forecast/hourly
+                // Details: https://www.weather.gov/documentation/services-web-api
+                //
+                // Example: https://api.weather.gov/points/39.7456,-97.0892
+                //         "forecastOffice": "https://api.weather.gov/offices/TOP",
+                //        "forecast": "https://api.weather.gov/gridpoints/TOP/31,80/forecast",
+                //        "forecastHourly": "https://api.weather.gov/gridpoints/TOP/31,80/forecast/hourly",
+                //        "forecastGridData": "https://api.weather.gov/gridpoints/TOP/31,80",
+                //        "forecastZone": "https://api.weather.gov/zones/forecast/KSZ009",
 
 55157 2019_04_27 work on SunCalc
 55156 2019_04_27 [BUG] check for O.EXP in radar polygons, severe dash, utilVtec since NWS is occasionally showing expired warnings in active url
