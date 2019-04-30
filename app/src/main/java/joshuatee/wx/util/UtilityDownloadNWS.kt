@@ -173,4 +173,28 @@ object UtilityDownloadNWS {
 
     private fun getNWSStringFromURLXML(url: String) =
         getNWSStringFromURLBase(url, "application/atom+xml")
+
+
+    // Following methods derived from flutter port in response to June 2019 change
+    fun getHourlyData(latLon: LatLon): String {
+        val pointsData = getLocationPointData(latLon);
+        val hourlyUrl = pointsData.parse("\"forecastHourly\": \"(.*?)\"");
+        val data = hourlyUrl.getNwsHtml();
+        return data;
+    }
+
+    fun get7DayData(latLon: LatLon): String {
+        val pointsData = getLocationPointData(latLon);
+        val forecastUrl = pointsData.parse("\"forecast\": \"(.*?)\"");
+        val data = forecastUrl.getNwsHtml();
+        return data;
+    }
+
+    fun getLocationPointData(latLon: LatLon): String {
+        val url = MyApplication.nwsApiUrl + "/points/" + latLon.latString + "," + latLon.lonString;
+        val data = url.getNwsHtml();
+        return data;
+    }
+
+
 }

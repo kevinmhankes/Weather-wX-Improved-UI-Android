@@ -155,6 +155,7 @@ class MyApplication : Application() {
         const val sunMoonDataUrl: String = "https://api.usno.navy.mil"
         const val goes16Url: String = "https://cdn.star.nesdis.noaa.gov"
         const val goes16AnimUrl: String = "https://www.star.nesdis.noaa.gov"
+        const val nwsApiUrl = "https://api.weather.gov"
 
         const val prefSeperator: String = " : : :"
         var uiAnimIconFrames: String = "rid"
