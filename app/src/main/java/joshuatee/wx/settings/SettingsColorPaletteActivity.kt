@@ -34,6 +34,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.radar.WXGLNexrad
 import joshuatee.wx.radarcolorpalettes.UtilityColorPaletteGeneric
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectFab
@@ -75,15 +76,9 @@ class SettingsColorPaletteActivity : BaseActivity() {
         )
         type = intent.getStringArrayExtra(TYPE)[0]
         contextg = this
-        if (type == "94") {
-            title = "Color Palette - Reflectivity"
-            toolbar.subtitle = MyApplication.radarColorPalette[type]
-            prefToken = "RADAR_COLOR_PALETTE_$type"
-        } else {
-            title = "Color Palette - Velocity"
-            toolbar.subtitle = MyApplication.radarColorPalette[type]
-            prefToken = "RADAR_COLOR_PALETTE_$type"
-        }
+        title = "Color Palette - " + WXGLNexrad.productCodeStringToName[type]
+        toolbar.subtitle = MyApplication.radarColorPalette[type]
+        prefToken = "RADAR_COLOR_PALETTE_$type"
         fab1 = ObjectFab(
             this,
             this,
@@ -249,41 +244,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
             } else {
                 UtilityAlertDialog.showHelpText(builtInHelpMsg, this)
             }
-        } /*else {
-            if (!rowListItem[globalPosition].builtin) {
-                MyApplication.radarColorPalette99List =
-                    MyApplication.radarColorPalette99List.replace(
-                        ":" + rowListItem[globalPosition].colorMapLabel,
-                        ""
-                    )
-                Utility.writePref(
-                    context,
-                    "RADAR_COLOR_PALETTE_" + type + "_LIST",
-                    MyApplication.radarColorPalette99List
-                )
-                Utility.removePref(
-                    context,
-                    "RADAR_COLOR_PAL_" + type + "_" + rowListItem[globalPosition].colorMapLabel
-                )
-                UtilityFileManagement.deleteFile(
-                    this,
-                    "colormap" + type + rowListItem[globalPosition].colorMapLabel
-                )
-                MyApplication.radarColorPalette[type] = "CODENH"
-                Utility.writePrefWithNull(
-                    context,
-                    rowListItem[globalPosition].prefToken,
-                    MyApplication.radarColorPalette[type]
-                )
-                rowListItem[globalPosition].tb.subtitle = MyApplication.radarColorPalette[type]
-                UtilityColorPaletteGeneric.loadColorMap(this, type)
-                rowListItem = allItemList
-                rcAdapter = TileAdapterColorPalette(rowListItem, UIPreferences.tilesPerRow)
-                card_list.adapter = rcAdapter
-            } else {
-                UtilityAlertDialog.showHelpText(builtInHelpMsg, this)
-            }
-        }*/
+        }
     }
 
     private fun itemClicked(position: Int) {

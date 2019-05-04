@@ -75,14 +75,6 @@ class SettingsRadarActivity : BaseActivity() {
                 MyApplication.textSizeNormal,
                 MyApplication.paddingSettings
         )
-        ObjectCardText(
-                this,
-                ll,
-                "Screen Recorder",
-                MyApplication.textSizeNormal,
-                SettingsTelecineActivity::class.java,
-                MyApplication.paddingSettings
-        )
         cardPal94.setOnClickListener(View.OnClickListener {
             ObjectIntent(
                     this,
@@ -99,6 +91,14 @@ class SettingsRadarActivity : BaseActivity() {
                     arrayOf("99")
             )
         })
+        ObjectCardText(
+                this,
+                ll,
+                "Screen Recorder",
+                MyApplication.textSizeNormal,
+                SettingsTelecineActivity::class.java,
+                MyApplication.paddingSettings
+        )
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,

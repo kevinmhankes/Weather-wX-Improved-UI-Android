@@ -37,6 +37,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.radar.WXGLNexrad
 import joshuatee.wx.radarcolorpalettes.UtilityColorPalette
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCard
@@ -55,6 +56,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
     private lateinit var turl: Array<String>
     private var formattedDate = ""
     private var name = ""
+    private var type = ""
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,10 +77,8 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         }
         showLoadFromFileMenuItem()
         turl = intent.getStringArrayExtra(URL)
-        title = if (turl[0] == "94")
-            "Palette Editor - Reflectivity"
-        else
-            "Palette Editor - Velocity"
+        type = turl[0]
+        title = "Palette Editor - " + WXGLNexrad.productCodeStringToName[type]
         formattedDate = UtilityTime.getDateAsString("MMdd")
         name = if (turl[2].contains("false")) {
             turl[1]
@@ -86,7 +86,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
             turl[1] + "_" + formattedDate
         }
         palTitle.setText(name)
-        palContent.setText(UtilityColorPalette.getColorMapStringFromDisk(this, turl[0], turl[1]))
+        palContent.setText(UtilityColorPalette.getColorMapStringFromDisk(this, type, turl[1]))
     }
 
     private fun fabSavePAL(context: Context) {
@@ -98,30 +98,30 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
             palContent.setText(textToSave)
             Utility.writePref(
                 context,
-                "RADAR_COLOR_PAL_" + turl[0] + "_" + palTitle.text.toString(),
+                "RADAR_COLOR_PAL_" + type + "_" + palTitle.text.toString(),
                 textToSave
             )
             // FIXME refactor to remove if
-            if (turl[0] == "94") {
-                if (!MyApplication.radarColorPaletteList[turl[0]]!!.contains(palTitle.text.toString())) {
-                    MyApplication.radarColorPaletteList[turl[0]] = MyApplication.radarColorPaletteList[turl[0]]!! +
-                            ":" + palTitle.text.toString()
-                    Utility.writePref(
-                        context,
-                        "RADAR_COLOR_PALETTE_" + turl[0] + "_LIST",
-                            MyApplication.radarColorPaletteList[turl[0]]!!
-                    )
-                }
-            } else {
-                if (!MyApplication.radarColorPaletteList[turl[0]]!!.contains(palTitle.text.toString())) {
-                    MyApplication.radarColorPaletteList[turl[0]] = MyApplication.radarColorPaletteList[turl[0]]!! +
-                            ":" + palTitle.text.toString()
-                    Utility.writePref(
-                        context,
-                        "RADAR_COLOR_PALETTE_" + turl[0] + "_LIST", MyApplication.radarColorPaletteList[turl[0]]!!
-                    )
-                }
+            //if (type == "94") {
+            if (!MyApplication.radarColorPaletteList[type]!!.contains(palTitle.text.toString())) {
+                MyApplication.radarColorPaletteList[type] = MyApplication.radarColorPaletteList[type]!! +
+                        ":" + palTitle.text.toString()
+                Utility.writePref(
+                    context,
+                    "RADAR_COLOR_PALETTE_" + type + "_LIST",
+                        MyApplication.radarColorPaletteList[type]!!
+                )
             }
+        //} else {
+            /*if (!MyApplication.radarColorPaletteList[type]!!.contains(palTitle.text.toString())) {
+                MyApplication.radarColorPaletteList[type] = MyApplication.radarColorPaletteList[type]!! +
+                        ":" + palTitle.text.toString()
+                Utility.writePref(
+                    context,
+                    "RADAR_COLOR_PALETTE_" + type + "_LIST", MyApplication.radarColorPaletteList[type]!!
+                )
+            }*/
+            //}
             toolbar.subtitle = "Last saved: $date"
         } else {
             UtilityAlertDialog.showHelpText(errorCheck, this)
@@ -193,7 +193,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
             R.id.action_reset -> palContent.setText(
                 UtilityColorPalette.getColorMapStringFromDisk(
                     this,
-                    turl[0],
+                        type,
                     turl[1]
                 )
             )
@@ -220,11 +220,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
     }
 
     override fun onStop() {
-        if (turl[0] == "94") {
-            UtilityFileManagement.deleteFile(this, "colormap94" + palTitle.text.toString())
-        } else {
-            UtilityFileManagement.deleteFile(this, "colormap99" + palTitle.text.toString())
-        }
+        UtilityFileManagement.deleteFile(this, "colormap" + type + palTitle.text.toString())
         super.onStop()
     }
 

@@ -29,6 +29,11 @@ import joshuatee.wx.util.Utility
 
 object WXGLNexrad {
 
+    val productCodeStringToName = mapOf(
+            "94" to "Reflectivity",
+            "99" to "Velocity"
+    )
+
     private val closestTdwrToNexrad = mapOf(
         "DTX" to "DTW",
         "LOT" to "ORD",
