@@ -55,18 +55,10 @@ import joshuatee.wx.activitiesmisc.WebscreenABModels
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.telecine.TelecineService
 import joshuatee.wx.MyApplication
-import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityAlertDialog
-import joshuatee.wx.util.UtilityFavorites
-import joshuatee.wx.util.UtilityFileManagement
-import joshuatee.wx.util.UtilityImageMap
-import joshuatee.wx.util.UtilityImg
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.settings.FavAddActivity
 import joshuatee.wx.settings.FavRemoveActivity
 import joshuatee.wx.settings.SettingsRadarActivity
 import joshuatee.wx.ui.*
-import joshuatee.wx.util.UtilityShare
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
@@ -74,6 +66,7 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
+import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
 class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuItemClickListener {
@@ -519,10 +512,16 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private fun setSubTitle() {
         val info = Utility.readPref(contextg, "WX_RADAR_CURRENT_INFO", "")
         val tmpArr = info.split(" ")
-        if (tmpArr.size > 3)
+        if (tmpArr.size > 3) {
             toolbar.subtitle = tmpArr[3]
-        else
+            if (UtilityTime.isRadarTimeOld(tmpArr[3])) {
+                toolbar.setSubtitleTextColor(Color.RED)
+            } else {
+                toolbar.setSubtitleTextColor(Color.LTGRAY)
+            }
+        } else {
             toolbar.subtitle = ""
+        }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

@@ -13,11 +13,12 @@
 // TODO fix issue for precip radar products when there is no data
 // TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
 // TODO linesize - swo, wb, wbgusts, sti
-// TODO crete UtilityTimeSunMoon
 // TODO use bottomsheet in color pal activity
 // TODO color pal editor for all products
 
 55161 2019_05_04 [BUG] in color pal editor, delete file if pal saved so it regenerates with saved changes
+                    add UtilityTimeSunMoon
+                    in single pane radar change title bar color if radar is not "current" - in testing phase
 55160 2019_05_04 add color pal editor support for DVL 134 (Craig)
 55159 2019_05_04 [BUG] errors in color pal listing / editor , refactor
                  [BUG] remove comments in base velocity cod default palette which was causing issues when cloning from
