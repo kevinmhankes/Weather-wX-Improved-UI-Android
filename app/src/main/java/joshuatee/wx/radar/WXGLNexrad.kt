@@ -24,14 +24,29 @@ package joshuatee.wx.radar
 import android.content.Context
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.MyApplication
+import joshuatee.wx.R
 
 import joshuatee.wx.util.Utility
 
 object WXGLNexrad {
 
+    // next 3 maps are for color palette editor
     val productCodeStringToName = mapOf(
             "94" to "Reflectivity",
-            "99" to "Velocity"
+            "99" to "Velocity",
+            "134" to "DVL"
+    )
+
+    val productCodeStringToCode = mapOf(
+            "94" to "N0Q",
+            "99" to "N0U",
+            "134" to "DVL"
+    )
+
+    val productCodeStringToResourceFile = mapOf(
+            "94" to R.raw.dvn94,
+            "99" to R.raw.dvn99,
+            "134" to R.raw.dvn94 // FIXME
     )
 
     private val closestTdwrToNexrad = mapOf(

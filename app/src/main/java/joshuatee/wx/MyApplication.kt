@@ -264,8 +264,6 @@ class MyApplication : Application() {
         const val DEGREE_SYMBOL: String = "\u00B0"
         var playlistStr: String = ""
         var notifTextProdStr: String = ""
-        //var radarColorPalette94List: String = ""
-        //var radarColorPalette99List: String = ""
         var newline: String = ""
         var space: Pattern = Pattern.compile("")
         var colon: Pattern = Pattern.compile("")
@@ -459,7 +457,7 @@ class MyApplication : Application() {
 
 
             // FIXME
-            listOf("94", "99").forEach {
+            listOf("94", "99", "134").forEach {
                 radarColorPaletteList[it] = getInitialPreferenceString("RADAR_COLOR_PALETTE_" + it + "_LIST", "")
             }
             //radarColorPalette94List = getInitialPreferenceString("RADAR_COLOR_PALETTE_94_LIST", "")

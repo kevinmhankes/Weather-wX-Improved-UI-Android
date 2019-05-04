@@ -61,13 +61,13 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(
-            savedInstanceState,
-            R.layout.activity_settings_color_palette_editor,
-            R.menu.settings_color_palette_editor,
-            true
+                savedInstanceState,
+                R.layout.activity_settings_color_palette_editor,
+                R.menu.settings_color_palette_editor,
+                true
         )
         toolbarBottom.setOnMenuItemClickListener(this)
-        ObjectFab(this, this, R.id.fab, View.OnClickListener { fabSavePAL(this) })
+        ObjectFab(this, this, R.id.fab, View.OnClickListener { fabSavePalette(this) })
         ObjectCard(this, R.id.cv1)
         if (UIPreferences.themeInt == R.style.MyCustomTheme_white_NOAB) {
             listOf(palTitle, palContent).forEach {
@@ -89,7 +89,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         palContent.setText(UtilityColorPalette.getColorMapStringFromDisk(this, type, turl[1]))
     }
 
-    private fun fabSavePAL(context: Context) {
+    private fun fabSavePalette(context: Context) {
         val date = UtilityTime.getDateAsString("HH:mm")
         val errorCheck = checkMapForErrors()
         if (errorCheck == "") {
@@ -97,31 +97,19 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
             textToSave = textToSave.replace(",,".toRegex(), ",")
             palContent.setText(textToSave)
             Utility.writePref(
-                context,
-                "RADAR_COLOR_PAL_" + type + "_" + palTitle.text.toString(),
-                textToSave
+                    context,
+                    "RADAR_COLOR_PAL_" + type + "_" + palTitle.text.toString(),
+                    textToSave
             )
-            // FIXME refactor to remove if
-            //if (type == "94") {
             if (!MyApplication.radarColorPaletteList[type]!!.contains(palTitle.text.toString())) {
                 MyApplication.radarColorPaletteList[type] = MyApplication.radarColorPaletteList[type]!! +
                         ":" + palTitle.text.toString()
                 Utility.writePref(
-                    context,
-                    "RADAR_COLOR_PALETTE_" + type + "_LIST",
+                        context,
+                        "RADAR_COLOR_PALETTE_" + type + "_LIST",
                         MyApplication.radarColorPaletteList[type]!!
                 )
             }
-        //} else {
-            /*if (!MyApplication.radarColorPaletteList[type]!!.contains(palTitle.text.toString())) {
-                MyApplication.radarColorPaletteList[type] = MyApplication.radarColorPaletteList[type]!! +
-                        ":" + palTitle.text.toString()
-                Utility.writePref(
-                    context,
-                    "RADAR_COLOR_PALETTE_" + type + "_LIST", MyApplication.radarColorPaletteList[type]!!
-                )
-            }*/
-            //}
             toolbar.subtitle = "Last saved: $date"
         } else {
             UtilityAlertDialog.showHelpText(errorCheck, this)
@@ -130,7 +118,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
 
     private fun checkMapForErrors(): String {
         var text = palContent.text.toString()
-        text = convertPal(text)
+        text = convertPalette(text)
         palContent.setText(text)
         val lines = text.split("\n".toRegex()).dropLastWhile { it.isEmpty() }
         var tmpArr: List<String>
@@ -154,19 +142,19 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
                         }
                         priorVal = tmpArr[1].toIntOrNull() ?: 0
                         if ((tmpArr[2].toIntOrNull() ?: 0) > 255 || (tmpArr[2].toIntOrNull()
-                                ?: 0) < 0
+                                        ?: 0) < 0
                         ) {
                             errors = errors + "Red value must be between 0 and 255: " +
                                     MyApplication.newline + s + MyApplication.newline
                         }
                         if ((tmpArr[3].toIntOrNull() ?: 0) > 255 || (tmpArr[3].toIntOrNull()
-                                ?: 0) < 0
+                                        ?: 0) < 0
                         ) {
                             errors = errors + "Green value must be between 0 and 255: " +
                                     MyApplication.newline + s + MyApplication.newline
                         }
                         if ((tmpArr[4].toIntOrNull() ?: 0) > 255 || (tmpArr[4].toIntOrNull()
-                                ?: 0) < 0
+                                        ?: 0) < 0
                         ) {
                             errors = errors + "Blue value must be between 0 and 255: " +
                                     MyApplication.newline + s + MyApplication.newline
@@ -191,28 +179,28 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_reset -> palContent.setText(
-                UtilityColorPalette.getColorMapStringFromDisk(
-                    this,
-                        type,
-                    turl[1]
-                )
+                    UtilityColorPalette.getColorMapStringFromDisk(
+                            this,
+                            type,
+                            turl[1]
+                    )
             )
             R.id.action_clear -> palContent.setText("")
             R.id.action_help -> UtilityAlertDialog.showHelpText("Not implemented yet.", this)
             R.id.action_share -> UtilityShare.shareTextAsAttachment(
-                this,
-                palTitle.text.toString(),
-                palContent.text.toString(),
-                "wX_colormap_" + palTitle.text.toString() + ".txt"
+                    this,
+                    palTitle.text.toString(),
+                    palContent.text.toString(),
+                    "wX_colormap_" + palTitle.text.toString() + ".txt"
             )
             R.id.action_load -> loadSettings()
             R.id.action_website -> ObjectIntent.showWeb(
-                this,
-                "http://almanydesigns.com/grx/reflectivity/"
+                    this,
+                    "http://almanydesigns.com/grx/reflectivity/"
             )
             R.id.action_website2 -> ObjectIntent.showWeb(
-                this,
-                "http://www.usawx.com/grradarexamples.htm"
+                    this,
+                    "http://www.usawx.com/grradarexamples.htm"
             )
             else -> return super.onOptionsItemSelected(item)
         }
@@ -238,7 +226,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         palContent.setText(txt)
     }
 
-    private fun convertPal(txt: String): String {
+    private fun convertPalette(txt: String): String {
         var txtLocal = Utility.fromHtml(txt)
         txtLocal = txtLocal.replace("color", "Color")
         txtLocal = txtLocal.replace("product", "#product")
@@ -301,7 +289,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
     private fun readTextFromUri(uri: Uri): String {
         val content = UtilityIO.readTextFromUri(this, uri)
         val uriArr =
-            uri.lastPathSegment!!.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                uri.lastPathSegment!!.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         var fileName = "map"
         if (uriArr.isNotEmpty()) {
             fileName = uriArr[uriArr.size - 1]
@@ -309,6 +297,6 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         fileName = fileName.replace(".txt", "").replace(".pal", "")
         name = fileName + "_" + formattedDate
         palTitle.setText(name)
-        return convertPal(content)
+        return convertPalette(content)
     }
 }
