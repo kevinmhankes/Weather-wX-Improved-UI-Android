@@ -73,8 +73,10 @@ internal class TileObjectColorPalette(
                 UtilityIO.bitmapToInternalStorage(context, bmPassed, "colormap94$colorMapLabel")
                 MyApplication.radarColorPalette[prod] = oldMap
             } else {
+
                 oldMap = MyApplication.radarColorPalette[prod]!!
                 MyApplication.radarColorPalette[prod] = colorMapLabel
+                UtilityLog.d("wx", "COLORPAL bitmap generation " + oldMap + " " + MyApplication.radarColorPalette[prod])
                 try {
                     UtilityColorPaletteGeneric.loadColorMap(context, "99")
                 } catch (e: Exception) {

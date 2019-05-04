@@ -2,7 +2,14 @@
 #export NDK_TOOLCHAIN_VERSION=clang 
 #export PATH=~/android-studio/jre/bin:$PATH
 
+dateString=$(date '+%Y_%m_%d_%H_%M')
+touch doc/ChangeLog.txt
+
 export PATH=/Applications/"Android Studio.app"/Contents/jre/jdk/Contents/Home/bin:~/android-studio/jre/bin:$PATH
 ./gradlew assembleRelease
 cd ~
 ./scr.wx
+
+cd ~/StudioProjects/wX
+git commit -a -m "release commit ${dateString}"
+git push
