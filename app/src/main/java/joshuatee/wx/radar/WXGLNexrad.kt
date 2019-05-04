@@ -46,8 +46,10 @@ object WXGLNexrad {
     val productCodeStringToResourceFile = mapOf(
             "94" to R.raw.dvn94,
             "99" to R.raw.dvn99,
-            "134" to R.raw.dvn94 // FIXME
+            "134" to R.raw.gsp134
     )
+
+    val colorPaletteProducts: List<String> = listOf("94", "99", "134")
 
     private val closestTdwrToNexrad = mapOf(
         "DTX" to "DTW",
