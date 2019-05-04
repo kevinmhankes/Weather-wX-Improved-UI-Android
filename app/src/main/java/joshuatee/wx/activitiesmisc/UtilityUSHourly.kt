@@ -23,8 +23,7 @@ package joshuatee.wx.activitiesmisc
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.settings.Location
-import joshuatee.wx.util.UtilityDownloadNWS
-import joshuatee.wx.util.UtilityMath
+import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.util.UtilityTime
 import joshuatee.wx.util.Utility
 
@@ -85,7 +84,7 @@ object UtilityUSHourly {
         //val html =
         //    UtilityDownloadNWS.getNWSStringFromURL("https://api.weather.gov/points/$x,$y/forecast/hourly")
 
-        val html = UtilityDownloadNWS.getHourlyData(Location.getLatLon(locNum))
+        val html = UtilityDownloadNws.getHourlyData(Location.getLatLon(locNum))
         val header = String.format("%-16s", "Time") + " " + String.format(
             "%-10s",
             "Temp"

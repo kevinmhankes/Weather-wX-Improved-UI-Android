@@ -38,32 +38,32 @@ object UtilityDownloadRadar {
     fun getPolygonVTEC(context: Context) {
         MyApplication.severeDashboardTst.valueSet(
                 context,
-                UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(tstormURl)
+                UtilityDownloadNws.getNWSStringFromUrlNoAcceptHeader(tstormURl)
         )
         MyApplication.severeDashboardFfw.valueSet(
                 context,
-                UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(ffwUrl)
+                UtilityDownloadNws.getNWSStringFromUrlNoAcceptHeader(ffwUrl)
         )
         MyApplication.severeDashboardTor.valueSet(
                 context,
-                UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(tornadoUrl)
+                UtilityDownloadNws.getNWSStringFromUrlNoAcceptHeader(tornadoUrl)
         )
     }
 
     fun getVtecTstorm(): String {
-        return UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(tstormURl)
+        return UtilityDownloadNws.getNWSStringFromUrlNoAcceptHeader(tstormURl)
     }
 
     fun getVtecTor(): String {
-        return UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(tornadoUrl)
+        return UtilityDownloadNws.getNWSStringFromUrlNoAcceptHeader(tornadoUrl)
     }
 
     fun getVtecFfw(): String {
-        return UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(ffwUrl)
+        return UtilityDownloadNws.getNWSStringFromUrlNoAcceptHeader(ffwUrl)
     }
 
     fun getVtecByType(type: PolygonWarningType): String {
-        return UtilityDownloadNWS.getNWSStringFromUrlNoAcceptHeader(baseUrl + type.urlToken)
+        return UtilityDownloadNws.getNWSStringFromUrlNoAcceptHeader(baseUrl + type.urlToken)
     }
 
     fun getMcd(): String {

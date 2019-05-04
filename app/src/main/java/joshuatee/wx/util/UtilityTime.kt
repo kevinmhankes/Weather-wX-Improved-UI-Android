@@ -169,16 +169,14 @@ object UtilityTime {
         val time = Date()
         now.time = time
         val formatter = SimpleDateFormat("MM-dd h:mm a", Locale.US)
-        val sunRiseDate = sunCalc.time(now, SolarEvent.sunrise, Location.latLon)
-        val sunSetDate = sunCalc.time(now, SolarEvent.sunset, Location.latLon)
+        val sunRiseDate = sunCalc.time(now, SolarEvent.Sunrise, Location.latLon)
+        val sunSetDate = sunCalc.time(now, SolarEvent.Sunset, Location.latLon)
         val sunRise = formatter.format(sunRiseDate.time)
         val sunSet = formatter.format(sunSetDate.time)
-        val data = "Sunrise: " + sunRise + " Sunset: " + sunSet
-        return data
+        return "Sunrise: $sunRise Sunset: $sunSet"
     }
 
     fun getMoonTimesForHomescreen(): String {
-        var data = ""
         var moonRise = ""
         var moonSet = ""
         val sunCalc = SunCalc()
@@ -191,8 +189,7 @@ object UtilityTime {
         if (moonTimes[1] != null) {
             moonSet = formatter.format(moonTimes[1]!!.time)
         }
-        data = "Moonrise: " + moonRise + " Moonset: " + moonSet
-        return data;
+        return "Moonrise: $moonRise Moonset: $moonSet"
     }
 
     fun getMoonIlluminationForHomescreen(): String {
@@ -200,8 +197,7 @@ object UtilityTime {
         val now = Calendar.getInstance()
         val moonIllumination = sunCalc.moonIllumination(now)
         // FIXME truncate double
-        val data = moonPhaseFromIllumination(moonIllumination.phase) + " " + moonIllumination.phase.toString()
-        return data;
+        return moonPhaseFromIllumination(moonIllumination.phase) + " " + moonIllumination.phase.toString()
     }
 
     fun moonPhaseFromIllumination(phase: Double): String {

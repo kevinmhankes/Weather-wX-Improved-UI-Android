@@ -28,7 +28,6 @@ import androidx.appcompat.widget.Toolbar
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.radar.UtilityUSImgWX
-import joshuatee.wx.radar.WXGLNexrad
 import joshuatee.wx.radarcolorpalettes.UtilityColorPaletteGeneric
 import joshuatee.wx.util.UtilityFileManagement
 import joshuatee.wx.util.UtilityIO

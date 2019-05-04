@@ -14,13 +14,9 @@ which was ported from:
 package joshuatee.wx.external
 
 import joshuatee.wx.radar.LatLon
-import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
 import java.util.*
 import kotlin.math.*
-import joshuatee.wx.external.MoonPosition
-
-
 
 class AzimuthCoordinate(val azimuth: Double, val altitude: Double)
 class EclipticCoordinate(val rightAscension: Double, val declination: Double)
@@ -40,16 +36,16 @@ class SunCalc {
 
     companion object {
 
-        val rad  = PI / 180
-        val j0 = 0.0009
+        const val rad  = PI / 180
+        const val j0 = 0.0009
 
 // sun calculations are based on http://aa.quae.nl/en/reken/zonpositie.html formulas
 // date/time constants and conversions
 
-        val dayMs = 1000 * 60 * 60 * 24;
-        val j1970 = 2440588
-        val j2000 = 2451545
-        val e = rad * 23.4397; // obliquity of the Earth
+        const val dayMs = 1000 * 60 * 60 * 24
+        const val j1970 = 2440588
+        const val j2000 = 2451545
+        val e = rad * 23.4397 // obliquity of the Earth
     }
 
 
@@ -57,11 +53,11 @@ class SunCalc {
         //val cal = Calendar.getInstance()
         //return  date.timeInMillis / dayMs - 0.5 + j1970;
         // FIXME why was the - 0.5 needed in Dart/Swift
-        return  (date.timeInMillis / dayMs - 0.5 + j1970).toDouble();
+        return  (date.timeInMillis / dayMs - 0.5 + j1970)
     } // JS: date.valueOf()
 
     private fun fromJulian(j: Double): Calendar {
-        val number = (j + 0.5 - j1970) * dayMs;
+        val number = (j + 0.5 - j1970) * dayMs
         val cal = Calendar.getInstance()
         cal.timeInMillis = number.toLong()
         return cal
@@ -266,33 +262,30 @@ class SunCalc {
         val angle = solarAngle(event)
         val jSet = getSetJ(angle * rad, lw, phi, dec, n, m,  l)
         when (event) {
-            SolarEvent.noon -> return noon;
-            SolarEvent.nadir -> {
-                val nadir = fromJulian(jNoon - 0.5);
-                return nadir;
-            }
-            SolarEvent.sunset -> return fromJulian(jSet)
-            SolarEvent.dusk -> return fromJulian(jSet)
-            SolarEvent.goldenHour -> return fromJulian(jSet)
-            SolarEvent.astronomicalDusk -> return fromJulian(jSet)
-            SolarEvent.nauticalDusk -> return fromJulian(jSet)
-            SolarEvent.sunrise -> {
+            SolarEvent.Noon -> return noon
+            SolarEvent.Nadir -> return fromJulian(jNoon - 0.5)
+            SolarEvent.Sunset -> return fromJulian(jSet)
+            SolarEvent.Dusk -> return fromJulian(jSet)
+            SolarEvent.GoldenHour -> return fromJulian(jSet)
+            SolarEvent.AstronomicalDusk -> return fromJulian(jSet)
+            SolarEvent.NauticalDusk -> return fromJulian(jSet)
+            SolarEvent.Sunrise -> {
                 val jRise = jNoon -(jSet - jNoon)
                 return fromJulian(jRise)
             }
-            SolarEvent.dawn -> {
+            SolarEvent.Dawn -> {
                 val jRise = jNoon -(jSet - jNoon)
                 return fromJulian(jRise)
             }
-            SolarEvent.goldenHourEnd -> {
+            SolarEvent.GoldenHourEnd -> {
                 val jRise = jNoon -(jSet - jNoon)
                 return fromJulian(jRise)
             }
-            SolarEvent.astronomicalDawn -> {
+            SolarEvent.AstronomicalDawn -> {
                 val jRise = jNoon -(jSet - jNoon)
                 return fromJulian(jRise)
             }
-            SolarEvent.nauticalDawn -> {
+            SolarEvent.NauticalDawn -> {
                 val jRise = jNoon -(jSet - jNoon)
                 return fromJulian(jRise)
             }
@@ -302,20 +295,20 @@ class SunCalc {
 
     private fun solarAngle(event: SolarEvent): Double {
         when (event) {
-            SolarEvent.sunrise -> return -0.833
-            SolarEvent.sunset -> return -0.833
-            SolarEvent.sunriseEnd -> return -0.3
-            SolarEvent.sunsetEnd -> return -0.3
-            SolarEvent.dawn -> return -6.0
-            SolarEvent.dusk -> return -6.0
-            SolarEvent.nauticalDawn -> return -12.0
-            SolarEvent.nauticalDusk -> return -12.0
-            SolarEvent.astronomicalDawn -> return -18.0
-            SolarEvent.astronomicalDusk -> return -18.0
-            SolarEvent.goldenHourEnd -> return 6.0
-            SolarEvent.goldenHour -> return 6.0
-            SolarEvent.noon -> return 90.0
-            SolarEvent.nadir -> return -90.0
+            SolarEvent.Sunrise -> return -0.833
+            SolarEvent.Sunset -> return -0.833
+            SolarEvent.SunriseEnd -> return -0.3
+            SolarEvent.SunsetEnd -> return -0.3
+            SolarEvent.Dawn -> return -6.0
+            SolarEvent.Dusk -> return -6.0
+            SolarEvent.NauticalDawn -> return -12.0
+            SolarEvent.NauticalDusk -> return -12.0
+            SolarEvent.AstronomicalDawn -> return -18.0
+            SolarEvent.AstronomicalDusk -> return -18.0
+            SolarEvent.GoldenHourEnd -> return 6.0
+            SolarEvent.GoldenHour -> return 6.0
+            SolarEvent.Noon -> return 90.0
+            SolarEvent.Nadir -> return -90.0
         }
     }
 
@@ -329,9 +322,9 @@ class SunCalc {
         //val t = Calendar.getInstance()
         //t.time = date.time
         val t = date.clone() as Calendar
-        t.set(Calendar.HOUR_OF_DAY, 0);
-        t.set(Calendar.MINUTE, 0);
-        t.set(Calendar.SECOND, 0);
+        t.set(Calendar.HOUR_OF_DAY, 0)
+        t.set(Calendar.MINUTE, 0)
+        t.set(Calendar.SECOND, 0)
         t.set(Calendar.MILLISECOND, 0)
 
 
@@ -373,9 +366,9 @@ class SunCalc {
             }
             if (roots == 1) {
                 if (h0 < 0) {
-                    riseHour = i + x1;
+                    riseHour = i + x1
                 } else {
-                    setHour = i + x1;
+                    setHour = i + x1
                 }
 
             } else if (roots == 2) {

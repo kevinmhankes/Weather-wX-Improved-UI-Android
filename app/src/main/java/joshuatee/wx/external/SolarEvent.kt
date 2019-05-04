@@ -14,19 +14,19 @@ which was ported from:
 package joshuatee.wx.external
 
 enum class SolarEvent {
-    sunrise,
-    sunset,
-    sunriseEnd,
-    sunsetEnd,
-    dawn,
-    dusk,
-    nauticalDawn,
-    nauticalDusk,
-    astronomicalDawn,
-    astronomicalDusk,
-    goldenHourEnd,
-    goldenHour,
-    noon,
-    nadir
+    Sunrise,
+    Sunset,
+    SunriseEnd,
+    SunsetEnd,
+    Dawn,
+    Dusk,
+    NauticalDawn,
+    NauticalDusk,
+    AstronomicalDawn,
+    AstronomicalDusk,
+    GoldenHourEnd,
+    GoldenHour,
+    Noon,
+    Nadir
 }
 

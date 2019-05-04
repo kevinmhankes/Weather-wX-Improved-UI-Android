@@ -105,58 +105,62 @@ class SettingsColorPaletteActivity : BaseActivity() {
         get() {
             val allItems = mutableListOf<TileObjectColorPalette>()
             val cg = applicationContext
-            if (type == "94") {
-                allItems.add(TileObjectColorPalette("CODENH", toolbar, prefToken, cg, type, true))
-                allItems.add(TileObjectColorPalette("DKenh", toolbar, prefToken, cg, type, true))
-                allItems.add(TileObjectColorPalette("CODE", toolbar, prefToken, cg, type, true))
-                allItems.add(TileObjectColorPalette("NSSL", toolbar, prefToken, cg, type, true))
-                allItems.add(TileObjectColorPalette("NWSD", toolbar, prefToken, cg, type, true))
-                allItems.add(TileObjectColorPalette("AF", toolbar, prefToken, cg, type, true))
-                allItems.add(TileObjectColorPalette("EAK", toolbar, prefToken, cg, type, true))
-                val prefArr =
-                        MyApplication.radarColorPaletteList["94"]!!.split(":").dropLastWhile { it.isEmpty() }
-                prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
-                    TileObjectColorPalette(
-                            it,
-                            toolbar,
-                            prefToken,
-                            cg,
-                            type,
-                            false
-                    )
+            when (type) {
+                "94" -> {
+                    allItems.add(TileObjectColorPalette("CODENH", toolbar, prefToken, cg, type, true))
+                    allItems.add(TileObjectColorPalette("DKenh", toolbar, prefToken, cg, type, true))
+                    allItems.add(TileObjectColorPalette("CODE", toolbar, prefToken, cg, type, true))
+                    allItems.add(TileObjectColorPalette("NSSL", toolbar, prefToken, cg, type, true))
+                    allItems.add(TileObjectColorPalette("NWSD", toolbar, prefToken, cg, type, true))
+                    allItems.add(TileObjectColorPalette("AF", toolbar, prefToken, cg, type, true))
+                    allItems.add(TileObjectColorPalette("EAK", toolbar, prefToken, cg, type, true))
+                    val prefArr =
+                            MyApplication.radarColorPaletteList["94"]!!.split(":").dropLastWhile { it.isEmpty() }
+                    prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
+                        TileObjectColorPalette(
+                                it,
+                                toolbar,
+                                prefToken,
+                                cg,
+                                type,
+                                false
+                        )
+                    }
                 }
-            } else if (type == "99") {
-                listOf("CODENH", "AF", "EAK").forEach {
-                    allItems.add(TileObjectColorPalette(it, toolbar, prefToken, cg, type, true))
+                "99" -> {
+                    listOf("CODENH", "AF", "EAK").forEach {
+                        allItems.add(TileObjectColorPalette(it, toolbar, prefToken, cg, type, true))
+                    }
+                    val prefArr =
+                            MyApplication.radarColorPaletteList["99"]!!.split(":").dropLastWhile { it.isEmpty() }
+                    UtilityLog.d("Wx", "COLORPAL INIT: " + MyApplication.radarColorPaletteList["99"]!!)
+                    prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
+                        TileObjectColorPalette(
+                                it,
+                                toolbar,
+                                prefToken,
+                                cg,
+                                type,
+                                false
+                        )
+                    }
                 }
-                val prefArr =
-                        MyApplication.radarColorPaletteList["99"]!!.split(":").dropLastWhile { it.isEmpty() }
-                UtilityLog.d("Wx", "COLORPAL INIT: " + MyApplication.radarColorPaletteList["99"]!!)
-                prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
-                    TileObjectColorPalette(
-                            it,
-                            toolbar,
-                            prefToken,
-                            cg,
-                            type,
-                            false
-                    )
-                }
-            } else {
-                listOf("CODENH").forEach {
-                    allItems.add(TileObjectColorPalette(it, toolbar, prefToken, cg, type, true))
-                }
-                val prefArr = MyApplication.radarColorPaletteList[type]!!.split(":").dropLastWhile { it.isEmpty() }
-                UtilityLog.d("Wx", "COLORPAL INIT: " + MyApplication.radarColorPaletteList[type]!!)
-                prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
-                    TileObjectColorPalette(
-                            it,
-                            toolbar,
-                            prefToken,
-                            cg,
-                            type,
-                            false
-                    )
+                else -> {
+                    listOf("CODENH").forEach {
+                        allItems.add(TileObjectColorPalette(it, toolbar, prefToken, cg, type, true))
+                    }
+                    val prefArr = MyApplication.radarColorPaletteList[type]!!.split(":").dropLastWhile { it.isEmpty() }
+                    UtilityLog.d("Wx", "COLORPAL INIT: " + MyApplication.radarColorPaletteList[type]!!)
+                    prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
+                        TileObjectColorPalette(
+                                it,
+                                toolbar,
+                                prefToken,
+                                cg,
+                                type,
+                                false
+                        )
+                    }
                 }
             }
             builtinStr = "false"
@@ -209,16 +213,8 @@ class SettingsColorPaletteActivity : BaseActivity() {
         val builtInHelpMsg = "Built-in color palettes can not be deleted."
         if (rowListItem[globalPosition].prefToken == "RADAR_COLOR_PALETTE_$type") {
             if (!rowListItem[globalPosition].builtin) {
-                //UtilityLog.d("Wx", "COLORPAL before new val:" + MyApplication.radarColorPalette[type]!!)
                 val newValue = MyApplication.radarColorPaletteList[type]!!.replace(":" + rowListItem[globalPosition].colorMapLabel, "")
-                //UtilityLog.d("wx", "COLORPAL new value:" + newValue)
                 MyApplication.radarColorPaletteList[type] = newValue
-                //UtilityLog.d("wx", "COLORPAL item:" + rowListItem[globalPosition].colorMapLabel)
-                //UtilityLog.d("wx", "COLORPAL current type: " + type)
-                //UtilityLog.d("wx", "COLORPAL 94: " + MyApplication.radarColorPalette94List)
-                //UtilityLog.d("wx", "COLORPAL 99: " + MyApplication.radarColorPalette99List)
-                //UtilityLog.d("wx", "COLORPAL 94 LIST: " + MyApplication.radarColorPalette["94"])
-                //UtilityLog.d("wx", "COLORPAL LIST:" + MyApplication.radarColorPalette[type])
                 Utility.writePref(
                         context,
                         "RADAR_COLOR_PALETTE_" + type + "_LIST",

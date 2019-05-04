@@ -489,10 +489,10 @@ object UtilityDownload {
             var t2 = prod.substring(3)
             t2 = t2.replace("%", "")
             val html =
-                UtilityDownloadNWS.getNWSStringFromURL("https://api.weather.gov/products/types/$t1/locations/$t2")
+                    UtilityDownloadNws.getNWSStringFromURL("https://api.weather.gov/products/types/$t1/locations/$t2")
             val urlProd = html.parse("\"id\": \"(.*?)\"")
             val prodHtml =
-                UtilityDownloadNWS.getNWSStringFromURL("https://api.weather.gov/products/$urlProd")
+                    UtilityDownloadNws.getNWSStringFromURL("https://api.weather.gov/products/$urlProd")
             text = UtilityString.parseAcrossLines(prodHtml, "\"productText\": \"(.*?)\\}")
             text = text.replace("\\n\\n", "<BR>")
             text = text.replace("\\n", " ")
