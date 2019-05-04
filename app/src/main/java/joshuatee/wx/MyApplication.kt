@@ -233,6 +233,7 @@ class MyApplication : Application() {
         var spcmesoLabelFav: String = ""
         var nwsTextFav: String = ""
         var radarColorPalette: MutableMap<String, String> = mutableMapOf()
+        var radarColorPaletteList: MutableMap<String, String> = mutableMapOf()
         var notifSoundUri: String = ""
         var homescreenFav: String = ""
         const val HOMESCREEN_FAV_DEFAULT: String = "TXT-CC2:TXT-HAZ:OGL-RADAR:TXT-7DAY2"
@@ -263,8 +264,8 @@ class MyApplication : Application() {
         const val DEGREE_SYMBOL: String = "\u00B0"
         var playlistStr: String = ""
         var notifTextProdStr: String = ""
-        var radarColorPalette94List: String = ""
-        var radarColorPalette99List: String = ""
+        //var radarColorPalette94List: String = ""
+        //var radarColorPalette99List: String = ""
         var newline: String = ""
         var space: Pattern = Pattern.compile("")
         var colon: Pattern = Pattern.compile("")
@@ -455,8 +456,15 @@ class MyApplication : Application() {
             playlistStr = getInitialPreferenceString("PLAYLIST", "")
             notifTextProdStr =
                 getInitialPreferenceString(UtilityNotificationTextProduct.PREF_TOKEN, "")
-            radarColorPalette94List = getInitialPreferenceString("RADAR_COLOR_PALETTE_94_LIST", "")
-            radarColorPalette99List = getInitialPreferenceString("RADAR_COLOR_PALETTE_99_LIST", "")
+
+
+            // FIXME
+            listOf("94", "99").forEach {
+                radarColorPaletteList[it] = getInitialPreferenceString("RADAR_COLOR_PALETTE_" + it + "_LIST", "")
+            }
+            //radarColorPalette94List = getInitialPreferenceString("RADAR_COLOR_PALETTE_94_LIST", "")
+            //radarColorPalette99List = getInitialPreferenceString("RADAR_COLOR_PALETTE_99_LIST", "")
+
             wxoglZoom = preferences.getFloat("WXOGL_ZOOM", wxoglSize.toFloat() / 10.0f)
             wxoglRid = getInitialPreferenceString("WXOGL_RID", "")
             wxoglProd = getInitialPreferenceString("WXOGL_PROD", "N0Q")

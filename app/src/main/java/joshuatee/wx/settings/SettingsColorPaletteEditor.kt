@@ -101,24 +101,24 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
                 "RADAR_COLOR_PAL_" + turl[0] + "_" + palTitle.text.toString(),
                 textToSave
             )
+            // FIXME refactor to remove if
             if (turl[0] == "94") {
-                if (!MyApplication.radarColorPalette94List.contains(palTitle.text.toString())) {
-                    MyApplication.radarColorPalette94List = MyApplication.radarColorPalette94List +
+                if (!MyApplication.radarColorPaletteList[turl[0]]!!.contains(palTitle.text.toString())) {
+                    MyApplication.radarColorPaletteList[turl[0]] = MyApplication.radarColorPaletteList[turl[0]]!! +
                             ":" + palTitle.text.toString()
                     Utility.writePref(
                         context,
-                        "RADAR_COLOR_PALETTE_94_LIST",
-                        MyApplication.radarColorPalette94List
+                        "RADAR_COLOR_PALETTE_" + turl[0] + "_LIST",
+                            MyApplication.radarColorPaletteList[turl[0]]!!
                     )
                 }
             } else {
-                if (!MyApplication.radarColorPalette99List.contains(palTitle.text.toString())) {
-                    MyApplication.radarColorPalette99List = MyApplication.radarColorPalette99List +
+                if (!MyApplication.radarColorPaletteList[turl[0]]!!.contains(palTitle.text.toString())) {
+                    MyApplication.radarColorPaletteList[turl[0]] = MyApplication.radarColorPaletteList[turl[0]]!! +
                             ":" + palTitle.text.toString()
                     Utility.writePref(
                         context,
-                        "RADAR_COLOR_PALETTE_99_LIST",
-                        MyApplication.radarColorPalette99List
+                        "RADAR_COLOR_PALETTE_" + turl[0] + "_LIST", MyApplication.radarColorPaletteList[turl[0]]!!
                     )
                 }
             }

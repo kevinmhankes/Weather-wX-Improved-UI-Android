@@ -40,6 +40,7 @@ import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
 import joshuatee.wx.util.UtilityFileManagement
+import joshuatee.wx.util.UtilityLog
 
 import kotlinx.android.synthetic.main.activity_recyclerview_toolbar_with_twofab.*
 
@@ -118,7 +119,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                 allItems.add(TileObjectColorPalette("AF", toolbar, prefToken, cg, type, true))
                 allItems.add(TileObjectColorPalette("EAK", toolbar, prefToken, cg, type, true))
                 val prefArr =
-                    MyApplication.radarColorPalette94List.split(":").dropLastWhile { it.isEmpty() }
+                    MyApplication.radarColorPaletteList["94"]!!.split(":").dropLastWhile { it.isEmpty() }
                 prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
                     TileObjectColorPalette(
                         it,
@@ -146,11 +147,9 @@ class SettingsColorPaletteActivity : BaseActivity() {
                 listOf("CODENH", "AF", "EAK").forEach {
                     allItems.add(TileObjectColorPalette(it, toolbar, prefToken, cg, type, true))
                 }
-                //allItems.add(TileObjectColorPalette("CODENH", toolbar, prefToken, cg, type, true))
-                //allItems.add(TileObjectColorPalette("AF", toolbar, prefToken, cg, type, true))
-                //allItems.add(TileObjectColorPalette("EAK", toolbar, prefToken, cg, type, true))
                 val prefArr =
-                    MyApplication.radarColorPalette99List.split(":").dropLastWhile { it.isEmpty() }
+                    MyApplication.radarColorPaletteList["99"]!!.split(":").dropLastWhile { it.isEmpty() }
+                UtilityLog.d("Wx", "COLORPAL INIT: " + MyApplication.radarColorPaletteList["99"]!!)
                 prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
                     TileObjectColorPalette(
                         it,
@@ -212,15 +211,20 @@ class SettingsColorPaletteActivity : BaseActivity() {
         val builtInHelpMsg = "Built-in color palettes can not be deleted."
         if (rowListItem[globalPosition].prefToken == "RADAR_COLOR_PALETTE_$type") {
             if (!rowListItem[globalPosition].builtin) {
-                MyApplication.radarColorPalette94List =
-                    MyApplication.radarColorPalette94List.replace(
-                        ":" + rowListItem[globalPosition].colorMapLabel,
-                        ""
-                    )
+                UtilityLog.d("Wx", "COLORPAL before new val:" + MyApplication.radarColorPalette[type]!!)
+                val newValue = MyApplication.radarColorPaletteList[type]!!.replace(":" + rowListItem[globalPosition].colorMapLabel, "")
+                UtilityLog.d("wx", "COLORPAL new value:" + newValue)
+                MyApplication.radarColorPaletteList[type] = newValue
+                UtilityLog.d("wx", "COLORPAL item:" + rowListItem[globalPosition].colorMapLabel)
+                //UtilityLog.d("wx", "COLORPAL current type: " + type)
+                //UtilityLog.d("wx", "COLORPAL 94: " + MyApplication.radarColorPalette94List)
+                //UtilityLog.d("wx", "COLORPAL 99: " + MyApplication.radarColorPalette99List)
+                //UtilityLog.d("wx", "COLORPAL 94 LIST: " + MyApplication.radarColorPalette["94"])
+                UtilityLog.d("wx", "COLORPAL LIST:" + MyApplication.radarColorPalette[type])
                 Utility.writePref(
                     context,
                     "RADAR_COLOR_PALETTE_" + type + "_LIST",
-                    MyApplication.radarColorPalette94List
+                        MyApplication.radarColorPaletteList[type]!!
                 )
                 Utility.removePref(
                     context,
@@ -236,6 +240,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                     rowListItem[globalPosition].prefToken,
                     MyApplication.radarColorPalette[type]
                 )
+                Utility.commitPref(context)
                 rowListItem[globalPosition].tb.subtitle = MyApplication.radarColorPalette[type]
                 UtilityColorPaletteGeneric.loadColorMap(this, type)
                 rowListItem = allItemList
@@ -244,7 +249,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
             } else {
                 UtilityAlertDialog.showHelpText(builtInHelpMsg, this)
             }
-        } else {
+        } /*else {
             if (!rowListItem[globalPosition].builtin) {
                 MyApplication.radarColorPalette99List =
                     MyApplication.radarColorPalette99List.replace(
@@ -278,7 +283,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
             } else {
                 UtilityAlertDialog.showHelpText(builtInHelpMsg, this)
             }
-        }
+        }*/
     }
 
     private fun itemClicked(position: Int) {

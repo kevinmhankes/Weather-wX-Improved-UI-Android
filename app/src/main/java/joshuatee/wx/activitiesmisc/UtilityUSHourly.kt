@@ -79,8 +79,8 @@ object UtilityUSHourly {
         .replace("T-storms", "Tst")
 
     fun getString(locNum: Int): List<String> {
-        val x = UtilityMath.latLonFix(Location.getX(locNum))
-        val y = UtilityMath.latLonFix(Location.getY(locNum))
+        //val x = UtilityMath.latLonFix(Location.getX(locNum))
+        //val y = UtilityMath.latLonFix(Location.getY(locNum))
         // FIXME move URL itself to downloadNWS
         //val html =
         //    UtilityDownloadNWS.getNWSStringFromURL("https://api.weather.gov/points/$x,$y/forecast/hourly")

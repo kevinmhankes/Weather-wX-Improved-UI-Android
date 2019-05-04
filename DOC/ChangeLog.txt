@@ -17,6 +17,7 @@
 // TODO camelCase utilDownloadNws stuff
 
 
+55159 2019_05_04 [BUG] errors in color pal listing / editor , refactor
 55158 2019_04_30
                 remove FL,THE VILLAGES    ,KVVG
                 from files (line count before removal)
