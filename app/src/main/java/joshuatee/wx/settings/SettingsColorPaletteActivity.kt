@@ -209,16 +209,16 @@ class SettingsColorPaletteActivity : BaseActivity() {
         val builtInHelpMsg = "Built-in color palettes can not be deleted."
         if (rowListItem[globalPosition].prefToken == "RADAR_COLOR_PALETTE_$type") {
             if (!rowListItem[globalPosition].builtin) {
-                UtilityLog.d("Wx", "COLORPAL before new val:" + MyApplication.radarColorPalette[type]!!)
+                //UtilityLog.d("Wx", "COLORPAL before new val:" + MyApplication.radarColorPalette[type]!!)
                 val newValue = MyApplication.radarColorPaletteList[type]!!.replace(":" + rowListItem[globalPosition].colorMapLabel, "")
-                UtilityLog.d("wx", "COLORPAL new value:" + newValue)
+                //UtilityLog.d("wx", "COLORPAL new value:" + newValue)
                 MyApplication.radarColorPaletteList[type] = newValue
-                UtilityLog.d("wx", "COLORPAL item:" + rowListItem[globalPosition].colorMapLabel)
+                //UtilityLog.d("wx", "COLORPAL item:" + rowListItem[globalPosition].colorMapLabel)
                 //UtilityLog.d("wx", "COLORPAL current type: " + type)
                 //UtilityLog.d("wx", "COLORPAL 94: " + MyApplication.radarColorPalette94List)
                 //UtilityLog.d("wx", "COLORPAL 99: " + MyApplication.radarColorPalette99List)
                 //UtilityLog.d("wx", "COLORPAL 94 LIST: " + MyApplication.radarColorPalette["94"])
-                UtilityLog.d("wx", "COLORPAL LIST:" + MyApplication.radarColorPalette[type])
+                //UtilityLog.d("wx", "COLORPAL LIST:" + MyApplication.radarColorPalette[type])
                 Utility.writePref(
                         context,
                         "RADAR_COLOR_PALETTE_" + type + "_LIST",
