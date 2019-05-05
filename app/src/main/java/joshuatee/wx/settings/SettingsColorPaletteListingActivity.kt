@@ -45,7 +45,7 @@ class SettingsColorPaletteListingActivity : BaseActivity() {
             val card = ObjectCardText(
                     this,
                     ll,
-                    "Color Palette - " + WXGLNexrad.productCodeStringToName[it] + ": " + MyApplication.radarColorPalette[it],
+                    WXGLNexrad.productCodeStringToName[it] + ": " + MyApplication.radarColorPalette[it],
                     MyApplication.textSizeNormal,
                     MyApplication.paddingSettings
             )
@@ -64,8 +64,8 @@ class SettingsColorPaletteListingActivity : BaseActivity() {
 
     override fun onRestart() {
         cardColorPalettes.indices.forEach {
-            val product: String = WXGLNexrad.productCodeStringToName[WXGLNexrad.colorPaletteProducts[it]]!!
-            val label: String = "Color Palette - " + product + ": " + MyApplication.radarColorPalette[WXGLNexrad.colorPaletteProducts[it]]
+            val product = WXGLNexrad.productCodeStringToName[WXGLNexrad.colorPaletteProducts[it]]!!
+            val label = product + ": " + MyApplication.radarColorPalette[WXGLNexrad.colorPaletteProducts[it]]
             cardColorPalettes[it].setText(label)
         }
         super.onRestart()

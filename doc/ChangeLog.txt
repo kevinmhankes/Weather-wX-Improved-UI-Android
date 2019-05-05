@@ -14,7 +14,7 @@
 // TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
 // TODO linesize - swo, wb, wbgusts, sti
 
-55163 2019_05_05
+55163 2019_05_05 minor UI tweak in SettingsColorPaletteListingActivity
 55162 2019_05_05 add SettingsColorPaletteListingActivity and add additional radar products
 55161 2019_05_04 [BUG] in color pal editor, delete file if pal saved so it regenerates with saved changes
                     add UtilityTimeSunMoon
