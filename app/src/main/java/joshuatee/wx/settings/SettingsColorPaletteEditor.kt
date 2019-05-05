@@ -213,10 +213,10 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         return true
     }
 
-    override fun onStop() {
+    override fun onBackPressed() {
         UtilityLog.d("wx", "COLORPAL: onstop delete: " + "colormap" + type + palTitle.text.toString())
         UtilityFileManagement.deleteFile(this, "colormap" + type + palTitle.text.toString())
-        super.onStop()
+        super.onBackPressed()
     }
 
     private fun showLoadFromFileMenuItem() {
