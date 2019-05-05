@@ -372,8 +372,7 @@ class SunCalc {
                 }
 
             } else if (roots == 2) {
-                var add: Double
-                add = if (ye < 0){
+                var add: Double = if (ye < 0){
                     x2
                 } else {
                     x1
