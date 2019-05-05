@@ -14,8 +14,8 @@
 // TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO use bottomsheet in color pal activity
-// TODO color pal editor for all products
 
+55162 2019_05_05 add SettingsColorPaletteListingActivity and add additional radar products
 55161 2019_05_04 [BUG] in color pal editor, delete file if pal saved so it regenerates with saved changes
                     add UtilityTimeSunMoon
                     in single pane radar change title bar color if radar is not "current" - in testing phase

@@ -175,7 +175,7 @@ object UtilityTime {
         }
         if (radarTimeTotalMinutes > currentTimeTotalMinutes) {
             // radar time should not be in the future, radar is down
-            return true;
+            return true
         }
         if (radarTimeTotalMinutes < (currentTimeTotalMinutes - 20)) {
             return true

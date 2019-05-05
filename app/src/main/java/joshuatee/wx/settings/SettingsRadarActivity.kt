@@ -28,16 +28,13 @@ import android.os.Build
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import android.view.View
 import android.widget.CompoundButton
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
 import joshuatee.wx.notifications.UtilityWXJobService
 import joshuatee.wx.objects.GeographyType
-import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
-import joshuatee.wx.radar.WXGLNexrad
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.telecine.SettingsTelecineActivity
@@ -46,8 +43,6 @@ import joshuatee.wx.util.Utility
 import kotlinx.android.synthetic.main.activity_linear_layout.*
 
 class SettingsRadarActivity : BaseActivity() {
-
-    private var cardColorPalettes = mutableListOf<ObjectCardText>()
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,25 +56,14 @@ class SettingsRadarActivity : BaseActivity() {
                 SettingsColorsActivity::class.java,
                 MyApplication.paddingSettings
         )
-        WXGLNexrad.colorPaletteProducts.forEach {
-            val card = ObjectCardText(
-                    this,
-                    ll,
-                    "Color Palette - " + WXGLNexrad.productCodeStringToName[it] + ": " + MyApplication.radarColorPalette[it],
-                    MyApplication.textSizeNormal,
-                    MyApplication.paddingSettings
-            )
-            val product: String = it
-            card.setOnClickListener(View.OnClickListener {
-                ObjectIntent(
-                        this,
-                        SettingsColorPaletteActivity::class.java,
-                        SettingsColorPaletteActivity.TYPE,
-                        arrayOf(product)
-                )
-            })
-            cardColorPalettes.add(card)
-        }
+        ObjectCardText(
+                this,
+                ll,
+                "Color Palettes",
+                MyApplication.textSizeNormal,
+                SettingsColorPaletteListingActivity::class.java,
+                MyApplication.paddingSettings
+        )
         ObjectCardText(
                 this,
                 ll,
@@ -654,12 +638,5 @@ class SettingsRadarActivity : BaseActivity() {
             } else {
             }
         }
-    }
-
-    override fun onRestart() {
-        cardColorPalettes.indices.forEach {
-            cardColorPalettes[it].setText(resources.getString(R.string.label_settings_color_palette_94) + ": " + MyApplication.radarColorPalette[WXGLNexrad.colorPaletteProducts[it]])
-        }
-        super.onRestart()
     }
 }

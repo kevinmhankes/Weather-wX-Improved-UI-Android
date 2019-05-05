@@ -22,7 +22,6 @@
 package joshuatee.wx.activitiesmisc
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -41,8 +40,6 @@ import kotlinx.android.synthetic.main.activity_hourly.*
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.DefaultLabelFormatter
-import joshuatee.wx.util.UtilityLog
-import joshuatee.wx.util.UtilityTimeSunMoon
 import kotlinx.coroutines.*
 
 class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {

@@ -45,7 +45,7 @@ class SunCalc {
         const val dayMs = 1000 * 60 * 60 * 24
         const val j1970 = 2440588
         const val j2000 = 2451545
-        val e = rad * 23.4397 // obliquity of the Earth
+        const val e = rad * 23.4397 // obliquity of the Earth
     }
 
 
@@ -102,7 +102,7 @@ class SunCalc {
         return 0.0002967 / tan(h + 0.00312536 / (h + 0.08901179))
     }*/
 
-    fun astroRefraction(hF: Double): Double {
+    private fun astroRefraction(hF: Double): Double {
         var h = hF
         if (h < 0)
         // the following formula works for positive altitudes only.
@@ -204,7 +204,7 @@ class SunCalc {
         val lw = rad * -1.0 * latlon.lon
         val phi = rad * latlon.lat
         val d = toDays(date)
-        UtilityLog.d("Wx", "days: " + d)
+        UtilityLog.d("Wx", "days: $d")
         val c = moonCoordinates(d)
         //print(c.rightAscension);
         //print(c.declination);
@@ -330,7 +330,7 @@ class SunCalc {
 
         val hc = 0.133 * rad
         var h0 = moonPosition(t, location).altitude - hc
-        UtilityLog.d("wx", "base time: " + h0.toString())
+        UtilityLog.d("wx", "base time: $h0")
         var ye: Double
         var d: Double
         var roots: Int
@@ -373,16 +373,16 @@ class SunCalc {
 
             } else if (roots == 2) {
                 var add: Double
-                if (ye < 0){
-                    add = x2
+                add = if (ye < 0){
+                    x2
                 } else {
-                    add = x1
+                    x1
                 }
                 riseHour = i + add
-                if (ye < 0) {
-                    add = x1
+                add = if (ye < 0) {
+                    x1
                 } else {
-                    add = x2
+                    x2
                 }
                 setHour = i + add
             }

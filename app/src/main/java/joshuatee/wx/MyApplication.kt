@@ -39,6 +39,7 @@ import joshuatee.wx.notifications.UtilityNotificationTextProduct
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectPolygonWarning
 import joshuatee.wx.objects.PolygonWarningType
+import joshuatee.wx.radar.WXGLNexrad
 import joshuatee.wx.radarcolorpalettes.ObjectColorPalette
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityHomeScreen
@@ -454,15 +455,9 @@ class MyApplication : Application() {
             playlistStr = getInitialPreferenceString("PLAYLIST", "")
             notifTextProdStr =
                 getInitialPreferenceString(UtilityNotificationTextProduct.PREF_TOKEN, "")
-
-
-            // FIXME
-            listOf("94", "99", "134").forEach {
+            WXGLNexrad.colorPaletteProducts.forEach {
                 radarColorPaletteList[it] = getInitialPreferenceString("RADAR_COLOR_PALETTE_" + it + "_LIST", "")
             }
-            //radarColorPalette94List = getInitialPreferenceString("RADAR_COLOR_PALETTE_94_LIST", "")
-            //radarColorPalette99List = getInitialPreferenceString("RADAR_COLOR_PALETTE_99_LIST", "")
-
             wxoglZoom = preferences.getFloat("WXOGL_ZOOM", wxoglSize.toFloat() / 10.0f)
             wxoglRid = getInitialPreferenceString("WXOGL_RID", "")
             wxoglProd = getInitialPreferenceString("WXOGL_PROD", "N0Q")

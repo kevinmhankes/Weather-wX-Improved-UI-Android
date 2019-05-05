@@ -21,8 +21,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="joshuatee.wx"
-    android:versionCode="55161"
-    android:versionName="55161"
+    android:versionCode="55162"
+    android:versionName="55162"
     >
 
  <uses-permission android:name="android.permission.INTERNET" />
@@ -525,6 +525,11 @@
   <activity
       android:name=".settings.SettingsRadarActivity"
       android:label="Radar Settings"
+      android:parentActivityName="WX" >
+  </activity>
+  <activity
+      android:name=".settings.SettingsColorPaletteListingActivity"
+      android:label="Nexrad color palettes"
       android:parentActivityName="WX" >
   </activity>
   <activity
