@@ -14,6 +14,7 @@
 // TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
 // TODO linesize - swo, wb, wbgusts, sti
 
+55164 2019_05_06
 55163 2019_05_06 minor UI tweak in SettingsColorPaletteListingActivity
                  color interpolation fix for n0u
 55162 2019_05_05 add SettingsColorPaletteListingActivity and add additional radar products
