@@ -34,7 +34,7 @@ object WXGLNexrad {
     val productCodeStringToName: Map<String, String> = mapOf(
             "94" to "Reflectivity",
             "99" to "Velocity",
-            "134" to "DVL",
+            "134" to "Digital Vertical Integrated Liquid",
             "135" to "Enhanced Echo Tops",
             "159" to "Differential Reflectivity",
             "161" to "Correlation Coefficient",

@@ -34,14 +34,17 @@ internal object UtilityNexradColors {
 
     private fun interpolateHue(a: Float, b: Float, proportion: Float): Float {
         val diff = b - a
-        val fudgeFactor = 1.0
+        val fudgeFactor = 0.01
         var transformedColor: Float
         val total = 360f // hue ranges from 0-360
         return if (diff > ((total / 2) - fudgeFactor)) {
             transformedColor = (total - (b - a)) * -1
+            //transformedColor = (a + (b - a) * proportion) * -1
             if (transformedColor < 0) {
-                //UtilityLog.d("wx1", "wx1 " + a.toString() + " " + b.toString() + " " + (transformedColor + total).toString())
-                transformedColor + total
+                transformedColor += total
+                //transformedColor.absoluteValue
+                //UtilityLog.d("wx1", "wx1 " + a.toString() + " " + b.toString() + " " + (transformedColor).toString())
+                transformedColor
             } else {
                 //UtilityLog.d("wx2", "wx2 " + a.toString() + " " + b.toString() + " " + (transformedColor).toString())
                 transformedColor
@@ -49,7 +52,8 @@ internal object UtilityNexradColors {
         } else {
             //transformedColor = a + (b - a) * proportion // was originally just this
             if ( b > a) {
-                transformedColor = (b + (b - a) * proportion).absoluteValue
+                //transformedColor = (b + (b - a) * proportion).absoluteValue
+                transformedColor = (a + (b - a) * proportion).absoluteValue
                 //UtilityLog.d("wx3", "wx3 " + a.toString() + " " + b.toString() + " " + transformedColor.toString())
                 //a + (b - a) * proportion
                 //b + (a - b) * proportion
@@ -58,7 +62,8 @@ internal object UtilityNexradColors {
                 //transformedColor = (b + (b - a) * proportion).absoluteValue
                 transformedColor = a + (b - a) * proportion
                 if ( a > 270.0 && b < 90.0) {
-                    transformedColor = (a + (b)*proportion)
+                    //transformedColor = (a + (b)*proportion)
+                    transformedColor = (a + (360 - a + b)*proportion)
                 }
                 //UtilityLog.d("wx4", "wx4 " + a.toString() + " " + b.toString() + " " + transformedColor.toString())
                 //a + (b - a) * proportion

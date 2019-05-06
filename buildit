@@ -11,14 +11,12 @@ cd ~
 ./scr.wx
 
 cd ~/StudioProjects/wX
-git commit -a -m "release commit ${dateString}"
+ver=$(grep versionName app/src/main/AndroidManifest.xml |awk -F'"'  '{print $2}')
+git commit -a -m "release ${ver} commit ${dateString}"
 git push
 
 # needed for f-droid
 if [ "$1" == "-t" ]; then
-	ver=$(grep versionName app/src/main/AndroidManifest.xml |awk -F'"'  '{print $2}')
-	echo git tag ${ver}
-	echo git push origin --tags
-	#git tag ${ver}
-	#git push origin --tags
+	git tag ${ver}
+	git push origin --tags
 fi

@@ -27,7 +27,6 @@ import android.graphics.Color
 import java.nio.ByteBuffer
 
 import joshuatee.wx.MyApplication
-import joshuatee.wx.util.UtilityLog
 
 object UtilityColorPaletteGeneric {
 

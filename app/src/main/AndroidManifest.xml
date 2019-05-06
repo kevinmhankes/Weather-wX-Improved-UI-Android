@@ -529,7 +529,7 @@
   </activity>
   <activity
       android:name=".settings.SettingsColorPaletteListingActivity"
-      android:label="Nexrad color palettes"
+      android:label="Nexrad Color Palettes"
       android:parentActivityName="WX" >
   </activity>
   <activity

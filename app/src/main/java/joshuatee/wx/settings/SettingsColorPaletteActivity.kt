@@ -76,8 +76,8 @@ class SettingsColorPaletteActivity : BaseActivity() {
         )
         type = intent.getStringArrayExtra(TYPE)[0]
         contextg = this
-        title = "Color Palette - " + WXGLNexrad.productCodeStringToName[type]
-        toolbar.subtitle = MyApplication.radarColorPalette[type]
+        toolbar.subtitle = WXGLNexrad.productCodeStringToName[type]
+        title = MyApplication.radarColorPalette[type]
         prefToken = "RADAR_COLOR_PALETTE_$type"
         fab1 = ObjectFab(
                 this,
@@ -183,7 +183,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
         rowListItem = allItemList
         rcAdapter = TileAdapterColorPalette(rowListItem, UIPreferences.tilesPerRow)
         card_list.adapter = rcAdapter
-        toolbar.subtitle = MyApplication.radarColorPalette[type]
+        title = MyApplication.radarColorPalette[type]
         UtilityColorPaletteGeneric.loadColorMap(this, type)
         super.onRestart()
     }
@@ -235,7 +235,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                         MyApplication.radarColorPalette[type]
                 )
                 Utility.commitPref(context)
-                rowListItem[globalPosition].tb.subtitle = MyApplication.radarColorPalette[type]
+                rowListItem[globalPosition].tb.title = MyApplication.radarColorPalette[type]
                 UtilityColorPaletteGeneric.loadColorMap(this, type)
                 rowListItem = allItemList
                 rcAdapter = TileAdapterColorPalette(rowListItem, UIPreferences.tilesPerRow)
@@ -264,7 +264,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                     rowListItem[position].prefToken,
                     MyApplication.radarColorPalette[type]
             )
-            rowListItem[position].tb.subtitle = MyApplication.radarColorPalette[type]
+            rowListItem[position].tb.title = MyApplication.radarColorPalette[type]
             UtilityColorPaletteGeneric.loadColorMap(this, type)
         } else {
             MyApplication.radarColorPalette[type] = rowListItem[position].colorMapLabel
@@ -273,7 +273,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                     rowListItem[position].prefToken,
                     MyApplication.radarColorPalette[type]
             )
-            rowListItem[position].tb.subtitle = MyApplication.radarColorPalette[type]
+            rowListItem[position].tb.title = MyApplication.radarColorPalette[type]
             UtilityColorPaletteGeneric.loadColorMap(this, type)
         }
     }

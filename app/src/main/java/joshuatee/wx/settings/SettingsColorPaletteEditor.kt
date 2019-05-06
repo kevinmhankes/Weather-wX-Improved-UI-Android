@@ -78,7 +78,8 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         showLoadFromFileMenuItem()
         turl = intent.getStringArrayExtra(URL)
         type = turl[0]
-        title = "Palette Editor - " + WXGLNexrad.productCodeStringToName[type]
+        title = "Palette Editor"
+        toolbar.subtitle = WXGLNexrad.productCodeStringToName[type]
         formattedDate = UtilityTime.getDateAsString("MMdd")
         name = if (turl[2].contains("false")) {
             turl[1]
@@ -129,7 +130,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         val lines = text.split("\n".toRegex()).dropLastWhile { it.isEmpty() }
         var tmpArr: List<String>
         var errors = ""
-        var priorVal = -200
+        var priorVal = -200.0
         var lineCnt = 0
         lines.forEach { s ->
             if (s.contains("olor") && !s.contains("#")) {
@@ -140,27 +141,27 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
                 lineCnt += 1
                 try {
                     if (tmpArr.size > 4) {
-                        if (priorVal >= (tmpArr[1].toIntOrNull() ?: 0)) {
+                        if (priorVal >= (tmpArr[1].toDoubleOrNull() ?: 0.0)) { // was toIntOrNull
                             errors = errors +
                                     "The following lines do not have dbz values in increasing order: " +
                                     MyApplication.newline + priorVal + " " + tmpArr[1] +
                                     MyApplication.newline
                         }
-                        priorVal = tmpArr[1].toIntOrNull() ?: 0
-                        if ((tmpArr[2].toIntOrNull() ?: 0) > 255 || (tmpArr[2].toIntOrNull()
-                                        ?: 0) < 0
+                        priorVal = tmpArr[1].toDoubleOrNull() ?: 0.0
+                        if ((tmpArr[2].toDoubleOrNull() ?: 0.0) > 255 || (tmpArr[2].toDoubleOrNull()
+                                        ?: 0.0) < 0
                         ) {
                             errors = errors + "Red value must be between 0 and 255: " +
                                     MyApplication.newline + s + MyApplication.newline
                         }
-                        if ((tmpArr[3].toIntOrNull() ?: 0) > 255 || (tmpArr[3].toIntOrNull()
-                                        ?: 0) < 0
+                        if ((tmpArr[3].toDoubleOrNull() ?: 0.0) > 255 || (tmpArr[3].toDoubleOrNull()
+                                        ?: 0.0) < 0
                         ) {
                             errors = errors + "Green value must be between 0 and 255: " +
                                     MyApplication.newline + s + MyApplication.newline
                         }
-                        if ((tmpArr[4].toIntOrNull() ?: 0) > 255 || (tmpArr[4].toIntOrNull()
-                                        ?: 0) < 0
+                        if ((tmpArr[4].toDoubleOrNull() ?: 0.0) > 255 || (tmpArr[4].toDoubleOrNull()
+                                        ?: 0.0) < 0
                         ) {
                             errors = errors + "Blue value must be between 0 and 255: " +
                                     MyApplication.newline + s + MyApplication.newline
@@ -239,7 +240,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         txtLocal = txtLocal.replace("product", "#product")
         txtLocal = txtLocal.replace("unit", "#unit")
         txtLocal = txtLocal.replace("step", "#step")
-        txtLocal = txtLocal.trim { it <= ' ' }.replace("\\.[0-9]{1,2}".toRegex(), "")
+       // txtLocal = txtLocal.trim { it <= ' ' }.replace("\\.[0-9]{1,2}".toRegex(), "")
         txtLocal = txtLocal.replace(":", " ")
         txtLocal = txtLocal.trim { it <= ' ' }.replace(" +".toRegex(), " ")
         txtLocal = txtLocal.trim { it <= ' ' }.replace(" ".toRegex(), ",")
