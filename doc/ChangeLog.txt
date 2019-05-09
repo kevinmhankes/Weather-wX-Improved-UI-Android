@@ -14,6 +14,10 @@
 // TODO fix issue for precip radar products when there is no data
 // TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
 // TODO linesize - swo, wb, wbgusts, sti
+// TODO dual pange split when rotated not optimal (Jim)
+// TODO in nexrad radar add codes ( like N0U after text ) (Jim)
+// TODO in nexrad radar and bv/br to list (Jim)
+// TODO in nexrad radar add menu items to hop to single/dual pane (Jim)
 // TODO add "Cumulonimbus Clouds Observed": "tsra_hi",
 
 55165 2019_05_09 mac os
