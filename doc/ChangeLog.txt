@@ -18,9 +18,9 @@
 // TODO in nexrad radar add codes ( like N0U after text ) (Jim)
 // TODO in nexrad radar and bv/br to list (Jim)
 // TODO in nexrad radar add menu items to hop to single/dual pane (Jim)
-// TODO add "Cumulonimbus Clouds Observed": "tsra_hi",
 
-55165 2019_05_09 mac os
+55166 2019_05_11    mac os
+                    add "Cumulonimbus Clouds Observed": "tsra_hi"
 55164 2019_05_06 bugfixes and UI enhancements in color palette area
 55163 2019_05_06 minor UI tweak in SettingsColorPaletteListingActivity
                  color interpolation fix for n0u
