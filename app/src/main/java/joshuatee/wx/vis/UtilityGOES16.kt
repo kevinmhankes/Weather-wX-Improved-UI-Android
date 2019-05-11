@@ -78,6 +78,9 @@ object UtilityGOES16 {
         if (sectorLocal == "SECTOR/cam") {
             fileName = "1000x1000.jpg"
         }
+        if (sector == "CONUS" || sector == "CONUS-G17") {
+            fileName = "1250x750.jpg"
+        }
         val url =
                 MyApplication.goes16Url + "/" + satellite + "/ABI/" + sectorLocal + "/" + product + "/" + fileName
         UtilityLog.d("wx", url)
