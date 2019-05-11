@@ -30,7 +30,7 @@ echo Clone and zip
 mkdir ${tmpPath} || exit 1
 cd ${tmpPath} || exit 1
 git clone ${gitRepo}
-zip -r $APP_NAME${ver}.zip ${gitRepoShortname} > /dev/null
+zip -r $APP_NAME${ver}.zip ${gitRepoShortname} -x *.git* > /dev/null
 ls -l $APP_NAME${ver}.zip 
 #cp $APP_NAME${ver}.zip ${dropBoxPath}/
 cp $APP_NAME${ver}.zip ~/StudioProjects/
