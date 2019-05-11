@@ -615,13 +615,13 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     this,
                     WXGLRadarActivityMultiPane::class.java,
                     WXGLRadarActivityMultiPane.RID,
-                    arrayOf(joshuatee.wx.settings.Location.rid, "", "2")
+                    arrayOf(joshuatee.wx.settings.Location.rid, "", "2", "true")
             )
             R.id.action_radar_4 -> ObjectIntent(
                     this,
                     WXGLRadarActivityMultiPane::class.java,
                     WXGLRadarActivityMultiPane.RID,
-                    arrayOf(joshuatee.wx.settings.Location.rid, "", "4")
+                    arrayOf(joshuatee.wx.settings.Location.rid, "", "4", "true")
             )
             R.id.action_radar_site_status_l3 -> ObjectIntent(
                 this,

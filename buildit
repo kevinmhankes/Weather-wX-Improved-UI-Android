@@ -31,11 +31,12 @@ mkdir ${tmpPath} || exit 1
 cd ${tmpPath} || exit 1
 git clone ${gitRepo}
 zip -r $APP_NAME${ver}.zip ${gitRepoShortname} -x *.git* > /dev/null
-ls -l $APP_NAME${ver}.zip 
 cp $APP_NAME${ver}.zip ~/StudioProjects/
 rm -rf ${tmpPath} 
 
 echo Copy to Storage
 cd ${HOME}/StudioProjects
+ls -l $APP_NAME${ver}.zip 
+ls -l wX${ver}.apk 
 cp wX${ver}.apk ${dropBoxPath}
 cp $APP_NAME${ver}.zip  ${dropBoxPath}

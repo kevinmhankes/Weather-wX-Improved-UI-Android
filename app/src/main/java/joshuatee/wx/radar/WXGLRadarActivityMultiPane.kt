@@ -77,6 +77,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     // 1: RID
     // 2: State NO LONGER NEEDED
     // 3: number of panes
+    // 4: coming from single pane
 
     companion object {
         const val RID: String = ""
@@ -126,10 +127,18 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private var wxgltextArr = mutableListOf<WXGLTextObject>()
     private lateinit var act: Activity
     private var alertDialogRadarLongPress: ObjectDialogue? = null
+    private var dontSavePref = false
+    private var useSinglePanePref = false
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         val activityArguments = intent.getStringArrayExtra(RID)
+        if (activityArguments.size > 3 ) {
+            if (activityArguments[3] == "true") {
+                dontSavePref = true
+                useSinglePanePref = true
+            }
+        }
         numPanes = activityArguments[2].toIntOrNull() ?: 0
         numPanesArr = (0 until numPanes).toList()
         UtilityFileManagement.deleteCacheFiles(this)
@@ -180,6 +189,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         if (numPanes == 4) {
             widthDivider = 2
             prefPrefix = "WXOGL_QUADPANE"
+        }
+        if (useSinglePanePref) {
+            prefPrefix = "WXOGL"
         }
         contextg = this
         setupAlertDialogRadarLongPress()
@@ -274,11 +286,19 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::maptoRid)
         oglInView = true
         numPanesArr.forEach {
-            oglrArr[it].rid = Utility.readPref(
-                this,
-                prefPrefix + "_RID" + (it + 1).toString(),
-                activityArguments[0]
-            )
+            if (!useSinglePanePref) {
+                oglrArr[it].rid = Utility.readPref(
+                        this,
+                        prefPrefix + "_RID" + (it + 1).toString(),
+                        activityArguments[0]
+                )
+            } else {
+                oglrArr[it].rid = Utility.readPref(
+                        this,
+                        prefPrefix + "_RID",
+                        activityArguments[0]
+                )
+            }
         }
         if (MyApplication.dualpaneshareposn) {
             (1 until numPanes).forEach { oglrArr[it].rid = oglrArr[0].rid }
@@ -292,19 +312,29 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 defaultProducts[it]
             )
         }
+
+        var zoomPref = "_ZOOM1"
+        var xPref = "_X1"
+        var yPref = "_Y1"
+        if (useSinglePanePref) {
+            zoomPref = "_ZOOM"
+            xPref = "_X"
+            yPref = "_Y"
+        }
+
         glviewArr[0].scaleFactor = Utility.readPref(
             this,
-            prefPrefix + "_ZOOM1",
+            prefPrefix + zoomPref,
             MyApplication.wxoglSize.toFloat() / 10.0f
         )
         oglrArr[0].setViewInitial(
             Utility.readPref(
                 this,
-                prefPrefix + "_ZOOM1",
+                prefPrefix + zoomPref,
                 MyApplication.wxoglSize.toFloat() / 10.0f
             ),
-            Utility.readPref(this, prefPrefix + "_X1", 0.0f),
-            Utility.readPref(this, prefPrefix + "_Y1", 0.0f)
+            Utility.readPref(this, prefPrefix + xPref, 0.0f),
+            Utility.readPref(this, prefPrefix + yPref, 0.0f)
         )
 
         if (MyApplication.dualpaneshareposn) {
@@ -313,7 +343,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 oglrArr[it].setViewInitial(
                     Utility.readPref(
                         this,
-                        prefPrefix + "_ZOOM1",
+                        prefPrefix + zoomPref,
                         MyApplication.wxoglSize.toFloat() / 10.0f
                     ),
                     oglrArr[0].x, oglrArr[0].y
@@ -817,7 +847,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     override fun onStop() {
         super.onStop()
-        numPanesArr.forEach { WXGLNexrad.savePrefs(this, prefPrefix, it + 1, oglrArr[it]) }
+        if (!dontSavePref) {
+            numPanesArr.forEach { WXGLNexrad.savePrefs(this, prefPrefix, it + 1, oglrArr[it]) }
+        }
         // otherwise cpu will spin with no fix but to kill app
         inOglAnim = false
         mHandler?.let { stopRepeatingTask() }
