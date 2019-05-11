@@ -15,9 +15,9 @@
 // TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO dual pange split when rotated not optimal (Jim)
-// TODO in nexrad radar - dual/quad links should preserve state (Jim)
 // TODO refactor goes16 util from flutter
 
+55169 2019_05_11    [BUG] if dual/quad pane radar invoked from single pane try to inherits state
 55168 2019_05_11    if dual/quad pane radar invoked from single pane try to inherits state
 55167 2019_05_11    add better labels in nexrad radar submenu (Jim)
                     add links to dual/quad pane radar from radar (Jim)

@@ -611,18 +611,28 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 ImageShowActivity.URL,
                 arrayOf("raw:radar_legend", "Radar Markers", "false")
             )
-            R.id.action_radar_2 -> ObjectIntent(
+            R.id.action_radar_2 -> {
+                if (!archiveMode && !fixedSite) {
+                    WXGLNexrad.savePrefs(this, "WXOGL", oglr)
+                }
+                ObjectIntent(
                     this,
                     WXGLRadarActivityMultiPane::class.java,
                     WXGLRadarActivityMultiPane.RID,
                     arrayOf(joshuatee.wx.settings.Location.rid, "", "2", "true")
-            )
-            R.id.action_radar_4 -> ObjectIntent(
+                )
+            }
+            R.id.action_radar_4 -> {
+                if (!archiveMode && !fixedSite) {
+                    WXGLNexrad.savePrefs(this, "WXOGL", oglr)
+                }
+                ObjectIntent(
                     this,
                     WXGLRadarActivityMultiPane::class.java,
                     WXGLRadarActivityMultiPane.RID,
                     arrayOf(joshuatee.wx.settings.Location.rid, "", "4", "true")
-            )
+                )
+            }
             R.id.action_radar_site_status_l3 -> ObjectIntent(
                 this,
                 WebscreenABModels::class.java,
