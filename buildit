@@ -6,16 +6,12 @@ dropBoxPath=${HOME}/Dropbox/wX/
 dateString=$(date '+%Y_%m_%d_%H_%M')
 gitRepo="https://gitlab.com/joshua.tee/wx.git"
 ver=$(grep versionName app/src/main/AndroidManifest.xml |awk -F'"'  '{print $2}')
+tmpPath=${HOME}/tmp
 
 echo Compile release
 export PATH=/Applications/"Android Studio.app"/Contents/jre/jdk/Contents/Home/bin:~/android-studio/jre/bin:$PATH
 ./gradlew assembleRelease
-cp app/build/outputs/apk/release/app-release.apk $APP_NAME.apk 
-cp $APP_NAME.apk ~/StudioProjects/wX${ver}.apk
-
-#cd ~
-#./scr.wx
-#cd ~/StudioProjects/wX
+cp app/build/outputs/apk/release/app-release.apk ${HOME}/StudioProjects/wX${ver}.apk
 
 echo Git commit and push
 touch doc/ChangeLog.txt
