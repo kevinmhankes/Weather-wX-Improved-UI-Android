@@ -678,7 +678,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             R.id.action_radar2 -> switchRadar(1)
             R.id.action_radar3 -> switchRadar(2)
             R.id.action_radar4 -> switchRadar(3)
-            R.id.action_n0q -> {
+            R.id.action_n0q, R.id.action_n0q_menu -> {
                 if (!WXGLNexrad.isRidTdwr(oglrArr[curRadar].rid)) {
                     oglrArr[curRadar].product = "N" + tilt + "Q"
                 } else {
@@ -686,7 +686,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 }
                 getContentIntelligent()
             }
-            R.id.action_n0u -> {
+            R.id.action_n0u, R.id.action_n0u_menu -> {
                 if (!WXGLNexrad.isRidTdwr(oglrArr[curRadar].rid)) {
                     oglrArr[curRadar].product = "N" + tilt + "U"
                 } else {

@@ -2,6 +2,8 @@
 #export NDK_TOOLCHAIN_VERSION=clang 
 #export PATH=~/android-studio/jre/bin:$PATH
 
+APP_NAME=wX
+dropBoxPath=${HOME}/Dropbox/wX/
 dateString=$(date '+%Y_%m_%d_%H_%M')
 touch doc/ChangeLog.txt
 
@@ -20,3 +22,7 @@ if [ "$1" == "-t" ]; then
 	git tag ${ver}
 	git push origin --tags
 fi
+
+cd ${HOME}/StudioProjects
+cp wX${ver}.apk ${dropBoxPath}
+cp $APP_NAME${ver}.zip  ${dropBoxPath}

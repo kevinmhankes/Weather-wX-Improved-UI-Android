@@ -629,7 +629,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     resources.getString(R.string.action_radar_site_status_l2)
                 )
             )
-            R.id.action_n0q -> {
+            R.id.action_n0q, R.id.action_n0q_menu  -> {
                 if (MyApplication.radarIconsLevel2 && oglr.product.matches("N[0-3]Q".toRegex())) {
                     oglr.product = "L2REF"
                     tiltOption = false
@@ -644,7 +644,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 }
                 getContent()
             }
-            R.id.action_n0u -> {
+            R.id.action_n0u, R.id.action_n0u_menu -> {
                 if (MyApplication.radarIconsLevel2 && oglr.product.matches("N[0-3]U".toRegex())) {
                     oglr.product = "L2VEL"
                     tiltOption = false
