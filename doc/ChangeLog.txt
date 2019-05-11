@@ -15,9 +15,10 @@
 // TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO dual pange split when rotated not optimal (Jim)
-// TODO in nexrad radar add codes ( like N0U after text ) (Jim)
-// TODO in nexrad radar add menu items to hop to single/dual pane (Jim)
+// TODO in nexrad radar - dual/quad links should preserve state (Jim)
 
+55167 2019_05_11    add better labels in nexrad radar submenu (Jim)
+                    add links to dual/quad pane radar from radar (Jim)
 55166 2019_05_11    mac os
                     add "Cumulonimbus Clouds Observed": "tsra_hi"
                     in nexrad radar and bv/br to list (Jim)
