@@ -323,13 +323,17 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     this,
                     android.Manifest.permission.ACCESS_COARSE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED
-            )
-                locationManager?.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    20000.toLong(),
-                    30.toFloat(),
-                    locationListener
-                )
+            ) {
+                val gpsEnabled = locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                if (gpsEnabled != null && gpsEnabled) {
+                    locationManager?.requestLocationUpdates(
+                            LocationManager.GPS_PROVIDER,
+                            20000.toLong(),
+                            30.toFloat(),
+                            locationListener
+                    )
+                }
+            }
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
             mHandler = Handler()
             startRepeatingTask()

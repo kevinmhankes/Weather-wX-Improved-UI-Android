@@ -18,6 +18,7 @@
 // TODO refactor goes16 util from flutter
 
 55170 2019_05_11    [BUG] GOES16/17 - CONUS was using native size, use 1250x750
+                    [BUG] check if LocationManager.GPS_PROVIDER is avail in nexrad
 55169 2019_05_11    [BUG] if dual/quad pane radar invoked from single pane try to inherits state
 55168 2019_05_11    if dual/quad pane radar invoked from single pane try to inherits state
 55167 2019_05_11    add better labels in nexrad radar submenu (Jim)
