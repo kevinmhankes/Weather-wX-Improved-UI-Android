@@ -15,7 +15,7 @@
 // TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO dual pange split when rotated not optimal (Jim)
-// TODO refactor goes16 util from flutter
+// TODO bottomsheet for spotters
 
 [ADD] - adding something new - method, file, etc. to the repo
 [REM] - remove items
@@ -25,6 +25,7 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55174 2019_05_12    [REF] refactor goes16 util from flutter
 55173 2019_05_12    [BUG] vtec time decode had some bugs
 55172 2019_05_12    [IMP] in polygon warning decode end time of vtec and compare to current time to overcome NWS warning garbage with new API
 55171 2019_05_12    [BUG] launching SPC Meso from homescreen SPC Meso images was not working correctly in most cases

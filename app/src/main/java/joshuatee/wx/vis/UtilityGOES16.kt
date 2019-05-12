@@ -34,6 +34,12 @@ import joshuatee.wx.util.UtilityLog
 
 object UtilityGOES16 {
 
+    private fun getImageFileName(sector: String): String {
+        val fullSize = "latest";
+        val size = sizeMap[sector] ?: fullSize;
+        return "$size.jpg"
+    }
+
     fun getImage(product: String, sector: String): Bitmap {
         var sectorLocal = "SECTOR/$sector"
         if (sector == "FD" || sector == "CONUS" || sector == "CONUS-G17") {
@@ -53,36 +59,7 @@ object UtilityGOES16 {
         // https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/cgl/12/latest.jpg
         // https://cdn.star.nesdis.noaa.gov/GOES17/ABI/CONUS/GEOCOLOR/1250x750.jpg
         // https://cdn.star.nesdis.noaa.gov/GOES16/ABI/CONUS/GEOCOLOR/1250x750.jpg
-        var fileName = "latest.jpg"
-        if (sectorLocal == "FD") {
-            fileName = "1808x1808.jpg"
-        } // FIXME redo util goes16
-        if (sectorLocal == "SECTOR/eep" || sectorLocal == "SECTOR/wus") {
-            fileName = "1000x1000.jpg"
-        }
-        if (sectorLocal == "SECTOR/tpw" || sectorLocal == "SECTOR/taw") {
-            fileName = "1800x1080.jpg"
-        }
-        if (sector == "can") {
-            fileName = "1125x560.jpg"
-        }
-        if (sector == "mex") {
-            fileName = "1000x1000.jpg"
-        }
-        if (sector == "nsa" || sector == "ssa" ) {
-            fileName = "1800x1080.jpg"
-        }
-        if (sectorLocal == "SECTOR/np") {
-            fileName = "1800x1080.jpg"
-        }
-        if (sectorLocal == "SECTOR/cam") {
-            fileName = "1000x1000.jpg"
-        }
-        if (sector == "CONUS" || sector == "CONUS-G17") {
-            fileName = "1250x750.jpg"
-        }
-        val url =
-                MyApplication.goes16Url + "/" + satellite + "/ABI/" + sectorLocal + "/" + product + "/" + fileName
+        val url = MyApplication.goes16Url + "/" + satellite + "/ABI/" + sectorLocal + "/" + product + "/" + getImageFileName(sector);
         UtilityLog.d("wx", url)
         return url.getImage()
     }
@@ -201,6 +178,28 @@ object UtilityGOES16 {
             "mex" to "Mexico",
             "nsa" to "South America (north)",
             "ssa" to "South America (south)"
+    )
+
+    val sizeMap = mapOf(
+            "CONUS-G17" to "1250x750",
+            "CONUS" to "1250x750",
+            "FD" to "1808x1808",
+            "FD-G17" to "1808x1808",
+            "gm" to "1000x1000",
+            "car" to "1000x1000",
+            "eus" to "1000x1000",
+            "taw" to "1800x1080",
+            "tpw" to "1800x1080",
+            "can" to "1125x560",
+            "mex" to "1000x1000",
+            "cam" to "1000x1000",
+            "eep" to "1000x1000",
+            "wus" to "1000x1000",
+            "nsa" to "1800x1080",
+            "ssa" to "1800x1080",
+            "np" to "1800x1080",
+            "ak" to "1000x1000",
+            "hi" to "1200x1200"
     )
 }
 
