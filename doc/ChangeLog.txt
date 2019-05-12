@@ -27,6 +27,7 @@
 
 55171 2019_05_12    [BUG] launching SPC Meso from homescreen SPC Meso images was not working correctly in most cases
                     [BUG] Homescreen SPC Meso Fav #1 500mb was not working if falling back to default
+                    [BUG] kotlin.UninitializedPropertyAccessException at joshuatee.wx.activitiesmisc.SpottersActivity$onCreateOptionsMenu$1.onQueryTextChange (SpottersActivity.kt:73)
 55170 2019_05_12    [BUG] GOES16/17 - CONUS was using native size, use 1250x750
                     [BUG] check if LocationManager.GPS_PROVIDER is avail in nexrad
                     [BUG]  at joshuatee.wx.external.ExternalSunriseLocation.<init> (ExternalSunriseLocation.kt:50)

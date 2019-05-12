@@ -157,7 +157,6 @@ class MyApplication : Application() {
         const val goes16Url: String = "https://cdn.star.nesdis.noaa.gov"
         const val goes16AnimUrl: String = "https://www.star.nesdis.noaa.gov"
         const val nwsApiUrl = "https://api.weather.gov"
-
         const val prefSeperator: String = " : : :"
         var uiAnimIconFrames: String = "rid"
         const val WIDGET_FILE_BAK: String = "BAK"
@@ -165,11 +164,9 @@ class MyApplication : Application() {
         val HM_CLASS_ARGS: MutableMap<String, Array<String>> = mutableMapOf()
         val HM_CLASS_ID: MutableMap<String, String> = mutableMapOf()
         var imageCollectionMap: MutableMap<String, ObjectImagesCollection> = mutableMapOf()
-
         init {
             UtilityHomeScreen.setupMap()
         }
-
         var primaryColor: Int = 0
         const val TEXTVIEW_MAGIC_FUDGE_FACTOR: Float = 4.05f
         var deviceScale: Float = 0f
@@ -335,11 +332,6 @@ class MyApplication : Application() {
         var spcsseoZoom: Float = 0f
         var spcsseoX: Float = 0f
         var spcsseoY: Float = 0f
-        // FIXME what is this goes being used for? 16?
-        var goesVisZoom: Float = 0f
-        var goesVisX: Float = 0f
-        var goesVisY: Float = 0f
-        //var goesVisSector: String = ""
         var nwsIconSize: Int = 0
         var padding: Int = 0
         var paddingSettings: Int = 0
@@ -489,10 +481,6 @@ class MyApplication : Application() {
             spcsseoZoom = getInitialPreference("SPCSSEO_ZOOM", 1.0f)
             spcsseoX = getInitialPreference("SPCSSEO_X", 0.5f)
             spcsseoY = getInitialPreference("SPCSSEO_Y", 0.5f)
-            goesVisZoom = getInitialPreference("GOESVIS_ZOOM", 1.0f)
-            goesVisX = getInitialPreference("GOESVIS_X", 0.5f)
-            goesVisY = getInitialPreference("GOESVIS_Y", 0.5f)
-            //goesVisSector = getInitialPreferenceString("GOESVIS_SECTOR", "")
             elevationPref = getInitialPreference("ELEVATION_PREF", 5).toFloat()
             elevationPref =
                 TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, elevationPref, dm)
@@ -502,7 +490,6 @@ class MyApplication : Application() {
             tabHeaders[0] = getInitialPreferenceString("TAB1_HEADER", "LOCAL")
             tabHeaders[1] = getInitialPreferenceString("TAB2_HEADER", "SPC")
             tabHeaders[2] = getInitialPreferenceString("TAB3_HEADER", "MISC")
-            //tabHeaders[3] = getInitialPreferenceString("TAB4_HEADER", "IMAGES")
         }
 
         val locations: MutableList<Location> = mutableListOf()
@@ -755,14 +742,12 @@ class MyApplication : Application() {
         var radarHwEnhExt: Boolean = false
         private var radarCamxBorders: Boolean = false
         var radarIconsLevel2: Boolean = false
-
         var radarStateLinesize: Int = 0
         var radarCountyLinesize: Int = 0
         var radarHwLinesize: Int = 0
         var radarHwExtLinesize: Int = 0
         var radarLakeLinesize: Int = 0
         var radarGpsCircleLinesize: Int = 0
-
         var radarStiLinesize: Int = 0
         var radarSwoLinesize: Int = 0
         var radarWbLinesize: Int = 0
@@ -809,7 +794,6 @@ class MyApplication : Application() {
             radarHwExtLinesize = getInitialPreference("RADAR_HWEXT_LINESIZE", 2)
             radarLakeLinesize = getInitialPreference("RADAR_LAKE_LINESIZE", 2)
             radarGpsCircleLinesize = getInitialPreference("RADAR_GPSCIRCLE_LINESIZE", 5)
-
             radarStiLinesize = getInitialPreference("RADAR_STI_LINESIZE", 3)
             radarSwoLinesize = getInitialPreference("RADAR_SWO_LINESIZE", 3)
             radarWbLinesize = getInitialPreference("RADAR_WB_LINESIZE", 3)

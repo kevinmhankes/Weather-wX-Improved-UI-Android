@@ -70,8 +70,10 @@ class SpottersActivity : BaseActivity() {
 
             override fun onQueryTextChange(query: String): Boolean {
                 val filteredModelList = filter(spotterlist2, query)
-                ca.animateTo(filteredModelList)
-                recyclerView.scrollToPosition(0)
+                if (::ca.isInitialized) {
+                    ca.animateTo(filteredModelList)
+                    recyclerView.scrollToPosition(0)
+                }
                 return true
             }
         })

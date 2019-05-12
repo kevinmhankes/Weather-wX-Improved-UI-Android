@@ -203,9 +203,6 @@ object UtilityDownload {
                 if (tmpArr.size > 3) {
                     param = tmpArr[3]
                 }
-                UtilityLog.d("wx", "SPC MESO " + tmpArr.size.toString())
-                UtilityLog.d("wx", "SPC MESO " + MyApplication.spcmesoFav)
-                UtilityLog.d("wx", "SPC MESO " + param)
                 needsBitmap = false
                 bm = UtilitySPCMESOInputOutput.getImage(
                     context,

@@ -128,11 +128,6 @@ object UtilityImg {
                     MyApplication.spcsseoX = x
                     MyApplication.spcsseoY = y
                 }
-                "GOESVIS" -> {
-                    MyApplication.goesVisZoom = z
-                    MyApplication.goesVisX = x
-                    MyApplication.goesVisY = y
-                }
                 // FIXME
                 "WPCGEFS1" -> {
                     MyApplication.wpcgefsZoom = z
