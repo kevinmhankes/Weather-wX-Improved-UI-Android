@@ -226,7 +226,7 @@ object UtilityNotification {
         var notifUrls = ""
         val widgetLocNum = Utility.readPref(context, "WIDGET_LOCATION", "1")
         val widgetsEnabled = Utility.readPref(context, "WIDGETS_ENABLED", "false").startsWith("t")
-        val ccUpdateInterval = Utility.readPref(context, "CC_NOTIFICATION_INTERVAL", 60)
+        val ccUpdateInterval = Utility.readPref(context, "CC_NOTIFICATION_INTERVAL", 30)
         val locLabel: String
         var noMain: String
         var noBody: String

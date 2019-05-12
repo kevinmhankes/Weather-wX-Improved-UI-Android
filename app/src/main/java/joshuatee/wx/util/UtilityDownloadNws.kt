@@ -86,11 +86,6 @@ object UtilityDownloadNws {
     fun getNWSStringFromUrlNoAcceptHeader(url: String): String =
             getNWSStringFromURLBaseNoHeader(url)
 
-    //fun getNWSStringFromURLNoHeader(url: String): String =
-    //    getNWSStringFromURLBaseNoHeader(url)
-
-    //private fun getNWSStringFromURLLDJSON(url: String) = getNWSStringFromURLBase(url, "application/ld+json;version=1")
-
     private fun getNWSStringFromURLBase(url: String, header: String): String {
         val out = StringBuilder(5000)
         try {

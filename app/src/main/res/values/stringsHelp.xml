@@ -607,7 +607,10 @@ If using a roaming location the amount of miles traveled before a location chang
     </string>
 
     <string name="cc_interval_np_label">
-Check interval for widget data in minutes. This interval is also used for the current conditions and 7day notifications.</string>
+        Check interval for widget data in minutes.
+        This interval is also used for the current conditions and 7day notifications.
+        The default is 30 minutes.
+    </string>
     <string name="loc1_radar_label">
 Controls whether nexrad radar data should be downloaded.</string>
     <string name="loc1_mosaics_label">

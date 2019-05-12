@@ -123,17 +123,15 @@ internal object UtilityRadarUI {
         oglr: WXGLRender,
         alertDialogRadarLongPress: ObjectDialogue
     ) {
-
         alertDialogRadarLongpressAl.clear()
-
         val locX = lat.toDoubleOrNull() ?: 0.0
         val locY = lon.toDoubleOrNull() ?: 0.0
         val pointX = glview.newY.toDouble()
         val pointY = glview.newX * -1.0
         val dist =
             LatLon.distance(LatLon(locX, locY), LatLon(pointX, pointY), DistanceUnit.MILE)
-        val ridX = Utility.getRadarSiteX(oglr.rid).toDouble()
-        val ridY = -1.0 * Utility.getRadarSiteY(oglr.rid).toDouble()
+        val ridX = Utility.getRadarSiteX(oglr.rid).toDoubleOrNull() ?: 0.0
+        val ridY = -1.0 * (Utility.getRadarSiteY(oglr.rid).toDoubleOrNull() ?: 0.0)
         val distRid = LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.MILE)
         val distRidKm = LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.KM)
         // FIXME look at iOS version and try to match in data provided and improve formatting
