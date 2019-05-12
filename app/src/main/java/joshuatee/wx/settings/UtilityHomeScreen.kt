@@ -63,7 +63,7 @@ internal object UtilityHomeScreen {
             val number = it.toString()
             val token = "SPCMESO$number"
             MyApplication.HM_CLASS[token] = SPCMesoActivity::class.java
-            MyApplication.HM_CLASS_ARGS[token] = arrayOf(token, number, "SPCMESO")
+            MyApplication.HM_CLASS_ARGS[token] = arrayOf(token, "1", "SPCMESO")
             MyApplication.HM_CLASS_ID[token] = SPCMesoActivity.INFO
         }
 

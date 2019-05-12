@@ -62,7 +62,6 @@ object UtilityDownload {
     private fun get2KMURL() = UtilityImg.getBlankBitmap()
 
     fun getRadarMosiac(context: Context): Bitmap {
-        //val widgetLocNum = Utility.readPref(context, "WIDGET_LOCATION", "1")
         val location = Location.currentLocationStr
         val rid1 = Location.getRid(context, location)
         var bitmap: Bitmap = UtilityImg.getBlankBitmap()
@@ -200,8 +199,13 @@ object UtilityDownload {
             }
             "SPCMESO1" -> {
                 var param = "500mb"
-                tmpArr = MyApplication.spcmesoFav.split(":")
-                if (tmpArr.size > 3) param = tmpArr[3]
+                tmpArr = MyApplication.spcmesoFav.split(":").dropLastWhile { it.isEmpty() }
+                if (tmpArr.size > 3) {
+                    param = tmpArr[3]
+                }
+                UtilityLog.d("wx", "SPC MESO " + tmpArr.size.toString())
+                UtilityLog.d("wx", "SPC MESO " + MyApplication.spcmesoFav)
+                UtilityLog.d("wx", "SPC MESO " + param)
                 needsBitmap = false
                 bm = UtilitySPCMESOInputOutput.getImage(
                     context,
