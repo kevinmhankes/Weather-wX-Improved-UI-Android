@@ -28,6 +28,9 @@ import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.TimeZone
 
+import joshuatee.wx.Extensions.*
+
+
 object UtilityTime {
 
     /*internal fun convertFromUTC(time: String): String {
@@ -181,5 +184,34 @@ object UtilityTime {
             return true
         }
         return false
+    }
+
+
+    fun isVtecCurrent(vtec: String ): Boolean {
+        // example 190512T1252Z-190512T1545Z
+        val timeRange = (vtec).parse("-([0-9]{6}T[0-9]{4})Z")
+        val timeInMinutes = decodeVtecTime(timeRange)
+        val currentTimeInMinutes = decodeVtecTime(getGmtTimeForVtec())
+        val vtecCurrent = currentTimeInMinutes.before(timeInMinutes)
+        return vtecCurrent
+    }
+
+    fun decodeVtecTime(timeRange: String): Calendar {
+        // Y2K issue
+        val year = ("20" + (timeRange).parse("([0-9]{2})[0-9]{4}T[0-9]{4}")).toIntOrNull()  ?: 0;
+        val month = ((timeRange).parse("[0-9]{2}([0-9]{2})[0-9]{2}T[0-9]{4}")).toIntOrNull()  ?: 0;
+        val day = ((timeRange).parse("[0-9]{4}([0-9]{2})T[0-9]{4}")).toIntOrNull()  ?: 0;
+        val hour = ((timeRange).parse("[0-9]{6}T([0-9]{2})[0-9]{2}")).toIntOrNull()  ?: 0;
+        val minute = ((timeRange).parse("[0-9]{6}T[0-9]{2}([0-9]{2})")).toIntOrNull() ?: 0;
+        //print(timeRange + "," + year.toString() + "," + month.toString() + "," + day.toString() + "," + hour.toString() + "," + minute.toString());
+        val cal = Calendar.getInstance()
+        cal.set(year, month - 1, day, hour, minute);
+        return cal
+    }
+
+    fun getGmtTimeForVtec(): String{
+        val dateFormatGmt = SimpleDateFormat("yyMMddTHHmm", Locale.US)
+        dateFormatGmt.timeZone = TimeZone.getTimeZone("GMT")
+        return dateFormatGmt.format(Date())
     }
 }

@@ -33,6 +33,7 @@ import joshuatee.wx.RegExp
 import joshuatee.wx.objects.ObjectPolygonWarning
 import joshuatee.wx.objects.PolygonWarningType
 import joshuatee.wx.util.UtilityLog
+import joshuatee.wx.util.UtilityTime
 
 internal object WXGLPolygonWarnings {
 
@@ -135,9 +136,11 @@ internal object WXGLPolygonWarnings {
         var polyCount = -1
         polygonArr.forEach { polygon ->
             polyCount += 1
-            if (vtecAl.size > polyCount && !vtecAl[polyCount].startsWith("O.EXP") && !vtecAl[polyCount].startsWith(
-                    "O.CAN"
-                )
+            val vtecIsCurrent = UtilityTime.isVtecCurrent(vtecAl[polyCount])
+            if (vtecAl.size > polyCount
+                    && !vtecAl[polyCount].startsWith("O.EXP")
+                    && !vtecAl[polyCount].startsWith("O.CAN")
+                    && vtecIsCurrent
             ) {
                 val polyTmp =
                     polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
