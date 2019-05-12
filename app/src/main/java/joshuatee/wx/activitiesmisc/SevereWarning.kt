@@ -29,6 +29,7 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityTime
 
 // encapsulates VTEC data and count for tst,tor, or ffw
 
@@ -52,9 +53,9 @@ internal class SevereWarning(private val type: PolygonType) {
             }
         }
         val warningAl = textTor.parseColumn(RegExp.warningVtecPattern)
-        //count = warningAl.size
         warningAl.forEach {
-            if (!it.startsWith("O.EXP")) {
+            val vtecIsCurrent = UtilityTime.isVtecCurrent(it)
+            if (!it.startsWith("O.EXP") && vtecIsCurrent) {
                 text += it
                 count += 1
                 nwsOfficeArr = it.split(".")

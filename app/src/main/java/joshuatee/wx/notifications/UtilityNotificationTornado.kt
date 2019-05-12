@@ -33,6 +33,7 @@ import joshuatee.wx.util.UtilityLog
 
 import joshuatee.wx.Extensions.*
 
+// FIXME share more code with severe dashboard or nexrad radar
 internal object UtilityNotificationTornado {
 
     // the fun with support 23.2.0 continues

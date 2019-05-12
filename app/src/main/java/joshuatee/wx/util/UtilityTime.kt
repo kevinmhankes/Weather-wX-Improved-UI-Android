@@ -204,7 +204,7 @@ object UtilityTime {
         val day = ((timeRange).parse("[0-9]{4}([0-9]{2})[0-9]{4}")).toIntOrNull()  ?: 0;
         val hour = ((timeRange).parse("[0-9]{6}([0-9]{2})[0-9]{2}")).toIntOrNull()  ?: 0;
         val minute = ((timeRange).parse("[0-9]{6}[0-9]{2}([0-9]{2})")).toIntOrNull() ?: 0;
-        //print(timeRange + "," + year.toString() + "," + month.toString() + "," + day.toString() + "," + hour.toString() + "," + minute.toString());
+        //UtilityLog.d("wx", timeRange + "," + year.toString() + "," + month.toString() + "," + day.toString() + "," + hour.toString() + "," + minute.toString());
         val cal = Calendar.getInstance()
         cal.set(year, month - 1, day, hour, minute);
         return cal
