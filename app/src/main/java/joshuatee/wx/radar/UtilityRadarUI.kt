@@ -414,14 +414,16 @@ internal object UtilityRadarUI {
             glview: WXGLSurfaceView,
             uiDispatcher: CoroutineDispatcher
     ) = GlobalScope.launch(uiDispatcher) {
-        val txt = withContext(Dispatchers.IO) {
+        val text = withContext(Dispatchers.IO) {
             UtilityWatch.showProducts(glview.newY.toDouble(), glview.newX.toDouble() * -1.0, type)
         }
-        ObjectIntent(
-                context,
-                SPCMCDWShowActivity::class.java,
-                SPCMCDWShowActivity.NO,
-                arrayOf(txt, "", type.toString())
-        )
+        if (text != "") {
+            ObjectIntent(
+                    context,
+                    SPCMCDWShowActivity::class.java,
+                    SPCMCDWShowActivity.NO,
+                    arrayOf(text, "", type.toString())
+            )
+        }
     }
 }

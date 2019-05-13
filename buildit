@@ -11,7 +11,7 @@ tmpPath=${HOME}/tmp
 
 echo Compile release
 export PATH=/Applications/"Android Studio.app"/Contents/jre/jdk/Contents/Home/bin:~/android-studio/jre/bin:$PATH
-./gradlew assembleRelease
+./gradlew assembleRelease --warning-mode=all
 cp app/build/outputs/apk/release/app-release.apk ${HOME}/StudioProjects/wX${ver}.apk
 
 echo Git commit and push
