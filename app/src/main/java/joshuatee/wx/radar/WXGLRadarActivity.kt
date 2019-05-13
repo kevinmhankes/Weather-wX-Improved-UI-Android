@@ -217,7 +217,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         delay = UtilityImg.animInterval(this)
         img = findViewById(R.id.iv)
         img.setMaxZoom(6.0f)
-        glview = WXGLSurfaceView(this, 1, numPanes)
+        glview = WXGLSurfaceView(this, 1, numPanes, 1)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf(img, glview))
         imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::maptoRid)
         rl = findViewById(R.id.rl)
@@ -328,7 +328,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 if (gpsEnabled != null && gpsEnabled) {
                     locationManager?.requestLocationUpdates(
                             LocationManager.GPS_PROVIDER,
-                            20000.toLong(),
+                            //20000.toLong(),
+                            (MyApplication.radarLocationUpdateInterval * 1000).toLong(),
                             30.toFloat(),
                             locationListener
                     )

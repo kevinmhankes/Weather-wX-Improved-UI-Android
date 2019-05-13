@@ -155,7 +155,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 oglrIdx = oglrCnt
                 oglrCnt += 1
                 cardsAl.add(ObjectCard(activityReference).card)
-                glviewArr.add(WXGLSurfaceView(activityReference, widthDivider, numPanes))
+                glviewArr.add(WXGLSurfaceView(activityReference, widthDivider, numPanes, 1))
                 oglrArr[index].rid = ""
                 oldRidArr[index] = ""
                 radarLocationChangedAl.add(false)
@@ -195,7 +195,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 oglrArr.add(WXGLRender(activityReference))
                 oglrCnt += 1
                 cardsAl.add(ObjectCard(activityReference).card)
-                glviewArr.add(WXGLSurfaceView(activityReference, widthDivider, numPanes))
+                glviewArr.add(WXGLSurfaceView(activityReference, widthDivider, numPanes, 1))
                 glviewArr[index].idx = index
                 oglrArr[index].rid = tok.replace("NXRD-", "")
                 oldRidArr[index] = ""

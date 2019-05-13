@@ -337,6 +337,8 @@ class MyApplication : Application() {
         var paddingSettings: Int = 0
         var paddingSmall: Int = 0
         var tabHeaders: Array<String> = arrayOf("", "", "")
+        // FIXME make configurable
+        var radarLocationUpdateInterval = 10
 
         fun initPreferences(context: Context) {
             initRadarPreferences()
