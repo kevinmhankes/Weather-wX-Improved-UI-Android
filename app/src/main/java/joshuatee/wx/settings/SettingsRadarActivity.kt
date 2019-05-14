@@ -587,6 +587,18 @@ class SettingsRadarActivity : BaseActivity() {
                         10
                 ).card
         )
+        ll.addView(
+                ObjectSettingsSeekbar(
+                        this,
+                        this,
+                        "GPS update interval",
+                        "RADAR_LOCATION_UPDATE_INTERVAL",
+                        R.string.gps_update_interval_label,
+                        10,
+                        1,
+                        60
+                ).card
+        )
     }
 
     override fun onStop() {

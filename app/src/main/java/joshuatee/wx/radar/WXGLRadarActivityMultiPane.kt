@@ -408,9 +408,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 if (gpsEnabled != null && gpsEnabled) {
                     locationManager?.requestLocationUpdates(
                             LocationManager.GPS_PROVIDER,
-                            //20000.toLong(),
                             (MyApplication.radarLocationUpdateInterval * 1000).toLong(),
-                            30.0f,
+                            MyApplication.radarLocationUpdateDistanceInMeters.toFloat(),
                             locationListener
                     )
                 }

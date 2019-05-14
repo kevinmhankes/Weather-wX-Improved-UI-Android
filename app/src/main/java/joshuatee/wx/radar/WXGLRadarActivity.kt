@@ -330,7 +330,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                             LocationManager.GPS_PROVIDER,
                             //20000.toLong(),
                             (MyApplication.radarLocationUpdateInterval * 1000).toLong(),
-                            30.toFloat(),
+                            MyApplication.radarLocationUpdateDistanceInMeters.toFloat(),
                             locationListener
                     )
                 }
@@ -905,7 +905,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
-            if (MyApplication.locdotFollowsGps && !archiveMode) makeUseOfNewLocation(location)
+            //UtilityLog.d("wx", "GPS UPDATE: $location")
+            if (MyApplication.locdotFollowsGps && !archiveMode) {
+                makeUseOfNewLocation(location)
+            }
         }
 
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
