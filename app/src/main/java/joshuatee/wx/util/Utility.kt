@@ -93,7 +93,7 @@ object Utility {
         try {
             vers = context.packageManager.getPackageInfo(context.packageName, 0).versionName
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return vers
     }

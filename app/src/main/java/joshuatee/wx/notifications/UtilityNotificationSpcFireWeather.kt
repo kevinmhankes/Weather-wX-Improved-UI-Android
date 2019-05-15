@@ -141,7 +141,7 @@ internal object UtilityNotificationSpcFireWeather {
                                 yStrTmp = tmpDbl.toString()
                             }
                         } catch (e: Exception) {
-                            UtilityLog.HandleException(e)
+                            UtilityLog.handleException(e)
                         }
                         retStr = "$retStr$xStrTmp $yStrTmp "
                     }

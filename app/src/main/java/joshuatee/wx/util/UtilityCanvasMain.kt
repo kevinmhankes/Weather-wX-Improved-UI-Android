@@ -303,7 +303,7 @@ object UtilityCanvasMain {
             dis.close()
             inputStream.close()
         } catch (e: IOException) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
     }
 }

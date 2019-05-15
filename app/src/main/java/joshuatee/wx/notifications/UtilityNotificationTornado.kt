@@ -46,7 +46,7 @@ internal object UtilityNotificationTornado {
         try {
             notifUrls += checkForNotifications(context, html, inBlackout)
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return notifUrls
     }

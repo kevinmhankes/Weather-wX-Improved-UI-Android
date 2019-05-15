@@ -445,7 +445,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                         UtilityLog.d("wx", "Problem moving to nexrad_anim$it")
                 }
             } catch (e: Exception) {
-                UtilityLog.HandleException(e)
+                UtilityLog.handleException(e)
             }
             var loopCnt = 0
             while (inOglAnim) {
@@ -468,7 +468,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                                 )
                         }
                     } catch (e: Exception) {
-                        UtilityLog.HandleException(e)
+                        UtilityLog.handleException(e)
                     }
                     animTriggerDownloads = false
                 }

@@ -70,7 +70,7 @@ object UtilityString {
                 content = m.group(1)
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return content
     }
@@ -84,7 +84,7 @@ object UtilityString {
                 content = m.group(1)
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return content
     }
@@ -96,7 +96,7 @@ object UtilityString {
             val m = p.matcher(data)
             if (m.find()) content = m.group(1)
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return content
     }
@@ -108,7 +108,7 @@ object UtilityString {
             val m = p.matcher(data)
             if (m.find()) content = m.group(1)
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return content
     }
@@ -119,7 +119,7 @@ object UtilityString {
             val m = p.matcher(data)
             if (m.find()) content = m.group(1)
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return content
     }
@@ -146,7 +146,7 @@ object UtilityString {
             m.find()
             (0 until number).forEach { result[it] = m.group(it + 1) }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return result
     }
@@ -160,7 +160,7 @@ object UtilityString {
                 (0 until number).forEach { result[it] = m.group(it + 1) }
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return result
     }
@@ -173,7 +173,7 @@ object UtilityString {
                 (0 until number).forEach { result[it] = m.group(it + 1) }
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return result
     }
@@ -187,7 +187,7 @@ object UtilityString {
                 result.add(m.group(1))
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return result
     }
@@ -201,7 +201,7 @@ object UtilityString {
                 result.add(m.group(1))
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return result
     }
@@ -214,7 +214,7 @@ object UtilityString {
                 result.add(m.group(1))
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return result
     }
@@ -227,7 +227,7 @@ object UtilityString {
                 result.add(m.group(1))
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return result
     }
@@ -240,7 +240,7 @@ object UtilityString {
                 result.add(m.group(1))
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return result
     }
@@ -253,7 +253,7 @@ object UtilityString {
                 result.add(m.group())
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return result
     }
@@ -267,7 +267,7 @@ object UtilityString {
                 i += 1
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return i
     }

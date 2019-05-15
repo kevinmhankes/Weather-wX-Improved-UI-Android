@@ -56,7 +56,7 @@ object UtilityTime {
             val date = inputFormat.parse(time)
             returnTime = outputFormat.format(date)
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return returnTime
     }
@@ -72,7 +72,7 @@ object UtilityTime {
                 parsed = format.parse(time)
                 t = parsed.time
             } catch (e: Exception) {
-                UtilityLog.HandleException(e)
+                UtilityLog.handleException(e)
             }
             listRun.add(format.format(Date(t - 60 * oneMinuteInMillis * it.toLong() * hours.toLong())))
         }
@@ -90,7 +90,7 @@ object UtilityTime {
                 parsed = format.parse(time)
                 t = parsed.time
             } catch (e: Exception) {
-                UtilityLog.HandleException(e)
+                UtilityLog.handleException(e)
             }
             listRun.add(format.format(Date(t - 60 * oneMinuteInMillis * it.toLong() * hours.toLong())))
         }
@@ -192,25 +192,24 @@ object UtilityTime {
         val timeRange = (vtec).parse("-([0-9]{6}T[0-9]{4})Z")
         val timeInMinutes = decodeVtecTime(timeRange)
         val currentTimeInMinutes = decodeVtecTime(getGmtTimeForVtec())
-        val vtecCurrent = currentTimeInMinutes.before(timeInMinutes)
-        return vtecCurrent
+        return currentTimeInMinutes.before(timeInMinutes)
     }
 
-    fun decodeVtecTime(timeRangeOriginal: String): Calendar {
+    private fun decodeVtecTime(timeRangeOriginal: String): Calendar {
         // Y2K issue
         val timeRange = timeRangeOriginal.replace("T","")
-        val year = ("20" + (timeRange).parse("([0-9]{2})[0-9]{4}[0-9]{4}")).toIntOrNull()  ?: 0;
-        val month = ((timeRange).parse("[0-9]{2}([0-9]{2})[0-9]{2}[0-9]{4}")).toIntOrNull()  ?: 0;
-        val day = ((timeRange).parse("[0-9]{4}([0-9]{2})[0-9]{4}")).toIntOrNull()  ?: 0;
-        val hour = ((timeRange).parse("[0-9]{6}([0-9]{2})[0-9]{2}")).toIntOrNull()  ?: 0;
-        val minute = ((timeRange).parse("[0-9]{6}[0-9]{2}([0-9]{2})")).toIntOrNull() ?: 0;
+        val year = ("20" + (timeRange).parse("([0-9]{2})[0-9]{4}[0-9]{4}")).toIntOrNull()  ?: 0
+        val month = ((timeRange).parse("[0-9]{2}([0-9]{2})[0-9]{2}[0-9]{4}")).toIntOrNull()  ?: 0
+        val day = ((timeRange).parse("[0-9]{4}([0-9]{2})[0-9]{4}")).toIntOrNull()  ?: 0
+        val hour = ((timeRange).parse("[0-9]{6}([0-9]{2})[0-9]{2}")).toIntOrNull()  ?: 0
+        val minute = ((timeRange).parse("[0-9]{6}[0-9]{2}([0-9]{2})")).toIntOrNull() ?: 0
         //UtilityLog.d("wx", timeRange + "," + year.toString() + "," + month.toString() + "," + day.toString() + "," + hour.toString() + "," + minute.toString());
         val cal = Calendar.getInstance()
-        cal.set(year, month - 1, day, hour, minute);
+        cal.set(year, month - 1, day, hour, minute)
         return cal
     }
 
-    fun getGmtTimeForVtec(): String{
+    private fun getGmtTimeForVtec(): String{
         val dateFormatGmt = SimpleDateFormat("yyMMddHHmm", Locale.US)
         dateFormatGmt.timeZone = TimeZone.getTimeZone("GMT")
         return dateFormatGmt.format(Date())

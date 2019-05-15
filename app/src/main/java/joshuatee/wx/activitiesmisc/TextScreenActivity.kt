@@ -69,7 +69,7 @@ class TextScreenActivity : AudioPlayActivity(), OnMenuItemClickListener {
         try {
             activityArguments = intent.getStringArrayExtra(URL)
         } catch (e: IllegalStateException) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         url = activityArguments[0]
         title = activityArguments[1]

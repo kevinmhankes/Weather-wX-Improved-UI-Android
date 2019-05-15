@@ -106,7 +106,7 @@ object UtilityDownload {
                 bitmap = UtilityAwcRadarMosaic.get(sector, product)
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return bitmap
     }
@@ -675,7 +675,7 @@ object UtilityDownload {
             }
             br.close()
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return out.toString().replace(breakStr, "<br>")
     }
@@ -731,7 +731,7 @@ object UtilityDownload {
             val response = MyApplication.httpClient!!.newCall(request).execute()
             response.body()!!.byteStream()
         } catch (e: IOException) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
             null
         }
     }

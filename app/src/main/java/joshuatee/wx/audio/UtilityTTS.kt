@@ -63,7 +63,7 @@ object UtilityTTS {
             })
             ttsInit = true
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
     }
 
@@ -311,7 +311,7 @@ object UtilityTTS {
             mMediaPlayer?.prepare()
             mMediaPlayer?.start()
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
     }
 

@@ -79,7 +79,7 @@ object UtilityUS {
                 locatioName = tmpArr[0] + ", " + tmpArr[1]
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return locatioName
     }

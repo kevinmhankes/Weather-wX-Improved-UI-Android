@@ -128,20 +128,13 @@ object UtilitySPC {
         var torCount = 0
         var tstormCount = 0
         var floodCount = 0
-        // FIXME rationalize this code block
         if (MyApplication.checktor) {
-            tstormCount =
-                    UtilityVtec.getStormCount(context, MyApplication.severeDashboardTst.valueGet())
-            if (tstormCount > 0)
+            tstormCount = UtilityVtec.getStormCount(context, MyApplication.severeDashboardTst.valueGet())
+            torCount = UtilityVtec.getStormCount(context, MyApplication.severeDashboardTor.valueGet())
+            floodCount = UtilityVtec.getStormCount(context, MyApplication.severeDashboardFfw.valueGet())
+            if (tstormCount > 0 || torCount > 0 || floodCount > 0) {
                 uswarnPresent = true
-            torCount =
-                    UtilityVtec.getStormCount(context, MyApplication.severeDashboardTor.valueGet())
-            if (torCount > 0)
-                uswarnPresent = true
-            floodCount =
-                    UtilityVtec.getStormCount(context, MyApplication.severeDashboardFfw.valueGet())
-            if (floodCount > 0)
-                uswarnPresent = true
+            }
         }
         tabStr = if (uswarnPresent)
             tabStr + "  " + MyApplication.tabHeaders[2] + " W(" + tstormCount + "," + torCount + "," + floodCount + ")"

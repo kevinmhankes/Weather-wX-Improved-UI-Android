@@ -98,7 +98,7 @@ class BackgroundFetch(val context: Context) {
                     )
                 }
             } catch (e: Exception) {
-                UtilityLog.HandleException(e)
+                UtilityLog.handleException(e)
             }
         } else {
             MyApplication.severeDashboardTor.valueSet(context, "")
@@ -118,7 +118,7 @@ class BackgroundFetch(val context: Context) {
                         var mcdPre = UtilityDownload.getTextProduct(context, "SPCMCD$mdNo")
                         if (PolygonType.MCD.pref || locationNeedsMcd) {
                             mcdNoList = "$mcdNoList$mdNo:"
-                            mcdLatlon += UtilityNotification.storeWatMCDLATLON(mcdPre)
+                            mcdLatlon += UtilityNotification.storeWatMcdLatLon(mcdPre)
                         }
                         if (MyApplication.alertSpcmcdNotificationCurrent) {
                             noMain = "SPC MCD #$mdNo"
@@ -164,7 +164,7 @@ class BackgroundFetch(val context: Context) {
                     } // end while find
                 }
             } catch (e: Exception) {
-                UtilityLog.HandleException(e)
+                UtilityLog.handleException(e)
             }
         } else {
             MyApplication.severeDashboardMcd.valueSet(context, "")
@@ -184,7 +184,7 @@ class BackgroundFetch(val context: Context) {
                         var mcdPre = UtilityDownload.getTextProduct(context, "WPCMPD$mdNo")
                         if (PolygonType.MPD.pref || locationNeedsWpcmpd) {
                             mpdNoList = "$mpdNoList$mdNo:"
-                            mpdLatlon += UtilityNotification.storeWatMCDLATLON(mcdPre)
+                            mpdLatlon += UtilityNotification.storeWatMcdLatLon(mcdPre)
                         }
                         if (MyApplication.alertWpcmpdNotificationCurrent) {
                             noMain = "WPC MPD #$mdNo"
@@ -232,7 +232,7 @@ class BackgroundFetch(val context: Context) {
                     } // end while find
                 }
             } catch (e: Exception) {
-                UtilityLog.HandleException(e)
+                UtilityLog.handleException(e)
             }
         } else {
             MyApplication.severeDashboardMpd.valueSet(context, "")
@@ -258,13 +258,13 @@ class BackgroundFetch(val context: Context) {
                                 RegExp.pre2Pattern
                         )
                         // Thanks Ely
-                        watchLatlonList += UtilityNotification.storeWatMCDLATLON(mcdPre2)
+                        watchLatlonList += UtilityNotification.storeWatMcdLatLon(mcdPre2)
                         //
                         if (PolygonType.MCD.pref) {
                             if (mcdPre.contains("Severe Thunderstorm Watch")) {
-                                watchLatlon += UtilityNotification.storeWatMCDLATLON(mcdPre2)
+                                watchLatlon += UtilityNotification.storeWatMcdLatLon(mcdPre2)
                             } else {
-                                watchLatlonTor += UtilityNotification.storeWatMCDLATLON(mcdPre2)
+                                watchLatlonTor += UtilityNotification.storeWatMcdLatLon(mcdPre2)
                             }
                         }
                         if (MyApplication.alertSpcwatNotificationCurrent) {
@@ -312,7 +312,7 @@ class BackgroundFetch(val context: Context) {
                     } // end while find
                 }
             } catch (e: Exception) {
-                UtilityLog.HandleException(e)
+                UtilityLog.handleException(e)
             }
         } else {
             MyApplication.severeDashboardWat.valueSet(context, "")

@@ -624,7 +624,7 @@ object UtilityNotification {
         return noti
     }
 
-    internal fun storeWatMCDLATLON(html: String): String {
+    internal fun storeWatMcdLatLon(html: String): String {
         val coords = html.parseColumn("([0-9]{8}).*?")
         var retStr = ""
         var xStrTmp: String
@@ -645,7 +645,7 @@ object UtilityNotification {
                     yStrTmp = tmpDbl.toString()
                 }
             } catch (e: Exception) {
-                UtilityLog.HandleException(e)
+                UtilityLog.handleException(e)
             }
             retStr = "$retStr$xStrTmp $yStrTmp "
         }

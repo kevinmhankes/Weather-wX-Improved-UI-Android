@@ -79,7 +79,7 @@ class WXGLRender(private val context: Context) : Renderer {
         ObjectOglRadarBuffers(context, MyApplication.nexradRadarBackgroundColor)
     private val spotterBuffers = ObjectOglBuffers(PolygonType.SPOTTER, zoomToHideMiscFeatures)
     private val stateLineBuffers = ObjectOglBuffers(GeographyType.STATE_LINES, 0.0f)
-    private val countyLineBuffers = ObjectOglBuffers(GeographyType.COUNTY_LINES, 0.35f) // was .75
+    private val countyLineBuffers = ObjectOglBuffers(GeographyType.COUNTY_LINES, 0.75f) // was .75
     private val hwBuffers = ObjectOglBuffers(GeographyType.HIGHWAYS, 0.45f)
     private val hwExtBuffers = ObjectOglBuffers(GeographyType.HIGHWAYS_EXTENDED, 3.00f)
     private val lakeBuffers = ObjectOglBuffers(GeographyType.LAKES, zoomToHideMiscFeatures)
@@ -178,7 +178,7 @@ class WXGLRender(private val context: Context) : Renderer {
             triangleIndexBuffer = ByteBuffer.allocateDirect(12 * breakSize15)
             lineIndexBuffer = ByteBuffer.allocateDirect(4 * breakSizeLine)
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         triangleIndexBuffer.order(ByteOrder.nativeOrder())
         triangleIndexBuffer.position(0)
@@ -300,7 +300,7 @@ class WXGLRender(private val context: Context) : Renderer {
                 }
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         if (radarBuffers.numRangeBins == 0) {
             radarBuffers.numRangeBins = 460
@@ -369,7 +369,7 @@ class WXGLRender(private val context: Context) : Renderer {
                     UtilityWXOGLPerf.genRadials(radarBuffers, rdL2.binWord, rdL2.radialStartAngle)
             } // level 2 , level 3 check
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         breakSize15 = 15000
         chunkCount = 1
@@ -463,7 +463,7 @@ class WXGLRender(private val context: Context) : Renderer {
                     triangleIndexBuffer.slice().asShortBuffer()
                 )
             } catch (e: Exception) {
-                UtilityLog.HandleException(e)
+                UtilityLog.handleException(e)
             }
         }
         GLES20.glLineWidth(defaultLineWidth)
@@ -778,7 +778,7 @@ class WXGLRender(private val context: Context) : Renderer {
                 UtilityWXOGLPerf.colorGen(buffers.colorBuffer, 4 * f.size, buffers.colorArray)
             }
         } catch (e: java.lang.Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         buffers.breakSize = 15000
         buffers.chunkCount = 1

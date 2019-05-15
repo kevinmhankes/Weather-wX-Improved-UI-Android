@@ -532,7 +532,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                             )
                     }
                 } catch (e: Exception) {
-                    UtilityLog.HandleException(e)
+                    UtilityLog.handleException(e)
                 }
             }
             var loopCnt = 0
@@ -562,7 +562,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                                     )
                             }
                         } catch (e: Exception) {
-                            UtilityLog.HandleException(e)
+                            UtilityLog.handleException(e)
                         }
                     }
                     animTriggerDownloads = false
@@ -973,6 +973,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         }
     }
 
+    // FIXME camelcase
     private fun getGPSFromDouble() {
         try {
             latlonArr[0] = latD.toString()
@@ -980,7 +981,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             locXCurrent = latlonArr[0]
             locYCurrent = latlonArr[1]
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
     }
 

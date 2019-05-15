@@ -697,7 +697,7 @@ class MyApplication : Application() {
                     dis.close()
                     inputStream.close()
                 } catch (e: IOException) {
-                    UtilityLog.HandleException(e)
+                    UtilityLog.handleException(e)
                 }
             }
         }

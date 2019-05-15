@@ -195,7 +195,7 @@ class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
                 } while (line != null)
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return ""
     }

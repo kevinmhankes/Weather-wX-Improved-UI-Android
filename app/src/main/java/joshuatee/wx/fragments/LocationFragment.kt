@@ -846,7 +846,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     }
                 }
             } catch (e: Exception) {
-                UtilityLog.HandleException(e)
+                UtilityLog.handleException(e)
             }
         }
         if (isAdded) {
@@ -887,7 +887,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 objSevenDay = Utility.getCurrentSevenDay(Location.currentLocation)
                 Utility.writePref(activityReference, "FCST", objSevenDay?.sevenDayExtStr ?: "")
             } catch (e: Exception) {
-                UtilityLog.HandleException(e)
+                UtilityLog.handleException(e)
             }
             try {
                 Utility.writePref(activityReference, "FCST", objSevenDay?.sevenDayExtStr ?: "")
@@ -900,7 +900,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     }
                 }
             } catch (e: Exception) {
-                UtilityLog.HandleException(e)
+                UtilityLog.handleException(e)
             }
         }
         if (isAdded) {
@@ -945,7 +945,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                             )
                         }
                     } catch (e: Exception) {
-                        UtilityLog.HandleException(e)
+                        UtilityLog.handleException(e)
                     }
                     linearLayoutForecast?.addView(cardSunrise.card)
                 }
@@ -976,7 +976,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 objHazards = Utility.getCurrentHazards(Location.currentLocation)
                 hazardRaw = objHazards?.hazards ?: ""
             } catch (e: Exception) {
-                UtilityLog.HandleException(e)
+                UtilityLog.handleException(e)
             }
         }
         if (isAdded) {

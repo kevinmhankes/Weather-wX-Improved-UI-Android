@@ -68,7 +68,7 @@ internal object UtilityWidgetDownload {
             }
             saveImage(context, bitmap, NEXRAD_RADAR.fileName)
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
     }
 
@@ -89,7 +89,7 @@ internal object UtilityWidgetDownload {
             val bitmap = UtilityDownload.getImageProduct(context, "GOES16")
             saveImage(context, bitmap, VIS.fileName)
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
     }
 
@@ -148,7 +148,7 @@ internal object UtilityWidgetDownload {
         try {
             saveImage(context, UtilityDownload.getRadarMosiac(context), MOSAIC_RADAR.fileName)
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
     }
 
@@ -161,7 +161,7 @@ internal object UtilityWidgetDownload {
             val file = File(dir, fileName)
             fos = FileOutputStream(file)
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return fos
     }

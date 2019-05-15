@@ -39,7 +39,7 @@ object UtilityMath {
             newX = newX.replace("0$".toRegex(), "")
             newX = newX.replace("\\.$".toRegex(), "")
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return newX
     }

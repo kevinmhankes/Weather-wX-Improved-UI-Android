@@ -75,7 +75,7 @@ fun String.getHtmlUnsafe(): String {
 }
 
 fun String.getNwsHtml(): String {
-    return UtilityDownloadNws.getNwsStringFromUrl(this)
+    return UtilityDownloadNws.getStringFromUrl(this)
 }
 
 fun String.getHtmlSep(): String {

@@ -149,7 +149,7 @@ class AdhocForecastActivity : BaseActivity() {
                     ) + MyApplication.newline + UtilityTime.gmtTime()
                 )
             } catch (e: Exception) {
-                UtilityLog.HandleException(e)
+                UtilityLog.handleException(e)
             }
             linearLayoutForecast.addView(cardSunrise.card)
         }

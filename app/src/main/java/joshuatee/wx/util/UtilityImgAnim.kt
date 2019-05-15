@@ -48,7 +48,7 @@ object UtilityImgAnim {
                 (0 until radarAl.size).mapTo(retAl) { radarAl[it] }
             }
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return retAl
     }

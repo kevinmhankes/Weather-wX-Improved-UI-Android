@@ -224,7 +224,7 @@ internal object UtilityMetar {
                                     obsAlWbGust.add(latlon[0] + ":" + latlon[1] + ":" + windDir + ":" + windgustInKt)
                                 }
                             } catch (e: Exception) {
-                                UtilityLog.HandleException(e)
+                                UtilityLog.handleException(e)
                             }
                         }
                     }
