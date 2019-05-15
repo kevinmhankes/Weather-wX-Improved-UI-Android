@@ -72,7 +72,7 @@ class WXGLNexradLevel3 internal constructor() {
                 oBuff.order(ByteOrder.nativeOrder())
             }
         } catch (e: OutOfMemoryError) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
     }
 
@@ -152,11 +152,11 @@ class WXGLNexradLevel3 internal constructor() {
             binSize = WXGLNexrad.getBinSize(productCode.toInt())
             numberOfRangeBins = WXGLNexrad.getNumberRangeBins(productCode.toInt())
         } catch (e: IOException) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         } catch (e: OutOfMemoryError) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
     }
 

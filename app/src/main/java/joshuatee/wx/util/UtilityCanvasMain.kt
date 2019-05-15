@@ -279,7 +279,7 @@ object UtilityCanvasMain {
                 }
             }
         } catch (e: OutOfMemoryError) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
 
         return GeometryData(

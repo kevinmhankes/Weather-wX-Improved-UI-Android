@@ -177,9 +177,9 @@ internal object UtilityWXOGLPerf {
             }
             dis2.close()
         } catch (e: Exception) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         } catch (e: OutOfMemoryError) {
-            UtilityLog.HandleException(e)
+            UtilityLog.handleException(e)
         }
         return totalBins
     }

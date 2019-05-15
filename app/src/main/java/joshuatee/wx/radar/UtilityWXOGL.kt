@@ -67,14 +67,14 @@ object UtilityWXOGL {
         return ridPrefix
     }
 
-    fun getVWP(context: Context, rid1: String): String {
+    fun getVwp(context: Context, rid1: String): String {
         // http://tgftp.nws.noaa.gov/SL.us008001/DF.of/DC.radar/DS.48vwp/SI.kccx/
         val prod = "VWP"
         val l3BaseFn = "nidsVWP"
         val idxStr = "0"
         val ridPrefix = getRidPrefix(rid1, prod)
         val fh: File
-        val inputStream = UtilityDownload.getInputStreamFromURL(
+        val inputStream = UtilityDownload.getInputStreamFromUrl(
             MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + NEXRAD_PRODUCT_STRING[prod] + "/SI." + ridPrefix + rid1.toLowerCase(
                 Locale.US
             ) + "/sn.last"
@@ -143,7 +143,6 @@ object UtilityWXOGL {
         return output
     }
 
-    // FIXME convert to LatLon as single arg
     fun showTextProducts(lat: Double, lon: Double): String {
         var warningHTML =
             MyApplication.severeDashboardTor.valueGet() + MyApplication.severeDashboardTst.valueGet() + MyApplication.severeDashboardFfw.valueGet()
@@ -157,7 +156,6 @@ object UtilityWXOGL {
         warningHTML = warningHTML.replace("\n", "")
         warningHTML = warningHTML.replace(" ", "")
         val polygonArr = warningHTML.parseColumn(RegExp.warningLatLonPattern)
-        //val vtecAl = warningHTML.parseColumn(RegExp.warningVtecPattern)
         var retStr = ""
         var testArr: List<String>
         var q = 0

@@ -48,15 +48,15 @@ internal object UtilityRadarUI {
     const val longPressRadarSiteRegex = "\\) ([A-Z]{3,4}) "
 
     private fun getRadarStatus(
-        act: Activity,
-        context: Context,
-        uiDispatcher: CoroutineDispatcher,
-        oglr: WXGLRender
+            act: Activity,
+            context: Context,
+            uiDispatcher: CoroutineDispatcher,
+            oglr: WXGLRender
     ) = GlobalScope.launch(uiDispatcher) {
         var radarStatus = withContext(Dispatchers.IO) {
             UtilityDownload.getRadarStatusMessage(
-                context,
-                oglr.rid
+                    context,
+                    oglr.rid
             )
         }
         if (radarStatus == "") {
@@ -66,10 +66,10 @@ internal object UtilityRadarUI {
     }
 
     private fun getMetar(
-        glview: WXGLSurfaceView,
-        act: Activity,
-        context: Context,
-        uiDispatcher: CoroutineDispatcher
+            glview: WXGLSurfaceView,
+            act: Activity,
+            context: Context,
+            uiDispatcher: CoroutineDispatcher
     ) = GlobalScope.launch(uiDispatcher) {
         val txt = withContext(Dispatchers.IO) {
             UtilityMetar.findClosestMetar(context, glview.latLon)
@@ -79,10 +79,10 @@ internal object UtilityRadarUI {
 
     private fun showNearestForecast(context: Context, glview: WXGLSurfaceView) {
         ObjectIntent(
-            context,
-            AdhocForecastActivity::class.java,
-            AdhocForecastActivity.URL,
-            arrayOf(glview.newY.toString(), "-" + glview.newX.toString())
+                context,
+                AdhocForecastActivity::class.java,
+                AdhocForecastActivity.URL,
+                arrayOf(glview.newY.toString(), "-" + glview.newX.toString())
         )
     }
 
@@ -90,38 +90,38 @@ internal object UtilityRadarUI {
         // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php
         // http://www.nws.noaa.gov/mdl/gfslamp/meteo.php?BackHour=0&TempBox=Y&DewBox=Y&SkyBox=Y&WindSpdBox=Y&WindDirBox=Y&WindGustBox=Y&CigBox=Y&VisBox=Y&ObvBox=Y&PtypeBox=N&PopoBox=Y&LightningBox=Y&ConvBox=Y&sta=KTEW
         val obsSite = UtilityMetar.findClosestObservation(
-            context,
-            glview.latLon
+                context,
+                glview.latLon
         )
         ObjectIntent(
-            context,
-            ImageShowActivity::class.java,
-            ImageShowActivity.URL,
-            arrayOf(UtilityWXOGL.getMeteogramUrl(obsSite.name), obsSite.name + " Meteogram")
+                context,
+                ImageShowActivity::class.java,
+                ImageShowActivity.URL,
+                arrayOf(UtilityWXOGL.getMeteogramUrl(obsSite.name), obsSite.name + " Meteogram")
         )
     }
 
     private fun showNearestWarning(context: Context, glview: WXGLSurfaceView) {
         val polygonUrl = UtilityWXOGL.showTextProducts(
-            glview.newY.toDouble(),
-            glview.newX.toDouble() * -1.0
+                glview.newY.toDouble(),
+                glview.newX.toDouble() * -1.0
         )
         if (polygonUrl != "") ObjectIntent(
-            context,
-            USAlertsDetailActivity::class.java,
-            USAlertsDetailActivity.URL,
-            arrayOf(polygonUrl, "")
+                context,
+                USAlertsDetailActivity::class.java,
+                USAlertsDetailActivity.URL,
+                arrayOf(polygonUrl, "")
         )
     }
 
     fun addItemsToLongPress(
-        alertDialogRadarLongpressAl: MutableList<String>,
-        lat: String,
-        lon: String,
-        context: Context,
-        glview: WXGLSurfaceView,
-        oglr: WXGLRender,
-        alertDialogRadarLongPress: ObjectDialogue
+            alertDialogRadarLongpressAl: MutableList<String>,
+            lat: String,
+            lon: String,
+            context: Context,
+            glview: WXGLSurfaceView,
+            oglr: WXGLRender,
+            alertDialogRadarLongPress: ObjectDialogue
     ) {
         alertDialogRadarLongpressAl.clear()
         val locX = lat.toDoubleOrNull() ?: 0.0
@@ -129,7 +129,7 @@ internal object UtilityRadarUI {
         val pointX = glview.newY.toDouble()
         val pointY = glview.newX * -1.0
         val dist =
-            LatLon.distance(LatLon(locX, locY), LatLon(pointX, pointY), DistanceUnit.MILE)
+                LatLon.distance(LatLon(locX, locY), LatLon(pointX, pointY), DistanceUnit.MILE)
         val ridX = Utility.getRadarSiteX(oglr.rid).toDoubleOrNull() ?: 0.0
         val ridY = -1.0 * (Utility.getRadarSiteY(oglr.rid).toDoubleOrNull() ?: 0.0)
         val distRid = LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.MILE)
@@ -140,16 +140,16 @@ internal object UtilityRadarUI {
                 UtilityStringExternal.truncate(glview.newX.toString(), 6)
         alertDialogRadarLongPress.setTitle(latLonTitle)
         alertDialogRadarLongpressAl.add(
-            UtilityStringExternal.truncate(
-                dist.toString(),
-                6
-            ) + " miles from location"
+                UtilityStringExternal.truncate(
+                        dist.toString(),
+                        6
+                ) + " miles from location"
         )
         alertDialogRadarLongpressAl.add(
-            UtilityStringExternal.truncate(
-                distRid.toString(),
-                6
-            ) + " miles from " + oglr.rid
+                UtilityStringExternal.truncate(
+                        distRid.toString(),
+                        6
+                ) + " miles from " + oglr.rid
         )
         //val distance = UtilityStringExternal.truncate(distRidKm.toString(), 4).toDouble()
         val heightAgl = UtilityMath.getRadarBeamHeight(oglr.radarL3Object.degree, distRidKm)
@@ -159,8 +159,8 @@ internal object UtilityRadarUI {
             "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name)
         }
         val obsSite = UtilityMetar.findClosestObservation(
-            context,
-            glview.latLon
+                context,
+                glview.latLon
         )
         alertDialogRadarLongpressAl.add("Show warning text")
 
@@ -182,13 +182,13 @@ internal object UtilityRadarUI {
     }
 
     fun doLongPressAction(
-        strName: String,
-        context: Context,
-        act: Activity,
-        glview: WXGLSurfaceView,
-        oglr: WXGLRender,
-        uiDispatcher: CoroutineDispatcher,
-        fn: (strName: String) -> Unit
+            strName: String,
+            context: Context,
+            act: Activity,
+            glview: WXGLSurfaceView,
+            oglr: WXGLRender,
+            uiDispatcher: CoroutineDispatcher,
+            fn: (strName: String) -> Unit
     ) {
         when {
             strName.contains("Show warning text") -> {
@@ -222,12 +222,12 @@ internal object UtilityRadarUI {
     }
 
     fun initGlviewFragment(
-        glviewloc: WXGLSurfaceView,
-        z: Int,
-        oglrArr: MutableList<WXGLRender>,
-        glviewArr: MutableList<WXGLSurfaceView>,
-        wxgltextArr: MutableList<WXGLTextObject>,
-        changeListener: WXGLSurfaceView.OnProgressChangeListener
+            glviewloc: WXGLSurfaceView,
+            z: Int,
+            oglrArr: MutableList<WXGLRender>,
+            glviewArr: MutableList<WXGLSurfaceView>,
+            wxgltextArr: MutableList<WXGLTextObject>,
+            changeListener: WXGLSurfaceView.OnProgressChangeListener
     ): Boolean {
         glviewloc.setEGLContextClientVersion(2)
         wxgltextArr[z].setOGLR(oglrArr[z])
@@ -242,15 +242,15 @@ internal object UtilityRadarUI {
     }
 
     fun initGlview(
-        glview: WXGLSurfaceView,
-        glviewArr: MutableList<WXGLSurfaceView>,
-        oglr: WXGLRender,
-        oglrArr: MutableList<WXGLRender>,
-        act: Activity,
-        toolbar: Toolbar,
-        toolbarBottom: Toolbar,
-        changeListener: WXGLSurfaceView.OnProgressChangeListener,
-        archiveMode: Boolean = false
+            glview: WXGLSurfaceView,
+            glviewArr: MutableList<WXGLSurfaceView>,
+            oglr: WXGLRender,
+            oglrArr: MutableList<WXGLRender>,
+            act: Activity,
+            toolbar: Toolbar,
+            toolbarBottom: Toolbar,
+            changeListener: WXGLSurfaceView.OnProgressChangeListener,
+            archiveMode: Boolean = false
     ) {
         glview.setEGLContextClientVersion(2)
         glview.setRenderer(oglr)
@@ -264,18 +264,18 @@ internal object UtilityRadarUI {
     }
 
     fun initWxoglGeom(
-        glv: WXGLSurfaceView,
-        ogl: WXGLRender,
-        z: Int,
-        oldRidArr: Array<String>,
-        oglrArr: MutableList<WXGLRender>,
-        wxgltextArr: MutableList<WXGLTextObject>,
-        numPanesArr: List<Int>,
-        imageMap: ObjectImageMap?,
-        glviewArr: MutableList<WXGLSurfaceView>,
-        fnGps: () -> Unit,
-        fnGetLatLon: () -> LatLon,
-        archiveMode: Boolean = false
+            glv: WXGLSurfaceView,
+            ogl: WXGLRender,
+            z: Int,
+            oldRidArr: Array<String>,
+            oglrArr: MutableList<WXGLRender>,
+            wxgltextArr: MutableList<WXGLTextObject>,
+            numPanesArr: List<Int>,
+            imageMap: ObjectImageMap?,
+            glviewArr: MutableList<WXGLSurfaceView>,
+            fnGps: () -> Unit,
+            fnGetLatLon: () -> LatLon,
+            archiveMode: Boolean = false
     ) {
         ogl.initGEOM()
         if (oldRidArr[z] != oglrArr[z].rid) {
@@ -353,13 +353,13 @@ internal object UtilityRadarUI {
     }
 
     fun plotRadar(
-        oglr: WXGLRender,
-        urlStr: String,
-        context: Context,
-        fnGps: () -> Unit,
-        fnGetLatLon: () -> LatLon,
-        showExtras: Boolean,
-        archiveMode: Boolean = false
+            oglr: WXGLRender,
+            urlStr: String,
+            context: Context,
+            fnGps: () -> Unit,
+            fnGetLatLon: () -> LatLon,
+            showExtras: Boolean,
+            archiveMode: Boolean = false
     ) {
         oglr.constructPolygons("", urlStr, true)
         if ((PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) && !archiveMode)
@@ -406,6 +406,12 @@ internal object UtilityRadarUI {
                 oglr.deconstructSWOLines()
             }
         }
+    }
+
+    fun resetGlview(glviewloc: WXGLSurfaceView, OGLRLOC: WXGLRender) {
+        glviewloc.scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
+        OGLRLOC.setViewInitial(MyApplication.wxoglSize.toFloat() / 10.0f, 0.0f, 0.0f)
+        glviewloc.requestRender()
     }
 
     private fun showNearestProduct(

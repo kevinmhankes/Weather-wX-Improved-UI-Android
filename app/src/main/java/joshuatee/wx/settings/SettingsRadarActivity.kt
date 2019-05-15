@@ -88,7 +88,7 @@ class SettingsRadarActivity : BaseActivity() {
                             this,
                             "Show " + it.name,
                             it.prefTokenEnabled,
-                            R.string.cod_warnings_default_label // FIXME add constructor to take string instead
+                            R.string.cod_warnings_default_label
                     ).card
             )
         }

@@ -134,8 +134,8 @@ class SettingsMainActivity : BaseActivity() {
                     arrayOf(UtilityAlertDialog.showVersion(this, this), "About wX")
             )
         })
-        // FIXME listOf()
-        ll.addView(cardAbout.card)
+
+        /*ll.addView(cardAbout.card)
         ll.addView(cardLocations.card)
         ll.addView(cardNotif.card)
         ll.addView(cardWidgets.card)
@@ -145,7 +145,23 @@ class SettingsMainActivity : BaseActivity() {
         ll.addView(cardHS.card)
         ll.addView(cardUI.card)
         ll.addView(cardCtoF.card)
-        ll.addView(cardDeleteFiles.card)
+        ll.addView(cardDeleteFiles.card)*/
+
+        listOf(
+                cardAbout.card,
+                cardLocations.card,
+                cardNotif.card,
+                cardWidgets.card,
+                cardColors.card,
+                cardPL.card,
+                cardRadar.card,
+                cardHS.card,
+                cardUI.card,
+                cardCtoF.card,
+                cardDeleteFiles.card
+        ).forEach {
+            ll.addView(it)
+        }
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,

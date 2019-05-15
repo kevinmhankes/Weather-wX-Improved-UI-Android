@@ -26,7 +26,7 @@ import android.graphics.Bitmap
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.UtilityDownload
-import joshuatee.wx.util.UtilityVTEC
+import joshuatee.wx.util.UtilityVtec
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
@@ -34,7 +34,7 @@ import joshuatee.wx.RegExp
 object UtilitySPC {
 
     fun getStormReportsTodayUrl(): String =
-        "${MyApplication.nwsSPCwebsitePrefix}/climo/reports/" + "today" + ".gif"
+            "${MyApplication.nwsSPCwebsitePrefix}/climo/reports/" + "today" + ".gif"
 
     internal val tstormOutlookImages: List<Bitmap>
         get() {
@@ -68,10 +68,10 @@ object UtilitySPC {
             returnStr = "high"
         }
         html = html.replace("ACUS[0-9]{2} KWNS [0-9]{6}".toRegex(), "")
-            .replace("SWOD[Y4][1-3]".toRegex(), "")
-            .replace("SPC AC [0-9]{6}".toRegex(), "")
-            .replace("NWS STORM PREDICTION CENTER NORMAN OK", "")
-            .replace("CONVECTIVE OUTLOOK", "")
+                .replace("SWOD[Y4][1-3]".toRegex(), "")
+                .replace("SPC AC [0-9]{6}".toRegex(), "")
+                .replace("NWS STORM PREDICTION CENTER NORMAN OK", "")
+                .replace("CONVECTIVE OUTLOOK", "")
         return listOf(returnStr, html)
     }
 
@@ -91,14 +91,14 @@ object UtilitySPC {
             if (!MyApplication.severeDashboardMcd.valueGet().contains(MyApplication.MD_COMP)) {
                 mdPresent = true
                 val al = MyApplication.severeDashboardMcd.valueGet()
-                    .parseColumn(RegExp.mcdPatternUtilspc)
+                        .parseColumn(RegExp.mcdPatternUtilspc)
                 mdCount = al.size
                 al.forEach { dashboardStrMcd += ":$it" }
             }
             if (!MyApplication.severeDashboardWat.valueGet().contains(MyApplication.WATCH_COMP)) {
                 watchPresent = true
                 val al =
-                    MyApplication.severeDashboardWat.valueGet().parseColumn(RegExp.watchPattern)
+                        MyApplication.severeDashboardWat.valueGet().parseColumn(RegExp.watchPattern)
                 watchCount = al.size
                 al.forEach { dashboardStrWat += ":$it" }
             }
@@ -128,17 +128,18 @@ object UtilitySPC {
         var torCount = 0
         var tstormCount = 0
         var floodCount = 0
+        // FIXME rationalize this code block
         if (MyApplication.checktor) {
             tstormCount =
-                UtilityVTEC.getStormCount(context, MyApplication.severeDashboardTst.valueGet())
+                    UtilityVtec.getStormCount(context, MyApplication.severeDashboardTst.valueGet())
             if (tstormCount > 0)
                 uswarnPresent = true
             torCount =
-                UtilityVTEC.getStormCount(context, MyApplication.severeDashboardTor.valueGet())
+                    UtilityVtec.getStormCount(context, MyApplication.severeDashboardTor.valueGet())
             if (torCount > 0)
                 uswarnPresent = true
             floodCount =
-                UtilityVTEC.getStormCount(context, MyApplication.severeDashboardFfw.valueGet())
+                    UtilityVtec.getStormCount(context, MyApplication.severeDashboardFfw.valueGet())
             if (floodCount > 0)
                 uswarnPresent = true
         }

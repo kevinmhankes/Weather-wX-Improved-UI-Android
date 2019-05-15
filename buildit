@@ -3,7 +3,8 @@
 #export PATH=~/android-studio/jre/bin:$PATH
 APP_NAME=wX
 dropBoxPath=${HOME}/Dropbox/wX/
-dateString=$(date '+%Y_%m_%d_%H_%M')
+#dateString=$(date '+%Y_%m_%d_%H_%M')
+dateString=$(date '+%Y/%m/%d %H:%M')
 gitRepo="https://gitlab.com/joshua.tee/wx.git"
 gitRepoShortname="wx"
 ver=$(grep versionName app/src/main/AndroidManifest.xml |awk -F'"'  '{print $2}')
