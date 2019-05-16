@@ -243,16 +243,6 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 R.string.alert_wpcmpd_switch_text
         )
         alertWpcmpdSw.isChecked(alertNotificationWpcmpdCurrent == "true")
-        /*linearLayout.addView(alertSw.card)
-        linearLayout.addView(alertSoundSw.card)
-        linearLayout.addView(alertRadar1Sw.card)
-        linearLayout.addView(alertCcSw.card)
-        linearLayout.addView(alert7Day1Sw.card)
-        linearLayout.addView(alertMcdSw.card)
-        linearLayout.addView(alertSwoSw.card)
-        linearLayout.addView(alertSpcfwSw.card)
-        linearLayout.addView(alertWpcmpdSw.card)*/
-
         listOf(
                 alertSw,
                 alertSoundSw,
@@ -448,12 +438,11 @@ class SettingsLocationGenericActivity : BaseActivity(),
             }
         })
         menuLocal = menu
-        // set sv text black if white theme
-        // thanks David_E http://stackoverflow.com/questions/27156680/change-textcolor-in-searchview-using-android-toolbar
-        if (UIPreferences.themeIsWhite) changeSearchViewTextColor(searchView)
+        if (UIPreferences.themeIsWhite){
+            changeSearchViewTextColor(searchView)
+        }
         // the SearchView's AutoCompleteTextView drop down. For some reason this wasn't working in styles.xml
-        val autoCompleteTextView: SearchView.SearchAutoComplete =
-                searchView.findViewById(R.id.search_src_text)
+        val autoCompleteTextView: SearchView.SearchAutoComplete = searchView.findViewById(R.id.search_src_text)
         if (UIPreferences.themeIsWhite)
             autoCompleteTextView.setDropDownBackgroundResource(R.drawable.dr_white)
         else
@@ -508,19 +497,19 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 }
             }
             R.id.action_ca -> ObjectIntent(this, SettingsLocationCanadaActivity::class.java)
-            R.id.action_ab -> openCAMap("ab")
-            R.id.action_bc -> openCAMap("bc")
-            R.id.action_mb -> openCAMap("mb")
-            R.id.action_nb -> openCAMap("nb")
-            R.id.action_nl -> openCAMap("nl")
-            R.id.action_ns -> openCAMap("ns")
-            R.id.action_nt -> openCAMap("nt")
-            R.id.action_nu -> openCAMap("nu")
-            R.id.action_on -> openCAMap("on")
-            R.id.action_pe -> openCAMap("pe")
-            R.id.action_qc -> openCAMap("qc")
-            R.id.action_sk -> openCAMap("sk")
-            R.id.action_yt -> openCAMap("yt")
+            R.id.action_ab -> openCanadaMap("ab")
+            R.id.action_bc -> openCanadaMap("bc")
+            R.id.action_mb -> openCanadaMap("mb")
+            R.id.action_nb -> openCanadaMap("nb")
+            R.id.action_nl -> openCanadaMap("nl")
+            R.id.action_ns -> openCanadaMap("ns")
+            R.id.action_nt -> openCanadaMap("nt")
+            R.id.action_nu -> openCanadaMap("nu")
+            R.id.action_on -> openCanadaMap("on")
+            R.id.action_pe -> openCanadaMap("pe")
+            R.id.action_qc -> openCanadaMap("qc")
+            R.id.action_sk -> openCanadaMap("sk")
+            R.id.action_yt -> openCanadaMap("yt")
             R.id.action_vr -> {
                 val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
                 i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US")
@@ -707,7 +696,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         saveLoc("osm", locNum, xStr, yStr, labelStr)
     }
 
-    private fun openCAMap(s: String) {
+    private fun openCanadaMap(s: String) {
         ObjectIntent(
                 this,
                 SettingsLocationCanadaMapActivity::class.java,

@@ -468,7 +468,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         numPanesArr,
                         imageMap,
                         glviewArr,
-                        ::getGPSFromDouble,
+                        ::getGpsFromDouble,
                         ::getLatLon
                 )
                 withContext(Dispatchers.IO) {
@@ -476,7 +476,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                             ogl,
                             "",
                             contextg,
-                            ::getGPSFromDouble,
+                            ::getGpsFromDouble,
                             ::getLatLon,
                             false
                     )
@@ -966,15 +966,14 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private fun makeUseOfNewLocation(location: Location) {
         latD = location.latitude
         lonD = location.longitude
-        getGPSFromDouble()
+        getGpsFromDouble()
         numPanesArr.forEach {
             oglrArr[it].constructLocationDot(locXCurrent, locYCurrent, false)
             glviewArr[it].requestRender()
         }
     }
 
-    // FIXME camelcase
-    private fun getGPSFromDouble() {
+    private fun getGpsFromDouble() {
         try {
             latlonArr[0] = latD.toString()
             latlonArr[1] = lonD.toString()

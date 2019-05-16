@@ -73,7 +73,7 @@ class SevereDashboardActivity : BaseActivity() {
         getContent()
     }
 
-    private fun tvWarnClicked(filter: String) {
+    private fun warningsClicked(filter: String) {
         ObjectIntent(
                 contextg,
                 USWarningsWithRadarActivity::class.java,
@@ -98,15 +98,15 @@ class SevereDashboardActivity : BaseActivity() {
         }
         if (wTor.count > 0) {
             val objTor = ObjectCardText(contextg, ll, wTor.text)
-            objTor.setOnClickListener(View.OnClickListener { tvWarnClicked(".*?Tornado Warning.*?") })
+            objTor.setOnClickListener(View.OnClickListener { warningsClicked(".*?Tornado Warning.*?") })
         }
         if (wTst.count > 0) {
             val objTst = ObjectCardText(contextg, ll, wTst.text)
-            objTst.setOnClickListener(View.OnClickListener { tvWarnClicked(".*?Severe Thunderstorm Warning.*?") })
+            objTst.setOnClickListener(View.OnClickListener { warningsClicked(".*?Severe Thunderstorm Warning.*?") })
         }
         if (wFfw.count > 0) {
             val objFfw = ObjectCardText(contextg, ll, wFfw.text)
-            objFfw.setOnClickListener(View.OnClickListener { tvWarnClicked(".*?Flash Flood Warning.*?") })
+            objFfw.setOnClickListener(View.OnClickListener { warningsClicked(".*?Flash Flood Warning.*?") })
         }
         withContext(Dispatchers.IO) {
             snMcd.getBitmaps(UtilityDownloadRadar.getMcd())
@@ -168,7 +168,6 @@ class SevereDashboardActivity : BaseActivity() {
         bitmaps.addAll(snMcd.bitmaps)
         bitmaps.addAll(snMpd.bitmaps)
         bitmaps.addAll(bitmapArrRep)
-
         tstCount = wTst.count
         ffwCount = wFfw.count
         torCount = wTor.count
@@ -176,7 +175,6 @@ class SevereDashboardActivity : BaseActivity() {
         mcdCount = snMcd.bitmaps.size
         mpdCount = snMpd.bitmaps.size
         toolbar.subtitle = getSubTitle()
-
     }
 
     private fun getSubTitle(): String {

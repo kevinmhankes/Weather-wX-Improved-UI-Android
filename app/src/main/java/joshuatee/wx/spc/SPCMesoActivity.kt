@@ -273,10 +273,6 @@ class SPCMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         imageLoaded = true
         if (numPanes > 1) {
             setTitle()
-            /*UtilityModels.setSubtitleRestoreIMGXYZOOM(
-                displayData.img, toolbar, "(" + (curImg + 1) + ")"
-                        + displayData.paramLabel[0] + "/" + displayData.paramLabel[1]
-            )*/
         }
     }
 
@@ -401,27 +397,17 @@ class SPCMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
             R.id.action_img1 -> {
                 curImg = 0
                 setTitle()
-                /*UtilityModels.setSubtitleRestoreIMGXYZOOM(
-                    displayData.img,
-                    toolbar,
-                    "(" + (curImg + 1) + ")" + displayData.paramLabel[0] + "/" + displayData.paramLabel[1]
-                )*/
             }
             R.id.action_img2 -> {
                 curImg = 1
                 setTitle()
-                /*UtilityModels.setSubtitleRestoreIMGXYZOOM(
-                    displayData.img,
-                    toolbar,
-                    "(" + (curImg + 1) + ")" + displayData.paramLabel[0] + "/" + displayData.paramLabel[1]
-                )*/
             }
             else -> return super.onOptionsItemSelected(item)
         }
         return true
     }
 
-    fun setTitle() {
+    private fun setTitle() {
         UtilityModels.setSubtitleRestoreIMGXYZOOM(
                 displayData.img,
                 toolbar,
