@@ -53,6 +53,12 @@ class SevereDashboardActivity : BaseActivity() {
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private val bitmaps = mutableListOf<Bitmap>()
     private lateinit var contextg: Context
+    private var watchCount = 0
+    private var mcdCount = 0
+    private var mpdCount = 0
+    private var tstCount = 0
+    private var ffwCount = 0
+    private var torCount = 0
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.severe_dashboard, menu)
@@ -69,10 +75,10 @@ class SevereDashboardActivity : BaseActivity() {
 
     private fun tvWarnClicked(filter: String) {
         ObjectIntent(
-            contextg,
-            USWarningsWithRadarActivity::class.java,
-            USWarningsWithRadarActivity.URL,
-            arrayOf(filter, "us")
+                contextg,
+                USWarningsWithRadarActivity::class.java,
+                USWarningsWithRadarActivity.URL,
+                arrayOf(filter, "us")
         )
     }
 
@@ -113,55 +119,81 @@ class SevereDashboardActivity : BaseActivity() {
                 val card = ObjectCardImage(contextg, ll, bitmapArrRep[it])
                 card.setOnClickListener(View.OnClickListener {
                     ObjectIntent(
-                        contextg,
-                        SPCStormReportsActivity::class.java,
-                        SPCStormReportsActivity.NO,
-                        arrayOf("today")
+                            contextg,
+                            SPCStormReportsActivity::class.java,
+                            SPCStormReportsActivity.NO,
+                            arrayOf("today")
                     )
                 })
             }
         }
         listOf(snWat, snMcd, snMpd)
-            .asSequence()
-            .filter { it.bitmaps.size > 0 }
-            .forEach { severeNotice ->
-                severeNotice.bitmaps.indices.forEach { j ->
-                    val card = ObjectCardImage(contextg, ll, severeNotice.bitmaps[j])
-                    var cla: Class<*>? = null
-                    var claStr = ""
-                    val claArgStr = severeNotice.strList[j]
-                    when (severeNotice.type) {
-                        PolygonType.MCD -> {
-                            cla = SPCMCDWShowActivity::class.java
-                            claStr = SPCMCDWShowActivity.NO
+                .asSequence()
+                .filter { it.bitmaps.size > 0 }
+                .forEach { severeNotice ->
+                    severeNotice.bitmaps.indices.forEach { j ->
+                        val card = ObjectCardImage(contextg, ll, severeNotice.bitmaps[j])
+                        var cla: Class<*>? = null
+                        var claStr = ""
+                        val claArgStr = severeNotice.strList[j]
+                        when (severeNotice.type) {
+                            PolygonType.MCD -> {
+                                cla = SPCMCDWShowActivity::class.java
+                                claStr = SPCMCDWShowActivity.NO
+                            }
+                            PolygonType.WATCH -> {
+                                cla = SPCMCDWShowActivity::class.java
+                                claStr = SPCMCDWShowActivity.NO
+                            }
+                            PolygonType.MPD -> {
+                                cla = SPCMCDWShowActivity::class.java
+                                claStr = SPCMCDWShowActivity.NO
+                            }
+                            else -> {
+                            }
                         }
-                        PolygonType.WATCH -> {
-                            cla = SPCMCDWShowActivity::class.java
-                            claStr = SPCMCDWShowActivity.NO
-                        }
-                        PolygonType.MPD -> {
-                            cla = SPCMCDWShowActivity::class.java
-                            claStr = SPCMCDWShowActivity.NO
-                        }
-                        else -> {
-                        }
+                        val cl = cla
+                        val clStr = claStr
+                        card.setOnClickListener(View.OnClickListener {
+                            ObjectIntent(
+                                    contextg,
+                                    cl!!,
+                                    clStr,
+                                    arrayOf(claArgStr, "", severeNotice.toString())
+                            )
+                        })
                     }
-                    val cl = cla
-                    val clStr = claStr
-                    card.setOnClickListener(View.OnClickListener {
-                        ObjectIntent(
-                            contextg,
-                            cl!!,
-                            clStr,
-                            arrayOf(claArgStr, "", severeNotice.toString())
-                        )
-                    })
                 }
-            }
         bitmaps.addAll(snWat.bitmaps)
         bitmaps.addAll(snMcd.bitmaps)
         bitmaps.addAll(snMpd.bitmaps)
         bitmaps.addAll(bitmapArrRep)
+
+        tstCount = wTst.count
+        ffwCount = wFfw.count
+        torCount = wTor.count
+        watchCount = snWat.bitmaps.size
+        mcdCount = snMcd.bitmaps.size
+        mpdCount = snMpd.bitmaps.size
+        toolbar.subtitle = getSubTitle()
+
+    }
+
+    private fun getSubTitle(): String {
+        var subTitle = ""
+        if (watchCount > 0) {
+            subTitle += "W($watchCount) "
+        }
+        if (mcdCount > 0) {
+            subTitle += "M($mcdCount) "
+        }
+        if (mpdCount > 0) {
+            subTitle += "P($mpdCount) "
+        }
+        if (torCount > 0 || tstCount > 0 || ffwCount > 0) {
+            subTitle += " ($tstCount,$torCount,$ffwCount)"
+        }
+        return subTitle
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

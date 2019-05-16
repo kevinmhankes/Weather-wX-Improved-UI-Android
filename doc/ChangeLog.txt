@@ -26,6 +26,8 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55182 2019_05_16    [IMP] in location edit, if user taps GPS button save location automatically
+                    [IMP] in severe dashboard show stats in subtitle like flutter port
 55181 2019_05_15    [REM] remove county zoom change
                     [IMP] address or remove various minor FIXME/TODO
 55180 2019_05_15    [IMP] in radar don't hide counties until zoomed out further (Craig)

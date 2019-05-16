@@ -69,6 +69,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
 
     // manual interface for searching and saving a location
     //
+    // arg1 location number
 
     companion object {
         const val LOC_NUM: String = ""
@@ -136,10 +137,10 @@ class SettingsLocationGenericActivity : BaseActivity(),
         var alertNotificationWpcmpdCurrent: String =
                 Utility.readPref(this, "ALERT_NOTIFICATION_WPCMPD$locNum", "false")
         locLabelCurrent = Utility.readPref(this, "LOC" + locNum + "_LABEL", "")
-        val locNumIntCurrent = Location.numLocations
-        if (locNumInt == locNumIntCurrent + 1) {
+        // If this this is a new location
+        if (locNumInt == Location.numLocations + 1) {
             updateTitle = false
-            locNumToSaveStr = locNumIntCurrent.toString()
+            locNumToSaveStr = Location.numLocations.toString()
             locLabelCurrent = "Location $locNum"
             //
             // needed to prevent old location(deleted) data from showing up when adding new
@@ -157,8 +158,8 @@ class SettingsLocationGenericActivity : BaseActivity(),
             alertNotificationWpcmpdCurrent = "false"
         }
         updateSubTitle()
-        val delB = me.findItem(R.id.action_delete)
-        delB.isVisible = locNumIntCurrent > 1
+        val deleteButton = me.findItem(R.id.action_delete)
+        deleteButton.isVisible = Location.numLocations > 1
         locLabelEt.setText(locLabelCurrent)
         locXEt.setText(locXStr)
         locYEt.setText(locYStr)
@@ -170,7 +171,6 @@ class SettingsLocationGenericActivity : BaseActivity(),
             locXEt.setHintTextColor(Color.GRAY)
             locYEt.setHintTextColor(Color.GRAY)
         }
-
         alertSw = ObjectSettingsCheckBox(
                 this,
                 this,
@@ -243,7 +243,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 R.string.alert_wpcmpd_switch_text
         )
         alertWpcmpdSw.isChecked(alertNotificationWpcmpdCurrent == "true")
-        linearLayout.addView(alertSw.card)
+        /*linearLayout.addView(alertSw.card)
         linearLayout.addView(alertSoundSw.card)
         linearLayout.addView(alertRadar1Sw.card)
         linearLayout.addView(alertCcSw.card)
@@ -251,8 +251,22 @@ class SettingsLocationGenericActivity : BaseActivity(),
         linearLayout.addView(alertMcdSw.card)
         linearLayout.addView(alertSwoSw.card)
         linearLayout.addView(alertSpcfwSw.card)
-        linearLayout.addView(alertWpcmpdSw.card)
-        hideNONUSNotifs()
+        linearLayout.addView(alertWpcmpdSw.card)*/
+
+        listOf(
+                alertSw,
+                alertSoundSw,
+                alertRadar1Sw,
+                alertCcSw,
+                alert7Day1Sw,
+                alertMcdSw,
+                alertSwoSw,
+                alertSpcfwSw,
+                alertWpcmpdSw
+        ).forEach{
+            linearLayout.addView(it.card)
+        }
+        hideNonUSNotifications()
         if (locNumArr[1] != "") {
             if (locNumArr[1] == " roaming") {
                 locLabelEt.setText(locNumArr[1].toUpperCase(Locale.US))
@@ -302,17 +316,6 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 Utility.readPref(this, "ALERT_NOTIFICATION_SPCFW$locNum", "false")
         val alertNotificationWpcmpdCurrent =
                 Utility.readPref(this, "ALERT_NOTIFICATION_WPCMPD$locNum", "false")
-
-        /*alertRadar1Sw.card.visibility = View.VISIBLE
-        alertSoundSw.card.visibility = View.VISIBLE
-        alert7Day1Sw.card.visibility = View.VISIBLE
-        alertCcSw.card.visibility = View.VISIBLE
-        alertSw.card.visibility = View.VISIBLE
-        alertMcdSw.card.visibility = View.VISIBLE
-        alertSwoSw.card.visibility = View.VISIBLE
-        alertSpcfwSw.card.visibility = View.VISIBLE
-        alertWpcmpdSw.card.visibility = View.VISIBLE*/
-
         listOf(alertRadar1Sw,
                 alertSoundSw,
                 alert7Day1Sw,
@@ -325,7 +328,6 @@ class SettingsLocationGenericActivity : BaseActivity(),
         ).forEach{
             it.card.visibility = View.VISIBLE
         }
-
         alertSw.isChecked(alertNotificationCurrent == "true")
         alertCcSw.isChecked(alertCcNotificationCurrent == "true")
         alert7Day1Sw.isChecked(alert7Day1NotificationCurrent == "true")
@@ -335,8 +337,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         alertSwoSw.isChecked(alertNotificationSwoCurrent == "true")
         alertSpcfwSw.isChecked(alertNotificationSpcfwCurrent == "true")
         alertWpcmpdSw.isChecked(alertNotificationWpcmpdCurrent == "true")
-
-        hideNONUSNotifs()
+        hideNonUSNotifications()
     }
 
     private fun saveLoc(
@@ -555,6 +556,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                         val xy = UtilityLocation.getGPS(this)
                         locXEt.setText(xy[0].toString())
                         locYEt.setText(xy[1].toString())
+                        fabSaveLocation()
                     } else {
                         // The ACCESS_FINE_LOCATION is denied, then I request it and manage the result in
                         // onRequestPermissionsResult() using the constant myPermissionAccessFineLocation
@@ -670,7 +672,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         }
     }
 
-    private fun hideNONUSNotifs() {
+    private fun hideNonUSNotifications() {
         val label = locXEt.text.toString()
         if (label.contains("CANADA")) {
             notifsCa(true)

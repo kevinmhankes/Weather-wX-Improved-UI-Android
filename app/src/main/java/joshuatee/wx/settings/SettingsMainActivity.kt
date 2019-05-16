@@ -134,19 +134,6 @@ class SettingsMainActivity : BaseActivity() {
                     arrayOf(UtilityAlertDialog.showVersion(this, this), "About wX")
             )
         })
-
-        /*ll.addView(cardAbout.card)
-        ll.addView(cardLocations.card)
-        ll.addView(cardNotif.card)
-        ll.addView(cardWidgets.card)
-        ll.addView(cardColors.card)
-        ll.addView(cardPL.card)
-        ll.addView(cardRadar.card)
-        ll.addView(cardHS.card)
-        ll.addView(cardUI.card)
-        ll.addView(cardCtoF.card)
-        ll.addView(cardDeleteFiles.card)*/
-
         listOf(
                 cardAbout.card,
                 cardLocations.card,
