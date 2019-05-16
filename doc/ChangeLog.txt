@@ -26,6 +26,7 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55184 2019_05_16
 55183 2019_05_16    [IMP] address or remove various minor FIXM/TOD
                     [REM] legacy GOES transformations code
 55182 2019_05_16    [IMP] in location edit, if user taps GPS button save location automatically
