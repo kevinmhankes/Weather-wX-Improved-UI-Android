@@ -137,7 +137,7 @@ class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
     }
 
     private fun mapClicked(id: Int) {
-        val sector = UtilityImageMap.caMAP(id)
+        val sector = UtilityImageMap.canadaMap(id)
         val cityLoc = getCityFromXML(sector)
         Utility.writePref(this, "LOCATION_CANADA_PROV", url.toUpperCase())
         Utility.writePref(this, "LOCATION_CANADA_CITY", cityLoc)

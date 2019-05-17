@@ -185,7 +185,7 @@ class SpottersActivity : BaseActivity() {
                 WebscreenAB::class.java,
                 WebscreenAB.URL,
                 arrayOf(
-                        UtilityMap.genMapURL(
+                        UtilityMap.genMapUrl(
                                 spotterlist[position].lat,
                                 spotterlist[position].lon,
                                 "9"

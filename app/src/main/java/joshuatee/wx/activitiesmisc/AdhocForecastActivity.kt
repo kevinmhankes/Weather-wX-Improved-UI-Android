@@ -143,7 +143,7 @@ class AdhocForecastActivity : BaseActivity() {
             //cardSunrise.lightText()
             try {
                 cardSunrise.setText(
-                    UtilityDownload.getSunriseSunset(
+                    UtilityTimeSunMoon.getSunriseSunset(
                         contextg,
                         Location.currentLocationStr
                     ) + MyApplication.newline + UtilityTime.gmtTime()

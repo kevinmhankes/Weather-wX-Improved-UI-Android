@@ -47,7 +47,7 @@ class ObjectForecastPackage7Day internal constructor(locNum: Int, html: String) 
         } else {
             sevenDayExtStr = UtilityCanada.get7Day(html)
             iconstr = UtilityCanada.getIcons7Day(sevenDayExtStr)
-            iconAl = UtilityCanada.getIcons7DayAl(sevenDayExtStr)
+            iconAl = UtilityCanada.getIcons7DayAsList(sevenDayExtStr)
             convertExt7DaytoList()
         }
     }

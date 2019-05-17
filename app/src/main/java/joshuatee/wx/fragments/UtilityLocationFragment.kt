@@ -134,7 +134,7 @@ object UtilityLocationFragment {
         }
     }
 
-    fun extractTemp(blob: String): String {
+    fun extractTemperature(blob: String): String {
         var temp = blob.parse(RegExp.nws7DayTemp1)
         if (temp != "") {
             return temp
@@ -182,7 +182,7 @@ object UtilityLocationFragment {
         return temp
     }
 
-    fun extractCATemp(blob: String): String {
+    fun extractCanadaTemperature(blob: String): String {
         var temp = blob.parse(RegExp.ca7DayTemp1)
         if (temp != "") return temp.replace("minus ", "-")
         temp = blob.parse(RegExp.ca7DayTemp2)
@@ -230,7 +230,7 @@ object UtilityLocationFragment {
         return temp
     }
 
-    fun extractCAWindDir(fcst: String): String {
+    fun extractCanadaWindDirection(fcst: String): String {
         var wdir = fcst.parse(RegExp.ca7DayWinddir1)
         if (wdir == "")
             wdir = fcst.parse(RegExp.ca7DayWinddir2)
@@ -239,12 +239,12 @@ object UtilityLocationFragment {
         return wdir
     }
 
-    fun extractCAWindSpeed(fcst: String): String {
-        val wspdRange = UtilityString.parseMultipe(fcst, RegExp.ca7DayWindspd1, 2)
-        val wspd = fcst.parse(RegExp.ca7DayWindspd2)
+    fun extractCanadaWindSpeed(forecast: String): String {
+        val wspdRange = UtilityString.parseMultipe(forecast, RegExp.ca7DayWindspd1, 2)
+        val wspd = forecast.parse(RegExp.ca7DayWindspd2)
         var gust = ""
-        if (fcst.contains("gusting")) {
-            gust = " G " + fcst.parse(RegExp.ca7DayWindspd3)
+        if (forecast.contains("gusting")) {
+            gust = " G " + forecast.parse(RegExp.ca7DayWindspd3)
         }
         if (wspdRange.size > 1 && wspdRange[0] != "" && wspdRange[1] != "") {
             return " " + wspdRange[0] + "-" + wspdRange[1] + gust + " km/h"

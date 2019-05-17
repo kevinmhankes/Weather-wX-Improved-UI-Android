@@ -100,7 +100,7 @@ class LSRbyWFOActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
         )
         sp = ObjectSpinner(this, this, this, R.id.spinner1, locations)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(scrollView))
-        imageMap.addClickHandler(::mapSwitch, UtilityImageMap::maptoWFO)
+        imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToWfo)
     }
 
     override fun onRestart() {
@@ -194,7 +194,7 @@ class LSRbyWFOActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
     private val lsrFromWFO: List<String>
         get() {
             val lsrArr = mutableListOf<String>()
-            val numberLSR = UtilityString.getHTMLandParseLastMatch(
+            val numberLSR = UtilityString.getHtmlAndParseLastMatch(
                 "http://forecast.weather.gov/product.php?site=$nwsOffice&issuedby=$nwsOffice&product=LSR&format=txt&version=1&glossary=0",
                 "product=LSR&format=TXT&version=(.*?)&glossary"
             )

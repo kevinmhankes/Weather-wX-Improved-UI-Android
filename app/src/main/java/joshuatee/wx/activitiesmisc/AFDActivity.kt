@@ -131,7 +131,7 @@ class AFDActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             toolbarBottom,
             listOf<View>(c0.card, scrollView)
         )
-        imageMap.addClickHandler(::mapSwitch, UtilityImageMap::maptoWFO)
+        imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToWfo)
     }
 
     override fun onRestart() {

@@ -28,6 +28,7 @@ import joshuatee.wx.RegExp
 
 object UtilityString {
 
+    // FIXME improve method argument names ie pattern instead of p
     internal fun capitalizeString(string: String): String {
         val chars = string.toLowerCase().toCharArray()
         var found = false
@@ -46,23 +47,16 @@ object UtilityString {
         return String(chars)
     }
 
-    /*internal fun shortenTimeV2(longTimeF: String): String {
-        var longTime = longTimeF
-        longTime = longTime.replace("-09:00", "").replace("-10:00", "").replace("-05:00", "")
-            .replace("T", " ").replace("-04:00", "").replace(":00 ", " ")
-        return longTime.replace("-06:00", "").replace("-07:00", "")
-    }*/
+    fun getHtmlAndParse(url: String, matchStr: String): String = url.getHtml().parse(matchStr)
 
-    fun getHTMLandParse(url: String, matchStr: String): String = url.getHtml().parse(matchStr)
+    fun getHtmlAndParse(url: String, p: Pattern): String = url.getHtml().parse(p)
 
-    fun getHTMLandParse(url: String, p: Pattern): String = url.getHtml().parse(p)
-
-    fun getHTMLandParseLastMatch(url: String, matchStr: String): String =
+    fun getHtmlAndParseLastMatch(url: String, matchStr: String): String =
         url.getHtml().parseLastMatch(matchStr)
 
-    fun getHTMLandParseLastMatch(url: String, p: Pattern): String = url.getHtml().parseLastMatch(p)
+    fun getHtmlAndParseLastMatch(url: String, p: Pattern): String = url.getHtml().parseLastMatch(p)
 
-    fun parseLastMatchS(str: String, p: Pattern): String {
+    fun parseLastMatch(str: String, p: Pattern): String {
         var content = ""
         try {
             val m = p.matcher(str)
@@ -75,7 +69,7 @@ object UtilityString {
         return content
     }
 
-    fun parseLastMatchS(str: String, matchStr: String): String {
+    fun parseLastMatch(str: String, matchStr: String): String {
         var content = ""
         try {
             val p = Pattern.compile(matchStr)
@@ -89,7 +83,7 @@ object UtilityString {
         return content
     }
 
-    fun parseS(data: String, matchStr: String): String {
+    fun parse(data: String, matchStr: String): String {
         var content = ""
         try {
             val p = Pattern.compile(matchStr)
@@ -113,7 +107,7 @@ object UtilityString {
         return content
     }
 
-    fun parseS(data: String, p: Pattern): String {
+    fun parse(data: String, p: Pattern): String {
         var content = ""
         try {
             val m = p.matcher(data)
@@ -258,10 +252,10 @@ object UtilityString {
         return result
     }
 
-    fun parseAndCount(data: String, matchStr: String): Int {
+    fun parseAndCount(data: String, match: String): Int {
         var i = 0
         try {
-            val p = Pattern.compile(matchStr)
+            val p = Pattern.compile(match)
             val m = p.matcher(data)
             while (m.find()) {
                 i += 1
@@ -280,6 +274,6 @@ object UtilityString {
         else -> s
     }
 
-    fun addPeriodBeforeLastTwoChars(str: String): String =
-        StringBuilder(str).insert(str.length - 2, ".").toString()
+    fun addPeriodBeforeLastTwoChars(string: String): String =
+        StringBuilder(string).insert(string.length - 2, ".").toString()
 }

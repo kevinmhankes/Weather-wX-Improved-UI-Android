@@ -35,7 +35,7 @@ object UtilityDownloadRadar {
     //val ffwUrl = baseUrl + "Flood%20Warning"
     private const val tornadoUrl = baseUrl + "Tornado%20Warning"
 
-    fun getPolygonVTEC(context: Context) {
+    fun getPolygonVtec(context: Context) {
         MyApplication.severeDashboardTst.valueSet(
                 context,
                 UtilityDownloadNws.getStringFromUrlNoAcceptHeader(tstormURl)

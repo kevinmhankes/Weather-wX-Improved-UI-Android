@@ -117,7 +117,7 @@ class SettingsMainActivity : BaseActivity() {
                     contextg,
                     TextScreenActivity::class.java,
                     TextScreenActivity.URL,
-                    arrayOf(UtilityMath.cToFTable(), "Celsius to Fahrenheit table")
+                    arrayOf(UtilityMath.celsiusToFahrenheitTable(), "Celsius to Fahrenheit table")
             )
         })
         cardDeleteFiles.setOnClickListener(View.OnClickListener {

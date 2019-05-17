@@ -64,8 +64,6 @@ internal class ObjectMetar(context: Context, location: LatLon) {
  https://stackoverflow.com/questions/42803349/swift-3-0-convert-server-utc-time-to-local-time-and-visa-versa/42811162
  */
 
-
-    //private val decodeIcon = true
     var condition = ""
     var temperature = ""
     var dewpoint = ""
@@ -97,7 +95,7 @@ internal class ObjectMetar(context: Context, location: LatLon) {
             newValue = if (MyApplication.unitsF) {
                 UtilityMath.roundToString(tempD)
             } else {
-                UtilityMath.fToC(tempD)
+                UtilityMath.fahrenheitToCelsius(tempD)
             }
         }
         return newValue
@@ -175,7 +173,7 @@ internal class ObjectMetar(context: Context, location: LatLon) {
             val localStatus = metarDataList[1].split("/")
             if (localStatus.size > 1) {
                 conditionsTimeStr =
-                    UtilityTime.convertFromUTCForMetar(localStatus[1].replace(" UTC", ""))
+                    UtilityTime.convertFromUtcForMetar(localStatus[1].replace(" UTC", ""))
             }
         }
         seaLevelPressure = changePressureUnits(seaLevelPressure)

@@ -297,7 +297,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 toolbarBottom,
                 rlArr.toList() as List<View> + glviewArr.toList() as List<View>
         )
-        imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::maptoRid)
+        imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::mapToRid)
         oglInView = true
         numPanesArr.forEach {
             if (!useSinglePanePref) {

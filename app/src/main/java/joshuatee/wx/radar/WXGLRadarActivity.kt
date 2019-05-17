@@ -219,7 +219,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         img.setMaxZoom(6.0f)
         glview = WXGLSurfaceView(this, 1, numPanes, 1)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf(img, glview))
-        imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::maptoRid)
+        imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::mapToRid)
         rl = findViewById(R.id.rl)
         rl.addView(glview)
         val rlArr = arrayOf(rl)

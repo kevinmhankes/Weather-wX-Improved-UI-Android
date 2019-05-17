@@ -483,7 +483,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                                 this,
                                 WebscreenAB::class.java,
                                 WebscreenAB.URL,
-                                arrayOf(UtilityMap.genMapURL(xStr, yStr, "9"), "wX")
+                                arrayOf(UtilityMap.genMapUrl(xStr, yStr, "9"), "wX")
                         )
                     } else {
                         val addressForMap = locLabelEt.text.toString()
@@ -491,7 +491,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                                 this,
                                 WebscreenAB::class.java,
                                 WebscreenAB.URL,
-                                arrayOf(UtilityMap.genMapURLFromStreetAddress(addressForMap), "wX")
+                                arrayOf(UtilityMap.genMapUrlFromStreetAddress(addressForMap), "wX")
                         )
                     }
                 }

@@ -90,7 +90,7 @@ class BackgroundFetch(val context: Context) {
         if (MyApplication.alertTornadoNotificationCurrent || MyApplication.checktor || PolygonType.TST.pref) {
             try {
                 // store data for use by severe dashboard and cod warnings
-                UtilityDownloadRadar.getPolygonVTEC(context)
+                UtilityDownloadRadar.getPolygonVtec(context)
                 if (MyApplication.alertTornadoNotificationCurrent) {
                     notifUrls += UtilityNotificationTornado.checkAndSendTornadoNotification(
                             context,
@@ -253,7 +253,7 @@ class BackgroundFetch(val context: Context) {
                         // Thanks Ely
                         watchNoList = "$watchNoList$mdNo:"
                         //
-                        val mcdPre2 = UtilityString.getHTMLandParseLastMatch(
+                        val mcdPre2 = UtilityString.getHtmlAndParseLastMatch(
                                 "${MyApplication.nwsSPCwebsitePrefix}/products/watch/wou$mdNo.html",
                                 RegExp.pre2Pattern
                         )

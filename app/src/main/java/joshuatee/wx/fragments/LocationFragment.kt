@@ -931,14 +931,14 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     try {
                         if (Location.isUS) {
                             cardSunrise.setText(
-                                    UtilityDownload.getSunriseSunset(
+                                    UtilityTimeSunMoon.getSunriseSunset(
                                             activityReference,
                                             Location.currentLocationStr
                                     ) + MyApplication.newline + UtilityTime.gmtTime()
                             )
                         } else {
                             cardSunrise.setText(
-                                    UtilityDownload.getSunriseSunset(
+                                    UtilityTimeSunMoon.getSunriseSunset(
                                             activityReference,
                                             Location.currentLocationStr
                                     ) + MyApplication.newline + UtilityTime.gmtTime()

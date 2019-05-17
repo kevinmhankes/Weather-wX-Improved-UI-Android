@@ -233,7 +233,7 @@ class ObjectCardText(private val context: Context) {
 
     fun setTextAndTranslate(text: String) {
         val localText = if (UIPreferences.translateText) {
-            UtilityTTSTranslations.tranlasteAbbrevForVisual(text)
+            UtilityTTSTranslations.translateAbbreviationsForVisual(text)
         } else {
             text
         }

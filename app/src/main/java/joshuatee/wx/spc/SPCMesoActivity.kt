@@ -193,11 +193,11 @@ class SPCMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 }
             })
         }
-        favListLabel = UtilityFavorites.setupFavMenuSPCMESO(
+        favListLabel = UtilityFavorites.setupFavMenuSpcMeso(
             MyApplication.spcmesoLabelFav,
             displayData.paramLabel[curImg]
         )
-        favListParm = UtilityFavorites.setupFavMenuSPCMESO(
+        favListParm = UtilityFavorites.setupFavMenuSpcMeso(
             MyApplication.spcmesoFav,
             displayData.param[curImg]
         )
@@ -223,11 +223,11 @@ class SPCMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     override fun onRestart() {
-        favListLabel = UtilityFavorites.setupFavMenuSPCMESO(
+        favListLabel = UtilityFavorites.setupFavMenuSpcMeso(
             MyApplication.spcmesoLabelFav,
             displayData.paramLabel[curImg]
         )
-        favListParm = UtilityFavorites.setupFavMenuSPCMESO(
+        favListParm = UtilityFavorites.setupFavMenuSpcMeso(
             MyApplication.spcmesoFav,
             displayData.param[curImg]
         )
@@ -499,17 +499,17 @@ class SPCMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     private fun toggleFavorite() {
-        UtilityFavorites.toggleFavoriteSPCMESO(
+        UtilityFavorites.toggleFavoriteSpcMeso(
             this,
             displayData.param[curImg],
             displayData.paramLabel[curImg],
             star
         )
-        favListLabel = UtilityFavorites.setupFavMenuSPCMESO(
+        favListLabel = UtilityFavorites.setupFavMenuSpcMeso(
             MyApplication.spcmesoLabelFav,
             displayData.paramLabel[curImg]
         )
-        favListParm = UtilityFavorites.setupFavMenuSPCMESO(
+        favListParm = UtilityFavorites.setupFavMenuSpcMeso(
             MyApplication.spcmesoFav,
             displayData.param[curImg]
         )
@@ -553,11 +553,11 @@ class SPCMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
     private fun refreshSpinner() {
-        favListLabel = UtilityFavorites.setupFavMenuSPCMESO(
+        favListLabel = UtilityFavorites.setupFavMenuSpcMeso(
             MyApplication.spcmesoLabelFav,
             displayData.paramLabel[curImg]
         )
-        favListParm = UtilityFavorites.setupFavMenuSPCMESO(
+        favListParm = UtilityFavorites.setupFavMenuSpcMeso(
             MyApplication.spcmesoFav,
             displayData.param[curImg]
         )

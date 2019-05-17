@@ -53,7 +53,7 @@ object UtilityImgAnim {
         return retAl
     }
 
-    fun getAnimationDrawableFromURLList(
+    fun getAnimationDrawableFromUrlList(
         context: Context,
         urlAl: List<String>,
         delayF: Int
@@ -72,7 +72,7 @@ object UtilityImgAnim {
         return animDrawable
     }
 
-    fun getAnimationDrawableFromURLListWhiteBG(
+    fun getAnimationDrawableFromUrlListWhiteBG(
         context: Context,
         urlAl: List<String>,
         delayF: Int

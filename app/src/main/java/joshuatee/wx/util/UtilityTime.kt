@@ -33,21 +33,7 @@ import joshuatee.wx.Extensions.*
 
 object UtilityTime {
 
-    /*internal fun convertFromUTC(time: String): String {
-        var returnTime = time
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss", Locale.US)
-        inputFormat.timeZone = TimeZone.getTimeZone("UTC")
-        val outputFormat = SimpleDateFormat("yyyy-MM-dd h:mm a", Locale.US)
-        try {
-            val date = inputFormat.parse(time.replace("+00:00", ""))
-            returnTime = outputFormat.format(date)
-        } catch (e: Exception) {
-            UtilityLog.HandleException(e)
-        }
-        return returnTime
-    }*/
-
-    internal fun convertFromUTCForMetar(time: String): String {
+    internal fun convertFromUtcForMetar(time: String): String {
         var returnTime = time
         val inputFormat = SimpleDateFormat("yyyy.MM.dd' 'HHmm", Locale.US)
         inputFormat.timeZone = TimeZone.getTimeZone("UTC")
@@ -147,7 +133,7 @@ object UtilityTime {
 
     fun day(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
 
-    val currentHourInUTC: Int
+    val currentHourInUtc: Int
         get() = Calendar.getInstance(TimeZone.getTimeZone("GMT")).get(Calendar.HOUR_OF_DAY)
 
     fun isRadarTimeOld(radarTime: String): Boolean {

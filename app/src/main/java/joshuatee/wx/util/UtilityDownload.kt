@@ -26,13 +26,10 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.util.Calendar
 import java.util.Locale
-import java.util.TimeZone
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.text.format.DateFormat
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.UtilityLightning
@@ -40,8 +37,6 @@ import joshuatee.wx.activitiesmisc.UtilitySunMoon
 import joshuatee.wx.activitiesmisc.UtilityUSHourly
 import joshuatee.wx.audio.UtilityPlayList
 import joshuatee.wx.canada.UtilityCanadaImg
-import joshuatee.wx.external.ExternalSunriseLocation
-import joshuatee.wx.external.ExternalSunriseSunsetCalculator
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.spc.*
@@ -61,7 +56,7 @@ object UtilityDownload {
 
     private fun get2KmUrl() = UtilityImg.getBlankBitmap()
 
-    fun getRadarMosiac(context: Context): Bitmap {
+    fun getRadarMosaic(context: Context): Bitmap {
         val location = Location.currentLocationStr
         val rid1 = Location.getRid(context, location)
         var bitmap: Bitmap = UtilityImg.getBlankBitmap()
@@ -93,10 +88,6 @@ object UtilityDownload {
                     )
                 }
             } else {
-                //val prefToken = "AWCMOSAIC_PARAM_LAST_USED"
-                //val index = Utility.readPref(context, prefToken, 0)
-                //bitmap = UtilityAwcRadarMosaic.get(UtilityAwcRadarMosaic.sectors[index])
-
                 var product = "rad_rala"
                 val prefTokenSector = "AWCMOSAIC_SECTOR_LAST_USED"
                 val prefTokenProduct = "AWCMOSAIC_PRODUCT_LAST_USED"
@@ -143,7 +134,7 @@ object UtilityDownload {
             }
             "RAD_2KM" -> {
                 needsBitmap = false
-                bm = getRadarMosiac(context)
+                bm = getRadarMosaic(context)
             }
             "IR_2KM", "WV_2KM", "VIS_2KM" -> {
                 needsBitmap = false
@@ -484,14 +475,14 @@ object UtilityDownload {
                     "<div id=\"discDiv\">(.*?)</div>"
             )
         } else if (prod.contains("CTOF")) {
-            text = "Celsius to Fahrenheit table" + MyApplication.newline + UtilityMath.cToFTable()
+            text = "Celsius to Fahrenheit table" + MyApplication.newline + UtilityMath.celsiusToFahrenheitTable()
         } else {
             val t1 = prod.substring(0, 3)
             var t2 = prod.substring(3)
             t2 = t2.replace("%", "")
-            val html = ("https://api.weather.gov/products/types/$t1/locations/$t2").getNwsHtml()
+            val html = (MyApplication.nwsApiUrl + "/products/types/$t1/locations/$t2").getNwsHtml()
             val urlProd = html.parse("\"id\": \"(.*?)\"")
-            val prodHtml = ("https://api.weather.gov/products/$urlProd").getNwsHtml()
+            val prodHtml = (MyApplication.nwsApiUrl + "/products/$urlProd").getNwsHtml()
             text = UtilityString.parseAcrossLines(prodHtml, "\"productText\": \"(.*?)\\}")
             text = text.replace("\\n\\n", "<BR>")
             text = text.replace("\\n", " ")
@@ -521,100 +512,6 @@ object UtilityDownload {
             text = text.replace("<br>", " ")
         }
         return text
-    }
-
-    fun getSunriseSunset(context: Context, locNum: String): String {
-        val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
-        val lat: String
-        val lon: String
-        if (!Location.isUS(locNumInt)) {
-            val latArr = Location.getX(locNumInt).split(":")
-            val lonArr = Location.getY(locNumInt).split(":")
-            if (latArr.size > 2 && lonArr.size > 1) {
-                lat = latArr[2]
-                lon = lonArr[1]
-            } else
-                return ""
-        } else {
-            lat = Location.getX(locNumInt)
-            lon = Location.getY(locNumInt)
-        }
-        val location = ExternalSunriseLocation(lat, lon)
-        val calculator = ExternalSunriseSunsetCalculator(location, TimeZone.getDefault())
-        val officialSunriseCal =
-                calculator.getOfficialSunriseCalendarForDate(Calendar.getInstance())
-        val officialSunsetCal = calculator.getOfficialSunsetCalendarForDate(Calendar.getInstance())
-        val srTime: String
-        val ssTime: String
-        var amStr = ""
-        var pmStr = ""
-        if (!DateFormat.is24HourFormat(context)) {
-            amStr = "am"
-            pmStr = "pm"
-            srTime = (officialSunriseCal.get(Calendar.HOUR)).toString() + ":" +
-                    String.format("%2s", (officialSunriseCal.get(Calendar.MINUTE))).replace(
-                            ' ',
-                            '0'
-                    )
-            ssTime = (officialSunsetCal.get(Calendar.HOUR)).toString() + ":" +
-                    String.format("%2s", (officialSunsetCal.get(Calendar.MINUTE))).replace(' ', '0')
-        } else {
-            srTime = (officialSunriseCal.get(Calendar.HOUR_OF_DAY)).toString() + ":" +
-                    String.format("%2s", (officialSunriseCal.get(Calendar.MINUTE))).replace(
-                            ' ',
-                            '0'
-                    )
-            ssTime = (officialSunsetCal.get(Calendar.HOUR_OF_DAY)).toString() + ":" +
-                    String.format("%2s", (officialSunsetCal.get(Calendar.MINUTE))).replace(' ', '0')
-        }
-        return "Sunrise: $srTime$amStr   Sunset: $ssTime$pmStr"
-    }
-
-    fun getSunriseSunsetShort(context: Context, locNum: String): String {
-        val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
-        val lat: String
-        val lon: String
-        if (!MyApplication.locations[locNumInt].isUS) {
-            val latArr = MyApplication.colon.split(Location.getX(locNumInt))
-            val lonArr = MyApplication.colon.split(Location.getY(locNumInt))
-            if (latArr.size > 2 && lonArr.size > 1) {
-                lat = latArr[2]
-                lon = lonArr[1]
-            } else
-                return ""
-        } else {
-            lat = Location.getX(locNumInt)
-            lon = Location.getY(locNumInt)
-        }
-        val location = ExternalSunriseLocation(lat, lon)
-        val calculator = ExternalSunriseSunsetCalculator(location, TimeZone.getDefault())
-        val officialSunriseCal =
-                calculator.getOfficialSunriseCalendarForDate(Calendar.getInstance())
-        val officialSunsetCal = calculator.getOfficialSunsetCalendarForDate(Calendar.getInstance())
-        val srTime: String
-        val ssTime: String
-        var amStr = ""
-        var pmStr = ""
-        if (!DateFormat.is24HourFormat(context)) {
-            amStr = "am"
-            pmStr = "pm"
-            srTime = (officialSunriseCal.get(Calendar.HOUR)).toString() + ":" +
-                    String.format("%2s", (officialSunriseCal.get(Calendar.MINUTE))).replace(
-                            ' ',
-                            '0'
-                    )
-            ssTime = (officialSunsetCal.get(Calendar.HOUR)).toString() + ":" +
-                    String.format("%2s", (officialSunsetCal.get(Calendar.MINUTE))).replace(' ', '0')
-        } else {
-            srTime = (officialSunriseCal.get(Calendar.HOUR_OF_DAY)).toString() + ":" +
-                    String.format("%2s", (officialSunriseCal.get(Calendar.MINUTE))).replace(
-                            ' ',
-                            '0'
-                    )
-            ssTime = (officialSunsetCal.get(Calendar.HOUR_OF_DAY)).toString() + ":" +
-                    String.format("%2s", (officialSunsetCal.get(Calendar.MINUTE))).replace(' ', '0')
-        }
-        return "$srTime$amStr / $ssTime$pmStr"
     }
 
     fun getStringFromUrl(url: String): String {

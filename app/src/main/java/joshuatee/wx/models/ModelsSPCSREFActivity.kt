@@ -141,7 +141,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
         om.displayData = DisplayData(this, this, om.numPanes, om.spTime)
         setupModel()
         spRun = ObjectSpinner(this, this, this, R.id.spinner_run)
-        favList = UtilityFavorites.setupFavMenuSREF(
+        favList = UtilityFavorites.setupFavMenuSref(
             MyApplication.srefFav,
             om.displayData.param[om.curImg]
         )
@@ -161,7 +161,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     override fun onRestart() {
-        favList = UtilityFavorites.setupFavMenuSREF(
+        favList = UtilityFavorites.setupFavMenuSref(
             MyApplication.srefFav,
             om.displayData.param[om.curImg]
         )
@@ -322,7 +322,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
 
     private fun toggleFavorite() {
         UtilityFavorites.toggleFavorite(this, om.displayData.param[om.curImg], star, "SREF_FAV")
-        favList = UtilityFavorites.setupFavMenuSREF(
+        favList = UtilityFavorites.setupFavMenuSref(
             MyApplication.srefFav,
             om.displayData.param[om.curImg]
         )
@@ -332,7 +332,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
     private fun refreshSpinner() {
         om.displayData.param[om.curImg] = drw.getUrl()
         om.displayData.paramLabel[om.curImg] = drw.getLabel()
-        favList = UtilityFavorites.setupFavMenuSREF(
+        favList = UtilityFavorites.setupFavMenuSref(
             MyApplication.srefFav,
             om.displayData.param[om.curImg]
         )

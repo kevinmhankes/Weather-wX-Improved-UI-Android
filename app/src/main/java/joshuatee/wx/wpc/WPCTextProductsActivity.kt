@@ -101,7 +101,7 @@ class WPCTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
             initProd = prod
         }
         c0 = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
-        products = UtilityFavorites.setupFavMenuNWSTEXT(MyApplication.nwsTextFav, prod)
+        products = UtilityFavorites.setupFavMenuNwsText(MyApplication.nwsTextFav, prod)
         sp = ObjectSpinner(this, this, this, R.id.spinner1, products)
         UtilityWPCText.createData()
         drw = ObjectNavDrawerCombo(
@@ -211,7 +211,7 @@ class WPCTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
 
     override fun onRestart() {
         if (ridFavOld != MyApplication.nwsTextFav) {
-            products = UtilityFavorites.setupFavMenuNWSTEXT(
+            products = UtilityFavorites.setupFavMenuNwsText(
                 MyApplication.nwsTextFav,
                 GlobalArrays.nwsTextProducts[findPosition(prod)]
             )
@@ -222,13 +222,13 @@ class WPCTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
 
     private fun toggleFavorite() {
         UtilityFavorites.toggleFavorite(this, prod, star, "NWS_TEXT_FAV")
-        products = UtilityFavorites.setupFavMenuNWSTEXT(MyApplication.nwsTextFav, prod)
+        products = UtilityFavorites.setupFavMenuNwsText(MyApplication.nwsTextFav, prod)
         sp.refreshData(this, products)
     }
 
     private fun changeProduct() {
         prod = drw.getUrl()
-        products = UtilityFavorites.setupFavMenuNWSTEXT(
+        products = UtilityFavorites.setupFavMenuNwsText(
             MyApplication.nwsTextFav,
             GlobalArrays.nwsTextProducts[findPosition(prod)]
         )

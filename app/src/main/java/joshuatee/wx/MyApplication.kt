@@ -129,7 +129,7 @@ class MyApplication : Application() {
                 .readTimeout(15, TimeUnit.SECONDS)
                 .addInterceptor(okhttp3Interceptor)
                 .build()
-        UtilityTTS.initTTS(applicationContext)
+        UtilityTTS.initTts(applicationContext)
         UtilityCities.initCitiesArray()
         if (!loadedBuffers) {
             initBuffers(this)
