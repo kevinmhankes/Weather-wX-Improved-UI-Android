@@ -58,21 +58,21 @@ object UtilityLocationFragment {
     fun extract7DayMetrics(chunk: String): String {
         val spacing = " "
         // wind 24 to 29 mph
-        val wind = UtilityString.parseMultipe(chunk, RegExp.sevenDayWind1, 2)
+        val wind = UtilityString.parseMultiple(chunk, RegExp.sevenDayWind1, 2)
         // wind around 9 mph
         val wind2 = chunk.parse(RegExp.sevenDayWind2)
         // 5 to 10 mph after
-        val wind3 = UtilityString.parseMultipe(chunk, RegExp.sevenDayWind4, 2)
+        val wind3 = UtilityString.parseMultiple(chunk, RegExp.sevenDayWind4, 2)
         // around 5 mph after
         val wind4 = chunk.parse(RegExp.sevenDayWind5)
         // 5 to 7 mph in
-        val wind5 = UtilityString.parseMultipe(chunk, RegExp.sevenDayWind6, 2)
+        val wind5 = UtilityString.parseMultiple(chunk, RegExp.sevenDayWind6, 2)
         // around 6 mph.
         val wind7 = chunk.parse(RegExp.sevenDayWind7)
         // with gusts as high as 21 mph
         var gust = chunk.parse(RegExp.sevenDayWind3)
         // 5 to 7 mph.
-        val wind9 = UtilityString.parseMultipe(chunk, RegExp.sevenDayWind9, 2)
+        val wind9 = UtilityString.parseMultiple(chunk, RegExp.sevenDayWind9, 2)
         // Winds could gusts as high as 21 mph.
         if (gust == "") {
             gust = chunk.parse(RegExp.sevenDayWind8)
@@ -101,7 +101,7 @@ object UtilityLocationFragment {
         }
     }
 
-    fun setNWSIconSize(): Int =
+    fun setNwsIconSize(): Int =
         (MyApplication.dm.widthPixels * (MyApplication.nwsIconSize / 100f)).toInt()
 
     fun extractWindDirection(chunk: String): String {
@@ -240,7 +240,7 @@ object UtilityLocationFragment {
     }
 
     fun extractCanadaWindSpeed(forecast: String): String {
-        val wspdRange = UtilityString.parseMultipe(forecast, RegExp.ca7DayWindspd1, 2)
+        val wspdRange = UtilityString.parseMultiple(forecast, RegExp.ca7DayWindspd1, 2)
         val wspd = forecast.parse(RegExp.ca7DayWindspd2)
         var gust = ""
         if (forecast.contains("gusting")) {

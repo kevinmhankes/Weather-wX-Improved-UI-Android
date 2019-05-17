@@ -357,7 +357,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
     private fun addressSearch(type: String, address: String) = GlobalScope.launch(uiDispatcher) {
         var xyStr = listOf<String>()
         if (type == "osm") xyStr =
-                withContext(Dispatchers.IO) { UtilityLocation.getXYFromAddressOSM(address) }
+                withContext(Dispatchers.IO) { UtilityLocation.getXYFromAddressOsm(address) }
         locXEt.setText(xyStr[0])
         locYEt.setText(xyStr[1])
     }
@@ -533,7 +533,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         when (item.itemId) {
             R.id.action_locate -> {
                 if (Build.VERSION.SDK_INT < 23) {
-                    val xy = UtilityLocation.getGPS(this)
+                    val xy = UtilityLocation.getGps(this)
                     locXEt.setText(xy[0].toString())
                     locYEt.setText(xy[1].toString())
                 } else {
@@ -542,7 +542,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                                     Manifest.permission.ACCESS_FINE_LOCATION
                             ) == PackageManager.PERMISSION_GRANTED
                     ) {
-                        val xy = UtilityLocation.getGPS(this)
+                        val xy = UtilityLocation.getGps(this)
                         locXEt.setText(xy[0].toString())
                         locYEt.setText(xy[1].toString())
                         fabSaveLocation()
@@ -577,7 +577,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
     ) {
         when (requestCode) {
             myPermissionAccessFineLocation -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                val xy = UtilityLocation.getGPS(this)
+                val xy = UtilityLocation.getGps(this)
                 locXEt.setText(xy[0].toString())
                 locYEt.setText(xy[1].toString())
             }
@@ -607,7 +607,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         var goodLocation = false
         withContext(Dispatchers.IO) {
             if (type == "osm") {
-                xyStr = UtilityLocation.getXYFromAddressOSM(address)
+                xyStr = UtilityLocation.getXYFromAddressOsm(address)
                 if (xyStr.size > 1) {
                     toastStr = Location.locationSave(contextg, locNum, xyStr[0], xyStr[1], labelStr)
                     goodLocation = true
@@ -628,7 +628,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
             GlobalScope.launch(uiDispatcher) {
                 var toastStr = ""
                 var goodLocation = false
-                val xy = UtilityLocation.getGPS(contextg)
+                val xy = UtilityLocation.getGps(contextg)
                 locXEt.setText(xy[0].toString())
                 locYEt.setText(xy[1].toString())
                 withContext(Dispatchers.IO) {

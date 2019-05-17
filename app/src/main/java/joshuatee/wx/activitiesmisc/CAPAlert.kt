@@ -63,7 +63,7 @@ class CAPAlert {
 
     companion object {
 
-        fun createFromURL(url: String): CAPAlert {
+        fun createFromUrl(url: String): CAPAlert {
             val expireStr = "This alert has expired"
             val obj = CAPAlert()
             obj.url = url

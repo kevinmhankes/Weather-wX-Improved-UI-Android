@@ -65,7 +65,7 @@ internal object UtilityNotificationTornado {
         for (title in hazardTitles) {
             if (idAl.size > i) {
                 val url = idAl[i]
-                val ca = CAPAlert.createFromURL(url)
+                val ca = CAPAlert.createFromUrl(url)
                 if (UtilityNotificationTools.nwsLocalAlertNotFiltered(
                                 context,
                                 title

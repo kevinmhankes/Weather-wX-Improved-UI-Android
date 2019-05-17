@@ -192,7 +192,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
         if (archiveMode && !spotterShowSelected)
             toolbarBottom.visibility = View.GONE
-        val latLonArrD = UtilityLocation.getGPS(this)
+        val latLonArrD = UtilityLocation.getGps(this)
         latD = latLonArrD[0]
         lonD = latLonArrD[1]
         val menu = toolbarBottom.menu

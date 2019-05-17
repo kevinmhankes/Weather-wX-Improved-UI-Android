@@ -400,10 +400,10 @@ internal object UtilityRadarUI {
                 oglr.deconstructWBLines()
             }
             if (PolygonType.SWO.pref && !archiveMode) {
-                UtilitySWOD1.getSWO()
-                oglr.constructSWOLines()
+                UtilitySWOD1.getSwo()
+                oglr.constructSwoLines()
             } else {
-                oglr.deconstructSWOLines()
+                oglr.deconstructSwoLines()
             }
         }
     }
@@ -421,7 +421,7 @@ internal object UtilityRadarUI {
             uiDispatcher: CoroutineDispatcher
     ) = GlobalScope.launch(uiDispatcher) {
         val text = withContext(Dispatchers.IO) {
-            UtilityWatch.showProducts(glview.newY.toDouble(), glview.newX.toDouble() * -1.0, type)
+            UtilityWatch.show(glview.newY.toDouble(), glview.newX.toDouble() * -1.0, type)
         }
         if (text != "") {
             ObjectIntent(

@@ -83,7 +83,7 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
         } else {
             if (!url.contains("NWS-IDP-PROD")) {
                 if (ca.title.contains("until")) {
-                    val tmpArr = UtilityString.parseMultipe(
+                    val tmpArr = UtilityString.parseMultiple(
                         ca.title,
                         "(.*?) issued (.*?) until (.*?) by (.*?)$",
                         4
@@ -94,7 +94,7 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
                     wfo = tmpArr[3]
                 } else {
                     val tmpArr =
-                        UtilityString.parseMultipe(ca.title, "(.*?) issued (.*?) by (.*?)$", 3)
+                        UtilityString.parseMultiple(ca.title, "(.*?) issued (.*?) by (.*?)$", 3)
                     title = tmpArr[0]
                     startTime = tmpArr[1]
                     wfo = tmpArr[2]
@@ -102,7 +102,7 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
             } else {
                 when {
                     ca.title.contains("expiring") -> {
-                        val tmpArr = UtilityString.parseMultipe(
+                        val tmpArr = UtilityString.parseMultiple(
                                 ca.title,
                                 "(.*?) issued (.*?) expiring (.*?) by (.*?)$",
                                 4
@@ -113,7 +113,7 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
                         wfo = tmpArr[3]
                     }
                     ca.title.contains("until") -> {
-                        val tmpArr = UtilityString.parseMultipe(
+                        val tmpArr = UtilityString.parseMultiple(
                                 ca.title,
                                 "(.*?) issued (.*?) until (.*?) by (.*?)$",
                                 4
@@ -125,7 +125,7 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
                     }
                     else -> {
                         val tmpArr =
-                                UtilityString.parseMultipe(ca.title, "(.*?) issued (.*?) by (.*?)$", 3)
+                                UtilityString.parseMultiple(ca.title, "(.*?) issued (.*?) by (.*?)$", 3)
                         title = tmpArr[0]
                         startTime = tmpArr[1]
                         wfo = tmpArr[2]

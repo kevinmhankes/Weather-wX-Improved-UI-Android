@@ -206,7 +206,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         contextg = this
         setupAlertDialogRadarLongPress()
         UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
-        val latlonArrD = UtilityLocation.getGPS(this as Context)
+        val latlonArrD = UtilityLocation.getGps(this as Context)
         latD = latlonArrD[0]
         lonD = latlonArrD[1]
         val menu = toolbarBottom.menu

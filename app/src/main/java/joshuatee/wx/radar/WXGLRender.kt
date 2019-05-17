@@ -76,7 +76,7 @@ class WXGLRender(private val context: Context) : Renderer {
     private var gpsY = 0.toDouble()
     private val zoomToHideMiscFeatures = 0.5f
     private val radarBuffers =
-        ObjectOglRadarBuffers(context, MyApplication.nexradRadarBackgroundColor)
+            ObjectOglRadarBuffers(context, MyApplication.nexradRadarBackgroundColor)
     private val spotterBuffers = ObjectOglBuffers(PolygonType.SPOTTER, zoomToHideMiscFeatures)
     private val stateLineBuffers = ObjectOglBuffers(GeographyType.STATE_LINES, 0.0f)
     private val countyLineBuffers = ObjectOglBuffers(GeographyType.COUNTY_LINES, 0.75f) // was .75
@@ -86,7 +86,7 @@ class WXGLRender(private val context: Context) : Renderer {
     private val stiBuffers = ObjectOglBuffers(PolygonType.STI, zoomToHideMiscFeatures)
     private val wbBuffers = ObjectOglBuffers(PolygonType.WIND_BARB, zoomToHideMiscFeatures)
     private val wbGustsBuffers =
-        ObjectOglBuffers(PolygonType.WIND_BARB_GUSTS, zoomToHideMiscFeatures)
+            ObjectOglBuffers(PolygonType.WIND_BARB_GUSTS, zoomToHideMiscFeatures)
     private val mpdBuffers = ObjectOglBuffers(PolygonType.MPD)
     private val hiBuffers = ObjectOglBuffers(PolygonType.HI, zoomToHideMiscFeatures)
     private val tvsBuffers = ObjectOglBuffers(PolygonType.TVS, zoomToHideMiscFeatures)
@@ -100,7 +100,7 @@ class WXGLRender(private val context: Context) : Renderer {
     private val locdotBuffers = ObjectOglBuffers(PolygonType.LOCDOT)
     private val locCircleBuffers = ObjectOglBuffers()
     private val wbCircleBuffers =
-        ObjectOglBuffers(PolygonType.WIND_BARB_CIRCLE, zoomToHideMiscFeatures)
+            ObjectOglBuffers(PolygonType.WIND_BARB_CIRCLE, zoomToHideMiscFeatures)
     private val genericWarningBuffers = mutableListOf<ObjectOglBuffers>()
     private val colorSwo = IntArray(5)
     private var breakSize15 = 15000
@@ -241,60 +241,60 @@ class WXGLRender(private val context: Context) : Renderer {
             when {
                 product.contains("L2") -> {
                     rdL2.decocodeAndPlotNexradL2(
-                        context,
-                        radarBuffers.fn,
-                        prod,
-                        radarStatusStr,
-                        idxStr,
-                        performDecomp
+                            context,
+                            radarBuffers.fn,
+                            prod,
+                            radarStatusStr,
+                            idxStr,
+                            performDecomp
                     )
                     radarBuffers.extractL2Data(rdL2)
                 }
                 product.contains("NSW") -> {
                     radarL3Object.decocodeAndPlotNexradLevel3FourBit(
-                        context,
-                        radarBuffers.fn,
-                        radarStatusStr
+                            context,
+                            radarBuffers.fn,
+                            radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
                 }
                 product.contains("N0S") -> {
                     radarL3Object.decocodeAndPlotNexradLevel3FourBit(
-                        context,
-                        radarBuffers.fn,
-                        radarStatusStr
+                            context,
+                            radarBuffers.fn,
+                            radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
                 }
                 product.contains("N1S") -> {
                     radarL3Object.decocodeAndPlotNexradLevel3FourBit(
-                        context,
-                        radarBuffers.fn,
-                        radarStatusStr
+                            context,
+                            radarBuffers.fn,
+                            radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
                 }
                 product.contains("N2S") -> {
                     radarL3Object.decocodeAndPlotNexradLevel3FourBit(
-                        context,
-                        radarBuffers.fn,
-                        radarStatusStr
+                            context,
+                            radarBuffers.fn,
+                            radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
                 }
                 product.contains("N3S") -> {
                     radarL3Object.decocodeAndPlotNexradLevel3FourBit(
-                        context,
-                        radarBuffers.fn,
-                        radarStatusStr
+                            context,
+                            radarBuffers.fn,
+                            radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
                 }
                 else -> {
                     radarL3Object.decocodeAndPlotNexradDigital(
-                        context,
-                        radarBuffers.fn,
-                        radarStatusStr
+                            context,
+                            radarBuffers.fn,
+                            radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
                 }
@@ -309,61 +309,61 @@ class WXGLRender(private val context: Context) : Renderer {
         radarBuffers.initialize()
         radarBuffers.setToPositionZero()
         val objColPal: ObjectColorPalette =
-            if (MyApplication.colorMap.containsKey(radarBuffers.productCode.toInt())) {
-                MyApplication.colorMap[radarBuffers.productCode.toInt()]!!
-            } else {
-                MyApplication.colorMap[94]!!
-            }
+                if (MyApplication.colorMap.containsKey(radarBuffers.productCode.toInt())) {
+                    MyApplication.colorMap[radarBuffers.productCode.toInt()]!!
+                } else {
+                    MyApplication.colorMap[94]!!
+                }
         val cR = objColPal.redValues
         val cG = objColPal.greenValues
         val cB = objColPal.blueValues
         try {
             if (!product.contains("L2")) {
                 totalBins =
-                    if (radarBuffers.productCode != 56.toShort() && radarBuffers.productCode != 30.toShort()) {
-                        if (!MyApplication.radarUseJni)
-                            UtilityWXOGLPerf.decode8BitAndGenRadials(context, radarBuffers)
-                        else {
-                            JNI.decode8BitAndGenRadials(
-                                UtilityIO.getFilePath(context, radarBuffers.fn),
-                                radarL3Object.seekStart,
-                                radarL3Object.compressedFileSize,
-                                radarL3Object.iBuff,
-                                radarL3Object.oBuff,
-                                radarBuffers.floatBuffer,
-                                radarBuffers.colorBuffer,
-                                radarBuffers.binSize,
-                                Color.red(radarBuffers.bgColor).toByte(),
-                                Color.green(radarBuffers.bgColor).toByte(),
-                                Color.blue(radarBuffers.bgColor).toByte(),
-                                cR,
-                                cG,
-                                cB
+                        if (radarBuffers.productCode != 56.toShort() && radarBuffers.productCode != 30.toShort()) {
+                            if (!MyApplication.radarUseJni)
+                                UtilityWXOGLPerf.decode8BitAndGenRadials(context, radarBuffers)
+                            else {
+                                JNI.decode8BitAndGenRadials(
+                                        UtilityIO.getFilePath(context, radarBuffers.fn),
+                                        radarL3Object.seekStart,
+                                        radarL3Object.compressedFileSize,
+                                        radarL3Object.iBuff,
+                                        radarL3Object.oBuff,
+                                        radarBuffers.floatBuffer,
+                                        radarBuffers.colorBuffer,
+                                        radarBuffers.binSize,
+                                        Color.red(radarBuffers.bgColor).toByte(),
+                                        Color.green(radarBuffers.bgColor).toByte(),
+                                        Color.blue(radarBuffers.bgColor).toByte(),
+                                        cR,
+                                        cG,
+                                        cB
+                                )
+                            }
+                        } else {
+                            UtilityWXOGLPerf.genRadials(
+                                    radarBuffers,
+                                    radarL3Object.binWord,
+                                    radarL3Object.radialStart
                             )
                         }
-                    } else {
-                        UtilityWXOGLPerf.genRadials(
-                            radarBuffers,
-                            radarL3Object.binWord,
-                            radarL3Object.radialStart
-                        )
-                    }
             } else {
                 rdL2.binWord.position(0)
                 totalBins = if (MyApplication.radarUseJni)
                     JNI.level2GenRadials(
-                        radarBuffers.floatBuffer,
-                        radarBuffers.colorBuffer,
-                        rdL2.binWord,
-                        rdL2.radialStartAngle,
-                        radarBuffers.numberOfRadials,
-                        radarBuffers.numRangeBins,
-                        radarBuffers.binSize,
-                        radarBuffers.bgColor,
-                        cR,
-                        cG,
-                        cB,
-                        radarBuffers.productCode.toInt()
+                            radarBuffers.floatBuffer,
+                            radarBuffers.colorBuffer,
+                            rdL2.binWord,
+                            rdL2.radialStartAngle,
+                            radarBuffers.numberOfRadials,
+                            radarBuffers.numRangeBins,
+                            radarBuffers.binSize,
+                            radarBuffers.bgColor,
+                            cR,
+                            cG,
+                            cB,
+                            radarBuffers.productCode.toInt()
                     )
                 else
                     UtilityWXOGLPerf.genRadials(radarBuffers, rdL2.binWord, rdL2.radialStartAngle)
@@ -388,22 +388,22 @@ class WXGLRender(private val context: Context) : Renderer {
         GLES20.glClearColor(bgColorFRed, bgColorFGreen, bgColorFBlue, 1f)
         OpenGLShader.sp_SolidColor = GLES20.glCreateProgram()
         GLES20.glAttachShader(
-            OpenGLShader.sp_SolidColor,
-            OpenGLShader.loadShader(GLES20.GL_VERTEX_SHADER, OpenGLShader.vs_SolidColor)
+                OpenGLShader.sp_SolidColor,
+                OpenGLShader.loadShader(GLES20.GL_VERTEX_SHADER, OpenGLShader.vs_SolidColor)
         )
         GLES20.glAttachShader(
-            OpenGLShader.sp_SolidColor,
-            OpenGLShader.loadShader(GLES20.GL_FRAGMENT_SHADER, OpenGLShader.fs_SolidColor)
+                OpenGLShader.sp_SolidColor,
+                OpenGLShader.loadShader(GLES20.GL_FRAGMENT_SHADER, OpenGLShader.fs_SolidColor)
         )
         GLES20.glLinkProgram(OpenGLShader.sp_SolidColor)
         GLES20.glUseProgram(OpenGLShader.sp_SolidColor)
         val vertexShaderUniform = OpenGLShaderUniform.loadShader(
-            GLES20.GL_VERTEX_SHADER,
-            OpenGLShaderUniform.vs_SolidColorUnfiform
+                GLES20.GL_VERTEX_SHADER,
+                OpenGLShaderUniform.vs_SolidColorUnfiform
         )
         val fragmentShaderUniform = OpenGLShaderUniform.loadShader(
-            GLES20.GL_FRAGMENT_SHADER,
-            OpenGLShaderUniform.fs_SolidColorUnfiform
+                GLES20.GL_FRAGMENT_SHADER,
+                OpenGLShaderUniform.fs_SolidColorUnfiform
         )
         OpenGLShaderUniform.sp_SolidColorUniform = GLES20.glCreateProgram()
         GLES20.glAttachShader(OpenGLShaderUniform.sp_SolidColorUniform, vertexShaderUniform)
@@ -425,10 +425,10 @@ class WXGLRender(private val context: Context) : Renderer {
         Matrix.translateM(mtrxProjectionAndView, 0, x, y, 0f)
         Matrix.scaleM(mtrxProjectionAndView, 0, zoom, zoom, 1f)
         GLES20.glUniformMatrix4fv(
-            GLES20.glGetUniformLocation(
-                OpenGLShader.sp_SolidColor,
-                "uMVPMatrix"
-            ), 1, false, mtrxProjectionAndView, 0
+                GLES20.glGetUniformLocation(
+                        OpenGLShader.sp_SolidColor,
+                        "uMVPMatrix"
+                ), 1, false, mtrxProjectionAndView, 0
         )
         (0 until chunkCount).forEach {
             radarChunkCnt = if (it < chunkCount - 1) {
@@ -439,28 +439,28 @@ class WXGLRender(private val context: Context) : Renderer {
             try {
                 radarBuffers.floatBuffer.position(it * breakSizeRadar * 32)
                 GLES20.glVertexAttribPointer(
-                    mPositionHandle,
-                    2,
-                    GLES20.GL_FLOAT,
-                    false,
-                    0,
-                    radarBuffers.floatBuffer.slice().asFloatBuffer()
+                        mPositionHandle,
+                        2,
+                        GLES20.GL_FLOAT,
+                        false,
+                        0,
+                        radarBuffers.floatBuffer.slice().asFloatBuffer()
                 )
                 radarBuffers.colorBuffer.position(it * breakSizeRadar * 12)
                 GLES20.glVertexAttribPointer(
-                    colorHandle,
-                    3,
-                    GLES20.GL_UNSIGNED_BYTE,
-                    true,
-                    0,
-                    radarBuffers.colorBuffer.slice()
+                        colorHandle,
+                        3,
+                        GLES20.GL_UNSIGNED_BYTE,
+                        true,
+                        0,
+                        radarBuffers.colorBuffer.slice()
                 )
                 triangleIndexBuffer.position(0)
                 GLES20.glDrawElements(
-                    GLES20.GL_TRIANGLES,
-                    radarChunkCnt,
-                    GLES20.GL_UNSIGNED_SHORT,
-                    triangleIndexBuffer.slice().asShortBuffer()
+                        GLES20.GL_TRIANGLES,
+                        radarChunkCnt,
+                        GLES20.GL_UNSIGNED_SHORT,
+                        triangleIndexBuffer.slice().asShortBuffer()
                 )
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
@@ -510,8 +510,8 @@ class WXGLRender(private val context: Context) : Renderer {
         GLES20.glLineWidth(warnLineWidth)
         listOf(warningTstBuffers, warningFfwBuffers, warningTorBuffers).forEach {
             drawPolygons(
-                it,
-                8
+                    it,
+                    8
             )
         }
 
@@ -523,11 +523,11 @@ class WXGLRender(private val context: Context) : Renderer {
 
         GLES20.glLineWidth(watmcdLineWidth)
         listOf(
-            mpdBuffers,
-            mcdBuffers,
-            watchBuffers,
-            watchTornadoBuffers,
-            swoBuffers
+                mpdBuffers,
+                mcdBuffers,
+                watchBuffers,
+                watchTornadoBuffers,
+                swoBuffers
         ).forEach { drawPolygons(it, 8) }
     }
 
@@ -535,26 +535,26 @@ class WXGLRender(private val context: Context) : Renderer {
         if (buffers.isInitialized) {
             buffers.setToPositionZero()
             GLES20.glVertexAttribPointer(
-                mPositionHandle,
-                2,
-                GLES20.GL_FLOAT,
-                false,
-                0,
-                buffers.floatBuffer.slice().asFloatBuffer()
+                    mPositionHandle,
+                    2,
+                    GLES20.GL_FLOAT,
+                    false,
+                    0,
+                    buffers.floatBuffer.slice().asFloatBuffer()
             )
             GLES20.glVertexAttribPointer(
-                colorHandle,
-                3,
-                GLES20.GL_UNSIGNED_BYTE,
-                true,
-                0,
-                buffers.colorBuffer.slice().asFloatBuffer()
+                    colorHandle,
+                    3,
+                    GLES20.GL_UNSIGNED_BYTE,
+                    true,
+                    0,
+                    buffers.colorBuffer.slice().asFloatBuffer()
             )
             GLES20.glDrawElements(
-                GLES20.GL_TRIANGLES,
-                buffers.floatBuffer.capacity() / 8,
-                GLES20.GL_UNSIGNED_SHORT,
-                buffers.indexBuffer.slice().asShortBuffer()
+                    GLES20.GL_TRIANGLES,
+                    buffers.floatBuffer.capacity() / 8,
+                    GLES20.GL_UNSIGNED_SHORT,
+                    buffers.indexBuffer.slice().asShortBuffer()
             )
         }
     }
@@ -566,26 +566,26 @@ class WXGLRender(private val context: Context) : Renderer {
                 lineIndexBuffer.position(0)
                 buffers.setToPositionZero()
                 GLES20.glVertexAttribPointer(
-                    mPositionHandle,
-                    2,
-                    GLES20.GL_FLOAT,
-                    false,
-                    0,
-                    buffers.floatBuffer.slice().asFloatBuffer()
+                        mPositionHandle,
+                        2,
+                        GLES20.GL_FLOAT,
+                        false,
+                        0,
+                        buffers.floatBuffer.slice().asFloatBuffer()
                 )
                 GLES20.glVertexAttribPointer(
-                    colorHandle,
-                    3,
-                    GLES20.GL_UNSIGNED_BYTE,
-                    true,
-                    0,
-                    buffers.colorBuffer
+                        colorHandle,
+                        3,
+                        GLES20.GL_UNSIGNED_BYTE,
+                        true,
+                        0,
+                        buffers.colorBuffer
                 )
                 GLES20.glDrawElements(
-                    GLES20.GL_LINES,
-                    buffers.floatBuffer.capacity() / countDivisor,
-                    GLES20.GL_UNSIGNED_SHORT,
-                    lineIndexBuffer.slice().asShortBuffer()
+                        GLES20.GL_LINES,
+                        buffers.floatBuffer.capacity() / countDivisor,
+                        GLES20.GL_UNSIGNED_SHORT,
+                        lineIndexBuffer.slice().asShortBuffer()
                 )
             }
         }
@@ -604,26 +604,26 @@ class WXGLRender(private val context: Context) : Renderer {
                     buffers.colorBuffer.position(0)
                     lineIndexBuffer.position(0)
                     GLES20.glVertexAttribPointer(
-                        mPositionHandle,
-                        2,
-                        GLES20.GL_FLOAT,
-                        false,
-                        0,
-                        buffers.floatBuffer.slice().asFloatBuffer()
+                            mPositionHandle,
+                            2,
+                            GLES20.GL_FLOAT,
+                            false,
+                            0,
+                            buffers.floatBuffer.slice().asFloatBuffer()
                     )
                     GLES20.glVertexAttribPointer(
-                        colorHandle,
-                        3,
-                        GLES20.GL_UNSIGNED_BYTE,
-                        true,
-                        0,
-                        buffers.colorBuffer.slice()
+                            colorHandle,
+                            3,
+                            GLES20.GL_UNSIGNED_BYTE,
+                            true,
+                            0,
+                            buffers.colorBuffer.slice()
                     )
                     GLES20.glDrawElements(
-                        GLES20.GL_LINES,
-                        lineCnt,
-                        GLES20.GL_UNSIGNED_SHORT,
-                        lineIndexBuffer.slice().asShortBuffer()
+                            GLES20.GL_LINES,
+                            lineCnt,
+                            GLES20.GL_UNSIGNED_SHORT,
+                            lineIndexBuffer.slice().asShortBuffer()
                     )
                 } catch (e: Exception) {
 
@@ -640,14 +640,14 @@ class WXGLRender(private val context: Context) : Renderer {
             mtrxProjectionAndView[it] = 0.0f
         }
         Matrix.orthoM(
-            mtrxProjection,
-            0,
-            (-1 * ortInt).toFloat(),
-            ortInt.toFloat(),
-            -1f * ortInt.toFloat() * (1 / mSurfaceRatio),
-            ortInt * (1 / mSurfaceRatio),
-            1f,
-            -1f
+                mtrxProjection,
+                0,
+                (-1 * ortInt).toFloat(),
+                ortInt.toFloat(),
+                -1f * ortInt.toFloat() * (1 / mSurfaceRatio),
+                ortInt * (1 / mSurfaceRatio),
+                1f,
+                -1f
         )
         Matrix.setLookAtM(mtrxView, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1.0f, 0.0f)
         Matrix.multiplyMM(mtrxProjectionAndView, 0, mtrxProjection, 0, mtrxView, 0)
@@ -707,18 +707,18 @@ class WXGLRender(private val context: Context) : Renderer {
             buffers.count = buffers.geotype.count
             buffers.breakSize = 30000
             buffers.initialize(
-                4 * buffers.count,
-                0,
-                3 * buffers.breakSize * 2,
-                buffers.geotype.color
+                    4 * buffers.count,
+                    0,
+                    3 * buffers.breakSize * 2,
+                    buffers.geotype.color
             )
             if (MyApplication.radarUseJni) {
                 JNI.colorGen(buffers.colorBuffer, buffers.breakSize * 2, buffers.colorArray)
             } else {
                 UtilityWXOGLPerf.colorGen(
-                    buffers.colorBuffer,
-                    buffers.breakSize * 2,
-                    buffers.colorArray
+                        buffers.colorBuffer,
+                        buffers.breakSize * 2,
+                        buffers.colorArray
                 )
             }
             buffers.isInitialized = true
@@ -726,38 +726,38 @@ class WXGLRender(private val context: Context) : Renderer {
         if (!MyApplication.radarUseJni) {
             if (useMercatorProjection) {
                 UtilityWXOGLPerf.genMercator(
-                    buffers.geotype.relativeBuffer,
-                    buffers.floatBuffer,
-                    pn,
-                    buffers.count
+                        buffers.geotype.relativeBuffer,
+                        buffers.floatBuffer,
+                        pn,
+                        buffers.count
                 )
             } else {
                 UtilityWXOGLPerf.generate4326Projection(
-                    buffers.geotype.relativeBuffer,
-                    buffers.floatBuffer,
-                    pn,
-                    buffers.count
+                        buffers.geotype.relativeBuffer,
+                        buffers.floatBuffer,
+                        pn,
+                        buffers.count
                 )
             }
         } else {
             if (useMercatorProjection) {
                 JNI.genMercato(
-                    buffers.geotype.relativeBuffer,
-                    buffers.floatBuffer,
-                    pn.xFloat,
-                    pn.yFloat,
-                    pn.xCenter.toFloat(),
-                    pn.yCenter.toFloat(),
-                    pn.oneDegreeScaleFactorFloat,
-                    buffers.count
+                        buffers.geotype.relativeBuffer,
+                        buffers.floatBuffer,
+                        pn.xFloat,
+                        pn.yFloat,
+                        pn.xCenter.toFloat(),
+                        pn.yCenter.toFloat(),
+                        pn.oneDegreeScaleFactorFloat,
+                        buffers.count
                 )
             } else {
                 // FIXME - will want native code version for 4326
                 UtilityWXOGLPerf.generate4326Projection(
-                    buffers.geotype.relativeBuffer,
-                    buffers.floatBuffer,
-                    pn,
-                    buffers.count
+                        buffers.geotype.relativeBuffer,
+                        buffers.floatBuffer,
+                        pn,
+                        buffers.count
                 )
             }
         }
@@ -884,22 +884,22 @@ class WXGLRender(private val context: Context) : Renderer {
         constructTriangles(locdotBuffers)
         locCircleBuffers.triangleCount = 36
         locCircleBuffers.initialize(
-            32 * locCircleBuffers.triangleCount,
-            8 * locCircleBuffers.triangleCount,
-            6 * locCircleBuffers.triangleCount,
-            MyApplication.radarColorLocdot
+                32 * locCircleBuffers.triangleCount,
+                8 * locCircleBuffers.triangleCount,
+                6 * locCircleBuffers.triangleCount,
+                MyApplication.radarColorLocdot
         )
         if (MyApplication.radarUseJni) {
             JNI.colorGen(
-                locCircleBuffers.colorBuffer,
-                2 * locCircleBuffers.triangleCount,
-                locCircleBuffers.colorArray
+                    locCircleBuffers.colorBuffer,
+                    2 * locCircleBuffers.triangleCount,
+                    locCircleBuffers.colorArray
             )
         } else {
             UtilityWXOGLPerf.colorGen(
-                locCircleBuffers.colorBuffer,
-                2 * locCircleBuffers.triangleCount,
-                locCircleBuffers.colorArray
+                    locCircleBuffers.colorBuffer,
+                    2 * locCircleBuffers.triangleCount,
+                    locCircleBuffers.colorArray
             )
         }
         if (MyApplication.locdotFollowsGps) {
@@ -939,16 +939,16 @@ class WXGLRender(private val context: Context) : Renderer {
         buffers.count = buffers.xList.size
         when (buffers.type) {
             PolygonType.LOCDOT, PolygonType.SPOTTER -> buffers.initialize(
-                24 * buffers.count * buffers.triangleCount,
-                12 * buffers.count * buffers.triangleCount,
-                9 * buffers.count * buffers.triangleCount,
-                buffers.type.color
+                    24 * buffers.count * buffers.triangleCount,
+                    12 * buffers.count * buffers.triangleCount,
+                    9 * buffers.count * buffers.triangleCount,
+                    buffers.type.color
             )
             else -> buffers.initialize(
-                4 * 6 * buffers.count,
-                4 * 3 * buffers.count,
-                9 * buffers.count,
-                buffers.type.color
+                    4 * 6 * buffers.count,
+                    4 * 3 * buffers.count,
+                    9 * buffers.count,
+                    buffers.type.color
             )
         }
         buffers.lenInit = scaleLength(buffers.lenInit)
@@ -983,11 +983,11 @@ class WXGLRender(private val context: Context) : Renderer {
         var fList = listOf<Double>()
         when (buffers.type) {
             PolygonType.MCD, PolygonType.MPD, PolygonType.WATCH, PolygonType.WATCH_TORNADO -> fList =
-                UtilityWatch.addWat(context, provider, rid, buffers.type).toList()
+                    UtilityWatch.add(context, provider, rid, buffers.type).toList()
             PolygonType.TST, PolygonType.TOR, PolygonType.FFW -> fList =
-                WXGLPolygonWarnings.addWarnings(context, provider, rid, buffers.type).toList()
+                    WXGLPolygonWarnings.addWarnings(context, provider, rid, buffers.type).toList()
             PolygonType.STI -> fList =
-                WXGLNexradLevel3StormInfo.decodeAndPlot(context, idxStr, rid, provider).toList()
+                    WXGLNexradLevel3StormInfo.decodeAndPlot(context, idxStr, rid, provider).toList()
             else -> {
                 if (buffers.warningType != null) {
                     fList = WXGLPolygonWarnings.addGenericWarnings(context, provider, rid, buffers.warningType!!).toList()
@@ -1081,9 +1081,9 @@ class WXGLRender(private val context: Context) : Renderer {
         wbCircleBuffers.count = wbCircleBuffers.xList.size
         wbCircleBuffers.triangleCount = 6
         wbCircleBuffers.initialize(
-            24 * wbCircleBuffers.count * wbCircleBuffers.triangleCount,
-            12 * wbCircleBuffers.count * wbCircleBuffers.triangleCount,
-            9 * wbCircleBuffers.count * wbCircleBuffers.triangleCount
+                24 * wbCircleBuffers.count * wbCircleBuffers.triangleCount,
+                12 * wbCircleBuffers.count * wbCircleBuffers.triangleCount,
+                9 * wbCircleBuffers.count * wbCircleBuffers.triangleCount
         )
         wbCircleBuffers.lenInit = scaleLength(wbCircleBuffers.lenInit)
         wbCircleBuffers.draw(pn)
@@ -1094,15 +1094,15 @@ class WXGLRender(private val context: Context) : Renderer {
         wbCircleBuffers.isInitialized = false
     }
 
-    fun constructSWOLines() {
-        val hashSWO = UtilitySWOD1.HASH_SWO.toMap()
+    fun constructSwoLines() {
+        val hashSwo = UtilitySWOD1.HASH_SWO.toMap()
         colorSwo[0] = Color.MAGENTA
         colorSwo[1] = Color.RED
         colorSwo[2] = Color.rgb(255, 140, 0)
         colorSwo[3] = Color.YELLOW
         colorSwo[4] = Color.rgb(0, 100, 0)
         var tmpCoords: DoubleArray
-        val fSize = (0..4).filter { hashSWO[it] != null }.sumBy { hashSWO[it]!!.size }
+        val fSize = (0..4).filter { hashSwo[it] != null }.sumBy { hashSwo[it]!!.size }
         swoBuffers.breakSize = 15000
         swoBuffers.chunkCount = 1
         val totalBinsSwo = fSize / 4
@@ -1115,9 +1115,9 @@ class WXGLRender(private val context: Context) : Renderer {
         }
         swoBuffers.isInitialized = true
         (0..4).forEach {
-            if (hashSWO[it] != null) {
+            if (hashSwo[it] != null) {
                 var j = 0
-                while (j < hashSWO[it]!!.size) {
+                while (j < hashSwo[it]!!.size) {
                     swoBuffers.putColor(Color.red(colorSwo[it]).toByte())
                     swoBuffers.putColor(Color.green(colorSwo[it]).toByte())
                     swoBuffers.putColor(Color.blue(colorSwo[it]).toByte())
@@ -1125,16 +1125,16 @@ class WXGLRender(private val context: Context) : Renderer {
                     swoBuffers.putColor(Color.green(colorSwo[it]).toByte())
                     swoBuffers.putColor(Color.blue(colorSwo[it]).toByte())
                     tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(
-                        hashSWO[it]!![j],
-                        (hashSWO[it]!![j + 1] * -1.0f),
-                        pn
+                            hashSwo[it]!![j],
+                            (hashSwo[it]!![j + 1] * -1.0f),
+                            pn
                     )
                     swoBuffers.putFloat(tmpCoords[0].toFloat())
                     swoBuffers.putFloat(tmpCoords[1].toFloat() * -1.0f)
                     tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(
-                        hashSWO[it]!![j + 2],
-                        (hashSWO[it]!![j + 3] * -1.0f),
-                        pn
+                            hashSwo[it]!![j + 2],
+                            (hashSwo[it]!![j + 3] * -1.0f),
+                            pn
                     )
                     swoBuffers.putFloat(tmpCoords[0].toFloat())
                     swoBuffers.putFloat(tmpCoords[1].toFloat() * -1.0f)
@@ -1144,7 +1144,7 @@ class WXGLRender(private val context: Context) : Renderer {
         }
     }
 
-    fun deconstructSWOLines() {
+    fun deconstructSwoLines() {
         swoBuffers.isInitialized = false
     }
 

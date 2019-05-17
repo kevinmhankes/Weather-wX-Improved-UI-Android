@@ -47,11 +47,11 @@ fun String.parse(pattern: Pattern): String {
 }
 
 fun String.parseColumn(match: String): List<String> {
-    return UtilityString.parseColumnS(this, match)
+    return UtilityString.parseColumn(this, match)
 }
 
 fun String.parseColumn(pattern: Pattern): List<String> {
-    return UtilityString.parseColumnS(this, pattern)
+    return UtilityString.parseColumn(this, pattern)
 }
 
 fun String.getImage(): Bitmap {
@@ -83,7 +83,7 @@ fun String.getHtmlSep(): String {
 }
 
 fun String.parseColumnAll(pattern: Pattern): List<String> {
-    return UtilityString.parseColumnAllS(this, pattern)
+    return UtilityString.parseColumnAll(this, pattern)
 }
 
 fun String.parseLastMatch(pattern: Pattern): String {

@@ -83,7 +83,7 @@ object UtilityUS {
         hazardTitles.forEach { title ->
             if (idAl.size > i) {
                 val url = idAl[i]
-                val ca = CAPAlert.createFromURL(url)
+                val ca = CAPAlert.createFromUrl(url)
                 if (UtilityNotificationTools.nwsLocalAlertNotFiltered(context, title)) {
                     html = "$html<b>$title</b><br>"
                     html = html + "<b>Counties: " + ca.area + "</b><br>"

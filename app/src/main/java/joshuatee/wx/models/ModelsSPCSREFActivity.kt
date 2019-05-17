@@ -183,7 +183,7 @@ class ModelsSPCSREFActivity : VideoRecordActivity(), OnMenuItemClickListener,
         spRun.notifyDataSetChanged()
         (0 until om.spTime.size()).forEach {
             om.spTime[it] = om.spTime[it] + " " +
-                    UtilityModels.convertTimeRuntoTimeString(
+                    UtilityModels.convertTimeRunToTimeString(
                         om.rtd.mostRecentRun.replace("z", ""),
                         om.spTime[it].replace("f", ""),
                         false

@@ -345,14 +345,14 @@ object UtilityDownload {
                         "MIAPWS"
                 ) || prod.contains("MIAHS")
         ) {
-            text = UtilityString.getNWSPRE("${MyApplication.nwsNhcWebsitePrefix}/text/$prod.shtml")
+            text = UtilityString.getNwsPre("${MyApplication.nwsNhcWebsitePrefix}/text/$prod.shtml")
             if (prod.contains("MIATCD")) {
                 text = text.replace("<br><br>", "<BR><BR>")
                 text = text.replace("<br>", " ")
             }
             text = text.replace("^<br>".toRegex(), "")
         } else if (prod.contains("MIAT")) {
-            text = UtilityString.getHTMLandParseSep(
+            text = UtilityString.getHtmlAndParseSep(
                     "${MyApplication.nwsNhcWebsitePrefix}/ftp/pub/forecasts/discussion/$prod",
                     "(.*)"
             )
@@ -371,7 +371,7 @@ object UtilityDownload {
                 text = text.replace("<br>", " ")
             }
         } else if (prod.startsWith("SCCNS")) {
-            text = UtilityString.getHTMLandParseSep(
+            text = UtilityString.getHtmlAndParseSep(
                     "${MyApplication.nwsWPCwebsitePrefix}/discussions/nfd" + prod.toLowerCase(Locale.US).replace(
                             "ns",
                             ""
@@ -386,7 +386,7 @@ object UtilityDownload {
         } else if (prod.contains("SPCMCD")) {
             val no = prod.substring(6)
             val textUrl = "${MyApplication.nwsSPCwebsitePrefix}/products/md/md$no.html"
-            text = UtilityString.getHTMLandParseSep(textUrl, RegExp.pre2Pattern)
+            text = UtilityString.getHtmlAndParseSep(textUrl, RegExp.pre2Pattern)
             text = text.replace("^<br><br>".toRegex(), "")
             if (UIPreferences.nwsTextRemovelinebreaks) {
                 text = text.replace("<br><br>", "<BR><BR>")
@@ -396,7 +396,7 @@ object UtilityDownload {
         } else if (prod.contains("SPCWAT")) {
             val no = prod.substring(6)
             val textUrl = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/ww$no.html"
-            text = UtilityString.getHTMLandParseSep(textUrl, RegExp.pre2Pattern)
+            text = UtilityString.getHtmlAndParseSep(textUrl, RegExp.pre2Pattern)
             text = text.replace("^<br>".toRegex(), "")
             if (UIPreferences.nwsTextRemovelinebreaks) {
                 text = text.replace("<br><br>", "<BR><BR>")
@@ -406,7 +406,7 @@ object UtilityDownload {
             val no = prod.substring(6)
             val textUrl =
                     "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd_multi.php?md=$no"
-            text = UtilityString.getHTMLandParseSep(textUrl, RegExp.pre2Pattern)
+            text = UtilityString.getHtmlAndParseSep(textUrl, RegExp.pre2Pattern)
             text = text.replace("^<br>".toRegex(), "")
             text = text.replace("^ <br>".toRegex(), "")
             if (UIPreferences.nwsTextRemovelinebreaks) {
@@ -416,7 +416,7 @@ object UtilityDownload {
         } else if (prod.contains("QPFHSD")) {
             val textUrl =
                     "${MyApplication.nwsWPCwebsitePrefix}/discussions/hpcdiscussions.php?disc=qpfhsd"
-            text = UtilityString.getHTMLandParseSep(textUrl, RegExp.pre2Pattern)
+            text = UtilityString.getHtmlAndParseSep(textUrl, RegExp.pre2Pattern)
             text = text.replace("^<br>".toRegex(), "")
             text = text.replace("^ <br>".toRegex(), "")
             if (UIPreferences.nwsTextRemovelinebreaks) {
@@ -440,7 +440,7 @@ object UtilityDownload {
                     Locale.US
             )).getHtml()
         } else if (prod.contains("FWDDY38")) {
-            text = UtilityString.getHTMLandParseSep(
+            text = UtilityString.getHtmlAndParseSep(
                     "${MyApplication.nwsSPCwebsitePrefix}/products/exper/fire_wx/",
                     "<pre>(.*?)</pre>"
             )
@@ -470,7 +470,7 @@ object UtilityDownload {
             text = textUrl.getHtmlSep()
             text = text.parse(RegExp.pre2Pattern)
         } else if (prod.contains("PMDTHR")) {
-            text = UtilityString.getHTMLandParseSep(
+            text = UtilityString.getHtmlAndParseSep(
                     "http://www.cpc.noaa.gov/products/predictions/threats/threats.php",
                     "<div id=\"discDiv\">(.*?)</div>"
             )
@@ -497,7 +497,7 @@ object UtilityDownload {
         val t2 = prod.substring(3)
         val url =
                 "http://forecast.weather.gov/product.php?site=NWS&product=$t1&issuedby=$t2&version=$version"
-        var text = UtilityString.getHTMLandParseSep(url, RegExp.prePattern)
+        var text = UtilityString.getHtmlAndParseSep(url, RegExp.prePattern)
         text = text.replace(
                 "Graphics available at <a href=\"${MyApplication.nwsWPCwebsitePrefix}/basicwx/basicwx_wbg.php\"><u>www.wpc.ncep.noaa.gov/basicwx/basicwx_wbg.php</u></a>",
                 ""
