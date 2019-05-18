@@ -216,6 +216,7 @@ object Utility {
         return ObjectForecastPackageCurrentConditions(context, locNum)
     }
 
+    // FIXME make this part of object
     fun getCurrentHazards(locNum: Int): ObjectForecastPackageHazards {
         return if (Location.isUS(locNum)) {
             ObjectForecastPackageHazards(locNum)

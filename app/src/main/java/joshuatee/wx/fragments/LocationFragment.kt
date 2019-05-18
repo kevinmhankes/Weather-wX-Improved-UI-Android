@@ -78,10 +78,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private var y = ""
     private var ts = ""
     private var glviewInitialized = false
-    private var hazardsSum = ""
     private var currentLoc = -1
     private var sevenDayExtShown = false
-    //rivate var hazardRaw = ""
     private lateinit var dataAdapter: ArrayAdapter<String>
     private lateinit var intent: Intent
     private var locationCard: CardView? = null
@@ -621,15 +619,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                             GOES16Activity.RID,
                             arrayOf("")
                     )
-                    /*ObjectIntent(
-                        activityReference,
-                        USNWSGOESActivity::class.java,
-                        USNWSGOESActivity.RID,
-                        arrayOf(
-                            "nws",
-                            hsImageAl[ii].product.replace("IMG-", "").toLowerCase(Locale.US)
-                        )
-                    )*/
                 }
             })
         }
@@ -793,24 +782,22 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             return mActivity!!
         }
 
-    private fun setupHazardCards() { // hazStr: String, idAl: List<String>
+    private fun setupHazardCards() {
         linearLayoutHazards?.removeAllViews()
         hazardsExpandedAl.clear()
         hazardsCardAl.clear()
-        //val tmpArr = hazStr.split(MyApplication.newline).dropLastWhile { it.isEmpty() }
-        objHazards.titles.indices.forEach { z -> // was tmpArr.indicies
+        objHazards.titles.indices.forEach { z ->
             hazardsExpandedAl.add(false)
             hazardsCardAl.add(ObjectCardText(activityReference))
             hazardsCardAl[z].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
             hazardsCardAl[z].setTextColor(UIPreferences.textHighlightColor)
-            hazardsCardAl[z].setText(objHazards.titles[z].toUpperCase(Locale.US)) // was tmpArr
-            //val url = idAl[z]
+            hazardsCardAl[z].setText(objHazards.titles[z].toUpperCase(Locale.US))
             hazardsCardAl[z].setOnClickListener(OnClickListener {
                 ObjectIntent(
                         activityReference,
                         USAlertsDetailActivity::class.java,
                         USAlertsDetailActivity.URL,
-                        arrayOf(objHazards.urls[z]) // was url
+                        arrayOf(objHazards.urls[z])
                 )
             })
             linearLayoutHazards?.addView(hazardsCardAl[z].card)
@@ -824,7 +811,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     }
 
     private fun getLocationForecast() = GlobalScope.launch(uiDispatcher) {
-        var bmCc: Bitmap? = null
+        var bitmapForCurrentConditions: Bitmap? = null
         //
         // Current Conditions
         //
@@ -833,7 +820,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 objCc =
                         Utility.getCurrentConditions(activityReference, Location.currentLocation)
                 if (homescreenFavLocal.contains("TXT-CC2")) {
-                    bmCc = if (Location.isUS) {
+                    bitmapForCurrentConditions = if (Location.isUS) {
                         UtilityNWS.getIcon(activityReference, objCc!!.iconUrl)
                     } else {
                         UtilityNWS.getIcon(
@@ -857,9 +844,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 cardCC?.let {
                     if (homescreenFavLocal.contains("TXT-CC2")) {
                         ccTime = objCc!!.status
-                        if (bmCc != null) {
+                        if (bitmapForCurrentConditions != null) {
                             it.updateContent(
-                                    bmCc!!,
+                                    bitmapForCurrentConditions!!,
                                     objCc!!,
                                     Location.isUS,
                                     ccTime,
@@ -974,18 +961,12 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         withContext(Dispatchers.IO) {
             try {
                 objHazards = Utility.getCurrentHazards(Location.currentLocation)
-                //hazardRaw = objHazards.hazards ?: ""
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
             }
         }
         if (isAdded) {
             if (Location.isUS) {
-                val hazardSumAsync = ""
-                //val idAl = hazardRaw.parseColumn("\"id\": \"(http.*?)\"")
-                //val hazardTitles = hazardRaw.parseColumn("\"event\": \"(.*?)\"")
-                //hazardTitles.forEach { hazardSumAsync += it + MyApplication.newline }
-                //if (hazardSumAsync == "") {
                 if (objHazards.titles.isEmpty()) {
                     if (homescreenFavLocal.contains("TXT-HAZ")) {
                         linearLayoutHazards?.removeAllViews()
@@ -994,15 +975,13 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 } else {
                     if (homescreenFavLocal.contains("TXT-HAZ")) {
                         linearLayoutHazards?.visibility = View.VISIBLE
-                        //setupHazardCards(hazardSumAsync, idAl)
                         setupHazardCards()
                     }
                 }
-                hazardsSum = hazardSumAsync
             } else {
                 objCc?.let {
                     if (objHazards.getHazardsShort() != "") {
-                        hazardsSum = objHazards.getHazardsShort().toUpperCase(Locale.US)
+                        val hazardsSum = objHazards.getHazardsShort().toUpperCase(Locale.US)
                         if (homescreenFavLocal.contains("TXT-HAZ")) {
                             linearLayoutHazards?.visibility = View.VISIBLE
                             setupHazardCardsCA(hazardsSum)

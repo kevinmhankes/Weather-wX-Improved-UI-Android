@@ -78,6 +78,7 @@ class AdhocForecastActivity : BaseActivity() {
         toolbar.subtitle = latlon.latString + "," + latlon.lonString
         cardCC = ObjectCardCC(this, 2)
         ll.addView(cardCC.card)
+        // FIXME add wrapper class for LinearLayout below
         linearLayoutHazards = LinearLayout(this)
         linearLayoutHazards.orientation = LinearLayout.VERTICAL
         ll.addView(linearLayoutHazards)
@@ -151,14 +152,6 @@ class AdhocForecastActivity : BaseActivity() {
         //
         // hazards
         //
-        //val idAl = hazardRaw.parseColumn("\"@id\": \"(.*?)\"")
-        //val idAl = objHazards!!.hazards.parseColumn("\"id\": \"(" + MyApplication.nwsApiUrl + ".*?)\"")
-        //UtilityLog.d("wx", idAl.toString())
-        //val hazardTitles = objHazards!!.hazards.parseColumn("\"event\": \"(.*?)\"")
-        //UtilityLog.d("wx", hazardTitles.toString())
-        //hazardTitles.forEach {
-        //    hazardSumAsync += it + MyApplication.newline
-        //}
         if (objHazards.titles.isEmpty()) {
             linearLayoutHazards.removeAllViews()
             linearLayoutHazards.visibility = View.GONE
@@ -166,7 +159,6 @@ class AdhocForecastActivity : BaseActivity() {
             linearLayoutHazards.visibility = View.VISIBLE
             setupHazardCards()
         }
-        //hazardsSum = hazardSumAsync
     }
 
     private fun setupHazardCards() {
