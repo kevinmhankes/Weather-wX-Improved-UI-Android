@@ -102,13 +102,13 @@ class SPCMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        var args = intent.getStringArrayExtra(INFO)
+        var activityArguments = intent.getStringArrayExtra(INFO)
         contextg = this
-        if (args == null) {
-            args = arrayOf("", "1", "SPCMESO")
+        if (activityArguments == null) {
+            activityArguments = arrayOf("", "1", "SPCMESO")
         }
-        val numPanesStr = args[1]
-        numPanes = numPanesStr.toIntOrNull() ?: 0
+        val numPanesAsString = activityArguments[1]
+        numPanes = numPanesAsString.toIntOrNull() ?: 0
         if (numPanes == 1) {
             super.onCreate(
                 savedInstanceState,
@@ -127,10 +127,10 @@ class SPCMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
             )
         }
         toolbarBottom.setOnMenuItemClickListener(this)
-        prefModel = args[2]
-        prefSector = prefModel + numPanesStr + "_SECTOR_LAST_USED"
-        prefParam = prefModel + numPanesStr + "_PARAM_LAST_USED"
-        prefParamLabel = prefModel + numPanesStr + "_PARAM_LAST_USED_LABEL"
+        prefModel = activityArguments[2]
+        prefSector = prefModel + numPanesAsString + "_SECTOR_LAST_USED"
+        prefParam = prefModel + numPanesAsString + "_PARAM_LAST_USED"
+        prefParamLabel = prefModel + numPanesAsString + "_PARAM_LAST_USED_LABEL"
         displayData = DisplayData(this, this, numPanes, ObjectSpinner(this as Context))
         displayData.param[0] = "pmsl"
         displayData.paramLabel[0] = "MSL Pressure/Wind"
@@ -138,8 +138,8 @@ class SPCMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
             displayData.param[1] = "500mb"
             displayData.paramLabel[1] = "500mb Analysis"
         }
-        if (args[0] != "" && numPanes == 1) {
-            val tmpArrFav = UtilitySPCMESO.setParamFromFav(args[0])
+        if (activityArguments[0] != "" && numPanes == 1) {
+            val tmpArrFav = UtilitySPCMESO.setParamFromFav(activityArguments[0])
             displayData.param[0] = tmpArrFav[0]
             displayData.paramLabel[0] = tmpArrFav[1]
         } else {

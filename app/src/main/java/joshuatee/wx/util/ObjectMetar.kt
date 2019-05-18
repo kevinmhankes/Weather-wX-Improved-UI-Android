@@ -127,8 +127,9 @@ internal class ObjectMetar(context: Context, location: LatLon) {
             timeOfDay = "day"
         }
         val conditionModified = condition.split(";")[0]
+        UtilityLog.d("wx", conditionModified)
         val shortCondition = UtilityMetarConditions.iconFromCondition[conditionModified] ?: ""
-        return "https://api.weather.gov/icons/land/$timeOfDay/$shortCondition?size=medium"
+        return MyApplication.nwsApiUrl + "/icons/land/$timeOfDay/$shortCondition?size=medium"
     }
 
     init {

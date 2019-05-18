@@ -135,7 +135,7 @@ class SevereDashboardActivity : BaseActivity() {
                         val card = ObjectCardImage(contextg, ll, severeNotice.bitmaps[j])
                         var cla: Class<*>? = null
                         var claStr = ""
-                        val claArgStr = severeNotice.strList[j]
+                        val claArgStr = severeNotice.numbers[j]
                         when (severeNotice.type) {
                             PolygonType.MCD -> {
                                 cla = SPCMCDWShowActivity::class.java

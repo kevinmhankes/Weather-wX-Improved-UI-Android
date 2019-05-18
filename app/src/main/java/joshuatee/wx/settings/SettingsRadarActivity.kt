@@ -378,7 +378,7 @@ class SettingsRadarActivity : BaseActivity() {
                         "Warning line size",
                         "RADAR_WARN_LINESIZE",
                         R.string.warn_linesize_np_label,
-                        4,
+                        5,
                         1,
                         10
                 ).card

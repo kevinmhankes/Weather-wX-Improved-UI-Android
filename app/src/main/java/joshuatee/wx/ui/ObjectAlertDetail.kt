@@ -31,6 +31,7 @@ import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.CAPAlert
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityString
 
 class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
@@ -136,8 +137,8 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
             tvArr[1].text = context.resources.getString(R.string.uswarn_end_time, endTime)
             tvArr[2].text = ca.area
             tvArr[2].setTextColor(UIPreferences.textHighlightColor)
-            tvArr[3].text = Utility.fromHtml(ca.summary)
-            tvArr[4].text = Utility.fromHtml(ca.instructions)
+            tvArr[3].text = ca.summary
+            tvArr[4].text = ca.instructions
         }
         wfoTitle = wfo
     }

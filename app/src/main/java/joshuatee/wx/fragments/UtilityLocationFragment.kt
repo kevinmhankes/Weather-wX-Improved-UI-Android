@@ -105,22 +105,22 @@ object UtilityLocationFragment {
         (MyApplication.dm.widthPixels * (MyApplication.nwsIconSize / 100f)).toInt()
 
     fun extractWindDirection(chunk: String): String {
-        val winddir1 = chunk.parseLastMatch(RegExp.sevenDayWinddir1)
-        val winddir2 = chunk.parseLastMatch(RegExp.sevenDayWinddir2)
-        val winddir3 = chunk.parseLastMatch(RegExp.sevenDayWinddir3)
-        val winddir4 = chunk.parseLastMatch(RegExp.sevenDayWinddir4)
-        val winddir5 = chunk.parseLastMatch(RegExp.sevenDayWinddir5)
-        val winddir6 = chunk.parseLastMatch(RegExp.sevenDayWinddir6)
-        val winddir7 = chunk.parseLastMatch(RegExp.sevenDayWinddir7)
+        val windDir1 = chunk.parseLastMatch(RegExp.sevenDayWinddir1)
+        val windDir2 = chunk.parseLastMatch(RegExp.sevenDayWinddir2)
+        val windDir3 = chunk.parseLastMatch(RegExp.sevenDayWinddir3)
+        val windDir4 = chunk.parseLastMatch(RegExp.sevenDayWinddir4)
+        val windDir5 = chunk.parseLastMatch(RegExp.sevenDayWinddir5)
+        val windDir6 = chunk.parseLastMatch(RegExp.sevenDayWinddir6)
+        val windDir7 = chunk.parseLastMatch(RegExp.sevenDayWinddir7)
         var retStr = ""
         when {
-            winddir4 != "" -> retStr = winddir4
-            winddir3 != "" -> retStr = winddir3
-            winddir2 != "" -> retStr = winddir2
-            winddir1 != "" -> retStr = winddir1
-            winddir5 != "" -> retStr = winddir5
-            winddir6 != "" -> retStr = winddir6
-            winddir7 != "" -> retStr = winddir7
+            windDir4 != "" -> retStr = windDir4
+            windDir3 != "" -> retStr = windDir3
+            windDir2 != "" -> retStr = windDir2
+            windDir1 != "" -> retStr = windDir1
+            windDir5 != "" -> retStr = windDir5
+            windDir6 != "" -> retStr = windDir6
+            windDir7 != "" -> retStr = windDir7
         }
         return if (retStr == "") {
             ""

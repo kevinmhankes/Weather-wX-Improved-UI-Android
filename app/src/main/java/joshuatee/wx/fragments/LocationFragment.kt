@@ -106,7 +106,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private var linearLayoutForecast: LinearLayout? = null
     // hazards
     private var linearLayoutHazards: LinearLayout? = null
-    private val hazardsCardAl = mutableListOf<ObjectCardText>()
+    private val hazardsCards = mutableListOf<ObjectCardText>()
     private val hazardsExpandedAl = mutableListOf<Boolean>()
     private var dataNotInitialized = true
     private var alertDialogStatus: ObjectDialogue? = null
@@ -653,36 +653,37 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private fun setupHazardCardsCA(hazUrl: String) {
         linearLayoutHazards?.removeAllViews()
         hazardsExpandedAl.clear()
-        hazardsCardAl.clear()
+        hazardsCards.clear()
         hazardsExpandedAl.add(false)
-        hazardsCardAl.add(ObjectCardText(activityReference))
-        hazardsCardAl[0].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-        hazardsCardAl[0].setTextColor(UIPreferences.textHighlightColor)
-        hazardsCardAl[0].setText(hazUrl)
+        hazardsCards.add(ObjectCardText(activityReference))
+        hazardsCards[0].setPaddingAmount(MyApplication.paddingSettings)
+        hazardsCards[0].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
+        hazardsCards[0].setTextColor(UIPreferences.textHighlightColor)
+        hazardsCards[0].setText(hazUrl)
         val expandIndexCa = 0
         val hazUrlCa = objHazards.hazards
         val hazardsSumCa = objHazards.getHazardsShort()
-        hazardsCardAl[0].setOnClickListener(OnClickListener {
+        hazardsCards[0].setOnClickListener(OnClickListener {
             if (!hazardsExpandedAl[expandIndexCa]) {
-                hazardsCardAl[expandIndexCa].setTextColor(UIPreferences.backgroundColor)
-                hazardsCardAl[expandIndexCa].setTextSize(
+                hazardsCards[expandIndexCa].setTextColor(UIPreferences.backgroundColor)
+                hazardsCards[expandIndexCa].setTextSize(
                         TypedValue.COMPLEX_UNIT_PX,
                         MyApplication.textSizeSmall
                 )
-                hazardsCardAl[expandIndexCa].setText(Utility.fromHtml(hazUrlCa))
+                hazardsCards[expandIndexCa].setText(Utility.fromHtml(hazUrlCa))
                 hazardsExpandedAl[expandIndexCa] = true
             } else {
-                hazardsCardAl[expandIndexCa].setTextColor(UIPreferences.textHighlightColor)
-                hazardsCardAl[expandIndexCa].setTextSize(
+                hazardsCards[expandIndexCa].setTextColor(UIPreferences.textHighlightColor)
+                hazardsCards[expandIndexCa].setTextSize(
                         TypedValue.COMPLEX_UNIT_PX,
                         MyApplication.textSizeNormal
                 )
-                hazardsCardAl[expandIndexCa].setText(hazardsSumCa)
+                hazardsCards[expandIndexCa].setText(hazardsSumCa)
                 hazardsExpandedAl[expandIndexCa] = false
                 scrollView.smoothScrollTo(0, 0)
             }
         })
-        linearLayoutHazards?.addView(hazardsCardAl[0].card)
+        linearLayoutHazards?.addView(hazardsCards[0].card)
     }
 
     private fun setupAlertDialogStatus() {
@@ -785,14 +786,15 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private fun setupHazardCards() {
         linearLayoutHazards?.removeAllViews()
         hazardsExpandedAl.clear()
-        hazardsCardAl.clear()
+        hazardsCards.clear()
         objHazards.titles.indices.forEach { z ->
             hazardsExpandedAl.add(false)
-            hazardsCardAl.add(ObjectCardText(activityReference))
-            hazardsCardAl[z].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-            hazardsCardAl[z].setTextColor(UIPreferences.textHighlightColor)
-            hazardsCardAl[z].setText(objHazards.titles[z].toUpperCase(Locale.US))
-            hazardsCardAl[z].setOnClickListener(OnClickListener {
+            hazardsCards.add(ObjectCardText(activityReference))
+            hazardsCards[z].setPaddingAmount(MyApplication.paddingSettings)
+            hazardsCards[z].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
+            hazardsCards[z].setTextColor(UIPreferences.textHighlightColor)
+            hazardsCards[z].setText(objHazards.titles[z].toUpperCase(Locale.US))
+            hazardsCards[z].setOnClickListener(OnClickListener {
                 ObjectIntent(
                         activityReference,
                         USAlertsDetailActivity::class.java,
@@ -800,7 +802,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                         arrayOf(objHazards.urls[z])
                 )
             })
-            linearLayoutHazards?.addView(hazardsCardAl[z].card)
+            linearLayoutHazards?.addView(hazardsCards[z].card)
         }
     }
 

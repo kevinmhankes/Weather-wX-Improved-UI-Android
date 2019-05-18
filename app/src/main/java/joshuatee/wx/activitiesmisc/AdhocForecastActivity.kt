@@ -162,6 +162,7 @@ class AdhocForecastActivity : BaseActivity() {
         hazardCards.clear()
         objHazards.titles.indices.forEach { z ->
             hazardCards.add(ObjectCardText(contextg))
+            hazardCards[z].setPaddingAmount(MyApplication.paddingSettings)
             hazardCards[z].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
             hazardCards[z].setTextColor(UIPreferences.textHighlightColor)
             hazardCards[z].setText(objHazards.titles[z].toUpperCase(Locale.US))

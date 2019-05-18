@@ -481,37 +481,37 @@ Animation speed. Lower is faster. Default is 5.
       </string>
 
     <string name="warn_linesize_np_label">
-Thickness of lines for warnings. Smaller number is thinner. Default is 4.
+Thickness of lines for warnings. Smaller number is thinner.
     </string>
 
     <string name="watmcd_linesize_np">
-Thickness of lines for SPC Watch/MCD. Smaller number is thinner. Default is 4.
+Thickness of lines for SPC Watch/MCD. Smaller number is thinner.
 </string>
 
  <string name="state_linesize_np">
-Thickness of lines for state lines. Smaller number is thinner. Default is 2.
+Thickness of lines for state lines. Smaller number is thinner.
 </string>
  <string name="county_linesize_np">
-Thickness of lines for county outlines. Smaller number is thinner. Default is 2.
+Thickness of lines for county outlines. Smaller number is thinner.
 </string>
  <string name="hw_linesize_np">
-Thickness of lines for main highways. Smaller number is thinner. Default is 2.
+Thickness of lines for main highways. Smaller number is thinner.
 </string>
  <string name="hwext_linesize_np">
-Thickness of lines for secondary highways/roads. Smaller number is thinner. Default is 2.
+Thickness of lines for secondary highways/roads. Smaller number is thinner.
 </string>
  <string name="lakes_linesize_np">
-Thickness of lines for rivers and lakes. Smaller number is thinner. Default is 2.
+Thickness of lines for rivers and lakes. Smaller number is thinner.
 </string>
  <string name="gpscircle_linesize_np">
-Thickness of lines for the GPS location circle. Smaller number is thinner. Default is 5.
+Thickness of lines for the GPS location circle. Smaller number is thinner.
 </string>
 
     <string name="locdot_size_np">
-Allows one to change the size of the location marker. Default value is 8</string>
+Allows one to change the size of the location marker.</string>
 
     <string name="wxogl_size_np">
-Allows one to change the default view size for the WXOGL Nexrad radar interface. Default value is 10. Larger value is more zoomed in.</string>
+Allows one to change the default view size for the WXOGL Nexrad radar interface. Larger value is more zoomed in.</string>
 
     <string name="b_tornado">
 Turn on alerts for US-wide tornado warnings.</string>

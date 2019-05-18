@@ -21,7 +21,6 @@
 // TODO add user accessible debug log from try-catch data
 // TODO remove unused prefs
 // TODO don't display full precision in lat/lon in settings location edit
-// TODO have no-arg initializers for 7day and cc similar to hazards
 
 [ADD] - adding something new - method, file, etc. to the repo
 [REM] - remove items
@@ -31,6 +30,11 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55190 2019_05_18    [IMP] add more whitespace around hazards on main screen
+                    [IMP] don't squash whitespace in US alerts detail
+                    [REF] camelCase and better naming
+                    [IMP] change default warning line size from 4 to 5 (does not impact existing users). Remove default values from some help strings as
+                    they are shown elsewhere
 55189 2019_05_18    [REF] more work on 7day object
                     [REF] more work on cc object
 55188 2019_05_18    [REF] more work on hazards object

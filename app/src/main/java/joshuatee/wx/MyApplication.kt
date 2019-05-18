@@ -789,7 +789,7 @@ class MyApplication : Application() {
             radarLocdotSize = getInitialPreference("RADAR_LOCDOT_SIZE", 8)
             radarHiSize = getInitialPreference("RADAR_HI_SIZE", 8)
             radarTvsSize = getInitialPreference("RADAR_TVS_SIZE", 8)
-            radarWarnLinesize = getInitialPreference("RADAR_WARN_LINESIZE", 2)
+            radarWarnLinesize = getInitialPreference("RADAR_WARN_LINESIZE", 5)
             radarWatmcdLinesize = getInitialPreference("RADAR_WATMCD_LINESIZE", 2)
             radarStateLinesize = getInitialPreference("RADAR_STATE_LINESIZE", 2)
             radarCountyLinesize = getInitialPreference("RADAR_COUNTY_LINESIZE", 2)

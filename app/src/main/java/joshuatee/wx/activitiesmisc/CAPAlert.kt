@@ -24,6 +24,7 @@ package joshuatee.wx.activitiesmisc
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.util.UtilityLog
 
 class CAPAlert {
 
@@ -68,10 +69,12 @@ class CAPAlert {
             val obj = CAPAlert()
             obj.url = url
             val html = if (url.contains("NWS-IDP-PROD")) {
+                //UtilityLog.d("wx", url)
                 UtilityDownloadNws.getStringFromUrlSep(url)
             } else {
                 url.getHtmlSep()
             }
+            //UtilityLog.d("wx", html)
             if (!html.contains("NWS-IDP-PROD")) {
                 if (html.contains(expireStr)) {
                     obj.text = expireStr
@@ -97,6 +100,7 @@ class CAPAlert {
             } else {
                 obj.title = html.parse("\"headline\": \"(.*?)\"")
                 obj.summary = html.parse("\"description\": \"(.*?)\"")
+                //UtilityLog.d("wx", obj.summary)
                 obj.instructions = html.parse("\"instruction\": \"(.*?)\"")
                 obj.area = html.parse("\"areaDesc\": \"(.*?)\"")
                 obj.summary = obj.summary.replace("\\n", "\n")
