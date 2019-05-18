@@ -251,7 +251,8 @@ object UtilityNotification {
             }
             if (currentUpdateTime > lastUpdateTime + 1000 * 60 * ccUpdateInterval) {
                 val objCc = Utility.getCurrentConditions(context, locNumInt)
-                val objHazards = Utility.getCurrentHazards(locNumInt)
+                //val objHazards = Utility.getCurrentHazards(locNumInt)
+                val objHazards = ObjectForecastPackageHazards(locNumInt)
                 val objSevenDay = Utility.getCurrentSevenDay(locNumInt)
                 val updateTime = System.currentTimeMillis()
                 Utility.writePref(context, "CC" + locNum + "_LAST_UPDATE", updateTime)

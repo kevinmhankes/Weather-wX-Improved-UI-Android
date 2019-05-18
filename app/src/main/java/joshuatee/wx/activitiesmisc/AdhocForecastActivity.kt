@@ -59,7 +59,7 @@ class AdhocForecastActivity : BaseActivity() {
     private var latlon = LatLon()
     private var objCc: ObjectForecastPackageCurrentConditions? = null
     private var objHazards = ObjectForecastPackageHazards()
-    private var objSevenDay: ObjectForecastPackage7Day? = null
+    private var objSevenDay = ObjectForecastPackage7Day()
     private var ccTime = ""
     private var radarTime = ""
     private lateinit var cardCC: ObjectCardCC
@@ -98,13 +98,13 @@ class AdhocForecastActivity : BaseActivity() {
             // Current conditions
             //
             objCc = Utility.getCurrentConditionsByLatLon(contextg, latlon)
-            objHazards = Utility.getCurrentHazards(latlon)
+            objHazards = ObjectForecastPackageHazards(latlon)
             objSevenDay = Utility.getCurrentSevenDay(latlon)
             bitmapForCurrentCondition = UtilityNWS.getIcon(contextg, objCc!!.iconUrl)
             //
             // 7day
             //
-            objSevenDay!!.iconAl.mapTo(bitmaps) { UtilityNWS.getIcon(contextg, it) }
+            objSevenDay.iconAl.mapTo(bitmaps) { UtilityNWS.getIcon(contextg, it) }
             //
             // hazards
             //
@@ -127,7 +127,7 @@ class AdhocForecastActivity : BaseActivity() {
         objCc?.let {
             linearLayoutForecast.removeAllViewsInLayout()
             bitmaps.forEachIndexed { index, bitmap ->
-                val c7day = ObjectCard7Day(contextg, bitmap, true, index, objSevenDay!!.fcstList)
+                val c7day = ObjectCard7Day(contextg, bitmap, true, index, objSevenDay.fcstList)
                 c7day.setOnClickListener(View.OnClickListener {
                     sv.smoothScrollTo(0, 0)
                 })

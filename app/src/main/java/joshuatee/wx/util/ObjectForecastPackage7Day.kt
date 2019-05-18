@@ -27,7 +27,7 @@ import joshuatee.wx.settings.Location
 
 import joshuatee.wx.Extensions.*
 
-class ObjectForecastPackage7Day internal constructor(locNum: Int, html: String) {
+class ObjectForecastPackage7Day {
 
     var iconstr: String = ""
         private set
@@ -39,7 +39,9 @@ class ObjectForecastPackage7Day internal constructor(locNum: Int, html: String) 
         private set
     private var detailedForecastAl = mutableListOf<String>()
 
-    init {
+    constructor()
+
+    constructor(locNum: Int, html: String) {
         if (locNum == -1 || Location.isUS(locNum)) {
             iconstr = getIcons7Day(html)
             sevenDayExtStr = get7DayExt(html)

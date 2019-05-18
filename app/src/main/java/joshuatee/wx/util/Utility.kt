@@ -216,16 +216,6 @@ object Utility {
         return ObjectForecastPackageCurrentConditions(context, locNum)
     }
 
-    // FIXME make this part of object
-    fun getCurrentHazards(locNum: Int): ObjectForecastPackageHazards {
-        return if (Location.isUS(locNum)) {
-            ObjectForecastPackageHazards(locNum)
-        } else {
-            val html = UtilityCanada.getLocationHtml(Location.getLatLon(locNum))
-            ObjectForecastPackageHazards.createForCanada(html)
-        }
-    }
-
     fun getCurrentSevenDay(locNum: Int): ObjectForecastPackage7Day {
         return if (Location.isUS(locNum)) {
             val html = UtilityDownloadNws.get7DayData(Location.getLatLon(locNum))
@@ -239,10 +229,6 @@ object Utility {
     fun getCurrentSevenDay(location: LatLon): ObjectForecastPackage7Day {
         val html = UtilityDownloadNws.get7DayData(location)
         return ObjectForecastPackage7Day(-1, html)
-    }
-
-    fun getCurrentHazards(location: LatLon): ObjectForecastPackageHazards {
-        return ObjectForecastPackageHazards(location)
     }
 
     fun getCurrentConditionsByLatLon(context: Context, location: LatLon): ObjectForecastPackageCurrentConditions {

@@ -116,7 +116,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private val alertDialogRadarLongpressAl = mutableListOf<String>()
     private var objCc: ObjectForecastPackageCurrentConditions? = null
     private var objHazards = ObjectForecastPackageHazards()
-    private var objSevenDay: ObjectForecastPackage7Day? = null
+    private var objSevenDay = ObjectForecastPackage7Day()
     private var locationChangedSevenDay = false
     private var locationChangedHazards = false
     private var numPanesArr = listOf<Int>()
@@ -872,14 +872,14 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         withContext(Dispatchers.IO) {
             try {
                 objSevenDay = Utility.getCurrentSevenDay(Location.currentLocation)
-                Utility.writePref(activityReference, "FCST", objSevenDay?.sevenDayExtStr ?: "")
+                Utility.writePref(activityReference, "FCST", objSevenDay.sevenDayExtStr)
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
             }
             try {
-                Utility.writePref(activityReference, "FCST", objSevenDay?.sevenDayExtStr ?: "")
+                Utility.writePref(activityReference, "FCST", objSevenDay.sevenDayExtStr)
                 if (homescreenFavLocal.contains("TXT-7DAY")) {
-                    objSevenDay!!.iconAl.mapTo(bmArr) {
+                    objSevenDay.iconAl.mapTo(bmArr) {
                         UtilityNWS.getIcon(
                                 activityReference,
                                 it
@@ -891,51 +891,49 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             }
         }
         if (isAdded) {
-            objSevenDay?.let { _ ->
-                if (homescreenFavLocal.contains("TXT-7DAY")) {
-                    linearLayoutForecast?.removeAllViewsInLayout()
-                    val day7Arr = objSevenDay!!.fcstList
-                    bmArr.forEachIndexed { idx, bm ->
-                        val c7day =
-                                ObjectCard7Day(activityReference, bm, Location.isUS, idx, day7Arr)
-                        c7day.setOnClickListener(OnClickListener {
-                            scrollView.smoothScrollTo(
-                                    0,
-                                    0
-                            )
-                        })
-                        linearLayoutForecast?.addView(c7day.card)
-                    }
-                    // sunrise card
-                    val cardSunrise = ObjectCardText(activityReference)
-                    cardSunrise.center()
-                    cardSunrise.setOnClickListener(OnClickListener {
+            if (homescreenFavLocal.contains("TXT-7DAY")) {
+                linearLayoutForecast?.removeAllViewsInLayout()
+                val day7Arr = objSevenDay.fcstList
+                bmArr.forEachIndexed { idx, bm ->
+                    val c7day =
+                            ObjectCard7Day(activityReference, bm, Location.isUS, idx, day7Arr)
+                    c7day.setOnClickListener(OnClickListener {
                         scrollView.smoothScrollTo(
                                 0,
                                 0
                         )
                     })
-                    try {
-                        if (Location.isUS) {
-                            cardSunrise.setText(
-                                    UtilityTimeSunMoon.getSunriseSunset(
-                                            activityReference,
-                                            Location.currentLocationStr
-                                    ) + MyApplication.newline + UtilityTime.gmtTime()
-                            )
-                        } else {
-                            cardSunrise.setText(
-                                    UtilityTimeSunMoon.getSunriseSunset(
-                                            activityReference,
-                                            Location.currentLocationStr
-                                    ) + MyApplication.newline + UtilityTime.gmtTime()
-                            )
-                        }
-                    } catch (e: Exception) {
-                        UtilityLog.handleException(e)
-                    }
-                    linearLayoutForecast?.addView(cardSunrise.card)
+                    linearLayoutForecast?.addView(c7day.card)
                 }
+                // sunrise card
+                val cardSunrise = ObjectCardText(activityReference)
+                cardSunrise.center()
+                cardSunrise.setOnClickListener(OnClickListener {
+                    scrollView.smoothScrollTo(
+                            0,
+                            0
+                    )
+                })
+                try {
+                    if (Location.isUS) {
+                        cardSunrise.setText(
+                                UtilityTimeSunMoon.getSunriseSunset(
+                                        activityReference,
+                                        Location.currentLocationStr
+                                ) + MyApplication.newline + UtilityTime.gmtTime()
+                        )
+                    } else {
+                        cardSunrise.setText(
+                                UtilityTimeSunMoon.getSunriseSunset(
+                                        activityReference,
+                                        Location.currentLocationStr
+                                ) + MyApplication.newline + UtilityTime.gmtTime()
+                        )
+                    }
+                } catch (e: Exception) {
+                    UtilityLog.handleException(e)
+                }
+                linearLayoutForecast?.addView(cardSunrise.card)
             }
             //
             // Canada legal card
@@ -960,7 +958,13 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         }
         withContext(Dispatchers.IO) {
             try {
-                objHazards = Utility.getCurrentHazards(Location.currentLocation)
+                //objHazards = Utility.getCurrentHazards(Location.currentLocation)
+                objHazards = if (Location.isUS(Location.currentLocation)) {
+                    ObjectForecastPackageHazards(Location.currentLocation)
+                } else {
+                    val html = UtilityCanada.getLocationHtml(Location.getLatLon(Location.currentLocation))
+                    ObjectForecastPackageHazards(html)
+                }
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
             }
