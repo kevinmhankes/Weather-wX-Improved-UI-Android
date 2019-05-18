@@ -250,10 +250,9 @@ object UtilityNotification {
                 notifUrls += url + "7day" + MyApplication.notificationStrSep
             }
             if (currentUpdateTime > lastUpdateTime + 1000 * 60 * ccUpdateInterval) {
-                val objCc = Utility.getCurrentConditions(context, locNumInt)
-                //val objHazards = Utility.getCurrentHazards(locNumInt)
+                val objCc = ObjectForecastPackageCurrentConditions(context, locNumInt)
                 val objHazards = ObjectForecastPackageHazards(locNumInt)
-                val objSevenDay = Utility.getCurrentSevenDay(locNumInt)
+                val objSevenDay = ObjectForecastPackage7Day(locNumInt)
                 val updateTime = System.currentTimeMillis()
                 Utility.writePref(context, "CC" + locNum + "_LAST_UPDATE", updateTime)
                 if (locNum == widgetLocNum && widgetsEnabled) {
@@ -261,8 +260,8 @@ object UtilityNotification {
                 }
                 if (MyApplication.locations[locNumInt].ccNotification) {
                     noMain = locLabelStr
-                    noBody = objCc.data1 + MyApplication.newline + objCc.status
-                    noSummary = objCc.data1 + MyApplication.newline + objCc.status
+                    noBody = objCc.data + MyApplication.newline + objCc.status
+                    noSummary = objCc.data + MyApplication.newline + objCc.status
                     val notifier =
                             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                     val resultIntent: Intent
@@ -301,7 +300,7 @@ object UtilityNotification {
                         UtilityNWS.getIcon(
                                 context,
                                 UtilityCanada.translateIconNameCurrentConditions(
-                                        objCc.data1,
+                                        objCc.data,
                                         objCc.status
                                 )
                         )
@@ -327,7 +326,7 @@ object UtilityNotification {
                     val resultIntent2 = Intent(context, TextScreenActivity::class.java)
                     resultIntent2.putExtra(
                             TextScreenActivity.URL,
-                            arrayOf(objSevenDay.sevenDayExtStr, locLabelStr)
+                            arrayOf(objSevenDay.sevenDayLong, locLabelStr)
                     )
                     val stackBuilder2 = TaskStackBuilder.create(context)
                     stackBuilder2.addParentStack(TextScreenActivity::class.java)

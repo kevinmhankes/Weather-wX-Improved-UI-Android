@@ -114,7 +114,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private var idxIntG = 0
     private var alertDialogRadarLongPress: ObjectDialogue? = null
     private val alertDialogRadarLongpressAl = mutableListOf<String>()
-    private var objCc: ObjectForecastPackageCurrentConditions? = null
+    private var objCc = ObjectForecastPackageCurrentConditions()
     private var objHazards = ObjectForecastPackageHazards()
     private var objSevenDay = ObjectForecastPackage7Day()
     private var locationChangedSevenDay = false
@@ -817,17 +817,16 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         //
         withContext(Dispatchers.IO) {
             try {
-                objCc =
-                        Utility.getCurrentConditions(activityReference, Location.currentLocation)
+                objCc = ObjectForecastPackageCurrentConditions(activityReference, Location.currentLocation)
                 if (homescreenFavLocal.contains("TXT-CC2")) {
                     bitmapForCurrentConditions = if (Location.isUS) {
-                        UtilityNWS.getIcon(activityReference, objCc!!.iconUrl)
+                        UtilityNWS.getIcon(activityReference, objCc.iconUrl)
                     } else {
                         UtilityNWS.getIcon(
                                 activityReference,
                                 UtilityCanada.translateIconNameCurrentConditions(
-                                        objCc!!.data1,
-                                        objCc!!.status
+                                        objCc.data,
+                                        objCc.status
                                 )
                         )
                     }
@@ -840,46 +839,44 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             //
             // Current Conditions
             //
-            objCc?.let { _ ->
-                cardCC?.let {
-                    if (homescreenFavLocal.contains("TXT-CC2")) {
-                        ccTime = objCc!!.status
-                        if (bitmapForCurrentConditions != null) {
-                            it.updateContent(
-                                    bitmapForCurrentConditions!!,
-                                    objCc!!,
-                                    Location.isUS,
-                                    ccTime,
-                                    radarTime
-                            )
-                        }
-                    } else {
-                        it.setTopLine(objCc!!.data1)
-                        ccTime = objCc!!.status
-                        it.setStatus(ccTime + radarTime)
+            cardCC?.let {
+                if (homescreenFavLocal.contains("TXT-CC2")) {
+                    ccTime = objCc.status
+                    if (bitmapForCurrentConditions != null) {
+                        it.updateContent(
+                                bitmapForCurrentConditions!!,
+                                objCc,
+                                Location.isUS,
+                                ccTime,
+                                radarTime
+                        )
                     }
+                } else {
+                    it.setTopLine(objCc.data)
+                    ccTime = objCc.status
+                    it.setStatus(ccTime + radarTime)
                 }
             }
         }
     }
 
     private fun getLocationForecastSevenDay() = GlobalScope.launch(uiDispatcher) {
-        val bmArr = mutableListOf<Bitmap>()
+        val bitmaps = mutableListOf<Bitmap>()
         if (locationChangedSevenDay) {
             linearLayoutForecast?.removeAllViewsInLayout()
             locationChangedSevenDay = false
         }
         withContext(Dispatchers.IO) {
             try {
-                objSevenDay = Utility.getCurrentSevenDay(Location.currentLocation)
-                Utility.writePref(activityReference, "FCST", objSevenDay.sevenDayExtStr)
+                objSevenDay = ObjectForecastPackage7Day(Location.currentLocation)
+                Utility.writePref(activityReference, "FCST", objSevenDay.sevenDayLong)
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
             }
             try {
-                Utility.writePref(activityReference, "FCST", objSevenDay.sevenDayExtStr)
+                Utility.writePref(activityReference, "FCST", objSevenDay.sevenDayLong)
                 if (homescreenFavLocal.contains("TXT-7DAY")) {
-                    objSevenDay.iconAl.mapTo(bmArr) {
+                    objSevenDay.icons.mapTo(bitmaps) {
                         UtilityNWS.getIcon(
                                 activityReference,
                                 it
@@ -893,10 +890,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         if (isAdded) {
             if (homescreenFavLocal.contains("TXT-7DAY")) {
                 linearLayoutForecast?.removeAllViewsInLayout()
-                val day7Arr = objSevenDay.fcstList
-                bmArr.forEachIndexed { idx, bm ->
-                    val c7day =
-                            ObjectCard7Day(activityReference, bm, Location.isUS, idx, day7Arr)
+                val day7Arr = objSevenDay.forecastList
+                bitmaps.forEachIndexed { index, bitmap ->
+                    val c7day = ObjectCard7Day(activityReference, bitmap, Location.isUS, index, day7Arr)
                     c7day.setOnClickListener(OnClickListener {
                         scrollView.smoothScrollTo(
                                 0,
@@ -983,13 +979,11 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     }
                 }
             } else {
-                objCc?.let {
-                    if (objHazards.getHazardsShort() != "") {
-                        val hazardsSum = objHazards.getHazardsShort().toUpperCase(Locale.US)
-                        if (homescreenFavLocal.contains("TXT-HAZ")) {
-                            linearLayoutHazards?.visibility = View.VISIBLE
-                            setupHazardCardsCA(hazardsSum)
-                        }
+                if (objHazards.getHazardsShort() != "") {
+                    val hazardsSum = objHazards.getHazardsShort().toUpperCase(Locale.US)
+                    if (homescreenFavLocal.contains("TXT-HAZ")) {
+                        linearLayoutHazards?.visibility = View.VISIBLE
+                        setupHazardCardsCA(hazardsSum)
                     }
                 }
             }

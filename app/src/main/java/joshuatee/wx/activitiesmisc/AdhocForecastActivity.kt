@@ -56,8 +56,8 @@ class AdhocForecastActivity : BaseActivity() {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var activityArguments: Array<String>
-    private var latlon = LatLon()
-    private var objCc: ObjectForecastPackageCurrentConditions? = null
+    private var latLon = LatLon()
+    private var objCc = ObjectForecastPackageCurrentConditions()
     private var objHazards = ObjectForecastPackageHazards()
     private var objSevenDay = ObjectForecastPackage7Day()
     private var ccTime = ""
@@ -73,9 +73,9 @@ class AdhocForecastActivity : BaseActivity() {
         // FIXME activity_linear_layout need ll to be renamed to linearLayout, need to asses which activities are using it
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
         activityArguments = intent.getStringArrayExtra(URL)
-        latlon = LatLon(activityArguments[0], activityArguments[1])
+        latLon = LatLon(activityArguments[0], activityArguments[1])
         title = "Forecast for"
-        toolbar.subtitle = latlon.latString + "," + latlon.lonString
+        toolbar.subtitle = latLon.latString + "," + latLon.lonString
         cardCC = ObjectCardCC(this, 2)
         ll.addView(cardCC.card)
         // FIXME add wrapper class for LinearLayout below
@@ -97,14 +97,14 @@ class AdhocForecastActivity : BaseActivity() {
             //
             // Current conditions
             //
-            objCc = Utility.getCurrentConditionsByLatLon(contextg, latlon)
-            objHazards = ObjectForecastPackageHazards(latlon)
-            objSevenDay = Utility.getCurrentSevenDay(latlon)
-            bitmapForCurrentCondition = UtilityNWS.getIcon(contextg, objCc!!.iconUrl)
+            objCc = ObjectForecastPackageCurrentConditions(contextg, latLon)
+            objHazards = ObjectForecastPackageHazards(latLon)
+            objSevenDay = ObjectForecastPackage7Day(latLon)
+            bitmapForCurrentCondition = UtilityNWS.getIcon(contextg, objCc.iconUrl)
             //
             // 7day
             //
-            objSevenDay.iconAl.mapTo(bitmaps) { UtilityNWS.getIcon(contextg, it) }
+            objSevenDay.icons.mapTo(bitmaps) { UtilityNWS.getIcon(contextg, it) }
             //
             // hazards
             //
@@ -113,41 +113,37 @@ class AdhocForecastActivity : BaseActivity() {
         //
         // CC
         //
-        objCc?.let { _ ->
-            cardCC.let {
-                ccTime = objCc!!.status
-                if (bitmapForCurrentCondition != null) {
-                    it.updateContent(bitmapForCurrentCondition!!, objCc!!, true, ccTime, radarTime)
-                }
+        cardCC.let {
+            ccTime = objCc.status
+            if (bitmapForCurrentCondition != null) {
+                it.updateContent(bitmapForCurrentCondition!!, objCc, true, ccTime, radarTime)
             }
         }
         //
         // 7day
         //
-        objCc?.let {
-            linearLayoutForecast.removeAllViewsInLayout()
-            bitmaps.forEachIndexed { index, bitmap ->
-                val c7day = ObjectCard7Day(contextg, bitmap, true, index, objSevenDay.fcstList)
-                c7day.setOnClickListener(View.OnClickListener {
-                    sv.smoothScrollTo(0, 0)
-                })
-                linearLayoutForecast.addView(c7day.card)
-            }
-            // sunrise card
-            val cardSunrise = ObjectCardText(contextg)
-            cardSunrise.center()
-            try {
-                cardSunrise.setText(
-                    UtilityTimeSunMoon.getSunriseSunset(
-                        contextg,
-                        Location.currentLocationStr
-                    ) + MyApplication.newline + UtilityTime.gmtTime()
-                )
-            } catch (e: Exception) {
-                UtilityLog.handleException(e)
-            }
-            linearLayoutForecast.addView(cardSunrise.card)
+        linearLayoutForecast.removeAllViewsInLayout()
+        bitmaps.forEachIndexed { index, bitmap ->
+            val c7day = ObjectCard7Day(contextg, bitmap, true, index, objSevenDay.forecastList)
+            c7day.setOnClickListener(View.OnClickListener {
+                sv.smoothScrollTo(0, 0)
+            })
+            linearLayoutForecast.addView(c7day.card)
         }
+        // sunrise card
+        val cardSunrise = ObjectCardText(contextg)
+        cardSunrise.center()
+        try {
+            cardSunrise.setText(
+                    UtilityTimeSunMoon.getSunriseSunset(
+                            contextg,
+                            Location.currentLocationStr
+                    ) + MyApplication.newline + UtilityTime.gmtTime()
+            )
+        } catch (e: Exception) {
+            UtilityLog.handleException(e)
+        }
+        linearLayoutForecast.addView(cardSunrise.card)
 
         //
         // hazards
@@ -171,10 +167,10 @@ class AdhocForecastActivity : BaseActivity() {
             hazardCards[z].setText(objHazards.titles[z].toUpperCase(Locale.US))
             hazardCards[z].setOnClickListener(View.OnClickListener {
                 ObjectIntent(
-                    contextg,
-                    USAlertsDetailActivity::class.java,
-                    USAlertsDetailActivity.URL,
-                    arrayOf(objHazards.urls[z])
+                        contextg,
+                        USAlertsDetailActivity::class.java,
+                        USAlertsDetailActivity.URL,
+                        arrayOf(objHazards.urls[z])
                 )
             })
             linearLayoutHazards.addView(hazardCards[z].card)
