@@ -81,7 +81,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private var hazardsSum = ""
     private var currentLoc = -1
     private var sevenDayExtShown = false
-    private var hazardRaw = ""
+    //rivate var hazardRaw = ""
     private lateinit var dataAdapter: ArrayAdapter<String>
     private lateinit var intent: Intent
     private var locationCard: CardView? = null
@@ -117,7 +117,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private var alertDialogRadarLongPress: ObjectDialogue? = null
     private val alertDialogRadarLongpressAl = mutableListOf<String>()
     private var objCc: ObjectForecastPackageCurrentConditions? = null
-    private var objHazards: ObjectForecastPackageHazards? = null
+    private var objHazards = ObjectForecastPackageHazards()
     private var objSevenDay: ObjectForecastPackage7Day? = null
     private var locationChangedSevenDay = false
     private var locationChangedHazards = false
@@ -671,8 +671,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         hazardsCardAl[0].setTextColor(UIPreferences.textHighlightColor)
         hazardsCardAl[0].setText(hazUrl)
         val expandIndexCa = 0
-        val hazUrlCa = objHazards?.hazards ?: ""
-        val hazardsSumCa = objHazards?.getHazardsShort() ?: ""
+        val hazUrlCa = objHazards.hazards
+        val hazardsSumCa = objHazards.getHazardsShort()
         hazardsCardAl[0].setOnClickListener(OnClickListener {
             if (!hazardsExpandedAl[expandIndexCa]) {
                 hazardsCardAl[expandIndexCa].setTextColor(UIPreferences.backgroundColor)
@@ -793,24 +793,24 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             return mActivity!!
         }
 
-    private fun setupHazardCards(hazStr: String, idAl: List<String>) {
+    private fun setupHazardCards() { // hazStr: String, idAl: List<String>
         linearLayoutHazards?.removeAllViews()
         hazardsExpandedAl.clear()
         hazardsCardAl.clear()
-        val tmpArr = hazStr.split(MyApplication.newline).dropLastWhile { it.isEmpty() }
-        tmpArr.indices.forEach { z ->
+        //val tmpArr = hazStr.split(MyApplication.newline).dropLastWhile { it.isEmpty() }
+        objHazards.titles.indices.forEach { z -> // was tmpArr.indicies
             hazardsExpandedAl.add(false)
             hazardsCardAl.add(ObjectCardText(activityReference))
             hazardsCardAl[z].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
             hazardsCardAl[z].setTextColor(UIPreferences.textHighlightColor)
-            hazardsCardAl[z].setText(tmpArr[z].toUpperCase(Locale.US))
-            val url = idAl[z]
+            hazardsCardAl[z].setText(objHazards.titles[z].toUpperCase(Locale.US)) // was tmpArr
+            //val url = idAl[z]
             hazardsCardAl[z].setOnClickListener(OnClickListener {
                 ObjectIntent(
                         activityReference,
                         USAlertsDetailActivity::class.java,
                         USAlertsDetailActivity.URL,
-                        arrayOf(url)
+                        arrayOf(objHazards.urls[z]) // was url
                 )
             })
             linearLayoutHazards?.addView(hazardsCardAl[z].card)
@@ -974,18 +974,19 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         withContext(Dispatchers.IO) {
             try {
                 objHazards = Utility.getCurrentHazards(Location.currentLocation)
-                hazardRaw = objHazards?.hazards ?: ""
+                //hazardRaw = objHazards.hazards ?: ""
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
             }
         }
         if (isAdded) {
             if (Location.isUS) {
-                var hazardSumAsync = ""
-                val idAl = hazardRaw.parseColumn("\"id\": \"(http.*?)\"")
-                val hazardTitles = hazardRaw.parseColumn("\"event\": \"(.*?)\"")
-                hazardTitles.forEach { hazardSumAsync += it + MyApplication.newline }
-                if (hazardSumAsync == "") {
+                val hazardSumAsync = ""
+                //val idAl = hazardRaw.parseColumn("\"id\": \"(http.*?)\"")
+                //val hazardTitles = hazardRaw.parseColumn("\"event\": \"(.*?)\"")
+                //hazardTitles.forEach { hazardSumAsync += it + MyApplication.newline }
+                //if (hazardSumAsync == "") {
+                if (objHazards.titles.isEmpty()) {
                     if (homescreenFavLocal.contains("TXT-HAZ")) {
                         linearLayoutHazards?.removeAllViews()
                         linearLayoutHazards?.visibility = View.GONE
@@ -993,14 +994,15 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 } else {
                     if (homescreenFavLocal.contains("TXT-HAZ")) {
                         linearLayoutHazards?.visibility = View.VISIBLE
-                        setupHazardCards(hazardSumAsync, idAl)
+                        //setupHazardCards(hazardSumAsync, idAl)
+                        setupHazardCards()
                     }
                 }
                 hazardsSum = hazardSumAsync
             } else {
                 objCc?.let {
-                    if (objHazards?.getHazardsShort() != "") {
-                        hazardsSum = objHazards!!.getHazardsShort().toUpperCase(Locale.US)
+                    if (objHazards.getHazardsShort() != "") {
+                        hazardsSum = objHazards.getHazardsShort().toUpperCase(Locale.US)
                         if (homescreenFavLocal.contains("TXT-HAZ")) {
                             linearLayoutHazards?.visibility = View.VISIBLE
                             setupHazardCardsCA(hazardsSum)

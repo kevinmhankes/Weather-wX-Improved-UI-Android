@@ -21,6 +21,7 @@
 
 package joshuatee.wx.util
 
+import joshuatee.wx.Extensions.parseColumn
 import joshuatee.wx.MyApplication
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.radar.LatLon
@@ -29,20 +30,26 @@ import joshuatee.wx.settings.Location
 class ObjectForecastPackageHazards {
 
     private var hazardsShort = ""
+    var urls = listOf<String>()
+    var titles = listOf<String>()
     var hazards: String = ""
         private set
 
-    private constructor()
+    constructor()
 
     // US
     internal constructor(locNum: Int) {
         if (Location.isUS(locNum) && MyApplication.homescreenFav.contains("TXT-HAZ")) {
             hazards = getHazardsHtml(Location.getLatLon(locNum))
+            urls = hazards.parseColumn("\"id\": \"(" + MyApplication.nwsApiUrl + ".*?)\"")
+            titles = hazards.parseColumn("\"event\": \"(.*?)\"")
         }
     }
 
     internal constructor(location: LatLon) {
         hazards = getHazardsHtml(location)
+        urls = hazards.parseColumn("\"id\": \"(" + MyApplication.nwsApiUrl + ".*?)\"")
+        titles = hazards.parseColumn("\"event\": \"(.*?)\"")
     }
 
     fun getHazardsShort(): String = hazardsShort.replace("^<BR>".toRegex(), "")
@@ -58,11 +65,11 @@ class ObjectForecastPackageHazards {
         }
 
         fun getHazardsHtml(location: LatLon): String {
-            return UtilityDownloadNws.getHazardData(
-                "https://api.weather.gov/alerts?point=" + UtilityMath.latLonFix(
-                    location.latString
-                ) + "," + UtilityMath.latLonFix(location.lonString) + "&active=1"
-            )
+            val url = "https://api.weather.gov/alerts?point=" + UtilityMath.latLonFix(location.latString) + "," + UtilityMath.latLonFix(location.lonString) + "&active=1"
+            //UtilityLog.d("wx", url)
+            val html = UtilityDownloadNws.getHazardData(url)
+            //UtilityLog.d("Wx", html)
+            return html
         }
     }
 }

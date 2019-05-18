@@ -60,3 +60,7 @@ build/intermediates
 ----------------------------
 git reset --hard HEAD
 git reset --hard tagname
+
+
+
+git archive --format zip --output /full/path/to/zipfile.zip master

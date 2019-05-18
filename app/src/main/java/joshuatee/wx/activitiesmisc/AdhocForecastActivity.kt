@@ -37,7 +37,6 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import java.util.*
 
-import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.LatLon
@@ -59,21 +58,19 @@ class AdhocForecastActivity : BaseActivity() {
     private lateinit var activityArguments: Array<String>
     private var latlon = LatLon()
     private var objCc: ObjectForecastPackageCurrentConditions? = null
-    private var objHazards: ObjectForecastPackageHazards? = null
+    private var objHazards = ObjectForecastPackageHazards()
     private var objSevenDay: ObjectForecastPackage7Day? = null
     private var ccTime = ""
     private var radarTime = ""
-    private var hazardsSum = ""
-    private var hazardRaw = ""
     private lateinit var cardCC: ObjectCardCC
     private lateinit var linearLayoutForecast: LinearLayout
     private lateinit var linearLayoutHazards: LinearLayout
-    private val hazardsCardAl = mutableListOf<ObjectCardText>()
-    private val hazardsExpandedAl = mutableListOf<Boolean>()
+    private val hazardCards = mutableListOf<ObjectCardText>()
     private lateinit var contextg: Context
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
+        // FIXME activity_linear_layout need ll to be renamed to linearLayout, need to asses which activities are using it
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
         activityArguments = intent.getStringArrayExtra(URL)
         latlon = LatLon(activityArguments[0], activityArguments[1])
@@ -92,26 +89,25 @@ class AdhocForecastActivity : BaseActivity() {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        var bmCc: Bitmap? = null
-        val bmArr = mutableListOf<Bitmap>()
+        var bitmapForCurrentCondition: Bitmap? = null
+        val bitmaps = mutableListOf<Bitmap>()
 
         withContext(Dispatchers.IO) {
             //
-            // CC
+            // Current conditions
             //
             objCc = Utility.getCurrentConditionsByLatLon(contextg, latlon)
             objHazards = Utility.getCurrentHazards(latlon)
             objSevenDay = Utility.getCurrentSevenDay(latlon)
-            hazardRaw = objHazards!!.hazards.getHtmlSep()
-            bmCc = UtilityNWS.getIcon(contextg, objCc!!.iconUrl)
+            bitmapForCurrentCondition = UtilityNWS.getIcon(contextg, objCc!!.iconUrl)
             //
             // 7day
             //
-            objSevenDay!!.iconAl.mapTo(bmArr) { UtilityNWS.getIcon(contextg, it) }
+            objSevenDay!!.iconAl.mapTo(bitmaps) { UtilityNWS.getIcon(contextg, it) }
             //
             // hazards
             //
-            hazardRaw = objHazards!!.hazards
+            //hazardRaw = objHazards!!.hazards
         }
         //
         // CC
@@ -119,8 +115,8 @@ class AdhocForecastActivity : BaseActivity() {
         objCc?.let { _ ->
             cardCC.let {
                 ccTime = objCc!!.status
-                if (bmCc != null) {
-                    it.updateContent(bmCc!!, objCc!!, true, ccTime, radarTime)
+                if (bitmapForCurrentCondition != null) {
+                    it.updateContent(bitmapForCurrentCondition!!, objCc!!, true, ccTime, radarTime)
                 }
             }
         }
@@ -129,9 +125,8 @@ class AdhocForecastActivity : BaseActivity() {
         //
         objCc?.let {
             linearLayoutForecast.removeAllViewsInLayout()
-            val day7Arr = objSevenDay!!.fcstList
-            bmArr.forEachIndexed { idx, bm ->
-                val c7day = ObjectCard7Day(contextg, bm, true, idx, day7Arr)
+            bitmaps.forEachIndexed { index, bitmap ->
+                val c7day = ObjectCard7Day(contextg, bitmap, true, index, objSevenDay!!.fcstList)
                 c7day.setOnClickListener(View.OnClickListener {
                     sv.smoothScrollTo(0, 0)
                 })
@@ -140,7 +135,6 @@ class AdhocForecastActivity : BaseActivity() {
             // sunrise card
             val cardSunrise = ObjectCardText(contextg)
             cardSunrise.center()
-            //cardSunrise.lightText()
             try {
                 cardSunrise.setText(
                     UtilityTimeSunMoon.getSunriseSunset(
@@ -157,41 +151,41 @@ class AdhocForecastActivity : BaseActivity() {
         //
         // hazards
         //
-        var hazardSumAsync = ""
-        val idAl = hazardRaw.parseColumn("\"@id\": \"(.*?)\"")
-        val hazardTitles = hazardRaw.parseColumn("\"event\": \"(.*?)\"")
-        hazardTitles.forEach { hazardSumAsync += it + MyApplication.newline }
-        if (hazardSumAsync == "") {
+        //val idAl = hazardRaw.parseColumn("\"@id\": \"(.*?)\"")
+        //val idAl = objHazards!!.hazards.parseColumn("\"id\": \"(" + MyApplication.nwsApiUrl + ".*?)\"")
+        //UtilityLog.d("wx", idAl.toString())
+        //val hazardTitles = objHazards!!.hazards.parseColumn("\"event\": \"(.*?)\"")
+        //UtilityLog.d("wx", hazardTitles.toString())
+        //hazardTitles.forEach {
+        //    hazardSumAsync += it + MyApplication.newline
+        //}
+        if (objHazards.titles.isEmpty()) {
             linearLayoutHazards.removeAllViews()
             linearLayoutHazards.visibility = View.GONE
         } else {
             linearLayoutHazards.visibility = View.VISIBLE
-            setupHazardCards(hazardSumAsync, idAl)
+            setupHazardCards()
         }
-        hazardsSum = hazardSumAsync
+        //hazardsSum = hazardSumAsync
     }
 
-    private fun setupHazardCards(hazStr: String, idAl: List<String>) {
+    private fun setupHazardCards() {
         linearLayoutHazards.removeAllViews()
-        hazardsExpandedAl.clear()
-        hazardsCardAl.clear()
-        val tmpArr = hazStr.split(MyApplication.newline).dropLastWhile { it.isEmpty() }
-        tmpArr.indices.forEach { z ->
-            hazardsExpandedAl.add(false)
-            hazardsCardAl.add(ObjectCardText(contextg))
-            hazardsCardAl[z].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-            hazardsCardAl[z].setTextColor(UIPreferences.textHighlightColor)
-            hazardsCardAl[z].setText(tmpArr[z].toUpperCase(Locale.US))
-            val url = idAl[z]
-            hazardsCardAl[z].setOnClickListener(View.OnClickListener {
+        hazardCards.clear()
+        objHazards.titles.indices.forEach { z ->
+            hazardCards.add(ObjectCardText(contextg))
+            hazardCards[z].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
+            hazardCards[z].setTextColor(UIPreferences.textHighlightColor)
+            hazardCards[z].setText(objHazards.titles[z].toUpperCase(Locale.US))
+            hazardCards[z].setOnClickListener(View.OnClickListener {
                 ObjectIntent(
                     contextg,
                     USAlertsDetailActivity::class.java,
                     USAlertsDetailActivity.URL,
-                    arrayOf(url)
+                    arrayOf(objHazards.urls[z])
                 )
             })
-            linearLayoutHazards.addView(hazardsCardAl[z].card)
+            linearLayoutHazards.addView(hazardCards[z].card)
         }
     }
 }

@@ -214,9 +214,12 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         anim = menu.findItem(R.id.action_a)
         val rad3 = menu.findItem(R.id.action_radar3)
         val rad4 = menu.findItem(R.id.action_radar4)
+        val quadPaneJump = menu.findItem(R.id.action_radar_4)
         if (numPanes == 2) {
             rad3.isVisible = false
             rad4.isVisible = false
+        } else {
+            quadPaneJump.isVisible = false
         }
         if (!UIPreferences.radarImmersiveMode) {
             val blank = menu.findItem(R.id.action_blank)
@@ -775,6 +778,19 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     }
                 }
             }
+            R.id.action_radar_4 -> {
+                if (!dontSavePref) {
+                    numPanesArr.forEach { WXGLNexrad.savePrefs(this, prefPrefix, it + 1, oglrArr[it]) }
+                } else {
+                    numPanesArr.forEach { WXGLNexrad.saveProductPrefs(this, prefPrefix, it + 1, oglrArr[it]) }
+                }
+                ObjectIntent(
+                        this,
+                        WXGLRadarActivityMultiPane::class.java,
+                        RID,
+                        arrayOf(joshuatee.wx.settings.Location.rid, "", "4", "true")
+                )
+            }
             R.id.action_TDWR -> alertDialogTDWR()
             R.id.action_ridmap -> {
                 imageMap.toggleMap()
@@ -864,6 +880,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         super.onStop()
         if (!dontSavePref) {
             numPanesArr.forEach { WXGLNexrad.savePrefs(this, prefPrefix, it + 1, oglrArr[it]) }
+        } else {
+            numPanesArr.forEach { WXGLNexrad.saveProductPrefs(this, prefPrefix, it + 1, oglrArr[it]) }
         }
         // otherwise cpu will spin with no fix but to kill app
         inOglAnim = false
