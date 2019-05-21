@@ -20,6 +20,7 @@
 // TODO camelCase filenames in particular when acronyms longer then 2 chars exist
 // TODO add user accessible debug log from try-catch data
 // TODO remove unused prefs
+// TODO color pal edit for SRM and L2 VEL/REF
 // TODO don't display full precision in lat/lon in settings location edit
 // TODO  enhance formatting for NHC Storms
 // TODO - bug , SPC Meso swipe left/right takes on extra to get started
