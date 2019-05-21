@@ -24,6 +24,7 @@
 // TODO don't display full precision in lat/lon in settings location edit
 // TODO  enhance formatting for NHC Storms
 // TODO - bug , SPC Meso swipe left/right takes on extra to get started
+// TODO - radar , tap stop button should then fetch latest radar
 
 [ADD] - adding something new - method, file, etc. to the repo
 [REM] - remove items
