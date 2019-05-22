@@ -35,6 +35,8 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55194 2019_05_22    [FIX] at joshuatee.wx.radar.WXGLPolygonWarnings.addWarnings (WXGLPolygonWarnings.kt:139)
+                            java.lang.IndexOutOfBoundsException:
 55193 2019_05_22    [REF] various camelCase
                     [IMP] Better positioning support for single to dual pane transition in landscape
                     [IMP] In settings->homescreen remove legacy "7DAY: 7 Day Forecast" as an option
