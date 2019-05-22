@@ -39,7 +39,7 @@ import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.spc.SPCMCDWShowActivity
 import joshuatee.wx.spc.SPCStormReportsActivity
-import joshuatee.wx.spc.UtilitySPC
+import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.util.UtilityDownloadRadar
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.util.UtilityShortcut
@@ -83,6 +83,7 @@ class SevereDashboardActivity : BaseActivity() {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        // FIXME var naming
         val bitmapArrRep = mutableListOf<Bitmap>()
         val snWat = SevereNotice(PolygonType.WATCH)
         val snMcd = SevereNotice(PolygonType.MCD)
@@ -112,7 +113,7 @@ class SevereDashboardActivity : BaseActivity() {
             snMcd.getBitmaps(UtilityDownloadRadar.getMcd())
             snWat.getBitmaps(UtilityDownloadRadar.getWatch())
             snMpd.getBitmaps(UtilityDownloadRadar.getMpd())
-            bitmapArrRep.add((UtilitySPC.getStormReportsTodayUrl()).getImage())
+            bitmapArrRep.add((UtilitySpc.getStormReportsTodayUrl()).getImage())
         }
         if (bitmapArrRep.size > 0) {
             bitmapArrRep.indices.forEach {

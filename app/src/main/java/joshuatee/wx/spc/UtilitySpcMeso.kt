@@ -28,7 +28,7 @@ import joshuatee.wx.ui.ObjectMenuTitle
 import joshuatee.wx.ui.ObjectSpinner
 import joshuatee.wx.util.Group
 
-object UtilitySPCMESO {
+object UtilitySpcMeso {
 
     private val titles = Arrays.asList(
             ObjectMenuTitle("Observations", 3),
@@ -45,26 +45,40 @@ object UtilitySPCMESO {
             ObjectMenuTitle("Beta", 9)
     )
 
-    private var swipePosition = 0
+    var swipePosition = 0
 
-    internal fun moveForward(spinnerTime: ObjectSpinner) {
-        if (spinnerTime.size() > 3) {
+    internal fun moveForward(spinner: ObjectSpinner) {
+        val originalValue = spinner[swipePosition]
+        if (spinner.size() > 3) {
             swipePosition += if (swipePosition == 0) {
                 3
             } else {
                 1
             }
-            if (swipePosition >= spinnerTime.size()) {
+            if (swipePosition >= spinner.size()) {
                 swipePosition = 0
             }
-            spinnerTime.setSelection(swipePosition)
+            spinner.setSelection(swipePosition)
+        }
+        val newValue = spinner[swipePosition]
+        //UtilityLog.d("wx", originalValue)
+        //UtilityLog.d("wx", newValue)
+        if (newValue == originalValue) {
+            if (spinner.size() > 3) {
+                swipePosition += 1
+                if (swipePosition >= spinner.size()) {
+                    swipePosition = 0
+                }
+                spinner.setSelection(swipePosition)
+            }
         }
     }
 
-    internal fun moveBack(spinnerTime: ObjectSpinner) {
-        if (spinnerTime.size() > 3) {
-            if (swipePosition >= spinnerTime.size()) {
-                swipePosition = spinnerTime.size() - 1
+    internal fun moveBack(spinner: ObjectSpinner) {
+        val originalValue = spinner[swipePosition]
+        if (spinner.size() > 3) {
+            if (swipePosition >= spinner.size()) {
+                swipePosition = spinner.size() - 1
             }
             if (swipePosition == 3) {
                 swipePosition = 0
@@ -72,9 +86,14 @@ object UtilitySPCMESO {
                 swipePosition -= 1
             }
             if (swipePosition == -1) {
-                swipePosition = spinnerTime.size() - 1
+                swipePosition = spinner.size() - 1
             }
-            spinnerTime.setSelection(swipePosition)
+            spinner.setSelection(swipePosition)
+        }
+        val newValue = spinner[swipePosition]
+        //spinner.setSelection("Mixing Ratio / Theta1")
+        if (newValue == originalValue) {
+            // FIXME find a better way to handle this method and above
         }
     }
 

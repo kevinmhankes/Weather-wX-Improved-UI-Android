@@ -17,28 +17,33 @@
     You should have received a copy of the GNU General Public License
     along with wX.  If not, see <http://www.gnu.org/licenses/>.
 
-*/
+ */
 
-package joshuatee.wx.spc
+package joshuatee.wx.wpc
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 
-internal object UtilitySPCFireOutlook {
+internal object UtilityWpcRainfallForecast {
 
-    val textProducts = listOf(
-        "fwddy1",
-        "fwddy2",
-        "fwddy38"
+    val textUrls = listOf(
+        "${MyApplication.nwsWPCwebsitePrefix}/qpf/94epoints.txt",
+        "${MyApplication.nwsWPCwebsitePrefix}/qpf/98epoints.txt",
+        "${MyApplication.nwsWPCwebsitePrefix}/qpf/99epoints.txt"
+    )
+
+    val productLabels = listOf(
+        "Day 1",
+        "Day 2",
+        "Day 3"
     )
 
     val imageUrls = listOf(
-        "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/day1otlk_fire.gif",
-        "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/day2otlk_fire.gif",
-        "${MyApplication.nwsSPCwebsitePrefix}/products/exper/fire_wx/imgs/day38otlk_fire.gif"
+        "${MyApplication.nwsWPCwebsitePrefix}/qpf/94ewbg.gif",
+        "${MyApplication.nwsWPCwebsitePrefix}/qpf/98ewbg.gif",
+        "${MyApplication.nwsWPCwebsitePrefix}/qpf/99ewbg.gif"
     )
 
-    const val activityTitle = R.string.title_activity_spcfire_outlook
+    const val activityTitle = R.string.title_activity_hpcrainfall_forecast
 }
-
 

@@ -17,33 +17,22 @@
     You should have received a copy of the GNU General Public License
     along with wX.  If not, see <http://www.gnu.org/licenses/>.
 
- */
+*/
 
-package joshuatee.wx.wpc
+package joshuatee.wx.spc
 
+import android.content.Context
+import android.graphics.Bitmap
 import joshuatee.wx.MyApplication
-import joshuatee.wx.R
+import joshuatee.wx.util.UtilityImg
 
-internal object UtilityWPCRainfallForecast {
-
-    val textUrls = listOf(
-        "${MyApplication.nwsWPCwebsitePrefix}/qpf/94epoints.txt",
-        "${MyApplication.nwsWPCwebsitePrefix}/qpf/98epoints.txt",
-        "${MyApplication.nwsWPCwebsitePrefix}/qpf/99epoints.txt"
-    )
-
-    val productLabels = listOf(
-        "Day 1",
-        "Day 2",
-        "Day 3"
-    )
-
-    val imageUrls = listOf(
-        "${MyApplication.nwsWPCwebsitePrefix}/qpf/94ewbg.gif",
-        "${MyApplication.nwsWPCwebsitePrefix}/qpf/98ewbg.gif",
-        "${MyApplication.nwsWPCwebsitePrefix}/qpf/99ewbg.gif"
-    )
-
-    const val activityTitle = R.string.title_activity_hpcrainfall_forecast
+object UtilitySpcSoundings {
+    fun getImage(context: Context, nwsOffice: String): Bitmap {
+        return UtilityImg.getBitmapAddWhiteBG(
+            context,
+            "${MyApplication.nwsSPCwebsitePrefix}/exper/soundings/LATEST/$nwsOffice.gif"
+        )
+    }
 }
+
 

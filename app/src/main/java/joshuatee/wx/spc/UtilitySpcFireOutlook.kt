@@ -21,18 +21,24 @@
 
 package joshuatee.wx.spc
 
-import android.content.Context
-import android.graphics.Bitmap
 import joshuatee.wx.MyApplication
-import joshuatee.wx.util.UtilityImg
+import joshuatee.wx.R
 
-object UtilitySPCSoundings {
-    fun getImage(context: Context, nwsOffice: String): Bitmap {
-        return UtilityImg.getBitmapAddWhiteBG(
-            context,
-            "${MyApplication.nwsSPCwebsitePrefix}/exper/soundings/LATEST/$nwsOffice.gif"
-        )
-    }
+internal object UtilitySpcFireOutlook {
+
+    val textProducts = listOf(
+        "fwddy1",
+        "fwddy2",
+        "fwddy38"
+    )
+
+    val imageUrls = listOf(
+        "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/day1otlk_fire.gif",
+        "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/day2otlk_fire.gif",
+        "${MyApplication.nwsSPCwebsitePrefix}/products/exper/fire_wx/imgs/day38otlk_fire.gif"
+    )
+
+    const val activityTitle = R.string.title_activity_spcfire_outlook
 }
 
 

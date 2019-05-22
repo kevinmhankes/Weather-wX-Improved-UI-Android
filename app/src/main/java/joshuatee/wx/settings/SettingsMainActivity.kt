@@ -207,7 +207,7 @@ class SettingsMainActivity : BaseActivity() {
                 ObjectSettingsSeekbar(
                         this,
                         this,
-                        "Refresh interval for location",
+                        "Refresh interval for location in minutes",
                         "REFRESH_LOC_MIN",
                         R.string.refresh_loc_min_np_label,
                         10,
@@ -219,7 +219,7 @@ class SettingsMainActivity : BaseActivity() {
                 ObjectSettingsSeekbar(
                         this,
                         this,
-                        "ROAMING distance check",
+                        "Roaming distance check in miles",
                         "ROAMING_LOCATION_DISTANCE_CHECK",
                         R.string.roaming_location_distance_check_np_label,
                         5,
