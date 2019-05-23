@@ -34,7 +34,7 @@ import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 
 import joshuatee.wx.R
-import joshuatee.wx.audio.UtilityTTS
+import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.notifications.UtilityNotificationTextProduct
 import joshuatee.wx.MyApplication
 import joshuatee.wx.audio.AudioPlayActivity
@@ -180,7 +180,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             html = "None issued by this office recently."
         }
         textCard.setTextAndTranslate(Utility.fromHtml(html))
-        UtilityTTS.conditionalPlay(activityArguments, 2, applicationContext, html, product)
+        UtilityTts.conditionalPlay(activityArguments, 2, applicationContext, html, product)
         if (activityArguments[1] == "") {
             Utility.writePref(contextg, "WFO_TEXT_FAV", product)
             MyApplication.wfoTextFav = product

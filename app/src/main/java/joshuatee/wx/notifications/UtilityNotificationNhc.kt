@@ -27,7 +27,7 @@ import androidx.core.app.NotificationCompat
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
-import joshuatee.wx.nhc.NHCStormActivity
+import joshuatee.wx.nhc.NhcStormActivity
 import joshuatee.wx.nhc.ObjectNhcStormInfo
 import joshuatee.wx.nhc.UtilityNhc
 import joshuatee.wx.util.Utility
@@ -137,7 +137,7 @@ object UtilityNotificationNhc {
         val noSummary: String = mdNo
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         val objPI = ObjectPendingIntents(
-                context, NHCStormActivity::class.java, NHCStormActivity.URL,
+                context, NhcStormActivity::class.java, NhcStormActivity.URL,
                 arrayOf(notifUrl, notifTitle, "nosound", img1Url, img2Url, wallet),
                 arrayOf(notifUrl, notifTitle, "sound", img1Url, img2Url, wallet)
         )

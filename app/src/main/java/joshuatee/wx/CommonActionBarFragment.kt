@@ -33,8 +33,8 @@ import android.view.View
 import android.widget.Toast
 import joshuatee.wx.activitiesmisc.*
 
-import joshuatee.wx.radar.USNWSMosaicActivity
-import joshuatee.wx.audio.UtilityTTS
+import joshuatee.wx.radar.USNwsMosaicActivity
+import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.audio.UtilityVoiceCommand
 import joshuatee.wx.canada.CanadaAlertsActivity
 import joshuatee.wx.canada.CanadaHourlyActivity
@@ -52,7 +52,7 @@ import joshuatee.wx.spc.SpcSoundingsActivity
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
-import joshuatee.wx.vis.GOES16Activity
+import joshuatee.wx.vis.GoesActivity
 
 open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListener {
 
@@ -190,8 +190,8 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                         if (!UIPreferences.useAwcRadarMosaic) {
                             ObjectIntent(
                                     this,
-                                    USNWSMosaicActivity::class.java,
-                                    USNWSMosaicActivity.URL,
+                                    USNwsMosaicActivity::class.java,
+                                    USNwsMosaicActivity.URL,
                                     arrayOf("location")
                             )
                         } else {
@@ -221,9 +221,9 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                 if (MyApplication.helpMode) {
                     showHelpCAB(item.itemId)
                 } else {
-                    if (UtilityTTS.mMediaPlayer != null && UtilityTTS.mMediaPlayer!!.isPlaying) {
-                        UtilityTTS.mMediaPlayer!!.stop()
-                        UtilityTTS.ttsIsPaused = true
+                    if (UtilityTts.mMediaPlayer != null && UtilityTts.mMediaPlayer!!.isPlaying) {
+                        UtilityTts.mMediaPlayer!!.stop()
+                        UtilityTts.ttsIsPaused = true
                     }
                     val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
                     i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US")
@@ -316,8 +316,8 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
             if (Location.isUS) {
                 ObjectIntent(
                         this,
-                        AFDActivity::class.java,
-                        AFDActivity.URL,
+                        AfdActivity::class.java,
+                        AfdActivity.URL,
                         arrayOf(Location.wfo, "")
                 )
             } else {
@@ -339,7 +339,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
             showHelpCAB(itemID)
         } else {
             if (Location.isUS) {
-                ObjectIntent(this, GOES16Activity::class.java, GOES16Activity.RID, arrayOf(""))
+                ObjectIntent(this, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
             } else {
                 ObjectIntent(
                         this,

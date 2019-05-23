@@ -32,7 +32,7 @@ import joshuatee.wx.objects.WidgetFile
 import joshuatee.wx.objects.WidgetFile.*
 import joshuatee.wx.settings.Location
 import joshuatee.wx.util.Utility
-import joshuatee.wx.vis.GOES16Activity
+import joshuatee.wx.vis.GoesActivity
 
 class ObjectWidgetVis(context: Context) {
 
@@ -47,23 +47,23 @@ class ObjectWidgetVis(context: Context) {
         if (!MyApplication.widgetPreventTap) {
             if (Location.isUS(widgetLocNum)) {
                 UtilityWidget.setupIntent(
-                    context,
-                    remoteViews,
-                    GOES16Activity::class.java,
-                    R.id.iv,
-                    GOES16Activity.RID,
-                    arrayOf(""),
-                    WidgetFile.VIS.action
+                        context,
+                        remoteViews,
+                        GoesActivity::class.java,
+                        R.id.iv,
+                        GoesActivity.RID,
+                        arrayOf(""),
+                        WidgetFile.VIS.action
                 )
             } else {
                 UtilityWidget.setupIntent(
-                    context,
-                    remoteViews,
-                    CanadaRadarActivity::class.java,
-                    R.id.iv,
-                    CanadaRadarActivity.RID,
-                    arrayOf(rid1, "vis"),
-                    WidgetFile.VIS.action
+                        context,
+                        remoteViews,
+                        CanadaRadarActivity::class.java,
+                        R.id.iv,
+                        CanadaRadarActivity.RID,
+                        arrayOf(rid1, "vis"),
+                        WidgetFile.VIS.action
                 )
             }
         }

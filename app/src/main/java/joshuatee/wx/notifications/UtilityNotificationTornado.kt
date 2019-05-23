@@ -26,7 +26,7 @@ import android.graphics.Color
 import androidx.core.app.NotificationCompat
 
 import joshuatee.wx.R
-import joshuatee.wx.activitiesmisc.CAPAlert
+import joshuatee.wx.activitiesmisc.CapAlert
 import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.UtilityLog
@@ -65,7 +65,7 @@ internal object UtilityNotificationTornado {
         for (title in hazardTitles) {
             if (idAl.size > i) {
                 val url = idAl[i]
-                val ca = CAPAlert.createFromUrl(url)
+                val ca = CapAlert.createFromUrl(url)
                 if (UtilityNotificationTools.nwsLocalAlertNotFiltered(
                                 context,
                                 title

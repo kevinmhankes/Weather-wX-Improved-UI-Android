@@ -47,7 +47,7 @@ import joshuatee.wx.RegExp
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.radar.UtilityAwcRadarMosaic
-import joshuatee.wx.radar.UtilityUSImgNWSMosaic
+import joshuatee.wx.radar.UtilityUSImgNwsMosaic
 import joshuatee.wx.vis.UtilityGoes
 
 object UtilityDownload {
@@ -72,11 +72,11 @@ object UtilityDownload {
                 }
                 bitmap = if (Location.isUS(location)) {
                     if (k == "usa") {
-                        UtilityUSImgNWSMosaic.get(context, "latest", false)
+                        UtilityUSImgNwsMosaic.get(context, "latest", false)
                     } else {
-                        UtilityUSImgNWSMosaic.get(
+                        UtilityUSImgNwsMosaic.get(
                                 context,
-                                UtilityUSImgNWSMosaic.getSectorFromState(state),
+                                UtilityUSImgNwsMosaic.getSectorFromState(state),
                                 false
                         )
                     }

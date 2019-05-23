@@ -26,8 +26,8 @@ import java.util.Locale
 import android.content.Context
 import android.view.View
 
-import joshuatee.wx.activitiesmisc.AFDActivity
-import joshuatee.wx.radar.USNWSMosaicActivity
+import joshuatee.wx.activitiesmisc.AfdActivity
+import joshuatee.wx.radar.USNwsMosaicActivity
 import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.spc.SpcMesoActivity
@@ -38,8 +38,8 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.SettingsLocationGenericActivity
 import joshuatee.wx.spc.SpcSwoActivity
 import joshuatee.wx.util.Utility
-import joshuatee.wx.vis.GOES16Activity
-import joshuatee.wx.wpc.WPCTextProductsActivity
+import joshuatee.wx.vis.GoesActivity
+import joshuatee.wx.wpc.WpcTextProductsActivity
 
 object UtilityVoiceCommand {
 
@@ -77,23 +77,23 @@ object UtilityVoiceCommand {
             if (nws1Current == "WPC") {
                 ObjectIntent(
                         context,
-                        WPCTextProductsActivity::class.java,
-                        WPCTextProductsActivity.URL,
+                        WpcTextProductsActivity::class.java,
+                        WpcTextProductsActivity.URL,
                         arrayOf("pmdspd", "Short Range Forecast Discussion", "sound")
                 )
             } else {
                 ObjectIntent(
                         context,
-                        AFDActivity::class.java,
-                        AFDActivity.URL,
+                        AfdActivity::class.java,
+                        AfdActivity.URL,
                         arrayOf(nws1Current, "AFD", "sound")
                 )
             }
         } else if (vrString.contains("cloud")) {
             ObjectIntent(
                     context,
-                    GOES16Activity::class.java,
-                    GOES16Activity.RID,
+                    GoesActivity::class.java,
+                    GoesActivity.RID,
                     arrayOf("")
             )
         } else if (vrString.toUpperCase(Locale.US).contains("SPC")) {
@@ -179,8 +179,8 @@ object UtilityVoiceCommand {
         } else if (vrString.contains("mosaic")) {
             ObjectIntent(
                     context,
-                    USNWSMosaicActivity::class.java,
-                    USNWSMosaicActivity.URL,
+                    USNwsMosaicActivity::class.java,
+                    USNwsMosaicActivity.URL,
                     arrayOf("")
             )
         } else if (vrString.contains("Twitter")) {
@@ -241,7 +241,7 @@ object UtilityVoiceCommand {
             )
         } else if (vrString.contains("forecast")) {
             val fcstStr = Utility.readPref(context, "FCST", "")
-            UtilityTTS.synthesizeTextAndPlay(context, fcstStr, "7day")
+            UtilityTts.synthesizeTextAndPlay(context, fcstStr, "7day")
         } else if (vrString.contains("download playlist")) {
             UtilityUI.makeSnackBar(view, "Download initiated")
             ObjectIntent(
@@ -251,7 +251,7 @@ object UtilityVoiceCommand {
                     "true"
             )
         } else if (vrString.contains("playlist")) {
-            UtilityTTS.synthesizeTextAndPlayPlaylist(context, 1)
+            UtilityTts.synthesizeTextAndPlayPlaylist(context, 1)
         } else {
             gotHit = false
         }

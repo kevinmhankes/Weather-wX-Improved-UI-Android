@@ -26,10 +26,10 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.LightningActivity
 import joshuatee.wx.canada.CanadaRadarActivity
 import joshuatee.wx.radar.AwcRadarMosaicActivity
-import joshuatee.wx.radar.USNWSMosaicActivity
+import joshuatee.wx.radar.USNwsMosaicActivity
 import joshuatee.wx.spc.*
-import joshuatee.wx.vis.GOES16Activity
-import joshuatee.wx.wpc.WPCImagesActivity
+import joshuatee.wx.vis.GoesActivity
+import joshuatee.wx.wpc.WpcImagesActivity
 
 internal object UtilityHomeScreen {
 
@@ -80,17 +80,17 @@ internal object UtilityHomeScreen {
         MyApplication.HM_CLASS_ARGS["LTG"] = arrayOf("")
         MyApplication.HM_CLASS_ID["LTG"] = LightningActivity.URL
 
-        MyApplication.HM_CLASS["CONUSWV"] = GOES16Activity::class.java
+        MyApplication.HM_CLASS["CONUSWV"] = GoesActivity::class.java
         MyApplication.HM_CLASS_ARGS["CONUSWV"] = arrayOf("CONUS", "09")
-        MyApplication.HM_CLASS_ID["CONUSWV"] = GOES16Activity.RID
+        MyApplication.HM_CLASS_ID["CONUSWV"] = GoesActivity.RID
 
-        MyApplication.HM_CLASS["VIS_CONUS"] = GOES16Activity::class.java
+        MyApplication.HM_CLASS["VIS_CONUS"] = GoesActivity::class.java
         MyApplication.HM_CLASS_ARGS["VIS_CONUS"] = arrayOf("CONUS", "02")
-        MyApplication.HM_CLASS_ID["VIS_CONUS"] = GOES16Activity.RID
+        MyApplication.HM_CLASS_ID["VIS_CONUS"] = GoesActivity.RID
 
-        MyApplication.HM_CLASS["GOES16"] = GOES16Activity::class.java
+        MyApplication.HM_CLASS["GOES16"] = GoesActivity::class.java
         MyApplication.HM_CLASS_ARGS["GOES16"] = arrayOf("")
-        MyApplication.HM_CLASS_ID["GOES16"] = GOES16Activity.RID
+        MyApplication.HM_CLASS_ID["GOES16"] = GoesActivity.RID
 
         MyApplication.HM_CLASS["SND"] = SpcSoundingsActivity::class.java
         MyApplication.HM_CLASS_ARGS["SND"] = arrayOf("WFO_FOR_SND", "")
@@ -109,27 +109,27 @@ internal object UtilityHomeScreen {
         MyApplication.HM_CLASS_ID["RAD_1KM"] = SpcSoundingsActivity.URL
 
         if (!UIPreferences.useAwcRadarMosaic) {
-            MyApplication.HM_CLASS["RAD_2KM"] = USNWSMosaicActivity::class.java
+            MyApplication.HM_CLASS["RAD_2KM"] = USNwsMosaicActivity::class.java
             MyApplication.HM_CLASS_ARGS["RAD_2KM"] = arrayOf("location")
-            MyApplication.HM_CLASS_ID["RAD_2KM"] = USNWSMosaicActivity.URL
+            MyApplication.HM_CLASS_ID["RAD_2KM"] = USNwsMosaicActivity.URL
         } else {
             MyApplication.HM_CLASS["RAD_2KM"] = AwcRadarMosaicActivity::class.java
             MyApplication.HM_CLASS_ARGS["RAD_2KM"] = arrayOf("")
             MyApplication.HM_CLASS_ID["RAD_2KM"] = AwcRadarMosaicActivity.URL
         }
 
-        MyApplication.HM_CLASS["QPF1"] = WPCImagesActivity::class.java
+        MyApplication.HM_CLASS["QPF1"] = WpcImagesActivity::class.java
         MyApplication.HM_CLASS_ARGS["QPF1"] = arrayOf("")
-        MyApplication.HM_CLASS_ID["QPF1"] = WPCImagesActivity.URL
+        MyApplication.HM_CLASS_ID["QPF1"] = WpcImagesActivity.URL
 
-        MyApplication.HM_CLASS["FMAP"] = WPCImagesActivity::class.java
+        MyApplication.HM_CLASS["FMAP"] = WpcImagesActivity::class.java
         MyApplication.HM_CLASS_ARGS["FMAP"] = arrayOf("")
-        MyApplication.HM_CLASS_ID["FMAP"] = WPCImagesActivity.URL
+        MyApplication.HM_CLASS_ID["FMAP"] = WpcImagesActivity.URL
 
         listOf("QPF2", "QPF3", "QPF1-2", "QPF1-3", "QPF4-5", "QPF6-7", "QPF1-5", "QPF1-7").forEach {
-            MyApplication.HM_CLASS[it] = WPCImagesActivity::class.java
+            MyApplication.HM_CLASS[it] = WpcImagesActivity::class.java
             MyApplication.HM_CLASS_ARGS[it] = arrayOf("")
-            MyApplication.HM_CLASS_ID[it] = WPCImagesActivity.URL
+            MyApplication.HM_CLASS_ID[it] = WpcImagesActivity.URL
         }
 
         listOf(
@@ -142,9 +142,9 @@ internal object UtilityHomeScreen {
             "FMAP5D",
             "FMAP6D"
         ).forEach {
-            MyApplication.HM_CLASS[it] = WPCImagesActivity::class.java
+            MyApplication.HM_CLASS[it] = WpcImagesActivity::class.java
             MyApplication.HM_CLASS_ARGS[it] = arrayOf("")
-            MyApplication.HM_CLASS_ID[it] = WPCImagesActivity.URL
+            MyApplication.HM_CLASS_ID[it] = WpcImagesActivity.URL
         }
     }
 }

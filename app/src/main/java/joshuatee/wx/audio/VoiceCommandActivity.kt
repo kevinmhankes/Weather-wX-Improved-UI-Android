@@ -45,9 +45,9 @@ class VoiceCommandActivity : Activity() {
         nws1Current = Location.wfo
         nws1StateCurrent = Location.state
         rid1 = Location.rid
-        if (UtilityTTS.mMediaPlayer != null && UtilityTTS.mMediaPlayer!!.isPlaying) {
-            UtilityTTS.mMediaPlayer!!.stop()
-            UtilityTTS.ttsIsPaused = true
+        if (UtilityTts.mMediaPlayer != null && UtilityTts.mMediaPlayer!!.isPlaying) {
+            UtilityTts.mMediaPlayer!!.stop()
+            UtilityTts.ttsIsPaused = true
         }
         val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US")

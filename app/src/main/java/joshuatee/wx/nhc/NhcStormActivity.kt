@@ -31,7 +31,7 @@ import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
-import joshuatee.wx.audio.UtilityTTS
+import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.notifications.UtilityNotificationNhc
 import joshuatee.wx.ui.ObjectCardImage
@@ -132,7 +132,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         bitmaps.filter { it.width > 100 }
             .forEach { ObjectCardImage(contextg, ll, it) }
         if (activityArguments.size > 2) {
-            if (activityArguments[2] == "sound") UtilityTTS.synthesizeTextAndPlay(
+            if (activityArguments[2] == "sound") UtilityTts.synthesizeTextAndPlay(
                 applicationContext,
                 html,
                 product

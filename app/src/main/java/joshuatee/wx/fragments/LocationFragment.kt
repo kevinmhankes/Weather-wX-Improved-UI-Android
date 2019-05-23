@@ -59,7 +59,7 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.radar.*
 import joshuatee.wx.ui.*
-import joshuatee.wx.vis.GOES16Activity
+import joshuatee.wx.vis.GoesActivity
 import kotlinx.coroutines.*
 
 class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
@@ -615,8 +615,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 } else {
                     ObjectIntent(
                             activityReference,
-                            GOES16Activity::class.java,
-                            GOES16Activity.RID,
+                            GoesActivity::class.java,
+                            GoesActivity.RID,
                             arrayOf("")
                     )
                 }
@@ -822,9 +822,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 objCc = ObjectForecastPackageCurrentConditions(activityReference, Location.currentLocation)
                 if (homescreenFavLocal.contains("TXT-CC2")) {
                     bitmapForCurrentConditions = if (Location.isUS) {
-                        UtilityNWS.getIcon(activityReference, objCc.iconUrl)
+                        UtilityNws.getIcon(activityReference, objCc.iconUrl)
                     } else {
-                        UtilityNWS.getIcon(
+                        UtilityNws.getIcon(
                                 activityReference,
                                 UtilityCanada.translateIconNameCurrentConditions(
                                         objCc.data,
@@ -879,7 +879,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 Utility.writePref(activityReference, "FCST", objSevenDay.sevenDayLong)
                 if (homescreenFavLocal.contains("TXT-7DAY")) {
                     objSevenDay.icons.mapTo(bitmaps) {
-                        UtilityNWS.getIcon(
+                        UtilityNws.getIcon(
                                 activityReference,
                                 it
                         )

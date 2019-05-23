@@ -39,7 +39,7 @@ import joshuatee.wx.settings.Location
 import joshuatee.wx.spc.SpcSoundingsActivity
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.util.*
-import joshuatee.wx.vis.GOES16Activity
+import joshuatee.wx.vis.GoesActivity
 
 import java.util.regex.Pattern
 
@@ -227,9 +227,9 @@ class ObjectWidgetCCLegacy(context: Context, allWidgetIds: IntArray) {
             UtilityWidget.setupIntent(
                     context,
                     remoteViews,
-                    AFDActivity::class.java,
+                    AfdActivity::class.java,
                     R.id.b_afd,
-                    AFDActivity.URL,
+                    AfdActivity.URL,
                     arrayOf(nws1Current, ""),
                     actionAfd
             )
@@ -254,9 +254,9 @@ class ObjectWidgetCCLegacy(context: Context, allWidgetIds: IntArray) {
             UtilityWidget.setupIntent(
                     context,
                     remoteViews,
-                    GOES16Activity::class.java,
+                    GoesActivity::class.java,
                     R.id.b_cloud,
-                    GOES16Activity.RID,
+                    GoesActivity.RID,
                     arrayOf(""),
                     actionCloud
             )

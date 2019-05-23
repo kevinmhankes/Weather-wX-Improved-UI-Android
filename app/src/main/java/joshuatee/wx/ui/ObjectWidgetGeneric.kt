@@ -30,8 +30,8 @@ import joshuatee.wx.objects.WidgetFile
 import joshuatee.wx.objects.WidgetFile.*
 import joshuatee.wx.spc.SpcMesoActivity
 import joshuatee.wx.spc.SpcStormReportsActivity
-import joshuatee.wx.vis.GOES16Activity
-import joshuatee.wx.wpc.WPCImagesActivity
+import joshuatee.wx.vis.GoesActivity
+import joshuatee.wx.wpc.WpcImagesActivity
 
 class ObjectWidgetGeneric(context: Context, val type: WidgetFile) {
 
@@ -44,7 +44,7 @@ class ObjectWidgetGeneric(context: Context, val type: WidgetFile) {
                 WPCIMG -> UtilityWidget.setupIntent(
                         context,
                         remoteViews,
-                        WPCImagesActivity::class.java,
+                        WpcImagesActivity::class.java,
                         R.id.iv,
                         type.action
                 )
@@ -60,9 +60,9 @@ class ObjectWidgetGeneric(context: Context, val type: WidgetFile) {
                 CONUSWV -> UtilityWidget.setupIntent(
                         context,
                         remoteViews,
-                        GOES16Activity::class.java,
+                        GoesActivity::class.java,
                         R.id.iv,
-                        GOES16Activity.RID,
+                        GoesActivity.RID,
                         arrayOf("CONUS", "09"),
                         type.action
                 )

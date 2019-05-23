@@ -32,7 +32,7 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 
 import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
-import joshuatee.wx.audio.UtilityTTS
+import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.util.Utility
@@ -60,6 +60,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private lateinit var activityArguments: Array<String>
     private var turlDay = ""
     private var playlistProd = ""
+    // FIXME var names
     private lateinit var c1: ObjectCardImage
     private lateinit var c2: ObjectCardText
     private lateinit var c3: ObjectCardImage
@@ -140,7 +141,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         c2.setText(Utility.fromHtml(html))
         toolbar.subtitle = html.parse("(Valid.*?)<")
         if (activityArguments[1] == "sound") {
-            UtilityTTS.synthesizeTextAndPlay(applicationContext, html, "spcswo")
+            UtilityTts.synthesizeTextAndPlay(applicationContext, html, "spcswo")
         }
         when (turlDay) {
             "1" -> {

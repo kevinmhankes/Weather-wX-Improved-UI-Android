@@ -32,7 +32,7 @@ import android.view.ContextMenu.ContextMenuInfo
 
 import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
-import joshuatee.wx.audio.UtilityTTS
+import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.ObjectCardImage
@@ -94,7 +94,7 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
         toolbar.subtitle = objWatch.textForSubtitle
         c0.setImage(objWatch.bitmap)
         registerForContextMenu(c0.img)
-        UtilityTTS.conditionalPlay(
+        UtilityTts.conditionalPlay(
             activityArguments,
             1,
             applicationContext,

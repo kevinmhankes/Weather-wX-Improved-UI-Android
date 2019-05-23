@@ -31,7 +31,7 @@ import android.widget.*
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
-import joshuatee.wx.fragments.UtilityNWS
+import joshuatee.wx.fragments.UtilityNws
 import joshuatee.wx.settings.Location
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
@@ -100,11 +100,11 @@ class AdhocForecastActivity : BaseActivity() {
             objCc = ObjectForecastPackageCurrentConditions(contextg, latLon)
             objHazards = ObjectForecastPackageHazards(latLon)
             objSevenDay = ObjectForecastPackage7Day(latLon)
-            bitmapForCurrentCondition = UtilityNWS.getIcon(contextg, objCc.iconUrl)
+            bitmapForCurrentCondition = UtilityNws.getIcon(contextg, objCc.iconUrl)
             //
             // 7day
             //
-            objSevenDay.icons.mapTo(bitmaps) { UtilityNWS.getIcon(contextg, it) }
+            objSevenDay.icons.mapTo(bitmaps) { UtilityNws.getIcon(contextg, it) }
             //
             // hazards
             //
