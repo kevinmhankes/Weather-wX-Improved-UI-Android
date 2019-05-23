@@ -207,20 +207,20 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".spc.SPCMCDWShowActivity"
+      android:name=".spc.SpcMcdWatchShowActivity"
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".spc.SPCSWOStateGraphicsActivity"
+      android:name=".spc.SpcSwoStateGraphicsActivity"
       android:parentActivityName="WX" >
   </activity>
 
   <activity
-      android:name=".spc.SPCMCDWShowSummaryActivity"
+      android:name=".spc.SpcMcdWatchShowSummaryActivity"
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".spc.SPCStormReportsActivity"
+      android:name=".spc.SpcStormReportsActivity"
       android:label="@string/title_activity_storm_reports"
       android:parentActivityName="WX" >
   </activity>
@@ -230,7 +230,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".spc.SPCTstormOutlookActivity"
+      android:name=".spc.SpcThunderStormOutlookActivity"
       android:label="@string/title_activity_spctstorm_outlook"
       android:parentActivityName="WX" >
   </activity>
@@ -243,7 +243,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".spc.SPCMesoActivity"
+      android:name=".spc.SpcMesoActivity"
       android:label=""
       android:parentActivityName="WX" >
   </activity>
@@ -256,7 +256,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".spc.SPCSWOSummaryActivity"
+      android:name=".spc.SpcSwoSummaryActivity"
       android:label="@string/title_activity_spcswosummary"
       android:parentActivityName="WX" >
   </activity>
@@ -286,7 +286,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".spc.SPCSoundingsActivity"
+      android:name=".spc.SpcSoundingsActivity"
       android:label="@string/title_activity_spcsoundings"
       android:parentActivityName="WX" >
   </activity>
@@ -541,7 +541,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".spc.SPCSWOActivity"
+      android:name=".spc.SpcSwoActivity"
       android:parentActivityName="WX" >
   </activity>
   <activity

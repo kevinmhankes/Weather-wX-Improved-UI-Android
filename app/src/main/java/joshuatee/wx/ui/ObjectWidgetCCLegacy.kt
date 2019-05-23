@@ -36,7 +36,7 @@ import joshuatee.wx.canada.CanadaRadarActivity
 import joshuatee.wx.canada.CanadaTextActivity
 import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.settings.Location
-import joshuatee.wx.spc.SPCSoundingsActivity
+import joshuatee.wx.spc.SpcSoundingsActivity
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.util.*
 import joshuatee.wx.vis.GOES16Activity
@@ -129,9 +129,9 @@ class ObjectWidgetCCLegacy(context: Context, allWidgetIds: IntArray) {
         UtilityWidget.setupIntent(
                 context,
                 remoteViews,
-                SPCSoundingsActivity::class.java,
+                SpcSoundingsActivity::class.java,
                 R.id.cc,
-                SPCSoundingsActivity.URL,
+                SpcSoundingsActivity.URL,
                 arrayOf(nws1Current, ""),
                 actionCc
         )

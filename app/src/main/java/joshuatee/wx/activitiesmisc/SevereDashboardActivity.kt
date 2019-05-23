@@ -37,8 +37,8 @@ import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
-import joshuatee.wx.spc.SPCMCDWShowActivity
-import joshuatee.wx.spc.SPCStormReportsActivity
+import joshuatee.wx.spc.SpcMcdWatchShowActivity
+import joshuatee.wx.spc.SpcStormReportsActivity
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.util.UtilityDownloadRadar
 import joshuatee.wx.util.UtilityShare
@@ -121,8 +121,8 @@ class SevereDashboardActivity : BaseActivity() {
                 card.setOnClickListener(View.OnClickListener {
                     ObjectIntent(
                             contextg,
-                            SPCStormReportsActivity::class.java,
-                            SPCStormReportsActivity.NO,
+                            SpcStormReportsActivity::class.java,
+                            SpcStormReportsActivity.NO,
                             arrayOf("today")
                     )
                 })
@@ -139,16 +139,16 @@ class SevereDashboardActivity : BaseActivity() {
                         val claArgStr = severeNotice.numbers[j]
                         when (severeNotice.type) {
                             PolygonType.MCD -> {
-                                cla = SPCMCDWShowActivity::class.java
-                                claStr = SPCMCDWShowActivity.NO
+                                cla = SpcMcdWatchShowActivity::class.java
+                                claStr = SpcMcdWatchShowActivity.NO
                             }
                             PolygonType.WATCH -> {
-                                cla = SPCMCDWShowActivity::class.java
-                                claStr = SPCMCDWShowActivity.NO
+                                cla = SpcMcdWatchShowActivity::class.java
+                                claStr = SpcMcdWatchShowActivity.NO
                             }
                             PolygonType.MPD -> {
-                                cla = SPCMCDWShowActivity::class.java
-                                claStr = SPCMCDWShowActivity.NO
+                                cla = SpcMcdWatchShowActivity::class.java
+                                claStr = SpcMcdWatchShowActivity.NO
                             }
                             else -> {
                             }

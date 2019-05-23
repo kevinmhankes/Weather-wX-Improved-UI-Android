@@ -45,7 +45,7 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
-class SPCSWOActivity : AudioPlayActivity(), OnMenuItemClickListener {
+class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     // show SWO for Day X as specified in extra
     //
@@ -71,9 +71,9 @@ class SPCSWOActivity : AudioPlayActivity(), OnMenuItemClickListener {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(
-            savedInstanceState,
-            R.layout.activity_linear_layout_bottom_toolbar,
-            R.menu.spcswo
+                savedInstanceState,
+                R.layout.activity_linear_layout_bottom_toolbar,
+                R.menu.spcswo
         )
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)
@@ -150,14 +150,14 @@ class SPCSWOActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 c5.setImage(bitmaps[3])
                 c6.setVisibility(View.GONE)
                 listOf(
-                    c3,
-                    c4,
-                    c5
+                        c3,
+                        c4,
+                        c5
                 ).forEach { card ->
                     card.setOnClickListener(View.OnClickListener {
                         sv.smoothScrollTo(
-                            0,
-                            0
+                                0,
+                                0
                         )
                     })
                 }
@@ -171,8 +171,8 @@ class SPCSWOActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 listOf(c3).forEach { card ->
                     card.setOnClickListener(View.OnClickListener {
                         sv.smoothScrollTo(
-                            0,
-                            0
+                                0,
+                                0
                         )
                     })
                 }
@@ -186,8 +186,8 @@ class SPCSWOActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 listOf(c3).forEach { card ->
                     card.setOnClickListener(View.OnClickListener {
                         sv.smoothScrollTo(
-                            0,
-                            0
+                                0,
+                                0
                         )
                     })
                 }
@@ -199,15 +199,15 @@ class SPCSWOActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 c5.setImage(bitmaps[3])
                 c6.setImage(bitmaps[4])
                 listOf(
-                    c3,
-                    c4,
-                    c5,
-                    c6
+                        c3,
+                        c4,
+                        c5,
+                        c6
                 ).forEach { card ->
                     card.setOnClickListener(View.OnClickListener {
                         sv.smoothScrollTo(
-                            0,
-                            0
+                                0,
+                                0
                         )
                     })
                 }
@@ -221,71 +221,71 @@ class SPCSWOActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
         when (item.itemId) {
             R.id.action_share_all -> UtilityShare.shareText(
-                this,
-                "Day $turlDay Convective Outlook",
-                Utility.fromHtml(html),
-                bitmaps
+                    this,
+                    "Day $turlDay Convective Outlook",
+                    Utility.fromHtml(html),
+                    bitmaps
             )
             R.id.action_share_text -> UtilityShare.shareText(
-                this,
-                "Day $turlDay Convective Outlook - Text",
-                Utility.fromHtml(html)
+                    this,
+                    "Day $turlDay Convective Outlook - Text",
+                    Utility.fromHtml(html)
             )
             R.id.action_share_tornado -> if (bitmaps.size > 1) UtilityShare.shareBitmap(
-                this,
-                "Day $turlDay Convective Outlook - Tornado",
-                bitmaps[1]
+                    this,
+                    "Day $turlDay Convective Outlook - Tornado",
+                    bitmaps[1]
             )
             R.id.action_share_hail -> if (bitmaps.size > 2) UtilityShare.shareBitmap(
-                this,
-                "Day $turlDay Convective Outlook - Hail",
-                bitmaps[2]
+                    this,
+                    "Day $turlDay Convective Outlook - Hail",
+                    bitmaps[2]
             )
             R.id.action_share_wind -> if (bitmaps.size > 3) UtilityShare.shareBitmap(
-                this,
-                "Day $turlDay Convective Outlook - Wind",
-                bitmaps[3]
+                    this,
+                    "Day $turlDay Convective Outlook - Wind",
+                    bitmaps[3]
             )
             R.id.action_share_categorical -> if (bitmaps.isNotEmpty()) UtilityShare.shareBitmap(
-                this,
-                "Day $turlDay Convective Outlook - Categorical",
-                bitmaps[0]
+                    this,
+                    "Day $turlDay Convective Outlook - Categorical",
+                    bitmaps[0]
             )
             R.id.action_share_probabilistic -> if (bitmaps.size > 1) UtilityShare.shareBitmap(
-                this,
-                "Day $turlDay Convective Outlook - Probabilistic",
-                bitmaps[1]
+                    this,
+                    "Day $turlDay Convective Outlook - Probabilistic",
+                    bitmaps[1]
             )
             R.id.action_share_d4 -> if (bitmaps.isNotEmpty()) UtilityShare.shareBitmap(
-                this,
-                "Day " + "4" + " Convective Outlook - Image",
-                bitmaps[0]
+                    this,
+                    "Day " + "4" + " Convective Outlook - Image",
+                    bitmaps[0]
             )
             R.id.action_share_d5 -> if (bitmaps.size > 1) UtilityShare.shareBitmap(
-                this,
-                "Day " + "5" + " Convective Outlook - Image",
-                bitmaps[1]
+                    this,
+                    "Day " + "5" + " Convective Outlook - Image",
+                    bitmaps[1]
             )
             R.id.action_share_d6 -> if (bitmaps.size > 2) UtilityShare.shareBitmap(
-                this,
-                "Day " + "6" + " Convective Outlook - Image",
-                bitmaps[2]
+                    this,
+                    "Day " + "6" + " Convective Outlook - Image",
+                    bitmaps[2]
             )
             R.id.action_share_d7 -> if (bitmaps.size > 3) UtilityShare.shareBitmap(
-                this,
-                "Day " + "7" + " Convective Outlook - Image",
-                bitmaps[3]
+                    this,
+                    "Day " + "7" + " Convective Outlook - Image",
+                    bitmaps[3]
             )
             R.id.action_share_d8 -> if (bitmaps.size > 4) UtilityShare.shareBitmap(
-                this,
-                "Day " + "8" + " Convective Outlook - Image",
-                bitmaps[4]
+                    this,
+                    "Day " + "8" + " Convective Outlook - Image",
+                    bitmaps[4]
             )
             R.id.action_state_graphics -> ObjectIntent(
-                this,
-                SPCSWOStateGraphicsActivity::class.java,
-                SPCSWOStateGraphicsActivity.NO,
-                arrayOf(turlDay, "")
+                    this,
+                    SpcSwoStateGraphicsActivity::class.java,
+                    SpcSwoStateGraphicsActivity.NO,
+                    arrayOf(turlDay, "")
             )
             else -> return super.onOptionsItemSelected(item)
         }

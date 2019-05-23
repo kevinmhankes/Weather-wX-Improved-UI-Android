@@ -36,7 +36,7 @@ import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.settings.UtilityLocation
-import joshuatee.wx.spc.SPCMCDWShowActivity
+import joshuatee.wx.spc.SpcMcdWatchShowActivity
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
@@ -108,10 +108,10 @@ class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
             val card = ObjectCardImage(contextg, linearLayout, bitmaps[mpdIndex])
             card.setOnClickListener(View.OnClickListener {
                 ObjectIntent(
-                    contextg,
-                    SPCMCDWShowActivity::class.java,
-                    SPCMCDWShowActivity.NO,
-                    arrayOf(mpdNumbers[mpdIndex], "", PolygonType.MPD.toString())
+                        contextg,
+                        SpcMcdWatchShowActivity::class.java,
+                        SpcMcdWatchShowActivity.NO,
+                        arrayOf(mpdNumbers[mpdIndex], "", PolygonType.MPD.toString())
                 )
             })
             if (mpdList.size == 1) {
@@ -137,14 +137,14 @@ class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
         super.onCreateContextMenu(menu, v, menuInfo)
         (0 until wfos.size - 1).forEach {
             menu.add(
-                0,
-                v.id,
-                0,
-                "Add location: " + wfos[it] + " - " + Utility.readPref(
-                    this,
-                    "NWS_LOCATION_" + wfos[it],
-                    ""
-                )
+                    0,
+                    v.id,
+                    0,
+                    "Add location: " + wfos[it] + " - " + Utility.readPref(
+                            this,
+                            "NWS_LOCATION_" + wfos[it],
+                            ""
+                    )
             )
         }
     }
@@ -152,15 +152,15 @@ class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val itemStr = item.title.toString()
         (0 until wfos.size - 1)
-            .filter { itemStr.contains(wfos[it]) }
-            .forEach {
-                UtilityLocation.saveLocationForMcd(
-                    wfos[it],
-                    contextg,
-                    linearLayout,
-                    uiDispatcher
-                )
-            }
+                .filter { itemStr.contains(wfos[it]) }
+                .forEach {
+                    UtilityLocation.saveLocationForMcd(
+                            wfos[it],
+                            contextg,
+                            linearLayout,
+                            uiDispatcher
+                    )
+                }
         return true
     }
 

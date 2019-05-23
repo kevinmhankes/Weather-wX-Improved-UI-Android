@@ -56,25 +56,25 @@ internal object UtilityHomeScreen {
         (1..3).forEach {
             val number = it.toString()
             val token = "SWOD$number"
-            MyApplication.HM_CLASS[token] = SPCSWOActivity::class.java
+            MyApplication.HM_CLASS[token] = SpcSwoActivity::class.java
             MyApplication.HM_CLASS_ARGS[token] = arrayOf(number, "")
-            MyApplication.HM_CLASS_ID[token] = SPCSWOActivity.NO
+            MyApplication.HM_CLASS_ID[token] = SpcSwoActivity.NO
         }
         (1..6).forEach {
             val number = it.toString()
             val token = "SPCMESO$number"
-            MyApplication.HM_CLASS[token] = SPCMesoActivity::class.java
+            MyApplication.HM_CLASS[token] = SpcMesoActivity::class.java
             MyApplication.HM_CLASS_ARGS[token] = arrayOf(token, "1", "SPCMESO")
-            MyApplication.HM_CLASS_ID[token] = SPCMesoActivity.INFO
+            MyApplication.HM_CLASS_ID[token] = SpcMesoActivity.INFO
         }
 
-        MyApplication.HM_CLASS["SPC_TST"] = SPCTstormOutlookActivity::class.java
+        MyApplication.HM_CLASS["SPC_TST"] = SpcThunderStormOutlookActivity::class.java
         MyApplication.HM_CLASS_ARGS["SPC_TST"] = arrayOf("")
         MyApplication.HM_CLASS_ID["SPC_TST"] = ""
 
-        MyApplication.HM_CLASS["STRPT"] = SPCStormReportsActivity::class.java
+        MyApplication.HM_CLASS["STRPT"] = SpcStormReportsActivity::class.java
         MyApplication.HM_CLASS_ARGS["STRPT"] = arrayOf("today")
-        MyApplication.HM_CLASS_ID["STRPT"] = SPCStormReportsActivity.NO
+        MyApplication.HM_CLASS_ID["STRPT"] = SpcStormReportsActivity.NO
 
         MyApplication.HM_CLASS["LTG"] = LightningActivity::class.java
         MyApplication.HM_CLASS_ARGS["LTG"] = arrayOf("")
@@ -92,21 +92,21 @@ internal object UtilityHomeScreen {
         MyApplication.HM_CLASS_ARGS["GOES16"] = arrayOf("")
         MyApplication.HM_CLASS_ID["GOES16"] = GOES16Activity.RID
 
-        MyApplication.HM_CLASS["SND"] = SPCSoundingsActivity::class.java
+        MyApplication.HM_CLASS["SND"] = SpcSoundingsActivity::class.java
         MyApplication.HM_CLASS_ARGS["SND"] = arrayOf("WFO_FOR_SND", "")
-        MyApplication.HM_CLASS_ID["SND"] = SPCSoundingsActivity.URL
+        MyApplication.HM_CLASS_ID["SND"] = SpcSoundingsActivity.URL
 
-        MyApplication.HM_CLASS["OBS"] = SPCSoundingsActivity::class.java
+        MyApplication.HM_CLASS["OBS"] = SpcSoundingsActivity::class.java
         MyApplication.HM_CLASS_ARGS["OBS"] = arrayOf("STATE_LOWER", "")
-        MyApplication.HM_CLASS_ID["OBS"] = SPCSoundingsActivity.URL
+        MyApplication.HM_CLASS_ID["OBS"] = SpcSoundingsActivity.URL
 
         MyApplication.HM_CLASS["CARAIN"] = CanadaRadarActivity::class.java
         MyApplication.HM_CLASS_ARGS["CARAIN"] = arrayOf("RID_FOR_CA", "rad")
         MyApplication.HM_CLASS_ID["CARAIN"] = CanadaRadarActivity.RID
 
-        MyApplication.HM_CLASS["RAD_1KM"] = SPCSoundingsActivity::class.java
+        MyApplication.HM_CLASS["RAD_1KM"] = SpcSoundingsActivity::class.java
         MyApplication.HM_CLASS_ARGS["RAD_1KM"] = arrayOf("1km", "rad", "ONEK", "STATE_UPPER")
-        MyApplication.HM_CLASS_ID["RAD_1KM"] = SPCSoundingsActivity.URL
+        MyApplication.HM_CLASS_ID["RAD_1KM"] = SpcSoundingsActivity.URL
 
         if (!UIPreferences.useAwcRadarMosaic) {
             MyApplication.HM_CLASS["RAD_2KM"] = USNWSMosaicActivity::class.java

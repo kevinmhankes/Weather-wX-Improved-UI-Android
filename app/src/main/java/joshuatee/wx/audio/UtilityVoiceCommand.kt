@@ -30,13 +30,13 @@ import joshuatee.wx.activitiesmisc.AFDActivity
 import joshuatee.wx.radar.USNWSMosaicActivity
 import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.settings.Location
-import joshuatee.wx.spc.SPCMesoActivity
+import joshuatee.wx.spc.SpcMesoActivity
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.WebscreenAB
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.SettingsLocationGenericActivity
-import joshuatee.wx.spc.SPCSWOActivity
+import joshuatee.wx.spc.SpcSwoActivity
 import joshuatee.wx.util.Utility
 import joshuatee.wx.vis.GOES16Activity
 import joshuatee.wx.wpc.WPCTextProductsActivity
@@ -101,63 +101,63 @@ object UtilityVoiceCommand {
                 when {
                     vrString.contains("1") -> ObjectIntent(
                             context,
-                            SPCSWOActivity::class.java,
-                            SPCSWOActivity.NO,
+                            SpcSwoActivity::class.java,
+                            SpcSwoActivity.NO,
                             arrayOf("1", "sound")
                     )
                     vrString.contains("2") -> ObjectIntent(
                             context,
-                            SPCSWOActivity::class.java,
-                            SPCSWOActivity.NO,
+                            SpcSwoActivity::class.java,
+                            SpcSwoActivity.NO,
                             arrayOf("2", "sound")
                     )
                     vrString.contains("3") -> ObjectIntent(
                             context,
-                            SPCSWOActivity::class.java,
-                            SPCSWOActivity.NO,
+                            SpcSwoActivity::class.java,
+                            SpcSwoActivity.NO,
                             arrayOf("3", "sound")
                     )
                     else -> ObjectIntent(
                             context,
-                            SPCSWOActivity::class.java,
-                            SPCSWOActivity.NO,
+                            SpcSwoActivity::class.java,
+                            SpcSwoActivity.NO,
                             arrayOf("4-8", "sound")
                     )
                 }
             } else {
                 ObjectIntent(
                         context,
-                        SPCSWOActivity::class.java,
-                        SPCSWOActivity.NO,
+                        SpcSwoActivity::class.java,
+                        SpcSwoActivity.NO,
                         arrayOf("1", "sound")
                 )
             }
         } else if (vrString.contains("day one")) {
             ObjectIntent(
                     context,
-                    SPCSWOActivity::class.java,
-                    SPCSWOActivity.NO,
+                    SpcSwoActivity::class.java,
+                    SpcSwoActivity.NO,
                     arrayOf("1", "sound")
             )
         } else if (vrString.contains("day 2")) {
             ObjectIntent(
                     context,
-                    SPCSWOActivity::class.java,
-                    SPCSWOActivity.NO,
+                    SpcSwoActivity::class.java,
+                    SpcSwoActivity.NO,
                     arrayOf("2", "sound")
             )
         } else if (vrString.contains("day 3")) {
             ObjectIntent(
                     context,
-                    SPCSWOActivity::class.java,
-                    SPCSWOActivity.NO,
+                    SpcSwoActivity::class.java,
+                    SpcSwoActivity.NO,
                     arrayOf("3", "sound")
             )
         } else if (vrString.contains("day 4")) {
             ObjectIntent(
                     context,
-                    SPCSWOActivity::class.java,
-                    SPCSWOActivity.NO,
+                    SpcSwoActivity::class.java,
+                    SpcSwoActivity.NO,
                     arrayOf("4-8", "sound")
             )
         } else if (vrString.contains("add")) {
@@ -235,8 +235,8 @@ object UtilityVoiceCommand {
             }
             ObjectIntent(
                     context,
-                    SPCMesoActivity::class.java,
-                    SPCMesoActivity.INFO,
+                    SpcMesoActivity::class.java,
+                    SpcMesoActivity.INFO,
                     arrayOf("", "1", "SPCMESO")
             )
         } else if (vrString.contains("forecast")) {

@@ -48,7 +48,7 @@ import joshuatee.wx.settings.SettingsMainActivity
 import joshuatee.wx.audio.SettingsPlaylistActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.AwcRadarMosaicActivity
-import joshuatee.wx.spc.SPCSoundingsActivity
+import joshuatee.wx.spc.SpcSoundingsActivity
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
@@ -149,8 +149,8 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                 } else {
                     if (Location.isUS) ObjectIntent(
                             this,
-                            SPCSoundingsActivity::class.java,
-                            SPCSoundingsActivity.URL,
+                            SpcSoundingsActivity::class.java,
+                            SpcSoundingsActivity.URL,
                             arrayOf(Location.wfo, "")
                     )
                 }

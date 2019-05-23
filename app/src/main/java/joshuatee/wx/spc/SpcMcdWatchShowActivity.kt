@@ -43,7 +43,7 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
-class SPCMCDWShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
+class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     // show a specific MCD, Watch, or MPD - long press on image to save location
     //

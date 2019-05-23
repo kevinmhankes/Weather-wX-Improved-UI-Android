@@ -36,7 +36,7 @@ import joshuatee.wx.R
 import joshuatee.wx.RegExp
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.settings.Location
-import joshuatee.wx.spc.SPCMCDWShowActivity
+import joshuatee.wx.spc.SpcMcdWatchShowActivity
 
 import joshuatee.wx.objects.PolygonType.MCD
 import joshuatee.wx.objects.PolygonType.MPD
@@ -128,8 +128,8 @@ class BackgroundFetch(val context: Context) {
                             val polygonType = MCD
                             val objPI = ObjectPendingIntents(
                                     context,
-                                    SPCMCDWShowActivity::class.java,
-                                    SPCMCDWShowActivity.NO,
+                                    SpcMcdWatchShowActivity::class.java,
+                                    SpcMcdWatchShowActivity.NO,
                                     arrayOf(mdNo, "", polygonType.toString()),
                                     arrayOf(mdNo, "sound", polygonType.toString())
                             )
@@ -194,8 +194,8 @@ class BackgroundFetch(val context: Context) {
                             val polygonType = MPD
                             val objPI = ObjectPendingIntents(
                                     context,
-                                    SPCMCDWShowActivity::class.java,
-                                    SPCMCDWShowActivity.NO,
+                                    SpcMcdWatchShowActivity::class.java,
+                                    SpcMcdWatchShowActivity.NO,
                                     arrayOf(mdNo, "", polygonType.toString()),
                                     arrayOf(mdNo, "sound", polygonType.toString())
                             )
@@ -238,6 +238,7 @@ class BackgroundFetch(val context: Context) {
             MyApplication.severeDashboardMpd.valueSet(context, "")
             // end of if to test if alerts_wpcmpd are enabled
         }
+        // FIXME refactor to move to utilDownloadRadar like iOS/Swift port
         if (MyApplication.alertSpcwatNotificationCurrent || MyApplication.checkspc || PolygonType.MCD.pref) {
             try {
                 dataAsString = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/".getHtml()
@@ -276,8 +277,8 @@ class BackgroundFetch(val context: Context) {
                             val polygonType = WATCH
                             val objPI = ObjectPendingIntents(
                                     context,
-                                    SPCMCDWShowActivity::class.java,
-                                    SPCMCDWShowActivity.NO,
+                                    SpcMcdWatchShowActivity::class.java,
+                                    SpcMcdWatchShowActivity.NO,
                                     arrayOf(mdNo, "", polygonType.toString()),
                                     arrayOf(mdNo, "sound", polygonType.toString())
                             )

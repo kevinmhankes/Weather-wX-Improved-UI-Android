@@ -26,7 +26,6 @@
 // TODO - update polygons when radar is open (in addition to background). Possibly use two sets of prefs , cloned at radar start
 // TODO - color pal , allow cloning of a user created pal
 // TODO - bug , SPC Meso swipe left/right takes on extra to get started
-// BUG - severe tstorm watch showing as tor in radar
 
 [ADD] - adding something new - method, file, etc. to the repo
 [REM] - remove items
@@ -36,7 +35,8 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
-55195 2019_05_23
+55195 2019_05_23    [FIX] severe tstorm watch showing as tor in radar
+                    [REF] various camelCase
 55194 2019_05_22    [FIX] at joshuatee.wx.radar.WXGLPolygonWarnings.addWarnings (WXGLPolygonWarnings.kt:139)
                             java.lang.IndexOutOfBoundsException:
 55193 2019_05_22    [REF] various camelCase

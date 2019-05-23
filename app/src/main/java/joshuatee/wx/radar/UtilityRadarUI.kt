@@ -35,7 +35,7 @@ import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
-import joshuatee.wx.spc.SPCMCDWShowActivity
+import joshuatee.wx.spc.SpcMcdWatchShowActivity
 import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.ObjectImageMap
 
@@ -162,11 +162,11 @@ internal object UtilityRadarUI {
                 context,
                 glview.latLon
         )
-        alertDialogRadarLongpressAl.add("Show warning text")
+        alertDialogRadarLongpressAl.add("Show Warning text")
 
         // Thanks to Ely
         if (MyApplication.radarWatMcd) {
-            alertDialogRadarLongpressAl.add("Show watch text")
+            alertDialogRadarLongpressAl.add("Show Watch text")
             alertDialogRadarLongpressAl.add("Show MCD text")
         }
         if (MyApplication.radarMpd) {
@@ -191,11 +191,11 @@ internal object UtilityRadarUI {
             fn: (strName: String) -> Unit
     ) {
         when {
-            strName.contains("Show warning text") -> {
+            strName.contains("Show Warning text") -> {
                 showNearestWarning(context, glview)
             }
             // Thanks to Ely
-            strName.contains("Show watch text") -> {
+            strName.contains("Show Watch text") -> {
                 showNearestProduct(context, PolygonType.WATCH, glview, uiDispatcher)
             }
             strName.contains("Show MCD text") -> {
@@ -426,8 +426,8 @@ internal object UtilityRadarUI {
         if (text != "") {
             ObjectIntent(
                     context,
-                    SPCMCDWShowActivity::class.java,
-                    SPCMCDWShowActivity.NO,
+                    SpcMcdWatchShowActivity::class.java,
+                    SpcMcdWatchShowActivity.NO,
                     arrayOf(text, "", type.toString())
             )
         }

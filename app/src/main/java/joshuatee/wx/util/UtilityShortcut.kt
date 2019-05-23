@@ -37,7 +37,7 @@ import joshuatee.wx.activitiesmisc.SevereDashboardActivity
 import joshuatee.wx.objects.ObjectIntentShortcut
 import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.radar.USNWSMosaicActivity
-import joshuatee.wx.spc.SPCSWOSummaryActivity
+import joshuatee.wx.spc.SpcSwoSummaryActivity
 import joshuatee.wx.vis.GOES16Activity
 
 // add to menu
@@ -93,7 +93,7 @@ object UtilityShortcut {
                     imageId = R.drawable.widget_radar_mosaic
                 }
                 ShortcutType.SPC_SWO_SUMMARY -> {
-                    intent = ObjectIntentShortcut(context, SPCSWOSummaryActivity::class.java).intent
+                    intent = ObjectIntentShortcut(context, SpcSwoSummaryActivity::class.java).intent
                     imageId = R.drawable.spc_sum
                 }
             }
