@@ -261,7 +261,8 @@ class BackgroundFetch(val context: Context) {
                         watchLatlonList += UtilityNotification.storeWatMcdLatLon(mcdPre2)
                         //
                         if (PolygonType.MCD.pref) {
-                            if (mcdPre.contains("Severe Thunderstorm Watch")) {
+                            //if (mcdPre.contains("Severe Thunderstorm Watch")) {
+                            if (!mcdPre.contains("Tornado Watch")) {
                                 watchLatlon += UtilityNotification.storeWatMcdLatLon(mcdPre2)
                             } else {
                                 watchLatlonTor += UtilityNotification.storeWatMcdLatLon(mcdPre2)
