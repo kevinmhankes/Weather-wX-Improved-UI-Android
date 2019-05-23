@@ -37,7 +37,7 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class USNWSMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
+class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
 
     // Provides native interface to NWS radar mosaics along with animations
     //

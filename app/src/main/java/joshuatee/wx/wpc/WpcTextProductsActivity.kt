@@ -54,7 +54,7 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_wpctextproducts.*
 
-class WPCTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
+class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
         AdapterView.OnItemSelectedListener {
 
     // Display WPC ( and other ) text products

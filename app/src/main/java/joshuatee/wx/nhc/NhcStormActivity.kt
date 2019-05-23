@@ -42,7 +42,7 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
-class NHCStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
+class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     // Main page for details on individual storms
     //

@@ -52,7 +52,7 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_wpcmpdshow_summary.*
 
-class WPCMPDShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
+class WpcMpdShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     // Show summary of WPC MPD or show detail of only one is active
     // Closely based off SPC MCD equivalent

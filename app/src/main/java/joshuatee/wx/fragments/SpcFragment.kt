@@ -46,7 +46,7 @@ import joshuatee.wx.spc.SpcStormReportsActivity
 import joshuatee.wx.spc.SpcThunderStormOutlookActivity
 import joshuatee.wx.util.Utility
 
-class SPCFragment : Fragment() {
+class SpcFragment : Fragment() {
 
     private val hm = mutableMapOf<String, TileObject>()
 

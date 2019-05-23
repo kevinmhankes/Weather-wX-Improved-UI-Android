@@ -29,7 +29,7 @@ import joshuatee.wx.util.UtilityString
 
 import joshuatee.wx.Extensions.*
 
-internal object UtilitySWOD1 {
+internal object UtilitySwoD1 {
 
     private var initialized = false
     private var lastRefresh = 0.toLong()

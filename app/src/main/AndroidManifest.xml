@@ -21,8 +21,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="joshuatee.wx"
-    android:versionCode="55195"
-    android:versionName="55195"
+    android:versionCode="55196"
+    android:versionName="55196"
     >
 
  <uses-permission android:name="android.permission.INTERNET" />
@@ -169,7 +169,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".wpc.WPCImagesActivity"
+      android:name=".wpc.WpcImagesActivity"
       android:label="@string/title_activity_hourly"
       android:parentActivityName="WX" >
   </activity>
@@ -179,7 +179,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".activitiesmisc.NWSObsSitesActivity"
+      android:name=".activitiesmisc.NwsObsSitesActivity"
       android:label="NWS Observation Sites"
       android:parentActivityName="WX" >
   </activity>
@@ -189,7 +189,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".vis.GOES16Activity"
+      android:name=".vis.GoesActivity"
       android:label=""
       android:parentActivityName="WX" >
   </activity>
@@ -281,7 +281,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".wpc.WPCRainfallForecastActivity"
+      android:name=".wpc.WpcRainfallForecastActivity"
       android:label="@string/title_activity_hpcrainfall_forecast"
       android:parentActivityName="WX" >
   </activity>
@@ -291,16 +291,16 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".radar.USNWSMosaicActivity"
+      android:name=".radar.USNwsMosaicActivity"
       android:label="@string/title_activity_nwsmosaic"
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".wpc.WPCMPDShowSummaryActivity"
+      android:name=".wpc.WpcMpdShowSummaryActivity"
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".activitiesmisc.AFDActivity"
+      android:name=".activitiesmisc.AfdActivity"
       android:label=""
       android:parentActivityName="WX" >
   </activity>
@@ -309,7 +309,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".wpc.WPCTextProductsActivity"
+      android:name=".wpc.WpcTextProductsActivity"
       android:label=""
       android:parentActivityName="WX" >
   </activity>
@@ -504,12 +504,12 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".nhc.NHCActivity"
+      android:name=".nhc.NhcActivity"
       android:label="@string/title_activity_nhc"
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".nhc.NHCStormActivity"
+      android:name=".nhc.NhcStormActivity"
       android:label="@string/title_activity_nhc"
       android:parentActivityName="WX" >
   </activity>

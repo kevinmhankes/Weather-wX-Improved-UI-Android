@@ -37,7 +37,7 @@ import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
 
-object UtilityTTS {
+object UtilityTts {
 
     private var ttsInit = false
     private var ttobjGlobal: TextToSpeech? = null

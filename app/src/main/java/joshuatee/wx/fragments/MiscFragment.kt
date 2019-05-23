@@ -43,8 +43,8 @@ import joshuatee.wx.radar.USNWSMosaicActivity
 import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.radar.WXGLRadarActivityMultiPane
 import joshuatee.wx.util.Utility
-import joshuatee.wx.wpc.WPCImagesActivity
-import joshuatee.wx.wpc.WPCTextProductsActivity
+import joshuatee.wx.wpc.WpcImagesActivity
+import joshuatee.wx.wpc.WpcTextProductsActivity
 
 class MiscFragment : Fragment() {
 
@@ -103,8 +103,8 @@ class MiscFragment : Fragment() {
             )
             hm["wpctext"] = TileObject(
                 R.drawable.srfd,
-                WPCTextProductsActivity::class.java,
-                WPCTextProductsActivity.URL,
+                WpcTextProductsActivity::class.java,
+                WpcTextProductsActivity.URL,
                 arrayOf("pmdspd", "Short Range Forecast Discussion"),
                 resources.getString(R.string.help_wpc_text_products),
                 "wpctext"
@@ -154,7 +154,7 @@ class MiscFragment : Fragment() {
             )
             hm["wpcimages"] = TileObject(
                 R.drawable.fmap,
-                WPCImagesActivity::class.java,
+                WpcImagesActivity::class.java,
                 "",
                 arrayOf(),
                 resources.getString(R.string.help_wpc_images),

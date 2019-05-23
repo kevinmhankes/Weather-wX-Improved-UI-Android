@@ -38,8 +38,7 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectRecyclerView
 import joshuatee.wx.util.Utility
 
-// FIXME camelcase file name
-class NWSObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
+class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     private val listIds = mutableListOf<String>()
     private val listCity = mutableListOf<String>()

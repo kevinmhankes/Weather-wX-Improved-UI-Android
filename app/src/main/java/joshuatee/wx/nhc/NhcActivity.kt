@@ -41,7 +41,7 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
-class NHCActivity : AudioPlayActivity(), OnMenuItemClickListener {
+class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var objNhc: ObjectNhc

@@ -38,7 +38,7 @@ import joshuatee.wx.util.UtilityImgAnim
 
 import joshuatee.wx.Extensions.*
 
-object UtilityUSImgNWSMosaic {
+object UtilityUSImgNwsMosaic {
 
     internal val sectors = listOf(
         "alaska",

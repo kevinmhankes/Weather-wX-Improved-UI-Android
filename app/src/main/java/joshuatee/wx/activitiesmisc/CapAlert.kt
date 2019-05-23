@@ -26,7 +26,7 @@ import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.util.UtilityLog
 
-class CAPAlert {
+class CapAlert {
 
     var text: String = ""
         private set

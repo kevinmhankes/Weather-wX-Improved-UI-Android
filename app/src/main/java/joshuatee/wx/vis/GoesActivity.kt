@@ -37,7 +37,7 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class GOES16Activity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
+class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
 
     companion object {
         const val RID: String = ""
