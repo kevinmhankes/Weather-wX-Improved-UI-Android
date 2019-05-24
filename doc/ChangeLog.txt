@@ -26,6 +26,7 @@
 // TODO - update polygons when radar is open (in addition to background). Possibly use two sets of prefs , cloned at radar start
 // TODO - color pal , allow cloning of a user created pal
 // TODO - bug , SPC Meso swipe left/right takes on extra to get started
+// TODO - look into tornado instead of #tornado for twitter embedded widget
 // TODO camelCase models/ui dirs
 
 [ADD] - adding something new - method, file, etc. to the repo
