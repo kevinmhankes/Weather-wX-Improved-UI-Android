@@ -35,6 +35,8 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55199 2019_05_25    [FIX] modify native code to refer to Jni instead of JNI
+                    [IMP] add ObjectLinearLayout and use in ForecastActivity
 55198 2019_05_25    [REF] better variable naming
                     [IMP] don't hide location circle when panning
 55197 2019_05_25    [REF] camelCase model/ui/jni files

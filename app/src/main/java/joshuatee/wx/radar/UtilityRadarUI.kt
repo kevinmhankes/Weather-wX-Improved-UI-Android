@@ -27,7 +27,7 @@ import android.opengl.GLSurfaceView
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.MyApplication
-import joshuatee.wx.activitiesmisc.AdhocForecastActivity
+import joshuatee.wx.activitiesmisc.ForecastActivity
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.external.UtilityStringExternal
@@ -80,8 +80,8 @@ internal object UtilityRadarUI {
     private fun showNearestForecast(context: Context, glview: WXGLSurfaceView) {
         ObjectIntent(
                 context,
-                AdhocForecastActivity::class.java,
-                AdhocForecastActivity.URL,
+                ForecastActivity::class.java,
+                ForecastActivity.URL,
                 arrayOf(glview.newY.toString(), "-" + glview.newX.toString())
         )
     }
