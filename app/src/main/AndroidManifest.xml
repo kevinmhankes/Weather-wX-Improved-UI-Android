@@ -235,11 +235,11 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".models.ModelsSPCHRRRActivity"
+      android:name=".models.ModelsSpcHrrrActivity"
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".models.ModelsSPCHREFActivity"
+      android:name=".models.ModelsSpcHrefActivity"
       android:parentActivityName="WX" >
   </activity>
   <activity
@@ -248,7 +248,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".models.ModelsSPCSREFActivity"
+      android:name=".models.ModelsSpcSrefActivity"
       android:parentActivityName="WX" >
   </activity>
   <activity

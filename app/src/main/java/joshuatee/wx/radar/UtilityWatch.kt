@@ -21,7 +21,6 @@
 
 package joshuatee.wx.radar
 
-import android.content.Context
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ProjectionType
@@ -33,7 +32,6 @@ import joshuatee.wx.external.ExternalPolygon
 internal object UtilityWatch {
 
     fun add(
-        context: Context,
         provider: ProjectionType,
         rid1: String,
         type: PolygonType
@@ -49,7 +47,7 @@ internal object UtilityWatch {
             else -> {
             }
         }
-        val pn = ProjectionNumbers(context, rid1, provider)
+        val pn = ProjectionNumbers(rid1, provider)
         var j: Int
         var pixXInit: Double
         var pixYInit: Double

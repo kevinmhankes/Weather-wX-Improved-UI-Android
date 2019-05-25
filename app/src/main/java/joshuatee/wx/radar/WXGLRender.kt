@@ -32,7 +32,7 @@ import android.opengl.GLSurfaceView.Renderer
 import android.opengl.GLES20
 import android.opengl.Matrix
 
-import joshuatee.wx.JNI
+import joshuatee.wx.Jni
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.PolygonType
@@ -190,8 +190,8 @@ class WXGLRender(private val context: Context) : Renderer {
             UtilityWXOGLPerf.genIndex(triangleIndexBuffer, breakSize15, breakSize15)
             UtilityWXOGLPerf.genIndexLine(lineIndexBuffer, breakSizeLine * 4, breakSizeLine * 2)
         } else {
-            JNI.genIndex(triangleIndexBuffer, breakSize15, breakSize15)
-            JNI.genIndexLine(lineIndexBuffer, breakSizeLine * 4, breakSizeLine * 2)
+            Jni.genIndex(triangleIndexBuffer, breakSize15, breakSize15)
+            Jni.genIndexLine(lineIndexBuffer, breakSizeLine * 4, breakSizeLine * 2)
         }
         MyApplication.radarWarningPolygons.forEach {
             genericWarningBuffers.add(ObjectOglBuffers(it))
@@ -209,7 +209,7 @@ class WXGLRender(private val context: Context) : Renderer {
                 prod = "N0Q"
             }
         }
-        pn = ProjectionNumbers(context, this.rid, provider)
+        pn = ProjectionNumbers(this.rid, provider)
         oneDegreeScaleFactorGlobal = pn.oneDegreeScaleFactorFloat
     }
 
@@ -326,7 +326,7 @@ class WXGLRender(private val context: Context) : Renderer {
                             if (!MyApplication.radarUseJni)
                                 UtilityWXOGLPerf.decode8BitAndGenRadials(context, radarBuffers)
                             else {
-                                JNI.decode8BitAndGenRadials(
+                                Jni.decode8BitAndGenRadials(
                                         UtilityIO.getFilePath(context, radarBuffers.fn),
                                         radarL3Object.seekStart,
                                         radarL3Object.compressedFileSize,
@@ -353,7 +353,7 @@ class WXGLRender(private val context: Context) : Renderer {
             } else {
                 rdL2.binWord.position(0)
                 totalBins = if (MyApplication.radarUseJni)
-                    JNI.level2GenRadials(
+                    Jni.level2GenRadials(
                             radarBuffers.floatBuffer,
                             radarBuffers.colorBuffer,
                             rdL2.binWord,
@@ -715,7 +715,7 @@ class WXGLRender(private val context: Context) : Renderer {
                     buffers.geotype.color
             )
             if (MyApplication.radarUseJni) {
-                JNI.colorGen(buffers.colorBuffer, buffers.breakSize * 2, buffers.colorArray)
+                Jni.colorGen(buffers.colorBuffer, buffers.breakSize * 2, buffers.colorArray)
             } else {
                 UtilityWXOGLPerf.colorGen(
                         buffers.colorBuffer,
@@ -743,7 +743,7 @@ class WXGLRender(private val context: Context) : Renderer {
             }
         } else {
             if (useMercatorProjection) {
-                JNI.genMercato(
+                Jni.genMercato(
                         buffers.geotype.relativeBuffer,
                         buffers.floatBuffer,
                         pn.xFloat,
@@ -775,7 +775,7 @@ class WXGLRender(private val context: Context) : Renderer {
         buffers.initialize(4 * 4 * f.size, 0, 3 * 4 * f.size, buffers.type.color)
         try {
             if (MyApplication.radarUseJni) {
-                JNI.colorGen(buffers.colorBuffer, 4 * f.size, buffers.colorArray)
+                Jni.colorGen(buffers.colorBuffer, 4 * f.size, buffers.colorArray)
             } else {
                 UtilityWXOGLPerf.colorGen(buffers.colorBuffer, 4 * f.size, buffers.colorArray)
             }
@@ -892,7 +892,7 @@ class WXGLRender(private val context: Context) : Renderer {
                 MyApplication.radarColorLocdot
         )
         if (MyApplication.radarUseJni) {
-            JNI.colorGen(
+            Jni.colorGen(
                     locCircleBuffers.colorBuffer,
                     2 * locCircleBuffers.triangleCount,
                     locCircleBuffers.colorArray
@@ -985,14 +985,14 @@ class WXGLRender(private val context: Context) : Renderer {
         var fList = listOf<Double>()
         when (buffers.type) {
             PolygonType.MCD, PolygonType.MPD, PolygonType.WATCH, PolygonType.WATCH_TORNADO -> fList =
-                    UtilityWatch.add(context, provider, rid, buffers.type).toList()
+                    UtilityWatch.add(provider, rid, buffers.type).toList()
             PolygonType.TST, PolygonType.TOR, PolygonType.FFW -> fList =
-                    WXGLPolygonWarnings.addWarnings(context, provider, rid, buffers.type).toList()
+                    WXGLPolygonWarnings.addWarnings(provider, rid, buffers.type).toList()
             PolygonType.STI -> fList =
                     WXGLNexradLevel3StormInfo.decodeAndPlot(context, idxStr, rid, provider).toList()
             else -> {
                 if (buffers.warningType != null) {
-                    fList = WXGLPolygonWarnings.addGenericWarnings(context, provider, rid, buffers.warningType!!).toList()
+                    fList = WXGLPolygonWarnings.addGenericWarnings(provider, rid, buffers.warningType!!).toList()
                     //UtilityLog.d("wx", "SPS: " + fList)
                 }
             }
@@ -1026,7 +1026,7 @@ class WXGLRender(private val context: Context) : Renderer {
             )
         }
         if (MyApplication.radarUseJni) {
-            JNI.colorGen(buffers.colorBuffer, 4 * totalBinsGeneric, buffers.colorArray)
+            Jni.colorGen(buffers.colorBuffer, 4 * totalBinsGeneric, buffers.colorArray)
         } else {
             UtilityWXOGLPerf.colorGen(buffers.colorBuffer, 4 * totalBinsGeneric, buffers.colorArray)
         }
@@ -1054,14 +1054,14 @@ class WXGLRender(private val context: Context) : Renderer {
     }
 
     fun constructWBLines() {
-        val fWb = WXGLNexradLevel3WindBarbs.decodeAndPlot(context, rid, provider, false)
+        val fWb = WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, provider, false)
         constructGenericLinesShort(wbBuffers, fWb)
         constructWBLinesGusts()
         constructWBCircle()
     }
 
     private fun constructWBLinesGusts() {
-        val fWbGusts = WXGLNexradLevel3WindBarbs.decodeAndPlot(context, rid, provider, true)
+        val fWbGusts = WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, provider, true)
         constructGenericLinesShort(wbGustsBuffers, fWbGusts)
     }
 

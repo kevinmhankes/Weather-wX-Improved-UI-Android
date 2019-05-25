@@ -64,7 +64,7 @@ object UtilityCanvasStormInfo {
             paint.color = Color.rgb(0, 0, 0)
         }
         paint.textSize = textSize.toFloat()
-        val pn = ProjectionNumbers(context, rid, provider)
+        val pn = ProjectionNumbers(rid, provider)
         var tmpCoords: DoubleArray
         var tmpCoords2: DoubleArray
         val stormList = mutableListOf<Double>()

@@ -68,7 +68,7 @@ object UtilityCanvasWindbarbs {
             paint.color = MyApplication.radarColorObsWindbarbs
         }
         paint.textSize = textSize.toFloat()
-        val pn = ProjectionNumbers(context, rid1, provider)
+        val pn = ProjectionNumbers(rid1, provider)
         var pixXInit: Double
         var pixYInit: Double
         var tmpCoords: DoubleArray

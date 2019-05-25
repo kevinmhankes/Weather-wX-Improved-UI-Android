@@ -35,7 +35,7 @@ import joshuatee.wx.RegExp
 import joshuatee.wx.util.UtilityImgAnim
 import joshuatee.wx.util.UtilityString
 
-internal object UtilityModelNCEPInputOutput {
+internal object UtilityModelNcepInputOutput {
 
     fun getRunTime(model: String, param: String, spinnerSectorCurrent: String): RunTimeData {
         val runData = RunTimeData()

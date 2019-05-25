@@ -31,9 +31,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
 import joshuatee.wx.R
-import joshuatee.wx.models.ModelsSPCHRRRActivity
-import joshuatee.wx.models.ModelsSPCSREFActivity
-import joshuatee.wx.models.ModelsSPCHREFActivity
+import joshuatee.wx.models.ModelsSpcHrrrActivity
+import joshuatee.wx.models.ModelsSpcSrefActivity
+import joshuatee.wx.models.ModelsSpcHrefActivity
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.spc.SPCCompmapActivity
@@ -74,8 +74,8 @@ class SpcFragment : Fragment() {
         get() {
             hm["spcsref"] = TileObject(
                     R.drawable.spcsref,
-                    ModelsSPCSREFActivity::class.java,
-                    ModelsSPCSREFActivity.INFO,
+                    ModelsSpcSrefActivity::class.java,
+                    ModelsSpcSrefActivity.INFO,
                     arrayOf("1", "SPCSREF", "SPCSREF"),
                     resources.getString(R.string.help_spc_sref),
                     "spcsref"
@@ -154,7 +154,7 @@ class SpcFragment : Fragment() {
             )
             hm["spchrrr"] = TileObject(
                     R.drawable.spchrrr,
-                    ModelsSPCHRRRActivity::class.java,
+                    ModelsSpcHrrrActivity::class.java,
                     "",
                     arrayOf("1", "SPCHRRR", "SPC HRRR"),
                     resources.getString(R.string.help_spchrrr_models),
@@ -162,7 +162,7 @@ class SpcFragment : Fragment() {
             )
             hm["spchref"] = TileObject(
                     R.drawable.spchref,
-                    ModelsSPCHREFActivity::class.java,
+                    ModelsSpcHrefActivity::class.java,
                     "",
                     arrayOf("1", "SPCHREF", "SPC HREF"),
                     resources.getString(R.string.help_spchref_models),

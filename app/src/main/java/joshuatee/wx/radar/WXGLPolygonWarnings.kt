@@ -21,7 +21,6 @@
 
 package joshuatee.wx.radar
 
-import android.content.Context
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ProjectionType
@@ -38,20 +37,13 @@ import joshuatee.wx.util.UtilityTime
 internal object WXGLPolygonWarnings {
 
     fun addGenericWarnings(
-            context: Context,
             provider: ProjectionType,
             rid1: String,
             type: ObjectPolygonWarning
     ): List<Double> {
         val warningList = mutableListOf<Double>()
-        /*val prefToken = when (type) {
-            PolygonType.TOR -> MyApplication.severeDashboardTor.valueGet()
-            PolygonType.TST -> MyApplication.severeDashboardTst.valueGet()
-            else -> MyApplication.severeDashboardFfw.valueGet()
-        }*/
         val prefToken = type.storage.valueGet()
-        //UtilityLog.d("wx", "SPS: " + prefToken)
-        val pn = ProjectionNumbers(context, rid1, provider)
+        val pn = ProjectionNumbers(rid1, provider)
         var j: Int
         var pixXInit: Double
         var pixYInit: Double
@@ -110,7 +102,6 @@ internal object WXGLPolygonWarnings {
     }
 
     fun addWarnings(
-        context: Context,
         provider: ProjectionType,
         rid1: String,
         type: PolygonType
@@ -121,7 +112,7 @@ internal object WXGLPolygonWarnings {
             PolygonType.TST -> MyApplication.severeDashboardTst.valueGet()
             else -> MyApplication.severeDashboardFfw.valueGet()
         }
-        val pn = ProjectionNumbers(context, rid1, provider)
+        val pn = ProjectionNumbers(rid1, provider)
         var j: Int
         var pixXInit: Double
         var pixYInit: Double

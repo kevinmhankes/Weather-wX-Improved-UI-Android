@@ -34,9 +34,10 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ProjectionType
 import joshuatee.wx.util.ProjectionNumbers
 import joshuatee.wx.util.UtilityCanvasProjection
-import joshuatee.wx.util.UtilityLog
 
 import kotlin.math.*
+
+// FIXME rename var OGLR not camcelCase
 
 class WXGLTextObject(
         private val context: Context,
@@ -75,7 +76,7 @@ class WXGLTextObject(
             this.glviewHeight = MyApplication.dm.heightPixels / 2
         else
             this.glviewHeight = MyApplication.dm.heightPixels
-        pn = ProjectionNumbers(context, OGLR.rid, ProjectionType.WX_OGL)
+        pn = ProjectionNumbers(OGLR.rid, ProjectionType.WX_OGL)
         lp = RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
@@ -86,7 +87,7 @@ class WXGLTextObject(
 
     private fun addTVCitiesExt() {
         if (GeographyType.CITIES.pref && cityextTvArrInit) {
-            pn = ProjectionNumbers(context, OGLR.rid, ProjectionType.WX_OGL)
+            pn = ProjectionNumbers(OGLR.rid, ProjectionType.WX_OGL)
             hideCitiesExt()
             glview.citiesExtAl = mutableListOf()
             scale = getScale()
@@ -144,7 +145,7 @@ class WXGLTextObject(
 
     private fun addTVCountyLabels() {
         if (MyApplication.radarCountyLabels && countyLabelsTvArrInit) {
-            pn = ProjectionNumbers(context, OGLR.rid, ProjectionType.WX_OGL)
+            pn = ProjectionNumbers(OGLR.rid, ProjectionType.WX_OGL)
             hideCountyLabels()
             glview.countyLabelsAl = mutableListOf()
             scale = getScale()
@@ -184,7 +185,7 @@ class WXGLTextObject(
 
     fun addTVSpottersLabels() {
         if (PolygonType.SPOTTER_LABELS.pref && spottersLabelsTvArrInit) {
-            pn = ProjectionNumbers(context, OGLR.rid, ProjectionType.WX_OGL)
+            pn = ProjectionNumbers(OGLR.rid, ProjectionType.WX_OGL)
             spotterLat = 0.0
             spotterLon = 0.0
             hideSpottersLabels()
@@ -347,7 +348,7 @@ class WXGLTextObject(
 
     private fun addTVSpotter() {
         if (WXGLRadarActivity.spotterShowSelected) {
-            pn = ProjectionNumbers(context, OGLR.rid, ProjectionType.WX_OGL)
+            pn = ProjectionNumbers(OGLR.rid, ProjectionType.WX_OGL)
             val spotterLat: Double
             val spotterLon: Double
             var report = false
@@ -462,7 +463,7 @@ class WXGLTextObject(
     fun addTVObs() {
         if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && obsTvArrInit) {
             val obsExtZoom = MyApplication.radarObsExtZoom.toDouble()
-            pn = ProjectionNumbers(context, OGLR.rid, ProjectionType.WX_OGL)
+            pn = ProjectionNumbers(OGLR.rid, ProjectionType.WX_OGL)
             spotterLat = 0.0
             spotterLon = 0.0
             val fontScaleFactorObs = 0.65f

@@ -22,12 +22,12 @@
 // TODO remove unused prefs
 // TODO color pal edit for SRM and L2 VEL/REF
 // TODO don't display full precision in lat/lon in settings location edit
-// TODO  enhance formatting for NHC Storms
-// TODO - update polygons when radar is open (in addition to background). Possibly use two sets of prefs , cloned at radar start
-// TODO - color pal , allow cloning of a user created pal
-// TODO - bug , SPC Meso swipe left/right takes on extra to get started
-// TODO - look into tornado instead of #tornado for twitter embedded widget
-// TODO camelCase models/ui dirs
+// TODO enhance formatting for NHC Storms
+// TODO update polygons when radar is open (in addition to background). Possibly use two sets of prefs , cloned at radar start
+// TODO color pal , allow cloning of a user created pal
+// TODO bug , SPC Meso swipe left/right takes on extra to get started
+// TODO look into tornado instead of #tornado for twitter embedded widget
+// TODO rename vars rid / rid1 / mercato
 
 [ADD] - adding something new - method, file, etc. to the repo
 [REM] - remove items
@@ -37,7 +37,7 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
-55197 2019_05_23
+55197 2019_05_25    [REF] camelCase model/ui/jni files
 55196 2019_05_23    [REF] various camelCase WIP
 55195 2019_05_23    [FIX] severe tstorm watch showing as tor in radar
                     [REF] various camelCase

@@ -26,7 +26,7 @@ import android.graphics.Color
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-import joshuatee.wx.JNI
+import joshuatee.wx.Jni
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.ProjectionNumbers
 import joshuatee.wx.util.UtilityLog
@@ -185,7 +185,7 @@ open class ObjectOglBuffers() {
             if (!MyApplication.radarUseJni)
                 UtilityWXOGLPerf.genTriangle(buffers, pn, buffers.xList, buffers.yList)
             else
-                JNI.genTriangle(
+                Jni.genTriangle(
                     buffers.floatBuffer,
                     buffers.indexBuffer,
                     pn.xFloat,
@@ -207,7 +207,7 @@ open class ObjectOglBuffers() {
             if (!MyApplication.radarUseJni)
                 UtilityWXOGLPerf.genTriangleUp(buffers, pn, buffers.xList, buffers.yList)
             else
-                JNI.genTriangleUp(
+                Jni.genTriangleUp(
                     buffers.floatBuffer,
                     buffers.indexBuffer,
                     pn.xFloat,
@@ -229,7 +229,7 @@ open class ObjectOglBuffers() {
             if (!MyApplication.radarUseJni)
                 UtilityWXOGLPerf.genCircle(buffers, pn, buffers.xList, buffers.yList)
             else
-                JNI.genCircle(
+                Jni.genCircle(
                     buffers.floatBuffer,
                     buffers.indexBuffer,
                     pn.xFloat,
@@ -252,7 +252,7 @@ open class ObjectOglBuffers() {
             if (!MyApplication.radarUseJni)
                 UtilityWXOGLPerf.genCircleWithColor(buffers, pn, buffers.xList, buffers.yList)
             else
-                JNI.genCircleWithColor(
+                Jni.genCircleWithColor(
                     buffers.floatBuffer,
                     buffers.indexBuffer,
                     pn.xFloat,

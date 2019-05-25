@@ -31,20 +31,16 @@ import joshuatee.wx.activitiesmisc.AfdActivity
 import joshuatee.wx.objects.WidgetFile
 import joshuatee.wx.util.Utility
 
-class ObjectWidgetAFD(context: Context) {
+class ObjectWidgetHwo(context: Context) {
 
     val remoteViews: RemoteViews = RemoteViews(context.packageName, R.layout.widget_textview_layout)
 
     init {
         val widgetLocNum = Utility.readPref(context, "WIDGET_LOCATION", "1")
         val nws1Current = Utility.readPref(context, "NWS$widgetLocNum", "")
-        val afd = Utility.readPref(context, "AFD_WIDGET", "")
-        remoteViews.setTextViewText(R.id.text1, Utility.fromHtml(afd))
+        val hwo = Utility.readPref(context, "HWO_WIDGET", "")
+        remoteViews.setTextViewText(R.id.text1, Utility.fromHtml(hwo))
         remoteViews.setTextViewTextSize(R.id.text1, TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-        var prodToGoTo = "AFD"
-        if (Utility.readPref(context, "WFO_TEXT_FAV", "").startsWith("VFD")) {
-            prodToGoTo = "VFD"
-        }
         if (!MyApplication.widgetPreventTap) {
             UtilityWidget.setupIntent(
                     context,
@@ -52,8 +48,8 @@ class ObjectWidgetAFD(context: Context) {
                     AfdActivity::class.java,
                     R.id.text1,
                     AfdActivity.URL,
-                    arrayOf(nws1Current, prodToGoTo),
-                    WidgetFile.AFD.action
+                    arrayOf(nws1Current, "HWO"),
+                    WidgetFile.HWO.action
             )
         }
     }

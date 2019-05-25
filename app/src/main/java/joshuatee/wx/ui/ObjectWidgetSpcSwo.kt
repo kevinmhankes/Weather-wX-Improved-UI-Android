@@ -26,32 +26,30 @@ import android.widget.RemoteViews
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UtilityWidget
-import joshuatee.wx.nhc.NhcActivity
 import joshuatee.wx.objects.WidgetFile
 import joshuatee.wx.objects.WidgetFile.*
+import joshuatee.wx.spc.SpcSwoActivity
 
-class ObjectWidgetNHC(context: Context) {
+class ObjectWidgetSpcSwo(context: Context) {
 
-    val remoteViews: RemoteViews = RemoteViews(context.packageName, R.layout.widget_nhc_layout)
+    val remoteViews: RemoteViews = RemoteViews(context.packageName, R.layout.widget_spcswo_layout)
+    private val ivList = listOf(R.id.iv1, R.id.iv2, R.id.iv3, R.id.iv4)
 
     init {
-        UtilityWidget.setImage(context, remoteViews, R.id.iv1, NHC.fileName + "0")
-        UtilityWidget.setImage(context, remoteViews, R.id.iv2, NHC.fileName + "1")
-        if (!MyApplication.widgetPreventTap) {
-            UtilityWidget.setupIntent(
-                    context,
-                    remoteViews,
-                    NhcActivity::class.java,
-                    R.id.iv1,
-                    WidgetFile.NHC.action + "0"
-            )
-            UtilityWidget.setupIntent(
-                    context,
-                    remoteViews,
-                    NhcActivity::class.java,
-                    R.id.iv2,
-                    WidgetFile.NHC.action + "1"
-            )
+        (0..3).forEach {
+            val dayAsString = (it + 1).toString()
+            UtilityWidget.setImage(context, remoteViews, ivList[it], SPCSWO.fileName + dayAsString)
+            if (!MyApplication.widgetPreventTap) {
+                UtilityWidget.setupIntent(
+                        context,
+                        remoteViews,
+                        SpcSwoActivity::class.java,
+                        ivList[it],
+                        SpcSwoActivity.NO,
+                        arrayOf(dayAsString, ""),
+                        WidgetFile.SPCSWO.action + dayAsString
+                )
+            }
         }
     }
 }
