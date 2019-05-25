@@ -198,7 +198,7 @@ class SevereDashboardActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> UtilityShare.shareText(this, "Severe Dashboard", "", bitmaps)
-            R.id.action_pin -> UtilityShortcut.createShortcut(this, ShortcutType.SevereDashboard)
+            R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.SevereDashboard)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

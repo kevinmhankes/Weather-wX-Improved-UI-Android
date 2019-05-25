@@ -53,15 +53,14 @@ class StartupActivity : Activity() {
         if (Utility.readPref(this, "LAUNCH_TO_RADAR", "false") == "false") {
             ObjectIntent(this, WX::class.java)
         } else {
-            val nws1Current = Location.wfo
-            val nws1StateCurrent =
-                Utility.readPref(this, "NWS_LOCATION_$nws1Current", "").split(",")[0]
-            val rid1 = Location.getRid(this, Location.currentLocationStr)
+            val wfo = Location.wfo
+            val state = Utility.readPref(this, "NWS_LOCATION_$wfo", "").split(",")[0]
+            val radarSite = Location.getRid(this, Location.currentLocationStr)
             ObjectIntent(
                 this,
                 WXGLRadarActivity::class.java,
                 WXGLRadarActivity.RID,
-                arrayOf(rid1, nws1StateCurrent)
+                arrayOf(radarSite, state)
             )
         }
         finish()

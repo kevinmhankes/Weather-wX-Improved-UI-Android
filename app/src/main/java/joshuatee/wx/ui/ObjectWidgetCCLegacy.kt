@@ -67,7 +67,7 @@ class ObjectWidgetCCLegacy(context: Context, allWidgetIds: IntArray) {
         val nwsLocation = Utility.readPref(context, "NWS_LOCATION_$nws1Current", "")
         val nwsLocationArr = nwsLocation.split(",").dropLastWhile { it.isEmpty() }
         val nws1StateCurrent = nwsLocationArr.getOrNull(0) ?: ""
-        val rid1 = Location.getRid(context, widgetLocNum)
+        val radarSite = Location.getRid(context, widgetLocNum)
         val locLabel = Utility.readPref(context, "LOC" + widgetLocNum + "_LABEL", "")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             remoteViews.setImageViewResource(R.id.b_radar, R.drawable.ic_flash_on_24dp)
@@ -163,7 +163,7 @@ class ObjectWidgetCCLegacy(context: Context, allWidgetIds: IntArray) {
                     WXGLRadarActivity::class.java,
                     R.id.b_radar,
                     WXGLRadarActivity.RID,
-                    arrayOf(rid1, nws1StateCurrent),
+                    arrayOf(radarSite, nws1StateCurrent),
                     actionRadar
             )
         } else {
@@ -173,7 +173,7 @@ class ObjectWidgetCCLegacy(context: Context, allWidgetIds: IntArray) {
                     CanadaRadarActivity::class.java,
                     R.id.b_radar,
                     CanadaRadarActivity.RID,
-                    arrayOf(rid1, "rad"),
+                    arrayOf(radarSite, "rad"),
                     actionRadar
             )
         }
@@ -267,7 +267,7 @@ class ObjectWidgetCCLegacy(context: Context, allWidgetIds: IntArray) {
                     CanadaRadarActivity::class.java,
                     R.id.b_cloud,
                     CanadaRadarActivity.RID,
-                    arrayOf(rid1, "vis"),
+                    arrayOf(radarSite, "vis"),
                     actionCloud
             )
         }

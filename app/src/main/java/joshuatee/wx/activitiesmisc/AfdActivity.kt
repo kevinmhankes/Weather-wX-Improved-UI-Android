@@ -215,7 +215,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 getContentByState()
             }
             R.id.action_map -> imageMap.toggleMap()
-            R.id.action_pin -> UtilityShortcut.createShortcut(this, ShortcutType.AFD)
+            R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.AFD)
             R.id.action_afd -> getProduct("AFD")
             R.id.action_vfd -> getProduct("VFD")
             R.id.action_hwo -> getProduct("HWO")

@@ -76,7 +76,7 @@ class BackgroundFetch(val context: Context) {
         var requestID: Int
         (1..Location.numLocations).forEach {
             requestID = System.currentTimeMillis().toInt()
-            notifUrls += UtilityNotification.sendNotif(context, it.toString(), requestID + 1)
+            notifUrls += UtilityNotification.send(context, it.toString(), requestID + 1)
         }
         MyApplication.radarWarningPolygons.forEach {
             if (it.isEnabled) {
@@ -92,7 +92,7 @@ class BackgroundFetch(val context: Context) {
                 // store data for use by severe dashboard and cod warnings
                 UtilityDownloadRadar.getPolygonVtec(context)
                 if (MyApplication.alertTornadoNotificationCurrent) {
-                    notifUrls += UtilityNotificationTornado.checkAndSendTornadoNotification(
+                    notifUrls += UtilityNotificationTornado.checkAndSend(
                             context,
                             MyApplication.severeDashboardTor.valueGet()
                     )
@@ -323,7 +323,7 @@ class BackgroundFetch(val context: Context) {
         LocalBroadcastManager.getInstance(context).sendBroadcast(Intent("notifran"))
         notifUrls += UtilityNotificationSpc.sendSwoNotifications(context, inBlackout)
         if (MyApplication.alertNhcEpacNotificationCurrent || MyApplication.alertNhcAtlNotificationCurrent)
-            notifUrls += UtilityNotificationNhc.sendNhcNotifications(
+            notifUrls += UtilityNotificationNhc.send(
                     context,
                     MyApplication.alertNhcEpacNotificationCurrent,
                     MyApplication.alertNhcAtlNotificationCurrent

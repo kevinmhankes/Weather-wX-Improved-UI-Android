@@ -42,7 +42,7 @@ class ObjectWidgetVis(context: Context) {
         val widgetLocNum = Utility.readPref(context, "WIDGET_LOCATION", "1")
         val intentHome = Intent("android.intent.action.MAIN")
         intentHome.addCategory("android.intent.category.HOME")
-        val rid1 = Location.getRid(context, widgetLocNum)
+        val radarSite = Location.getRid(context, widgetLocNum)
         UtilityWidget.setImage(context, remoteViews, VIS.fileName)
         if (!MyApplication.widgetPreventTap) {
             if (Location.isUS(widgetLocNum)) {
@@ -62,7 +62,7 @@ class ObjectWidgetVis(context: Context) {
                         CanadaRadarActivity::class.java,
                         R.id.iv,
                         CanadaRadarActivity.RID,
-                        arrayOf(rid1, "vis"),
+                        arrayOf(radarSite, "vis"),
                         WidgetFile.VIS.action
                 )
             }

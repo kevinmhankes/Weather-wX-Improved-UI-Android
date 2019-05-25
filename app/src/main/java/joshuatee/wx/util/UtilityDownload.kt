@@ -58,11 +58,11 @@ object UtilityDownload {
 
     fun getRadarMosaic(context: Context): Bitmap {
         val location = Location.currentLocationStr
-        val rid1 = Location.getRid(context, location)
+        val radarSite = Location.getRid(context, location)
         var bitmap: Bitmap = UtilityImg.getBlankBitmap()
         try {
             if (!UIPreferences.useAwcRadarMosaic) {
-                val ridLoc = Utility.readPref(context, "RID_LOC_$rid1", "")
+                val ridLoc = Utility.readPref(context, "RID_LOC_$radarSite", "")
                 val nwsLocationArr = ridLoc.split(",").dropLastWhile { it.isEmpty() }
                 val state = nwsLocationArr[0]
                 var k = Utility.readPref(context, "WIDGET_RADAR_LEVEL", "1km")
@@ -164,7 +164,7 @@ object UtilityDownload {
             "QPF1-7" -> url = "${MyApplication.nwsWPCwebsitePrefix}/qpf/p168i.gif"
             "SPC_TST" -> {
                 needsBitmap = false
-                val images = UtilitySpc.tstormOutlookImages
+                val images = UtilitySpc.thunderStormOutlookImages
                 bm = UtilityImg.mergeImagesVertically(images)
             }
             "SWOD1" -> {

@@ -208,7 +208,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                             contextg,
                             WebscreenAB::class.java,
                             WebscreenAB.URL,
-                            arrayOf(UtilityMap.genMapUrl(xStr, yStr, "10"), "$xStr,$yStr")
+                            arrayOf(UtilityMap.getMapUrl(xStr, yStr, "10"), "$xStr,$yStr")
                     )
                 })
                 if (s.text.contains("(") && s.text.contains(")")) {
@@ -282,9 +282,9 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         val index = v.id
         val x = storms[index].lat
         val y = storms[index].lon
-        val rid1 = UtilityLocation.getNearestOffice(this, "RADAR", LatLon(x, y))
-        menu.add(0, v.id, 0, "Show L2REF from $rid1")
-        menu.add(0, v.id, 0, "Show L2VEL from $rid1")
+        val radarSite = UtilityLocation.getNearestOffice(this, "RADAR", LatLon(x, y))
+        menu.add(0, v.id, 0, "Show L2REF from $radarSite")
+        menu.add(0, v.id, 0, "Show L2VEL from $radarSite")
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
@@ -300,10 +300,10 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         var x = storms[id].lat
         var y = storms[id].lon
         var time = storms[id].time
-        var rid1 = UtilityLocation.getNearestOffice(this, "RADAR", LatLon(x, y))
+        var radarSite = UtilityLocation.getNearestOffice(this, "RADAR", LatLon(x, y))
         time = UtilityStringExternal.truncate(time, 3)
         if (prod == "TR0" || prod == "TV0") {
-            rid1 = WXGLNexrad.getTdwrFromRid(rid1)
+            radarSite = WXGLNexrad.getTdwrFromRid(radarSite)
         }
         if ((storms[id].time.toIntOrNull() ?: 0) < 1000) {
             monthStr = String.format(Locale.US, "%02d", pMonth + 1)
@@ -313,7 +313,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             date = yearStr + monthStr + dayStr
             iowaMesoStr = "20$yearStr$monthStr$dayStr"
         }
-        val patternL2 = rid1 + "_" + iowaMesoStr + "_" + time
+        val patternL2 = radarSite + "_" + iowaMesoStr + "_" + time
         if (!PolygonType.LOCDOT.pref) {
             x = "0.0"
             y = "0.0"
@@ -322,7 +322,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 this,
                 WXGLRadarActivity::class.java,
                 WXGLRadarActivity.RID,
-                arrayOf(rid1, "", prod, "", patternL2, x, y)
+                arrayOf(radarSite, "", prod, "", patternL2, x, y)
         )
     }
 

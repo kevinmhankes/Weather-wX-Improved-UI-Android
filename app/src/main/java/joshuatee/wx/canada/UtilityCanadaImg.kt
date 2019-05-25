@@ -114,9 +114,9 @@ object UtilityCanadaImg {
         if (GeographyType.CITIES.pref) {
             layerCnt = 2
         }
-        val bitmapArr = mutableListOf<Bitmap>()
+        val bitmaps = mutableListOf<Bitmap>()
         val layers = mutableListOf<Drawable>()
-        bitmapArr.add(urlImg.getImage())
+        bitmaps.add(urlImg.getImage())
         if (GeographyType.CITIES.pref) {
             val cityUrl =
                 "http://weather.gc.ca/cacheable/images/radar/layers_detailed/default_cities/" + rid.toLowerCase(
@@ -126,13 +126,13 @@ object UtilityCanadaImg {
             val bigBitmap = Bitmap.createBitmap(bmTmp.width, bmTmp.height, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bigBitmap)
             canvas.drawBitmap(bmTmp, 0f, 0f, Paint(Paint.FILTER_BITMAP_FLAG))
-            bitmapArr.add(bigBitmap)
+            bitmaps.add(bigBitmap)
         }
         (0 until layerCnt).forEach {
             val bmdr = if (it == 1) {
-                BitmapDrawable(context.resources, UtilityImg.eraseBG(bitmapArr[it], -1))
+                BitmapDrawable(context.resources, UtilityImg.eraseBG(bitmaps[it], -1))
             } else {
-                BitmapDrawable(context.resources, bitmapArr[it])
+                BitmapDrawable(context.resources, bitmaps[it])
             }
             layers.add(bmdr)
         }
@@ -141,7 +141,9 @@ object UtilityCanadaImg {
 
     fun getRadarMosaicBitmapOptionsApplied(context: Context, sector: String): Bitmap {
         var url = "http://weather.gc.ca/radar/index_e.html?id=$sector"
-        if (sector == "CAN") url = "http://weather.gc.ca/radar/index_e.html"
+        if (sector == "CAN") {
+            url = "http://weather.gc.ca/radar/index_e.html"
+        }
         val radHtml = url.getHtmlSep()
         val matchStr = "(/data/radar/.*?GIF)\""
         var summary = radHtml.parse(matchStr)
@@ -150,9 +152,9 @@ object UtilityCanadaImg {
         if (GeographyType.CITIES.pref) {
             layerCnt = 2
         }
-        val bitmapArr = mutableListOf<Bitmap>()
+        val bitmaps = mutableListOf<Bitmap>()
         val layers = mutableListOf<Drawable>()
-        bitmapArr.add(("http://weather.gc.ca/$summary").getImage())
+        bitmaps.add(("http://weather.gc.ca/$summary").getImage())
         var sectorMap = sector.toLowerCase(Locale.US)
         var offset = 100
         if (sector == "CAN") {
@@ -165,25 +167,24 @@ object UtilityCanadaImg {
             "ERN" -> sectorMap = "atl"
         }
         if (GeographyType.CITIES.pref) {
-            val cityUrl =
-                "http://weather.gc.ca/cacheable/images/radar/layers/composite_cities/" + sectorMap + "_composite.gif"
+            val cityUrl = "http://weather.gc.ca/cacheable/images/radar/layers/composite_cities/" + sectorMap + "_composite.gif"
             val bmTmp = cityUrl.getImage()
             val bigBitmap =
                 Bitmap.createBitmap(bmTmp.width + offset, bmTmp.height, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bigBitmap)
             canvas.drawBitmap(bmTmp, 0f, 0f, Paint(Paint.FILTER_BITMAP_FLAG))
-            bitmapArr.add(bigBitmap)
+            bitmaps.add(bigBitmap)
         }
         (0 until layerCnt).forEach { j ->
-            val bmdr = if (j == 1) {
+            val drawable = if (j == 1) {
                 BitmapDrawable(
                     context.resources,
-                    UtilityImg.eraseBG(bitmapArr[j], -1)
+                    UtilityImg.eraseBG(bitmaps[j], -1)
                 ) // was -16777216
             } else {
-                BitmapDrawable(context.resources, bitmapArr[j])
+                BitmapDrawable(context.resources, bitmaps[j])
             }
-            layers.add(bmdr)
+            layers.add(drawable)
         }
         return UtilityImg.layerDrawableToBitmap(layers)
     }

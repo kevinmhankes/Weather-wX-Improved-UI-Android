@@ -33,7 +33,7 @@ internal object UtilityWatch {
 
     fun add(
         provider: ProjectionType,
-        rid1: String,
+        radarSite: String,
         type: PolygonType
     ): List<Double> {
         var testArr: Array<String>
@@ -47,7 +47,7 @@ internal object UtilityWatch {
             else -> {
             }
         }
-        val pn = ProjectionNumbers(rid1, provider)
+        val pn = ProjectionNumbers(radarSite, provider)
         var j: Int
         var pixXInit: Double
         var pixYInit: Double

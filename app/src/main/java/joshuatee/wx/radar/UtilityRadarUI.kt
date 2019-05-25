@@ -400,7 +400,7 @@ internal object UtilityRadarUI {
                 oglr.deconstructWBLines()
             }
             if (PolygonType.SWO.pref && !archiveMode) {
-                UtilitySwoD1.getSwo()
+                UtilitySwoD1.get()
                 oglr.constructSwoLines()
             } else {
                 oglr.deconstructSwoLines()

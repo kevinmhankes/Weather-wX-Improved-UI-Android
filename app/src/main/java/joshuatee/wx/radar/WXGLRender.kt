@@ -242,7 +242,7 @@ class WXGLRender(private val context: Context) : Renderer {
         try {
             when {
                 product.contains("L2") -> {
-                    rdL2.decocodeAndPlotNexradL2(
+                    rdL2.decocodeAndPlot(
                             context,
                             radarBuffers.fn,
                             prod,
@@ -253,7 +253,7 @@ class WXGLRender(private val context: Context) : Renderer {
                     radarBuffers.extractL2Data(rdL2)
                 }
                 product.contains("NSW") -> {
-                    radarL3Object.decocodeAndPlotNexradLevel3FourBit(
+                    radarL3Object.decocodeAndPlotFourBit(
                             context,
                             radarBuffers.fn,
                             radarStatusStr
@@ -261,7 +261,7 @@ class WXGLRender(private val context: Context) : Renderer {
                     radarBuffers.extractL3Data(radarL3Object)
                 }
                 product.contains("N0S") -> {
-                    radarL3Object.decocodeAndPlotNexradLevel3FourBit(
+                    radarL3Object.decocodeAndPlotFourBit(
                             context,
                             radarBuffers.fn,
                             radarStatusStr
@@ -269,7 +269,7 @@ class WXGLRender(private val context: Context) : Renderer {
                     radarBuffers.extractL3Data(radarL3Object)
                 }
                 product.contains("N1S") -> {
-                    radarL3Object.decocodeAndPlotNexradLevel3FourBit(
+                    radarL3Object.decocodeAndPlotFourBit(
                             context,
                             radarBuffers.fn,
                             radarStatusStr
@@ -277,7 +277,7 @@ class WXGLRender(private val context: Context) : Renderer {
                     radarBuffers.extractL3Data(radarL3Object)
                 }
                 product.contains("N2S") -> {
-                    radarL3Object.decocodeAndPlotNexradLevel3FourBit(
+                    radarL3Object.decocodeAndPlotFourBit(
                             context,
                             radarBuffers.fn,
                             radarStatusStr
@@ -285,7 +285,7 @@ class WXGLRender(private val context: Context) : Renderer {
                     radarBuffers.extractL3Data(radarL3Object)
                 }
                 product.contains("N3S") -> {
-                    radarL3Object.decocodeAndPlotNexradLevel3FourBit(
+                    radarL3Object.decocodeAndPlotFourBit(
                             context,
                             radarBuffers.fn,
                             radarStatusStr
@@ -293,7 +293,7 @@ class WXGLRender(private val context: Context) : Renderer {
                     radarBuffers.extractL3Data(radarL3Object)
                 }
                 else -> {
-                    radarL3Object.decocodeAndPlotNexradDigital(
+                    radarL3Object.decocodeAndPlot(
                             context,
                             radarBuffers.fn,
                             radarStatusStr
@@ -496,18 +496,14 @@ class WXGLRender(private val context: Context) : Renderer {
                     drawTriangles(it)
                 }
             }
-            //drawTriangles(wbCircleBuffers)
-            //GLES20.glLineWidth(defaultLineWidth)
-            // FIXME use new configurable
-            GLES20.glLineWidth(MyApplication.radarGpsCircleLinesize.toFloat())
-            drawTriangles(locdotBuffers)
-            if (MyApplication.locdotFollowsGps && locCircleBuffers.floatBuffer.capacity() != 0 && locCircleBuffers.indexBuffer.capacity() != 0 && locCircleBuffers.colorBuffer.capacity() != 0) {
-                locCircleBuffers.chunkCount = 1
-                drawPolygons(locCircleBuffers, 16)
-            }
         }
 
-
+        GLES20.glLineWidth(MyApplication.radarGpsCircleLinesize.toFloat())
+        drawTriangles(locdotBuffers)
+        if (MyApplication.locdotFollowsGps && locCircleBuffers.floatBuffer.capacity() != 0 && locCircleBuffers.indexBuffer.capacity() != 0 && locCircleBuffers.colorBuffer.capacity() != 0) {
+            locCircleBuffers.chunkCount = 1
+            drawPolygons(locCircleBuffers, 16)
+        }
 
         GLES20.glLineWidth(warnLineWidth)
         listOf(warningTstBuffers, warningFfwBuffers, warningTorBuffers).forEach {
@@ -920,7 +916,7 @@ class WXGLRender(private val context: Context) : Renderer {
         spotterBuffers.isInitialized = false
         spotterBuffers.lenInit = MyApplication.radarSpotterSize.toFloat()
         spotterBuffers.triangleCount = 6
-        UtilitySpotter.spotterData
+        UtilitySpotter.data
         spotterBuffers.xList = UtilitySpotter.x
         spotterBuffers.yList = UtilitySpotter.y
         constructTriangles(spotterBuffers)
@@ -987,12 +983,12 @@ class WXGLRender(private val context: Context) : Renderer {
             PolygonType.MCD, PolygonType.MPD, PolygonType.WATCH, PolygonType.WATCH_TORNADO -> fList =
                     UtilityWatch.add(provider, rid, buffers.type).toList()
             PolygonType.TST, PolygonType.TOR, PolygonType.FFW -> fList =
-                    WXGLPolygonWarnings.addWarnings(provider, rid, buffers.type).toList()
+                    WXGLPolygonWarnings.add(provider, rid, buffers.type).toList()
             PolygonType.STI -> fList =
                     WXGLNexradLevel3StormInfo.decodeAndPlot(context, idxStr, rid, provider).toList()
             else -> {
                 if (buffers.warningType != null) {
-                    fList = WXGLPolygonWarnings.addGenericWarnings(provider, rid, buffers.warningType!!).toList()
+                    fList = WXGLPolygonWarnings.addGeneric(provider, rid, buffers.warningType!!).toList()
                     //UtilityLog.d("wx", "SPS: " + fList)
                 }
             }

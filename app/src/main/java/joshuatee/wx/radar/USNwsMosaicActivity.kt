@@ -184,7 +184,7 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
             return true
         }
         when (item.itemId) {
-            R.id.action_pin -> UtilityShortcut.createShortcut(this, ShortcutType.RADAR_MOSAIC)
+            R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.RADAR_MOSAIC)
             R.id.action_a12 -> getAnimate(12)
             R.id.action_a18 -> getAnimate(18)
             R.id.action_a6 -> getAnimate(6)

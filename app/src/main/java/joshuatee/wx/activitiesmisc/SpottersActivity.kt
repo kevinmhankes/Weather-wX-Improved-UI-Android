@@ -97,7 +97,7 @@ class SpottersActivity : BaseActivity() {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        spotterlist = withContext(Dispatchers.IO) { UtilitySpotter.spotterData }.toMutableList()
+        spotterlist = withContext(Dispatchers.IO) { UtilitySpotter.data }.toMutableList()
         markFavorites()
         ca = AdapterSpotter(spotterlist)
         recyclerView.recyclerView.adapter = ca
@@ -185,7 +185,7 @@ class SpottersActivity : BaseActivity() {
                 WebscreenAB::class.java,
                 WebscreenAB.URL,
                 arrayOf(
-                        UtilityMap.genMapUrl(
+                        UtilityMap.getMapUrl(
                                 spotterlist[position].lat,
                                 spotterlist[position].lon,
                                 "9"

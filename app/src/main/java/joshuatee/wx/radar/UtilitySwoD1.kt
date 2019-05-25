@@ -38,7 +38,7 @@ internal object UtilitySwoD1 {
     @SuppressLint("UseSparseArrays")
     val HASH_SWO = mutableMapOf<Int, List<Double>>()
 
-    fun getSwo() {
+    fun get() {
         val currentTime1 = System.currentTimeMillis()
         val currentTimeSec = currentTime1 / 1000
         val refreshIntervalSec = (REFRESH_LOC_MIN * 60).toLong()

@@ -59,7 +59,7 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        bitmaps = withContext(Dispatchers.IO) { UtilitySpc.tstormOutlookImages }
+        bitmaps = withContext(Dispatchers.IO) { UtilitySpc.thunderStormOutlookImages }
         bitmaps.forEach { ObjectCardImage(contextg, ll, it) }
     }
 

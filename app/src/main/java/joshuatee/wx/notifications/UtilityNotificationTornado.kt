@@ -40,7 +40,7 @@ internal object UtilityNotificationTornado {
     // https://code.google.com/p/android/issues/detail?id=201958
     // Issue 201958: 	NotificationCompat does not appear to support vector drawables (wrapped in another drawable or not)
 
-    fun checkAndSendTornadoNotification(context: Context, html: String): String {
+    fun checkAndSend(context: Context, html: String): String {
         var notifUrls = ""
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         try {

@@ -162,8 +162,8 @@ object UtilityCanvasMain {
             UtilityCanvas.addLocationDotForCurrentLocation(scaleType, bitmapCanvas, radarSite)
         }
         if (PolygonType.WIND_BARB.pref && windBarbProvider) {
-            UtilityCanvasWindbarbs.drawWindbarbs(context, scaleType, bitmapCanvas, radarSite, true)
-            UtilityCanvasWindbarbs.drawWindbarbs(context, scaleType, bitmapCanvas, radarSite, false)
+            UtilityCanvasWindbarbs.draw(context, scaleType, bitmapCanvas, radarSite, true)
+            UtilityCanvasWindbarbs.draw(context, scaleType, bitmapCanvas, radarSite, false)
         }
         if (PolygonType.STI.pref && stormMotionProvider) {
             UtilityCanvasStormInfo.drawNexRadStormMotion(context, scaleType, bitmapCanvas, radarSite)

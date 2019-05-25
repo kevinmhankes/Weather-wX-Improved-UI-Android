@@ -51,7 +51,7 @@ class WXGLNexradLevel2 {
     }
 
     // last argument is true/false on whether or not the DECOMP stage needs to happen
-    fun decocodeAndPlotNexradL2(
+    fun decocodeAndPlot(
         context: Context,
         fileName: String,
         prod: String,

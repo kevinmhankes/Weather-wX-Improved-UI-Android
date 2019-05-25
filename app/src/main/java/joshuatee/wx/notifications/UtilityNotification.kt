@@ -62,7 +62,7 @@ object UtilityNotification {
 
     private var notiChannelInitialized = false
 
-    internal fun sendNotif(context: Context, locNum: String, y: Int): String {
+    internal fun send(context: Context, locNum: String, y: Int): String {
         val locNumInt = (locNum.toIntOrNull() ?: 1) - 1
         var notifUrls = ""
         val i = 0

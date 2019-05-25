@@ -61,7 +61,7 @@ if (android.os.Build.VERSION.SDK_INT < 26) {
 
 object UtilityShortcut {
 
-    fun createShortcut(context: Context, type: ShortcutType) {
+    fun create(context: Context, type: ShortcutType) {
         // https://developer.android.com/guide/topics/ui/shortcuts
         // Pinned shortcuts in API 26 8.0
         if (android.os.Build.VERSION.SDK_INT > 25) {

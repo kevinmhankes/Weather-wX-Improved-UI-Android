@@ -98,16 +98,16 @@ class WXGLTextObject(
             textSize = MyApplication.textSizeSmall * oglrZoom * 0.75f * MyApplication.radarTextSize
             val cityMinZoom = 0.50
             if (OGLR.zoom > cityMinZoom) {
-                val cityExtLength = UtilityCitiesExtended.cityAl.size
+                val cityExtLength = UtilityCitiesExtended.cities.size
                 for (c in 0 until cityExtLength) {
                     if (glview.citiesExtAl.size > maxCitiesPerGlview) {
                         break
                     }
                     checkAndDrawText(
                             glview.citiesExtAl,
-                            UtilityCitiesExtended.cityAl[c].latD,
-                            UtilityCitiesExtended.cityAl[c].lonD,
-                            UtilityCitiesExtended.cityAl[c].name,
+                            UtilityCitiesExtended.cities[c].latD,
+                            UtilityCitiesExtended.cities[c].lonD,
+                            UtilityCitiesExtended.cities[c].name,
                             MyApplication.radarColorCity
                     )
                 }
@@ -129,13 +129,13 @@ class WXGLTextObject(
     private fun initTVCitiesExt(context: Context) {
         if (GeographyType.CITIES.pref) {
             cityextTvArrInit = true
-            UtilityCitiesExtended.populateArrays(context)
+            UtilityCitiesExtended.create(context)
         }
     }
 
     private fun initTVCountyLabels(context: Context) {
         if (MyApplication.radarCountyLabels) {
-            UtilityCountyLabels.populateArrays(context)
+            UtilityCountyLabels.create(context)
             countyLabelsTvArrInit = true
         }
     }

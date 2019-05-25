@@ -48,7 +48,7 @@ import kotlinx.coroutines.*
 //import kotlinx.android.synthetic.main.activity_canada_radar.*
 
 class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelectedListener,
-    OnMenuItemClickListener {
+        OnMenuItemClickListener {
 
     // Canada Radar
     //
@@ -65,7 +65,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
     private var animRan = false
     private lateinit var img: ObjectTouchImageView
     private var rad = ""
-    private var rid1 = ""
+    private var radarSite = ""
     private var mosaicShown = false
     private var mosaicShownId = ""
     private var imageType = "rad"
@@ -81,11 +81,11 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(
-            savedInstanceState,
-            R.layout.activity_canada_radar,
-            R.menu.canada_radar,
-            iconsEvenlySpaced = true,
-            bottomToolbar = true
+                savedInstanceState,
+                R.layout.activity_canada_radar,
+                R.menu.canada_radar,
+                iconsEvenlySpaced = true,
+                bottomToolbar = true
         )
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)
@@ -93,35 +93,35 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         img = ObjectTouchImageView(this, this, R.id.iv)
         img.setOnClickListener(this)
         val args = intent.getStringArrayExtra(RID)
-        rid1 = args[0]
+        radarSite = args[0]
         imageType = args[1]
-        if (rid1 == "NAT") {
-            rid1 = "CAN"
+        if (radarSite == "NAT") {
+            radarSite = "CAN"
         }
         url = Utility.readPref(this, "CA_LAST_RID_URL", url)
         if (MyApplication.wxoglRememberLocation) {
             if (MyApplication.wxoglRid != "") {
-                rid1 = Utility.readPref(this, "CA_LAST_RID", rid1)
+                radarSite = Utility.readPref(this, "CA_LAST_RID", radarSite)
             }
         }
         title = "Canada"
         imageMap =
-            ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
+                ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
         imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::mapToCanadaRadarSite)
         ridFav = Utility.readPref(this, "RID_CA_FAV", " : : :")
-        ridArrLoc = UtilityFavorites.setupFavMenuCanada(ridFav, rid1)
+        ridArrLoc = UtilityFavorites.setupFavMenuCanada(ridFav, radarSite)
         sp = ObjectSpinner(this, this, this, R.id.spinner1, ridArrLoc)
     }
 
     override fun onRestart() {
         ridFav = Utility.readPref(this, "RID_CA_FAV", " : : :")
-        ridArrLoc = UtilityFavorites.setupFavMenuCanada(ridFav, rid1)
+        ridArrLoc = UtilityFavorites.setupFavMenuCanada(ridFav, radarSite)
         sp.refreshData(this, ridArrLoc)
         super.onRestart()
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        if (ridFav.contains(":$rid1:")) {
+        if (ridFav.contains(":$radarSite:")) {
             star.setIcon(MyApplication.STAR_ICON)
         } else {
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
@@ -162,20 +162,20 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
                 getContent()
             }
             R.id.action_vis_west -> getVisOrIr(
-                "vis",
-                "https://weather.gc.ca/data/satellite/goes_wcan_visible_100.jpg"
+                    "vis",
+                    "https://weather.gc.ca/data/satellite/goes_wcan_visible_100.jpg"
             )
             R.id.action_vis_east -> getVisOrIr(
-                "vis",
-                "https://weather.gc.ca/data/satellite/goes_ecan_visible_100.jpg"
+                    "vis",
+                    "https://weather.gc.ca/data/satellite/goes_ecan_visible_100.jpg"
             )
             R.id.action_ir_west -> getVisOrIr(
-                "ir",
-                "https://weather.gc.ca/data/satellite/goes_wcan_1070_100.jpg"
+                    "ir",
+                    "https://weather.gc.ca/data/satellite/goes_wcan_1070_100.jpg"
             )
             R.id.action_ir_east -> getVisOrIr(
-                "ir",
-                "https://weather.gc.ca/data/satellite/goes_ecan_1070_100.jpg"
+                    "ir",
+                    "https://weather.gc.ca/data/satellite/goes_ecan_1070_100.jpg"
             )
             R.id.action_can -> getRadarMosaic("CAN")
             R.id.action_pac -> getRadarMosaic("PAC")
@@ -214,7 +214,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
 
     private fun ridMapSwitch(r: String) {
         imageType = "rad"
-        rid1 = r
+        radarSite = r
         img.resetZoom()
         ridArrLoc = UtilityFavorites.setupFavMenuCanada(ridFav, r)
         sp.refreshData(this, ridArrLoc)
@@ -241,16 +241,16 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         }
         when (position) {
             1 -> ObjectIntent(
-                contextg,
-                FavAddActivity::class.java,
-                FavAddActivity.TYPE,
-                arrayOf("RIDCA")
+                    contextg,
+                    FavAddActivity::class.java,
+                    FavAddActivity.TYPE,
+                    arrayOf("RIDCA")
             )
             2 -> ObjectIntent(
-                contextg,
-                FavRemoveActivity::class.java,
-                FavRemoveActivity.TYPE,
-                arrayOf("RIDCA")
+                    contextg,
+                    FavRemoveActivity::class.java,
+                    FavRemoveActivity.TYPE,
+                    arrayOf("RIDCA")
             )
             else -> {
                 if (ridArrLoc[position].length > 3) {
@@ -280,13 +280,13 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
     }
 
     private fun toggleFavorite() {
-        ridFav = UtilityFavorites.toggleFavoriteString(this, rid1, star, "RID_CA_FAV")
-        ridArrLoc = UtilityFavorites.setupFavMenuCanada(ridFav, rid1)
+        ridFav = UtilityFavorites.toggleFavoriteString(this, radarSite, star, "RID_CA_FAV")
+        ridArrLoc = UtilityFavorites.setupFavMenuCanada(ridFav, radarSite)
         sp.refreshData(this, ridArrLoc)
     }
 
     override fun onStop() {
-        UtilityPreferences.writePrefs(this, listOf("CA_LAST_RID", rid1, "CA_LAST_RID_URL", url))
+        UtilityPreferences.write(this, listOf("CA_LAST_RID", radarSite, "CA_LAST_RID_URL", url))
         img.imgSavePosnZoom(this, "CA_LAST_RID")
         super.onStop()
     }

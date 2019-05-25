@@ -47,20 +47,20 @@ object UtilityVoiceCommand {
             context: Context,
             view: View,
             vrStringF: String,
-            rid1F: String,
+            radarSiteArg: String,
             nws1CurrentF: String,
             nws1StateCurrent: String
     ): Boolean {
         var vrString = vrStringF
-        var rid1 = rid1F
+        var radarSite = radarSiteArg
         var nws1Current = nws1CurrentF
         var gotHit = true
         val tokens = MyApplication.space.split(vrString)
         if (vrString.contains("radar")) {
             var validRid = true
             if (tokens.size > 1) {
-                rid1 = tokens[1].toUpperCase(Locale.US)
-                if (Utility.readPrefWithNull(context, "RID_LOC_$rid1", null) == null) {
+                radarSite = tokens[1].toUpperCase(Locale.US)
+                if (Utility.readPrefWithNull(context, "RID_LOC_$radarSite", null) == null) {
                     validRid = false
                 }
             }
@@ -68,7 +68,7 @@ object UtilityVoiceCommand {
                     context,
                     WXGLRadarActivity::class.java,
                     WXGLRadarActivity.RID,
-                    arrayOf(rid1, nws1StateCurrent)
+                    arrayOf(radarSite, nws1StateCurrent)
             )
         } else if (vrString.contains("AFD") || vrString.contains("text")) {
             if (tokens.size > 1) {
