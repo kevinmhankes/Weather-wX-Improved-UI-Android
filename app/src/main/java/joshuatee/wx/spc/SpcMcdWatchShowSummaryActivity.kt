@@ -214,32 +214,25 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
-        (0 until wfos.size - 1).forEach {
-            menu.add(
-                    0,
-                    v.id,
-                    0,
-                    "Add location: " + wfos[it] + " - " + Utility.readPref(
-                            this,
-                            "NWS_LOCATION_" + wfos[it],
-                            ""
-                    )
+        wfos.filter{ !it.contains("<BR>") }.forEach {
+            menu.add(0, v.id, 0, "Add location: $it - " + Utility.readPref(
+                    this,
+                    "NWS_LOCATION_$it",
+                    ""
+            )
             )
         }
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        val itemStr = item.title.toString()
-        (0 until wfos.size - 1)
-                .filter { itemStr.contains(wfos[it]) }
-                .forEach {
-                    UtilityLocation.saveLocationForMcd(
-                            wfos[it],
-                            contextg,
-                            linearLayout,
-                            uiDispatcher
-                    )
-                }
+        wfos.filter { item.title.toString().contains(it) }.forEach {
+            UtilityLocation.saveLocationForMcd(
+                    it,
+                    contextg,
+                    linearLayout,
+                    uiDispatcher
+            )
+        }
         return true
     }
 

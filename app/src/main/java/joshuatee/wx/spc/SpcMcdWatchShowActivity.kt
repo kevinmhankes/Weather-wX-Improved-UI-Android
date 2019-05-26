@@ -67,9 +67,9 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(
-            savedInstanceState,
-            R.layout.activity_linear_layout_bottom_toolbar,
-            R.menu.spcmcdshowdetail
+                savedInstanceState,
+                R.layout.activity_linear_layout_bottom_toolbar,
+                R.menu.spcmcdshowdetail
         )
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)
@@ -95,42 +95,35 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
         c0.setImage(objWatch.bitmap)
         registerForContextMenu(c0.img)
         UtilityTts.conditionalPlay(
-            activityArguments,
-            1,
-            applicationContext,
-            objWatch.text,
-            objWatch.prod
+                activityArguments,
+                1,
+                applicationContext,
+                objWatch.text,
+                objWatch.prod
         )
     }
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
-        (0 until objWatch.wfos.size - 1).forEach {
-            menu.add(
-                0,
-                v.id,
-                0,
-                "Add location: " + objWatch.wfos[it] + " - " + Utility.readPref(
+        objWatch.wfos.forEach {
+            menu.add(0, v.id, 0, "Add location: $it - " + Utility.readPref(
                     this,
-                    "NWS_LOCATION_" + objWatch.wfos[it],
+                    "NWS_LOCATION_$it",
                     ""
-                )
+            )
             )
         }
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        val itemStr = item.title.toString()
-        (0 until objWatch.wfos.size - 1)
-            .filter { itemStr.contains(objWatch.wfos[it]) }
-            .forEach {
-                UtilityLocation.saveLocationForMcd(
-                    objWatch.wfos[it],
+        objWatch.wfos.filter { item.title.toString().contains(it) }.forEach {
+            UtilityLocation.saveLocationForMcd(
+                    it,
                     contextg,
                     ll,
                     uiDispatcher
-                )
-            }
+            )
+        }
         return true
     }
 
@@ -140,21 +133,21 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
         when (item.itemId) {
             R.id.action_share_all -> UtilityShare.shareText(
-                this,
-                objWatch.title,
-                Utility.fromHtml(objWatch.text),
-                objWatch.bitmap
+                    this,
+                    objWatch.title,
+                    Utility.fromHtml(objWatch.text),
+                    objWatch.bitmap
             )
             R.id.action_share_text -> UtilityShare.shareText(
-                this,
-                objWatch.title,
-                Utility.fromHtml(objWatch.text)
+                    this,
+                    objWatch.title,
+                    Utility.fromHtml(objWatch.text)
             )
             R.id.action_share_url -> UtilityShare.shareText(this, objWatch.title, objWatch.textUrl)
             R.id.action_share_image -> UtilityShare.shareBitmap(
-                this,
-                objWatch.title,
-                objWatch.bitmap
+                    this,
+                    objWatch.title,
+                    objWatch.bitmap
             )
             else -> return super.onOptionsItemSelected(item)
         }

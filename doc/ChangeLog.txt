@@ -35,7 +35,12 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55201 2019_05_26    [FIX] at joshuatee.wx.models.UtilityModelNcepInputOutput.getAnimation(UtilityModelNcepInputOutput.kt:96)
+                       java.lang.IndexOutOfBoundsException: Index: 16, Size: 16
+                       (pre-launch report routinely does this by doing odd interactions, trigger animation in multi-pane, switch models, hit back arrow )
+                    [REF] make better use of List lastIndex and last()
 55200 2019_05_26    [REF] better variable naming
+                    [FIX] modify native code to refer to Jni instead of JNI
 55199 2019_05_25    [FIX] modify native code to refer to Jni instead of JNI
                     [IMP] add ObjectLinearLayout and use in ForecastActivity
 55198 2019_05_25    [REF] better variable naming
