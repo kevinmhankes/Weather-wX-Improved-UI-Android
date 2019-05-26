@@ -112,7 +112,7 @@ class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         val linesOfData = hourlyData.temp.split(MyApplication.newline).dropLastWhile { it.isEmpty() }
         val dataPoints = mutableListOf<DataPoint>()
         var time = 0
-        (1 until linesOfData.size - 1).forEach {
+        (1 until linesOfData.lastIndex).forEach {
             val temp = linesOfData[it].toIntOrNull() ?: 0
             time += 1
             dataPoints.add(DataPoint(time.toDouble(), temp.toDouble()))

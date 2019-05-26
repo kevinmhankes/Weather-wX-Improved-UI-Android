@@ -47,7 +47,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     //
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private val locArr = mutableListOf<String>()
+    private val locations = mutableListOf<String>()
     private lateinit var recyclerView: ObjectRecyclerViewGeneric
     private lateinit var ca: SettingsLocationAdapterList
     private lateinit var contextg: Context
@@ -61,11 +61,11 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
                 null,
                 false
         )
-        ObjectFab(this, this, R.id.fab_add, View.OnClickListener { addItemFAB() })
+        ObjectFab(this, this, R.id.fab_add, View.OnClickListener { addItemFab() })
         toolbar.subtitle = "Tap location to edit, delete, or move."
         updateList()
         recyclerView = ObjectRecyclerViewGeneric(this, this, R.id.card_list)
-        ca = SettingsLocationAdapterList(locArr)
+        ca = SettingsLocationAdapterList(locations)
         recyclerView.recyclerView.adapter = ca
         updateTitle()
         ca.setListener(::itemSelected)
@@ -79,7 +79,6 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
             for (index in MyApplication.locations.indices) {
                 currentConditions.add(ObjectForecastPackageCurrentConditions(contextg, index))
                 currentConditions[index].formatCC()
-                //UtilityLog.d("wx", currentConditions[index].topLine)
             }
         }
         updateListWithCurrentConditions()
@@ -88,27 +87,27 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
 
     private fun updateList() {
         val locNumIntCurrent = Location.numLocations
-        locArr.clear()
+        locations.clear()
         // FIXME this activity needs to be cleaned up
         (0 until locNumIntCurrent).forEach {
             val btnStr = ""
-            locArr.add(btnStr)
+            locations.add(btnStr)
             MyApplication.locations[it].updateObservation("")
         }
     }
 
     private fun updateListWithCurrentConditions() {
         val locNumIntCurrent = Location.numLocations
-        locArr.clear()
+        locations.clear()
         (0 until locNumIntCurrent).forEach {
             MyApplication.locations[it].updateObservation(currentConditions[it].topLine)
-            locArr.add(currentConditions[it].topLine)
+            locations.add(currentConditions[it].topLine)
         }
     }
 
     override fun onRestart() {
         updateList()
-        ca = SettingsLocationAdapterList(locArr)
+        ca = SettingsLocationAdapterList(locations)
         recyclerView.recyclerView.adapter = ca
         updateTitle()
         Location.refreshLocationData(this)
@@ -163,10 +162,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
             updateTitle()
             UtilityWXJobService.startService(this)
         } else {
-            UtilityUI.makeSnackBar(
-                    recyclerView.recyclerView,
-                    "Must have at least one location."
-            )
+            UtilityUI.makeSnackBar(recyclerView.recyclerView, "Must have at least one location.")
         }
     }
 
@@ -200,10 +196,10 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         ca.notifyDataSetChanged()
     }
 
-    private fun addItemFAB() {
-        val locStrPass = (locArr.size + 1).toString()
+    private fun addItemFab() {
+        val locationStringToPass = (locations.size + 1).toString()
         val intent = Intent(this, SettingsLocationGenericActivity::class.java)
-        intent.putExtra(SettingsLocationGenericActivity.LOC_NUM, arrayOf(locStrPass, ""))
+        intent.putExtra(SettingsLocationGenericActivity.LOC_NUM, arrayOf(locationStringToPass, ""))
         startActivity(intent)
     }
 } 

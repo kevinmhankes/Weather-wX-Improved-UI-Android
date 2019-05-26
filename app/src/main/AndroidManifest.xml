@@ -225,7 +225,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".spc.LSRbyWFOActivity"
+      android:name=".spc.LsrByWfoActivity"
       android:label=""
       android:parentActivityName="WX" >
   </activity>

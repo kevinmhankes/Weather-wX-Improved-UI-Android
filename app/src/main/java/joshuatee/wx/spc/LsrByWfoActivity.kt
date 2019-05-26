@@ -49,7 +49,7 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_afd.*
 
-class LSRbyWFOActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClickListener {
+class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClickListener {
 
     // The primary purpose of this activity is to view all recent LSR by WFO
     // Arugments
@@ -82,14 +82,14 @@ class LSRbyWFOActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
         contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)
         star = toolbarBottom.menu.findItem(R.id.action_fav)
-        val turl = intent.getStringArrayExtra(URL)
-        wfo = turl[0]
+        val activityArguments = intent.getStringArrayExtra(URL)
+        wfo = activityArguments[0]
         if (wfo == "")
             wfo = "OUN"
-        prod = if (turl[1] == "")
+        prod = if (activityArguments[1] == "")
             MyApplication.wfoTextFav
         else
-            turl[1]
+            activityArguments[1]
         toolbar.title = prod
         locations = UtilityFavorites.setupFavMenu(
                 this,

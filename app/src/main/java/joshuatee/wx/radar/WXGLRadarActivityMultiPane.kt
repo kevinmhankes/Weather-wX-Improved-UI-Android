@@ -603,7 +603,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         SystemClock.sleep(delay - ((timeMilli - priorTime)))
                     if (!inOglAnim)
                         break
-                    if (r == (animArray[0].size - 1))
+                    if (r == (animArray[0].lastIndex))
                         SystemClock.sleep(delay.toLong() * 2)
                 }
                 loopCnt += 1

@@ -115,7 +115,7 @@ class SettingsPlaylistAutodownloadActivity : BaseActivity() {
                     recyclerView.refreshList(ridArr)
                     UtilityPlayListAutoDownload.setAlarm(
                         contextg,
-                        ridArr.size - 1,
+                        ridArr.lastIndex,
                         selectedHour,
                         selectedMinute
                     )

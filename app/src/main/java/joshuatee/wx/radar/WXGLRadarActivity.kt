@@ -493,7 +493,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                         SystemClock.sleep(delay - ((timeMilli - priorTime)))
                     if (!inOglAnim)
                         break
-                    if (r == (animArray.size - 1))
+                    if (r == (animArray.lastIndex))
                         SystemClock.sleep(delay.toLong() * 2)
                 }
                 loopCnt += 1

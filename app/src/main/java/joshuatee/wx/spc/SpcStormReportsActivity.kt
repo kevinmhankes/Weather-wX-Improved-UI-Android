@@ -336,8 +336,12 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
-        if (audioPlayMenu(item.itemId, out.toString(), "spcstreports", "spcstreports")) return true
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        if (audioPlayMenu(item.itemId, out.toString(), "spcstreports", "spcstreports")) {
+            return true
+        }
         when (item.itemId) {
             R.id.action_share_all -> UtilityShare.shareText(
                     this,
@@ -353,8 +357,8 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             R.id.action_share_image -> UtilityShare.shareBitmap(this, "Storm Reports - $no", bitmap)
             R.id.action_lsrbywfo -> ObjectIntent(
                     this,
-                    LSRbyWFOActivity::class.java,
-                    LSRbyWFOActivity.URL,
+                    LsrByWfoActivity::class.java,
+                    LsrByWfoActivity.URL,
                     arrayOf(Location.wfo, "LSR")
             )
             else -> return super.onOptionsItemSelected(item)
@@ -363,7 +367,9 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)){
+            return true
+        }
         return super.onOptionsItemSelected(item)
     }
 }
