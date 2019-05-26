@@ -89,9 +89,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private val helpCurrentGeneric = 2
     private val helpForecastGeneric = 3
     private var homescreenFavLocal = ""
-    private val cardsAl = mutableListOf<CardView>()
+    private val cardViews = mutableListOf<CardView>()
     private val hsTextAl = mutableListOf<ObjectCardHSText>()
-    private val hsImageAl = mutableListOf<ObjectCardHSImage>()
+    private val hsImages = mutableListOf<ObjectCardHSImage>()
     private var oglrArr = mutableListOf<WXGLRender>()
     private var glviewArr = mutableListOf<WXGLSurfaceView>()
     private var wxgltextArr = mutableListOf<WXGLTextObject>()
@@ -110,7 +110,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private val hazardsExpandedAl = mutableListOf<Boolean>()
     private var dataNotInitialized = true
     private var alertDialogStatus: ObjectDialogue? = null
-    private val alertDialogStatusAl = mutableListOf<String>()
+    private val alertDialogStatusList = mutableListOf<String>()
     private var idxIntG = 0
     private var alertDialogRadarLongPress: ObjectDialogue? = null
     private val alertDialogRadarLongpressAl = mutableListOf<String>()
@@ -152,7 +152,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 oglrArr.add(WXGLRender(activityReference))
                 oglrIdx = oglrCnt
                 oglrCnt += 1
-                cardsAl.add(ObjectCard(activityReference).card)
+                cardViews.add(ObjectCard(activityReference).card)
                 glviewArr.add(WXGLSurfaceView(activityReference, widthDivider, numPanes, 1))
                 oglrArr[index].rid = ""
                 oldRidArr[index] = ""
@@ -172,12 +172,12 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 glviewArr[index].locfrag = true
                 wxgltextArr[index].initTV(activityReference)
                 rlArr[index].addView(glviewArr[index])
-                cardsAl[cardsAl.size - 1].addView(rlArr[index])
-                cardsAl[cardsAl.size - 1].layoutParams = RelativeLayout.LayoutParams(
+                cardViews.last().addView(rlArr[index])
+                cardViews.last().layoutParams = RelativeLayout.LayoutParams(
                         MyApplication.dm.widthPixels - (MyApplication.lLpadding * 2).toInt(),
                         MyApplication.dm.widthPixels - (MyApplication.lLpadding * 2).toInt()
                 )
-                linearLayout.addView(cardsAl[cardsAl.size - 1])
+                linearLayout.addView(cardViews.last())
                 index += 1
             } else if (tok.contains("TXT-")) {
                 val hsTextTmp = ObjectCardHSText(activityReference, tok.replace("TXT-", ""))
@@ -187,12 +187,12 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             } else if (tok.contains("IMG-")) {
                 val hsImageTmp = ObjectCardHSImage(activityReference, tok.replace("IMG-", ""))
                 linearLayout.addView(hsImageTmp.card)
-                hsImageAl.add(hsImageTmp)
+                hsImages.add(hsImageTmp)
                 setImageOnClick()
             } else if (tok.contains("NXRD-")) {
                 oglrArr.add(WXGLRender(activityReference))
                 oglrCnt += 1
-                cardsAl.add(ObjectCard(activityReference).card)
+                cardViews.add(ObjectCard(activityReference).card)
                 glviewArr.add(WXGLSurfaceView(activityReference, widthDivider, numPanes, 1))
                 glviewArr[index].idx = index
                 oglrArr[index].rid = tok.replace("NXRD-", "")
@@ -212,12 +212,12 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 glviewArr[index].locfrag = true
                 wxgltextArr[index].initTV(activityReference)
                 rlArr[index].addView(glviewArr[index])
-                cardsAl[cardsAl.size - 1].addView(rlArr[index])
-                cardsAl[cardsAl.size - 1].layoutParams = RelativeLayout.LayoutParams(
+                cardViews.last().addView(rlArr[index])
+                cardViews.last().layoutParams = RelativeLayout.LayoutParams(
                         MyApplication.dm.widthPixels - (MyApplication.lLpadding * 2).toInt(),
                         MyApplication.dm.widthPixels - (MyApplication.lLpadding * 2).toInt()
                 )
-                linearLayout.addView(cardsAl[cardsAl.size - 1])
+                linearLayout.addView(cardViews.last())
                 index += 1
             }
         } // end of loop over HM tokens
@@ -256,7 +256,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             cardCC = ObjectCardCC(activityReference, 2)
             cardCC?.setListener(
                     alertDialogStatus,
-                    alertDialogStatusAl,
+                    alertDialogStatusList,
                     ::radarTimestamps,
                     helpCurrentGeneric,
                     ::showHelp
@@ -332,7 +332,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                             0.0f
                     )
                 }
-                hsImageAl.forEach { it.resetZoom() }
+                hsImages.forEach { it.resetZoom() }
                 setImageOnClick()
                 refreshDynamicContent()
             } else {
@@ -356,7 +356,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
             getForecastData()
         }
         hsTextAl.indices.forEach { getTextProduct(it.toString()) }
-        hsImageAl.indices.forEach { getImageProduct(it.toString()) }
+        hsImages.indices.forEach { getImageProduct(it.toString()) }
         x = Location.x
         y = Location.y
         if (MyApplication.locDisplayImg) {
@@ -484,10 +484,10 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         val b = withContext(Dispatchers.IO) {
             UtilityDownload.getImageProduct(
                     MyApplication.appContext,
-                    hsImageAl[productIndex].product
+                    hsImages[productIndex].product
             )
         }
-        hsImageAl[productIndex].setImage(b)
+        hsImages[productIndex].setImage(b)
     }
 
     private fun showHelp(helpItem: Int) {
@@ -580,11 +580,11 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     }
 
     private fun setImageOnClick() {
-        hsImageAl.indices.forEach { ii ->
-            val cl = MyApplication.HM_CLASS[hsImageAl[ii].product]
-            val id = MyApplication.HM_CLASS_ID[hsImageAl[ii].product]
-            val argsOrig = MyApplication.HM_CLASS_ARGS[hsImageAl[ii].product]
-            hsImageAl[ii].setOnClickListener(OnClickListener {
+        hsImages.indices.forEach { ii ->
+            val cl = MyApplication.HM_CLASS[hsImages[ii].product]
+            val id = MyApplication.HM_CLASS_ID[hsImages[ii].product]
+            val argsOrig = MyApplication.HM_CLASS_ARGS[hsImages[ii].product]
+            hsImages[ii].setOnClickListener(OnClickListener {
                 if (argsOrig != null) {
                     val args = arrayOfNulls<String>(argsOrig.size)
                     System.arraycopy(argsOrig, 0, args, 0, argsOrig.size)
@@ -687,12 +687,12 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     }
 
     private fun setupAlertDialogStatus() {
-        alertDialogStatus = ObjectDialogue(activityReference, alertDialogStatusAl)
+        alertDialogStatus = ObjectDialogue(activityReference, alertDialogStatusList)
         alertDialogStatus!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
         })
         alertDialogStatus!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            val strName = alertDialogStatusAl[which]
+            val strName = alertDialogStatusList[which]
             if (oglrArr.size > 0) {
                 UtilityLocationFragment.handleIconTap(
                         strName,

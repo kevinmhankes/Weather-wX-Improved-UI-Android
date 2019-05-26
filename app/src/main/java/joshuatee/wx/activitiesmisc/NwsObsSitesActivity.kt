@@ -115,8 +115,7 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     }
 
     private fun getContent() {
-        val xmlFileInputStream = resources.openRawResource(R.raw.stations_us4)
-        val text = UtilityIO.readTextFile(xmlFileInputStream)
+        val text = UtilityIO.readTextFileFromRaw(resources, R.raw.stations_us4)
         val lines = text.split("\n")
         listOf(listCity, listIds, listSort).forEach { it.clear() }
         listCity.add("..Back to state list")

@@ -78,12 +78,6 @@ class ForecastActivity : BaseActivity() {
         toolbar.subtitle = latLon.latString + "," + latLon.lonString
         cardCC = ObjectCardCC(this, 2)
         ll.addView(cardCC.card)
-        /*linearLayoutHazards = LinearLayout(this)
-        linearLayoutHazards.orientation = LinearLayout.VERTICAL
-        ll.addView(linearLayoutHazards)
-        linearLayoutForecast = LinearLayout(this)
-        linearLayoutForecast.orientation = LinearLayout.VERTICAL
-        ll.addView(linearLayoutForecast)*/
         linearLayoutHazards = ObjectLinearLayout(this, ll)
         linearLayoutForecast = ObjectLinearLayout(this, ll)
         contextGlobal = this

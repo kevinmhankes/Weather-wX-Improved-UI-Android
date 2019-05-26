@@ -27,8 +27,8 @@
 #include <stdio.h>
 //#include <android/log.h>
 
-#ifndef _Included_joshuatee_wx_JNI_level2Decode
-#define _Included_joshuatee_wx_JNI_level2Decode
+#ifndef _Included_joshuatee_wx_Jni_level2Decode
+#define _Included_joshuatee_wx_Jni_level2Decode
 #ifdef __cplusplus
 extern "C" {
 #endif

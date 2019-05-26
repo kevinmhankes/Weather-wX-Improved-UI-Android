@@ -35,6 +35,7 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55200 2019_05_26    [REF] better variable naming
 55199 2019_05_25    [FIX] modify native code to refer to Jni instead of JNI
                     [IMP] add ObjectLinearLayout and use in ForecastActivity
 55198 2019_05_25    [REF] better variable naming

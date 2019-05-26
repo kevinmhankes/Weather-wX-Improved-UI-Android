@@ -195,7 +195,7 @@ class SpottersActivity : BaseActivity() {
     }
 
     private fun showItemOnRadar(position: Int) {
-        val rid = UtilityLocation.getNearestOffice(
+        val radarSite = UtilityLocation.getNearestOffice(
                 this,
                 "RADAR",
                 LatLon(spotterlist[position].lat, spotterlist[position].lon)
@@ -204,7 +204,7 @@ class SpottersActivity : BaseActivity() {
                 this,
                 WXGLRadarActivity::class.java,
                 WXGLRadarActivity.RID,
-                arrayOf(rid, "", "N0Q", "", spotterlist[position].uniq)
+                arrayOf(radarSite, "", "N0Q", "", spotterlist[position].uniq)
         )
     }
 
