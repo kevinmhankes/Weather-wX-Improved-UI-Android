@@ -50,9 +50,9 @@ class WXGLDownload {
             radarSite: String,
             product: String,
             idxStr: String,
-            TDWR: Boolean
+            tdwr: Boolean
     ): String {
-        val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, TDWR)
+        val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, tdwr)
         this.radarSite = radarSite
         this.product = product
         if (!product.contains("L2")) {

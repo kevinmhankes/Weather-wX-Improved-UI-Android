@@ -47,12 +47,7 @@ internal object WXGLPolygonWarnings {
         var j: Int
         var pixXInit: Double
         var pixYInit: Double
-        var html = ""
-        try {
-            html = prefToken.replace("\n", "").replace(" ", "")
-        } catch (e: OutOfMemoryError) {
-            UtilityLog.handleException(e)
-        }
+        val html = prefToken.replace("\n", "").replace(" ", "")
         val polygons = html.parseColumn(RegExp.warningLatLonPattern)
         val vtecs = html.parseColumn(RegExp.warningVtecPattern)
         var polyCount = -1
@@ -80,8 +75,7 @@ internal object WXGLPolygonWarnings {
                     if (x.size == y.size) {
                         j = 1
                         while (j < x.size) {
-                            tmpCoords =
-                                    UtilityCanvasProjection.computeMercatorNumbers(x[j], y[j], pn)
+                            tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(x[j], y[j], pn)
                             warningList.add(tmpCoords[0])
                             warningList.add(tmpCoords[1])
                             warningList.add(tmpCoords[0])
@@ -112,12 +106,7 @@ internal object WXGLPolygonWarnings {
         var j: Int
         var pixXInit: Double
         var pixYInit: Double
-        var html = ""
-        try {
-            html = prefToken.replace("\n", "").replace(" ", "")
-        } catch (e: OutOfMemoryError) {
-            UtilityLog.handleException(e)
-        }
+        val html = prefToken.replace("\n", "").replace(" ", "")
         val polygons = html.parseColumn(RegExp.warningLatLonPattern)
         val vtecs = html.parseColumn(RegExp.warningVtecPattern)
         var polyCount = -1
@@ -148,8 +137,7 @@ internal object WXGLPolygonWarnings {
                     if (x.size == y.size) {
                         j = 1
                         while (j < x.size) {
-                            tmpCoords =
-                                UtilityCanvasProjection.computeMercatorNumbers(x[j], y[j], pn)
+                            tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(x[j], y[j], pn)
                             warningList.add(tmpCoords[0])
                             warningList.add(tmpCoords[1])
                             warningList.add(tmpCoords[0])

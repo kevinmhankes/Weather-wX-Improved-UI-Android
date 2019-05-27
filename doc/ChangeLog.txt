@@ -35,6 +35,8 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55202 2019_05_27    [REF] use this@WpcImagesActivity instead of contextGlobal in numerous activities
+                    [FIX] SPC Meso - bug in subMenu ordering after adding 850mb2
 55201 2019_05_26    [FIX] at joshuatee.wx.models.UtilityModelNcepInputOutput.getAnimation(UtilityModelNcepInputOutput.kt:96)
                        java.lang.IndexOutOfBoundsException: Index: 16, Size: 16
                        (pre-launch report routinely does this by doing odd interactions, trigger animation in multi-pane, switch models, hit back arrow )
