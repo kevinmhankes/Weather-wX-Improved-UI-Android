@@ -22,7 +22,6 @@
 package joshuatee.wx.spc
 
 import android.annotation.SuppressLint
-import android.content.Context
 import java.util.Locale
 
 import android.os.Bundle
@@ -74,12 +73,10 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
     private var ridFavOld = ""
     private var wfoProd = listOf<String>()
     private lateinit var sp: ObjectSpinner
-    private lateinit var contextg: Context
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_afd, R.menu.lsrbywfo)
-        contextg = this
         toolbarBottom.setOnMenuItemClickListener(this)
         star = toolbarBottom.menu.findItem(R.id.action_fav)
         val activityArguments = intent.getStringArrayExtra(URL)
@@ -112,7 +109,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
                     prefTokenLocation,
                     prefToken
             )
-            sp.refreshData(contextg, locations)
+            sp.refreshData(this@LsrByWfoActivity, locations)
         }
         super.onRestart()
     }
@@ -144,19 +141,18 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
                 prefTokenLocation,
                 prefToken
         )
-        sp.refreshData(contextg, locations)
+        sp.refreshData(this@LsrByWfoActivity, locations)
     }
 
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleFavoriteString(this, wfo, star, prefToken)
-        locations =
-                UtilityFavorites.setupFavMenu(this, ridFav, wfo, prefTokenLocation, prefToken)
-        sp.refreshData(contextg, locations)
+        locations = UtilityFavorites.setupFavMenu(this, ridFav, wfo, prefTokenLocation, prefToken)
+        sp.refreshData(this@LsrByWfoActivity, locations)
     }
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
         if (locations.isNotEmpty()) {
-            when (pos) {
+            when (position) {
                 1 -> ObjectIntent(
                         this,
                         FavAddActivity::class.java,
@@ -170,7 +166,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
                         arrayOf("WFO")
                 )
                 else -> {
-                    wfo = locations[pos].split(" ").getOrNull(0) ?: ""
+                    wfo = locations[position].split(" ").getOrNull(0) ?: ""
                     getContent()
                 }
             }
@@ -188,31 +184,31 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
         ridFavOld = MyApplication.wfoFav
         wfoProd = withContext(Dispatchers.IO) { lsrFromWfo }
         linearLayout.removeAllViewsInLayout()
-        wfoProd.forEach { ObjectCardText(contextg, linearLayout, Utility.fromHtml(it)) }
+        wfoProd.forEach { ObjectCardText(this@LsrByWfoActivity, linearLayout, Utility.fromHtml(it)) }
     }
 
     private val lsrFromWfo: List<String>
         get() {
-            val lsrArr = mutableListOf<String>()
+            val lsrs = mutableListOf<String>()
             val numberLSR = UtilityString.getHtmlAndParseLastMatch(
                     "http://forecast.weather.gov/product.php?site=$wfo&issuedby=$wfo&product=LSR&format=txt&version=1&glossary=0",
                     "product=LSR&format=TXT&version=(.*?)&glossary"
             )
             if (numberLSR == "") {
-                lsrArr.add("None issued by this office recently.")
+                lsrs.add("None issued by this office recently.")
             } else {
-                var maxVers = numberLSR.toIntOrNull() ?: 0
-                if (maxVers > 30) {
-                    maxVers = 30
+                var maxVersions = numberLSR.toIntOrNull() ?: 0
+                if (maxVersions > 30) {
+                    maxVersions = 30
                 }
-                (1..maxVers + 1 step 2).mapTo(lsrArr) {
+                (1..maxVersions + 1 step 2).mapTo(lsrs) {
                     UtilityDownload.getTextProduct(
                             "LSR$wfo",
                             it
                     )
                 }
             }
-            return lsrArr
+            return lsrs
         }
 }
 

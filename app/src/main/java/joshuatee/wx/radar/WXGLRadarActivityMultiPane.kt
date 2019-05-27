@@ -121,7 +121,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private var animTriggerDownloads = false
     private var curRadar = 0
     private val alertDialogStatusAl = mutableListOf<String>()
-    private lateinit var contextg: Context
     private var idxIntAl = 0
     private var prefPrefix = "WXOGL_DUALPANE"
     private var rlArr = mutableListOf<RelativeLayout>()
@@ -204,7 +203,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         if (useSinglePanePref) {
             prefPrefix = "WXOGL"
         }
-        contextg = this
         setupAlertDialogRadarLongPress()
         UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
         val latlonArrD = UtilityLocation.getGps(this as Context)
@@ -478,7 +476,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     UtilityRadarUI.plotRadar(
                             ogl,
                             "",
-                            contextg,
+                            this@WXGLRadarActivityMultiPane,
                             ::getGpsFromDouble,
                             ::getLatLon,
                             false
@@ -516,15 +514,15 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             frameCountGlobal = frameCount
             val animArray = Array(numPanes) { Array(frameCount) { "" } }
             numPanesArr.forEach { z ->
-                animArray[z] = oglrArr[z].rdDownload.getRadarFilesForAnimation(contextg, frameCount)
+                animArray[z] = oglrArr[z].rdDownload.getRadarFilesForAnimation(this@WXGLRadarActivityMultiPane, frameCount)
                         .toTypedArray()
                 try {
                     (0 until animArray[z].size).forEach { r ->
-                        fh = File(contextg.filesDir, animArray[z][r])
-                        contextg.deleteFile((z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())
+                        fh = File(this@WXGLRadarActivityMultiPane.filesDir, animArray[z][r])
+                        this@WXGLRadarActivityMultiPane.deleteFile((z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())
                         if (!fh.renameTo(
                                         File(
-                                                contextg.filesDir,
+                                                this@WXGLRadarActivityMultiPane.filesDir,
                                                 (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString()
                                         )
                                 )
@@ -544,17 +542,17 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     numPanesArr.forEach { z ->
                         animArray[z] =
                                 oglrArr[z].rdDownload.getRadarFilesForAnimation(
-                                        contextg,
+                                        this@WXGLRadarActivityMultiPane,
                                         frameCount
                                 )
                                         .toTypedArray()
                         try {
                             (0 until animArray[z].size).forEach { r ->
-                                fh = File(contextg.filesDir, animArray[z][r])
-                                contextg.deleteFile((z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())
+                                fh = File(this@WXGLRadarActivityMultiPane.filesDir, animArray[z][r])
+                                this@WXGLRadarActivityMultiPane.deleteFile((z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())
                                 if (!fh.renameTo(
                                                 File(
-                                                        contextg.filesDir,
+                                                        this@WXGLRadarActivityMultiPane.filesDir,
                                                         (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString()
                                                 )
                                         )
@@ -609,7 +607,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 loopCnt += 1
             }
         }
-        UtilityFileManagement.deleteCacheFiles(contextg)
+        UtilityFileManagement.deleteCacheFiles(this@WXGLRadarActivityMultiPane)
     }
 
     private fun progressUpdate(vararg values: String) {
@@ -700,7 +698,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             }
             R.id.action_settings -> startActivity(
                     Intent(
-                            contextg,
+                            this@WXGLRadarActivityMultiPane,
                             SettingsRadarActivity::class.java
                     )
             )
@@ -914,7 +912,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         alertDialogStatusAl,
                         locXCurrent,
                         locYCurrent,
-                        contextg,
+                        this@WXGLRadarActivityMultiPane,
                         glviewArr[idxInt],
                         oglrArr[idxIntAl],
                         alertDialogRadarLongPress!!
@@ -1011,7 +1009,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private fun getLatLon() = LatLon(locXCurrent, locYCurrent)
 
     private fun setupAlertDialogRadarLongPress() {
-        alertDialogRadarLongPress = ObjectDialogue(contextg, alertDialogStatusAl)
+        alertDialogRadarLongPress = ObjectDialogue(this@WXGLRadarActivityMultiPane, alertDialogStatusAl)
         alertDialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(act)
@@ -1020,7 +1018,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             val strName = alertDialogStatusAl[which]
             UtilityRadarUI.doLongPressAction(
                     strName,
-                    contextg,
+                    this@WXGLRadarActivityMultiPane,
                     act,
                     glviewArr[idxIntAl],
                     oglrArr[idxIntAl],
@@ -1048,7 +1046,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     private fun alertDialogTDWR() {
-        val diaTdwr = ObjectDialogue(contextg, GlobalArrays.tdwrRadars)
+        val diaTdwr = ObjectDialogue(this@WXGLRadarActivityMultiPane, GlobalArrays.tdwrRadars)
         diaTdwr.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(act)

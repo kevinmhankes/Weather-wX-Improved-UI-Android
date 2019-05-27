@@ -22,7 +22,6 @@
 package joshuatee.wx.activitiesmisc
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 
 import joshuatee.wx.R
@@ -37,7 +36,6 @@ class USWarningsImpactActivity : BaseActivity() {
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var recyclerView: ObjectRecyclerViewGeneric
     private var warningsList = listOf<ObjectImpactGraphic>()
-    private lateinit var contextGlobal: Context
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +45,6 @@ class USWarningsImpactActivity : BaseActivity() {
             null,
             false
         )
-        contextGlobal = this
         recyclerView = ObjectRecyclerViewGeneric(this, this, R.id.card_list)
         getContent()
     }
@@ -60,7 +57,7 @@ class USWarningsImpactActivity : BaseActivity() {
         ca.setOnItemClickListener(object: AdapterUSWarningsImpact.MyClickListener {
             override fun onItemClick(position: Int) {
                 ObjectIntent(
-                        contextGlobal,
+                        this@USWarningsImpactActivity,
                         ImageShowActivity::class.java,
                         ImageShowActivity.URL,
                         arrayOf(warningsList[position].imgFile, warningsList[position].title)

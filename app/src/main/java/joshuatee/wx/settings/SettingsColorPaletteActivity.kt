@@ -22,7 +22,6 @@
 package joshuatee.wx.settings
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -59,7 +58,6 @@ class SettingsColorPaletteActivity : BaseActivity() {
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
     private var builtinStr = ""
-    private lateinit var contextGlobal: Context
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.settings_color_palette_top, menu)
@@ -75,7 +73,6 @@ class SettingsColorPaletteActivity : BaseActivity() {
                 false
         )
         type = intent.getStringArrayExtra(TYPE)[0]
-        contextGlobal = this
         toolbar.subtitle = WXGLNexrad.productCodeStringToName[type]
         title = MyApplication.radarColorPalette[type]
         prefToken = "RADAR_COLOR_PALETTE_$type"
@@ -90,7 +87,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                 this,
                 R.id.fab2,
                 MyApplication.ICON_DELETE,
-                View.OnClickListener { editPalFab(this) })
+                View.OnClickListener { editPalFab() })
         rowListItem = allItemList
         val lLayout = GridLayoutManager(this, UIPreferences.tilesPerRow)
         card_list.setHasFixedSize(true)
@@ -169,7 +166,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                     fab2.setVisibility(View.GONE)
                     fab1.fab.setImageDrawable(
                             ContextCompat.getDrawable(
-                                    contextGlobal,
+                                    this@SettingsColorPaletteActivity,
                                     R.drawable.ic_add_box_24dp
                             )
                     )
@@ -200,7 +197,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
 
     private fun addPalFab() {
         ObjectIntent(
-                contextGlobal,
+                this@SettingsColorPaletteActivity,
                 SettingsColorPaletteEditor::class.java,
                 SettingsColorPaletteEditor.URL,
                 arrayOf(type, MyApplication.radarColorPalette[type]!!, builtinStr)
@@ -208,19 +205,19 @@ class SettingsColorPaletteActivity : BaseActivity() {
     }
 
     @SuppressLint("ApplySharedPref")
-    private fun editPalFab(context: Context) {
+    private fun editPalFab() {
         val builtInHelpMsg = "Built-in color palettes can not be deleted."
         if (rowListItem[globalPosition].prefToken == "RADAR_COLOR_PALETTE_$type") {
             if (!rowListItem[globalPosition].builtin) {
                 val newValue = MyApplication.radarColorPaletteList[type]!!.replace(":" + rowListItem[globalPosition].colorMapLabel, "")
                 MyApplication.radarColorPaletteList[type] = newValue
                 Utility.writePref(
-                        context,
+                        this@SettingsColorPaletteActivity,
                         "RADAR_COLOR_PALETTE_" + type + "_LIST",
                         MyApplication.radarColorPaletteList[type]!!
                 )
                 Utility.removePref(
-                        context,
+                        this@SettingsColorPaletteActivity,
                         "RADAR_COLOR_PAL_" + type + "_" + rowListItem[globalPosition].colorMapLabel
                 )
                 UtilityFileManagement.deleteFile(
@@ -229,11 +226,11 @@ class SettingsColorPaletteActivity : BaseActivity() {
                 )
                 MyApplication.radarColorPalette[type] = "CODENH"
                 Utility.writePrefWithNull(
-                        context,
+                        this@SettingsColorPaletteActivity,
                         rowListItem[globalPosition].prefToken,
                         MyApplication.radarColorPalette[type]
                 )
-                Utility.commitPref(context)
+                Utility.commitPref(this@SettingsColorPaletteActivity)
                 rowListItem[globalPosition].tb.title = MyApplication.radarColorPalette[type]
                 UtilityColorPaletteGeneric.loadColorMap(this, type)
                 rowListItem = allItemList
@@ -259,7 +256,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
         if (rowListItem[position].prefToken == "RADAR_COLOR_PALETTE_$type") {
             MyApplication.radarColorPalette[type] = rowListItem[position].colorMapLabel
             Utility.writePrefWithNull(
-                    contextGlobal,
+                    this@SettingsColorPaletteActivity,
                     rowListItem[position].prefToken,
                     MyApplication.radarColorPalette[type]
             )
@@ -268,7 +265,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
         } else {
             MyApplication.radarColorPalette[type] = rowListItem[position].colorMapLabel
             Utility.writePrefWithNull(
-                    contextGlobal,
+                    this@SettingsColorPaletteActivity,
                     rowListItem[position].prefToken,
                     MyApplication.radarColorPalette[type]
             )

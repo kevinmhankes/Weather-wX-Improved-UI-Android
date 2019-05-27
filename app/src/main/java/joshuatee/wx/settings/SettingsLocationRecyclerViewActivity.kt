@@ -50,7 +50,6 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     private val locations = mutableListOf<String>()
     private lateinit var recyclerView: ObjectRecyclerViewGeneric
     private lateinit var ca: SettingsLocationAdapterList
-    private lateinit var contextg: Context
     private var currentConditions = mutableListOf<ObjectForecastPackageCurrentConditions>()
 
     @SuppressLint("MissingSuperCall")
@@ -69,7 +68,6 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         recyclerView.recyclerView.adapter = ca
         updateTitle()
         ca.setListener(::itemSelected)
-        contextg = this
         getContent()
     }
 
@@ -77,7 +75,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         currentConditions.clear()
         withContext(Dispatchers.IO) {
             for (index in MyApplication.locations.indices) {
-                currentConditions.add(ObjectForecastPackageCurrentConditions(contextg, index))
+                currentConditions.add(ObjectForecastPackageCurrentConditions(this@SettingsLocationRecyclerViewActivity, index))
                 currentConditions[index].formatCC()
             }
         }
