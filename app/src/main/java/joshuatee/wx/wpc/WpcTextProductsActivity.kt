@@ -175,8 +175,8 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
         return true
     }
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        when (pos) {
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+        when (position) {
             1 -> ObjectIntent(
                     this,
                     FavAddActivity::class.java,
@@ -190,7 +190,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
                     arrayOf("NWSTEXT")
             )
             else -> {
-                prod = products[pos].split(":").getOrNull(0) ?: ""
+                prod = products[position].split(":").getOrNull(0) ?: ""
                 getContent()
             }
         }
