@@ -46,6 +46,19 @@ import kotlin.math.roundToInt
 internal object UtilityRadarUI {
 
     const val longPressRadarSiteRegex = "\\) ([A-Z]{3,4}) "
+    const val lastRadarTimePref = "NEXRADDOWNLOAD_TIME_LAST_RAN"
+
+    fun updateLastRadarTime() {
+        Utility.writePref(
+            this,
+            lastRadarTimePref,
+            UtilityTime.getCurrentLocalTimeAsString()
+        )
+    }
+
+    fun getLastRadarTime(): String {
+        return Utility.readPref(this, lastRadarTimePref, "")
+    }
 
     private fun getRadarStatus(
             act: Activity,

@@ -498,7 +498,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 glv.requestRender()
                 setSubTitle()
                 animRan = false
-
                 withContext(Dispatchers.IO) {
                     UtilityPolygonsDownload.get(this@WXGLRadarActivityMultiPane)
                 }
@@ -509,6 +508,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                             false
                     )
                 }
+                UtilityRadarUI.updateLastRadarTime()
             }
 
     private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {

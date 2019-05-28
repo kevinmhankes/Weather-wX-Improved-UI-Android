@@ -36,18 +36,18 @@ object UtilityDownloadRadar {
     private const val tornadoUrl = baseUrl + "Tornado%20Warning"
 
     fun getPolygonVtec(context: Context) {
-        MyApplication.severeDashboardTst.valueSet(
-                context,
-                UtilityDownloadNws.getStringFromUrlNoAcceptHeader(tstormURl)
-        )
-        MyApplication.severeDashboardFfw.valueSet(
-                context,
-                UtilityDownloadNws.getStringFromUrlNoAcceptHeader(ffwUrl)
-        )
-        MyApplication.severeDashboardTor.valueSet(
-                context,
-                UtilityDownloadNws.getStringFromUrlNoAcceptHeader(tornadoUrl)
-        )
+        val tstData = UtilityDownloadNws.getStringFromUrlNoAcceptHeader(tstormURl)
+        if (tstData != "") {
+            MyApplication.severeDashboardTst.valueSet(context, tstData)
+        }
+        val ffwData = UtilityDownloadNws.getStringFromUrlNoAcceptHeader(ffwUrl)
+        if (ffwData != "") {
+            MyApplication.severeDashboardFfw.valueSet(context, ffwData)
+        }
+        val torData = UtilityDownloadNws.getStringFromUrlNoAcceptHeader(tornadoUrl)
+        if (torData != "") {
+            MyApplication.severeDashboardTor.valueSet(context, torData)
+        }
     }
 
     fun getVtecTstorm(): String {
