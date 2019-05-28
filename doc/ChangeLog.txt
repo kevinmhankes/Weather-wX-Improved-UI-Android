@@ -28,6 +28,7 @@
 // TODO look into tornado instead of #tornado for twitter embedded widget
 // TODO resolve activityReference issue in LocationFragment
 // TODO camelCase Myapp vars wxglrender
+// TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 
 [ADD] - adding something new - method, file, etc. to the repo
 [REM] - remove items
