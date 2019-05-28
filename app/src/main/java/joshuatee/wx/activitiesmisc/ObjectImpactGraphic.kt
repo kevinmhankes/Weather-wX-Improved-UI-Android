@@ -39,7 +39,7 @@ internal class ObjectImpactGraphic(
         this.cities = "Cities: " + cities.replace("\"", "")
         this.population = "Population: " + population.replace("\"", "")
         this.imgFile = baseImageUrl + imgFile.replace("\"", "").replace("file:", "")
-        UtilityLog.d("wx", this.imgFile)
+        //UtilityLog.d("wx", this.imgFile)
     }
 }
 

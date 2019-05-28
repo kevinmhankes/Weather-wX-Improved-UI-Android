@@ -147,6 +147,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private lateinit var act: Activity
     private lateinit var sp: ObjectSpinner
     private var alertDialogRadarLongPress: ObjectDialogue? = null
+    private var isGetContentInProgress = false
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -165,6 +166,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
         act = this
         spotterShowSelected = false
+        isGetContentInProgress = false
         locXCurrent = joshuatee.wx.settings.Location.x
         locYCurrent = joshuatee.wx.settings.Location.y
         val activityArguments = intent.getStringArrayExtra(RID)
@@ -340,97 +342,102 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        val ridIsTdwr = WXGLNexrad.isRidTdwr(oglr.rid)
-        if (ridIsTdwr) {
-            l3Menu.isVisible = false
-            l2Menu.isVisible = false
-        } else {
-            l3Menu.isVisible = true
-            l2Menu.isVisible = true
-        }
-        if ((oglr.product == "N0Q" || oglr.product == "N1Q" || oglr.product == "N2Q" || oglr.product == "N3Q" || oglr.product == "L2REF") && ridIsTdwr) oglr.product =
-                "TZL"
-        if (oglr.product == "TZL" && !ridIsTdwr) oglr.product = "N0Q"
-        if ((oglr.product == "N0U" || oglr.product == "N1U" || oglr.product == "N2U" || oglr.product == "N3U" || oglr.product == "L2VEL") && ridIsTdwr) oglr.product =
-                "TV0"
-        if (oglr.product == "TV0" && !ridIsTdwr) oglr.product = "N0U"
-        title = oglr.product
-        if (MyApplication.ridFav.contains(":" + oglr.rid + ":"))
-            star.setIcon(MyApplication.STAR_ICON)
-        else
-            star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        toolbar.subtitle = ""
-        if (!oglr.product.startsWith("2")) {
-            UtilityRadarUI.initWxoglGeom(
-                    glview,
-                    oglr,
-                    0,
-                    oldRidArr,
-                    oglrArr,
-                    wxgltextArr,
-                    numPanesArr,
-                    imageMap,
-                    glviewArr,
-                    ::getGPSFromDouble,
-                    ::getLatLon,
-                    archiveMode
-            )
-        }
-        withContext(Dispatchers.IO) {
-            UtilityRadarUI.plotRadar(
-                    oglr,
-                    urlStr,
-                    this@WXGLRadarActivity,
-                    ::getGPSFromDouble,
-                    ::getLatLon,
-                    true,
-                    archiveMode
-            )
-        }
-        if (!oglInView) {
-            img.visibility = View.GONE
-            glview.visibility = View.VISIBLE
-            oglInView = true
-        }
-        if (ridChanged && !restartedZoom) {
-            ridChanged = false
-        }
-        if (restartedZoom) {
-            restartedZoom = false
-            ridChanged = false
-        }
-        if (PolygonType.SPOTTER_LABELS.pref && !archiveMode) {
-            UtilityWXGLTextObject.updateSpotterLabels(numPanes, wxgltextArr)
-        }
-        if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && !archiveMode) {
-            UtilityWXGLTextObject.updateObs(numPanes, wxgltextArr)
-        }
-        glview.requestRender()
-        if (legendShown && oglr.product != oldProd && oglr.product != "DSA" && oglr.product != "DAA") {
-            updateLegend()
-        }
-        if (legendShown && (oglr.product == "DSA" || oglr.product == "DAA" || oglr.product == "N0U")) {
-            dspLegendMax = (255.0f / oglr.radarL3Object.halfword3132) * 0.01f
-            velMax = oglr.radarL3Object.halfword48
-            velMin = oglr.radarL3Object.halfword47
-            updateLegend()
-        }
-        oldProd = oglr.product
-        setSubTitle()
-        animRan = false
-        firstRun = false
 
-        withContext(Dispatchers.IO) {
-            UtilityPolygonsDownload.get(this@WXGLRadarActivity)
-        }
-        if (!oglr.product.startsWith("2")) {
-            UtilityRadarUI.plotPolygons(
-                    glview,
-                    oglr,
-                    archiveMode
-            )
-        }
-        UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivity)
+        if (!isGetContentInProgress) {
+            isGetContentInProgress = true
+            val ridIsTdwr = WXGLNexrad.isRidTdwr(oglr.rid)
+            if (ridIsTdwr) {
+                l3Menu.isVisible = false
+                l2Menu.isVisible = false
+            } else {
+                l3Menu.isVisible = true
+                l2Menu.isVisible = true
+            }
+            if ((oglr.product == "N0Q" || oglr.product == "N1Q" || oglr.product == "N2Q" || oglr.product == "N3Q" || oglr.product == "L2REF") && ridIsTdwr) oglr.product =
+                    "TZL"
+            if (oglr.product == "TZL" && !ridIsTdwr) oglr.product = "N0Q"
+            if ((oglr.product == "N0U" || oglr.product == "N1U" || oglr.product == "N2U" || oglr.product == "N3U" || oglr.product == "L2VEL") && ridIsTdwr) oglr.product =
+                    "TV0"
+            if (oglr.product == "TV0" && !ridIsTdwr) oglr.product = "N0U"
+            title = oglr.product
+            if (MyApplication.ridFav.contains(":" + oglr.rid + ":"))
+                star.setIcon(MyApplication.STAR_ICON)
+            else
+                star.setIcon(MyApplication.STAR_OUTLINE_ICON)
+            toolbar.subtitle = ""
+            if (!oglr.product.startsWith("2")) {
+                UtilityRadarUI.initWxoglGeom(
+                        glview,
+                        oglr,
+                        0,
+                        oldRidArr,
+                        oglrArr,
+                        wxgltextArr,
+                        numPanesArr,
+                        imageMap,
+                        glviewArr,
+                        ::getGPSFromDouble,
+                        ::getLatLon,
+                        archiveMode
+                )
+            }
+            withContext(Dispatchers.IO) {
+                UtilityRadarUI.plotRadar(
+                        oglr,
+                        urlStr,
+                        this@WXGLRadarActivity,
+                        ::getGPSFromDouble,
+                        ::getLatLon,
+                        true,
+                        archiveMode
+                )
+            }
+            if (!oglInView) {
+                img.visibility = View.GONE
+                glview.visibility = View.VISIBLE
+                oglInView = true
+            }
+            if (ridChanged && !restartedZoom) {
+                ridChanged = false
+            }
+            if (restartedZoom) {
+                restartedZoom = false
+                ridChanged = false
+            }
+            if (PolygonType.SPOTTER_LABELS.pref && !archiveMode) {
+                UtilityWXGLTextObject.updateSpotterLabels(numPanes, wxgltextArr)
+            }
+            if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && !archiveMode) {
+                UtilityWXGLTextObject.updateObs(numPanes, wxgltextArr)
+            }
+            glview.requestRender()
+            if (legendShown && oglr.product != oldProd && oglr.product != "DSA" && oglr.product != "DAA") {
+                updateLegend()
+            }
+            if (legendShown && (oglr.product == "DSA" || oglr.product == "DAA" || oglr.product == "N0U")) {
+                dspLegendMax = (255.0f / oglr.radarL3Object.halfword3132) * 0.01f
+                velMax = oglr.radarL3Object.halfword48
+                velMin = oglr.radarL3Object.halfword47
+                updateLegend()
+            }
+            oldProd = oglr.product
+            setSubTitle()
+            animRan = false
+            firstRun = false
+
+            withContext(Dispatchers.IO) {
+                UtilityPolygonsDownload.get(this@WXGLRadarActivity)
+            }
+            if (!oglr.product.startsWith("2")) {
+                UtilityRadarUI.plotPolygons(
+                        glview,
+                        oglr,
+                        archiveMode
+                )
+            }
+            UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivity)
+            isGetContentInProgress = false
+        } // end check is get content in progress
     }
 
     private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {

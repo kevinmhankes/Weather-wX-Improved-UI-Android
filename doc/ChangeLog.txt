@@ -43,6 +43,7 @@
 [MER] - merge
 
 55205 2019_05_28    [FIX] utilDownloadRadar - if results is "", don't update (indicates no network)
+                    [FIX] only allow one getContent at once in WXGLRadarActivity
 55204 2019_05_28    [FIX] possible bug in autorefresh
                     [IMP] download warnings directly in radar - alpha
 55203 2019_05_27    [REF] re-work contexts in Widget*
