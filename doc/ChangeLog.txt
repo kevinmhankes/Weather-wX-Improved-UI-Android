@@ -28,7 +28,10 @@
 // TODO look into tornado instead of #tornado for twitter embedded widget
 // TODO resolve activityReference issue in LocationFragment
 // TODO camelCase Myapp vars wxglrender
+// TODO look at launch report for 55204
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
+// TODO test new radar download code on variety of emulators
+// TODO diagnose why getContent is being called twice ( suspect autoupdate code ), possibly wrap getContent in booleans, skip if one is in progress
 
 [ADD] - adding something new - method, file, etc. to the repo
 [REM] - remove items
