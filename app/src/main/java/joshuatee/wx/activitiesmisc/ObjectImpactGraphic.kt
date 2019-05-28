@@ -21,6 +21,8 @@
 
 package joshuatee.wx.activitiesmisc
 
+import joshuatee.wx.util.UtilityLog
+
 internal class ObjectImpactGraphic(
     var title: String,
     var cities: String,
@@ -37,6 +39,7 @@ internal class ObjectImpactGraphic(
         this.cities = "Cities: " + cities.replace("\"", "")
         this.population = "Population: " + population.replace("\"", "")
         this.imgFile = baseImageUrl + imgFile.replace("\"", "").replace("file:", "")
+        UtilityLog.d("wx", this.imgFile)
     }
 }
 
