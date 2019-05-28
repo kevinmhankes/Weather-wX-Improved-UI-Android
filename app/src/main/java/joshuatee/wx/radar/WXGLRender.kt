@@ -498,7 +498,7 @@ class WXGLRender(private val context: Context) : Renderer {
             }
         }
 
-        GLES20.glLineWidth(MyApplication.radarGpsCircleLinesize.toFloat())
+        GLES20.glLineWidth(MyApplication.radarGpsCircleLineSize.toFloat())
         drawTriangles(locdotBuffers)
         if (MyApplication.locdotFollowsGps && locCircleBuffers.floatBuffer.capacity() != 0 && locCircleBuffers.indexBuffer.capacity() != 0 && locCircleBuffers.colorBuffer.capacity() != 0) {
             locCircleBuffers.chunkCount = 1
@@ -926,7 +926,7 @@ class WXGLRender(private val context: Context) : Renderer {
         spotterBuffers.isInitialized = false
     }
 
-    fun constructHI() {
+    fun constructHi() {
         hiBuffers.lenInit = MyApplication.radarHiSize.toFloat()
         val stormList = WXGLNexradLevel3HailIndex.decodeAndPlot(context, rid, idxStr)
         hiBuffers.setXYList(stormList)
@@ -954,26 +954,26 @@ class WXGLRender(private val context: Context) : Renderer {
         buffers.isInitialized = true
     }
 
-    fun deconstructHI() {
+    fun deconstructHi() {
         hiBuffers.isInitialized = false
     }
 
-    fun constructTVS() {
+    fun constructTvs() {
         tvsBuffers.lenInit = MyApplication.radarTvsSize.toFloat()
         val stormList = WXGLNexradLevel3TVS.decodeAndPlot(context, rid, idxStr)
         tvsBuffers.setXYList(stormList)
         constructTriangles(tvsBuffers)
     }
 
-    fun deconstructTVS() {
+    fun deconstructTvs() {
         tvsBuffers.isInitialized = false
     }
 
-    fun constructMPDLines() {
+    fun constructMpdLines() {
         constructGenericLines(mpdBuffers)
     }
 
-    fun deconstructMPDLines() {
+    fun deconstructMpdLines() {
         deconstructGenericLines(mpdBuffers)
     }
 

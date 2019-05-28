@@ -498,6 +498,17 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 glv.requestRender()
                 setSubTitle()
                 animRan = false
+
+                withContext(Dispatchers.IO) {
+                    UtilityPolygonsDownload.get(this@WXGLRadarActivityMultiPane)
+                }
+                if (!ogl.product.startsWith("2")) {
+                    UtilityRadarUI.plotPolygons(
+                            glv,
+                            ogl,
+                            false
+                    )
+                }
             }
 
     private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
@@ -927,15 +938,17 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     private val mStatusChecker: Runnable? = object : Runnable {
         override fun run() {
-            if (loopCount > 0) {
-                if (inOglAnim) {
-                    animTriggerDownloads = true
-                } else {
-                    numPanesArr.forEach { getContentSingleThreaded(glviewArr[it], oglrArr[it], it) }
+            if (mHandler != null) {
+                if (loopCount > 0) {
+                    if (inOglAnim) {
+                        animTriggerDownloads = true
+                    } else {
+                        numPanesArr.forEach { getContentSingleThreaded(glviewArr[it], oglrArr[it], it) }
+                    }
                 }
+                loopCount += 1
+                handler.postDelayed(this, mInterval.toLong())
             }
-            loopCount += 1
-            handler.postDelayed(this, mInterval.toLong())
         }
     }
 
@@ -945,14 +958,17 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     private fun stopRepeatingTask() {
         mHandler!!.removeCallbacks(mStatusChecker)
+        mHandler = null
     }
 
     override fun onPause() {
+        mHandler?.let { stopRepeatingTask() }
         numPanesArr.forEach { glviewArr[it].onPause() }
         super.onPause()
     }
 
     override fun onResume() {
+        checkForAutoRefresh()
         numPanesArr.forEach { glviewArr[it].onResume() }
         super.onResume()
     }

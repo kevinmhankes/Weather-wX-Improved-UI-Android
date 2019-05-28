@@ -328,9 +328,9 @@ internal object UtilityRadarUI {
             else
                 ogl.deconstructWATMCDLines()
             if (PolygonType.MPD.pref && !archiveMode)
-                ogl.constructMPDLines()
+                ogl.constructMpdLines()
             else
-                ogl.deconstructMPDLines()
+                ogl.deconstructMpdLines()
             ogl.constructGenericWarningLines()
             glv.requestRender()
         }).start()
@@ -352,6 +352,29 @@ internal object UtilityRadarUI {
         }
     }
 
+    fun plotPolygons(
+            glv: WXGLSurfaceView,
+            ogl: WXGLRender,
+            archiveMode: Boolean = false
+    ) {
+        Thread(Runnable {
+            if (PolygonType.TST.pref && !archiveMode)
+                ogl.constructWarningLines()
+            else
+                ogl.deconstructWarningLines()
+            if (PolygonType.MCD.pref && !archiveMode)
+                ogl.constructWATMCDLines()
+            else
+                ogl.deconstructWATMCDLines()
+            if (PolygonType.MPD.pref && !archiveMode)
+                ogl.constructMpdLines()
+            else
+                ogl.deconstructMpdLines()
+            ogl.constructGenericWarningLines()
+            glv.requestRender()
+        }).start()
+    }
+
     fun plotRadar(
             oglr: WXGLRender,
             urlStr: String,
@@ -371,13 +394,13 @@ internal object UtilityRadarUI {
         else
             oglr.deconstructSTILines()
         if (PolygonType.HI.pref && !archiveMode)
-            oglr.constructHI()
+            oglr.constructHi()
         else
-            oglr.deconstructHI()
+            oglr.deconstructHi()
         if (PolygonType.TVS.pref && !archiveMode)
-            oglr.constructTVS()
+            oglr.constructTvs()
         else
-            oglr.deconstructTVS()
+            oglr.deconstructTvs()
         if (MyApplication.locdotFollowsGps && !archiveMode) {
             fnGps()
         }
@@ -407,6 +430,8 @@ internal object UtilityRadarUI {
             }
         }
     }
+
+
 
     fun resetGlview(glviewloc: WXGLSurfaceView, OGLRLOC: WXGLRender) {
         glviewloc.scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f

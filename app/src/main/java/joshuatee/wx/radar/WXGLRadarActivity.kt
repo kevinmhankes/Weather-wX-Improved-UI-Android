@@ -419,6 +419,17 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         setSubTitle()
         animRan = false
         firstRun = false
+
+        withContext(Dispatchers.IO) {
+            UtilityPolygonsDownload.get(this@WXGLRadarActivity)
+        }
+        if (!oglr.product.startsWith("2")) {
+            UtilityRadarUI.plotPolygons(
+                    glview,
+                    oglr,
+                    archiveMode
+            )
+        }
     }
 
     private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
@@ -833,7 +844,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
         // otherwise cpu will spin with no fix but to kill app
         inOglAnim = false
-        mHandler?.let { stopRepeatingTask() }
+        mHandler?.let {
+            UtilityLog.d("Wx","RADAR STOP TASK")
+            stopRepeatingTask()
+        }
         locationManager?.let {
             if (ContextCompat.checkSelfPermission(
                             this,
@@ -870,33 +884,39 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     private val handler = Handler()
 
-    private val mStatusChecker: Runnable = object : Runnable {
+    private var mStatusChecker: Runnable = object : Runnable {
         override fun run() {
-            if (loopCount > 0) {
-                if (inOglAnim)
-                    animTriggerDownloads = true
-                else
-                    getContent()
+            if (mHandler != null) {
+                if (loopCount > 0) {
+                    if (inOglAnim)
+                        animTriggerDownloads = true
+                    else
+                        getContent()
+                }
+                loopCount += 1
+                handler.postDelayed(this, mInterval.toLong())
             }
-            loopCount += 1
-            handler.postDelayed(this, mInterval.toLong())
         }
     }
 
     private fun startRepeatingTask() {
+        mHandler!!.removeCallbacks(mStatusChecker)
         mStatusChecker.run()
     }
 
     private fun stopRepeatingTask() {
         mHandler!!.removeCallbacks(mStatusChecker)
+        mHandler = null
     }
 
     override fun onPause() {
+        mHandler?.let { stopRepeatingTask() }
         glview.onPause()
         super.onPause()
     }
 
     override fun onResume() {
+        checkForAutoRefresh()
         glview.onResume()
         super.onResume()
     }

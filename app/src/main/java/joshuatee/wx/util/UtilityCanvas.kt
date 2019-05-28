@@ -66,12 +66,12 @@ internal object UtilityCanvas {
             warningHTML = warningHTML.replace(" ", "")
             val warningAl =
                 UtilityString.parseColumnMutable(warningHTML, RegExp.warningLatLonPattern)
-            val vtecAl = warningHTML.parseColumn(RegExp.warningVtecPattern)
+            val vtecs = warningHTML.parseColumn(RegExp.warningVtecPattern)
             warningAl.forEachIndexed { i, warn ->
                 warningAl[i] =
                     warn.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
             }
-            canvasDrawWarningsNewApi(warningAl, vtecAl, canvas, wallPath, paint, provider.isMercator, pn)
+            canvasDrawWarningsNewApi(warningAl, vtecs, canvas, wallPath, paint, provider.isMercator, pn)
         }
     }
 

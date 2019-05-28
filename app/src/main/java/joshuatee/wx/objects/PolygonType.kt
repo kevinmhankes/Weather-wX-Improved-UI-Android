@@ -55,12 +55,12 @@ enum class PolygonType constructor(
             MyApplication.radarSpottersLabel,
             0.0f
     ),
-    WIND_BARB_GUSTS(Color.RED, "WIND_BARB_GUSTS", MyApplication.radarObsWindbarbs, MyApplication.radarWbLinesize.toFloat()),
+    WIND_BARB_GUSTS(Color.RED, "WIND_BARB_GUSTS", MyApplication.radarObsWindbarbs, MyApplication.radarWbLineSize.toFloat()),
     WIND_BARB(
             MyApplication.radarColorObsWindbarbs,
             "WIND_BARB",
             MyApplication.radarObsWindbarbs,
-            MyApplication.radarWbLinesize.toFloat()
+            MyApplication.radarWbLineSize.toFloat()
             //MyApplication.radarAviationSize.toFloat()
     ),
     WIND_BARB_CIRCLE(
@@ -75,7 +75,7 @@ enum class PolygonType constructor(
             MyApplication.radarLocDot,
             MyApplication.radarLocdotSize.toFloat()
     ),
-    STI(MyApplication.radarColorSti, "STI", MyApplication.radarSti, MyApplication.radarStiLinesize.toFloat()),
+    STI(MyApplication.radarColorSti, "STI", MyApplication.radarSti, MyApplication.radarStiLineSize.toFloat()),
     TVS(
             MyApplication.radarColorTor,
             "TVS",
@@ -89,7 +89,7 @@ enum class PolygonType constructor(
             MyApplication.radarHiSize.toFloat()
     ),
     OBS(MyApplication.radarColorObs, "OBS", MyApplication.radarObs, 0.0f),
-    SWO(MyApplication.radarColorHi, "SWO", MyApplication.radarSwo, MyApplication.radarSwoLinesize.toFloat()),
+    SWO(MyApplication.radarColorHi, "SWO", MyApplication.radarSwo, MyApplication.radarSwoLineSize.toFloat()),
     NONE(0, "", false, 0.0f);
 
     override fun toString(): String = typeAsString

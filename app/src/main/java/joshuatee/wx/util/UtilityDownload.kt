@@ -644,11 +644,11 @@ object UtilityDownload {
         }
     }*/
 
-    fun getRadarStatusMessage(context: Context, rid: String): String {
-        val ridSmall = if (rid.length == 4) {
-            rid.replace("^T".toRegex(), "")
+    fun getRadarStatusMessage(context: Context, radarSite: String): String {
+        val ridSmall = if (radarSite.length == 4) {
+            radarSite.replace("^T".toRegex(), "")
         } else {
-            rid
+            radarSite
         }
         return getTextProduct(context, "FTM" + ridSmall.toUpperCase(Locale.US))
     }
