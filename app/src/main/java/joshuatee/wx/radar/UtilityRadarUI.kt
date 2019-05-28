@@ -48,16 +48,16 @@ internal object UtilityRadarUI {
     const val longPressRadarSiteRegex = "\\) ([A-Z]{3,4}) "
     const val lastRadarTimePref = "NEXRADDOWNLOAD_TIME_LAST_RAN"
 
-    fun updateLastRadarTime() {
+    fun updateLastRadarTime(context: Context) {
         Utility.writePref(
-            this,
+            context,
             lastRadarTimePref,
             UtilityTime.getCurrentLocalTimeAsString()
         )
     }
 
-    fun getLastRadarTime(): String {
-        return Utility.readPref(this, lastRadarTimePref, "")
+    fun getLastRadarTime(context: Context): String {
+        return Utility.readPref(context, lastRadarTimePref, "")
     }
 
     private fun getRadarStatus(

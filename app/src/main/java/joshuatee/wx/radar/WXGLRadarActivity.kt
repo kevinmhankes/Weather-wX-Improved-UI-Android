@@ -430,7 +430,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     archiveMode
             )
         }
-        UtilityRadarUI.updateLastRadarTime()
+        UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivity)
     }
 
     private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {

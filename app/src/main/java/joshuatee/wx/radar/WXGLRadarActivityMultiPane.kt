@@ -508,7 +508,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                             false
                     )
                 }
-                UtilityRadarUI.updateLastRadarTime()
+                UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivityMultiPane)
             }
 
     private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {

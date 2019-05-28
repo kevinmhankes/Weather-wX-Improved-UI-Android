@@ -73,14 +73,13 @@ object UtilityAlertDialog {
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
-        val string =
-            activity.resources.getString(R.string.about_wx) + MyApplication.newline + version
+        var string = activity.resources.getString(R.string.about_wx) + MyApplication.newline + version
         string += MyApplication.newline + "Last background update: " + Utility.readPref(
             context,
             "JOBSERVICE_TIME_LAST_RAN",
             ""
         )
-        string += MyApplication.newline + "Last radar update: " + UtilityRadarUI.getLastRadarTime()
+        string += MyApplication.newline + "Last radar update: " + UtilityRadarUI.getLastRadarTime(context)
         return string
     }
 
