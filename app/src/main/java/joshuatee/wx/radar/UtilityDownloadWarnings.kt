@@ -22,9 +22,11 @@
 package joshuatee.wx.radar
 
 import android.content.Context
+import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.PolygonType
+import joshuatee.wx.objects.PolygonWarningType
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityDownloadRadar
+import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.util.UtilityLog
 
 internal object UtilityDownloadWarnings {
@@ -49,11 +51,55 @@ internal object UtilityDownloadWarnings {
             lastRefresh = currentTime / 1000
             if (PolygonType.TST.pref) {
                 UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED: $type")
-                UtilityDownloadRadar.getPolygonVtec(context)
+                getPolygonVtec(context)
             } else {
                 //UtilityDownloadRadar.clearPolygonVtec()
                 UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED BUT PREF IS OFF - NO DOWNLOAD: $type")
             }
         }
+    }
+
+    // The only difference from the get method above is the absence of any preference check
+    // ie - if you call this you are going to download regardless
+    fun getForNotification(context: Context) {
+        val refreshInterval = Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3)
+        val currentTime1 = System.currentTimeMillis()
+        val currentTimeSec = currentTime1 / 1000
+        val refreshIntervalSec = (refreshInterval * 60).toLong()
+        UtilityLog.d("wx", "RADAR DOWNLOAD CHECK via NOTIFICATION: $type")
+        if (currentTimeSec > lastRefresh + refreshIntervalSec || !initialized) {
+            // download data
+            initialized = true
+            val currentTime = System.currentTimeMillis()
+            lastRefresh = currentTime / 1000
+            UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED via NOTIFICATION: $type")
+            getPolygonVtec(context)
+        }
+    }
+
+    private const val baseUrl = "https://api.weather.gov/alerts/active?event="
+    private const val tstormURl = baseUrl + "Severe%20Thunderstorm%20Warning"
+    private const val ffwUrl = baseUrl + "Flash%20Flood%20Warning"
+    // Below is for testing
+    //val ffwUrl = baseUrl + "Flood%20Warning"
+    private const val tornadoUrl = baseUrl + "Tornado%20Warning"
+
+    private fun getPolygonVtec(context: Context) {
+        val tstData = UtilityDownloadNws.getStringFromUrlNoAcceptHeader(tstormURl)
+        if (tstData != "") {
+            MyApplication.severeDashboardTst.valueSet(context, tstData)
+        }
+        val ffwData = UtilityDownloadNws.getStringFromUrlNoAcceptHeader(ffwUrl)
+        if (ffwData != "") {
+            MyApplication.severeDashboardFfw.valueSet(context, ffwData)
+        }
+        val torData = UtilityDownloadNws.getStringFromUrlNoAcceptHeader(tornadoUrl)
+        if (torData != "") {
+            MyApplication.severeDashboardTor.valueSet(context, torData)
+        }
+    }
+
+    fun getVtecByType(type: PolygonWarningType): String {
+        return UtilityDownloadNws.getStringFromUrlNoAcceptHeader(baseUrl + type.urlToken)
     }
 }

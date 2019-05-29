@@ -22,8 +22,9 @@
 package joshuatee.wx.radar
 
 import android.content.Context
+import joshuatee.wx.Extensions.getHtml
+import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityDownloadRadar
 import joshuatee.wx.util.UtilityLog
 
 internal object UtilityDownloadWatch {
@@ -44,7 +45,14 @@ internal object UtilityDownloadWatch {
             val currentTime = System.currentTimeMillis()
             lastRefresh = currentTime / 1000
             UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED:$type")
-            UtilityDownloadRadar.getWatch(context)
+            getWatch(context)
+        }
+    }
+
+    fun getWatch(context: Context) {
+        val html =  "${MyApplication.nwsSPCwebsitePrefix}/products/watch/".getHtml()
+        if (html != "" ) {
+            MyApplication.severeDashboardWat.valueSet(context, html)
         }
     }
 }

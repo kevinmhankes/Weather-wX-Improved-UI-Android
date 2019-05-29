@@ -38,6 +38,10 @@ import joshuatee.wx.spc.SpcMcdWatchShowActivity
 import joshuatee.wx.objects.PolygonType.MCD
 import joshuatee.wx.objects.PolygonType.MPD
 import joshuatee.wx.objects.PolygonType.WATCH
+import joshuatee.wx.radar.UtilityDownloadMcd
+import joshuatee.wx.radar.UtilityDownloadMpd
+import joshuatee.wx.radar.UtilityDownloadWarnings
+import joshuatee.wx.radar.UtilityDownloadWatch
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
@@ -78,7 +82,7 @@ class BackgroundFetch(val context: Context) {
         MyApplication.radarWarningPolygons.forEach {
             if (it.isEnabled) {
                 //UtilityLog.d("wx", "Download: " + it.type.urlToken)
-                it.storage.valueSet(context, UtilityDownloadRadar.getVtecByType(it.type))
+                it.storage.valueSet(context, UtilityDownloadWarnings.getVtecByType(it.type))
             } else {
                 //UtilityLog.d("wx", "DO NOT Download: " + it.type.urlToken)
                 it.storage.valueSet(context, "")
@@ -88,12 +92,10 @@ class BackgroundFetch(val context: Context) {
             try {
                 // store data for use by severe dashboard and cod warnings
                 // TODO use UtilDownloadPolygons but need to overcome the pref issue
-                UtilityDownloadRadar.getPolygonVtec(context)
+                //UtilityDownloadRadar.getPolygonVtec(context)
+                UtilityDownloadWarnings.getForNotification(context)
                 if (MyApplication.alertTornadoNotificationCurrent) {
-                    notifUrls += UtilityNotificationTornado.checkAndSend(
-                            context,
-                            MyApplication.severeDashboardTor.value
-                    )
+                    notifUrls += UtilityNotificationTornado.checkAndSend(context, MyApplication.severeDashboardTor.value)
                 }
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
@@ -105,7 +107,7 @@ class BackgroundFetch(val context: Context) {
         }
         if (MyApplication.alertSpcmcdNotificationCurrent || MyApplication.checkspc || PolygonType.MCD.pref || locationNeedsMcd) {
             try {
-                UtilityDownloadRadar.getMcd(context)
+                UtilityDownloadMcd.getMcd(context)
                 //dataAsString = "${MyApplication.nwsSPCwebsitePrefix}/products/md/".getHtml()
                 //MyApplication.severeDashboardMcd.valueSet(context, dataAsString)
                 if (MyApplication.alertSpcmcdNotificationCurrent || PolygonType.MCD.pref || locationNeedsMcd) {
@@ -175,7 +177,7 @@ class BackgroundFetch(val context: Context) {
                 //dataAsString =
                 //        "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php".getHtml()
                 //MyApplication.severeDashboardMpd.valueSet(context, dataAsString)
-                UtilityDownloadRadar.getMpd(context)
+                UtilityDownloadMpd.getMpd(context)
                 if (MyApplication.alertWpcmpdNotificationCurrent || PolygonType.MPD.pref || locationNeedsWpcmpd) {
                     // FIXME matcher
                     val m = RegExp.mpdPattern.matcher(MyApplication.severeDashboardMpd.value)
@@ -244,7 +246,7 @@ class BackgroundFetch(val context: Context) {
             try {
                 //dataAsString = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/".getHtml()
                 //MyApplication.severeDashboardWat.valueSet(context, dataAsString)
-                UtilityDownloadRadar.getWatch(context)
+                UtilityDownloadWatch.getWatch(context)
                 if (MyApplication.alertSpcwatNotificationCurrent || PolygonType.MCD.pref) {
                     // FIXME matcher
                     val m = RegExp.watchPattern.matcher(MyApplication.severeDashboardWat.value)

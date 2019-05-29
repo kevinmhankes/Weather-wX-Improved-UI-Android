@@ -290,7 +290,7 @@ internal object UtilityRadarUI {
             fnGetLatLon: () -> LatLon,
             archiveMode: Boolean = false
     ) {
-        ogl.initGEOM()
+        ogl.initializeGeometry()
         if (oldRidArr[z] != oglrArr[z].rid) {
             ogl.setChunkCount(0)
             ogl.setChunkCountSti(0)
@@ -337,9 +337,9 @@ internal object UtilityRadarUI {
             else
                 ogl.deconstructWarningLines()
             if (PolygonType.MCD.pref && !archiveMode)
-                ogl.constructWATMCDLines()
+                ogl.constructWatchMcdLines()
             else
-                ogl.deconstructWATMCDLines()
+                ogl.deconstructWatchMcdLines()
             if (PolygonType.MPD.pref && !archiveMode)
                 ogl.constructMpdLines()
             else
@@ -376,9 +376,9 @@ internal object UtilityRadarUI {
             else
                 ogl.deconstructWarningLines()
             if (PolygonType.MCD.pref && !archiveMode)
-                ogl.constructWATMCDLines()
+                ogl.constructWatchMcdLines()
             else
-                ogl.deconstructWATMCDLines()
+                ogl.deconstructWatchMcdLines()
             if (PolygonType.MPD.pref && !archiveMode)
                 ogl.constructMpdLines()
             else
@@ -403,9 +403,9 @@ internal object UtilityRadarUI {
         else
             oglr.deconstructSpotters()
         if (PolygonType.STI.pref && !archiveMode)
-            oglr.constructSTILines()
+            oglr.constructStiLines()
         else
-            oglr.deconstructSTILines()
+            oglr.deconstructStiLines()
         if (PolygonType.HI.pref && !archiveMode)
             oglr.constructHi()
         else

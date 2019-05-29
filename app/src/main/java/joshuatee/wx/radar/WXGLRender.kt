@@ -198,7 +198,7 @@ class WXGLRender(private val context: Context) : Renderer {
         }
     }
 
-    fun initGEOM() {
+    fun initializeGeometry() {
         totalBins = 0
         if (prod == "TV0" || prod == "TZL") {
             tdwr = true
@@ -805,22 +805,22 @@ class WXGLRender(private val context: Context) : Renderer {
         buffers.isInitialized = true
     }
 
-    fun constructSTILines() {
+    fun constructStiLines() {
         val fSti = WXGLNexradLevel3StormInfo.decodeAndPlot(context, idxStr, rid, provider)
         constructGenericLinesShort(stiBuffers, fSti)
     }
 
-    fun deconstructSTILines() {
+    fun deconstructStiLines() {
         deconstructGenericLines(stiBuffers)
     }
 
-    fun constructWATMCDLines() {
+    fun constructWatchMcdLines() {
         constructGenericLines(mcdBuffers)
         constructGenericLines(watchBuffers)
         constructGenericLines(watchTornadoBuffers)
     }
 
-    fun deconstructWATMCDLines() {
+    fun deconstructWatchMcdLines() {
         deconstructGenericLines(mcdBuffers)
         deconstructGenericLines(watchBuffers)
         deconstructGenericLines(watchTornadoBuffers)
