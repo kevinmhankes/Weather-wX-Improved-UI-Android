@@ -329,9 +329,6 @@ class MyApplication : Application() {
         var wpcgefsZoom: Float = 0f
         var wpcgefsX: Float = 0f
         var wpcgefsY: Float = 0f
-        var spcsseoZoom: Float = 0f
-        var spcsseoX: Float = 0f
-        var spcsseoY: Float = 0f
         var nwsIconSize: Int = 0
         var padding: Int = 0
         var paddingSettings: Int = 0
@@ -480,9 +477,6 @@ class MyApplication : Application() {
             wpcgefsZoom = getInitialPreference("WPCGEFS_ZOOM", 1.0f)
             wpcgefsX = getInitialPreference("WPCGEFS_X", 0.5f)
             wpcgefsY = getInitialPreference("WPCGEFS_Y", 0.5f)
-            spcsseoZoom = getInitialPreference("SPCSSEO_ZOOM", 1.0f)
-            spcsseoX = getInitialPreference("SPCSSEO_X", 0.5f)
-            spcsseoY = getInitialPreference("SPCSSEO_Y", 0.5f)
             elevationPref = getInitialPreference("ELEVATION_PREF", 5).toFloat()
             elevationPref =
                     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, elevationPref, dm)
