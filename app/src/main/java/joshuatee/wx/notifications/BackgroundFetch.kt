@@ -21,15 +21,12 @@
 
 package joshuatee.wx.notifications
 
-import java.util.regex.Matcher
-
 import android.graphics.Color
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import joshuatee.wx.Extensions.getHtml
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
@@ -66,8 +63,8 @@ class BackgroundFetch(val context: Context) {
         var noMain: String
         var noBody: String
         var noSummary: String
-        var dataAsString: String
-        var m: Matcher
+        //var dataAsString: String
+        //var m: Matcher
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         val locationNeedsMcd = UtilityNotificationSpc.locationNeedsMcd()
         val locationNeedsSwo = UtilityNotificationSpc.locationNeedsSwo()
@@ -90,11 +87,12 @@ class BackgroundFetch(val context: Context) {
         if (MyApplication.alertTornadoNotificationCurrent || MyApplication.checktor || PolygonType.TST.pref) {
             try {
                 // store data for use by severe dashboard and cod warnings
+                // TODO use UtilDownloadPolygons but need to overcome the pref issue
                 UtilityDownloadRadar.getPolygonVtec(context)
                 if (MyApplication.alertTornadoNotificationCurrent) {
                     notifUrls += UtilityNotificationTornado.checkAndSend(
                             context,
-                            MyApplication.severeDashboardTor.valueGet()
+                            MyApplication.severeDashboardTor.value
                     )
                 }
             } catch (e: Exception) {
@@ -107,11 +105,13 @@ class BackgroundFetch(val context: Context) {
         }
         if (MyApplication.alertSpcmcdNotificationCurrent || MyApplication.checkspc || PolygonType.MCD.pref || locationNeedsMcd) {
             try {
-                dataAsString = "${MyApplication.nwsSPCwebsitePrefix}/products/md/".getHtml()
-                MyApplication.severeDashboardMcd.valueSet(context, dataAsString)
+                UtilityDownloadRadar.getMcd(context)
+                //dataAsString = "${MyApplication.nwsSPCwebsitePrefix}/products/md/".getHtml()
+                //MyApplication.severeDashboardMcd.valueSet(context, dataAsString)
                 if (MyApplication.alertSpcmcdNotificationCurrent || PolygonType.MCD.pref || locationNeedsMcd) {
                     // FIXME matcher
-                    m = RegExp.mcdPatternAlertr.matcher(dataAsString)
+                    //m = RegExp.mcdPatternAlertr.matcher(dataAsString)
+                    val m = RegExp.mcdPatternAlertr.matcher(MyApplication.severeDashboardMcd.value)
                     var mdNo: String
                     while (m.find()) {
                         mdNo = m.group(1)
@@ -134,7 +134,7 @@ class BackgroundFetch(val context: Context) {
                                     arrayOf(mdNo, "sound", polygonType.toString())
                             )
                             cancelStr = "usspcmcd$mdNo"
-                            if (!(MyApplication.alertOnlyonce && UtilityNotificationUtils.checkToken(
+                            if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(
                                             context,
                                             cancelStr
                                     ))
@@ -172,12 +172,13 @@ class BackgroundFetch(val context: Context) {
         }
         if (MyApplication.alertWpcmpdNotificationCurrent || MyApplication.checkwpc || PolygonType.MPD.pref || locationNeedsWpcmpd) {
             try {
-                dataAsString =
-                        "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php".getHtml()
-                MyApplication.severeDashboardMpd.valueSet(context, dataAsString)
+                //dataAsString =
+                //        "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php".getHtml()
+                //MyApplication.severeDashboardMpd.valueSet(context, dataAsString)
+                UtilityDownloadRadar.getMpd(context)
                 if (MyApplication.alertWpcmpdNotificationCurrent || PolygonType.MPD.pref || locationNeedsWpcmpd) {
                     // FIXME matcher
-                    m = RegExp.mpdPattern.matcher(dataAsString)
+                    val m = RegExp.mpdPattern.matcher(MyApplication.severeDashboardMpd.value)
                     var mdNo: String
                     while (m.find()) {
                         mdNo = m.group(1)
@@ -200,7 +201,7 @@ class BackgroundFetch(val context: Context) {
                                     arrayOf(mdNo, "sound", polygonType.toString())
                             )
                             cancelStr = "uswpcmpd$mdNo"
-                            if (!(MyApplication.alertOnlyonce && UtilityNotificationUtils.checkToken(
+                            if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(
                                             context,
                                             cancelStr
                                     ))
@@ -241,11 +242,12 @@ class BackgroundFetch(val context: Context) {
         // FIXME refactor to move to utilDownloadRadar like iOS/Swift port
         if (MyApplication.alertSpcwatNotificationCurrent || MyApplication.checkspc || PolygonType.MCD.pref) {
             try {
-                dataAsString = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/".getHtml()
-                MyApplication.severeDashboardWat.valueSet(context, dataAsString)
+                //dataAsString = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/".getHtml()
+                //MyApplication.severeDashboardWat.valueSet(context, dataAsString)
+                UtilityDownloadRadar.getWatch(context)
                 if (MyApplication.alertSpcwatNotificationCurrent || PolygonType.MCD.pref) {
                     // FIXME matcher
-                    m = RegExp.watchPattern.matcher(dataAsString)
+                    val m = RegExp.watchPattern.matcher(MyApplication.severeDashboardWat.value)
                     var mdNo: String
                     while (m.find()) {
                         mdNo = m.group(1)
@@ -283,7 +285,7 @@ class BackgroundFetch(val context: Context) {
                                     arrayOf(mdNo, "sound", polygonType.toString())
                             )
                             cancelStr = "usspcwat$mdNo"
-                            if (!(MyApplication.alertOnlyonce && UtilityNotificationUtils.checkToken(
+                            if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(
                                             context,
                                             cancelStr
                                     ))

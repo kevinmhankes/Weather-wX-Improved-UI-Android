@@ -67,7 +67,7 @@ internal object UtilityNotificationSpcFireWeather {
         noSummary = noBody
         val objPI = ObjectPendingIntents(context, SpcFireOutlookActivity::class.java)
         val cancelStr = "spcfwloc$day$locNum$threatLevel$validTime"
-        if (!(MyApplication.alertOnlyonce && UtilityNotificationUtils.checkToken(
+        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(
                         context,
                         cancelStr
                 ))

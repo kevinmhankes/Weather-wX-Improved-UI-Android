@@ -130,6 +130,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private var dontSavePref = false
     private var useSinglePanePref = false
     private var landScape = false
+    private var isGetContentInProgress = false
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -146,6 +147,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         numPanes = activityArguments[2].toIntOrNull() ?: 0
         numPanesArr = (0 until numPanes).toList()
         UtilityFileManagement.deleteCacheFiles(this)
+        isGetContentInProgress = false
         var widthDivider = 1
         var heightDivider = 2
         val layoutType: Int
@@ -499,7 +501,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 setSubTitle()
                 animRan = false
                 withContext(Dispatchers.IO) {
-                    UtilityPolygonsDownload.get(this@WXGLRadarActivityMultiPane)
+                    UtilityDownloadWarnings.get(this@WXGLRadarActivityMultiPane)
                 }
                 if (!ogl.product.startsWith("2")) {
                     UtilityRadarUI.plotPolygons(
@@ -943,7 +945,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     if (inOglAnim) {
                         animTriggerDownloads = true
                     } else {
-                        numPanesArr.forEach { getContentSingleThreaded(glviewArr[it], oglrArr[it], it) }
+                        getContentSerial()
+                        //numPanesArr.forEach { getContentSingleThreaded(glviewArr[it], oglrArr[it], it) }
                     }
                 }
                 loopCount += 1
@@ -1082,11 +1085,19 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     private fun getContentSerial() {
-        numPanesArr.forEach { getContentSingleThreaded(glviewArr[it], oglrArr[it], it) }
+        if (!isGetContentInProgress) {
+            isGetContentInProgress = true
+            numPanesArr.forEach { getContentSingleThreaded(glviewArr[it], oglrArr[it], it) }
+            isGetContentInProgress = false
+        }
     }
 
     private fun getContentParallel() {
-        numPanesArr.forEach { getContent(glviewArr[it], oglrArr[it], it) }
+        if (!isGetContentInProgress) {
+            isGetContentInProgress = true
+            numPanesArr.forEach { getContent(glviewArr[it], oglrArr[it], it) }
+            isGetContentInProgress = false
+        }
     }
 
     private fun glviewShow() {
@@ -1166,7 +1177,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         }
     }
 
-    fun getContentSingleThreaded(glvg: WXGLSurfaceView, OGLRg: WXGLRender, curRadar: Int) {
+    private fun getContentSingleThreaded(glvg: WXGLSurfaceView, OGLRg: WXGLRender, curRadar: Int) {
         getContent(glvg, OGLRg, curRadar)
     }
 }

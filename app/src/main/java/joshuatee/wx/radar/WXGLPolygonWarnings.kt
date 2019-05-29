@@ -41,7 +41,7 @@ internal object WXGLPolygonWarnings {
             type: ObjectPolygonWarning
     ): List<Double> {
         val warningList = mutableListOf<Double>()
-        val prefToken = type.storage.valueGet()
+        val prefToken = type.storage.value
         val pn = ProjectionNumbers(radarSite, provider)
         var j: Int
         var pixXInit: Double
@@ -97,9 +97,9 @@ internal object WXGLPolygonWarnings {
     ): List<Double> {
         val warningList = mutableListOf<Double>()
         val prefToken = when (type) {
-            PolygonType.TOR -> MyApplication.severeDashboardTor.valueGet()
-            PolygonType.TST -> MyApplication.severeDashboardTst.valueGet()
-            else -> MyApplication.severeDashboardFfw.valueGet()
+            PolygonType.TOR -> MyApplication.severeDashboardTor.value
+            PolygonType.TST -> MyApplication.severeDashboardTst.value
+            else -> MyApplication.severeDashboardFfw.value
         }
         val pn = ProjectionNumbers(radarSite, provider)
         var j: Int

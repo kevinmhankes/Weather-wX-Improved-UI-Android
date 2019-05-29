@@ -157,7 +157,7 @@ class MyApplication : Application() {
         const val goes16Url: String = "https://cdn.star.nesdis.noaa.gov"
         const val goes16AnimUrl: String = "https://www.star.nesdis.noaa.gov"
         const val nwsApiUrl = "https://api.weather.gov"
-        const val prefSeperator: String = " : : :"
+        const val prefSeparator: String = " : : :"
         var uiAnimIconFrames: String = "rid"
         const val WIDGET_FILE_BAK: String = "BAK"
         val HM_CLASS: MutableMap<String, Class<*>> = mutableMapOf()
@@ -211,7 +211,7 @@ class MyApplication : Application() {
         var locDisplayImg: Boolean = false
         var comma: Pattern = Pattern.compile("")
         var bang: Pattern = Pattern.compile("")
-        var alertOnlyonce: Boolean = false
+        var alertOnlyOnce: Boolean = false
         var drawToolColor: Int = 0
         var widgetTextColor: Int = 0
         var widgetHighlightTextColor: Int = 0
@@ -382,7 +382,7 @@ class MyApplication : Application() {
             widgetPreventTap = getInitialPreference("UI_WIDGET_PREVENT_TAP", "")
             fullscreenMode = getInitialPreference("FULLSCREEN_MODE", "false")
             lockToolbars = getInitialPreference("LOCK_TOOLBARS", "false")
-            alertOnlyonce = getInitialPreference("ALERT_ONLYONCE", "false")
+            alertOnlyOnce = getInitialPreference("ALERT_ONLYONCE", "false")
             unitsM = getInitialPreference("UNITS_M", "true")
             unitsF = getInitialPreference("UNITS_F", "true")
             drawToolColor = getInitialPreference("DRAW_TOOL_COLOR", Color.rgb(255, 0, 0))
@@ -399,13 +399,13 @@ class MyApplication : Application() {
             wxoglSize = getInitialPreference("WXOGL_SIZE", 8)
             wxoglRememberLocation = getInitialPreference("WXOGL_REMEMBER_LOCATION", "false")
             wxoglRadarAutorefresh = getInitialPreference("RADAR_AUTOREFRESH", "false")
-            wfoFav = getInitialPreferenceString("WFO_FAV", prefSeperator)
-            ridFav = getInitialPreferenceString("RID_FAV", prefSeperator)
-            sndFav = getInitialPreferenceString("SND_FAV", prefSeperator)
-            srefFav = getInitialPreferenceString("SREF_FAV", prefSeperator)
-            spcmesoFav = getInitialPreferenceString("SPCMESO_FAV", prefSeperator)
-            spcmesoLabelFav = getInitialPreferenceString("SPCMESO_LABEL_FAV", prefSeperator)
-            nwsTextFav = getInitialPreferenceString("NWS_TEXT_FAV", prefSeperator)
+            wfoFav = getInitialPreferenceString("WFO_FAV", prefSeparator)
+            ridFav = getInitialPreferenceString("RID_FAV", prefSeparator)
+            sndFav = getInitialPreferenceString("SND_FAV", prefSeparator)
+            srefFav = getInitialPreferenceString("SREF_FAV", prefSeparator)
+            spcmesoFav = getInitialPreferenceString("SPCMESO_FAV", prefSeparator)
+            spcmesoLabelFav = getInitialPreferenceString("SPCMESO_LABEL_FAV", prefSeparator)
+            nwsTextFav = getInitialPreferenceString("NWS_TEXT_FAV", prefSeparator)
             notifSoundUri = getInitialPreferenceString("NOTIF_SOUND_URI", "")
             if (notifSoundUri == "") {
                 notifSoundUri = Settings.System.DEFAULT_NOTIFICATION_URI.toString()

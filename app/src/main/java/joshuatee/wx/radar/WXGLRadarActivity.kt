@@ -426,7 +426,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             firstRun = false
 
             withContext(Dispatchers.IO) {
-                UtilityPolygonsDownload.get(this@WXGLRadarActivity)
+                UtilityDownloadWarnings.get(this@WXGLRadarActivity)
             }
             if (!oglr.product.startsWith("2")) {
                 UtilityRadarUI.plotPolygons(

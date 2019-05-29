@@ -99,7 +99,7 @@ object UtilityUS {
                             arrayOf(url, "sound")
                     )
                     val tornadoWarningPresent = title.contains(tornadoWarningString)
-                    if (!(MyApplication.alertOnlyonce && UtilityNotificationUtils.checkToken(
+                    if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(
                                     context,
                                     url
                             ))

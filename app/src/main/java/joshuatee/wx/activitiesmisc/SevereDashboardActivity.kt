@@ -28,18 +28,22 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import joshuatee.wx.Extensions.getImage
+import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ShortcutType
+import joshuatee.wx.radar.UtilityDownloadMcd
+import joshuatee.wx.radar.UtilityDownloadMpd
+import joshuatee.wx.radar.UtilityDownloadWatch
+import joshuatee.wx.radar.UtilityDownloadWarnings
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.spc.SpcMcdWatchShowActivity
 import joshuatee.wx.spc.SpcStormReportsActivity
 import joshuatee.wx.spc.UtilitySpc
-import joshuatee.wx.util.UtilityDownloadRadar
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.util.UtilityShortcut
 
@@ -90,9 +94,10 @@ class SevereDashboardActivity : BaseActivity() {
         val wTst = SevereWarning(PolygonType.TST)
         val wFfw = SevereWarning(PolygonType.FFW)
         withContext(Dispatchers.IO) {
-            wTor.generateString(this@SevereDashboardActivity, UtilityDownloadRadar.getVtecTor())
-            wTst.generateString(this@SevereDashboardActivity, UtilityDownloadRadar.getVtecTstorm())
-            wFfw.generateString(this@SevereDashboardActivity, UtilityDownloadRadar.getVtecFfw())
+            UtilityDownloadWarnings.get(this@SevereDashboardActivity)
+            wTor.generateString(this@SevereDashboardActivity, MyApplication.severeDashboardTor.value)
+            wTst.generateString(this@SevereDashboardActivity, MyApplication.severeDashboardTst.value)
+            wFfw.generateString(this@SevereDashboardActivity, MyApplication.severeDashboardFfw.value)
         }
         if (wTor.count > 0) {
             val objTor = ObjectCardText(this@SevereDashboardActivity, ll, wTor.text)
@@ -107,9 +112,12 @@ class SevereDashboardActivity : BaseActivity() {
             objFfw.setOnClickListener(View.OnClickListener { warningsClicked(".*?Flash Flood Warning.*?") })
         }
         withContext(Dispatchers.IO) {
-            snMcd.getBitmaps(UtilityDownloadRadar.getMcd())
-            snWat.getBitmaps(UtilityDownloadRadar.getWatch())
-            snMpd.getBitmaps(UtilityDownloadRadar.getMpd())
+            UtilityDownloadMcd.get(this@SevereDashboardActivity)
+            UtilityDownloadWatch.get(this@SevereDashboardActivity)
+            UtilityDownloadMpd.get(this@SevereDashboardActivity)
+            snMcd.getBitmaps(MyApplication.severeDashboardMcd.value)
+            snWat.getBitmaps(MyApplication.severeDashboardWat.value)
+            snMpd.getBitmaps(MyApplication.severeDashboardMpd.value)
             bitmapArrRep.add((UtilitySpc.getStormReportsTodayUrl()).getImage())
         }
         if (bitmapArrRep.size > 0) {

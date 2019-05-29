@@ -50,31 +50,28 @@ object UtilityDownloadRadar {
         }
     }
 
-    fun getVtecTstorm(): String {
-        return UtilityDownloadNws.getStringFromUrlNoAcceptHeader(tstormURl)
-    }
-
-    fun getVtecTor(): String {
-        return UtilityDownloadNws.getStringFromUrlNoAcceptHeader(tornadoUrl)
-    }
-
-    fun getVtecFfw(): String {
-        return UtilityDownloadNws.getStringFromUrlNoAcceptHeader(ffwUrl)
-    }
-
     fun getVtecByType(type: PolygonWarningType): String {
         return UtilityDownloadNws.getStringFromUrlNoAcceptHeader(baseUrl + type.urlToken)
     }
 
-    fun getMcd(): String {
-        return "${MyApplication.nwsSPCwebsitePrefix}/products/md/".getHtml()
+    fun getMcd(context: Context) {
+        val html = "${MyApplication.nwsSPCwebsitePrefix}/products/md/".getHtml()
+        if (html != "" ) {
+            MyApplication.severeDashboardMcd.valueSet(context, html)
+        }
     }
 
-    fun getMpd(): String {
-        return "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php".getHtml()
+    fun getMpd(context: Context) {
+        val html = "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php".getHtml()
+        if (html != "" ) {
+            MyApplication.severeDashboardMpd.valueSet(context, html)
+        }
     }
 
-    fun getWatch(): String {
-        return "${MyApplication.nwsSPCwebsitePrefix}/products/watch/".getHtml()
+    fun getWatch(context: Context) {
+        val html =  "${MyApplication.nwsSPCwebsitePrefix}/products/watch/".getHtml()
+        if (html != "" ) {
+            MyApplication.severeDashboardWat.valueSet(context, html)
+        }
     }
 }
