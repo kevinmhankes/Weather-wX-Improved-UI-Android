@@ -39,7 +39,7 @@ internal object UtilityDownloadWatch {
     const val type = "WATCH"
 
     fun get(context: Context) {
-        val refreshInterval = Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3)
+        val refreshInterval = maxOf(Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3), 6)
         val currentTime1 = System.currentTimeMillis()
         val currentTimeSec = currentTime1 / 1000
         // FIXME make this be something like maximum of refresh int or 5-7 min

@@ -40,7 +40,8 @@ internal object UtilityDownloadMcd {
     const val type = "MCD"
 
     fun get(context: Context) {
-        val refreshInterval = Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3)
+        //val refreshInterval = Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3)
+        val refreshInterval = maxOf(Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3), 6)
         val currentTime1 = System.currentTimeMillis()
         val currentTimeSec = currentTime1 / 1000
         val refreshIntervalSec = (refreshInterval * 60).toLong()

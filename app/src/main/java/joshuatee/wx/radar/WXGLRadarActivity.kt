@@ -431,6 +431,26 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             if (!oglr.product.startsWith("2")) {
                 UtilityRadarUI.plotWarningPolygons(glview, oglr, archiveMode)
             }
+
+            if (PolygonType.MCD.pref && !archiveMode) {
+                withContext(Dispatchers.IO) {
+                    UtilityDownloadMcd.get(this@WXGLRadarActivity)
+                    UtilityDownloadWatch.get(this@WXGLRadarActivity)
+                }
+                if (!oglr.product.startsWith("2")) {
+                    UtilityRadarUI.plotMcdWatchPolygons(glview, oglr, archiveMode)
+                }
+            }
+
+            if (PolygonType.MPD.pref && !archiveMode) {
+                withContext(Dispatchers.IO) {
+                    UtilityDownloadMpd.get(this@WXGLRadarActivity)
+                }
+                if (!oglr.product.startsWith("2")) {
+                    UtilityRadarUI.plotMpdPolygons(glview, oglr, archiveMode)
+                }
+            }
+
             UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivity)
             isGetContentInProgress = false
         } // end check is get content in progress

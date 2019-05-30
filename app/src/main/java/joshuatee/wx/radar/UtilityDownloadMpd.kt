@@ -40,7 +40,9 @@ internal object UtilityDownloadMpd {
     const val type = "MPD"
 
     fun get(context: Context) {
-        val refreshInterval = Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3)
+        //val refreshInterval = Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3)
+        val refreshInterval = maxOf(Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3), 6)
+        //val refreshInterval = 0
         val currentTime1 = System.currentTimeMillis()
         val currentTimeSec = currentTime1 / 1000
         val refreshIntervalSec = (refreshInterval * 60).toLong()
@@ -60,6 +62,7 @@ internal object UtilityDownloadMpd {
         if (html != "") {
             MyApplication.severeDashboardMpd.valueSet(context, html)
         }
+        //UtilityLog.d("wx", "RADAR DOWNLOAD " + html)
         val numberList = getListOfNumbers(context)
         val htmlList = mutableListOf<String>()
         var latLonString = ""

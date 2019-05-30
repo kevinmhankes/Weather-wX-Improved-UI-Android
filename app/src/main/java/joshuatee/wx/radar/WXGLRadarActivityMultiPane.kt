@@ -500,12 +500,33 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 glv.requestRender()
                 setSubTitle()
                 animRan = false
+
                 withContext(Dispatchers.IO) {
                     UtilityDownloadWarnings.get(this@WXGLRadarActivityMultiPane)
                 }
                 if (!ogl.product.startsWith("2")) {
                     UtilityRadarUI.plotWarningPolygons(glv, ogl, false)
                 }
+
+                if (PolygonType.MCD.pref) {
+                    withContext(Dispatchers.IO) {
+                        UtilityDownloadMcd.get(this@WXGLRadarActivityMultiPane)
+                        UtilityDownloadWatch.get(this@WXGLRadarActivityMultiPane)
+                    }
+                    if (!ogl.product.startsWith("2")) {
+                        UtilityRadarUI.plotMcdWatchPolygons(glv, ogl, false)
+                    }
+                }
+
+                if (PolygonType.MPD.pref) {
+                    withContext(Dispatchers.IO) {
+                        UtilityDownloadMpd.get(this@WXGLRadarActivityMultiPane)
+                    }
+                    if (!ogl.product.startsWith("2")) {
+                        UtilityRadarUI.plotMpdPolygons(glv, ogl, false)
+                    }
+                }
+
                 UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivityMultiPane)
             }
 

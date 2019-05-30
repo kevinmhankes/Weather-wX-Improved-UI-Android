@@ -39,6 +39,7 @@ import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.telecine.SettingsTelecineActivity
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityLog
 
 import kotlinx.android.synthetic.main.activity_linear_layout.*
 
@@ -601,8 +602,8 @@ class SettingsRadarActivity : BaseActivity() {
         )
     }
 
-    override fun onStop() {
-        super.onStop()
+    // formerly onStop
+    override fun onPause() {
         Utility.commitPref(this)
         MyApplication.initPreferences(this)
         val restartNotif = Utility.readPref(this, "RESTART_NOTIF", "false")
@@ -613,6 +614,7 @@ class SettingsRadarActivity : BaseActivity() {
         GeographyType.refresh()
         PolygonType.refresh()
         MyApplication.initGenericRadarWarnings(this)
+        super.onPause()
     }
 
     private fun showGPSPermsDialogue() {
