@@ -190,30 +190,15 @@ class BackgroundFetch(val context: Context) {
             MyApplication.severeDashboardMpd.valueSet(context, "")
             // end of if to test if alerts_wpcmpd are enabled
         }
-        // FIXME refactor to move to utilDownloadRadar like iOS/Swift port
         if (MyApplication.alertSpcwatNotificationCurrent || MyApplication.checkspc || PolygonType.MCD.pref) {
             try {
                 val watchData = UtilityDownloadWatch.getWatch(context)
                 watchData.numberList.forEachIndexed { index, watchNumber ->
-                //val listOfWatchs = UtilityDownloadWatch.getListOfNumbers()
-                //listOfWatchs.forEach {
-                   /* var mcdPre = UtilityDownload.getTextProduct(context, "SPCWAT$it")
-                    watchNoList = "$watchNoList$it:"
-                    val mcdPre2 = UtilityString.getHtmlAndParseLastMatch(
-                            "${MyApplication.nwsSPCwebsitePrefix}/products/watch/wou$it.html",
-                            RegExp.pre2Pattern
-                    )
-                    watchLatLonList += UtilityNotification.storeWatMcdLatLon(mcdPre2)
-                    if (!mcdPre.contains("Tornado Watch")) {
-                        watchLatlon += UtilityNotification.storeWatMcdLatLon(mcdPre2)
-                    } else {
-                        watchLatlonTor += UtilityNotification.storeWatMcdLatLon(mcdPre2)
-                    }*/
                     if (MyApplication.alertSpcwatNotificationCurrent) {
                         val noMain = "SPC Watch #$watchNumber"
                         val mcdPreModified = watchData.htmlList[index].replace("<.*?>".toRegex(), " ")
-                        val noBody = mcdPreModified
-                        val noSummary = mcdPreModified
+                        val body = mcdPreModified
+                        val summary = mcdPreModified
                         val polygonType = WATCH
                         val objPI = ObjectPendingIntents(
                                 context,
@@ -233,10 +218,10 @@ class BackgroundFetch(val context: Context) {
                                     context,
                                     sound,
                                     noMain,
-                                    noBody,
+                                    body,
                                     objPI.resultPendingIntent,
                                     MyApplication.ICON_ALERT_2,
-                                    noSummary,
+                                    summary,
                                     NotificationCompat.PRIORITY_HIGH,
                                     Color.YELLOW,
                                     MyApplication.ICON_ACTION,
@@ -290,18 +275,6 @@ class BackgroundFetch(val context: Context) {
         if (locationNeedsWpcMpd) {
             notifUrls += UtilityNotificationWpc.sendMpdLocationNotifications(context)
         }
-        //if (PolygonType.MCD.pref || locationNeedsMcd) {
-            //MyApplication.watchNoList.valueSet(context, watchNoList)
-            //MyApplication.watchLatlonList.valueSet(context, watchLatLonList)
-            //MyApplication.watchLatlon.valueSet(context, watchLatlon)
-            //MyApplication.watchLatlonTor.valueSet(context, watchLatlonTor)
-            //MyApplication.mcdLatlon.valueSet(context, mcdLatlon)
-            //MyApplication.mcdNoList.valueSet(context, mcdNoList)
-        //}
-        //if (PolygonType.MPD.pref || locationNeedsWpcMpd) {
-        //    MyApplication.mpdLatlon.valueSet(context, mpdLatlon)
-        //    MyApplication.mpdNoList.valueSet(context, mpdNoList)
-        //}
         cancelOldNotifications(notifUrls)
     }
 

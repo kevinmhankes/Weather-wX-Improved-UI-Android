@@ -31,6 +31,7 @@
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 // TODO in Background Fetch move code that gets Lat/Lon of watch/mcd/mpd elsewhere to be leveraged by others parts of program
 // TODO in Background Fetch stop using matcher and reduce so many global variables
+// TODO have severe dashboard use same code as notifications after deciding how to use caching
 
 [ADD] - adding something new - method, file, etc. to the repo
 [REM] - remove items

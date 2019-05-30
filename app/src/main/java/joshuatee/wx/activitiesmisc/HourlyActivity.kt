@@ -78,7 +78,7 @@ class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         toolbar.subtitle = Location.getName(locationNumber)
         //UtilityLog.d("wx", UtilityTimeSunMoon.getSunTimesForHomescreen())
         //UtilityLog.d("wx", UtilityTimeSunMoon.getMoonTimesForHomescreen())
-        BackgroundFetch(this).getContent()
+        //BackgroundFetch(this).getContent()
         getContent()
     }
 
