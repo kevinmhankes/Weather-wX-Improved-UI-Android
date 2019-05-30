@@ -26,7 +26,9 @@ import joshuatee.wx.Extensions.getHtml
 import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp
 import joshuatee.wx.notifications.UtilityNotification
+import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityString
 
@@ -53,22 +55,57 @@ internal object UtilityDownloadWatch {
         }
     }
 
-    fun getWatch(context: Context) {
+    fun getWatch(context: Context): WatchData {
         val html =  "${MyApplication.nwsSPCwebsitePrefix}/products/watch/".getHtml()
         if (html != "" ) {
             MyApplication.severeDashboardWat.valueSet(context, html)
         }
+
+        val numberList = getListOfNumbers(context)
+        val htmlList = mutableListOf<String>()
+
+        //var watchNoList = ""
+        var watchLatLonList = ""
+        var watchLatlon = ""
+        var watchLatlonTor = ""
+
+        numberList.forEach {
+            val watchHtml = UtilityDownload.getTextProduct(context, "SPCWAT$it")
+            htmlList.add(watchHtml)
+            val latLonHtml = getLatLon(it)
+            watchLatLonList += UtilityNotification.storeWatMcdLatLon(latLonHtml)
+            if (!watchHtml.contains("Tornado Watch")) {
+                watchLatlon += UtilityNotification.storeWatMcdLatLon(latLonHtml)
+            } else {
+                watchLatlonTor += UtilityNotification.storeWatMcdLatLon(latLonHtml)
+            }
+        }
+        if (PolygonType.MCD.pref) {
+            UtilityLog.d("wx","RADAR DOWNLOAD SET WATCH: " + watchLatLonList)
+            MyApplication.watchLatlonList.valueSet(context, watchLatLonList)
+            MyApplication.watchLatlon.valueSet(context, watchLatlon)
+            MyApplication.watchLatlonTor.valueSet(context, watchLatlonTor)
+        }
+        return WatchData(numberList, htmlList)
     }
 
-    fun getListOfNumbers(): List<String> {
+    fun getListOfNumbers(context: Context): List<String> {
         val listOriginal = UtilityString.parseColumn(MyApplication.severeDashboardWat.value, RegExp.watchPattern)
         val list = listOriginal.map { String.format("%4s", it).replace(' ', '0') }
         UtilityLog.d("wx", "RADAR DOWNLOAD $type:$list")
+        var watchNoList = ""
+        list.forEach {
+            watchNoList = "$watchNoList$it:"
+        }
+        if (PolygonType.MCD.pref) {
+            MyApplication.watchNoList.valueSet(context, watchNoList)
+        }
+        UtilityLog.d("wx", "RADAR DOWNLOAD NO LIST $type:$watchNoList")
         return list
     }
 
     fun getLatLon(number: String): String {
         val html = UtilityString.getHtmlAndParseLastMatch("${MyApplication.nwsSPCwebsitePrefix}/products/watch/wou$number.html", RegExp.pre2Pattern)
-        return UtilityNotification.storeWatMcdLatLon(html)
+        return html
     }
 }

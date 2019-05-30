@@ -26,6 +26,8 @@ import joshuatee.wx.Extensions.getHtml
 import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp
 import joshuatee.wx.notifications.UtilityNotification
+import joshuatee.wx.notifications.UtilityNotificationSpc
+import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityLog
@@ -53,21 +55,49 @@ internal object UtilityDownloadMcd {
         }
     }
 
-    fun getMcd(context: Context) {
+    fun getMcd(context: Context): WatchData {
         val html = "${MyApplication.nwsSPCwebsitePrefix}/products/md/".getHtml()
         if (html != "" ) {
             MyApplication.severeDashboardMcd.valueSet(context, html)
         }
+        val numberList = getListOfNumbers(context)
+        val htmlList = mutableListOf<String>()
+        var latLonString = ""
+        numberList.forEach {
+            val mcdData = getLatLon(context, it)
+            htmlList.add(mcdData[0])
+            latLonString += mcdData[1]
+        }
+        val locationNeedsMcd = UtilityNotificationSpc.locationNeedsMcd()
+        if (PolygonType.MCD.pref || locationNeedsMcd) {
+            UtilityLog.d("wx","RADAR DOWNLOAD SET: " + latLonString)
+            MyApplication.mcdLatlon.valueSet(context, latLonString)
+        }
+        return WatchData(numberList, htmlList)
     }
 
-    fun getListOfNumbers(): List<String> {
+    private fun getListOfNumbers(context: Context): List<String> {
         val list = UtilityString.parseColumn(MyApplication.severeDashboardMcd.value, RegExp.mcdPatternAlertr)
         UtilityLog.d("wx", "RADAR DOWNLOAD $type:$list")
+        var mcdNoList = ""
+        list.forEach {
+            mcdNoList = "$mcdNoList$it:"
+        }
+        val locationNeedsMcd = UtilityNotificationSpc.locationNeedsMcd()
+        if (PolygonType.MCD.pref || locationNeedsMcd) {
+            MyApplication.mcdNoList.valueSet(context, mcdNoList)
+        }
         return list
     }
 
-    fun getLatLon(context: Context, number: String): String {
+    // return the raw MCD text and the lat/lon as a list
+    fun getLatLon(context: Context, number: String): List<String> {
+
+        val locationNeedsMcd = UtilityNotificationSpc.locationNeedsMcd()
+
         val html = UtilityDownload.getTextProduct(context, "SPCMCD$number")
-        return  UtilityNotification.storeWatMcdLatLon(html)
+        val list = listOf(html, UtilityNotification.storeWatMcdLatLon(html))
+        //UtilityLog.d("wx", "RADAR DOWNLOAD MCD OBJECT: " + list[1].toString())
+        return list
     }
 }
