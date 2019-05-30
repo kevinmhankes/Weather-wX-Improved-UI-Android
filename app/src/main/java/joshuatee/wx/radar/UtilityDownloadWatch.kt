@@ -24,8 +24,11 @@ package joshuatee.wx.radar
 import android.content.Context
 import joshuatee.wx.Extensions.getHtml
 import joshuatee.wx.MyApplication
+import joshuatee.wx.RegExp
+import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
+import joshuatee.wx.util.UtilityString
 
 internal object UtilityDownloadWatch {
 
@@ -37,6 +40,7 @@ internal object UtilityDownloadWatch {
         val refreshInterval = Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3)
         val currentTime1 = System.currentTimeMillis()
         val currentTimeSec = currentTime1 / 1000
+        // FIXME make this be something like maximum of refresh int or 5-7 min
         val refreshIntervalSec = (refreshInterval * 60).toLong()
         UtilityLog.d("wx", "RADAR DOWNLOAD CHECK: $type")
         if (currentTimeSec > lastRefresh + refreshIntervalSec || !initialized) {
@@ -54,5 +58,17 @@ internal object UtilityDownloadWatch {
         if (html != "" ) {
             MyApplication.severeDashboardWat.valueSet(context, html)
         }
+    }
+
+    fun getListOfNumbers(): List<String> {
+        val listOriginal = UtilityString.parseColumn(MyApplication.severeDashboardWat.value, RegExp.watchPattern)
+        val list = listOriginal.map { String.format("%4s", it).replace(' ', '0') }
+        UtilityLog.d("wx", "RADAR DOWNLOAD $type:$list")
+        return list
+    }
+
+    fun getLatLon(number: String): String {
+        val html = UtilityString.getHtmlAndParseLastMatch("${MyApplication.nwsSPCwebsitePrefix}/products/watch/wou$number.html", RegExp.pre2Pattern)
+        return UtilityNotification.storeWatMcdLatLon(html)
     }
 }

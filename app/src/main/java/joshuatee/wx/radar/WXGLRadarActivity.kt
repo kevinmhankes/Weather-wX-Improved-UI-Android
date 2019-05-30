@@ -429,11 +429,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 UtilityDownloadWarnings.get(this@WXGLRadarActivity)
             }
             if (!oglr.product.startsWith("2")) {
-                UtilityRadarUI.plotPolygons(
-                        glview,
-                        oglr,
-                        archiveMode
-                )
+                UtilityRadarUI.plotWarningPolygons(glview, oglr, archiveMode)
             }
             UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivity)
             isGetContentInProgress = false

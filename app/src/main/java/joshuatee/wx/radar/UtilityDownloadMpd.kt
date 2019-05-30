@@ -24,8 +24,12 @@ package joshuatee.wx.radar
 import android.content.Context
 import joshuatee.wx.Extensions.getHtml
 import joshuatee.wx.MyApplication
+import joshuatee.wx.RegExp
+import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityLog
+import joshuatee.wx.util.UtilityString
 
 internal object UtilityDownloadMpd {
 
@@ -44,15 +48,26 @@ internal object UtilityDownloadMpd {
             initialized = true
             val currentTime = System.currentTimeMillis()
             lastRefresh = currentTime / 1000
-            UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED:"  + type)
+            UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED:" + type)
             getMpd(context)
         }
     }
 
     fun getMpd(context: Context) {
         val html = "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php".getHtml()
-        if (html != "" ) {
+        if (html != "") {
             MyApplication.severeDashboardMpd.valueSet(context, html)
         }
+    }
+
+    fun getListOfNumbers(): List<String> {
+        val list = UtilityString.parseColumn(MyApplication.severeDashboardMpd.value, RegExp.mpdPattern)
+        UtilityLog.d("wx", "RADAR DOWNLOAD $type:$list")
+        return list
+    }
+
+    fun getLatLon(context: Context, number: String): String {
+        val html = UtilityDownload.getTextProduct(context, "WPCMPD$number")
+        return  UtilityNotification.storeWatMcdLatLon(html)
     }
 }

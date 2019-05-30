@@ -51,11 +51,11 @@ class BackgroundFetch(val context: Context) {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
 
-    private fun doNotifs() {
+    private fun getNotifications() {
         var notifUrls = ""
         // thanks Ely
         var watchNoList = ""
-        var watchLatlonList = ""
+        var watchLatLonList = ""
         // end Thanks Ely
         var watchLatlon = ""
         var watchLatlonTor = ""
@@ -64,35 +64,24 @@ class BackgroundFetch(val context: Context) {
         var mpdLatlon = ""
         var mpdNoList = ""
         var cancelStr: String
-        var noMain: String
-        var noBody: String
-        var noSummary: String
-        //var dataAsString: String
-        //var m: Matcher
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         val locationNeedsMcd = UtilityNotificationSpc.locationNeedsMcd()
         val locationNeedsSwo = UtilityNotificationSpc.locationNeedsSwo()
-        val locationNeedsSpcfw = UtilityNotificationSpcFireWeather.locationNeedsSpcFireWeather()
-        val locationNeedsWpcmpd = UtilityNotificationWpc.locationNeedsMpd()
-        var requestID: Int
+        val locationNeedsSpcFw = UtilityNotificationSpcFireWeather.locationNeedsSpcFireWeather()
+        val locationNeedsWpcMpd = UtilityNotificationWpc.locationNeedsMpd()
         (1..Location.numLocations).forEach {
-            requestID = System.currentTimeMillis().toInt()
+            val requestID = System.currentTimeMillis().toInt()
             notifUrls += UtilityNotification.send(context, it.toString(), requestID + 1)
         }
         MyApplication.radarWarningPolygons.forEach {
             if (it.isEnabled) {
-                //UtilityLog.d("wx", "Download: " + it.type.urlToken)
                 it.storage.valueSet(context, UtilityDownloadWarnings.getVtecByType(it.type))
             } else {
-                //UtilityLog.d("wx", "DO NOT Download: " + it.type.urlToken)
                 it.storage.valueSet(context, "")
             }
         }
         if (MyApplication.alertTornadoNotificationCurrent || MyApplication.checktor || PolygonType.TST.pref) {
             try {
-                // store data for use by severe dashboard and cod warnings
-                // TODO use UtilDownloadPolygons but need to overcome the pref issue
-                //UtilityDownloadRadar.getPolygonVtec(context)
                 UtilityDownloadWarnings.getForNotification(context)
                 if (MyApplication.alertTornadoNotificationCurrent) {
                     notifUrls += UtilityNotificationTornado.checkAndSend(context, MyApplication.severeDashboardTor.value)
@@ -108,25 +97,22 @@ class BackgroundFetch(val context: Context) {
         if (MyApplication.alertSpcmcdNotificationCurrent || MyApplication.checkspc || PolygonType.MCD.pref || locationNeedsMcd) {
             try {
                 UtilityDownloadMcd.getMcd(context)
-                //dataAsString = "${MyApplication.nwsSPCwebsitePrefix}/products/md/".getHtml()
-                //MyApplication.severeDashboardMcd.valueSet(context, dataAsString)
                 if (MyApplication.alertSpcmcdNotificationCurrent || PolygonType.MCD.pref || locationNeedsMcd) {
                     // FIXME matcher
-                    //m = RegExp.mcdPatternAlertr.matcher(dataAsString)
                     val m = RegExp.mcdPatternAlertr.matcher(MyApplication.severeDashboardMcd.value)
-                    var mdNo: String
+                    //var mdNo: String
                     while (m.find()) {
-                        mdNo = m.group(1)
+                        val mdNo = m.group(1)
                         var mcdPre = UtilityDownload.getTextProduct(context, "SPCMCD$mdNo")
                         if (PolygonType.MCD.pref || locationNeedsMcd) {
                             mcdNoList = "$mcdNoList$mdNo:"
                             mcdLatlon += UtilityNotification.storeWatMcdLatLon(mcdPre)
                         }
                         if (MyApplication.alertSpcmcdNotificationCurrent) {
-                            noMain = "SPC MCD #$mdNo"
+                            val noMain = "SPC MCD #$mdNo"
                             mcdPre = mcdPre.replace("<.*?>".toRegex(), " ")
-                            noBody = mcdPre
-                            noSummary = mcdPre
+                            val noBody = mcdPre
+                            val noSummary = mcdPre
                             val polygonType = MCD
                             val objPI = ObjectPendingIntents(
                                     context,
@@ -141,9 +127,8 @@ class BackgroundFetch(val context: Context) {
                                             cancelStr
                                     ))
                             ) {
-                                val sound =
-                                        MyApplication.alertNotificationSoundSpcmcd && !inBlackout
-                                val notifObj = ObjectNotification(
+                                val sound = MyApplication.alertNotificationSoundSpcmcd && !inBlackout
+                                val notificationObj = ObjectNotification(
                                         context,
                                         sound,
                                         noMain,
@@ -157,9 +142,8 @@ class BackgroundFetch(val context: Context) {
                                         objPI.resultPendingIntent2,
                                         context.resources.getString(R.string.read_aloud)
                                 )
-                                val noti =
-                                        UtilityNotification.createNotifBigTextWithAction(notifObj)
-                                notifObj.sendNotification(context, cancelStr, 1, noti)
+                                val notification = UtilityNotification.createNotifBigTextWithAction(notificationObj)
+                                notificationObj.sendNotification(context, cancelStr, 1, notification)
                             }
                             notifUrls += cancelStr + MyApplication.notificationStrSep
                         }
@@ -172,28 +156,25 @@ class BackgroundFetch(val context: Context) {
             MyApplication.severeDashboardMcd.valueSet(context, "")
             // end of if to test if alerts_spcmcd are enabled
         }
-        if (MyApplication.alertWpcmpdNotificationCurrent || MyApplication.checkwpc || PolygonType.MPD.pref || locationNeedsWpcmpd) {
+        if (MyApplication.alertWpcmpdNotificationCurrent || MyApplication.checkwpc || PolygonType.MPD.pref || locationNeedsWpcMpd) {
             try {
-                //dataAsString =
-                //        "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php".getHtml()
-                //MyApplication.severeDashboardMpd.valueSet(context, dataAsString)
                 UtilityDownloadMpd.getMpd(context)
-                if (MyApplication.alertWpcmpdNotificationCurrent || PolygonType.MPD.pref || locationNeedsWpcmpd) {
+                if (MyApplication.alertWpcmpdNotificationCurrent || PolygonType.MPD.pref || locationNeedsWpcMpd) {
                     // FIXME matcher
                     val m = RegExp.mpdPattern.matcher(MyApplication.severeDashboardMpd.value)
-                    var mdNo: String
+                    //var mdNo: String
                     while (m.find()) {
-                        mdNo = m.group(1)
+                        val mdNo = m.group(1)
                         var mcdPre = UtilityDownload.getTextProduct(context, "WPCMPD$mdNo")
-                        if (PolygonType.MPD.pref || locationNeedsWpcmpd) {
+                        if (PolygonType.MPD.pref || locationNeedsWpcMpd) {
                             mpdNoList = "$mpdNoList$mdNo:"
                             mpdLatlon += UtilityNotification.storeWatMcdLatLon(mcdPre)
                         }
                         if (MyApplication.alertWpcmpdNotificationCurrent) {
-                            noMain = "WPC MPD #$mdNo"
+                            val noMain = "WPC MPD #$mdNo"
                             mcdPre = mcdPre.replace("<.*?>".toRegex(), " ")
-                            noBody = mcdPre
-                            noSummary = mcdPre
+                            val noBody = mcdPre
+                            val noSummary = mcdPre
                             val polygonType = MPD
                             val objPI = ObjectPendingIntents(
                                     context,
@@ -208,9 +189,8 @@ class BackgroundFetch(val context: Context) {
                                             cancelStr
                                     ))
                             ) {
-                                val sound =
-                                        MyApplication.alertNotificationSoundWpcmpd && !inBlackout
-                                val notifObj = ObjectNotification(
+                                val sound = MyApplication.alertNotificationSoundWpcmpd && !inBlackout
+                                val notificationObj = ObjectNotification(
                                         context,
                                         sound,
                                         noMain,
@@ -224,9 +204,8 @@ class BackgroundFetch(val context: Context) {
                                         objPI.resultPendingIntent2,
                                         context.resources.getString(R.string.read_aloud)
                                 )
-                                val noti =
-                                        UtilityNotification.createNotifBigTextWithAction(notifObj)
-                                notifObj.sendNotification(context, cancelStr, 1, noti)
+                                val notification = UtilityNotification.createNotifBigTextWithAction(notificationObj)
+                                notificationObj.sendNotification(context, cancelStr, 1, notification)
                                 //notifier.notify(cancelStr, 1, noti)
                             }
                             notifUrls += cancelStr + MyApplication.notificationStrSep
@@ -244,15 +223,13 @@ class BackgroundFetch(val context: Context) {
         // FIXME refactor to move to utilDownloadRadar like iOS/Swift port
         if (MyApplication.alertSpcwatNotificationCurrent || MyApplication.checkspc || PolygonType.MCD.pref) {
             try {
-                //dataAsString = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/".getHtml()
-                //MyApplication.severeDashboardWat.valueSet(context, dataAsString)
                 UtilityDownloadWatch.getWatch(context)
                 if (MyApplication.alertSpcwatNotificationCurrent || PolygonType.MCD.pref) {
                     // FIXME matcher
                     val m = RegExp.watchPattern.matcher(MyApplication.severeDashboardWat.value)
-                    var mdNo: String
+                    //var mdNo: String
                     while (m.find()) {
-                        mdNo = m.group(1)
+                        var mdNo = m.group(1)
                         mdNo = String.format("%4s", mdNo).replace(' ', '0')
                         var mcdPre = UtilityDownload.getTextProduct(context, "SPCWAT$mdNo")
                         // Thanks Ely
@@ -263,7 +240,7 @@ class BackgroundFetch(val context: Context) {
                                 RegExp.pre2Pattern
                         )
                         // Thanks Ely
-                        watchLatlonList += UtilityNotification.storeWatMcdLatLon(mcdPre2)
+                        watchLatLonList += UtilityNotification.storeWatMcdLatLon(mcdPre2)
                         //
                         if (PolygonType.MCD.pref) {
                             //if (mcdPre.contains("Severe Thunderstorm Watch")) {
@@ -274,10 +251,10 @@ class BackgroundFetch(val context: Context) {
                             }
                         }
                         if (MyApplication.alertSpcwatNotificationCurrent) {
-                            noMain = "SPC Watch #$mdNo"
+                            val noMain = "SPC Watch #$mdNo"
                             mcdPre = mcdPre.replace("<.*?>".toRegex(), " ")
-                            noBody = mcdPre
-                            noSummary = mcdPre
+                            val noBody = mcdPre
+                            val noSummary = mcdPre
                             val polygonType = WATCH
                             val objPI = ObjectPendingIntents(
                                     context,
@@ -292,9 +269,8 @@ class BackgroundFetch(val context: Context) {
                                             cancelStr
                                     ))
                             ) {
-                                val sound =
-                                        MyApplication.alertNotificationSoundSpcwat && !inBlackout
-                                val notifObj = ObjectNotification(
+                                val sound = MyApplication.alertNotificationSoundSpcwat && !inBlackout
+                                val notificationObj = ObjectNotification(
                                         context,
                                         sound,
                                         noMain,
@@ -308,10 +284,8 @@ class BackgroundFetch(val context: Context) {
                                         objPI.resultPendingIntent2,
                                         context.resources.getString(R.string.read_aloud)
                                 )
-                                val noti =
-                                        UtilityNotification.createNotifBigTextWithAction(notifObj)
-                                notifObj.sendNotification(context, cancelStr, 1, noti)
-                                //notifier.notify(cancelStr, 1, noti)
+                                val notification = UtilityNotification.createNotifBigTextWithAction(notificationObj)
+                                notificationObj.sendNotification(context, cancelStr, 1, notification)
                             }
                             notifUrls += cancelStr + MyApplication.notificationStrSep
                         }
@@ -335,7 +309,7 @@ class BackgroundFetch(val context: Context) {
 
         // send 7day and current conditions notifications for locations
         (1..Location.numLocations).forEach {
-            requestID = System.currentTimeMillis().toInt()
+            val requestID = System.currentTimeMillis().toInt()
             notifUrls += UtilityNotification.sendNotifCC(
                     context,
                     it.toString(),
@@ -352,41 +326,39 @@ class BackgroundFetch(val context: Context) {
             notifUrls += UtilityNotificationSpc.sendSwoLocationNotifications(context)
             notifUrls += UtilityNotificationSpc.sendSwoD48LocationNotifications(context)
         }
-        if (locationNeedsSpcfw) {
+        if (locationNeedsSpcFw) {
             notifUrls += UtilityNotificationSpcFireWeather.sendSpcFireWeatherD12LocationNotifications(context)
         }
-        if (locationNeedsWpcmpd) {
+        if (locationNeedsWpcMpd) {
             notifUrls += UtilityNotificationWpc.sendMpdLocationNotifications(context)
         }
         if (PolygonType.MCD.pref || locationNeedsMcd) {
-            // Thanks Ely
             MyApplication.watchNoList.valueSet(context, watchNoList)
-            MyApplication.watchLatlonList.valueSet(context, watchLatlonList)
-            // end Thanks Ely
+            MyApplication.watchLatlonList.valueSet(context, watchLatLonList)
             MyApplication.watchLatlon.valueSet(context, watchLatlon)
             MyApplication.watchLatlonTor.valueSet(context, watchLatlonTor)
             MyApplication.mcdLatlon.valueSet(context, mcdLatlon)
             MyApplication.mcdNoList.valueSet(context, mcdNoList)
         }
-        if (PolygonType.MPD.pref || locationNeedsWpcmpd) {
+        if (PolygonType.MPD.pref || locationNeedsWpcMpd) {
             MyApplication.mpdLatlon.valueSet(context, mpdLatlon)
             MyApplication.mpdNoList.valueSet(context, mpdNoList)
         }
-        cancelOldNotifs(notifUrls)
+        cancelOldNotifications(notifUrls)
     }
 
-    private fun cancelOldNotifs(notifStr: String) {
-        val oldNotifStr = Utility.readPref(context, "NOTIF_STR", "")
+    private fun cancelOldNotifications(notificationString: String) {
+        val oldNotificationString = Utility.readPref(context, "NOTIF_STR", "")
         val notifier = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val notifArr = MyApplication.comma.split(oldNotifStr)
-        notifArr
-                .filterNot { notifStr.contains(it) }
+        val notificationList = MyApplication.comma.split(oldNotificationString)
+        notificationList
+                .filterNot { notificationString.contains(it) }
                 .forEach { notifier.cancel(it, 1) }
-        Utility.writePref(context, "NOTIF_STR_OLD", oldNotifStr)
-        Utility.writePref(context, "NOTIF_STR", notifStr)
+        Utility.writePref(context, "NOTIF_STR_OLD", oldNotificationString)
+        Utility.writePref(context, "NOTIF_STR", notificationString)
     }
 
     fun getContent() = GlobalScope.launch(uiDispatcher) {
-        withContext(Dispatchers.IO) { doNotifs() }
+        withContext(Dispatchers.IO) { getNotifications() }
     }
 }

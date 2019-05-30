@@ -26,7 +26,6 @@
 // TODO color pal , allow cloning of a user created pal
 // TODO bug , SPC Meso swipe left/right takes on extra to get started
 // TODO look into tornado instead of #tornado for twitter embedded widget
-// TODO impact graphics sort or by type (Chris)
 // TODO resolve activityReference issue in LocationFragment
 // TODO camelCase Myapp vars wxglrender
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
@@ -41,6 +40,8 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55208 2019_05_30    [REF] var rename
+                    [IMP] add helper methods in UtilutyDownload{Mpd,Watch,Mcd} for future simplification of Background Fetch and more direct use in nexrad and SD
 55207 2019_05_29    [IMP] formatting enhance in settings -> about
                     [IMP] Us warn impact graphics - reverse sort and improve formatting
 55206 2019_05_29    [FIX] Issue: java.lang.IllegalStateException: img[it].scrollPosition must not be null

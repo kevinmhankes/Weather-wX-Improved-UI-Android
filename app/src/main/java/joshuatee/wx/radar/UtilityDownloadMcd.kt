@@ -24,8 +24,12 @@ package joshuatee.wx.radar
 import android.content.Context
 import joshuatee.wx.Extensions.getHtml
 import joshuatee.wx.MyApplication
+import joshuatee.wx.RegExp
+import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityLog
+import joshuatee.wx.util.UtilityString
 
 internal object UtilityDownloadMcd {
 
@@ -54,5 +58,16 @@ internal object UtilityDownloadMcd {
         if (html != "" ) {
             MyApplication.severeDashboardMcd.valueSet(context, html)
         }
+    }
+
+    fun getListOfNumbers(): List<String> {
+        val list = UtilityString.parseColumn(MyApplication.severeDashboardMcd.value, RegExp.mcdPatternAlertr)
+        UtilityLog.d("wx", "RADAR DOWNLOAD $type:$list")
+        return list
+    }
+
+    fun getLatLon(context: Context, number: String): String {
+        val html = UtilityDownload.getTextProduct(context, "SPCMCD$number")
+        return  UtilityNotification.storeWatMcdLatLon(html)
     }
 }

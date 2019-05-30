@@ -46,7 +46,7 @@ import kotlin.math.roundToInt
 internal object UtilityRadarUI {
 
     const val longPressRadarSiteRegex = "\\) ([A-Z]{3,4}) "
-    const val lastRadarTimePref = "NEXRADDOWNLOAD_TIME_LAST_RAN"
+    private const val lastRadarTimePref = "NEXRADDOWNLOAD_TIME_LAST_RAN"
 
     fun updateLastRadarTime(context: Context) {
         Utility.writePref(
@@ -365,7 +365,7 @@ internal object UtilityRadarUI {
         }
     }
 
-    fun plotPolygons(
+    /*fun plotPolygons(
             glv: WXGLSurfaceView,
             ogl: WXGLRender,
             archiveMode: Boolean = false
@@ -383,6 +383,54 @@ internal object UtilityRadarUI {
                 ogl.constructMpdLines()
             else
                 ogl.deconstructMpdLines()
+            ogl.constructGenericWarningLines()
+            glv.requestRender()
+        }).start()
+    }*/
+
+    fun plotWarningPolygons(
+            glv: WXGLSurfaceView,
+            ogl: WXGLRender,
+            archiveMode: Boolean = false
+    ) {
+        Thread(Runnable {
+            if (PolygonType.TST.pref && !archiveMode) {
+                ogl.constructWarningLines()
+            } else {
+                ogl.deconstructWarningLines()
+            }
+            ogl.constructGenericWarningLines()
+            glv.requestRender()
+        }).start()
+    }
+
+    fun plotMcdWatchPolygons(
+            glv: WXGLSurfaceView,
+            ogl: WXGLRender,
+            archiveMode: Boolean = false
+    ) {
+        Thread(Runnable {
+            if (PolygonType.MCD.pref && !archiveMode) {
+                ogl.constructWatchMcdLines()
+            } else {
+                ogl.deconstructWatchMcdLines()
+            }
+            ogl.constructGenericWarningLines()
+            glv.requestRender()
+        }).start()
+    }
+
+    fun plotMpdPolygons(
+            glv: WXGLSurfaceView,
+            ogl: WXGLRender,
+            archiveMode: Boolean = false
+    ) {
+        Thread(Runnable {
+            if (PolygonType.MPD.pref && !archiveMode) {
+                ogl.constructMpdLines()
+            } else {
+                ogl.deconstructMpdLines()
+            }
             ogl.constructGenericWarningLines()
             glv.requestRender()
         }).start()

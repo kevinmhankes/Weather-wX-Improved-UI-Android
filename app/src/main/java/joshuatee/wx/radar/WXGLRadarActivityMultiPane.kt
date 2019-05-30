@@ -504,11 +504,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     UtilityDownloadWarnings.get(this@WXGLRadarActivityMultiPane)
                 }
                 if (!ogl.product.startsWith("2")) {
-                    UtilityRadarUI.plotPolygons(
-                            glv,
-                            ogl,
-                            false
-                    )
+                    UtilityRadarUI.plotWarningPolygons(glv, ogl, false)
                 }
                 UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivityMultiPane)
             }
