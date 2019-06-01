@@ -61,15 +61,15 @@ class WXGLRender(private val context: Context) : Renderer {
 
     // this string is normally no string but for dual pane will be set to either 1 or 2 to differentiate timestamps
     var radarStatusStr: String = ""
-    var idxStr: String = "0"
-    private val mtrxProjection = FloatArray(16)
-    private val mtrxView = FloatArray(16)
-    private var mtrxProjectionAndView = FloatArray(16)
+    var indexString: String = "0"
+    private val matrixProjection = FloatArray(16)
+    private val matrixView = FloatArray(16)
+    private var matrixProjectionAndView = FloatArray(16)
     var ridNewList: List<RID> = listOf()
     private var radarChunkCnt = 0
     private var lineCnt = 0
     private val breakSizeLine = 30000
-    private val mtrxProjectionAndViewOrig = FloatArray(16)
+    private val matrixProjectionAndViewOrig = FloatArray(16)
     private var triangleIndexBuffer: ByteBuffer = ByteBuffer.allocate(0)
     private var lineIndexBuffer: ByteBuffer = ByteBuffer.allocate(0)
     private var gpsX = 0.toDouble()
@@ -230,12 +230,12 @@ class WXGLRender(private val context: Context) : Renderer {
         // if fn is empty string then we need to fetch the radar file
         // if set, its part of an anim sequence
         if (radarBuffers.fn == "") {
-            ridPrefixGlobal = rdDownload.getRadarFile(context, urlStr, this.rid, prod, idxStr, tdwr)
+            ridPrefixGlobal = rdDownload.getRadarFile(context, urlStr, this.rid, prod, indexString, tdwr)
             radarBuffers.fn = if (!product.contains("L2")) {
                 val l3BaseFn = "nids"
-                l3BaseFn + idxStr
+                l3BaseFn + indexString
             } else {
-                "l2$idxStr"
+                "l2$indexString"
             }
         }
         radarBuffers.setProductCodeFromString(product)
@@ -247,7 +247,7 @@ class WXGLRender(private val context: Context) : Renderer {
                             radarBuffers.fn,
                             prod,
                             radarStatusStr,
-                            idxStr,
+                            indexString,
                             performDecomp
                     )
                     radarBuffers.extractL2Data(rdL2)
@@ -422,15 +422,15 @@ class WXGLRender(private val context: Context) : Renderer {
         GLES20.glEnableVertexAttribArray(mPositionHandle)
         // required for color on VBO basis
         GLES20.glEnableVertexAttribArray(colorHandle)
-        mtrxProjectionAndView = mtrxProjectionAndViewOrig
-        Matrix.multiplyMM(mtrxProjectionAndView, 0, mtrxProjection, 0, mtrxView, 0)
-        Matrix.translateM(mtrxProjectionAndView, 0, x, y, 0f)
-        Matrix.scaleM(mtrxProjectionAndView, 0, zoom, zoom, 1f)
+        matrixProjectionAndView = matrixProjectionAndViewOrig
+        Matrix.multiplyMM(matrixProjectionAndView, 0, matrixProjection, 0, matrixView, 0)
+        Matrix.translateM(matrixProjectionAndView, 0, x, y, 0f)
+        Matrix.scaleM(matrixProjectionAndView, 0, zoom, zoom, 1f)
         GLES20.glUniformMatrix4fv(
                 GLES20.glGetUniformLocation(
                         OpenGLShader.sp_SolidColor,
                         "uMVPMatrix"
-                ), 1, false, mtrxProjectionAndView, 0
+                ), 1, false, matrixProjectionAndView, 0
         )
         (0 until chunkCount).forEach {
             radarChunkCnt = if (it < chunkCount - 1) {
@@ -633,12 +633,12 @@ class WXGLRender(private val context: Context) : Renderer {
     override fun onSurfaceChanged(gl: GL10, width: Int, height: Int) {
         mSurfaceRatio = width.toFloat() / height
         (0..15).forEach {
-            mtrxProjection[it] = 0.0f
-            mtrxView[it] = 0.0f
-            mtrxProjectionAndView[it] = 0.0f
+            matrixProjection[it] = 0.0f
+            matrixView[it] = 0.0f
+            matrixProjectionAndView[it] = 0.0f
         }
         Matrix.orthoM(
-                mtrxProjection,
+                matrixProjection,
                 0,
                 (-1 * ortInt).toFloat(),
                 ortInt.toFloat(),
@@ -647,11 +647,11 @@ class WXGLRender(private val context: Context) : Renderer {
                 1f,
                 -1f
         )
-        Matrix.setLookAtM(mtrxView, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1.0f, 0.0f)
-        Matrix.multiplyMM(mtrxProjectionAndView, 0, mtrxProjection, 0, mtrxView, 0)
-        Matrix.multiplyMM(mtrxProjectionAndViewOrig, 0, mtrxProjection, 0, mtrxView, 0)
-        Matrix.translateM(mtrxProjectionAndView, 0, x, y, 0f)
-        Matrix.scaleM(mtrxProjectionAndView, 0, zoom, zoom, 1f)
+        Matrix.setLookAtM(matrixView, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1.0f, 0.0f)
+        Matrix.multiplyMM(matrixProjectionAndView, 0, matrixProjection, 0, matrixView, 0)
+        Matrix.multiplyMM(matrixProjectionAndViewOrig, 0, matrixProjection, 0, matrixView, 0)
+        Matrix.translateM(matrixProjectionAndView, 0, x, y, 0f)
+        Matrix.scaleM(matrixProjectionAndView, 0, zoom, zoom, 1f)
     }
 
     private fun scaleLength(currentLength: Float): Float {
@@ -806,7 +806,7 @@ class WXGLRender(private val context: Context) : Renderer {
     }
 
     fun constructStiLines() {
-        val fSti = WXGLNexradLevel3StormInfo.decodeAndPlot(context, idxStr, rid, provider)
+        val fSti = WXGLNexradLevel3StormInfo.decodeAndPlot(context, indexString, rid, provider)
         constructGenericLinesShort(stiBuffers, fSti)
     }
 
@@ -928,7 +928,7 @@ class WXGLRender(private val context: Context) : Renderer {
 
     fun constructHi() {
         hiBuffers.lenInit = MyApplication.radarHiSize.toFloat()
-        val stormList = WXGLNexradLevel3HailIndex.decodeAndPlot(context, rid, idxStr)
+        val stormList = WXGLNexradLevel3HailIndex.decodeAndPlot(context, rid, indexString)
         hiBuffers.setXYList(stormList)
         constructTriangles(hiBuffers)
     }
@@ -960,7 +960,7 @@ class WXGLRender(private val context: Context) : Renderer {
 
     fun constructTvs() {
         tvsBuffers.lenInit = MyApplication.radarTvsSize.toFloat()
-        val stormList = WXGLNexradLevel3TVS.decodeAndPlot(context, rid, idxStr)
+        val stormList = WXGLNexradLevel3TVS.decodeAndPlot(context, rid, indexString)
         tvsBuffers.setXYList(stormList)
         constructTriangles(tvsBuffers)
     }
@@ -985,7 +985,7 @@ class WXGLRender(private val context: Context) : Renderer {
             PolygonType.TST, PolygonType.TOR, PolygonType.FFW -> fList =
                     WXGLPolygonWarnings.add(provider, rid, buffers.type).toList()
             PolygonType.STI -> fList =
-                    WXGLNexradLevel3StormInfo.decodeAndPlot(context, idxStr, rid, provider).toList()
+                    WXGLNexradLevel3StormInfo.decodeAndPlot(context, indexString, rid, provider).toList()
             else -> {
                 if (buffers.warningType != null) {
                     fList = WXGLPolygonWarnings.addGeneric(provider, rid, buffers.warningType!!).toList()

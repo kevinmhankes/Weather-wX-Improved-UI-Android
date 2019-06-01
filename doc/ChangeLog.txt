@@ -29,7 +29,6 @@
 // TODO resolve activityReference issue in LocationFragment
 // TODO camelCase Myapp vars wxglrender
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
-// TODO android Q beta - notifications not showing in status bar
 
 [ADD] - adding something new - method, file, etc. to the repo
 [REM] - remove items
@@ -39,7 +38,8 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
-55210 2019_05_31
+55210 2019_06_01    [FIX] in UtilityNotification change channel notification importance to NotificationManager.IMPORTANCE_HIGH (Android Q)
+                    [REF] camelcase in some radar and notification files
 55209 2019_05_30    [IMP] add watch/mpd/mcd check in radar based off same code in severe dashboard
                     [FIX] settings -> radar when invoked from nexrad radar did not reflect changes immediately
 55208 2019_05_30    [REF] var rename

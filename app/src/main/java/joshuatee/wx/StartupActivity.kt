@@ -48,7 +48,7 @@ class StartupActivity : Activity() {
         Location.refreshLocationData(this)
         UtilityWXJobService.startService(this)
         if (UIPreferences.mediaControlNotif) {
-            UtilityNotification.createMediaControlNotif(applicationContext, "")
+            UtilityNotification.createMediaControlNotification(applicationContext, "")
         }
         if (Utility.readPref(this, "LAUNCH_TO_RADAR", "false") == "false") {
             ObjectIntent(this, WX::class.java)

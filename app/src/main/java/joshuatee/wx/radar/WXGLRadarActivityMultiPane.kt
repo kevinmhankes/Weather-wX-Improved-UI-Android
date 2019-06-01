@@ -240,7 +240,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             glviewArr[it].idxInt = it
             oglrArr.add(WXGLRender(this))
             oglrArr[it].radarStatusStr = (it + 1).toString()
-            oglrArr[it].idxStr = (it + 1).toString()
+            oglrArr[it].indexString = (it + 1).toString()
         }
         val elementIds = listOf(R.id.rl1, R.id.rl2, R.id.rl3, R.id.rl4)
         if (numPanes == 4) {
@@ -281,7 +281,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             }
         }
         numPanesArr.forEach {
-            UtilityRadarUI.initGlview(
+            UtilityRadarUI.initGlView(
                     glviewArr[it],
                     glviewArr,
                     oglrArr[it],
@@ -461,7 +461,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         "N0U"
                 toolbar.subtitle = ""
                 setToolbarTitle()
-                UtilityRadarUI.initWxoglGeom(
+                UtilityRadarUI.initWxOglGeom(
                         glv,
                         ogl,
                         z,
