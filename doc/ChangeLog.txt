@@ -28,6 +28,7 @@
 // TODO look into tornado instead of #tornado for twitter embedded widget
 // TODO resolve activityReference issue in LocationFragment
 // TODO camelCase Myapp vars wxglrender
+// TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 
 [ADD] - adding something new - method, file, etc. to the repo
@@ -38,6 +39,7 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55212 2019_06_02    [IMP] add content description tags in fragment tiles to assist accessibility
 55211 2019_06_01    [FIX] at joshuatee.wx.activitiesmisc.TextScreenActivity.onCreate (TextScreenActivity.kt:74)
                     Caused by: kotlin.UninitializedPropertyAccessException:
 55210 2019_06_01    [FIX] in UtilityNotification change channel notification importance to NotificationManager.IMPORTANCE_HIGH (Android Q)
