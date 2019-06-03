@@ -39,7 +39,9 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
-55212 2019_06_02    [IMP] add content description tags in fragment tiles to assist accessibility
+55214 2019_06_02    [IMP] add content description tags in fragment tiles to assist accessibility
+                    [FIX] "pin" a shortcut to desktop for WFO/AFD activity was causing crash and not working
+                    [REF] architectual simplification in WpcMpdShowSummaryActivity/SpcMcdWatchShowSummaryActivity
 55211 2019_06_01    [FIX] at joshuatee.wx.activitiesmisc.TextScreenActivity.onCreate (TextScreenActivity.kt:74)
                     Caused by: kotlin.UninitializedPropertyAccessException:
 55210 2019_06_01    [FIX] in UtilityNotification change channel notification importance to NotificationManager.IMPORTANCE_HIGH (Android Q)
