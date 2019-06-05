@@ -30,6 +30,8 @@
 // TODO camelCase Myapp vars wxglrender
 // TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
+// TODO for imageMap see if can set attributes in code so as to remove redundant layout files
+// TODO make usalerts detail layout more dynamic
 
 [ADD] - adding something new - method, file, etc. to the repo
 [REM] - remove items
@@ -39,6 +41,8 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55215 2019_06_05    [REF] move to common xml layout files in several activities
+                    [REF] variable renaming cont.
 55214 2019_06_02    [IMP] add content description tags in fragment tiles to assist accessibility
                     [FIX] "pin" a shortcut to desktop for WFO/AFD activity was causing crash and not working
                     [REF] architectual simplification in WpcMpdShowSummaryActivity/SpcMcdWatchShowSummaryActivity
