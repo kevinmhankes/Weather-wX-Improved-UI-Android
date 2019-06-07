@@ -34,6 +34,7 @@
 // TODO make usalerts detail layout more dynamic
 // TODO scan all obs sites - https://w1.weather.gov/xml/current_obs/seek.php?state=nd&Find=Find
 // TODO                          https://tgftp.nws.noaa.gov/data/observations/metar/stations/
+// TODO https://forecast-v3.weather.gov/obs?state=MI
 // TODO make alert filter also impact main screen and add non-weather as choice in settings notifications
 // TODO test scoped storage https://android-developers.googleblog.com/2019/06/android-q-beta-4-and-final-apis.html?m=1
 // TODO  MyApplication.kt: (29, 27): 'PreferenceManager' is deprecated. Deprecated in Java
