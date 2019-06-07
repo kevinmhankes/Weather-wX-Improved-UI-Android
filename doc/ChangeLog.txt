@@ -49,6 +49,8 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55219 2019_06_07    [IMP] implementation "androidx.preference:preference:1.0.0" add to gradle
+                    [IMP] migrate to androidx preference as prior is deprecated
 55218 2019_06_07    [IMP] change compileSdkVersion 28 to compileSdkVersion 29
                           change buildToolsVersion '28.0.3' to buildToolsVersion '29.0.0'
                           change targetSdkVersion 28 to targetSdkVersion 29 (NOTE: this breaks screen capture in nexrad radar for Q devices )

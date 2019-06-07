@@ -22,17 +22,14 @@
 package joshuatee.wx.util
 
 import android.os.Build
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import android.text.Html
 import android.content.Context
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
-import joshuatee.wx.canada.UtilityCanada
-import joshuatee.wx.settings.Location
 
 import joshuatee.wx.Extensions.*
-import joshuatee.wx.radar.LatLon
 import joshuatee.wx.radar.UtilityRadar
 
 object Utility {
