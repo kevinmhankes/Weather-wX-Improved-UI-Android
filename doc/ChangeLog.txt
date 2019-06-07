@@ -36,6 +36,10 @@
 // TODO                          https://tgftp.nws.noaa.gov/data/observations/metar/stations/
 // TODO make alert filter also impact main screen and add non-weather as choice in settings notifications
 // TODO test scoped storage https://android-developers.googleblog.com/2019/06/android-q-beta-4-and-final-apis.html?m=1
+// TODO  MyApplication.kt: (29, 27): 'PreferenceManager' is deprecated. Deprecated in Java
+// TODO  MyApplication.kt: (64, 23): 'PreferenceManager' is deprecated. Deprecated in Java
+// TODO  MyApplication.kt: (64, 41): 'getDefaultSharedPreferences(Context!): SharedPreferences!' is deprecated. Deprecated in Java
+// TODO test GPS in radar in Q
 
 [ADD] - adding something new - method, file, etc. to the repo
 [REM] - remove items
