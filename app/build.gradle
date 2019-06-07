@@ -3,8 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 29
+    buildToolsVersion '29.0.0'
 
     // need $HOME/.gradle/gradle.properties to look like this
     /*
@@ -26,7 +26,7 @@ android {
     defaultConfig {
         applicationId "joshuatee.wx"
         minSdkVersion 16   // 4.1
-        targetSdkVersion 28 // 8.1
+        targetSdkVersion 29 // 8.1
         // Stops the Gradle plugin’s automatic rasterization of vectors (2016_02_25 add 23.2 )
         //generatedDensities = []
         vectorDrawables.useSupportLibrary = true

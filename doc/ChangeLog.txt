@@ -35,7 +35,7 @@
 // TODO scan all obs sites - https://w1.weather.gov/xml/current_obs/seek.php?state=nd&Find=Find
 // TODO                          https://tgftp.nws.noaa.gov/data/observations/metar/stations/
 // TODO make alert filter also impact main screen and add non-weather as choice in settings notifications
-// TODO update to API 29 and test scoped storage https://android-developers.googleblog.com/2019/06/android-q-beta-4-and-final-apis.html?m=1
+// TODO test scoped storage https://android-developers.googleblog.com/2019/06/android-q-beta-4-and-final-apis.html?m=1
 
 [ADD] - adding something new - method, file, etc. to the repo
 [REM] - remove items
@@ -45,7 +45,11 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
-55218 2019_06_06
+55218 2019_06_07    [IMP] change compileSdkVersion 28 to compileSdkVersion 29
+                          change buildToolsVersion '28.0.3' to buildToolsVersion '29.0.0'
+                          change targetSdkVersion 28 to targetSdkVersion 29 (NOTE: this breaks screen capture in nexrad radar for Q devices )
+                          (java.lang.SecurityException: Media projections require a foreground service of type ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PROJECTION)
+                    [IMP] in settings -> notifications add "Child Abduction Emergency" (needs to impact main screen)
 55217 2019_06_06    [IMP] SDK platform tools updated to 29.0.0
                     [REF] variable renaming cont.
 55216 2019_06_06    [FIX] remove obs site KIGX from stations_us4.txt and us_metar3.txt
