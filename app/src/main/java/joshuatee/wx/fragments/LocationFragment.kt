@@ -55,6 +55,7 @@ import joshuatee.wx.util.*
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.notifications.UtilityNotificationTools
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.radar.*
@@ -795,21 +796,24 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         hazardsExpandedAl.clear()
         hazardsCards.clear()
         objHazards.titles.indices.forEach { z ->
-            hazardsExpandedAl.add(false)
-            hazardsCards.add(ObjectCardText(activityReference))
-            hazardsCards[z].setPaddingAmount(MyApplication.paddingSettings)
-            hazardsCards[z].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-            hazardsCards[z].setTextColor(UIPreferences.textHighlightColor)
-            hazardsCards[z].setText(objHazards.titles[z].toUpperCase(Locale.US))
-            hazardsCards[z].setOnClickListener(OnClickListener {
-                ObjectIntent(
-                        activityReference,
-                        USAlertsDetailActivity::class.java,
-                        USAlertsDetailActivity.URL,
-                        arrayOf(objHazards.urls[z])
-                )
-            })
-            linearLayoutHazards?.addView(hazardsCards[z].card)
+            //UtilityLog.d("wx", objHazards.titles[z])
+            if (UtilityNotificationTools.nwsLocalAlertNotFiltered(activityReference, objHazards.titles[z])) {
+                hazardsExpandedAl.add(false)
+                hazardsCards.add(ObjectCardText(activityReference))
+                hazardsCards[z].setPaddingAmount(MyApplication.paddingSettings)
+                hazardsCards[z].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
+                hazardsCards[z].setTextColor(UIPreferences.textHighlightColor)
+                hazardsCards[z].setText(objHazards.titles[z].toUpperCase(Locale.US))
+                hazardsCards[z].setOnClickListener(OnClickListener {
+                    ObjectIntent(
+                            activityReference,
+                            USAlertsDetailActivity::class.java,
+                            USAlertsDetailActivity.URL,
+                            arrayOf(objHazards.urls[z])
+                    )
+                })
+                linearLayoutHazards?.addView(hazardsCards[z].card)
+            }
         }
     }
 

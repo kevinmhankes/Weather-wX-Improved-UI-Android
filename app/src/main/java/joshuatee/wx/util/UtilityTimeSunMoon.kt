@@ -48,7 +48,7 @@ object UtilityTimeSunMoon {
         return listOf(officialSunriseCal, officialSunsetCal)
     }
 
-    fun getSunTimesForHomescreen(): String {
+   /* fun getSunTimesForHomescreen(): String {
         val sunCalc = SunCalc()
         val now = Calendar.getInstance()
         val time = Date()
@@ -82,9 +82,9 @@ object UtilityTimeSunMoon {
         val now = Calendar.getInstance()
         val moonIllumination = sunCalc.moonIllumination(now)
         return moonPhaseFromIllumination(moonIllumination.phase) + " " + moonIllumination.phase.toString()
-    }
+    }*/
 
-    fun moonPhaseFromIllumination(phase: Double): String {
+    /*fun moonPhaseFromIllumination(phase: Double): String {
         val phaseString: String
         if (phase < 0.02) {
             phaseString = "New Moon"
@@ -106,7 +106,7 @@ object UtilityTimeSunMoon {
             phaseString = "unknown"
         }
         return phaseString
-    }
+    }*/
 
     fun getSunriseSunset(context: Context, locNum: String): String {
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1

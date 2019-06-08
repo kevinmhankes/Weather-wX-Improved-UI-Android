@@ -33,7 +33,6 @@ import joshuatee.wx.util.UtilityString
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.util.UtilityLog
 
 class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
 
