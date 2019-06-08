@@ -260,8 +260,8 @@ class WXGLDownload {
             val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, false)
             val url =
                     MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + (NEXRAD_PRODUCT_STRING[product] ?: "") + "/SI." + ridPrefix + radarSite.toLowerCase() + "/sn.last"
-            val inputstream = UtilityDownload.getInputStreamFromUrl(url)
-            inputstream?.let { UtilityIO.saveInputStream(context, it, fileName) }
+            val inputStream = UtilityDownload.getInputStreamFromUrl(url)
+            inputStream?.let { UtilityIO.saveInputStream(context, it, fileName) }
         }
     }
 }

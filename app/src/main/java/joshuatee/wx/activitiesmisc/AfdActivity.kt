@@ -240,12 +240,6 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                             "$wfo WWA Map"
                     )
             )
-            /* R.id.action_forecast -> ObjectIntent(
-                 this,
-                 WebscreenABModels::class.java,
-                 WebscreenABModels.URL,
-                 arrayOf(UtilityDownloadNWS.get7DayURL(Location.x, Location.y), "Local forecast")
-             )*/
             R.id.action_share -> UtilityShare.shareText(
                     this,
                     product + wfo,

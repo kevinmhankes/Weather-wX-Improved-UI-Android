@@ -44,7 +44,7 @@ import kotlinx.coroutines.*
 class SpcSwoStateGraphicsActivity : VideoRecordActivity(), OnItemSelectedListener,
     OnMenuItemClickListener {
 
-    // Show state level SPC SWO grapahics for D1-3
+    // Show state level SPC SWO graphics for D1-3
     //
     // Arguments
     // 1: day

@@ -955,7 +955,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     private val handler = Handler()
 
-    private val mStatusChecker: Runnable? = object : Runnable {
+    private val mStatusChecker: Runnable = object : Runnable {
         override fun run() {
             if (mHandler != null) {
                 if (loopCount > 0) {
@@ -973,7 +973,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     private fun startRepeatingTask() {
-        mStatusChecker!!.run()
+        mStatusChecker.run()
     }
 
     private fun stopRepeatingTask() {

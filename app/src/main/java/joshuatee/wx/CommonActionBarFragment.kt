@@ -265,7 +265,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == requestOk && resultCode == Activity.RESULT_OK) {
             val thingsYouSaid = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-            UtilityUI.makeSnackBar(view, thingsYouSaid[0])
+            UtilityUI.makeSnackBar(view, thingsYouSaid!![0])
             val addrStrTmp = thingsYouSaid[0]
             UtilityVoiceCommand.processCommand(
                     this,

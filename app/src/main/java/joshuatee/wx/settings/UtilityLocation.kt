@@ -46,7 +46,7 @@ object UtilityLocation {
 
     val latLonAsDouble: MutableList<Double>
         get() {
-            val latlonAl = mutableListOf<Double>()
+            val latLon = mutableListOf<Double>()
             var tmpX = ""
             var tmpY = ""
             var tmpXArr: List<String>
@@ -64,10 +64,10 @@ object UtilityLocation {
                     if (tmpYArr.size > 1)
                         tmpY = tmpYArr[1]
                 }
-                latlonAl.add(tmpX.toDoubleOrNull() ?: 0.0)
-                latlonAl.add(tmpY.toDoubleOrNull() ?: 0.0)
+                latLon.add(tmpX.toDoubleOrNull() ?: 0.0)
+                latLon.add(tmpY.toDoubleOrNull() ?: 0.0)
             }
-            return latlonAl
+            return latLon
         }
 
     fun getXYFromAddressOsm(addressF: String): List<String> {

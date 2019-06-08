@@ -51,7 +51,7 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
         )
         toolbarBottom.setOnMenuItemClickListener(this)
         title = "SPC"
-        toolbar.subtitle = "Thunderstorm Outook"
+        toolbar.subtitle = "Thunderstorm Outlook"
         getContent()
     }
 

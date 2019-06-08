@@ -46,7 +46,7 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     // show a specific MCD, Watch, or MPD - long press on image to save location
     //
-    // Arugments
+    // Arguments
     //
     // 1: number of MCD, WAT, or MPD such as 0403
     //

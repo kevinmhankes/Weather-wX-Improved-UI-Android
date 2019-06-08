@@ -44,7 +44,7 @@ import kotlin.math.*
 class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
     GestureDetector.OnDoubleTapListener {
 
-    // currently used in location frag and USWXOGLRadarAtivity to more clearly seperate touch events
+    // currently used in location frag and USWXOGLRadarActivity to more clearly separate touch events
     // WXGLSurfaceView is used to track and respond to user touch events when in the OpenGL based radar
     // pinch zoom, drag, double/single tap, and long press are all handled here
 

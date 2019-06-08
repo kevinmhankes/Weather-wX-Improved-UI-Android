@@ -86,13 +86,13 @@ object Utility {
     }*/
 
     fun getVersion(context: Context): String {
-        var vers = ""
+        var version = ""
         try {
-            vers = context.packageManager.getPackageInfo(context.packageName, 0).versionName
+            version = context.packageManager.getPackageInfo(context.packageName, 0).versionName
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
-        return vers
+        return version
     }
 
     fun commitPref(context: Context) {

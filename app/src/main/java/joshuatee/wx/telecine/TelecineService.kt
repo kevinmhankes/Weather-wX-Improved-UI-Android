@@ -23,9 +23,7 @@ import androidx.core.app.NotificationCompat
 import joshuatee.wx.notifications.UtilityNotification
 import android.app.NotificationManager
 import android.media.projection.MediaProjectionManager
-import android.app.PendingIntent
 import android.os.Build
-import joshuatee.wx.WX
 
 class TelecineService : Service() {
 
