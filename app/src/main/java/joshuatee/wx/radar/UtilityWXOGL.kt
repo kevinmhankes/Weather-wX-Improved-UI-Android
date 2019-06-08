@@ -44,7 +44,7 @@ import joshuatee.wx.RegExp
 object UtilityWXOGL {
 
     fun getMeteogramUrl(obsSite: String): String {
-        return "http://www.nws.noaa.gov/mdl/gfslamp/meteo.php?BackHour=0&TempBox=Y&DewBox=Y&SkyBox=Y&WindSpdBox=Y&WindDirBox=Y&WindGustBox=Y&CigBox=Y&VisBox=Y&ObvBox=Y&PtypeBox=N&PopoBox=Y&LightningBox=Y&ConvBox=Y&sta=$obsSite"
+        return "https://www.nws.noaa.gov/mdl/gfslamp/meteo.php?BackHour=0&TempBox=Y&DewBox=Y&SkyBox=Y&WindSpdBox=Y&WindDirBox=Y&WindGustBox=Y&CigBox=Y&VisBox=Y&ObvBox=Y&PtypeBox=N&PopoBox=Y&LightningBox=Y&ConvBox=Y&sta=$obsSite"
     }
 
     fun getRidPrefix(radarSite: String, product: String): String {
@@ -72,7 +72,7 @@ object UtilityWXOGL {
     }
 
     fun getVwp(context: Context, radarSite: String): String {
-        // http://tgftp.nws.noaa.gov/SL.us008001/DF.of/DC.radar/DS.48vwp/SI.kccx/
+        // https://tgftp.nws.noaa.gov/SL.us008001/DF.of/DC.radar/DS.48vwp/SI.kccx/
         val product = "VWP"
         val l3BaseFn = "nidsVWP"
         val indexString = "0"

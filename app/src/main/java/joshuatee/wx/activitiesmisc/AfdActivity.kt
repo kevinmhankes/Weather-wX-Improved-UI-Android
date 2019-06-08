@@ -229,14 +229,14 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                     this,
                     WebscreenABModels::class.java,
                     WebscreenABModels.URL,
-                    arrayOf("http://www.weather.gov/" + wfo.toLowerCase(Locale.US), wfo)
+                    arrayOf("https://www.weather.gov/" + wfo.toLowerCase(Locale.US), wfo)
             )
             R.id.action_hazards -> ObjectIntent(
                     this,
                     ImageShowActivity::class.java,
                     ImageShowActivity.URL,
                     arrayOf(
-                            "http://www.weather.gov/wwamap/png/" + wfo.toLowerCase(Locale.US) + ".png",
+                            "https://www.weather.gov/wwamap/png/" + wfo.toLowerCase(Locale.US) + ".png",
                             "$wfo WWA Map"
                     )
             )

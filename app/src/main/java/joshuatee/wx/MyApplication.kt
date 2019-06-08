@@ -157,6 +157,8 @@ class MyApplication : Application() {
         const val goes16Url: String = "https://cdn.star.nesdis.noaa.gov"
         const val goes16AnimUrl: String = "https://www.star.nesdis.noaa.gov"
         const val nwsApiUrl = "https://api.weather.gov"
+        const val nwsSwpcWebSitePrefix = "https://services.swpc.noaa.gov"
+        const val canadaEcSitePrefix = "https://weather.gc.ca"
         const val prefSeparator: String = " : : :"
         var uiAnimIconFrames: String = "rid"
         const val WIDGET_FILE_BAK: String = "BAK"

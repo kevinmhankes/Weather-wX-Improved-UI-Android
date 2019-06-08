@@ -33,6 +33,7 @@ import joshuatee.wx.util.UtilityString
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.util.UtilityLog
 
 class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
 
@@ -60,8 +61,12 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
                 "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_5d0.png",
                 "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_0d0.png",
                 "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_2d0.png",
-                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_5d0.png"
+                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_5d0.png",
+                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_0d0.png",
+                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_2d0.png",
+                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_5d0.png"
         ).forEach { bitmaps.add(it.getImage()) }
+
         var dataRet: ObjectNhcStormInfo
         (1 until 6).forEach {
             dataRet = UtilityNhc.getHurricaneInfo("${MyApplication.nwsNhcWebsitePrefix}/nhc_at" + it.toString() + ".xml")
