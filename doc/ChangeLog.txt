@@ -50,6 +50,7 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55220 2019_06_07    [FIX] for Q temporarily add <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 55219 2019_06_07    [IMP] implementation "androidx.preference:preference:1.0.0" add to gradle
                     [IMP] migrate to androidx preference as prior is deprecated
 55218 2019_06_07    [IMP] change compileSdkVersion 28 to compileSdkVersion 29
