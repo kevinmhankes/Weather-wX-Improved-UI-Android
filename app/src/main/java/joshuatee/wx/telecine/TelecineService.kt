@@ -72,9 +72,11 @@ class TelecineService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        mediaProjectionManager = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        send()
+        if (Build.VERSION.SDK_INT > 28) {
+            mediaProjectionManager = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
+            notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            send()
+        }
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {

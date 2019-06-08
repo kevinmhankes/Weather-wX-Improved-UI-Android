@@ -31,7 +31,6 @@
 // TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 // TODO for imageMap see if can set attributes in code so as to remove redundant layout files
-// TODO make usalerts detail layout more dynamic
 // TODO scan all obs sites - https://w1.weather.gov/xml/current_obs/seek.php?state=nd&Find=Find
 // TODO                          https://tgftp.nws.noaa.gov/data/observations/metar/stations/
 // TODO https://forecast-v3.weather.gov/obs?state=MI
@@ -47,6 +46,8 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55221 2019_06_08    [FIX] remove 135 obs sites from the list of 2300+, not reporting data current from this year
+                    [IMP] for telecine service supporting screen record only fire a foreground service if Android Q or greater
 55220 2019_06_08    [FIX] for Q temporarily add <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
                     [FIX] add foreground task for screen recording - needed for Android Q - requires testing ( storage access not working in Q )
                     [REF] lint cleanup after code analysis
