@@ -248,7 +248,8 @@ object UtilityTts {
         }
         txt = UtilityTtsTranslations.translateAbbreviation(txt)
         val myHashRender = HashMap<String, String>()
-        val musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
+        //val musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
+        val musicDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
         val wxDir = File(musicDir, MyApplication.packageNameAsString)
         if (!wxDir.exists() && !wxDir.mkdirs()) {
             return
@@ -302,21 +303,19 @@ object UtilityTts {
     }
 
     private fun playMediaPlayerFile(context: Context, fileNum: Int) {
-        val musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
+        //val musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
+        //val musicDir = Environment.getExternalStorageDirectory()
+        val musicDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
         val wxDir = File(musicDir, MyApplication.packageNameAsString)
         if (!wxDir.exists() && !wxDir.mkdirs()) {
             return
         }
-        //try {
         mMediaPlayer?.reset()
         val fileName = File(wxDir, FILENAME + fileNum.toString()).absolutePath
         val uri = Uri.parse("file://$fileName")
         mMediaPlayer?.setDataSource(context, uri)
         mMediaPlayer?.prepare()
         mMediaPlayer?.start()
-        //} catch (e: Exception) {
-        //    UtilityLog.handleException(e)
-        //}
     }
 
     fun conditionalPlay(

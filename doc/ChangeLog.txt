@@ -30,8 +30,6 @@
 // TODO camelCase Myapp vars wxglrender
 // TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
-// TODO for imageMap see if can set attributes in code so as to remove redundant layout files
-// TODO make alert filter also impact main screen and add non-weather as choice in settings notifications
 // TODO test scoped storage https://android-developers.googleblog.com/2019/06/android-q-beta-4-and-final-apis.html?m=1
 
 [ADD] - adding something new - method, file, etc. to the repo
@@ -42,6 +40,14 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55224 2019_06_09    [FIX] attemtped fix for
+                    kotlin.KotlinNullPointerException:
+                      at joshuatee.wx.fragments.LocationFragment.getActivityReference (LocationFragment.kt:783)
+                      at joshuatee.wx.fragments.LocationFragment.access$getActivityReference$p (LocationFragment.kt:65)
+                      at joshuatee.wx.fragments.LocationFragment$getRadar$1$3.invokeSuspend (LocationFragment.kt:440)
+                    [FIX] fix TTS to support using Android Q by making this change in UtilityTts.kt
+                        //val musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
+                        val musicDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
 55223 2019_06_08    [IMP] allow the settings -> notifications filtered alerts to impact what is seen on the main screen
 55222 2019_06_08    [ADD] NHC activity - add 3 graphics and access to 1 text product related to central pacific
                     [IMP] convert many http URLs to https

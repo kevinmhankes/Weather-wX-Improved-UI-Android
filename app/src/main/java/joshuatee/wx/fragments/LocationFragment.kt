@@ -434,7 +434,12 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 ::getLatLon
         )
         withContext(Dispatchers.IO) {
-            if (Location.isUS) {
+            // attempted bugfix for most plentiful crash
+            //kotlin.KotlinNullPointerException:
+            //at joshuatee.wx.fragments.LocationFragment.getActivityReference (LocationFragment.kt:783)
+            //at joshuatee.wx.fragments.LocationFragment.access$getActivityReference$p (LocationFragment.kt:65)
+            //at joshuatee.wx.fragments.LocationFragment$getRadar$1$3.invokeSuspend (LocationFragment.kt:440)
+            if (Location.isUS && mActivity != null ) {
                 UtilityRadarUI.plotRadar(
                         oglrArr[idx],
                         "",
