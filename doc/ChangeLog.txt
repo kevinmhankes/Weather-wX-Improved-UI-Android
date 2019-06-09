@@ -48,6 +48,7 @@
                     [FIX] fix TTS to support using Android Q by making this change in UtilityTts.kt
                         //val musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
                         val musicDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
+                    [IMP] changes in screen record for Q
 55223 2019_06_08    [IMP] allow the settings -> notifications filtered alerts to impact what is seen on the main screen
 55222 2019_06_08    [ADD] NHC activity - add 3 graphics and access to 1 text product related to central pacific
                     [IMP] convert many http URLs to https
