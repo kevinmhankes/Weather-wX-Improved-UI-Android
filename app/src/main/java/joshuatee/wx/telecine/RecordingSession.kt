@@ -295,12 +295,19 @@ internal class RecordingSession(
             if (recorder != null) recorder!!.release()
             display!!.release()
         }
-        MediaScannerConnection.scanFile(
+        /*MediaScannerConnection.scanFile(
             context, arrayOf(outputFile!!), null
         ) { _, uri ->
-            if (uri == null) throw NullPointerException("uri == null")
+           if (uri == null) throw NullPointerException("uri == null")
             mainThread.post { showNotification(uri, null) }
-        }
+        }*/
+        val uri = FileProvider.getUriForFile(
+                context,
+                "${MyApplication.packageNameAsString}.fileprovider",
+                File(outputFile!!)
+        )
+        mainThread.post {showNotification(uri, null)}
+
     }
 
     private fun addDrawTool() {
@@ -474,18 +481,17 @@ internal class RecordingSession(
         UtilityNotification.initChannels(context)
         val requestID = System.currentTimeMillis().toInt()
         val viewIntent = Intent(ACTION_VIEW, uri)
-        val pendingViewIntent =
-            PendingIntent.getActivity(context, requestID, viewIntent, FLAG_CANCEL_CURRENT)
+        val pendingViewIntent = PendingIntent.getActivity(context, requestID, viewIntent, FLAG_CANCEL_CURRENT)
         var shareIntent = Intent(ACTION_SEND)
         shareIntent.type = MIME_TYPE_RECORDING
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        shareIntent.setData(uri)
         shareIntent = Intent.createChooser(shareIntent, null)
-        val pendingShareIntent =
-            PendingIntent.getActivity(context, requestID, shareIntent, FLAG_CANCEL_CURRENT)
+        val pendingShareIntent = PendingIntent.getActivity(context, requestID, shareIntent, FLAG_CANCEL_CURRENT)
         val deleteIntent = Intent(context, DeleteRecordingBroadcastReceiver::class.java)
         deleteIntent.data = uri
-        val pendingDeleteIntent =
-            PendingIntent.getBroadcast(context, requestID, deleteIntent, FLAG_CANCEL_CURRENT)
+        val pendingDeleteIntent = PendingIntent.getBroadcast(context, requestID, deleteIntent, FLAG_CANCEL_CURRENT)
         val title = context.getText(R.string.notification_captured_title)
         val subtitle = context.getText(R.string.notification_captured_subtitle)
         val share = context.getText(R.string.notification_captured_share)
@@ -554,6 +560,7 @@ internal class RecordingSession(
         shareIntent.type = MIME_TYPE_SCREENSHOT
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        shareIntent.setData(uri)
         shareIntent = Intent.createChooser(shareIntent, null)
         val pendingShareIntent = PendingIntent.getActivity(context, requestID, shareIntent, FLAG_CANCEL_CURRENT)
         val deleteIntent = Intent(context, DeleteRecordingBroadcastReceiver::class.java)

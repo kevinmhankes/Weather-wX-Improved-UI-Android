@@ -40,6 +40,7 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55225 2019_06_09    [FIX] more work with screenshot/recorder for android Q
 55224 2019_06_09    [FIX] attemtped fix for
                     kotlin.KotlinNullPointerException:
                       at joshuatee.wx.fragments.LocationFragment.getActivityReference (LocationFragment.kt:783)
