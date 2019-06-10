@@ -21,6 +21,7 @@
 
 package joshuatee.wx.util
 
+import android.app.Activity
 import java.io.File
 import java.io.FileOutputStream
 
@@ -32,6 +33,9 @@ import android.net.Uri
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.ui.UtilityUI
+import android.content.pm.PackageManager
+import androidx.core.app.ShareCompat
+import androidx.core.app.ShareCompat.IntentBuilder
 
 object UtilityShare {
 
@@ -158,12 +162,48 @@ object UtilityShare {
             UtilityLog.handleException(e)
         }
         val formattedDate = UtilityTime.getDateAsString("yyyy-MM-dd HH:mm:ss")
+        //https://stackoverflow.com/questions/10943177/how-to-startactivity-with-a-sharecompat-intentbuilder
         val sharingIntent = Intent(Intent.ACTION_SEND)
+        //val sharingIntent = ShareCompat.IntentBuilder.from(context)
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "$subject $formattedDate")
         sharingIntent.putExtra(Intent.EXTRA_STREAM, imgUri)
-        sharingIntent.type = "image/png"
+        sharingIntent.data = imgUri
+        //sharingIntent.type = "image/png"
+        sharingIntent.type =  "image/*"
         sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+        val resInfoList = context.packageManager.queryIntentActivities(sharingIntent, PackageManager.MATCH_DEFAULT_ONLY)
+        for (resolveInfo in resInfoList) {
+            val packageName = resolveInfo.activityInfo.packageName
+            context.grantUriPermission(packageName, imgUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+
         context.startActivity(Intent.createChooser(sharingIntent, "Share via"))
+    }
+
+    fun shareBitmap(activity: Activity, context: Context, subject: String, bitmap: Bitmap) {
+        val dir = File(context.filesDir.toString() + "/shared")
+        if (!dir.mkdirs())
+            UtilityLog.d("wx", "failed to mkdir: " + context.filesDir + "/shared")
+        val file = File(dir, "img1.png")
+        val imgUri = FileProvider.getUriForFile(
+                context,
+                "${MyApplication.packageNameAsString}.fileprovider",
+                file
+        )
+        try {
+            val fos = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+            fos.close()
+        } catch (e: Exception) {
+            UtilityLog.handleException(e)
+        }
+        val formattedDate = UtilityTime.getDateAsString("yyyy-MM-dd HH:mm:ss")
+        val sharingIntent = IntentBuilder.from(activity)
+        sharingIntent.setText("$subject $formattedDate")
+        sharingIntent.setStream(imgUri)
+        sharingIntent.setType("image/png")
+        activity.startActivity(sharingIntent.intent);
     }
 
     internal var animDrawablePublic: AnimationDrawable? = null

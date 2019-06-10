@@ -486,7 +486,7 @@ internal class RecordingSession(
         shareIntent.type = MIME_TYPE_RECORDING
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        shareIntent.setData(uri)
+        shareIntent.data = uri
         shareIntent = Intent.createChooser(shareIntent, null)
         val pendingShareIntent = PendingIntent.getActivity(context, requestID, shareIntent, FLAG_CANCEL_CURRENT)
         val deleteIntent = Intent(context, DeleteRecordingBroadcastReceiver::class.java)
@@ -560,7 +560,7 @@ internal class RecordingSession(
         shareIntent.type = MIME_TYPE_SCREENSHOT
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        shareIntent.setData(uri)
+        shareIntent.data = uri
         shareIntent = Intent.createChooser(shareIntent, null)
         val pendingShareIntent = PendingIntent.getActivity(context, requestID, shareIntent, FLAG_CANCEL_CURRENT)
         val deleteIntent = Intent(context, DeleteRecordingBroadcastReceiver::class.java)

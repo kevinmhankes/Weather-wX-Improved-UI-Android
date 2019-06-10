@@ -26,15 +26,10 @@ import android.text.format.DateFormat
 import joshuatee.wx.MyApplication
 import joshuatee.wx.external.ExternalSunriseLocation
 import joshuatee.wx.external.ExternalSunriseSunsetCalculator
-import joshuatee.wx.external.SolarEvent
-import joshuatee.wx.external.SunCalc
 import joshuatee.wx.radar.RID
 import joshuatee.wx.settings.Location
 
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 import java.util.TimeZone
 
 object UtilityTimeSunMoon {

@@ -56,7 +56,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     // However, other NWS office text products are also available from the AB menu
     // A map icon is also provided to select an office different from your current location
     //
-    // Arugments
+    // Arguments
     // 1: NWS office
     // 2: product
     //
