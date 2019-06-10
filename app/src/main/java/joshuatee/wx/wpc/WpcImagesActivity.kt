@@ -172,7 +172,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else
-                    UtilityShare.shareText(this, drw.getLabel(), "", bitmap)
+                    UtilityShare.shareBitmap(this, this, drw.getLabel(), bitmap)
             }
             else -> return super.onOptionsItemSelected(item)
         }

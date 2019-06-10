@@ -231,7 +231,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityModels.legacyShare(this@ModelsSpcHrrrActivity, om.animRan, om)
+                    UtilityModels.legacyShare(this@ModelsSpcHrrrActivity,this@ModelsSpcHrrrActivity, om.animRan, om)
                 }
             }
             else -> return super.onOptionsItemSelected(item)

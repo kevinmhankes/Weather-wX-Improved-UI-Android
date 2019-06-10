@@ -708,6 +708,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     } else {
                         UtilityShare.shareBitmap(
                                 this,
+                                this,
                                 oglrArr[curRadar].rid +
                                         " (" + Utility.readPref(
                                         this,

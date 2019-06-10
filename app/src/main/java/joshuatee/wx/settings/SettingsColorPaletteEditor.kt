@@ -194,6 +194,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
             R.id.action_help -> UtilityAlertDialog.showHelpText("Not implemented yet.", this)
             R.id.action_share -> UtilityShare.shareTextAsAttachment(
                     this,
+                    this,
                     palTitle.text.toString(),
                     palContent.text.toString(),
                     "wX_colormap_" + palTitle.text.toString() + ".txt"
