@@ -38,6 +38,7 @@
 [REF] - refactor a method, group, variable, etc.
 [MER] - merge
 
+55230 2019_06_11    [FIX] update utilShare to add emailTo as "" instead of defaulting to something useless
 55229 2019_06_11    [FIX] update utilShare to work with Android Q - merge images vertically instead of sharing multiple images
 55228 2019_06_11    [FIX] update utilShare to work with Android Q ( use share compat )
 55227 2019_06_10    [FIX] update utilShare to work with Android Q ( use share compat )

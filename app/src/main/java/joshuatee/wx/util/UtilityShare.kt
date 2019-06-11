@@ -65,6 +65,7 @@ object UtilityShare {
         val formattedDate = UtilityTime.getDateAsString("yyyy-MM-dd HH:mm:ss")
         val intentBuilder = IntentBuilder.from(activity)
         intentBuilder.setSubject("$subject $formattedDate")
+        intentBuilder.addEmailTo("")
         intentBuilder.setText(text)
         intentBuilder.setStream(imgUri)
         val sharingIntent = intentBuilder.intent
@@ -107,6 +108,7 @@ object UtilityShare {
         val formattedDate = UtilityTime.getDateAsString("yyyy-MM-dd HH:mm:ss")
         val intentBuilder = IntentBuilder.from(activity)
         intentBuilder.setSubject("$subject $formattedDate")
+        intentBuilder.addEmailTo("")
         intentBuilder.setText(text)
         intentBuilder.setStream(imgUri)
         intentBuilder.setType("image/png")
