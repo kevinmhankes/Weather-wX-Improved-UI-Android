@@ -29,14 +29,10 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
-import android.net.Uri
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.ui.UtilityUI
 import androidx.core.app.ShareCompat.IntentBuilder
-import android.content.pm.ResolveInfo
-import android.content.pm.PackageManager
-import android.os.Parcelable
 
 object UtilityShare {
 
@@ -66,24 +62,14 @@ object UtilityShare {
                     UtilityLog.handleException(e)
                 }
         }
-        /*val formattedDate = UtilityTime.getDateAsString("yyyy-MM-dd HH:mm:ss")
-        val sharingIntent = Intent(Intent.ACTION_SEND)
-        sharingIntent.type = "text/plain"
-        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "$subject $formattedDate")
-        sharingIntent.putExtra(Intent.EXTRA_TEXT, "wX Settings attached")
-        sharingIntent.putExtra(Intent.EXTRA_STREAM, imgUri)//attachment
-        context.startActivity(Intent.createChooser(sharingIntent, "Share via"))*/
-
         val formattedDate = UtilityTime.getDateAsString("yyyy-MM-dd HH:mm:ss")
         val intentBuilder = IntentBuilder.from(activity)
         intentBuilder.setSubject("$subject $formattedDate")
         intentBuilder.setText(text)
         intentBuilder.setStream(imgUri)
-        //intentBuilder.setType("image/png")
         val sharingIntent = intentBuilder.intent
         sharingIntent.data = imgUri
         sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        //activity.startActivity(sharingIntent)
         activity.startActivity(Intent.createChooser(sharingIntent, "Share via"))
     }
 
@@ -97,68 +83,8 @@ object UtilityShare {
     }
 
     fun shareText(activity: Activity, context: Context, subject: String, text: String, bitmaps: List<Bitmap>) {
-        val imgUriAl = ArrayList<Uri>()
-        bitmaps.forEachIndexed { i, bitmap ->
-            val dir = File(context.filesDir.toString() + "/shared")
-            if (!dir.mkdirs()) {
-                UtilityLog.d("wx", "failed to mkdir: " + context.filesDir + "/shared")
-            }
-            val file = File(dir, "img$i.png")
-            val imgUri = FileProvider.getUriForFile(
-                context,
-                "${MyApplication.packageNameAsString}.fileprovider",
-                file
-            )
-            imgUriAl.add(imgUri)
-            try {
-                val fos = FileOutputStream(file)
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
-                fos.close()
-            } catch (e: Exception) {
-                UtilityLog.handleException(e)
-            }
-        }
-       /* val formattedDate = UtilityTime.getDateAsString("yyyy-MM-dd HH:mm:ss")
-        val sharingIntent = Intent(Intent.ACTION_SEND_MULTIPLE)
-        sharingIntent.type = "text/plain"
-        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "$subject $formattedDate")
-        sharingIntent.putExtra(Intent.EXTRA_TEXT, text)
-        sharingIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imgUriAl)
-        sharingIntent.type = "image/png"
-        sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        context.startActivity(Intent.createChooser(sharingIntent, "Share via"))*/
-
-        val extraText = ArrayList<String>()
-        extraText.add(text)
-
-        val formattedDate = UtilityTime.getDateAsString("yyyy-MM-dd HH:mm:ss")
-        val intentBuilder = IntentBuilder.from(activity)
-        intentBuilder.setSubject("$subject $formattedDate")
-        //intentBuilder.setText(listOf(text))
-        imgUriAl.forEach {intentBuilder.addStream(it)}
-        intentBuilder.setType("image/png")
-        //intentBuilder.setType("text/plain")
-        val sharingIntent = intentBuilder.intent
-        //sharingIntent.data = imgUriAl[0]
-        //imgUriAl.indices.forEach{sharingIntent.putExtra(Intent.EXTRA_STREAM, imgUriAl[it]) }
-        //sharingIntent = Intent(Intent.ACTION_SEND_MULTIPLE)
-        sharingIntent.action = Intent.ACTION_SEND_MULTIPLE
-        sharingIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imgUriAl)
-        sharingIntent.putStringArrayListExtra(Intent.EXTRA_TEXT, extraText)
-
-        sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        //activity.startActivity(sharingIntent)
-
-       /* val packageManager = context.packageManager
-        val activities = packageManager.queryIntentActivities(sharingIntent, PackageManager.MATCH_DEFAULT_ONLY)
-        for (resolvedIntentInfo in activities) {
-            val packageName = resolvedIntentInfo.activityInfo.packageName
-            imgUriAl.forEach {context.grantUriPermission(packageName, it, Intent.FLAG_GRANT_READ_URI_PERMISSION)}
-        }*/
-
-        if (sharingIntent.resolveActivity(activity.packageManager) != null) {
-            activity.startActivity(Intent.createChooser(sharingIntent, "Share via"))
-        }
+        val bitmap = UtilityImg.mergeImagesVertically(bitmaps)
+        shareBitmap(activity, context, subject, bitmap, text)
     }
 
     fun shareBitmap(activity: Activity, context: Context, subject: String, bitmap: Bitmap, text: String = "") {
@@ -187,19 +113,16 @@ object UtilityShare {
         val sharingIntent = intentBuilder.intent
         sharingIntent.data = imgUri
         sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        //activity.startActivity(sharingIntent)
-        if (sharingIntent.resolveActivity(activity.getPackageManager()) != null) {
+        if (sharingIntent.resolveActivity(activity.packageManager) != null) {
             activity.startActivity(Intent.createChooser(sharingIntent, "Share via"))
         }
     }
 
     internal var animDrawablePublic: AnimationDrawable? = null
-    internal var contextPublic: Context? = null
     internal var subjectPublic: String? = null
 
     fun shareAnimGif(context: Context, subject: String, animDrawable: AnimationDrawable) {
         UtilityUI.makeToastLegacy(context, "Creating animated gif")
-        contextPublic = context
         animDrawablePublic = animDrawable
         subjectPublic = subject
         val intent = Intent(context, CreateAnimatedGifService::class.java)
