@@ -22,7 +22,8 @@
 // TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 
-55233 2019_06_12    [ADD] NCEP add HRW-ARW2
+55233 2019_06_12    [ADD] NCEP add HRW-ARW2, HRRR add 300_wnd, fix to 250_wnd, RAP add 200_wnd_ht
+                    [ADD] HRRR add 850_temp_mslp_precip
 55232 2019_06_12    [FIX] NCEP work - fix run time latest detection
                     [ADD] NCEP add new sectors US-NW, US-SW, US-NC, US-SC, US-NE and US-SE to  NAM-HIRES, HRRR, HRW-ARW, HRW-NMMB and HREF
                     [ADD] NCEP Add American Samoa (US-SAMOA) to GFS.
