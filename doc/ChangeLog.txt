@@ -23,7 +23,8 @@
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 
 55233 2019_06_12    [ADD] NCEP add HRW-ARW2, HRRR add 300_wnd, fix to 250_wnd, RAP add 200_wnd_ht
-                    [ADD] HRRR add 850_temp_mslp_precip
+                    [ADD] HRRR add 850_temp_mslp_precip, NAM-HIRES add ceiling
+                    [FIX] in GEFS-MEAN-SPRD rename 4 like prob_ice_25 to prob_ice_0.25in and prob_precip_100 to prob_precip_1in
 55232 2019_06_12    [FIX] NCEP work - fix run time latest detection
                     [ADD] NCEP add new sectors US-NW, US-SW, US-NC, US-SC, US-NE and US-SE to  NAM-HIRES, HRRR, HRW-ARW, HRW-NMMB and HREF
                     [ADD] NCEP Add American Samoa (US-SAMOA) to GFS.
