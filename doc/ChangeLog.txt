@@ -23,6 +23,9 @@
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 
 55232 2019_06_12    [FIX] NCEP work - fix run time latest detection
+                    [ADD] NCEP add new sectors US-NW, US-SW, US-NC, US-SC, US-NE and US-SE to  NAM-HIRES, HRRR, HRW-ARW, HRW-NMMB and HREF
+                    [ADD] NCEP Add American Samoa (US-SAMOA) to GFS.
+                    [FIX] NCEP HRW-ARW, HRW-NMMB, NAM-HIRES, RAP and HRRR: Change echotop to echo_top
 55231 2019_06_12    [REF] various camelCase
 55230 2019_06_11    [FIX] update utilShare to add emailTo as "" instead of defaulting to something useless
 55229 2019_06_11    [FIX] update utilShare to work with Android Q - merge images vertically instead of sharing multiple images
