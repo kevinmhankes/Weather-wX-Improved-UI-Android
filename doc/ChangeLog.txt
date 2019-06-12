@@ -22,6 +22,7 @@
 // TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 
+55232 2019_06_12    [FIX] NCEP work - fix run time latest detection
 55231 2019_06_12    [REF] various camelCase
 55230 2019_06_11    [FIX] update utilShare to add emailTo as "" instead of defaulting to something useless
 55229 2019_06_11    [FIX] update utilShare to work with Android Q - merge images vertically instead of sharing multiple images
