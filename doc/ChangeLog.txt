@@ -5,39 +5,24 @@
 // TODO OkHttp 3.13 Requires Android 5+ – Square Corner Blog – Medium  https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce
 // TODO document or fix changing radar settings and impact on main screen radars
 // TODO UtilityMetar in radar has optimization related to text file loading
-// TODO color pal editor, make generic so can edit any product
 // TODO BUG - storm reports show radar doesn't show location dot for report
 // TODO enhance hourly graphics
 // TODO move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
 // TODO SPS longpress does not always work well
 // TODO fix issue for precip radar products when there is no data
-// TODO assess impact of scoped storage: https://developer.android.com/preview/privacy/scoped-storage
 // TODO linesize - swo, wb, wbgusts, sti
 // TODO SRM - ability to add custom palette
 // TODO make location update interval configurable
 // TODO add vtec end date check to tor notif
-// TODO camelCase filenames in particular when acronyms longer then 2 chars exist
-// TODO add user accessible debug log from try-catch data
 // TODO color pal edit for SRM and L2 VEL/REF
-// TODO don't display full precision in lat/lon in settings location edit
-// TODO enhance formatting for NHC Storms
-// TODO update polygons when radar is open (in addition to background). Possibly use two sets of prefs , cloned at radar start
 // TODO color pal , allow cloning of a user created pal
 // TODO bug , SPC Meso swipe left/right takes on extra to get started
 // TODO look into tornado instead of #tornado for twitter embedded widget
 // TODO resolve activityReference issue in LocationFragment
-// TODO camelCase Myapp vars wxglrender
 // TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 
-[ADD] - adding something new - method, file, etc. to the repo
-[REM] - remove items
-[IMP] - improvement
-[DEB] - Added temporary debug code
-[FIX] - bug fixes
-[REF] - refactor a method, group, variable, etc.
-[MER] - merge
-
+55231 2019_06_12    [REF] various camelCase
 55230 2019_06_11    [FIX] update utilShare to add emailTo as "" instead of defaulting to something useless
 55229 2019_06_11    [FIX] update utilShare to work with Android Q - merge images vertically instead of sharing multiple images
 55228 2019_06_11    [FIX] update utilShare to work with Android Q ( use share compat )

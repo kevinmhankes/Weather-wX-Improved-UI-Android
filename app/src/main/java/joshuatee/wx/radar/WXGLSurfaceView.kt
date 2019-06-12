@@ -88,7 +88,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
     var spottersLabelAl: MutableList<TextView> = mutableListOf()
     var spotterTv: MutableList<TextView> = mutableListOf()
     var wxgltextArr: MutableList<WXGLTextObject> = mutableListOf()
-    var locfrag: Boolean = false
+    var locationFragment: Boolean = false
     private var act: Activity? = null
 
     constructor(context: Context, widthDivider: Int, numPanes: Int, heightDivider: Int) : super(context) {
@@ -130,7 +130,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
-                if (!locfrag) {
+                if (!locationFragment) {
                     (0 until numPanes).forEach {
                         wxgltextArr[it].hideTV()
                         oglr[it].displayHold = true
@@ -233,7 +233,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         distanceY: Float
     ): Boolean {
         var panned = false
-        if (!locfrag) {
+        if (!locationFragment) {
             if (distanceX != 0f) {
                 if (MyApplication.dualpaneshareposn) {
                     (0 until numPanes).forEach { oglr[it].x += -1.0f * distanceX }
@@ -280,7 +280,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         yPos = event.y
         xMiddle = (width / 2).toFloat()
         yMiddle = (height / 2).toFloat()
-        if (MyApplication.dualpaneshareposn && !locfrag) {
+        if (MyApplication.dualpaneshareposn && !locationFragment) {
             mScaleFactor *= 2.0f
             (0 until numPanes).forEach {
                 oglr[it].setViewInitial(
@@ -317,7 +317,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
 
     override fun onSingleTapConfirmed(event: MotionEvent): Boolean {
         mScaleFactor /= 2.0f
-        if (MyApplication.dualpaneshareposn && !locfrag) {
+        if (MyApplication.dualpaneshareposn && !locationFragment) {
             (0 until numPanes).forEach {
                 oglr[it].setViewInitial(mScaleFactor, oglr[it].x / 2.0f, oglr[it].y / 2.0f)
                 wxgl[it].mScaleFactor = mScaleFactor

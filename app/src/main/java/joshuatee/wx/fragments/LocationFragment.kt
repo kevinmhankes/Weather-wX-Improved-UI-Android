@@ -170,7 +170,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                         )
                 )
                 glviewArr[index].wxgltextArr = wxgltextArr
-                glviewArr[index].locfrag = true
+                glviewArr[index].locationFragment = true
                 wxgltextArr[index].initTV(activityReference)
                 rlArr[index].addView(glviewArr[index])
                 cardViews.last().addView(rlArr[index])
@@ -210,7 +210,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                         )
                 )
                 glviewArr[index].wxgltextArr = wxgltextArr
-                glviewArr[index].locfrag = true
+                glviewArr[index].locationFragment = true
                 wxgltextArr[index].initTV(activityReference)
                 rlArr[index].addView(glviewArr[index])
                 cardViews.last().addView(rlArr[index])

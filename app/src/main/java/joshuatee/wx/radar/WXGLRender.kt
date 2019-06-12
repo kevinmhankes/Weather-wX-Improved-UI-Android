@@ -75,8 +75,7 @@ class WXGLRender(private val context: Context) : Renderer {
     private var gpsX = 0.toDouble()
     private var gpsY = 0.toDouble()
     private val zoomToHideMiscFeatures = 0.5f
-    private val radarBuffers =
-            ObjectOglRadarBuffers(context, MyApplication.nexradRadarBackgroundColor)
+    private val radarBuffers = ObjectOglRadarBuffers(context, MyApplication.nexradRadarBackgroundColor)
     private val spotterBuffers = ObjectOglBuffers(PolygonType.SPOTTER, zoomToHideMiscFeatures)
     private val stateLineBuffers = ObjectOglBuffers(GeographyType.STATE_LINES, 0.0f)
     private val countyLineBuffers = ObjectOglBuffers(GeographyType.COUNTY_LINES, 0.75f) // was .75
@@ -85,8 +84,7 @@ class WXGLRender(private val context: Context) : Renderer {
     private val lakeBuffers = ObjectOglBuffers(GeographyType.LAKES, zoomToHideMiscFeatures)
     private val stiBuffers = ObjectOglBuffers(PolygonType.STI, zoomToHideMiscFeatures)
     private val wbBuffers = ObjectOglBuffers(PolygonType.WIND_BARB, zoomToHideMiscFeatures)
-    private val wbGustsBuffers =
-            ObjectOglBuffers(PolygonType.WIND_BARB_GUSTS, zoomToHideMiscFeatures)
+    private val wbGustsBuffers = ObjectOglBuffers(PolygonType.WIND_BARB_GUSTS, zoomToHideMiscFeatures)
     private val mpdBuffers = ObjectOglBuffers(PolygonType.MPD)
     private val hiBuffers = ObjectOglBuffers(PolygonType.HI, zoomToHideMiscFeatures)
     private val tvsBuffers = ObjectOglBuffers(PolygonType.TVS, zoomToHideMiscFeatures)
@@ -97,15 +95,14 @@ class WXGLRender(private val context: Context) : Renderer {
     private val watchTornadoBuffers = ObjectOglBuffers(PolygonType.WATCH_TORNADO)
     private val mcdBuffers = ObjectOglBuffers(PolygonType.MCD)
     private val swoBuffers = ObjectOglBuffers()
-    private val locdotBuffers = ObjectOglBuffers(PolygonType.LOCDOT)
+    private val locationDotBuffers = ObjectOglBuffers(PolygonType.LOCDOT)
     private val locCircleBuffers = ObjectOglBuffers()
-    private val wbCircleBuffers =
-            ObjectOglBuffers(PolygonType.WIND_BARB_CIRCLE, zoomToHideMiscFeatures)
+    private val wbCircleBuffers = ObjectOglBuffers(PolygonType.WIND_BARB_CIRCLE, zoomToHideMiscFeatures)
     private val genericWarningBuffers = mutableListOf<ObjectOglBuffers>()
     private val colorSwo = IntArray(5)
     private var breakSize15 = 15000
     private val breakSizeRadar = 15000
-    private var mPositionHandle = 0
+    private var positionHandle = 0
     private var colorHandle = 0
     private var tdwr = false
     private var chunkCount = 0
@@ -115,19 +112,19 @@ class WXGLRender(private val context: Context) : Renderer {
     var zoom: Float = 1.0f
         set(scale) {
             field = scale
-            listOf(locdotBuffers, hiBuffers, spotterBuffers, tvsBuffers, wbCircleBuffers).forEach {
+            listOf(locationDotBuffers, hiBuffers, spotterBuffers, tvsBuffers, wbCircleBuffers).forEach {
                 if (it.isInitialized) {
                     it.lenInit = it.type.size
                     it.lenInit = scaleLength(it.lenInit)
-                    it.draw(pn)
+                    it.draw(projectionNumbers)
                 }
             }
-            if (locdotBuffers.isInitialized && MyApplication.locdotFollowsGps) {
-                locCircleBuffers.lenInit = locdotBuffers.lenInit
-                UtilityWXOGLPerf.genCircleLocdot(locCircleBuffers, pn, gpsX, gpsY)
+            if (locationDotBuffers.isInitialized && MyApplication.locdotFollowsGps) {
+                locCircleBuffers.lenInit = locationDotBuffers.lenInit
+                UtilityWXOGLPerf.genCircleLocdot(locCircleBuffers, projectionNumbers, gpsX, gpsY)
             }
         }
-    private var mSurfaceRatio = 0f
+    private var surfaceRatio = 0f
     var x: Float = 0f
         set(x) {
             field = x
@@ -161,7 +158,7 @@ class WXGLRender(private val context: Context) : Renderer {
     private val rdL2 = WXGLNexradLevel2()
     val radarL3Object: WXGLNexradLevel3 = WXGLNexradLevel3()
     val rdDownload: WXGLDownload = WXGLDownload()
-    private var pn = ProjectionNumbers()
+    private var projectionNumbers = ProjectionNumbers()
     var product: String
         get() = prod
         set(value) {
@@ -209,8 +206,8 @@ class WXGLRender(private val context: Context) : Renderer {
                 prod = "N0Q"
             }
         }
-        pn = ProjectionNumbers(this.rid, provider)
-        oneDegreeScaleFactorGlobal = pn.oneDegreeScaleFactorFloat
+        projectionNumbers = ProjectionNumbers(this.rid, provider)
+        oneDegreeScaleFactorGlobal = projectionNumbers.oneDegreeScaleFactorFloat
     }
 
     // final arg is whether or not to perform decompression
@@ -417,9 +414,9 @@ class WXGLRender(private val context: Context) : Renderer {
         GLES20.glUseProgram(OpenGLShader.sp_SolidColor)
         GLES20.glClearColor(bgColorFRed, bgColorFGreen, bgColorFBlue, 1f)
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT or GLES20.GL_DEPTH_BUFFER_BIT)
-        mPositionHandle = GLES20.glGetAttribLocation(OpenGLShader.sp_SolidColor, "vPosition")
+        positionHandle = GLES20.glGetAttribLocation(OpenGLShader.sp_SolidColor, "vPosition")
         colorHandle = GLES20.glGetAttribLocation(OpenGLShader.sp_SolidColor, "a_Color")
-        GLES20.glEnableVertexAttribArray(mPositionHandle)
+        GLES20.glEnableVertexAttribArray(positionHandle)
         // required for color on VBO basis
         GLES20.glEnableVertexAttribArray(colorHandle)
         matrixProjectionAndView = matrixProjectionAndViewOrig
@@ -441,7 +438,7 @@ class WXGLRender(private val context: Context) : Renderer {
             try {
                 radarBuffers.floatBuffer.position(it * breakSizeRadar * 32)
                 GLES20.glVertexAttribPointer(
-                        mPositionHandle,
+                        positionHandle,
                         2,
                         GLES20.GL_FLOAT,
                         false,
@@ -499,7 +496,7 @@ class WXGLRender(private val context: Context) : Renderer {
         }
 
         GLES20.glLineWidth(MyApplication.radarGpsCircleLineSize.toFloat())
-        drawTriangles(locdotBuffers)
+        drawTriangles(locationDotBuffers)
         if (MyApplication.locdotFollowsGps && locCircleBuffers.floatBuffer.capacity() != 0 && locCircleBuffers.indexBuffer.capacity() != 0 && locCircleBuffers.colorBuffer.capacity() != 0) {
             locCircleBuffers.chunkCount = 1
             drawPolygons(locCircleBuffers, 16)
@@ -533,7 +530,7 @@ class WXGLRender(private val context: Context) : Renderer {
         if (buffers.isInitialized) {
             buffers.setToPositionZero()
             GLES20.glVertexAttribPointer(
-                    mPositionHandle,
+                    positionHandle,
                     2,
                     GLES20.GL_FLOAT,
                     false,
@@ -564,7 +561,7 @@ class WXGLRender(private val context: Context) : Renderer {
                 lineIndexBuffer.position(0)
                 buffers.setToPositionZero()
                 GLES20.glVertexAttribPointer(
-                        mPositionHandle,
+                        positionHandle,
                         2,
                         GLES20.GL_FLOAT,
                         false,
@@ -602,7 +599,7 @@ class WXGLRender(private val context: Context) : Renderer {
                     buffers.colorBuffer.position(0)
                     lineIndexBuffer.position(0)
                     GLES20.glVertexAttribPointer(
-                            mPositionHandle,
+                            positionHandle,
                             2,
                             GLES20.GL_FLOAT,
                             false,
@@ -631,7 +628,7 @@ class WXGLRender(private val context: Context) : Renderer {
     }
 
     override fun onSurfaceChanged(gl: GL10, width: Int, height: Int) {
-        mSurfaceRatio = width.toFloat() / height
+        surfaceRatio = width.toFloat() / height
         (0..15).forEach {
             matrixProjection[it] = 0.0f
             matrixView[it] = 0.0f
@@ -642,8 +639,8 @@ class WXGLRender(private val context: Context) : Renderer {
                 0,
                 (-1 * ortInt).toFloat(),
                 ortInt.toFloat(),
-                -1f * ortInt.toFloat() * (1 / mSurfaceRatio),
-                ortInt * (1 / mSurfaceRatio),
+                -1f * ortInt.toFloat() * (1 / surfaceRatio),
+                ortInt * (1 / surfaceRatio),
                 1f,
                 -1f
         )
@@ -726,14 +723,14 @@ class WXGLRender(private val context: Context) : Renderer {
                 UtilityWXOGLPerf.genMercator(
                         buffers.geotype.relativeBuffer,
                         buffers.floatBuffer,
-                        pn,
+                        projectionNumbers,
                         buffers.count
                 )
             } else {
                 UtilityWXOGLPerf.generate4326Projection(
                         buffers.geotype.relativeBuffer,
                         buffers.floatBuffer,
-                        pn,
+                        projectionNumbers,
                         buffers.count
                 )
             }
@@ -742,11 +739,11 @@ class WXGLRender(private val context: Context) : Renderer {
                 Jni.genMercato(
                         buffers.geotype.relativeBuffer,
                         buffers.floatBuffer,
-                        pn.xFloat,
-                        pn.yFloat,
-                        pn.xCenter.toFloat(),
-                        pn.yCenter.toFloat(),
-                        pn.oneDegreeScaleFactorFloat,
+                        projectionNumbers.xFloat,
+                        projectionNumbers.yFloat,
+                        projectionNumbers.xCenter.toFloat(),
+                        projectionNumbers.yCenter.toFloat(),
+                        projectionNumbers.oneDegreeScaleFactorFloat,
                         buffers.count
                 )
             } else {
@@ -754,7 +751,7 @@ class WXGLRender(private val context: Context) : Renderer {
                 UtilityWXOGLPerf.generate4326Projection(
                         buffers.geotype.relativeBuffer,
                         buffers.floatBuffer,
-                        pn,
+                        projectionNumbers,
                         buffers.count
                 )
             }
@@ -852,7 +849,7 @@ class WXGLRender(private val context: Context) : Renderer {
     fun constructLocationDot(locXCurrent: String, locYCurrentF: String, archiveMode: Boolean) {
         var locYCurrent = locYCurrentF
         var locmarkerAl = mutableListOf<Double>()
-        locdotBuffers.lenInit = MyApplication.radarLocdotSize.toFloat()
+        locationDotBuffers.lenInit = MyApplication.radarLocdotSize.toFloat()
         locYCurrent = locYCurrent.replace("-", "")
         val x = locXCurrent.toDoubleOrNull() ?: 0.0
         val y = locYCurrent.toDoubleOrNull() ?: 0.0
@@ -865,21 +862,21 @@ class WXGLRender(private val context: Context) : Renderer {
             gpsX = x
             gpsY = y
         }
-        locdotBuffers.xList = DoubleArray(locmarkerAl.size)
-        locdotBuffers.yList = DoubleArray(locmarkerAl.size)
+        locationDotBuffers.xList = DoubleArray(locmarkerAl.size)
+        locationDotBuffers.yList = DoubleArray(locmarkerAl.size)
         var xx = 0
         var yy = 0
         locmarkerAl.indices.forEach {
             if (it and 1 == 0) {
-                locdotBuffers.xList[xx] = locmarkerAl[it]
+                locationDotBuffers.xList[xx] = locmarkerAl[it]
                 xx += 1
             } else {
-                locdotBuffers.yList[yy] = locmarkerAl[it]
+                locationDotBuffers.yList[yy] = locmarkerAl[it]
                 yy += 1
             }
         }
-        locdotBuffers.triangleCount = 12
-        constructTriangles(locdotBuffers)
+        locationDotBuffers.triangleCount = 12
+        constructTriangles(locationDotBuffers)
         locCircleBuffers.triangleCount = 36
         locCircleBuffers.initialize(
                 32 * locCircleBuffers.triangleCount,
@@ -901,15 +898,15 @@ class WXGLRender(private val context: Context) : Renderer {
             )
         }
         if (MyApplication.locdotFollowsGps) {
-            locCircleBuffers.lenInit = locdotBuffers.lenInit
-            UtilityWXOGLPerf.genCircleLocdot(locCircleBuffers, pn, gpsX, gpsY)
+            locCircleBuffers.lenInit = locationDotBuffers.lenInit
+            UtilityWXOGLPerf.genCircleLocdot(locCircleBuffers, projectionNumbers, gpsX, gpsY)
         }
-        locdotBuffers.isInitialized = true
+        locationDotBuffers.isInitialized = true
         locCircleBuffers.isInitialized = true
     }
 
     fun deconstructLocationDot() {
-        locdotBuffers.isInitialized = false
+        locationDotBuffers.isInitialized = false
     }
 
     fun constructSpotters() {
@@ -950,7 +947,7 @@ class WXGLRender(private val context: Context) : Renderer {
             )
         }
         buffers.lenInit = scaleLength(buffers.lenInit)
-        buffers.draw(pn)
+        buffers.draw(projectionNumbers)
         buffers.isInitialized = true
     }
 
@@ -1084,7 +1081,7 @@ class WXGLRender(private val context: Context) : Renderer {
                 9 * wbCircleBuffers.count * wbCircleBuffers.triangleCount
         )
         wbCircleBuffers.lenInit = scaleLength(wbCircleBuffers.lenInit)
-        wbCircleBuffers.draw(pn)
+        wbCircleBuffers.draw(projectionNumbers)
         wbCircleBuffers.isInitialized = true
     }
 
@@ -1125,14 +1122,14 @@ class WXGLRender(private val context: Context) : Renderer {
                     tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(
                             hashSwo[it]!![j],
                             (hashSwo[it]!![j + 1] * -1.0f),
-                            pn
+                            projectionNumbers
                     )
                     swoBuffers.putFloat(tmpCoords[0].toFloat())
                     swoBuffers.putFloat(tmpCoords[1].toFloat() * -1.0f)
                     tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(
                             hashSwo[it]!![j + 2],
                             (hashSwo[it]!![j + 3] * -1.0f),
-                            pn
+                            projectionNumbers
                     )
                     swoBuffers.putFloat(tmpCoords[0].toFloat())
                     swoBuffers.putFloat(tmpCoords[1].toFloat() * -1.0f)
@@ -1155,7 +1152,7 @@ class WXGLRender(private val context: Context) : Renderer {
     }
 
     val oneDegreeScaleFactor: Float
-        get() = pn.oneDegreeScaleFactorFloat
+        get() = projectionNumbers.oneDegreeScaleFactorFloat
 
     fun setChunkCountSti(chunkCountSti: Int) {
         this.stiBuffers.chunkCount = chunkCountSti
