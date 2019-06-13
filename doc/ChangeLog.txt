@@ -24,7 +24,8 @@
 // TODO NCEP add NBM
 // TODO NCEP GFS add cref and double check other parms
 
-55235 2019_06_13
+55235 2019_06_13    [FIX] NCEP HREF change from 2 to 4 runs per day
+                    [ADD] NBM to NCEP
 55234 2019_06_13    [FIX] UtilityImg.mergeImagesVertically if height or width == 0 return blank bitmap
                     [FIX] NCEP
                     --Rename the following areas:

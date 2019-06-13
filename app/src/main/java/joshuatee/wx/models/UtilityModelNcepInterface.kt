@@ -42,7 +42,8 @@ internal object UtilityModelNcepInterface {
             "ESTOFS",
             "FIREWX",
             "HRW-ARW2",
-            "HREF"
+            "HREF",
+            "NBM"
     )
 
     val sectorsGfs = listOf(
@@ -214,7 +215,14 @@ internal object UtilityModelNcepInterface {
             "HAWAII"
     )
 
-    val sectorsFirewx = listOf("CONUS-AK")
+    val sectorsFirewx = listOf(
+            "CONUS-AK"
+    )
+
+    val sectorsNbm = listOf(
+            "CONUS",
+            "NAMER"
+    )
 
     val paramsGfs = listOf(
             "1000_500_thick",
@@ -1100,6 +1108,32 @@ internal object UtilityModelNcepInterface {
             "Probability of vertical wind shear greater than 30kts",
             "Probability of max updraft helicity greater than 25m**2/s**2",
             "Probability of max updraft helicity greater than 100m**2/s**2"
+    )
+
+    val paramsNbm = listOf(
+            "precip_p06",
+            "precip_ptot",
+            "2m_temp_10m_wnd",
+            "2m_dewp_10m_wnd",
+            "2m_relh_10m_wnd",
+            "2m_apparent_temp",
+            "2m_min_temp",
+            "2m_max_temp",
+            "10m_wnd_gust",
+            "total_cloud_cover"
+    )
+
+    val labelsNbm = listOf(
+            "Total precipitation every 6 hours",
+            "Accumulated precip",
+            "2 meter Temperature and 10 meter Wind",
+            "2 meter dew point temp and 10 meter wind",
+            "2 meter Relative Humidity and 10 meter Wind",
+            "2 meter Apparent Temperature and 10 meter Wind",
+            "2 meter minimum Temperature",
+            "2 meter maximum temperature",
+            "10 meter wind and gust",
+            "Total Cloud Cover"
     )
 
     // grep title /tmp/a | egrep -o ">.*</a>" | sed 's/>/\"/' | sed 's/<\/a>/\"\,/'

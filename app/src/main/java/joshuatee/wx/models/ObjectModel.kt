@@ -426,7 +426,17 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                         startStep = 0
                         endStep = 36
                         stepAmount = 1
-                        numberRuns = 2
+                        numberRuns = 4
+                    }
+                    19 -> {
+                        model = "NBM"
+                        params = UtilityModelNcepInterface.paramsNbm
+                        labels = UtilityModelNcepInterface.labelsNbm
+                        sectors = UtilityModelNcepInterface.sectorsNbm
+                        startStep = 0
+                        endStep = 264
+                        stepAmount = 3
+                        numberRuns = 4
                     }
 
                 }
