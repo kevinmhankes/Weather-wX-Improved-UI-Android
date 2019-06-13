@@ -22,6 +22,17 @@
 // TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 
+55234 2019_06_13    [FIX] NCEP
+                    Rename the following areas:
+                    ATLPAC -> ATL-PAC
+                    NPAC -> NORTH-PAC
+                    EPAC -> EAST-PAC
+                    SPAC -> SOUTH-PAC
+                    WNATL -> WN-ATL
+                    WGOA -> WEST-GOA
+                    EGOA -> EAST-GOA
+                    NCAL-> NORTH-CAL
+                    SCAL -> SOUTH-CAL
 55233 2019_06_12    [ADD] NCEP add HRW-ARW2, HRRR add 300_wnd, fix to 250_wnd, RAP add 200_wnd_ht
                     [ADD] HRRR add 850_temp_mslp_precip, NAM-HIRES add ceiling
                     [FIX] in GEFS-MEAN-SPRD rename 4 like prob_ice_25 to prob_ice_0.25in and prob_precip_100 to prob_precip_1in

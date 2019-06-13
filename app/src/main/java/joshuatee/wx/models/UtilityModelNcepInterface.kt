@@ -49,15 +49,15 @@ internal object UtilityModelNcepInterface {
             "NAMER",
             "SAMER",
             "AFRICA",
-            "NPAC",
-            "EPAC",
-            "WNATL",
+            "NORTH-PAC",
+            "EAST-PAC",
+            "WN-ATL",
             "ATLANTIC",
             "POLAR",
             "ALASKA",
             "EUROPE",
             "ASIA",
-            "SPAC",
+            "SOUTH-PAC",
             "ARTIC",
             "INDIA",
             "US-SAMOA"
@@ -65,9 +65,9 @@ internal object UtilityModelNcepInterface {
 
     val sectorsNam = listOf(
             "NAMER",
-            "NPAC",
-            "EPAC",
-            "WNATL"
+            "NORTH-PAC",
+            "EAST-PAC",
+            "WN-ATL"
     )
 
     val sectorsNamHires = listOf(
@@ -102,13 +102,13 @@ internal object UtilityModelNcepInterface {
             "NAMER",
             "SAMER",
             "AFRICA",
-            "NPAC",
-            "EPAC",
-            "WNATL",
+            "NORTH-PAC",
+            "EAST-PAC",
+            "WN-ATL",
             "ATLANTIC",
             "EUROPE",
             "ASIA",
-            "SPAC",
+            "SOUTH-PAC",
             "INDIA",
             "POLAR",
             "ARCTIC"
@@ -157,13 +157,13 @@ internal object UtilityModelNcepInterface {
             "NAMER",
             "SAMER",
             "AFRICA",
-            "NPAC",
-            "EPAC",
-            "WNATL",
+            "NORTH-PAC",
+            "EAST-PAC",
+            "WN-ATL",
             "ATLANTIC",
             "EUROPE",
             "ASIA",
-            "SPAC",
+            "SOUTH-PAC",
             "INDIA"
     )
 
@@ -171,13 +171,13 @@ internal object UtilityModelNcepInterface {
             "NAMER",
             "SAMER",
             "AFRICA",
-            "NPAC",
-            "EPAC",
-            "WNATL",
+            "NORTH-PAC",
+            "EAST-PAC",
+            "WN-ATL",
             "ATLANTIC",
             "EUROPE",
             "ASIA",
-            "SPAC",
+            "SOUTH-PAC",
             "INDIA",
             "POLAR",
             "ARCTIC"
@@ -185,25 +185,27 @@ internal object UtilityModelNcepInterface {
 
     val sectorsWw3 = listOf(
             "ATLANTIC",
-            "ATLPAC",
-            "NPAC",
-            "EPAC",
-            "WNATL"
+            "ATL-PAC",
+            "NORTH-PAC",
+            "EAST-PAC",
+            "WN-ATL"
     )
 
     val sectorsWw3Enp = listOf(
-            "NPAC",
-            "EPAC"
+            "NORTH-PAC",
+            "EAST-PAC"
     )
 
-    val sectorsWw3Wna = listOf("WNATL")
+    val sectorsWw3Wna = listOf(
+            "WN-ATL"
+    )
 
     val sectorsEstofs = listOf(
-            "WGOA",
-            "EGOA",
+            "WEST-GOA",
+            "EAST-GOA",
             "WA-OR",
-            "NCAL",
-            "SCAL",
+            "NORTH-CAL",
+            "SOUTH-CAL",
             "NE-COAST",
             "MID-ATL",
             "SE-COAST",
