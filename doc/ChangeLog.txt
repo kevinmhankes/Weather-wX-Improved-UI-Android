@@ -46,6 +46,7 @@
                     FIREWX
                     HRW-NMMB
                     HRW-ARW
+                    --SREF/GEFS-MEAN-SPRD adad precip_ptot Total Accumulated Precipitation of Period
 55233 2019_06_12    [ADD] NCEP add HRW-ARW2, HRRR add 300_wnd, fix to 250_wnd, RAP add 200_wnd_ht
                     [ADD] HRRR add 850_temp_mslp_precip, NAM-HIRES add ceiling
                     [FIX] in GEFS-MEAN-SPRD rename 4 like prob_ice_25 to prob_ice_0.25in and prob_precip_100 to prob_precip_1in
