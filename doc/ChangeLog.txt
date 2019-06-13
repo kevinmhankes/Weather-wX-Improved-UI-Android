@@ -22,6 +22,7 @@
 // TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 // TODO NCEP add NBM
+// TODO NCEP GFS add cref and double check other parms
 
 55235 2019_06_13
 55234 2019_06_13    [FIX] UtilityImg.mergeImagesVertically if height or width == 0 return blank bitmap
