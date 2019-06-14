@@ -230,8 +230,6 @@ class WXGLDownload {
         // experimentation has shown that L2REF and L2VEL lowest tiles are at the start of the
         // file so "Range" HTTP header is used to download just what is needed based on prod
         // requested
-        // testing of specific radar binary files
-        //return UtilityIO.readRawFile(R.raw.l2missingradials);
         if (url == "") {
             return null
         }

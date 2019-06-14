@@ -474,7 +474,7 @@ class WXGLRender(private val context: Context) : Renderer {
         }
 
         // whether or not to respect the display being touched needs to be stored in
-        // objectglbuffers. The wXL23 Metal code is more generic and thus each element drawn will need
+        // object gl buffers. The wXL23 Metal code is more generic and thus each element drawn will need
         // to be checked. Will do this later when I have more time
         if (!displayHold) {
             listOf(spotterBuffers, hiBuffers, tvsBuffers).forEach {
@@ -556,7 +556,7 @@ class WXGLRender(private val context: Context) : Renderer {
 
     private fun drawPolygons(buffers: ObjectOglBuffers, countDivisor: Int) {
         if (buffers.isInitialized) {
-            // FIXME is chunkcount ever above one? "it" is never reference in the loop
+            // FIXME is chunk count ever above one? "it" is never reference in the loop
             (0 until buffers.chunkCount).forEach { _ ->
                 lineIndexBuffer.position(0)
                 buffers.setToPositionZero()

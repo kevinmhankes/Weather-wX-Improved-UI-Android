@@ -106,23 +106,23 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
 
     // FIXME variable naming is bad
     fun setRenderVar(
-        oglrR: WXGLRender,
-        OGLR_r: MutableList<WXGLRender>,
-        wxglR: MutableList<WXGLSurfaceView>
+            wxglRender: WXGLRender,
+            OGLR_r: MutableList<WXGLRender>,
+            wxglR: MutableList<WXGLSurfaceView>
     ) {
         oglr = OGLR_r
-        oglrCurrent = oglrR
+        oglrCurrent = wxglRender
         wxgl = wxglR
     }
 
     fun setRenderVar(
-        oglrR: WXGLRender,
-        OGLR_r: MutableList<WXGLRender>,
-        wxglR: MutableList<WXGLSurfaceView>,
-        activity: Activity
+            wxglRender: WXGLRender,
+            OGLR_r: MutableList<WXGLRender>,
+            wxglR: MutableList<WXGLSurfaceView>,
+            activity: Activity
     ) {
         oglr = OGLR_r
-        oglrCurrent = oglrR
+        oglrCurrent = wxglRender
         wxgl = wxglR
         act = activity
     }
@@ -157,17 +157,17 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
 
     private inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener() {
         override fun onScale(detector: ScaleGestureDetector): Boolean {
-            val oldScalefactor = mScaleFactor
+            val oldScaleFactor = mScaleFactor
             mScaleFactor *= detector.scaleFactor
             if (MyApplication.dualpaneshareposn) {
                 (0 until numPanes).forEach {
-                    oglr[it].x = oglr[it].x * (mScaleFactor / oldScalefactor)
-                    oglr[it].y = oglr[it].y * (mScaleFactor / oldScalefactor)
+                    oglr[it].x = oglr[it].x * (mScaleFactor / oldScaleFactor)
+                    oglr[it].y = oglr[it].y * (mScaleFactor / oldScaleFactor)
                     oglr[it].zoom = mScaleFactor
                 }
             } else {
-                oglrCurrent.x = oglrCurrent.x * (mScaleFactor / oldScalefactor)
-                oglrCurrent.y = oglrCurrent.y * (mScaleFactor / oldScalefactor)
+                oglrCurrent.x = oglrCurrent.x * (mScaleFactor / oldScaleFactor)
+                oglrCurrent.y = oglrCurrent.y * (mScaleFactor / oldScaleFactor)
                 oglrCurrent.zoom = mScaleFactor
             }
             if (MyApplication.dualpaneshareposn) {

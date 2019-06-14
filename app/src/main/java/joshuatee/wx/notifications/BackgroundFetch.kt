@@ -46,7 +46,7 @@ import kotlinx.coroutines.*
 
 class BackgroundFetch(val context: Context) {
 
-    // This is the main code that handles notifications ( formerly in AlertReciever )
+    // This is the main code that handles notifications (formerly in AlertReceiver)
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
 

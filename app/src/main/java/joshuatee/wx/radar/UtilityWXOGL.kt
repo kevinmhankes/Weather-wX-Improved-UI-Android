@@ -166,35 +166,35 @@ object UtilityWXOGL {
         polygonArr.forEach { polys ->
             polyCount += 1
             //if (vtecAl.size > polyCount && !vtecAl[polyCount].startsWith("0.EXP") && !vtecAl[polyCount].startsWith("0.CAN")) {
-            if (true) {
-                val polyTmp = polys.replace("[", "").replace("]", "").replace(",", " ")
-                testArr = polyTmp.split(" ").dropLastWhile { it.isEmpty() }
-                val y = testArr.asSequence().filterIndexed { idx: Int, _: String -> idx and 1 == 0 }
-                        .map {
-                            it.toDoubleOrNull() ?: 0.0
-                        }.toList()
-                val x = testArr.asSequence().filterIndexed { idx: Int, _: String -> idx and 1 != 0 }
-                        .map {
-                            it.toDoubleOrNull() ?: 0.0
-                        }.toList()
-                if (y.size > 3 && x.size > 3 && x.size == y.size) {
-                    val poly2 = ExternalPolygon.Builder()
-                    x.indices.forEach { j ->
-                        poly2.addVertex(
-                                ExternalPoint(
-                                        x[j].toFloat(),
-                                        y[j].toFloat()
-                                )
-                        )
-                    }
-                    val polygon2 = poly2.build()
-                    val contains = polygon2.contains(ExternalPoint(lat.toFloat(), lon.toFloat()))
-                    if (contains && notFound) {
-                        retStr = urlList[q]
-                        notFound = false
-                    }
+            //if (true) {
+            val polyTmp = polys.replace("[", "").replace("]", "").replace(",", " ")
+            testArr = polyTmp.split(" ").dropLastWhile { it.isEmpty() }
+            val y = testArr.asSequence().filterIndexed { idx: Int, _: String -> idx and 1 == 0 }
+                    .map {
+                        it.toDoubleOrNull() ?: 0.0
+                    }.toList()
+            val x = testArr.asSequence().filterIndexed { idx: Int, _: String -> idx and 1 != 0 }
+                    .map {
+                        it.toDoubleOrNull() ?: 0.0
+                    }.toList()
+            if (y.size > 3 && x.size > 3 && x.size == y.size) {
+                val poly2 = ExternalPolygon.Builder()
+                x.indices.forEach { j ->
+                    poly2.addVertex(
+                            ExternalPoint(
+                                    x[j].toFloat(),
+                                    y[j].toFloat()
+                            )
+                    )
+                }
+                val polygon2 = poly2.build()
+                val contains = polygon2.contains(ExternalPoint(lat.toFloat(), lon.toFloat()))
+                if (contains && notFound) {
+                    retStr = urlList[q]
+                    notFound = false
                 }
             }
+            //}
             q += 1
         }
         return retStr
