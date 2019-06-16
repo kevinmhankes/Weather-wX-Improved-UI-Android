@@ -24,6 +24,9 @@
 // TODO NCEP add NBM
 // TODO NCEP GFS add cref and double check other parms
 
+55236 2019_06_16    [FIX] add more verbiage about blackout options (impacts sound, alert still shows) after unfavorable playstore review
+                    [FIX] NSSL WRF_3KM was not working
+                    [FIX] disable HRRR experimental in ESRL - not providing a good experience
 55235 2019_06_13    [FIX] NCEP HREF change from 2 to 4 runs per day
                     [ADD] NBM to NCEP
                     [REF] lint camelCase

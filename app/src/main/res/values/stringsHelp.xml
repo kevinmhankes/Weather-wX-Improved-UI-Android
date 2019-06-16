@@ -556,11 +556,11 @@ If a notification is clicked on it will cancel the notification.</string>
     <string name="alert_blackout_label">
 Disable sound ( if used ) between certain hours as specified.</string>
     <string name="alert_blackout_tornado_label">
-Ignore blackout if it is a local Tornado warning.</string>
+Ignore blackout (of sound) if it is a local Tornado warning.</string>
     <string name="alert_blackout_pm_np_label">
- Start of blackout.</string>
+ Start of blackout (sound, alert will still show).</string>
     <string name="alert_blackout_am_np_label">
- End of blackout. </string>
+ End of blackout (if configured sound will now resume if there is an alert). </string>
 
     <string name="tv_notif_sound_repeat_label">
  If enabled any notification that has sound configured will play the sound continusouly until the notification is acknowledged.

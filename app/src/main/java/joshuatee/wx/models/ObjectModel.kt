@@ -504,7 +504,6 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                     }
                     3 -> {
                         model = "WRF_3KM"
-                        model = "HRRRV3"
                         params = UtilityModelNsslWrfInterface.paramsNsslWrf
                         labels = UtilityModelNsslWrfInterface.labelsNsslWrf
                         sectors = UtilityModelNsslWrfInterface.sectorsLong
@@ -516,7 +515,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
             }
             ModelType.ESRL -> {
                 when (selectedItemPosition) {
-                    3 -> {
+                    1 -> {
                         model = "RAP"
                         params = UtilityModelEsrlInterface.paramsRap
                         labels = UtilityModelEsrlInterface.labelsRap
@@ -527,7 +526,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                         format = "%02d"
                         timeTruncate = 2
                     }
-                    4 -> {
+                    2 -> {
                         model = "RAP_NCEP"
                         params = UtilityModelEsrlInterface.paramsRap
                         labels = UtilityModelEsrlInterface.labelsRap
@@ -538,7 +537,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                         format = "%02d"
                         timeTruncate = 2
                     }
-                    0 -> {
+                   /* 0 -> {
                         model = "HRRR"
                         params = UtilityModelEsrlInterface.paramsHrrr
                         labels = UtilityModelEsrlInterface.labelsHrrr
@@ -559,8 +558,8 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                         stepAmount = 1
                         format = "%02d"
                         timeTruncate = 2
-                    }
-                    2 -> {
+                    }*/
+                    0 -> {
                         model = "HRRR_NCEP"
                         params = UtilityModelEsrlInterface.paramsHrrr
                         labels = UtilityModelEsrlInterface.labelsHrrr
