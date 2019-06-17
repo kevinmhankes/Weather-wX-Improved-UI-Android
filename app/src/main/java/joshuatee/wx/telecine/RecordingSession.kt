@@ -81,8 +81,10 @@ internal class RecordingSession(
 
     private val mainThread = Handler(Looper.getMainLooper())
 
-    private val videoOutputRoot: File
-    private val picturesOutputRoot: File
+    //private val videoOutputRoot: File
+    //private val picturesOutputRoot: File
+    private val picturesDir: File?
+    private val moviesDir: File?
     private val videofileFormat = SimpleDateFormat(
         "'${MyApplication.packageNameFileNameAsString}'yyyyMMddHHmmss'.mp4'",
         Locale.US
@@ -154,13 +156,13 @@ internal class RecordingSession(
 
     init {
         //val moviesDir = Environment.getExternalStoragePublicDirectory(DIRECTORY_MOVIES)
-        val moviesDir = context.getExternalFilesDir(DIRECTORY_MOVIES)
-        videoOutputRoot = File(moviesDir, MyApplication.packageNameAsString)
-        videoOutputRoot.mkdirs()
+        moviesDir = context.getExternalFilesDir(DIRECTORY_MOVIES)
+        //videoOutputRoot = File(moviesDir, MyApplication.packageNameAsString)
+        //videoOutputRoot.mkdirs()
         //val picturesDir = Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM)
-        val picturesDir = context.getExternalFilesDir(DIRECTORY_DCIM)
-        picturesOutputRoot = File(picturesDir, MyApplication.packageNameAsString)
-        picturesOutputRoot.mkdirs()
+        picturesDir = context.getExternalFilesDir(DIRECTORY_DCIM)
+        //picturesOutputRoot = File(picturesDir, MyApplication.packageNameAsString)
+        //picturesOutputRoot.mkdirs()
         notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         windowManager = context.getSystemService(WINDOW_SERVICE) as WindowManager
         if (showRecordingTools) projectionManager =
@@ -219,7 +221,7 @@ internal class RecordingSession(
     }
 
     private fun startRecording() {
-        if (!videoOutputRoot.exists() && !videoOutputRoot.mkdirs()) {
+        if (!moviesDir!!.exists() && !moviesDir.mkdirs()) {
             Toast.makeText(
                 context,
                 "Unable to create output directory.\nCannot record screen.",
@@ -236,7 +238,7 @@ internal class RecordingSession(
         recorder!!.setVideoSize(recordingInfo.width, recordingInfo.height)
         recorder!!.setVideoEncodingBitRate(8 * 1000 * 1000)
         val outputName = videofileFormat.format(Date())
-        outputFile = File(videoOutputRoot, outputName).absolutePath
+        outputFile = File(moviesDir, outputName).absolutePath
         recorder!!.setOutputFile(outputFile)
         try {
             recorder!!.prepare()
@@ -370,7 +372,7 @@ internal class RecordingSession(
     private fun takeScreenshot() {
         val recordingInfo = screenshotInfo
         val outputName = audiofileFormat.format(Date())
-        outputFile = File(picturesOutputRoot, outputName).absolutePath
+        outputFile = File(picturesDir, outputName).absolutePath
         projection = projectionManager!!.getMediaProjection(resultCode, data)
         imageReader = ImageReader.newInstance(
             recordingInfo.width,
@@ -432,6 +434,7 @@ internal class RecordingSession(
                     // write bitmap to a file
                     fos = FileOutputStream(outputFile!!)
                     croppedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+                    UtilityLog.d("wx", outputFile.toString())
 
                     //val uri = Uri.fromFile(File(outputFile!!))
                     /*val uri = FileProvider.getUriForFile(
@@ -457,13 +460,15 @@ internal class RecordingSession(
                     }*/
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+                //e.printStackTrace()
+                UtilityLog.handleException(e)
             } finally {
                 if (fos != null) {
                     try {
                         fos.close()
                     } catch (ioe: IOException) {
-                        ioe.printStackTrace()
+                        //ioe.printStackTrace()
+                        UtilityLog.handleException(ioe)
                     }
                 }
                 bitmap?.recycle()
@@ -518,7 +523,7 @@ internal class RecordingSession(
                 .setContentIntent(pendingViewIntent)
                 .setAutoCancel(true)
                 .addAction(actionShare)
-                .addAction(actionDelete) as NotificationCompat.Builder
+                //.addAction(actionDelete) as NotificationCompat.Builder
         }
         if (bitmap != null) {
             builder!!.setLargeIcon(createSquareBitmap(bitmap))
@@ -586,7 +591,7 @@ internal class RecordingSession(
             .setContentIntent(pendingViewIntent)
             .setAutoCancel(true)
             .addAction(actionShare)
-            .addAction(actionDelete) as NotificationCompat.Builder
+           // .addAction(actionDelete) as NotificationCompat.Builder
         if (bitmap != null) {
             builder.setLargeIcon(createSquareBitmap(bitmap))
                 .setStyle(

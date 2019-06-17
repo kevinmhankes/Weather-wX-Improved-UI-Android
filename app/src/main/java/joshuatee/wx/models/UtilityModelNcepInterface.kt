@@ -47,6 +47,7 @@ internal object UtilityModelNcepInterface {
     )
 
     val sectorsGfs = listOf(
+            "CONUS",
             "NAMER",
             "SAMER",
             "AFRICA",
@@ -253,8 +254,8 @@ internal object UtilityModelNcepInterface {
             "precip_p48",
             "precip_p60",
             "precip_ptot",
-            "dom_precip_type",
-            "snodpth_chng"
+            "snodpth_chng",
+            "sim_radar_cref"
     )
 
     val labelsGfs = listOf(
@@ -286,8 +287,8 @@ internal object UtilityModelNcepInterface {
             "Total Precipitation every 48 hours",
             "Total Precipitation every 60 hours",
             "Total Accumulated Precipitation of Period",
-            "Dominant Precipitation Type",
-            "Snow Depth Change for previous 001 hours"
+            "Snow Depth Change for previous 001 hours",
+            "Simulated Composite Radar Reflectivity"
     )
 
     val paramsNam = listOf(
@@ -409,7 +410,6 @@ internal object UtilityModelNcepInterface {
     val paramsHrrr = listOf(
             "precip_p01",
             "precip_ptot",
-            "precip_type",
             "precip_rate",
             "snow_total",
             "1000_500_thick",
@@ -444,7 +444,6 @@ internal object UtilityModelNcepInterface {
     val labelsHrrr = listOf(
             "Hourly Total Precipitation",
             "15-hr Total Precipitation",
-            "Precipitation Type",
             "Precipitation Rate",
             "1-hr Snow Acc (in.) ",
             "PMSL, 1000-500mb thickness, hourly precipitation",
