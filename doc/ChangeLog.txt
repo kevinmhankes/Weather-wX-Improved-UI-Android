@@ -22,7 +22,9 @@
 // TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 // TODO NCEP double check other parms
+// TODO SPC SWO - tap on image to image viewer - then multiple image per row like iOS
 
+55237 2019_06_17
 55236 2019_06_17    [FIX] add more verbiage about blackout options (impacts sound, alert still shows) after unfavorable playstore review
                     [FIX] NSSL WRF_3KM was not working
                     [FIX] disable HRRR experimental in ESRL - not providing a good experience
