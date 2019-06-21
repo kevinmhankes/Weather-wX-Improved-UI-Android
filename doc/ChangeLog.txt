@@ -24,6 +24,9 @@
 // TODO NCEP double check other parms
 // TODO SPC SWO - tap on image to image viewer - then multiple image per row like iOS
 
+55238 2019_06_21    [ADD] kotling plugin 1.3.31 -> 1.3.40
+                    [FIX] at joshuatee.wx.models.UtilityModels.setSubtitleRestoreIMGXYZOOM(UtilityModels.kt:294)
+                            java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
 55237 2019_06_19    [ADD] NCEP Models - refresh params/labels from NCEP website, ordering likely changes
                     [FIX] NCEP Models - order model list from main pulldown
                     [FIX] lint cleanup in recording session

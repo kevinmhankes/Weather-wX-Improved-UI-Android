@@ -25,7 +25,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.content.res.Configuration
 
-import java.util.Arrays
 import java.util.Locale
 
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
@@ -92,15 +91,13 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         toolbarBottom.setOnMenuItemClickListener(this)
         title = activityArguments[2]
         overlayImg.addAll(
-                Arrays.asList(
-                        *TextUtils.split(
+                listOf(*TextUtils.split(
                                 Utility.readPref(
                                         this,
                                         "SPCHRRR_OVERLAY",
                                         ""
                                 ), ":"
-                        )
-                )
+                        ))
         )
         val m = toolbarBottom.menu
         miStatusParam1 = m.findItem(R.id.action_status_param1)
