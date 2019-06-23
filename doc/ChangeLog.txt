@@ -25,6 +25,7 @@
 // TODO SPC SWO - tap on image to image viewer - then multiple image per row like iOS
 
 55239 2019_06_23    [FIX] lint cleanup
+                    [ADD] SPC SWO to free up URLs
 55238 2019_06_21    [ADD] kotling plugin 1.3.31 -> 1.3.40
                     [FIX] at joshuatee.wx.models.UtilityModels.setSubtitleRestoreIMGXYZOOM(UtilityModels.kt:294)
                             java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
