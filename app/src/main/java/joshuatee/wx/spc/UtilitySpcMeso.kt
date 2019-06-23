@@ -30,7 +30,7 @@ import joshuatee.wx.util.Group
 
 object UtilitySpcMeso {
 
-    private val titles = Arrays.asList(
+    private val titles = listOf(
             ObjectMenuTitle("Observations", 3),
             ObjectMenuTitle("Surface", 15),
             ObjectMenuTitle("Upper Air", 25),

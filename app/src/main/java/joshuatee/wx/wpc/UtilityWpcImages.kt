@@ -30,15 +30,15 @@ import java.util.*
 
 internal object UtilityWpcImages {
 
-    private val titles = Arrays.asList(
-        ObjectMenuTitle("Surface Analysis", 7),
-        ObjectMenuTitle("Forecast Maps", 17),
-        ObjectMenuTitle("QPF", 27),
-        ObjectMenuTitle("Snow / Ice", 21),
-        ObjectMenuTitle("National Digital Forecast Database", 15),
-        ObjectMenuTitle("CPC Outlooks", 22),
-        ObjectMenuTitle("Aviation", 16),
-        ObjectMenuTitle("Space Weather", 3)
+    private val titles = listOf(
+            ObjectMenuTitle("Surface Analysis", 7),
+            ObjectMenuTitle("Forecast Maps", 17),
+            ObjectMenuTitle("QPF", 27),
+            ObjectMenuTitle("Snow / Ice", 21),
+            ObjectMenuTitle("National Digital Forecast Database", 15),
+            ObjectMenuTitle("CPC Outlooks", 22),
+            ObjectMenuTitle("Aviation", 16),
+            ObjectMenuTitle("Space Weather", 3)
     )
 
     val labels = listOf(

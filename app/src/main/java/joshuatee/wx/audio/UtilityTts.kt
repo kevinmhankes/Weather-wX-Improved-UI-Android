@@ -37,6 +37,7 @@ import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
 import java.io.IOException
+import kotlin.math.min
 
 object UtilityTts {
 
@@ -85,10 +86,7 @@ object UtilityTts {
     private fun splitInChunks(s: String, chunkSize: Int): List<String> {
         val length = s.length
         return (0..length step chunkSize).mapTo(mutableListOf()) {
-            s.substring(
-                    it,
-                    Math.min(length, it + chunkSize)
-            )
+            s.substring(it, min(length, it + chunkSize))
         }
     }
 

@@ -155,6 +155,6 @@ object UtilityMath {
 
     // https://training.weather.gov/wdtd/tools/misc/beamwidth/index.htm
     fun getRadarBeamHeight(degree: Float, distance: Double): Double {
-        return 3.281 * (Math.sin(Math.toRadians(degree.toDouble())) * distance + distance * distance / 15417.82) * 1000.0
+        return 3.281 * (sin(Math.toRadians(degree.toDouble())) * distance + distance * distance / 15417.82) * 1000.0
     }
 }
