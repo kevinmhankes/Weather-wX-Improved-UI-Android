@@ -40,6 +40,7 @@ import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
+import kotlin.math.max
 
 class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
@@ -89,7 +90,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         val imgUrl1 = activityArguments[3]
         val year = UtilityTime.year()
         var yearInString = year.toString()
-        yearInString = yearInString.substring(Math.max(yearInString.length - 2, 0))
+        yearInString = yearInString.substring(max(yearInString.length - 2, 0))
         baseUrl = imgUrl1.replace(yearInString + "_5day_cone_with_line_and_wind_sm2.png", "")
         baseUrl += yearInString
         stormId = activityArguments[5]

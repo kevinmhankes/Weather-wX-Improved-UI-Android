@@ -32,7 +32,7 @@ internal object UtilityModelSpcHrefInterface {
 
     val models = listOf("HREF")
 
-    private val titles = Arrays.asList(
+    private val titles = listOf(
             ObjectMenuTitle("SPC Guidance", 6),
             ObjectMenuTitle("Synoptic", 6),
             ObjectMenuTitle("Severe", 12),
