@@ -39,7 +39,9 @@ import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityShare
 
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.util.UtilityLog
 import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
@@ -128,12 +130,15 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         var textUrl = "SWODY$day"
+        var urls: List<String> = listOf("")
         if (day == "4-8") {
             textUrl = "SWOD48"
         }
         withContext(Dispatchers.IO) {
             html = UtilityDownload.getTextProduct(this@SpcSwoActivity, textUrl)
-            bitmaps = UtilitySpcSwo.getImages(day, true)
+            //bitmaps = UtilitySpcSwo.getImages(day, true)
+            urls = UtilitySpcSwo.getUrls(day)
+            bitmaps = urls.map { it.getImage() }
         }
         c2.setText(Utility.fromHtml(html))
         toolbar.subtitle = html.parse("(Valid.*?)<")
@@ -143,6 +148,12 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         when (day) {
             "1" -> {
                 c1.setImage(bitmaps[0])
+                c1.setOnClickListener(
+                        View.OnClickListener {
+                            UtilityLog.d("wx", urls[0])
+                            showImageProduct(urls[0], textUrl)
+                        }
+                )
                 c3.setImage(bitmaps[1])
                 c4.setImage(bitmaps[2])
                 c5.setImage(bitmaps[3])
@@ -211,6 +222,15 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 }
             }
         }
+    }
+
+    private fun showImageProduct(imageUrl: String, title: String) {
+        ObjectIntent(
+                this,
+                ImageShowActivity::class.java,
+                ImageShowActivity.URL,
+                arrayOf(imageUrl, title)
+        )
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
