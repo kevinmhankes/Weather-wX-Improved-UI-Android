@@ -22,7 +22,7 @@
 package joshuatee.wx.spc
 
 import android.util.SparseArray
-import java.util.Arrays
+
 import joshuatee.wx.MyApplication
 import joshuatee.wx.ui.ObjectMenuTitle
 import joshuatee.wx.ui.ObjectSpinner

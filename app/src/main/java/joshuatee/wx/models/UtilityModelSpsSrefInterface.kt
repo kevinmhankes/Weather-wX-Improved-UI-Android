@@ -23,8 +23,6 @@ package joshuatee.wx.models
 
 import android.util.SparseArray
 
-import java.util.Arrays
-
 import joshuatee.wx.ui.ObjectMenuTitle
 import joshuatee.wx.util.Group
 

@@ -25,7 +25,6 @@ import android.util.SparseArray
 
 import joshuatee.wx.util.Group
 import joshuatee.wx.ui.ObjectMenuTitle
-import java.util.*
 
 internal object UtilityWpcText {
 

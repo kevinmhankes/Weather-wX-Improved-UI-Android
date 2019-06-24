@@ -22,11 +22,10 @@
 package joshuatee.wx.wpc
 
 import android.util.SparseArray
-import joshuatee.wx.MyApplication
 
+import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Group
 import joshuatee.wx.ui.ObjectMenuTitle
-import java.util.*
 
 internal object UtilityWpcImages {
 

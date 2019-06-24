@@ -41,7 +41,6 @@ import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.util.UtilityLog
 import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
@@ -136,7 +135,6 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
         withContext(Dispatchers.IO) {
             html = UtilityDownload.getTextProduct(this@SpcSwoActivity, textUrl)
-            //bitmaps = UtilitySpcSwo.getImages(day, true)
             urls = UtilitySpcSwo.getUrls(day)
             bitmaps = urls.map { it.getImage() }
         }
@@ -147,79 +145,32 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
         when (day) {
             "1" -> {
-                c1.setImage(bitmaps[0])
-                c1.setOnClickListener(
-                        View.OnClickListener {
-                            UtilityLog.d("wx", urls[0])
-                            showImageProduct(urls[0], textUrl)
-                        }
-                )
-                c3.setImage(bitmaps[1])
-                c4.setImage(bitmaps[2])
-                c5.setImage(bitmaps[3])
+                setImageAndClickAction(c1, 0, urls, textUrl)
+                setImageAndClickAction(c3, 1, urls, textUrl)
+                setImageAndClickAction(c4, 2, urls, textUrl)
+                setImageAndClickAction(c5, 3, urls, textUrl)
                 c6.setVisibility(View.GONE)
-                listOf(
-                        c3,
-                        c4,
-                        c5
-                ).forEach { card ->
-                    card.setOnClickListener(View.OnClickListener {
-                        sv.smoothScrollTo(
-                                0,
-                                0
-                        )
-                    })
-                }
             }
             "2" -> {
-                c1.setImage(bitmaps[0])
-                c3.setImage(bitmaps[1])
+                setImageAndClickAction(c1, 0, urls, textUrl)
+                setImageAndClickAction(c3, 1, urls, textUrl)
                 c4.setVisibility(View.GONE)
                 c5.setVisibility(View.GONE)
                 c6.setVisibility(View.GONE)
-                listOf(c3).forEach { card ->
-                    card.setOnClickListener(View.OnClickListener {
-                        sv.smoothScrollTo(
-                                0,
-                                0
-                        )
-                    })
-                }
             }
             "3" -> {
-                c1.setImage(bitmaps[0])
-                c3.setImage(bitmaps[1])
+                setImageAndClickAction(c1, 0, urls, textUrl)
+                setImageAndClickAction(c3, 1, urls, textUrl)
                 c4.setVisibility(View.GONE)
                 c5.setVisibility(View.GONE)
                 c6.setVisibility(View.GONE)
-                listOf(c3).forEach { card ->
-                    card.setOnClickListener(View.OnClickListener {
-                        sv.smoothScrollTo(
-                                0,
-                                0
-                        )
-                    })
-                }
             }
             "4-8" -> {
-                c1.setImage(bitmaps[0])
-                c3.setImage(bitmaps[1])
-                c4.setImage(bitmaps[2])
-                c5.setImage(bitmaps[3])
-                c6.setImage(bitmaps[4])
-                listOf(
-                        c3,
-                        c4,
-                        c5,
-                        c6
-                ).forEach { card ->
-                    card.setOnClickListener(View.OnClickListener {
-                        sv.smoothScrollTo(
-                                0,
-                                0
-                        )
-                    })
-                }
+                setImageAndClickAction(c1, 0, urls, textUrl)
+                setImageAndClickAction(c3, 1, urls, textUrl)
+                setImageAndClickAction(c4, 2, urls, textUrl)
+                setImageAndClickAction(c5, 3, urls, textUrl)
+                setImageAndClickAction(c6, 4, urls, textUrl)
             }
         }
     }
@@ -230,6 +181,15 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 ImageShowActivity::class.java,
                 ImageShowActivity.URL,
                 arrayOf(imageUrl, title)
+        )
+    }
+
+    private fun setImageAndClickAction(objectCardImage: ObjectCardImage, index: Int, urls: List<String>, textUrl: String) {
+        objectCardImage.setImage(bitmaps[index])
+        objectCardImage.setOnClickListener(
+                View.OnClickListener {
+                    showImageProduct(urls[index], textUrl)
+                }
         )
     }
 
