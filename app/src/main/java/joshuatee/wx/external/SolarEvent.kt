@@ -16,17 +16,17 @@ package joshuatee.wx.external
 enum class SolarEvent {
     Sunrise,
     Sunset,
-    SunriseEnd,
-    SunsetEnd,
-    Dawn,
-    Dusk,
-    NauticalDawn,
-    NauticalDusk,
-    AstronomicalDawn,
-    AstronomicalDusk,
-    GoldenHourEnd,
-    GoldenHour,
-    Noon,
-    Nadir
+    //SunriseEnd,
+    //SunsetEnd,
+    Dawn
+    //Dusk,
+    //NauticalDawn,
+    //NauticalDusk,
+    //AstronomicalDawn,
+    //AstronomicalDusk,
+    //GoldenHourEnd,
+    //GoldenHour,
+    //Noon,
+    //Nadir
 }
 

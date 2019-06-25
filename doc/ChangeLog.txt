@@ -25,6 +25,7 @@
 // TODO SPC SWO - tap on image to image viewer - then multiple image per row like iOS
 
 55240 2019_06_25    [ADD] update TouchImageView2 from https://github.com/MikeOrtiz/TouchImageView ( version 2.3.0 )
+                    [REF] lint cleanup
 55239 2019_06_24    [FIX] lint cleanup
                     [ADD] SPC SWO to free up URLs
                     [REF] Remove SunCalc.kt
