@@ -27,6 +27,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 
 import joshuatee.wx.R
@@ -41,6 +42,7 @@ import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.ui.ObjectLinearLayout
 import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
@@ -76,12 +78,18 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 R.menu.spcswo
         )
         toolbarBottom.setOnMenuItemClickListener(this)
-        c1 = ObjectCardImage(this, ll)
+        val linearLayoutHorizontal1 = ObjectLinearLayout(this, ll)
+        val linearLayoutHorizontal2 = ObjectLinearLayout(this, ll)
+        val linearLayoutHorizontal3 = ObjectLinearLayout(this, ll)
+        linearLayoutHorizontal1.linearLayout.orientation = LinearLayout.HORIZONTAL
+        linearLayoutHorizontal2.linearLayout.orientation = LinearLayout.HORIZONTAL
+        linearLayoutHorizontal3.linearLayout.orientation = LinearLayout.HORIZONTAL
+        c1 = ObjectCardImage(this, linearLayoutHorizontal1.linearLayout)
+        c3 = ObjectCardImage(this, linearLayoutHorizontal1.linearLayout)
+        c4 = ObjectCardImage(this, linearLayoutHorizontal2.linearLayout)
+        c5 = ObjectCardImage(this, linearLayoutHorizontal2.linearLayout)
+        c6 = ObjectCardImage(this, linearLayoutHorizontal3.linearLayout)
         c2 = ObjectCardText(this, ll, toolbar, toolbarBottom)
-        c3 = ObjectCardImage(this, ll)
-        c4 = ObjectCardImage(this, ll)
-        c5 = ObjectCardImage(this, ll)
-        c6 = ObjectCardImage(this, ll)
         activityArguments = intent.getStringArrayExtra(NO)
         day = activityArguments[0]
         title = "Day $day Convective Outlook"
@@ -185,7 +193,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun setImageAndClickAction(objectCardImage: ObjectCardImage, index: Int, urls: List<String>, textUrl: String) {
-        objectCardImage.setImage(bitmaps[index])
+        objectCardImage.setImage(bitmaps[index], 2)
         objectCardImage.setOnClickListener(
                 View.OnClickListener {
                     showImageProduct(urls[index], textUrl)

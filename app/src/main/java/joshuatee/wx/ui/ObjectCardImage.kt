@@ -106,10 +106,10 @@ open class ObjectCardImage {
         linearLayout.addView(card)
     }
 
-    open fun setImage(bitmap: Bitmap) {
+    open fun setImage(bitmap: Bitmap, numberAcross: Int = 1) {
         img = TouchImageView2(context)
         img.layoutParams = layoutParams
-        UtilityImg.resizeViewSetImgInCard(bitmap, img)
+        UtilityImg.resizeViewSetImgInCard(bitmap, img, numberAcross)
         objCard.addView(img)
     }
 
