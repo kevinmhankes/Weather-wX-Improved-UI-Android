@@ -167,7 +167,6 @@ class AnimatedGifEncoderExternal {
 		} catch (IOException e) {
 			ok = false;
 		}
-
 		return ok;
 	}
 
@@ -189,7 +188,6 @@ class AnimatedGifEncoderExternal {
 		} catch (IOException e) {
 			ok = false;
 		}
-
 		// reset for subsequent use
 		transIndex = 0;
 		out = null;
@@ -199,7 +197,6 @@ class AnimatedGifEncoderExternal {
 		colorTab = null;
 		closeStream = false;
 		firstFrame = true;
-
 		return ok;
 	}
 

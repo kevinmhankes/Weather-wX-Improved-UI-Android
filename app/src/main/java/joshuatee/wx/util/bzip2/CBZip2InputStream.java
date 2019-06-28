@@ -422,11 +422,7 @@ public class CBZip2InputStream extends InputStream implements BZip2Constants {
 
     /* Receive the mapping table */
     for (i = 0; i < 16; i++) {
-      if (bsR(1) == 1) {
-        inUse16[i] = true;
-      } else {
-        inUse16[i] = false;
-      }
+      inUse16[i] = bsR(1) == 1;
     }
 
     for (i = 0; i < 256; i++) {

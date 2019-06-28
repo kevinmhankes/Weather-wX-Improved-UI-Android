@@ -48,7 +48,6 @@ public class ExternalGeodeticCalculator
       double alpha1 = ExternalAngle.INSTANCE.toRadians(startBearing);
       double cosAlpha1 = Math.cos(alpha1);
       double sinAlpha1 = Math.sin(alpha1);
-      double s = distance;
       double tanU1 = (1.0 - f) * Math.tan(phi1);
       double cosU1 = 1.0 / Math.sqrt(1.0 + tanU1 * tanU1);
       double sinU1 = tanU1 * cosU1;
@@ -71,7 +70,7 @@ public class ExternalGeodeticCalculator
 
       // iterate until there is a negligible change in sigma
       double deltaSigma;
-      double sOverbA = s / (b * A);
+      double sOverbA = distance / (b * A);
       double sigma = sOverbA;
       double sinSigma;
       double prevSigma = sOverbA;

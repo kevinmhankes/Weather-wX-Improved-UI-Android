@@ -815,9 +815,8 @@ public class ImageMap extends ImageView
 	}
 
 	private void resizeBitmap(int amount) {
-		int adjustWidth = amount;
-		int adjustHeight = (int)(adjustWidth / mAspect);
-		scaleBitmap( mExpandWidth+adjustWidth, mExpandHeight+adjustHeight);
+		int adjustHeight = (int)(amount / mAspect);
+		scaleBitmap( mExpandWidth + amount, mExpandHeight + adjustHeight);
 	}
 
 	/**
@@ -826,11 +825,9 @@ public class ImageMap extends ImageView
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
-
 		// save device height width, we use it a lot of places
 		mViewHeight = h;
 		mViewWidth = w;
-
 		// fix up the image
 		setInitialImageBounds();
 	}

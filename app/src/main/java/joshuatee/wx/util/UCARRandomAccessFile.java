@@ -330,7 +330,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 		// may need to truncate file in case overwriting a longer file
 		// use only if minLength is set (by N3iosp)
 		long fileSize = file.length();
-		/**
+		/*
 		 * make sure file is this long when closed
 		 */
 		long minLength = 0;
@@ -634,7 +634,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 			debug_nbytes.addAndGet(len);
 		}
 
-		/**
+		/*
 		 * stupid extendMode for truncated, yet valid files - old code allowed NOFILL to do this
 		 */
 		boolean extendMode = false;
