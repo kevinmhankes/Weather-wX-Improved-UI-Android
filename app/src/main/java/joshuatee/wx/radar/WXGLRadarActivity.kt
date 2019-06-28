@@ -216,7 +216,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             menu.findItem(R.id.action_share).title = "Share"
         delay = UtilityImg.animInterval(this)
         img = findViewById(R.id.iv)
-        img.setMaxZoom(6.0f)
+        img.maxZoom = 6.0f
         glview = WXGLSurfaceView(this, 1, numPanes, 1)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf(img, glview))
         imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::mapToRid)

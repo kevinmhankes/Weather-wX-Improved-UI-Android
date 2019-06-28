@@ -27,9 +27,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 
-//import android.graphics.RectF;
 import joshuatee.wx.MyApplication;
-import joshuatee.wx.util.Utility;
 import joshuatee.wx.util.UtilityLog;
 
 import android.graphics.drawable.Drawable;
@@ -397,9 +395,9 @@ public class TouchImageViewOld extends ImageView {
 
 	// Josh added
 	public void setZoom(String prefix) {
-		Float scaleLocal = MyApplication.preferences.getFloat(prefix + "_ZOOM", 1.0f);
-		Float focusXLocal = MyApplication.preferences.getFloat(prefix + "_X", 0.5f);
-		Float focusYLocal = MyApplication.preferences.getFloat(prefix + "_Y", 0.5f);
+		float scaleLocal = MyApplication.preferences.getFloat(prefix + "_ZOOM", 1.0f);
+		float focusXLocal = MyApplication.preferences.getFloat(prefix + "_X", 0.5f);
+		float focusYLocal = MyApplication.preferences.getFloat(prefix + "_Y", 0.5f);
 		onDrawReady = false; // NEEDED FOR API28 issue
 		setZoom(scaleLocal, focusXLocal, focusYLocal);
 	}

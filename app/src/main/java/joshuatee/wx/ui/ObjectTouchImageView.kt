@@ -138,7 +138,7 @@ class ObjectTouchImageView {
     }
 
     fun setMaxZoom(zoom: Float) {
-        img.setMaxZoom(zoom)
+        img.maxZoom = zoom
     }
 
     fun setZoom(zoom: Float) {

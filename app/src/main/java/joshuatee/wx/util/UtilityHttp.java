@@ -45,8 +45,7 @@ public class UtilityHttp {
                     return true;
                 }
             });
-            OkHttpClient okHttpClient = builder.build();
-            return okHttpClient;
+            return builder.build();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
