@@ -21,7 +21,7 @@ package joshuatee.wx.external;
  */
 public class ExternalGeodeticCalculator
 {
-   private final double TwoPi = 2.0 * Math.PI;
+   //private final double TwoPi = 2.0 * Math.PI;
 
    /**
     * Calculate the destination and final bearing after traveling a specified
@@ -34,7 +34,7 @@ public class ExternalGeodeticCalculator
     * @param distance distance to travel (meters)
     * @param endBearing bearing at destination (degrees) element at index 0 will
     *            be populated with the result
-    * @return
+    * return
     */
    public ExternalGlobalCoordinates calculateEndingGlobalCoordinates(ExternalEllipsoid ellipsoid, ExternalGlobalCoordinates start, double startBearing, double distance,
          double[] endBearing)
@@ -145,7 +145,7 @@ public class ExternalGeodeticCalculator
       return new ExternalGlobalCoordinates(latitude, longitude);
    }
 
-   /**
+   /*
     * Calculate the destination after traveling a specified distance, and a
     * specified starting bearing, for an initial location. This is the solution
     * to the direct geodetic problem.
@@ -154,23 +154,23 @@ public class ExternalGeodeticCalculator
     * @param start starting location
     * @param startBearing starting bearing (degrees)
     * @param distance distance to travel (meters)
-    * @return
+    * return
     */
-   public ExternalGlobalCoordinates calculateEndingGlobalCoordinates(ExternalEllipsoid ellipsoid, ExternalGlobalCoordinates start, double startBearing, double distance)
+   /*public ExternalGlobalCoordinates calculateEndingGlobalCoordinates(ExternalEllipsoid ellipsoid, ExternalGlobalCoordinates start, double startBearing, double distance)
    {
       return calculateEndingGlobalCoordinates(ellipsoid, start, startBearing, distance, null);
-   }
+   }*/
 
-   /**
+   /*
     * Calculate the geodetic curve between two points on a specified reference
     * ellipsoid. This is the solution to the inverse geodetic problem.
     * 
     * @param ellipsoid reference ellipsoid to use
     * @param start starting coordinates
     * @param end ending coordinates
-    * @return
+    * return
     */
-   private ExternalGeodeticCurve calculateGeodeticCurve(ExternalEllipsoid ellipsoid, ExternalGlobalCoordinates start, ExternalGlobalCoordinates end)
+   /*private ExternalGeodeticCurve calculateGeodeticCurve(ExternalEllipsoid ellipsoid, ExternalGlobalCoordinates start, ExternalGlobalCoordinates end)
    {
       //
       // All equation numbers refer back to Vincenty's publication:
@@ -318,14 +318,14 @@ public class ExternalGeodeticCalculator
          if (radians < 0.0) radians += TwoPi;
          alpha2 = ExternalAngle.INSTANCE.toDegrees(radians);
       }
-
-      if (alpha1 >= 360.0) alpha1 -= 360.0;
-      if (alpha2 >= 360.0) alpha2 -= 360.0;
-
+      if (alpha1 >= 360.0)
+         alpha1 -= 360.0;
+      if (alpha2 >= 360.0)
+         alpha2 -= 360.0;
       return new ExternalGeodeticCurve(s, alpha1, alpha2);
-   }
+   }*/
 
-   /**
+   /*
     * <p>
     * Calculate the three dimensional geodetic measurement between two positions
     * measured in reference to a specified ellipsoid.
@@ -343,9 +343,9 @@ public class ExternalGeodeticCalculator
     * @param refEllipsoid reference ellipsoid to use
     * @param start starting position
     * @param end ending position
-    * @return
+    * return
     */
-   public ExternalGeodeticMeasurement calculateGeodeticMeasurement(ExternalEllipsoid refEllipsoid, ExternalGlobalPosition start, ExternalGlobalPosition end)
+  /* public ExternalGeodeticMeasurement calculateGeodeticMeasurement(ExternalEllipsoid refEllipsoid, ExternalGlobalPosition start, ExternalGlobalPosition end)
    {
       // calculate elevation differences
       double elev1 = start.getElevation();
@@ -368,5 +368,5 @@ public class ExternalGeodeticCalculator
 
       // return the measurement
       return new ExternalGeodeticMeasurement(averageCurve, elev2 - elev1);
-   }
+   }*/
 }

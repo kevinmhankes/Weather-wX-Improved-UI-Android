@@ -295,7 +295,7 @@ public class ImageMap extends ImageView
 
 	/**
 	 * get the map name from the attributes and load areas from xml
-	 * @param attrs
+	 * param attrs
 	 */
 	private void loadAttributes(AttributeSet attrs)
 	{
@@ -393,11 +393,11 @@ public class ImageMap extends ImageView
 	/**
 	 * Create a new area and add to tracking
 	 * Changed this from private to protected!
-	 * @param shape
-	 * @param name
-	 * @param coords
-	 * @param id
-	 * @return
+	 * param shape
+	 * param name
+	 * param coords
+	 * param id
+	 * return
 	 */
 	private Area addShape(String shape, String name, String coords, String id)
 	{
@@ -460,14 +460,14 @@ public class ImageMap extends ImageView
 		mIdToArea.put(a.getId(), a);
 	}
 
-	private void addBubble(String text, int areaId)
+	/*private void addBubble(String text, int areaId)
 	{
 		if (mBubbleMap.get(areaId) == null)
 		{
 			Bubble b = new Bubble(text,areaId);
 			mBubbleMap.put(areaId,b);
 		}
-	}
+	}*/
 
 	/*public void showBubble(String text, int areaId)
 	{
@@ -773,8 +773,8 @@ public class ImageMap extends ImageView
 	 * Set the image to new width and height
 	 * create a new scaled bitmap and dispose of the previous one
 	 * recalculate scaling factor and right and bottom bounds
-	 * @param newWidth
-	 * @param newHeight
+	 * param newWidth
+	 * param newHeight
 	 */
 	private void scaleBitmap(int newWidth, int newHeight) {
 		// Technically since we always keep aspect ratio intact
@@ -845,7 +845,7 @@ public class ImageMap extends ImageView
 	/**
 	 * the onDraw routine when we are using a background image
 	 *
-	 * @param canvas
+	 * param canvas
 	 */
 	private void drawMap(Canvas canvas)
 	{
@@ -1307,7 +1307,7 @@ public class ImageMap extends ImageView
 	/*
 	 * move the view to this x, y
 	 */
-	private void moveTo(int x, int y) {
+	/*private void moveTo(int x, int y) {
 		mScrollLeft = x;
 		if (mScrollLeft > 0) {
 			mScrollLeft = 0;
@@ -1323,7 +1323,7 @@ public class ImageMap extends ImageView
 			mScrollTop = mBottomBound;
 		}
 		invalidate();
-	}
+	}*/
 
 	/*
 	 * move the view by this delta in X direction
@@ -1815,12 +1815,12 @@ textOutlinePaint);
 	{
 		/**
 		 * Area with 'id' has been tapped
-		 * @param id
+		 * param id
 		 */
 		void onImageMapClicked(int id, ImageMap imageMap);
 		/**
 		 * Info bubble associated with area 'id' has been tapped
-		 * @param id
+		 * param id
 		 */
 		void onBubbleClicked(int id);
 	}

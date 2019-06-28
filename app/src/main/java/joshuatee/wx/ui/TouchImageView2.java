@@ -17,7 +17,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.PointF;
-import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -26,14 +25,12 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.OverScroller;
-import android.widget.Scroller;
 
 import joshuatee.wx.R;
 
@@ -43,7 +40,7 @@ import joshuatee.wx.MyApplication;
 
 public class TouchImageView2 extends AppCompatImageView {
 
-    private static final String DEBUG = "DEBUG";
+    //private static final String DEBUG = "DEBUG";
 
     //
     // SuperMin and SuperMax multipliers. Determine how much the image can be
@@ -184,9 +181,9 @@ public class TouchImageView2 extends AppCompatImageView {
         touchImageViewListener = l;
     }
 
-    public void setOnDoubleTapListener(GestureDetector.OnDoubleTapListener l) {
+    /*public void setOnDoubleTapListener(GestureDetector.OnDoubleTapListener l) {
         doubleTapListener = l;
-    }
+    }*/
 
     private boolean isZoomEnabled() {
         return zoomEnabled;
@@ -275,7 +272,7 @@ public class TouchImageView2 extends AppCompatImageView {
         return normalizedScale != 1;
     }
 
-    /**
+    /*
      * Return a Rect representing the zoomed image.
      *
      * @return rect representing zoomed image
@@ -405,7 +402,7 @@ public class TouchImageView2 extends AppCompatImageView {
         maxScaleIsSetByMultiplier = true;
     }
 
-    /**
+    /*
      * Get the min zoom multiplier.
      *
      * @return min zoom multiplier.
@@ -468,7 +465,7 @@ public class TouchImageView2 extends AppCompatImageView {
     /**
      * Set zoom to the specified scale. Image will be centered by default.
      *
-     * @param scale
+     * param scale
      */
     public void setZoom(float scale) {
         setZoom(scale, 0.5f, 0.5f);
@@ -480,9 +477,9 @@ public class TouchImageView2 extends AppCompatImageView {
      * as a fraction from the left and top of the view. For example, the top left
      * corner of the image would be (0, 0). And the bottom right corner would be (1, 1).
      *
-     * @param scale
-     * @param focusX
-     * @param focusY
+     * param scale
+     * param focusX
+     * param focusY
      */
     public void setZoom(float scale, float focusX, float focusY) {
         setZoom(scale, focusX, focusY, mScaleType);
@@ -494,10 +491,10 @@ public class TouchImageView2 extends AppCompatImageView {
      * as a fraction from the left and top of the view. For example, the top left
      * corner of the image would be (0, 0). And the bottom right corner would be (1, 1).
      *
-     * @param scale
-     * @param focusX
-     * @param focusY
-     * @param scaleType
+     * param scale
+     * param focusX
+     * param focusY
+     * param scaleType
      */
     private void setZoom(float scale, float focusX, float focusY, ScaleType scaleType) {
         //
@@ -533,7 +530,7 @@ public class TouchImageView2 extends AppCompatImageView {
      * Set zoom parameters equal to another TouchImageView. Including scale, position,
      * and ScaleType.
      *
-     * @param img
+     * param img
      */
     public void setZoom(TouchImageView2 img) {
         PointF center = img.getScrollPosition();
@@ -571,16 +568,16 @@ public class TouchImageView2 extends AppCompatImageView {
         return point;
     }
 
-    /**
+    /*
      * Set the focus point of the zoomed image. The focus points are denoted as a fraction from the
      * left and top of the view. The focus points can range in value between 0 and 1.
      *
-     * @param focusX
-     * @param focusY
+     * param focusX
+     * param focusY
      */
-    public void setScrollPosition(float focusX, float focusY) {
+    /*public void setScrollPosition(float focusX, float focusY) {
         setZoom(normalizedScale, focusX, focusY);
-    }
+    }*/
 
     /**
      * Performs boundary checking and fixes the image matrix if it
@@ -850,10 +847,10 @@ public class TouchImageView2 extends AppCompatImageView {
     /**
      * Set view dimensions based on layout params
      *
-     * @param mode
-     * @param size
-     * @param drawableWidth
-     * @return
+     * param mode
+     * param size
+     * param drawableWidth
+     * return
      */
     private int setViewSize(int mode, int size, int drawableWidth) {
         int viewSize;
@@ -932,9 +929,9 @@ public class TouchImageView2 extends AppCompatImageView {
         this.state = state;
     }
 
-    public boolean canScrollHorizontallyFroyo(int direction) {
+    /*public boolean canScrollHorizontallyFroyo(int direction) {
         return canScrollHorizontally(direction);
-    }
+    }*/
 
     @Override
     public boolean canScrollHorizontally(int direction) {
@@ -1259,7 +1256,7 @@ public class TouchImageView2 extends AppCompatImageView {
          * the image so that the point that is touched is what ends up centered at the end
          * of the zoom.
          *
-         * @param t
+         * param t
          */
         private void translateImageToCenterTouchPosition(float t) {
             float targetX = startTouch.x + t * (endTouch.x - startTouch.x);
@@ -1271,7 +1268,7 @@ public class TouchImageView2 extends AppCompatImageView {
         /**
          * Use interpolator to get t
          *
-         * @return
+         * return
          */
         private float interpolate() {
             long currTime = System.currentTimeMillis();
@@ -1284,8 +1281,8 @@ public class TouchImageView2 extends AppCompatImageView {
          * Interpolate the current targeted zoom and get the delta
          * from the current zoom.
          *
-         * @param t
-         * @return
+         * param t
+         * return
          */
         private double calculateDeltaScale(float t) {
             double zoom = startZoom + t * (targetZoom - startZoom);
@@ -1415,7 +1412,7 @@ public class TouchImageView2 extends AppCompatImageView {
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     private class CompatScroller {
-        Scroller scroller;
+        //Scroller scroller;
         final OverScroller overScroller;
 
         CompatScroller(Context context) {
