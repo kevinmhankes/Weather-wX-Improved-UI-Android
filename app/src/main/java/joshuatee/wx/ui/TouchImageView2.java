@@ -1353,33 +1353,27 @@ public class TouchImageView2 extends AppCompatImageView {
             setState(State.FLING);
             scroller = new CompatScroller(context);
             matrix.getValues(m);
-
             int startX = (int) m[Matrix.MTRANS_X];
             int startY = (int) m[Matrix.MTRANS_Y];
             int minX, maxX, minY, maxY;
-
             if (getImageWidth() > viewWidth) {
                 minX = viewWidth - (int) getImageWidth();
                 maxX = 0;
-
             } else {
                 minX = maxX = startX;
             }
-
             if (getImageHeight() > viewHeight) {
                 minY = viewHeight - (int) getImageHeight();
                 maxY = 0;
-
             } else {
                 minY = maxY = startY;
             }
-
-            scroller.fling(startX, startY, (int) velocityX, (int) velocityY, minX, maxX, minY, maxY);
+            scroller.fling(startX, startY, velocityX, velocityY, minX, maxX, minY, maxY);
             currX = startX;
             currY = startY;
         }
 
-        public void cancelFling() {
+        void cancelFling() {
             if (scroller != null) {
                 setState(State.NONE);
                 scroller.forceFinished(true);

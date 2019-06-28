@@ -24,7 +24,7 @@
 // TODO NCEP double check other parms
 // TODO SPC SWO - tap on image to image viewer - then multiple image per row like iOS
 
-55241 2019_06_28    [FIX] lint cleanup including remove SolarEvent.kt
+55241 2019_06_28    [FIX] lint cleanup including remove SolarEvent.kt, TouchImageViewOld.java
 55240 2019_06_25    [ADD] update TouchImageView2 from https://github.com/MikeOrtiz/TouchImageView ( version 2.3.0 )
                     [REF] lint cleanup
 55239 2019_06_24    [FIX] lint cleanup
