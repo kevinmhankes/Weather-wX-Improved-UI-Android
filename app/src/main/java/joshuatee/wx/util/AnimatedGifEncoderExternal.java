@@ -640,7 +640,7 @@ class NeuQuant {
 	 * Initialise network in range (0,0,0) to (255,255,255) and set parameters
 	 * -----------------------------------------------------------------------
 	 */
-	public NeuQuant(byte[] thepic, int len, int sample) {
+	NeuQuant(byte[] thepic, int len, int sample) {
 
 		int i;
 		int[] p;

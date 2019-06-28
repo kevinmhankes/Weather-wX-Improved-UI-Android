@@ -71,7 +71,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 
 	private static final int BIG_ENDIAN = 0;
 	//private static final int BIG_ENDIAN = 0;
-	public static final int LITTLE_ENDIAN = 1;
+	//public static final int LITTLE_ENDIAN = 1;
 
 	// debug leaks - keep track of open files
 
@@ -161,7 +161,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	 * The underlying java.io.RandomAccessFile.
 	 */
 	private java.io.RandomAccessFile file;
-	protected java.nio.channels.FileChannel fileChannel;
+	//protected java.nio.channels.FileChannel fileChannel;
 
 	/**
 	 * The offset in bytes from the file start, of the next read or
@@ -538,7 +538,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	 *         more data due to the end of the file being reached.
 	 * @throws IOException if an I/O error occurrs.
 	 */
-	public int readBytes(byte[] b, int off, int len) throws IOException {
+	private int readBytes(byte[] b, int off, int len) throws IOException {
 
 		// Check for end of file.
 		if (endOfFile) {
@@ -1000,11 +1000,11 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	 * @param n     read this many elements
 	 * @throws IOException on read error
 	 */
-	public final void readShort(short[] pa, int start, int n) throws IOException {
+	/*public final void readShort(short[] pa, int start, int n) throws IOException {
 		for (int i = 0; i < n; i++) {
 			pa[start + i] = readShort();
 		}
-	}
+	}*/
 
 	/**
 	 * Reads an unsigned 16-bit number from this file. This method reads
@@ -1153,11 +1153,11 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	 * @param n     read this many elements
 	 * @throws IOException on read error
 	 */
-	public final void readInt(int[] pa, int start, int n) throws IOException {
+	/*public final void readInt(int[] pa, int start, int n) throws IOException {
 		for (int i = 0; i < n; i++) {
 			pa[start + i] = readInt();
 		}
-	}
+	}*/
 
 	/**
 	 * Reads a signed 64-bit integer from this file. This method reads eight

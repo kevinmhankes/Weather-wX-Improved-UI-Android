@@ -90,13 +90,13 @@ public class ExternalGifDecoder {
 	private int frameCount;
 
 	private static class GifFrame {
-		public GifFrame(Bitmap im, int del) {
+		GifFrame(Bitmap im, int del) {
 			image = im;
 			delay = del;
 		}
 
-		public final Bitmap image;
-		public final int delay;
+		final Bitmap image;
+		final int delay;
 	}
 
 	/**

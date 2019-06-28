@@ -109,14 +109,14 @@ public class CBZip2InputStream extends InputStream implements BZip2Constants {
   private int bsLive;
   private CRC mCrc = new CRC();
 
-  private boolean[] inUse = new boolean[256];
+  private final boolean[] inUse = new boolean[256];
   private int nInUse;
 
-  private char[] seqToUnseq = new char[256];
-  private char[] unseqToSeq = new char[256];
+  private final char[] seqToUnseq = new char[256];
+  private final char[] unseqToSeq = new char[256];
 
-  private char[] selector = new char[Companion.MAX_SELECTORS];
-  private char[] selectorMtf = new char[Companion.MAX_SELECTORS];
+  private final char[] selector = new char[Companion.MAX_SELECTORS];
+  private final char[] selectorMtf = new char[Companion.MAX_SELECTORS];
 
   private int[] tt;
   private char[] ll8;
@@ -125,12 +125,12 @@ public class CBZip2InputStream extends InputStream implements BZip2Constants {
     freq table collected to save a pass over the data
     during decompression.
   */
-  private int[] unzftab = new int[256];
+  private final int[] unzftab = new int[256];
 
-  private int[][] limit = new int[Companion.N_GROUPS][Companion.MAX_ALPHA_SIZE];
-  private int[][] base = new int[Companion.N_GROUPS][Companion.MAX_ALPHA_SIZE];
-  private int[][] perm = new int[Companion.N_GROUPS][Companion.MAX_ALPHA_SIZE];
-  private int[] minLens = new int[Companion.N_GROUPS];
+  private final int[][] limit = new int[Companion.N_GROUPS][Companion.MAX_ALPHA_SIZE];
+  private final int[][] base = new int[Companion.N_GROUPS][Companion.MAX_ALPHA_SIZE];
+  private final int[][] perm = new int[Companion.N_GROUPS][Companion.MAX_ALPHA_SIZE];
+  private final int[] minLens = new int[Companion.N_GROUPS];
 
   private InputStream bsStream;
 
@@ -169,7 +169,7 @@ public class CBZip2InputStream extends InputStream implements BZip2Constants {
    * Added 5-30-2006 to allow for resetting of the input used
    * by this object. This saves in memory allocation costs
    */
-  public void setStream(InputStream zStream) {
+  private void setStream(InputStream zStream) {
     last=0;
     origPtr=0;
     blockSize100k=0;

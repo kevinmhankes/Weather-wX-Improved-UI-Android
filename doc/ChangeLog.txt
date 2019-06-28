@@ -17,11 +17,10 @@
 // TODO color pal edit for SRM and L2 VEL/REF
 // TODO color pal , allow cloning of a user created pal
 // TODO bug , SPC Meso swipe left/right takes on extra to get started
-// TODO look into tornado instead of #tornado for twitter embedded widget
-// TODO resolve activityReference issue in LocationFragment
 // TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 
+55242 2019_06_28
 55241 2019_06_28    [FIX] lint cleanup including remove SolarEvent.kt, TouchImageViewOld.java
                     [ADD] SPC SWO - images 2 per row like iOS
 55240 2019_06_25    [ADD] update TouchImageView2 from https://github.com/MikeOrtiz/TouchImageView ( version 2.3.0 )

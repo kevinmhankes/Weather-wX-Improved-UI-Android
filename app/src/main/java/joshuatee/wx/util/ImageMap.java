@@ -469,12 +469,12 @@ public class ImageMap extends ImageView
 		}
 	}
 
-	public void showBubble(String text, int areaId)
+	/*public void showBubble(String text, int areaId)
 	{
 		mBubbleMap.clear();
 		addBubble(text,areaId);
 		invalidate();
-	}
+	}*/
 
 	/*public void showBubble(int areaId)
 	{
@@ -1417,14 +1417,14 @@ public class ImageMap extends ImageView
 		HashMap<String,String> _values;
 		Bitmap _decoration=null;
 
-		public Area(int id, String name) {
+		Area(int id, String name) {
 			_id = id;
 			if (name != null) {
 				_name = name;
 			}
 		}
 
-		public int getId() {
+		int getId() {
 			return _id;
 		}
 
@@ -1435,7 +1435,7 @@ public class ImageMap extends ImageView
 		// all xml values for the area are passed to the object
 		// the default impl just puts them into a hashmap for
 		// retrieval later
-		public void addValue(String key, String value) {
+		void addValue(String key, String value) {
 			if (_values == null) {
 				_values = new HashMap<>();
 			}
@@ -1458,7 +1458,7 @@ public class ImageMap extends ImageView
 		// an onDraw is set up to provide an extensible way to
 		// decorate an area. When drawing remember to take the
 		// scaling and translation into account
-		public void onDraw(Canvas canvas)
+		void onDraw(Canvas canvas)
 		{
 			if (_decoration != null)
 			{
@@ -1530,7 +1530,7 @@ public class ImageMap extends ImageView
 		int left=-1;
 		int right=-1;
 
-		public PolyArea(int id, String name, String coords) {
+		PolyArea(int id, String name, String coords) {
 			super(id,name);
 
 			// split the list of coordinates into points of the
@@ -1567,7 +1567,7 @@ public class ImageMap extends ImageView
 		 */
 
 		// return area of polygon
-		public double area() {
+		double area() {
 			double sum = 0.0;
 			for (int i = 0; i < _points; i++) {
 				sum = sum + (xpoints.get(i) * ypoints.get(i+1)) - (ypoints.get(i) * xpoints.get(i+1));
@@ -1577,7 +1577,7 @@ public class ImageMap extends ImageView
 		}
 
 		// compute the centroid of the polygon
-		public void computeCentroid() {
+		void computeCentroid() {
 			double cx = 0.0, cy = 0.0;
 			for (int i = 0; i < _points; i++) {
 				cx = cx + (xpoints.get(i) + xpoints.get(i+1)) * (ypoints.get(i) * xpoints.get(i+1) - xpoints.get(i) * ypoints.get(i+1));
@@ -1739,7 +1739,7 @@ textOutlinePaint);
 			}
 		}
 
-		public boolean isInArea(float x, float y) {
+		boolean isInArea(float x, float y) {
 			boolean ret = false;
 
 			if ((x>_left) && (x<(_left+_w))) {

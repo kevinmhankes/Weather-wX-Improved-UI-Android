@@ -83,15 +83,13 @@ public class ExternalGeodeticMeasurement extends ExternalGeodeticCurve
    @Override
    public String toString()
    {
-      StringBuffer buffer = new StringBuffer();
 
-      buffer.append(super.toString());
-      buffer.append("elev12=");
-      buffer.append(mElevationChange);
-      buffer.append(";p2p=");
-      buffer.append(mP2P);
-
-      return buffer.toString();
+      String buffer = super.toString() +
+              "elev12=" +
+              mElevationChange +
+              ";p2p=" +
+              mP2P;
+      return buffer;
    }
 
 }

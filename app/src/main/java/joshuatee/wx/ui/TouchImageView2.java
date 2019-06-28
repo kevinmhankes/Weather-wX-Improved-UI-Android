@@ -80,7 +80,7 @@ public class TouchImageView2 extends AppCompatImageView {
     /**
      * If setMinZoom(AUTOMATIC_MIN_ZOOM), then we'll set the min scale to include the whole image.
      */
-    public static final float AUTOMATIC_MIN_ZOOM = -1.0f;
+    private static final float AUTOMATIC_MIN_ZOOM = -1.0f;
     private float userSpecifiedMinScale;
     private float minScale;
     private boolean maxScaleIsSetByMultiplier = false;
@@ -188,11 +188,11 @@ public class TouchImageView2 extends AppCompatImageView {
         doubleTapListener = l;
     }
 
-    public boolean isZoomEnabled() {
+    private boolean isZoomEnabled() {
         return zoomEnabled;
     }
 
-    public void setZoomEnabled(boolean zoomEnabled) {
+    private void setZoomEnabled(boolean zoomEnabled) {
         this.zoomEnabled = zoomEnabled;
     }
 
@@ -250,7 +250,7 @@ public class TouchImageView2 extends AppCompatImageView {
         return mScaleType;
     }
 
-    public FixedPixel getOrientationChangeFixedPixel() {
+   /* public FixedPixel getOrientationChangeFixedPixel() {
         return orientationChangeFixedPixel;
     }
 
@@ -264,14 +264,14 @@ public class TouchImageView2 extends AppCompatImageView {
 
     public void setViewSizeChangeFixedPixel(FixedPixel viewSizeChangeFixedPixel) {
         this.viewSizeChangeFixedPixel = viewSizeChangeFixedPixel;
-    }
+    }*/
 
     /**
      * Returns false if image is in initial, unzoomed state. False, otherwise.
      *
      * @return true if image is zoomed
      */
-    public boolean isZoomed() {
+    private boolean isZoomed() {
         return normalizedScale != 1;
     }
 
@@ -280,7 +280,7 @@ public class TouchImageView2 extends AppCompatImageView {
      *
      * @return rect representing zoomed image
      */
-    public RectF getZoomedRect() {
+    /*public RectF getZoomedRect() {
         if (mScaleType == ScaleType.FIT_XY) {
             throw new UnsupportedOperationException("getZoomedRect() not supported with FIT_XY");
         }
@@ -290,13 +290,13 @@ public class TouchImageView2 extends AppCompatImageView {
         float w = getDrawable().getIntrinsicWidth();
         float h = getDrawable().getIntrinsicHeight();
         return new RectF(topLeft.x / w, topLeft.y / h, bottomRight.x / w, bottomRight.y / h);
-    }
+    }*/
 
     /**
      * Save the current matrix and view dimensions
      * in the prevMatrix and prevView variables.
      */
-    public void savePreviousImageValues() {
+    private void savePreviousImageValues() {
         if (matrix != null && viewHeight != 0 && viewWidth != 0) {
             matrix.getValues(m);
             prevMatrix.setValues(m);
@@ -398,7 +398,7 @@ public class TouchImageView2 extends AppCompatImageView {
      *
      * @param max max zoom multiplier, as a multiple of minZoom
      */
-    public void setMaxZoomRatio(float max) {
+    private void setMaxZoomRatio(float max) {
         maxScaleMultiplier = max;
         maxScale = minScale * maxScaleMultiplier;
         superMaxScale = SUPER_MAX_MULTIPLIER * maxScale;
@@ -410,9 +410,9 @@ public class TouchImageView2 extends AppCompatImageView {
      *
      * @return min zoom multiplier.
      */
-    public float getMinZoom() {
+    /*public float getMinZoom() {
         return minScale;
-    }
+    }*/
 
     /**
      * Get the current zoom. This is the zoom relative to the initial
@@ -429,7 +429,7 @@ public class TouchImageView2 extends AppCompatImageView {
      *
      * @param min min zoom multiplier.
      */
-    public void setMinZoom(float min) {
+    private void setMinZoom(float min) {
         userSpecifiedMinScale = min;
         if (min == AUTOMATIC_MIN_ZOOM) {
             if (mScaleType == ScaleType.CENTER || mScaleType == ScaleType.CENTER_CROP) {
@@ -499,7 +499,7 @@ public class TouchImageView2 extends AppCompatImageView {
      * @param focusY
      * @param scaleType
      */
-    public void setZoom(float scale, float focusX, float focusY, ScaleType scaleType) {
+    private void setZoom(float scale, float focusX, float focusY, ScaleType scaleType) {
         //
         // setZoom can be called before the image is on the screen, but at this point,
         // image and view sizes have not yet been calculated in onMeasure. Thus, we should
@@ -1033,7 +1033,7 @@ public class TouchImageView2 extends AppCompatImageView {
         }
     }
 
-    public interface OnTouchImageViewListener {
+    interface OnTouchImageViewListener {
         void onMove();
     }
 
@@ -1048,7 +1048,7 @@ public class TouchImageView2 extends AppCompatImageView {
         //
         // Remember last point position for dragging
         //
-        private PointF last = new PointF();
+        private final PointF last = new PointF();
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -1191,14 +1191,16 @@ public class TouchImageView2 extends AppCompatImageView {
      */
     private class DoubleTapZoom implements Runnable {
 
-        private long startTime;
+        private final long startTime;
         private static final float ZOOM_TIME = 500;
-        private float startZoom, targetZoom;
-        private float bitmapX, bitmapY;
-        private boolean stretchImageToSuper;
-        private AccelerateDecelerateInterpolator interpolator = new AccelerateDecelerateInterpolator();
-        private PointF startTouch;
-        private PointF endTouch;
+        private final float startZoom;
+        private final float targetZoom;
+        private final float bitmapX;
+        private final float bitmapY;
+        private final boolean stretchImageToSuper;
+        private final AccelerateDecelerateInterpolator interpolator = new AccelerateDecelerateInterpolator();
+        private final PointF startTouch;
+        private final PointF endTouch;
 
         DoubleTapZoom(float targetZoom, float focusX, float focusY, boolean stretchImageToSuper) {
             setState(State.ANIMATE_ZOOM);
@@ -1414,7 +1416,7 @@ public class TouchImageView2 extends AppCompatImageView {
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     private class CompatScroller {
         Scroller scroller;
-        OverScroller overScroller;
+        final OverScroller overScroller;
 
         CompatScroller(Context context) {
             overScroller = new OverScroller(context);
@@ -1428,7 +1430,7 @@ public class TouchImageView2 extends AppCompatImageView {
             overScroller.forceFinished(finished);
         }
 
-        public boolean isFinished() {
+        boolean isFinished() {
             return overScroller.isFinished();
         }
 
@@ -1457,10 +1459,10 @@ public class TouchImageView2 extends AppCompatImageView {
     }
 
     private class ZoomVariables {
-        float scale;
-        float focusX;
-        float focusY;
-        ScaleType scaleType;
+        final float scale;
+        final float focusX;
+        final float focusY;
+        final ScaleType scaleType;
 
         ZoomVariables(float scale, float focusX, float focusY, ScaleType scaleType) {
             this.scale = scale;
@@ -1470,10 +1472,9 @@ public class TouchImageView2 extends AppCompatImageView {
         }
     }
 
-    private void printMatrixInfo() {
+    /*private void printMatrixInfo() {
         float[] n = new float[9];
         matrix.getValues(n);
         Log.d(DEBUG, "Scale: " + n[Matrix.MSCALE_X] + " TransX: " + n[Matrix.MTRANS_X] + " TransY: " + n[Matrix.MTRANS_Y]);
-    }
-
+    }*/
 }
