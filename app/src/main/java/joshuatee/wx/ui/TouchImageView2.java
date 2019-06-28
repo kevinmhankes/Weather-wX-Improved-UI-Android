@@ -1016,7 +1016,7 @@ public class TouchImageView2 extends AppCompatImageView {
         }
     }
 
-    interface OnTouchImageViewListener {
+    public interface OnTouchImageViewListener {
         void onMove();
     }
 
