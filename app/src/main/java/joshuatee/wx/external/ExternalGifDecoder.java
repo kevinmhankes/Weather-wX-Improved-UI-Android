@@ -60,10 +60,7 @@ public class ExternalGifDecoder {
 	private int bgIndex; // background color index
 	private int bgColor; // background color
 	private int lastBgColor; // previous bg color
-	private int pixelAspect; // pixel aspect ratio
-	private boolean lctFlag; // local color table flag
 	private boolean interlace; // interlace flag
-	private int lctSize; // local color table size
 	private int ix;
 	private int iy;
 	private int iw;
@@ -562,8 +559,10 @@ public class ExternalGifDecoder {
 		iw = readShort();
 		ih = readShort();
 		int packed = read();
-		lctFlag = (packed & 0x80) != 0; // 1 - local color table flag interlace
-		lctSize = (int) Math.pow(2, (packed & 0x07) + 1);
+		// local color table flag
+		boolean lctFlag = (packed & 0x80) != 0; // 1 - local color table flag interlace
+		// local color table size
+		int lctSize = (int) Math.pow(2, (packed & 0x07) + 1);
 		// 3 - sort flag
 		// 4-5 - reserved lctSize = 2 << (packed & 7); // 6-8 - local color
 		// table size
@@ -619,7 +618,8 @@ public class ExternalGifDecoder {
 		// 5 : gct sort flag
 		gctSize = 2 << (packed & 7); // 6-8 : gct size
 		bgIndex = read(); // background color index
-		pixelAspect = read(); // pixel aspect ratio
+		// pixel aspect ratio
+		int pixelAspect = read(); // pixel aspect ratio
 	}
 
 	/**

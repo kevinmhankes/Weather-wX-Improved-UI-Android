@@ -214,7 +214,6 @@ public class ImageMap extends ImageView
 
 	/* Paint objects for drawing info bubbles */
 	private Paint textPaint;
-	private Paint textOutlinePaint;
 	private Paint bubblePaint;
 	private Paint bubbleShadowPaint;
 
@@ -266,11 +265,8 @@ public class ImageMap extends ImageView
 	// list of open info bubbles
 	private final SparseArray<Bubble> mBubbleMap = new SparseArray<>();
 
-	// changed this from local variable to class field
-	private String mapName;
-
 	// accounting for screen density
-	private float densityFactor;
+	//private float densityFactor;
 
 	/*
 	 * Constructors
@@ -305,7 +301,8 @@ public class ImageMap extends ImageView
 		this.mScaleFromOriginal = a.getBoolean(R.styleable.ImageMap_scaleFromOriginal, false);
 		this.mMaxSize = a.getFloat(R.styleable.ImageMap_maxSizeFactor, defaultMaxSize);
 
-		this.mapName = a.getString(R.styleable.ImageMap_map);
+		// changed this from local variable to class field
+		String mapName = a.getString(R.styleable.ImageMap_map);
 		if (mapName != null)
 		{
 			loadMap(mapName);
@@ -544,7 +541,7 @@ public class ImageMap extends ImageView
 		mMaximumVelocity = configuration.getScaledMaximumFlingVelocity();
 
 		//find out the screen density
-		densityFactor = getResources().getDisplayMetrics().density;
+		//densityFactor = getResources().getDisplayMetrics().density;
 	}
 
 	/*
@@ -602,7 +599,7 @@ public class ImageMap extends ImageView
 		textPaint.setTextAlign(Paint.Align.CENTER);
 		textPaint.setAntiAlias(true);
 
-		textOutlinePaint = new Paint();
+		Paint textOutlinePaint = new Paint();
 		textOutlinePaint.setColor(0xFF000000);
 		textOutlinePaint.setTextSize(18);
 		textOutlinePaint.setTypeface(Typeface.SERIF);

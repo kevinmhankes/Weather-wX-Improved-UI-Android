@@ -246,7 +246,6 @@ public class CBZip2InputStream extends InputStream implements BZip2Constants {
       streamEnd = true;
       return;
     }
-
     setDecompressStructureSizes(magic4 - '0');
     computedCombinedCRC = 0;
   }
@@ -265,25 +264,15 @@ public class CBZip2InputStream extends InputStream implements BZip2Constants {
       complete();
       return;
     }
-
     if (magic1 != 0x31 || magic2 != 0x41 || magic3 != 0x59
             || magic4 != 0x26 || magic5 != 0x53 || magic6 != 0x59) {
       badBlockHeader();
       streamEnd = true;
       return;
     }
-
     storedBlockCRC = bsGetInt32();
-
-    if (bsR(1) == 1) {
-      blockRandomised = true;
-    } else {
-      blockRandomised = false;
-    }
-
-    //        currBlockNo++;
+    blockRandomised = bsR(1) == 1;
     getAndMoveToFrontDecode();
-
     mCrc.initialiseCRC();
     currentState = START_BLOCK_STATE;
   }
@@ -295,7 +284,6 @@ public class CBZip2InputStream extends InputStream implements BZip2Constants {
       // crcError();
       cadvise("CRC error: storedBlockCRC != computedBlockCRC");
     }
-
     computedCombinedCRC = (computedCombinedCRC << 1)
             | (computedCombinedCRC >>> 31);
     computedCombinedCRC ^= computedBlockCRC;

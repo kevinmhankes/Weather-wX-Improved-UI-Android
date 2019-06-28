@@ -211,16 +211,6 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	 */
 	private boolean bufferModified = false;
 
-	/**
-	 * make sure file is this long when closed
-	 */
-	private final long minLength = 0;
-
-	/**
-	 * stupid extendMode for truncated, yet valid files - old code allowed NOFILL to do this
-	 */
-	private final boolean extendMode = false;
-
 	/*
 	 * Constructor, for subclasses
 	 *
@@ -340,6 +330,10 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 		// may need to truncate file in case overwriting a longer file
 		// use only if minLength is set (by N3iosp)
 		long fileSize = file.length();
+		/**
+		 * make sure file is this long when closed
+		 */
+		long minLength = 0;
 		if (!readonly && (minLength != 0) && (minLength != fileSize)) {
 			file.setLength(minLength);
 			// System.out.println("TRUNCATE!!! minlength="+minLength);
@@ -640,6 +634,10 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 			debug_nbytes.addAndGet(len);
 		}
 
+		/**
+		 * stupid extendMode for truncated, yet valid files - old code allowed NOFILL to do this
+		 */
+		boolean extendMode = false;
 		if (extendMode && (n < len)) {
 			//System.out.println(" read_ = "+len+" at "+pos+"; got = "+n);
 			n = len;

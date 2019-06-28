@@ -54,8 +54,6 @@ class AnimatedGifEncoderExternal {
 
 	private int width; // image size
 	private int height;
-	private int x = 0;
-	private int y = 0;
 	private int transparent = -1; // transparent color if given
 	private int transIndex; // transparent index in color table
 	private int repeat = -1; // no repeat
@@ -69,11 +67,9 @@ class AnimatedGifEncoderExternal {
 	private byte[] colorTab; // RGB palette
 	private final boolean[] usedEntry = new boolean[256]; // active palette entries
 	private int palSize = 7; // color table size (bits-1)
-	private int dispose = -1; // disposal code (-1 = use default)
 	private boolean closeStream = false; // close stream when finished
 	private boolean firstFrame = true;
 	private boolean sizeSet = false; // if false, get size from first frame
-	private int sample = 10; // default sample interval for quantizer
 
 	/**
 	 * Sets the delay time between each frame, or changes it for subsequent frames
@@ -299,6 +295,8 @@ class AnimatedGifEncoderExternal {
 		int len = pixels.length;
 		int nPix = len / 3;
 		indexedPixels = new byte[nPix];
+		// default sample interval for quantizer
+		int sample = 10;
 		NeuQuant nq = new NeuQuant(pixels, len, sample);
 		// initialize quantizer
 		colorTab = nq.process(); // create reduced palette
@@ -400,6 +398,8 @@ class AnimatedGifEncoderExternal {
 			transp = 1;
 			disp = 2; // force clear if using transparent color
 		}
+		// disposal code (-1 = use default)
+		int dispose = -1;
 		if (dispose >= 0) {
 			disp = dispose & 7; // user override
 		}
@@ -421,7 +421,9 @@ class AnimatedGifEncoderExternal {
 	 */
 	private void writeImageDesc() throws IOException {
 		out.write(0x2c); // image separator
+		int x = 0;
 		writeShort(x); // image position x,y = 0,0
+		int y = 0;
 		writeShort(y);
 		writeShort(width); // image size
 		writeShort(height);
@@ -599,8 +601,6 @@ class NeuQuant {
 
 	private static final int initalpha = (1 << alphabiasshift);
 
-	private int alphadec; /* biased by 10 bits */
-
 	/* radbias and alpharadbias used for radpower calculation */
 	private static final int radbiasshift = 8;
 
@@ -742,7 +742,8 @@ class NeuQuant {
 
 		if (lengthcount < minpicturebytes)
 			samplefac = 1;
-		alphadec = 30 + ((samplefac - 1) / 3);
+		/* biased by 10 bits */
+		int alphadec = 30 + ((samplefac - 1) / 3);
 		p = thepicture;
 		pix = 0;
 		lim = lengthcount;

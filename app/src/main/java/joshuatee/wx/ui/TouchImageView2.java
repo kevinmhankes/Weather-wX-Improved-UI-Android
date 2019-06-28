@@ -937,36 +937,22 @@ public class TouchImageView2 extends AppCompatImageView {
     public boolean canScrollHorizontally(int direction) {
         matrix.getValues(m);
         float x = m[Matrix.MTRANS_X];
-
         if (getImageWidth() < viewWidth) {
             return false;
-
         } else if (x >= -1 && direction < 0) {
             return false;
-
-        } else if (Math.abs(x) + viewWidth + 1 >= getImageWidth() && direction > 0) {
-            return false;
-        }
-
-        return true;
+        } else return !(Math.abs(x) + viewWidth + 1 >= getImageWidth()) || direction <= 0;
     }
 
     @Override
     public boolean canScrollVertically(int direction) {
         matrix.getValues(m);
         float y = m[Matrix.MTRANS_Y];
-
         if (getImageHeight() < viewHeight) {
             return false;
-
         } else if (y >= -1 && direction < 0) {
             return false;
-
-        } else if (Math.abs(y) + viewHeight + 1 >= getImageHeight() && direction > 0) {
-            return false;
-        }
-
-        return true;
+        } else return !(Math.abs(y) + viewHeight + 1 >= getImageHeight()) || direction <= 0;
     }
 
     /**
