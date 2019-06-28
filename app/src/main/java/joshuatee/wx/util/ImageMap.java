@@ -340,7 +340,7 @@ public class ImageMap extends ImageView
 					}
 					if (loading) {
 						if (tag.equalsIgnoreCase("area")) {
-							Area a=null;
+							Area a;
 							String shape = xpp.getAttributeValue(null, "shape");
 							String coords = xpp.getAttributeValue(null, "coords");
 							String id = xpp.getAttributeValue(null, "id");
@@ -403,7 +403,7 @@ public class ImageMap extends ImageView
 	{
 		Area a = null;
 		String rid = id.replace("@+id/", "");
-		int _id=0;
+		int _id;
 
 		/*try
 		{
@@ -984,7 +984,7 @@ public class ImageMap extends ImageView
 
 	private void onTouchDown(int id, float x, float y) {
 		// create a new touch point to track this ID
-		TouchPoint t=null;
+		TouchPoint t;
 		synchronized (mTouchPoints) {
 			// This test is a bit paranoid and research should
 			// be done sot that it can be removed. We should
@@ -1108,11 +1108,12 @@ public class ImageMap extends ImageView
 				// tracking. This is necessary for proper action
 				// on devices that support > 2 touches
 				regroupTouches();
-			} else {
+			}
+			//else {
 				// lost this ID somehow
 				// This happens sometimes due to the way some
 				// devices manage touch
-			}
+			//}
 		}
 	}
 

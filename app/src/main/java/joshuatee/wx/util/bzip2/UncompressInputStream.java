@@ -454,7 +454,7 @@ public class UncompressInputStream extends FilterInputStream
 
     private static final boolean debug = false;
 
-    public static void main (String args[])  throws Exception
+    public static void main (String[] args)  throws Exception
     {
 	if (args.length != 1)
 	{

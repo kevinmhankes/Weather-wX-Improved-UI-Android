@@ -417,7 +417,7 @@ public class ExternalGifDecoder {
 		int n = 0;
 		if (blockSize > 0) {
 			try {
-				int count = 0;
+				int count;
 				while (n < blockSize) {
 					count = in.read(block, n, blockSize - n);
 					if (count == -1) {

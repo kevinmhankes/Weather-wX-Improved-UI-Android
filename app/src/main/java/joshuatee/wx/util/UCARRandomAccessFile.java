@@ -538,7 +538,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	 *         more data due to the end of the file being reached.
 	 * @throws IOException if an I/O error occurrs.
 	 */
-	public int readBytes(byte b[], int off, int len) throws IOException {
+	public int readBytes(byte[] b, int off, int len) throws IOException {
 
 		// Check for end of file.
 		if (endOfFile) {
@@ -659,7 +659,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	 *         more data due to the end of the file being reached.
 	 * @throws IOException if an I/O error occurrs.
 	 */
-	private int read(byte b[], int off, int len) throws IOException {
+	private int read(byte[] b, int off, int len) throws IOException {
 		return readBytes(b, off, len);
 	}
 
@@ -672,7 +672,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	 *         more data due to the end of the file being reached.
 	 * @throws IOException if an I/O error occurrs.
 	 */
-	public int read(byte b[]) throws IOException {
+	public int read(byte[] b) throws IOException {
 		return readBytes(b, 0, b.length);
 	}
 
@@ -700,7 +700,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	 *                      all the bytes.
 	 * @throws IOException  if an I/O error occurs.
 	 */
-	public final void readFully(byte b[]) throws IOException {
+	public final void readFully(byte[] b) throws IOException {
 		readFully(b, 0, b.length);
 	}
 
@@ -717,7 +717,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	 *                      all the bytes.
 	 * @throws IOException  if an I/O error occurs.
 	 */
-	public final void readFully(byte b[], int off, int len) throws IOException {
+	public final void readFully(byte[] b, int off, int len) throws IOException {
 		int n = 0;
 		while (n < len) {
 			int count = this.read(b, off + n, len - n);
@@ -814,7 +814,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	 * @param len the length of the data.
 	 * @throws IOException if an I/O error occurrs.
 	 */
-	private void writeBytes(byte b[], int off, int len) throws IOException {
+	private void writeBytes(byte[] b, int off, int len) throws IOException {
 		// If the amount of data is small (less than a full buffer)...
 		if (len < buffer.length) {
 
@@ -875,7 +875,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	 * @param b the data.
 	 * @throws IOException if an I/O error occurs.
 	 */
-	public void write(byte b[]) throws IOException {
+	public void write(byte[] b) throws IOException {
 		writeBytes(b, 0, b.length);
 	}
 
@@ -888,7 +888,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	 * @param len the number of bytes to write.
 	 * @throws IOException if an I/O error occurs.
 	 */
-	public void write(byte b[], int off, int len) throws IOException {
+	public void write(byte[] b, int off, int len) throws IOException {
 		writeBytes(b, off, len);
 	}
 

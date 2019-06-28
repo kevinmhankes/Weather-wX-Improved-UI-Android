@@ -217,7 +217,7 @@ public class ExternalGeodeticCalculator
 
       // intermediates we'll need to compute 's'
       double A = 0.0;
-      double B = 0.0;
+      double B;
       double sigma = 0.0;
       double deltasigma = 0.0;
       double lambda0;

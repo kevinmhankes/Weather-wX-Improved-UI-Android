@@ -427,7 +427,7 @@ public class CBZip2InputStream extends InputStream implements BZip2Constants {
   }
 
   private void recvDecodingTables() {
-    char len[][] = new char[Companion.N_GROUPS][Companion.MAX_ALPHA_SIZE];
+    char[][] len = new char[Companion.N_GROUPS][Companion.MAX_ALPHA_SIZE];
     int i, j, t, nGroups, nSelectors, alphaSize;
     int minLen, maxLen;
     boolean[] inUse16 = new boolean[16];
@@ -878,10 +878,9 @@ public class CBZip2InputStream extends InputStream implements BZip2Constants {
   }
 
   private void setDecompressStructureSizes(int newSize100k) {
-    if (!(0 <= newSize100k && newSize100k <= 9 && 0 <= blockSize100k
-            && blockSize100k <= 9)) {
+    //if (!(0 <= newSize100k && newSize100k <= 9 && 0 <= blockSize100k && blockSize100k <= 9)) {
       // throw new IOException("Invalid block size");
-    }
+    //}
 
     blockSize100k = newSize100k;
 
