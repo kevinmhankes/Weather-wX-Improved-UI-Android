@@ -21,7 +21,9 @@
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 // TODO 2 icons per row: SPC Thunder, SPC Fire, NHC
 // TODO severe dashboard break up downloads
+// TODO severe dashboard better formatting for vtec
 
+55246 2019_06_29    [FIX] severe dashboard was not downloading vtec warnings if warnings not configured elsewhere
 55245 2019_06_29    [FIX] severe dashboard linear layout was causing crash
 55244 2019_06_29    [ADD] SPC SWO Summary - images 2 per row like iOS
                     [FIX] lint cleanup including remove ExternalGeodeticCurve.kt ExternalGlobalPosition.kt

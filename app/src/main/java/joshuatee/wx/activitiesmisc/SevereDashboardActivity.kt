@@ -100,7 +100,7 @@ class SevereDashboardActivity : BaseActivity() {
         val wTst = SevereWarning(PolygonType.TST)
         val wFfw = SevereWarning(PolygonType.FFW)
         withContext(Dispatchers.IO) {
-            UtilityDownloadWarnings.get(this@SevereDashboardActivity)
+            UtilityDownloadWarnings.getForSevereDashboard(this@SevereDashboardActivity)
             wTor.generateString(this@SevereDashboardActivity, MyApplication.severeDashboardTor.value)
             wTst.generateString(this@SevereDashboardActivity, MyApplication.severeDashboardTst.value)
             wFfw.generateString(this@SevereDashboardActivity, MyApplication.severeDashboardFfw.value)
