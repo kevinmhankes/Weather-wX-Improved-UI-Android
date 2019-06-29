@@ -135,13 +135,11 @@ internal class ObjectMetar(context: Context, location: LatLon) {
     init {
         val obsClosest = UtilityMetar.findClosestObservation(context, location)
         UtilityUS.obsClosestClass = obsClosest.name
-        val url = MyApplication.nwsApiUrl + "/stations/" + obsClosest.name + "/observations/current"
-        //UtilityLog.d("wx", url)
-        val observationData = url.getNwsHtml()
-        icon = observationData.parse("\"icon\": \"(.*?)\",")
-        condition = observationData.parse("\"textDescription\": \"(.*?)\",")
+        //val url = MyApplication.nwsApiUrl + "/stations/" + obsClosest.name + "/observations/current"
+        //val observationData = url.getNwsHtml()
+        //icon = observationData.parse("\"icon\": \"(.*?)\",")
+        //condition = observationData.parse("\"textDescription\": \"(.*?)\",")
         val urlMetar = "${MyApplication.NWS_RADAR_PUB}/data/observations/metar/decoded/" + obsClosest.name + ".TXT"
-        //UtilityLog.d("wx", urlMetar)
         val metarData = urlMetar.getHtmlSep().replace("<br>", MyApplication.newline)
         temperature = metarData.parse("Temperature: (.*?) F")
         dewPoint = metarData.parse("Dew Point: (.*?) F")
