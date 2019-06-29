@@ -308,9 +308,9 @@ public class CBZip2InputStream extends InputStream implements BZip2Constants {
     cadvise("Bad Block Header");
   }
 
-  private void crcError() {
+ /* private void crcError() {
     cadvise();
-  }
+  }*/
 
   private void bsFinishedWithStream() {
     try {

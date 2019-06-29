@@ -127,7 +127,6 @@ class SevereDashboardActivity : BaseActivity() {
             bitmapArrRep.add((UtilitySpc.getStormReportsTodayUrl()).getImage())
         }
         totalImages = bitmapArrRep.size + snMcd.bitmaps.size + snWat.bitmaps.size + snMpd.bitmaps.size
-        UtilityLog.d("wx", "total images: " + (totalImages / 2 + 1).toString())
         for (i in 0..totalImages) {
             linearLayoutHorizontalList.add(ObjectLinearLayout(this@SevereDashboardActivity, ll))
         }

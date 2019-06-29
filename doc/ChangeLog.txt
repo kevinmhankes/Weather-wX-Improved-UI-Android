@@ -21,6 +21,7 @@
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 
 55244 2019_06_29    [ADD] SPC SWO Summary - images 2 per row like iOS
+                    [FIX] lint cleanup including remove ExternalGeodeticCurve.kt ExternalGlobalPosition.kt
 55243 2019_06_28    [FIX] make touchimageview listener public for multipane model
 55242 2019_06_28    [FIX] lint cleanup, remove ExternalGeodeticMeasurement.java
 55241 2019_06_28    [FIX] lint cleanup including remove SolarEvent.kt, TouchImageViewOld.java
