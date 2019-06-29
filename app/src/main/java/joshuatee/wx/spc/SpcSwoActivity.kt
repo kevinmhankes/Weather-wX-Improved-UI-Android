@@ -62,13 +62,8 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private lateinit var activityArguments: Array<String>
     private var day = ""
     private var playlistProd = ""
-    // FIXME var names
-    private lateinit var c1: ObjectCardImage
-    private lateinit var c2: ObjectCardText
-    private lateinit var c3: ObjectCardImage
-    private lateinit var c4: ObjectCardImage
-    private lateinit var c5: ObjectCardImage
-    private lateinit var c6: ObjectCardImage
+    private lateinit var objectCardText: ObjectCardText
+    private var objectCardImageList: MutableList<ObjectCardImage> = mutableListOf()
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,18 +73,18 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 R.menu.spcswo
         )
         toolbarBottom.setOnMenuItemClickListener(this)
-        val linearLayoutHorizontal1 = ObjectLinearLayout(this, ll)
-        val linearLayoutHorizontal2 = ObjectLinearLayout(this, ll)
-        val linearLayoutHorizontal3 = ObjectLinearLayout(this, ll)
-        linearLayoutHorizontal1.linearLayout.orientation = LinearLayout.HORIZONTAL
-        linearLayoutHorizontal2.linearLayout.orientation = LinearLayout.HORIZONTAL
-        linearLayoutHorizontal3.linearLayout.orientation = LinearLayout.HORIZONTAL
-        c1 = ObjectCardImage(this, linearLayoutHorizontal1.linearLayout)
-        c3 = ObjectCardImage(this, linearLayoutHorizontal1.linearLayout)
-        c4 = ObjectCardImage(this, linearLayoutHorizontal2.linearLayout)
-        c5 = ObjectCardImage(this, linearLayoutHorizontal2.linearLayout)
-        c6 = ObjectCardImage(this, linearLayoutHorizontal3.linearLayout)
-        c2 = ObjectCardText(this, ll, toolbar, toolbarBottom)
+        val linearLayoutHorizontalList = listOf(
+                ObjectLinearLayout(this, ll),
+                ObjectLinearLayout(this, ll),
+                ObjectLinearLayout(this, ll)
+        )
+        linearLayoutHorizontalList.forEach {
+            it.linearLayout.orientation = LinearLayout.HORIZONTAL
+        }
+        for (i in 0..4) {
+            objectCardImageList.add(ObjectCardImage(this, linearLayoutHorizontalList[i / 2].linearLayout))
+        }
+        objectCardText = ObjectCardText(this, ll, toolbar, toolbarBottom)
         activityArguments = intent.getStringArrayExtra(NO)
         day = activityArguments[0]
         title = "Day $day Convective Outlook"
@@ -146,39 +141,37 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
             urls = UtilitySpcSwo.getUrls(day)
             bitmaps = urls.map { it.getImage() }
         }
-        c2.setText(Utility.fromHtml(html))
+        objectCardText.setText(Utility.fromHtml(html))
         toolbar.subtitle = html.parse("(Valid.*?)<")
         if (activityArguments[1] == "sound") {
             UtilityTts.synthesizeTextAndPlay(applicationContext, html, "spcswo")
         }
         when (day) {
             "1" -> {
-                setImageAndClickAction(c1, 0, urls, textUrl)
-                setImageAndClickAction(c3, 1, urls, textUrl)
-                setImageAndClickAction(c4, 2, urls, textUrl)
-                setImageAndClickAction(c5, 3, urls, textUrl)
-                c6.setVisibility(View.GONE)
+                setImageAndClickAction(0, urls, textUrl)
+                setImageAndClickAction(1, urls, textUrl)
+                setImageAndClickAction(2, urls, textUrl)
+                setImageAndClickAction(3, urls, textUrl)
+                objectCardImageList[4].setVisibility(View.GONE)
             }
             "2" -> {
-                setImageAndClickAction(c1, 0, urls, textUrl)
-                setImageAndClickAction(c3, 1, urls, textUrl)
-                c4.setVisibility(View.GONE)
-                c5.setVisibility(View.GONE)
-                c6.setVisibility(View.GONE)
+                setImageAndClickAction(0, urls, textUrl)
+                setImageAndClickAction(1, urls, textUrl)
+                for (index in 2..4)
+                    objectCardImageList[index].setVisibility(View.GONE)
             }
             "3" -> {
-                setImageAndClickAction(c1, 0, urls, textUrl)
-                setImageAndClickAction(c3, 1, urls, textUrl)
-                c4.setVisibility(View.GONE)
-                c5.setVisibility(View.GONE)
-                c6.setVisibility(View.GONE)
+                setImageAndClickAction(0, urls, textUrl)
+                setImageAndClickAction(1, urls, textUrl)
+                for (index in 2..4)
+                    objectCardImageList[index].setVisibility(View.GONE)
             }
             "4-8" -> {
-                setImageAndClickAction(c1, 0, urls, textUrl)
-                setImageAndClickAction(c3, 1, urls, textUrl)
-                setImageAndClickAction(c4, 2, urls, textUrl)
-                setImageAndClickAction(c5, 3, urls, textUrl)
-                setImageAndClickAction(c6, 4, urls, textUrl)
+                setImageAndClickAction(0, urls, textUrl)
+                setImageAndClickAction(1, urls, textUrl)
+                setImageAndClickAction(2, urls, textUrl)
+                setImageAndClickAction(3, urls, textUrl)
+                setImageAndClickAction(4, urls, textUrl)
             }
         }
     }
@@ -192,9 +185,9 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         )
     }
 
-    private fun setImageAndClickAction(objectCardImage: ObjectCardImage, index: Int, urls: List<String>, textUrl: String) {
-        objectCardImage.setImage(bitmaps[index], 2)
-        objectCardImage.setOnClickListener(
+    private fun setImageAndClickAction(index: Int, urls: List<String>, textUrl: String) {
+        objectCardImageList[index].setImage(bitmaps[index], 2)
+        objectCardImageList[index].setOnClickListener(
                 View.OnClickListener {
                     showImageProduct(urls[index], textUrl)
                 }
