@@ -27,6 +27,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.MyApplication
 
@@ -44,6 +45,8 @@ import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.spc.SpcMcdWatchShowActivity
 import joshuatee.wx.spc.SpcStormReportsActivity
 import joshuatee.wx.spc.UtilitySpc
+import joshuatee.wx.ui.ObjectLinearLayout
+import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.util.UtilityShortcut
 
@@ -61,6 +64,8 @@ class SevereDashboardActivity : BaseActivity() {
     private var tstCount = 0
     private var ffwCount = 0
     private var torCount = 0
+    private var totalImages = 0
+    private var linearLayoutHorizontalList: MutableList<ObjectLinearLayout> = mutableListOf()
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.severe_dashboard, menu)
@@ -71,6 +76,7 @@ class SevereDashboardActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
+        totalImages = 0
         getContent()
     }
 
@@ -120,9 +126,18 @@ class SevereDashboardActivity : BaseActivity() {
             snMpd.getBitmaps(MyApplication.severeDashboardMpd.value)
             bitmapArrRep.add((UtilitySpc.getStormReportsTodayUrl()).getImage())
         }
+        totalImages = bitmapArrRep.size + snMcd.bitmaps.size + snWat.bitmaps.size + snMpd.bitmaps.size
+        UtilityLog.d("wx", "total images: " + (totalImages / 2 + 1).toString())
+        for (i in 0..totalImages) {
+            linearLayoutHorizontalList.add(ObjectLinearLayout(this@SevereDashboardActivity, ll))
+        }
+        linearLayoutHorizontalList.forEach {
+            it.linearLayout.orientation = LinearLayout.HORIZONTAL
+        }
+        totalImages = 0
         if (bitmapArrRep.size > 0) {
             bitmapArrRep.indices.forEach {
-                val card = ObjectCardImage(this@SevereDashboardActivity, ll, bitmapArrRep[it])
+                val card = ObjectCardImage(this@SevereDashboardActivity, linearLayoutHorizontalList[totalImages / 2].linearLayout, bitmapArrRep[it], 2)
                 card.setOnClickListener(View.OnClickListener {
                     ObjectIntent(
                             this@SevereDashboardActivity,
@@ -131,6 +146,7 @@ class SevereDashboardActivity : BaseActivity() {
                             arrayOf("today")
                     )
                 })
+                totalImages += 1
             }
         }
         listOf(snWat, snMcd, snMpd)
@@ -138,7 +154,7 @@ class SevereDashboardActivity : BaseActivity() {
                 .filter { it.bitmaps.size > 0 }
                 .forEach { severeNotice ->
                     severeNotice.bitmaps.indices.forEach { j ->
-                        val card = ObjectCardImage(this@SevereDashboardActivity, ll, severeNotice.bitmaps[j])
+                        val card = ObjectCardImage(this@SevereDashboardActivity, linearLayoutHorizontalList[totalImages / 2].linearLayout, severeNotice.bitmaps[j], 2)
                         var cla: Class<*>? = null
                         var claStr = ""
                         val claArgStr = severeNotice.numbers[j]
@@ -168,6 +184,7 @@ class SevereDashboardActivity : BaseActivity() {
                                     arrayOf(claArgStr, "", severeNotice.toString())
                             )
                         })
+                        totalImages += 1
                     }
                 }
         bitmaps.addAll(snWat.bitmaps)
