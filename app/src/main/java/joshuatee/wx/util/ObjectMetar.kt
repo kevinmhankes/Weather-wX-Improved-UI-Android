@@ -135,11 +135,14 @@ internal class ObjectMetar(context: Context, location: LatLon) {
     init {
         val obsClosest = UtilityMetar.findClosestObservation(context, location)
         UtilityUS.obsClosestClass = obsClosest.name
-        val observationData = (MyApplication.nwsApiUrl + "/stations/" + obsClosest.name + "/observations/current").getNwsHtml()
+        val url = MyApplication.nwsApiUrl + "/stations/" + obsClosest.name + "/observations/current"
+        //UtilityLog.d("wx", url)
+        val observationData = url.getNwsHtml()
         icon = observationData.parse("\"icon\": \"(.*?)\",")
         condition = observationData.parse("\"textDescription\": \"(.*?)\",")
-        val metarData = ("${MyApplication.NWS_RADAR_PUB}/data/observations/metar/decoded/" + obsClosest.name + ".TXT").getHtmlSep()
-                .replace("<br>", MyApplication.newline)
+        val urlMetar = "${MyApplication.NWS_RADAR_PUB}/data/observations/metar/decoded/" + obsClosest.name + ".TXT"
+        //UtilityLog.d("wx", urlMetar)
+        val metarData = urlMetar.getHtmlSep().replace("<br>", MyApplication.newline)
         temperature = metarData.parse("Temperature: (.*?) F")
         dewPoint = metarData.parse("Dew Point: (.*?) F")
         windDirection = metarData.parse("Wind: from the (.*?) \\(.*? degrees\\) at .*? MPH ")
@@ -149,7 +152,8 @@ internal class ObjectMetar(context: Context, location: LatLon) {
         visibility = metarData.parse("Visibility: (.*?) mile")
         relativeHumidity = metarData.parse("Relative Humidity: (.*?)%")
         windChill = metarData.parse("Windchill: (.*?) F")
-        heatIndex = metarData.parse("Heat index: (.*?) F")
+        //heatIndex = metarData.parse("Heat index: (.*?) F")
+        heatIndex = UtilityMath.heatIndex(temperature, relativeHumidity)
         rawMetar = metarData.parse("ob: (.*?)" + MyApplication.newline)
         metarSkyCondition = metarData.parse("Sky conditions: (.*?)" + MyApplication.newline)
         metarWeatherCondition = metarData.parse("Weather: (.*?)" + MyApplication.newline)

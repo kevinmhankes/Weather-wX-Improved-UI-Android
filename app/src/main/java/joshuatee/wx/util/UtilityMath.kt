@@ -157,4 +157,32 @@ object UtilityMath {
     fun getRadarBeamHeight(degree: Float, distance: Double): Double {
         return 3.281 * (sin(Math.toRadians(degree.toDouble())) * distance + distance * distance / 15417.82) * 1000.0
     }
+
+    fun heatIndex(temp: String , RH: String ): String {
+        // temp >= 80 and RH >= 40
+        val T = temp.toDoubleOrNull() ?: 0.0
+        val R = RH.toDoubleOrNull() ?: 0.0
+        return if ( T > 80.0 && R > 4.0 ) {
+            val s1 = -42.379
+            val s2 = 2.04901523 * T
+            val s3 = 10.14333127 * R
+            val s4 = 0.22475541 * T * R
+            val s5 = 6.83783 * Math.pow(10.0, -3.0) * Math.pow(T, 2.0)
+            val s6 = 5.481717 * Math.pow(10.0, -2.0) * Math.pow(R, 2.0)
+            val s7 = 1.22874 * Math.pow(10.0, -3.0) * Math.pow(T, 2.0) * R
+            val s8 = 8.5282 * Math.pow(10.0, -4.0) * T * Math.pow(R, 2.0)
+            val s9 = 1.99 * Math.pow(10.0, -6.0) * Math.pow(T, 2.0) * Math.pow(R, 2.0)
+            val res1 = (s1 + s2 + s3 - s4 - s5 - s6 + s7 + s8 - s9).roundToInt().toString()
+            res1
+        } else {
+            ""
+        }
+    }
+
+    /*static String getWindChill(double tempD, double mphD )
+	{
+		double windChillD = 35.74 + 0.6215 * tempD - 35.75 * Math.pow(mphD,0.16) + 0.4275*tempD * Math.pow(mphD,0.16);
+		return "(" + UtilityMath.unitsTemp(Integer.toString((int)(Math.round(windChillD)))) + MyApplication.DEGREE_SYMBOL + ")";
+	}*/
+
 }
