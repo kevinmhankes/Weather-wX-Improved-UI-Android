@@ -22,6 +22,7 @@
 // TODO 2 icons per row: SPC Thunder, SPC Fire, NHC
 // TODO severe dashboard break up downloads
 
+55245 2019_06_29    [FIX] severe dashboard linear layout was causing crash
 55244 2019_06_29    [ADD] SPC SWO Summary - images 2 per row like iOS
                     [FIX] lint cleanup including remove ExternalGeodeticCurve.kt ExternalGlobalPosition.kt
                     [ADD] Severe dashboard - download images in chunks and display as it downloads

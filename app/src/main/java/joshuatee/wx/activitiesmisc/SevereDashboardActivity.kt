@@ -121,7 +121,9 @@ class SevereDashboardActivity : BaseActivity() {
             bitmapArrRep.add((UtilitySpc.getStormReportsTodayUrl()).getImage())
         }
         totalImages = bitmapArrRep.size + snMcd.bitmaps.size + snWat.bitmaps.size + snMpd.bitmaps.size
-        for (i in 0..totalImages) {
+        UtilityLog.d("Wx", totalImages.toString())
+        // FIXME should not be hardcoded
+        for (i in 0..20) {
             linearLayoutHorizontalList.add(ObjectLinearLayout(this@SevereDashboardActivity, ll))
         }
         linearLayoutHorizontalList.forEach {
@@ -196,6 +198,7 @@ class SevereDashboardActivity : BaseActivity() {
                 .filter { it.bitmaps.size > 0 }
                 .forEach { severeNotice ->
                     severeNotice.bitmaps.indices.forEach { j ->
+                        UtilityLog.d("Wx", totalImages.toString())
                         val card = ObjectCardImage(this@SevereDashboardActivity, linearLayoutHorizontalList[totalImages / 2].linearLayout, severeNotice.bitmaps[j], 2)
                         var cla: Class<*>? = null
                         var claStr = ""
