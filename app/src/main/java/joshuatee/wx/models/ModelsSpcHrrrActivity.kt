@@ -236,11 +236,13 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         return true
     }
 
-    private fun overlaySelected(mesoS: String) {
-        if (overlayImg.contains(mesoS))
-            overlayImg.remove(mesoS)
-        else
-            overlayImg.add(mesoS)
+    private fun overlaySelected(overlay: String) {
+        if (overlayImg.contains(overlay)) {
+            overlayImg.remove(overlay)
+        } else {
+            overlayImg.add(overlay)
+        }
+        UtilityModels.getContent(this@ModelsSpcHrrrActivity, om, overlayImg, uiDispatcher)
     }
 
     private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {

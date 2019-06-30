@@ -49,7 +49,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     private val pacWalletList = mutableListOf<String>()
     private val pacTitleList = mutableListOf<String>()
     private val bitmaps = mutableListOf<Bitmap>()
-    private var cNotif: ObjectCardText? = null
+    private var notificationCard: ObjectCardText? = null
     private val cardNotifHeaderText = "Currently blocked storm notifications, tap this text to clear all blocks "
     var html: String = ""
 
@@ -95,13 +95,13 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         linearLayout.removeAllViewsInLayout()
         html = ""
         val muteStr = Utility.readPref(context, "NOTIF_NHC_MUTE", "")
-        cNotif = ObjectCardText(context, cardNotifHeaderText + muteStr)
-        linearLayout.addView(cNotif?.card)
-        cNotif?.setOnClickListener(View.OnClickListener { clearNhcNotificationBlock() })
+        notificationCard = ObjectCardText(context, cardNotifHeaderText + muteStr)
+        linearLayout.addView(notificationCard?.card)
+        notificationCard?.setOnClickListener(View.OnClickListener { clearNhcNotificationBlock() })
         if (muteStr != "") {
-            cNotif?.setVisibility(View.VISIBLE)
+            notificationCard?.setVisibility(View.VISIBLE)
         } else {
-            cNotif?.setVisibility(View.GONE)
+            notificationCard?.setVisibility(View.GONE)
         }
         if (atlSumList.size < 1) {
             val noAtl = "There are no tropical cyclones in the Atlantic at this time."
@@ -165,18 +165,19 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
 
     private fun clearNhcNotificationBlock() {
         Utility.writePref(context, "NOTIF_NHC_MUTE", "")
-        if (cNotif != null)
-            cNotif!!.setVisibility(View.GONE)
+        if (notificationCard != null) {
+            notificationCard!!.setVisibility(View.GONE)
+        }
     }
 
     fun handleRestartForNotif() {
         val muteStr = Utility.readPref(context, "NOTIF_NHC_MUTE", "")
-        if (cNotif != null) {
+        if (notificationCard != null) {
             if (muteStr != "") {
-                cNotif!!.setText(cardNotifHeaderText + muteStr)
-                cNotif!!.setVisibility(View.VISIBLE)
+                notificationCard!!.setText(cardNotifHeaderText + muteStr)
+                notificationCard!!.setVisibility(View.VISIBLE)
             } else {
-                cNotif!!.setVisibility(View.GONE)
+                notificationCard!!.setVisibility(View.GONE)
             }
         }
     }
