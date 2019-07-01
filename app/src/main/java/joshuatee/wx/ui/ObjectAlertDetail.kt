@@ -24,7 +24,6 @@ package joshuatee.wx.ui
 import android.content.Context
 import android.util.TypedValue
 import android.widget.LinearLayout
-import android.widget.TextView
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
@@ -34,7 +33,7 @@ import joshuatee.wx.util.UtilityString
 
 class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
 
-    private val tvArr = mutableListOf<TextView>()
+    private val objectTextViews = mutableListOf<ObjectTextView>()
     var title: String = ""
         private set
     var wfoTitle: String = ""
@@ -42,29 +41,29 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
 
     init {
         (0 until 5).forEach {
-            tvArr.add(TextView(context))
-            ll.addView(tvArr[it])
+            objectTextViews.add(ObjectTextView(context))
+            ll.addView(objectTextViews[it].tv)
         }
-        tvArr[0].setPadding(MyApplication.padding, 0, MyApplication.padding, 0)  // start
-        tvArr[1].setPadding(
+        objectTextViews[0].setPadding(MyApplication.padding, 0, MyApplication.padding, 0)  // start
+        objectTextViews[1].setPadding(
             MyApplication.padding,
             0,
             MyApplication.padding,
             MyApplication.padding
         )  // end
-        tvArr[2].setPadding(
+        objectTextViews[2].setPadding(
             MyApplication.padding,
             MyApplication.padding,
             MyApplication.padding,
             MyApplication.padding
         )
-        tvArr[3].setPadding(
+        objectTextViews[3].setPadding(
             MyApplication.padding,
             MyApplication.padding,
             MyApplication.padding,
             MyApplication.padding
         )
-        tvArr[4].setPadding(
+        objectTextViews[4].setPadding(
             MyApplication.padding,
             MyApplication.padding,
             MyApplication.padding,
@@ -77,8 +76,8 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
         var endTime = ""
         var wfo = ""
         if (ca.text.contains("This alert has expired")) {
-            tvArr[0].text = ca.text
-            tvArr[0].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeLarge)
+            objectTextViews[0].text = ca.text
+            objectTextViews[0].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeLarge)
         } else {
             if (!url.contains("NWS-IDP-PROD")) {
                 if (ca.title.contains("until")) {
@@ -131,12 +130,12 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
                     }
                 }
             }
-            tvArr[0].text = context.resources.getString(R.string.uswarn_start_time, startTime)
-            tvArr[1].text = context.resources.getString(R.string.uswarn_end_time, endTime)
-            tvArr[2].text = ca.area
-            tvArr[2].setTextColor(UIPreferences.textHighlightColor)
-            tvArr[3].text = ca.summary
-            tvArr[4].text = ca.instructions
+            objectTextViews[0].text = context.resources.getString(R.string.uswarn_start_time, startTime)
+            objectTextViews[1].text = context.resources.getString(R.string.uswarn_end_time, endTime)
+            objectTextViews[2].text = ca.area
+            objectTextViews[2].setTextColor(UIPreferences.textHighlightColor)
+            objectTextViews[3].text = ca.summary
+            objectTextViews[4].text = ca.instructions
         }
         wfoTitle = wfo
     }

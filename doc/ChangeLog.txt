@@ -22,7 +22,9 @@
 // TODO 2 icons per row: SPC Thunder, SPC Fire, NHC
 // TODO severe dashboard break up downloads
 // TODO severe dashboard better formatting for vtec
+// TODO scan for usage of TextView
 
+55248 2019_07_01    [FIX] USAlertsDetail was not using ObjectTextView and thus not respecting text size in UI -> settings (thanks Jim)
 55247 2019_06_30    [FIX] ObjectMetar init had unecessary call to NWS API
                     [FIX] lint cleanup
 55246 2019_06_29    [FIX] severe dashboard was not downloading vtec warnings if warnings not configured elsewhere
