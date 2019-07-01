@@ -84,8 +84,9 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         url = activityArguments[0]
         toolbarTitle = activityArguments[1]
         val titleArr = toolbarTitle.split(" - ")
+        title = "NHC"
         if (titleArr.size > 1) {
-            title = titleArr[1]
+            toolbar.subtitle = titleArr[1]
         }
         val imgUrl1 = activityArguments[3]
         val year = UtilityTime.year()

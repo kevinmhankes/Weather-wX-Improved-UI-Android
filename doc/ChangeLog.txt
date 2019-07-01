@@ -24,6 +24,8 @@
 // TODO severe dashboard better formatting for vtec
 // TODO scan for usage of TextView
 
+55249 2019_07_02    [FIX] Remove text scaling in CC due to issues of text truncation and not scaling back to size
+                    [FIX] NHC storm - move title to subtitle as text is usuall to long
 55248 2019_07_01    [FIX] USAlertsDetail was not using ObjectTextView and thus not respecting text size in UI -> settings (thanks Jim)
 55247 2019_06_30    [FIX] ObjectMetar init had unecessary call to NWS API
                     [FIX] lint cleanup
