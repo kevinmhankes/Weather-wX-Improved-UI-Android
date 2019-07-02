@@ -26,7 +26,6 @@ import android.graphics.Bitmap
 import android.view.Gravity
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
-import androidx.core.widget.TextViewCompat
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.TextSize
