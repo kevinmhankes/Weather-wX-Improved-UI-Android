@@ -120,10 +120,10 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         ridFav = ridFav.replace("^:".toRegex(), "")
         MyApplication.homescreenFav = ridFav
         Utility.writePref(this, prefToken, ridFav)
-        val ridArrtmp = ridFav.split(":").dropLastWhile { it.isEmpty() }
+        val tempList = ridFav.split(":").dropLastWhile { it.isEmpty() }
         if (ridFav != "") {
             ridArr.clear()
-            ridArrtmp.indices.forEach { ridArr.add(ridArrtmp[it]) }
+            tempList.indices.forEach { ridArr.add(tempList[it]) }
             if (firstTime) {
                 labels = mutableListOf()
             }

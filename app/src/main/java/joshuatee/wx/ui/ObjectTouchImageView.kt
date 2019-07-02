@@ -121,8 +121,6 @@ class ObjectTouchImageView {
         if (prefTokenIdx != "" && drw != null) {
             Utility.writePref(context, prefTokenIdx, drw!!.index)
         }
-        // FIXME implement
-        // firstRunSetZoomPosn()
     }
 
     fun setOnClickListener(listener: View.OnClickListener) {

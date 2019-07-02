@@ -106,9 +106,9 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
     private fun updateList() {
         MyApplication.playlistStr = ridFav
-        val ridArrtmp = MyApplication.colon.split(ridFav)
+        val tempList = MyApplication.colon.split(ridFav)
         ridArr.clear()
-        (1 until ridArrtmp.size).mapTo(ridArr) { getLongString(ridArrtmp[it]) }
+        (1 until tempList.size).mapTo(ridArr) { getLongString(tempList[it]) }
     }
 
     private fun updateListNoInit() {
