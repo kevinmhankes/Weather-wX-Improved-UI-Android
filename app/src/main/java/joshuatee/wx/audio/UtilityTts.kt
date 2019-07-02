@@ -314,11 +314,14 @@ object UtilityTts {
         val uri = Uri.parse("file://$fileName")
         try {
             mMediaPlayer?.setDataSource(context, uri)
+            mMediaPlayer?.prepare()
+            mMediaPlayer?.start()
         } catch (e: IOException) {
             UtilityLog.handleException(e)
+        } catch (e: Exception) {
+            UtilityLog.handleException(e)
         }
-        mMediaPlayer?.prepare()
-        mMediaPlayer?.start()
+
     }
 
     fun conditionalPlay(
