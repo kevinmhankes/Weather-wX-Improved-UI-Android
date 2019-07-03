@@ -247,7 +247,6 @@ object UtilityTts {
         }
         txt = UtilityTtsTranslations.translateAbbreviation(txt)
         val myHashRender = HashMap<String, String>()
-        //val musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
         val musicDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
         val wxDir = File(musicDir, MyApplication.packageNameAsString)
         if (!wxDir.exists() && !wxDir.mkdirs()) {
@@ -302,8 +301,6 @@ object UtilityTts {
     }
 
     private fun playMediaPlayerFile(context: Context, fileNum: Int) {
-        //val musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
-        //val musicDir = Environment.getExternalStorageDirectory()
         val musicDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
         val wxDir = File(musicDir, MyApplication.packageNameAsString)
         if (!wxDir.exists() && !wxDir.mkdirs()) {

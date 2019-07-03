@@ -50,7 +50,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     private val pacTitleList = mutableListOf<String>()
     private val bitmaps = mutableListOf<Bitmap>()
     private var notificationCard: ObjectCardText? = null
-    private val cardNotifHeaderText = "Currently blocked storm notifications, tap this text to clear all blocks "
+    private val cardNotificationHeaderText = "Currently blocked storm notifications, tap this text to clear all blocks "
     var html: String = ""
 
     fun getData() {
@@ -95,7 +95,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         linearLayout.removeAllViewsInLayout()
         html = ""
         val muteStr = Utility.readPref(context, "NOTIF_NHC_MUTE", "")
-        notificationCard = ObjectCardText(context, cardNotifHeaderText + muteStr)
+        notificationCard = ObjectCardText(context, cardNotificationHeaderText + muteStr)
         linearLayout.addView(notificationCard?.card)
         notificationCard?.setOnClickListener(View.OnClickListener { clearNhcNotificationBlock() })
         if (muteStr != "") {
@@ -138,7 +138,6 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
                 if (pacImg1List[k] != "") {
                     val objStormData = ObjectNhcStormDetails(pacSumList[k])
                     val cPacData = ObjectCardNhcStormReportItem(context, linearLayout, objStormData)
-                    //val cPac = ObjectCardText(context, dynamicview, Utility.fromHtml(pacSumList[k]))
                     html += pacSumList[k]
                     val url = pacLinkList[k]
                     val imgUrl1 = pacImg1List[k]
@@ -170,11 +169,11 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         }
     }
 
-    fun handleRestartForNotif() {
+    fun handleRestartForNotification() {
         val muteStr = Utility.readPref(context, "NOTIF_NHC_MUTE", "")
         if (notificationCard != null) {
             if (muteStr != "") {
-                notificationCard!!.setText(cardNotifHeaderText + muteStr)
+                notificationCard!!.setText(cardNotificationHeaderText + muteStr)
                 notificationCard!!.setVisibility(View.VISIBLE)
             } else {
                 notificationCard!!.setVisibility(View.GONE)

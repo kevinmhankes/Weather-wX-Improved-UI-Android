@@ -137,7 +137,7 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onRestart() {
-        objNhc.handleRestartForNotif()
+        objNhc.handleRestartForNotification()
         super.onRestart()
     }
 }

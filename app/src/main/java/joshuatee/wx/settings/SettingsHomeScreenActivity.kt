@@ -197,9 +197,9 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
 
     private fun moveUp(pos: Int) {
         ridFav = MyApplication.homescreenFav
-        val ridArrtmp = MyApplication.colon.split(ridFav)
+        val tempList = MyApplication.colon.split(ridFav)
         ridArr.clear()
-        ridArrtmp.indices.forEach { ridArr.add(ridArrtmp[it]) }
+        tempList.indices.forEach { ridArr.add(tempList[it]) }
         if (pos != 0) {
             val tmp = ridArr[pos - 1]
             ridArr[pos - 1] = ridArr[pos]
@@ -217,9 +217,9 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
 
     private fun moveDown(pos: Int) {
         ridFav = MyApplication.homescreenFav
-        val ridArrtmp = MyApplication.colon.split(ridFav)
+        val tempList = MyApplication.colon.split(ridFav)
         ridArr.clear()
-        ridArrtmp.indices.forEach { ridArr.add(ridArrtmp[it]) }
+        tempList.indices.forEach { ridArr.add(tempList[it]) }
         if (pos != ridArr.lastIndex) {
             val tmp = ridArr[pos + 1]
             ridArr[pos + 1] = ridArr[pos]

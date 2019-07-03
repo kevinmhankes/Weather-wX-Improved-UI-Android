@@ -44,47 +44,52 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
             objectTextViews.add(ObjectTextView(context))
             ll.addView(objectTextViews[it].tv)
         }
-        objectTextViews[0].setPadding(MyApplication.padding, 0, MyApplication.padding, 0)  // start
+        objectTextViews[0].setPadding(
+                MyApplication.padding,
+                0,
+                MyApplication.padding,
+                0
+        )
         objectTextViews[1].setPadding(
-            MyApplication.padding,
-            0,
-            MyApplication.padding,
-            MyApplication.padding
-        )  // end
+                MyApplication.padding,
+                0,
+                MyApplication.padding,
+                MyApplication.padding
+        )
         objectTextViews[2].setPadding(
-            MyApplication.padding,
-            MyApplication.padding,
-            MyApplication.padding,
-            MyApplication.padding
+                MyApplication.padding,
+                MyApplication.padding,
+                MyApplication.padding,
+                MyApplication.padding
         )
         objectTextViews[3].setPadding(
-            MyApplication.padding,
-            MyApplication.padding,
-            MyApplication.padding,
-            MyApplication.padding
+                MyApplication.padding,
+                MyApplication.padding,
+                MyApplication.padding,
+                MyApplication.padding
         )
         objectTextViews[4].setPadding(
-            MyApplication.padding,
-            MyApplication.padding,
-            MyApplication.padding,
-            MyApplication.padding
+                MyApplication.padding,
+                MyApplication.padding,
+                MyApplication.padding,
+                MyApplication.padding
         )
     }
 
-    fun updateContent(ca: CapAlert, url: String) {
+    fun updateContent(capAlert: CapAlert, url: String) {
         val startTime: String
         var endTime = ""
         var wfo = ""
-        if (ca.text.contains("This alert has expired")) {
-            objectTextViews[0].text = ca.text
+        if (capAlert.text.contains("This alert has expired")) {
+            objectTextViews[0].text = capAlert.text
             objectTextViews[0].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeLarge)
         } else {
             if (!url.contains("NWS-IDP-PROD")) {
-                if (ca.title.contains("until")) {
+                if (capAlert.title.contains("until")) {
                     val tmpArr = UtilityString.parseMultiple(
-                        ca.title,
-                        "(.*?) issued (.*?) until (.*?) by (.*?)$",
-                        4
+                            capAlert.title,
+                            "(.*?) issued (.*?) until (.*?) by (.*?)$",
+                            4
                     )
                     title = tmpArr[0]
                     startTime = tmpArr[1]
@@ -92,16 +97,16 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
                     wfo = tmpArr[3]
                 } else {
                     val tmpArr =
-                        UtilityString.parseMultiple(ca.title, "(.*?) issued (.*?) by (.*?)$", 3)
+                            UtilityString.parseMultiple(capAlert.title, "(.*?) issued (.*?) by (.*?)$", 3)
                     title = tmpArr[0]
                     startTime = tmpArr[1]
                     wfo = tmpArr[2]
                 }
             } else {
                 when {
-                    ca.title.contains("expiring") -> {
+                    capAlert.title.contains("expiring") -> {
                         val tmpArr = UtilityString.parseMultiple(
-                                ca.title,
+                                capAlert.title,
                                 "(.*?) issued (.*?) expiring (.*?) by (.*?)$",
                                 4
                         )
@@ -110,9 +115,9 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
                         endTime = tmpArr[2]
                         wfo = tmpArr[3]
                     }
-                    ca.title.contains("until") -> {
+                    capAlert.title.contains("until") -> {
                         val tmpArr = UtilityString.parseMultiple(
-                                ca.title,
+                                capAlert.title,
                                 "(.*?) issued (.*?) until (.*?) by (.*?)$",
                                 4
                         )
@@ -123,7 +128,7 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
                     }
                     else -> {
                         val tmpArr =
-                                UtilityString.parseMultiple(ca.title, "(.*?) issued (.*?) by (.*?)$", 3)
+                                UtilityString.parseMultiple(capAlert.title, "(.*?) issued (.*?) by (.*?)$", 3)
                         title = tmpArr[0]
                         startTime = tmpArr[1]
                         wfo = tmpArr[2]
@@ -132,10 +137,10 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
             }
             objectTextViews[0].text = context.resources.getString(R.string.uswarn_start_time, startTime)
             objectTextViews[1].text = context.resources.getString(R.string.uswarn_end_time, endTime)
-            objectTextViews[2].text = ca.area
+            objectTextViews[2].text = capAlert.area
             objectTextViews[2].setTextColor(UIPreferences.textHighlightColor)
-            objectTextViews[3].text = ca.summary
-            objectTextViews[4].text = ca.instructions
+            objectTextViews[3].text = capAlert.summary
+            objectTextViews[4].text = capAlert.instructions
         }
         wfoTitle = wfo
     }
