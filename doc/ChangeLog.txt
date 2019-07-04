@@ -20,11 +20,11 @@
 // TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 // TODO 2 icons per row: SPC Thunder, SPC Fire, NHC
-// TODO severe dashboard break up downloads
 // TODO severe dashboard better formatting for vtec
-// TODO scan for usage of TextView
 
-55252 2019_07_03
+55252 2019_07_04    [ADD] kotlin plugin 1.3.40 -> 1.3.41
+                    [FIX] at joshuatee.wx.canada.UtilityCanada.getLocationHtml (UtilityCanada.kt:267) java.lang.IndexOutOfBoundsException:
+                    [FIX] at joshuatee.wx.notifications.UtilityNotificationSpc.sendSwoNotification (UtilityNotificationSpc.kt:416) java.lang.IndexOutOfBoundsException:
 55251 2019_07_03    [FIX] lint cleanup
 55250 2019_07_02    [FIX] at joshuatee.wx.audio.UtilityTts.playMediaPlayerFile(UtilityTts.kt:320)  java.lang.IllegalStateException
                     [FIX] NCEP HRW* change from 0..49 to 1..48
