@@ -22,6 +22,7 @@
 // TODO 2 icons per row: SPC Thunder, SPC Fire, NHC
 // TODO severe dashboard better formatting for vtec
 
+55253 2019_07_04    [FIX] GOES EAST/WEST FD animations not working
 55252 2019_07_04    [ADD] kotlin plugin 1.3.40 -> 1.3.41
                     [FIX] at joshuatee.wx.canada.UtilityCanada.getLocationHtml (UtilityCanada.kt:267) java.lang.IndexOutOfBoundsException:
                     [FIX] at joshuatee.wx.notifications.UtilityNotificationSpc.sendSwoNotification (UtilityNotificationSpc.kt:416) java.lang.IndexOutOfBoundsException:
