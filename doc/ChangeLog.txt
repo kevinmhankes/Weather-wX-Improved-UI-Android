@@ -21,6 +21,8 @@
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 // TODO 2 icons per row: SPC Thunder, SPC Fire, NHC
 // TODO severe dashboard better formatting for vtec
+// TODO Namhires start at one not zero
+// TODO break changelog into 2nd file
 
 55254 2019_07_05    [FIX] labels changes in GOES activity to better match submenu choices
 55253 2019_07_04    [FIX] GOES EAST/WEST FD animations not working
