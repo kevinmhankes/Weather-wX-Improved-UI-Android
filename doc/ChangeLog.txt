@@ -22,9 +22,9 @@
 // TODO 2 icons per row: SPC Thunder, SPC Fire, NHC
 // TODO add ability to add generic URLs to homescreen
 // TODO severe dashboard better formatting for vtec
-// TODO Namhires start at one not zero
 // TODO break changelog into 2nd file
 
+55255 2019_07_12    [FIX] Nam-hires start at one not zero
 55254 2019_07_05    [FIX] labels changes in GOES activity to better match submenu choices
 55253 2019_07_04    [FIX] GOES EAST/WEST FD animations not working
 55252 2019_07_04    [ADD] kotlin plugin 1.3.40 -> 1.3.41
