@@ -283,7 +283,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                         params = UtilityModelNcepInterface.paramsNamHires
                         labels = UtilityModelNcepInterface.labelsNamHires
                         sectors = UtilityModelNcepInterface.sectorsNamHires
-                        startStep = 0
+                        startStep = 1
                         endStep = 60
                         stepAmount = 1
                         numberRuns = 4
