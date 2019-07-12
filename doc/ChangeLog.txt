@@ -24,6 +24,7 @@
 // TODO severe dashboard better formatting for vtec
 // TODO break changelog into 2nd file
 
+55256 2019_07_12    [ADD] android studio update with associated plugin updates
 55255 2019_07_12    [FIX] Nam-hires start at one not zero
                     [ADD] In NHC and NHC storm, break up the download/display of data into chunks so the user at least sees something sooner rather then later
 55254 2019_07_05    [FIX] labels changes in GOES activity to better match submenu choices
