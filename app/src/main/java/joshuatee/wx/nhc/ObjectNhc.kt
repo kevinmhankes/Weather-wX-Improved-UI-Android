@@ -48,24 +48,14 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     private val pacImg2List = mutableListOf<String>()
     private val pacWalletList = mutableListOf<String>()
     private val pacTitleList = mutableListOf<String>()
-    private val bitmaps = mutableListOf<Bitmap>()
+    private val bitmapsAtlantic = mutableListOf<Bitmap>()
+    private val bitmapsPacific = mutableListOf<Bitmap>()
+    private val bitmapsCentral = mutableListOf<Bitmap>()
     private var notificationCard: ObjectCardText? = null
     private val cardNotificationHeaderText = "Currently blocked storm notifications, tap this text to clear all blocks "
     var html: String = ""
 
-    fun getData() {
-        listOf(
-                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_0d0.png",
-                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_2d0.png",
-                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_5d0.png",
-                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_0d0.png",
-                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_2d0.png",
-                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_5d0.png",
-                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_0d0.png",
-                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_2d0.png",
-                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_5d0.png"
-        ).forEach { bitmaps.add(it.getImage()) }
-
+    fun getTextData() {
         var dataRet: ObjectNhcStormInfo
         (1 until 6).forEach {
             dataRet = UtilityNhc.getHurricaneInfo("${MyApplication.nwsNhcWebsitePrefix}/nhc_at" + it.toString() + ".xml")
@@ -91,7 +81,31 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         }
     }
 
-    fun showData() {
+    fun getAtlanticImageData() {
+        listOf(
+                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_0d0.png",
+                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_2d0.png",
+                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_5d0.png"
+        ).forEach { bitmapsAtlantic.add(it.getImage()) }
+    }
+
+    fun getPacificImageData() {
+        listOf(
+                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_0d0.png",
+                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_2d0.png",
+                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_5d0.png"
+        ).forEach { bitmapsPacific.add(it.getImage()) }
+    }
+
+    fun getCentralImageData() {
+        listOf(
+                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_0d0.png",
+                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_2d0.png",
+                "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_5d0.png"
+        ).forEach { bitmapsCentral.add(it.getImage()) }
+    }
+
+    fun showTextData() {
         linearLayout.removeAllViewsInLayout()
         html = ""
         val muteStr = Utility.readPref(context, "NOTIF_NHC_MUTE", "")
@@ -155,11 +169,18 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
                 }
             }
         }
-        showTwoBitmaps()
     }
 
-    private fun showTwoBitmaps() {
-        bitmaps.forEach { ObjectCardImage(context, linearLayout, it) }
+    fun showAtlanticImageData() {
+        bitmapsAtlantic.forEach { ObjectCardImage(context, linearLayout, it) }
+    }
+
+    fun showPacificImageData() {
+        bitmapsPacific.forEach { ObjectCardImage(context, linearLayout, it) }
+    }
+
+    fun showCentralImageData() {
+        bitmapsCentral.forEach { ObjectCardImage(context, linearLayout, it) }
     }
 
     private fun clearNhcNotificationBlock() {

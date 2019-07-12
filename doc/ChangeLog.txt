@@ -25,6 +25,7 @@
 // TODO break changelog into 2nd file
 
 55255 2019_07_12    [FIX] Nam-hires start at one not zero
+                    [ADD] In NHC and NHC storm, break up the download/display of data into chunks so the user at least sees something sooner rather then later
 55254 2019_07_05    [FIX] labels changes in GOES activity to better match submenu choices
 55253 2019_07_04    [FIX] GOES EAST/WEST FD animations not working
 55252 2019_07_04    [ADD] kotlin plugin 1.3.40 -> 1.3.41

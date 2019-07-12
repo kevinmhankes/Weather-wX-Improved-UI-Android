@@ -112,6 +112,10 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         bitmaps.clear()
         withContext(Dispatchers.IO) {
             url = UtilityDownload.getTextProduct(this@NhcStormActivity, product)
+        }
+        cTextProd.setText(Utility.fromHtml(url))
+        html = url
+        withContext(Dispatchers.IO) {
             listOf(
                     "_W5_NL_sm2.png",
                     "_5day_cone_with_line_and_wind_sm2.png",
@@ -125,9 +129,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
             ).forEach { bitmaps.add((baseUrl + it).getImage()) }
             bitmaps.add("${MyApplication.nwsNhcWebsitePrefix}/tafb_latest/danger_pac_latestBW_sm3.gif".getImage())
         }
-        cTextProd.setText(Utility.fromHtml(url))
-        html = url
-        sv.smoothScrollTo(0, 0)
+        //sv.smoothScrollTo(0, 0)
         bitmaps.filter { it.width > 100 }
                 .forEach { ObjectCardImage(this@NhcStormActivity, ll, it) }
         if (activityArguments.size > 2) {
