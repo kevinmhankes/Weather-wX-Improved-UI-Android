@@ -20,6 +20,7 @@
 // TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
 // TODO put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
 // TODO 2 icons per row: SPC Thunder, SPC Fire, NHC
+// TODO add ability to add generic URLs to homescreen
 // TODO severe dashboard better formatting for vtec
 // TODO Namhires start at one not zero
 // TODO break changelog into 2nd file
