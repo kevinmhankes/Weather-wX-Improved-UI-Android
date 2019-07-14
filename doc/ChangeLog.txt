@@ -26,7 +26,6 @@
 // TODO BUG - fix issue for precipitation radar products when there is no data
 // TODO BUG - SPC Meso swipe left/right takes on extra to get started
 // TODO BUG - in location editor, OSM search should auto-save
-// TODO BUG - severe dashboard does not show warnings if warnings are not enabled (it should force download)
 
 55258 2019_07_14
 55257 2019_07_14    [ADD] long press radar text size now takes into account text size in settings
