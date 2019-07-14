@@ -24,7 +24,7 @@
 // TODO severe dashboard better formatting for vtec
 // TODO break changelog into 2nd file
 
-55257 2019_07_13
+55257 2019_07_14    [ADD] long press radar text size now takes into account text size in settings
 55256 2019_07_12    [ADD] android studio update with associated plugin updates
 55255 2019_07_12    [FIX] Nam-hires start at one not zero
                     [ADD] In NHC and NHC storm, break up the download/display of data into chunks so the user at least sees something sooner rather then later
