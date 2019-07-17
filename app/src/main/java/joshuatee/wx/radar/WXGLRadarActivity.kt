@@ -357,12 +357,14 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 l2Menu.isVisible = true
                 tdwrMenu.isVisible = false
             }
-            if ((oglr.product == "N0Q" || oglr.product == "N1Q" || oglr.product == "N2Q" || oglr.product == "N3Q" || oglr.product == "L2REF") && ridIsTdwr) oglr.product =
-                    "TZL"
-            if (oglr.product == "TZL" && !ridIsTdwr) oglr.product = "N0Q"
-            if ((oglr.product == "N0U" || oglr.product == "N1U" || oglr.product == "N2U" || oglr.product == "N3U" || oglr.product == "L2VEL") && ridIsTdwr) oglr.product =
-                    "TV0"
-            if (oglr.product == "TV0" && !ridIsTdwr) oglr.product = "N0U"
+            if ((oglr.product == "N0Q" || oglr.product == "N1Q" || oglr.product == "N2Q" || oglr.product == "N3Q" || oglr.product == "L2REF") && ridIsTdwr)
+                oglr.product = "TZL"
+            if ((oglr.product == "TZL" || oglr.product.startsWith("TR")) && !ridIsTdwr)
+                oglr.product = "N0Q"
+            if ((oglr.product == "N0U" || oglr.product == "N1U" || oglr.product == "N2U" || oglr.product == "N3U" || oglr.product == "L2VEL") && ridIsTdwr)
+                oglr.product = "TV0"
+            if (oglr.product == "TV0" && !ridIsTdwr)
+                oglr.product = "N0U"
             title = oglr.product
             if (MyApplication.ridFav.contains(":" + oglr.rid + ":"))
                 star.setIcon(MyApplication.STAR_ICON)

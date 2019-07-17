@@ -58,8 +58,7 @@ class ObjectColorPalette(val context: Context, private val colormapCode: String)
             "30" -> {
                 setupBuffers(16)
                 try {
-                    // FIXME naming
-                    UtilityColorPalette30.gen30()
+                    UtilityColorPalette30.generate()
                 } catch (e: Exception) {
                     UtilityLog.handleException(e)
                 }
@@ -67,7 +66,7 @@ class ObjectColorPalette(val context: Context, private val colormapCode: String)
             "56" -> {
                 setupBuffers(16)
                 try {
-                    UtilityColorPalette56.gen56()
+                    UtilityColorPalette56.generate()
                 } catch (e: Exception) {
                     UtilityLog.handleException(e)
                 }

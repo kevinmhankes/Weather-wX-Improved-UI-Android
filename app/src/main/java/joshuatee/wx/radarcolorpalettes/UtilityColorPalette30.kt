@@ -25,9 +25,7 @@ import joshuatee.wx.MyApplication
 
 internal object UtilityColorPalette30 {
 
-    // FIXME copied from 56 needs to be adjusted
-
-    fun gen30() {
+    fun generate() {
         val obj30 = MyApplication.colorMap[30]!!
         obj30.redValues.position(0)
         obj30.greenValues.position(0)

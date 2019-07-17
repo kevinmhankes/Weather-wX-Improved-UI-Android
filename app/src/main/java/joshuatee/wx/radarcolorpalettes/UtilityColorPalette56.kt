@@ -25,7 +25,7 @@ import joshuatee.wx.MyApplication
 
 internal object UtilityColorPalette56 {
 
-    fun gen56() {
+    fun generate() {
         val obj56 = MyApplication.colorMap[56]!!
         obj56.redValues.position(0)
         obj56.greenValues.position(0)
