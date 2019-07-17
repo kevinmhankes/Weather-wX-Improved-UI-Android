@@ -125,6 +125,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private lateinit var tiltMenu: MenuItem
     private lateinit var l3Menu: MenuItem
     private lateinit var l2Menu: MenuItem
+    private lateinit var tdwrMenu: MenuItem
     private var delay = 0
     private val prefTokenLocation = "RID_LOC_"
     private val prefToken = "RID_FAV"
@@ -201,6 +202,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         tiltMenu = menu.findItem(R.id.action_tilt)
         l3Menu = menu.findItem(R.id.action_l3)
         l2Menu = menu.findItem(R.id.action_l2)
+        tdwrMenu = menu.findItem(R.id.action_tdwr)
         if (!UIPreferences.radarImmersiveMode) {
             val blank = menu.findItem(R.id.action_blank)
             blank.isVisible = false
@@ -349,9 +351,11 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             if (ridIsTdwr) {
                 l3Menu.isVisible = false
                 l2Menu.isVisible = false
+                tdwrMenu.isVisible = true
             } else {
                 l3Menu.isVisible = true
                 l2Menu.isVisible = true
+                tdwrMenu.isVisible = false
             }
             if ((oglr.product == "N0Q" || oglr.product == "N1Q" || oglr.product == "N2Q" || oglr.product == "N3Q" || oglr.product == "L2REF") && ridIsTdwr) oglr.product =
                     "TZL"
@@ -720,6 +724,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 }
                 getContent()
             }
+            R.id.action_tr0 -> changeProd("TR$tilt", true)
+            R.id.action_tv0 -> changeProd("TV$tilt", true)
+            R.id.action_tzl -> changeProd("TZL", true)
             R.id.action_n0s -> changeProd("N" + tilt + "S", true)
             R.id.action_net -> changeProd("EET", false)
             R.id.action_N0X -> changeProd("N" + tilt + "X", true)

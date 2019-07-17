@@ -137,6 +137,29 @@
         </menu>
     </item>
     <item
+        android:id="@+id/action_tdwr"
+        android:title="TDWR Products"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/action_tzl"
+                android:title="@string/label_tzl"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/action_tr0"
+                android:title="@string/label_tr0"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/action_tv0"
+                android:title="@string/label_tv0"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_tdwr_blank"
+                android:title="@string/label_blank"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+    <item
         android:id="@+id/action_animate"
         android:title="@string/label_animate"
         app:showAsAction="never">

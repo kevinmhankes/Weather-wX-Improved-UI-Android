@@ -64,6 +64,9 @@
     <string name="label_h0c">H0C: Hydrometeor Classification</string>
     <string name="label_l2ref">SuperRes Reflectivity</string>
     <string name="label_l2vel">SuperRes Velocity</string>
+    <string name="label_tzl">TZL: Long Range Digital Base Reflectivity</string>
+    <string name="label_tr0">TR0: Digital Base Reflectivity</string>
+    <string name="label_tv0">TV0: Digital Base Velocity</string>
     <string name="label_a3">Animate 3 frames</string>
     <string name="label_a6">Animate 6 frames</string>
     <string name="label_a12">Animate 12 frames</string>

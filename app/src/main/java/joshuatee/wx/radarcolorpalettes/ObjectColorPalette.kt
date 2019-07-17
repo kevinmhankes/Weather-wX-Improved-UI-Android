@@ -50,8 +50,7 @@ class ObjectColorPalette(val context: Context, private val colormapCode: String)
             "19" -> {
                 setupBuffers(16)
                 try {
-                    // FIXME install 19
-                    UtilityColorPalette30.gen30()
+                    UtilityColorPalette19.generate()
                 } catch (e: Exception) {
                     UtilityLog.handleException(e)
                 }
@@ -59,6 +58,7 @@ class ObjectColorPalette(val context: Context, private val colormapCode: String)
             "30" -> {
                 setupBuffers(16)
                 try {
+                    // FIXME naming
                     UtilityColorPalette30.gen30()
                 } catch (e: Exception) {
                     UtilityLog.handleException(e)

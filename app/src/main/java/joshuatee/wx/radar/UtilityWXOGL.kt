@@ -53,7 +53,8 @@ object UtilityWXOGL {
             "HKI", "HMO", "HKM", "HWA", "APD", "ACG", "AIH", "AHG", "AKC", "ABC", "AEC", "GUA" -> "p"
             else -> "k"
         }
-        if (product == "TV0" || product == "TZL") {
+        // FIXME need TDWR method
+        if (product == "TV0" || product == "TZL" || product == "TR0") {
             ridPrefix = ""
         }
         return ridPrefix

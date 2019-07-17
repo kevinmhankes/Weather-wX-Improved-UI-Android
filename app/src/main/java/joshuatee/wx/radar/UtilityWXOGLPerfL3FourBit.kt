@@ -32,7 +32,7 @@ import joshuatee.wx.util.UtilityLog
 
 internal object UtilityWXOGLPerfL3FourBit {
 
-    // Used for Legacy 4bit radar - only SRM or spectrum width 30
+    // Used for Legacy 4bit radar - only SRM or spectrum width 30 or TDWR TR0
     // was decode4bit
     fun decode(
         context: Context,

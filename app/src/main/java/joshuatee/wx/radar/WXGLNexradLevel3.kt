@@ -77,14 +77,21 @@ class WXGLNexradLevel3 internal constructor() {
     }
 
     private fun init4Bit() {
-        binWord = ByteBuffer.allocateDirect(360 * 230)
-        binWord.order(ByteOrder.nativeOrder())
-        radialStart = ByteBuffer.allocateDirect(4 * 360)
-        radialStart.order(ByteOrder.nativeOrder())
+        if (productCode == 181.toShort()) {
+            binWord = ByteBuffer.allocateDirect(360 * 720)
+            binWord.order(ByteOrder.nativeOrder())
+            radialStart = ByteBuffer.allocateDirect(4 * 360)
+            radialStart.order(ByteOrder.nativeOrder())
+        } else {
+            binWord = ByteBuffer.allocateDirect(360 * 230)
+            binWord.order(ByteOrder.nativeOrder())
+            radialStart = ByteBuffer.allocateDirect(4 * 360)
+            radialStart.order(ByteOrder.nativeOrder())
+        }
     }
 
     // final argument is whether or not to handle decompression, by default true
-    fun decocodeAndPlot(context: Context, fileName: String, radarStatusStr: String) {
+    fun decodeAndPlot(context: Context, fileName: String, radarStatusStr: String) {
         try {
             val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, fileName))
             dis.bigEndian = true
@@ -161,8 +168,8 @@ class WXGLNexradLevel3 internal constructor() {
     }
 
     // Used for Legacy 4bit radar - only SRM
-    fun decocodeAndPlotFourBit(context: Context, fn: String, radarStatusStr: String) {
-        init4Bit()
+    fun decodeAndPlotFourBit(context: Context, fn: String, radarStatusStr: String) {
+        //init4Bit()
         try {
             val fis = context.openFileInput(fn)
             val dis = DataInputStream(BufferedInputStream(fis))
@@ -180,6 +187,8 @@ class WXGLNexradLevel3 internal constructor() {
             val longitudeOfRadar = dis.readInt() / 1000.0
             val heightOfRadar = dis.readUnsignedShort().toShort()
             productCode = dis.readUnsignedShort().toShort()
+            // init 4 bit now depends on productCode
+            init4Bit()
             val operationalMode = dis.readUnsignedShort().toShort()
             dis.skipBytes(6)
             val volumeScanDate = dis.readUnsignedShort().toShort()
@@ -246,8 +255,7 @@ class WXGLNexradLevel3 internal constructor() {
             //final int  index_of_first_range_bin  = dis.readUnsignedShort() ;
             dis.skipBytes(32)
             dis.close()
-            numberOfRangeBins =
-                UtilityWXOGLPerfL3FourBit.decode(context, fn, radialStart, binWord)
+            numberOfRangeBins = UtilityWXOGLPerfL3FourBit.decode(context, fn, radialStart, binWord)
             binSize = WXGLNexrad.getBinSize(productCode.toInt())
         } catch (e: IOException) {
             UtilityLog.handleException(e)
