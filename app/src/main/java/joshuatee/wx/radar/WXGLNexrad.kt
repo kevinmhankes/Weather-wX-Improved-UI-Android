@@ -130,7 +130,7 @@ object WXGLNexrad {
     fun getNumberRangeBins(prodId: Int): Short = when (prodId) {
         134 -> 460
         186 -> 1390
-        182 -> 720
+        181, 182 -> 720
         135 -> 346
         99, 159, 161, 163, 170, 172 -> 1200
         else -> 460
@@ -145,7 +145,7 @@ object WXGLNexrad {
         134, 135 -> binSize54
         186 -> binSize16
         159, 161, 163, 165, 99, 170, 172 -> binSize13
-        182 -> binSize08
+        181, 182 -> binSize08
         153, 154 -> binSize13
         else -> binSize54
     }

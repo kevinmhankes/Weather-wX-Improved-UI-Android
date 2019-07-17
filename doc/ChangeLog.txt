@@ -27,7 +27,7 @@
 // TODO BUG - SPC Meso swipe left/right takes on extra to get started
 // TODO BUG - in location editor, OSM search should auto-save
 
-55258 2019_07_14
+55258 2019_07_17
 55257 2019_07_14    [ADD] long press radar text size now takes into account text size in settings
 55256 2019_07_12    [ADD] android studio update with associated plugin updates
 55255 2019_07_12    [FIX] Nam-hires start at one not zero
