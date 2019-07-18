@@ -50,5 +50,8 @@ internal object ColorPalettes {
         MyApplication.colorMap[19] = cm19
         MyApplication.colorMap[19]!!.init()
         MyApplication.colorMap[181] = cm19
+
+        MyApplication.colorMap[78] = cm19
+        MyApplication.colorMap[80] = cm19
     }
 }

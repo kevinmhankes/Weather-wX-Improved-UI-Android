@@ -127,6 +127,11 @@ object WXGLNexrad {
     // 161 N0C .13 162 256 ( bins 1200, radials 360, scale factor 999 )
     // 163 N0K .13 162 256 ( bins 1200, radials 360, scale factor 999 )
 
+    // 32 TDWR: DHR - DS.32dhr (wsr-88d also) range 124, colors 256, .54 x 1 nmi x degree
+    // 78 TDWR and NEXRAD: N1P DS.78ohp One Hour Precipitation Total range 124, colors 16, 1.1 x 1 nmi x degree
+    // 80 TDWR and NEXRAD: NTP DS.80stp Storm Total Precipitation range 124, colors 16, 1.1 x 1 nmi x degree
+    // 138 TDWR and NEXRAD: DSP DS.138dp Digital Storm Total Precipitation range 124, colors 256, 1.1 x 1 nmi x degree
+
     fun getNumberRangeBins(prodId: Int): Short = when (prodId) {
         134 -> 460
         186 -> 1390
