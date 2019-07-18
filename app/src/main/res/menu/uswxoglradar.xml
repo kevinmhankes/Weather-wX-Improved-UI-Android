@@ -154,6 +154,14 @@
                 android:title="@string/label_tv0"
                 app:showAsAction="never" />
             <item
+                android:id="@+id/action_tv0"
+                android:title="@string/label_tv0"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_dhr"
+                android:title="@string/label_dhr"
+                app:showAsAction="never" />
+            <item
                 android:id="@+id/action_tdwr_blank"
                 android:title="@string/label_blank"
                 app:showAsAction="never" />
