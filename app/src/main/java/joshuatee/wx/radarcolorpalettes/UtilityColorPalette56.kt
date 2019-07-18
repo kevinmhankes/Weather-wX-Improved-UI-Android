@@ -46,6 +46,8 @@ internal object UtilityColorPalette56 {
         obj56.redValues.put(239.toByte())
         obj56.redValues.put(254.toByte())
         obj56.redValues.put(144.toByte())
+
+        // FIXME green is one value short
         obj56.greenValues.put(0.toByte())
         obj56.greenValues.put(252.toByte())
         obj56.greenValues.put(228.toByte())
