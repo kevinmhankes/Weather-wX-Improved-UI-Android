@@ -74,6 +74,7 @@ internal object UtilityWXOGLPerfL3FourBit {
         } catch (e: IOException) {
             UtilityLog.handleException(e)
         }
+        //UtilityLog.d("wx", numberOfRangeBins.toString())
         return numberOfRangeBins
     }
 }

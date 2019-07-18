@@ -133,6 +133,7 @@ object WXGLNexrad {
     // 138 TDWR and NEXRAD: DSP DS.138dp Digital Storm Total Precipitation range 124, colors 256, 1.1 x 1 nmi x degree
 
     fun getNumberRangeBins(prodId: Int): Short = when (prodId) {
+        78, 80 -> 115
         134 -> 460
         186 -> 1390
         181, 182 -> 720
@@ -145,12 +146,15 @@ object WXGLNexrad {
     private const val binSize13 = 0.50f
     private const val binSize08 = 0.295011f
     private const val binSize16 = 0.590022f
+    private const val binSize110 = 2.0f * binSize54
+
 
     fun getBinSize(prodId: Int): Float = when (prodId) {
         134, 135 -> binSize54
         186 -> binSize16
         159, 161, 163, 165, 99, 170, 172 -> binSize13
         181, 182 -> binSize08
+        78, 80 -> binSize110
         153, 154 -> binSize13
         else -> binSize54
     }

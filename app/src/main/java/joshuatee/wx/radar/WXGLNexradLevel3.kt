@@ -82,6 +82,11 @@ class WXGLNexradLevel3 internal constructor() {
             binWord.order(ByteOrder.nativeOrder())
             radialStart = ByteBuffer.allocateDirect(4 * 360)
             radialStart.order(ByteOrder.nativeOrder())
+        } else if (productCode == 78.toShort() || productCode == 80.toShort()) {
+            binWord = ByteBuffer.allocateDirect(360 * 592)
+            binWord.order(ByteOrder.nativeOrder())
+            radialStart = ByteBuffer.allocateDirect(4 * 360)
+            radialStart.order(ByteOrder.nativeOrder())
         } else {
             binWord = ByteBuffer.allocateDirect(360 * 230)
             binWord.order(ByteOrder.nativeOrder())

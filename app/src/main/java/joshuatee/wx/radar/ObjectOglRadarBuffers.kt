@@ -68,6 +68,8 @@ class ObjectOglRadarBuffers(val context: Context, var bgColor: Int) : ObjectOglB
     }
 
     fun initialize() {
+        UtilityLog.d("wx", numRangeBins.toString())
+        UtilityLog.d("wx", numberOfRadials.toString())
         try {
             if (floatBuffer.capacity() < 32 * numberOfRadials * numRangeBins) {
                 floatBuffer =

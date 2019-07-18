@@ -198,7 +198,7 @@ class WXGLRender(private val context: Context) : Renderer {
     fun initializeGeometry() {
         totalBins = 0
         // fixme method for tdwr
-        if (prod == "TV0" || prod == "TZL" || prod == "TR0") {
+        if (prod == "TV0" || prod == "TZL" || prod == "TR0" || product == "N1P" || product == "NTP") {
             tdwr = true
             val oldRid = this.rid
             if (this.rid == "") {
@@ -217,7 +217,7 @@ class WXGLRender(private val context: Context) : Renderer {
         totalBins = 0
         // added to allow animations to skip a frame and continue
         // fixme method for tdwr
-        if (product == "TV0" || product == "TZL" || product == "TR0") {
+        if (product == "TV0" || product == "TZL" || product == "TR0" || product == "N1P" || product == "NTP") {
             tdwr = true
             val oldRid = this.rid
             if (this.rid == "") {
@@ -260,6 +260,22 @@ class WXGLRender(private val context: Context) : Renderer {
                     radarBuffers.extractL3Data(radarL3Object)
                 }
                 product.startsWith("TR") -> {
+                    radarL3Object.decodeAndPlotFourBit(
+                            context,
+                            radarBuffers.fn,
+                            radarStatusStr
+                    )
+                    radarBuffers.extractL3Data(radarL3Object)
+                }
+                product.startsWith("N1P") -> {
+                    radarL3Object.decodeAndPlotFourBit(
+                            context,
+                            radarBuffers.fn,
+                            radarStatusStr
+                    )
+                    radarBuffers.extractL3Data(radarL3Object)
+                }
+                product.startsWith("NTP") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
                             radarBuffers.fn,
@@ -326,10 +342,16 @@ class WXGLRender(private val context: Context) : Renderer {
         val cR = objColPal.redValues
         val cG = objColPal.greenValues
         val cB = objColPal.blueValues
+        UtilityLog.d("wx", radarBuffers.productCode.toString())
         try {
             if (!product.contains("L2")) {
-                totalBins =
-                        if (radarBuffers.productCode != 56.toShort() && radarBuffers.productCode != 30.toShort() && radarBuffers.productCode != 181.toShort()) {
+                totalBins = // FIXME
+                        if (radarBuffers.productCode != 56.toShort()
+                                && radarBuffers.productCode != 30.toShort()
+                                && radarBuffers.productCode != 181.toShort()
+                                && radarBuffers.productCode != 78.toShort()
+                                && radarBuffers.productCode != 80.toShort()
+                        ) {
                             if (!MyApplication.radarUseJni)
                                 UtilityWXOGLPerf.decode8BitAndGenRadials(context, radarBuffers)
                             else {
