@@ -87,6 +87,11 @@ class WXGLNexradLevel3 internal constructor() {
             binWord.order(ByteOrder.nativeOrder())
             radialStart = ByteBuffer.allocateDirect(4 * 360)
             radialStart.order(ByteOrder.nativeOrder())
+        } else if (productCode == 37.toShort() || productCode == 38.toShort()) {
+            binWord = ByteBuffer.allocateDirect(464 * 464)
+            binWord.order(ByteOrder.nativeOrder())
+            radialStart = ByteBuffer.allocateDirect(4 * 360)
+            radialStart.order(ByteOrder.nativeOrder())
         } else {
             binWord = ByteBuffer.allocateDirect(360 * 230)
             binWord.order(ByteOrder.nativeOrder())
@@ -260,7 +265,11 @@ class WXGLNexradLevel3 internal constructor() {
             //final int  index_of_first_range_bin  = dis.readUnsignedShort() ;
             dis.skipBytes(32)
             dis.close()
-            numberOfRangeBins = UtilityWXOGLPerfL3FourBit.decode(context, fn, radialStart, binWord)
+            if (productCode.toInt() == 37 || productCode.toInt() == 38) {
+                numberOfRangeBins = UtilityWXOGLPerfL3FourBit.decodeRaster(context, fn, radialStart, binWord)
+            } else {
+                numberOfRangeBins = UtilityWXOGLPerfL3FourBit.decodeRadial(context, fn, radialStart, binWord)
+            }
             binSize = WXGLNexrad.getBinSize(productCode.toInt())
         } catch (e: IOException) {
             UtilityLog.handleException(e)

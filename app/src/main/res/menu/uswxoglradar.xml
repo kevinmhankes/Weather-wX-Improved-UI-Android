@@ -108,6 +108,14 @@
                 android:title="@string/label_nsw"
                 app:showAsAction="ifRoom" />
             <item
+                android:id="@+id/action_ncr"
+                android:title="@string/label_ncr"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/action_ncz"
+                android:title="@string/label_ncz"
+                app:showAsAction="ifRoom" />
+            <item
                 android:id="@+id/action_NVW"
                 android:title="@string/label_nvw"
                 app:showAsAction="never" />

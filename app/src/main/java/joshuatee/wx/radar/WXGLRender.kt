@@ -267,6 +267,14 @@ class WXGLRender(private val context: Context) : Renderer {
                     )
                     radarBuffers.extractL3Data(radarL3Object)
                 }
+                product.startsWith("NC") -> {
+                    radarL3Object.decodeAndPlotFourBit(
+                            context,
+                            radarBuffers.fn,
+                            radarStatusStr
+                    )
+                    radarBuffers.extractL3Data(radarL3Object)
+                }
                 product.startsWith("N1P") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
@@ -351,6 +359,8 @@ class WXGLRender(private val context: Context) : Renderer {
                                 && radarBuffers.productCode != 181.toShort()
                                 && radarBuffers.productCode != 78.toShort()
                                 && radarBuffers.productCode != 80.toShort()
+                                && radarBuffers.productCode != 37.toShort()
+                                && radarBuffers.productCode != 38.toShort()
                         ) {
                             if (!MyApplication.radarUseJni)
                                 UtilityWXOGLPerf.decode8BitAndGenRadials(context, radarBuffers)

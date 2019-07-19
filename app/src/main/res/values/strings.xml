@@ -70,6 +70,10 @@
     <string name="label_dhr">DHR: Digital Hybrid Scan Reflectivity</string>
     <string name="label_n1p">N1P: One Hour Precipitation Total</string>
     <string name="label_ntp">NTP: Storm Total Precipitation</string>
+
+    <string name="label_ncr">NCR: Composite Reflectivity 124nm</string>
+    <string name="label_ncz">NCZ: Composite Reflectivity 248nm</string>
+
     <string name="label_a3">Animate 3 frames</string>
     <string name="label_a6">Animate 6 frames</string>
     <string name="label_a12">Animate 12 frames</string>
