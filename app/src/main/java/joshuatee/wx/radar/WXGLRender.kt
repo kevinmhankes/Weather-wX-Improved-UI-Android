@@ -352,7 +352,9 @@ class WXGLRender(private val context: Context) : Renderer {
         val cB = objColPal.blueValues
         UtilityLog.d("wx", radarBuffers.productCode.toString())
         try {
-            if (!product.contains("L2")) {
+            if (product.startsWith("NC")) {
+                UtilityWXOGLPerfRaster.genRaster(radarBuffers, rdL2.binWord)
+            } else if (!product.contains("L2")) {
                 totalBins = // FIXME
                         if (radarBuffers.productCode != 56.toShort()
                                 && radarBuffers.productCode != 30.toShort()
