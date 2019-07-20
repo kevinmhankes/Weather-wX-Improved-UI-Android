@@ -42,32 +42,12 @@ internal object UtilityWXOGLPerfRaster {
         val numberOfRows = 464
         val halfPoint = numberOfRows / 2
         val binsPerRow = 464
-        val scaleFactor = 1.0f
+        val scaleFactor = 2.0f
         while (g < numberOfRows) {
             bin = 0
             while (bin < binsPerRow) {
                 curLevel = binBuff.get(g * numberOfRows + bin).toInt()
-
-                /*radarBuffers.floatBuffer.putFloat(rI, (g).toFloat() * scaleFactor)
-                rI += 4
-                radarBuffers.floatBuffer.putFloat(rI, (bin).toFloat() * scaleFactor)
-                rI += 4
-
-                radarBuffers.floatBuffer.putFloat(rI, (g + 1).toFloat() * scaleFactor)
-                rI += 4
-                radarBuffers.floatBuffer.putFloat(rI, (bin).toFloat() * scaleFactor)
-                rI += 4
-
-                radarBuffers.floatBuffer.putFloat(rI, (g).toFloat() * scaleFactor)
-                rI += 4
-                radarBuffers.floatBuffer.putFloat(rI, (bin + 1).toFloat() * scaleFactor)
-                rI += 4
-
-                radarBuffers.floatBuffer.putFloat(rI, (g + 1).toFloat() * scaleFactor)
-                rI += 4
-                radarBuffers.floatBuffer.putFloat(rI, (bin + 1).toFloat() * scaleFactor)
-                rI += 4*/
-
+                
                 radarBuffers.floatBuffer.putFloat(rI, (bin - halfPoint).toFloat() * scaleFactor)
                 rI += 4
                 radarBuffers.floatBuffer.putFloat(rI, (g - halfPoint).toFloat() * scaleFactor * -1.0f)
