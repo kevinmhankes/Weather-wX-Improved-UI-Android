@@ -31,7 +31,7 @@
 // TODO FEATURE - TDWR and NEXRAD: NTP DS.80stp Storm Total Precipitation range 124, colors 16, 1.1 x 1 nmi x degree
 // TODO FEATURE - TDWR and NEXRAD: DSP DS.138dp Digital Storm Total Precipitation range 124, colors 256, 1.1 x 1 nmi x degree
 
-55259 2019_07_19
+55259 2019_07_20    [ADD] add 37 BCR Composite Reflectivity 124nm
 55258 2019_07_19    [ADD] Add dedicated TDWR menu in submenu when TDWR is selected, add tr0, n1p, ntp
 55257 2019_07_14    [ADD] long press radar text size now takes into account text size in settings
 55256 2019_07_12    [ADD] android studio update with associated plugin updates
