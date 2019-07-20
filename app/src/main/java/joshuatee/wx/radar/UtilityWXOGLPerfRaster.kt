@@ -45,20 +45,11 @@ internal object UtilityWXOGLPerfRaster {
         radarBuffers.colormap.blueValues.put(0, Color.blue(radarBuffers.bgColor).toByte())
         var totalBins = 0
         var g = 0
-        //var angle: Float
-        //var angleV: Float
-        //var level: Int
-        //var levelCount: Int
-        //var binStart: Float
         var bin: Int
         var bI = 0
         var cI = 0
         var rI = 0
         var curLevel: Int
-        //var angleSin: Float
-        //var angleCos: Float
-        //var angleVSin: Float
-        //var angleVCos: Float
         val radarBlackHole: Float
         val radarBlackHoleAdd: Float
         if (radarBuffers.productCode == 56.toShort()
@@ -76,13 +67,11 @@ internal object UtilityWXOGLPerfRaster {
         // 464 is bins per row for NCR
         val scaleFactor: Float = 0.1f
         while (g < 464) {
-            //level = binBuff.get(bI).toInt()
-            //levelCount = 0
             bin = 0
             while (bin < 464) {
                 curLevel = binBuff.get(g * 464 + bin).toInt()
                 bI += 1
-                UtilityLog.d("Wx", g.toString() + " " + bin.toString() + " " + curLevel.toString())
+                //UtilityLog.d("Wx", g.toString() + " " + bin.toString() + " " + curLevel.toString())
                 radarBuffers.floatBuffer.putFloat(rI, (g).toFloat() * scaleFactor)
                 rI += 4
                 radarBuffers.floatBuffer.putFloat(rI, (bin).toFloat() * scaleFactor)
@@ -106,13 +95,10 @@ internal object UtilityWXOGLPerfRaster {
                     )
                 }
                 totalBins += 1
-                //level = curLevel
-                //levelCount = 1
                 bin += 1
             }
             g += 1
         }
-        return totalBins
+        return 464 * 464
     }
-
 }
