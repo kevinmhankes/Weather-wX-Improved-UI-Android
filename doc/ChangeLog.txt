@@ -33,8 +33,8 @@
 // TODO FEATURE - option on homescreen to show comp instead of base ref
 // TODO FEATURE - long range comp ref
 
-55260 2019_07_20
-55259 2019_07_20    [ADD] add 37 BCR Composite Reflectivity 124nm
+55260 2019_07_20    [ADD] add 38 NCZ Composite Reflectivity 248nm
+55259 2019_07_20    [ADD] add 37 NCR Composite Reflectivity 124nm
 55258 2019_07_19    [ADD] Add dedicated TDWR menu in submenu when TDWR is selected, add tr0, n1p, ntp
 55257 2019_07_14    [ADD] long press radar text size now takes into account text size in settings
 55256 2019_07_12    [ADD] android studio update with associated plugin updates

@@ -38,11 +38,17 @@ internal object UtilityWXOGLPerfRaster {
         var cI = 0
         var rI = 0
         var curLevel: Int
-        // 464 is bins per row for NCR
-        val numberOfRows = 464
+        // 464 is bins per row for NCR (37)
+        // 232 for long range NCZ (38)
+        var numberOfRows = 464
+        var binsPerRow = 464
+        var scaleFactor = 2.0f
+        if (radarBuffers.productCode.toInt() == 38) {
+            numberOfRows = 232
+            binsPerRow = 232
+            scaleFactor = 8.0f
+        }
         val halfPoint = numberOfRows / 2
-        val binsPerRow = 464
-        val scaleFactor = 2.0f
         while (g < numberOfRows) {
             bin = 0
             while (bin < binsPerRow) {
