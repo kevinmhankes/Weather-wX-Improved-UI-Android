@@ -69,15 +69,22 @@ class ObjectOglRadarBuffers(val context: Context, var bgColor: Int) : ObjectOglB
 
     fun initialize() {
         UtilityLog.d("wx", numRangeBins.toString())
-        UtilityLog.d("wx", numberOfRadials.toString())
+        UtilityLog.d("wx", numberOfRadials.toString() + " " + productCode.toString() )
         try {
-            if (floatBuffer.capacity() < 32 * numberOfRadials * numRangeBins) {
-                floatBuffer =
-                    ByteBuffer.allocateDirect(32 * numberOfRadials * numRangeBins) // was 4*8
-            }
-            if (colorBuffer.capacity() < 12 * numberOfRadials * numRangeBins) {
-                colorBuffer =
-                    ByteBuffer.allocateDirect(12 * numberOfRadials * numRangeBins)  // was 16
+            if (productCode == 37.toShort() || productCode == 38.toShort()) {
+                if (floatBuffer.capacity() < 32 * 464 * 464) {
+                    floatBuffer = ByteBuffer.allocateDirect(32 * 464 * 464) // was 4*8
+                }
+                if (colorBuffer.capacity() < 12 * 464 * 464) {
+                    colorBuffer = ByteBuffer.allocateDirect(12 * 464 * 464)  // was 16
+                }
+            } else {
+                if (floatBuffer.capacity() < 32 * numberOfRadials * numRangeBins) {
+                    floatBuffer = ByteBuffer.allocateDirect(32 * numberOfRadials * numRangeBins) // was 4*8
+                }
+                if (colorBuffer.capacity() < 12 * numberOfRadials * numRangeBins) {
+                    colorBuffer = ByteBuffer.allocateDirect(12 * numberOfRadials * numRangeBins)  // was 16
+                }
             }
         } catch (e: OutOfMemoryError) {
             UtilityLog.handleException(e)
