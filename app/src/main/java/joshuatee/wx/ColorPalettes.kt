@@ -59,5 +59,13 @@ internal object ColorPalettes {
         MyApplication.colorMap[78] = cm78
         MyApplication.colorMap[78]!!.init()
         MyApplication.colorMap[80] = cm78
+
+        val cm41 = ObjectColorPalette(context, "41")
+        MyApplication.colorMap[41] = cm41
+        MyApplication.colorMap[41]!!.init()
+
+        val cm57 = ObjectColorPalette(context, "57")
+        MyApplication.colorMap[57] = cm57
+        MyApplication.colorMap[57]!!.init()
     }
 }

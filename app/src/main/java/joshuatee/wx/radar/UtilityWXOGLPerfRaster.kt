@@ -48,6 +48,11 @@ internal object UtilityWXOGLPerfRaster {
             binsPerRow = 232
             scaleFactor = 8.0f
         }
+        if (radarBuffers.productCode.toInt() == 41 || radarBuffers.productCode.toInt() == 57) {
+            numberOfRows = 116
+            binsPerRow = 116
+            scaleFactor = 8.0f
+        }
         val halfPoint = numberOfRows / 2
         while (g < numberOfRows) {
             bin = 0

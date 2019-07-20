@@ -71,7 +71,7 @@ class ObjectOglRadarBuffers(val context: Context, var bgColor: Int) : ObjectOglB
         UtilityLog.d("wx", numRangeBins.toString())
         UtilityLog.d("wx", numberOfRadials.toString() + " " + productCode.toString() )
         try {
-            if (productCode == 37.toShort() || productCode == 38.toShort()) {
+            if (productCode == 37.toShort() || productCode == 38.toShort() || productCode == 41.toShort() || productCode == 57.toShort()) {
                 if (floatBuffer.capacity() < 32 * 464 * 464) {
                     floatBuffer = ByteBuffer.allocateDirect(32 * 464 * 464) // was 4*8
                 }

@@ -72,8 +72,8 @@
                 android:title="@string/label_eet"
                 app:showAsAction="never" />
             <item
-                android:id="@+id/action_vil"
-                android:title="@string/label_vil"
+                android:id="@+id/action_dvl"
+                android:title="@string/label_dvl"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_N0X"
@@ -172,6 +172,14 @@
             <item
                 android:id="@+id/action_ntp"
                 android:title="@string/label_ntp"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_et"
+                android:title="@string/label_et"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_vil"
+                android:title="@string/label_vil"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_tdwr_blank"

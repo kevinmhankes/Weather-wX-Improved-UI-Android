@@ -63,10 +63,26 @@ class ObjectColorPalette(val context: Context, private val colormapCode: String)
                     UtilityLog.handleException(e)
                 }
             }
+            "41" -> {
+                setupBuffers(16)
+                try {
+                    UtilityColorPalette41.generate()
+                } catch (e: Exception) {
+                    UtilityLog.handleException(e)
+                }
+            }
             "56" -> {
                 setupBuffers(16)
                 try {
                     UtilityColorPalette56.generate()
+                } catch (e: Exception) {
+                    UtilityLog.handleException(e)
+                }
+            }
+            "57" -> {
+                setupBuffers(16)
+                try {
+                    UtilityColorPalette57.generate()
                 } catch (e: Exception) {
                     UtilityLog.handleException(e)
                 }
