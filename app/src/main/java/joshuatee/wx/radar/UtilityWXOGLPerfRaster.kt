@@ -40,6 +40,7 @@ internal object UtilityWXOGLPerfRaster {
         var curLevel: Int
         // 464 is bins per row for NCR
         val numberOfRows = 464
+        val halfPoint = numberOfRows / 2
         val binsPerRow = 464
         val scaleFactor = 1.0f
         while (g < numberOfRows) {
@@ -67,24 +68,24 @@ internal object UtilityWXOGLPerfRaster {
                 radarBuffers.floatBuffer.putFloat(rI, (bin + 1).toFloat() * scaleFactor)
                 rI += 4*/
 
-                radarBuffers.floatBuffer.putFloat(rI, (bin).toFloat() * scaleFactor)
+                radarBuffers.floatBuffer.putFloat(rI, (bin - halfPoint).toFloat() * scaleFactor)
                 rI += 4
-                radarBuffers.floatBuffer.putFloat(rI, (g).toFloat() * scaleFactor * -1.0f)
-                rI += 4
-
-                radarBuffers.floatBuffer.putFloat(rI, (bin).toFloat() * scaleFactor)
-                rI += 4
-                radarBuffers.floatBuffer.putFloat(rI, (g + 1).toFloat() * scaleFactor * -1.0f)
+                radarBuffers.floatBuffer.putFloat(rI, (g - halfPoint).toFloat() * scaleFactor * -1.0f)
                 rI += 4
 
-                radarBuffers.floatBuffer.putFloat(rI, (bin + 1).toFloat() * scaleFactor)
+                radarBuffers.floatBuffer.putFloat(rI, (bin - halfPoint).toFloat() * scaleFactor)
                 rI += 4
-                radarBuffers.floatBuffer.putFloat(rI, (g).toFloat() * scaleFactor * -1.0f)
+                radarBuffers.floatBuffer.putFloat(rI, (g + 1 - halfPoint).toFloat() * scaleFactor * -1.0f)
                 rI += 4
 
-                radarBuffers.floatBuffer.putFloat(rI, (bin + 1).toFloat() * scaleFactor)
+                radarBuffers.floatBuffer.putFloat(rI, (bin + 1 - halfPoint).toFloat() * scaleFactor)
                 rI += 4
-                radarBuffers.floatBuffer.putFloat(rI, (g + 1).toFloat() * scaleFactor * -1.0f)
+                radarBuffers.floatBuffer.putFloat(rI, (g - halfPoint).toFloat() * scaleFactor * -1.0f)
+                rI += 4
+
+                radarBuffers.floatBuffer.putFloat(rI, (bin + 1 - halfPoint).toFloat() * scaleFactor)
+                rI += 4
+                radarBuffers.floatBuffer.putFloat(rI, (g + 1 - halfPoint).toFloat() * scaleFactor * -1.0f)
                 rI += 4
 
                 (0..3).forEach { _ ->
