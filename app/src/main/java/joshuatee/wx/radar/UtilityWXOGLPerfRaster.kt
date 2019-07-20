@@ -22,6 +22,7 @@
 package joshuatee.wx.radar
 
 import android.graphics.Color
+import joshuatee.wx.util.UtilityLog
 
 import java.nio.ByteBuffer
 
@@ -36,8 +37,8 @@ internal object UtilityWXOGLPerfRaster {
     private const val TWICE_PI: Float = (2.0f * PI).toFloat()
 
     fun genRaster(
-        radarBuffers: ObjectOglRadarBuffers,
-        binBuff: ByteBuffer
+            radarBuffers: ObjectOglRadarBuffers,
+            binBuff: ByteBuffer
     ): Int {
         radarBuffers.colormap.redValues.put(0, Color.red(radarBuffers.bgColor).toByte())
         radarBuffers.colormap.greenValues.put(0, Color.green(radarBuffers.bgColor).toByte())
@@ -46,8 +47,8 @@ internal object UtilityWXOGLPerfRaster {
         var g = 0
         //var angle: Float
         //var angleV: Float
-        var level: Int
-        var levelCount: Int
+        //var level: Int
+        //var levelCount: Int
         //var binStart: Float
         var bin: Int
         var bI = 0
@@ -73,62 +74,40 @@ internal object UtilityWXOGLPerfRaster {
             radarBlackHoleAdd = 4.0f
         }
         // 464 is bins per row for NCR
+        val scaleFactor: Float = 0.1f
         while (g < 464) {
-            //angle = radialStart.getFloat(g * 4)
-            level = binBuff.get(bI).toInt()
-            levelCount = 0
-            //binStart = radarBlackHole
-            //angleV = if (g < radarBuffers.numberOfRadials - 1)
-            //    radialStart.getFloat(g * 4 + 4)
-            //else
-            //    radialStart.getFloat(0)
+            //level = binBuff.get(bI).toInt()
+            //levelCount = 0
             bin = 0
-            while (bin < radarBuffers.numRangeBins) {
-                curLevel = binBuff.get(bI).toInt()
+            while (bin < 464) {
+                curLevel = binBuff.get(g * 464 + bin).toInt()
                 bI += 1
-                //if (curLevel == level)
-                //    levelCount += 1
-                //else {
-                    //angleVCos = cos((angleV / M_180_div_PI).toDouble()).toFloat()
-                    //angleVSin = sin((angleV / M_180_div_PI).toDouble()).toFloat()
-                    radarBuffers.floatBuffer.putFloat(rI, (g).toFloat())
-                    rI += 4
-                    radarBuffers.floatBuffer.putFloat(rI, (bin).toFloat())
-                    rI += 4
-                    radarBuffers.floatBuffer.putFloat(rI, (g - 1).toFloat()
+                UtilityLog.d("Wx", g.toString() + " " + bin.toString() + " " + curLevel.toString())
+                radarBuffers.floatBuffer.putFloat(rI, (g).toFloat() * scaleFactor)
+                rI += 4
+                radarBuffers.floatBuffer.putFloat(rI, (bin).toFloat() * scaleFactor)
+                rI += 4
+                radarBuffers.floatBuffer.putFloat(rI, (g + 1).toFloat() * scaleFactor)
+                rI += 4
+                radarBuffers.floatBuffer.putFloat(rI, (bin).toFloat() * scaleFactor)
+                rI += 4
+                radarBuffers.floatBuffer.putFloat(rI, (g).toFloat() * scaleFactor)
+                rI += 4
+                radarBuffers.floatBuffer.putFloat(rI, (bin + 1).toFloat() * scaleFactor)
+                rI += 4
+                radarBuffers.floatBuffer.putFloat(rI, (g + 1).toFloat() * scaleFactor)
+                rI += 4
+                radarBuffers.floatBuffer.putFloat(rI, (bin + 1).toFloat() * scaleFactor)
+                rI += 4
+                (0..3).forEach { _ ->
+                    radarBuffers.colorBuffer.put(cI++, radarBuffers.colormap.redValues.get(curLevel and 0xFF))
+                    radarBuffers.colorBuffer.put(cI++, radarBuffers.colormap.greenValues.get(curLevel and 0xFF))
+                    radarBuffers.colorBuffer.put(cI++, radarBuffers.colormap.blueValues.get(curLevel and 0xFF)
                     )
-                    rI += 4
-                    radarBuffers.floatBuffer.putFloat(rI, (bin).toFloat())
-                    rI += 4
-                    //angleCos = cos((angle / M_180_div_PI).toDouble()).toFloat()
-                    //angleSin = sin((angle / M_180_div_PI).toDouble()).toFloat()
-                    radarBuffers.floatBuffer.putFloat(rI, (g).toFloat())
-                    rI += 4
-                    radarBuffers.floatBuffer.putFloat(rI, (bin - 1).toFloat())
-                    rI += 4
-                    radarBuffers.floatBuffer.putFloat(rI, (g - 1).toFloat())
-                    rI += 4
-                    radarBuffers.floatBuffer.putFloat(rI, (bin - 1).toFloat())
-                    rI += 4
-                    (0..3).forEach { _ ->
-                        radarBuffers.colorBuffer.put(
-                            cI++,
-                            radarBuffers.colormap.redValues.get(level and 0xFF)
-                        )
-                        radarBuffers.colorBuffer.put(
-                            cI++,
-                            radarBuffers.colormap.greenValues.get(level and 0xFF)
-                        )
-                        radarBuffers.colorBuffer.put(
-                            cI++,
-                            radarBuffers.colormap.blueValues.get(level and 0xFF)
-                        )
-                    }
-                    totalBins += 1
-                    level = curLevel
-                    //binStart = bin * radarBuffers.binSize + radarBlackHoleAdd
-                    levelCount = 1
-                //}
+                }
+                totalBins += 1
+                //level = curLevel
+                //levelCount = 1
                 bin += 1
             }
             g += 1
