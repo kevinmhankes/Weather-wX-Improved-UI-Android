@@ -353,7 +353,7 @@ class WXGLRender(private val context: Context) : Renderer {
         UtilityLog.d("wx", radarBuffers.productCode.toString())
         try {
             if (product.startsWith("NC")) {
-                UtilityWXOGLPerfRaster.genRaster(radarBuffers, radarL3Object.binWord)
+                totalBins = UtilityWXOGLPerfRaster.genRaster(radarBuffers, radarL3Object.binWord)
             } else if (!product.contains("L2")) {
                 totalBins = // FIXME
                         if (radarBuffers.productCode != 56.toShort()

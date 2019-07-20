@@ -26,51 +26,26 @@ import joshuatee.wx.util.UtilityLog
 
 import java.nio.ByteBuffer
 
-
-import kotlin.math.*
-
 internal object UtilityWXOGLPerfRaster {
 
-    private const val M_180_div_PI: Float = (180.0 / PI).toFloat()
-    private const val M_PI_div_4: Float = (PI / 4.0).toFloat()
-    private const val M_PI_div_360: Float = (PI / 360.0).toFloat()
-    private const val TWICE_PI: Float = (2.0f * PI).toFloat()
-
-    fun genRaster(
-            radarBuffers: ObjectOglRadarBuffers,
-            binBuff: ByteBuffer
-    ): Int {
+    fun genRaster(radarBuffers: ObjectOglRadarBuffers, binBuff: ByteBuffer): Int {
         radarBuffers.colormap.redValues.put(0, Color.red(radarBuffers.bgColor).toByte())
         radarBuffers.colormap.greenValues.put(0, Color.green(radarBuffers.bgColor).toByte())
         radarBuffers.colormap.blueValues.put(0, Color.blue(radarBuffers.bgColor).toByte())
         var totalBins = 0
         var g = 0
         var bin: Int
-        var bI = 0
+        //var bI = 0
         var cI = 0
         var rI = 0
         var curLevel: Int
-        val radarBlackHole: Float
-        val radarBlackHoleAdd: Float
-        if (radarBuffers.productCode == 56.toShort()
-                || radarBuffers.productCode == 30.toShort()
-                || radarBuffers.productCode == 78.toShort()
-                || radarBuffers.productCode == 80.toShort()
-                || radarBuffers.productCode == 181.toShort()
-        ) {
-            radarBlackHole = 1.0f
-            radarBlackHoleAdd = 0.0f
-        } else {
-            radarBlackHole = 4.0f
-            radarBlackHoleAdd = 4.0f
-        }
         // 464 is bins per row for NCR
-        val scaleFactor: Float = 0.1f
+        val scaleFactor = 1.0f
         while (g < 464) {
             bin = 0
             while (bin < 464) {
                 curLevel = binBuff.get(g * 464 + bin).toInt()
-                bI += 1
+                //bI += 1
                 //UtilityLog.d("Wx", g.toString() + " " + bin.toString() + " " + curLevel.toString())
                 radarBuffers.floatBuffer.putFloat(rI, (g).toFloat() * scaleFactor)
                 rI += 4
@@ -89,16 +64,20 @@ internal object UtilityWXOGLPerfRaster {
                 radarBuffers.floatBuffer.putFloat(rI, (bin + 1).toFloat() * scaleFactor)
                 rI += 4
                 (0..3).forEach { _ ->
+                    //UtilityLog.d("wx", radarBuffers.colormap.redValues.get(curLevel).toString())
                     radarBuffers.colorBuffer.put(cI++, radarBuffers.colormap.redValues.get(curLevel and 0xFF))
                     radarBuffers.colorBuffer.put(cI++, radarBuffers.colormap.greenValues.get(curLevel and 0xFF))
-                    radarBuffers.colorBuffer.put(cI++, radarBuffers.colormap.blueValues.get(curLevel and 0xFF)
-                    )
+                    radarBuffers.colorBuffer.put(cI++, radarBuffers.colormap.blueValues.get(curLevel and 0xFF))
+                    /*radarBuffers.colorBuffer.put(cI++, 100.toByte())
+                    radarBuffers.colorBuffer.put(cI++, 100.toByte())
+                    radarBuffers.colorBuffer.put(cI++, 0.toByte())*/
+
                 }
                 totalBins += 1
                 bin += 1
             }
             g += 1
         }
-        return 464 * 464
+        return totalBins
     }
 }
