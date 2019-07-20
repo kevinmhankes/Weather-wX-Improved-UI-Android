@@ -35,43 +35,62 @@ internal object UtilityWXOGLPerfRaster {
         var totalBins = 0
         var g = 0
         var bin: Int
-        //var bI = 0
         var cI = 0
         var rI = 0
         var curLevel: Int
         // 464 is bins per row for NCR
+        val numberOfRows = 464
+        val binsPerRow = 464
         val scaleFactor = 1.0f
-        while (g < 464) {
+        while (g < numberOfRows) {
             bin = 0
-            while (bin < 464) {
-                curLevel = binBuff.get(g * 464 + bin).toInt()
-                //bI += 1
-                //UtilityLog.d("Wx", g.toString() + " " + bin.toString() + " " + curLevel.toString())
-                radarBuffers.floatBuffer.putFloat(rI, (g).toFloat() * scaleFactor)
+            while (bin < binsPerRow) {
+                curLevel = binBuff.get(g * numberOfRows + bin).toInt()
+
+                /*radarBuffers.floatBuffer.putFloat(rI, (g).toFloat() * scaleFactor)
                 rI += 4
                 radarBuffers.floatBuffer.putFloat(rI, (bin).toFloat() * scaleFactor)
                 rI += 4
+
                 radarBuffers.floatBuffer.putFloat(rI, (g + 1).toFloat() * scaleFactor)
                 rI += 4
                 radarBuffers.floatBuffer.putFloat(rI, (bin).toFloat() * scaleFactor)
                 rI += 4
+
                 radarBuffers.floatBuffer.putFloat(rI, (g).toFloat() * scaleFactor)
                 rI += 4
                 radarBuffers.floatBuffer.putFloat(rI, (bin + 1).toFloat() * scaleFactor)
                 rI += 4
+
                 radarBuffers.floatBuffer.putFloat(rI, (g + 1).toFloat() * scaleFactor)
                 rI += 4
                 radarBuffers.floatBuffer.putFloat(rI, (bin + 1).toFloat() * scaleFactor)
+                rI += 4*/
+
+                radarBuffers.floatBuffer.putFloat(rI, (bin).toFloat() * scaleFactor)
                 rI += 4
+                radarBuffers.floatBuffer.putFloat(rI, (g).toFloat() * scaleFactor * -1.0f)
+                rI += 4
+
+                radarBuffers.floatBuffer.putFloat(rI, (bin).toFloat() * scaleFactor)
+                rI += 4
+                radarBuffers.floatBuffer.putFloat(rI, (g + 1).toFloat() * scaleFactor * -1.0f)
+                rI += 4
+
+                radarBuffers.floatBuffer.putFloat(rI, (bin + 1).toFloat() * scaleFactor)
+                rI += 4
+                radarBuffers.floatBuffer.putFloat(rI, (g).toFloat() * scaleFactor * -1.0f)
+                rI += 4
+
+                radarBuffers.floatBuffer.putFloat(rI, (bin + 1).toFloat() * scaleFactor)
+                rI += 4
+                radarBuffers.floatBuffer.putFloat(rI, (g + 1).toFloat() * scaleFactor * -1.0f)
+                rI += 4
+
                 (0..3).forEach { _ ->
-                    //UtilityLog.d("wx", radarBuffers.colormap.redValues.get(curLevel).toString())
                     radarBuffers.colorBuffer.put(cI++, radarBuffers.colormap.redValues.get(curLevel and 0xFF))
                     radarBuffers.colorBuffer.put(cI++, radarBuffers.colormap.greenValues.get(curLevel and 0xFF))
                     radarBuffers.colorBuffer.put(cI++, radarBuffers.colormap.blueValues.get(curLevel and 0xFF))
-                    /*radarBuffers.colorBuffer.put(cI++, 100.toByte())
-                    radarBuffers.colorBuffer.put(cI++, 100.toByte())
-                    radarBuffers.colorBuffer.put(cI++, 0.toByte())*/
-
                 }
                 totalBins += 1
                 bin += 1
