@@ -123,6 +123,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private lateinit var star: MenuItem
     private lateinit var anim: MenuItem
     private lateinit var tiltMenu: MenuItem
+    private lateinit var tiltMenuOption4: MenuItem
     private lateinit var l3Menu: MenuItem
     private lateinit var l2Menu: MenuItem
     private lateinit var tdwrMenu: MenuItem
@@ -200,6 +201,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         star = menu.findItem(R.id.action_fav)
         anim = menu.findItem(R.id.action_a)
         tiltMenu = menu.findItem(R.id.action_tilt)
+        tiltMenuOption4 = menu.findItem(R.id.action_tilt4)
         l3Menu = menu.findItem(R.id.action_l3)
         l2Menu = menu.findItem(R.id.action_l2)
         tdwrMenu = menu.findItem(R.id.action_tdwr)
@@ -352,19 +354,29 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 l3Menu.isVisible = false
                 l2Menu.isVisible = false
                 tdwrMenu.isVisible = true
+                tiltMenuOption4.isVisible = false
             } else {
                 l3Menu.isVisible = true
                 l2Menu.isVisible = true
                 tdwrMenu.isVisible = false
+                tiltMenuOption4.isVisible = true
             }
-            if ((oglr.product == "N0Q" || oglr.product == "N1Q" || oglr.product == "N2Q" || oglr.product == "N3Q" || oglr.product == "L2REF") && ridIsTdwr)
+            if ((oglr.product == "N0Q" || oglr.product == "N1Q" || oglr.product == "N2Q" || oglr.product == "N3Q" || oglr.product == "L2REF") && ridIsTdwr) {
+                if (tilt == "3") {
+                    tilt = "2"
+                }
                 oglr.product = "TZL"
+            }
             if ((oglr.product == "TZL" || oglr.product.startsWith("TR")) && !ridIsTdwr)
-                oglr.product = "N0Q"
-            if ((oglr.product == "N0U" || oglr.product == "N1U" || oglr.product == "N2U" || oglr.product == "N3U" || oglr.product == "L2VEL") && ridIsTdwr)
-                oglr.product = "TV0"
-            if (oglr.product == "TV0" && !ridIsTdwr)
-                oglr.product = "N0U"
+                oglr.product = "N" + tilt + "Q"
+            if ((oglr.product == "N0U" || oglr.product == "N1U" || oglr.product == "N2U" || oglr.product == "N3U" || oglr.product == "L2VEL") && ridIsTdwr) {
+                if (tilt == "3") {
+                    tilt = "2"
+                }
+                oglr.product = "TV$tilt"
+            }
+            if (oglr.product.startsWith("TV") && !ridIsTdwr)
+                oglr.product = "N" + tilt + "U"
             title = oglr.product
             if (MyApplication.ridFav.contains(":" + oglr.rid + ":"))
                 star.setIcon(MyApplication.STAR_ICON)
@@ -803,6 +815,12 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private fun changeTilt(tiltStr: String) {
         tilt = tiltStr
         oglr.product = oglr.product.replace("N[0-3]".toRegex(), "N$tilt")
+        if (oglr.product.startsWith("TR")) {
+            oglr.product = oglr.product.replace("TR[0-3]".toRegex(), "TR$tilt")
+        }
+        if (oglr.product.startsWith("TV")) {
+            oglr.product = oglr.product.replace("TV[0-3]".toRegex(), "TV$tilt")
+        }
         getContent()
     }
 
