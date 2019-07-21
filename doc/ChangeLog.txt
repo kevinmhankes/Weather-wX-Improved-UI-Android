@@ -34,7 +34,7 @@
 // TODO FEATURE - option on homescreen to show comp instead of base ref
 // TODO ADD - multipane additions for TDWR/Tilt Fix/CompRef
 
-55262 2019_07_21
+55262 2019_07_21    [FIX] program was crashing if WFO filter was enabled and hazard card was present on homescreen
 55261 2019_07_21    [ADD] TDWR to list of fixed radars in settings -> homescreen
                     [ADD] in location editor, OSM search now auto-saves
                     [FIX] various changes to support tilt working across TDWR and NEXRAD

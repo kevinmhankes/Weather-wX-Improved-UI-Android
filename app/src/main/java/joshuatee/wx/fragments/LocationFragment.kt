@@ -818,6 +818,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     )
                 })
                 linearLayoutHazards?.addView(hazardsCards[z].card)
+            } else {
+                hazardsExpandedAl.add(false)
+                hazardsCards.add(ObjectCardText(activityReference))
             }
         }
     }
