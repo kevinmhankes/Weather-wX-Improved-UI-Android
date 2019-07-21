@@ -266,7 +266,7 @@ class WXGLNexradLevel3 internal constructor() {
             dis.skipBytes(32)
             dis.close()
             if (productCode.toInt() == 37 || productCode.toInt() == 38 || productCode.toInt() == 41 || productCode.toInt() == 57) {
-                numberOfRangeBins = UtilityWXOGLPerfL3FourBit.decodeRaster(context, fn, radialStart, binWord)
+                numberOfRangeBins = UtilityWXOGLPerfL3FourBit.decodeRaster(context, fn, binWord)
             } else {
                 numberOfRangeBins = UtilityWXOGLPerfL3FourBit.decodeRadial(context, fn, radialStart, binWord)
             }

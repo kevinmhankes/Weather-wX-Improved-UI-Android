@@ -106,7 +106,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
                     which
             )
         })
-        dialogueRadar = ObjectDialogue(this, "Select fixed location Nexrad products:", GlobalArrays.radars)
+        dialogueRadar = ObjectDialogue(this, "Select fixed location Nexrad products:", GlobalArrays.radars + GlobalArrays.tdwrRadarsForHomeScreen)
         dialogueRadar.setSingleChoiceItems(DialogInterface.OnClickListener { _, which ->
             alertDialogClicked(
                     dialogueRadar,
@@ -146,7 +146,10 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
                     labels[k] = findPositionIMG2(ridArr[k])
                 }
                 if (labels[k] == "") {
-                    labels[k] = findPositionRadar(ridArr[k])
+                    labels[k] = findPositionRadarNexrad(ridArr[k])
+                }
+                if (labels[k] == "") {
+                    labels[k] = findPositionRadarTdwr(ridArr[k])
                 }
                 if (labels[k] == "") {
                     labels[k] = ridArr[k]
@@ -276,9 +279,19 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         return ""
     }
 
-    private fun findPositionRadar(key: String) = (0 until GlobalArrays.radars.size)
-            .firstOrNull { GlobalArrays.radars[it].startsWith(key.replace("NXRD-", "")) }
-            ?.let { GlobalArrays.radars[it] + " (NEXRAD)" } ?: ""
+    private fun findPositionRadarNexrad(key: String): String {
+        val allRadars = GlobalArrays.radars
+        return (0 until allRadars.size)
+                .firstOrNull { allRadars[it].startsWith(key.replace("NXRD-", "")) }
+                ?.let { allRadars[it] + " (NEXRAD)" } ?: ""
+    }
+
+    private fun findPositionRadarTdwr(key: String): String {
+        val allRadars = GlobalArrays.tdwrRadarsForHomeScreen
+        return (0 until allRadars.size)
+                .firstOrNull { allRadars[it].startsWith(key.replace("NXRD-", "")) }
+                ?.let { allRadars[it] + " (TDWR)" } ?: ""
+    }
 
     override fun onBackPressed() {
         if (ridFav != homeScreenFavOrig) {

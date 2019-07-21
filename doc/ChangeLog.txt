@@ -25,7 +25,6 @@
 // TODO BUG - SPS long press does not always work well
 // TODO BUG - fix issue for precipitation radar products when there is no data
 // TODO BUG - SPC Meso swipe left/right takes on extra to get started
-// TODO BUG - in location editor, OSM search should auto-save
 // TODO FEATURE - TDWR: DHR - DS.32dhr (wsr-88d also) range 124, colors 256, .54 x 1 nmi x degree
 // TODO FEATURE - TDWR and NEXRAD: N1P DS.78ohp One Hour Precipitation Total range 124, colors 16, 1.1 x 1 nmi x degree
 // TODO FEATURE - TDWR and NEXRAD: NTP DS.80stp Storm Total Precipitation range 124, colors 16, 1.1 x 1 nmi x degree
@@ -33,7 +32,10 @@
 // TODO FEATURE - TDWR DS.57vil range 124, colors 16, 2.2 x 2.2 nmi raster
 // TODO FEATURE - TDWR DS.p41et range 124, colors 16, 2.2 x 2.2 nmi raster
 // TODO FEATURE - option on homescreen to show comp instead of base ref
+// TODO BUG - TILT not working for TDWR
 
+55261 2019_07_21    [ADD] TDWR to list of fixed radars in settings -> homescreen
+                    [ADD] in location editor, OSM search now auto-saves
 55260 2019_07_20    [ADD] add 38 NCZ Composite Reflectivity 248nm
 55259 2019_07_20    [ADD] add 37 NCR Composite Reflectivity 124nm
 55258 2019_07_19    [ADD] Add dedicated TDWR menu in submenu when TDWR is selected, add tr0, n1p, ntp
