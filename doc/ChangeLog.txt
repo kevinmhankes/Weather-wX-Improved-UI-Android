@@ -33,6 +33,8 @@
 // TODO FEATURE - TDWR DS.p41et range 124, colors 16, 2.2 x 2.2 nmi raster
 // TODO FEATURE - option on homescreen to show comp instead of base ref
 // TODO ADD - multipane additions for TDWR/Tilt Fix/CompRef
+// TODO BUG - in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
+// TODO BUG - many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
 
 55263 2019_07_22
 55262 2019_07_21    [FIX] program was crashing if WFO filter was enabled and hazard card was present on homescreen
