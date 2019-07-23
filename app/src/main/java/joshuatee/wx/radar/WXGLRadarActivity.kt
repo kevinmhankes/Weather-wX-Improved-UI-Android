@@ -364,7 +364,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         if (!isGetContentInProgress) {
             isGetContentInProgress = true
             val ridIsTdwr = WXGLNexrad.isRidTdwr(oglr.rid)
-            adjustTiltMenu()
             if (ridIsTdwr) {
                 l3Menu.isVisible = false
                 l2Menu.isVisible = false
@@ -391,6 +390,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             if (oglr.product.startsWith("TV") && !ridIsTdwr)
                 oglr.product = "N" + tilt + "U"
             title = oglr.product
+            adjustTiltMenu()
             if (MyApplication.ridFav.contains(":" + oglr.rid + ":"))
                 star.setIcon(MyApplication.STAR_ICON)
             else
@@ -848,6 +848,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 prefTokenLocation,
                 prefToken
         )
+        adjustTiltMenu()
         sp.refreshData(this@WXGLRadarActivity, ridArrLoc)
     }
 
