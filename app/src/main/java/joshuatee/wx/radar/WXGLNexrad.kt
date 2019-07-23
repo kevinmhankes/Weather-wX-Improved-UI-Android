@@ -30,6 +30,18 @@ import joshuatee.wx.util.Utility
 
 object WXGLNexrad {
 
+    val tdwrProductList = listOf(
+            "TR0",
+            "TR1",
+            "TR2",
+            "TV0",
+            "TV1",
+            "TV2",
+            "TZL",
+            "N1P",
+            "NTP"
+    )
+
     // next 3 maps are for color palette editor
     val productCodeStringToName: Map<String, String> = mapOf(
             "94" to "Reflectivity",
@@ -67,51 +79,51 @@ object WXGLNexrad {
     val colorPaletteProducts: List<String> = listOf("94", "99", "134", "135", "159", "161", "163", "172")
 
     private val closestTdwrToNexrad: Map<String, String> = mapOf(
-        "DTX" to "DTW",
-        "LOT" to "ORD",
-        "MKX" to "MKE",
-        "MPX" to "MSP",
-        "FTG" to "DEN",
-        "BOX" to "BOS",
-        "CLE" to "LVE",
-        "EAX" to "MCI",
-        "FFC" to "ATL",
-        "FWS" to "DFW",
-        "GSP" to "CLT",
-        "HGX" to "HOU",
-        "IND" to "IDS",
-        "LIX" to "MSY",
-        "LVX" to "SDF",
-        "LSX" to "STL",
-        "NQA" to "MEM",
-        "AMX" to "MIA",
-        "OHX" to "BNA",
-        "OKX" to "JFK",
-        "TLX" to "OKC",
-        "PBZ" to "PIT",
-        "DIX" to "PHL",
-        "IWA" to "PHX",
-        "RAX" to "RDU",
-        "MTX" to "SLC",
-        "TBW" to "TPA",
-        "INX" to "TUL",
-        "ESX" to "LAS",
-        "TBW" to "TPA",
-        "JUA" to "SJU",
-        "LWX" to "DCA",
-        "ILN" to "CMH",
-        "MLB" to "MCO",
-        "ICT" to "ICT",
-        "CMH" to "CMH",
-        "CVG" to "CVG",
-        "DAL" to "DAL",
-        "DAY" to "DAY",
-        "EWR" to "EWR",
-        "FLL" to "FLL",
-        "IAD" to "IAD",
-        "IAH" to "IAH",
-        "MDW" to "MDW",
-        "PBI" to "PBI"
+            "DTX" to "DTW",
+            "LOT" to "ORD",
+            "MKX" to "MKE",
+            "MPX" to "MSP",
+            "FTG" to "DEN",
+            "BOX" to "BOS",
+            "CLE" to "LVE",
+            "EAX" to "MCI",
+            "FFC" to "ATL",
+            "FWS" to "DFW",
+            "GSP" to "CLT",
+            "HGX" to "HOU",
+            "IND" to "IDS",
+            "LIX" to "MSY",
+            "LVX" to "SDF",
+            "LSX" to "STL",
+            "NQA" to "MEM",
+            "AMX" to "MIA",
+            "OHX" to "BNA",
+            "OKX" to "JFK",
+            "TLX" to "OKC",
+            "PBZ" to "PIT",
+            "DIX" to "PHL",
+            "IWA" to "PHX",
+            "RAX" to "RDU",
+            "MTX" to "SLC",
+            "TBW" to "TPA",
+            "INX" to "TUL",
+            "ESX" to "LAS",
+            "TBW" to "TPA",
+            "JUA" to "SJU",
+            "LWX" to "DCA",
+            "ILN" to "CMH",
+            "MLB" to "MCO",
+            "ICT" to "ICT",
+            "CMH" to "CMH",
+            "CVG" to "CVG",
+            "DAL" to "DAL",
+            "DAY" to "DAY",
+            "EWR" to "EWR",
+            "FLL" to "FLL",
+            "IAD" to "IAD",
+            "IAH" to "IAH",
+            "MDW" to "MDW",
+            "PBI" to "PBI"
     )
 
     // 19    .54   124 16
@@ -161,7 +173,7 @@ object WXGLNexrad {
 
     // FIXME use different split
     fun isRidTdwr(rid: String): Boolean =
-        GlobalArrays.tdwrRadars.any { rid == MyApplication.space.split(it)[0] }
+            GlobalArrays.tdwrRadars.any { rid == MyApplication.space.split(it)[0] }
 
     fun getTdwrFromRid(rid: String): String = closestTdwrToNexrad[rid] ?: ""
 

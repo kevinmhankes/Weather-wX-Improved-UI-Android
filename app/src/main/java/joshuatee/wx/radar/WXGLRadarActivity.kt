@@ -276,8 +276,23 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 prefTokenLocation,
                 prefToken
         )
+        adjustTiltMenu()
         sp = ObjectSpinner(this, this, this, R.id.spinner1, ridArrLoc)
         checkForAutoRefresh()
+    }
+
+    private fun adjustTiltMenu() {
+        if (isTdwr()) {
+            tiltMenuOption4.isVisible = false
+            tiltMenu.isVisible = oglr.product.matches(Regex("[A-Z][A-Z][0-2]"))
+        } else {
+            tiltMenuOption4.isVisible = true
+            tiltMenu.isVisible = oglr.product.matches(Regex("[A-Z][0-3][A-Z]"))
+        }
+    }
+
+    private fun isTdwr(): Boolean {
+        return ( oglr.product in WXGLNexrad.tdwrProductList )
     }
 
     override fun onRestart() {
@@ -346,20 +361,18 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-
         if (!isGetContentInProgress) {
             isGetContentInProgress = true
             val ridIsTdwr = WXGLNexrad.isRidTdwr(oglr.rid)
+            adjustTiltMenu()
             if (ridIsTdwr) {
                 l3Menu.isVisible = false
                 l2Menu.isVisible = false
                 tdwrMenu.isVisible = true
-                tiltMenuOption4.isVisible = false
             } else {
                 l3Menu.isVisible = true
                 l2Menu.isVisible = true
                 tdwrMenu.isVisible = false
-                tiltMenuOption4.isVisible = true
             }
             if ((oglr.product == "N0Q" || oglr.product == "N1Q" || oglr.product == "N2Q" || oglr.product == "N3Q" || oglr.product == "L2REF") && ridIsTdwr) {
                 if (tilt == "3") {
@@ -808,6 +821,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     private fun changeProd(prodF: String, canTilt: Boolean) {
         oglr.product = prodF
+        adjustTiltMenu()
         tiltOption = canTilt
         getContent()
     }
@@ -873,7 +887,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     } else {
                         oglr.rid = ridArrLoc[pos].split(" ").getOrNull(0) ?: ""
                     }
-                    tiltMenu.isVisible = tiltOption
                     if (!restarted && !(MyApplication.wxoglRememberLocation && firstRun)) {
                         img.resetZoom()
                         img.setZoom(1.0f)
