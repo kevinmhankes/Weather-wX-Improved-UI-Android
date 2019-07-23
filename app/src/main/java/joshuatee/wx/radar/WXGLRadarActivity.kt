@@ -276,7 +276,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 prefTokenLocation,
                 prefToken
         )
-        adjustTiltMenu()
         sp = ObjectSpinner(this, this, this, R.id.spinner1, ridArrLoc)
         checkForAutoRefresh()
     }
