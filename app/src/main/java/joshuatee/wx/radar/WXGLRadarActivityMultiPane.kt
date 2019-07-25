@@ -673,15 +673,14 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             l2Menu.isVisible = false
             tdwrMenu.isVisible = true
             //tiltMenuOption4.isVisible = false
-            //tiltMenu.isVisible = oglr.product.matches(Regex("[A-Z][A-Z][0-2]"))
+            tiltMenu.isVisible = oglrArr[curRadar].product.matches(Regex("[A-Z][A-Z][0-2]"))
         } else {
             l3Menu.isVisible = true
             l2Menu.isVisible = true
             tdwrMenu.isVisible = false
             //tiltMenuOption4.isVisible = true
-            //tiltMenu.isVisible = oglr.product.matches(Regex("[A-Z][0-3][A-Z]"))
+            tiltMenu.isVisible = oglrArr[curRadar].product.matches(Regex("[A-Z][0-3][A-Z]"))
         }
-
     }
 
     private fun isTdwr(product: String): Boolean {
@@ -904,6 +903,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         curRadar = radarNumber
         idxIntAl = radarNumber
         setToolbarTitle()
+        adjustTiltAndProductMenus()
     }
 
     private fun ridMapSwitch(r: String) {

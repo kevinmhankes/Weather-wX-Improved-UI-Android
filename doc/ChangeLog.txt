@@ -35,6 +35,7 @@
 // TODO ADD - multipane additions for TDWR/Tilt Fix/CompRef
 // TODO BUG - in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
 // TODO BUG - many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
+// TODO Multipane proper tilt for TDWR and only show 3 tilts
 
 55264 2019_07_24    [ADD] comp ref to multipane radar
 55263 2019_07_23    [FIX] better tilt menu management
