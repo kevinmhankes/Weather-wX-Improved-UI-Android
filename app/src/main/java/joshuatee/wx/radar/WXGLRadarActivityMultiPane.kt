@@ -155,6 +155,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         isGetContentInProgress = false
         var widthDivider = 1
         var heightDivider = 2
+        //var heightDivider = 1
         val layoutType: Int
         if (numPanes == 2) {
             if (UIPreferences.radarImmersiveMode || UIPreferences.radarToolbarTransparent) {

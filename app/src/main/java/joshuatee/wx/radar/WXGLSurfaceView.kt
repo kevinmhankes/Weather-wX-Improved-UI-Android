@@ -38,6 +38,7 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityLog
 
 import kotlin.math.*
 
@@ -349,6 +350,8 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val width: Int
         var height: Int
+        //UtilityLog.d("wx1", MeasureSpec.getSize(widthMeasureSpec).toString())
+        //UtilityLog.d("wx2", MeasureSpec.getSize(heightMeasureSpec).toString())
         if (numPanes == 1) {
             if (fullScreen) {
                 super.onMeasure(widthMeasureSpec, heightMeasureSpec)
@@ -363,7 +366,8 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
                 else
                     MyApplication.dm.widthPixels / widthDivider
             if (Build.VERSION.SDK_INT >= 19 && (UIPreferences.radarImmersiveMode || UIPreferences.radarToolbarTransparent)) {
-                height = MyApplication.dm.heightPixels / heightDivider + UtilityUI.statusBarHeight(context)
+                //height = MyApplication.dm.heightPixels / heightDivider + UtilityUI.statusBarHeight(context)
+                height = MyApplication.dm.heightPixels / heightDivider
                 if (numPanes == 2) {
                     //height = MyApplication.dm.heightPixels / heightDivider - UtilityUI.statusBarHeight(context) / 2
                     height = MyApplication.dm.heightPixels / heightDivider
@@ -371,10 +375,15 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             } else {
                 height = MyApplication.dm.heightPixels / heightDivider - MyApplication.actionBarHeight
             }
-            if (Build.VERSION.SDK_INT >= 19 && UIPreferences.radarToolbarTransparent && !UIPreferences.radarImmersiveMode && numPanes == 4)
-                height = MyApplication.dm.heightPixels / heightDivider - UtilityUI.statusBarHeight(context) / 2
+            //if (Build.VERSION.SDK_INT >= 19 && UIPreferences.radarToolbarTransparent && !UIPreferences.radarImmersiveMode && numPanes == 4)
+            //    height = MyApplication.dm.heightPixels / heightDivider - UtilityUI.statusBarHeight(context) / 2
+
             this.setMeasuredDimension(width, height)
+
+            //UtilityLog.d("wx3", width.toString())
+            //UtilityLog.d("wx4", height.toString())
         }
+
     }
 
     val latLon: LatLon
