@@ -212,9 +212,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         }
         setupAlertDialogRadarLongPress()
         UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
-        val latlonArrD = UtilityLocation.getGps(this as Context)
-        latD = latlonArrD[0]
-        lonD = latlonArrD[1]
+        val latLonListAsDoubles = UtilityLocation.getGps(this as Context)
+        latD = latLonListAsDoubles[0]
+        lonD = latLonListAsDoubles[1]
         val menu = toolbarBottom.menu
         star = menu.findItem(R.id.action_fav)
         anim = menu.findItem(R.id.action_a)

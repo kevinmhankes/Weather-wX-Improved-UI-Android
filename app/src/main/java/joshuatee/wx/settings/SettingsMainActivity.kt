@@ -104,10 +104,8 @@ class SettingsMainActivity : BaseActivity() {
                 SettingsUIActivity::class.java,
                 MyApplication.paddingSettings
         )
-        val cardCtoF =
-                ObjectCardText(this, "Celsius to fahrenheit table", MyApplication.textSizeNormal, MyApplication.paddingSettings)
-        val cardDeleteFiles =
-                ObjectCardText(this, "Delete old radar files", MyApplication.textSizeNormal, MyApplication.paddingSettings)
+        val cardCtoF = ObjectCardText(this, "Celsius to fahrenheit table", MyApplication.textSizeNormal, MyApplication.paddingSettings)
+        val cardDeleteFiles = ObjectCardText(this, "Delete old radar files", MyApplication.textSizeNormal, MyApplication.paddingSettings)
         cardCtoF.setOnClickListener(View.OnClickListener {
             ObjectIntent(
                     this,

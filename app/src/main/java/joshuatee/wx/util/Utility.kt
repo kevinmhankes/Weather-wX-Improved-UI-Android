@@ -25,14 +25,29 @@ import android.os.Build
 import androidx.preference.PreferenceManager
 import android.text.Html
 import android.content.Context
+import android.content.res.Configuration
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.radar.UtilityRadar
+import joshuatee.wx.ui.UtilityUI
 
 object Utility {
+
+    fun showDiagnostics(context: Context): String {
+        var diagnostics = ""
+        diagnostics += MyApplication.dm.widthPixels.toString() + " Screen width" + MyApplication.newline
+        diagnostics += MyApplication.dm.heightPixels.toString() + " Screen height" + MyApplication.newline
+        diagnostics += UtilityUI.statusBarHeight(context).toString() + " Status bar height" + MyApplication.newline
+        var landScape = false
+        if(context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            landScape = true
+        }
+        diagnostics += landScape.toString() + " Landscape" + MyApplication.newline
+        return diagnostics
+    }
 
     fun getRadarSiteName(radarSite: String): String {
         return UtilityRadar.radarIdToName[radarSite] ?: ""
