@@ -480,8 +480,7 @@ class MyApplication : Application() {
             wpcgefsX = getInitialPreference("WPCGEFS_X", 0.5f)
             wpcgefsY = getInitialPreference("WPCGEFS_Y", 0.5f)
             elevationPref = getInitialPreference("ELEVATION_PREF", 5).toFloat()
-            elevationPref =
-                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, elevationPref, dm)
+            elevationPref = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, elevationPref, dm)
             cardElevation = elevationPref
             fabElevation = elevationPref
             fabElevationDepressed = elevationPref * 2

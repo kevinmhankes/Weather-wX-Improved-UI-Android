@@ -365,7 +365,8 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             if (Build.VERSION.SDK_INT >= 19 && (UIPreferences.radarImmersiveMode || UIPreferences.radarToolbarTransparent)) {
                 height = MyApplication.dm.heightPixels / heightDivider + UtilityUI.statusBarHeight(context)
                 if (numPanes == 2) {
-                    height = MyApplication.dm.heightPixels / heightDivider - UtilityUI.statusBarHeight(context) / 2
+                    //height = MyApplication.dm.heightPixels / heightDivider - UtilityUI.statusBarHeight(context) / 2
+                    height = MyApplication.dm.heightPixels / heightDivider
                 }
             } else {
                 height = MyApplication.dm.heightPixels / heightDivider - MyApplication.actionBarHeight
