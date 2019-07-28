@@ -421,6 +421,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                         true,
                         archiveMode
                 )
+                //glviewArr.forEach {it.requestRender()}
             }
             if (!oglInView) {
                 img.visibility = View.GONE
