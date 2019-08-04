@@ -32,11 +32,10 @@
 // TODO FEATURE - TDWR DS.57vil range 124, colors 16, 2.2 x 2.2 nmi raster
 // TODO FEATURE - TDWR DS.p41et range 124, colors 16, 2.2 x 2.2 nmi raster
 // TODO FEATURE - option on homescreen to show comp instead of base ref
-// TODO ADD - multipane additions for TDWR/Tilt Fix/CompRef
 // TODO BUG - in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
 // TODO BUG - many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
-// TODO Multipane proper tilt for TDWR and only show 3 tilts
 
+55268 2019_08_04
 55267 2019_08_04    [FIX] locfrag - strip html for all text products added on homescreen per user comment
 55266 2019_08_03    [FIX] redo uswarn to match iOS/Flutter to fix hang bug suspected of PR data
 55265 2019_08_02    [ADD] update to buildToolsVersion '29.0.1' and NDC from r19c to r20
