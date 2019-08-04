@@ -91,10 +91,17 @@ class ObjectCardAlertSummaryItem(context: Context) {
             startTime = tmpArr[1]
         }
         textViewTop.text = "$nwsOffice ($nwsLoc)"
+        if (nwsOffice == "") {
+            textViewTop.tv.visibility = View.GONE
+        }
         textViewBottom.text = ca.area
         textViewTitle.text = title
         textViewStart.text = "Start: $startTime"
-        textViewEnd.text = "End: $endTime"
+        if (endTime != "") {
+            textViewEnd.text = "End: $endTime"
+        } else {
+            textViewEnd.tv.visibility = View.GONE
+        }
     }
 }
 
