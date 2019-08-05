@@ -35,7 +35,8 @@
 // TODO BUG - in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
 // TODO BUG - many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
 
-55268 2019_08_04    [FIX] few formatting enhancements in USalerts
+55268 2019_08_05    [FIX] few formatting enhancements in USalerts
+                    [FIX] typo in about wX
 55267 2019_08_04    [FIX] locfrag - strip html for all text products added on homescreen per user comment
 55266 2019_08_03    [FIX] redo uswarn to match iOS/Flutter to fix hang bug suspected of PR data
 55265 2019_08_02    [ADD] update to buildToolsVersion '29.0.1' and NDC from r19c to r20
