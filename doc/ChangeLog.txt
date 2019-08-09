@@ -22,7 +22,6 @@
 // TODO BUG - base velocity legend
 // TODO BUG - document or fix changing radar settings and impact on main screen radars
 // TODO BUG - storm reports show radar doesn't show location dot for report
-// TODO BUG - SPS long press does not always work well
 // TODO BUG - fix issue for precipitation radar products when there is no data
 // TODO BUG - SPC Meso swipe left/right takes on extra to get started
 // TODO FEATURE - TDWR: DHR - DS.32dhr (wsr-88d also) range 124, colors 256, .54 x 1 nmi x degree
@@ -34,7 +33,10 @@
 // TODO FEATURE - option on homescreen to show comp instead of base ref
 // TODO BUG - in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
 // TODO BUG - many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
+// TODO FEATURE - VCP32 vs VCP35 colormap for comp ref
+// TODO BUG - SPS long press does not always work well
 
+55269 2019_08_09
 55268 2019_08_06    [FIX] few formatting enhancements in USalerts
                     [FIX] typo in about wX
                     [FIX] static shortcut for SPC Meso and SPC HREF
