@@ -36,7 +36,7 @@
 // TODO FEATURE - VCP32 vs VCP35 colormap for comp ref
 // TODO BUG - SPS long press does not always work well
 
-55269 2019_08_09
+55269 2019_08_17    [ADD] WPC_ANALYSIS as homescreen option
 55268 2019_08_06    [FIX] few formatting enhancements in USalerts
                     [FIX] typo in about wX
                     [FIX] static shortcut for SPC Meso and SPC HREF
