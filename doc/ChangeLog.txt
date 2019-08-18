@@ -31,6 +31,7 @@
 // TODO FEATURE - TDWR DS.57vil range 124, colors 16, 2.2 x 2.2 nmi raster
 // TODO FEATURE - TDWR DS.p41et range 124, colors 16, 2.2 x 2.2 nmi raster
 // TODO FEATURE - option on homescreen to show comp instead of base ref
+// TODO FEATURE - support non-standards apps for sharing such as facebook whatsapp
 // TODO BUG - in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
 // TODO BUG - many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
 // TODO FEATURE - VCP32 vs VCP35 colormap for comp ref
