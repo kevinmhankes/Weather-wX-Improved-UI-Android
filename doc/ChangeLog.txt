@@ -1,16 +1,9 @@
 // TODO FEATURE - Level 2 BV colormap and wrapping (Alex)
-// TODO FEATURE - alternate color picker such as https://android-arsenal.com/details/1/5609 (Jim)
-// TODO FEATURE - change code so that widget location simply follows current location selected
-// TODO FEATURE - enhance hourly graphics
 // TODO FEATURE - line size - swo, wb, wb gusts, sti
-// TODO FEATURE - SRM - ability to add custom palette
 // TODO FEATURE - make location update interval configurable
 // TODO FEATURE - add vtec end date check to tor notification
-// TODO FEATURE - color pal edit for SRM and L2 VEL/REF
 // TODO FEATURE - color pal , allow cloning of a user created pal
 // TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
-// TODO FEATURE put more diagnostics in settings -> about including more download stats and also rolling buffer for stacktraces
-// TODO FEATURE 2 icons per row: SPC Thunder, SPC Fire, NHC
 // TODO FEATURE - add ability to add generic URLs to homescreen
 // TODO FEATure - in Tabs show labels in addition or instead of icons
 // TODO FEATURE - severe dashboard better formatting for vtec
@@ -20,10 +13,7 @@
 // TODO REFACTOR - move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
 // TODO REFACTOR - migrate away from US govt website for Sun/Moon data do to cert issues, use external code that is Local to prevent dependencies ( preferably same code used in iOS wXL23)
 // TODO BUG - base velocity legend
-// TODO BUG - document or fix changing radar settings and impact on main screen radars
-// TODO BUG - storm reports show radar doesn't show location dot for report
 // TODO BUG - fix issue for precipitation radar products when there is no data
-// TODO BUG - SPC Meso swipe left/right takes on extra to get started
 // TODO FEATURE - TDWR: DHR - DS.32dhr (wsr-88d also) range 124, colors 256, .54 x 1 nmi x degree
 // TODO FEATURE - TDWR and NEXRAD: N1P DS.78ohp One Hour Precipitation Total range 124, colors 16, 1.1 x 1 nmi x degree
 // TODO FEATURE - TDWR and NEXRAD: NTP DS.80stp Storm Total Precipitation range 124, colors 16, 1.1 x 1 nmi x degree
@@ -38,6 +28,8 @@
 // TODO BUG - SPS long press does not always work well
 
 55269 2019_08_17    [ADD] WPC_ANALYSIS as homescreen option
+                    [ADD] update okhttp from 3.12.0 to 3.12.3 (thanks TacoTheDank for the suggestion)
+                    [FIX] remove maven {url "https://maven.google.com"}, redundant. Add commented out compile option for Java8 (thanks TacoTheDank for the suggestion)
 55268 2019_08_06    [FIX] few formatting enhancements in USalerts
                     [FIX] typo in about wX
                     [FIX] static shortcut for SPC Meso and SPC HREF

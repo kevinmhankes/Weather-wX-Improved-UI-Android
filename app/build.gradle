@@ -80,21 +80,33 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
+    /*compileOptions {
+        encoding = 'UTF-8'
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }*/
 }
 
 // https://developer.android.com/jetpack/androidx/versions
 dependencies {
-    implementation "com.google.android.material:material:1.0.0"
-    implementation "androidx.cardview:cardview:1.0.0"
-    implementation "androidx.recyclerview:recyclerview:1.0.0"
-    implementation "androidx.media:media:1.0.1"
-    implementation "androidx.preference:preference:1.0.0"
-    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
-    implementation 'com.jjoe64:graphview:4.2.2'
+
+    // Kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    // coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutinesVersion"
+
+    // Support libraries
+    // https://developer.android.com/jetpack/androidx/versions
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.media:media:1.0.1'
+    implementation 'androidx.preference:preference:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    // Other
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation 'com.jjoe64:graphview:4.2.2'
 }
 
 repositories {
