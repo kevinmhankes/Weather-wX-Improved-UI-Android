@@ -163,7 +163,6 @@ object UtilityWXOGL {
         urlListCopy.forEach {
             //if (html.contains(Regex("\"id\"\\: ." + it + "\",            \"type\": \"Feature\",            \"geometry\": null"))) {
             if (html.contains(Regex("\"id\"\\: ." + it + "\",\\s*\"type\": \"Feature\",\\s*\"geometry\": null"))) {
-                UtilityLog.d("wx", it)
                 urlList.remove(it)
             }
         }
