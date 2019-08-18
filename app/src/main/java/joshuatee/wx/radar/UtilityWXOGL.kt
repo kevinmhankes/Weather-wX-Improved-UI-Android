@@ -155,10 +155,23 @@ object UtilityWXOGL {
                 html += it.storage.value
             }
         }
-        val urlList = html.parseColumn("\"id\"\\: .(https://api.weather.gov/alerts/NWS-IDP-.*?)\"")
+        // val warningLatLonPattern: Pattern = Pattern.compile("\"coordinates\":\\[\\[(.*?)\\]\\]\\}")
+        // discard  "id": "https://api.weather.gov/alerts/NWS-IDP-PROD-3771044",            "type": "Feature",            "geometry": null,
+        // Special Weather Statements can either have a polygon or maybe not, need to strip out those w/o polygon
+        val urlList = html.parseColumn("\"id\"\\: .(https://api.weather.gov/alerts/NWS-IDP-.*?)\"").toMutableList()
+        val urlListCopy = urlList.toMutableList()
+        urlListCopy.forEach {
+            //if (html.contains(Regex("\"id\"\\: ." + it + "\",            \"type\": \"Feature\",            \"geometry\": null"))) {
+            if (html.contains(Regex("\"id\"\\: ." + it + "\",\\s*\"type\": \"Feature\",\\s*\"geometry\": null"))) {
+                UtilityLog.d("wx", it)
+                urlList.remove(it)
+            }
+        }
         html = html.replace("\n", "")
         html = html.replace(" ", "")
         val polygonArr = html.parseColumn(RegExp.warningLatLonPattern)
+        //UtilityLog.d("wx", urlList.size.toString())
+        //UtilityLog.d("wx", polygonArr.size.toString())
         var retStr = ""
         var testArr: List<String>
         var q = 0

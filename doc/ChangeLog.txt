@@ -25,11 +25,11 @@
 // TODO BUG - in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
 // TODO BUG - many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
 // TODO FEATURE - VCP32 vs VCP35 colormap for comp ref
-// TODO BUG - SPS long press does not always work well
 
 55269 2019_08_17    [ADD] WPC_ANALYSIS as homescreen option
                     [ADD] update okhttp from 3.12.0 to 3.12.3 (thanks TacoTheDank for the suggestion)
                     [FIX] remove maven {url "https://maven.google.com"}, redundant. Add commented out compile option for Java8 (thanks TacoTheDank for the suggestion)
+                    [FIX] UtilityWXOGL.showTextProducts filter out SPS with no polygon
 55268 2019_08_06    [FIX] few formatting enhancements in USalerts
                     [FIX] typo in about wX
                     [FIX] static shortcut for SPC Meso and SPC HREF
