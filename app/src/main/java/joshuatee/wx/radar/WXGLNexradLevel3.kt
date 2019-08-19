@@ -121,20 +121,23 @@ class WXGLNexradLevel3 internal constructor() {
             radarHeight = heightOfRadar.toInt()
             productCode = dis.readUnsignedShort().toShort()
             val operationalMode = dis.readUnsignedShort().toShort()
-            //final short        volume_scan_pattern =  (short) dis.readUnsignedShort();
-            //final short        sequence_number     = (short) dis.readUnsignedShort();
-            //final short        volume_scan_number  = (short) dis.readUnsignedShort();
+            val volumeCoveragePattern = dis.readUnsignedShort().toShort()
+            val sequenceNumber = dis.readUnsignedShort().toShort()
+            val volumeScanNumber = dis.readUnsignedShort().toShort()
+            UtilityLog.d("wx", operationalMode.toString())
+            UtilityLog.d("wx", volumeCoveragePattern.toString())
             dis.skipBytes(6)
             val volumeScanDate = dis.readUnsignedShort().toShort()
             val volumeScanTime = dis.readInt()
             val d = UtilityTime.radarTime(volumeScanDate, volumeScanTime)
             val radarInfo = formatRadarString(
-                d,
-                operationalMode.toInt(),
-                productCode.toInt(),
-                heightOfRadar.toInt(),
-                latitudeOfRadar,
-                longitudeOfRadar
+                    d,
+                    operationalMode.toInt(),
+                    productCode.toInt(),
+                    heightOfRadar.toInt(),
+                    latitudeOfRadar,
+                    longitudeOfRadar,
+                    volumeCoveragePattern.toInt()
             )
             Utility.writePref(context, "WX_RADAR_CURRENT_INFO$radarStatusStr", radarInfo)
             timestamp = radarInfo
@@ -200,7 +203,12 @@ class WXGLNexradLevel3 internal constructor() {
             // init 4 bit now depends on productCode
             init4Bit()
             val operationalMode = dis.readUnsignedShort().toShort()
-            dis.skipBytes(6)
+            val volumeCoveragePattern = dis.readUnsignedShort().toShort()
+            val sequenceNumber = dis.readUnsignedShort().toShort()
+            val volumeScanNumber = dis.readUnsignedShort().toShort()
+            //UtilityLog.d("wx", operationalMode.toString())
+            //UtilityLog.d("wx", volumeCoveragePattern.toString())
+            //dis.skipBytes(6)
             val volumeScanDate = dis.readUnsignedShort().toShort()
             val volumeScanTime = dis.readInt()
             val d = UtilityTime.radarTime(volumeScanDate, volumeScanTime)
@@ -208,12 +216,13 @@ class WXGLNexradLevel3 internal constructor() {
             //final int        product_generation_time    = dis.readInt() ;
             dis.skipBytes(6)
             val radarInfo = formatRadarString(
-                d,
-                operationalMode.toInt(),
-                productCode.toInt(),
-                heightOfRadar.toInt(),
-                latitudeOfRadar,
-                longitudeOfRadar
+                    d,
+                    operationalMode.toInt(),
+                    productCode.toInt(),
+                    heightOfRadar.toInt(),
+                    latitudeOfRadar,
+                    longitudeOfRadar,
+                    volumeCoveragePattern.toInt()
             )
             Utility.writePref(context, "WX_RADAR_CURRENT_INFO$radarStatusStr", radarInfo)
             timestamp = radarInfo
@@ -279,16 +288,18 @@ class WXGLNexradLevel3 internal constructor() {
     }
 
     private fun formatRadarString(
-        d: Date,
-        operationalMode: Int,
-        productCode: Int,
-        heightOfRadar: Int,
-        latitudeOfRadar: Double,
-        longitudeOfRadar: Double
+            d: Date,
+            operationalMode: Int,
+            productCode: Int,
+            heightOfRadar: Int,
+            latitudeOfRadar: Double,
+            longitudeOfRadar: Double,
+            vcp: Int
     ): String {
         return try {
             d.toString() + MyApplication.newline +
                     "Radar Mode: " + operationalMode + MyApplication.newline +
+                    "VCP: " + vcp + MyApplication.newline +
                     "Product Code: " + productCode + MyApplication.newline +
                     "Radar height: " + heightOfRadar + MyApplication.newline +
                     "Radar Lat: " + latitudeOfRadar + MyApplication.newline +
