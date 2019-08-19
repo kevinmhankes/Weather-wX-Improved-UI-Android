@@ -168,15 +168,13 @@ object UtilityWXOGL {
         }
         html = html.replace("\n", "")
         html = html.replace(" ", "")
-        val polygonArr = html.parseColumn(RegExp.warningLatLonPattern)
-        //UtilityLog.d("wx", urlList.size.toString())
-        //UtilityLog.d("wx", polygonArr.size.toString())
+        val polygons = html.parseColumn(RegExp.warningLatLonPattern)
         var retStr = ""
         var testArr: List<String>
         var q = 0
         var notFound = true
         var polyCount = -1
-        polygonArr.forEach { polys ->
+        polygons.forEach { polys ->
             polyCount += 1
             //if (vtecAl.size > polyCount && !vtecAl[polyCount].startsWith("0.EXP") && !vtecAl[polyCount].startsWith("0.CAN")) {
             //if (true) {
