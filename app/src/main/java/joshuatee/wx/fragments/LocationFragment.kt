@@ -479,7 +479,12 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     hsTextAl[productIndex].product
             ).replace("<br>AREA FORECAST DISCUSSION", "AREA FORECAST DISCUSSION")
         }
-        val longText = Utility.fromHtml(longTextDownload)
+        UtilityLog.d("wx", hsTextAl[productIndex].product)
+        //val longText = Utility.fromHtml(longTextDownload)
+        var longText = longTextDownload
+        if (hsTextAl[productIndex].product=="NFDOFFN31" || hsTextAl[productIndex].product=="NFDOFFN32") {
+            longText = Utility.fromHtml(longTextDownload)
+        }
         hsTextAl[productIndex].setTextLong(longText)
         val shortText = UtilityStringExternal.truncate(longText, UIPreferences.homescreenTextLength)
         hsTextAl[productIndex].setTextShort(shortText)

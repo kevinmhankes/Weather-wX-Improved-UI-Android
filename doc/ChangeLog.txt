@@ -26,6 +26,7 @@
 // TODO BUG - many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
 // TODO FEATURE - VCP32 vs VCP35 colormap for comp ref
 
+55271 2019_08_20    [FIX] homescreen text objects were not working after recent change to strip out html
 55270 2019_08_19    [ADD] vcp,op-mode extraction in level3 decoder
 55269 2019_08_19    [ADD] WPC_ANALYSIS as homescreen option
                     [ADD] update okhttp from 3.12.0 to 3.12.3 (thanks TacoTheDank for the suggestion)
