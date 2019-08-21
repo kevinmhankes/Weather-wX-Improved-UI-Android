@@ -126,7 +126,7 @@ class WXGLNexradLevel3 internal constructor() {
             val volumeScanNumber = dis.readUnsignedShort().toShort()
             UtilityLog.d("wx", operationalMode.toString())
             UtilityLog.d("wx", volumeCoveragePattern.toString())
-            dis.skipBytes(6)
+            //dis.skipBytes(6)
             val volumeScanDate = dis.readUnsignedShort().toShort()
             val volumeScanTime = dis.readInt()
             val d = UtilityTime.radarTime(volumeScanDate, volumeScanTime)

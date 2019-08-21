@@ -26,7 +26,8 @@
 // TODO BUG - in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
 // TODO BUG - many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
 
-55272 2019_08_20    [FIX] update to Android Studio 3.5 which includes the usual Android Gradle Plugin update
+55272 2019_08_21    [FIX] update to Android Studio 3.5 which includes the usual Android Gradle Plugin update
+                    [FIX] level 3 was broke with errant skip bytes after vcp change
 55271 2019_08_20    [FIX] homescreen text objects were not working after recent change to strip out html
 55270 2019_08_19    [ADD] vcp,op-mode extraction in level3 decoder
 55269 2019_08_19    [ADD] WPC_ANALYSIS as homescreen option
