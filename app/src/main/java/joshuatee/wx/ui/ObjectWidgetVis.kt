@@ -53,7 +53,7 @@ class ObjectWidgetVis(context: Context) {
                         R.id.iv,
                         GoesActivity.RID,
                         arrayOf(""),
-                        WidgetFile.VIS.action
+                        VIS.action
                 )
             } else {
                 UtilityWidget.setupIntent(
@@ -63,7 +63,7 @@ class ObjectWidgetVis(context: Context) {
                         R.id.iv,
                         CanadaRadarActivity.RID,
                         arrayOf(radarSite, "vis"),
-                        WidgetFile.VIS.action
+                        VIS.action
                 )
             }
         }

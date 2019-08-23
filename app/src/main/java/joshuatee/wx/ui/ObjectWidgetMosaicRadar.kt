@@ -51,7 +51,7 @@ class ObjectWidgetMosaicRadar(context: Context) {
                         R.id.iv,
                         USNwsMosaicActivity.URL,
                         arrayOf("widget"),
-                        WidgetFile.MOSAIC_RADAR.action
+                        MOSAIC_RADAR.action
                 )
             } else {
                 UtilityWidget.setupIntent(
@@ -61,7 +61,7 @@ class ObjectWidgetMosaicRadar(context: Context) {
                         R.id.iv,
                         CanadaRadarActivity.RID,
                         arrayOf(UtilityCanada.getECSectorFromProv(prov), "rad"),
-                        WidgetFile.MOSAIC_RADAR.action
+                        MOSAIC_RADAR.action
                 )
             }
         }

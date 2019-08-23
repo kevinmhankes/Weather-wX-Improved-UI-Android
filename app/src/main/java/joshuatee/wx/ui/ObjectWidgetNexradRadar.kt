@@ -50,7 +50,7 @@ class ObjectWidgetNexradRadar(context: Context) {
                     R.id.iv,
                     WXGLRadarActivity.RID,
                     arrayOf(radarSite),
-                    WidgetFile.NEXRAD_RADAR.action
+                    NEXRAD_RADAR.action
                 )
             } else {
                 UtilityWidget.setupIntent(
@@ -60,7 +60,7 @@ class ObjectWidgetNexradRadar(context: Context) {
                     R.id.iv,
                     CanadaRadarActivity.RID,
                     arrayOf(radarSite, "rad"),
-                    WidgetFile.NEXRAD_RADAR.action
+                    NEXRAD_RADAR.action
                 )
             }
         }

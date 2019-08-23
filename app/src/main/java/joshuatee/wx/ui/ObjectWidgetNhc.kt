@@ -42,7 +42,7 @@ class ObjectWidgetNhc(context: Context) {
                     remoteViews,
                     NhcActivity::class.java,
                     R.id.iv,
-                    WidgetFile.NHC.action + "0"
+                    NHC.action + "0"
             )
         }
     }

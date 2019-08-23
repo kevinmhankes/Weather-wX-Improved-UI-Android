@@ -47,7 +47,7 @@ class ObjectWidgetSpcSwo(context: Context) {
                         ivList[it],
                         SpcSwoActivity.NO,
                         arrayOf(dayAsString, ""),
-                        WidgetFile.SPCSWO.action + dayAsString
+                        SPCSWO.action + dayAsString
                 )
             }
         }
