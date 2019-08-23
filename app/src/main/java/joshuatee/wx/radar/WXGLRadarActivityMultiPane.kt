@@ -559,7 +559,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 animArray[z] = oglrArr[z].rdDownload.getRadarFilesForAnimation(this@WXGLRadarActivityMultiPane, frameCount)
                         .toTypedArray()
                 try {
-                    (0 until animArray[z].size).forEach { r ->
+                    (animArray[z].indices).forEach { r ->
                         fh = File(this@WXGLRadarActivityMultiPane.filesDir, animArray[z][r])
                         this@WXGLRadarActivityMultiPane.deleteFile((z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())
                         if (!fh.renameTo(
@@ -589,7 +589,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                                 )
                                         .toTypedArray()
                         try {
-                            (0 until animArray[z].size).forEach { r ->
+                            (animArray[z].indices).forEach { r ->
                                 fh = File(this@WXGLRadarActivityMultiPane.filesDir, animArray[z][r])
                                 this@WXGLRadarActivityMultiPane.deleteFile((z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())
                                 if (!fh.renameTo(
@@ -610,7 +610,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     }
                     animTriggerDownloads = false
                 }
-                for (r in 0 until animArray[0].size) {
+                for (r in animArray[0].indices) {
                     while (inOglAnimPaused) SystemClock.sleep(delay.toLong())
                     // formerly priorTime was set at the end but that is goofed up with pause
                     priorTime = System.currentTimeMillis()

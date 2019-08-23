@@ -536,7 +536,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     }
                     animTriggerDownloads = false
                 }
-                for (r in 0 until animArray.size) {
+                for (r in animArray.indices) {
                     while (inOglAnimPaused) SystemClock.sleep(delay.toLong())
                     // formerly priorTime was set at the end but that is goofed up with pause
                     priorTime = System.currentTimeMillis()

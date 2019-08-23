@@ -199,7 +199,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
     private fun findPosition(key: String) =
-            (0 until GlobalArrays.nwsTextProducts.size).firstOrNull {
+            (GlobalArrays.nwsTextProducts.indices).firstOrNull {
                 GlobalArrays.nwsTextProducts[it].contains(
                         key
                 )

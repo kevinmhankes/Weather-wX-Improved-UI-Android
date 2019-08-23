@@ -208,7 +208,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
     private fun showPrevImg() {
         drw.imgIdx -= 1
         if (drw.imgIdx == -1) {
-            for (j in 0 until UtilityWpcImages.shortCodes[drw.imgGroupIdx].size) {
+            for (j in UtilityWpcImages.shortCodes[drw.imgGroupIdx].indices) {
                 if (UtilityWpcImages.shortCodes[drw.imgGroupIdx][j] == "") {
                     drw.imgIdx = j - 1
                     break
