@@ -81,6 +81,12 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         )
         toolbarBottom.setOnMenuItemClickListener(this)
         activityArguments = intent.getStringArrayExtra(URL).toList()
+        //UtilityLog.d("wx0", activityArguments[0])
+        //UtilityLog.d("wx1", activityArguments[1])
+        //UtilityLog.d("wx2", activityArguments[2])
+        //UtilityLog.d("wx3", activityArguments[3])
+        //UtilityLog.d("wx4", activityArguments[4])
+        //UtilityLog.d("wx5", activityArguments[5])
         url = activityArguments[0]
         toolbarTitle = activityArguments[1]
         val titleArr = toolbarTitle.split(" - ")
@@ -105,6 +111,8 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
         cTextProd = ObjectCardText(this, ll, toolbar, toolbarBottom)
         product = "MIATCP$stormId"
+        UtilityLog.d("wx5", goesId)
+        UtilityLog.d("wx5", baseUrl)
         getContent()
     }
 

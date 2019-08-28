@@ -27,7 +27,6 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UtilityWidget
 import joshuatee.wx.nhc.NhcActivity
-import joshuatee.wx.objects.WidgetFile
 import joshuatee.wx.objects.WidgetFile.*
 
 class ObjectWidgetNhc(context: Context) {
