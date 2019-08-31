@@ -37,27 +37,35 @@ class ObjectCardNhcStormReportItem(context: Context, linearLayout: LinearLayout,
     private val objCard: ObjectCard
     private val textViewTop: ObjectTextView
     private val textViewTime: ObjectTextView
-    private val textViewTitle: ObjectTextView
+    private val textViewMovement: ObjectTextView
+    private val textViewPressure: ObjectTextView
+    private val textViewWindSpeed: ObjectTextView
     private val textViewBottom: ObjectTextView
 
     init {
         val linearLayoutVertical = LinearLayout(context)
         textViewTop = ObjectTextView(context, Color.BLUE)
         textViewTime = ObjectTextView(context)
-        textViewTitle = ObjectTextView(context)
+        textViewMovement = ObjectTextView(context)
+        textViewPressure = ObjectTextView(context)
+        textViewWindSpeed = ObjectTextView(context)
         textViewBottom = ObjectTextView(context)
         textViewBottom.setAsBackgroundText()
         linearLayoutVertical.orientation = LinearLayout.VERTICAL
         linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
         linearLayoutVertical.addView(textViewTop.tv)
         linearLayoutVertical.addView(textViewTime.tv)
-        linearLayoutVertical.addView(textViewTitle.tv)
+        linearLayoutVertical.addView(textViewMovement.tv)
+        linearLayoutVertical.addView(textViewPressure.tv)
+        linearLayoutVertical.addView(textViewWindSpeed.tv)
         linearLayoutVertical.addView(textViewBottom.tv)
         objCard = ObjectCard(context)
         objCard.addView(linearLayoutVertical)
         textViewTop.text = stormData.name + " (" + stormData.type + ") " + stormData.center
         textViewTime.text = stormData.dateTime
-        textViewTitle.text = stormData.movement + ", " + stormData.wind + ", " + stormData.pressure
+        textViewMovement.text = "Moving: " + stormData.movement
+        textViewPressure.text = "Min pressure: " + stormData.pressure
+        textViewWindSpeed.text = "Max sustained: " + stormData.wind
         textViewBottom.text = stormData.headline + " " + stormData.wallet + " " + stormData.atcf
         linearLayout.addView(objCard.card)
     }
