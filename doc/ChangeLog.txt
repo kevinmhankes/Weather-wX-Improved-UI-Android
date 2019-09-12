@@ -28,6 +28,7 @@
 // TODO BUG - in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
 // TODO BUG - many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
 
+55275 2019_09_12
 55274 2019_08_31    [FIX] settings playlist bottomsheetfragment had location flag set causing entries to be invisible
                     [ADD] NHC - add more verbiage in storm card
                     [ADD] NHC Storm - move path grapgic to top, add qpf and arrival graphics
