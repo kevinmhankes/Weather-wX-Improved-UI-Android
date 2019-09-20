@@ -29,7 +29,7 @@
 // TODO BUG - many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
 // [ADD] use 4bit colorpal init like flutter
 
-55275 2019_09_12
+55275 2019_09_20
 55274 2019_08_31    [FIX] settings playlist bottomsheetfragment had location flag set causing entries to be invisible
                     [ADD] NHC - add more verbiage in storm card
                     [ADD] NHC Storm - move path grapgic to top, add qpf and arrival graphics
