@@ -23,15 +23,10 @@ package joshuatee.wx.ui
 
 import android.content.Context
 import android.graphics.Color
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
-
-import joshuatee.wx.MyApplication
-import joshuatee.wx.UIPreferences
-import joshuatee.wx.spc.StormReport
 
 class ObjectCardDashAlertItem(context: Context,val linearLayout: LinearLayout, val senderName: String,val  eventType: String,val  effectiveTime: String,val  expiresTime: String,val  areaDescription: String) {
 
@@ -65,31 +60,16 @@ class ObjectCardDashAlertItem(context: Context,val linearLayout: LinearLayout, v
 
     val card: CardView get() = objCard.card
 
-    fun setId(id: Int) {
-        objCard.card.id = id
-    }
-
     fun setListener(fn: View.OnClickListener) {
         objCard.card.setOnClickListener(fn)
     }
 
-    fun setTextFields() {
+    private fun setTextFields() {
         textViewTop.text = senderName
         textViewTitle.text = eventType
         textViewStart.text = effectiveTime.replace("T", " ").replace(":00-0[0-9]:00", "")
         textViewEnd.text = expiresTime.replace("T", " ").replace(":00-0[0-9]:00", "")
         textViewBottom.text = areaDescription
-    }
-
-    fun setTextHeader(stormReport: StormReport) {
-        textViewTop.text = stormReport.text.toUpperCase()
-        textViewTop.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeLarge)
-        textViewTop.setPadding(20,20,20,20)
-        textViewTop.setTextColor(UIPreferences.textHighlightColor)
-        textViewTitle.tv.visibility = View.GONE
-        textViewBottom.tv.visibility = View.GONE
-        textViewTop.tv.setBackgroundColor(Color.BLACK)
-        textViewTop.tv.setTextColor(Color.WHITE)
     }
 }
 

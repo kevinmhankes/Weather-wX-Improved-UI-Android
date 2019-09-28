@@ -31,7 +31,6 @@ import androidx.cardview.widget.CardView
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.spc.StormReport
 
 class ObjectCardBlackHeaderText(context: Context, val linearLayout: LinearLayout, val text: String) {
 
@@ -50,18 +49,13 @@ class ObjectCardBlackHeaderText(context: Context, val linearLayout: LinearLayout
         setTextHeader()
     }
 
-
     val card: CardView get() = objCard.card
-
-    fun setId(id: Int) {
-        objCard.card.id = id
-    }
 
     fun setListener(fn: View.OnClickListener) {
         objCard.card.setOnClickListener(fn)
     }
 
-    fun setTextHeader() {
+    private fun setTextHeader() {
         textViewTop.text = text
         textViewTop.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeLarge)
         textViewTop.setPadding(20,20,20,20)

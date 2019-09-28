@@ -49,7 +49,6 @@ internal class SevereWarning(private val type: PolygonType) {
     var senderNameList = listOf<String>()
     var warnings = listOf<String>()
 
-    // gen2 add
     fun toggleCollapsed() {
         if (collapsed) {
             collapsed = false
@@ -61,27 +60,24 @@ internal class SevereWarning(private val type: PolygonType) {
     fun getName(): String {
         var name = ""
         when (type) {
-             PolygonType.TOR -> name = "Tornado Warning"
+            PolygonType.TOR -> name = "Tornado Warning"
             PolygonType.TST -> name = "Severe Thunderstorm Warning"
             PolygonType.FFW -> name = "Flash Flood Warning"
             else -> {}
         }
         return name
     }
-    //
 
     fun generateString(context: Context, html: String) {
         var vtecComponents: List<String>
         var wfo: String
         var wfoLocation = ""
-        // gen2 add
         idList = html.parseColumn("\"id\": \"(NWS.*?)\"")
         areaDescList = html.parseColumn("\"areaDesc\": \"(.*?)\"")
         effectiveList = html.parseColumn("\"effective\": \"(.*?)\"")
         expiresList = html.parseColumn("\"expires\": \"(.*?)\"")
         eventList = html.parseColumn("\"event\": \"(.*?)\"")
         senderNameList = html.parseColumn("\"senderName\": \"(.*?)\"")
-        //
         var label = ""
         when (type) {
             PolygonType.TOR -> label = "Tornado Warnings"
