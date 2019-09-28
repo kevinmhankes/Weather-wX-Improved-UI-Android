@@ -40,10 +40,48 @@ internal class SevereWarning(private val type: PolygonType) {
     var count = 0
         private set
 
-    fun generateString(context: Context, textTor: String) {
+    var collapsed = false
+    var idList = listOf<String>()
+    var areaDescList = listOf<String>()
+    var effectiveList = listOf<String>()
+    var expiresList = listOf<String>()
+    var eventList = listOf<String>()
+    var senderNameList = listOf<String>()
+    var warnings = listOf<String>()
+
+    // gen2 add
+    fun toggleCollapsed() {
+        if (collapsed) {
+            collapsed = false
+        } else {
+            collapsed = true
+        }
+    }
+
+    fun getName(): String {
+        var name = ""
+        when (type) {
+             PolygonType.TOR -> name = "Tornado Warning"
+            PolygonType.TST -> name = "Severe Thunderstorm Warning"
+            PolygonType.FFW -> name = "Flash Flood Warning"
+            else -> {}
+        }
+        return name
+    }
+    //
+
+    fun generateString(context: Context, html: String) {
         var vtecComponents: List<String>
         var wfo: String
         var wfoLocation = ""
+        // gen2 add
+        idList = html.parseColumn("\"id\": \"(NWS.*?)\"")
+        areaDescList = html.parseColumn("\"areaDesc\": \"(.*?)\"")
+        effectiveList = html.parseColumn("\"effective\": \"(.*?)\"")
+        expiresList = html.parseColumn("\"expires\": \"(.*?)\"")
+        eventList = html.parseColumn("\"event\": \"(.*?)\"")
+        senderNameList = html.parseColumn("\"senderName\": \"(.*?)\"")
+        //
         var label = ""
         when (type) {
             PolygonType.TOR -> label = "Tornado Warnings"
@@ -52,7 +90,7 @@ internal class SevereWarning(private val type: PolygonType) {
             else -> {
             }
         }
-        val warnings = textTor.parseColumn(RegExp.warningVtecPattern)
+        warnings = html.parseColumn(RegExp.warningVtecPattern)
         warnings.forEach {
             val vtecIsCurrent = UtilityTime.isVtecCurrent(it)
             if (!it.startsWith("O.EXP") && vtecIsCurrent) {

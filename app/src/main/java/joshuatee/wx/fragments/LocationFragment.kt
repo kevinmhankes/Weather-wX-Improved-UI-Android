@@ -775,7 +775,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
 
     private var mActivity: FragmentActivity? = null
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) { // was Context? before 'androidx.preference:preference:1.1.0' // was 1.0.0
         super.onAttach(context)
         if (context is FragmentActivity) {
             mActivity = context

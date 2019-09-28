@@ -27,7 +27,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import joshuatee.wx.Extensions.getImage
-import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
 import joshuatee.wx.audio.UtilityTts
@@ -36,9 +35,7 @@ import joshuatee.wx.notifications.UtilityNotificationNhc
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.audio.AudioPlayActivity
-import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.util.*
-import joshuatee.wx.wpc.WpcTextProductsActivity
 import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
