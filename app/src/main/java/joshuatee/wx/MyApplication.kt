@@ -746,6 +746,7 @@ class MyApplication : Application() {
         var radarStiLineSize: Int = 0
         var radarSwoLineSize: Int = 0
         var radarWbLineSize: Int = 0
+        var wxoglCenterOnLocation: Boolean = false
 
         private fun initRadarPreferences() {
             radarLocationUpdateInterval = getInitialPreference("RADAR_LOCATION_UPDATE_INTERVAL", 10)

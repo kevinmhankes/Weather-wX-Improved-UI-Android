@@ -77,14 +77,14 @@ class SevereDashboardActivity : BaseActivity() {
         getContent()
     }
 
-    private fun warningsClicked(filter: String) {
+  /*  private fun warningsClicked(filter: String) {
         ObjectIntent(
                 this@SevereDashboardActivity,
                 USWarningsWithRadarActivity::class.java,
                 USWarningsWithRadarActivity.URL,
                 arrayOf(filter, "us")
         )
-    }
+    }*/
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         // FIXME var naming
@@ -292,14 +292,10 @@ class SevereDashboardActivity : BaseActivity() {
             wFfw.generateString(this@SevereDashboardActivity, MyApplication.severeDashboardFfw.value)
         }
         listOf(wTor, wTst, wFfw).forEach { warn ->
-            /*if (wTor.count > 0) {
-                val objTor = ObjectCardText(this@SevereDashboardActivity, ll, wTor.text)
-                objTor.setOnClickListener(View.OnClickListener { warningsClicked(".*?Tornado Warning.*?") })
-            }*/
             if (warn.count > 0) {
                 ObjectCardBlackHeaderText(this@SevereDashboardActivity, ll, "(" + warn.count + ") " + warn.getName())
                 warn.effectiveList.forEachIndexed { index, event ->
-                    val data = warn.warnings[index];
+                    val data = warn.warnings[index]
                     //let vtecIsCurrent = UtilityTime.isVtecCurrent(data);
                     if (!data.startsWith("O.EXP")) {
                         val objectCardDashAlertItem = ObjectCardDashAlertItem(
@@ -323,13 +319,7 @@ class SevereDashboardActivity : BaseActivity() {
                     }
                 }
             }
-            /*if (wFfw.count > 0) {
-                val objFfw = ObjectCardText(this@SevereDashboardActivity, ll, wFfw.text)
-                objFfw.setOnClickListener(View.OnClickListener { warningsClicked(".*?Flash Flood Warning.*?") })
-            }*/
         }
-
-
         tstCount = wTst.count
         ffwCount = wFfw.count
         torCount = wTor.count
