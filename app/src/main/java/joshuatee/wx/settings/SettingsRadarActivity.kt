@@ -228,6 +228,15 @@ class SettingsRadarActivity : BaseActivity() {
                 ObjectSettingsCheckBox(
                         this,
                         this,
+                        "Center radar on location",
+                        "RADAR_CENTER_ON_LOCATION",
+                        R.string.radar_center_on_location_default_label
+                ).card
+        )
+        ll.addView(
+                ObjectSettingsCheckBox(
+                        this,
+                        this,
                         "Black background",
                         "NWS_RADAR_BG_BLACK",
                         R.string.nws_black_bg_label

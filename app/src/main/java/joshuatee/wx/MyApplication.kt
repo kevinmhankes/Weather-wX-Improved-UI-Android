@@ -775,6 +775,7 @@ class MyApplication : Application() {
             radarStateHires = getInitialPreference("RADAR_STATE_HIRES", "false")
             radarIconsLevel2 = getInitialPreference("WXOGL_ICONS_LEVEL2", "false")
             radarShowLegend = getInitialPreference("RADAR_SHOW_LEGEND", "false")
+            wxoglCenterOnLocation = getInitialPreference("RADAR_CENTER_ON_LOCATION", "false")
             drawtoolSize = getInitialPreference("DRAWTOOL_SIZE", 4)
             radarObsExtZoom = getInitialPreference("RADAR_OBS_EXT_ZOOM", 7)
             radarSpotterSize = getInitialPreference("RADAR_SPOTTER_SIZE", 4)
