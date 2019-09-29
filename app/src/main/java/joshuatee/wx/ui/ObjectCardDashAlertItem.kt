@@ -67,8 +67,8 @@ class ObjectCardDashAlertItem(context: Context,val linearLayout: LinearLayout, v
     private fun setTextFields() {
         textViewTop.text = senderName
         textViewTitle.text = eventType
-        textViewStart.text = effectiveTime.replace("T", " ").replace(":00-0[0-9]:00", "")
-        textViewEnd.text = expiresTime.replace("T", " ").replace(":00-0[0-9]:00", "")
+        textViewStart.text = effectiveTime.replace("T", " ").replace(Regex(":00-0[0-9]:00"), "")
+        textViewEnd.text = expiresTime.replace("T", " ").replace(Regex(":00-0[0-9]:00"), "")
         textViewBottom.text = areaDescription
     }
 }
