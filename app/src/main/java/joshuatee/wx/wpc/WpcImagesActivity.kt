@@ -148,7 +148,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
-        val numAviationImg = 14
+        //val numAviationImg = 14
         when (item.itemId) {
             R.id.action_forward -> {
                 timePeriod += 1

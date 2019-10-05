@@ -140,7 +140,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         val activityArguments = intent.getStringArrayExtra(RID)
-        if (activityArguments.size > 3 ) {
+        if (activityArguments != null && activityArguments.size > 3 ) {
             if (activityArguments[3] == "true") {
                 dontSavePref = true
                 useSinglePanePref = true
@@ -149,13 +149,12 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
             landScape = true
         }
-        numPanes = activityArguments[2].toIntOrNull() ?: 0
+        numPanes = activityArguments!![2].toIntOrNull() ?: 0
         numPanesArr = (0 until numPanes).toList()
         UtilityFileManagement.deleteCacheFiles(this)
         isGetContentInProgress = false
         var widthDivider = 1
         var heightDivider = 2
-        //var heightDivider = 1
         val layoutType: Int
         if (numPanes == 2) {
             if (UIPreferences.radarImmersiveMode || UIPreferences.radarToolbarTransparent) {
@@ -824,8 +823,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             R.id.action_dsp -> changeProd("DSA")
             R.id.action_daa -> changeProd("DAA")
             R.id.action_nsw -> changeProd("NSW")
-            R.id.action_n1p -> changeProd("N1P")
-            R.id.action_ntp -> changeProd("NTP")
+            //R.id.action_n1p -> changeProd("N1P")
+            //R.id.action_ntp -> changeProd("NTP")
             R.id.action_ncr -> changeProd("NCR")
             R.id.action_ncz -> changeProd("NCZ")
             R.id.action_l2vel -> changeProd("L2VEL")
