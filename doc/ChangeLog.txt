@@ -32,18 +32,8 @@
 // [FIX] remove TDWR products 78,80 and add 180 after 11/19/2019 https://www.weather.gov/media/notification/scn19-82tdwr_terminations.pdf
 // [ADD] radar file class from flutter
 // [ADD] evaluate what needs to refresh onrestart like flutter version
-// [FIX] Kotlin alerts not using highlight color
 
-joshuatee/wx/util/UtilityUS.kt:                                Color.BLUE,
-joshuatee/wx/UIPreferences.kt:            textHighlightColor = Color.BLUE
-joshuatee/wx/nhc/ObjectCardNhcStormItem.kt:        textViewTop = ObjectTextView(context, Color.BLUE)
-joshuatee/wx/notifications/UtilityNotification.kt:                                Color.BLUE,
-joshuatee/wx/ui/ObjectCardStormReportItem.kt:        textViewTop = ObjectTextView(context, Color.BLUE)
-joshuatee/wx/ui/ObjectCardBlackHeaderText.kt:        textViewTop = ObjectTextView(context, Color.BLUE)
-joshuatee/wx/ui/ObjectCardAlertSummaryItem.kt:        textViewTop = ObjectTextView(context, Color.BLUE)
-joshuatee/wx/ui/ObjectCardDashAlertItem.kt:        textViewTop = ObjectTextView(context, Color.BLUE)
- 
-
+55279 2019_10_16    [FIX] repackage
 55278 2019_10_16    [FIX] in some files not using highlight color needed in dark theme
 55277 2019_10_05    [ADD] AS 3.5 -> 3.5.1
                     [ADD] remove TDWR products 78,80 per https://www.weather.gov/media/notification/scn19-82tdwr_terminations.pdf
