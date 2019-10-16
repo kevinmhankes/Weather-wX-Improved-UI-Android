@@ -39,7 +39,7 @@ class ObjectCardBlackHeaderText(context: Context, val linearLayout: LinearLayout
 
     init {
         val linearLayoutVertical = LinearLayout(context)
-        textViewTop = ObjectTextView(context, Color.BLUE)
+        textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
         linearLayoutVertical.orientation = LinearLayout.VERTICAL
         linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
         linearLayoutVertical.addView(textViewTop.tv)

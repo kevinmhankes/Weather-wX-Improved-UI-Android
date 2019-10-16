@@ -27,6 +27,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
+import joshuatee.wx.UIPreferences
 
 import joshuatee.wx.activitiesmisc.CapAlert
 import joshuatee.wx.objects.TextSize
@@ -43,7 +44,7 @@ class ObjectCardAlertSummaryItem(context: Context) {
 
     init {
         val linearLayoutVertical = LinearLayout(context)
-        textViewTop = ObjectTextView(context, Color.BLUE)
+        textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
         textViewTitle = ObjectTextView(context)
         textViewStart = ObjectTextView(context, TextSize.SMALL)
         textViewEnd = ObjectTextView(context, TextSize.SMALL)

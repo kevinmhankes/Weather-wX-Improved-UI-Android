@@ -27,6 +27,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
+import joshuatee.wx.UIPreferences
 
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectTextView
@@ -44,7 +45,7 @@ class ObjectCardNhcStormReportItem(context: Context, linearLayout: LinearLayout,
 
     init {
         val linearLayoutVertical = LinearLayout(context)
-        textViewTop = ObjectTextView(context, Color.BLUE)
+        textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
         textViewTime = ObjectTextView(context)
         textViewMovement = ObjectTextView(context)
         textViewPressure = ObjectTextView(context)

@@ -27,6 +27,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
+import joshuatee.wx.UIPreferences
 
 class ObjectCardDashAlertItem(context: Context,val linearLayout: LinearLayout, val senderName: String,val  eventType: String,val  effectiveTime: String,val  expiresTime: String,val  areaDescription: String) {
 
@@ -39,7 +40,7 @@ class ObjectCardDashAlertItem(context: Context,val linearLayout: LinearLayout, v
 
     init {
         val linearLayoutVertical = LinearLayout(context)
-        textViewTop = ObjectTextView(context, Color.BLUE)
+        textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
         textViewTitle = ObjectTextView(context)
         textViewStart = ObjectTextView(context)
         textViewEnd= ObjectTextView(context)
