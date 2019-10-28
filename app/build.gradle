@@ -81,10 +81,19 @@ android {
         abortOnError false
     }
 
+    // Enables Jetpack Compose for this module
+    /*buildFeatures {
+        compose true
+    }*/
+
     /*compileOptions {
         encoding = 'UTF-8'
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }*/
+
+    /*kotlinOptions {
+        jvmTarget = "1.8"
     }*/
 }
 
@@ -102,8 +111,6 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.media:media:1.1.0' // was 1.0.1
     implementation 'androidx.preference:preference:1.1.0' // was 1.0.0
-    //implementation 'androidx.media:media:1.1.0'
-    //implementation 'androidx.preference:preference:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     // Other

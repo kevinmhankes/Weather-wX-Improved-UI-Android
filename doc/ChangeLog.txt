@@ -33,6 +33,8 @@
 // [ADD] radar file class from flutter
 // [ADD] evaluate what needs to refresh onrestart like flutter version
 
+
+55280 2019_10_28    [FIX] CC notif duplicate caused by non constant ID
 55279 2019_10_16    [FIX] repackage
 55278 2019_10_16    [FIX] in some files not using highlight color needed in dark theme
 55277 2019_10_05    [ADD] AS 3.5 -> 3.5.1
