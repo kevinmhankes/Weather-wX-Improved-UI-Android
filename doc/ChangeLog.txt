@@ -32,10 +32,9 @@
 // [FIX] remove TDWR products 78,80 and add 180 after 11/19/2019 https://www.weather.gov/media/notification/scn19-82tdwr_terminations.pdf
 // [ADD] radar file class from flutter
 // [ADD] evaluate what needs to refresh onrestart like flutter version
-// [FIX] San Fran text label not correct - 37.787239,-122.4581,805235
-// [ADD] SPC HREF updates
 
-
+55281 2019_10_31    [FIX] San Fran text label not correct - 37.787239,-122.4581,805235
+		            [ADD] SPC HREF update part 1
 55280 2019_10_28    [FIX] CC notif duplicate caused by non constant ID
 55279 2019_10_16    [FIX] repackage
 55278 2019_10_16    [FIX] in some files not using highlight color needed in dark theme
