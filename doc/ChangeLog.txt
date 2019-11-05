@@ -34,6 +34,7 @@
 // [ADD] evaluate what needs to refresh onrestart like flutter version
 // [ADD] obs map in obs site activity
 
+55282 2019_11_05
 55281 2019_10_31    [FIX] San Fran text label not correct - 37.787239,-122.4581,805235
 		            [ADD] SPC HREF update part 1
 55280 2019_10_28    [FIX] CC notif duplicate caused by non constant ID
