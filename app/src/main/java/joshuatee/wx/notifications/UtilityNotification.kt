@@ -191,11 +191,7 @@ object UtilityNotification {
                 }
                 val stackBuilder2 = TaskStackBuilder.create(context)
                 if (Location.isUS(locNumInt)) {
-                    if (Utility.readPref(context, "ALERT_COD_RADAR", "") == "true") {
-                        //stackBuilder2.addParentStack(USCODRadarActivity.class);
-                    } else {
-                        //stackBuilder2.addParentStack(USIOWARadarActivity.class);
-                    }
+
                 } else {
                     stackBuilder2.addParentStack(CanadaRadarActivity::class.java)
                 }
