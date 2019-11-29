@@ -33,7 +33,6 @@ import android.graphics.BitmapFactory
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.UtilityLightning
-import joshuatee.wx.activitiesmisc.UtilitySunMoon
 import joshuatee.wx.activitiesmisc.UtilityUSHourly
 import joshuatee.wx.audio.UtilityPlayList
 import joshuatee.wx.canada.UtilityCanadaImg
@@ -174,7 +173,7 @@ object UtilityDownload {
             }
             "WEATHERSTORY" -> {
                 needsBitmap = false
-                bm = ("https://www.weather.gov/images/" + Location.wfo.toLowerCase() + "/wxstory/Tab2FileL.png").getImage()
+                bm = ("https://www.weather.gov/images/" + Location.wfo.toLowerCase(Locale.US) + "/wxstory/Tab2FileL.png").getImage()
             }
             "SWOD2" -> {
                 needsBitmap = false
@@ -323,9 +322,7 @@ object UtilityDownload {
         } else if (prod == "VFDLOC") {
             text = getTextProduct(context, "vfd" + Location.wfo.toLowerCase(Locale.US))
         } else if (prod == "SUNMOON") {
-            text = UtilitySunMoon.getExtendedData(Location.locationIndex)
-            val (_, B) = UtilitySunMoon.parseData(text)
-            text = B
+            text = "Sun/Moon data: Content is no longer available from upstream provider."
         } else if (prod == "HOURLY") {
             val textArr = UtilityUSHourly.getString(Location.currentLocation)
             text = textArr[0]

@@ -124,7 +124,6 @@ class ObjectCardCC(context: Context, version: Int) {
             } else {
                 alertDialogStatusAl.clear()
                 alertDialogStatusAl.add("Edit Location...")
-                alertDialogStatusAl.add("Sun/Moon data...")
                 alertDialogStatusAl.add("Force Data Refresh...")
                 if (MyApplication.locDisplayImg && Location.isUS) {
                     alertDialogStatusAl.add("Radar type: Reflectivity")

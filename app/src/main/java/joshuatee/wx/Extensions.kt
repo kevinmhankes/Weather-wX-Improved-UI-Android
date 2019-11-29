@@ -70,9 +70,9 @@ fun String.getHtml(): String {
     }
 }
 
-fun String.getHtmlUnsafe(): String {
-    return UtilityDownload.getStringFromUrlUnsafe(this)
-}
+//fun String.getHtmlUnsafe(): String {
+//    return UtilityDownload.getStringFromUrlUnsafe(this)
+//}
 
 fun String.getNwsHtml(): String {
     return UtilityDownloadNws.getStringFromUrl(this)

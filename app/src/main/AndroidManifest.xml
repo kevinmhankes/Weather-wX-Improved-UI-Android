@@ -98,11 +98,6 @@
       android:label="@string/title_activity_text_screen"
       android:parentActivityName="WX" >
   </activity>
-  <activity
-      android:name=".activitiesmisc.SunMoonActivity"
-      android:label=""
-      android:parentActivityName="WX" >
-  </activity>
 
   <service
       android:name=".notifications.AlertService"
