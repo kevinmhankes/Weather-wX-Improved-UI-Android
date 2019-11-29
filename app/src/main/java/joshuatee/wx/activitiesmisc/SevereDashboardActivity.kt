@@ -313,7 +313,7 @@ class SevereDashboardActivity : BaseActivity() {
                                     this@SevereDashboardActivity,
                                     USAlertsDetailActivity::class.java,
                                     USAlertsDetailActivity.URL,
-                                    arrayOf("https://api.weather.gov/alerts/" + url, "")
+                                    arrayOf("https://api.weather.gov/alerts/$url", "")
                             )
                         })
                     }

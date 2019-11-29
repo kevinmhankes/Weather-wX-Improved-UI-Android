@@ -321,7 +321,7 @@ object UtilityNotification {
                             noSummary,
                             NotificationCompat.PRIORITY_HIGH
                     )
-                    UtilityLog.d("wx","WX CC " + url)
+                    //UtilityLog.d("wx","WX CC " + url)
                     notifier.notify(url + "CC", 1, noti)
                 }
                 if (MyApplication.locations[locNumInt].sevenDayNotification) {
