@@ -230,14 +230,15 @@ object UtilityLocationFragment {
         return temp
     }
 
-    fun extractCanadaWindDirection(forecast: String): String {
-        var windDirection = forecast.parse(RegExp.ca7DayWinddir1)
-        return if (windDirection == "") {
-            windDirection = forecast.parse(RegExp.ca7DayWinddir2)
-            " " + windDirectionMap[windDirection]
-        } else {
-            " " + windDirectionMap[windDirection]
+    fun extractCanadaWindDirection(chunk: String): String {
+        var windDirection = chunk.parse(RegExp.ca7DayWinddir1)
+        if (windDirection == "") {
+            windDirection = chunk.parse(RegExp.ca7DayWinddir2)
         }
+        if (windDirection != "") {
+            windDirection = " " + (windDirectionMap[windDirection] ?: "")
+        }
+        return windDirection
     }
 
     fun extractCanadaWindSpeed(forecast: String): String {
