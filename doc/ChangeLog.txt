@@ -32,9 +32,11 @@
 // TODO [FIX] TDWR: add 180 after 11/19/2019 https://www.weather.gov/media/notification/scn19-82tdwr_terminations.pdf
 // TODO [ADD] radar file class from flutter
 // TODO [ADD] evaluate what needs to refresh onrestart like flutter version
-// TODO [ADD] obs map in obs site activity
 
-55284 2019_11_30
+55284 2019_12_01    [FIX] Canada text product FXCN01 was not working, not broken down into 4 text products east/west, d1-3 and d4-7
+                    [FIX] Canada radar animation not working
+                    [ADD] WPC Text - add CA text products to match iOS version
+                    [ADD] obs map in obs site activity
 55283 2019_11_29    [ADD] lint cleanup
 55282 2019_11_29    [ADD] kotlin updates
                     [FIX] remove Sun/Moon data as upstream content provider website is no longer even defined in DNS

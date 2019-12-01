@@ -448,8 +448,14 @@ object UtilityDownload {
                 text = text.replace("<br><br>", "<BR><BR>")
                 text = text.replace("<br>", " ")
             }
-        } else if (prod.contains("FXCN01")) {
-            text = ("${MyApplication.NWS_RADAR_PUB}/data/raw/fx/fxcn01.cwao..txt").getHtmlSep()
+        } else if (prod.startsWith("FXCN01")) {
+            text = ("http://collaboration.cmc.ec.gc.ca/cmc/cmop/FXCN/").getHtmlSep()
+            val dateList = UtilityString.parseColumn(text, "href=\"([0-9]{8})/\"")
+            val dateString = dateList.last()
+            val daysAndRegion = prod.replace("FXCN01_", "").toLowerCase()
+            text = ("http://collaboration.cmc.ec.gc.ca/cmc/cmop/FXCN/" + dateString + "/fx_" + daysAndRegion + "_" + dateString + "00.html")
+                    .getHtml()
+                    .replace(MyApplication.newline + MyApplication.newline, MyApplication.newline)
         } else if (prod.startsWith("VFD")) {
             val t2 = prod.substring(3)
             text = (MyApplication.nwsAWCwebsitePrefix + "/fcstdisc/data?cwa=K$t2").getHtmlSep()
