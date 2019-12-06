@@ -47,7 +47,7 @@ object UtilityString {
     }
 
     fun removeHtml(text: String): String {
-        return Utility.fromHtml(text).toString()
+        return Utility.fromHtml(text)
     }
 
     fun getHtmlAndParse(url: String, match: String): String = url.getHtml().parse(match)
