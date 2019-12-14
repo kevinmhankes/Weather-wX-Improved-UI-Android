@@ -32,6 +32,7 @@
 // TODO [FIX] TDWR: add 180 after 11/19/2019 https://www.weather.gov/media/notification/scn19-82tdwr_terminations.pdf
 // TODO [ADD] radar file class from flutter
 // TODO [ADD] evaluate what needs to refresh onrestart like flutter version
+// [FIX] if change between radar mosaic provides, change on misc tab is not immediate
 
 55287 2019_12_14    [REF] lint and code cleanup
 		    [FIX] radar mosaic was showing expired warnings
