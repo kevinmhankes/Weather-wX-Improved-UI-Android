@@ -33,7 +33,8 @@
 // TODO [ADD] radar file class from flutter
 // TODO [ADD] evaluate what needs to refresh onrestart like flutter version
 
-55287 2019_12_06
+55287 2019_12_14    [REF] lint and code cleanup
+		    [FIX] radar mosaic was showing expired warnings
 55286 2019_12_03    [FIX] AWC mosaic animations not working for all products
                     [ADD] "Sandwich" to GOES activity
 55285 2019_12_01    [FIX] Canada forecasts were showing null when no wind data, port code from iOS/Swift
