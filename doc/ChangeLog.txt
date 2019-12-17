@@ -34,8 +34,9 @@
 // TODO [ADD] evaluate what needs to refresh onrestart like flutter version
 // [FIX] if change between radar mosaic provides, change on misc tab is not immediate
 
-55287 2019_12_14    [REF] lint and code cleanup
-		    [FIX] radar mosaic was showing expired warnings
+55287 2019_12_17    [REF] lint and code cleanup
+		            [FIX] radar mosaic was showing expired warnings
+		            [ADD] TZ0 replaces TR0 in TDWR (16 to 256 bits for color)
 55286 2019_12_03    [FIX] AWC mosaic animations not working for all products
                     [ADD] "Sandwich" to GOES activity
 55285 2019_12_01    [FIX] Canada forecasts were showing null when no wind data, port code from iOS/Swift

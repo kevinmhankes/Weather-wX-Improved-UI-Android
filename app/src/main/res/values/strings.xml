@@ -65,7 +65,8 @@
     <string name="label_l2ref">SuperRes Reflectivity</string>
     <string name="label_l2vel">SuperRes Velocity</string>
     <string name="label_tzl">TZL: Long Range Digital Base Reflectivity</string>
-    <string name="label_tr0">TR0: Digital Base Reflectivity</string>
+    <string name="label_tz0">TZ0: Digital Base Reflectivity</string>
+    <!--<string name="label_tr0">TR0: Digital Base Reflectivity</string>-->
     <string name="label_tv0">TV0: Digital Base Velocity</string>
 
     <string name="label_ncr">NCR: Composite Reflectivity 124nm</string>

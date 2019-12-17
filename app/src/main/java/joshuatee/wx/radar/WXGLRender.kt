@@ -198,8 +198,8 @@ class WXGLRender(private val context: Context) : Renderer {
 
     fun initializeGeometry() {
         totalBins = 0
-        // fixme method for tdwr
-        if (prod.startsWith("TV") || prod == "TZL" || prod.startsWith("TR") || prod == "N1P" || prod == "NTP" || prod == "ET" || prod == "VIL") {
+        // FIXME method for tdwr
+        if (prod.startsWith("TV") || prod == "TZL" || prod.startsWith("TR") || prod.startsWith("TZ") || prod == "N1P" || prod == "NTP" || prod == "ET" || prod == "VIL") {
             tdwr = true
             val oldRid = this.rid
             if (this.rid == "") {
@@ -219,7 +219,7 @@ class WXGLRender(private val context: Context) : Renderer {
         // added to allow animations to skip a frame and continue
         // fixme method for tdwr
         //UtilityLog.d("Wx", product)
-        if (product.startsWith("TV") || product == "TZL" || product.startsWith("TR") || product == "N1P" || product == "NTP" || product == "ET" || product == "VIL") {
+        if (product.startsWith("TV") || product == "TZL" || product.startsWith("TR") || prod.startsWith("TZ") || product == "N1P" || product == "NTP" || product == "ET" || product == "VIL") {
             tdwr = true
             val oldRid = this.rid
             if (this.rid == "") {

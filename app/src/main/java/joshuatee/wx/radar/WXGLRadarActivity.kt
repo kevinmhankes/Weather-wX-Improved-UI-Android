@@ -378,7 +378,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 }
                 oglr.product = "TZL"
             }
-            if ((oglr.product == "TZL" || oglr.product.startsWith("TR")) && !ridIsTdwr)
+            if ((oglr.product == "TZL" || oglr.product.startsWith("TR") || oglr.product.startsWith("TZ")) && !ridIsTdwr)
                 oglr.product = "N" + tilt + "Q"
             if ((oglr.product == "N0U" || oglr.product == "N1U" || oglr.product == "N2U" || oglr.product == "N3U" || oglr.product == "L2VEL") && ridIsTdwr) {
                 if (tilt == "3") {
@@ -751,7 +751,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 }
                 getContent()
             }
-            R.id.action_tr0 -> changeProd("TR$tilt", true)
+            R.id.action_tz0 -> changeProd("TZ$tilt", true)
             R.id.action_tv0 -> changeProd("TV$tilt", true)
             R.id.action_tzl -> changeProd("TZL", true)
             R.id.action_n0s -> changeProd("N" + tilt + "S", true)
@@ -830,6 +830,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         oglr.product = oglr.product.replace("N[0-3]".toRegex(), "N$tilt")
         if (oglr.product.startsWith("TR")) {
             oglr.product = oglr.product.replace("TR[0-3]".toRegex(), "TR$tilt")
+        }
+        if (oglr.product.startsWith("TZ")) {
+            oglr.product = oglr.product.replace("TZ[0-3]".toRegex(), "TZ$tilt")
         }
         if (oglr.product.startsWith("TV")) {
             oglr.product = oglr.product.replace("TV[0-3]".toRegex(), "TV$tilt")

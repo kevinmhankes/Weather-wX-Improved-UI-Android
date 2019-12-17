@@ -162,9 +162,13 @@
                 android:title="@string/label_tzl"
                 app:showAsAction="ifRoom" />
             <item
+                android:id="@+id/action_tz0"
+                android:title="@string/label_tz0"
+                app:showAsAction="ifRoom" />
+            <!--<item
                 android:id="@+id/action_tr0"
                 android:title="@string/label_tr0"
-                app:showAsAction="ifRoom" />
+                app:showAsAction="ifRoom" />-->
             <item
                 android:id="@+id/action_tv0"
                 android:title="@string/label_tv0"
