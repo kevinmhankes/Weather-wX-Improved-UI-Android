@@ -54,7 +54,7 @@ object UtilityWXOGL {
             else -> "k"
         }
         // FIXME need TDWR method
-        if (product.startsWith("TV") || product == "TZL" || product.startsWith("TR") || product == "N1P" || product == "NTP" || product == "ET" || product == "VIL") {
+        if (product.startsWith("TV") || product == "TZL" || product.startsWith("TZ") || product == "N1P" || product == "NTP" || product == "ET" || product == "VIL") {
             ridPrefix = ""
         }
         return ridPrefix

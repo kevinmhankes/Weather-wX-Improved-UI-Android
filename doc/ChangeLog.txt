@@ -29,11 +29,11 @@
 // TODO BUG - many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
 // TODO [ADD] use 4bit colorpal init like flutter
 // TODO [ADD] wpc day 1 -3 image + text
-// TODO [FIX] TDWR: add 180 after 11/19/2019 https://www.weather.gov/media/notification/scn19-82tdwr_terminations.pdf
 // TODO [ADD] radar file class from flutter
 // TODO [ADD] evaluate what needs to refresh onrestart like flutter version
 // [FIX] if change between radar mosaic provides, change on misc tab is not immediate
 
+55288 2019_12_17    [FIX] anim for TZ0 was not working
 55287 2019_12_17    [REF] lint and code cleanup
 		            [FIX] radar mosaic was showing expired warnings
 		            [ADD] TZ0 replaces TR0 in TDWR (16 to 256 bits for color)
