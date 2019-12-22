@@ -33,7 +33,7 @@
 // TODO [ADD] evaluate what needs to refresh onrestart like flutter version
 // TODO [FIX] if change between radar mosaic provides, change on misc tab is not immediate
 
-55290 2019_12_22
+55290 2019_12_22    [REF] lint cleanup
 55289 2019_12_22    [ADD] update android-ndk-r20 to android-ndk-r20b
                     [ADD] update org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50 to org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61
                     [ADD] update org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1 to org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1

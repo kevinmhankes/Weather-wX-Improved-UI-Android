@@ -37,6 +37,7 @@ import joshuatee.wx.MyApplication
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.util.*
+import java.util.*
 
 class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
 
@@ -60,7 +61,7 @@ class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
         )
         val activityArguments = intent.getStringArrayExtra(URL)
         url = activityArguments[0]
-        title = url.toUpperCase()
+        title = url.toUpperCase(Locale.US)
         toolbar.subtitle = "Select a location and then use the back arrow to save."
         var imgRes = 0
         var imgMap = 0
@@ -139,14 +140,14 @@ class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
     private fun mapClicked(id: Int) {
         val sector = UtilityImageMap.canadaMap(id)
         val cityLoc = getCityFromXml(sector)
-        Utility.writePref(this, "LOCATION_CANADA_PROV", url.toUpperCase())
+        Utility.writePref(this, "LOCATION_CANADA_PROV", url.toUpperCase(Locale.US))
         Utility.writePref(this, "LOCATION_CANADA_CITY", cityLoc)
         Utility.writePref(
             this,
             "LOCATION_CANADA_ID",
             sector.split("_".toRegex()).dropLastWhile { it.isEmpty() }[1]
         )
-        toolbar.subtitle = url.toUpperCase() + ", " + cityLoc
+        toolbar.subtitle = url.toUpperCase(Locale.US) + ", " + cityLoc
     }
 
     override fun onClick(v: View) {
@@ -179,21 +180,18 @@ class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
         val io: InputStream?
         try {
             io = resources.openRawResource(R.raw.maps)
-            // if file the available for reading
-            if (io != null) {
-                // prepare the file for reading
-                val inputReader = InputStreamReader(io)
-                val buffReader = BufferedReader(inputReader)
-                var line: String?
-                // read every line of the file into the line-variable, on line at the time
-                do {
-                    line = buffReader.readLine()
-                    if (line!!.contains(token)) {
-                        return line.parse("title=\"(.*?)\"")
-                    }
-                    // do something with the line
-                } while (line != null)
-            }
+            // prepare the file for reading
+            val inputReader = InputStreamReader(io)
+            val buffReader = BufferedReader(inputReader)
+            var line: String?
+            // read every line of the file into the line-variable, on line at the time
+            do {
+                line = buffReader.readLine()
+                if (line!!.contains(token)) {
+                    return line.parse("title=\"(.*?)\"")
+                }
+                // do something with the line
+            } while (line != null)
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
