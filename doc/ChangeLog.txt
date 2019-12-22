@@ -34,6 +34,11 @@
 // TODO [FIX] if change between radar mosaic provides, change on misc tab is not immediate
 
 55289 2019_12_22    [ADD] update android-ndk-r20 to android-ndk-r20b
+                    [ADD] update org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50 to org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61
+                    [ADD] update org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1 to org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1
+                    [ADD] update org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1 to org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1
+                    [ADD] WFO warnings image to homescreen
+                    [ADD] better obs data in us_metar3.txt stations_us4.txt via getObs.py
 55288 2019_12_17    [FIX] anim for TZ0 was not working
 55287 2019_12_17    [REF] lint and code cleanup
 		            [FIX] radar mosaic was showing expired warnings

@@ -175,6 +175,10 @@ object UtilityDownload {
                 needsBitmap = false
                 bm = ("https://www.weather.gov/images/" + Location.wfo.toLowerCase(Locale.US) + "/wxstory/Tab2FileL.png").getImage()
             }
+            "WFOWARNINGS" -> {
+                needsBitmap = false
+                bm = ("https://www.weather.gov/wwamap/png/" + Location.wfo.toLowerCase(Locale.US) + ".png").getImage()
+            }
             "SWOD2" -> {
                 needsBitmap = false
                 bm = UtilitySpcSwo.getImages("2", false)[0]
@@ -452,7 +456,7 @@ object UtilityDownload {
             text = ("http://collaboration.cmc.ec.gc.ca/cmc/cmop/FXCN/").getHtmlSep()
             val dateList = UtilityString.parseColumn(text, "href=\"([0-9]{8})/\"")
             val dateString = dateList.last()
-            val daysAndRegion = prod.replace("FXCN01_", "").toLowerCase()
+            val daysAndRegion = prod.replace("FXCN01_", "").toLowerCase(Locale.US)
             text = ("http://collaboration.cmc.ec.gc.ca/cmc/cmop/FXCN/" + dateString + "/fx_" + daysAndRegion + "_" + dateString + "00.html")
                     .getHtml()
                     .replace(MyApplication.newline + MyApplication.newline, MyApplication.newline)

@@ -47,7 +47,8 @@ internal object UtilityHomeScreen {
     val localChoicesImg = listOf(
             "RADAR: Local NEXRAD Radar",
             "CARAIN: Local CA Radar",
-            "WEATHERSTORY: Local NWS Weather Story"
+            "WEATHERSTORY: Local NWS Weather Story",
+            "WFOWARNINGS: Local NWS Office Warnings"
     )
 
     fun setupMap() {
