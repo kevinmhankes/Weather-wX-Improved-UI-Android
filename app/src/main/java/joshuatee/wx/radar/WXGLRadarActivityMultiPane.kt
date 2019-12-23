@@ -665,20 +665,15 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     private fun adjustTiltAndProductMenus() {
-        //if (isTdwr(oglrArr[curRadar].product)) {
-        //}
-
         if (isTdwr(oglrArr[curRadar].product)) {
             l3Menu.isVisible = false
             l2Menu.isVisible = false
             tdwrMenu.isVisible = true
-            //tiltMenuOption4.isVisible = false
             tiltMenu.isVisible = oglrArr[curRadar].product.matches(Regex("[A-Z][A-Z][0-2]"))
         } else {
             l3Menu.isVisible = true
             l2Menu.isVisible = true
             tdwrMenu.isVisible = false
-            //tiltMenuOption4.isVisible = true
             tiltMenu.isVisible = oglrArr[curRadar].product.matches(Regex("[A-Z][0-3][A-Z]"))
         }
     }
@@ -688,7 +683,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        //adjustTiltAndProductMenus()
         UtilityUI.immersiveMode(this)
         if (inOglAnim && (item.itemId != R.id.action_fav) && (item.itemId != R.id.action_share) && (item.itemId != R.id.action_tools)) {
             inOglAnim = false
@@ -823,8 +817,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             R.id.action_dsp -> changeProd("DSA")
             R.id.action_daa -> changeProd("DAA")
             R.id.action_nsw -> changeProd("NSW")
-            //R.id.action_n1p -> changeProd("N1P")
-            //R.id.action_ntp -> changeProd("NTP")
             R.id.action_ncr -> changeProd("NCR")
             R.id.action_ncz -> changeProd("NCZ")
             R.id.action_l2vel -> changeProd("L2VEL")
@@ -1004,7 +996,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         animTriggerDownloads = true
                     } else {
                         getContentSerial()
-                        //numPanesArr.forEach { getContentSingleThreaded(glviewArr[it], oglrArr[it], it) }
                     }
                 }
                 loopCount += 1

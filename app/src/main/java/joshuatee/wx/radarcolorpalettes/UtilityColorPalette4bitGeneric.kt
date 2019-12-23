@@ -38,9 +38,7 @@ internal object UtilityColorPalette4bitGeneric {
         when (product) {
             "19" -> cmFileInt = R.raw.colormap19
             "30" -> cmFileInt = R.raw.colormap30
-            "41" -> cmFileInt = R.raw.colormap41
             "56" -> cmFileInt = R.raw.colormap56
-            "78" -> cmFileInt = R.raw.colormap78
             else -> cmFileInt = R.raw.colormap19
         }
         val text = UtilityIO.readTextFile(context.resources.openRawResource(cmFileInt))
