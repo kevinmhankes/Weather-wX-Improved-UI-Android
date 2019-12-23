@@ -34,12 +34,11 @@ internal object UtilityColorPalette4bitGeneric {
         MyApplication.colorMap[radarColorPaletteCode]!!.redValues.position(0)
         MyApplication.colorMap[radarColorPaletteCode]!!.greenValues.position(0)
         MyApplication.colorMap[radarColorPaletteCode]!!.blueValues.position(0)
-        var cmFileInt = 0
-        when (product) {
-            "19" -> cmFileInt = R.raw.colormap19
-            "30" -> cmFileInt = R.raw.colormap30
-            "56" -> cmFileInt = R.raw.colormap56
-            else -> cmFileInt = R.raw.colormap19
+        val cmFileInt: Int = when (product) {
+            "19" -> R.raw.colormap19
+            "30" -> R.raw.colormap30
+            "56" -> R.raw.colormap56
+            else -> R.raw.colormap19
         }
         val text = UtilityIO.readTextFile(context.resources.openRawResource(cmFileInt))
         val lines = text.split("\n")

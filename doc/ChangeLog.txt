@@ -27,6 +27,7 @@
 // TODO [ADD] evaluate what needs to refresh onrestart like flutter version
 // TODO [FIX] if change between radar mosaic provides, change on misc tab is not immediate
 
+55291 2019_12_23
 55290 2019_12_23    [REF] lint cleanup
                     [ADD] use 4bit colorpal init like flutter (add framework)
                     [FIX] retire colormap for 41/57/78/80
