@@ -241,7 +241,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
     private fun findPositionTEXT(key: String) = (GlobalArrays.nwsTextProducts.indices)
             .firstOrNull {
                 GlobalArrays.nwsTextProducts[it].startsWith(
-                        key.toLowerCase().replace(
+                        key.toLowerCase(Locale.US).replace(
                                 "txt-",
                                 ""
                         )
@@ -343,13 +343,14 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         var textProduct = token + strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)
         if (token == "") {
             textProduct = if (textProduct != "RADAR") {
-                "IMG-" + textProduct.toUpperCase()
+                "IMG-" + textProduct.toUpperCase(Locale.US)
             } else {
-                "OGL-" + textProduct.toUpperCase()
+                "OGL-" + textProduct.toUpperCase(Locale.US)
             }
         }
         ridFav = MyApplication.homescreenFav
-        if (!ridFav.contains(":$textProduct")) {
+        val homeScreenList = ridFav.split(":")
+        if (!homeScreenList.contains(textProduct)) {
             ridFav = "$ridFav:$textProduct"
             Utility.writePref(this, prefToken, ridFav)
             MyApplication.homescreenFav = ridFav

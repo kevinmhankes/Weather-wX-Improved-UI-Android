@@ -117,33 +117,36 @@ internal object UtilityHomeScreen {
             MyApplication.HM_CLASS_ID["RAD_2KM"] = AwcRadarMosaicActivity.URL
         }
 
-        MyApplication.HM_CLASS["QPF1"] = WpcImagesActivity::class.java
-        MyApplication.HM_CLASS_ARGS["QPF1"] = arrayOf("")
-        MyApplication.HM_CLASS_ID["QPF1"] = WpcImagesActivity.URL
-
-        MyApplication.HM_CLASS["FMAP"] = WpcImagesActivity::class.java
-        MyApplication.HM_CLASS_ARGS["FMAP"] = arrayOf("")
-        MyApplication.HM_CLASS_ID["FMAP"] = WpcImagesActivity.URL
-
-        listOf("QPF2", "QPF3", "QPF1-2", "QPF1-3", "QPF4-5", "QPF6-7", "QPF1-5", "QPF1-7").forEach {
-            MyApplication.HM_CLASS[it] = WpcImagesActivity::class.java
-            MyApplication.HM_CLASS_ARGS[it] = arrayOf("")
-            MyApplication.HM_CLASS_ID[it] = WpcImagesActivity.URL
-        }
-
         listOf(
+                "FMAP",
+                "FMAPD2",
+                "FMAPD3",
                 "FMAP12",
                 "FMAP24",
                 "FMAP36",
                 "FMAP48",
+                "FMAP72",
+                "FMAP96",
+                "FMAP120",
+                "FMAP144",
+                "FMAP168",
                 "FMAP3D",
                 "FMAP4D",
                 "FMAP5D",
                 "FMAP6D",
-                "WPC_ANALYSIS"
+                "WPC_ANALYSIS",
+                "QPF1",
+                "QPF2",
+                "QPF3",
+                "QPF1-2",
+                "QPF1-3",
+                "QPF4-5",
+                "QPF6-7",
+                "QPF1-5",
+                "QPF1-7"
         ).forEach {
             MyApplication.HM_CLASS[it] = WpcImagesActivity::class.java
-            MyApplication.HM_CLASS_ARGS[it] = arrayOf("")
+            MyApplication.HM_CLASS_ARGS[it] = arrayOf("HS", it)
             MyApplication.HM_CLASS_ID[it] = WpcImagesActivity.URL
         }
     }

@@ -27,7 +27,9 @@
 // TODO [ADD] evaluate what needs to refresh onrestart like flutter version
 // TODO [FIX] if change between radar mosaic provides, change on misc tab is not immediate
 
-55291 2019_12_23
+55291 2019_12_29    [ADD] additional WPC Forecast maps in National Images and in homescreen
+		            [FIX] for WPC images on homescreen, tapping on them now opens National images and display image tapped on
+		            [FIX] National images, show label as subtitle since they are so long in certain cases
 55290 2019_12_23    [REF] lint cleanup
                     [ADD] use 4bit colorpal init like flutter (add framework)
                     [FIX] retire colormap for 41/57/78/80

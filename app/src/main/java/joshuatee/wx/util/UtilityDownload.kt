@@ -143,11 +143,18 @@ object UtilityDownload {
                 needsBitmap = false
                 bm = UtilityGoes.getImage("02", "CONUS")
             }
-            "FMAP" -> url = "${MyApplication.nwsWPCwebsitePrefix}/noaa/noaa.gif"
+            "FMAP" -> url = "${MyApplication.nwsWPCwebsitePrefix}/noaa/noaad1.gif"
+            "FMAPD2" -> url = "${MyApplication.nwsWPCwebsitePrefix}/noaa/noaad2.gif"
+            "FMAPD3" -> url = "${MyApplication.nwsWPCwebsitePrefix}/noaa/noaad3.gif"
             "FMAP12" -> url = "${MyApplication.nwsWPCwebsitePrefix}/basicwx/92fwbg.gif"
             "FMAP24" -> url = "${MyApplication.nwsWPCwebsitePrefix}/basicwx/94fwbg.gif"
             "FMAP36" -> url = "${MyApplication.nwsWPCwebsitePrefix}/basicwx/96fwbg.gif"
             "FMAP48" -> url = "${MyApplication.nwsWPCwebsitePrefix}/basicwx/98fwbg.gif"
+            "FMAP72" -> url = MyApplication.nwsWPCwebsitePrefix + "/medr/display/wpcwx+frontsf072.gif"
+            "FMAP96" -> url = MyApplication.nwsWPCwebsitePrefix + "/medr/display/wpcwx+frontsf096.gif"
+            "FMAP120" -> url = MyApplication.nwsWPCwebsitePrefix + "/medr/display/wpcwx+frontsf120.gif"
+            "FMAP144" -> url = MyApplication.nwsWPCwebsitePrefix + "/medr/display/wpcwx+frontsf144.gif"
+            "FMAP168" -> url = MyApplication.nwsWPCwebsitePrefix + "/medr/display/wpcwx+frontsf168.gif"
             "FMAP3D" -> url = "${MyApplication.nwsWPCwebsitePrefix}/medr/9jhwbg_conus.gif"
             "FMAP4D" -> url = "${MyApplication.nwsWPCwebsitePrefix}/medr/9khwbg_conus.gif"
             "FMAP5D" -> url = "${MyApplication.nwsWPCwebsitePrefix}/medr/9lhwbg_conus.gif"
