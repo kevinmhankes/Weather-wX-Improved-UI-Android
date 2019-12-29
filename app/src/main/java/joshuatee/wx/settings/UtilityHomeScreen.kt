@@ -24,6 +24,7 @@ package joshuatee.wx.settings
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.LightningActivity
+import joshuatee.wx.activitiesmisc.USWarningsWithRadarActivity
 import joshuatee.wx.canada.CanadaRadarActivity
 import joshuatee.wx.radar.AwcRadarMosaicActivity
 import joshuatee.wx.radar.USNwsMosaicActivity
@@ -148,6 +149,19 @@ internal object UtilityHomeScreen {
             MyApplication.HM_CLASS[it] = WpcImagesActivity::class.java
             MyApplication.HM_CLASS_ARGS[it] = arrayOf("HS", it)
             MyApplication.HM_CLASS_ID[it] = WpcImagesActivity.URL
+        }
+
+        listOf(
+                "USWARN",
+                "AKWARN",
+                "HIWARN"
+        ).forEach {
+            MyApplication.HM_CLASS[it] = USWarningsWithRadarActivity::class.java
+            MyApplication.HM_CLASS_ARGS[it] = arrayOf(
+                    ".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?",
+                    "us"
+            )
+            MyApplication.HM_CLASS_ID[it] = USWarningsWithRadarActivity.URL
         }
     }
 }

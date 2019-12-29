@@ -143,6 +143,9 @@ object UtilityDownload {
                 needsBitmap = false
                 bm = UtilityGoes.getImage("02", "CONUS")
             }
+            "USWARN" -> url = "https://forecast.weather.gov/wwamap/png/US.png"
+            "AKWARN" -> url = "https://forecast.weather.gov/wwamap/png/ak.png"
+            "HIWARN" -> url = "https://forecast.weather.gov/wwamap/png/hi.png"
             "FMAP" -> url = "${MyApplication.nwsWPCwebsitePrefix}/noaa/noaad1.gif"
             "FMAPD2" -> url = "${MyApplication.nwsWPCwebsitePrefix}/noaa/noaad2.gif"
             "FMAPD3" -> url = "${MyApplication.nwsWPCwebsitePrefix}/noaa/noaad3.gif"

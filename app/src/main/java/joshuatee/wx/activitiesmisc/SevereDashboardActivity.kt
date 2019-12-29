@@ -43,6 +43,7 @@ import joshuatee.wx.spc.SpcMcdWatchShowActivity
 import joshuatee.wx.spc.SpcStormReportsActivity
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.ui.*
+import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.util.UtilityShortcut
 
@@ -83,6 +84,9 @@ class SevereDashboardActivity : BaseActivity() {
         val snMpd = SevereNotice(PolygonType.MPD)
         ll.removeAllViews()
         withContext(Dispatchers.IO) {
+            bitmaps.add((UtilityDownload.getImageProduct(this@SevereDashboardActivity, "USWARN")))
+        }
+        withContext(Dispatchers.IO) {
             bitmaps.add((UtilitySpc.getStormReportsTodayUrl()).getImage())
         }
         totalImages = bitmaps.size + snMcd.bitmaps.size + snWat.bitmaps.size + snMpd.bitmaps.size
@@ -102,14 +106,28 @@ class SevereDashboardActivity : BaseActivity() {
                         bitmaps[it],
                         2
                 )
-                card.setOnClickListener(View.OnClickListener {
-                    ObjectIntent(
-                            this@SevereDashboardActivity,
-                            SpcStormReportsActivity::class.java,
-                            SpcStormReportsActivity.NO,
-                            arrayOf("today")
-                    )
-                })
+                if (it == 0) {
+                    card.setOnClickListener(View.OnClickListener {
+                        ObjectIntent(
+                                this@SevereDashboardActivity,
+                                USWarningsWithRadarActivity::class.java,
+                                USWarningsWithRadarActivity.URL,
+                                arrayOf(
+                                        ".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?",
+                                        "us"
+                                )
+                        )
+                    })
+                } else {
+                    card.setOnClickListener(View.OnClickListener {
+                        ObjectIntent(
+                                this@SevereDashboardActivity,
+                                SpcStormReportsActivity::class.java,
+                                SpcStormReportsActivity.NO,
+                                arrayOf("today")
+                        )
+                    })
+                }
                 totalImages += 1
             }
         }
