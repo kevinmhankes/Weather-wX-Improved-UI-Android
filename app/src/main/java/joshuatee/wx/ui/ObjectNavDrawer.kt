@@ -29,6 +29,7 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 
 import joshuatee.wx.R
+import joshuatee.wx.util.UtilityLog
 
 class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
 
@@ -80,7 +81,12 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
 
     fun getUrlCount(): Int = tokens.size
 
-    fun getLabel(): String = labels[index]
+    fun getLabel(): String {
+        if (index >= labels.size) {
+            index = labels.size - 1
+        }
+        return labels[index]
+    }
 
     fun setListener(fn: () -> Unit) {
         listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
