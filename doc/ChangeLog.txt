@@ -26,6 +26,7 @@
 // TODO [ADD] radar file class from flutter
 // TODO [ADD] evaluate what needs to refresh onrestart like flutter version
 // TODO [FIX] if change between radar mosaic provides, change on misc tab is not immediate
+// TODO [FIX] minimize app restarts such as after homescreen changes (test nexrad addition/removal)
 
 55293 2019_12_30    [FIX] Fulldisk global viewer - remove first two images
 55292 2019_12_29    [ADD] USWarn in Severe Dash and as homescreen option
