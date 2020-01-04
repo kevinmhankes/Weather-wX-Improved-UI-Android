@@ -28,6 +28,7 @@
 // TODO [FIX] if change between radar mosaic provides, change on misc tab is not immediate
 // TODO [FIX] minimize app restarts such as after homescreen changes (test nexrad addition/removal)
 
+55294 2020_01_04    [FIX] better font size transitions on main screen after changing in settings UI - part 1
 55293 2019_12_30    [FIX] Fulldisk global viewer - remove first two images
 55292 2019_12_29    [ADD] USWarn in Severe Dash and as homescreen option
 55291 2019_12_29    [ADD] additional WPC Forecast maps in National Images and in homescreen

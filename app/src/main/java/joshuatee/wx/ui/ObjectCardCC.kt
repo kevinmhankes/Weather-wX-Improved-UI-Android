@@ -99,6 +99,12 @@ class ObjectCardCC(context: Context, version: Int) {
 
     val card: CardView get() = objCard.card
 
+    fun refreshTextSize() {
+        textViewTop.refreshTextSize(TextSize.MEDIUM)
+        textViewMiddle.refreshTextSize(TextSize.MEDIUM)
+        textViewBottom.refreshTextSize(TextSize.MEDIUM)
+    }
+
     fun setStatus(text: String) {
         textViewBottom.text = text
     }

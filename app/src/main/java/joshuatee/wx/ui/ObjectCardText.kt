@@ -34,6 +34,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.audio.UtilityTtsTranslations
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.objects.TextSize
 
 class ObjectCardText(private val context: Context) {
 
@@ -277,6 +278,23 @@ class ObjectCardText(private val context: Context) {
 
     fun setOnClickListener(fn: View.OnClickListener) {
         tv.setOnClickListener(fn)
+    }
+
+    fun refreshTextSize(size: TextSize) {
+        when (size) {
+            TextSize.SMALL -> tv.setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    MyApplication.textSizeSmall
+            )
+            TextSize.MEDIUM -> tv.setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    MyApplication.textSizeNormal
+            )
+            TextSize.LARGE -> tv.setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    MyApplication.textSizeLarge
+            )
+        }
     }
 
     companion object {

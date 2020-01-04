@@ -81,7 +81,8 @@ class ObjectTextView(val context: Context) {
     }
 
     constructor(context: Context, size: TextSize) : this(context) {
-        when (size) {
+        refreshTextSize(size)
+        /*when (size) {
             TextSize.SMALL -> tv.setTextSize(
                 TypedValue.COMPLEX_UNIT_PX,
                 MyApplication.textSizeSmall
@@ -93,6 +94,23 @@ class ObjectTextView(val context: Context) {
             TextSize.LARGE -> tv.setTextSize(
                 TypedValue.COMPLEX_UNIT_PX,
                 MyApplication.textSizeLarge
+            )
+        }*/
+    }
+
+    fun refreshTextSize(size: TextSize) {
+        when (size) {
+            TextSize.SMALL -> tv.setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    MyApplication.textSizeSmall
+            )
+            TextSize.MEDIUM -> tv.setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    MyApplication.textSizeNormal
+            )
+            TextSize.LARGE -> tv.setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    MyApplication.textSizeLarge
             )
         }
     }

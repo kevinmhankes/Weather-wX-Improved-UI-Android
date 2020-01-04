@@ -52,11 +52,11 @@ class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7
             MyApplication.paddingSmall,
             0
         )
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(
-            topLineText.tv,
-            TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
-        )
-        topLineText.maxLines = 1
+        //TextViewCompat.setAutoSizeTextTypeWithDefaults(
+        //    topLineText.tv,
+        //    TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
+        //)
+        //topLineText.maxLines = 1
         bottomLineText = ObjectTextView(context)
         bottomLineText.setPadding(
             MyApplication.padding,
@@ -117,6 +117,15 @@ class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7
 
     fun setOnClickListener(fn: View.OnClickListener) {
         objCard.setOnClickListener(fn)
+    }
+
+    fun refreshTextSize() {
+        topLineText.refreshTextSize(TextSize.MEDIUM)
+        bottomLineText.refreshTextSize(TextSize.MEDIUM)
+        //TextViewCompat.setAutoSizeTextTypeWithDefaults(
+        //        topLineText.tv,
+        //        TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
+        //)
     }
 
     val card: CardView get() = objCard.card

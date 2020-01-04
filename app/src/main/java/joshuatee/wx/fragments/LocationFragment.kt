@@ -58,6 +58,7 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.notifications.UtilityNotificationTools
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
+import joshuatee.wx.objects.TextSize
 import joshuatee.wx.radar.*
 import joshuatee.wx.ui.*
 import joshuatee.wx.vis.GoesActivity
@@ -91,6 +92,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private val helpForecastGeneric = 3
     private var homescreenFavLocal = ""
     private val cardViews = mutableListOf<CardView>()
+    private var sevenDayCards = mutableListOf<ObjectCard7Day>()
     private val hsTextAl = mutableListOf<ObjectCardHSText>()
     private val hsImages = mutableListOf<ObjectCardHSImage>()
     private var oglrArr = mutableListOf<WXGLRender>()
@@ -121,6 +123,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
     private var locationChangedSevenDay = false
     private var locationChangedHazards = false
     private var numPanesArr = listOf<Int>()
+    private var cardSunrise: ObjectCardText? = null
 
     private fun addDynamicCards() {
         var ccAdded = false
@@ -376,6 +379,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         LocalBroadcastManager.getInstance(activityReference)
                 .registerReceiver(onBroadcast, IntentFilter("locationadded"))
         updateSpinner()
+        cardCC?.refreshTextSize()
+        sevenDayCards.forEach{ it.refreshTextSize() }
+        cardSunrise?.refreshTextSize(TextSize.MEDIUM)
         val currentTime = System.currentTimeMillis()
         val currentTimeSec = currentTime / 1000
         val refreshIntervalSec = (UIPreferences.refreshLocMin * 60).toLong()
@@ -916,6 +922,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         if (isAdded) {
             if (homescreenFavLocal.contains("TXT-7DAY")) {
                 linearLayoutForecast?.removeAllViewsInLayout()
+                sevenDayCards = mutableListOf<ObjectCard7Day>()
                 val day7Arr = objSevenDay.forecastList
                 bitmaps.forEachIndexed { index, bitmap ->
                     val c7day = ObjectCard7Day(activityReference, bitmap, Location.isUS, index, day7Arr)
@@ -926,11 +933,12 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                         )
                     })
                     linearLayoutForecast?.addView(c7day.card)
+                    sevenDayCards.add(c7day)
                 }
                 // sunrise card
-                val cardSunrise = ObjectCardText(activityReference)
-                cardSunrise.center()
-                cardSunrise.setOnClickListener(OnClickListener {
+                cardSunrise = ObjectCardText(activityReference)
+                cardSunrise!!.center()
+                cardSunrise!!.setOnClickListener(OnClickListener {
                     scrollView.smoothScrollTo(
                             0,
                             0
@@ -938,14 +946,14 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 })
                 try {
                     if (Location.isUS) {
-                        cardSunrise.setText(
+                        cardSunrise!!.setText(
                                 UtilityTimeSunMoon.getSunriseSunset(
                                         activityReference,
                                         Location.currentLocationStr
                                 ) + MyApplication.newline + UtilityTime.gmtTime()
                         )
                     } else {
-                        cardSunrise.setText(
+                        cardSunrise!!.setText(
                                 UtilityTimeSunMoon.getSunriseSunset(
                                         activityReference,
                                         Location.currentLocationStr
@@ -955,7 +963,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 } catch (e: Exception) {
                     UtilityLog.handleException(e)
                 }
-                linearLayoutForecast?.addView(cardSunrise.card)
+                linearLayoutForecast?.addView(cardSunrise!!.card)
             }
             //
             // Canada legal card
