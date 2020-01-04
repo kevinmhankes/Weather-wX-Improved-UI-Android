@@ -383,6 +383,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         sevenDayCards.forEach{ it.refreshTextSize() }
         cardSunrise?.refreshTextSize(TextSize.MEDIUM)
         hsTextAl.forEach{ it.refreshTextSize() }
+        hazardsCards.forEach{it.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)}
         val currentTime = System.currentTimeMillis()
         val currentTimeSec = currentTime / 1000
         val refreshIntervalSec = (UIPreferences.refreshLocMin * 60).toLong()
