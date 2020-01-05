@@ -27,6 +27,7 @@ import kotlin.math.*
 import joshuatee.wx.util.UtilityMath
 import joshuatee.wx.util.UtilityTime
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.util.UtilityLog
 
 // Data file - https://www.wpc.ncep.noaa.gov/basicwx/coded_srp.txt
 // Decoder - https://www.wpc.ncep.noaa.gov/basicwx/read_coded_fcst_bull.shtml
@@ -200,12 +201,13 @@ object UtilityWpcFronts {
         val currentTimeSec = currentTime1 / 1000
         val refreshIntervalSec = refreshLocMin * 60
         var fetchData = (currentTimeSec > (lastRefresh + refreshIntervalSec)) || !initialized
-        //fetchData = true
+        fetchData = true
         if (fetchData) {
             pressureCenters = mutableListOf()
             fronts = mutableListOf()
             val urlBlob = MyApplication.nwsWPCwebsitePrefix + "/basicwx/coded_srp.txt"
             var html = urlBlob.getHtmlSep()
+            html = html.replace("<br>", MyApplication.newline)
             html = html.replace(MyApplication.newline, MyApplication.sep)
             val timestamp = html.parseFirst("SURFACE PROG VALID ([0-9]{12}Z)")
             Utility.writePref("WPC_FRONTS_TIMESTAMP", timestamp)
@@ -228,7 +230,7 @@ object UtilityWpcFronts {
                         data += lines[index + 1];
                     }
                 }
-                var tokens = data.trim().split(" ").toMutableList()
+                val tokens = data.trim().split(" ").toMutableList()
                 if (tokens.size > 1) {
                     val type = tokens[0]
                     tokens.removeAt(0)
@@ -238,6 +240,7 @@ object UtilityWpcFronts {
                                 val coordinates = parseLatLon(tokens[index + 1])
                                 pressureCenters.add(PressureCenter(PressureCenterTypeEnum.HIGH,
                                         tokens[index], coordinates[0], coordinates[1]))
+                                UtilityLog.d("wx", tokens[index])
                             }
                         }
                         "LOWS" -> {

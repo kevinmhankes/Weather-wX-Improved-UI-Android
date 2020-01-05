@@ -369,6 +369,15 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
+                ObjectSettingsCheckBox(
+                        this,
+                        this,
+                        "Show WPC Fronts and pressure highs and lows",
+                        "RADAR_SHOW_WPC_FRONTS",
+                        R.string.radar_show_wpc_fronts_label
+                ).card
+        )
+        ll.addView(
                 ObjectSettingsSeekbar(
                         this,
                         this,

@@ -747,8 +747,10 @@ class MyApplication : Application() {
         var radarSwoLineSize: Int = 0
         var radarWbLineSize: Int = 0
         var wxoglCenterOnLocation: Boolean = false
+        var radarShowWpcFronts: Boolean = false
 
         private fun initRadarPreferences() {
+            radarShowWpcFronts = getInitialPreference("RADAR_SHOW_WPC_FRONTS", "false")
             radarLocationUpdateInterval = getInitialPreference("RADAR_LOCATION_UPDATE_INTERVAL", 10)
             radarWarnings = getInitialPreference("COD_WARNINGS_DEFAULT", "false")
             locdotFollowsGps = getInitialPreference("LOCDOT_FOLLOWS_GPS", "false")
