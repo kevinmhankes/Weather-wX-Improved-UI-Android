@@ -27,7 +27,6 @@ import kotlin.math.*
 import joshuatee.wx.util.UtilityMath
 import joshuatee.wx.util.UtilityTime
 import joshuatee.wx.Extensions.*
-import joshuatee.wx.util.UtilityLog
 
 // Data file - https://www.wpc.ncep.noaa.gov/basicwx/coded_srp.txt
 // Decoder - https://www.wpc.ncep.noaa.gov/basicwx/read_coded_fcst_bull.shtml
@@ -240,7 +239,6 @@ object UtilityWpcFronts {
                                 val coordinates = parseLatLon(tokens[index + 1])
                                 pressureCenters.add(PressureCenter(PressureCenterTypeEnum.HIGH,
                                         tokens[index], coordinates[0], coordinates[1]))
-                                UtilityLog.d("wx", tokens[index])
                             }
                         }
                         "LOWS" -> {

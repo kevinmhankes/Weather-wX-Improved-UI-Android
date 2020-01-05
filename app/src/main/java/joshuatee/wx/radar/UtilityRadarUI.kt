@@ -422,7 +422,6 @@ internal object UtilityRadarUI {
         }).start()
     }
 
-    // FIXME WIP WPC Fronts
     fun plotWpcFronts(
             wxglSurfaceView: WXGLSurfaceView,
             wxglRender: WXGLRender,
@@ -434,7 +433,6 @@ internal object UtilityRadarUI {
             } else {
                 wxglRender.deconstructWpcFronts()
             }
-            //wxglRender.constructGenericWarningLines()
             wxglSurfaceView.requestRender()
         }).start()
     }

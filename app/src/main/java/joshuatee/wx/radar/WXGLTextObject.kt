@@ -472,12 +472,15 @@ class WXGLTextObject(
 
     private fun addWpcPressureCenters() {
         if (MyApplication.radarShowWpcFronts) {
-            spotterLat = 0.0
-            spotterLon = 0.0
+            // FIXME pn should not be set in every method to draws
+            projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
+            //spotterLat = 0.0
+            //spotterLon = 0.0
             hideWpcPressureCenters()
             wxglSurfaceView.pressureCenterLabelAl = mutableListOf()
+            scale = getScale()
             oglrZoom = 1.0f
-            if (wxglRender.zoom < 1.0) {
+            if (wxglRender.zoom < 1.00f) {
                 oglrZoom = wxglRender.zoom * 0.8f
             }
             textSize = MyApplication.textSizeNormal * MyApplication.radarTextSize
