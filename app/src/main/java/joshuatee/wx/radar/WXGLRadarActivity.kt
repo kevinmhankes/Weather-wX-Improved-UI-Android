@@ -486,9 +486,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 withContext(Dispatchers.IO) {
                     UtilityWpcFronts.get()
                 }
-                //if (!oglr.product.startsWith("2")) {
-                //    UtilityRadarUI.plotMpdPolygons(glview, oglr, archiveMode)
-                //}
+                if (!oglr.product.startsWith("2")) {
+                    UtilityRadarUI.plotWpcFronts(glview, oglr, archiveMode)
+                }
             }
 
             UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivity)

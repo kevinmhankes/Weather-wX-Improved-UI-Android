@@ -422,6 +422,23 @@ internal object UtilityRadarUI {
         }).start()
     }
 
+    // FIXME WIP WPC Fronts
+    fun plotWpcFronts(
+            wxglSurfaceView: WXGLSurfaceView,
+            wxglRender: WXGLRender,
+            archiveMode: Boolean = false
+    ) {
+        Thread(Runnable {
+            if (MyApplication.radarShowWpcFronts && !archiveMode) {
+                //wxglRender.constructWpcFronts()
+            } else {
+                //wxglRender.deconstructWpcFronts()
+            }
+            //wxglRender.constructGenericWarningLines()
+            wxglSurfaceView.requestRender()
+        }).start()
+    }
+
     fun plotRadar(
             wxglRender: WXGLRender,
             urlString: String,

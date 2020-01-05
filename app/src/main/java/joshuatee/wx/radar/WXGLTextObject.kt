@@ -22,6 +22,7 @@
 package joshuatee.wx.radar
 
 import android.content.Context
+import android.graphics.Color
 import android.util.TypedValue
 import android.view.View
 import android.widget.RelativeLayout
@@ -34,6 +35,7 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ProjectionType
 import joshuatee.wx.util.ProjectionNumbers
 import joshuatee.wx.util.UtilityCanvasProjection
+import joshuatee.wx.util.UtilityLog
 
 import kotlin.math.*
 
@@ -446,6 +448,7 @@ class WXGLTextObject(
         if (numberOfPanes == 1 && WXGLRadarActivity.spotterShowSelected) {
             addTVSpotter()
         }
+        addWpcPressureCenters()
     }
 
     fun hideTV() {
@@ -458,11 +461,47 @@ class WXGLTextObject(
         if (numberOfPanes == 1 && WXGLRadarActivity.spotterShowSelected) {
             hideSpotter()
         }
+        hideWpcPressureCenters()
     }
 
     fun initTVObs() {
         if (PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) {
             obsTvArrInit = true
+        }
+    }
+
+    private fun addWpcPressureCenters() {
+        if (MyApplication.radarShowWpcFronts) {
+            spotterLat = 0.0
+            spotterLon = 0.0
+            hideWpcPressureCenters()
+            wxglSurfaceView.pressureCenterLabelAl = mutableListOf()
+            oglrZoom = 1.0f
+            if (wxglRender.zoom < 1.0) {
+                oglrZoom = wxglRender.zoom * 0.8f
+            }
+            textSize = MyApplication.textSizeNormal * MyApplication.radarTextSize
+            if (wxglRender.zoom < 0.75) {
+                UtilityWpcFronts.pressureCenters.indices.forEach {
+                    var color = Color.BLUE
+                    if (UtilityWpcFronts.pressureCenters[it].type == PressureCenterTypeEnum.LOW) {
+                        color = Color.RED
+                    }
+                    UtilityLog.d("wx", UtilityWpcFronts.pressureCenters[it].lat.toString())
+                    UtilityLog.d("wx", UtilityWpcFronts.pressureCenters[it].lon.toString())
+                    checkAndDrawText(
+                            wxglSurfaceView.pressureCenterLabelAl,
+                            UtilityWpcFronts.pressureCenters[it].lat,
+                            UtilityWpcFronts.pressureCenters[it].lon,
+                            UtilityWpcFronts.pressureCenters[it].pressureInMb,
+                            color
+                    )
+                }
+            } else {
+                hideWpcPressureCenters()
+            }
+        } else {
+            hideWpcPressureCenters()
         }
     }
 
@@ -522,6 +561,13 @@ class WXGLTextObject(
         wxglSurfaceView.obsAl.indices.forEach {
             wxglSurfaceView.obsAl[it].visibility = View.GONE
             relativeLayout.removeView(wxglSurfaceView.obsAl[it])
+        }
+    }
+
+    private fun hideWpcPressureCenters() {
+        wxglSurfaceView.pressureCenterLabelAl.indices.forEach {
+            wxglSurfaceView.pressureCenterLabelAl[it].visibility = View.GONE
+            relativeLayout.removeView(wxglSurfaceView.pressureCenterLabelAl[it])
         }
     }
 
