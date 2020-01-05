@@ -29,6 +29,7 @@
 // TODO [FIX] minimize app restarts such as after homescreen changes (test nexrad addition/removal)
 // TODO [ADD] WPC Fronts feature from Flutter/Dart port
 // TODO [ADD] 2020 in copyright
+// TODO [REF] convert from System.currentTimeMillis() to UtilityTime.currentTimeMillis()
 
 55294 2020_01_05    [FIX] better font size transitions on main screen after changing in settings UI - part 1
                     [ADD] WPC Fronts framework for nexrad radar

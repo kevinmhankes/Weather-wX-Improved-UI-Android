@@ -50,6 +50,10 @@ fun String.parse(pattern: Pattern): String {
     return UtilityString.parse(this, pattern)
 }
 
+fun String.parseFirst(pattern: String): String {
+    return UtilityString.parse(this, pattern)
+}
+
 fun String.parseColumn(match: String): List<String> {
     return UtilityString.parseColumn(this, match)
 }

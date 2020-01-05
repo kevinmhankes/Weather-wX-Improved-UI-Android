@@ -196,4 +196,8 @@ object UtilityTime {
         dateFormatGmt.timeZone = TimeZone.getTimeZone("GMT")
         return dateFormatGmt.format(Date())
     }
+
+    fun currentTimeMillis(): Long {
+        return System.currentTimeMillis()
+    }
 }

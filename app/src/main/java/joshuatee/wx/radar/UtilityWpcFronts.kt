@@ -26,6 +26,7 @@ import joshuatee.wx.util.Utility
 import kotlin.math.*
 import joshuatee.wx.util.UtilityMath
 import joshuatee.wx.util.UtilityTime
+import joshuatee.wx.Extensions.*
 
 // Data file - https://www.wpc.ncep.noaa.gov/basicwx/coded_srp.txt
 // Decoder - https://www.wpc.ncep.noaa.gov/basicwx/read_coded_fcst_bull.shtml
@@ -92,7 +93,7 @@ object UtilityWpcFronts {
                 val distance = UtilityMath.distanceOfLine(coordinates[0], coordinates[1], coordinates2[0], coordinates2[1])
                 val numberOfTriangles = floor(distance / length).toInt()
                 // construct two lines which will consist of adding 4 points
-                for (pointNumber in  1 until numberOfTriangles - 1 step 4) {
+                for (pointNumber in 1 until numberOfTriangles - 1 step 4) {
                     //for (int pointNumber = 1; pointNumber < numberOfTriangles; pointNumber += 2) {
                     val x1 = coordinates[0] + ((coordinates2[0] - coordinates[0]) * length * pointNumber) / distance
                     val y1 = coordinates[1] + ((coordinates2[1] - coordinates[1]) * length * pointNumber) / distance
@@ -179,78 +180,81 @@ object UtilityWpcFronts {
         if (string.length != 7) {
             return listOf(0.0, 0.0)
         } else {
-            val lat = (string.substring(0, 2) + "." + string.substring(2, 3)).toDoubleOrNull()  ?: 0.0
+            val lat = (string.substring(0, 2) + "." + string.substring(2, 3)).toDoubleOrNull()
+                    ?: 0.0
             var lon = 0.0
             // TODO FIXME need to make sure this is working
             if (string[3] == '0') {
-                lon = (string.substring(4, 6) + "." + string.substring(6, 7)).toDoubleOrNull()  ?: 0.0
+                lon = (string.substring(4, 6) + "." + string.substring(6, 7)).toDoubleOrNull()
+                        ?: 0.0
             } else {
-                lon = (string.substring(3, 6) + "." + string.substring(6, 7)).toDoubleOrNull() ?: 0.0
+                lon = (string.substring(3, 6) + "." + string.substring(6, 7)).toDoubleOrNull()
+                        ?: 0.0
             }
             return listOf(lat, lon)
         }
     }
 
-    /*fun get() {
+    fun get() {
         val currentTime1 = UtilityTime.currentTimeMillis()
         val currentTimeSec = currentTime1 / 1000
         val refreshIntervalSec = refreshLocMin * 60
         var fetchData = (currentTimeSec > (lastRefresh + refreshIntervalSec)) || !initialized
         //fetchData = true
         if (fetchData) {
-            pressureCenters = []
-            fronts = []
+            pressureCenters = mutableListOf()
+            fronts = mutableListOf()
             val urlBlob = MyApplication.nwsWPCwebsitePrefix + "/basicwx/coded_srp.txt"
             var html = urlBlob.getHtmlSep()
-            html = html.replaceAll(MyApplication.newline, MyApplication.sep)
+            html = html.replace(MyApplication.newline, MyApplication.sep)
             val timestamp = html.parseFirst("SURFACE PROG VALID ([0-9]{12}Z)")
             Utility.writePref("WPC_FRONTS_TIMESTAMP", timestamp)
             html = html.parseFirst("SURFACE PROG VALID [0-9]{12}Z(.*?)" +
-                MyApplication.sep +
-                " " +
-                MyApplication.sep)
-            html = html.replaceAll(MyApplication.sep, MyApplication.newline)
+                    MyApplication.sep +
+                    " " +
+                    MyApplication.sep)
+            html = html.replace(MyApplication.sep, MyApplication.newline)
             val lines = html.split(MyApplication.newline)
             lines.indices.forEach { index ->
                 var data = lines[index]
-                if (index < lines.length - 1) {
-                    if (lines[index + 1][0] != "H"
-                            && lines[index + 1][0] != "L"
-                            && lines[index + 1][0] != "C"
-                            && lines[index + 1][0] != "S"
-                            && lines[index + 1][0] != "O"
-                            && lines[index + 1][0] != "T"
-                            && lines[index + 1][0] != "W") {
+                if (index < lines.size - 1) {
+                    if (lines[index + 1][0] != 'H'
+                            && lines[index + 1][0] != 'L'
+                            && lines[index + 1][0] != 'C'
+                            && lines[index + 1][0] != 'S'
+                            && lines[index + 1][0] != 'O'
+                            && lines[index + 1][0] != 'T'
+                            && lines[index + 1][0] != 'W') {
                         data += lines[index + 1];
                     }
                 }
-                var tokens = data.trim().split(" ")
-                if (tokens.count > 1) {
+                var tokens = data.trim().split(" ").toMutableList()
+                if (tokens.size > 1) {
                     val type = tokens[0]
                     tokens.removeAt(0)
                     when (type) {
-                     "HIGHS" -> {
-                         for (index in 0 until tokens.count step 2) {
-                             val coordinates = parseLatLon(tokens[index + 1])
-                             pressureCenters.add(PressureCenter(PressureCenterTypeEnum.HIGH,
-                                     tokens[index], coordinates[0], coordinates[1]))
-                         }
-                     }
+                        "HIGHS" -> {
+                            for (index in 0 until tokens.size step 2) {
+                                val coordinates = parseLatLon(tokens[index + 1])
+                                pressureCenters.add(PressureCenter(PressureCenterTypeEnum.HIGH,
+                                        tokens[index], coordinates[0], coordinates[1]))
+                            }
+                        }
                         "LOWS" -> {
                             //for (int index = 0; index < tokens.length; index += 2) {
-                            for (index in 0 until tokens.count step 2) {
+                            for (index in 0 until tokens.size step 2) {
                                 val coordinates = parseLatLon(tokens[index + 1])
                                 pressureCenters.add(PressureCenter(PressureCenterTypeEnum.LOW,
                                         tokens[index], coordinates[0], coordinates[1]))
                             }
                         }
-                    "COLD" -> {
-                        var front = Fronts(FrontTypeEnum.COLD)
-                        addFrontData(front, tokens)
-                        addColdFrontTriangles(front, tokens)
-                        //addWarmFrontSemicircles(front, tokens)
-                        fronts.add(front)
-                    }
+                        "COLD" -> {
+                            var front = Fronts(FrontTypeEnum.COLD)
+                            addFrontData(front, tokens)
+                            addColdFrontTriangles(front, tokens)
+                            //addWarmFrontSemicircles(front, tokens)
+                            fronts.add(front)
+                        }
                         "STNRY" -> {
                             var front = Fronts(FrontTypeEnum.STNRY)
                             addFrontData(front, tokens)
@@ -259,30 +263,32 @@ object UtilityWpcFronts {
                             addFrontDataStnryWarm(frontStWarm, tokens)
                             fronts.add(frontStWarm)
                         }
-                     "WARM" -> {
-                         var front = Fronts(FrontTypeEnum.WARM)
-                         addFrontData(front, tokens)
-                         addWarmFrontSemicircles(front, tokens)
-                         fronts.add(front)
-                     }
-                     "TROF" -> {
-                         var front = Fronts(FrontTypeEnum.TROF)
-                         addFrontData(front, tokens)
-                         fronts.add(front)
-                     }
-                     "OCFNT" -> {
-                         var front = Fronts(FrontTypeEnum.OCFNT)
-                         addFrontData(front, tokens)
-                         addColdFrontTriangles(front, tokens)
-                         addWarmFrontSemicircles(front, tokens)
-                         fronts.add(front)
-                     }
-                    else -> {}
+                        "WARM" -> {
+                            var front = Fronts(FrontTypeEnum.WARM)
+                            addFrontData(front, tokens)
+                            addWarmFrontSemicircles(front, tokens)
+                            fronts.add(front)
+                        }
+                        "TROF" -> {
+                            var front = Fronts(FrontTypeEnum.TROF)
+                            addFrontData(front, tokens)
+                            fronts.add(front)
+                        }
+                        "OCFNT" -> {
+                            var front = Fronts(FrontTypeEnum.OCFNT)
+                            addFrontData(front, tokens)
+                            addColdFrontTriangles(front, tokens)
+                            addWarmFrontSemicircles(front, tokens)
+                            fronts.add(front)
+                        }
+                        else -> {
+                        }
+                    }
                 }
+                initialized = true
+                val currentTime = UtilityTime.currentTimeMillis()
+                lastRefresh = currentTime / 1000
             }
-            initialized = true
-            val currentTime = UtilityTime.currentTimeMillis()
-            lastRefresh = currentTime / 1000
         }
-    }*/
+    }
 }
