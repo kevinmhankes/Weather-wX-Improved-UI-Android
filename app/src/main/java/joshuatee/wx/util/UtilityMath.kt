@@ -29,6 +29,33 @@ import kotlin.math.*
 
 object UtilityMath {
 
+    fun distanceOfLine(x1: Double, y1: Double, x2: Double, y2: Double): Double {
+        return sqrt(Math.pow(x2 - x1, 2.0) + Math.pow(y2 - y1, 2.0))
+    }
+
+    fun computeTipPoint(x0: Double, y0: Double, x1: Double, y1: Double, right: Boolean): List<Double> {
+        val dx = x1 - x0
+        val dy = y1 - y0
+        val length = sqrt(dx * dx + dy * dy)
+        val dirX = dx / length
+        val dirY = dy / length
+        val height = sqrt(3.0) / 2 * length
+        val cx = x0 + dx * 0.5
+        val cy = y0 + dy * 0.5
+        val pDirX = -dirY
+        val pDirY = dirX
+        var rx = 0.0
+        var ry = 0.0
+        if (right) {
+            rx = cx + height * pDirX
+            ry = cy + height * pDirY
+        } else {
+            rx = cx - height * pDirX
+            ry = cy - height * pDirY
+        }
+        return listOf(rx, ry)
+    }
+
     // 42.98888 to 42.99
     fun latLonFix(x: String): String {
         val dblX = x.toDoubleOrNull() ?: 0.0
@@ -46,8 +73,8 @@ object UtilityMath {
 
     // convert polar cords to rect
     fun toRect(r: Float, t: Float): FloatArray = floatArrayOf(
-        (r * cos(t / (180.00f / PI))).toFloat(),
-        (r * sin(t / (180.00f / PI))).toFloat()
+            (r * cos(t / (180.00f / PI))).toFloat(),
+            (r * sin(t / (180.00f / PI))).toFloat()
     )
 
     fun unitsPressure(valueF: String): String {
