@@ -21,9 +21,11 @@
 
 package joshuatee.wx.radar
 
-import kotlin.math.floor
 import joshuatee.wx.MyApplication
+import joshuatee.wx.util.Utility
+import kotlin.math.*
 import joshuatee.wx.util.UtilityMath
+import joshuatee.wx.util.UtilityTime
 
 // Data file - https://www.wpc.ncep.noaa.gov/basicwx/coded_srp.txt
 // Decoder - https://www.wpc.ncep.noaa.gov/basicwx/read_coded_fcst_bull.shtml
@@ -67,14 +69,14 @@ import joshuatee.wx.util.UtilityMath
  */
 
 object UtilityWpcFronts {
-     var initialized = false
-     var lastRefresh = 0.toLong()
-     //var refreshLocMin = MyApplication.radarDataRefreshInterval * 2
-     val refreshLocMin = 5
-     var pressureCenters = mutableListOf<PressureCenter>()
-     var fronts = mutableListOf<Fronts>()
+    var initialized = false
+    var lastRefresh = 0.toLong()
+    //var refreshLocMin = MyApplication.radarDataRefreshInterval * 2
+    val refreshLocMin = 5
+    var pressureCenters = mutableListOf<PressureCenter>()
+    var fronts = mutableListOf<Fronts>()
 
-     fun addColdFrontTriangles(front: Fronts, tokens: List<String>) {
+    fun addColdFrontTriangles(front: Fronts, tokens: List<String>) {
         val length = 0.4 // size of trianle
         var startIndex = 0
         var indexIncrement = 1
@@ -84,7 +86,7 @@ object UtilityWpcFronts {
         }
         for (index in startIndex until tokens.size step indexIncrement) {
             //for (int index = startIndex; index < tokens.length; index += indexIncrement) {
-             val coordinates = parseLatLon(tokens[index])
+            val coordinates = parseLatLon(tokens[index])
             if (index < (tokens.size - 1)) {
                 val coordinates2 = parseLatLon(tokens[index + 1])
                 val distance = UtilityMath.distanceOfLine(coordinates[0], coordinates[1], coordinates2[0], coordinates2[1])
@@ -93,12 +95,12 @@ object UtilityWpcFronts {
                 for (pointNumber in  1 until numberOfTriangles - 1 step 4) {
                     //for (int pointNumber = 1; pointNumber < numberOfTriangles; pointNumber += 2) {
                     val x1 = coordinates[0] + ((coordinates2[0] - coordinates[0]) * length * pointNumber) / distance
-                val y1 = coordinates[1] + ((coordinates2[1] - coordinates[1]) * length * pointNumber) / distance
-                val x3 = coordinates[0] + ((coordinates2[0] - coordinates[0]) * length * (pointNumber + 1)) / distance
-                val y3 = coordinates[1] + ((coordinates2[1] - coordinates[1]) * length * (pointNumber + 1)) / distance
-                val p2 = UtilityMath.computeTipPoint(x1, y1, x3, y3, true)
-                val x2 = p2[0]
-                val y2 = p2[1]
+                    val y1 = coordinates[1] + ((coordinates2[1] - coordinates[1]) * length * pointNumber) / distance
+                    val x3 = coordinates[0] + ((coordinates2[0] - coordinates[0]) * length * (pointNumber + 1)) / distance
+                    val y3 = coordinates[1] + ((coordinates2[1] - coordinates[1]) * length * (pointNumber + 1)) / distance
+                    val p2 = UtilityMath.computeTipPoint(x1, y1, x3, y3, true)
+                    val x2 = p2[0]
+                    val y2 = p2[1]
                     front.coordinates.add(LatLon(x1, y1))
                     front.coordinates.add(LatLon(x2, y2))
                     front.coordinates.add(LatLon(x2, y2))
@@ -108,71 +110,70 @@ object UtilityWpcFronts {
         }
     }
 
-    /*static func addWarmFrontSemicircles(_ front: inout Fronts, _ tokens: [String]) {
+    fun addWarmFrontSemicircles(front: Fronts, tokens: List<String>) {
         var length = 0.4 // size of trianle
         var startIndex = 0
         var indexIncrement = 1
-        if front.type == FrontTypeEnum.OCFNT {
+        if (front.type == FrontTypeEnum.OCFNT) {
             startIndex = 2
             indexIncrement = 2
             length = 0.2
         }
-        for index in stride(from: startIndex, to: tokens.count - 1, by: indexIncrement) {
+        for (index in startIndex until tokens.size step indexIncrement) {
             //for (int index = startIndex; index < tokens.length; index += indexIncrement) {
-            let coordinates = parseLatLon(tokens[index])
-            if index < (tokens.count - 1) {
-                let coordinates2 = parseLatLon(tokens[index + 1])
-                let distance = UtilityMath.distanceOfLine(coordinates[0], coordinates[1], coordinates2[0], coordinates2[1])
-                var numberOfTriangles = (distance / length)
-                numberOfTriangles.round(.towardZero)
+            val coordinates = parseLatLon(tokens[index])
+            if (index < (tokens.size - 1)) {
+                val coordinates2 = parseLatLon(tokens[index + 1])
+                val distance = UtilityMath.distanceOfLine(coordinates[0], coordinates[1], coordinates2[0], coordinates2[1])
+                val numberOfTriangles = floor(distance / length).toInt()
                 // construct two lines which will consist of adding 4 points
-                for pointNumber in stride(from: 1, to: numberOfTriangles - 1, by: 4) {
+                for (pointNumber in 1 until numberOfTriangles step 4) {
                     //for (int pointNumber = 1; pointNumber < numberOfTriangles; pointNumber += 4) {
-                    let x1 = coordinates[0] + ((coordinates2[0] - coordinates[0]) * length * pointNumber) / distance
-                    let y1 = coordinates[1] + ((coordinates2[1] - coordinates[1]) * length * pointNumber) / distance
-                    let center1 = coordinates[0] + ((coordinates2[0] - coordinates[0]) * length * (pointNumber + 0.5)) / distance
-                    let center2 = coordinates[1] + ((coordinates2[1] - coordinates[1]) * length * (pointNumber + 0.5)) / distance
-                    let x3 = coordinates[0] + ((coordinates2[0] - coordinates[0]) * length * (pointNumber + 1)) / distance
-                    let y3 = coordinates[1] + ((coordinates2[1] - coordinates[1]) * length * (pointNumber + 1)) / distance
-                    front.coordinates.append(LatLon(x1, y1))
-                    let slices = 20
-                    let step = Double.pi / Double(slices)
-                    let rotation = 1.0
-                    let xDiff = x3 - x1
-                    let yDiff = y3 - y1
-                    let angle = atan2(yDiff, xDiff) * 180.0 / Double.pi
-                    let sliceStart = Int((Double(slices) * angle) / 180.0)
-                    for i in stride(from: sliceStart, to: slices + sliceStart, by: 1) {
+                    val x1 = coordinates[0] + ((coordinates2[0] - coordinates[0]) * length * pointNumber) / distance
+                    val y1 = coordinates[1] + ((coordinates2[1] - coordinates[1]) * length * pointNumber) / distance
+                    val center1 = coordinates[0] + ((coordinates2[0] - coordinates[0]) * length * (pointNumber + 0.5)) / distance
+                    val center2 = coordinates[1] + ((coordinates2[1] - coordinates[1]) * length * (pointNumber + 0.5)) / distance
+                    val x3 = coordinates[0] + ((coordinates2[0] - coordinates[0]) * length * (pointNumber + 1)) / distance
+                    val y3 = coordinates[1] + ((coordinates2[1] - coordinates[1]) * length * (pointNumber + 1)) / distance
+                    front.coordinates.add(LatLon(x1, y1))
+                    val slices = 20
+                    val step = PI / slices
+                    val rotation = 1.0
+                    val xDiff = x3 - x1
+                    val yDiff = y3 - y1
+                    val angle = atan2(yDiff, xDiff) * 180.0 / PI
+                    val sliceStart = ((slices * angle) / 180.0).toInt()
+                    for (i in sliceStart until slices + sliceStart step 1) {
                         //for (int i = sliceStart; i <= slices + sliceStart; i++) {
-                        let x = rotation * length * cos(step * Double(i)) + center1
-                        let y = rotation * length * sin(step * Double(i)) + center2
-                        front.coordinates.append(LatLon(x, y))
-                        front.coordinates.append(LatLon(x, y))
+                        val x = rotation * length * cos(step * i) + center1
+                        val y = rotation * length * sin(step * i) + center2
+                        front.coordinates.add(LatLon(x, y))
+                        front.coordinates.add(LatLon(x, y))
                     }
-                    front.coordinates.append(LatLon(x3, y3))
+                    front.coordinates.add(LatLon(x3, y3))
                 }
             }
         }
     }
 
-    static func addFrontDataStnryWarm(_ front: inout Fronts, _ tokens: [String]) {
-        tokens.enumerated().forEach { index, _ in
-            let coordinates = parseLatLon(tokens[index])
-            if index != 0 && index != (tokens.count - 1) {
-                front.coordinates.append(LatLon(coordinates[0], coordinates[1]))
+    fun addFrontDataStnryWarm(front: Fronts, tokens: List<String>) {
+        tokens.indices.forEach { index ->
+            val coordinates = parseLatLon(tokens[index])
+            if (index != 0 && index != (tokens.size - 1)) {
+                front.coordinates.add(LatLon(coordinates[0], coordinates[1]))
             }
         }
     }
 
-    static func addFrontData(_ front: inout Fronts, _ tokens: [String]) {
-        tokens.enumerated().forEach { index, _ in
-            let coordinates = parseLatLon(tokens[index])
-            front.coordinates.append(LatLon(coordinates[0], coordinates[1]))
-            if index != 0 && index != (tokens.count - 1) {
-                front.coordinates.append(LatLon(coordinates[0], coordinates[1]))
+    fun addFrontData(front: Fronts, tokens: List<String>) {
+        tokens.indices.forEach { index ->
+            val coordinates = parseLatLon(tokens[index])
+            front.coordinates.add(LatLon(coordinates[0], coordinates[1]))
+            if (index != 0 && index != (tokens.size - 1)) {
+                front.coordinates.add(LatLon(coordinates[0], coordinates[1]))
             }
         }
-    }*/
+    }
 
     fun parseLatLon(string: String): List<Double> {
         if (string.length != 7) {
@@ -190,95 +191,97 @@ object UtilityWpcFronts {
         }
     }
 
-    /*static func get() {
-        let currentTime1 = UtilityTime.currentTimeMillis()
-        let currentTimeSec = currentTime1 / 1000
-        let refreshIntervalSec = refreshLocMin * 60
+    /*fun get() {
+        val currentTime1 = UtilityTime.currentTimeMillis()
+        val currentTimeSec = currentTime1 / 1000
+        val refreshIntervalSec = refreshLocMin * 60
         var fetchData = (currentTimeSec > (lastRefresh + refreshIntervalSec)) || !initialized
         //fetchData = true
-        if fetchData {
+        if (fetchData) {
             pressureCenters = []
             fronts = []
-            let urlBlob = MyApplication.nwsWPCwebsitePrefix + "/basicwx/coded_srp.txt"
+            val urlBlob = MyApplication.nwsWPCwebsitePrefix + "/basicwx/coded_srp.txt"
             var html = urlBlob.getHtmlSep()
             html = html.replaceAll(MyApplication.newline, MyApplication.sep)
-            let timestamp = html.parseFirst("SURFACE PROG VALID ([0-9]{12}Z)")
+            val timestamp = html.parseFirst("SURFACE PROG VALID ([0-9]{12}Z)")
             Utility.writePref("WPC_FRONTS_TIMESTAMP", timestamp)
             html = html.parseFirst("SURFACE PROG VALID [0-9]{12}Z(.*?)" +
                 MyApplication.sep +
                 " " +
                 MyApplication.sep)
             html = html.replaceAll(MyApplication.sep, MyApplication.newline)
-            let lines = html.split(MyApplication.newline)
-            //for (int index = 0; index < lines.length; index++) {
-            lines.enumerated().forEach { index, _ in
+            val lines = html.split(MyApplication.newline)
+            lines.indices.forEach { index ->
                 var data = lines[index]
-                if index < lines.count - 1 {
-                    let charIndex = lines[index + 1].index(lines[index + 1].startIndex, offsetBy: 0)
-                    if lines[index + 1][charIndex] != "H"
-                        && lines[index + 1][charIndex] != "L"
-                        && lines[index + 1][charIndex] != "C"
-                        && lines[index + 1][charIndex] != "S"
-                        && lines[index + 1][charIndex] != "O"
-                        && lines[index + 1][charIndex] != "T"
-                        && lines[index + 1][charIndex] != "W" {
-                        data += lines[index + 1]
+                if (index < lines.length - 1) {
+                    if (lines[index + 1][0] != "H"
+                            && lines[index + 1][0] != "L"
+                            && lines[index + 1][0] != "C"
+                            && lines[index + 1][0] != "S"
+                            && lines[index + 1][0] != "O"
+                            && lines[index + 1][0] != "T"
+                            && lines[index + 1][0] != "W") {
+                        data += lines[index + 1];
                     }
                 }
                 var tokens = data.trim().split(" ")
-                if tokens.count > 1 {
-                    let type = tokens[0]
-                    tokens.remove(at: 0)
-                    switch type {
-                    case "HIGHS":
-                        //for (int index = 0; index < tokens.length; index += 2) {
-                        for index in stride(from: 0, to: tokens.count - 1, by: 2) {
-                            let coordinates = parseLatLon(tokens[index + 1])
-                            pressureCenters.append(PressureCenter(PressureCenterTypeEnum.HIGH,
-                                                                  tokens[index], coordinates[0], coordinates[1]))
+                if (tokens.count > 1) {
+                    val type = tokens[0]
+                    tokens.removeAt(0)
+                    when (type) {
+                     "HIGHS" -> {
+                         for (index in 0 until tokens.count step 2) {
+                             val coordinates = parseLatLon(tokens[index + 1])
+                             pressureCenters.add(PressureCenter(PressureCenterTypeEnum.HIGH,
+                                     tokens[index], coordinates[0], coordinates[1]))
+                         }
+                     }
+                        "LOWS" -> {
+                            //for (int index = 0; index < tokens.length; index += 2) {
+                            for (index in 0 until tokens.count step 2) {
+                                val coordinates = parseLatLon(tokens[index + 1])
+                                pressureCenters.add(PressureCenter(PressureCenterTypeEnum.LOW,
+                                        tokens[index], coordinates[0], coordinates[1]))
+                            }
                         }
-                    case "LOWS":
-                        //for (int index = 0; index < tokens.length; index += 2) {
-                        for index in stride(from: 0, to: tokens.count - 1, by: 2) {
-                            let coordinates = parseLatLon(tokens[index + 1])
-                            pressureCenters.append(PressureCenter(PressureCenterTypeEnum.LOW,
-                                                                  tokens[index], coordinates[0], coordinates[1]))
-                        }
-                    case "COLD":
+                    "COLD" -> {
                         var front = Fronts(FrontTypeEnum.COLD)
-                        addFrontData(&front, tokens)
-                        addColdFrontTriangles(&front, tokens)
+                        addFrontData(front, tokens)
+                        addColdFrontTriangles(front, tokens)
                         //addWarmFrontSemicircles(front, tokens)
-                        fronts.append(front)
-                    case "STNRY":
-                        var front = Fronts(FrontTypeEnum.STNRY)
-                        addFrontData(&front, tokens)
-                        fronts.append(front)
-                        var frontStWarm = Fronts(FrontTypeEnum.STNRY_WARM)
-                        addFrontDataStnryWarm(&frontStWarm, tokens)
-                        fronts.append(frontStWarm)
-                    case "WARM":
-                        var front = Fronts(FrontTypeEnum.WARM)
-                        addFrontData(&front, tokens)
-                        addWarmFrontSemicircles(&front, tokens)
-                        fronts.append(front)
-                    case "TROF":
-                        var front = Fronts(FrontTypeEnum.TROF)
-                        addFrontData(&front, tokens)
-                        fronts.append(front)
-                    case "OCFNT":
-                        var front = Fronts(FrontTypeEnum.OCFNT)
-                        addFrontData(&front, tokens)
-                        addColdFrontTriangles(&front, tokens)
-                        addWarmFrontSemicircles(&front, tokens)
-                        fronts.append(front)
-                    default:
-                        break
+                        fronts.add(front)
                     }
+                        "STNRY" -> {
+                            var front = Fronts(FrontTypeEnum.STNRY)
+                            addFrontData(front, tokens)
+                            fronts.add(front)
+                            var frontStWarm = Fronts(FrontTypeEnum.STNRY_WARM)
+                            addFrontDataStnryWarm(frontStWarm, tokens)
+                            fronts.add(frontStWarm)
+                        }
+                     "WARM" -> {
+                         var front = Fronts(FrontTypeEnum.WARM)
+                         addFrontData(front, tokens)
+                         addWarmFrontSemicircles(front, tokens)
+                         fronts.add(front)
+                     }
+                     "TROF" -> {
+                         var front = Fronts(FrontTypeEnum.TROF)
+                         addFrontData(front, tokens)
+                         fronts.add(front)
+                     }
+                     "OCFNT" -> {
+                         var front = Fronts(FrontTypeEnum.OCFNT)
+                         addFrontData(front, tokens)
+                         addColdFrontTriangles(front, tokens)
+                         addWarmFrontSemicircles(front, tokens)
+                         fronts.add(front)
+                     }
+                    else -> {}
                 }
             }
             initialized = true
-            let currentTime: CLong = UtilityTime.currentTimeMillis()
+            val currentTime = UtilityTime.currentTimeMillis()
             lastRefresh = currentTime / 1000
         }
     }*/

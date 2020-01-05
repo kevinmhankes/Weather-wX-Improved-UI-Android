@@ -159,6 +159,7 @@ class MyApplication : Application() {
         const val nwsSwpcWebSitePrefix = "https://services.swpc.noaa.gov"
         const val canadaEcSitePrefix = "https://weather.gc.ca"
         const val prefSeparator: String = " : : :"
+        const val sep = "ABC123"
         var uiAnimIconFrames: String = "rid"
         const val WIDGET_FILE_BAK: String = "BAK"
         val HM_CLASS: MutableMap<String, Class<*>> = mutableMapOf()
