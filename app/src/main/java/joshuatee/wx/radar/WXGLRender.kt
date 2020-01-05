@@ -99,6 +99,8 @@ class WXGLRender(private val context: Context) : Renderer {
     private val locCircleBuffers = ObjectOglBuffers()
     private val wbCircleBuffers = ObjectOglBuffers(PolygonType.WIND_BARB_CIRCLE, zoomToHideMiscFeatures)
     private val genericWarningBuffers = mutableListOf<ObjectOglBuffers>()
+    private var wpcFrontBuffersList = mutableListOf<ObjectOglBuffers>()
+    private var wpcFrontPaints = mutableListOf<Int>()
     private val colorSwo = IntArray(5)
     private var breakSize15 = 15000
     private val breakSizeRadar = 15000
@@ -596,6 +598,9 @@ class WXGLRender(private val context: Context) : Renderer {
                 watchTornadoBuffers,
                 swoBuffers
         ).forEach { drawPolygons(it, 8) }
+
+        GLES20.glLineWidth(watmcdLineWidth * 2.0f)
+        wpcFrontBuffersList.forEach { drawPolygons(it, 8) }
     }
 
     private fun drawTriangles(buffers: ObjectOglBuffers) {
@@ -1142,6 +1147,56 @@ class WXGLRender(private val context: Context) : Renderer {
         deconstructWBLinesGusts()
         deconstructWBCircle()
     }
+
+    fun constructWpcFronts() {
+        //val fWbGusts = WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, provider, true)
+        //constructGenericLinesShort(wbGustsBuffers, fWbGusts)
+        wpcFrontBuffersList = mutableListOf()
+        wpcFrontPaints = mutableListOf()
+        var tmpCoords: DoubleArray
+        UtilityWpcFronts.fronts.forEach {
+            val buff = ObjectOglBuffers()
+            //val.initialize(2, Color.MAGENTA)
+            wpcFrontBuffersList.add(buff)
+        }
+        UtilityWpcFronts.fronts.indices.forEach { z ->
+            val front = UtilityWpcFronts.fronts[z]
+            wpcFrontBuffersList[z].breakSize = 15000
+            wpcFrontBuffersList[z].chunkCount = 1
+            val totalBins = front.coordinates.size / 2
+            wpcFrontBuffersList[z].initialize(4 * 4 * totalBins, 0, 3 * 2 * totalBins)
+            wpcFrontBuffersList[z].isInitialized = true
+            when (front.type) {
+                FrontTypeEnum.COLD -> wpcFrontPaints.add(Color.rgb(0, 0, 255))
+                FrontTypeEnum.WARM -> wpcFrontPaints.add(Color.rgb(255, 0, 0))
+                FrontTypeEnum.STNRY -> wpcFrontPaints.add(Color.rgb(0, 0, 255))
+                FrontTypeEnum.STNRY_WARM -> wpcFrontPaints.add(Color.rgb(255, 0, 0))
+                FrontTypeEnum.OCFNT -> wpcFrontPaints.add(Color.rgb(255, 0, 255))
+                FrontTypeEnum.TROF -> wpcFrontPaints.add(Color.rgb(254, 216, 177))
+            }
+            for (j in 0 until front.coordinates.size - 2 step 2) {
+                tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(front.coordinates[j].lat, front.coordinates[j].lon, projectionNumbers)
+                wpcFrontBuffersList[z].putFloat(tmpCoords[0].toFloat())
+                wpcFrontBuffersList[z].putFloat((tmpCoords[1] * -1.0f).toFloat())
+                wpcFrontBuffersList[z].putColor(Color.red(wpcFrontPaints[z]).toByte())
+                wpcFrontBuffersList[z].putColor(Color.green(wpcFrontPaints[z]).toByte())
+                wpcFrontBuffersList[z].putColor(Color.blue(wpcFrontPaints[z]).toByte())
+                tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(front.coordinates[j + 1].lat, front.coordinates[j + 1].lon, projectionNumbers)
+                wpcFrontBuffersList[z].putFloat(tmpCoords[0].toFloat())
+                wpcFrontBuffersList[z].putFloat((tmpCoords[1] * -1.0f).toFloat())
+                wpcFrontBuffersList[z].putColor(Color.red(wpcFrontPaints[z]).toByte())
+                wpcFrontBuffersList[z].putColor(Color.green(wpcFrontPaints[z]).toByte())
+                wpcFrontBuffersList[z].putColor(Color.blue(wpcFrontPaints[z]).toByte())
+            }
+            //wpcFrontBuffersList[z].count = Int(Double(wpcFrontBuffersList[z].metalBuffer.count) * 0.4)
+            //wpcFrontBuffersList[z].generateMtlBuffer(device)
+        }
+    }
+
+    fun deconstructWpcFronts() {
+        wpcFrontBuffersList = mutableListOf()
+    }
+
 
     private fun deconstructWBLinesGusts() {
         wbGustsBuffers.isInitialized = false

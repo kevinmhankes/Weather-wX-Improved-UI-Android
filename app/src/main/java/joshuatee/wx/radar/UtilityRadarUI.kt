@@ -430,9 +430,9 @@ internal object UtilityRadarUI {
     ) {
         Thread(Runnable {
             if (MyApplication.radarShowWpcFronts && !archiveMode) {
-                //wxglRender.constructWpcFronts()
+                wxglRender.constructWpcFronts()
             } else {
-                //wxglRender.deconstructWpcFronts()
+                wxglRender.deconstructWpcFronts()
             }
             //wxglRender.constructGenericWarningLines()
             wxglSurfaceView.requestRender()
