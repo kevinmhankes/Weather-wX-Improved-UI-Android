@@ -489,8 +489,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 if (!oglr.product.startsWith("2")) {
                     UtilityRadarUI.plotWpcFronts(glview, oglr, archiveMode)
                 }
+                UtilityWXGLTextObject.updateWpcFronts(numPanes, wxgltextArr)
             }
-
             UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivity)
             isGetContentInProgress = false
         } // end check is get content in progress

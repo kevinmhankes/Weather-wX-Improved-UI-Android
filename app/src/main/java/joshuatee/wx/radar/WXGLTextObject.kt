@@ -35,7 +35,6 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ProjectionType
 import joshuatee.wx.util.ProjectionNumbers
 import joshuatee.wx.util.UtilityCanvasProjection
-import joshuatee.wx.util.UtilityLog
 
 import kotlin.math.*
 
@@ -470,7 +469,7 @@ class WXGLTextObject(
         }
     }
 
-    private fun addWpcPressureCenters() {
+    fun addWpcPressureCenters() {
         if (MyApplication.radarShowWpcFronts) {
             // FIXME pn should not be set in every method to draws
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
@@ -490,8 +489,6 @@ class WXGLTextObject(
                     if (UtilityWpcFronts.pressureCenters[it].type == PressureCenterTypeEnum.LOW) {
                         color = Color.RED
                     }
-                    UtilityLog.d("wx", UtilityWpcFronts.pressureCenters[it].lat.toString())
-                    UtilityLog.d("wx", UtilityWpcFronts.pressureCenters[it].lon.toString())
                     checkAndDrawText(
                             wxglSurfaceView.pressureCenterLabelAl,
                             UtilityWpcFronts.pressureCenters[it].lat,

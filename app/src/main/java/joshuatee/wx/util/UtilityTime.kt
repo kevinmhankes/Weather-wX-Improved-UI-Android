@@ -129,6 +129,8 @@ object UtilityTime {
 
     fun year(): Int = Calendar.getInstance().get(Calendar.YEAR)
 
+    fun getYear(): Int = Calendar.getInstance().get(Calendar.YEAR)
+
     //fun month(): Int = Calendar.getInstance().get(Calendar.MONTH) + 1
 
     fun day(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)

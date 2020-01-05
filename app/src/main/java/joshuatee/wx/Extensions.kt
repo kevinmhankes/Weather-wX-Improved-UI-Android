@@ -46,6 +46,10 @@ fun String.truncate(size: Int): String {
 //    return UtilityString.removeHtml(this)
 //}
 
+fun String.insert(index: Int, string: String): String {
+    return StringBuilder(this).insert(index, string).toString()
+}
+
 fun String.parse(pattern: Pattern): String {
     return UtilityString.parse(this, pattern)
 }

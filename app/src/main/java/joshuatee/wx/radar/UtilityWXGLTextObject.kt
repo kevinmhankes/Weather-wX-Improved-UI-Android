@@ -42,4 +42,11 @@ object UtilityWXGLTextObject {
             textObjects[it].addTVObs()
         }
     }
+
+    fun updateWpcFronts(numPanes: Int, textObjects: MutableList<WXGLTextObject>) {
+        (0 until numPanes).forEach {
+            //textObjects[it].initTVObs()
+            textObjects[it].addWpcPressureCenters()
+        }
+    }
 }

@@ -30,6 +30,7 @@
 // TODO [ADD] WPC Fronts feature from Flutter/Dart port
 // TODO [ADD] 2020 in copyright
 // TODO [REF] convert from System.currentTimeMillis() to UtilityTime.currentTimeMillis()
+// TODO [ADD] WPC Fronts support in homescree nexrad and multipane
 
 55294 2020_01_05    [FIX] better font size transitions on main screen after changing in settings UI - part 1
                     [ADD] WPC Fronts framework for nexrad radar

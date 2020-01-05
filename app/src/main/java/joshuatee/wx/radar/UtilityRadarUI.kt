@@ -42,6 +42,7 @@ import joshuatee.wx.ui.ObjectImageMap
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 import kotlin.math.roundToInt
+import joshuatee.wx.Extensions.*
 
 internal object UtilityRadarUI {
 
@@ -166,6 +167,12 @@ internal object UtilityRadarUI {
         val heightAgl = UtilityMath.getRadarBeamHeight(wxglRender.radarL3Object.degree, distRidKm)
         val heightMsl = (wxglRender.radarL3Object.radarHeight + heightAgl)
         alertDialogRadarLongpressAl.add("Beam Height MSL: " + heightMsl.roundToInt().toString() + " ft, AGL: " + heightAgl.roundToInt().toString() + " ft")
+        if (MyApplication.radarShowWpcFronts) {
+            var wpcFrontsTimeStamp = Utility.readPref("WPC_FRONTS_TIMESTAMP", "")
+            wpcFrontsTimeStamp = wpcFrontsTimeStamp.replace(UtilityTime.getYear().toString(), "")
+            wpcFrontsTimeStamp = wpcFrontsTimeStamp.insert(4, " ")
+            alertDialogRadarLongpressAl.add(MyApplication.newline + "WPC Fronts: " + wpcFrontsTimeStamp)
+        }
         wxglRender.ridNewList.mapTo(alertDialogRadarLongpressAl) {
             "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name)
         }
