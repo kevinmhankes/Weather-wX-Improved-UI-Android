@@ -27,11 +27,10 @@
 // TODO [ADD] evaluate what needs to refresh onrestart like flutter version
 // TODO [FIX] if change between radar mosaic provides, change on misc tab is not immediate
 // TODO [FIX] minimize app restarts such as after homescreen changes (test nexrad addition/removal)
-// TODO [ADD] WPC Fronts feature from Flutter/Dart port
-// TODO [ADD] 2020 in copyright
 // TODO [REF] convert from System.currentTimeMillis() to UtilityTime.currentTimeMillis()
 // TODO [ADD] WPC Fronts support in homescree nexrad and multipane
 
+55296 2020_01_05
 55295 2020_01_05    [FIX] lint and wpc not updating on every radar change
                     [REF] add 2020 in copyright
 55294 2020_01_05    [FIX] better font size transitions on main screen after changing in settings UI - part 1
