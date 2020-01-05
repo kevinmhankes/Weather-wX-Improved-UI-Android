@@ -32,6 +32,8 @@
 // TODO [REF] convert from System.currentTimeMillis() to UtilityTime.currentTimeMillis()
 // TODO [ADD] WPC Fronts support in homescree nexrad and multipane
 
+55295 2020_01_05    [FIX] lint and wpc not updating on every radar change
+                    [REF] add 2020 in copyright
 55294 2020_01_05    [FIX] better font size transitions on main screen after changing in settings UI - part 1
                     [ADD] WPC Fronts framework for nexrad radar
 55293 2019_12_30    [FIX] Fulldisk global viewer - remove first two images

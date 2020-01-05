@@ -1,6 +1,6 @@
 /*
 
-    Copyright 2013, 2014, 2015, 2016, 2017, 2018, 2019  joshua.tee@gmail.com
+    Copyright 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020  joshua.tee@gmail.com
 
     This file is part of wX.
 
@@ -30,7 +30,7 @@ import kotlin.math.*
 object UtilityMath {
 
     fun distanceOfLine(x1: Double, y1: Double, x2: Double, y2: Double): Double {
-        return sqrt(Math.pow(x2 - x1, 2.0) + Math.pow(y2 - y1, 2.0))
+        return sqrt((x2 - x1).pow(2.0) + (y2 - y1).pow(2.0))
     }
 
     fun computeTipPoint(x0: Double, y0: Double, x1: Double, y1: Double, right: Boolean): List<Double> {
@@ -44,8 +44,8 @@ object UtilityMath {
         val cy = y0 + dy * 0.5
         val pDirX = -dirY
         val pDirY = dirX
-        var rx = 0.0
-        var ry = 0.0
+        val rx: Double
+        val ry: Double
         if (right) {
             rx = cx + height * pDirX
             ry = cy + height * pDirY

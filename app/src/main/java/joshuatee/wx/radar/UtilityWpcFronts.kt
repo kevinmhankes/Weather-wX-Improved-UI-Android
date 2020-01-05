@@ -1,6 +1,6 @@
 /*
 
-    Copyright 2013, 2014, 2015, 2016, 2017, 2018, 2019  joshua.tee@gmail.com
+    Copyright 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020  joshua.tee@gmail.com
 
     This file is part of wX.
 
@@ -71,13 +71,13 @@ import joshuatee.wx.Extensions.*
 
 object UtilityWpcFronts {
     var initialized = false
-    var lastRefresh = 0.toLong()
+    private var lastRefresh = 0.toLong()
     //var refreshLocMin = MyApplication.radarDataRefreshInterval * 2
-    val refreshLocMin = 5
+    private const val refreshLocMin = 5
     var pressureCenters = mutableListOf<PressureCenter>()
     var fronts = mutableListOf<Fronts>()
 
-    fun addColdFrontTriangles(front: Fronts, tokens: List<String>) {
+    private fun addColdFrontTriangles(front: Fronts, tokens: List<String>) {
         val length = 0.4 // size of trianle
         var startIndex = 0
         var indexIncrement = 1
@@ -111,7 +111,7 @@ object UtilityWpcFronts {
         }
     }
 
-    fun addWarmFrontSemicircles(front: Fronts, tokens: List<String>) {
+    private fun addWarmFrontSemicircles(front: Fronts, tokens: List<String>) {
         var length = 0.4 // size of trianle
         var startIndex = 0
         var indexIncrement = 1
@@ -157,7 +157,7 @@ object UtilityWpcFronts {
         }
     }
 
-    fun addFrontDataStnryWarm(front: Fronts, tokens: List<String>) {
+    private fun addFrontDataStnryWarm(front: Fronts, tokens: List<String>) {
         tokens.indices.forEach { index ->
             val coordinates = parseLatLon(tokens[index])
             if (index != 0 && index != (tokens.size - 1)) {
@@ -166,7 +166,7 @@ object UtilityWpcFronts {
         }
     }
 
-    fun addFrontData(front: Fronts, tokens: List<String>) {
+    private fun addFrontData(front: Fronts, tokens: List<String>) {
         tokens.indices.forEach { index ->
             val coordinates = parseLatLon(tokens[index])
             front.coordinates.add(LatLon(coordinates[0], coordinates[1]))
@@ -176,13 +176,13 @@ object UtilityWpcFronts {
         }
     }
 
-    fun parseLatLon(string: String): List<Double> {
+    private fun parseLatLon(string: String): List<Double> {
         if (string.length != 7) {
             return listOf(0.0, 0.0)
         } else {
             val lat = (string.substring(0, 2) + "." + string.substring(2, 3)).toDoubleOrNull()
                     ?: 0.0
-            var lon = 0.0
+            val lon: Double
             // TODO FIXME need to make sure this is working
             if (string[3] == '0') {
                 lon = (string.substring(4, 6) + "." + string.substring(6, 7)).toDoubleOrNull()
@@ -199,8 +199,7 @@ object UtilityWpcFronts {
         val currentTime1 = UtilityTime.currentTimeMillis()
         val currentTimeSec = currentTime1 / 1000
         val refreshIntervalSec = refreshLocMin * 60
-        var fetchData = (currentTimeSec > (lastRefresh + refreshIntervalSec)) || !initialized
-        fetchData = true
+        val fetchData = (currentTimeSec > (lastRefresh + refreshIntervalSec)) || !initialized
         if (fetchData) {
             pressureCenters = mutableListOf()
             fronts = mutableListOf()
@@ -226,7 +225,7 @@ object UtilityWpcFronts {
                             && lines[index + 1][0] != 'O'
                             && lines[index + 1][0] != 'T'
                             && lines[index + 1][0] != 'W') {
-                        data += lines[index + 1];
+                        data += lines[index + 1]
                     }
                 }
                 val tokens = data.trim().split(" ").toMutableList()
@@ -235,48 +234,48 @@ object UtilityWpcFronts {
                     tokens.removeAt(0)
                     when (type) {
                         "HIGHS" -> {
-                            for (index in 0 until tokens.size step 2) {
-                                val coordinates = parseLatLon(tokens[index + 1])
+                            for (typeIndex in 0 until tokens.size step 2) {
+                                val coordinates = parseLatLon(tokens[typeIndex + 1])
                                 pressureCenters.add(PressureCenter(PressureCenterTypeEnum.HIGH,
-                                        tokens[index], coordinates[0], coordinates[1]))
+                                        tokens[typeIndex], coordinates[0], coordinates[1]))
                             }
                         }
                         "LOWS" -> {
                             //for (int index = 0; index < tokens.length; index += 2) {
-                            for (index in 0 until tokens.size step 2) {
-                                val coordinates = parseLatLon(tokens[index + 1])
+                            for (typeIndex in 0 until tokens.size step 2) {
+                                val coordinates = parseLatLon(tokens[typeIndex + 1])
                                 pressureCenters.add(PressureCenter(PressureCenterTypeEnum.LOW,
-                                        tokens[index], coordinates[0], coordinates[1]))
+                                        tokens[typeIndex], coordinates[0], coordinates[1]))
                             }
                         }
                         "COLD" -> {
-                            var front = Fronts(FrontTypeEnum.COLD)
+                            val front = Fronts(FrontTypeEnum.COLD)
                             addFrontData(front, tokens)
                             addColdFrontTriangles(front, tokens)
                             //addWarmFrontSemicircles(front, tokens)
                             fronts.add(front)
                         }
                         "STNRY" -> {
-                            var front = Fronts(FrontTypeEnum.STNRY)
+                            val front = Fronts(FrontTypeEnum.STNRY)
                             addFrontData(front, tokens)
                             fronts.add(front)
-                            var frontStWarm = Fronts(FrontTypeEnum.STNRY_WARM)
+                            val frontStWarm = Fronts(FrontTypeEnum.STNRY_WARM)
                             addFrontDataStnryWarm(frontStWarm, tokens)
                             fronts.add(frontStWarm)
                         }
                         "WARM" -> {
-                            var front = Fronts(FrontTypeEnum.WARM)
+                            val front = Fronts(FrontTypeEnum.WARM)
                             addFrontData(front, tokens)
                             addWarmFrontSemicircles(front, tokens)
                             fronts.add(front)
                         }
                         "TROF" -> {
-                            var front = Fronts(FrontTypeEnum.TROF)
+                            val front = Fronts(FrontTypeEnum.TROF)
                             addFrontData(front, tokens)
                             fronts.add(front)
                         }
                         "OCFNT" -> {
-                            var front = Fronts(FrontTypeEnum.OCFNT)
+                            val front = Fronts(FrontTypeEnum.OCFNT)
                             addFrontData(front, tokens)
                             addColdFrontTriangles(front, tokens)
                             addWarmFrontSemicircles(front, tokens)
