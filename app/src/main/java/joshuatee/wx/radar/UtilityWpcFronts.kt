@@ -92,7 +92,7 @@ object UtilityWpcFronts {
                 val distance = UtilityMath.distanceOfLine(coordinates[0], coordinates[1], coordinates2[0], coordinates2[1])
                 val numberOfTriangles = floor(distance / length).toInt()
                 // construct two lines which will consist of adding 4 points
-                for (pointNumber in 1 until numberOfTriangles step 4) {
+                for (pointNumber in 1 until numberOfTriangles step 2) {
                     //for (int pointNumber = 1; pointNumber < numberOfTriangles; pointNumber += 2) {
                     val x1 = coordinates[0] + ((coordinates2[0] - coordinates[0]) * length * pointNumber) / distance
                     val y1 = coordinates[1] + ((coordinates2[1] - coordinates[1]) * length * pointNumber) / distance
@@ -143,7 +143,7 @@ object UtilityWpcFronts {
                     val yDiff = y3 - y1
                     val angle = atan2(yDiff, xDiff) * 180.0 / PI
                     val sliceStart = ((slices * angle) / 180.0).toInt()
-                    for (i in sliceStart until slices + sliceStart step 1) {
+                    for (i in sliceStart until slices + sliceStart + 1 step 1) {
                         //for (int i = sliceStart; i <= slices + sliceStart; i++) {
                         val x = rotation * length * cos(step * i) + center1
                         val y = rotation * length * sin(step * i) + center2
