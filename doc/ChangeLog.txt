@@ -30,6 +30,7 @@
 // TODO [REF] convert from System.currentTimeMillis() to UtilityTime.currentTimeMillis()
 // TODO [ADD] WPC Fronts support in homescree nexrad and multipane
 
+55299 2020_01_06
 55298 2020_01_06    [ADD] in settings homescreen and playlist close dialog after tapping on item
                     [FIX] WPC Fronts - cold front make 0,127,255 not 0,0,255
                     [ADD] hourly homescreen widget is now monospaced and uses day of week
