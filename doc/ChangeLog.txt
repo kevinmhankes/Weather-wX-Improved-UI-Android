@@ -30,6 +30,7 @@
 // TODO [REF] convert from System.currentTimeMillis() to UtilityTime.currentTimeMillis()
 // TODO [ADD] WPC Fronts support in homescree nexrad and multipane
 
+55298 2020_01_06
 55297 2020_01_06    [FIX] wpc fronts - few for loop bugs on cold/warm front creation
 55296 2020_01_06    [FIX] decrease line width for wpc fronts to match watch/mcd
                     [FIX] wpc fronts - bug fix on loop math in render
