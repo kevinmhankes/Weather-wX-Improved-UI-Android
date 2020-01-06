@@ -25,6 +25,7 @@ import android.content.*
 import java.util.Locale
 
 import android.graphics.Bitmap
+import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -497,6 +498,9 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         val shortText = UtilityStringExternal.truncate(longText, UIPreferences.homescreenTextLength)
         hsTextAl[productIndex].setTextShort(shortText)
         hsTextAl[productIndex].setText(shortText)
+        if (productString == "HOURLY") {
+            hsTextAl[productIndex].tv.typeface = Typeface.MONOSPACE
+        }
     }
 
     private fun getImageProduct(productString: String) = GlobalScope.launch(uiDispatcher) {

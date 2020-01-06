@@ -1167,9 +1167,9 @@ class WXGLRender(private val context: Context) : Renderer {
             wpcFrontBuffersList[z].initialize(4 * 4 * totalBins, 0, 3 * 2 * totalBins)
             wpcFrontBuffersList[z].isInitialized = true
             when (front.type) {
-                FrontTypeEnum.COLD -> wpcFrontPaints.add(Color.rgb(0, 0, 255))
+                FrontTypeEnum.COLD -> wpcFrontPaints.add(Color.rgb(0, 127, 255))
                 FrontTypeEnum.WARM -> wpcFrontPaints.add(Color.rgb(255, 0, 0))
-                FrontTypeEnum.STNRY -> wpcFrontPaints.add(Color.rgb(0, 0, 255))
+                FrontTypeEnum.STNRY -> wpcFrontPaints.add(Color.rgb(0, 127, 255))
                 FrontTypeEnum.STNRY_WARM -> wpcFrontPaints.add(Color.rgb(255, 0, 0))
                 FrontTypeEnum.OCFNT -> wpcFrontPaints.add(Color.rgb(255, 0, 255))
                 FrontTypeEnum.TROF -> wpcFrontPaints.add(Color.rgb(254, 216, 177))

@@ -21,15 +21,14 @@
 
 package joshuatee.wx.activitiesmisc
 
+import joshuatee.wx.Extensions.parseColumn
 import joshuatee.wx.MyApplication
 import joshuatee.wx.settings.Location
-import joshuatee.wx.util.UtilityDownloadNws
-import joshuatee.wx.util.UtilityTime
 import joshuatee.wx.util.Utility
-
-import java.util.Calendar
-
-import joshuatee.wx.Extensions.*
+import joshuatee.wx.util.UtilityDownloadNws
+import joshuatee.wx.util.UtilityLog
+import joshuatee.wx.util.UtilityTime
+import java.util.*
 
 object UtilityUSHourly {
 
@@ -79,7 +78,7 @@ object UtilityUSHourly {
 
     fun getString(locNum: Int): List<String> {
         val html = UtilityDownloadNws.getHourlyData(Location.getLatLon(locNum))
-        val header = String.format("%-16s", "Time") + " " + String.format(
+        val header = String.format("%-10s", "Time") + " " + String.format(
                 "%-10s",
                 "Temp"
         ) + String.format("%-10s", "WindSpd") + String.format(
@@ -96,20 +95,14 @@ object UtilityUSHourly {
         val windDirection = html.parseColumn("\"windDirection\": \"(.*?)\"")
         val shortForecast = html.parseColumn("\"shortForecast\": \"(.*?)\"")
         var content = ""
-        val year = UtilityTime.year()
-        val yearStr = year.toString()
         startTime.indices.forEach {
-            content +=
-                    String.format(
-                            "%-16s", startTime[it].replace("-0[0-9]:00".toRegex(), "")
-                            .replace(("$yearStr-"), "").replace(":00:00", "").replace("T", " ")
-
-                    )
+            val time = translateTime(startTime[it].replace(Regex("-0[0-9]:00"), ""))
+            content += String.format("%-10s", time)
             if (temperature.size > it) {
-                content += String.format("%-12s", temperature[it])
+                content += String.format("%-10s", temperature[it])
             }
             if (windSpeed.size > it) {
-                content += String.format("%-12s", windSpeed[it])
+                content += String.format("%-10s", windSpeed[it])
             }
             if (windDirection.size > it) {
                 content += String.format("%-8s", windDirection[it])

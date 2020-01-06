@@ -76,7 +76,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
             fabPause.fabSetResDrawable(this, MyApplication.ICON_PAUSE)
         }
         diaAfd = ObjectDialogue(this, "Select fixed location AFD products:", GlobalArrays.wfos)
-        diaAfd.setSingleChoiceItems(DialogInterface.OnClickListener { _, which ->
+        diaAfd.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = diaAfd.getItem(which)
             ridFav = ridFav + ":" + "AFD" +
                     strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase()
@@ -84,9 +84,10 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
             MyApplication.playlistStr = ridFav
             ridArr.add(getLongString("AFD" + strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase()))
             ca.notifyDataSetChanged()
+            dialog.dismiss()
         })
         diaMain = ObjectDialogue(this, "Select text products:", GlobalArrays.nwsTextProducts)
-        diaMain.setSingleChoiceItems(DialogInterface.OnClickListener { _, which ->
+        diaMain.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = diaMain.getItem(which)
             ridFav = ridFav + ":" +
                     strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase()
@@ -94,6 +95,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
             ridArr.add(getLongString(strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase()))
             ca.notifyDataSetChanged()
             MyApplication.playlistStr = ridFav
+            dialog.dismiss()
         })
         toolbar.subtitle = "Tap item to play, view, delete or move."
         ridFav = Utility.readPref(this, prefToken, "")

@@ -79,40 +79,44 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
                 "Select text products:",
                 UtilityHomeScreen.localChoicesText + GlobalArrays.nwsTextProducts
         )
-        dialogueMain.setSingleChoiceItems(DialogInterface.OnClickListener { _, which ->
+        dialogueMain.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             alertDialogClicked(
                     dialogueMain,
                     "TXT-",
                     which
             )
+            dialog.dismiss()
         })
         dialogueImages = ObjectDialogue(
                 this,
                 "Select image products:",
                 UtilityHomeScreen.localChoicesImg + GlobalArrays.nwsImageProducts
         )
-        dialogueImages.setSingleChoiceItems(DialogInterface.OnClickListener { _, which ->
+        dialogueImages.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             alertDialogClicked(
                     dialogueImages,
                     "",
                     which
             )
+            dialog.dismiss()
         })
         dialogueAfd = ObjectDialogue(this, "Select fixed location AFD products:", GlobalArrays.wfos)
-        dialogueAfd.setSingleChoiceItems(DialogInterface.OnClickListener { _, which ->
+        dialogueAfd.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             alertDialogClicked(
                     dialogueAfd,
                     "TXT-" + "AFD",
                     which
             )
+            dialog.dismiss()
         })
         dialogueRadar = ObjectDialogue(this, "Select fixed location Nexrad products:", GlobalArrays.radars + GlobalArrays.tdwrRadarsForHomeScreen)
-        dialogueRadar.setSingleChoiceItems(DialogInterface.OnClickListener { _, which ->
+        dialogueRadar.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             alertDialogClicked(
                     dialogueRadar,
                     "NXRD-",
                     which
             )
+            dialog.dismiss()
         })
     }
 
