@@ -78,7 +78,7 @@ object UtilityWpcFronts {
     var fronts = mutableListOf<Fronts>()
 
     private fun addColdFrontTriangles(front: Fronts, tokens: List<String>) {
-        val length = 0.4 // size of trianle
+        val length = 0.4
         var startIndex = 0
         var indexIncrement = 1
         if (front.type == FrontTypeEnum.OCFNT) {
@@ -86,14 +86,13 @@ object UtilityWpcFronts {
             indexIncrement = 2
         }
         for (index in startIndex until tokens.size step indexIncrement) {
-            //for (int index = startIndex; index < tokens.length; index += indexIncrement) {
             val coordinates = parseLatLon(tokens[index])
             if (index < (tokens.size - 1)) {
                 val coordinates2 = parseLatLon(tokens[index + 1])
                 val distance = UtilityMath.distanceOfLine(coordinates[0], coordinates[1], coordinates2[0], coordinates2[1])
                 val numberOfTriangles = floor(distance / length).toInt()
                 // construct two lines which will consist of adding 4 points
-                for (pointNumber in 1 until numberOfTriangles - 1 step 4) {
+                for (pointNumber in 1 until numberOfTriangles step 4) {
                     //for (int pointNumber = 1; pointNumber < numberOfTriangles; pointNumber += 2) {
                     val x1 = coordinates[0] + ((coordinates2[0] - coordinates[0]) * length * pointNumber) / distance
                     val y1 = coordinates[1] + ((coordinates2[1] - coordinates[1]) * length * pointNumber) / distance

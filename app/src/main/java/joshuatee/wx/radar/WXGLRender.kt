@@ -599,7 +599,7 @@ class WXGLRender(private val context: Context) : Renderer {
                 swoBuffers
         ).forEach { drawPolygons(it, 8) }
 
-        GLES20.glLineWidth(watmcdLineWidth * 2.0f)
+        GLES20.glLineWidth(watmcdLineWidth)
         wpcFrontBuffersList.forEach { drawPolygons(it, 8) }
     }
 
@@ -1149,20 +1149,20 @@ class WXGLRender(private val context: Context) : Renderer {
     }
 
     fun constructWpcFronts() {
-        //val fWbGusts = WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, provider, true)
-        //constructGenericLinesShort(wbGustsBuffers, fWbGusts)
         wpcFrontBuffersList = mutableListOf()
         wpcFrontPaints = mutableListOf()
         var tmpCoords: DoubleArray
         UtilityWpcFronts.fronts.forEach {
             val buff = ObjectOglBuffers()
-            //val.initialize(2, Color.MAGENTA)
+
+            buff.breakSize = 15000
+            buff.chunkCount = 1
+
+
             wpcFrontBuffersList.add(buff)
         }
         UtilityWpcFronts.fronts.indices.forEach { z ->
             val front = UtilityWpcFronts.fronts[z]
-            wpcFrontBuffersList[z].breakSize = 15000
-            wpcFrontBuffersList[z].chunkCount = 1
             val totalBins = front.coordinates.size / 2
             wpcFrontBuffersList[z].initialize(4 * 4 * totalBins, 0, 3 * 2 * totalBins)
             wpcFrontBuffersList[z].isInitialized = true
@@ -1174,7 +1174,7 @@ class WXGLRender(private val context: Context) : Renderer {
                 FrontTypeEnum.OCFNT -> wpcFrontPaints.add(Color.rgb(255, 0, 255))
                 FrontTypeEnum.TROF -> wpcFrontPaints.add(Color.rgb(254, 216, 177))
             }
-            for (j in 0 until front.coordinates.size - 2 step 2) {
+            for (j in 0 until front.coordinates.size - 1 step 2) {
                 tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(front.coordinates[j].lat, front.coordinates[j].lon, projectionNumbers)
                 wpcFrontBuffersList[z].putFloat(tmpCoords[0].toFloat())
                 wpcFrontBuffersList[z].putFloat((tmpCoords[1] * -1.0f).toFloat())
@@ -1188,8 +1188,6 @@ class WXGLRender(private val context: Context) : Renderer {
                 wpcFrontBuffersList[z].putColor(Color.green(wpcFrontPaints[z]).toByte())
                 wpcFrontBuffersList[z].putColor(Color.blue(wpcFrontPaints[z]).toByte())
             }
-            //wpcFrontBuffersList[z].count = Int(Double(wpcFrontBuffersList[z].metalBuffer.count) * 0.4)
-            //wpcFrontBuffersList[z].generateMtlBuffer(device)
         }
     }
 
