@@ -171,7 +171,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             cal.set(Calendar.MONTH, 2)
             cal.set(Calendar.DAY_OF_MONTH, 23)
             stDatePicker.datePicker.minDate = cal.timeInMillis - 1000
-            stDatePicker.datePicker.maxDate = System.currentTimeMillis()
+            stDatePicker.datePicker.maxDate = UtilityTime.currentTimeMillis()
             stDatePicker.setCanceledOnTouchOutside(true)
             stDatePicker.show()
         })

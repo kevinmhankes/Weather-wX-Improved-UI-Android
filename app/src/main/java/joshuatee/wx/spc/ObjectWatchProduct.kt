@@ -33,7 +33,7 @@ import joshuatee.wx.MyApplication
 internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
 
     private var productNumber = ""
-    private var imgUrl = ""
+    var imgUrl = ""
     var textUrl = ""
         private set
     var title = ""

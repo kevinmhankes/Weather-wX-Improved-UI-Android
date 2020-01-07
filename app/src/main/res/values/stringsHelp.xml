@@ -19,8 +19,13 @@
 
 <resources>
 
-     <string name="radar_show_wpc_fronts_label">
-          Show WPC Fronts and pressure highs and lows.
+    <string name="radar_show_wpc_fronts_label">
+          Show WPC Fronts and pressure highs and lows. The data is not realtime but rather forecast data from NWS WPC.
+         You can long press (press and hold) in nexrad radar and you will see the timestamp for the current data. For example "WPC Fronts: 0107 1200Z"
+         would indicate Janunary 7, 12:00 in GMT. Blue is for cold fronts and high pressure centers. Red is for warm fronts and low
+         pressure centers. Light brown is for troughs which could be a trough, outflow boundary, squall line, or dry line. Stationary fronts
+         are alternating red and blue. Occluded fronts are pink.
+
 </string>
 
     <string name="radar_center_on_location_default_label">
