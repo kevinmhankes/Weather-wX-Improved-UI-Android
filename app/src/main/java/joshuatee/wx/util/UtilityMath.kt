@@ -33,7 +33,13 @@ object UtilityMath {
         return sqrt((x2 - x1).pow(2.0) + (y2 - y1).pow(2.0))
     }
 
-    fun computeTipPoint(x0: Double, y0: Double, x1: Double, y1: Double, right: Boolean): List<Double> {
+    fun computeTipPoint(
+            x0: Double,
+            y0: Double,
+            x1: Double,
+            y1: Double,
+            right: Boolean
+    ): List<Double> {
         val dx = x1 - x0
         val dy = y1 - y0
         val length = sqrt(dx * dx + dy * dy)
@@ -54,6 +60,16 @@ object UtilityMath {
             ry = cy - height * pDirY
         }
         return listOf(rx, ry)
+    }
+
+    fun computeMiddishPoint(
+            x0: Double,
+            y0: Double,
+            x1: Double,
+            y1: Double,
+            fraction: Double
+    ): List<Double> {
+        return listOf(x0 + fraction * (x1 - x0) , y0 + fraction * (y1 - y0))
     }
 
     // 42.98888 to 42.99

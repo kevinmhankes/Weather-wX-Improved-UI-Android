@@ -165,6 +165,23 @@ object UtilityWpcFronts {
         }
     }
 
+    private fun addFrontDataTrof(front: Fronts, tokens: List<String>) {
+        val fraction = 0.8
+        for (index in 0 until tokens.size - 1 step 1) {
+            val coordinates = parseLatLon(tokens[index])
+            front.coordinates.add(LatLon(coordinates[0], coordinates[1]))
+            val oldCoordinates = parseLatLon(tokens[index + 1])
+            val coord = UtilityMath.computeMiddishPoint(
+                    coordinates[0],
+                    coordinates[1],
+                    oldCoordinates[0],
+                    oldCoordinates[1],
+                    fraction
+            )
+            front.coordinates.add(LatLon(coord[0], coord[1]))
+        }
+    }
+
     private fun addFrontData(front: Fronts, tokens: List<String>) {
         tokens.indices.forEach { index ->
             val coordinates = parseLatLon(tokens[index])
@@ -270,7 +287,7 @@ object UtilityWpcFronts {
                         }
                         "TROF" -> {
                             val front = Fronts(FrontTypeEnum.TROF)
-                            addFrontData(front, tokens)
+                            addFrontDataTrof(front, tokens)
                             fronts.add(front)
                         }
                         "OCFNT" -> {
