@@ -27,10 +27,16 @@
 // TODO [FIX] if change between radar mosaic provides, change on misc tab is not immediate
 // TODO [FIX] minimize app restarts such as after homescreen changes (test nexrad addition/removal)
 // TODO [REF] convert from System.currentTimeMillis() to UtilityTime.currentTimeMillis()
-// TODO [ADD] WPC Fronts support in homescree nexrad and multipane
-// TODO [ADD] wpc day 1-3 image + text
-// TODO [ADD] SPC Convective onrestart download fresh content (check SPC Fire and Tstorm )
-// TODO [ADD] if change text size make change immediately
+// [ADD] check if needed: reset download timers for warnings/wat/mcd/mpd etc if changes made in settings -> radar
+// [ADD] SPC Storm reports - don't show labels if no reports
+// [ADD] hourly homescreen widget still needs work
+// [ADD] WPC Fronts support in homescree nexrad and multipane
+// [ADD] if change text size make change immediately
+// [ADD] wpc day 1-3 image + text
+// [ADD] SPC Fire/Tst outlooks - check if refresh onrestart
+// [ADD] SPC Conv summary - refresh onrestart
+// [ADD] Hourly - refresh onrestart  
+// [FIX] Canada - some radars have changed code names
 // [ADD] when selecting a candian city as a location go back to the prior screen after tap
 // [ADD] make sure various save methods in locatio -> edit save automatically
 // [FIX] see if text products in global arrays is needed or if utilwpctext can be used like other ports
