@@ -38,6 +38,7 @@ import joshuatee.wx.GlobalArrays
 
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
+import joshuatee.wx.wpc.UtilityWpcText
 
 class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
@@ -77,7 +78,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         dialogueMain = ObjectDialogue(
                 this,
                 "Select text products:",
-                UtilityHomeScreen.localChoicesText + GlobalArrays.nwsTextProducts
+                UtilityHomeScreen.localChoicesText + UtilityWpcText.labels
         )
         dialogueMain.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             alertDialogClicked(
@@ -242,16 +243,16 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         Utility.writePref(this, prefToken, ridFav)
     }
 
-    private fun findPositionTEXT(key: String) = (GlobalArrays.nwsTextProducts.indices)
+    private fun findPositionTEXT(key: String) = (UtilityWpcText.labels.indices)
             .firstOrNull {
-                GlobalArrays.nwsTextProducts[it].startsWith(
+                UtilityWpcText.labels[it].startsWith(
                         key.toLowerCase(Locale.US).replace(
                                 "txt-",
                                 ""
                         )
                 )
             }
-            ?.let { GlobalArrays.nwsTextProducts[it] }
+            ?.let { UtilityWpcText.labels[it] }
             ?: ""
 
     private fun findPositionIMG(key: String) = (GlobalArrays.nwsImageProducts.indices)

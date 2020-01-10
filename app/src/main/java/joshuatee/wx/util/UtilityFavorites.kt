@@ -27,6 +27,7 @@ import android.view.MenuItem
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.GlobalArrays
+import joshuatee.wx.wpc.UtilityWpcText
 
 object UtilityFavorites {
 
@@ -209,14 +210,14 @@ object UtilityFavorites {
             if (it == 1 || it == 2)
                 ridArrLoc[it] = ridArr[it]
             else
-                ridArrLoc[it] = GlobalArrays.nwsTextProducts[findPositionNwsText(ridArr[it])]
+                ridArrLoc[it] = UtilityWpcText.labels[findPositionNwsText(ridArr[it])]
         }
         return ridArrLoc.toList()
     }
 
     fun findPositionNwsText(key: String): Int =
-        GlobalArrays.nwsTextProducts.indices.firstOrNull {
-            GlobalArrays.nwsTextProducts[it].contains(
+            UtilityWpcText.labels.indices.firstOrNull {
+                UtilityWpcText.labels[it].contains(
                 key
             )
         }

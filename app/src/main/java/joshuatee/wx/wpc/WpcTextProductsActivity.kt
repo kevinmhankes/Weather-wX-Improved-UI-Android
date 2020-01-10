@@ -42,7 +42,6 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.ui.ObjectSpinner
 
-import joshuatee.wx.GlobalArrays
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectNavDrawerCombo
 import joshuatee.wx.util.*
@@ -198,8 +197,8 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
     private fun findPosition(key: String) =
-            (GlobalArrays.nwsTextProducts.indices).firstOrNull {
-                GlobalArrays.nwsTextProducts[it].contains(
+            (UtilityWpcText.labels.indices).firstOrNull {
+                UtilityWpcText.labels[it].contains(
                         key
                 )
             }
@@ -209,7 +208,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
         if (ridFavOld != MyApplication.nwsTextFav) {
             products = UtilityFavorites.setupFavMenuNwsText(
                     MyApplication.nwsTextFav,
-                    GlobalArrays.nwsTextProducts[findPosition(prod)]
+                    UtilityWpcText.labels[findPosition(prod)]
             )
             sp.refreshData(this, products)
         }
@@ -226,7 +225,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
         prod = drw.getUrl()
         products = UtilityFavorites.setupFavMenuNwsText(
                 MyApplication.nwsTextFav,
-                GlobalArrays.nwsTextProducts[findPosition(prod)]
+                UtilityWpcText.labels[findPosition(prod)]
         )
         sp.refreshData(this, products)
     }

@@ -48,6 +48,8 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.BottomSheetFragment
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
+import joshuatee.wx.wpc.UtilityWpcText
+import java.util.*
 
 class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
@@ -79,20 +81,20 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         diaAfd.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = diaAfd.getItem(which)
             ridFav = ridFav + ":" + "AFD" +
-                    strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase()
+                    strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)
             Utility.writePref(this, prefToken, ridFav)
             MyApplication.playlistStr = ridFav
-            ridArr.add(getLongString("AFD" + strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase()))
+            ridArr.add(getLongString("AFD" + strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)))
             ca.notifyDataSetChanged()
             dialog.dismiss()
         })
-        diaMain = ObjectDialogue(this, "Select text products:", GlobalArrays.nwsTextProducts)
+        diaMain = ObjectDialogue(this, "Select text products:", UtilityWpcText.labels)
         diaMain.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = diaMain.getItem(which)
             ridFav = ridFav + ":" +
-                    strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase()
+                    strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)
             Utility.writePref(this, prefToken, ridFav)
-            ridArr.add(getLongString(strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase()))
+            ridArr.add(getLongString(strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)))
             ca.notifyDataSetChanged()
             MyApplication.playlistStr = ridFav
             dialog.dismiss()

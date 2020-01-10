@@ -482,6 +482,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 }
             }
 
+            // TODO move to common code
             if (MyApplication.radarShowWpcFronts && !archiveMode) {
                 withContext(Dispatchers.IO) {
                     UtilityWpcFronts.get()
@@ -491,6 +492,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 }
                 UtilityWXGLTextObject.updateWpcFronts(numPanes, wxgltextArr)
             }
+            // END TODO move to common code
+
             UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivity)
             isGetContentInProgress = false
         } // end check is get content in progress

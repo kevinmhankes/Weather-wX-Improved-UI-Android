@@ -494,6 +494,13 @@ internal object UtilityRadarUI {
             } else {
                 wxglRender.deconstructSwoLines()
             }
+            /*if (MyApplication.radarShowWpcFronts && !archiveMode) {
+                    UtilityWpcFronts.get()
+                if (!wxglRender.product.startsWith("2")) {
+                    UtilityRadarUI.plotWpcFronts(glview, wxglRender, archiveMode)
+                }
+                UtilityWXGLTextObject.updateWpcFronts(numPanes, wxgltextArr)
+            }*/
         }
     }
 

@@ -33,6 +33,7 @@ import joshuatee.wx.GlobalArrays
 import joshuatee.wx.spc.UtilitySpcMeso
 import joshuatee.wx.ui.ObjectRecyclerView
 import joshuatee.wx.util.Utility
+import joshuatee.wx.wpc.UtilityWpcText
 
 class FavRemoveActivity : BaseActivity() {
 
@@ -195,7 +196,7 @@ class FavRemoveActivity : BaseActivity() {
             "RID" -> tmpLoc = shortCode + ": " +
                     Utility.readPref(this, prefTokenLocation + shortCode, "")
             "NWSTEXT" -> tmpLoc =
-                    GlobalArrays.nwsTextProducts[UtilityFavorites.findPositionNwsText(shortCode)]
+                    UtilityWpcText.labels[UtilityFavorites.findPositionNwsText(shortCode)]
             "SREF" -> tmpLoc = shortCode
             "RIDCA" -> tmpLoc = findCanadaRadarSiteLabel(shortCode)
             "SPCMESO" -> tmpLoc = findSpcMesoLabel(shortCode)

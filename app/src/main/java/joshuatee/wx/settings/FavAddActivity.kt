@@ -34,6 +34,7 @@ import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.spc.UtilitySpcMeso
 import joshuatee.wx.ui.ObjectRecyclerView
 import joshuatee.wx.util.Utility
+import joshuatee.wx.wpc.UtilityWpcText
 
 class FavAddActivity : BaseActivity() {
 
@@ -84,7 +85,7 @@ class FavAddActivity : BaseActivity() {
             }
             "NWSTEXT" -> {
                 prefToken = "NWS_TEXT_FAV"
-                data = GlobalArrays.nwsTextProducts
+                data = UtilityWpcText.labels
             }
             "SREF" -> {
                 prefToken = "SREF_FAV"
