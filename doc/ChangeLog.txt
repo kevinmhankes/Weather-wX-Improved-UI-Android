@@ -42,7 +42,8 @@
 // [FIX] see if text products in global arrays is needed or if utilwpctext can be used like other ports
 // [FIX] remove qpfpfd from text products in global arrays
 
-55300 2020_01_07    [ADD] wpc mpd can tap on image to show imageviewer
+55301 2020_01_09
+55300 2020_01_09    [ADD] wpc mpd can tap on image to show imageviewer
                     [ADD] more help data for new WPC Fronts option
                     [ADD] onrestart in numerous activities
                     [ADD] when selecting a canadian city go back to edit screen and immediatelty save
