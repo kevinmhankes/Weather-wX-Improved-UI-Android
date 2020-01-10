@@ -80,6 +80,11 @@ class ForecastActivity : BaseActivity() {
         getContent()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         var bitmapForCurrentCondition: Bitmap? = null
         val bitmaps = mutableListOf<Bitmap>()

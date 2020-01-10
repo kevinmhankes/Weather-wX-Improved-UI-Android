@@ -57,6 +57,11 @@ class CanadaAlertsActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         getContent()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         sv.smoothScrollTo(0, 0)
         withContext(Dispatchers.IO) { objectCAWarn.getData() }

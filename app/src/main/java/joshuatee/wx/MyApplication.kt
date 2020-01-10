@@ -160,6 +160,7 @@ class MyApplication : Application() {
         const val canadaEcSitePrefix = "https://weather.gc.ca"
         const val prefSeparator: String = " : : :"
         const val sep = "ABC123"
+        const val pre2Pattern = "<pre>(.*?)</pre>"
         var uiAnimIconFrames: String = "rid"
         const val WIDGET_FILE_BAK: String = "BAK"
         val HM_CLASS: MutableMap<String, Class<*>> = mutableMapOf()

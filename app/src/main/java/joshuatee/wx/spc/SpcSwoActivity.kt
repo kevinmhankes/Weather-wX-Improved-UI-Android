@@ -130,6 +130,11 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         getContent()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         var textUrl = "SWODY$day"
         var urls: List<String> = listOf("")

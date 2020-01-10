@@ -55,7 +55,13 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
         getContent()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        ll.removeAllViews()
         bitmaps = withContext(Dispatchers.IO) { UtilitySpc.thunderStormOutlookImages }
         bitmaps.forEach { ObjectCardImage(this@SpcThunderStormOutlookActivity, ll, it) }
     }

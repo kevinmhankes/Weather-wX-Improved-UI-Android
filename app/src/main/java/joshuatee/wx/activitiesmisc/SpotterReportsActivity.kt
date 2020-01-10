@@ -36,6 +36,8 @@ import joshuatee.wx.util.UtilityTime
 
 class SpotterReportsActivity : BaseActivity() {
 
+    // TODO onrestart
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(

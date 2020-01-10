@@ -42,7 +42,7 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 class SpcFireOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private val bitmaps = mutableListOf<Bitmap>()
+    private var bitmaps = mutableListOf<Bitmap>()
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +58,13 @@ class SpcFireOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         getContent()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        bitmaps = mutableListOf()
         withContext(Dispatchers.IO) { UtilitySpcFireOutlook.imageUrls.mapTo(bitmaps) { it.getImage() } }
         bitmaps.forEach { bitmap ->
             val card = ObjectCardImage(this@SpcFireOutlookActivity, ll, bitmap)

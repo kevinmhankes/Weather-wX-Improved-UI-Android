@@ -54,7 +54,7 @@ import kotlinx.android.synthetic.main.activity_linear_layout.*
 class SevereDashboardActivity : BaseActivity() {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private val bitmaps = mutableListOf<Bitmap>()
+    private var bitmaps = mutableListOf<Bitmap>()
     private var watchCount = 0
     private var mcdCount = 0
     private var mpdCount = 0
@@ -73,12 +73,17 @@ class SevereDashboardActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
-        totalImages = 0
         getContent()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        val bitmaps = mutableListOf<Bitmap>()
+        bitmaps = mutableListOf()
+        linearLayoutHorizontalList = mutableListOf()
         val snWat = SevereNotice(PolygonType.WATCH)
         val snMcd = SevereNotice(PolygonType.MCD)
         val snMpd = SevereNotice(PolygonType.MPD)

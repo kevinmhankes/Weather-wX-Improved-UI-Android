@@ -24,9 +24,17 @@ package joshuatee.wx.util
 import java.util.regex.Pattern
 
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp
 
 object UtilityString {
+
+    fun extractPre(html: String): String {
+        val separator = "ABC123E"
+        val htmlOneLine = html.replace(MyApplication.newline, separator)
+        val parsedText = htmlOneLine.parse(MyApplication.pre2Pattern)
+        return parsedText.replace(separator, MyApplication.newline)
+    }
 
     internal fun capitalizeString(string: String): String {
         val chars = string.toLowerCase().toCharArray()

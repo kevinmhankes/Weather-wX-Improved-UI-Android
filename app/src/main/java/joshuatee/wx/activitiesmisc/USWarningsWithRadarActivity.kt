@@ -159,6 +159,11 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
         UtilityUI.makeSnackBar(linearLayout, toastStr)
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         withContext(Dispatchers.IO) {
             bitmap = "https://forecast.weather.gov/wwamap/png/US.png".getImage()

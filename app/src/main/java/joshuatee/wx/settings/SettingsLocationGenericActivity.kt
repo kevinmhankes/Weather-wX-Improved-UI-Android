@@ -279,6 +279,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
             locYEt.setText(caId)
             locLabelEt.setText("$caCity, $caProv")
             notificationsCanada(true)
+            fabSaveLocation()
         }
         afterDelete()
         super.onRestart()

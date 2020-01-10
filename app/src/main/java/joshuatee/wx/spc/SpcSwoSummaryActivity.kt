@@ -44,7 +44,7 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private val bitmaps = mutableListOf<Bitmap>()
+    private var bitmaps = mutableListOf<Bitmap>()
     private lateinit var linearLayoutHorizontalList: List<ObjectLinearLayout>
 
     @SuppressLint("MissingSuperCall")
@@ -72,7 +72,13 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         getContent()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        bitmaps = mutableListOf()
         withContext(Dispatchers.IO) {
             arrayOf("1", "2", "3", "4-8").forEach {
                 bitmaps.addAll(UtilitySpcSwo.getImages(it, false))

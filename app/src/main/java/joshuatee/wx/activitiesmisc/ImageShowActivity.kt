@@ -97,6 +97,11 @@ class ImageShowActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         //img.resetZoom()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         UtilityLog.d("wx", url)
         bitmap = withContext(Dispatchers.IO) { url.getImage() }

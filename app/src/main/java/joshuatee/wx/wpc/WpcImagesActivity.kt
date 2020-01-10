@@ -111,6 +111,11 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
         getContent()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         val getUrl: String
         if (!calledFromHomeScreen) {

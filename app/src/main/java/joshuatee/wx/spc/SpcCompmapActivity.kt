@@ -99,6 +99,11 @@ class SpcCompmapActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         }
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmap = withContext(Dispatchers.IO) { UtilitySpcCompmap.getImage(this@SpcCompmapActivity, layerStr) }
         img.setBitmap(bitmap)

@@ -61,6 +61,11 @@ class CanadaTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
         getContent()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         title = description
         sv.smoothScrollTo(0, 0)

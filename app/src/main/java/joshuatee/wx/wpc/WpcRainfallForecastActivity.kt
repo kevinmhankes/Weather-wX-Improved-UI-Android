@@ -35,13 +35,15 @@ import joshuatee.wx.activitiesmisc.TextScreenActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCardImage
+import joshuatee.wx.util.UtilityDownload
+import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityShare
 import kotlinx.coroutines.*
 
 class WpcRainfallForecastActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private val bitmaps = mutableListOf<Bitmap>()
+    private var bitmaps = mutableListOf<Bitmap>()
     private lateinit var linearLayout: LinearLayout
 
     @SuppressLint("MissingSuperCall")
@@ -58,17 +60,27 @@ class WpcRainfallForecastActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
         getContent()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
+    // TODO show text product not points
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        bitmaps = mutableListOf()
         withContext(Dispatchers.IO) {
             UtilityWpcRainfallForecast.imageUrls.forEach { bitmaps.add(it.getImage()) }
         }
-        bitmaps.forEach { bitmap ->
-            val card = ObjectCardImage(this@WpcRainfallForecastActivity, linearLayout, bitmap)
-            val prodTextUrlLocal = UtilityWpcRainfallForecast.textUrls[bitmaps.indexOf(bitmap)]
-            val prodTitleLocal =
-                    UtilityWpcRainfallForecast.productLabels[bitmaps.indexOf(bitmap)] + " - " + getString(
-                            UtilityWpcRainfallForecast.activityTitle
-                    )
+        bitmaps.indices.forEach {
+            val card = ObjectCardImage(this@WpcRainfallForecastActivity, linearLayout, bitmaps[it])
+            val prodTitleLocal = UtilityWpcRainfallForecast.productLabels[it] + " - " + getString(UtilityWpcRainfallForecast.activityTitle)
+            var prodTextUrlLocal = ""
+            withContext(Dispatchers.IO) {
+                prodTextUrlLocal = UtilityDownload.getTextProduct(this@WpcRainfallForecastActivity,
+                        UtilityWpcRainfallForecast.productCode[it]
+                )
+            }
             card.setOnClickListener(View.OnClickListener {
                 ObjectIntent(
                         this@WpcRainfallForecastActivity,

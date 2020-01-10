@@ -50,6 +50,8 @@ class USWarningsImpactActivity : BaseActivity() {
         getContent()
     }
 
+    // TODO onrestart
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         warningsList = withContext(Dispatchers.IO) { UtilityWarningsImpact.data }
         warningsListSorted = warningsList.sortedWith(compareByDescending { it.title })

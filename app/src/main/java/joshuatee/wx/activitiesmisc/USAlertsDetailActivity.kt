@@ -62,6 +62,11 @@ class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
         getContent()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         capAlert = withContext(Dispatchers.IO) { CapAlert.createFromUrl(activityArguments[0]) }
         objectAlertDetail.updateContent(capAlert, activityArguments[0])

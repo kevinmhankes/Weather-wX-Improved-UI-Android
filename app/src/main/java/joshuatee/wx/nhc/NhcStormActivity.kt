@@ -111,6 +111,8 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         getContent()
     }
 
+    // TODO onrestart
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmaps.clear()
         withContext(Dispatchers.IO) { topBitmap = (baseUrl + "_5day_cone_with_line_and_wind_sm2.png").getImage() }

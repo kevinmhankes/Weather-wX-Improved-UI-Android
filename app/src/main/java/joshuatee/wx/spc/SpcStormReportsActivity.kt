@@ -136,6 +136,11 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         getContent()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         scrollView.smoothScrollTo(0, 0)
         withContext(Dispatchers.IO) {

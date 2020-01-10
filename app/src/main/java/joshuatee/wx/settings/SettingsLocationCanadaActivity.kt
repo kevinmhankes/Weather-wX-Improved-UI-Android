@@ -93,6 +93,7 @@ class SettingsLocationCanadaActivity : BaseActivity() {
                 Utility.readPref(this, "LOCATION_CANADA_CITY", "") + " " +
                 Utility.readPref(this, "LOCATION_CANADA_ID", "")
         toolbar.subtitle = "Selected: $locStr"
+        finish()
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {

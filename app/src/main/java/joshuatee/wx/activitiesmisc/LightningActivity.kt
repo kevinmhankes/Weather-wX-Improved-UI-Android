@@ -77,6 +77,11 @@ class LightningActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
         getContent()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         title = "Lightning " + objectNavDrawer.getLabel()
         toolbar.subtitle = periodPretty

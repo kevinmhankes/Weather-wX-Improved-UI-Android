@@ -340,6 +340,19 @@ object UtilityDownload {
         } else if (prod == "HOURLY") {
             val textArr = UtilityUSHourly.getString(Location.currentLocation)
             text = textArr[0]
+        } else if (prod == "QPF94E") {
+            val textUrl = "https://www.wpc.ncep.noaa.gov/qpf/ero.php?opt=curr&day=" + "1"
+            val html = textUrl.getHtmlSep()
+            text = UtilityString.extractPre(html).removeSingleLineBreaks()
+            //text = html
+        } else if (prod == "QPF98E") {
+            val textUrl = "https://www.wpc.ncep.noaa.gov/qpf/ero.php?opt=curr&day=" + "2"
+            val html = textUrl.getHtmlSep()
+            text = UtilityString.extractPre(html).removeSingleLineBreaks()
+        } else if (prod == "QPF99E") {
+            val textUrl = "https://www.wpc.ncep.noaa.gov/qpf/ero.php?opt=curr&day=" + "3"
+            val html = textUrl.getHtmlSep()
+            text = UtilityString.extractPre(html).removeSingleLineBreaks()
         } else if (prod == "SWPC3DAY") {
             text = (MyApplication.nwsSwpcWebSitePrefix + "/text/3-day-forecast.txt").getHtmlSep()
         } else if (prod == "SWPC27DAY") {

@@ -60,6 +60,8 @@ class SpottersActivity : BaseActivity() {
     private var firstTime = true
     private val titleString = "Spotters active"
 
+    // TODO onrestart
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.spotters, menu)
         val menuItem = menu.findItem(R.id.action_search)

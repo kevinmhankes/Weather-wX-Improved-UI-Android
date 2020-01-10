@@ -53,6 +53,11 @@ class CanadaHourlyActivity : BaseActivity() {
         getContent()
     }
 
+    override fun onRestart() {
+        getContent()
+        super.onRestart()
+    }
+
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         c0.setText(withContext(Dispatchers.IO) { UtilityCanadaHourly.getString(locNumInt) })
     }

@@ -34,6 +34,9 @@
 
 55300 2020_01_07    [ADD] wpc mpd can tap on image to show imageviewer
                     [ADD] more help data for new WPC Fronts option
+                    [ADD] onrestart in numerous activities
+                    [ADD] when selecting a canadian city go back to edit screen and immediatelty save
+                    [ADD] WPC Rainfall disc enhance
 55299 2020_01_07    [FIX] wpc fronts - trof is now dashed line
 55298 2020_01_06    [ADD] in settings homescreen and playlist close dialog after tapping on item
                     [FIX] WPC Fronts - cold front make 0,127,255 not 0,0,255
