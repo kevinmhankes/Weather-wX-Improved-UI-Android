@@ -36,6 +36,7 @@
 // [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
 // [ADD] make sure various save methods in locatio -> edit save automatically
 
+55302 2020_01_10
 55301 2020_01_10    [FIX] remove from global arrays: "qpfpfd: QPF Discussion" (no longer an active text product)
                     [REF] replace GlobalArrays.nwsTextProducts with UtilityWpcText.labels
 55300 2020_01_09    [ADD] wpc mpd can tap on image to show imageviewer
