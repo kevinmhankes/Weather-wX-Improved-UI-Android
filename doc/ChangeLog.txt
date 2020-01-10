@@ -33,6 +33,7 @@
 // [ADD] wpc day 1-3 image + text
 // [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
 
+55303 2020_01_10
 55302 2020_01_10    [ADD] reset download timers for warnings/wat/mcd/mpd etc if changes made in settings -> radar
 55301 2020_01_10    [FIX] remove from global arrays: "qpfpfd: QPF Discussion" (no longer an active text product)
                     [REF] replace GlobalArrays.nwsTextProducts with UtilityWpcText.labels
