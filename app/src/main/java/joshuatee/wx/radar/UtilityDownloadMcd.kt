@@ -28,27 +28,24 @@ import joshuatee.wx.RegExp
 import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.notifications.UtilityNotificationSpc
 import joshuatee.wx.objects.PolygonType
-import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityDownload
-import joshuatee.wx.util.UtilityLog
-import joshuatee.wx.util.UtilityString
+import joshuatee.wx.util.*
 
 internal object UtilityDownloadMcd {
 
     private var initialized = false
-    private var lastRefresh = 0.toLong()
+    var lastRefresh = 0.toLong()
     const val type = "MCD"
 
     fun get(context: Context) {
         val refreshInterval = maxOf(Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3), 6)
-        val currentTime1 = System.currentTimeMillis()
+        val currentTime1 = UtilityTime.currentTimeMillis()
         val currentTimeSec = currentTime1 / 1000
         val refreshIntervalSec = (refreshInterval * 60).toLong()
         //UtilityLog.d("wx", "RADAR DOWNLOAD CHECK: $type")
         if (currentTimeSec > lastRefresh + refreshIntervalSec || !initialized) {
             // download data
             initialized = true
-            val currentTime = System.currentTimeMillis()
+            val currentTime = UtilityTime.currentTimeMillis()
             lastRefresh = currentTime / 1000
             UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED:$type")
             getMcd(context)

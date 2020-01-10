@@ -39,7 +39,11 @@ import joshuatee.wx.notifications.UtilityNotificationTextProduct
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectPolygonWarning
 import joshuatee.wx.objects.PolygonWarningType
-import joshuatee.wx.radar.WXGLNexrad
+import joshuatee.wx.radar.*
+import joshuatee.wx.radar.UtilityDownloadMcd
+import joshuatee.wx.radar.UtilityDownloadMpd
+import joshuatee.wx.radar.UtilityDownloadWarnings
+import joshuatee.wx.radar.UtilityDownloadWatch
 import joshuatee.wx.radarcolorpalettes.ObjectColorPalette
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityHomeScreen
@@ -798,6 +802,14 @@ class MyApplication : Application() {
             radarStiLineSize = getInitialPreference("RADAR_STI_LINESIZE", 3)
             radarSwoLineSize = getInitialPreference("RADAR_SWO_LINESIZE", 3)
             radarWbLineSize = getInitialPreference("RADAR_WB_LINESIZE", 3)
+            resetTimerOnRadarPolygons()
+        }
+
+        private fun resetTimerOnRadarPolygons() {
+            UtilityDownloadMcd.lastRefresh = 0.toLong()
+            UtilityDownloadMpd.lastRefresh = 0.toLong()
+            UtilityDownloadWarnings.lastRefresh = 0.toLong()
+            UtilityDownloadWatch.lastRefresh = 0.toLong()
         }
 
         private fun getInitialPreference(pref: String, initValue: Int): Int {

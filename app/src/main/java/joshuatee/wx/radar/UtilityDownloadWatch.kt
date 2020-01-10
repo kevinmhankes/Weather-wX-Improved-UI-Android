@@ -35,7 +35,7 @@ import joshuatee.wx.util.UtilityString
 internal object UtilityDownloadWatch {
 
     private var initialized = false
-    private var lastRefresh = 0.toLong()
+    var lastRefresh = 0.toLong()
     const val type = "WATCH"
 
     fun get(context: Context) {

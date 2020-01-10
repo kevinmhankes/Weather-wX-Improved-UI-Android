@@ -28,6 +28,7 @@ import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityString
 
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.util.UtilityTime
 
 internal object UtilitySwoD1 {
 
@@ -39,7 +40,7 @@ internal object UtilitySwoD1 {
     val HASH_SWO = mutableMapOf<Int, List<Double>>()
 
     fun get() {
-        val currentTime1 = System.currentTimeMillis()
+        val currentTime1 = UtilityTime.currentTimeMillis()
         val currentTimeSec = currentTime1 / 1000
         val refreshIntervalSec = (REFRESH_LOC_MIN * 60).toLong()
         if (currentTimeSec > lastRefresh + refreshIntervalSec || !initialized) {
@@ -131,7 +132,7 @@ internal object UtilitySwoD1 {
                 }
             }
             initialized = true
-            val currentTime = System.currentTimeMillis()
+            val currentTime = UtilityTime.currentTimeMillis()
             lastRefresh = currentTime / 1000
         }
     }

@@ -34,6 +34,7 @@ import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
 import joshuatee.wx.objects.DistanceUnit
+import joshuatee.wx.util.UtilityTime
 
 internal object UtilityMetar {
 
@@ -54,7 +55,7 @@ internal object UtilityMetar {
     private val OBS_LATLON = mutableMapOf<String, Array<String>>()
 
     fun getStateMetarArrayForWXOGL(context: Context, rid: String) {
-        val currentTime1 = System.currentTimeMillis()
+        val currentTime1 = UtilityTime.currentTimeMillis()
         val currentTimeSec = currentTime1 / 1000
         val refreshIntervalSec = (REFRESH_LOC_MIN * 60).toLong()
         if (currentTimeSec > lastRefresh + refreshIntervalSec || !initialized || rid != obsStateOld) {
@@ -240,7 +241,7 @@ internal object UtilityMetar {
             obsArrWbGust = obsAlWbGust.toList()
             obsArrAviationColor = obsAlAviationColor.toList()
             initialized = true
-            val currentTime = System.currentTimeMillis()
+            val currentTime = UtilityTime.currentTimeMillis()
             lastRefresh = currentTime / 1000
         }
     }

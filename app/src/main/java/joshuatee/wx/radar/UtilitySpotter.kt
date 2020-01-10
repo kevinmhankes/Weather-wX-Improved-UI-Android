@@ -22,6 +22,7 @@
 package joshuatee.wx.radar
 
 import joshuatee.wx.Extensions.getHtmlSep
+import joshuatee.wx.util.UtilityTime
 
 //import java.util.Collections
 //import java.util.Comparator
@@ -50,7 +51,7 @@ object UtilitySpotter {
     // http://stackoverflow.com/questions/6720236/sorting-an-arraylist-of-objects-by-last-name-and-firstname-in-java
     val data: MutableList<Spotter>
         get() {
-            var currentTime = System.currentTimeMillis()
+            var currentTime = UtilityTime.currentTimeMillis()
             val currentTimeSec = currentTime / 1000
             val refreshIntervalSec = (REFRESH_LOC_MIN * 60).toLong()
             if (currentTimeSec > lastRefresh + refreshIntervalSec || !initialized) {
@@ -97,7 +98,7 @@ object UtilitySpotter {
                     y[0] = 0.0
                 }
                 initialized = true
-                currentTime = System.currentTimeMillis()
+                currentTime = UtilityTime.currentTimeMillis()
                 lastRefresh = currentTime / 1000
             }
             return spotterList
