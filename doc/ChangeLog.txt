@@ -16,14 +16,12 @@
 // TODO [ADD] - TDWR DS.p41et range 124, colors 16, 2.2 x 2.2 nmi raster
 // TODO [ADD] - option on homescreen to show comp instead of base ref
 // TODO [ADD] - VCP32 vs VCP35 colormap for comp ref
-// TODO [ADD] severe dash like flutter
-// TODO [ADD] red text before load and warning count in nexrad like flutter
+// TODO [ADD] warning count in nexrad like flutter
 // TODO [FIX] base velocity legend
 // TODO [FIX] fix issue for precipitation radar products when there is no data
 // TODO [FIX] in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
 // TODO [FIX] many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
 // TODO [ADD] radar file class from flutter
-// TODO [ADD] evaluate what needs to refresh onrestart like flutter version
 // TODO [FIX] if change between radar mosaic provides, change on misc tab is not immediate
 // TODO [FIX] minimize app restarts such as after homescreen changes (test nexrad addition/removal)
 // TODO [REF] convert from System.currentTimeMillis() to UtilityTime.currentTimeMillis()
