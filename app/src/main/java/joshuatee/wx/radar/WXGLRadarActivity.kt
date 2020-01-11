@@ -481,19 +481,15 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     UtilityRadarUI.plotMpdPolygons(glview, oglr, archiveMode)
                 }
             }
-
-            // TODO move to common code
             if (MyApplication.radarShowWpcFronts && !archiveMode) {
                 withContext(Dispatchers.IO) {
-                    UtilityWpcFronts.get()
+                    UtilityWpcFronts.get(this@WXGLRadarActivity)
                 }
                 if (!oglr.product.startsWith("2")) {
                     UtilityRadarUI.plotWpcFronts(glview, oglr, archiveMode)
                 }
                 UtilityWXGLTextObject.updateWpcFronts(numPanes, wxgltextArr)
             }
-            // END TODO move to common code
-
             UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivity)
             isGetContentInProgress = false
         } // end check is get content in progress

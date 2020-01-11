@@ -21,12 +21,14 @@
 
 package joshuatee.wx.radar
 
+import android.content.Context
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Utility
 import kotlin.math.*
 import joshuatee.wx.util.UtilityMath
-import joshuatee.wx.util.UtilityTime
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.objects.DownloadTimer
+import joshuatee.wx.util.UtilityLog
 
 // Data file - https://www.wpc.ncep.noaa.gov/basicwx/coded_srp.txt
 // Decoder - https://www.wpc.ncep.noaa.gov/basicwx/read_coded_fcst_bull.shtml
@@ -70,12 +72,13 @@ import joshuatee.wx.Extensions.*
  */
 
 object UtilityWpcFronts {
-    var initialized = false
-    private var lastRefresh = 0.toLong()
+    //var initialized = false
+    //private var lastRefresh = 0.toLong()
     //var refreshLocMin = MyApplication.radarDataRefreshInterval * 2
-    private const val refreshLocMin = 5
+    //private const val refreshLocMin = 5
     var pressureCenters = mutableListOf<PressureCenter>()
     var fronts = mutableListOf<Fronts>()
+    private var timer = DownloadTimer("WPC FRONTS")
 
     private fun addColdFrontTriangles(front: Fronts, tokens: List<String>) {
         val length = 0.4
@@ -211,12 +214,13 @@ object UtilityWpcFronts {
         }
     }
 
-    fun get() {
-        val currentTime1 = UtilityTime.currentTimeMillis()
-        val currentTimeSec = currentTime1 / 1000
-        val refreshIntervalSec = refreshLocMin * 60
-        val fetchData = (currentTimeSec > (lastRefresh + refreshIntervalSec)) || !initialized
-        if (fetchData) {
+    fun get(context: Context) {
+        //val currentTime1 = UtilityTime.currentTimeMillis()
+        //val currentTimeSec = currentTime1 / 1000
+        //val refreshIntervalSec = refreshLocMin * 60
+        //val fetchData = (currentTimeSec > (lastRefresh + refreshIntervalSec)) || !initialized
+        if (timer.isRefreshNeeded(context)) {
+            UtilityLog.d("wx", "DOWNLOAD WPC DATA")
             pressureCenters = mutableListOf()
             fronts = mutableListOf()
             val urlBlob = MyApplication.nwsWPCwebsitePrefix + "/basicwx/coded_srp.txt"
@@ -301,9 +305,9 @@ object UtilityWpcFronts {
                         }
                     }
                 }
-                initialized = true
-                val currentTime = UtilityTime.currentTimeMillis()
-                lastRefresh = currentTime / 1000
+                //initialized = true
+                //val currentTime = UtilityTime.currentTimeMillis()
+                //lastRefresh = currentTime / 1000
             }
         }
     }

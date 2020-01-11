@@ -806,10 +806,10 @@ class MyApplication : Application() {
         }
 
         private fun resetTimerOnRadarPolygons() {
-            UtilityDownloadMcd.lastRefresh = 0.toLong()
-            UtilityDownloadMpd.lastRefresh = 0.toLong()
-            UtilityDownloadWarnings.lastRefresh = 0.toLong()
-            UtilityDownloadWatch.lastRefresh = 0.toLong()
+            UtilityDownloadMcd.timer.resetTimer()
+            UtilityDownloadMpd.timer.resetTimer()
+            UtilityDownloadWarnings.timer.resetTimer()
+            UtilityDownloadWatch.timer.resetTimer()
         }
 
         private fun getInitialPreference(pref: String, initValue: Int): Int {

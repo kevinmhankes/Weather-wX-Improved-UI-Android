@@ -459,6 +459,44 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 )
             }
         }
+        // recent adds Jan 2020
+        withContext(Dispatchers.IO) {
+            UtilityDownloadWarnings.get(activityReference)
+        }
+        if (!oglrArr[idx].product.startsWith("2")) {
+            UtilityRadarUI.plotWarningPolygons(glviewArr[idx], oglrArr[idx], false)
+        }
+
+        if (PolygonType.MCD.pref) {
+            withContext(Dispatchers.IO) {
+                UtilityDownloadMcd.get(activityReference)
+                UtilityDownloadWatch.get(activityReference)
+            }
+            if (!oglrArr[idx].product.startsWith("2")) {
+                UtilityRadarUI.plotMcdWatchPolygons(glviewArr[idx], oglrArr[idx], false)
+            }
+        }
+
+        if (PolygonType.MPD.pref) {
+            withContext(Dispatchers.IO) {
+                UtilityDownloadMpd.get(activityReference)
+            }
+            if (!oglrArr[idx].product.startsWith("2")) {
+                UtilityRadarUI.plotMpdPolygons(glviewArr[idx], oglrArr[idx], false)
+            }
+        }
+        if (MyApplication.radarShowWpcFronts) {
+            withContext(Dispatchers.IO) {
+                UtilityWpcFronts.get(activityReference)
+            }
+            if (!oglrArr[idx].product.startsWith("2")) {
+                UtilityRadarUI.plotWpcFronts(glviewArr[idx], oglrArr[idx], false)
+            }
+            UtilityWXGLTextObject.updateWpcFronts(numPanesArr.size, wxgltextArr)
+        }
+        // end recent addds Jan 2020
+
+
         // NOTE: below was backed out, data structures for these features only support one radar site
         // so locfrag and multi-pane don't current support. Would be nice to fix someday.
         // Showextras a few lines above was changed from false to true along with few lines added below

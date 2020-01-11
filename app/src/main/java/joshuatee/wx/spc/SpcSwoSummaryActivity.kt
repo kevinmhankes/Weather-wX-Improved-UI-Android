@@ -60,15 +60,6 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         UtilityShortcut.hidePinIfNeeded(menu)
         title = "SPC"
         toolbar.subtitle = "Convective Outlook Summary"
-        linearLayoutHorizontalList = listOf(
-                ObjectLinearLayout(this, ll),
-                ObjectLinearLayout(this, ll),
-                ObjectLinearLayout(this, ll),
-                ObjectLinearLayout(this, ll)
-        )
-        linearLayoutHorizontalList.forEach {
-            it.linearLayout.orientation = LinearLayout.HORIZONTAL
-        }
         getContent()
     }
 
@@ -78,6 +69,16 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        ll.removeAllViews()
+        linearLayoutHorizontalList = listOf(
+                ObjectLinearLayout(this@SpcSwoSummaryActivity, ll),
+                ObjectLinearLayout(this@SpcSwoSummaryActivity, ll),
+                ObjectLinearLayout(this@SpcSwoSummaryActivity, ll),
+                ObjectLinearLayout(this@SpcSwoSummaryActivity, ll)
+        )
+        linearLayoutHorizontalList.forEach {
+            it.linearLayout.orientation = LinearLayout.HORIZONTAL
+        }
         bitmaps = mutableListOf()
         withContext(Dispatchers.IO) {
             arrayOf("1", "2", "3", "4-8").forEach {

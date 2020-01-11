@@ -27,27 +27,17 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp
 import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.notifications.UtilityNotificationSpc
+import joshuatee.wx.objects.DownloadTimer
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.util.*
 
 internal object UtilityDownloadMcd {
 
-    private var initialized = false
-    var lastRefresh = 0.toLong()
     const val type = "MCD"
+    var timer = DownloadTimer(type)
 
     fun get(context: Context) {
-        val refreshInterval = maxOf(Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3), 6)
-        val currentTime1 = UtilityTime.currentTimeMillis()
-        val currentTimeSec = currentTime1 / 1000
-        val refreshIntervalSec = (refreshInterval * 60).toLong()
-        //UtilityLog.d("wx", "RADAR DOWNLOAD CHECK: $type")
-        if (currentTimeSec > lastRefresh + refreshIntervalSec || !initialized) {
-            // download data
-            initialized = true
-            val currentTime = UtilityTime.currentTimeMillis()
-            lastRefresh = currentTime / 1000
-            UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED:$type")
+        if (timer.isRefreshNeeded(context)) {
             getMcd(context)
         }
     }
@@ -75,7 +65,6 @@ internal object UtilityDownloadMcd {
 
     private fun getListOfNumbers(context: Context): List<String> {
         val list = UtilityString.parseColumn(MyApplication.severeDashboardMcd.value, RegExp.mcdPatternAlertr)
-        //UtilityLog.d("wx", "RADAR DOWNLOAD $type:$list")
         var mcdNoList = ""
         list.forEach {
             mcdNoList = "$mcdNoList$it:"

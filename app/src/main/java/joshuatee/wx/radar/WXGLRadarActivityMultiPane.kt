@@ -455,7 +455,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         super.onRestart()
     }
 
-    private fun getContent(glv: WXGLSurfaceView, ogl: WXGLRender, z: Int) =
+    private fun getContent(glview: WXGLSurfaceView, oglr: WXGLRender, z: Int) =
             GlobalScope.launch(uiDispatcher) {
                 if ((oglrArr[z].product == "N0Q" || oglrArr[z].product == "N1Q" || oglrArr[z].product == "N2Q" || oglrArr[z].product == "N3Q" || oglrArr[z].product == "L2REF") && WXGLNexrad.isRidTdwr(
                                 oglrArr[z].rid
@@ -473,8 +473,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 setToolbarTitle()
                 adjustTiltAndProductMenus()
                 UtilityRadarUI.initWxOglGeom(
-                        glv,
-                        ogl,
+                        glview,
+                        oglr,
                         z,
                         oldRidArr,
                         oglrArr,
@@ -487,7 +487,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 )
                 withContext(Dispatchers.IO) {
                     UtilityRadarUI.plotRadar(
-                            ogl,
+                            oglr,
                             "",
                             this@WXGLRadarActivityMultiPane,
                             ::getGpsFromDouble,
@@ -508,15 +508,15 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         numPanes,
                         wxgltextArr
                 )
-                glv.requestRender()
+                glview.requestRender()
                 setSubTitle()
                 animRan = false
 
                 withContext(Dispatchers.IO) {
                     UtilityDownloadWarnings.get(this@WXGLRadarActivityMultiPane)
                 }
-                if (!ogl.product.startsWith("2")) {
-                    UtilityRadarUI.plotWarningPolygons(glv, ogl, false)
+                if (!oglr.product.startsWith("2")) {
+                    UtilityRadarUI.plotWarningPolygons(glview, oglr, false)
                 }
 
                 if (PolygonType.MCD.pref) {
@@ -524,8 +524,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         UtilityDownloadMcd.get(this@WXGLRadarActivityMultiPane)
                         UtilityDownloadWatch.get(this@WXGLRadarActivityMultiPane)
                     }
-                    if (!ogl.product.startsWith("2")) {
-                        UtilityRadarUI.plotMcdWatchPolygons(glv, ogl, false)
+                    if (!oglr.product.startsWith("2")) {
+                        UtilityRadarUI.plotMcdWatchPolygons(glview, oglr, false)
                     }
                 }
 
@@ -533,11 +533,19 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     withContext(Dispatchers.IO) {
                         UtilityDownloadMpd.get(this@WXGLRadarActivityMultiPane)
                     }
-                    if (!ogl.product.startsWith("2")) {
-                        UtilityRadarUI.plotMpdPolygons(glv, ogl, false)
+                    if (!oglr.product.startsWith("2")) {
+                        UtilityRadarUI.plotMpdPolygons(glview, oglr, false)
                     }
                 }
-
+                if (MyApplication.radarShowWpcFronts) {
+                    withContext(Dispatchers.IO) {
+                        UtilityWpcFronts.get(this@WXGLRadarActivityMultiPane)
+                    }
+                    if (!oglr.product.startsWith("2")) {
+                        UtilityRadarUI.plotWpcFronts(glview, oglr, false)
+                    }
+                    UtilityWXGLTextObject.updateWpcFronts(numPanes, wxgltextArr)
+                }
                 UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivityMultiPane)
             }
 

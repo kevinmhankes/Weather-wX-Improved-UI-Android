@@ -23,33 +23,19 @@ package joshuatee.wx.radar
 
 import android.content.Context
 import joshuatee.wx.MyApplication
+import joshuatee.wx.objects.DownloadTimer
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.PolygonWarningType
-import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.util.UtilityLog
-import joshuatee.wx.util.UtilityTime
 
 internal object UtilityDownloadWarnings {
 
-    private var initialized = false
-    var lastRefresh = 0.toLong()
-
     const val type = "WARNINGS"
+    var timer = DownloadTimer(type)
 
     fun get(context: Context) {
-        val refreshInterval = Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3)
-        val currentTime1 = UtilityTime.currentTimeMillis()
-        val currentTimeSec = currentTime1 / 1000
-        val refreshIntervalSec = (refreshInterval * 60).toLong()
-
-        UtilityLog.d("wx", "RADAR DOWNLOAD CHECK: $type")
-
-        if (currentTimeSec > lastRefresh + refreshIntervalSec || !initialized) {
-            // download data
-            initialized = true
-            val currentTime = UtilityTime.currentTimeMillis()
-            lastRefresh = currentTime / 1000
+        if (timer.isRefreshNeeded(context)) {
             if (PolygonType.TST.pref) {
                 UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED: $type")
                 getPolygonVtec(context)
@@ -61,42 +47,16 @@ internal object UtilityDownloadWarnings {
     }
 
     fun getForSevereDashboard(context: Context) {
-        val refreshInterval = Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3)
-        val currentTime1 = UtilityTime.currentTimeMillis()
-        val currentTimeSec = currentTime1 / 1000
-        val refreshIntervalSec = (refreshInterval * 60).toLong()
-
-        UtilityLog.d("wx", "RADAR DOWNLOAD CHECK: $type")
-
-        if (currentTimeSec > lastRefresh + refreshIntervalSec || !initialized) {
-            // download data
-            initialized = true
-            val currentTime = UtilityTime.currentTimeMillis()
-            lastRefresh = currentTime / 1000
-            //if (PolygonType.TST.pref) {
+        if (timer.isRefreshNeeded(context)) {
             UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED: $type")
             getPolygonVtec(context)
-            //} else {
-                //UtilityDownloadRadar.clearPolygonVtec()
-            //    UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED BUT PREF IS OFF - NO DOWNLOAD: $type")
-            //}
         }
     }
 
     // The only difference from the get method above is the absence of any preference check
     // ie - if you call this you are going to download regardless
     fun getForNotification(context: Context) {
-        val refreshInterval = Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3)
-        val currentTime1 = UtilityTime.currentTimeMillis()
-        val currentTimeSec = currentTime1 / 1000
-        val refreshIntervalSec = (refreshInterval * 60).toLong()
-        UtilityLog.d("wx", "RADAR DOWNLOAD CHECK via NOTIFICATION: $type")
-        if (currentTimeSec > lastRefresh + refreshIntervalSec || !initialized) {
-            // download data
-            initialized = true
-            val currentTime = UtilityTime.currentTimeMillis()
-            lastRefresh = currentTime / 1000
-            UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED via NOTIFICATION: $type")
+        if (timer.isRefreshNeeded(context)) {
             getPolygonVtec(context)
         }
     }
