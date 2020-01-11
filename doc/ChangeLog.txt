@@ -1,38 +1,39 @@
-// TODO FEATURE - Level 2 BV colormap and wrapping (Alex)
-// TODO FEATURE - line size - swo, wb, wb gusts, sti
-// TODO FEATURE - make location update interval configurable
-// TODO FEATURE - add vtec end date check to tor notification
-// TODO FEATURE - color pal , allow cloning of a user created pal
+// TODO [ADD] - Level 2 BV colormap and wrapping (Alex)
+// TODO [ADD] - line size - swo, wb, wb gusts, sti
+// TODO [ADD] - make location update interval configurable
+// TODO [ADD] - add vtec end date check to tor notification
+// TODO [ADD] - color pal , allow cloning of a user created pal
 // TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
-// TODO FEATURE - add ability to add generic URLs to homescreen
-// TODO FEATure - in Tabs show labels in addition or instead of icons
-// TODO FEATURE - add more TDWR products including TVS/Meso (Lee)
-// TODO REFACTOR - OkHttp 3.13 Requires Android 5+ – Square Corner Blog – Medium  https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce
-// TODO REFACTOR - UtilityMetar in radar has optimization related to text file loading
-// TODO REFACTOR - move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
-// TODO FEATURE - TDWR: DHR - DS.32dhr (wsr-88d also) range 124, colors 256, .54 x 1 nmi x degree
-// TODO FEATURE - TDWR and NEXRAD: DSP DS.138dp Digital Storm Total Precipitation range 124, colors 256, 1.1 x 1 nmi x degree
-// TODO FEATURE - TDWR DS.57vil range 124, colors 16, 2.2 x 2.2 nmi raster
-// TODO FEATURE - TDWR DS.p41et range 124, colors 16, 2.2 x 2.2 nmi raster
-// TODO FEATURE - option on homescreen to show comp instead of base ref
-// TODO FEATURE - VCP32 vs VCP35 colormap for comp ref
+// TODO [ADD] - add ability to add generic URLs to homescreen
+// TODO [ADD] - in Tabs show labels in addition or instead of icons
+// TODO [ADD] - add more TDWR products including TVS/Meso (Lee)
+// TODO [REF] - OkHttp 3.13 Requires Android 5+ – Square Corner Blog – Medium  https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce
+// TODO [REF] - UtilityMetar in radar has optimization related to text file loading
+// TODO [REF] - move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
+// TODO [ADD] - TDWR: DHR - DS.32dhr (wsr-88d also) range 124, colors 256, .54 x 1 nmi x degree
+// TODO [ADD] - TDWR and NEXRAD: DSP DS.138dp Digital Storm Total Precipitation range 124, colors 256, 1.1 x 1 nmi x degree
+// TODO [ADD] - TDWR DS.57vil range 124, colors 16, 2.2 x 2.2 nmi raster
+// TODO [ADD] - TDWR DS.p41et range 124, colors 16, 2.2 x 2.2 nmi raster
+// TODO [ADD] - option on homescreen to show comp instead of base ref
+// TODO [ADD] - VCP32 vs VCP35 colormap for comp ref
 // TODO [ADD] severe dash like flutter
 // TODO [ADD] red text before load and warning count in nexrad like flutter
-// TODO BUG - base velocity legend
-// TODO BUG - fix issue for precipitation radar products when there is no data
-// TODO BUG - in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
-// TODO BUG - many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
+// TODO [FIX] base velocity legend
+// TODO [FIX] fix issue for precipitation radar products when there is no data
+// TODO [FIX] in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
+// TODO [FIX] many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
 // TODO [ADD] radar file class from flutter
 // TODO [ADD] evaluate what needs to refresh onrestart like flutter version
 // TODO [FIX] if change between radar mosaic provides, change on misc tab is not immediate
 // TODO [FIX] minimize app restarts such as after homescreen changes (test nexrad addition/removal)
 // TODO [REF] convert from System.currentTimeMillis() to UtilityTime.currentTimeMillis()
-// [ADD] hourly homescreen widget still needs work
-// [ADD] if change text size make change immediately
-// [ADD] wpc day 1-3 image + text
-// [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
-// [ADD] enhance radar obs to support multipane
+// TODO [ADD] hourly homescreen widget still needs work
+// TODO [ADD] if change text size make change immediately
+// TODO [ADD] wpc day 1-3 image + text
+// TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
+// TODO [ADD] enhance radar obs to support multipane
 
+55304 2020_01_11
 55303 2020_01_11    [FIX] onrestart for spc conv sum was not working
                     [ADD] WPC Fronts support in homescreen nexrad and multipane
                     [ADD] DownloadTimer ( to be used in UtilityDownload* mcd/wat/warn/swo/spotter etc )
