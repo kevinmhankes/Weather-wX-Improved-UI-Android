@@ -34,11 +34,10 @@ import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
 import joshuatee.wx.objects.DistanceUnit
-import joshuatee.wx.util.UtilityTime
+import joshuatee.wx.objects.DownloadTimer
 
 internal object UtilityMetar {
 
-    private var initialized = false
     private var initializedObsMap = false
     var obsArr = listOf<String>()
     var obsArrExt = listOf<String>()
@@ -50,15 +49,11 @@ internal object UtilityMetar {
     var obsArrWbGust = listOf<String>()
     var obsArrAviationColor = listOf<Int>()
     private var obsStateOld = ""
-    private var lastRefresh = 0.toLong()
-    private const val REFRESH_LOC_MIN = 5
     private val OBS_LATLON = mutableMapOf<String, Array<String>>()
+    var timer = DownloadTimer("METAR")
 
     fun getStateMetarArrayForWXOGL(context: Context, rid: String) {
-        val currentTime1 = UtilityTime.currentTimeMillis()
-        val currentTimeSec = currentTime1 / 1000
-        val refreshIntervalSec = (REFRESH_LOC_MIN * 60).toLong()
-        if (currentTimeSec > lastRefresh + refreshIntervalSec || !initialized || rid != obsStateOld) {
+        if (timer.isRefreshNeeded(context) || rid != obsStateOld) {
             val obsAl = mutableListOf<String>()
             val obsAlExt = mutableListOf<String>()
             val obsAlWb = mutableListOf<String>()
@@ -240,9 +235,6 @@ internal object UtilityMetar {
             obsAlY.indices.forEach { y[it] = obsAlY[it] }
             obsArrWbGust = obsAlWbGust.toList()
             obsArrAviationColor = obsAlAviationColor.toList()
-            initialized = true
-            val currentTime = UtilityTime.currentTimeMillis()
-            lastRefresh = currentTime / 1000
         }
     }
 

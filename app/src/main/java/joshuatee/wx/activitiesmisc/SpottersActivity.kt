@@ -30,9 +30,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-import java.util.Collections
-import java.util.Comparator
-
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
@@ -49,6 +46,7 @@ import joshuatee.wx.ui.ObjectRecyclerViewGeneric
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityMap
 import kotlinx.coroutines.*
+import java.util.*
 
 class SpottersActivity : BaseActivity() {
 
@@ -99,7 +97,7 @@ class SpottersActivity : BaseActivity() {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        spotterList = withContext(Dispatchers.IO) { UtilitySpotter.data }.toMutableList()
+        spotterList = withContext(Dispatchers.IO) { UtilitySpotter.get(this@SpottersActivity) }.toMutableList()
         markFavorites()
         ca = AdapterSpotter(spotterList)
         recyclerView.recyclerView.adapter = ca
@@ -118,10 +116,10 @@ class SpottersActivity : BaseActivity() {
     }
 
     private fun filter(models: List<Spotter>, query: String): List<Spotter> {
-        val queryLocal = query.toLowerCase()
+        val queryLocal = query.toLowerCase(Locale.US)
         val filteredModelList = mutableListOf<Spotter>()
         models.forEach {
-            val text = it.lastName.toLowerCase()
+            val text = it.lastName.toLowerCase(Locale.US)
             if (text.contains(queryLocal)) {
                 filteredModelList.add(it)
             }

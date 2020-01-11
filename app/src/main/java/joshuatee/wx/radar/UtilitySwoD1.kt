@@ -22,28 +22,24 @@
 package joshuatee.wx.radar
 
 import android.annotation.SuppressLint
+import android.content.Context
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityString
 
 import joshuatee.wx.Extensions.*
-import joshuatee.wx.util.UtilityTime
+import joshuatee.wx.objects.DownloadTimer
 
 internal object UtilitySwoD1 {
 
-    private var initialized = false
-    private var lastRefresh = 0.toLong()
-    private const val REFRESH_LOC_MIN = 10
+    var timer = DownloadTimer("SWO")
 
     @SuppressLint("UseSparseArrays")
     val HASH_SWO = mutableMapOf<Int, List<Double>>()
 
-    fun get() {
-        val currentTime1 = UtilityTime.currentTimeMillis()
-        val currentTimeSec = currentTime1 / 1000
-        val refreshIntervalSec = (REFRESH_LOC_MIN * 60).toLong()
-        if (currentTimeSec > lastRefresh + refreshIntervalSec || !initialized) {
+    fun get(context: Context) {
+        if (timer.isRefreshNeeded(context)) {
             var retStr: String
             /*	... CATEGORICAL ...
 
@@ -131,9 +127,6 @@ internal object UtilitySwoD1 {
                     HASH_SWO[it] = warningList
                 }
             }
-            initialized = true
-            val currentTime = UtilityTime.currentTimeMillis()
-            lastRefresh = currentTime / 1000
         }
     }
 }

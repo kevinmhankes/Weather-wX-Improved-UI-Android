@@ -21,19 +21,15 @@
 
 package joshuatee.wx.radar
 
+import android.content.Context
 import joshuatee.wx.Extensions.getHtmlSep
-import joshuatee.wx.util.UtilityTime
-
-//import java.util.Collections
-//import java.util.Comparator
+import joshuatee.wx.objects.DownloadTimer
 
 object UtilitySpotter {
 
     internal var spotterList = mutableListOf<Spotter>()
     private var reportsList = mutableListOf<SpotterReports>()
-    private var initialized = false
-    private var lastRefresh = 0.toLong()
-    private const val REFRESH_LOC_MIN = 5
+    var timer = DownloadTimer("SPOTTER")
     internal var x = DoubleArray(1)
         private set
     internal var y = DoubleArray(1)
@@ -49,12 +45,9 @@ object UtilitySpotter {
     // strip out storm reports at bottom
     // thanks Landei
     // http://stackoverflow.com/questions/6720236/sorting-an-arraylist-of-objects-by-last-name-and-firstname-in-java
-    val data: MutableList<Spotter>
-        get() {
-            var currentTime = UtilityTime.currentTimeMillis()
-            val currentTimeSec = currentTime / 1000
-            val refreshIntervalSec = (REFRESH_LOC_MIN * 60).toLong()
-            if (currentTimeSec > lastRefresh + refreshIntervalSec || !initialized) {
+
+     fun get(context: Context): MutableList<Spotter> {
+            if (timer.isRefreshNeeded(context)) {
                 spotterList = mutableListOf()
                 reportsList = mutableListOf()
                 val latAl = mutableListOf<String>()
@@ -97,9 +90,6 @@ object UtilitySpotter {
                     x[0] = 0.0
                     y[0] = 0.0
                 }
-                initialized = true
-                currentTime = UtilityTime.currentTimeMillis()
-                lastRefresh = currentTime / 1000
             }
             return spotterList
         }

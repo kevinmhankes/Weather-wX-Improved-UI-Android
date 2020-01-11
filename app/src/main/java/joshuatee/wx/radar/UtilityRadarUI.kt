@@ -489,7 +489,7 @@ internal object UtilityRadarUI {
                 wxglRender.deconstructWBLines()
             }
             if (PolygonType.SWO.pref && !archiveMode) {
-                UtilitySwoD1.get()
+                UtilitySwoD1.get(context)
                 wxglRender.constructSwoLines()
             } else {
                 wxglRender.deconstructSwoLines()

@@ -23,7 +23,6 @@ package joshuatee.wx.objects
 
 import android.content.Context
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityTime
 
 class DownloadTimer(private var identifier: String) {
@@ -32,7 +31,7 @@ class DownloadTimer(private var identifier: String) {
     var lastRefresh = 0.toLong()
 
     init {
-        UtilityLog.d("wx", "DOWNLOAD STATUS INIT $identifier")
+        //UtilityLog.d("wx", "DOWNLOAD STATUS INIT $identifier")
     }
 
     fun isRefreshNeeded(context: Context): Boolean {
@@ -47,10 +46,9 @@ class DownloadTimer(private var identifier: String) {
         if ((currentTimeSeconds > (lastRefresh + refreshIntervalSeconds)) || !initialized) {
             refreshNeeded = true
             initialized = true
-            //val currentTime = UtilityTime.currentTimeMillis()
             lastRefresh = currentTime / 1000
         }
-        UtilityLog.d("wx", "DOWNLOAD STATUS for $identifier $refreshNeeded")
+        //UtilityLog.d("wx", "DOWNLOAD STATUS for $identifier $refreshNeeded")
         return refreshNeeded
     }
 

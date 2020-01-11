@@ -997,7 +997,7 @@ class WXGLRender(private val context: Context) : Renderer {
         spotterBuffers.isInitialized = false
         spotterBuffers.lenInit = MyApplication.radarSpotterSize.toFloat()
         spotterBuffers.triangleCount = 6
-        UtilitySpotter.data
+        UtilitySpotter.get(context)
         spotterBuffers.xList = UtilitySpotter.x
         spotterBuffers.yList = UtilitySpotter.y
         constructTriangles(spotterBuffers)
