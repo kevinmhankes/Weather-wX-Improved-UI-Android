@@ -27,12 +27,8 @@ import joshuatee.wx.util.UtilityTime
 
 class DownloadTimer(private var identifier: String) {
 
-    var initialized = false
-    var lastRefresh = 0.toLong()
-
-    init {
-        //UtilityLog.d("wx", "DOWNLOAD STATUS INIT $identifier")
-    }
+    private var initialized = false
+    private var lastRefresh = 0.toLong()
 
     fun isRefreshNeeded(context: Context): Boolean {
         var refreshDataInMinutes: Int = maxOf(Utility.readPref(context, "RADAR_REFRESH_INTERVAL", 3), 6)

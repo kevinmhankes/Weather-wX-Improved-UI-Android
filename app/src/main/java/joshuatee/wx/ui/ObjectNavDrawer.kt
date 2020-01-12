@@ -29,7 +29,6 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 
 import joshuatee.wx.R
-import joshuatee.wx.util.UtilityLog
 
 class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
 

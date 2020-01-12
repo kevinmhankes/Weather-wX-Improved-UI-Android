@@ -31,7 +31,7 @@
 // TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
 // TODO [ADD] enhance radar obs to support multipane
 
-55304 2020_01_11
+55304 2020_01_12    [REF] lint cleanup
 55303 2020_01_11    [FIX] onrestart for spc conv sum was not working
                     [ADD] WPC Fronts support in homescreen nexrad and multipane
                     [ADD] DownloadTimer ( to be used in UtilityDownload* mcd/wat/warn/swo/spotter etc )

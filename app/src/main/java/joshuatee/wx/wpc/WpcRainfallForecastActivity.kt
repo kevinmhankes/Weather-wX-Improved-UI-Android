@@ -36,7 +36,6 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.util.UtilityDownload
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityShare
 import kotlinx.coroutines.*
 

@@ -49,15 +49,14 @@ object UtilityMath {
         val cx = x0 + dx * 0.5
         val cy = y0 + dy * 0.5
         val pDirX = -dirY
-        val pDirY = dirX
         val rx: Double
         val ry: Double
         if (right) {
             rx = cx + height * pDirX
-            ry = cy + height * pDirY
+            ry = cy + height * dirX
         } else {
             rx = cx - height * pDirX
-            ry = cy - height * pDirY
+            ry = cy - height * dirX
         }
         return listOf(rx, ry)
     }

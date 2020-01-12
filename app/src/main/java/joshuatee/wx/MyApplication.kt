@@ -810,6 +810,9 @@ class MyApplication : Application() {
             UtilityDownloadMpd.timer.resetTimer()
             UtilityDownloadWarnings.timer.resetTimer()
             UtilityDownloadWatch.timer.resetTimer()
+            UtilityMetar.timer.resetTimer()
+            UtilitySpotter.timer.resetTimer()
+            UtilitySwoD1.timer.resetTimer()
         }
 
         private fun getInitialPreference(pref: String, initValue: Int): Int {

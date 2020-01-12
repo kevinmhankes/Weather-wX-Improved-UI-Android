@@ -40,7 +40,6 @@ import kotlinx.android.synthetic.main.activity_hourly.*
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.DefaultLabelFormatter
-import joshuatee.wx.util.UtilityLog
 import kotlinx.coroutines.*
 
 class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {

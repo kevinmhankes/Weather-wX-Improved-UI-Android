@@ -47,11 +47,11 @@ class ObjectTextView(val context: Context) {
             tv.gravity = value
         }
 
-    var maxLines: Int
+    /*var maxLines: Int
         get() = tv.maxLines
         set(value) {
             tv.maxLines = value
-        }
+        }*/
 
     init {
         tv = AppCompatTextView(context)

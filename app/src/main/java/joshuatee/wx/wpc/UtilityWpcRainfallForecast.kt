@@ -25,13 +25,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 
 internal object UtilityWpcRainfallForecast {
-
-    val textUrls = listOf(
-            "${MyApplication.nwsWPCwebsitePrefix}/qpf/94epoints.txt",
-            "${MyApplication.nwsWPCwebsitePrefix}/qpf/98epoints.txt",
-            "${MyApplication.nwsWPCwebsitePrefix}/qpf/99epoints.txt"
-    )
-
+    
     val productLabels = listOf(
             "Day 1",
             "Day 2",

@@ -144,7 +144,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
             bitmap = withContext(Dispatchers.IO) { getUrl.getImage() }
         } else {
             title = "Images"
-            toolbar.subtitle = GlobalArrays.nwsImageProducts.findLast { it.startsWith(homeScreenId + ":") }!!.split(":")[1]
+            toolbar.subtitle = GlobalArrays.nwsImageProducts.findLast { it.startsWith("$homeScreenId:") }!!.split(":")[1]
             bitmap = withContext(Dispatchers.IO) { UtilityDownload.getImageProduct(this@WpcImagesActivity, homeScreenId) }
             calledFromHomeScreen = false
         }

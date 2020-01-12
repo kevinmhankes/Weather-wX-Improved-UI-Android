@@ -966,7 +966,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         if (isAdded) {
             if (homescreenFavLocal.contains("TXT-7DAY")) {
                 linearLayoutForecast?.removeAllViewsInLayout()
-                sevenDayCards = mutableListOf<ObjectCard7Day>()
+                sevenDayCards = mutableListOf()
                 val day7Arr = objSevenDay.forecastList
                 bitmaps.forEachIndexed { index, bitmap ->
                     val c7day = ObjectCard7Day(activityReference, bitmap, Location.isUS, index, day7Arr)

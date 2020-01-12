@@ -26,8 +26,6 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.settings.Location
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownloadNws
-import joshuatee.wx.util.UtilityLog
-import joshuatee.wx.util.UtilityTime
 import java.util.*
 
 object UtilityUSHourly {
