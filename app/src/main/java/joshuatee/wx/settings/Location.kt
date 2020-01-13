@@ -359,10 +359,16 @@ class Location(val context: Context, locNumInt: Int) {
                 Utility.writePref(context, "NWS$locNum", "")
             }
             refreshLocationData(context)
+            setCurrentLocationStr(context, locNum)
             LocalBroadcastManager.getInstance(context).sendBroadcast(Intent("locationadded"))
             return "Saving location $locNum as $labelStr ($xStr,$yStr) " + wfo.toUpperCase(
                 Locale.US
             ) + "(" + radarSite.toUpperCase(Locale.US) + ")"
+        }
+
+        fun setCurrentLocationStr(context: Context, locNum: String) {
+            Utility.writePref(context, "CURRENT_LOC_FRAGMENT", locNum)
+            currentLocationStr = locNum
         }
 
         fun deleteLocation(context: Context, locToDeleteStr: String) {
