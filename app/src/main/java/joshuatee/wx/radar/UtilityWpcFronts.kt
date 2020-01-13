@@ -255,17 +255,21 @@ object UtilityWpcFronts {
                     when (type) {
                         "HIGHS" -> {
                             for (typeIndex in 0 until tokens.size step 2) {
-                                val coordinates = parseLatLon(tokens[typeIndex + 1])
-                                pressureCenters.add(PressureCenter(PressureCenterTypeEnum.HIGH,
-                                        tokens[typeIndex], coordinates[0], coordinates[1]))
+                                if (typeIndex + 1 < tokens.size) {
+                                    val coordinates = parseLatLon(tokens[typeIndex + 1])
+                                    pressureCenters.add(PressureCenter(PressureCenterTypeEnum.HIGH,
+                                            tokens[typeIndex], coordinates[0], coordinates[1]))
+                                }
                             }
                         }
                         "LOWS" -> {
                             //for (int index = 0; index < tokens.length; index += 2) {
                             for (typeIndex in 0 until tokens.size step 2) {
-                                val coordinates = parseLatLon(tokens[typeIndex + 1])
-                                pressureCenters.add(PressureCenter(PressureCenterTypeEnum.LOW,
-                                        tokens[typeIndex], coordinates[0], coordinates[1]))
+                                if (typeIndex + 1 < tokens.size) {
+                                    val coordinates = parseLatLon(tokens[typeIndex + 1])
+                                    pressureCenters.add(PressureCenter(PressureCenterTypeEnum.LOW,
+                                            tokens[typeIndex], coordinates[0], coordinates[1]))
+                                }
                             }
                         }
                         "COLD" -> {
