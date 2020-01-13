@@ -33,6 +33,7 @@
 
 55304 2020_01_13    [REF] lint cleanup
 		    [FIX] WPC Fronts - add array bounds check in high/low
+		    [FIX] WPC Fronts - handle case where LOW/HIGH spans 3 lines
 55303 2020_01_11    [FIX] onrestart for spc conv sum was not working
                     [ADD] WPC Fronts support in homescreen nexrad and multipane
                     [ADD] DownloadTimer ( to be used in UtilityDownload* mcd/wat/warn/swo/spotter etc )

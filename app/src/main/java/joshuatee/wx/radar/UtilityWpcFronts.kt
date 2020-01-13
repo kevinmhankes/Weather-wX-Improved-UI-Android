@@ -234,9 +234,10 @@ object UtilityWpcFronts {
                     " " +
                     MyApplication.sep)
             html = html.replace(MyApplication.sep, MyApplication.newline)
-            val lines = html.split(MyApplication.newline)
-            lines.indices.forEach { index ->
-                var data = lines[index]
+            val lines = html.split(MyApplication.newline).toMutableList()
+            //lines.indices.forEach { index ->
+            for (index in lines.indices) {
+                //var data = lines[index]
                 if (index < lines.size - 1) {
                     if (lines[index + 1][0] != 'H'
                             && lines[index + 1][0] != 'L'
@@ -245,10 +246,20 @@ object UtilityWpcFronts {
                             && lines[index + 1][0] != 'O'
                             && lines[index + 1][0] != 'T'
                             && lines[index + 1][0] != 'W') {
-                        data += lines[index + 1]
+                        lines[index] =  lines[index]  + lines[index + 1]
+                        if (lines[index + 2][0] != 'H'
+                                && lines[index + 2][0] != 'L'
+                                && lines[index + 2][0] != 'C'
+                                && lines[index + 2][0] != 'S'
+                                && lines[index + 2][0] != 'O'
+                                && lines[index + 2][0] != 'T'
+                                && lines[index + 2][0] != 'W') {
+                            lines[index] =  lines[index]  + lines[index + 2]
+                        }
                     }
+
                 }
-                val tokens = data.trim().split(" ").toMutableList()
+                val tokens = lines[index].trim().split(" ").toMutableList()
                 if (tokens.size > 1) {
                     val type = tokens[0]
                     tokens.removeAt(0)
