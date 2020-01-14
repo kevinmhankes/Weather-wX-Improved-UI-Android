@@ -30,12 +30,17 @@ internal object UtilityCitiesExtended {
 
     private var initialized = false
     var cities = mutableListOf<CityExt>()
+    var cityLabels = mutableListOf<String>()
+    var cityLat = mutableListOf<Double>()
+    var cityLon = mutableListOf<Double>()
 
     fun create(context: Context) {
         if (!initialized) {
             cities = mutableListOf()
             initialized = true
             val text: String
+            var latitude: Double
+            var longitude: Double
             val lines: List<String>
             var tmpArr: Array<String>
             val xmlFileInputStream = context.resources.openRawResource(R.raw.cityall)
@@ -43,21 +48,19 @@ internal object UtilityCitiesExtended {
             lines = text.split("\n").dropLastWhile { it.isEmpty() }
             lines.forEach {
                 tmpArr = MyApplication.comma.split(it)
-                if (tmpArr.size > 3) {
-                    cities.add(
-                            CityExt(
-                                    tmpArr[0], tmpArr[1].toDoubleOrNull()
-                                    ?: 0.0, (tmpArr[2].replace("-", "")).toDoubleOrNull() ?: 0.0
-                            )
+                latitude = tmpArr[2].toDoubleOrNull() ?: 0.0
+                longitude = (tmpArr[3].replace("-", "")).toDoubleOrNull() ?: 0.0
+                if (tmpArr.size > 4) {
+                    cities.add(CityExt(tmpArr[0], tmpArr[1], latitude, longitude)
                     )
                 } else {
-                    cities.add(
-                            CityExt(
-                                    tmpArr[0], tmpArr[1].toDoubleOrNull()
-                                    ?: 0.0, (tmpArr[2].replace("-", "")).toDoubleOrNull() ?: 0.0
-                            )
+                    cities.add(CityExt(tmpArr[0], tmpArr[1], latitude, longitude)
                     )
                 }
+                cityLabels.add(tmpArr[0] + ", " + tmpArr[1])
+                //cityLabels.add(tmpArr[1] + ", " + tmpArr[0])
+                cityLat.add(latitude)
+                cityLon.add(longitude)
             }
         }
     }

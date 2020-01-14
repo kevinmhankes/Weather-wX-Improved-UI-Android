@@ -57,6 +57,7 @@ import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.activitiesmisc.WebscreenAB
 import joshuatee.wx.notifications.UtilityWXJobService
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.radar.UtilityCitiesExtended
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityMap
 import kotlinx.coroutines.*
@@ -377,8 +378,12 @@ class SettingsLocationGenericActivity : BaseActivity(),
         val inflater = menuInflater
         inflater.inflate(R.menu.settings_location_generic, menu)
         val searchView = menu.findItem(R.id.ab_search).actionView as ArrayAdapterSearchView
-        if (!UtilityCitiesCanada.cityInit) UtilityCitiesCanada.loadCitiesArray()
-        val tmpArr = UtilityCities.cities.toList() + UtilityCitiesCanada.CITIES_CA.toList()
+        UtilityCitiesExtended.create(this)
+        if (!UtilityCitiesCanada.cityInit) {
+            UtilityCitiesCanada.loadCitiesArray()
+        }
+        //val tmpArr = UtilityCities.cities.toList() + UtilityCitiesCanada.CITIES_CA.toList()
+        val tmpArr = UtilityCitiesExtended.cityLabels + UtilityCitiesCanada.CITIES_CA.toList()
         cityAa = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, tmpArr)
         cityAa.setDropDownViewResource(MyApplication.spinnerLayout)
         searchView.setAdapter(cityAa)
@@ -390,11 +395,14 @@ class SettingsLocationGenericActivity : BaseActivity(),
                     break
                 }
             }
-            if (k < UtilityCities.cities.size) {
+            //if (k < UtilityCities.cities.size) {
+            if (k < UtilityCitiesExtended.cityLabels.size) {
                 searchView.setText(cityAa.getItem(position)!!)
                 locLabelEt.setText(cityAa.getItem(position))
-                locXEt.setText(UtilityCities.lat[k].toString())
-                locYEt.setText("-" + UtilityCities.lon[k].toString())
+                //locXEt.setText(UtilityCities.lat[k].toString())
+                //locYEt.setText("-" + UtilityCities.lon[k].toString())
+                locXEt.setText(UtilityCitiesExtended.cityLat[k].toString())
+                locYEt.setText("-" + UtilityCitiesExtended.cityLon[k].toString())
                 val searchViewLocal = menuLocal!!.findItem(R.id.ab_search).actionView as SearchView
                 searchViewLocal.onActionViewCollapsed()
                 searchViewLocal.isIconified = true
