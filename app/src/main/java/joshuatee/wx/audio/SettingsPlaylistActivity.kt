@@ -49,10 +49,12 @@ import joshuatee.wx.settings.BottomSheetFragment
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import joshuatee.wx.wpc.UtilityWpcText
+import kotlinx.coroutines.*
 import java.util.*
 
 class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
+    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private val ridArr = mutableListOf<String>()
     private var ridFav = ""
     private val prefToken = "PLAYLIST"
@@ -106,6 +108,15 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         ca = PlayListAdapter(ridArr)
         recyclerView.recyclerView.adapter = ca
         ca.setListener(::itemSelected)
+        getContent()
+    }
+
+    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        val result = async(Dispatchers.IO) {
+            UtilityPlayList.downloadAll(this@SettingsPlaylistActivity)
+        }
+        updateListNoInit()
+        ca.notifyDataSetChanged()
     }
 
     private fun updateList() {
