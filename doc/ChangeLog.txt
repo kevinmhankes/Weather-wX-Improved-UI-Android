@@ -32,6 +32,7 @@
 // TODO [ADD] enhance radar obs to support multipane
 // TODO [FIX] optimize formatting for US alert details
 
+55305 2020_01_14
 55304 2020_01_14    [REF] lint cleanup
 		            [FIX] WPC Fronts - add array bounds check in high/low
 		            [FIX] WPC Fronts - handle case where LOW/HIGH spans 3 lines
