@@ -27,16 +27,21 @@
 // TODO [REF] convert from System.currentTimeMillis() to UtilityTime.currentTimeMillis()
 // TODO [ADD] hourly homescreen widget still needs work
 // TODO [ADD] if change text size make change immediately
-// TODO [ADD] wpc day 1-3 image + text
 // TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
+// TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [ADD] enhance radar obs to support multipane
+// TODO [FIX] optimize formatting for US alert details
 
-55304 2020_01_13    [REF] lint cleanup
+55304 2020_01_14    [REF] lint cleanup
 		            [FIX] WPC Fronts - add array bounds check in high/low
 		            [FIX] WPC Fronts - handle case where LOW/HIGH spans 3 lines
 		            [ADD] after adding new location automatically switch to it on main screen
-		            [ADD] in Playlist download all when activity is started
+		            [ADD] in Playlist download all when activity is started and onrestart, remove Download All icon
+		                  from bottom toolbar
 		            [FIX] cityall.txt, UtilityCities - change detroit to something that works
+		            [ADD] wpc day 1-3 image + text - add to MISC tab and remove from WPC Text submenu
+		            [FIX] Move the following from the National text product viewer submenu to the National Image viewer
+		                  in the first section: "Significant Surface Low Tracks", "Low Tracks and Clusters",
 55303 2020_01_11    [FIX] onrestart for spc conv sum was not working
                     [ADD] WPC Fronts support in homescreen nexrad and multipane
                     [ADD] DownloadTimer ( to be used in UtilityDownload* mcd/wat/warn/swo/spotter etc )

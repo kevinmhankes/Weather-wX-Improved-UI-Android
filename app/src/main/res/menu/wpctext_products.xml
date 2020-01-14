@@ -50,18 +50,6 @@
         android:title="@string/notif_add"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_low1"
-        android:title="Significant Surface Low Tracks"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_low2"
-        android:title="Low Tracks and Clusters"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_qpferf"
-        android:title="Excessive Rainfall Forecast"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_mpd"
         android:title="Mesoscale Precipitation Discussions"
         app:showAsAction="never" />

@@ -112,7 +112,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        val result = async(Dispatchers.IO) {
+        withContext(Dispatchers.IO) {
             UtilityPlayList.downloadAll(this@SettingsPlaylistActivity)
         }
         updateListNoInit()
@@ -134,13 +134,13 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_downloadall -> ObjectIntent(
+           /* R.id.action_downloadall -> ObjectIntent(
                     this,
                     DownloadPlaylistService::class.java,
                     DownloadPlaylistService.URL,
                     "false",
                     true
-            )
+            )*/
             R.id.action_autodownload -> ObjectIntent(
                     this,
                     SettingsPlaylistAutodownloadActivity::class.java
@@ -154,6 +154,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
     override fun onRestart() {
         //updateListNoInit()
+        updateListNoInit()
         ca.notifyDataSetChanged()
         super.onRestart()
     }

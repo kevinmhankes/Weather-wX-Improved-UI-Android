@@ -35,9 +35,9 @@
         android:icon="@drawable/ic_access_alarm_24dp"
         android:title="Manage auto-downloads"
         app:showAsAction="always" />
-    <item
+    <!--<item
         android:id="@+id/action_downloadall"
         android:icon="@drawable/ic_get_app_24dp"
         android:title="Download All"
-        app:showAsAction="always" />
+        app:showAsAction="always" />-->
 </menu>

@@ -37,7 +37,6 @@ import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.notifications.UtilityNotificationTextProduct
 import joshuatee.wx.settings.FavAddActivity
 import joshuatee.wx.settings.FavRemoveActivity
-import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.MyApplication
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.ui.ObjectSpinner
@@ -146,27 +145,6 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
                 updateSubmenuNotifText()
             }
             R.id.action_mpd -> ObjectIntent(this, WpcMpdShowSummaryActivity::class.java)
-            R.id.action_qpferf -> ObjectIntent(this, WpcRainfallForecastActivity::class.java)
-            R.id.action_low1 -> ObjectIntent(
-                    this,
-                    ImageShowActivity::class.java,
-                    ImageShowActivity.URL,
-                    arrayOf(
-                            "${MyApplication.nwsWPCwebsitePrefix}/wwd/lowtrack_circles.gif",
-                            "Significant Surface Low Tracks"
-                    )
-            )
-            R.id.action_low2 -> {
-                ObjectIntent(
-                        this,
-                        ImageShowActivity::class.java,
-                        ImageShowActivity.URL,
-                        arrayOf(
-                                "${MyApplication.nwsWPCwebsitePrefix}/lowtracks/lowtrack_ensembles.gif",
-                                "Low Tracks and Clusters"
-                        )
-                )
-            }
             R.id.action_share -> UtilityShare.shareText(this, prod, Utility.fromHtml(html))
             else -> return super.onOptionsItemSelected(item)
         }

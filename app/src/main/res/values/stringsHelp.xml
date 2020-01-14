@@ -315,6 +315,13 @@ GOES product viewer: This is same activity used by the cloud icon in the action 
 US lightning strikes: An image showing recent lightning strikes CONUS wide. For legacy reasons a long press for this icon will give access to beta features.
 </string>
 
+    <string name="help_wpc_rainfall">
+     Show three graphics for WPC Excessive Rainfall products. If you tap on a graphic it will show the related text
+        product. From the WPC Website: "In the Excessive Rainfall Outlooks, the Weather Prediction Center (WPC)
+        forecasts the probability that rainfall will exceed flash flood guidance (FFG) within
+        40 kilometers (25 miles) of a point."
+</string>
+
 
     <string name="help_twitter">
 Twitter widgets: Content is shown for state or Canadian province wx and tornado search via the 2 right most icons in the bottom row.
