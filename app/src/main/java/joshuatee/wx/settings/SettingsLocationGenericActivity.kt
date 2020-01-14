@@ -382,7 +382,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         if (!UtilityCitiesCanada.cityInit) {
             UtilityCitiesCanada.loadCitiesArray()
         }
-        //val tmpArr = UtilityCities.cities.toList() + UtilityCitiesCanada.CITIES_CA.toList()
+        //val tmpArr = UtilityCities.cities.toList() + UtilityCitCanada.CITIES_CA.toList()
         val tmpArr = UtilityCitiesExtended.cityLabels + UtilityCitiesCanada.CITIES_CA.toList()
         cityAa = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, tmpArr)
         cityAa.setDropDownViewResource(MyApplication.spinnerLayout)
