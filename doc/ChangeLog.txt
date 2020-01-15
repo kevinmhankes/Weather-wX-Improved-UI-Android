@@ -32,7 +32,7 @@
 // TODO [ADD] enhance radar obs to support multipane
 // TODO [FIX] optimize formatting for US alert details
 
-55305 2020_01_14    [ADD] update ext city doco, insert new cityall file with states
+55305 2020_01_15    [ADD] update ext city doco, insert new cityall file with states
                     [ADD] use city ext database in settings -> location search function
 55304 2020_01_14    [REF] lint cleanup
 		            [FIX] WPC Fronts - add array bounds check in high/low

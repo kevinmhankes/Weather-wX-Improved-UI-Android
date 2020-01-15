@@ -51,15 +51,12 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectFab
-import joshuatee.wx.util.UtilityAlertDialog
-import joshuatee.wx.util.UtilityCities
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.activitiesmisc.WebscreenAB
 import joshuatee.wx.notifications.UtilityWXJobService
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.UtilityCitiesExtended
-import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityMap
+import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_settings_location_generic.*
@@ -92,7 +89,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
     private lateinit var alertSwoSw: ObjectSettingsCheckBox
     private lateinit var alertSpcfwSw: ObjectSettingsCheckBox
     private lateinit var alertWpcmpdSw: ObjectSettingsCheckBox
-    private lateinit var cityAa: ArrayAdapter<String>
+    //private lateinit var cityAa: ArrayAdapter<String>
     private var menuLocal: Menu? = null
 
     @SuppressLint("MissingSuperCall")
@@ -383,22 +380,23 @@ class SettingsLocationGenericActivity : BaseActivity(),
             UtilityCitiesCanada.loadCitiesArray()
         }
         //val tmpArr = UtilityCities.cities.toList() + UtilityCitCanada.CITIES_CA.toList()
-        val tmpArr = UtilityCitiesExtended.cityLabels + UtilityCitiesCanada.CITIES_CA.toList()
-        cityAa = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, tmpArr)
-        cityAa.setDropDownViewResource(MyApplication.spinnerLayout)
-        searchView.setAdapter(cityAa)
+        val combinedCitiesList = UtilityCitiesExtended.cityLabels.toList() + UtilityCitiesCanada.CITIES_CA.toList()
+        val cityArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, combinedCitiesList)
+        cityArrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
+        searchView.setAdapter(cityArrayAdapter)
+        searchView.setQueryHint("Enter city here")
         searchView.setOnItemClickListener(AdapterView.OnItemClickListener { _, _, position, _ ->
             var k = 0
-            for (y in tmpArr.indices) {
-                if (cityAa.getItem(position) == tmpArr[y]) {
+            for (y in combinedCitiesList.indices) {
+                if (cityArrayAdapter.getItem(position) == combinedCitiesList[y]) {
                     k = y
                     break
                 }
             }
             //if (k < UtilityCities.cities.size) {
             if (k < UtilityCitiesExtended.cityLabels.size) {
-                searchView.setText(cityAa.getItem(position)!!)
-                locLabelEt.setText(cityAa.getItem(position))
+                searchView.setText(cityArrayAdapter.getItem(position)!!)
+                locLabelEt.setText(cityArrayAdapter.getItem(position))
                 //locXEt.setText(UtilityCities.lat[k].toString())
                 //locYEt.setText("-" + UtilityCities.lon[k].toString())
                 locXEt.setText(UtilityCitiesExtended.cityLat[k].toString())
@@ -411,13 +409,13 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 val labelStr = locLabelEt.text.toString()
                 saveLoc("osm", locNum, xStr, yStr, labelStr)
             } else {
-                k -= UtilityCities.cities.size
-                var prov = MyApplication.comma.split(cityAa.getItem(position))[1]
+                k -= UtilityCitiesExtended.cityLabels.size
+                var prov = MyApplication.comma.split(cityArrayAdapter.getItem(position))[1]
                 prov = prov.replace(" ", "")
                 // X: CANADA:ON:46.5
                 // Y: CODE:-84.
-                searchView.setText(cityAa.getItem(position)!!) // removed .toString() on this and below
-                locLabelEt.setText(cityAa.getItem(position))
+                searchView.setText(cityArrayAdapter.getItem(position)!!) // removed .toString() on this and below
+                locLabelEt.setText(cityArrayAdapter.getItem(position))
                 locXEt.setText("CANADA:" + prov + ":" + UtilityCitiesCanada.LAT_CA[k].toString())
                 locYEt.setText(UtilityCitiesCanada.code[k] + ":-" + UtilityCitiesCanada.LON_CA[k].toString())
                 val searchViewLocal = menuLocal!!.findItem(R.id.ab_search).actionView as SearchView
@@ -434,13 +432,28 @@ class SettingsLocationGenericActivity : BaseActivity(),
         searchView.setOnQueryTextListener(object : OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
+
+                //cityArrayAdapter.getFilter().filter(newText.trim())
+
+                /*val input = newText.toLowerCase(Locale.US)
+                cityArrayAdapter.clear()
+                combinedCitiesList.forEach {
+                    if (it.toLowerCase(Locale.US).contains(input)) {
+                        cityArrayAdapter.add(it)
+                    }
+                }
+                cityArrayAdapter.notifyDataSetChanged()
+                return true*/
+
                 return false
+
+                //return true
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 locLabelEt.setText(query)
-                val addrSend = query.replace(" ", "+")
-                addressSearch("osm", addrSend)
+                val addressToSend = query.replace(" ", "+")
+                addressSearch("osm", addressToSend)
                 val searchViewLocal = menuLocal!!.findItem(R.id.ab_search).actionView as SearchView
                 searchViewLocal.onActionViewCollapsed()
                 return false

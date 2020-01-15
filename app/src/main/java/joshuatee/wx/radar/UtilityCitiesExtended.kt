@@ -25,6 +25,7 @@ import android.content.Context
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.util.UtilityIO
+import joshuatee.wx.util.UtilityLog
 
 internal object UtilityCitiesExtended {
 
@@ -33,6 +34,8 @@ internal object UtilityCitiesExtended {
     var cityLabels = mutableListOf<String>()
     var cityLat = mutableListOf<Double>()
     var cityLon = mutableListOf<Double>()
+    //private const val num = 29515
+    //val cityLabels: Array<String> = Array(num) { "" }
 
     fun create(context: Context) {
         if (!initialized) {
@@ -46,8 +49,10 @@ internal object UtilityCitiesExtended {
             val xmlFileInputStream = context.resources.openRawResource(R.raw.cityall)
             text = UtilityIO.readTextFile(xmlFileInputStream)
             lines = text.split("\n").dropLastWhile { it.isEmpty() }
+            //var index = 0
             lines.forEach {
                 tmpArr = MyApplication.comma.split(it)
+                //tmpArr = it.split(",").toTypedArray()
                 latitude = tmpArr[2].toDoubleOrNull() ?: 0.0
                 longitude = (tmpArr[3].replace("-", "")).toDoubleOrNull() ?: 0.0
                 if (tmpArr.size > 4) {
@@ -57,8 +62,11 @@ internal object UtilityCitiesExtended {
                     cities.add(CityExt(tmpArr[0], tmpArr[1], latitude, longitude)
                     )
                 }
-                cityLabels.add(tmpArr[0] + ", " + tmpArr[1])
-                //cityLabels.add(tmpArr[1] + ", " + tmpArr[0])
+                //cityLabels.add(tmpArr[1])
+                cityLabels.add(tmpArr[0] + "," + tmpArr[1])
+                //cityLabels[index] = tmpArr[0] + ", " + tmpArr[1]
+                //index += 1
+                //cityLabels.add(tmpArr[1])
                 cityLat.add(latitude)
                 cityLon.add(longitude)
             }
