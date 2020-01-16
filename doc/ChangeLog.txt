@@ -30,7 +30,6 @@
 // TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [ADD] enhance radar obs to support multipane
-// TODO [FIX] optimize formatting for US alert details
 
 55306 2020_01_15    [ADD] android-ndk-r20b to android-ndk-r21
                     [ADD] convert settings location edit to use cityall instead of old DB so now 29k cities instead of 400
