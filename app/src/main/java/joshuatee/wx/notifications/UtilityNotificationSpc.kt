@@ -42,6 +42,7 @@ import androidx.core.app.NotificationCompat
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityTime
 
 internal object UtilityNotificationSpc {
 
@@ -309,7 +310,7 @@ internal object UtilityNotificationSpc {
         val noBody: String
         val noSummary: String
         val locLabelStr: String
-        val requestID = System.currentTimeMillis().toInt()
+        val requestID = UtilityTime.currentTimeMillis().toInt()
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         locLabelStr = "($locLabel) "
         var mcdPre = UtilityDownload.getTextProduct(context, "SPCMCD$mdNo")
@@ -379,7 +380,7 @@ internal object UtilityNotificationSpc {
         val noBody: String
         val noSummary: String
         val locLabelStr: String
-        val requestID = System.currentTimeMillis().toInt()
+        val requestID = UtilityTime.currentTimeMillis().toInt()
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         locLabelStr = "($locLabel) "
         val dayStr = "SWODY$day"

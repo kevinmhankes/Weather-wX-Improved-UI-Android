@@ -242,7 +242,7 @@ object UtilityNotification {
             // url above is used as the token for notifications and currenlty looks like
             // https://api.weather.gov/gridpoints/DTX/x,y/forecast
             // problem is if network is down it will be a non deterministic value so we need something different
-            val currentUpdateTime = System.currentTimeMillis()
+            val currentUpdateTime = UtilityTime.currentTimeMillis()
             val lastUpdateTime = Utility.readPref(context, "CC" + locNum + "_LAST_UPDATE", 0.toLong())
             if (MyApplication.locations[locNumInt].ccNotification) {
                 notifUrls += url + "CC" + MyApplication.notificationStrSep
@@ -254,7 +254,7 @@ object UtilityNotification {
                 val objCc = ObjectForecastPackageCurrentConditions(context, locNumInt)
                 val objHazards = ObjectForecastPackageHazards(locNumInt)
                 val objSevenDay = ObjectForecastPackage7Day(locNumInt)
-                val updateTime = System.currentTimeMillis()
+                val updateTime = UtilityTime.currentTimeMillis()
                 Utility.writePref(context, "CC" + locNum + "_LAST_UPDATE", updateTime)
                 if (locNum == widgetLocNum && widgetsEnabled) {
                     UtilityWidget.widgetDownloadData(context, objCc, objSevenDay, objHazards)
@@ -494,7 +494,7 @@ object UtilityNotification {
         val stackBuilder = TaskStackBuilder.create(context)
         stackBuilder.addParentStack(WX::class.java)
         stackBuilder.addNextIntent(resultIntent)
-        val requestID = System.currentTimeMillis().toInt()
+        val requestID = UtilityTime.currentTimeMillis().toInt()
         val resultPendingIntent =
                 stackBuilder.getPendingIntent(requestID, PendingIntent.FLAG_UPDATE_CURRENT)
         val resultPendingIntent2 = PendingIntent.getService(

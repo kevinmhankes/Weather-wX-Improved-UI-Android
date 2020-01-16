@@ -367,7 +367,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         if (MyApplication.locDisplayImg) {
             getAllRadars()
         }
-        val currentTime = System.currentTimeMillis()
+        val currentTime = UtilityTime.currentTimeMillis()
         lastRefresh = currentTime / 1000
         Utility.writePref(activityReference, "LOC_LAST_UPDATE", lastRefresh)
     }
@@ -385,7 +385,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         cardSunrise?.refreshTextSize(TextSize.MEDIUM)
         hsTextAl.forEach{ it.refreshTextSize() }
         hazardsCards.forEach{it.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)}
-        val currentTime = System.currentTimeMillis()
+        val currentTime = UtilityTime.currentTimeMillis()
         val currentTimeSec = currentTime / 1000
         val refreshIntervalSec = (UIPreferences.refreshLocMin * 60).toLong()
         val xOld = x

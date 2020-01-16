@@ -28,6 +28,7 @@ import android.content.Context
 import android.content.Intent
 
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityTime
 
 object UtilityPlayListAutoDownload {
 
@@ -55,7 +56,7 @@ object UtilityPlayListAutoDownload {
         calendar.set(Calendar.MINUTE, minute)
         calendar.set(Calendar.SECOND, 0)
         var timeToAlarm = calendar.timeInMillis
-        if (calendar.timeInMillis < System.currentTimeMillis()) {
+        if (calendar.timeInMillis < UtilityTime.currentTimeMillis()) {
             timeToAlarm += (24 * 60 * 60 * 1000).toLong()
         }
         val intent = Intent(context, DownloadPlaylistService::class.java)

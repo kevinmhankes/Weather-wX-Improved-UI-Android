@@ -24,7 +24,6 @@ package joshuatee.wx.activitiesmisc
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.util.UtilityLog
 
 class CapAlert {
 
@@ -148,7 +147,6 @@ class CapAlert {
                 obj.text += "<br><br><br>"
                 obj.text += obj.instructions
                 obj.text += "<br><br><br>"
-                UtilityLog.d("wx", obj.instructions.replace("\n", " "))
             }
             obj.summary = obj.summary.replace("<br>\\*".toRegex(), "<br><br>*")
             if (UIPreferences.nwsTextRemovelinebreaks) {

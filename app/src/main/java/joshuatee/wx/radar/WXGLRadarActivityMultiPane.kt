@@ -50,21 +50,15 @@ import joshuatee.wx.activitiesmisc.WebscreenABModels
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.UtilityToolbar
-import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityAlertDialog
-import joshuatee.wx.util.UtilityFileManagement
-import joshuatee.wx.util.UtilityImageMap
-import joshuatee.wx.util.UtilityImg
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.settings.SettingsRadarActivity
 import joshuatee.wx.ui.ObjectImageMap
-import joshuatee.wx.util.UtilityShare
 
 import joshuatee.wx.Extensions.*
 
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
+import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
 class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListener {
@@ -620,7 +614,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 for (r in animArray[0].indices) {
                     while (inOglAnimPaused) SystemClock.sleep(delay.toLong())
                     // formerly priorTime was set at the end but that is goofed up with pause
-                    priorTime = System.currentTimeMillis()
+                    priorTime = UtilityTime.currentTimeMillis()
                     // added because if paused and then another icon life vel/ref it won't load correctly, likely
                     // timing issue
                     if (!inOglAnim) break
@@ -645,7 +639,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         progressUpdate((r + 1).toString(), (animArray[0].size).toString())
                     }
                     numPanesArr.forEach { glviewArr[it].requestRender() }
-                    timeMilli = System.currentTimeMillis()
+                    timeMilli = UtilityTime.currentTimeMillis()
                     if ((timeMilli - priorTime) < delay)
                         SystemClock.sleep(delay - ((timeMilli - priorTime)))
                     if (!inOglAnim)

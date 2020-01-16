@@ -190,7 +190,7 @@ object UtilityWidget {
         activityStringArr: Array<String>,
         actionString: String
     ) {
-        val requestID = System.currentTimeMillis().toInt()
+        val requestID = UtilityTime.currentTimeMillis().toInt()
         val intent = Intent(context, activity)
         intent.putExtra(activityFlag, activityStringArr)
         intent.action = actionString
@@ -210,7 +210,7 @@ object UtilityWidget {
         activityString: String,
         actionString: String
     ) {
-        val requestID = System.currentTimeMillis().toInt()
+        val requestID = UtilityTime.currentTimeMillis().toInt()
         val intent = Intent(context, activity)
         intent.putExtra(activityFlag, activityString)
         intent.action = actionString
@@ -228,7 +228,7 @@ object UtilityWidget {
         layoutItem: Int,
         actionString: String
     ) {
-        val requestID = System.currentTimeMillis().toInt()
+        val requestID = UtilityTime.currentTimeMillis().toInt()
         val intent = Intent(context, activity)
         intent.action = actionString
         val stackBuilder = TaskStackBuilder.create(context)

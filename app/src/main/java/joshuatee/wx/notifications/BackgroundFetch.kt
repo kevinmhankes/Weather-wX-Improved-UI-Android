@@ -59,7 +59,7 @@ class BackgroundFetch(val context: Context) {
         val locationNeedsSpcFw = UtilityNotificationSpcFireWeather.locationNeedsSpcFireWeather()
         val locationNeedsWpcMpd = UtilityNotificationWpc.locationNeedsMpd()
         (1..Location.numLocations).forEach {
-            val requestID = System.currentTimeMillis().toInt()
+            val requestID = UtilityTime.currentTimeMillis().toInt()
             notificationUrls += UtilityNotification.send(context, it.toString(), requestID + 1)
         }
         MyApplication.radarWarningPolygons.forEach {
@@ -242,7 +242,7 @@ class BackgroundFetch(val context: Context) {
 
         // send 7day and current conditions notifications for locations
         (1..Location.numLocations).forEach {
-            val requestID = System.currentTimeMillis().toInt()
+            val requestID = UtilityTime.currentTimeMillis().toInt()
             notificationUrls += UtilityNotification.sendNotificationCurrentConditions(
                     context,
                     it.toString(),
