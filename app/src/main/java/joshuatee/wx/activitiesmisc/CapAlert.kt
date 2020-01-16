@@ -24,6 +24,7 @@ package joshuatee.wx.activitiesmisc
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.util.UtilityLog
 
 class CapAlert {
 
@@ -91,6 +92,7 @@ class CapAlert {
             if (UIPreferences.nwsTextRemovelinebreaks) {
                 obj.instructions = obj.instructions.replace("<br><br>", "<BR><BR>").replace("<br>", " ")
             }
+            //UtilityLog.d("wx", obj.instructions)
             return obj
         }
 
@@ -130,8 +132,12 @@ class CapAlert {
                 obj.summary = html.parse("\"description\": \"(.*?)\"")
                 obj.instructions = html.parse("\"instruction\": \"(.*?)\"")
                 obj.area = html.parse("\"areaDesc\": \"(.*?)\"")
-                obj.summary = obj.summary.replace("\\n", "\n")
-                obj.instructions = obj.instructions.replace("\\n", "\n")
+                //obj.summary = obj.summary.replace("\\n", "\n")
+                obj.summary = obj.summary.replace("\\n\\n", "ABC123")
+                obj.summary = obj.summary.replace("\\n", " ")
+                obj.summary = obj.summary.replace("ABC123", "\n\n")
+                //obj.instructions = obj.instructions.replace("\\n", "\n")
+                obj.instructions = obj.instructions.replace("\\n", " ")
                 obj.text = "<h4><b>"
                 obj.text += obj.title
                 obj.text += "</b></h4>"
@@ -142,12 +148,14 @@ class CapAlert {
                 obj.text += "<br><br><br>"
                 obj.text += obj.instructions
                 obj.text += "<br><br><br>"
+                UtilityLog.d("wx", obj.instructions.replace("\n", " "))
             }
             obj.summary = obj.summary.replace("<br>\\*".toRegex(), "<br><br>*")
             if (UIPreferences.nwsTextRemovelinebreaks) {
                 obj.instructions = obj.instructions.replace("<br><br>", "<BR><BR>")
                 obj.instructions = obj.instructions.replace("<br>", " ")
             }
+
             return obj
         }
     }
