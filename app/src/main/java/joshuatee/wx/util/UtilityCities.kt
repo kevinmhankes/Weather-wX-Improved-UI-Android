@@ -1176,8 +1176,6 @@ object UtilityCities {
         cities[344] = "Duluth, MN"
         lat[344] = 46.7833
         lon[344] = 92.1066
-
-
     }
 }
 

@@ -33,6 +33,7 @@
 // TODO [FIX] optimize formatting for US alert details
 
 55306 2020_01_15    [ADD] android-ndk-r20b to android-ndk-r21
+                    [ADD] convert settings location edit to use cityall instead of old DB so now 29k cities instead of 400
 55305 2020_01_15    [ADD] update ext city doco, insert new cityall file with states
                     [ADD] use city ext database in settings -> location search function
 55304 2020_01_14    [REF] lint cleanup

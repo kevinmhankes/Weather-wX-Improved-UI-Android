@@ -25,7 +25,6 @@ import android.content.Context
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.util.UtilityIO
-import joshuatee.wx.util.UtilityLog
 
 internal object UtilityCitiesExtended {
 
@@ -34,8 +33,6 @@ internal object UtilityCitiesExtended {
     var cityLabels = mutableListOf<String>()
     var cityLat = mutableListOf<Double>()
     var cityLon = mutableListOf<Double>()
-    //private const val num = 29515
-    //val cityLabels: Array<String> = Array(num) { "" }
 
     fun create(context: Context) {
         if (!initialized) {
@@ -45,28 +42,22 @@ internal object UtilityCitiesExtended {
             var latitude: Double
             var longitude: Double
             val lines: List<String>
-            var tmpArr: Array<String>
+            var tokens: Array<String>
             val xmlFileInputStream = context.resources.openRawResource(R.raw.cityall)
             text = UtilityIO.readTextFile(xmlFileInputStream)
             lines = text.split("\n").dropLastWhile { it.isEmpty() }
-            //var index = 0
             lines.forEach {
-                tmpArr = MyApplication.comma.split(it)
-                //tmpArr = it.split(",").toTypedArray()
-                latitude = tmpArr[2].toDoubleOrNull() ?: 0.0
-                longitude = (tmpArr[3].replace("-", "")).toDoubleOrNull() ?: 0.0
-                if (tmpArr.size > 4) {
-                    cities.add(CityExt(tmpArr[0], tmpArr[1], latitude, longitude)
+                tokens = MyApplication.comma.split(it)
+                latitude = tokens[2].toDoubleOrNull() ?: 0.0
+                longitude = (tokens[3].replace("-", "")).toDoubleOrNull() ?: 0.0
+                if (tokens.size > 4) {
+                    cities.add(CityExt(tokens[0], tokens[1], latitude, longitude)
                     )
                 } else {
-                    cities.add(CityExt(tmpArr[0], tmpArr[1], latitude, longitude)
+                    cities.add(CityExt(tokens[0], tokens[1], latitude, longitude)
                     )
                 }
-                //cityLabels.add(tmpArr[1])
-                cityLabels.add(tmpArr[0] + "," + tmpArr[1])
-                //cityLabels[index] = tmpArr[0] + ", " + tmpArr[1]
-                //index += 1
-                //cityLabels.add(tmpArr[1])
+                cityLabels.add(tokens[1].trim() + ", " + tokens[0])
                 cityLat.add(latitude)
                 cityLon.add(longitude)
             }

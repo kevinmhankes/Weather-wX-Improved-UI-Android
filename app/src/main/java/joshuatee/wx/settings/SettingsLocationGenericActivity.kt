@@ -379,12 +379,13 @@ class SettingsLocationGenericActivity : BaseActivity(),
         if (!UtilityCitiesCanada.cityInit) {
             UtilityCitiesCanada.loadCitiesArray()
         }
-        //val tmpArr = UtilityCities.cities.toList() + UtilityCitCanada.CITIES_CA.toList()
-        val combinedCitiesList = UtilityCitiesExtended.cityLabels.toList() + UtilityCitiesCanada.CITIES_CA.toList()
+        //val combinedCitiesList = UtilityCities.cities.toList() + UtilityCitiesCanada.CITIES_CA.toList()
+        //val combinedCitiesList = UtilityCitiesExtended.cityLabels.toList() + UtilityCitiesCanada.CITIES_CA.toList()
+        val combinedCitiesList = UtilityCitiesExtended.cityLabels.toList()
         val cityArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, combinedCitiesList)
         cityArrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
         searchView.setAdapter(cityArrayAdapter)
-        searchView.setQueryHint("Enter city here")
+        searchView.queryHint = "Enter city here"
         searchView.setOnItemClickListener(AdapterView.OnItemClickListener { _, _, position, _ ->
             var k = 0
             for (y in combinedCitiesList.indices) {
@@ -432,22 +433,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         searchView.setOnQueryTextListener(object : OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
-
-                //cityArrayAdapter.getFilter().filter(newText.trim())
-
-                /*val input = newText.toLowerCase(Locale.US)
-                cityArrayAdapter.clear()
-                combinedCitiesList.forEach {
-                    if (it.toLowerCase(Locale.US).contains(input)) {
-                        cityArrayAdapter.add(it)
-                    }
-                }
-                cityArrayAdapter.notifyDataSetChanged()
-                return true*/
-
                 return false
-
-                //return true
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
