@@ -92,7 +92,6 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
             prod = activityArguments[0]
             initProd = prod
         }
-        UtilityLog.d("wx", prod)
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         products = UtilityFavorites.setupFavMenuNwsText(MyApplication.nwsTextFav, prod)
         sp = ObjectSpinner(this, this, this, R.id.spinner1, products)
@@ -117,7 +116,6 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         }
         ridFavOld = MyApplication.nwsTextFav
-        UtilityLog.d("wx", prod)
         html = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@WpcTextProductsActivity, prod) }
         textCard.setTextAndTranslate(Utility.fromHtml(html))
         UtilityTts.conditionalPlay(activityArguments, 2, applicationContext, html, "wpctext")

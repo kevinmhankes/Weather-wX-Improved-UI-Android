@@ -366,7 +366,7 @@ class Location(val context: Context, locNumInt: Int) {
             ) + "(" + radarSite.toUpperCase(Locale.US) + ")"
         }
 
-        fun setCurrentLocationStr(context: Context, locNum: String) {
+        private fun setCurrentLocationStr(context: Context, locNum: String) {
             Utility.writePref(context, "CURRENT_LOC_FRAGMENT", locNum)
             currentLocationStr = locNum
         }

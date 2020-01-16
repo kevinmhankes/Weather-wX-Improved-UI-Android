@@ -91,7 +91,6 @@ class CapAlert {
             if (UIPreferences.nwsTextRemovelinebreaks) {
                 obj.instructions = obj.instructions.replace("<br><br>", "<BR><BR>").replace("<br>", " ")
             }
-            //UtilityLog.d("wx", obj.instructions)
             return obj
         }
 

@@ -27,9 +27,7 @@ import joshuatee.wx.radar.UtilityMetar
 import joshuatee.wx.MyApplication
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.radar.RID
-
-import java.util.Date
-import java.util.Calendar
+import java.util.*
 
 internal class ObjectMetar(context: Context, location: LatLon) {
 
@@ -127,7 +125,6 @@ internal class ObjectMetar(context: Context, location: LatLon) {
             timeOfDay = "day"
         }
         val conditionModified = condition.split(";")[0]
-        //UtilityLog.d("wx", conditionModified)
         val shortCondition = UtilityMetarConditions.iconFromCondition[conditionModified] ?: ""
         return MyApplication.nwsApiUrl + "/icons/land/$timeOfDay/$shortCondition?size=medium"
     }

@@ -203,7 +203,6 @@ class WXGLTextObject(
                 // spotter list make copy first
                 // multiple bug reports against this
                 // look at performance impact
-                // UtilityLog.d("wx", "SPOTTER SHOW " + UtilitySpotter.spotterList.size)
                 val spotterListCopy = UtilitySpotter.spotterList.toMutableList()
                 spotterListCopy.indices.forEach {
                     checkAndDrawText(

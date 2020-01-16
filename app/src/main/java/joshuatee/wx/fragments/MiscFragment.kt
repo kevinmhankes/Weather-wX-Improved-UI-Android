@@ -43,7 +43,6 @@ import joshuatee.wx.radar.USNwsMosaicActivity
 import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.radar.WXGLRadarActivityMultiPane
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.wpc.WpcImagesActivity
 import joshuatee.wx.wpc.WpcRainfallForecastActivity
 import joshuatee.wx.wpc.WpcTextProductsActivity

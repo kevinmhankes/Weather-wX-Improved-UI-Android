@@ -44,14 +44,10 @@ class DownloadTimer(private var identifier: String) {
             initialized = true
             lastRefresh = currentTime / 1000
         }
-        //UtilityLog.d("wx", "DOWNLOAD STATUS for $identifier $refreshNeeded")
         return refreshNeeded
     }
 
     fun resetTimer() {
         lastRefresh = 0
     }
-
-    //fun resetRefreshInterval() {
-    //}
 }

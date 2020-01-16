@@ -61,8 +61,6 @@ object UtilitySpcMeso {
             spinner.setSelection(swipePosition)
         }
         val newValue = spinner[swipePosition]
-        //UtilityLog.d("wx", originalValue)
-        //UtilityLog.d("wx", newValue)
         if (newValue == originalValue) {
             if (spinner.size() > 3) {
                 swipePosition += 1

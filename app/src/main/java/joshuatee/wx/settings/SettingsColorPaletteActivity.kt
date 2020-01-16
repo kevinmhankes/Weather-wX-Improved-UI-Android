@@ -40,7 +40,6 @@ import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
 import joshuatee.wx.util.UtilityFileManagement
-import joshuatee.wx.util.UtilityLog
 
 import kotlinx.android.synthetic.main.activity_recyclerview_toolbar_with_twofab.*
 
