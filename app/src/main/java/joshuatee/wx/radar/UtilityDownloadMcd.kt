@@ -57,7 +57,6 @@ internal object UtilityDownloadMcd {
         }
         val locationNeedsMcd = UtilityNotificationSpc.locationNeedsMcd()
         if (PolygonType.MCD.pref || locationNeedsMcd) {
-            //UtilityLog.d("wx","RADAR DOWNLOAD SET: " + latLonString)
             MyApplication.mcdLatlon.valueSet(context, latLonString)
         }
         return WatchData(numberList, htmlList)

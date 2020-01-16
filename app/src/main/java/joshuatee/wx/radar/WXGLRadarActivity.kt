@@ -924,7 +924,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         // otherwise cpu will spin with no fix but to kill app
         inOglAnim = false
         mHandler?.let {
-            UtilityLog.d("Wx","RADAR STOP TASK")
             stopRepeatingTask()
         }
         locationManager?.let {
@@ -1002,7 +1001,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
-            //UtilityLog.d("wx", "GPS UPDATE: $location")
             if (MyApplication.locdotFollowsGps && !archiveMode) {
                 makeUseOfNewLocation(location)
             }

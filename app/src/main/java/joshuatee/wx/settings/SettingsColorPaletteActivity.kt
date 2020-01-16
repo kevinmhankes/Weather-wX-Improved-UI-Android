@@ -129,7 +129,6 @@ class SettingsColorPaletteActivity : BaseActivity() {
                     }
                     val prefArr =
                             MyApplication.radarColorPaletteList["99"]!!.split(":").dropLastWhile { it.isEmpty() }
-                    UtilityLog.d("Wx", "COLORPAL INIT: " + MyApplication.radarColorPaletteList["99"]!!)
                     prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
                         TileObjectColorPalette(
                                 it,
@@ -146,7 +145,6 @@ class SettingsColorPaletteActivity : BaseActivity() {
                         allItems.add(TileObjectColorPalette(it, toolbar, prefToken, cg, type, true))
                     }
                     val prefArr = MyApplication.radarColorPaletteList[type]!!.split(":").dropLastWhile { it.isEmpty() }
-                    UtilityLog.d("Wx", "COLORPAL INIT: " + MyApplication.radarColorPaletteList[type]!!)
                     prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
                         TileObjectColorPalette(
                                 it,

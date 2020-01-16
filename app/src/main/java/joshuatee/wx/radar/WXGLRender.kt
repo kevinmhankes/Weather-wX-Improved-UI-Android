@@ -220,7 +220,6 @@ class WXGLRender(private val context: Context) : Renderer {
         totalBins = 0
         // added to allow animations to skip a frame and continue
         // fixme method for tdwr
-        //UtilityLog.d("Wx", product)
         if (product.startsWith("TV") || product == "TZL" || product.startsWith("TR") || prod.startsWith("TZ") || product == "N1P" || product == "NTP" || product == "ET" || product == "VIL") {
             tdwr = true
             val oldRid = this.rid
@@ -446,7 +445,6 @@ class WXGLRender(private val context: Context) : Renderer {
         radarBuffers.setToPositionZero()
         tdwr = false
         totalBinsOgl = totalBins
-        //UtilityLog.d("wx", "TOTAL chunk: " + chunkCount.toString() + " " + totalBins + " " + breakSize15)
     }
 
     override fun onSurfaceCreated(gl: GL10, config: EGLConfig) {
@@ -500,7 +498,6 @@ class WXGLRender(private val context: Context) : Renderer {
                         "uMVPMatrix"
                 ), 1, false, matrixProjectionAndView, 0
         )
-        //UtilityLog.d("wx", chunkCount.toString())
         (0 until chunkCount).forEach {
             radarChunkCnt = if (it < chunkCount - 1) {
                 breakSizeRadar * 6
@@ -508,7 +505,6 @@ class WXGLRender(private val context: Context) : Renderer {
                 6 * (totalBinsOgl - it * breakSizeRadar)
             }
             try {
-                //UtilityLog.d("wx", it.toString() + " " + breakSizeRadar.toString())
                 radarBuffers.floatBuffer.position(it * breakSizeRadar * 32)
                 GLES20.glVertexAttribPointer(
                         positionHandle,
@@ -527,7 +523,6 @@ class WXGLRender(private val context: Context) : Renderer {
                         0,
                         radarBuffers.colorBuffer.slice()
                 )
-                //UtilityLog.d("Wx", radarChunkCnt.toString())
                 triangleIndexBuffer.position(0)
                 GLES20.glDrawElements(
                         GLES20.GL_TRIANGLES,
@@ -919,7 +914,6 @@ class WXGLRender(private val context: Context) : Renderer {
     fun constructGenericWarningLines() {
         genericWarningBuffers.forEach {
             if (it.warningType!!.isEnabled) {
-                //UtilityLog.d("wx", it.warningType!!.type.productCode)
                 constructGenericLines(it)
             } else {
                 deconstructGenericLines(it)
@@ -1070,7 +1064,6 @@ class WXGLRender(private val context: Context) : Renderer {
             else -> {
                 if (buffers.warningType != null) {
                     fList = WXGLPolygonWarnings.addGeneric(provider, rid, buffers.warningType!!).toList()
-                    //UtilityLog.d("wx", "SPS: " + fList)
                 }
             }
         }

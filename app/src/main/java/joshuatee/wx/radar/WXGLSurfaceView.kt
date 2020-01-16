@@ -350,8 +350,6 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val width: Int
         var height: Int
-        //UtilityLog.d("wx1", MeasureSpec.getSize(widthMeasureSpec).toString())
-        //UtilityLog.d("wx2", MeasureSpec.getSize(heightMeasureSpec).toString())
         if (numPanes == 1) {
             if (fullScreen) {
                 super.onMeasure(widthMeasureSpec, heightMeasureSpec)
@@ -379,11 +377,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             //    height = MyApplication.dm.heightPixels / heightDivider - UtilityUI.statusBarHeight(context) / 2
 
             this.setMeasuredDimension(width, height)
-
-            //UtilityLog.d("wx3", width.toString())
-            //UtilityLog.d("wx4", height.toString())
         }
-
     }
 
     val latLon: LatLon

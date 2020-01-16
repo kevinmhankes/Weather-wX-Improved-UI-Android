@@ -27,7 +27,6 @@ import joshuatee.wx.objects.DownloadTimer
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.PolygonWarningType
 import joshuatee.wx.util.UtilityDownloadNws
-import joshuatee.wx.util.UtilityLog
 
 internal object UtilityDownloadWarnings {
 
@@ -37,18 +36,15 @@ internal object UtilityDownloadWarnings {
     fun get(context: Context) {
         if (timer.isRefreshNeeded(context)) {
             if (PolygonType.TST.pref) {
-                UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED: $type")
                 getPolygonVtec(context)
             } else {
                 //UtilityDownloadRadar.clearPolygonVtec()
-                UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED BUT PREF IS OFF - NO DOWNLOAD: $type")
             }
         }
     }
 
     fun getForSevereDashboard(context: Context) {
         if (timer.isRefreshNeeded(context)) {
-            UtilityLog.d("wx", "RADAR DOWNLOAD INITIATED: $type")
             getPolygonVtec(context)
         }
     }
