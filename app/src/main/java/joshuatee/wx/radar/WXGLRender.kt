@@ -1147,15 +1147,19 @@ class WXGLRender(private val context: Context) : Renderer {
         var tmpCoords: DoubleArray
         UtilityWpcFronts.fronts.forEach {
             val buff = ObjectOglBuffers()
-            buff.breakSize = 15000
+            buff.breakSize = 30000
             buff.chunkCount = 1
             wpcFrontBuffersList.add(buff)
         }
         UtilityWpcFronts.fronts.indices.forEach { z ->
             val front = UtilityWpcFronts.fronts[z]
-            val totalBins = front.coordinates.size / 2
+            //val totalBins = front.coordinates.size / 2
             wpcFrontBuffersList[z].count = front.coordinates.size * 2
-            wpcFrontBuffersList[z].initialize(4 * 4 * totalBins, 0, 3 * 2 * totalBins)
+            wpcFrontBuffersList[z].initialize(
+                    4 * wpcFrontBuffersList[z].count,
+                    0,
+                    3 * wpcFrontBuffersList[z].count
+            )
             wpcFrontBuffersList[z].isInitialized = true
             when (front.type) {
                 FrontTypeEnum.COLD -> wpcFrontPaints.add(Color.rgb(0, 127, 255))

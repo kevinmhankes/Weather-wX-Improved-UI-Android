@@ -101,8 +101,8 @@ class ObjectCardCC(context: Context, version: Int) {
 
     fun refreshTextSize() {
         textViewTop.refreshTextSize(TextSize.MEDIUM)
-        textViewMiddle.refreshTextSize(TextSize.MEDIUM)
-        textViewBottom.refreshTextSize(TextSize.MEDIUM)
+        textViewMiddle.refreshTextSize(TextSize.SMALL)
+        textViewBottom.refreshTextSize(TextSize.SMALL)
     }
 
     fun setStatus(text: String) {
