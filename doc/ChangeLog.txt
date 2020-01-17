@@ -12,25 +12,22 @@
 // TODO [REF] - move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
 // TODO [ADD] - TDWR: DHR - DS.32dhr (wsr-88d also) range 124, colors 256, .54 x 1 nmi x degree
 // TODO [ADD] - TDWR and NEXRAD: DSP DS.138dp Digital Storm Total Precipitation range 124, colors 256, 1.1 x 1 nmi x degree
-// TODO [ADD] - TDWR DS.57vil range 124, colors 16, 2.2 x 2.2 nmi raster
-// TODO [ADD] - TDWR DS.p41et range 124, colors 16, 2.2 x 2.2 nmi raster
 // TODO [ADD] - option on homescreen to show comp instead of base ref
-// TODO [ADD] - VCP32 vs VCP35 colormap for comp ref
 // TODO [ADD] warning count in nexrad like flutter
 // TODO [FIX] base velocity legend
 // TODO [FIX] fix issue for precipitation radar products when there is no data
 // TODO [FIX] in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
 // TODO [FIX] many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
-// TODO [ADD] radar file class from flutter
 // TODO [FIX] if change between radar mosaic provides, change on misc tab is not immediate
 // TODO [FIX] minimize app restarts such as after homescreen changes (test nexrad addition/removal)
-// TODO [ADD] hourly homescreen widget still needs work
-// TODO [ADD] if change text size make change immediately
 // TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
-// TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [ADD] enhance radar obs to support multipane
+// TODO [ADD] radar file class from flutter
+// TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
+// TODO [ADD] hourly homescreen widget still needs work
+// TODO [ADD] better support for chromebooks
 
-55309 2020_01_17
+55309 2020_01_17    [FIX] disable wpc fronts on main screen until more stable
 55308 2020_01_17    [ADD] change wpc fronts to draw lines instead of polygons
                     [FIX] main screen current conditions text size was not correct after dynamic change support
 55307 2020_01_16    [REF] convert from System.currentTimeMillis() to UtilityTime.currentTimeMillis()

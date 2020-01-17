@@ -485,7 +485,10 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 UtilityRadarUI.plotMpdPolygons(glviewArr[idx], oglrArr[idx], false)
             }
         }
-        if (MyApplication.radarShowWpcFronts) {
+        // end recent adds Jan 2020
+
+        // don't enable until more stable
+        /*if (MyApplication.radarShowWpcFronts) {
             withContext(Dispatchers.IO) {
                 UtilityWpcFronts.get(activityReference)
             }
@@ -493,9 +496,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 UtilityRadarUI.plotWpcFronts(glviewArr[idx], oglrArr[idx], false)
             }
             UtilityWXGLTextObject.updateWpcFronts(numPanesArr.size, wxgltextArr)
-        }
-        // end recent addds Jan 2020
-
+        }*/
 
         // NOTE: below was backed out, data structures for these features only support one radar site
         // so locfrag and multi-pane don't current support. Would be nice to fix someday.
