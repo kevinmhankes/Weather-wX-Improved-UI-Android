@@ -158,6 +158,7 @@ object UtilityWpcFronts {
     private fun addFrontDataStnryWarm(front: Fronts, tokens: List<String>) {
         tokens.indices.forEach { index ->
             val coordinates = parseLatLon(tokens[index])
+            // effectively the first and last values are not there
             if (index != 0 && index != (tokens.size - 1)) {
                 front.coordinates.add(LatLon(coordinates[0], coordinates[1]))
             }
