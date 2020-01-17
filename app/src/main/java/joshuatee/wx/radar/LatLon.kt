@@ -91,6 +91,10 @@ class LatLon() {
             y = newValue.toDoubleOrNull() ?: 0.0
         }
 
+    override fun toString(): String {
+        return "$latString:$lonString"
+    }
+
     companion object {
 
         // 1.1515 is the number of statute miles in a nautical mile

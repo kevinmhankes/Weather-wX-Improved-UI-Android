@@ -28,6 +28,7 @@ import kotlin.math.*
 import joshuatee.wx.util.UtilityMath
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.objects.DownloadTimer
+import joshuatee.wx.util.UtilityLog
 
 // Data file - https://www.wpc.ncep.noaa.gov/basicwx/coded_srp.txt
 // Decoder - https://www.wpc.ncep.noaa.gov/basicwx/read_coded_fcst_bull.shtml
@@ -276,6 +277,7 @@ object UtilityWpcFronts {
                         "COLD" -> {
                             val front = Fronts(FrontTypeEnum.COLD)
                             addFrontData(front, tokens)
+                            //UtilityLog.d("Wx", front.toString())
                             addColdFrontTriangles(front, tokens)
                             //addWarmFrontSemicircles(front, tokens)
                             fronts.add(front)

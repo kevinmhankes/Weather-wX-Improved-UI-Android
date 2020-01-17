@@ -30,7 +30,7 @@
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [ADD] enhance radar obs to support multipane
 
-55308 2020_01_16
+55308 2020_01_17    [ADD] change wpc fronts to draw lines instead of polygons
 55307 2020_01_16    [REF] convert from System.currentTimeMillis() to UtilityTime.currentTimeMillis()
                     [REF] prune comments
 55306 2020_01_15    [ADD] android-ndk-r20b to android-ndk-r21
