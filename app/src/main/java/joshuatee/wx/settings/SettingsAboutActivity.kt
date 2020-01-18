@@ -49,6 +49,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private lateinit var textCard: ObjectCardText
     private val faqUrl = "https://docs.google.com/document/d/1OQrviP10XBvQZ7QKh5R4bsd72ZKffK5f0ISRuCaSk5k/edit?usp=sharing"
     private val iOSUrl = "https://apps.apple.com/us/app/wxl23/id1171250052"
+    private val releaseNotesUrl = "https://docs.google.com/document/d/1A7rvP3QrJg0QqoEtKgU4B_VqLkjECijb4CFtXyNQNAM/edit?usp=sharing"
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,6 +73,17 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     WebscreenAB::class.java,
                     WebscreenAB.URL,
                     arrayOf(faqUrl, "wX Frequently Asked Questions")
+            )
+        })
+        val releaseNotesButton = ObjectCardText(this, ll, toolbar, toolbarBottom)
+        releaseNotesButton.setTextColor(UIPreferences.textHighlightColor)
+        releaseNotesButton.text = "View release notes"
+        releaseNotesButton.setOnClickListener(View.OnClickListener {
+            ObjectIntent(
+                    this,
+                    WebscreenAB::class.java,
+                    WebscreenAB.URL,
+                    arrayOf(releaseNotesUrl, "wX Frequently Asked Questions")
             )
         })
         val emailButton = ObjectCardText(this, ll, toolbar, toolbarBottom)

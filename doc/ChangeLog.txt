@@ -23,7 +23,7 @@
 // TODO [REF] in custom classes add better support for kolin get/setter, for example ObjectCardText setTextColor()
 // TODO [ADD] better support for Chromebook
 
-55311 2020_01_18
+55311 2020_01_18    [ADD] release notes button in settings -> about
 55310 2020_01_18    [FIX] wpc front crash with stationary front in some circumstances
                     [FIX] wpc storm summary text product was not working
                     [FIX] lint cleanup
