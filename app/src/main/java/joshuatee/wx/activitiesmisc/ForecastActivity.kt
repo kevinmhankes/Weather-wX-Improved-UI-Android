@@ -60,7 +60,7 @@ class ForecastActivity : BaseActivity() {
     private var objSevenDay = ObjectForecastPackage7Day()
     private var ccTime = ""
     private var radarTime = ""
-    private lateinit var cardCC: ObjectCardCC
+    private lateinit var cardCC: ObjectCardCurrentConditions
     private lateinit var linearLayoutForecast: ObjectLinearLayout
     private lateinit var linearLayoutHazards: ObjectLinearLayout
     private val hazardCards = mutableListOf<ObjectCardText>()
@@ -73,7 +73,7 @@ class ForecastActivity : BaseActivity() {
         latLon = LatLon(activityArguments[0], activityArguments[1])
         title = "Forecast for"
         toolbar.subtitle = latLon.latString + "," + latLon.lonString
-        cardCC = ObjectCardCC(this, 2)
+        cardCC = ObjectCardCurrentConditions(this, 2)
         ll.addView(cardCC.card)
         linearLayoutHazards = ObjectLinearLayout(this, ll)
         linearLayoutForecast = ObjectLinearLayout(this, ll)

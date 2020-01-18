@@ -59,7 +59,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             textViewList.add(item)
             item.setPadding(60, 30, 0, 30)
             item.gravity = Gravity.CENTER_HORIZONTAL
-            item.setTextColor(Color.BLACK)
+            item.color = Color.BLACK
             item.tv.setOnClickListener { fnList[index](position); dismiss() }
             linearLayout.addView(item.tv)
         }

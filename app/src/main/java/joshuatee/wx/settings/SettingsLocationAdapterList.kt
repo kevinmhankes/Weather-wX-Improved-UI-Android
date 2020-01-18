@@ -68,16 +68,11 @@ internal class SettingsLocationAdapterList(private val dataSet: MutableList<Stri
         }
         holder.text1.text = Location.getName(position)
         if (UtilityLocation.hasAlerts(position)) {
-            holder.text1.setTextColor(UIPreferences.textHighlightColor)
+            holder.text1.color = UIPreferences.textHighlightColor
         } else {
-            holder.text1.setTextColor(UIPreferences.backgroundColor)
+            holder.text1.color = UIPreferences.backgroundColor
         }
-
-
         holder.currentConditions.text = Location.getObservation(position)
-        //holder.currentConditions.tv.visibility = View.INVISIBLE
-
-
         if (nonUs)
             holder.text2.text =
                 """${UtilityStringExternal.truncate(lat, 6)} , ${UtilityStringExternal.truncate(

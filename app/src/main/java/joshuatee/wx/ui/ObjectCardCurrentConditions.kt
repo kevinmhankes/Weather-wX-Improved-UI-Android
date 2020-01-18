@@ -32,8 +32,7 @@ import joshuatee.wx.objects.TextSize
 import joshuatee.wx.settings.Location
 import joshuatee.wx.util.ObjectForecastPackageCurrentConditions
 
-// FIXME rename
-class ObjectCardCC(context: Context, version: Int) {
+class ObjectCardCurrentConditions(context: Context, version: Int) {
 
     private val objCard: ObjectCard
     private var imageView = ObjectImageView(context)

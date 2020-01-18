@@ -31,7 +31,7 @@
 // TODO [FIX] use dialogue instead of spinners when it makes sense: more flexible and cleaner code
 // TODO [REF] is the on-off toggle in settings -> widgets being used anymore?
 
-55314 2020_01_18
+55314 2020_01_18    [REF] various refactor
 55313 2020_01_18    [ADD] for tablet have default radar sizes be smaller: locdot, spotter, aviation dot
                     [ADD] playlist - when adding item, download it
                     [ADD] On main screen replace spinner with ObjectTextCard and ObjectDialogue

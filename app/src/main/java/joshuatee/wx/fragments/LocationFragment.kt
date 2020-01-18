@@ -80,7 +80,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
     private var currentLoc = -1
     private var sevenDayExtShown = false
     private lateinit var intent: Intent
-    private var cardCC: ObjectCardCC? = null
+    private var cardCC: ObjectCardCurrentConditions? = null
     private lateinit var linearLayout: LinearLayout
     private val helpForecastGenericStatus = 1
     private val helpCurrentGeneric = 2
@@ -262,7 +262,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         })
 
         if (homescreenFavLocal.contains("TXT-CC2")) {
-            cardCC = ObjectCardCC(activityReference, 2)
+            cardCC = ObjectCardCurrentConditions(activityReference, 2)
             cardCC?.setListener(
                     alertDialogStatus,
                     alertDialogStatusList,
@@ -271,7 +271,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                     ::showHelp
             )
         } else {
-            cardCC = ObjectCardCC(activityReference, 1)
+            cardCC = ObjectCardCurrentConditions(activityReference, 1)
         }
         if (homescreenFavLocal.contains("TXT-7DAY")) {
             linearLayoutForecast = LinearLayout(activityReference)

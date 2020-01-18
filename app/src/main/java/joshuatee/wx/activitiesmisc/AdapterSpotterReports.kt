@@ -75,8 +75,8 @@ internal class AdapterSpotterReports(private val dataSet: List<SpotterReports>) 
         holder.summary.text = dataSet[position].narrative
         holder.summary.setAsBackgroundText()
         listOf(holder.time, holder.email, holder.phone, holder.summary).forEach {
-            it.setTextColor(UIPreferences.backgroundColor)
-            it.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
+            it.color = UIPreferences.backgroundColor
+            it.setTextSize(TextSize.SMALL)
         }
     }
 

@@ -65,7 +65,8 @@ class ObjectTextView(val context: Context) {
     }
 
     constructor(context: Context, color: Int) : this(context) {
-        setTextColor(color)
+        //setTextColor(color)
+        this.color = color
     }
 
     constructor(view: View, resId: Int) : this(view.context) {
@@ -73,7 +74,8 @@ class ObjectTextView(val context: Context) {
     }
 
     constructor(view: View, resId: Int, color: Int) : this(view, resId) {
-        setTextColor(color)
+        //setTextColor(color)
+        this.color = color
     }
 
     constructor(view: View, resId: Int, size: TextSize) : this(view.context, size) {
@@ -83,7 +85,8 @@ class ObjectTextView(val context: Context) {
 
     constructor(view: View, resId: Int, color: Int, size: TextSize) : this(view.context, size) {
         tv = view.findViewById(resId)
-        setTextColor(color)
+        //setTextColor(color)
+        this.color = color
         refreshTextSize(size)
     }
 
@@ -122,18 +125,19 @@ class ObjectTextView(val context: Context) {
         }
     }
 
-    fun setTextColor(color: Int) {
-        tv.setTextColor(color)
+    fun setTextSize(size: TextSize) {
+        refreshTextSize(size)
     }
 
-    fun setTextSize(unit: Int, size: Float) {
-        tv.setTextSize(unit, size)
-    }
+    var color: Int
+        get() = tv.currentTextColor
+        set(newValue) {
+            tv.setTextColor(newValue)
+        }
 
     fun setAsBackgroundText() {
         setAsSmallText()
         tv.setTextColor(UIPreferences.textSmallThemeColor)
-        //tv.setTextAppearance(context, UIPreferences.smallTextTheme)
     }
 
     fun setAsSmallText() {
