@@ -26,6 +26,7 @@ import java.util.regex.Pattern
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp
+import java.util.*
 
 object UtilityString {
 
@@ -37,7 +38,7 @@ object UtilityString {
     }
 
     internal fun capitalizeString(string: String): String {
-        val chars = string.toLowerCase().toCharArray()
+        val chars = string.toLowerCase(Locale.US).toCharArray()
         var found = false
         if (chars.size > 3) {
             (2 until chars.size).forEach {

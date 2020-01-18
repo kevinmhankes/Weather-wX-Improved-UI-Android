@@ -21,7 +21,6 @@
 
 package joshuatee.wx.settings
 
-import java.util.Collections
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
@@ -41,6 +40,7 @@ import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
 import kotlinx.coroutines.*
+import java.util.*
 
 object UtilityLocation {
 
@@ -174,12 +174,12 @@ object UtilityLocation {
         val x: String
         val y: String
         if (officeType == "RID") {
-            x = Utility.getRadarSiteX(site.toUpperCase())
-            y = addChar + Utility.getRadarSiteY(site.toUpperCase())
+            x = Utility.getRadarSiteX(site.toUpperCase(Locale.US))
+            y = addChar + Utility.getRadarSiteY(site.toUpperCase(Locale.US))
         } else {
-            x = Utility.readPref(context, officeType + "_" + site.toUpperCase() + "_X", "0.0")
+            x = Utility.readPref(context, officeType + "_" + site.toUpperCase(Locale.US) + "_X", "0.0")
             y =
-                    addChar + Utility.readPref(context, officeType + "_" + site.toUpperCase() + "_Y", "0.0")
+                    addChar + Utility.readPref(context, officeType + "_" + site.toUpperCase(Locale.US) + "_Y", "0.0")
         }
         return LatLon(x, y)
     }

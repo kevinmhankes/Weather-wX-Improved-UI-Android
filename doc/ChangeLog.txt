@@ -10,9 +10,6 @@
 // TODO [REF] - OkHttp 3.13 Requires Android 5+ – Square Corner Blog – Medium  https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce
 // TODO [REF] - UtilityMetar in radar has optimization related to text file loading
 // TODO [REF] - move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
-// TODO [ADD] - TDWR: DHR - DS.32dhr (wsr-88d also) range 124, colors 256, .54 x 1 nmi x degree
-// TODO [ADD] - TDWR and NEXRAD: DSP DS.138dp Digital Storm Total Precipitation range 124, colors 256, 1.1 x 1 nmi x degree
-// TODO [ADD] - option on homescreen to show comp instead of base ref
 // TODO [ADD] warning count in nexrad like flutter
 // TODO [FIX] base velocity legend
 // TODO [FIX] fix issue for precipitation radar products when there is no data
@@ -27,8 +24,9 @@
 // TODO [ADD] hourly homescreen widget still needs work
 // TODO [ADD] better support for chromebooks
 
-55310 2020_01_17    [FIX] wpc front crash with stationary front in some circumstances
+55310 2020_01_18    [FIX] wpc front crash with stationary front in some circumstances
                     [FIX] wpc storm summary text product was not working
+                    [FIX] lint cleanup
 55309 2020_01_17    [FIX] disable wpc fronts on main screen until more stable
 55308 2020_01_17    [ADD] change wpc fronts to draw lines instead of polygons
                     [FIX] main screen current conditions text size was not correct after dynamic change support

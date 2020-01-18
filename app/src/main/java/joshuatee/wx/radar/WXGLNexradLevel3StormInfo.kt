@@ -32,6 +32,7 @@ import joshuatee.wx.util.*
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
 import joshuatee.wx.settings.UtilityLocation
+import java.util.*
 
 internal object WXGLNexradLevel3StormInfo {
 
@@ -47,7 +48,7 @@ internal object WXGLNexradLevel3StormInfo {
         val retStr: String
         val location = UtilityLocation.getSiteLocation(context, rid)
         val pn = ProjectionNumbers(rid, projectionType)
-        WXGLDownload.getNidsTab(context, "STI", pn.radarSite.toLowerCase(), stiBaseFn + fnSuffix)
+        WXGLDownload.getNidsTab(context, "STI", pn.radarSite.toLowerCase(Locale.US), stiBaseFn + fnSuffix)
         val dis: UCARRandomAccessFile
         val posn: List<String>
         val motion: List<String>

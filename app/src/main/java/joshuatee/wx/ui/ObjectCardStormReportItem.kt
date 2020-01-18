@@ -32,6 +32,7 @@ import androidx.cardview.widget.CardView
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.spc.StormReport
+import java.util.*
 
 class ObjectCardStormReportItem(context: Context) {
 
@@ -73,7 +74,7 @@ class ObjectCardStormReportItem(context: Context) {
     }
 
     fun setTextHeader(stormReport: StormReport) {
-        textViewTop.text = stormReport.text.toUpperCase()
+        textViewTop.text = stormReport.text.toUpperCase(Locale.US)
         textViewTop.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeLarge)
         textViewTop.setPadding(20,20,20,20)
         textViewTop.setTextColor(UIPreferences.textHighlightColor)

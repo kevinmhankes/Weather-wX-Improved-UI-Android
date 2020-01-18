@@ -39,6 +39,7 @@ import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp
 import joshuatee.wx.settings.UtilityLocation
+import java.util.*
 
 object UtilityCanvasStormInfo {
 
@@ -51,7 +52,7 @@ object UtilityCanvasStormInfo {
         radarSite: String
     ) {
         val textSize = 22
-        WXGLDownload.getNidsTab(context, "STI", radarSite.toLowerCase(), stiBaseFn + "")
+        WXGLDownload.getNidsTab(context, "STI", radarSite.toLowerCase(Locale.US), stiBaseFn + "")
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.FILL
