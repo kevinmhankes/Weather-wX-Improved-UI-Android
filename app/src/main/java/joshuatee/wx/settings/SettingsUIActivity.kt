@@ -269,7 +269,7 @@ class SettingsUIActivity : BaseActivity() {
                         "NWS icon size",
                         "NWS_ICON_SIZE_PREF",
                         R.string.nws_icon_size_np_label,
-                        20,
+                        UIPreferences.nwsIconSizeDefault,
                         1,
                         50
                 ).card
@@ -293,7 +293,7 @@ class SettingsUIActivity : BaseActivity() {
                         "Image tiles per row",
                         "UI_TILES_PER_ROW",
                         R.string.tiles_per_row_label,
-                        3,
+                        UIPreferences.tilesPerRowDefault,
                         3,
                         10
                 ).card
@@ -329,7 +329,7 @@ class SettingsUIActivity : BaseActivity() {
                         "Text size",
                         "TEXTVIEW_FONT_SIZE",
                         R.string.textview_fontsize_np_label,
-                        16,
+                        UIPreferences.normalTextSizeDefault,
                         12,
                         25
                 ).card

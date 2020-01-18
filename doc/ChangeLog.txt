@@ -25,6 +25,7 @@
 
 55311 2020_01_18    [ADD] release notes button in settings -> about
                     [ADD] test code to see if tablet
+                    [ADD] if tablet adjust tiles per row, NWS image size, text size to something more appropriate
 55310 2020_01_18    [FIX] wpc front crash with stationary front in some circumstances
                     [FIX] wpc storm summary text product was not working
                     [FIX] lint cleanup

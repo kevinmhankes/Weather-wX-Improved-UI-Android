@@ -47,6 +47,7 @@ object UIPreferences {
     var radarStatusBarTransparent: Boolean = false
     var radarImmersiveMode: Boolean = false
     var tilesPerRow: Int = 3
+    var tilesPerRowDefault: Int = 3
     var themeStr: String = ""
     var themeInt: Int = 0
     var smallTextTheme: Int = 0
@@ -58,9 +59,14 @@ object UIPreferences {
     var mainScreenRadarFab: Boolean = true
     var locfragDontShowIcons: Boolean = false
     var useAwcRadarMosaic: Boolean = false
+    var nwsIconSizeDefault = 20
+    var normalTextSizeDefault = 16
 
     fun initPreferences(context: Context) {
-        val normalTextSize = Utility.readPref(context, "TEXTVIEW_FONT_SIZE", 16) // 14 16 21
+        if (UtilityUI.isTablet()) {
+            normalTextSizeDefault = 22
+        }
+        val normalTextSize = Utility.readPref(context, "TEXTVIEW_FONT_SIZE", normalTextSizeDefault) // 14 16 21
         MyApplication.textSizeSmall = UtilityUI.spToPx(normalTextSize - 2, context)
         MyApplication.textSizeNormal = UtilityUI.spToPx(normalTextSize, context)
         MyApplication.textSizeLarge = UtilityUI.spToPx(normalTextSize + 5, context)
@@ -92,7 +98,10 @@ object UIPreferences {
             Utility.readPref(context, "RADAR_STATUSBAR_TRANSPARENT", "false").startsWith("t")
         radarImmersiveMode =
             Utility.readPref(context, "RADAR_IMMERSIVE_MODE", "false").startsWith("t")
-        tilesPerRow = Utility.readPref(context, "UI_TILES_PER_ROW", tilesPerRow)
+        if (UtilityUI.isTablet()) {
+            tilesPerRowDefault = 5
+        }
+        tilesPerRow = Utility.readPref(context, "UI_TILES_PER_ROW", tilesPerRowDefault)
         themeStr = Utility.readPref(context, "THEME_BLUE", "whiteNew")
         themeInt = Utility.theme(themeStr)
         if (themeInt == R.style.MyCustomTheme_white_NOAB || themeInt == R.style.MyCustomTheme_whiter_NOAB) {

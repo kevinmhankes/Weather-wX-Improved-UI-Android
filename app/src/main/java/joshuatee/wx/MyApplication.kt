@@ -380,7 +380,10 @@ class MyApplication : Application() {
             checkspc = getInitialPreference("CHECKSPC", "false")
             checkwpc = getInitialPreference("CHECKWPC", "false")
             checktor = getInitialPreference("CHECKTOR", "false")
-            nwsIconSize = preferences.getInt("NWS_ICON_SIZE_PREF", 20) // was 24 10-27-2018
+            if (UtilityUI.isTablet()) {
+                UIPreferences.nwsIconSizeDefault = 8
+            }
+            nwsIconSize = preferences.getInt("NWS_ICON_SIZE_PREF", UIPreferences.nwsIconSizeDefault) // was 24 10-27-2018
             uiAnimIconFrames = getInitialPreferenceString("UI_ANIM_ICON_FRAMES", "6")
             blackBg = getInitialPreference("NWS_RADAR_BG_BLACK", "")
             widgetPreventTap = getInitialPreference("UI_WIDGET_PREVENT_TAP", "")
