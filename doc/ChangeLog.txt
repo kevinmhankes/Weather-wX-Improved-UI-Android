@@ -22,16 +22,17 @@
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [REF] in custom classes add better support for kolin get/setter, for example ObjectCardText setTextColor()
 // TODO [ADD] better support for Chromebook - https://developer.android.com/topic/arc/device-support
-// TODO [FIX] some UI cards such as playlist don't respect text size
 // TODO [FIX] radar default size ( dots ) for tablet, etc
-// TODO [FIX] dropdown text size, tab heading text size
-// TODO [FIX] hourly font size
-// TODO [FIX] radar color palette text size
+// TODO [FIX] tab heading text size
 // TODO [FIX] spotter report label does not clear when single/double click - does for pan
 // TODO [FIX] use dialogue instead of spinners when it makes sense: more flexible and cleaner code
 // TODO [REF] is the on-off toggle in settings -> widgets being used anymore?
 
 55314 2020_01_18    [REF] various refactor
+                    [FIX] remove currentLoc from Locfrag, not needed and was causing a bug
+                    [ADD] more space in object diaglogue
+                    [FIX] radar color palette text size
+                    [FIX] hourly font size
 55313 2020_01_18    [ADD] for tablet have default radar sizes be smaller: locdot, spotter, aviation dot
                     [ADD] playlist - when adding item, download it
                     [ADD] On main screen replace spinner with ObjectTextCard and ObjectDialogue

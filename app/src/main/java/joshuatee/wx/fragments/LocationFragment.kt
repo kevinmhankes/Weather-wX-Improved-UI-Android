@@ -77,7 +77,6 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
     private var y = ""
     private var ts = ""
     private var glviewInitialized = false
-    private var currentLoc = -1
     private var sevenDayExtShown = false
     private lateinit var intent: Intent
     private var cardCC: ObjectCardCurrentConditions? = null
@@ -309,48 +308,38 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         return view
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        currentLoc = Location.currentLocation
-        if (currentLoc > Location.numLocations)
-            currentLoc = Location.numLocations - 1
-        else
-            currentLoc -= 1
-    }
-
     private fun changeLocation(pos: Int) {
-        if (currentLoc != pos) {
-            locationChangedHazards = true
-            locationChangedSevenDay = true
-            if (pos != Location.numLocations) {
-                currentLoc = pos
-                Utility.writePref(activityReference, "CURRENT_LOC_FRAGMENT", (pos + 1).toString())
-                Location.currentLocationStr = (pos + 1).toString()
-                x = Location.x
-                y = Location.y
-                if (oglrIdx != -1)
-                    radarLocationChangedAl[oglrIdx] = false
-                if (MyApplication.locDisplayImg && oglrIdx != -1) {
-                    glviewArr[oglrIdx].scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
-                    oglrArr[oglrIdx].setViewInitial(
-                            MyApplication.wxoglSize.toFloat() / 10.0f,
-                            0.0f,
-                            0.0f
-                    )
-                }
-                hsImages.forEach { it.resetZoom() }
-                setImageOnClick()
-                getContent()
-            } else {
-                ObjectIntent(
-                        activityReference,
-                        SettingsLocationGenericActivity::class.java,
-                        SettingsLocationGenericActivity.LOC_NUM,
-                        arrayOf((pos + 1).toString(), "")
+        locationChangedHazards = true
+        locationChangedSevenDay = true
+        if (pos != Location.numLocations) {
+            Utility.writePref(activityReference, "CURRENT_LOC_FRAGMENT", (pos + 1).toString())
+            Location.currentLocationStr = (pos + 1).toString()
+            x = Location.x
+            y = Location.y
+            if (oglrIdx != -1)
+                radarLocationChangedAl[oglrIdx] = false
+            if (MyApplication.locDisplayImg && oglrIdx != -1) {
+                glviewArr[oglrIdx].scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
+                oglrArr[oglrIdx].setViewInitial(
+                        MyApplication.wxoglSize.toFloat() / 10.0f,
+                        0.0f,
+                        0.0f
                 )
             }
-            locationLabel.text = Location.name
-        } // end check if current loc is pos
+            hsImages.forEach {
+                it.resetZoom()
+            }
+            setImageOnClick()
+            getContent()
+        } else {
+            ObjectIntent(
+                    activityReference,
+                    SettingsLocationGenericActivity::class.java,
+                    SettingsLocationGenericActivity.LOC_NUM,
+                    arrayOf((pos + 1).toString(), "")
+            )
+        }
+        locationLabel.text = Location.name
     }
 
     private fun getContent() {
@@ -359,8 +348,12 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         if (needForecastData) {
             getForecastData()
         }
-        hsTextAl.indices.forEach { getTextProduct(it.toString()) }
-        hsImages.indices.forEach { getImageProduct(it.toString()) }
+        hsTextAl.indices.forEach {
+            getTextProduct(it.toString())
+        }
+        hsImages.indices.forEach {
+            getImageProduct(it.toString())
+        }
         x = Location.x
         y = Location.y
         if (MyApplication.locDisplayImg) {

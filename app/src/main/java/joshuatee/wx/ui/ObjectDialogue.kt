@@ -53,6 +53,7 @@ class ObjectDialogue {
                 val tv = view.findViewById(android.R.id.text1) as TextView
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
                 tv.setTextColor(Color.WHITE)
+                tv.setPadding(20,5,20,5)
                 return view
             }
         }
@@ -71,6 +72,7 @@ class ObjectDialogue {
                 val tv = view.findViewById(android.R.id.text1) as TextView
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
                 tv.setTextColor(Color.WHITE)
+                tv.setPadding(20,5,20,5)
                 return view
             }
         }

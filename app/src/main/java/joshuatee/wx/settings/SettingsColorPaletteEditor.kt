@@ -29,6 +29,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
@@ -87,7 +88,9 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
             activityArguments[1] + "_" + formattedDate
         }
         palTitle.setText(name)
+        palTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeLarge)
         palContent.setText(UtilityColorPalette.getColorMapStringFromDisk(this, type, activityArguments[1]))
+        palContent.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
     }
 
     private fun fabSavePalette(context: Context) {
