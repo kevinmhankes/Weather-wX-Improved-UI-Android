@@ -21,6 +21,8 @@
 
 package joshuatee.wx.ui
 
+import joshuatee.wx.R
+
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
@@ -29,17 +31,17 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Build
-import com.google.android.material.snackbar.Snackbar
-import androidx.cardview.widget.CardView
+import android.util.TypedValue
 import android.view.View
 import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-
+import com.google.android.material.snackbar.Snackbar
 import joshuatee.wx.MyApplication
-import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.util.Utility
-import android.util.TypedValue
+
+import kotlin.math.*
 
 object UtilityUI {
 
@@ -168,5 +170,13 @@ object UtilityUI {
 
     fun spToPx(sp: Int, context: Context): Float {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp.toFloat(), context.resources.displayMetrics)
+    }
+
+    fun isTablet(): Boolean {
+        val displayMetrics = MyApplication.dm
+        val wInches = displayMetrics.widthPixels / displayMetrics.densityDpi
+        val hInches = displayMetrics.heightPixels / displayMetrics.densityDpi
+        val screenDiagonal = sqrt(wInches.toDouble().pow(2.0) + hInches.toDouble().pow(2.0))
+        return (screenDiagonal >= 7.0)
     }
 }

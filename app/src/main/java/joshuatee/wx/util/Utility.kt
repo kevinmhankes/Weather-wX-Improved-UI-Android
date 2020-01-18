@@ -21,6 +21,7 @@
 
 package joshuatee.wx.util
 
+import android.app.Activity
 import android.os.Build
 import androidx.preference.PreferenceManager
 import android.text.Html
@@ -32,6 +33,7 @@ import joshuatee.wx.R
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.radar.UtilityRadar
+import joshuatee.wx.radar.UtilityRadarUI
 import joshuatee.wx.ui.UtilityUI
 
 object Utility {
@@ -241,6 +243,26 @@ object Utility {
         } else {
             list[index]
         }
+    }
+
+    fun showVersion(context: Context, activity: Activity): String {
+        var version = ""
+        try {
+            version = activity.packageManager.getPackageInfo(activity.packageName, 0).versionName
+        } catch (e: Exception) {
+            UtilityLog.handleException(e)
+        }
+        var string = activity.resources.getString(R.string.about_wx) + MyApplication.newline + version
+        string += MyApplication.newline + MyApplication.newline + "Diagnostics information:" + MyApplication.newline
+        string += readPref(
+                context,
+                "JOBSERVICE_TIME_LAST_RAN",
+                ""
+        ) + "  Last background update" + MyApplication.newline
+        string += UtilityRadarUI.getLastRadarTime(context) + "  Last radar update" + MyApplication.newline
+        string += showDiagnostics(context)
+        string += "Tablet: " + UtilityUI.isTablet().toString()
+        return string
     }
 }
 

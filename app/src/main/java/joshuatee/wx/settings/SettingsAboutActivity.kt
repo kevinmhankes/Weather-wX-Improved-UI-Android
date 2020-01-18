@@ -108,7 +108,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
             )
         })
         textCard = ObjectCardText(this, ll, toolbar, toolbarBottom)
-        textCard.text = UtilityAlertDialog.showVersion(this, this)
+        textCard.text = Utility.showVersion(this, this)
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {

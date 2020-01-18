@@ -40,6 +40,7 @@ import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.ui.UtilityTheme
 import joshuatee.wx.ui.UtilityToolbar
 import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.util.UtilityLog
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -51,6 +52,7 @@ class WX : CommonActionBarFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(UIPreferences.themeInt)
+        UtilityLog.d("wx", "TABLET: " + UtilityUI.isTablet().toString())
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         UtilityTheme.setPrimaryColor(this)

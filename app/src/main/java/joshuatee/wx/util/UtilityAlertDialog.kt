@@ -67,26 +67,6 @@ object UtilityAlertDialog {
         alert.show()
     }
 
-    // TODO move to Utility
-    fun showVersion(context: Context, activity: Activity): String {
-        var version = ""
-        try {
-            version = activity.packageManager.getPackageInfo(activity.packageName, 0).versionName
-        } catch (e: Exception) {
-            UtilityLog.handleException(e)
-        }
-        var string = activity.resources.getString(R.string.about_wx) + MyApplication.newline + version
-        string += MyApplication.newline + MyApplication.newline + "Diagnostics information:" + MyApplication.newline
-        string += Utility.readPref(
-            context,
-            "JOBSERVICE_TIME_LAST_RAN",
-            ""
-        ) + "  Last background update" + MyApplication.newline
-        string += UtilityRadarUI.getLastRadarTime(context) + "  Last radar update" + MyApplication.newline
-        string += Utility.showDiagnostics(context)
-        return string
-    }
-
     fun showDialogueWithContext(str: String, context: Context) {
         val alertDialogBuilder = AlertDialog.Builder(context)
         alertDialogBuilder.setMessage(str).setCancelable(false)
