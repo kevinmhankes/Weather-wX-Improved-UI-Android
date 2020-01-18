@@ -59,6 +59,6 @@ class CanadaHourlyActivity : BaseActivity() {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        c0.setText(withContext(Dispatchers.IO) { UtilityCanadaHourly.getString(locNumInt) })
+        c0.text = withContext(Dispatchers.IO) { UtilityCanadaHourly.getString(locNumInt) }
     }
 }

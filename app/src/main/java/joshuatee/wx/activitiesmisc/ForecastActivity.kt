@@ -130,7 +130,7 @@ class ForecastActivity : BaseActivity() {
         val cardSunrise = ObjectCardText(this@ForecastActivity)
         cardSunrise.center()
         try {
-            cardSunrise.setText(
+            cardSunrise.text = (
                     UtilityTimeSunMoon.getSunriseSunset(
                             this@ForecastActivity,
                             Location.currentLocationStr
@@ -161,7 +161,7 @@ class ForecastActivity : BaseActivity() {
             hazardCards[z].setPaddingAmount(MyApplication.paddingSettings)
             hazardCards[z].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
             hazardCards[z].setTextColor(UIPreferences.textHighlightColor)
-            hazardCards[z].setText(objHazards.titles[z].toUpperCase(Locale.US))
+            hazardCards[z].text = (objHazards.titles[z].toUpperCase(Locale.US))
             hazardCards[z].setOnClickListener(View.OnClickListener {
                 ObjectIntent(
                         this@ForecastActivity,

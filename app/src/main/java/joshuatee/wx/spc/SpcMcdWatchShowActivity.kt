@@ -89,7 +89,7 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         withContext(Dispatchers.IO) { objectWatchProduct.getData(this@SpcMcdWatchShowActivity) }
-        objectCardText.setText(Utility.fromHtml(objectWatchProduct.text))
+        objectCardText.text = Utility.fromHtml(objectWatchProduct.text)
         toolbar.subtitle = objectWatchProduct.textForSubtitle
         objectCardImage.setImage(objectWatchProduct.bitmap)
         objectCardImage.setOnClickListener(View.OnClickListener {

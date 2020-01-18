@@ -121,12 +121,7 @@ class SettingsMainActivity : BaseActivity() {
             )
         })
         cardAbout.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                    this,
-                    SettingsAboutActivity::class.java,
-                    SettingsAboutActivity.URL,
-                    arrayOf(UtilityAlertDialog.showVersion(this, this), "About wX")
-            )
+            ObjectIntent(this, SettingsAboutActivity::class.java)
         })
         listOf(
                 cardAbout.card,

@@ -155,14 +155,14 @@ class ObjectAlertSummary(
         filter = filter.replace("[|*?.]".toRegex(), " ")
         //filter = filter.replace("\\||\\*|\\?|\\.".toRegex(), " ")
         if (mapOut.isNotEmpty())
-            cardText.setText(
+            cardText.text = (
                     "Filter: " + filter.replace(
                             "\\^".toRegex(),
                             ""
                     ) + " (" + i + ")" + MyApplication.newline + mapOut
             )
         else
-            cardText.setText("Filter: " + filter.replace("\\^".toRegex(), "") + " (" + i + ")")
+            cardText.text = ("Filter: " + filter.replace("\\^".toRegex(), "") + " (" + i + ")")
         if (firstRun) {
             val filterArray1 = mapEvent.keys.toList()
             val filterArray1Label = mutableListOf<String>()

@@ -44,7 +44,7 @@ class ObjectCALegal(context: Context, linearLayout: LinearLayout, url: String) {
                 Uri.parse(url)
             )
         })
-        c1.setText(context.resources.getText(R.string.main_screen_ca_disclaimor))
+        c1.text = context.resources.getText(R.string.main_screen_ca_disclaimor).toString()
         linearLayout.addView(c1.card)
     }
 }

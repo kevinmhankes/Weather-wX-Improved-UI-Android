@@ -720,7 +720,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         hazardsCards[0].setPaddingAmount(MyApplication.paddingSettings)
         hazardsCards[0].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         hazardsCards[0].setTextColor(UIPreferences.textHighlightColor)
-        hazardsCards[0].setText(hazUrl)
+        hazardsCards[0].text = hazUrl
         val expandIndexCa = 0
         val hazUrlCa = objHazards.hazards
         val hazardsSumCa = objHazards.getHazardsShort()
@@ -731,7 +731,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                         TypedValue.COMPLEX_UNIT_PX,
                         MyApplication.textSizeSmall
                 )
-                hazardsCards[expandIndexCa].setText(Utility.fromHtml(hazUrlCa))
+                hazardsCards[expandIndexCa].text = Utility.fromHtml(hazUrlCa)
                 hazardsExpandedAl[expandIndexCa] = true
             } else {
                 hazardsCards[expandIndexCa].setTextColor(UIPreferences.textHighlightColor)
@@ -739,7 +739,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                         TypedValue.COMPLEX_UNIT_PX,
                         MyApplication.textSizeNormal
                 )
-                hazardsCards[expandIndexCa].setText(hazardsSumCa)
+                hazardsCards[expandIndexCa].text = hazardsSumCa
                 hazardsExpandedAl[expandIndexCa] = false
                 scrollView.smoothScrollTo(0, 0)
             }
@@ -862,7 +862,7 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 hazardsCards[z].setPaddingAmount(MyApplication.paddingSettings)
                 hazardsCards[z].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
                 hazardsCards[z].setTextColor(UIPreferences.textHighlightColor)
-                hazardsCards[z].setText(objHazards.titles[z].toUpperCase(Locale.US))
+                hazardsCards[z].text = objHazards.titles[z].toUpperCase(Locale.US)
                 hazardsCards[z].setOnClickListener(OnClickListener {
                     ObjectIntent(
                             activityReference,
@@ -989,14 +989,14 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                 })
                 try {
                     if (Location.isUS) {
-                        cardSunrise!!.setText(
+                        cardSunrise!!.text = (
                                 UtilityTimeSunMoon.getSunriseSunset(
                                         activityReference,
                                         Location.currentLocationStr
                                 ) + MyApplication.newline + UtilityTime.gmtTime()
                         )
                     } else {
-                        cardSunrise!!.setText(
+                        cardSunrise!!.text = (
                                 UtilityTimeSunMoon.getSunriseSunset(
                                         activityReference,
                                         Location.currentLocationStr

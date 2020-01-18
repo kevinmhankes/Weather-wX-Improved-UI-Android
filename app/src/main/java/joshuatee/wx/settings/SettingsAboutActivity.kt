@@ -31,35 +31,24 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 
 import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
-import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityShare
 
-import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.WebscreenAB
 import joshuatee.wx.objects.ObjectIntent
-import kotlinx.coroutines.*
+import joshuatee.wx.util.UtilityAlertDialog
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
-    // arg0  URL or text chunk depending on if start with "http"
-    // arg1  Title
-    // arg2 if "sound" will play TTS on first load
-
-    companion object {
-        const val URL: String = ""
-    }
-
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var activityArguments: Array<String>
-    private var url = ""
     private var html = ""
     private lateinit var textCard: ObjectCardText
     private val faqUrl = "https://docs.google.com/document/d/1OQrviP10XBvQZ7QKh5R4bsd72ZKffK5f0ISRuCaSk5k/edit?usp=sharing"
+    private val iOSUrl = "https://apps.apple.com/us/app/wxl23/id1171250052"
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,15 +61,11 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         val playlistMi = menu.findItem(R.id.action_playlist)
         playlistMi.isVisible = false
         toolbarBottom.setOnMenuItemClickListener(this)
-        activityArguments = intent.getStringArrayExtra(URL)
-        url = activityArguments[0]
-        title = activityArguments[1]
-        toolbar.subtitle = "test"
         val version = Utility.getVersion(this)
         toolbar.subtitle = "version: $version"
         val faqButton = ObjectCardText(this, ll, toolbar, toolbarBottom)
         faqButton.setTextColor(UIPreferences.textHighlightColor)
-        faqButton.setText("View FAQ (Outage notifications listed at top if any current)")
+        faqButton.text = "View FAQ (Outage notifications listed at top if any current)"
         faqButton.setOnClickListener(View.OnClickListener {
             ObjectIntent(
                     this,
@@ -91,7 +76,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         })
         val emailButton = ObjectCardText(this, ll, toolbar, toolbarBottom)
         emailButton.setTextColor(UIPreferences.textHighlightColor)
-        emailButton.setText("Email developer")
+        emailButton.text = "Email developer"
         emailButton.setOnClickListener(View.OnClickListener {
             val intent = Intent(Intent.ACTION_SENDTO)
             intent.data = Uri.parse("mailto:")
@@ -101,39 +86,17 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         })
         val iOSVersion = ObjectCardText(this, ll, toolbar, toolbarBottom)
         iOSVersion.setTextColor(UIPreferences.textHighlightColor)
-        iOSVersion.setText("iOS port of wX: wXL23")
+        iOSVersion.text = "iOS port of wX: wXL23"
         iOSVersion.setOnClickListener(View.OnClickListener {
             ObjectIntent(
                     this,
                     WebscreenAB::class.java,
                     WebscreenAB.URL,
-                    arrayOf("https://apps.apple.com/us/app/wxl23/id1171250052", "wXL23 for iOS")
+                    arrayOf(iOSUrl, "wXL23 for iOS")
             )
         })
         textCard = ObjectCardText(this, ll, toolbar, toolbarBottom)
-        if (!url.startsWith("http")) {
-            if (url.contains("<")) {
-                textCard.setText(Utility.fromHtml(url))
-            } else {
-                textCard.setText(url)
-            }
-            html = url
-        } else {
-            getContent()
-        }
-    }
-
-    override fun onRestart() {
-        if (url.startsWith("http")) {
-            getContent()
-        }
-        super.onRestart()
-    }
-
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        html = withContext(Dispatchers.IO) { url.getHtml() }
-        textCard.setTextAndTranslate(Utility.fromHtml(html))
-        UtilityTts.conditionalPlay(activityArguments, 2, applicationContext, html, "textscreen")
+        textCard.text = UtilityAlertDialog.showVersion(this, this)
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {

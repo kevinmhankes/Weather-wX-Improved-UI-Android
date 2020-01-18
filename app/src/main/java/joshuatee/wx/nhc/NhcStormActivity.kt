@@ -121,7 +121,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
             url = UtilityDownload.getTextProduct(this@NhcStormActivity, product)
         }
         cTextProd = ObjectCardText(this@NhcStormActivity, ll, toolbar, toolbarBottom)
-        cTextProd.setText(Utility.fromHtml(url))
+        cTextProd.text = Utility.fromHtml(url)
         html = url
         withContext(Dispatchers.IO) {
             listOf(
@@ -154,9 +154,9 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private fun getText() = GlobalScope.launch(uiDispatcher) {
         url = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@NhcStormActivity, product) }
         if (url.contains("<")) {
-            cTextProd.setText(Utility.fromHtml(url))
+            cTextProd.text = Utility.fromHtml(url)
         } else {
-            cTextProd.setText(url)
+            cTextProd.text = url
         }
         html = url
         sv.smoothScrollTo(0, 0)

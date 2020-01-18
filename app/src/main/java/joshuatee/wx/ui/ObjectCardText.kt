@@ -76,7 +76,7 @@ class ObjectCardText(private val context: Context) {
             linearLayout: LinearLayout,
             toolbar: Toolbar,
             toolbarBottom: Toolbar,
-            text: String
+            textValue: String
     ) : this(context) {
         linearLayout.addView(card)
         setOnClickListener(View.OnClickListener {
@@ -85,7 +85,8 @@ class ObjectCardText(private val context: Context) {
                     toolbarBottom
             )
         })
-        setText(text)
+        //setText(text)
+        text = textValue
     }
 
     constructor(
@@ -246,13 +247,19 @@ class ObjectCardText(private val context: Context) {
         tv.text = localText
     }
 
-    fun setText(text: String) {
-        tv.text = text
-    }
+    //fun setText(text: String) {
+    //    tv.text = text
+    //}
 
-    fun setText(text: CharSequence) {
-        tv.text = text.toString()
-    }
+    var text: String
+        get() = tv.text.toString()
+        set(newValue) {
+            tv.text = newValue
+        }
+
+    //fun setText(text: CharSequence) {
+    //    tv.text = text.toString()
+   // }
 
     fun center() {
         tv.gravity = Gravity.CENTER

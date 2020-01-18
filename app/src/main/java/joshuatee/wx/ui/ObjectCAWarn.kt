@@ -120,7 +120,10 @@ class ObjectCAWarn(
             }
             provL = listLocUrl[it].parse("report_e.html.([a-z]{2}).*?")
             val cText = ObjectCardText(context, linearLayout)
-            cText.setText(Utility.fromHtml(provL.toUpperCase(Locale.US) + ": " + listLocName[it] + " " + locWarning + " " + locWatch + " " + locStatement))
+            cText.text = (Utility.fromHtml(
+                    provL.toUpperCase(Locale.US) + ": " + listLocName[it] + " "
+                            + locWarning + " " + locWatch + " " + locStatement
+            ))
             val urlStr = MyApplication.canadaEcSitePrefix + listLocUrl[it]
             val location = listLocName[it]
             cText.setOnClickListener(View.OnClickListener { getWarningDetail(urlStr, location) })

@@ -146,7 +146,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
             urls = UtilitySpcSwo.getUrls(day)
             bitmaps = urls.map { it.getImage() }
         }
-        objectCardText.setText(Utility.fromHtml(html))
+        objectCardText.text = Utility.fromHtml(html)
         toolbar.subtitle = html.parse("(Valid.*?)<")
         if (activityArguments[1] == "sound") {
             UtilityTts.synthesizeTextAndPlay(applicationContext, html, "spcswo")

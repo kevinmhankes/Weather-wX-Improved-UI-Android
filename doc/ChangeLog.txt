@@ -20,13 +20,15 @@
 // TODO [ADD] enhance radar obs to support multipane
 // TODO [ADD] radar file class from flutter
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
-// TODO [ADD] better support for chromebooks
+// TODO [REF] in custom classes add better support for kolin get/setter, for example ObjectCardText setTextColor()
+// TODO [ADD] better support for Chromebook
 
 55310 2020_01_18    [FIX] wpc front crash with stationary front in some circumstances
                     [FIX] wpc storm summary text product was not working
                     [FIX] lint cleanup
                     [ADD] hourly homescreen widget is now monospaced
                     [ADD] enhanced "about wX" with FAQ viewer and email developer button
+                    [ADD] in location add, update lat/lon hint to indicate that you are not required to enter
 55309 2020_01_17    [FIX] disable wpc fronts on main screen until more stable
 55308 2020_01_17    [ADD] change wpc fronts to draw lines instead of polygons
                     [FIX] main screen current conditions text size was not correct after dynamic change support

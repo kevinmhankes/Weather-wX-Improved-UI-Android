@@ -75,6 +75,7 @@ object UtilityAlertDialog {
             UtilityLog.handleException(e)
         }
         var string = activity.resources.getString(R.string.about_wx) + MyApplication.newline + version
+        string += "Diagnostics information:" + MyApplication.newline + MyApplication.newline
         string += MyApplication.newline + Utility.readPref(
             context,
             "JOBSERVICE_TIME_LAST_RAN",

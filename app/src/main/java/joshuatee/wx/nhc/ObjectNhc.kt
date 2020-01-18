@@ -194,7 +194,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         val muteStr = Utility.readPref(context, "NOTIF_NHC_MUTE", "")
         if (notificationCard != null) {
             if (muteStr != "") {
-                notificationCard!!.setText(cardNotificationHeaderText + muteStr)
+                notificationCard!!.text = cardNotificationHeaderText + muteStr
                 notificationCard!!.setVisibility(View.VISIBLE)
             } else {
                 notificationCard!!.setVisibility(View.GONE)

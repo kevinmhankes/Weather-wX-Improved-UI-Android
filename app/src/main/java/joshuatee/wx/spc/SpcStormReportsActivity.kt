@@ -228,7 +228,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
         var mapOut = mapState.toString()
         mapOut = mapOut.replace("[{}]".toRegex(), "")
-        c1.setText(mapOut)
+        c1.text = mapOut
         out.insert(0, Utility.fromHtml("<br><b>" + mapOut + MyApplication.newline + "</b><br>"))
         if (firstRun) {
             stateArray = mapState.keys.toList()
