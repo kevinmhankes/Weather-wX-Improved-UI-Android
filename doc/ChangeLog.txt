@@ -28,6 +28,7 @@
 // TODO [FIX] use dialogue instead of spinners when it makes sense: more flexible and cleaner code
 // TODO [REF] is the on-off toggle in settings -> widgets being used anymore?
 
+55315 2020_01_18
 55314 2020_01_18    [REF] various refactor
                     [FIX] remove currentLoc from Locfrag, not needed and was causing a bug
                     [ADD] more space in object diaglogue
