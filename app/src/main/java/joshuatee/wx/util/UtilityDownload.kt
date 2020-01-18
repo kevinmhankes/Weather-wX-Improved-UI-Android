@@ -395,13 +395,19 @@ object UtilityDownload {
                 text = text.replace("<br>", " ")
             }
         } else if (prod.startsWith("SCCNS")) {
-            text = UtilityString.getHtmlAndParseSep(
+            /*text = UtilityString.getHtmlAndParseSep(
                     "${MyApplication.nwsWPCwebsitePrefix}/discussions/nfd" + prod.toLowerCase(Locale.US).replace(
                             "ns",
                             ""
                     ) + ".html", RegExp.pre2Pattern
             )
-            text = text.replace("^<br><br>".toRegex(), "")
+            text = text.replace("^<br><br>".toRegex(), "")*/
+            val url = "${MyApplication.nwsWPCwebsitePrefix}/discussions/nfd" + prod.toLowerCase(Locale.US).replace(
+                    "ns",
+                    ""
+            ) + ".html"
+            text = url.getHtmlSep()
+            text = UtilityString.extractPre(text)
             if (UIPreferences.nwsTextRemovelinebreaks) {
                 text = text.replace("<br><br>", "<BR><BR>")
                 text = text.replace("<br>", " ")

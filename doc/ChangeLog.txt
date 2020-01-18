@@ -28,6 +28,7 @@
 // TODO [ADD] better support for chromebooks
 
 55310 2020_01_17    [FIX] wpc front crash with stationary front in some circumstances
+                    [FIX] wpc storm summary text product was not working
 55309 2020_01_17    [FIX] disable wpc fronts on main screen until more stable
 55308 2020_01_17    [ADD] change wpc fronts to draw lines instead of polygons
                     [FIX] main screen current conditions text size was not correct after dynamic change support
