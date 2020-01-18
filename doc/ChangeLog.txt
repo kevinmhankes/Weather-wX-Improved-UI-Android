@@ -23,6 +23,7 @@
 // TODO [REF] in custom classes add better support for kolin get/setter, for example ObjectCardText setTextColor()
 // TODO [ADD] better support for Chromebook - https://developer.android.com/topic/arc/device-support
 // TODO [FIX] some UI cards such as playlist don't respect text size
+// TODO [FIX] radar default size ( dots ) for tablet, etc
 
 55312 2020_01_18    [FIX] some UI cards (spotter) such as playlist don't respect text size
 55311 2020_01_18    [ADD] release notes button in settings -> about
