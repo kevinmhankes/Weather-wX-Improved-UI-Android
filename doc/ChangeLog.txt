@@ -28,7 +28,9 @@
 // TODO [FIX] hourly font size
 // TODO [FIX] radar color palette text size
 // TODO [FIX] spotter report label does not clear when single/double click - does for pan
+// TODO [FIX] use dialogue instead of spinners when it makes sense: more flexible and cleaner code
 
+55314 2020_01_18
 55313 2020_01_18    [ADD] for tablet have default radar sizes be smaller: locdot, spotter, aviation dot
                     [ADD] playlist - when adding item, download it
                     [ADD] On main screen replace spinner with ObjectTextCard and ObjectDialogue
