@@ -78,6 +78,7 @@ class ObjectTextView(val context: Context) {
 
     constructor(view: View, resId: Int, size: TextSize) : this(view.context, size) {
         tv = view.findViewById(resId)
+        refreshTextSize(size)
     }
 
     constructor(view: View, resId: Int, color: Int, size: TextSize) : this(view.context, size) {
