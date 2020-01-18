@@ -124,11 +124,11 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         }
     }
 
-    override fun onResume() {
+  /*  override fun onResume() {
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(onBroadcast, IntentFilter("locationadded"))
         super.onResume()
-    }
+    }*/
 
     private fun updateTitle() {
         title = "Locations"

@@ -68,7 +68,6 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var scrollView: ScrollView
-    //private lateinit var spinner: Spinner
     private lateinit var locationDialogue: ObjectDialogue
     private lateinit var locationLabel: ObjectCardText
     private var lastRefresh = 0.toLong()

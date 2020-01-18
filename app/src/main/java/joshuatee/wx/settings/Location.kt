@@ -360,7 +360,7 @@ class Location(val context: Context, locNumInt: Int) {
             }
             refreshLocationData(context)
             setCurrentLocationStr(context, locNum)
-            LocalBroadcastManager.getInstance(context).sendBroadcast(Intent("locationadded"))
+            //LocalBroadcastManager.getInstance(context).sendBroadcast(Intent("locationadded"))
             return "Saving location $locNum as $labelStr ($xStr,$yStr) " + wfo.toUpperCase(
                 Locale.US
             ) + "(" + radarSite.toUpperCase(Locale.US) + ")"
