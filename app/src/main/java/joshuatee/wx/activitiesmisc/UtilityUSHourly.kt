@@ -76,8 +76,8 @@ object UtilityUSHourly {
 
     fun getString(locNum: Int): List<String> {
         val html = UtilityDownloadNws.getHourlyData(Location.getLatLon(locNum))
-        val header = String.format("%-10s", "Time") + " " + String.format(
-                "%-10s",
+        val header = String.format("%-7s", "Time") + " " + String.format(
+                "%-7s",
                 "Temp"
         ) + String.format("%-10s", "WindSpd") + String.format(
                 "%-8s",
@@ -95,9 +95,9 @@ object UtilityUSHourly {
         var content = ""
         startTime.indices.forEach {
             val time = translateTime(startTime[it].replace(Regex("-0[0-9]:00"), ""))
-            content += String.format("%-10s", time)
+            content += String.format("%-8s", time)
             if (temperature.size > it) {
-                content += String.format("%-10s", temperature[it])
+                content += String.format("%-7s", temperature[it])
             }
             if (windSpeed.size > it) {
                 content += String.format("%-10s", windSpeed[it])

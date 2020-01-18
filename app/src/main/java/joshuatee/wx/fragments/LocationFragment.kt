@@ -527,8 +527,6 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
                     hsTextAl[productIndex].product
             ).replace("<br>AREA FORECAST DISCUSSION", "AREA FORECAST DISCUSSION")
         }
-        UtilityLog.d("wx", hsTextAl[productIndex].product)
-        //val longText = Utility.fromHtml(longTextDownload)
         var longText = longTextDownload
         if (hsTextAl[productIndex].product=="NFDOFFN31" || hsTextAl[productIndex].product=="NFDOFFN32") {
             longText = Utility.fromHtml(longTextDownload)
@@ -537,8 +535,8 @@ class LocationFragment : Fragment(), OnItemSelectedListener, OnClickListener {
         val shortText = UtilityStringExternal.truncate(longText, UIPreferences.homescreenTextLength)
         hsTextAl[productIndex].setTextShort(shortText)
         hsTextAl[productIndex].setText(shortText)
-        if (productString == "HOURLY") {
-            hsTextAl[productIndex].tv.typeface = Typeface.MONOSPACE
+        if (hsTextAl[productIndex].product == "HOURLY") {
+            hsTextAl[productIndex].tv.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
         }
     }
 

@@ -20,12 +20,12 @@
 // TODO [ADD] enhance radar obs to support multipane
 // TODO [ADD] radar file class from flutter
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
-// TODO [ADD] hourly homescreen widget still needs work
 // TODO [ADD] better support for chromebooks
 
 55310 2020_01_18    [FIX] wpc front crash with stationary front in some circumstances
                     [FIX] wpc storm summary text product was not working
                     [FIX] lint cleanup
+                    [ADD] hourly homescreen widget is now monospaced
 55309 2020_01_17    [FIX] disable wpc fronts on main screen until more stable
 55308 2020_01_17    [ADD] change wpc fronts to draw lines instead of polygons
                     [FIX] main screen current conditions text size was not correct after dynamic change support
