@@ -26,7 +26,6 @@ import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.view.View
@@ -123,12 +122,6 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
             updateList()
         }
     }
-
-  /*  override fun onResume() {
-        LocalBroadcastManager.getInstance(this)
-                .registerReceiver(onBroadcast, IntentFilter("locationadded"))
-        super.onResume()
-    }*/
 
     private fun updateTitle() {
         title = "Locations"

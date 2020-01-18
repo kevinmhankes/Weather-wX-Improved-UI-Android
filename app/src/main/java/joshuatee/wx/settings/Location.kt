@@ -22,8 +22,6 @@
 package joshuatee.wx.settings
 
 import android.content.Context
-import android.content.Intent
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import joshuatee.wx.MyApplication
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.objects.LatLonStr
@@ -360,7 +358,6 @@ class Location(val context: Context, locNumInt: Int) {
             }
             refreshLocationData(context)
             setCurrentLocationStr(context, locNum)
-            //LocalBroadcastManager.getInstance(context).sendBroadcast(Intent("locationadded"))
             return "Saving location $locNum as $labelStr ($xStr,$yStr) " + wfo.toUpperCase(
                 Locale.US
             ) + "(" + radarSite.toUpperCase(Locale.US) + ")"

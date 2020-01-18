@@ -79,9 +79,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
     private var glviewInitialized = false
     private var currentLoc = -1
     private var sevenDayExtShown = false
-    //private lateinit var dataAdapter: ArrayAdapter<String>
     private lateinit var intent: Intent
-    //private var locationCard: CardView? = null
     private var cardCC: ObjectCardCC? = null
     private lateinit var linearLayout: LinearLayout
     private val helpForecastGenericStatus = 1
@@ -244,25 +242,18 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         ) {
             needForecastData = true
         }
-        //spinner = view.findViewById(R.id.spinner1)
 
+        // The dialogue that opens when the user wants to change location
         locationDialogue = ObjectDialogue(activityReference, "Select location:", Location.listOf)
-        locationDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            changeLocation(which)
+        locationDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, locationIndex ->
+            changeLocation(locationIndex)
             dialog.dismiss()
         })
 
-        //if (android.os.Build.VERSION.SDK_INT > 20) {
-        //    if (UIPreferences.themeInt == R.style.MyCustomTheme_white_NOAB) {
-        //        UtilityUI.setupSpinner(spinner, false)
-        //    }
-        //}
-        //dataAdapter = ArrayAdapter(activityReference, R.layout.simple_spinner_item, Location.listOf)
-        //dataAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
-        //locationCard = view.findViewById(R.id.cv1)
-
+        // The main LL that holds all content
         linearLayout = view.findViewById(R.id.ll)
 
+        // The button the user will tape so change location
         locationLabel = ObjectCardText(activityReference, linearLayout, Location.name, TextSize.MEDIUM)
         locationLabel.tv.setPadding(20,20,20,20)
         locationLabel.setTextColor(UIPreferences.textHighlightColor)
@@ -315,9 +306,6 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
             }
         }
         scrollView = view.findViewById(R.id.sv)
-        //spinner.adapter = dataAdapter
-        //spinner.onItemSelectedListener = this
-        //spinner.setSelection(currentLoc)
         return view
     }
 
@@ -329,42 +317,6 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         else
             currentLoc -= 1
     }
-
-    // TODO deprecate this after spinner removed
-    /*override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        if (currentLoc != pos) {
-            locationChangedHazards = true
-            locationChangedSevenDay = true
-            if (pos != Location.numLocations) {
-                currentLoc = pos
-                Utility.writePref(activityReference, "CURRENT_LOC_FRAGMENT", (pos + 1).toString())
-                Location.currentLocationStr = (pos + 1).toString()
-                x = Location.x
-                y = Location.y
-                if (oglrIdx != -1)
-                    radarLocationChangedAl[oglrIdx] = false
-                if (MyApplication.locDisplayImg && oglrIdx != -1) {
-                    glviewArr[oglrIdx].scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
-                    oglrArr[oglrIdx].setViewInitial(
-                            MyApplication.wxoglSize.toFloat() / 10.0f,
-                            0.0f,
-                            0.0f
-                    )
-                }
-                hsImages.forEach { it.resetZoom() }
-                setImageOnClick()
-                getContent()
-            } else {
-                ObjectIntent(
-                        activityReference,
-                        SettingsLocationGenericActivity::class.java,
-                        SettingsLocationGenericActivity.LOC_NUM,
-                        arrayOf((pos + 1).toString(), "")
-                )
-                spinner.setSelection(currentLoc)
-            }
-        } // end check if current loc is pos
-    }*/
 
     private fun changeLocation(pos: Int) {
         if (currentLoc != pos) {
@@ -396,16 +348,12 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                         SettingsLocationGenericActivity.LOC_NUM,
                         arrayOf((pos + 1).toString(), "")
                 )
-                //spinner.setSelection(currentLoc)
             }
             locationLabel.text = Location.name
         } // end check if current loc is pos
     }
 
-    //override fun onNothingSelected(parent: AdapterView<*>) {}
-
     private fun getContent() {
-        //locationCard?.let { UtilityUI.cardViewSetup(it) }
         locationLabel.text = Location.name
         sevenDayExtShown = false
         if (needForecastData) {
@@ -428,14 +376,13 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         if (glviewInitialized) {
             glviewArr.forEach { it.onResume() }
         }
-        //LocalBroadcastManager.getInstance(activityReference)
-        //        .registerReceiver(onBroadcast, IntentFilter("locationadded"))
-        //updateSpinner()
         cardCC?.refreshTextSize()
+        locationLabel.refreshTextSize(TextSize.MEDIUM)
         sevenDayCards.forEach{ it.refreshTextSize() }
         cardSunrise?.refreshTextSize(TextSize.MEDIUM)
         hsTextAl.forEach{ it.refreshTextSize() }
         hazardsCards.forEach{it.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)}
+        // TODO use a Timer class to handle the data refresh stuff
         val currentTime = UtilityTime.currentTimeMillis()
         val currentTimeSec = currentTime / 1000
         val refreshIntervalSec = (UIPreferences.refreshLocMin * 60).toLong()
@@ -667,29 +614,8 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         if (glviewInitialized) {
             glviewArr.forEach { it.onPause() }
         }
-        //LocalBroadcastManager.getInstance(activityReference).unregisterReceiver(onBroadcast)
         super.onPause()
     }
-
-    //private val onBroadcast = object : BroadcastReceiver() {
-    //    override fun onReceive(ctxt: Context, intent: Intent) {
-    //        updateSpinner()
-    //    }
-    //}
-
-   /* private fun updateSpinner() {
-        lastRefresh = Utility.readPref(activityReference, "LOC_LAST_UPDATE", 0.toLong())
-        dataAdapter = ArrayAdapter(
-                activityReference,
-                android.R.layout.simple_spinner_item,
-                Location.listOf
-        )
-        dataAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
-        // fix for 2 or more loc deleted
-        currentLoc = Location.currentLocation
-        spinner.adapter = dataAdapter
-        spinner.setSelection(Location.currentLocation)
-    }*/
 
     private fun setImageOnClick() {
         hsImages.indices.forEach { ii ->
@@ -1045,14 +971,14 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                                         activityReference,
                                         Location.currentLocationStr
                                 ) + MyApplication.newline + UtilityTime.gmtTime()
-                        )
+                                )
                     } else {
                         cardSunrise!!.text = (
                                 UtilityTimeSunMoon.getSunriseSunset(
                                         activityReference,
                                         Location.currentLocationStr
                                 ) + MyApplication.newline + UtilityTime.gmtTime()
-                        )
+                                )
                     }
                 } catch (e: Exception) {
                     UtilityLog.handleException(e)
