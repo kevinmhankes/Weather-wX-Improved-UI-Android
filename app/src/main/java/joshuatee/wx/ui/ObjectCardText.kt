@@ -137,6 +137,15 @@ class ObjectCardText(private val context: Context) {
         linearLayout.addView(card)
     }
 
+    constructor(context: Context, linearLayout: LinearLayout, text: String, textSize: TextSize) : this(
+            context,
+            text
+    ) {
+        refreshTextSize(textSize)
+        tv.isFocusable = false
+        linearLayout.addView(card)
+    }
+
     constructor(context: Context, linearLayout: LinearLayout, text: String, textSize: Float, padding: Int) : this(
             context,
             text,

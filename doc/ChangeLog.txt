@@ -31,6 +31,7 @@
 
 55313 2020_01_18    [ADD] for tablet have default radar sizes be smaller: locdot, spotter, aviation dot
                     [ADD] playlist - when adding item, download it
+                    [ADD] On main screen replace spinner with ObjectTextCard and ObjectDialogue
 55312 2020_01_18    [FIX] some UI cards (spotter) such as playlist don't respect text size
                     [FIX] public interface OnTouchImageViewListener { (needs to stay despite lint)
 55311 2020_01_18    [ADD] release notes button in settings -> about
