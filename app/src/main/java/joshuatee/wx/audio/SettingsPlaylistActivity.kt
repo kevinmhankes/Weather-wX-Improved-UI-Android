@@ -87,7 +87,8 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
             Utility.writePref(this, prefToken, ridFav)
             MyApplication.playlistStr = ridFav
             ridArr.add(getLongString("AFD" + strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)))
-            ca.notifyDataSetChanged()
+            //ca.notifyDataSetChanged()
+            getContent()
             dialog.dismiss()
         })
         diaMain = ObjectDialogue(this, "Select text products:", UtilityWpcText.labels)
@@ -97,8 +98,9 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
                     strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)
             Utility.writePref(this, prefToken, ridFav)
             ridArr.add(getLongString(strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)))
-            ca.notifyDataSetChanged()
+            //ca.notifyDataSetChanged()
             MyApplication.playlistStr = ridFav
+            getContent()
             dialog.dismiss()
         })
         toolbar.subtitle = "Tap item to play, view, delete or move."
