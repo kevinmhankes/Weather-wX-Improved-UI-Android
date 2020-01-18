@@ -80,6 +80,12 @@ class ObjectTextView(val context: Context) {
         tv = view.findViewById(resId)
     }
 
+    constructor(view: View, resId: Int, color: Int, size: TextSize) : this(view.context, size) {
+        tv = view.findViewById(resId)
+        setTextColor(color)
+        refreshTextSize(size)
+    }
+
     constructor(context: Context, size: TextSize) : this(context) {
         refreshTextSize(size)
         /*when (size) {

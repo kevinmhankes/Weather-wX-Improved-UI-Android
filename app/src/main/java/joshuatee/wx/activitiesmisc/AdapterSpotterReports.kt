@@ -30,6 +30,7 @@ import android.view.ViewGroup
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.objects.TextSize
 import joshuatee.wx.radar.SpotterReports
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectTextView
@@ -40,7 +41,7 @@ internal class AdapterSpotterReports(private val dataSet: List<SpotterReports>) 
     internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
-        val name = ObjectTextView(itemView, R.id.name, UIPreferences.textHighlightColor)
+        val name = ObjectTextView(itemView, R.id.name, UIPreferences.textHighlightColor, TextSize.MEDIUM)
         val email = ObjectTextView(itemView, R.id.email)
         val time = ObjectTextView(itemView, R.id.time)
         val phone = ObjectTextView(itemView, R.id.phone)

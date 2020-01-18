@@ -24,7 +24,7 @@
 // TODO [ADD] better support for Chromebook - https://developer.android.com/topic/arc/device-support
 // TODO [FIX] some UI cards such as playlist don't respect text size
 
-55312 2020_01_18
+55312 2020_01_18    [FIX] some UI cards (spotter) such as playlist don't respect text size
 55311 2020_01_18    [ADD] release notes button in settings -> about
                     [ADD] test code to see if tablet
                     [ADD] if tablet adjust tiles per row, NWS image size, text size to something more appropriate
