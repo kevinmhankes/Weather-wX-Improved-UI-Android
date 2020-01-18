@@ -35,6 +35,7 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ProjectionType
 import joshuatee.wx.util.ProjectionNumbers
 import joshuatee.wx.util.UtilityCanvasProjection
+import joshuatee.wx.util.UtilityLog
 
 import kotlin.math.*
 
@@ -56,6 +57,7 @@ class WXGLTextObject(
     private var spotterLat = 0.toDouble()
     private var spotterLon = 0.toDouble()
     private var maxCitiesPerGlview = 16
+    // TODO variable naming
     private var ii = 0
     private val glviewWidth: Int
     private val glviewHeight: Int
@@ -425,6 +427,8 @@ class WXGLTextObject(
                 var c = 0
                 while (c < wxglSurfaceView.spotterTv.size) {
                     wxglSurfaceView.spotterTv[c].visibility = View.GONE
+                    relativeLayout.removeView(wxglSurfaceView.spotterTv[c])
+                    //UtilityLog.d("wx", "TV HIDE SPOTTER")
                     c += 1
                 }
             }
@@ -450,6 +454,7 @@ class WXGLTextObject(
     }
 
     fun hideTV() {
+        //UtilityLog.d("wx", "TV HIDE")
         hideCitiesExt()
         hideCountyLabels()
         if (numberOfPanes == 1) {
