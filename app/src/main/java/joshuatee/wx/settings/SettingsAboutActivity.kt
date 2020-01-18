@@ -98,7 +98,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         })
         val iOSVersion = ObjectCardText(this, ll, toolbar, toolbarBottom)
         iOSVersion.setTextColor(UIPreferences.textHighlightColor)
-        iOSVersion.text = "iOS port of wX: wXL23"
+        iOSVersion.text = "iOS port of wX is called wXL23"
         iOSVersion.setOnClickListener(View.OnClickListener {
             ObjectIntent(
                     this,
