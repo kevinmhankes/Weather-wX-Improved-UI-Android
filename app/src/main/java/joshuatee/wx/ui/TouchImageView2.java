@@ -1014,7 +1014,8 @@ public class TouchImageView2 extends AppCompatImageView {
         }
     }
 
-    interface OnTouchImageViewListener {
+    // this needs to stay public despite what lint says
+    public interface OnTouchImageViewListener {
         void onMove();
     }
 
