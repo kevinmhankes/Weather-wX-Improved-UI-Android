@@ -25,6 +25,7 @@
 // TODO [FIX] some UI cards such as playlist don't respect text size
 // TODO [FIX] radar default size ( dots ) for tablet, etc
 
+55313 2020_01_18
 55312 2020_01_18    [FIX] some UI cards (spotter) such as playlist don't respect text size
                     [FIX] public interface OnTouchImageViewListener { (needs to stay despite lint)
 55311 2020_01_18    [ADD] release notes button in settings -> about
