@@ -39,6 +39,7 @@ import joshuatee.wx.util.UtilityTime
 import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityLog
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -92,11 +93,14 @@ object UtilityLocation {
                 context,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
-        )
+        ) {
             for (i in providers.indices.reversed()) {
                 l = lm.getLastKnownLocation(providers[i])
                 if (l != null) break
             }
+        } else {
+            UtilityLog.d("wx", "WARNING: permission not granted for roaming location")
+        }
         val gps = DoubleArray(2)
         l?.let {
             gps[0] = it.latitude

@@ -525,6 +525,11 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
+      android:name=".settings.SettingsAboutActivity"
+      android:label="About wX"
+      android:parentActivityName="WX" >
+  </activity>
+  <activity
       android:name=".settings.SettingsColorPaletteListingActivity"
       android:label="Nexrad Color Palettes"
       android:parentActivityName="WX" >

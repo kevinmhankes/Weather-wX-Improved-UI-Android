@@ -123,8 +123,8 @@ class SettingsMainActivity : BaseActivity() {
         cardAbout.setOnClickListener(View.OnClickListener {
             ObjectIntent(
                     this,
-                    TextScreenActivity::class.java,
-                    TextScreenActivity.URL,
+                    SettingsAboutActivity::class.java,
+                    SettingsAboutActivity.URL,
                     arrayOf(UtilityAlertDialog.showVersion(this, this), "About wX")
             )
         })

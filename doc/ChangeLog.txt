@@ -26,6 +26,7 @@
                     [FIX] wpc storm summary text product was not working
                     [FIX] lint cleanup
                     [ADD] hourly homescreen widget is now monospaced
+                    [ADD] enhanced "about wX" with FAQ viewer and email developer button
 55309 2020_01_17    [FIX] disable wpc fronts on main screen until more stable
 55308 2020_01_17    [ADD] change wpc fronts to draw lines instead of polygons
                     [FIX] main screen current conditions text size was not correct after dynamic change support
