@@ -99,6 +99,17 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
             intent.putExtra(Intent.EXTRA_SUBJECT, "")
             startActivity(Intent.createChooser(intent, "Send Email"))
         })
+        val iOSVersion = ObjectCardText(this, ll, toolbar, toolbarBottom)
+        iOSVersion.setTextColor(UIPreferences.textHighlightColor)
+        iOSVersion.setText("iOS port of wX: wXL23")
+        iOSVersion.setOnClickListener(View.OnClickListener {
+            ObjectIntent(
+                    this,
+                    WebscreenAB::class.java,
+                    WebscreenAB.URL,
+                    arrayOf("https://apps.apple.com/us/app/wxl23/id1171250052", "wXL23 for iOS")
+            )
+        })
         textCard = ObjectCardText(this, ll, toolbar, toolbarBottom)
         if (!url.startsWith("http")) {
             if (url.contains("<")) {
