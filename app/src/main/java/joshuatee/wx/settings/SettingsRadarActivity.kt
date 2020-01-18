@@ -492,7 +492,7 @@ class SettingsRadarActivity : BaseActivity() {
                         "Location marker size",
                         "RADAR_LOCDOT_SIZE",
                         R.string.locdot_size_np,
-                        8,
+                        MyApplication.radarLocdotSizeDefault,
                         1,
                         50
                 ).card
@@ -552,7 +552,7 @@ class SettingsRadarActivity : BaseActivity() {
                         "Storm spotter size",
                         "RADAR_SPOTTER_SIZE",
                         R.string.spotter_size_label,
-                        4,
+                        MyApplication.radarSpotterSizeDefault,
                         1,
                         50
                 ).card
@@ -564,7 +564,7 @@ class SettingsRadarActivity : BaseActivity() {
                         "Aviation dot size",
                         "RADAR_AVIATION_SIZE",
                         R.string.aviation_size_label,
-                        7,
+                        MyApplication.radarAviationSizeDefault,
                         1,
                         50
                 ).card

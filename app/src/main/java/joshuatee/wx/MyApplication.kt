@@ -756,6 +756,10 @@ class MyApplication : Application() {
         var wxoglCenterOnLocation: Boolean = false
         var radarShowWpcFronts: Boolean = false
 
+        var radarSpotterSizeDefault = 4
+        var radarAviationSizeDefault = 7
+        var radarLocdotSizeDefault = 8
+
         private fun initRadarPreferences() {
             radarShowWpcFronts = getInitialPreference("RADAR_SHOW_WPC_FRONTS", "false")
             radarLocationUpdateInterval = getInitialPreference("RADAR_LOCATION_UPDATE_INTERVAL", 10)
@@ -786,11 +790,18 @@ class MyApplication : Application() {
             radarShowLegend = getInitialPreference("RADAR_SHOW_LEGEND", "false")
             wxoglCenterOnLocation = getInitialPreference("RADAR_CENTER_ON_LOCATION", "false")
             drawtoolSize = getInitialPreference("DRAWTOOL_SIZE", 4)
+
+            if (UtilityUI.isTablet()) {
+                radarSpotterSizeDefault = 2
+                radarAviationSizeDefault = 3
+                radarLocdotSizeDefault = 4
+            }
+
             radarObsExtZoom = getInitialPreference("RADAR_OBS_EXT_ZOOM", 7)
-            radarSpotterSize = getInitialPreference("RADAR_SPOTTER_SIZE", 4)
-            radarAviationSize = getInitialPreference("RADAR_AVIATION_SIZE", 7)
+            radarSpotterSize = getInitialPreference("RADAR_SPOTTER_SIZE", radarSpotterSizeDefault)
+            radarAviationSize = getInitialPreference("RADAR_AVIATION_SIZE", radarAviationSizeDefault)
             radarTextSize = getInitialPreference("RADAR_TEXT_SIZE", 1.0f)
-            radarLocdotSize = getInitialPreference("RADAR_LOCDOT_SIZE", 8)
+            radarLocdotSize = getInitialPreference("RADAR_LOCDOT_SIZE", radarLocdotSizeDefault)
             radarHiSize = getInitialPreference("RADAR_HI_SIZE", 8)
             radarTvsSize = getInitialPreference("RADAR_TVS_SIZE", 8)
             radarWarnLinesize = getInitialPreference("RADAR_WARN_LINESIZE", 5)
