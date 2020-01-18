@@ -1,17 +1,16 @@
-// TODO [ADD] - Level 2 BV colormap and wrapping (Alex)
-// TODO [ADD] - line size - swo, wb, wb gusts, sti
-// TODO [ADD] - make location update interval configurable
-// TODO [ADD] - add vtec end date check to tor notification
-// TODO [ADD] - color pal , allow cloning of a user created pal
-// TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
-// TODO [ADD] - add ability to add generic URLs to homescreen
-// TODO [ADD] - in Tabs show labels in addition or instead of icons
-// TODO [ADD] - add more TDWR products including TVS/Meso (Lee)
-// TODO [REF] - OkHttp 3.13 Requires Android 5+ – Square Corner Blog – Medium  https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce
-// TODO [REF] - UtilityMetar in radar has optimization related to text file loading
-// TODO [REF] - move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
-// TODO [ADD] warning count in nexrad like flutter
+// TODO [ADD] Level 2 BV colormap and wrapping (Alex)
 // TODO [FIX] base velocity legend
+// TODO [ADD] line size - swo, wb, wb gusts, sti
+// TODO [ADD] make location update interval configurable
+// TODO [ADD] add vtec end date check to tor notification
+// TODO [ADD] color pal , allow cloning of a user created pal
+// TODO https://android-developers.googleblog.com/2019/03/introducing-new-google-play-app-and.html
+// TODO [ADD] add ability to add generic URLs to homescreen
+// TODO [ADD] in Tabs show labels in addition or instead of icons
+// TODO [REF] OkHttp 3.13 Requires Android 5+ – Square Corner Blog – Medium  https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce
+// TODO [REF] UtilityMetar in radar has optimization related to text file loading
+// TODO [REF] move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
+// TODO [ADD] warning count in nexrad like flutter
 // TODO [FIX] fix issue for precipitation radar products when there is no data
 // TODO [FIX] in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
 // TODO [FIX] many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started

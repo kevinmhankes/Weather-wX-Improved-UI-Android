@@ -856,18 +856,15 @@ public class TouchImageView2 extends AppCompatImageView {
     private int setViewSize(int mode, int size, int drawableWidth) {
         int viewSize;
         switch (mode) {
-            case MeasureSpec.EXACTLY:
-                viewSize = size;
-                break;
-
+            //case MeasureSpec.EXACTLY:
+            //    viewSize = size;
+            //    break;
             case MeasureSpec.AT_MOST:
                 viewSize = Math.min(drawableWidth, size);
                 break;
-
             case MeasureSpec.UNSPECIFIED:
                 viewSize = drawableWidth;
                 break;
-
             default:
                 viewSize = size;
                 break;
@@ -1017,7 +1014,7 @@ public class TouchImageView2 extends AppCompatImageView {
         }
     }
 
-    public interface OnTouchImageViewListener {
+    interface OnTouchImageViewListener {
         void onMove();
     }
 
