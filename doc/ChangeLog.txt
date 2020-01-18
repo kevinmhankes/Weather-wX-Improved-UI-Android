@@ -21,7 +21,7 @@
 // TODO [ADD] radar file class from flutter
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [REF] in custom classes add better support for kolin get/setter, for example ObjectCardText setTextColor()
-// TODO [ADD] better support for Chromebook
+// TODO [ADD] better support for Chromebook - https://developer.android.com/topic/arc/device-support
 
 55311 2020_01_18    [ADD] release notes button in settings -> about
 55310 2020_01_18    [FIX] wpc front crash with stationary front in some circumstances
