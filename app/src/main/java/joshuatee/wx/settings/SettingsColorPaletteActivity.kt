@@ -160,7 +160,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
             allItems.forEach {
                 if (MyApplication.radarColorPalette[type] == it.colorMapLabel && it.builtin) {
                     builtinStr = "true"
-                    fab2.setVisibility(View.GONE)
+                    fab2.visibility = View.GONE
                     fab1.fab.setImageDrawable(
                             ContextCompat.getDrawable(
                                     this@SettingsColorPaletteActivity,
@@ -243,11 +243,11 @@ class SettingsColorPaletteActivity : BaseActivity() {
         globalPosition = position
         if (rowListItem[position].builtin) {
             builtinStr = "true"
-            fab2.setVisibility(View.GONE)
+            fab2.visibility = View.GONE
             fab1.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_add_box_24dp))
         } else {
             builtinStr = "false"
-            fab2.setVisibility(View.VISIBLE)
+            fab2.visibility = View.VISIBLE
             fab1.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_reorder_24dp))
         }
         if (rowListItem[position].prefToken == "RADAR_COLOR_PALETTE_$type") {

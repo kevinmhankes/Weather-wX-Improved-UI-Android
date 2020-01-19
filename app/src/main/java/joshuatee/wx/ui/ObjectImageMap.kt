@@ -48,12 +48,16 @@ class ObjectImageMap(
             setupMap()
         } else {
             map.visibility = View.GONE
-            viewArr.forEach { it.visibility = View.VISIBLE }
+            viewArr.forEach {
+                it.visibility = View.VISIBLE
+            }
         }
     }
 
     private fun setupMap() {
-        viewArr.forEach { it.visibility = View.GONE }
+        viewArr.forEach {
+            it.visibility = View.GONE
+        }
         setupImageMap(context, toolbar, toolbarBottom)
         map.visibility = View.VISIBLE
     }
@@ -78,11 +82,11 @@ class ObjectImageMap(
         toolbar: Toolbar,
         toolbarBottom: Toolbar
     ) {
-        val paramsIv = map.layoutParams
-        paramsIv.height = MyApplication.dm.heightPixels - toolbar.height -
+        val layoutParams = map.layoutParams
+        layoutParams.height = MyApplication.dm.heightPixels - toolbar.height -
                 toolbarBottom.height - UtilityUI.statusBarHeight(context)
-        paramsIv.width = MyApplication.dm.widthPixels
-        map.layoutParams = paramsIv
+        layoutParams.width = MyApplication.dm.widthPixels
+        map.layoutParams = layoutParams
     }
 }
 

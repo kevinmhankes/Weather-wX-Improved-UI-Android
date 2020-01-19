@@ -78,9 +78,11 @@ class ObjectCard {
         card.setCardBackgroundColor(color)
     }
 
-    fun setVisibility(vis: Int) {
-        card.visibility = vis
-    }
+    var visibility: Int
+        get() = card.visibility
+        set(newValue) {
+            card.visibility = newValue
+        }
 
     fun addView(v: View) {
         card.addView(v)

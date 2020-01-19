@@ -137,7 +137,7 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
         bitmap = withContext(Dispatchers.IO) {
             UtilityUSImgNwsMosaic.get(
                     this@USNwsMosaicActivity,
-                    objectNavDrawer.getUrl(),
+                    objectNavDrawer.url,
                     true
             )
         }
@@ -158,7 +158,7 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
         animDrawable = withContext(Dispatchers.IO) {
             UtilityUSImgNwsMosaic.getAnimation(
                     this@USNwsMosaicActivity,
-                    objectNavDrawer.getUrl(),
+                    objectNavDrawer.url,
                     frameCount,
                     true
             )

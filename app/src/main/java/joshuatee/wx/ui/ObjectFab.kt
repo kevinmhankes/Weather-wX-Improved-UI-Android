@@ -61,12 +61,14 @@ class ObjectFab {
         fab.setOnClickListener(fn)
     }
 
-    fun setVisibility(vis: Int) {
-        when (vis) {
-            View.GONE -> fab.hide()
-            View.VISIBLE -> fab.show()
+    var visibility: Int
+        get() = fab.visibility
+        set(newValue) {
+            when (newValue) {
+                View.GONE -> fab.hide()
+                View.VISIBLE -> fab.show()
+            }
         }
-    }
 
     fun fabSetResDrawable(context: Context, resourceDrawable: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

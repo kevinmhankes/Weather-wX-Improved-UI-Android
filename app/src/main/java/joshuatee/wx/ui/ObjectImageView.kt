@@ -39,11 +39,11 @@ class ObjectImageView(context: Context) {
             MyApplication.paddingSmall,
             MyApplication.paddingSmall
         )
-        val p = image.layoutParams
+        val layoutParams = image.layoutParams
         val imageSize = UtilityLocationFragment.setNwsIconSize()
-        p.width = imageSize
-        p.height = imageSize
-        image.layoutParams = p
+        layoutParams.width = imageSize
+        layoutParams.height = imageSize
+        image.layoutParams = layoutParams
     }
 }
 

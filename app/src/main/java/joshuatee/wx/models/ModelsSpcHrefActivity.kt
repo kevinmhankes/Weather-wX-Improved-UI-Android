@@ -109,8 +109,8 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
                 m.findItem(R.id.action_back).isVisible = false
                 m.findItem(R.id.action_forward).isVisible = false
             }
-            fab1?.setVisibility(View.GONE)
-            fab2?.setVisibility(View.GONE)
+            fab1?.visibility = View.GONE
+            fab2?.visibility = View.GONE
             miStatusParam2.isVisible = false
         } else {
             m.findItem(R.id.action_multipane).isVisible = false

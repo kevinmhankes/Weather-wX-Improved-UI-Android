@@ -30,7 +30,9 @@ class ObjectMenuTitle(var title: String, var count: Int) {
                 return 0
             }
             var sum = 0
-            (0 until index).forEach { sum += titles[it].count }
+            (0 until index).forEach {
+                sum += titles[it].count
+            }
             return sum
         }
     }

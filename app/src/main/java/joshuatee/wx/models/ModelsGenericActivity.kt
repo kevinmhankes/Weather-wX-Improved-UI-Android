@@ -120,8 +120,8 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 leftArrow.isVisible = false
                 rightArrow.isVisible = false
             }
-            fab1?.setVisibility(View.GONE)
-            fab2?.setVisibility(View.GONE)
+            fab1?.visibility = View.GONE
+            fab2?.visibility = View.GONE
             miStatusParam2.isVisible = false
         } else {
             m.findItem(R.id.action_multipane).isVisible = false
@@ -140,7 +140,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             drw.listView.setItemChecked(position, false)
             drw.drawerLayout.closeDrawer(drw.listView)
-            om.displayData.param[om.curImg] = drw.getToken(position)
+            om.displayData.param[om.curImg] = drw.tokens[position]
             om.displayData.paramLabel[om.curImg] = drw.getLabel(position)
             UtilityModels.getContent(this, om, listOf(""), uiDispatcher)
         }

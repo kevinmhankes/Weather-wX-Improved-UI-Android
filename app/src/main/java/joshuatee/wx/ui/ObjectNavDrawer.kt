@@ -35,7 +35,7 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
     val drawerLayout: DrawerLayout = activity.findViewById(R.id.drawer_layout)
     val listView: ListView = activity.findViewById(R.id.left_drawer)
     val actionBarDrawerToggle: ActionBarDrawerToggle
-    private var tokens = listOf<String>()
+    var tokens = listOf<String>()
     var index: Int = 0
 
     init {
@@ -60,11 +60,6 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
         labels = items
     }
 
-  /*  fun updateLists(context: Context, items: List<String>) {
-        listView.adapter = ArrayAdapter(context, R.layout.drawer_list_item, items)
-        labels = items
-    }*/
-
     constructor(activity: Activity, items: List<String>, tokens: List<String>) : this(
         activity,
         items
@@ -74,9 +69,15 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
 
     fun getLabel(position: Int): String = labels[position]
 
-    fun getToken(position: Int): String = tokens[position]
+    //fun getToken(position: Int): String = tokens[position]
 
-    fun getUrl(): String = tokens[index]
+    //fun getUrl(): String = tokens[index]
+
+    var url: String = ""
+        get() = tokens[index]
+        //set(newValue) {
+        //    card.visibility = newValue
+        //}
 
     fun getUrlCount(): Int = tokens.size
 

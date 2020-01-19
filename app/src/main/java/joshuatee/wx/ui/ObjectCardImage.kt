@@ -119,9 +119,11 @@ open class ObjectCardImage {
 
     val card: CardView get() = objCard.card
 
-    fun setVisibility(visibility: Int) {
-        objCard.setVisibility(visibility)
-    }
+    var visibility: Int
+        get() = objCard.visibility
+        set(newValue) {
+            objCard.visibility = newValue
+        }
 
     fun setOnClickListener(fn: View.OnClickListener) {
         img.setOnClickListener(fn)

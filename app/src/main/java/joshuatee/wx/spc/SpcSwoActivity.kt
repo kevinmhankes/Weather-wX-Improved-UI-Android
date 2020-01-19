@@ -157,19 +157,19 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 setImageAndClickAction(1, urls, textUrl)
                 setImageAndClickAction(2, urls, textUrl)
                 setImageAndClickAction(3, urls, textUrl)
-                objectCardImageList[4].setVisibility(View.GONE)
+                objectCardImageList[4].visibility = View.GONE
             }
             "2" -> {
                 setImageAndClickAction(0, urls, textUrl)
                 setImageAndClickAction(1, urls, textUrl)
                 for (index in 2..4)
-                    objectCardImageList[index].setVisibility(View.GONE)
+                    objectCardImageList[index].visibility = View.GONE
             }
             "3" -> {
                 setImageAndClickAction(0, urls, textUrl)
                 setImageAndClickAction(1, urls, textUrl)
                 for (index in 2..4)
-                    objectCardImageList[index].setVisibility(View.GONE)
+                    objectCardImageList[index].visibility = View.GONE
             }
             "4-8" -> {
                 setImageAndClickAction(0, urls, textUrl)

@@ -46,7 +46,6 @@ class ObjectDialogue {
     constructor(context: Context, title: String, list: List<String>) {
         alertDialog = AlertDialog.Builder(context)
         alertDialog.setTitle(title)
-        //arrayAdapter = ArrayAdapter(context, R.layout.simple_spinner_item, list)
         arrayAdapter = object : ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, list) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
@@ -65,7 +64,6 @@ class ObjectDialogue {
 
     constructor(context: Context, list: List<String>) {
         alertDialog = AlertDialog.Builder(context)
-        //arrayAdapter = ArrayAdapter(context, R.layout.simple_spinner_item, list)
         arrayAdapter = object : ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, list) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)

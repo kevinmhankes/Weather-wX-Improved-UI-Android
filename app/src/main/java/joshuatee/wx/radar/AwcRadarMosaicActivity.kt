@@ -94,18 +94,18 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
         product = productLocal
         toolbar.subtitle = objectNavDrawer.getLabel()
         bitmap = withContext(Dispatchers.IO) {
-            UtilityAwcRadarMosaic.get(objectNavDrawer.getUrl(), product)
+            UtilityAwcRadarMosaic.get(objectNavDrawer.url, product)
         }
         img.setBitmap(bitmap)
         animRan = false
         img.firstRunSetZoomPosn(prefImagePosition)
-        Utility.writePref(this@AwcRadarMosaicActivity, prefTokenSector, objectNavDrawer.getUrl())
+        Utility.writePref(this@AwcRadarMosaicActivity, prefTokenSector, objectNavDrawer.url)
         Utility.writePref(this@AwcRadarMosaicActivity, prefTokenProduct, product)
     }
 
     private fun getAnimate() = GlobalScope.launch(uiDispatcher) {
         animDrawable = withContext(Dispatchers.IO) {
-            UtilityAwcRadarMosaic.getAnimation(this@AwcRadarMosaicActivity, objectNavDrawer.getUrl(), product)
+            UtilityAwcRadarMosaic.getAnimation(this@AwcRadarMosaicActivity, objectNavDrawer.url, product)
         }
         animRan = UtilityImgAnim.startAnimation(animDrawable, img)
     }

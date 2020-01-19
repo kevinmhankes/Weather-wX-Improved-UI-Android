@@ -101,12 +101,14 @@ class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLi
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         toolbar.subtitle = drw.getLabel()
-        if (drw.getUrl().contains("jma") && imageCollection.title == "GOESFD") {
+        if (drw.url.contains("jma") && imageCollection.title == "GOESFD") {
             actionAnimate.isVisible = true
         }
-        val result = async(Dispatchers.IO) { drw.getUrl().getImage() }
+        val result = async(Dispatchers.IO) {
+            drw.url.getImage()
+        }
         bitmap = result.await()
-        if (drw.getUrl().contains("large_latestsfc.gif")) {
+        if (drw.url.contains("large_latestsfc.gif")) {
             img.setMaxZoom(16f)
         } else {
             img.setMaxZoom(4f)
@@ -155,7 +157,7 @@ class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLi
         animDrawable = withContext(Dispatchers.IO) {
             UtilityGoesFullDisk.getAnimation(
                     this@ImageCollectionActivity,
-                    drw.getUrl()
+                    drw.url
             )
         }
         UtilityImgAnim.startAnimation(animDrawable, img)

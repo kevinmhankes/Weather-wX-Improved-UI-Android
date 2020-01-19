@@ -171,7 +171,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         cardList.forEach {
             linearLayout.removeView(it)
         }
-        textCard.setVisibility(View.VISIBLE)
+        textCard.visibility = View.VISIBLE
         scrollView.visibility = View.VISIBLE
         if (html == "") {
             html = "None issued by this office recently."
@@ -343,7 +343,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 wfoProd.add(html)
             }
         }
-        textCard.setVisibility(View.GONE)
+        textCard.visibility = View.GONE
         cardList.clear()
         wfoProd.forEach {
             val textCard = ObjectCardText(this@AfdActivity, linearLayout)

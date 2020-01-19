@@ -81,8 +81,8 @@ object UtilityModels {
                         )
                     }
                     if (UIPreferences.fabInModels && om.numPanes < 2) {
-                        om.fab1?.setVisibility(View.VISIBLE)
-                        om.fab2?.setVisibility(View.VISIBLE)
+                        om.fab1?.visibility = View.VISIBLE
+                        om.fab2?.visibility = View.VISIBLE
                     }
                     om.firstRun = true
                 }

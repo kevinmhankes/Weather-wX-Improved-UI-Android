@@ -82,7 +82,7 @@ class WX : CommonActionBarFragment() {
             val radarMi = menu.findItem(R.id.action_radar)
             radarMi.isVisible = false
         } else {
-            fab.setVisibility(View.GONE)
+            fab.visibility = View.GONE
         }
         viewPager.offscreenPageLimit = 4
         vpa = ViewPagerAdapter(supportFragmentManager)

@@ -83,7 +83,9 @@ class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
         writePrefs()
         toolbar.title = UtilityGoes.sectorToName[sector] ?: ""
         toolbar.subtitle = drw.getLabel()
-        bitmap = withContext(Dispatchers.IO) { UtilityGoes.getImage(drw.getUrl(), sector) }
+        bitmap = withContext(Dispatchers.IO) {
+            UtilityGoes.getImage(drw.url, sector)
+        }
         img.setBitmap(bitmap)
         img.firstRunSetZoomPosn(prefImagePosition)
         if (oldSector != sector) {
@@ -194,7 +196,7 @@ class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
         animDrawable = withContext(Dispatchers.IO) {
             UtilityGoes.getAnimation(
                     this@GoesActivity,
-                    drw.getUrl(),
+                    drw.url,
                     sector,
                     frameCount
             )

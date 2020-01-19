@@ -110,12 +110,6 @@ class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7
         topLineText.text = text
     }
 
-    /*var topLine: String
-        get() = topLineText.text
-        set(value) {
-            topLineText.text = value
-        }*/
-
     private fun setTv2(text: String) {
         bottomLineText.text = text
     }

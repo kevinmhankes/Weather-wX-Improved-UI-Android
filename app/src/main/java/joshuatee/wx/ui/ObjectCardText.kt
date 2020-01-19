@@ -288,9 +288,11 @@ class ObjectCardText(private val context: Context) {
 
     val card: CardView get() = objCard.card
 
-    fun setVisibility(visibility: Int) {
-        objCard.setVisibility(visibility)
-    }
+    var visibility: Int
+        get() = objCard.visibility
+        set(newValue) {
+            objCard.visibility = newValue
+        }
 
     fun setOnClickListener(fn: View.OnClickListener) {
         tv.setOnClickListener(fn)

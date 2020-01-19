@@ -182,7 +182,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         })
         c0.resetZoom()
         val c1 = ObjectCardText(this@SpcStormReportsActivity, linearLayout)
-        c1.setVisibility(View.GONE)
+        c1.visibility = View.GONE
         c1.setOnClickListener(View.OnClickListener {
             filter = "All"
             displayData()
@@ -242,9 +242,9 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         title = "($stormCnt) Storm Reports"
         toolbar.subtitle = no
         if (stormCnt > 0) {
-            c1.setVisibility(View.VISIBLE)
+            c1.visibility = View.VISIBLE
         } else {
-            c1.setVisibility(View.GONE)
+            c1.visibility = View.GONE
         }
     }
 
