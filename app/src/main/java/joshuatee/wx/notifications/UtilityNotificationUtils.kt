@@ -48,7 +48,9 @@ object UtilityNotificationUtils {
             retStatus = true
         }
         if (!issuedStr.contains(token)) {
-            val tokenCnt = (0 until issuedStr.length).count { issuedStr[it] == ',' }
+            val tokenCnt = (0 until issuedStr.length).count {
+                issuedStr[it] == ','
+            }
             val issuedStrOrig = issuedStr
             val maxCnt = 40
             if (tokenCnt > maxCnt) {
