@@ -86,6 +86,7 @@ object UtilityUI {
         val fgColor = Color.WHITE
         val bgColor = Color.BLACK
         tv.setTextColor(fgColor)
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         viewSnack.setBackgroundColor(bgColor)
         snack.show()
     }

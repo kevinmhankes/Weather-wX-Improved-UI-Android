@@ -28,6 +28,7 @@
 55315 2020_01_19    [FIX] if edit current location name and return to main screen label was not updated
                     [FIX] add more vertical padding in object dialogue
                     [ADD] wpc fronts - only show if zoomed out
+                    [ADD] make snackbar text size respect text size setting
 55314 2020_01_18    [REF] various refactor
                     [FIX] remove currentLoc from Locfrag, not needed and was causing a bug
                     [ADD] more space in object diaglogue
