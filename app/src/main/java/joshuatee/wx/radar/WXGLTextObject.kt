@@ -487,7 +487,7 @@ class WXGLTextObject(
                 oglrZoom = wxglRender.zoom * 0.8f
             }
             textSize = MyApplication.textSizeNormal * MyApplication.radarTextSize
-            if (wxglRender.zoom < 0.75) {
+            if (wxglRender.zoom < (0.5 / wxglRender.zoomScreenScaleFactor)) {
                 UtilityWpcFronts.pressureCenters.indices.forEach {
                     var color = Color.rgb(0,127,225)
                     if (UtilityWpcFronts.pressureCenters[it].type == PressureCenterTypeEnum.LOW) {

@@ -39,6 +39,7 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ProjectionType
 import joshuatee.wx.radarcolorpalettes.ObjectColorPalette
 import joshuatee.wx.settings.UtilityLocation
+import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.*
 
 class WXGLRender(private val context: Context) : Renderer {
@@ -152,6 +153,7 @@ class WXGLRender(private val context: Context) : Renderer {
     private var bgColorFGreen = 0.0f
     private var bgColorFBlue = 0.0f
     val ortInt: Int = 400
+    var zoomScreenScaleFactor = 1.0
     private val provider = ProjectionType.WX_OGL
     // this controls if the projection is mercator (nexrad) or 4326 / rectangular
     // after you zoom out past a certain point you need to hide the nexrad, show the mosaic
@@ -195,6 +197,9 @@ class WXGLRender(private val context: Context) : Renderer {
         }
         MyApplication.radarWarningPolygons.forEach {
             genericWarningBuffers.add(ObjectOglBuffers(it))
+        }
+        if (UtilityUI.isTablet()) {
+            zoomScreenScaleFactor = 2.0
         }
     }
 
@@ -594,8 +599,10 @@ class WXGLRender(private val context: Context) : Renderer {
                 swoBuffers
         ).forEach { drawPolygons(it, 8) }
 
-        GLES20.glLineWidth(watmcdLineWidth)
-        wpcFrontBuffersList.forEach { drawElement(it) }
+        if (zoom < (0.50 / zoomScreenScaleFactor)) {
+            GLES20.glLineWidth(watmcdLineWidth)
+            wpcFrontBuffersList.forEach { drawElement(it) }
+        }
     }
 
     private fun drawTriangles(buffers: ObjectOglBuffers) {
