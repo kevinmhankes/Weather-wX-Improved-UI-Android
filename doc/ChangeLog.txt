@@ -22,6 +22,7 @@
 // TODO [ADD] warning count in nexrad 
 
 55317 2020_01_19    [REF] lint and code cleanup
+                    [FIX] obs that show "XX Inches of Snow on Ground"
                     [ADD] SingleTextAdapterList used by ObjectRecyclerView now uses dynamic font size - nws obs, fav add/change
 55316 2020_01_19    [FIX] spotter report label does not clear when single/double click - does for pan
                     [REF] better method names in radar text class

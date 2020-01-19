@@ -1152,7 +1152,7 @@ class WXGLRender(private val context: Context) : Renderer {
         wpcFrontBuffersList = mutableListOf()
         wpcFrontPaints = mutableListOf()
         var tmpCoords: DoubleArray
-        UtilityWpcFronts.fronts.forEach {
+        UtilityWpcFronts.fronts.forEach { _ ->
             val buff = ObjectOglBuffers()
             buff.breakSize = 30000
             buff.chunkCount = 1

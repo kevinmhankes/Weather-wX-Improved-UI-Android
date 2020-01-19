@@ -154,7 +154,7 @@ internal class ObjectMetar(context: Context, location: LatLon) {
         metarWeatherCondition = metarData.parse("Weather: (.*?)" + MyApplication.newline)
         metarSkyCondition = capitalizeString(metarSkyCondition)
         metarWeatherCondition = capitalizeString(metarWeatherCondition)
-        condition = if (metarWeatherCondition == "") {
+        condition = if (metarWeatherCondition == "" || metarWeatherCondition.contains("Inches Of Snow On Ground")) {
             metarSkyCondition
         } else {
             metarWeatherCondition
