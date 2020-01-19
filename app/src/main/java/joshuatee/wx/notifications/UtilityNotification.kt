@@ -191,7 +191,7 @@ object UtilityNotification {
                 }
                 val stackBuilder2 = TaskStackBuilder.create(context)
                 if (Location.isUS(locNumInt)) {
-
+                    stackBuilder2.addParentStack(WX::class.java)
                 } else {
                     stackBuilder2.addParentStack(CanadaRadarActivity::class.java)
                 }
