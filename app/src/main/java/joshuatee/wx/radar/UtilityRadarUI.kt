@@ -454,6 +454,10 @@ internal object UtilityRadarUI {
             archiveMode: Boolean = false
     ) {
         wxglRender.constructPolygons("", urlString, true)
+        // work-around for a bug in which raster doesn't show on first launch
+        if (wxglRender.product == "NCR" || wxglRender.product == "NCZ") {
+            wxglRender.constructPolygons("", urlString, true)
+        }
         if ((PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) && !archiveMode)
             wxglRender.constructSpotters()
         else
