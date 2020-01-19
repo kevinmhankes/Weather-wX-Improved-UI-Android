@@ -371,6 +371,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         }
         cardCC?.refreshTextSize()
         locationLabel.refreshTextSize(TextSize.MEDIUM)
+        locationLabel.text = Location.name
         sevenDayCards.forEach{ it.refreshTextSize() }
         cardSunrise?.refreshTextSize(TextSize.MEDIUM)
         hsTextAl.forEach{ it.refreshTextSize() }
