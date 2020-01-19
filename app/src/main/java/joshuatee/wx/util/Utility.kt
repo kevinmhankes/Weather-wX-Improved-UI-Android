@@ -38,7 +38,7 @@ import joshuatee.wx.ui.UtilityUI
 
 object Utility {
 
-    fun showDiagnostics(context: Context): String {
+    private fun showDiagnostics(context: Context): String {
         var diagnostics = ""
         diagnostics += MyApplication.dm.widthPixels.toString() + " Screen width" + MyApplication.newline
         diagnostics += MyApplication.dm.heightPixels.toString() + " Screen height" + MyApplication.newline

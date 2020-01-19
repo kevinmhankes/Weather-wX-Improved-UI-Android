@@ -26,7 +26,6 @@ import joshuatee.wx.R
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
-import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -34,7 +33,6 @@ import android.os.Build
 import android.util.TypedValue
 import android.view.View
 import android.widget.*
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import joshuatee.wx.MyApplication
@@ -44,17 +42,6 @@ import joshuatee.wx.util.Utility
 import kotlin.math.*
 
 object UtilityUI {
-
-    // called from LOCFRAG and ObjectSettingsSpinner
-    fun setupSpinner(spinner: Spinner, light: Boolean) {
-        var tint = ColorStateList.valueOf(UIPreferences.colorBlack)
-        if (light) {
-            tint = ColorStateList.valueOf(UIPreferences.colorOffwhiteToolbar)
-        }
-        if (Build.VERSION.SDK_INT > 20) {
-            spinner.backgroundTintList = tint
-        }
-    }
 
     fun setResDrawable(context: Context, fab: RemoteViews, ib: Int, resourceDrawable: Int) {
         val wrappedContext = ContextWrapper(context)
@@ -99,15 +86,6 @@ object UtilityUI {
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         }
     }
-
-    /*fun cardViewSetup(cardView: CardView) {
-        cardView.setCardBackgroundColor(UtilityTheme.primaryColorFromSelectedTheme)
-        cardView.cardElevation = MyApplication.cardElevation
-        cardView.setContentPadding(2, 2, 2, 2)
-        cardView.radius = MyApplication.cardCorners
-        cardView.useCompatPadding = true
-        cardView.preventCornerOverlap = true
-    }*/
 
     fun moveUp(context: Context, prefToken: String, itemList: MutableList<String>, position: Int): String {
         if (position != 0) {
