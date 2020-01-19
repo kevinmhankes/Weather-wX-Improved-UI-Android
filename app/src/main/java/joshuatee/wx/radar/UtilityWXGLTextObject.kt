@@ -32,7 +32,6 @@ object UtilityWXGLTextObject {
 
     fun updateSpotterLabels(numPanes: Int, textObjects: MutableList<WXGLTextObject>) {
         (0 until numPanes).forEach {
-            textObjects[it].initTVSpottersLabels()
             textObjects[it].addTextLabelsSpottersLabels()
         }
     }
@@ -40,13 +39,12 @@ object UtilityWXGLTextObject {
     fun updateObs(numPanes: Int, textObjects: MutableList<WXGLTextObject>) {
         (0 until numPanes).forEach {
             textObjects[it].initializeTextLabelsObservations()
-            textObjects[it].addTVObs()
+            textObjects[it].addTextLabelsObservations()
         }
     }
 
     fun updateWpcFronts(numPanes: Int, textObjects: MutableList<WXGLTextObject>) {
         (0 until numPanes).forEach {
-            //textObjects[it].initTVObs()
             textObjects[it].addWpcPressureCenters()
         }
     }

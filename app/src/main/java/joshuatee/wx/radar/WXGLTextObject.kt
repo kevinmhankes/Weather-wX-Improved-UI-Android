@@ -52,8 +52,6 @@ class WXGLTextObject(
     private var cityextTvArrInit = false
     private var countyLabelsTvArrInit = false
     private var obsTvArrInit = false
-    private var spottersLabelsTvArrInit = false
-    //private val spotterSingleLabelTvArrInit = false
     private var spotterLat = 0.toDouble()
     private var spotterLon = 0.toDouble()
     private var maxCitiesPerGlview = 16
@@ -91,7 +89,7 @@ class WXGLTextObject(
     private fun addTextLabelsCitiesExtended() {
         if (GeographyType.CITIES.pref && cityextTvArrInit) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
-            hideCitiesExtentended()
+            hideCitiesExtended()
             wxglSurfaceView.citiesExtAl = mutableListOf()
             scale = getScale()
             oglrZoom = 1.0f
@@ -115,14 +113,14 @@ class WXGLTextObject(
                     )
                 }
             } else {
-                hideCitiesExtentended()
+                hideCitiesExtended()
             }
         } else {
-            hideCitiesExtentended()
+            hideCitiesExtended()
         }
     }
 
-    private fun hideCitiesExtentended() {
+    private fun hideCitiesExtended() {
         wxglSurfaceView.citiesExtAl.indices.forEach {
             wxglSurfaceView.citiesExtAl[it].visibility = View.GONE
             relativeLayout.removeView(wxglSurfaceView.citiesExtAl[it])
@@ -182,14 +180,8 @@ class WXGLTextObject(
         }
     }
 
-    fun initTVSpottersLabels() {
-        if (PolygonType.SPOTTER_LABELS.pref) {
-            spottersLabelsTvArrInit = true
-        }
-    }
-
     fun addTextLabelsSpottersLabels() {
-        if (PolygonType.SPOTTER_LABELS.pref && spottersLabelsTvArrInit) {
+        if (PolygonType.SPOTTER_LABELS.pref) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             spotterLat = 0.0
             spotterLon = 0.0
@@ -350,7 +342,7 @@ class WXGLTextObject(
         }
     }
 
-    private fun addTVSpotter() {
+    private fun addTextLabelForSpotter() {
         if (WXGLRadarActivity.spotterShowSelected) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             val spotterLat: Double
@@ -423,27 +415,26 @@ class WXGLTextObject(
     fun initializeTextLabels(context: Context) {
         initializeTextLabelsCitiesExtended(context)
         initializeTextLabelsCountyLabels(context)
-        initTVSpottersLabels()
     }
 
     fun addTextLabels() {
         addTextLabelsCitiesExtended()
         addTextLabelsCountyLabels()
         if (numberOfPanes == 1) {
-            addTVObs()
+            addTextLabelsObservations()
         }
         addTextLabelsSpottersLabels()
         if (numberOfPanes == 1 && WXGLRadarActivity.spotterShowSelected) {
-            addTVSpotter()
+            addTextLabelForSpotter()
         }
         addWpcPressureCenters()
     }
 
     fun hideTextLabels() {
-        hideCitiesExtentended()
+        hideCitiesExtended()
         hideCountyLabels()
         if (numberOfPanes == 1) {
-            hideObs()
+            hideObservations()
         }
         hideSpottersLabels()
         if (numberOfPanes == 1 && WXGLRadarActivity.spotterShowSelected) {
@@ -462,8 +453,6 @@ class WXGLTextObject(
         if (MyApplication.radarShowWpcFronts) {
             // FIXME pn should not be set in every method to draws
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
-            //spotterLat = 0.0
-            //spotterLon = 0.0
             hideWpcPressureCenters()
             wxglSurfaceView.pressureCenterLabelAl = mutableListOf()
             scale = getScale()
@@ -494,14 +483,14 @@ class WXGLTextObject(
         }
     }
 
-    fun addTVObs() {
+    fun addTextLabelsObservations() {
         if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && obsTvArrInit) {
             val obsExtZoom = MyApplication.radarObsExtZoom.toDouble()
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             spotterLat = 0.0
             spotterLon = 0.0
             val fontScaleFactorObs = 0.65f
-            hideObs()
+            hideObservations()
             wxglSurfaceView.obsAl = mutableListOf()
             var tmpArrObs: Array<String>
             var tmpArrObsExt: Array<String>
@@ -539,14 +528,14 @@ class WXGLTextObject(
                     }
                 }
             } else {
-                hideObs()
+                hideObservations()
             }
         } else {
-            hideObs()
+            hideObservations()
         }
     }
 
-    private fun hideObs() {
+    private fun hideObservations() {
         wxglSurfaceView.obsAl.indices.forEach {
             wxglSurfaceView.obsAl[it].visibility = View.GONE
             relativeLayout.removeView(wxglSurfaceView.obsAl[it])
