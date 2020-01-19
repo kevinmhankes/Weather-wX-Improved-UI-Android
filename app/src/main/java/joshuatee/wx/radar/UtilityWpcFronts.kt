@@ -197,13 +197,11 @@ object UtilityWpcFronts {
         } else {
             val lat = (string.substring(0, 2) + "." + string.substring(2, 3)).toDoubleOrNull()
                     ?: 0.0
-            val lon: Double
-            // TODO FIXME need to make sure this is working
-            if (string[3] == '0') {
-                lon = (string.substring(4, 6) + "." + string.substring(6, 7)).toDoubleOrNull()
+            val lon: Double = if (string[3] == '0') {
+                (string.substring(4, 6) + "." + string.substring(6, 7)).toDoubleOrNull()
                         ?: 0.0
             } else {
-                lon = (string.substring(3, 6) + "." + string.substring(6, 7)).toDoubleOrNull()
+                (string.substring(3, 6) + "." + string.substring(6, 7)).toDoubleOrNull()
                         ?: 0.0
             }
             return listOf(lat, lon)

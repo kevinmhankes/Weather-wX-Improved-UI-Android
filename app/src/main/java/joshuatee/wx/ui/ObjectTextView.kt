@@ -65,7 +65,6 @@ class ObjectTextView(val context: Context) {
     }
 
     constructor(context: Context, color: Int) : this(context) {
-        //setTextColor(color)
         this.color = color
     }
 
@@ -74,7 +73,6 @@ class ObjectTextView(val context: Context) {
     }
 
     constructor(view: View, resId: Int, color: Int) : this(view, resId) {
-        //setTextColor(color)
         this.color = color
     }
 
@@ -85,27 +83,12 @@ class ObjectTextView(val context: Context) {
 
     constructor(view: View, resId: Int, color: Int, size: TextSize) : this(view.context, size) {
         tv = view.findViewById(resId)
-        //setTextColor(color)
         this.color = color
         refreshTextSize(size)
     }
 
     constructor(context: Context, size: TextSize) : this(context) {
         refreshTextSize(size)
-        /*when (size) {
-            TextSize.SMALL -> tv.setTextSize(
-                TypedValue.COMPLEX_UNIT_PX,
-                MyApplication.textSizeSmall
-            )
-            TextSize.MEDIUM -> tv.setTextSize(
-                TypedValue.COMPLEX_UNIT_PX,
-                MyApplication.textSizeNormal
-            )
-            TextSize.LARGE -> tv.setTextSize(
-                TypedValue.COMPLEX_UNIT_PX,
-                MyApplication.textSizeLarge
-            )
-        }*/
     }
 
     fun refreshTextSize(size: TextSize) {
