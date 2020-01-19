@@ -38,7 +38,6 @@ import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.WebscreenAB
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.util.UtilityAlertDialog
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 

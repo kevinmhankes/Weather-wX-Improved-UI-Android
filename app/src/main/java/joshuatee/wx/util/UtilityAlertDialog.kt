@@ -27,9 +27,6 @@ import androidx.appcompat.app.AlertDialog
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
-import joshuatee.wx.MyApplication
-import joshuatee.wx.radar.UtilityRadarUI
-import joshuatee.wx.R
 import joshuatee.wx.ui.ObjectDialogue
 import android.webkit.WebResourceRequest
 import android.os.Build

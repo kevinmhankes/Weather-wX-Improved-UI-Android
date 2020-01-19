@@ -100,14 +100,14 @@ object UtilityUI {
         }
     }
 
-    fun cardViewSetup(cardView: CardView) {
+    /*fun cardViewSetup(cardView: CardView) {
         cardView.setCardBackgroundColor(UtilityTheme.primaryColorFromSelectedTheme)
         cardView.cardElevation = MyApplication.cardElevation
         cardView.setContentPadding(2, 2, 2, 2)
         cardView.radius = MyApplication.cardCorners
         cardView.useCompatPadding = true
         cardView.preventCornerOverlap = true
-    }
+    }*/
 
     fun moveUp(context: Context, prefToken: String, itemList: MutableList<String>, position: Int): String {
         if (position != 0) {
