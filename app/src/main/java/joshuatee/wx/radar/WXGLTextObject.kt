@@ -35,6 +35,7 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ProjectionType
 import joshuatee.wx.util.ProjectionNumbers
 import joshuatee.wx.util.UtilityCanvasProjection
+import joshuatee.wx.util.UtilityLog
 
 import kotlin.math.*
 
@@ -52,7 +53,7 @@ class WXGLTextObject(
     private var countyLabelsTvArrInit = false
     private var obsTvArrInit = false
     private var spottersLabelsTvArrInit = false
-    private val spotterSingleLabelTvArrInit = false
+    //private val spotterSingleLabelTvArrInit = false
     private var spotterLat = 0.toDouble()
     private var spotterLon = 0.toDouble()
     private var maxCitiesPerGlview = 16
@@ -355,6 +356,7 @@ class WXGLTextObject(
             val spotterLat: Double
             val spotterLon: Double
             var report = false
+            hideSpotter()
             wxglSurfaceView.spotterTv = mutableListOf()
             var aa = 0
             while (aa < UtilitySpotter.spotterList.size) {
@@ -384,9 +386,8 @@ class WXGLTextObject(
                 oglrZoom = wxglRender.zoom * 0.8f
             }
             if (wxglRender.zoom > 0.5) {
-                showSpotter()
                 for (c in 0 until 1) {
-                    val drawText = checkButDoNotDrawText(
+                   val drawText = checkButDoNotDrawText(
                             wxglSurfaceView.spotterTv,
                             spotterLat,
                             spotterLon * -1,
@@ -401,6 +402,7 @@ class WXGLTextObject(
                             wxglSurfaceView.spotterTv[c].text = UtilitySpotter.spotterReports[bb].type
                         }
                     }
+
                 }
             } else {
                 hideSpotter()
@@ -408,29 +410,14 @@ class WXGLTextObject(
         }
     }
 
-    private fun showSpotter() {
+    private fun hideSpotter() {
         if (WXGLRadarActivity.spotterShowSelected) {
-            if (wxglSurfaceView.spotterTv.size > 0) {
-                var c = 0
-                while (c < 1) {
-                    wxglSurfaceView.spotterTv[c].visibility = View.VISIBLE
-                    c += 1
-                }
+            wxglSurfaceView.spotterTv.indices.forEach {
+                UtilityLog.d("Wx", "hide spotter")
+                wxglSurfaceView.spotterTv[it].visibility = View.GONE
+                relativeLayout.removeView(wxglSurfaceView.spotterTv[it])
             }
         }
-    }
-
-    private fun hideSpotter() {
-        if (WXGLRadarActivity.spotterShowSelected || spotterSingleLabelTvArrInit)
-            if (wxglSurfaceView.spotterTv.size > 0) {
-                var c = 0
-                while (c < wxglSurfaceView.spotterTv.size) {
-                    wxglSurfaceView.spotterTv[c].visibility = View.GONE
-                    relativeLayout.removeView(wxglSurfaceView.spotterTv[c])
-                    //UtilityLog.d("wx", "TV HIDE SPOTTER")
-                    c += 1
-                }
-            }
     }
 
     fun initTV(context: Context) {
@@ -453,7 +440,6 @@ class WXGLTextObject(
     }
 
     fun hideTV() {
-        //UtilityLog.d("wx", "TV HIDE")
         hideCitiesExt()
         hideCountyLabels()
         if (numberOfPanes == 1) {

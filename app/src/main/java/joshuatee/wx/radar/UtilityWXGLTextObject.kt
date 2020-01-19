@@ -23,6 +23,7 @@ package joshuatee.wx.radar
 
 object UtilityWXGLTextObject {
 
+    // FIXME naming and use more
     fun hideTV(numPanes: Int, textObjects: MutableList<WXGLTextObject>): Unit =
         (0 until numPanes).forEach { textObjects[it].hideTV() }
 
