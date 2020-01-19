@@ -21,6 +21,7 @@
 // TODO [FIX] use dialogue instead of spinners when it makes sense: more flexible and cleaner code
 // TODO [ADD] warning count in nexrad 
 
+55317 2020_01_19
 55316 2020_01_19    [FIX] spotter report label does not clear when single/double click - does for pan
                     [REF] better method names in radar text class
                     [FIX] nexrad raster was not showing on first load
