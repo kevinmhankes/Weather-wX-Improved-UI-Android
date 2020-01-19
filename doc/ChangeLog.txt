@@ -19,7 +19,7 @@
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [ADD] better support for Chromebook - https://developer.android.com/topic/arc/device-support
 // TODO [FIX] use dialogue instead of spinners when it makes sense: more flexible and cleaner code
-// TODO [ADD] warning count in nexrad like flutter
+// TODO [ADD] warning count in nexrad 
 
 55316 2020_01_19    [FIX] spotter report label does not clear when single/double click - does for pan
                     [REF] better method names in radar text class
