@@ -21,6 +21,7 @@
 // TODO [FIX] use dialogue instead of spinners when it makes sense: more flexible and cleaner code
 // TODO [ADD] warning count in nexrad 
 
+55318 2020_01_19
 55317 2020_01_19    [REF] lint and code cleanup
                     [FIX] obs that show "XX Inches of Snow on Ground"
                     [ADD] SingleTextAdapterList used by ObjectRecyclerView now uses dynamic font size - nws obs, fav add/change
