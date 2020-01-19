@@ -1234,7 +1234,9 @@ class WXGLRender(private val context: Context) : Renderer {
         colorSwo[3] = Color.YELLOW
         colorSwo[4] = Color.rgb(0, 100, 0)
         var tmpCoords: DoubleArray
-        val fSize = (0..4).filter { hashSwo[it] != null }.sumBy { hashSwo[it]!!.size }
+        val fSize = (0..4).filter { hashSwo[it] != null }.sumBy {
+            hashSwo[it]!!.size
+        }
         swoBuffers.breakSize = 15000
         swoBuffers.chunkCount = 1
         val totalBinsSwo = fSize / 4
