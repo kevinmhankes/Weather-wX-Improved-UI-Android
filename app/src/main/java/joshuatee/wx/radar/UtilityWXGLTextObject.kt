@@ -25,21 +25,21 @@ object UtilityWXGLTextObject {
 
     // FIXME naming and use more
     fun hideTV(numPanes: Int, textObjects: MutableList<WXGLTextObject>): Unit =
-        (0 until numPanes).forEach { textObjects[it].hideTV() }
+        (0 until numPanes).forEach { textObjects[it].hideTextLabels() }
 
     fun showTV(numPanes: Int, textObjects: MutableList<WXGLTextObject>): Unit =
-        (0 until numPanes).forEach { textObjects[it].addTV() }
+        (0 until numPanes).forEach { textObjects[it].addTextLabels() }
 
     fun updateSpotterLabels(numPanes: Int, textObjects: MutableList<WXGLTextObject>) {
         (0 until numPanes).forEach {
             textObjects[it].initTVSpottersLabels()
-            textObjects[it].addTVSpottersLabels()
+            textObjects[it].addTextLabelsSpottersLabels()
         }
     }
 
     fun updateObs(numPanes: Int, textObjects: MutableList<WXGLTextObject>) {
         (0 until numPanes).forEach {
-            textObjects[it].initTVObs()
+            textObjects[it].initializeTextLabelsObservations()
             textObjects[it].addTVObs()
         }
     }

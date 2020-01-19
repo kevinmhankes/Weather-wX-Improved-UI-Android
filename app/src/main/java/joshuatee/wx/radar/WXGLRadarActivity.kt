@@ -259,7 +259,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         numPanesArr.forEach {
             wxgltextArr.add(WXGLTextObject(this, rlArr[it], glviewArr[it], oglrArr[it], numPanes))
             glviewArr[it].wxgltextArr = wxgltextArr
-            wxgltextArr[it].initTV(this)
+            wxgltextArr[it].initializeTextLabels(this)
         }
         if (MyApplication.wxoglRememberLocation && !archiveMode && !fixedSite) {
             glview.scaleFactor = MyApplication.wxoglZoom
@@ -307,8 +307,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         restartedZoom = true
         numPanesArr.forEach {
             if (imageMap.map.visibility == View.GONE) {
-                wxgltextArr[it].initTV(this)
-                wxgltextArr[it].addTV()
+                wxgltextArr[it].initializeTextLabels(this)
+                wxgltextArr[it].addTextLabels()
             }
         }
         // if the top toolbar is not showing then neither are showing and the only restart
@@ -954,7 +954,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 )
             } else {
                 numPanesArr.forEach {
-                    wxgltextArr[it].addTV()
+                    wxgltextArr[it].addTextLabels()
                 }
             }
         }

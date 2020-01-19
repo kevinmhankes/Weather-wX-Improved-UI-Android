@@ -388,7 +388,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         numPanesArr.forEach {
             wxgltextArr.add(WXGLTextObject(this, rlArr[it], glviewArr[it], oglrArr[it], numPanes))
             glviewArr[it].wxgltextArr = wxgltextArr
-            wxgltextArr[it].initTV(this)
+            wxgltextArr[it].initializeTextLabels(this)
         }
         if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) {
             getContentSerial()
@@ -435,8 +435,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         restartedZoom = true
         numPanesArr.forEach {
             if (imageMap.map.visibility == View.GONE) {
-                wxgltextArr[it].initTV(this)
-                wxgltextArr[it].addTV()
+                wxgltextArr[it].initializeTextLabels(this)
+                wxgltextArr[it].addTextLabels()
             }
         }
         // spotter code is serialized for now
@@ -983,7 +983,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         alertDialogRadarLongPress!!
                 )
             } else {
-                numPanesArr.forEach { wxgltextArr[it].addTV() }
+                numPanesArr.forEach { wxgltextArr[it].addTextLabels() }
             }
         }
     }

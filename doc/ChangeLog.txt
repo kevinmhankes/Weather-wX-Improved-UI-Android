@@ -23,6 +23,7 @@
 // TODO [ADD] warning count in nexrad like flutter
 
 55316 2020_01_19    [FIX] spotter report label does not clear when single/double click - does for pan
+                    [REF] better method names in radar text class
 55315 2020_01_19    [FIX] if edit current location name and return to main screen label was not updated
                     [FIX] add more vertical padding in object dialogue
                     [ADD] wpc fronts - only show if zoomed out

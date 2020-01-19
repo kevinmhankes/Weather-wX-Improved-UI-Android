@@ -168,7 +168,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                 )
                 glviewArr[index].wxgltextArr = wxgltextArr
                 glviewArr[index].locationFragment = true
-                wxgltextArr[index].initTV(activityReference)
+                wxgltextArr[index].initializeTextLabels(activityReference)
                 rlArr[index].addView(glviewArr[index])
                 cardViews.last().addView(rlArr[index])
                 cardViews.last().layoutParams = RelativeLayout.LayoutParams(
@@ -208,7 +208,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                 )
                 glviewArr[index].wxgltextArr = wxgltextArr
                 glviewArr[index].locationFragment = true
-                wxgltextArr[index].initTV(activityReference)
+                wxgltextArr[index].initializeTextLabels(activityReference)
                 rlArr[index].addView(glviewArr[index])
                 cardViews.last().addView(rlArr[index])
                 cardViews.last().layoutParams = RelativeLayout.LayoutParams(
@@ -569,7 +569,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                         alertDialogRadarLongPress!!
                 )
             } else {
-                (0 until numRadars).forEach { wxgltextArr[it].addTV() }
+                (0 until numRadars).forEach { wxgltextArr[it].addTextLabels() }
             }
         }
     }
@@ -669,7 +669,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
     private fun resetAllGlview() {
         glviewArr.indices.forEach {
             UtilityRadarUI.resetGlview(glviewArr[it], oglrArr[it])
-            wxgltextArr[it].addTV()
+            wxgltextArr[it].addTextLabels()
         }
     }
 

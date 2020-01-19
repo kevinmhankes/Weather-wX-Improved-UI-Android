@@ -133,7 +133,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             MotionEvent.ACTION_DOWN -> {
                 if (!locationFragment) {
                     (0 until numPanes).forEach {
-                        wxgltextArr[it].hideTV()
+                        wxgltextArr[it].hideTextLabels()
                         oglr[it].displayHold = true
                     }
                 }

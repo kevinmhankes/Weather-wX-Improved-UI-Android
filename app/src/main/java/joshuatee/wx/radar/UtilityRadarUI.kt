@@ -325,7 +325,7 @@ internal object UtilityRadarUI {
                 } else
                     wxglRender.deconstructHWEXTLines()
             }).start()
-            wxgltextArr[z].addTV()
+            wxgltextArr[z].addTextLabels()
             oldRidArr[z] = oglrArr[z].rid
         }
         Thread(Runnable {

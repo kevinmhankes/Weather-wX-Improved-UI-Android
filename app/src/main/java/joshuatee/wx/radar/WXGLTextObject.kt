@@ -88,10 +88,10 @@ class WXGLTextObject(
         layoutParams.addRule(RelativeLayout.CENTER_VERTICAL)
     }
 
-    private fun addTVCitiesExt() {
+    private fun addTextLabelsCitiesExtended() {
         if (GeographyType.CITIES.pref && cityextTvArrInit) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
-            hideCitiesExt()
+            hideCitiesExtentended()
             wxglSurfaceView.citiesExtAl = mutableListOf()
             scale = getScale()
             oglrZoom = 1.0f
@@ -115,28 +115,28 @@ class WXGLTextObject(
                     )
                 }
             } else {
-                hideCitiesExt()
+                hideCitiesExtentended()
             }
         } else {
-            hideCitiesExt()
+            hideCitiesExtentended()
         }
     }
 
-    private fun hideCitiesExt() {
+    private fun hideCitiesExtentended() {
         wxglSurfaceView.citiesExtAl.indices.forEach {
             wxglSurfaceView.citiesExtAl[it].visibility = View.GONE
             relativeLayout.removeView(wxglSurfaceView.citiesExtAl[it])
         }
     }
 
-    private fun initTVCitiesExt(context: Context) {
+    private fun initializeTextLabelsCitiesExtended(context: Context) {
         if (GeographyType.CITIES.pref) {
             cityextTvArrInit = true
             UtilityCitiesExtended.create(context)
         }
     }
 
-    private fun initTVCountyLabels(context: Context) {
+    private fun initializeTextLabelsCountyLabels(context: Context) {
         if (MyApplication.radarCountyLabels) {
             UtilityCountyLabels.create(context)
             countyLabelsTvArrInit = true
@@ -146,7 +146,7 @@ class WXGLTextObject(
     private fun getScale() =
             8.1f * wxglRender.zoom / MyApplication.deviceScale * (glviewWidth / 800.0f * MyApplication.deviceScale) / MyApplication.TEXTVIEW_MAGIC_FUDGE_FACTOR
 
-    private fun addTVCountyLabels() {
+    private fun addTextLabelsCountyLabels() {
         if (MyApplication.radarCountyLabels && countyLabelsTvArrInit) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             hideCountyLabels()
@@ -188,7 +188,7 @@ class WXGLTextObject(
         }
     }
 
-    fun addTVSpottersLabels() {
+    fun addTextLabelsSpottersLabels() {
         if (PolygonType.SPOTTER_LABELS.pref && spottersLabelsTvArrInit) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             spotterLat = 0.0
@@ -420,27 +420,27 @@ class WXGLTextObject(
         }
     }
 
-    fun initTV(context: Context) {
-        initTVCitiesExt(context)
-        initTVCountyLabels(context)
+    fun initializeTextLabels(context: Context) {
+        initializeTextLabelsCitiesExtended(context)
+        initializeTextLabelsCountyLabels(context)
         initTVSpottersLabels()
     }
 
-    fun addTV() {
-        addTVCitiesExt()
-        addTVCountyLabels()
+    fun addTextLabels() {
+        addTextLabelsCitiesExtended()
+        addTextLabelsCountyLabels()
         if (numberOfPanes == 1) {
             addTVObs()
         }
-        addTVSpottersLabels()
+        addTextLabelsSpottersLabels()
         if (numberOfPanes == 1 && WXGLRadarActivity.spotterShowSelected) {
             addTVSpotter()
         }
         addWpcPressureCenters()
     }
 
-    fun hideTV() {
-        hideCitiesExt()
+    fun hideTextLabels() {
+        hideCitiesExtentended()
         hideCountyLabels()
         if (numberOfPanes == 1) {
             hideObs()
@@ -452,7 +452,7 @@ class WXGLTextObject(
         hideWpcPressureCenters()
     }
 
-    fun initTVObs() {
+    fun initializeTextLabelsObservations() {
         if (PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) {
             obsTvArrInit = true
         }
