@@ -22,6 +22,7 @@
 // TODO [FIX] use dialogue instead of spinners when it makes sense: more flexible and cleaner code
 // TODO [ADD] warning count in nexrad like flutter
 
+55316 2020_01_19
 55315 2020_01_19    [FIX] if edit current location name and return to main screen label was not updated
                     [FIX] add more vertical padding in object dialogue
                     [ADD] wpc fronts - only show if zoomed out
