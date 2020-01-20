@@ -381,7 +381,7 @@ class MyApplication : Application() {
             checkwpc = getInitialPreference("CHECKWPC", "false")
             checktor = getInitialPreference("CHECKTOR", "false")
             if (UtilityUI.isTablet()) {
-                UIPreferences.nwsIconSizeDefault = 8
+                UIPreferences.nwsIconSizeDefault = 6
             }
             nwsIconSize = preferences.getInt("NWS_ICON_SIZE_PREF", UIPreferences.nwsIconSizeDefault) // was 24 10-27-2018
             uiAnimIconFrames = getInitialPreferenceString("UI_ANIM_ICON_FRAMES", "6")

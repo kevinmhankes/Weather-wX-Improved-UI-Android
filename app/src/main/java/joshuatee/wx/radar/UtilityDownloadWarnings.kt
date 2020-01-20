@@ -33,12 +33,17 @@ internal object UtilityDownloadWarnings {
     const val type = "WARNINGS"
     var timer = DownloadTimer(type)
 
+    private const val baseUrl = "https://api.weather.gov/alerts/active?event="
+    private const val tstormUrl = baseUrl + "Severe%20Thunderstorm%20Warning"
+    private const val ffwUrl = baseUrl + "Flash%20Flood%20Warning"
+    private const val tornadoUrl = baseUrl + "Tornado%20Warning"
+    // Below is for testing
+    //val ffwUrl = baseUrl + "Flood%20Warning"
+
     fun get(context: Context) {
         if (timer.isRefreshNeeded(context)) {
             if (PolygonType.TST.pref) {
                 getPolygonVtec(context)
-            } else {
-                //UtilityDownloadRadar.clearPolygonVtec()
             }
         }
     }
@@ -57,15 +62,8 @@ internal object UtilityDownloadWarnings {
         }
     }
 
-    private const val baseUrl = "https://api.weather.gov/alerts/active?event="
-    private const val tstormURl = baseUrl + "Severe%20Thunderstorm%20Warning"
-    private const val ffwUrl = baseUrl + "Flash%20Flood%20Warning"
-    // Below is for testing
-    //val ffwUrl = baseUrl + "Flood%20Warning"
-    private const val tornadoUrl = baseUrl + "Tornado%20Warning"
-
     private fun getPolygonVtec(context: Context) {
-        val tstData = UtilityDownloadNws.getStringFromUrlNoAcceptHeader(tstormURl)
+        val tstData = UtilityDownloadNws.getStringFromUrlNoAcceptHeader(tstormUrl)
         if (tstData != "") {
             MyApplication.severeDashboardTst.valueSet(context, tstData)
         }

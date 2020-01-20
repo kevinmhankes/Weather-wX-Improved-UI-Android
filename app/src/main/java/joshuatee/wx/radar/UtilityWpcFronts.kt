@@ -192,8 +192,8 @@ object UtilityWpcFronts {
     }
 
     private fun parseLatLon(string: String): List<Double> {
-        if (string.length != 7) {
-            return listOf(0.0, 0.0)
+        return if (string.length != 7) {
+            listOf(0.0, 0.0)
         } else {
             val lat = (string.substring(0, 2) + "." + string.substring(2, 3)).toDoubleOrNull()
                     ?: 0.0
@@ -204,7 +204,7 @@ object UtilityWpcFronts {
                 (string.substring(3, 6) + "." + string.substring(6, 7)).toDoubleOrNull()
                         ?: 0.0
             }
-            return listOf(lat, lon)
+            listOf(lat, lon)
         }
     }
 

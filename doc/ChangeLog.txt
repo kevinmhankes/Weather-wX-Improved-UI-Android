@@ -17,11 +17,13 @@
 // TODO [ADD] enhance radar obs to support multipane
 // TODO [ADD] radar file class from flutter
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
-// TODO [ADD] better support for Chromebook - https://developer.android.com/topic/arc/device-support
 // TODO [FIX] use dialogue instead of spinners when it makes sense: more flexible and cleaner code
 // TODO [ADD] warning count in nexrad 
+// TODO [ADD] better support for Chromebook - https://developer.android.com/topic/arc/device-support
+// 		track pad support in radar, pan and pinch zoom
+// 		bottom sheet is not fully expanded in some screens
 
-55318 2020_01_19    [FIX] if radar alert is enabled for local alerts, if you tap on radar alert and hit back button it now takes to main screen
+55318 2020_01_20    [FIX] if radar alert is enabled for local alerts, if you tap on radar alert and hit back button it now takes to main screen
 55317 2020_01_19    [REF] lint and code cleanup
                     [FIX] obs that show "XX Inches of Snow on Ground"
                     [ADD] SingleTextAdapterList used by ObjectRecyclerView now uses dynamic font size - nws obs, fav add/change
