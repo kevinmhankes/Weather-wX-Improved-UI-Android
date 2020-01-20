@@ -252,7 +252,9 @@ object Utility {
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
-        var string = activity.resources.getString(R.string.about_wx) + MyApplication.newline + version
+        var string = activity.resources.getString(R.string.about_wx) +
+                MyApplication.newline + version + MyApplication.newline + MyApplication.newline +
+                showShortCuts()
         string += MyApplication.newline + MyApplication.newline + "Diagnostics information:" + MyApplication.newline
         string += readPref(
                 context,
@@ -263,6 +265,24 @@ object Utility {
         string += showDiagnostics(context)
         string += "Tablet: " + UtilityUI.isTablet().toString()
         return string
+    }
+
+    private fun showShortCuts(): String {
+        return "Ctrl-r: Nexrad radar" + MyApplication.newline +
+                "Ctrl-d: Severe Dashboard" + MyApplication.newline +
+                "Ctrl-c: Goes Viewer" + MyApplication.newline +
+                "Ctrl-a: Local text product viewer" + MyApplication.newline +
+                "Ctrl-s: Settings" + MyApplication.newline +
+                "Ctrl-2: Dual Pane Radar" + MyApplication.newline +
+                "Ctrl-4: Quad Pane Radar" + MyApplication.newline
+                //"Ctrl-w: US Alerts" + MyApplication.newline +
+                //"Ctrl-e: SPC Mesoanalysis" + MyApplication.newline +
+                //"Ctrl-n: NCEP Models" + MyApplication.newline +
+                //"Ctrl-h: Hourly" + MyApplication.newline +
+                //"Ctrl-t: NHC" + MyApplication.newline +
+                //"Ctrl-l: Lightning" + MyApplication.newline +
+                //"Ctrl-i: National images" + MyApplication.newline +
+                //"Ctrl-z: National text discussions" + MyApplication.newline +
     }
 }
 

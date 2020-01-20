@@ -361,4 +361,23 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
             }
         }
     }
+
+    fun openDualPaneRadar(context: Context, itemID: Int) {
+        ObjectIntent(
+                context,
+                WXGLRadarActivityMultiPane::class.java,
+                WXGLRadarActivityMultiPane.RID,
+                arrayOf(Location.rid, "", "2")
+        )
+    }
+
+    fun openQuadPaneRadar(context: Context, itemID: Int) {
+        ObjectIntent(
+                context,
+                WXGLRadarActivityMultiPane::class.java,
+                WXGLRadarActivityMultiPane.RID,
+                arrayOf(Location.rid, "", "4")
+        )
+    }
+
 }

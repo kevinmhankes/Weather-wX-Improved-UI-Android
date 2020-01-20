@@ -172,7 +172,7 @@ class WX : CommonActionBarFragment() {
                 }
                 return true
             }
-            KeyEvent.KEYCODE_I -> {
+            KeyEvent.KEYCODE_A -> {
                 if (event.isCtrlPressed) {
                     openAfd(0)
                 }
@@ -184,15 +184,29 @@ class WX : CommonActionBarFragment() {
                 }
                 return true
             }
-            KeyEvent.KEYCODE_G -> {
+            KeyEvent.KEYCODE_C -> {
                 if (event.isCtrlPressed) {
                     openVis(0)
                 }
                 return true
             }
-            KeyEvent.KEYCODE_E -> {
+            KeyEvent.KEYCODE_D -> {
                 if (event.isCtrlPressed) {
                     openDashboard(0)
+                }
+                return true
+            }
+
+
+            KeyEvent.KEYCODE_2 -> {
+                if (event.isCtrlPressed) {
+                    openDualPaneRadar(this, 0)
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_4 -> {
+                if (event.isCtrlPressed) {
+                    openQuadPaneRadar(this, 0)
                 }
                 return true
             }

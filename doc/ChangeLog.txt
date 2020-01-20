@@ -23,7 +23,9 @@
 // 		track pad support in radar, pan and pinch zoom
 // 		bottom sheet is not fully expanded in some screens
 
-55319 2020_01_20
+55319 2020_01_20    [ADD] keyboard shortcuts for dual/quad pane radar (ctrl-2 and ctrl-4)
+                    [ADD] list of keyboard shortcuts in settings -> about
+                    [FIX] change a few shortcuts to match iOS/swift port
 55318 2020_01_20    [FIX] if radar alert is enabled for local alerts, if you tap on radar alert and hit back button it now takes to main screen
 55317 2020_01_19    [REF] lint and code cleanup
                     [FIX] obs that show "XX Inches of Snow on Ground"
