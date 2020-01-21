@@ -43,6 +43,11 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
+    // URL is not really used save in the homescreen map since most other activities have a var
+    companion object {
+        const val URL: String = ""
+    }
+
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var objNhc: ObjectNhc
 

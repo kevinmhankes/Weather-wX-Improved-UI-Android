@@ -24,21 +24,19 @@ package joshuatee.wx.settings
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
-
-import java.util.Locale
-
+import androidx.appcompat.widget.Toolbar
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import joshuatee.wx.R
-import joshuatee.wx.MyApplication
-import joshuatee.wx.util.UtilityAlertDialog
-
 import joshuatee.wx.GlobalArrays
-
+import joshuatee.wx.MyApplication
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityAlertDialog
 import joshuatee.wx.wpc.UtilityWpcText
+import java.util.*
+
 
 class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 

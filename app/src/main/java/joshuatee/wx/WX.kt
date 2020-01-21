@@ -73,11 +73,11 @@ class WX : CommonActionBarFragment() {
         miVr.isVisible = MyApplication.vrButton
         if (MyApplication.helpMode) helpMi.title = helpStr
         val fab = ObjectFab(
-            this,
-            this,
-            R.id.fab,
-            MyApplication.ICON_RADAR,
-            OnClickListener { openNexradRadar(this, 0) })
+                this,
+                this,
+                R.id.fab,
+                MyApplication.ICON_RADAR,
+                OnClickListener { openNexradRadar(this, 0) })
         if (UIPreferences.mainScreenRadarFab) {
             val radarMi = menu.findItem(R.id.action_radar)
             radarMi.isVisible = false
@@ -96,10 +96,10 @@ class WX : CommonActionBarFragment() {
             slidingTabLayout.visibility = View.GONE
         }
         slidingTabLayout.setSelectedTabIndicatorColor(
-            UtilityTheme.getPrimaryColorFromSelectedTheme(
-                this,
-                0
-            )
+                UtilityTheme.getPrimaryColorFromSelectedTheme(
+                        this,
+                        0
+                )
         )
         refreshDynamicContent()
         if (android.os.Build.VERSION.SDK_INT < 21) {
@@ -112,7 +112,7 @@ class WX : CommonActionBarFragment() {
             if (backButtonCounter < 1) {
                 UtilityUI.makeSnackBar(
                         slidingTabLayout,
-                    "Please tap the back button one more time to close wX."
+                        "Please tap the back button one more time to close wX."
                 )
                 backButtonCounter += 1
             } else {
@@ -138,7 +138,7 @@ class WX : CommonActionBarFragment() {
 
     override fun onResume() {
         LocalBroadcastManager.getInstance(this)
-            .registerReceiver(onBroadcast, IntentFilter("notifran"))
+                .registerReceiver(onBroadcast, IntentFilter("notifran"))
         super.onResume()
     }
 
@@ -196,17 +196,64 @@ class WX : CommonActionBarFragment() {
                 }
                 return true
             }
-
-
             KeyEvent.KEYCODE_2 -> {
                 if (event.isCtrlPressed) {
-                    openDualPaneRadar(this, 0)
+                    openActivity(this, "RADAR_DUAL_PANE")
                 }
                 return true
             }
             KeyEvent.KEYCODE_4 -> {
                 if (event.isCtrlPressed) {
-                    openQuadPaneRadar(this, 0)
+                    openActivity(this, "RADAR_QUAD_PANE")
+                }
+                return true
+            }
+
+            KeyEvent.KEYCODE_W -> {
+                if (event.isCtrlPressed) {
+                    openActivity(this, "USWARN")
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_E -> {
+                if (event.isCtrlPressed) {
+                    openActivity(this, "SPCMESO1")
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_N -> {
+                if (event.isCtrlPressed) {
+                    openActivity(this, "MODEL_NCEP")
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_H -> {
+                if (event.isCtrlPressed) {
+                    openHourly(0)
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_T -> {
+                if (event.isCtrlPressed) {
+                    openActivity(this, "NHC")
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_L -> {
+                if (event.isCtrlPressed) {
+                    openActivity(this, "LTG")
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_I -> {
+                if (event.isCtrlPressed) {
+                    openActivity(this, "WPCIMG")
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_Z -> {
+                if (event.isCtrlPressed) {
+                    openActivity(this, "WPCTEXT")
                 }
                 return true
             }

@@ -21,16 +21,22 @@
 
 package joshuatee.wx.settings
 
+import android.content.Context
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.LightningActivity
 import joshuatee.wx.activitiesmisc.USWarningsWithRadarActivity
 import joshuatee.wx.canada.CanadaRadarActivity
+import joshuatee.wx.models.ModelsGenericActivity
+import joshuatee.wx.nhc.NhcActivity
+import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.AwcRadarMosaicActivity
 import joshuatee.wx.radar.USNwsMosaicActivity
+import joshuatee.wx.radar.WXGLRadarActivityMultiPane
 import joshuatee.wx.spc.*
 import joshuatee.wx.vis.GoesActivity
 import joshuatee.wx.wpc.WpcImagesActivity
+import joshuatee.wx.wpc.WpcTextProductsActivity
 
 internal object UtilityHomeScreen {
 
@@ -67,6 +73,31 @@ internal object UtilityHomeScreen {
             MyApplication.HM_CLASS_ARGS[token] = arrayOf(token, "1", "SPCMESO")
             MyApplication.HM_CLASS_ID[token] = SpcMesoActivity.INFO
         }
+
+        MyApplication.HM_CLASS["RADAR_DUAL_PANE"] = WXGLRadarActivityMultiPane::class.java
+        MyApplication.HM_CLASS_ID["RADAR_DUAL_PANE"] = WXGLRadarActivityMultiPane.RID
+        MyApplication.HM_CLASS_ARGS["RADAR_DUAL_PANE"] = arrayOf("", "", "2")
+
+        MyApplication.HM_CLASS["RADAR_QUAD_PANE"] = WXGLRadarActivityMultiPane::class.java
+        MyApplication.HM_CLASS_ID["RADAR_QUAD_PANE"] = WXGLRadarActivityMultiPane.RID
+        MyApplication.HM_CLASS_ARGS["RADAR_QUAD_PANE"] = arrayOf("", "", "4")
+
+        MyApplication.HM_CLASS["WPCIMG"] = WpcImagesActivity::class.java
+        MyApplication.HM_CLASS_ID["WPCIMG"] = WpcImagesActivity.URL
+        MyApplication.HM_CLASS_ARGS["WPCIMG"] = arrayOf()
+
+        MyApplication.HM_CLASS["WPCTEXT"] = WpcTextProductsActivity::class.java
+        MyApplication.HM_CLASS_ID["WPCTEXT"] = WpcTextProductsActivity.URL
+        MyApplication.HM_CLASS_ARGS["WPCTEXT"] = arrayOf("pmdspd", "Short Range Forecast Discussion")
+
+        MyApplication.HM_CLASS["NHC"] = NhcActivity::class.java
+        MyApplication.HM_CLASS_ID["NHC"] = NhcActivity.URL
+        MyApplication.HM_CLASS_ARGS["NHC"] = arrayOf()
+
+
+        MyApplication.HM_CLASS["MODEL_NCEP"] = ModelsGenericActivity::class.java
+        MyApplication.HM_CLASS_ID["MODEL_NCEP"] = ModelsGenericActivity.INFO
+        MyApplication.HM_CLASS_ARGS["MODEL_NCEP"] = arrayOf("1", "NCEP", "NCEP")
 
         MyApplication.HM_CLASS["SPC_TST"] = SpcThunderStormOutlookActivity::class.java
         MyApplication.HM_CLASS_ARGS["SPC_TST"] = arrayOf("")

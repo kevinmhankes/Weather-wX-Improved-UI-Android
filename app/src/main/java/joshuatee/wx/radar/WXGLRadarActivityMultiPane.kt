@@ -307,17 +307,21 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::mapToRid)
         oglInView = true
         numPanesArr.forEach {
+            var initialRadarSite = activityArguments[0]
+            if (activityArguments[0] == "") {
+                initialRadarSite = joshuatee.wx.settings.Location.rid
+            }
             if (!useSinglePanePref) {
                 oglrArr[it].rid = Utility.readPref(
                         this,
                         prefPrefix + "_RID" + (it + 1).toString(),
-                        activityArguments[0]
+                        initialRadarSite
                 )
             } else {
                 oglrArr[it].rid = Utility.readPref(
                         this,
                         prefPrefix + "_RID",
-                        activityArguments[0]
+                        initialRadarSite
                 )
             }
         }

@@ -55,11 +55,11 @@ object Utility {
         return UtilityRadar.radarIdToName[radarSite] ?: ""
     }
 
-   /* fun getRadarSiteLatLon(radarSite: String): LatLon {
-        val lat = UtilityRadar.radarSiteToLat[radarSite] ?: ""
-        val lon = UtilityRadar.radarSiteToLon[radarSite] ?: ""
-        return LatLon(lat, lon)
-    }*/
+    /* fun getRadarSiteLatLon(radarSite: String): LatLon {
+         val lat = UtilityRadar.radarSiteToLat[radarSite] ?: ""
+         val lon = UtilityRadar.radarSiteToLon[radarSite] ?: ""
+         return LatLon(lat, lon)
+     }*/
 
     fun getRadarSiteX(radarSite: String): String {
         return UtilityRadar.radarSiteToLat[radarSite] ?: ""
@@ -85,22 +85,22 @@ object Utility {
         return LatLon(lat, lon)
     }*/
 
-  /*  fun getSoundingSiteName(wfo: String): String {
-        var site = UtilityRadar.wfoIdToName[wfo] ?: ""
-        if (site == "") {
-            site = UtilityRadar.soundingIdToName[wfo] ?: ""
-        }
-        return site
-    }
+    /*  fun getSoundingSiteName(wfo: String): String {
+          var site = UtilityRadar.wfoIdToName[wfo] ?: ""
+          if (site == "") {
+              site = UtilityRadar.soundingIdToName[wfo] ?: ""
+          }
+          return site
+      }
 
-    fun generateSoundingNameList(): List<String> {
-        val list = mutableListOf<String>()
-        GlobalArrays.soundingSites.sorted()
-        GlobalArrays.soundingSites.forEach {
-            list.add(it + ": " + getSoundingSiteName(it))
-        }
-        return list
-    }*/
+      fun generateSoundingNameList(): List<String> {
+          val list = mutableListOf<String>()
+          GlobalArrays.soundingSites.sorted()
+          GlobalArrays.soundingSites.forEach {
+              list.add(it + ": " + getSoundingSiteName(it))
+          }
+          return list
+      }*/
 
     fun getVersion(context: Context): String {
         var version = ""
@@ -274,15 +274,15 @@ object Utility {
                 "Ctrl-a: Local text product viewer" + MyApplication.newline +
                 "Ctrl-s: Settings" + MyApplication.newline +
                 "Ctrl-2: Dual Pane Radar" + MyApplication.newline +
-                "Ctrl-4: Quad Pane Radar" + MyApplication.newline
-                //"Ctrl-w: US Alerts" + MyApplication.newline +
-                //"Ctrl-e: SPC Mesoanalysis" + MyApplication.newline +
-                //"Ctrl-n: NCEP Models" + MyApplication.newline +
-                //"Ctrl-h: Hourly" + MyApplication.newline +
-                //"Ctrl-t: NHC" + MyApplication.newline +
-                //"Ctrl-l: Lightning" + MyApplication.newline +
-                //"Ctrl-i: National images" + MyApplication.newline +
-                //"Ctrl-z: National text discussions" + MyApplication.newline +
+                "Ctrl-4: Quad Pane Radar" + MyApplication.newline +
+                "Ctrl-w: US Alerts" + MyApplication.newline +
+                "Ctrl-e: SPC Mesoanalysis" + MyApplication.newline +
+                "Ctrl-n: NCEP Models" + MyApplication.newline +
+                "Ctrl-h: Hourly" + MyApplication.newline +
+                "Ctrl-t: NHC" + MyApplication.newline +
+                "Ctrl-l: Lightning" + MyApplication.newline +
+                "Ctrl-i: National images" + MyApplication.newline +
+                "Ctrl-z: National text discussions" + MyApplication.newline
     }
 }
 

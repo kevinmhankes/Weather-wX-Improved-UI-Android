@@ -31,6 +31,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import joshuatee.wx.ui.ObjectTextView
 
@@ -60,7 +61,9 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             item.setPadding(60, 30, 0, 30)
             item.gravity = Gravity.CENTER_HORIZONTAL
             item.color = Color.BLACK
-            item.tv.setOnClickListener { fnList[index](position); dismiss() }
+            item.tv.setOnClickListener {
+                fnList[index](position); dismiss()
+            }
             linearLayout.addView(item.tv)
         }
         return fragmentView
@@ -74,6 +77,13 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             textViewList[3].tv.visibility = View.INVISIBLE
         }
         initView()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val behavior = BottomSheetBehavior.from(requireView().parent as View)
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        //behavior.peekHeight = 0
     }
 
     private fun initView() {

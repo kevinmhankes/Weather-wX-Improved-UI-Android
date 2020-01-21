@@ -156,27 +156,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
             }
             R.id.action_cloud -> openVis(item.itemId)
             R.id.action_radar -> openNexradRadar(this, item.itemId)
-            R.id.action_forecast -> {
-                if (MyApplication.helpMode) {
-                    showHelpCAB(item.itemId)
-                } else {
-                    if (Location.isUS) {
-                        ObjectIntent(
-                                this,
-                                HourlyActivity::class.java,
-                                HourlyActivity.LOC_NUM,
-                                Location.currentLocationStr
-                        )
-                    } else {
-                        ObjectIntent(
-                                this,
-                                CanadaHourlyActivity::class.java,
-                                CanadaHourlyActivity.LOC_NUM,
-                                Location.currentLocationStr
-                        )
-                    }
-                }
-            }
+            R.id.action_forecast -> openHourly(item.itemId)
             R.id.action_afd -> openAfd(item.itemId)
             R.id.action_dashboard -> openDashboard(item.itemId)
             R.id.action_spotters -> ObjectIntent(this, SpottersActivity::class.java)
@@ -362,22 +342,34 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
         }
     }
 
-    fun openDualPaneRadar(context: Context, itemID: Int) {
-        ObjectIntent(
-                context,
-                WXGLRadarActivityMultiPane::class.java,
-                WXGLRadarActivityMultiPane.RID,
-                arrayOf(Location.rid, "", "2")
-        )
+    fun openHourly(itemID: Int) {
+        if (MyApplication.helpMode) {
+            showHelpCAB(itemID)
+        } else {
+            if (Location.isUS) {
+                ObjectIntent(
+                        this,
+                        HourlyActivity::class.java,
+                        HourlyActivity.LOC_NUM,
+                        Location.currentLocationStr
+                )
+            } else {
+                ObjectIntent(
+                        this,
+                        CanadaHourlyActivity::class.java,
+                        CanadaHourlyActivity.LOC_NUM,
+                        Location.currentLocationStr
+                )
+            }
+        }
     }
 
-    fun openQuadPaneRadar(context: Context, itemID: Int) {
+    fun openActivity(context: Context, activityName: String) {
         ObjectIntent(
                 context,
-                WXGLRadarActivityMultiPane::class.java,
-                WXGLRadarActivityMultiPane.RID,
-                arrayOf(Location.rid, "", "4")
+                MyApplication.HM_CLASS[activityName]!!,
+                MyApplication.HM_CLASS_ID[activityName]!!,
+                MyApplication.HM_CLASS_ARGS[activityName]!!
         )
     }
-
 }
