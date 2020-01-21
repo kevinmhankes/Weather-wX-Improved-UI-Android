@@ -36,7 +36,9 @@
 // TODO [ADD] in radar use ctrl-f and ctrl-u to mark/unmark favorites
 // TODO [ADD] in radar use ctrl-/ to open help that shows shortcuts
 
-55321 2020_01_21
+55321 2020_01_21    [ADD] keyboard shortcuts in radar
+                    [ADD] ctrl-? on main screen shows shortcuts
+                    [FIX] remove mention of ROAMING in settings -> location -> edit unless feature is fixed
 55320 2020_01_21    [FIX] change NCEP shortcut from N to M as Chrome OS owns N (new chrome window)
                     [FIX] change NHC shortcut from T to O as Chrome OS owns it
                     [FIX] remove shortcut for ctrl-W (warnings) (chomeOS owns it)

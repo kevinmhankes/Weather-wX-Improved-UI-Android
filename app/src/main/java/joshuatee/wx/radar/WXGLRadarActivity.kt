@@ -47,6 +47,7 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.os.Handler
+import android.view.KeyEvent
 
 import joshuatee.wx.R
 import joshuatee.wx.activitiesmisc.ImageShowActivity
@@ -623,7 +624,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             getContent()
             if (item.itemId == R.id.action_a) return true
         }
-
+        // TODO mark begin of menu stuff
         when (item.itemId) {
             R.id.action_help -> UtilityAlertDialog.showHelpText(
                     resources.getString(R.string.help_radar)
@@ -690,28 +691,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     ImageShowActivity.URL,
                     arrayOf("raw:radar_legend", "Radar Markers", "false")
             )
-            R.id.action_radar_2 -> {
-                if (!archiveMode && !fixedSite) {
-                    WXGLNexrad.savePrefs(this, "WXOGL", oglr)
-                }
-                ObjectIntent(
-                        this,
-                        WXGLRadarActivityMultiPane::class.java,
-                        WXGLRadarActivityMultiPane.RID,
-                        arrayOf(joshuatee.wx.settings.Location.rid, "", "2", "true")
-                )
-            }
-            R.id.action_radar_4 -> {
-                if (!archiveMode && !fixedSite) {
-                    WXGLNexrad.savePrefs(this, "WXOGL", oglr)
-                }
-                ObjectIntent(
-                        this,
-                        WXGLRadarActivityMultiPane::class.java,
-                        WXGLRadarActivityMultiPane.RID,
-                        arrayOf(joshuatee.wx.settings.Location.rid, "", "4", "true")
-                )
-            }
+            R.id.action_radar_2 -> showMultipaneRadar("2")
+            R.id.action_radar_4 -> showMultipaneRadar("4")
             R.id.action_radar_site_status_l3 -> ObjectIntent(
                     this,
                     WebscreenABModels::class.java,
@@ -730,36 +711,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                             resources.getString(R.string.action_radar_site_status_l2)
                     )
             )
-            R.id.action_n0q, R.id.action_n0q_menu  -> {
-                if (MyApplication.radarIconsLevel2 && oglr.product.matches("N[0-3]Q".toRegex())) {
-                    oglr.product = "L2REF"
-                    tiltOption = false
-                } else {
-                    if (!WXGLNexrad.isRidTdwr(oglr.rid)) {
-                        oglr.product = "N" + tilt + "Q"
-                        tiltOption = true
-                    } else {
-                        oglr.product = "TZL"
-                        tiltOption = false
-                    }
-                }
-                getContent()
-            }
-            R.id.action_n0u, R.id.action_n0u_menu -> {
-                if (MyApplication.radarIconsLevel2 && oglr.product.matches("N[0-3]U".toRegex())) {
-                    oglr.product = "L2VEL"
-                    tiltOption = false
-                } else {
-                    if (!WXGLNexrad.isRidTdwr(oglr.rid)) {
-                        oglr.product = "N" + tilt + "U"
-                        tiltOption = true
-                    } else {
-                        oglr.product = "TV$tilt"
-                        tiltOption = true
-                    }
-                }
-                getContent()
-            }
+            R.id.action_n0q, R.id.action_n0q_menu  -> getReflectivity()
+            R.id.action_n0u, R.id.action_n0u_menu -> getVelocity()
             R.id.action_tz0 -> changeProd("TZ$tilt", true)
             R.id.action_tv0 -> changeProd("TV$tilt", true)
             R.id.action_tzl -> changeProd("TZL", true)
@@ -805,14 +758,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     toggleFavorite()
             }
             R.id.action_TDWR -> alertDialogTDWR()
-            R.id.action_ridmap -> {
-                imageMap.toggleMap()
-                if (imageMap.map.visibility != View.GONE) {
-                    UtilityWXGLTextObject.hideTV(numPanes, wxgltextArr)
-                } else {
-                    UtilityWXGLTextObject.showTV(numPanes, wxgltextArr)
-                }
-            }
+            R.id.action_ridmap -> showMap()
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -1145,5 +1091,94 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 TextScreenActivity.URL,
                 arrayOf(txt, oglr.rid + " VAD Wind Profile")
         )
+    }
+
+    private fun getReflectivity() {
+        if (MyApplication.radarIconsLevel2 && oglr.product.matches("N[0-3]Q".toRegex())) {
+            oglr.product = "L2REF"
+            tiltOption = false
+        } else {
+            if (!WXGLNexrad.isRidTdwr(oglr.rid)) {
+                oglr.product = "N" + tilt + "Q"
+                tiltOption = true
+            } else {
+                oglr.product = "TZL"
+                tiltOption = false
+            }
+        }
+        getContent()
+    }
+
+    private fun getVelocity() {
+        if (MyApplication.radarIconsLevel2 && oglr.product.matches("N[0-3]U".toRegex())) {
+            oglr.product = "L2VEL"
+            tiltOption = false
+        } else {
+            if (!WXGLNexrad.isRidTdwr(oglr.rid)) {
+                oglr.product = "N" + tilt + "U"
+                tiltOption = true
+            } else {
+                oglr.product = "TV$tilt"
+                tiltOption = true
+            }
+        }
+        getContent()
+    }
+
+    private fun showMap() {
+        imageMap.toggleMap()
+        if (imageMap.map.visibility != View.GONE) {
+            UtilityWXGLTextObject.hideTV(numPanes, wxgltextArr)
+        } else {
+            UtilityWXGLTextObject.showTV(numPanes, wxgltextArr)
+        }
+    }
+
+    private fun showMultipaneRadar(numberOfPanes: String) {
+        if (!archiveMode && !fixedSite) {
+            WXGLNexrad.savePrefs(this, "WXOGL", oglr)
+        }
+        ObjectIntent(
+                this,
+                WXGLRadarActivityMultiPane::class.java,
+                WXGLRadarActivityMultiPane.RID,
+                arrayOf(joshuatee.wx.settings.Location.rid, "", numberOfPanes, "true")
+        )
+    }
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_2 -> {
+                showMultipaneRadar("2")
+                return true
+            }
+            KeyEvent.KEYCODE_4 -> {
+                showMultipaneRadar("4")
+                return true
+            }
+            KeyEvent.KEYCODE_M -> {
+                showMap()
+                return true
+            }
+            KeyEvent.KEYCODE_A -> {
+                animateRadar(MyApplication.uiAnimIconFrames.toIntOrNull() ?: 0)
+                return true
+            }
+            KeyEvent.KEYCODE_R -> {
+                getReflectivity()
+                return true
+            }
+            KeyEvent.KEYCODE_V -> {
+                getVelocity()
+                return true
+            }
+            KeyEvent.KEYCODE_SLASH -> {
+                if (event.isCtrlPressed) {
+                    ObjectDialogue(this, Utility.showRadarShortCuts())
+                }
+                return true
+            }
+            else -> return super.onKeyUp(keyCode, event)
+        }
     }
 }

@@ -423,7 +423,6 @@ download playlist - download all text products in playlist\n
 edit location" - edit current location\n
 edit location Chicago - edit the current location and change the loction to Chicago\n
 add location Chicago - add Chicago as a new location and change the current location to this new location\n
-add location roaming - add a "roaming" location and turn on alerts as well\n\n
 
 NOTE: While commands such as “spc day 2” are still supported, due to issues with voice recognition in Android it’s preferred to use “day 2”.
 </string>
@@ -690,8 +689,7 @@ This activity can be used to add or modify an existing location. To add a new lo
         check icon to save the location.
             Additionally, you can touch the GPS icon to populate the lat/lon fields if you have location services enabled.
             You should see two popup messages, one at the start and one after the location has been saved. On this screen you can
-        also toggle notifications on or off for this specific location. If the location label is \"ROAMING\" and alerts are turned on then at eacho notification
-        interval it will check the distance moved ( if any ) and then if a certain distance has passed it will update the location. Please keep in mind that the "ROAMING" feature is still in BETA.</string>
+        also toggle notifications on or off for this specific location. </string>
 
     <string name="show_county_label">
 Enable counties to be displayed.</string>

@@ -267,7 +267,7 @@ object Utility {
         return string
     }
 
-    private fun showShortCuts(): String {
+    fun showShortCuts(): String {
         return "Ctrl-r: Nexrad radar" + MyApplication.newline +
                 "Ctrl-d: Severe Dashboard" + MyApplication.newline +
                 "Ctrl-c: Goes Viewer" + MyApplication.newline +
@@ -283,6 +283,15 @@ object Utility {
                 "Ctrl-l: Lightning" + MyApplication.newline +
                 "Ctrl-i: National images" + MyApplication.newline +
                 "Ctrl-z: National text discussions" + MyApplication.newline
+    }
+
+    fun showRadarShortCuts(): String {
+        return "Ctrl-m: Show map" + MyApplication.newline +
+                "Ctrl-a: Animate / stop animate" + MyApplication.newline +
+                "Ctrl-r: Show reflectivity" + MyApplication.newline +
+                "Ctrl-v: Show velocity" + MyApplication.newline +
+                "Ctrl-2: Show dual pane radar" + MyApplication.newline +
+                "Ctrl-4: Show quad pane radar" + MyApplication.newline
     }
 }
 

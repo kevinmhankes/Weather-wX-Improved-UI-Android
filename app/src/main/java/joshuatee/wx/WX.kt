@@ -36,10 +36,8 @@ import android.view.View.OnClickListener
 
 import joshuatee.wx.fragments.ViewPagerAdapter
 import joshuatee.wx.spc.UtilitySpc
-import joshuatee.wx.ui.ObjectFab
-import joshuatee.wx.ui.UtilityTheme
-import joshuatee.wx.ui.UtilityToolbar
-import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.ui.*
+import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -253,6 +251,12 @@ class WX : CommonActionBarFragment() {
             KeyEvent.KEYCODE_Z -> {
                 if (event.isCtrlPressed) {
                     openActivity(this, "WPCTEXT")
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_SLASH -> {
+                if (event.isCtrlPressed) {
+                    ObjectDialogue(this, Utility.showShortCuts())
                 }
                 return true
             }
