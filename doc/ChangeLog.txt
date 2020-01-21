@@ -29,7 +29,7 @@
 // TODO [ADD] main screen use ctrl-j and ctrl-k to switch tabs
 // TODO [FIX] chromeOS/tablet - when select new radar site view is to small (some how wxoglSize is changing to 13)
 
-55321 2020_01_21 
+55321 2020_01_21
 55320 2020_01_21    [FIX] change NCEP shortcut from N to M as Chrome OS owns N (new chrome window)
                     [FIX] change NHC shortcut from T to O as Chrome OS owns it
                     [FIX] remove shortcut for ctrl-W (warnings) (chomeOS owns it)
