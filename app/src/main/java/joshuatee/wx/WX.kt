@@ -208,20 +208,19 @@ class WX : CommonActionBarFragment() {
                 }
                 return true
             }
-
-            KeyEvent.KEYCODE_W -> {
-                if (event.isCtrlPressed) {
-                    openActivity(this, "USWARN")
-                }
-                return true
-            }
+            //KeyEvent.KEYCODE_W -> {
+            //    if (event.isCtrlPressed) {
+            //        openActivity(this, "USWARN")
+            //    }
+            //    return true
+            //}
             KeyEvent.KEYCODE_E -> {
                 if (event.isCtrlPressed) {
                     openActivity(this, "SPCMESO1")
                 }
                 return true
             }
-            KeyEvent.KEYCODE_N -> {
+            KeyEvent.KEYCODE_M -> {
                 if (event.isCtrlPressed) {
                     openActivity(this, "MODEL_NCEP")
                 }
@@ -233,7 +232,7 @@ class WX : CommonActionBarFragment() {
                 }
                 return true
             }
-            KeyEvent.KEYCODE_T -> {
+            KeyEvent.KEYCODE_O -> {
                 if (event.isCtrlPressed) {
                     openActivity(this, "NHC")
                 }

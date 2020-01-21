@@ -147,6 +147,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private var numPanesArr = listOf<Int>()
     private var wxgltextArr = mutableListOf<WXGLTextObject>()
     private lateinit var act: Activity
+    // TODO rename this
     private lateinit var sp: ObjectSpinner
     private var alertDialogRadarLongPress: ObjectDialogue? = null
     private var isGetContentInProgress = false

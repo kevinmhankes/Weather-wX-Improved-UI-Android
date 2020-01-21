@@ -275,11 +275,11 @@ object Utility {
                 "Ctrl-s: Settings" + MyApplication.newline +
                 "Ctrl-2: Dual Pane Radar" + MyApplication.newline +
                 "Ctrl-4: Quad Pane Radar" + MyApplication.newline +
-                "Ctrl-w: US Alerts" + MyApplication.newline +
+                //"Ctrl-w: US Alerts" + MyApplication.newline +
                 "Ctrl-e: SPC Mesoanalysis" + MyApplication.newline +
-                "Ctrl-n: NCEP Models" + MyApplication.newline +
+                "Ctrl-m: NCEP Models" + MyApplication.newline +
                 "Ctrl-h: Hourly" + MyApplication.newline +
-                "Ctrl-t: NHC" + MyApplication.newline +
+                "Ctrl-o: NHC" + MyApplication.newline +
                 "Ctrl-l: Lightning" + MyApplication.newline +
                 "Ctrl-i: National images" + MyApplication.newline +
                 "Ctrl-z: National text discussions" + MyApplication.newline

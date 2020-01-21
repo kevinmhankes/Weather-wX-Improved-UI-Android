@@ -228,6 +228,7 @@ class MyApplication : Application() {
         var nwsIconBottomColor: Int = 0
         var nexradRadarBackgroundColor: Int = 0
         var wxoglSize: Int = 0
+        var wxoglSizeDefault: Int = 8
         var wxoglRememberLocation: Boolean = false
         var wxoglRadarAutorefresh: Boolean = false
         var wfoFav: String = ""
@@ -403,7 +404,10 @@ class MyApplication : Application() {
                     getInitialPreference("NWS_ICON_BOTTOM_COLOR", Color.rgb(255, 255, 255))
             nexradRadarBackgroundColor =
                     getInitialPreference("NEXRAD_RADAR_BACKGROUND_COLOR", Color.rgb(0, 0, 0))
-            wxoglSize = getInitialPreference("WXOGL_SIZE", 8)
+            //if (UtilityUI.isTablet()) {
+            //    wxoglSize = 3
+            //}
+            wxoglSize = getInitialPreference("WXOGL_SIZE", wxoglSizeDefault)
             wxoglRememberLocation = getInitialPreference("WXOGL_REMEMBER_LOCATION", "false")
             wxoglRadarAutorefresh = getInitialPreference("RADAR_AUTOREFRESH", "false")
             wfoFav = getInitialPreferenceString("WFO_FAV", prefSeparator)

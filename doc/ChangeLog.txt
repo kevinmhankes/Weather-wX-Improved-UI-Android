@@ -20,9 +20,18 @@
 // TODO [FIX] use dialogue instead of spinners when it makes sense: more flexible and cleaner code
 // TODO [ADD] warning count in nexrad 
 // TODO [ADD] better support for Chromebook - https://developer.android.com/topic/arc/device-support
-// TODO		track pad support in radar, pan and pinch zoom
+// TODO [ADD] in models with FAB use ctrl-j and ctrl-k to use back/forward
+// TODO [ADD] in radar use ctrl-m to bring up map
+// TODO [ADD] in radar use ctrl-v to switch to velocity
+// TODO [ADD] in radar use ctrl-r to switch to reflectivity
+// TODO [ADD] in radar use ctrl-2 to switch to dual pane
+// TODO [ADD] in radar use ctrl-a to animate
+// TODO [ADD] main screen use ctrl-j and ctrl-k to switch tabs
+// TODO [FIX] chromeOS/tablet - when select new radar site view is to small (some how wxoglSize is changing to 13)
 
-55320 2020_01_21
+55320 2020_01_21    [FIX] change NCEP shortcut from N to M as Chrome OS owns N (new chrome window)
+                    [FIX] change NHC shortcut from T to O as Chrome OS owns it
+                    [FIX] remove shortcut for ctrl-W (warnings) (chomeOS owns it)
 55319 2020_01_20    [ADD] keyboard shortcuts for dual/quad pane radar (ctrl-2 and ctrl-4)
                     [ADD] list of keyboard shortcuts in settings -> about
                     [FIX] change a few shortcuts to match iOS/swift port
