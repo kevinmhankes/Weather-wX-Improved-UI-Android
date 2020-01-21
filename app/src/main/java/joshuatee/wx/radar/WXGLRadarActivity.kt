@@ -745,18 +745,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             R.id.action_a144 -> animateRadar(144)
             R.id.action_a3 -> animateRadar(3)
             R.id.action_NVW -> getContentVwp()
-            R.id.action_fav -> {
-                if (inOglAnim) {
-                    inOglAnimPaused = if (!inOglAnimPaused) {
-                        star.setIcon(MyApplication.ICON_PLAY)
-                        true
-                    } else {
-                        star.setIcon(MyApplication.ICON_PAUSE)
-                        false
-                    }
-                } else
-                    toggleFavorite()
-            }
+            R.id.action_fav -> actionToggleFavorite()
             R.id.action_TDWR -> alertDialogTDWR()
             R.id.action_ridmap -> showMap()
             else -> return super.onOptionsItemSelected(item)
@@ -1125,6 +1114,20 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         getContent()
     }
 
+    private fun actionToggleFavorite() {
+        if (inOglAnim) {
+            inOglAnimPaused = if (!inOglAnimPaused) {
+                star.setIcon(MyApplication.ICON_PLAY)
+                true
+            } else {
+                star.setIcon(MyApplication.ICON_PAUSE)
+                false
+            }
+        } else {
+            toggleFavorite()
+        }
+    }
+
     private fun showMap() {
         imageMap.toggleMap()
         if (imageMap.map.visibility != View.GONE) {
@@ -1162,6 +1165,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             }
             KeyEvent.KEYCODE_A -> {
                 animateRadar(MyApplication.uiAnimIconFrames.toIntOrNull() ?: 0)
+                return true
+            }
+            KeyEvent.KEYCODE_F -> {
+                actionToggleFavorite()
                 return true
             }
             KeyEvent.KEYCODE_R -> {

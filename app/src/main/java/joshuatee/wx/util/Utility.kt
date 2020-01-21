@@ -290,6 +290,7 @@ object Utility {
                 "Ctrl-a: Animate / stop animate" + MyApplication.newline +
                 "Ctrl-r: Show reflectivity" + MyApplication.newline +
                 "Ctrl-v: Show velocity" + MyApplication.newline +
+                "Ctrl-f: Toggle favorite" + MyApplication.newline +
                 "Ctrl-2: Show dual pane radar" + MyApplication.newline +
                 "Ctrl-4: Show quad pane radar" + MyApplication.newline
     }

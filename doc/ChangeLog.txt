@@ -34,7 +34,6 @@
 // TODO [ADD] in radar use ctrl-d and ctrl-q for multipane
 // TODO [ADD] in radar use ctrl-1, ctrl-2, etc to access favorites
 // TODO [ADD] in radar use ctrl-f and ctrl-u to mark/unmark favorites
-// TODO [ADD] in radar use ctrl-/ to open help that shows shortcuts
 
 55321 2020_01_21    [ADD] keyboard shortcuts in radar
                     [ADD] ctrl-? on main screen shows shortcuts
