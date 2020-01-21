@@ -29,6 +29,8 @@
 // TODO [ADD] in radar use ctrl-s to stop animate
 // TODO [ADD] main screen use ctrl-j and ctrl-k to switch tabs
 // TODO [FIX] chromeOS/tablet - when select new radar site view is to small (some how wxoglSize is changing to 13)
+// TODO [ADD] in radar use arrow keys to pan
+// TODO [ADD] in radar use arrow keys with alt to zoom in and zoom out
 // TODO [ADD] in radar use ctrl-d and ctrl-q for multipane
 // TODO [ADD] in radar use ctrl-1, ctrl-2, etc to access favorites
 // TODO [ADD] in radar use ctrl-f and ctrl-u to mark/unmark favorites
