@@ -1224,6 +1224,30 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 getContent()
                 return true
             }
+            KeyEvent.KEYCODE_DPAD_UP -> {
+                if (event.isCtrlPressed) {
+                    glview.zoomOutByKey()
+                } else {
+                    glview.onScrollByKeyboard(0.0f, -20.0f)
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_DPAD_DOWN -> {
+                if (event.isCtrlPressed) {
+                    glview.zoomInByKey()
+                } else {
+                    glview.onScrollByKeyboard(0.0f, 20.0f)
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_DPAD_LEFT -> {
+                glview.onScrollByKeyboard(-20.0f, 0.0f)
+                return true
+            }
+            KeyEvent.KEYCODE_DPAD_RIGHT -> {
+                glview.onScrollByKeyboard(-20.0f, 0.0f)
+                return true
+            }
             else -> return super.onKeyUp(keyCode, event)
         }
     }

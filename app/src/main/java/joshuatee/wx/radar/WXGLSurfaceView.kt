@@ -38,6 +38,7 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityLog
 
 import kotlin.math.*
 
@@ -233,6 +234,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         distanceX: Float,
         distanceY: Float
     ): Boolean {
+        //UtilityLog.d("wx", distanceX.toString() + " " + distanceY.toString())
         var panned = false
         if (!locationFragment) {
             if (distanceX != 0f) {
@@ -267,6 +269,46 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             }
         }
         return panned
+    }
+
+    fun onScrollByKeyboard(
+            distanceX: Float,
+            distanceY: Float
+    ) {
+        //UtilityLog.d("wx", distanceX.toString() + " " + distanceY.toString())
+        var panned = false
+        if (!locationFragment) {
+            if (distanceX != 0f) {
+                if (MyApplication.dualpaneshareposn) {
+                    (0 until numPanes).forEach { oglr[it].x += -1.0f * distanceX }
+                } else {
+                    oglrCurrent.x += -1.0f * distanceX
+                }
+                panned = true
+            }
+            if (distanceY != 0f) {
+                if (MyApplication.dualpaneshareposn) {
+                    (0 until numPanes).forEach { oglr[it].y += distanceY }
+                } else {
+                    oglrCurrent.y += distanceY
+                }
+                panned = true
+            }
+            if (panned) {
+                if (MyApplication.dualpaneshareposn) {
+                    (0 until numPanes).forEach { wxgl[it].requestRender() }
+                } else {
+                    requestRender()
+                }
+            }
+            if (fullScreen || numPanes > 1) {
+                if (!MyApplication.lockToolbars) {
+                    toolbar!!.visibility = View.GONE
+                    toolbarBottom!!.visibility = View.GONE
+                    toolbarsHidden = true
+                }
+            }
+        }
     }
 
     override fun onShowPress(event: MotionEvent) {}
@@ -312,6 +354,41 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         return true
     }
 
+    fun zoomInByKey() {
+        density = (oglrCurrent.ortInt * 2).toFloat() / width
+        xPos = 0f
+        yPos = 0f
+        xMiddle = (width / 2).toFloat()
+        yMiddle = (height / 2).toFloat()
+        if (MyApplication.dualpaneshareposn && !locationFragment) {
+            mScaleFactor *= 2.0f
+            (0 until numPanes).forEach {
+                oglr[it].setViewInitial(
+                        mScaleFactor,
+                        oglr[it].x * 2.0f + (xPos - xMiddle) * -2.0f * density,
+                        oglr[it].y * 2.0f + (yMiddle - yPos) * -2.0f * density
+                )
+                wxgl[it].mScaleFactor = mScaleFactor
+                wxgl[it].requestRender()
+            }
+        } else {
+            mScaleFactor *= 2.0f
+            oglrCurrent.setViewInitial(
+                    mScaleFactor,
+                    oglrCurrent.x * 2.0f + (xPos - xMiddle) * -2.0f * density,
+                    oglrCurrent.y * 2.0f + (yMiddle - yPos) * -2.0f * density
+            )
+            requestRender()
+        }
+        scaleFactorGlobal = mScaleFactor
+        if (fullScreen || numPanes > 1) {
+            toolbar!!.visibility = View.VISIBLE
+            toolbarsHidden = false
+            if (!archiveMode)
+                toolbarBottom!!.visibility = View.VISIBLE
+        }
+    }
+
     override fun onDoubleTapEvent(event: MotionEvent): Boolean {
         return true
     }
@@ -337,6 +414,27 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         }
         listener?.onProgressChanged(50000, idx, idxInt)
         return true
+    }
+
+    fun zoomOutByKey() {
+        mScaleFactor /= 2.0f
+        if (MyApplication.dualpaneshareposn && !locationFragment) {
+            (0 until numPanes).forEach {
+                oglr[it].setViewInitial(mScaleFactor, oglr[it].x / 2.0f, oglr[it].y / 2.0f)
+                wxgl[it].mScaleFactor = mScaleFactor
+                wxgl[it].requestRender()
+            }
+        } else {
+            oglrCurrent.setViewInitial(mScaleFactor, oglrCurrent.x / 2.0f, oglrCurrent.y / 2.0f)
+            requestRender()
+        }
+        scaleFactorGlobal = mScaleFactor
+        if (fullScreen || numPanes > 1) {
+            toolbar!!.visibility = View.VISIBLE
+            toolbarsHidden = false
+            if (!archiveMode)
+                toolbarBottom!!.visibility = View.VISIBLE
+        }
     }
 
     fun setOnProgressChangeListener(l: OnProgressChangeListener) {
