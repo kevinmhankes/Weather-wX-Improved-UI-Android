@@ -24,8 +24,11 @@
 // TODO [ADD] in radar use arrow keys to pan
 // TODO [ADD] in radar use arrow keys with alt to zoom in and zoom out
 // TODO [ADD] in radar use ctrl-1, ctrl-2, etc to access favorites
+// TODO [FIX] NCEP make GFS default
 
-55323 2020_01_22
+55323 2020_01_22    [FIX] for help on main screen and in radar use alt-? (chromeOS wants shift-?)
+                    [ADD] change UI_ANIM_ICON_FRAMES from 6 to 10
+                    [FIX] in radar keyboard shortcut for animation was not stopping
 55322 2020_01_21    [FIX] add explicit sound=null for CC and radar notification
                     [ADD] remove setting wxoglSize in UtilPref2, change default to 13 and then 8 for tablet
                     [ADD] keyboard shortcuts ctrl-j / k in all model activities

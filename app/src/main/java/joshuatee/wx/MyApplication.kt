@@ -385,7 +385,7 @@ class MyApplication : Application() {
                 UIPreferences.nwsIconSizeDefault = 6
             }
             nwsIconSize = preferences.getInt("NWS_ICON_SIZE_PREF", UIPreferences.nwsIconSizeDefault) // was 24 10-27-2018
-            uiAnimIconFrames = getInitialPreferenceString("UI_ANIM_ICON_FRAMES", "6")
+            uiAnimIconFrames = getInitialPreferenceString("UI_ANIM_ICON_FRAMES", "10")
             blackBg = getInitialPreference("NWS_RADAR_BG_BLACK", "")
             widgetPreventTap = getInitialPreference("UI_WIDGET_PREVENT_TAP", "")
             fullscreenMode = getInitialPreference("FULLSCREEN_MODE", "false")

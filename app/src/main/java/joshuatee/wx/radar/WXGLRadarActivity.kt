@@ -609,6 +609,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         UtilityUI.immersiveMode(this as Activity)
+        // This code is mostly dupicated below in the keyboard shortcut area
         if (inOglAnim && (item.itemId != R.id.action_fav) && (item.itemId != R.id.action_share) && (item.itemId != R.id.action_tools)) {
             inOglAnim = false
             inOglAnimPaused = false
@@ -1170,6 +1171,20 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 return true
             }
             KeyEvent.KEYCODE_A -> {
+                if (inOglAnim) {
+                    inOglAnim = false
+                    inOglAnimPaused = false
+                    // if an L2 anim is in process sleep for 1 second to let the current decode/render finish
+                    // otherwise the new selection might overwrite in the OGLR object - hack
+                    // (revert) 2016_08 have this apply to Level 3 in addition to Level 2
+                    if (oglr.product.contains("L2")) SystemClock.sleep(2000)
+                    if (MyApplication.ridFav.contains(":$oglr.rid:"))
+                        star.setIcon(MyApplication.STAR_ICON)
+                    else
+                        star.setIcon(MyApplication.STAR_OUTLINE_ICON)
+                    anim.setIcon(MyApplication.ICON_PLAY)
+                    getContent()
+                }
                 if (event.isCtrlPressed) {
                     animateRadar(MyApplication.uiAnimIconFrames.toIntOrNull() ?: 0)
                 }
@@ -1194,7 +1209,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 return true
             }
             KeyEvent.KEYCODE_SLASH -> {
-                if (event.isCtrlPressed) {
+                if (event.isAltPressed) {
                     ObjectDialogue(this, Utility.showRadarShortCuts())
                 }
                 return true

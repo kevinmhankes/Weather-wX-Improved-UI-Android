@@ -174,6 +174,7 @@ object Utility {
     //}
 
     fun readPref(context: Context, key: String, value: String): String {
+        //UtilityLog.d("READPREF", key)
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         return preferences.getString(key, value)!!
     }
@@ -293,6 +294,12 @@ object Utility {
                 "Ctrl-f: Toggle favorite" + MyApplication.newline +
                 "Ctrl-2: Show dual pane radar" + MyApplication.newline +
                 "Ctrl-4: Show quad pane radar" + MyApplication.newline
+    }
+
+    fun showLocationEditShortCuts(): String {
+        return "Ctrl-g: Use GPS to find location" + MyApplication.newline
+                //"Ctrl-a: Animate / stop animate" + MyApplication.newline +
+
     }
 }
 

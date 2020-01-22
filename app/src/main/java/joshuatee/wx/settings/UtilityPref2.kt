@@ -167,6 +167,11 @@ object UtilityPref2 {
             editor.putString("OU_FOR_SOUNDINGS", ouForSoundingsDefault)
             editor.putString("CARDS_MAIN_SCREEN", "true")
             editor.putInt("ELEVATION_PREF", 5)
+
+            //editor.putString("NCEP", "GFS")
+            //editor.putString("MODEL_NCEP1_SECTOR_LAST_USED", "CONUS")
+            //editor.putString("MODEL_NCEP2_SECTOR_LAST_USED", "CONUS")
+
             editor.apply()
         }
     }

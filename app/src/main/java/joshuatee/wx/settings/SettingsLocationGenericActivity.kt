@@ -36,11 +36,8 @@ import androidx.core.content.ContextCompat
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
-import android.view.ViewGroup
 import android.content.Intent
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.view.View.OnClickListener
 import android.widget.*
 
@@ -48,14 +45,11 @@ import joshuatee.wx.R
 import joshuatee.wx.canada.UtilityCitiesCanada
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.ui.BaseActivity
-import joshuatee.wx.ui.ObjectCard
-import joshuatee.wx.ui.ObjectFab
-import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.activitiesmisc.WebscreenAB
 import joshuatee.wx.notifications.UtilityWXJobService
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.UtilityCitiesExtended
+import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
@@ -540,39 +534,43 @@ class SettingsLocationGenericActivity : BaseActivity(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_locate -> {
-                if (Build.VERSION.SDK_INT < 23) {
-                    val xy = UtilityLocation.getGps(this)
-                    locXEt.setText(xy[0].toString())
-                    locYEt.setText(xy[1].toString())
-                } else {
-                    if (ContextCompat.checkSelfPermission(
-                                    this,
-                                    Manifest.permission.ACCESS_FINE_LOCATION
-                            ) == PackageManager.PERMISSION_GRANTED
-                    ) {
-                        val xy = UtilityLocation.getGps(this)
-                        locXEt.setText(xy[0].toString())
-                        locYEt.setText(xy[1].toString())
-                        fabSaveLocation()
-                    } else {
-                        // The ACCESS_FINE_LOCATION is denied, then I request it and manage the result in
-                        // onRequestPermissionsResult() using the constant myPermissionAccessFineLocation
-                        if (ContextCompat.checkSelfPermission(
-                                        this,
-                                        Manifest.permission.ACCESS_FINE_LOCATION
-                                ) != PackageManager.PERMISSION_GRANTED
-                        ) {
-                            ActivityCompat.requestPermissions(
-                                    this,
-                                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                                    myPermissionAccessFineLocation
-                            )
-                        }
-                    }
-                }
+                actionGps()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun actionGps() {
+        if (Build.VERSION.SDK_INT < 23) {
+            val xy = UtilityLocation.getGps(this)
+            locXEt.setText(xy[0].toString())
+            locYEt.setText(xy[1].toString())
+        } else {
+            if (ContextCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                val xy = UtilityLocation.getGps(this)
+                locXEt.setText(xy[0].toString())
+                locYEt.setText(xy[1].toString())
+                fabSaveLocation()
+            } else {
+                // The ACCESS_FINE_LOCATION is denied, then I request it and manage the result in
+                // onRequestPermissionsResult() using the constant myPermissionAccessFineLocation
+                if (ContextCompat.checkSelfPermission(
+                                this,
+                                Manifest.permission.ACCESS_FINE_LOCATION
+                        ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    ActivityCompat.requestPermissions(
+                            this,
+                            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                            myPermissionAccessFineLocation
+                    )
+                }
+            }
         }
     }
 
@@ -715,5 +713,23 @@ class SettingsLocationGenericActivity : BaseActivity(),
 
     private fun showMessage(string: String) {
         UtilityUI.makeSnackBar(rl, string)
+    }
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_G -> {
+                if (event.isCtrlPressed) {
+                    actionGps()
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_SLASH -> {
+                if (event.isAltPressed) {
+                    ObjectDialogue(this, Utility.showLocationEditShortCuts())
+                }
+                return true
+            }
+            else -> return super.onKeyUp(keyCode, event)
+        }
     }
 }

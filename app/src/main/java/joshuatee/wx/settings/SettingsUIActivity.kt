@@ -305,7 +305,7 @@ class SettingsUIActivity : BaseActivity() {
                         "Animation - frames for toolbar icon",
                         "UI_ANIM_ICON_FRAMES",
                         R.string.np_anim_generic_label,
-                        6,
+                        10,
                         2,
                         40
                 ).card

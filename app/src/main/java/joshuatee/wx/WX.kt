@@ -255,7 +255,7 @@ class WX : CommonActionBarFragment() {
                 return true
             }
             KeyEvent.KEYCODE_SLASH -> {
-                if (event.isCtrlPressed) {
+                if (event.isAltPressed) {
                     ObjectDialogue(this, Utility.showShortCuts())
                 }
                 return true
