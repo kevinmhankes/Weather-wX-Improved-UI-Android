@@ -342,7 +342,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         locationLabel.text = Location.name
     }
 
-    private fun getContent() {
+    fun getContent() {
         locationLabel.text = Location.name
         sevenDayExtShown = false
         if (needForecastData) {

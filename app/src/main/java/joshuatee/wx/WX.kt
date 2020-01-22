@@ -33,6 +33,7 @@ import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
+import joshuatee.wx.fragments.LocationFragment
 
 import joshuatee.wx.fragments.ViewPagerAdapter
 import joshuatee.wx.spc.UtilitySpc
@@ -269,7 +270,7 @@ class WX : CommonActionBarFragment() {
                 return true
             }
             KeyEvent.KEYCODE_J -> {
-                if (event.isAltPressed) {
+                if (event.isCtrlPressed) {
                     tabIndex += -1
                     if (tabIndex < 0) {
                         tabIndex = 2
@@ -279,13 +280,18 @@ class WX : CommonActionBarFragment() {
                 return true
             }
             KeyEvent.KEYCODE_K -> {
-                if (event.isAltPressed) {
+                if (event.isCtrlPressed) {
                     tabIndex += 1
                     if (tabIndex > 2) {
                         tabIndex = 0
                     }
                     viewPager.setCurrentItem(tabIndex)
                 }
+                return true
+            }
+            KeyEvent.KEYCODE_REFRESH -> {
+                val fragment = vpa.getItem(0) as LocationFragment
+                fragment.getContent()
                 return true
             }
             else -> return super.onKeyUp(keyCode, event)

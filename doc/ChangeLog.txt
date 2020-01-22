@@ -26,8 +26,13 @@
 // TODO [ADD] in radar use ctrl-1, ctrl-2, etc to access favorites
 // TODO [ADD] in tabs allow ctrl-1, ctrl-2 to access each image icon based on order
 // TODO [REF] reconcile utilPref2 for items that don't need to be set here
+// TODO up arrow KEYCODE_DPAD_UP
+// TODO down arrow KEYCODE_DPAD_DOWN
+// TODO left arrow KEYCODE_DPAD_LEFT
+// TODO right arrow KEYCODE_DPAD_RIGHT
 
-55325 2020_01_22
+55325 2020_01_22    [FIX] crash in wpc fronts - one off in array bounds
+                    [ADD] KEYCODE_REFRESH main screen and in radar
 55324 2020_01_22    [FIX] NCEP make GFS default
                     [ADD] keyCode diag in about -> wX
                     [ADD] ctrl-m for menu in main screen, radar, location edit

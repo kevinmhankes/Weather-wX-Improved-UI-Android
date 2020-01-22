@@ -1220,6 +1220,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 }
                 return true
             }
+            KeyEvent.KEYCODE_REFRESH -> {
+                getContent()
+                return true
+            }
             else -> return super.onKeyUp(keyCode, event)
         }
     }

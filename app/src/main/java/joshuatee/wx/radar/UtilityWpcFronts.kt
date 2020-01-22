@@ -228,6 +228,8 @@ object UtilityWpcFronts {
             for (index in lines.indices) {
                 //var data = lines[index]
                 if (index < lines.size - 1) {
+                    // Handle lines that wrap around, check to see if lines don't start
+                    // with a known character
                     if (lines[index + 1][0] != 'H'
                             && lines[index + 1][0] != 'L'
                             && lines[index + 1][0] != 'C'
@@ -236,7 +238,8 @@ object UtilityWpcFronts {
                             && lines[index + 1][0] != 'T'
                             && lines[index + 1][0] != 'W') {
                         lines[index] =  lines[index]  + lines[index + 1]
-                        if (lines[index + 2][0] != 'H'
+                        if (index < lines.size - 2
+                                &&lines[index + 2][0] != 'H'
                                 && lines[index + 2][0] != 'L'
                                 && lines[index + 2][0] != 'C'
                                 && lines[index + 2][0] != 'S'
