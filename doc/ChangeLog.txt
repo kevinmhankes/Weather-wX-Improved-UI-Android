@@ -30,6 +30,7 @@
 // TODO left arrow KEYCODE_DPAD_LEFT
 // TODO right arrow KEYCODE_DPAD_RIGHT
 
+55326 2020_01_22
 55325 2020_01_22    [FIX] crash in wpc fronts - one off in array bounds
                     [ADD] KEYCODE_REFRESH main screen and in radar
                     [ADD] radar controls with arrow keys
