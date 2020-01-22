@@ -25,6 +25,7 @@
 // TODO [ADD] in radar use arrow keys with alt to zoom in and zoom out
 // TODO [ADD] in radar use ctrl-1, ctrl-2, etc to access favorites
 
+55323 2020_01_22
 55322 2020_01_21    [FIX] add explicit sound=null for CC and radar notification
                     [ADD] remove setting wxoglSize in UtilPref2, change default to 13 and then 8 for tablet
                     [ADD] keyboard shortcuts ctrl-j / k in all model activities
