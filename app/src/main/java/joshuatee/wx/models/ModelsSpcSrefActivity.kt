@@ -26,6 +26,7 @@ import java.util.Locale
 
 import android.os.Bundle
 import android.content.res.Configuration
+import android.view.KeyEvent
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.view.MenuItem
 import android.view.View
@@ -368,6 +369,24 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
                     om.prefParamLabel + it.toString(),
                     "[MN]:500MB Height~Wind~Temp~Isotach"
             )
+        }
+    }
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_J -> {
+                if (event.isCtrlPressed) {
+                    UtilityModels.moveBack(om.spTime)
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_K -> {
+                if (event.isCtrlPressed) {
+                    UtilityModels.moveForward(om.spTime)
+                }
+                return true
+            }
+            else -> return super.onKeyUp(keyCode, event)
         }
     }
 }

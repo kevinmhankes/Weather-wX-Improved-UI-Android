@@ -1152,31 +1152,45 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         when (keyCode) {
             KeyEvent.KEYCODE_2 -> {
-                showMultipaneRadar("2")
+                if (event.isCtrlPressed) {
+                    showMultipaneRadar("2")
+                }
                 return true
             }
             KeyEvent.KEYCODE_4 -> {
-                showMultipaneRadar("4")
+                if (event.isCtrlPressed) {
+                    showMultipaneRadar("4")
+                }
                 return true
             }
             KeyEvent.KEYCODE_M -> {
-                showMap()
+                if (event.isCtrlPressed) {
+                    showMap()
+                }
                 return true
             }
             KeyEvent.KEYCODE_A -> {
-                animateRadar(MyApplication.uiAnimIconFrames.toIntOrNull() ?: 0)
+                if (event.isCtrlPressed) {
+                    animateRadar(MyApplication.uiAnimIconFrames.toIntOrNull() ?: 0)
+                }
                 return true
             }
             KeyEvent.KEYCODE_F -> {
-                actionToggleFavorite()
+                if (event.isCtrlPressed) {
+                    actionToggleFavorite()
+                }
                 return true
             }
             KeyEvent.KEYCODE_R -> {
-                getReflectivity()
+                if (event.isCtrlPressed) {
+                    getReflectivity()
+                }
                 return true
             }
             KeyEvent.KEYCODE_V -> {
-                getVelocity()
+                if (event.isCtrlPressed) {
+                    getVelocity()
+                }
                 return true
             }
             KeyEvent.KEYCODE_SLASH -> {

@@ -95,7 +95,7 @@ object UtilityPref2 {
             editor.putString("ALERT_AUTOCANCEL", "true")
             editor.putInt("RADAR_WARN_LINESIZE", 5)
             editor.putInt("RADAR_WATMCD_LINESIZE", 4)
-            editor.putInt("WXOGL_SIZE", 13) // was 15
+            //editor.putInt("WXOGL_SIZE", 13) // was 15
             editor.putString("LOCK_TOOLBARS", "true")
             editor.putString("RADAR_SHOW_COUNTY", "true")
             editor.putInt("RADAR_COLOR_HW", Color.rgb(135, 135, 135))

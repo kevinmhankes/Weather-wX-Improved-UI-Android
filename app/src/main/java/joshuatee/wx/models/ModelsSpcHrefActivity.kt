@@ -24,6 +24,7 @@ package joshuatee.wx.models
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.content.res.Configuration
+import android.view.KeyEvent
 
 import java.util.Locale
 
@@ -281,6 +282,24 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
             Utility.writePref(this, om.prefRunPosn, om.spTime.selectedItemPosition)
         }
         super.onStop()
+    }
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_J -> {
+                if (event.isCtrlPressed) {
+                    UtilityModels.moveBack(om.spTime)
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_K -> {
+                if (event.isCtrlPressed) {
+                    UtilityModels.moveForward(om.spTime)
+                }
+                return true
+            }
+            else -> return super.onKeyUp(keyCode, event)
+        }
     }
 }
 

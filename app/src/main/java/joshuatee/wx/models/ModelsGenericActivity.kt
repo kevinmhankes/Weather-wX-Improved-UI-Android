@@ -24,6 +24,7 @@ package joshuatee.wx.models
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.content.res.Configuration
+import android.view.KeyEvent
 
 import java.util.Locale
 
@@ -447,6 +448,24 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
             24 -> (0..23).forEach { spRun.add(String.format(Locale.US, "%02d", it) + "Z") }
         }
         spRun.notifyDataSetChanged()
+    }
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_J -> {
+                if (event.isCtrlPressed) {
+                    UtilityModels.moveBack(om.spTime)
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_K -> {
+                if (event.isCtrlPressed) {
+                    UtilityModels.moveForward(om.spTime)
+                }
+                return true
+            }
+            else -> return super.onKeyUp(keyCode, event)
+        }
     }
 }
 

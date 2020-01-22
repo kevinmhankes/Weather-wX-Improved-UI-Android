@@ -528,7 +528,7 @@ class SettingsRadarActivity : BaseActivity() {
                         "WXOGL initial view size",
                         "WXOGL_SIZE",
                         R.string.wxogl_size_np,
-                        8,
+                        MyApplication.wxoglSizeDefault,
                         5,
                         25
                 ).card
