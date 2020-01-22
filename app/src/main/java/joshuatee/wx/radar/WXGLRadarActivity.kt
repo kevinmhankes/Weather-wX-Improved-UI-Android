@@ -1164,9 +1164,15 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 }
                 return true
             }
-            KeyEvent.KEYCODE_M -> {
+            KeyEvent.KEYCODE_L -> {
                 if (event.isCtrlPressed) {
                     showMap()
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_M -> {
+                if (event.isCtrlPressed) {
+                    toolbarBottom.showOverflowMenu()
                 }
                 return true
             }

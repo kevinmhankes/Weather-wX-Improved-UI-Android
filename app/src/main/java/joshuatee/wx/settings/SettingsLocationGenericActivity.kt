@@ -723,6 +723,12 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 }
                 return true
             }
+            KeyEvent.KEYCODE_M -> {
+                if (event.isCtrlPressed) {
+                    toolbarBottom.showOverflowMenu()
+                }
+                return true
+            }
             KeyEvent.KEYCODE_SLASH -> {
                 if (event.isAltPressed) {
                     ObjectDialogue(this, Utility.showLocationEditShortCuts())

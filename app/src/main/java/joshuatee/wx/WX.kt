@@ -47,6 +47,7 @@ class WX : CommonActionBarFragment() {
     private var backButtonCounter = 0
     private lateinit var vpa: ViewPagerAdapter
     private lateinit var miVr: MenuItem
+    private var tabIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(UIPreferences.themeInt)
@@ -218,9 +219,16 @@ class WX : CommonActionBarFragment() {
                 }
                 return true
             }
-            KeyEvent.KEYCODE_M -> {
+            KeyEvent.KEYCODE_N -> {
                 if (event.isCtrlPressed) {
                     openActivity(this, "MODEL_NCEP")
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_M -> {
+                if (event.isCtrlPressed) {
+                    val toolbarBottom: Toolbar = findViewById(R.id.toolbar_bottom)
+                    toolbarBottom.showOverflowMenu()
                 }
                 return true
             }
@@ -256,7 +264,27 @@ class WX : CommonActionBarFragment() {
             }
             KeyEvent.KEYCODE_SLASH -> {
                 if (event.isAltPressed) {
-                    ObjectDialogue(this, Utility.showShortCuts())
+                    ObjectDialogue(this, Utility.showMainScreenShortCuts())
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_J -> {
+                if (event.isAltPressed) {
+                    tabIndex += -1
+                    if (tabIndex < 0) {
+                        tabIndex = 2
+                    }
+                    viewPager.setCurrentItem(tabIndex)
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_K -> {
+                if (event.isAltPressed) {
+                    tabIndex += 1
+                    if (tabIndex > 2) {
+                        tabIndex = 0
+                    }
+                    viewPager.setCurrentItem(tabIndex)
                 }
                 return true
             }

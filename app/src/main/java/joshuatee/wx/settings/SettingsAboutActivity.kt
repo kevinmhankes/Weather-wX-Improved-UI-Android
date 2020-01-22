@@ -25,20 +25,18 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
-
 import joshuatee.wx.R
+import joshuatee.wx.UIPreferences
+import joshuatee.wx.activitiesmisc.WebscreenAB
 import joshuatee.wx.audio.AudioPlayActivity
+import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityShare
-
-import joshuatee.wx.UIPreferences
-import joshuatee.wx.activitiesmisc.WebscreenAB
-import joshuatee.wx.objects.ObjectIntent
-
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
@@ -46,6 +44,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private lateinit var activityArguments: Array<String>
     private var html = ""
     private lateinit var textCard: ObjectCardText
+    private var keyCodeDiag = ""
     private val faqUrl = "https://docs.google.com/document/d/1OQrviP10XBvQZ7QKh5R4bsd72ZKffK5f0ISRuCaSk5k/edit?usp=sharing"
     private val iOSUrl = "https://apps.apple.com/us/app/wxl23/id1171250052"
     private val releaseNotesUrl = "https://docs.google.com/document/d/1A7rvP3QrJg0QqoEtKgU4B_VqLkjECijb4CFtXyNQNAM/edit?usp=sharing"
@@ -107,7 +106,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
             )
         })
         textCard = ObjectCardText(this, ll, toolbar, toolbarBottom)
-        textCard.text = Utility.showVersion(this, this)
+        textCard.text = keyCodeDiag + " " + Utility.showVersion(this, this)
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -123,5 +122,24 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
             else -> return super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
+        textCard.text = keyCode.toString() + " " + Utility.showVersion(this, this)
+        return when (keyCode) {
+            KeyEvent.KEYCODE_DPAD_LEFT -> {
+                true
+            }
+            KeyEvent.KEYCODE_DPAD_RIGHT -> {
+                true
+            }
+            KeyEvent.KEYCODE_DPAD_UP -> {
+                true
+            }
+            KeyEvent.KEYCODE_DPAD_DOWN -> {
+                true
+            }
+            else -> super.onKeyUp(keyCode, event)
+        }
     }
 }

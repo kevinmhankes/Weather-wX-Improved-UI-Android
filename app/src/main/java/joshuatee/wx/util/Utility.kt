@@ -126,6 +126,7 @@ object Utility {
     }
 
     fun writePrefWithNull(context: Context, key: String, value: String?) {
+        //UtilityLog.d("WRITEPREF", key)
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = preferences.edit()
         editor.putString(key, value)
@@ -133,6 +134,7 @@ object Utility {
     }
 
     fun writePref(context: Context, key: String, value: Int) {
+        //UtilityLog.d("WRITEPREF INT", key + " " + value.toString())
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = preferences.edit()
         editor.putInt(key, value)
@@ -154,6 +156,7 @@ object Utility {
     }
 
     fun writePref(key: String, value: String) {
+        //UtilityLog.d("WRITEPREF", key)
         MyApplication.editor.putString(key, value)
         MyApplication.editor.apply()
     }
@@ -255,7 +258,7 @@ object Utility {
         }
         var string = activity.resources.getString(R.string.about_wx) +
                 MyApplication.newline + version + MyApplication.newline + MyApplication.newline +
-                showShortCuts()
+                showMainScreenShortCuts()
         string += MyApplication.newline + MyApplication.newline + "Diagnostics information:" + MyApplication.newline
         string += readPref(
                 context,
@@ -268,8 +271,9 @@ object Utility {
         return string
     }
 
-    fun showShortCuts(): String {
+    fun showMainScreenShortCuts(): String {
         return "Ctrl-r: Nexrad radar" + MyApplication.newline +
+                "Ctrl-m: Show submenu" + MyApplication.newline +
                 "Ctrl-d: Severe Dashboard" + MyApplication.newline +
                 "Ctrl-c: Goes Viewer" + MyApplication.newline +
                 "Ctrl-a: Local text product viewer" + MyApplication.newline +
@@ -278,16 +282,19 @@ object Utility {
                 "Ctrl-4: Quad Pane Radar" + MyApplication.newline +
                 //"Ctrl-w: US Alerts" + MyApplication.newline +
                 "Ctrl-e: SPC Mesoanalysis" + MyApplication.newline +
-                "Ctrl-m: NCEP Models" + MyApplication.newline +
+                "Ctrl-n: NCEP Models" + MyApplication.newline +
                 "Ctrl-h: Hourly" + MyApplication.newline +
                 "Ctrl-o: NHC" + MyApplication.newline +
                 "Ctrl-l: Lightning" + MyApplication.newline +
                 "Ctrl-i: National images" + MyApplication.newline +
-                "Ctrl-z: National text discussions" + MyApplication.newline
+                "Ctrl-z: National text discussions" + MyApplication.newline +
+                "Ctrl-j: Previous tab" + MyApplication.newline +
+                "Ctrl-k: Next tab" + MyApplication.newline
     }
 
     fun showRadarShortCuts(): String {
-        return "Ctrl-m: Show map" + MyApplication.newline +
+        return "Ctrl-l: Show map" + MyApplication.newline +
+                "Ctrl-m: Show submenu" + MyApplication.newline +
                 "Ctrl-a: Animate / stop animate" + MyApplication.newline +
                 "Ctrl-r: Show reflectivity" + MyApplication.newline +
                 "Ctrl-v: Show velocity" + MyApplication.newline +
@@ -297,7 +304,8 @@ object Utility {
     }
 
     fun showLocationEditShortCuts(): String {
-        return "Ctrl-g: Use GPS to find location" + MyApplication.newline
+        return "Ctrl-g: Use GPS to find location" + MyApplication.newline +
+                "Ctrl-m: Show submenu" + MyApplication.newline
                 //"Ctrl-a: Animate / stop animate" + MyApplication.newline +
 
     }
