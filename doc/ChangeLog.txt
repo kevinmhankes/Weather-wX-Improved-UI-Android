@@ -26,6 +26,7 @@
 // TODO [ADD] in radar use ctrl-1, ctrl-2, etc to access favorites
 // TODO [FIX] NCEP make GFS default
 
+55324 2020_01_22
 55323 2020_01_22    [FIX] for help on main screen and in radar use alt-? (chromeOS wants shift-?)
                     [ADD] change UI_ANIM_ICON_FRAMES from 6 to 10
                     [FIX] in radar keyboard shortcut for animation was not stopping
