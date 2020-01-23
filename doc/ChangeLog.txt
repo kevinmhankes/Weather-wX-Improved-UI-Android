@@ -18,12 +18,11 @@
 // TODO [ADD] radar file class from flutter
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [FIX] use dialogue instead of spinners when it makes sense: more flexible and cleaner code
-// TODO [ADD] warning count in nexrad 
-// TODO [ADD] better support for Chromebook - https://developer.android.com/topic/arc/device-support
+// TODO [ADD] warning count in nexrad
 // TODO [ADD] in radar use ctrl-1, ctrl-2, etc to access favorites
 // TODO [ADD] in tabs allow ctrl-1, ctrl-2 to access each image icon based on order
 // TODO [REF] reconcile utilPref2 for items that don't need to be set here
-// TODO [FIX] three PMD* text products are not working (can get from here https://www.cpc.ncep.noaa.gov/products/predictions/long_range/fxus05.html )
+// TODO [FIX] three PMD text products are not working (can get from here https://www.cpc.ncep.noaa.gov/products/predictions/long_range/fxus05.html )
 // TODO [FIX] clarify that PMDTHR is Day 8-14 US Hazards Outlook
 // TODO [ADD] https://www.wpc.ncep.noaa.gov/threats/threats.php US Day 3-7 Hazards Outlook
 
