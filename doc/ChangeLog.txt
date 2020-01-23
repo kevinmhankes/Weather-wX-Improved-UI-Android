@@ -26,6 +26,7 @@
 // TODO [FIX] clarify that PMDTHR is Day 8-14 US Hazards Outlook
 // TODO [ADD] https://www.wpc.ncep.noaa.gov/threats/threats.php US Day 3-7 Hazards Outlook
 
+55328 2020_01_23
 55327 2020_01_23    [FIX] onrestart wpc rainfall was not clearing views
                     [FIX] wpc rainfall discussion formatting
                     [ADD] update kbd shortcuts legend in radar
