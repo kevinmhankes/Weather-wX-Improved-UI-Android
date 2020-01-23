@@ -26,6 +26,7 @@
 // TODO [FIX] clarify that PMDTHR is Day 8-14 US Hazards Outlook
 // TODO [ADD] https://www.wpc.ncep.noaa.gov/threats/threats.php US Day 3-7 Hazards Outlook
 
+55329 2020_01_23
 55328 2020_01_23    [REF] lint cleanup
                     [FIX] when radar center on GPS is enabled the x/y was getting goofed up, most apparent when cities shown
 55327 2020_01_23    [FIX] onrestart wpc rainfall was not clearing views
