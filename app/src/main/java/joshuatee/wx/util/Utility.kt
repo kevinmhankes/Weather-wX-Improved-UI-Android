@@ -300,7 +300,11 @@ object Utility {
                 "Ctrl-v: Show velocity" + MyApplication.newline +
                 "Ctrl-f: Toggle favorite" + MyApplication.newline +
                 "Ctrl-2: Show dual pane radar" + MyApplication.newline +
-                "Ctrl-4: Show quad pane radar" + MyApplication.newline
+                "Ctrl-4: Show quad pane radar" + MyApplication.newline +
+                "Ctrl-UpArrow: Zoom out" + MyApplication.newline +
+                "Ctrl-DownArrow: Zoom in" + MyApplication.newline +
+                "Arrow keys: pan radar" + MyApplication.newline +
+                "Reload key: reload radar" + MyApplication.newline
     }
 
     fun showLocationEditShortCuts(): String {

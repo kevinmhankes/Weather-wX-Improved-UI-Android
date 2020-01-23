@@ -64,9 +64,8 @@ class WpcRainfallForecastActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
         super.onRestart()
     }
 
-    // TODO show text product not points
-
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        linearLayout.removeAllViews()
         bitmaps = mutableListOf()
         withContext(Dispatchers.IO) {
             UtilityWpcRainfallForecast.imageUrls.forEach { bitmaps.add(it.getImage()) }

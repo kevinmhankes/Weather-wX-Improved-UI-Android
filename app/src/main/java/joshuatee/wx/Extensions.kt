@@ -42,6 +42,10 @@ fun String.removeSingleLineBreaks(): String {
     return this.replace("\n\n", "ABZXCZ13").replace("\n", " ").replace("ABZXCZ13", "\n\n")
 }
 
+fun String.removeBreaks(): String {
+    return this.replace(" <br>", " ")
+}
+
 fun String.truncate(size: Int): String {
     return UtilityStringExternal.truncate(this, size)
 }

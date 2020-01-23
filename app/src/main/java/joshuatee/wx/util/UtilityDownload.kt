@@ -343,16 +343,16 @@ object UtilityDownload {
         } else if (prod == "QPF94E") {
             val textUrl = "https://www.wpc.ncep.noaa.gov/qpf/ero.php?opt=curr&day=" + "1"
             val html = textUrl.getHtmlSep()
-            text = UtilityString.extractPre(html).removeSingleLineBreaks()
-            //text = html
+            // occurences of " <br>" requires removeBreaks()
+            text = UtilityString.extractPre(html).removeSingleLineBreaks().removeBreaks()
         } else if (prod == "QPF98E") {
             val textUrl = "https://www.wpc.ncep.noaa.gov/qpf/ero.php?opt=curr&day=" + "2"
             val html = textUrl.getHtmlSep()
-            text = UtilityString.extractPre(html).removeSingleLineBreaks()
+            text = UtilityString.extractPre(html).removeSingleLineBreaks().removeBreaks()
         } else if (prod == "QPF99E") {
             val textUrl = "https://www.wpc.ncep.noaa.gov/qpf/ero.php?opt=curr&day=" + "3"
             val html = textUrl.getHtmlSep()
-            text = UtilityString.extractPre(html).removeSingleLineBreaks()
+            text = UtilityString.extractPre(html).removeSingleLineBreaks().removeBreaks()
         } else if (prod == "SWPC3DAY") {
             text = (MyApplication.nwsSwpcWebSitePrefix + "/text/3-day-forecast.txt").getHtmlSep()
         } else if (prod == "SWPC27DAY") {
@@ -510,13 +510,17 @@ object UtilityDownload {
                     MyApplication.nwsCPCNcepWebsitePrefix + "/products/predictions/threats/threats.php",
                     "<div id=\"discDiv\">(.*?)</div>"
             )
+            text = text.removeBreaks()
+            UtilityLog.d("wx", text)
         } else if (prod.contains("CTOF")) {
             text = "Celsius to Fahrenheit table" + MyApplication.newline + UtilityMath.celsiusToFahrenheitTable()
         } else {
             val t1 = prod.substring(0, 3)
             var t2 = prod.substring(3)
             t2 = t2.replace("%", "")
-            val html = (MyApplication.nwsApiUrl + "/products/types/$t1/locations/$t2").getNwsHtml()
+            val url = MyApplication.nwsApiUrl + "/products/types/$t1/locations/$t2"
+            UtilityLog.d("wx", "NWSTEXT: " + url)
+            val html = url.getNwsHtml()
             val urlProd = html.parse("\"id\": \"(.*?)\"")
             val prodHtml = (MyApplication.nwsApiUrl + "/products/$urlProd").getNwsHtml()
             text = UtilityString.parseAcrossLines(prodHtml, "\"productText\": \"(.*?)\\}")
