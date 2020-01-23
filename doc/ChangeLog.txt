@@ -21,7 +21,7 @@
 // TODO [ADD] warning count in nexrad
 // TODO [ADD] in radar use ctrl-1, ctrl-2, etc to access favorites
 // TODO [ADD] in tabs allow ctrl-1, ctrl-2 to access each image icon based on order
-// TODO [REF] reconcile utilPref2 for items that don't need to be set here
+// TODO [REF] reconcile  utilPref2 for items that don't need to be set here
 // TODO [FIX] three PMD text products are not working (can get from here https://www.cpc.ncep.noaa.gov/products/predictions/long_range/fxus05.html )
 // TODO [FIX] clarify that PMDTHR is Day 8-14 US Hazards Outlook
 // TODO [ADD] https://www.wpc.ncep.noaa.gov/threats/threats.php US Day 3-7 Hazards Outlook

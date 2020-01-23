@@ -390,8 +390,8 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             (0 until numPanes).forEach {
                 oglr[it].setViewInitial(
                         mScaleFactor,
-                        oglr[it].x * 2.0f +  -2.0f * density,
-                        oglr[it].y * 2.0f +  -2.0f * density
+                        oglr[it].x * 2.0f,
+                        oglr[it].y * 2.0f
                 )
                 wxgl[it].mScaleFactor = mScaleFactor
                 wxgl[it].requestRender()
@@ -400,8 +400,8 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             mScaleFactor *= 2.0f
             oglrCurrent.setViewInitial(
                     mScaleFactor,
-                    oglrCurrent.x * 2.0f + (xPos - xMiddle) * -2.0f * density,
-                    oglrCurrent.y * 2.0f + (yMiddle - yPos) * -2.0f * density
+                    oglrCurrent.x * 2.0f,
+                    oglrCurrent.y * 2.0f
             )
             requestRender()
         }
