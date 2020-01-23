@@ -1245,7 +1245,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 return true
             }
             KeyEvent.KEYCODE_DPAD_RIGHT -> {
-                glview.onScrollByKeyboard(-20.0f, 0.0f)
+                glview.onScrollByKeyboard(20.0f, 0.0f)
                 return true
             }
             else -> return super.onKeyUp(keyCode, event)

@@ -289,11 +289,11 @@ class WX : CommonActionBarFragment() {
                 }
                 return true
             }
-            KeyEvent.KEYCODE_REFRESH -> {
-                val fragment = vpa.getItem(0) as LocationFragment
-                fragment.getContent()
-                return true
-            }
+            //KeyEvent.KEYCODE_REFRESH -> {
+            //    val fragment = vpa.getItem(0) as LocationFragment
+            //    fragment.getContent()
+            //    return true
+            //}
             else -> return super.onKeyUp(keyCode, event)
         }
     }
