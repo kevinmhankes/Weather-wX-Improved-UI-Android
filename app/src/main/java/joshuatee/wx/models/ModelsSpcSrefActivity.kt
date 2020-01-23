@@ -373,20 +373,20 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
-        when (keyCode) {
+        return when (keyCode) {
             KeyEvent.KEYCODE_J -> {
                 if (event.isCtrlPressed) {
                     UtilityModels.moveBack(om.spTime)
                 }
-                return true
+                true
             }
             KeyEvent.KEYCODE_K -> {
                 if (event.isCtrlPressed) {
                     UtilityModels.moveForward(om.spTime)
                 }
-                return true
+                true
             }
-            else -> return super.onKeyUp(keyCode, event)
+            else -> super.onKeyUp(keyCode, event)
         }
     }
 }

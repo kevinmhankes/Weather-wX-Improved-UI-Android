@@ -21,7 +21,6 @@
 
 package joshuatee.wx.settings
 
-import android.content.Context
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.LightningActivity
@@ -29,7 +28,6 @@ import joshuatee.wx.activitiesmisc.USWarningsWithRadarActivity
 import joshuatee.wx.canada.CanadaRadarActivity
 import joshuatee.wx.models.ModelsGenericActivity
 import joshuatee.wx.nhc.NhcActivity
-import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.AwcRadarMosaicActivity
 import joshuatee.wx.radar.USNwsMosaicActivity
 import joshuatee.wx.radar.WXGLRadarActivityMultiPane

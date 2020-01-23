@@ -33,7 +33,6 @@ import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
-import joshuatee.wx.fragments.LocationFragment
 
 import joshuatee.wx.fragments.ViewPagerAdapter
 import joshuatee.wx.spc.UtilitySpc
@@ -275,7 +274,7 @@ class WX : CommonActionBarFragment() {
                     if (tabIndex < 0) {
                         tabIndex = 2
                     }
-                    viewPager.setCurrentItem(tabIndex)
+                    viewPager.currentItem = tabIndex
                 }
                 return true
             }
@@ -285,7 +284,7 @@ class WX : CommonActionBarFragment() {
                     if (tabIndex > 2) {
                         tabIndex = 0
                     }
-                    viewPager.setCurrentItem(tabIndex)
+                    viewPager.currentItem = tabIndex
                 }
                 return true
             }

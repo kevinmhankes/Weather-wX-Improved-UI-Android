@@ -38,7 +38,6 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityLog
 
 import kotlin.math.*
 
@@ -236,7 +235,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
     ): Boolean {
         //UtilityLog.d("wx", distanceX.toString() + " " + distanceY.toString())
         var panned = false
-        if (!locationFragment) {
+        if (!locationFragment && !MyApplication.wxoglCenterOnLocation) {
             if (distanceX != 0f) {
                 if (MyApplication.dualpaneshareposn) {
                     (0 until numPanes).forEach { oglr[it].x += -1.0f * distanceX }
@@ -323,26 +322,52 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         yPos = event.y
         xMiddle = (width / 2).toFloat()
         yMiddle = (height / 2).toFloat()
-        if (MyApplication.dualpaneshareposn && !locationFragment) {
-            mScaleFactor *= 2.0f
-            (0 until numPanes).forEach {
-                oglr[it].setViewInitial(
-                    mScaleFactor,
-                    oglr[it].x * 2.0f + (xPos - xMiddle) * -2.0f * density,
-                    oglr[it].y * 2.0f + (yMiddle - yPos) * -2.0f * density
+
+        if (!MyApplication.wxoglCenterOnLocation) {
+            if (MyApplication.dualpaneshareposn && !locationFragment) {
+                mScaleFactor *= 2.0f
+                (0 until numPanes).forEach {
+                    oglr[it].setViewInitial(
+                            mScaleFactor,
+                            oglr[it].x * 2.0f + (xPos - xMiddle) * -2.0f * density,
+                            oglr[it].y * 2.0f + (yMiddle - yPos) * -2.0f * density
+                    )
+                    wxgl[it].mScaleFactor = mScaleFactor
+                    wxgl[it].requestRender()
+                }
+            } else {
+                mScaleFactor *= 2.0f
+                oglrCurrent.setViewInitial(
+                        mScaleFactor,
+                        oglrCurrent.x * 2.0f + (xPos - xMiddle) * -2.0f * density,
+                        oglrCurrent.y * 2.0f + (yMiddle - yPos) * -2.0f * density
                 )
-                wxgl[it].mScaleFactor = mScaleFactor
-                wxgl[it].requestRender()
+                requestRender()
             }
         } else {
-            mScaleFactor *= 2.0f
-            oglrCurrent.setViewInitial(
-                mScaleFactor,
-                oglrCurrent.x * 2.0f + (xPos - xMiddle) * -2.0f * density,
-                oglrCurrent.y * 2.0f + (yMiddle - yPos) * -2.0f * density
-            )
-            requestRender()
+            if (MyApplication.dualpaneshareposn && !locationFragment) {
+                mScaleFactor *= 2.0f
+                (0 until numPanes).forEach {
+                    oglr[it].setViewInitial(
+                            mScaleFactor,
+                            oglr[it].x * 2.0f,
+                            oglr[it].y * 2.0f
+                    )
+                    wxgl[it].mScaleFactor = mScaleFactor
+                    wxgl[it].requestRender()
+                }
+            } else {
+                mScaleFactor *= 2.0f
+                oglrCurrent.setViewInitial(
+                        mScaleFactor,
+                        oglrCurrent.x * 2.0f,
+                        oglrCurrent.y * 2.0f
+                )
+                requestRender()
+            }
         }
+
+
         scaleFactorGlobal = mScaleFactor
         if (fullScreen || numPanes > 1) {
             toolbar!!.visibility = View.VISIBLE
