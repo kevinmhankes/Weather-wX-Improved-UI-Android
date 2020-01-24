@@ -25,6 +25,7 @@
 // TODO [FIX] three PMD text products are not working (can get from here https://www.cpc.ncep.noaa.gov/products/predictions/long_range/fxus05.html )
 // TODO [FIX] clarify that PMDTHR is Day 8-14 US Hazards Outlook
 // TODO [ADD] https://www.wpc.ncep.noaa.gov/threats/threats.php US Day 3-7 Hazards Outlook
+// TODO [ADD] additional WFO products: CLI , RWR/HRR/HWR, RTP formatting
 
 55329 2020_01_23
 55328 2020_01_23    [REF] lint cleanup
