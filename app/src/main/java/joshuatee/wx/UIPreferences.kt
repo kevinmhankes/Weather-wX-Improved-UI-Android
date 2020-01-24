@@ -64,7 +64,7 @@ object UIPreferences {
 
     fun initPreferences(context: Context) {
         if (UtilityUI.isTablet()) {
-            normalTextSizeDefault = 20
+            normalTextSizeDefault = 18
         }
         val normalTextSize = Utility.readPref(context, "TEXTVIEW_FONT_SIZE", normalTextSizeDefault) // 14 16 21
         MyApplication.textSizeSmall = UtilityUI.spToPx(normalTextSize - 2, context)

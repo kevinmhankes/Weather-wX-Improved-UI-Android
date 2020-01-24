@@ -27,7 +27,7 @@
 // TODO [ADD] https://www.wpc.ncep.noaa.gov/threats/threats.php US Day 3-7 Hazards Outlook
 // TODO [ADD] additional WFO products: CLI , RWR/HRR/HWR, RTP formatting
 
-55329 2020_01_23
+55329 2020_01_23    [ADD] slightly decrease default text size on tablet
 55328 2020_01_23    [REF] lint cleanup
                     [FIX] when radar center on GPS is enabled the x/y was getting goofed up, most apparent when cities shown
 55327 2020_01_23    [FIX] onrestart wpc rainfall was not clearing views
