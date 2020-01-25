@@ -24,7 +24,8 @@
 // TODO [REF] reconcile  utilPref2 for items that don't need to be set here
 // TODO [ADD] additional WFO products: CLI
 
-55329 2020_01_23    [ADD] slightly decrease default text size on tablet
+55330 2020_01_25
+55329 2020_01_24    [ADD] slightly decrease default text size on tablet
                     [ADD] RWR text product in WFO text viewer ( circle around i )
                     [ADD] in WFO text viewer do monospace for RTP and RWR
                     [ADD] usalerts tap image for dedicated image viewer
