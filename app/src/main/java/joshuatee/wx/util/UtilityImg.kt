@@ -167,7 +167,7 @@ object UtilityImg {
         return bitmap
     }
 
-    fun animInterval(context: Context): Int = 50 * Utility.readPref(context, "ANIM_INTERVAL", 15)
+    fun animInterval(context: Context): Int = 50 * Utility.readPref(context, "ANIM_INTERVAL", MyApplication.animationIntervalDefault)
 
     fun bitmapToLayerDrawable(context: Context, bitmap: Bitmap): LayerDrawable =
         LayerDrawable(arrayOf(BitmapDrawable(context.resources, bitmap)))

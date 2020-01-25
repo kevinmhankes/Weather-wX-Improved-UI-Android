@@ -560,6 +560,7 @@ class MyApplication : Application() {
         var radarColorObsWindbarbs: Int = 0
         var radarColorCountyLabels: Int = 0
         var radarWarningPolygons = mutableListOf<ObjectPolygonWarning>()
+        val animationIntervalDefault = 8
 
         private fun radarGeometrySetColors() {
             radarColorHw = getInitialPreference("RADAR_COLOR_HW", Color.rgb(135, 135, 135))

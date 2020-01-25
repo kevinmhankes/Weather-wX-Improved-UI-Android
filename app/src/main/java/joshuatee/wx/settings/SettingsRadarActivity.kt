@@ -383,8 +383,8 @@ class SettingsRadarActivity : BaseActivity() {
                         this,
                         "Animation interval",
                         "ANIM_INTERVAL",
-                        R.string.anim_np_label,
-                        15,
+                        R.string.animation_interval_np_label,
+                        MyApplication.animationIntervalDefault,
                         1,
                         15
                 ).card
