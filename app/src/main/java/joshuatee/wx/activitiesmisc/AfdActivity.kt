@@ -436,7 +436,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 }
                 return true
             }
-            KeyEvent.KEYCODE_N -> {
+            KeyEvent.KEYCODE_D -> {
                 if (event.isCtrlPressed) {
                     drw.drawerLayout.openDrawer(GravityCompat.START)
                 }

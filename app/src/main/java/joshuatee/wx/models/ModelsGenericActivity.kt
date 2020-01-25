@@ -34,6 +34,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
+import androidx.core.view.GravityCompat
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
@@ -465,9 +466,9 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 }
                 true
             }
-            KeyEvent.KEYCODE_N -> {
+            KeyEvent.KEYCODE_D -> {
                 if (event.isCtrlPressed) {
-                    drw.drawerLayout.openDrawer(Gravity.START)
+                    drw.drawerLayout.openDrawer(GravityCompat.START)
                 }
                 true
             }

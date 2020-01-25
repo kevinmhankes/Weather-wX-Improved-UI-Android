@@ -314,7 +314,7 @@ object Utility {
                 "Ctrl-f: Toggle favorite" + MyApplication.newline +
                 "Ctrl-p: Play audio - TTS" + MyApplication.newline +
                 "Ctrl-s: Stop audio - TTS" + MyApplication.newline +
-                "Ctrl-n: Show navigation drawer" + MyApplication.newline
+                "Ctrl-d: Show navigation drawer" + MyApplication.newline
     }
 
     fun showLocationEditShortCuts(): String {
