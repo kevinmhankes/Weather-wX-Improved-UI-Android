@@ -307,12 +307,12 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         )
         spinner.refreshData(this, locationList)
 
-        if (drw.token == "CLI") {
+        /*if (drw.token == "CLI") {
             product = drw.token
             checkForCliSite()
         } else {
-            //getProduct(drw.token)
-        }
+            getProduct(drw.token)
+        }*/
     }
 
     private fun toggleFavorite() {
