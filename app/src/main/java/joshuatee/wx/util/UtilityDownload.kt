@@ -538,6 +538,16 @@ object UtilityDownload {
             text = url.getHtmlSep()
             text = UtilityString.extractPreLsr(text)
             text = text.replace("<br>", "\n")
+        } else if (prod.startsWith("CLI")) {
+            UtilityLog.d("wx", "GET3 " + prod)
+            val product = prod.substring(0, 3)
+            val location = prod.substring(3, 6).replace("%", "")
+            val wfo = prod.substring(6).replace("%", "")
+            UtilityLog.d("wx", "GET3 " + prod + " " + location + " " + wfo)
+            // TODO each WFO has multiple locations for this product
+            text =  ("https://forecast.weather.gov/product.php?site=" + wfo + "&product=CLI&issuedby=" + location).getHtmlSep()
+            text = UtilityString.extractPreLsr(text)
+            text = text.replace("<br>", "\n")
         } else if (prod.contains("CTOF")) {
             text = "Celsius to Fahrenheit table" + MyApplication.newline + UtilityMath.celsiusToFahrenheitTable()
         } else {

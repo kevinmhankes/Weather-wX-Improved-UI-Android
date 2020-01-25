@@ -36,7 +36,8 @@ object UtilityWfoText {
             "Public Information Statement",
             "Local Storm Report",
             "Record Event Report",
-            "Nearshore Marine Forecast"
+            "Nearshore Marine Forecast",
+            "Daily Climate Report"
     )
 
     val codes: List<String> = listOf(
@@ -52,7 +53,8 @@ object UtilityWfoText {
             "PNS",
             "LSR",
             "RER",
-            "NSH"
+            "NSH",
+            "CLI"
     )
 
     val codeToName = mapOf(
@@ -68,7 +70,8 @@ object UtilityWfoText {
             "PNS" to "Public Information Statement",
             "LSR" to "Local Storm Report",
             "RER" to "Record Event Report",
-            "NSH" to "Nearshore Marine Forecast"
+            "NSH" to "Nearshore Marine Forecast",
+            "CLI" to "Daily Climate Report"
     )
 }
 

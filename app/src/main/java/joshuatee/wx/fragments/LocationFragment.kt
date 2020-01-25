@@ -254,7 +254,11 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
 
         // The button the user will tape so change location
         locationLabel = ObjectCardText(activityReference, linearLayout, Location.name, TextSize.MEDIUM)
-        locationLabel.tv.setPadding(20,20,20,20)
+        var locationLabelPadding = 20
+        if (UtilityUI.isTablet()) {
+            locationLabelPadding = 10
+        }
+        locationLabel.tv.setPadding(locationLabelPadding,locationLabelPadding,locationLabelPadding,locationLabelPadding)
         locationLabel.setTextColor(UIPreferences.textHighlightColor)
         locationLabel.setOnClickListener(OnClickListener {
             locationDialogue.show()

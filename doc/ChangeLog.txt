@@ -22,9 +22,9 @@
 // TODO [ADD] in radar use ctrl-1, ctrl-2, etc to access favorites
 // TODO [ADD] in tabs allow ctrl-1, ctrl-2 to access each image icon based on order
 // TODO [REF] reconcile  utilPref2 for items that don't need to be set here
-// TODO [ADD] additional WFO products: CLI
 
-55331 2020_01_25
+55331 2020_01_25    [FIX] on tablet reduce padding around location label on main screen
+                    [ADD] CLI product in WFO (significant due to subsites per WFO)
 55330 2020_01_25    [ADD] convert WFO Text viewer to use navigation drawer for products and submenu for actions
                     [ADD] add keyboard shortcuts for WFO Viewer - "ctrl-?" to see
 55329 2020_01_24    [ADD] slightly decrease default text size on tablet

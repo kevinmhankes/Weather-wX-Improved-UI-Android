@@ -22,6 +22,7 @@
 package joshuatee.wx.activitiesmisc
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.res.Configuration
 import android.graphics.Typeface
 import java.util.Locale
@@ -36,6 +37,7 @@ import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.view.GravityCompat
+import joshuatee.wx.Extensions.parseColumn
 
 import joshuatee.wx.R
 import joshuatee.wx.audio.UtilityTts
@@ -92,6 +94,8 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     private lateinit var textCard: ObjectCardText
     private lateinit var spinner: ObjectSpinner
     private lateinit var drw: ObjectNavDrawer
+    var originalWfo = ""
+    val fixedWidthProducts = listOf("RTP", "RWR", "CLI")
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -127,6 +131,9 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 prefTokenLocation,
                 prefToken
         )
+
+        checkForCliSite()
+
         spinner = ObjectSpinner(this, this, this, R.id.spinner1, locationList)
         imageMap = ObjectImageMap(
                 this,
@@ -140,7 +147,13 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     }
 
     private fun getContentFixThis() {
-        getProduct(drw.token)
+        UtilityLog.d("Wx", "WFO " + wfo)
+        if (drw.token == "CLI") {
+            product = drw.token
+            checkForCliSite()
+        } else {
+            getProduct(drw.token)
+        }
     }
 
     override fun onRestart() {
@@ -172,14 +185,28 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         if (wfo != oldWfo) {
             version = 1
         }
+
+
         html = withContext(Dispatchers.IO) {
-            if (version == 1) {
-                UtilityDownload.getTextProduct(this@AfdActivity, product + wfo)
+            if (product != "CLI") {
+                if (version == 1) {
+                    UtilityDownload.getTextProduct(this@AfdActivity, product + wfo)
+                } else {
+                    UtilityDownload.getTextProduct(product + wfo, version)
+                }
             } else {
-                UtilityDownload.getTextProduct(product + wfo, version)
+                // encode issuing WFO and site for CLI
+                UtilityDownload.getTextProduct(this@AfdActivity, product + wfo + originalWfo)
             }
         }
-        title = product
+
+        title = product +  wfo
+
+        // restore the WFO as CLI modifies to a sub-region
+        if (product == "CLI") {
+            wfo = originalWfo
+        }
+
         toolbar.subtitle = UtilityWfoText.codeToName[product]
         cardList.forEach {
             linearLayout.removeView(it)
@@ -190,13 +217,13 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             html = "None issued by this office recently."
         }
 
-        if (product == "RTP" || product == "RWR") {
+        if (fixedWidthProducts.contains(product)) {
             textCard.setTextAndTranslate(html)
         } else {
             textCard.setTextAndTranslate(Utility.fromHtml(html))
         }
 
-        if (product == "RTP" || product == "RWR") {
+        if (fixedWidthProducts.contains(product)) {
             textCard.tv.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
         } else {
             textCard.tv.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
@@ -238,19 +265,6 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             }
             R.id.action_map -> imageMap.toggleMap()
             R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.AFD)
-           /* R.id.action_afd -> getProduct("AFD")
-            R.id.action_vfd -> getProduct("VFD")
-            R.id.action_hwo -> getProduct("HWO")
-            R.id.action_sps -> getProduct("SPS")
-            R.id.action_rva -> getProduct("RVA")
-            R.id.action_esf -> getProduct("ESF")
-            R.id.action_rtp -> getProduct("RTP")
-            R.id.action_rwr -> getProduct("RWR")
-            R.id.action_fwf -> getProduct("FWF")
-            R.id.action_pns -> getProduct("PNS")
-            R.id.action_lsr -> getProduct("LSR")
-            R.id.action_rer -> getProduct("RER")
-            R.id.action_nsh -> getProduct("NSH")*/
             R.id.action_website -> ObjectIntent(
                     this,
                     WebscreenABModels::class.java,
@@ -375,6 +389,25 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             val textCard = ObjectCardText(this@AfdActivity, linearLayout)
             textCard.setTextAndTranslate(Utility.fromHtml(it))
             cardList.add(textCard.card)
+        }
+    }
+
+    private fun checkForCliSite() = GlobalScope.launch(uiDispatcher) {
+        if (product == "CLI") {
+            val cliHtml = withContext(Dispatchers.IO) {
+                UtilityDownload.getStringFromUrl("https://w2.weather.gov/climate/index.php?wfo=" + wfo.toLowerCase(Locale.US))
+            }
+            val cliSites = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('.*?','(.*?)'\\)")
+            val cliNames = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('(.*?)','.*?'\\)")
+            val dialogueMain = ObjectDialogue(this@AfdActivity, "Select site:", cliNames)
+            dialogueMain.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, index ->
+                wfo = Utility.safeGet(cliSites, index)
+                UtilityLog.d("wx", "GET " + wfo)
+                dialog.dismiss()
+                getContent()
+            })
+            originalWfo = wfo
+            dialogueMain.show()
         }
     }
 
