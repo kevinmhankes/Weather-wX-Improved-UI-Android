@@ -512,6 +512,17 @@ object UtilityDownload {
             )
             text = text.removeBreaks()
             UtilityLog.d("wx", text)
+        }  else if (prod.contains("PMD30D")) {
+            val textUrl = "https://tgftp.nws.noaa.gov/data/raw/fx/fxus07.kwbc.pmd.30d.txt";
+            text = textUrl.getHtmlSep()
+            text = text.removeLineBreaks()
+        } else if (prod.contains("PMD90D")) {
+            val textUrl = "https://tgftp.nws.noaa.gov/data/raw/fx/fxus05.kwbc.pmd.90d.txt";
+            text = textUrl.getHtmlSep()
+            text = text.removeLineBreaks()
+        } else if (prod.contains("PMDHCO")) {
+            val textUrl = "https://tgftp.nws.noaa.gov/data/raw/fx/fxhw40.kwbc.pmd.hco.txt";
+            text = textUrl.getHtmlSep()
         } else if (prod.startsWith("RWR")) {
             val product = prod.substring(0, 3);
             val location = prod.substring(3).replace("%", "");

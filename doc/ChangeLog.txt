@@ -22,7 +22,6 @@
 // TODO [ADD] in radar use ctrl-1, ctrl-2, etc to access favorites
 // TODO [ADD] in tabs allow ctrl-1, ctrl-2 to access each image icon based on order
 // TODO [REF] reconcile  utilPref2 for items that don't need to be set here
-// TODO [FIX] three PMD text products are not working (can get from here https://www.cpc.ncep.noaa.gov/products/predictions/long_range/fxus05.html )
 // TODO [FIX] clarify that PMDTHR is Day 8-14 US Hazards Outlook
 // TODO [ADD] https://www.wpc.ncep.noaa.gov/threats/threats.php US Day 3-7 Hazards Outlook
 // TODO [ADD] additional WFO products: CLI
@@ -32,6 +31,7 @@
                     [ADD] in WFO text viewer do monospace for RTP and RWR
                     [ADD] usalerts tap image for dedicated image viewer
                     [ADD] change animation interval from 15 to 8
+                    [FIX] three PMD text products that were not working 30/90 day CPC, etc
 55328 2020_01_23    [REF] lint cleanup
                     [FIX] when radar center on GPS is enabled the x/y was getting goofed up, most apparent when cities shown
 55327 2020_01_23    [FIX] onrestart wpc rainfall was not clearing views
