@@ -34,7 +34,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
-import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.view.GravityCompat
 import joshuatee.wx.Extensions.parseColumn
@@ -94,8 +93,8 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     private lateinit var textCard: ObjectCardText
     private lateinit var spinner: ObjectSpinner
     private lateinit var drw: ObjectNavDrawer
-    var originalWfo = ""
-    val fixedWidthProducts = listOf("RTP", "RWR", "CLI")
+    private var originalWfo = ""
+    private val fixedWidthProducts = listOf("RTP", "RWR", "CLI")
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -304,13 +303,6 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 prefToken
         )
         spinner.refreshData(this, locationList)
-
-        /*if (drw.token == "CLI") {
-            product = drw.token
-            checkForCliSite()
-        } else {
-            getProduct(drw.token)
-        }*/
     }
 
     private fun toggleFavorite() {
@@ -412,7 +404,6 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             val dialogueMain = ObjectDialogue(this@AfdActivity, "Select site from $wfo:", cliNames)
             dialogueMain.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, index ->
                 wfo = Utility.safeGet(cliSites, index)
-                UtilityLog.d("wx", "GET " + wfo)
                 dialog.dismiss()
                 getContent()
             })

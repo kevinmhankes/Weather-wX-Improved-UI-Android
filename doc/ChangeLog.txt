@@ -23,7 +23,7 @@
 // TODO [ADD] in tabs allow ctrl-1, ctrl-2 to access each image icon based on order
 // TODO [REF] reconcile  utilPref2 for items that don't need to be set here
 
-55332 2020_01_25
+55332 2020_01_25    [FIX] In national text activity combine the first two subsections into one section as they are basically the same
 55331 2020_01_25    [FIX] on tablet reduce padding around location label on main screen
                     [ADD] CLI product in WFO (significant due to subsites per WFO)
 55330 2020_01_25    [ADD] convert WFO Text viewer to use navigation drawer for products and submenu for actions
