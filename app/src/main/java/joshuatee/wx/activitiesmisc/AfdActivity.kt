@@ -412,7 +412,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             }
             val cliSites = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('.*?','(.*?)'\\)")
             val cliNames = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('(.*?)','.*?'\\)")
-            val dialogueMain = ObjectDialogue(this@AfdActivity, "Select site from wfo:", cliNames)
+            val dialogueMain = ObjectDialogue(this@AfdActivity, "Select site from $wfo:", cliNames)
             dialogueMain.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, index ->
                 wfo = Utility.safeGet(cliSites, index)
                 UtilityLog.d("wx", "GET " + wfo)
