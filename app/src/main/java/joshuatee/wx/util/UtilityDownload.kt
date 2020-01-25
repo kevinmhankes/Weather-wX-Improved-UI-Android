@@ -512,7 +512,11 @@ object UtilityDownload {
             )
             text = text.removeBreaks()
             UtilityLog.d("wx", text)
-        }  else if (prod.contains("PMD30D")) {
+        } else if (prod.contains("USHZD37")) {
+            val textUrl = "https://www.wpc.ncep.noaa.gov/threats/threats.php"
+            text = textUrl.getHtmlSep()
+            text = text.parse("<div class=.haztext.>(.*?)</div>")
+        } else if (prod.contains("PMD30D")) {
             val textUrl = "https://tgftp.nws.noaa.gov/data/raw/fx/fxus07.kwbc.pmd.30d.txt";
             text = textUrl.getHtmlSep()
             text = text.removeLineBreaks()
