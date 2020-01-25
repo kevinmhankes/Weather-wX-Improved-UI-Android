@@ -22,6 +22,7 @@
 // TODO [REF] reconcile  utilPref2 for items that don't need to be set here
 // TODO [FIX] chromeOS - navigate from main screen to hourly, two finger swipe does not work w/o focus to text
 
+55333 2020_01_25
 55332 2020_01_25    [FIX] In national text activity combine the first two subsections into one section as they are basically the same
                     [FIX] reconcile  utilPref2 for items that don't need to be set here - WIP
                     [REF] various variable camelCase/rename in MyApp
