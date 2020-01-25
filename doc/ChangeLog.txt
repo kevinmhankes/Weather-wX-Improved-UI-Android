@@ -24,6 +24,7 @@
 // TODO [REF] reconcile  utilPref2 for items that don't need to be set here
 // TODO [ADD] additional WFO products: CLI
 
+55331 2020_01_25
 55330 2020_01_25    [ADD] convert WFO Text viewer to use navigation drawer for products and submenu for actions
                     [ADD] add keyboard shortcuts for WFO Viewer - "ctrl-?" to see
 55329 2020_01_24    [ADD] slightly decrease default text size on tablet
