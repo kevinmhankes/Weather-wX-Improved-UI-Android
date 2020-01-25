@@ -339,8 +339,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 else -> {
                     wfo = locationList[pos].split(" ").getOrNull(0) ?: ""
                     originalWfo = wfo
-                    if (drw.token == "CLI") {
-                        product = drw.token
+                    if (product == "CLI") {
                         checkForCliSite()
                     } else {
                         getContent()
