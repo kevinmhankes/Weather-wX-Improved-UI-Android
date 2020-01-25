@@ -414,6 +414,18 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 }
                 return true
             }
+            KeyEvent.KEYCODE_P -> {
+                if (event.isCtrlPressed) {
+                    audioPlayMenu(R.id.action_read_aloud, html, product, product + wfo)
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_S -> {
+                if (event.isCtrlPressed) {
+                    audioPlayMenu(R.id.action_stop, html, product, product + wfo)
+                }
+                return true
+            }
             KeyEvent.KEYCODE_L -> {
                 if (event.isCtrlPressed) {
                     imageMap.toggleMap()
