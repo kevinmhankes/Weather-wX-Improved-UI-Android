@@ -308,6 +308,13 @@ object Utility {
                 "Reload key: reload radar" + MyApplication.newline
     }
 
+    fun showWfoTextShortCuts(): String {
+        return "Ctrl-l: Show map" + MyApplication.newline +
+                "Ctrl-m: Show submenu" + MyApplication.newline +
+                "Ctrl-f: Toggle favorite" + MyApplication.newline +
+                "Ctrl-n: Show navigation drawer" + MyApplication.newline
+    }
+
     fun showLocationEditShortCuts(): String {
         return "Ctrl-g: Use GPS to find location" + MyApplication.newline +
                 "Ctrl-m: Show submenu" + MyApplication.newline

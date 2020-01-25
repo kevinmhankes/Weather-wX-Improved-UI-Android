@@ -408,6 +408,24 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 }
                 true
             }
+            KeyEvent.KEYCODE_F -> {
+                if (event.isCtrlPressed) {
+                    toggleFavorite()
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_L -> {
+                if (event.isCtrlPressed) {
+                    imageMap.toggleMap()
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_SLASH -> {
+                if (event.isAltPressed) {
+                    ObjectDialogue(this, Utility.showWfoTextShortCuts())
+                }
+                return true
+            }
             else -> super.onKeyUp(keyCode, event)
         }
     }
