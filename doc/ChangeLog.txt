@@ -26,9 +26,6 @@
 // TODO [FIX] clarify that PMDTHR is Day 8-14 US Hazards Outlook
 // TODO [ADD] https://www.wpc.ncep.noaa.gov/threats/threats.php US Day 3-7 Hazards Outlook
 // TODO [ADD] additional WFO products: CLI , RWR/HRR/HWR, RTP formatting
-// TODO [FIX] mpd/mcd/wat line size should be 2 and not 4
-// TODO [FIX] gps circle line size should be 2 and not 5
-// TODO [FIX] warning line size should be 3 and not 5
 
 55329 2020_01_23    [ADD] slightly decrease default text size on tablet
 55328 2020_01_23    [REF] lint cleanup
