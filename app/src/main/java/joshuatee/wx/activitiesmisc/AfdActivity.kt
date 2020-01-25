@@ -147,7 +147,6 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     }
 
     private fun getContentFixThis() {
-        UtilityLog.d("Wx", "WFO " + wfo)
         if (drw.token == "CLI") {
             product = drw.token
             checkForCliSite()
@@ -297,6 +296,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
 
     private fun mapSwitch(loc: String) {
         wfo = loc.toUpperCase(Locale.US)
+        originalWfo = wfo
         mapShown = false
         locationList = UtilityFavorites.setupFavMenu(
                 this,
@@ -306,6 +306,13 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 prefToken
         )
         spinner.refreshData(this, locationList)
+
+        if (drw.token == "CLI") {
+            product = drw.token
+            checkForCliSite()
+        } else {
+            //getProduct(drw.token)
+        }
     }
 
     private fun toggleFavorite() {
@@ -331,7 +338,13 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 )
                 else -> {
                     wfo = locationList[pos].split(" ").getOrNull(0) ?: ""
-                    getContent()
+                    originalWfo = wfo
+                    if (drw.token == "CLI") {
+                        product = drw.token
+                        checkForCliSite()
+                    } else {
+                        getContent()
+                    }
                 }
             }
             if (firstTime) {
@@ -399,7 +412,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             }
             val cliSites = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('.*?','(.*?)'\\)")
             val cliNames = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('(.*?)','.*?'\\)")
-            val dialogueMain = ObjectDialogue(this@AfdActivity, "Select site:", cliNames)
+            val dialogueMain = ObjectDialogue(this@AfdActivity, "Select site from wfo:", cliNames)
             dialogueMain.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, index ->
                 wfo = Utility.safeGet(cliSites, index)
                 UtilityLog.d("wx", "GET " + wfo)
