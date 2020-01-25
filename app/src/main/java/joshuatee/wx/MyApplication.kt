@@ -190,6 +190,7 @@ class MyApplication : Application() {
         var fabElevation: Float = 0f
         var fabElevationDepressed: Float = 0f
         var elevationPref: Float = 0f
+        var elevationPrefDefault: Int = 5
         var textSizeSmall: Float = 0f
         var textSizeNormal: Float = 0f
         var textSizeLarge: Float = 0f
@@ -491,7 +492,7 @@ class MyApplication : Application() {
             wpcgefsZoom = getInitialPreference("WPCGEFS_ZOOM", 1.0f)
             wpcgefsX = getInitialPreference("WPCGEFS_X", 0.5f)
             wpcgefsY = getInitialPreference("WPCGEFS_Y", 0.5f)
-            elevationPref = getInitialPreference("ELEVATION_PREF", 5).toFloat()
+            elevationPref = getInitialPreference("ELEVATION_PREF", elevationPrefDefault).toFloat()
             elevationPref = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, elevationPref, dm)
             cardElevation = elevationPref
             fabElevation = elevationPref
@@ -565,7 +566,7 @@ class MyApplication : Application() {
         private fun radarGeometrySetColors() {
             radarColorHw = getInitialPreference("RADAR_COLOR_HW", Color.rgb(135, 135, 135))
             radarColorHwExt = getInitialPreference("RADAR_COLOR_HW_EXT", Color.rgb(91, 91, 91))
-            radarColorState = getInitialPreference("RADAR_COLOR_STATE", Color.rgb(142, 142, 142))
+            radarColorState = getInitialPreference("RADAR_COLOR_STATE", Color.rgb(255, 255, 255))
             radarColorTstorm = getInitialPreference("RADAR_COLOR_TSTORM", Color.rgb(255, 255, 0))
             radarColorTstormWatch =
                     getInitialPreference("RADAR_COLOR_TSTORM_WATCH", Color.rgb(255, 187, 0))
@@ -743,8 +744,10 @@ class MyApplication : Application() {
         var radarLocdotSize: Int = 0
         var radarHiSize: Int = 0
         var radarTvsSize: Int = 0
-        var radarWarnLinesize: Int = 0
-        var radarWatmcdLinesize: Int = 0
+        var radarWarnLinesize: Int = 5
+        val radarWarnLinesizeDefault = 5
+        var radarWatmcdLinesize: Int = 4
+        var radarWatmcdLinesizeDefault: Int = 4
         private var radarHwEnh: Boolean = true
         var radarHwEnhExt: Boolean = false
         private var radarCamxBorders: Boolean = false
@@ -809,8 +812,8 @@ class MyApplication : Application() {
             radarLocdotSize = getInitialPreference("RADAR_LOCDOT_SIZE", radarLocdotSizeDefault)
             radarHiSize = getInitialPreference("RADAR_HI_SIZE", 8)
             radarTvsSize = getInitialPreference("RADAR_TVS_SIZE", 8)
-            radarWarnLinesize = getInitialPreference("RADAR_WARN_LINESIZE", 5)
-            radarWatmcdLinesize = getInitialPreference("RADAR_WATMCD_LINESIZE", 2)
+            radarWarnLinesize = getInitialPreference("RADAR_WARN_LINESIZE", radarWarnLinesizeDefault)
+            radarWatmcdLinesize = getInitialPreference("RADAR_WATMCD_LINESIZE", radarWatmcdLinesizeDefault)
             radarStateLineSize = getInitialPreference("RADAR_STATE_LINESIZE", 2)
             radarCountyLineSize = getInitialPreference("RADAR_COUNTY_LINESIZE", 2)
             radarHwLineSize = getInitialPreference("RADAR_HW_LINESIZE", 2)

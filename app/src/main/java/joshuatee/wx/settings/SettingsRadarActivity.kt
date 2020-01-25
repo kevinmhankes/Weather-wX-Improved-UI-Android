@@ -396,7 +396,7 @@ class SettingsRadarActivity : BaseActivity() {
                         "Warning line size",
                         "RADAR_WARN_LINESIZE",
                         R.string.warn_linesize_np_label,
-                        5,
+                        MyApplication.radarWarnLinesizeDefault,
                         1,
                         10
                 ).card
@@ -408,7 +408,7 @@ class SettingsRadarActivity : BaseActivity() {
                         "MCD/MPD/Watch line size",
                         "RADAR_WATMCD_LINESIZE",
                         R.string.watmcd_linesize_np,
-                        4,
+                        MyApplication.radarWatmcdLinesizeDefault,
                         1,
                         10
                 ).card
