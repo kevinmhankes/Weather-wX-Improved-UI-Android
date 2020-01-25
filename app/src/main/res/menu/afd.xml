@@ -69,7 +69,7 @@
         android:id="@+id/action_forward"
         android:title="Forward"
         app:showAsAction="never" />
-    <item
+    <!--<item
         android:id="@+id/action_afd"
         android:title="Area Forecast Discussion"
         app:showAsAction="never" />
@@ -120,7 +120,7 @@
     <item
         android:id="@+id/action_nsh"
         android:title="Nearshore Marine Forecast"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
     <item
         android:id="@+id/action_website"
         android:title="NWS Office website"

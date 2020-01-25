@@ -81,12 +81,28 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
 
     fun getUrlCount(): Int = tokens.size
 
+    // TODO convert to getter
     fun getLabel(): String {
         if (index >= labels.size) {
             index = labels.size - 1
         }
         return labels[index]
     }
+
+    /*fun getToken(): String {
+        if (index >= tokens.size) {
+            index = tokens.size - 1
+        }
+        return tokens[index]
+    }*/
+
+    var token: String = ""
+        get() {
+            if (index >= tokens.size) {
+                index = tokens.size - 1
+            }
+            return tokens[index]
+        }
 
     fun setListener(fn: () -> Unit) {
         listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->

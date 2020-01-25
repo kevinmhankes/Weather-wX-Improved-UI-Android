@@ -22,16 +22,20 @@
 package joshuatee.wx.activitiesmisc
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.graphics.Typeface
 import java.util.Locale
 
 import androidx.cardview.widget.CardView
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
+import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
+import androidx.core.view.GravityCompat
 
 import joshuatee.wx.R
 import joshuatee.wx.audio.UtilityTts
@@ -87,11 +91,14 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     private val cardList = mutableListOf<CardView>()
     private lateinit var textCard: ObjectCardText
     private lateinit var spinner: ObjectSpinner
+    private lateinit var drw: ObjectNavDrawer
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_afd, R.menu.afd)
         toolbarBottom.setOnMenuItemClickListener(this)
+        drw = ObjectNavDrawer(this, UtilityWfoText.labels, UtilityWfoText.codes)
+        drw.setListener(::getContentFixThis)
         UtilityShortcut.hidePinIfNeeded(toolbarBottom)
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         star = toolbarBottom.menu.findItem(R.id.action_fav)
@@ -132,6 +139,10 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToWfo)
     }
 
+    private fun getContentFixThis() {
+        getProduct(drw.token)
+    }
+
     override fun onRestart() {
         if (ridFavOld != MyApplication.wfoFav) {
             locationList = UtilityFavorites.setupFavMenu(
@@ -169,6 +180,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             }
         }
         title = product
+        toolbar.subtitle = UtilityWfoText.codeToName[product]
         cardList.forEach {
             linearLayout.removeView(it)
         }
@@ -226,7 +238,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             }
             R.id.action_map -> imageMap.toggleMap()
             R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.AFD)
-            R.id.action_afd -> getProduct("AFD")
+           /* R.id.action_afd -> getProduct("AFD")
             R.id.action_vfd -> getProduct("VFD")
             R.id.action_hwo -> getProduct("HWO")
             R.id.action_sps -> getProduct("SPS")
@@ -238,7 +250,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             R.id.action_pns -> getProduct("PNS")
             R.id.action_lsr -> getProduct("LSR")
             R.id.action_rer -> getProduct("RER")
-            R.id.action_nsh -> getProduct("NSH")
+            R.id.action_nsh -> getProduct("NSH")*/
             R.id.action_website -> ObjectIntent(
                     this,
                     WebscreenABModels::class.java,
@@ -363,6 +375,40 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             val textCard = ObjectCardText(this@AfdActivity, linearLayout)
             textCard.setTextAndTranslate(Utility.fromHtml(it))
             cardList.add(textCard.card)
+        }
+    }
+
+    // For navigation drawer
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+            drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
+
+    // For navigation drawer
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        drw.actionBarDrawerToggle.syncState()
+    }
+
+    // For navigation drawer
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        drw.actionBarDrawerToggle.onConfigurationChanged(newConfig)
+    }
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+        return when (keyCode) {
+            KeyEvent.KEYCODE_M -> {
+                if (event.isCtrlPressed) {
+                    toolbarBottom.showOverflowMenu()
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_N -> {
+                if (event.isCtrlPressed) {
+                    drw.drawerLayout.openDrawer(GravityCompat.START)
+                }
+                true
+            }
+            else -> super.onKeyUp(keyCode, event)
         }
     }
 }
