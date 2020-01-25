@@ -119,8 +119,10 @@ object UtilityNotification {
                                     cancelStr
                             ))
                     ) {
-                        val sound =
-                                MyApplication.locations[locNumInt].sound && !inBlackout || MyApplication.locations[locNumInt].sound && MyApplication.alertBlackoutTornadoCurrent
+                        val sound = MyApplication.locations[locNumInt].sound
+                                && !inBlackout
+                                || MyApplication.locations[locNumInt].sound
+                                && MyApplication.alertBlackoutTornado
                         val notifObj = ObjectNotification(
                                 context,
                                 sound,

@@ -123,7 +123,7 @@ class WXGLRender(private val context: Context) : Renderer {
                     it.draw(projectionNumbers)
                 }
             }
-            if (locationDotBuffers.isInitialized && MyApplication.locdotFollowsGps) {
+            if (locationDotBuffers.isInitialized && MyApplication.locationDotFollowsGps) {
                 locCircleBuffers.lenInit = locationDotBuffers.lenInit
                 UtilityWXOGLPerf.genCircleLocdot(locCircleBuffers, projectionNumbers, gpsX, gpsY)
             }
@@ -146,8 +146,9 @@ class WXGLRender(private val context: Context) : Renderer {
         }
     private var prod = "N0Q"
     private val defaultLineWidth = 2.0f
-    private var warnLineWidth = 2.0f
-    private var watmcdLineWidth = 2.0f
+    // TODO - the below 2 vars should come directly from MyApp
+    //private var warnLineWidth = 2.0f
+    //private var watmcdLineWidth = 2.0f
     private var ridPrefixGlobal = ""
     private var bgColorFRed = 0.0f
     private var bgColorFGreen = 0.0f
@@ -174,8 +175,8 @@ class WXGLRender(private val context: Context) : Renderer {
         bgColorFRed = Color.red(MyApplication.nexradRadarBackgroundColor) / 255.0f
         bgColorFGreen = Color.green(MyApplication.nexradRadarBackgroundColor) / 255.0f
         bgColorFBlue = Color.blue(MyApplication.nexradRadarBackgroundColor) / 255.0f
-        warnLineWidth = MyApplication.radarWarnLinesize.toFloat()
-        watmcdLineWidth = MyApplication.radarWatmcdLinesize.toFloat()
+        //warnLineWidth = MyApplication.radarWarnLineSize.toFloat()
+        //watmcdLineWidth = MyApplication.radarWatchMcdLineSize.toFloat()
         try {
             triangleIndexBuffer = ByteBuffer.allocateDirect(12 * breakSize15)
             lineIndexBuffer = ByteBuffer.allocateDirect(4 * breakSizeLine)
@@ -571,12 +572,12 @@ class WXGLRender(private val context: Context) : Renderer {
 
         GLES20.glLineWidth(MyApplication.radarGpsCircleLineSize.toFloat())
         drawTriangles(locationDotBuffers)
-        if (MyApplication.locdotFollowsGps && locCircleBuffers.floatBuffer.capacity() != 0 && locCircleBuffers.indexBuffer.capacity() != 0 && locCircleBuffers.colorBuffer.capacity() != 0) {
+        if (MyApplication.locationDotFollowsGps && locCircleBuffers.floatBuffer.capacity() != 0 && locCircleBuffers.indexBuffer.capacity() != 0 && locCircleBuffers.colorBuffer.capacity() != 0) {
             locCircleBuffers.chunkCount = 1
             drawPolygons(locCircleBuffers, 16)
         }
 
-        GLES20.glLineWidth(warnLineWidth)
+        GLES20.glLineWidth(MyApplication.radarWarnLineSize)
         listOf(warningTstBuffers, warningFfwBuffers, warningTorBuffers).forEach {
             drawPolygons(
                     it,
@@ -590,7 +591,7 @@ class WXGLRender(private val context: Context) : Renderer {
             }
         }
 
-        GLES20.glLineWidth(watmcdLineWidth)
+        GLES20.glLineWidth(MyApplication.radarWatchMcdLineSize)
         listOf(
                 mpdBuffers,
                 mcdBuffers,
@@ -600,7 +601,7 @@ class WXGLRender(private val context: Context) : Renderer {
         ).forEach { drawPolygons(it, 8) }
 
         if (zoom < (0.50 / zoomScreenScaleFactor)) {
-            GLES20.glLineWidth(watmcdLineWidth)
+            GLES20.glLineWidth(MyApplication.radarWatchMcdLineSize)
             wpcFrontBuffersList.forEach { drawElement(it) }
         }
     }
@@ -938,7 +939,7 @@ class WXGLRender(private val context: Context) : Renderer {
         if (PolygonType.LOCDOT.pref) {
             locmarkerAl = UtilityLocation.latLonAsDouble
         }
-        if (MyApplication.locdotFollowsGps || archiveMode) {
+        if (MyApplication.locationDotFollowsGps || archiveMode) {
             locmarkerAl.add(x)
             locmarkerAl.add(y)
             gpsX = x
@@ -979,7 +980,7 @@ class WXGLRender(private val context: Context) : Renderer {
                     locCircleBuffers.colorArray
             )
         }
-        if (MyApplication.locdotFollowsGps) {
+        if (MyApplication.locationDotFollowsGps) {
             locCircleBuffers.lenInit = locationDotBuffers.lenInit
             val gpsCoords = UtilityCanvasProjection.computeMercatorNumbers(gpsX, gpsY, projectionNumbers)
             gpsLatLonTransformed[0] = -gpsCoords[0].toFloat()

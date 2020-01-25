@@ -344,10 +344,10 @@ internal object UtilityRadarUI {
             wxglRender.constructGenericWarningLines()
             wxglSurfaceView.requestRender()
         }).start()
-        if (MyApplication.locdotFollowsGps) {
+        if (MyApplication.locationDotFollowsGps) {
             fnGps()
         }
-        if (PolygonType.LOCDOT.pref || MyApplication.locdotFollowsGps) {
+        if (PolygonType.LOCDOT.pref || MyApplication.locationDotFollowsGps) {
             val latLon = fnGetLatLon()
             wxglRender.constructLocationDot(latLon.latString, latLon.lonString, archiveMode)
         } else {
@@ -474,10 +474,10 @@ internal object UtilityRadarUI {
             wxglRender.constructTvs()
         else
             wxglRender.deconstructTvs()
-        if (MyApplication.locdotFollowsGps && !archiveMode) {
+        if (MyApplication.locationDotFollowsGps && !archiveMode) {
             fnGps()
         }
-        if (PolygonType.LOCDOT.pref || archiveMode || MyApplication.locdotFollowsGps) {
+        if (PolygonType.LOCDOT.pref || archiveMode || MyApplication.locationDotFollowsGps) {
             val latLon = fnGetLatLon()
             wxglRender.constructLocationDot(latLon.latString, latLon.lonString, archiveMode)
         } else {

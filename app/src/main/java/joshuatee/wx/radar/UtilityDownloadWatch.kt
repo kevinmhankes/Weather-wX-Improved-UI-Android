@@ -64,9 +64,9 @@ internal object UtilityDownloadWatch {
             }
         }
         if (PolygonType.MCD.pref) {
-            MyApplication.watchLatlonList.valueSet(context, watchLatLonList)
-            MyApplication.watchLatlon.valueSet(context, watchLatLon)
-            MyApplication.watchLatlonTor.valueSet(context, watchLatLonTor)
+            MyApplication.watchLatLonList.valueSet(context, watchLatLonList)
+            MyApplication.watchLatLon.valueSet(context, watchLatLon)
+            MyApplication.watchLatLonTor.valueSet(context, watchLatLonTor)
         }
         return WatchData(numberList, htmlList)
     }

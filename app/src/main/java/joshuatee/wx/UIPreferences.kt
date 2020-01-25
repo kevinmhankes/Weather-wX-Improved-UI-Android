@@ -25,7 +25,6 @@ import android.content.Context
 import android.graphics.Color
 import androidx.core.content.ContextCompat
 import joshuatee.wx.ui.UtilityUI
-
 import joshuatee.wx.util.Utility
 
 object UIPreferences {
@@ -70,34 +69,25 @@ object UIPreferences {
         MyApplication.textSizeSmall = UtilityUI.spToPx(normalTextSize - 2, context)
         MyApplication.textSizeNormal = UtilityUI.spToPx(normalTextSize, context)
         MyApplication.textSizeLarge = UtilityUI.spToPx(normalTextSize + 5, context)
-        useAwcRadarMosaic =
-            Utility.readPref(context, "USE_AWC_RADAR_MOSAIC", "false").startsWith("t")
-        locfragDontShowIcons =
-            Utility.readPref(context, "UI_LOCFRAG_NO_ICONS", "false").startsWith("t")
-        mainScreenRadarFab =
-            Utility.readPref(context, "UI_MAIN_SCREEN_RADAR_FAB", "true").startsWith("t")
+        useAwcRadarMosaic = Utility.readPref(context, "USE_AWC_RADAR_MOSAIC", "false").startsWith("t")
+        locfragDontShowIcons = Utility.readPref(context, "UI_LOCFRAG_NO_ICONS", "false").startsWith("t")
+        mainScreenRadarFab = Utility.readPref(context, "UI_MAIN_SCREEN_RADAR_FAB", "true").startsWith("t")
         homescreenTextLength = Utility.readPref(context, "HOMESCREEN_TEXT_LENGTH_PREF", 500)
         refreshLocMin = Utility.readPref(context, "REFRESH_LOC_MIN", 10)
         translateText = Utility.readPref(context, "TRANSLATE_TEXT", "").startsWith("t")
-        nwsTextRemovelinebreaks =
-            Utility.readPref(context, "NWS_TEXT_REMOVELINEBREAKS", "true").startsWith("t")
+        nwsTextRemovelinebreaks = Utility.readPref(context, "NWS_TEXT_REMOVELINEBREAKS", "true").startsWith("t")
         recordScreenShare = Utility.readPref(context, "RECORD_SCREEN_SHARE", "true").startsWith("t")
-        prefPreventAccidentalExit =
-            Utility.readPref(context, "PREF_PREVENT_ACCIDENTAL_EXIT", "true").startsWith("t")
-        dualpaneRadarIcon =
-            Utility.readPref(context, "DUALPANE_RADAR_ICON", "false").startsWith("t")
+        prefPreventAccidentalExit = Utility.readPref(context, "PREF_PREVENT_ACCIDENTAL_EXIT", "true").startsWith("t")
+        dualpaneRadarIcon = Utility.readPref(context, "DUALPANE_RADAR_ICON", "false").startsWith("t")
         fabInModels = Utility.readPref(context, "FAB_IN_MODELS", "true").startsWith("t")
         hideTopToolbar = Utility.readPref(context, "HIDE_TOP_TOOLBAR", "false").startsWith("t")
         colorNotif = ContextCompat.getColor(context, R.color.primary_dark_blue)
         colorBlack = ContextCompat.getColor(context, R.color.black)
         colorOffwhiteToolbar = ContextCompat.getColor(context, R.color.offwhite_toolbar)
-        mediaControlNotif = Utility.readPref(context, "MEDIA_CONTROL_NOTIF", "").startsWith("t")
-        radarToolbarTransparent =
-            Utility.readPref(context, "RADAR_TOOLBAR_TRANSPARENT", "true").startsWith("t")
-        radarStatusBarTransparent =
-            Utility.readPref(context, "RADAR_STATUSBAR_TRANSPARENT", "false").startsWith("t")
-        radarImmersiveMode =
-            Utility.readPref(context, "RADAR_IMMERSIVE_MODE", "false").startsWith("t")
+        mediaControlNotif = Utility.readPref(context, "MEDIA_CONTROL_NOTIF", "false").startsWith("t")
+        radarToolbarTransparent = Utility.readPref(context, "RADAR_TOOLBAR_TRANSPARENT", "true").startsWith("t")
+        radarStatusBarTransparent = Utility.readPref(context, "RADAR_STATUSBAR_TRANSPARENT", "false").startsWith("t")
+        radarImmersiveMode = Utility.readPref(context, "RADAR_IMMERSIVE_MODE", "false").startsWith("t")
         if (UtilityUI.isTablet()) {
             tilesPerRowDefault = 5
         }

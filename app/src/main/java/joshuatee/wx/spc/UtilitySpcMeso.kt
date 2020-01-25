@@ -155,7 +155,7 @@ object UtilitySpcMeso {
     internal fun setParamFromFav(token: String): List<String> {
         var param = ""
         var label = ""
-        val tmpArr = MyApplication.spcmesoFav.split(":").dropLastWhile { it.isEmpty() }
+        val tmpArr = MyApplication.spcMesoFav.split(":").dropLastWhile { it.isEmpty() }
         val tmpArrLabel = MyApplication.spcmesoLabelFav.split(":").dropLastWhile { it.isEmpty() }
         when (token) {
             "SPCMESO1" ->

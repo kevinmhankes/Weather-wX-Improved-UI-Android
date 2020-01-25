@@ -57,7 +57,7 @@ internal object UtilityDownloadMcd {
         }
         val locationNeedsMcd = UtilityNotificationSpc.locationNeedsMcd()
         if (PolygonType.MCD.pref || locationNeedsMcd) {
-            MyApplication.mcdLatlon.valueSet(context, latLonString)
+            MyApplication.mcdLatLon.valueSet(context, latLonString)
         }
         return WatchData(numberList, htmlList)
     }

@@ -209,8 +209,8 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(gpsSw.card)
         gpsSw.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, _ ->
-            MyApplication.locdotFollowsGps = compoundButton.isChecked
-            if (MyApplication.locdotFollowsGps != Utility.readPref(
+            MyApplication.locationDotFollowsGps = compoundButton.isChecked
+            if (MyApplication.locationDotFollowsGps != Utility.readPref(
                             this,
                             "LOCDOT_FOLLOWS_GPS",
                             "false"
@@ -396,7 +396,7 @@ class SettingsRadarActivity : BaseActivity() {
                         "Warning line size",
                         "RADAR_WARN_LINESIZE",
                         R.string.warn_linesize_np_label,
-                        MyApplication.radarWarnLinesizeDefault,
+                        MyApplication.radarWarnLineSizeDefault,
                         1,
                         10
                 ).card
@@ -408,7 +408,7 @@ class SettingsRadarActivity : BaseActivity() {
                         "MCD/MPD/Watch line size",
                         "RADAR_WATMCD_LINESIZE",
                         R.string.watmcd_linesize_np,
-                        MyApplication.radarWatmcdLinesizeDefault,
+                        MyApplication.radarWatchMcdLineSizeDefault,
                         1,
                         10
                 ).card
@@ -492,7 +492,7 @@ class SettingsRadarActivity : BaseActivity() {
                         "Location marker size",
                         "RADAR_LOCDOT_SIZE",
                         R.string.locdot_size_np,
-                        MyApplication.radarLocdotSizeDefault,
+                        MyApplication.radarLocationDotSizeDefault,
                         1,
                         50
                 ).card

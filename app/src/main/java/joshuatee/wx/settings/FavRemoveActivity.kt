@@ -212,7 +212,7 @@ class FavRemoveActivity : BaseActivity() {
             "NWSTEXT" -> MyApplication.nwsTextFav = fav
             "SREF" -> MyApplication.srefFav = fav
             "SPCMESO" -> {
-                MyApplication.spcmesoFav = fav
+                MyApplication.spcMesoFav = fav
                 MyApplication.spcmesoLabelFav = favLabel
             }
         }

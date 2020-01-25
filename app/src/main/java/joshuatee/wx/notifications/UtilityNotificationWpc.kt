@@ -45,7 +45,7 @@ internal object UtilityNotificationWpc {
     }
 
     fun sendMpdLocationNotifications(context: Context): String {
-        val textMcd = MyApplication.mpdLatlon.value
+        val textMcd = MyApplication.mpdLatLon.value
         val textMcdNoList = MyApplication.mpdNoList.value
         val x = mutableListOf<Double>()
         val y = mutableListOf<Double>()

@@ -60,6 +60,10 @@ import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
+//
+// Class that has methods that run at app start and store critical preference data structures
+//
+
 class MyApplication : Application() {
 
     override fun onCreate() {
@@ -118,7 +122,10 @@ class MyApplication : Application() {
         } else {
             R.layout.spinner_row_blue
         }
-        val okhttp3Interceptor = Interceptor { chain ->
+        //
+        // Most HTTP downloads will use the structures setup below
+        //
+        val okHttp3Interceptor = Interceptor { chain ->
             val request = chain.request()
             var response = chain.proceed(request)
             var tryCount = 0
@@ -131,10 +138,12 @@ class MyApplication : Application() {
         httpClient = OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(15, TimeUnit.SECONDS)
-                .addInterceptor(okhttp3Interceptor)
+                .addInterceptor(okHttp3Interceptor)
                 .build()
+
         UtilityTts.initTts(applicationContext)
         UtilityCities.initCitiesArray()
+
         if (!loadedBuffers) {
             initBuffers(this)
         }
@@ -144,6 +153,9 @@ class MyApplication : Application() {
     }
 
     companion object {
+        //
+        // Helper variables referenced in numerous other classes
+        //
         const val packageNameAsString: String = "joshuatee.wx"
         const val packageNameFileNameAsString: String = "joshuatee_wx"
         const val emailAsString: String = "joshua.tee@gmail.com"
@@ -162,18 +174,24 @@ class MyApplication : Application() {
         const val nwsApiUrl = "https://api.weather.gov"
         const val nwsSwpcWebSitePrefix = "https://services.swpc.noaa.gov"
         const val canadaEcSitePrefix = "https://weather.gc.ca"
+
         const val prefSeparator: String = " : : :"
         const val sep = "ABC123"
         const val pre2Pattern = "<pre>(.*?)</pre>"
+
         var uiAnimIconFrames: String = "rid"
+
         const val WIDGET_FILE_BAK: String = "BAK"
+
         val HM_CLASS: MutableMap<String, Class<*>> = mutableMapOf()
         val HM_CLASS_ARGS: MutableMap<String, Array<String>> = mutableMapOf()
         val HM_CLASS_ID: MutableMap<String, String> = mutableMapOf()
+
         var imageCollectionMap: MutableMap<String, ObjectImagesCollection> = mutableMapOf()
         init {
             UtilityHomeScreen.setupMap()
         }
+
         var primaryColor: Int = 0
         const val TEXTVIEW_MAGIC_FUDGE_FACTOR: Float = 4.05f
         var deviceScale: Float = 0f
@@ -236,7 +254,7 @@ class MyApplication : Application() {
         var ridFav: String = ""
         var sndFav: String = ""
         var srefFav: String = ""
-        var spcmesoFav: String = ""
+        var spcMesoFav: String = ""
         var spcmesoLabelFav: String = ""
         var nwsTextFav: String = ""
         var radarColorPalette: MutableMap<String, String> = mutableMapOf()
@@ -257,15 +275,15 @@ class MyApplication : Application() {
         var notifTts: Boolean = false
         var alertBlackoutAmCurrent: Int = 0
         var alertBlackoutPmCurrent: Int = 0
-        var alertTornadoNotificationCurrent: Boolean = false
-        var alertSpcmcdNotificationCurrent: Boolean = false
-        var alertSpcwatNotificationCurrent: Boolean = false
-        var alertSpcswoNotificationCurrent: Boolean = false
-        var alertSpcswoSlightNotificationCurrent: Boolean = false
-        var alertWpcmpdNotificationCurrent: Boolean = false
-        var alertBlackoutTornadoCurrent: Boolean = false
-        var alertNhcEpacNotificationCurrent: Boolean = false
-        var alertNhcAtlNotificationCurrent: Boolean = false
+        var alertTornadoNotification: Boolean = false
+        var alertSpcMcdNotification: Boolean = false
+        var alertSpcWatchNotification: Boolean = false
+        var alertSpcSwoNotification: Boolean = false
+        var alertSpcSwoSlightNotification: Boolean = false
+        var alertWpcMpdNotification: Boolean = false
+        var alertBlackoutTornado: Boolean = false
+        var alertNhcEpacNotification: Boolean = false
+        var alertNhcAtlNotification: Boolean = false
         var alertAutocancel: Boolean = false
         var alertBlackout: Boolean = false
         const val DEGREE_SYMBOL: String = "\u00B0"
@@ -291,15 +309,13 @@ class MyApplication : Application() {
         val severeDashboardWat: DataStorage = DataStorage("SEVERE_DASHBOARD_WAT")
         val severeDashboardMcd: DataStorage = DataStorage("SEVERE_DASHBOARD_MCD")
         val severeDashboardMpd: DataStorage = DataStorage("SEVERE_DASHBOARD_MPD")
-        val watchLatlon: DataStorage = DataStorage("WATCH_LATLON")
-        val watchLatlonTor: DataStorage = DataStorage("WATCH_LATLON_TOR")
-        // Thanks to Ely
+        val watchLatLon: DataStorage = DataStorage("WATCH_LATLON")
+        val watchLatLonTor: DataStorage = DataStorage("WATCH_LATLON_TOR")
         val watchNoList: DataStorage = DataStorage("WATCH_NO_LIST")
-        val watchLatlonList: DataStorage = DataStorage("WATCH_LATLON_LIST")
-        // End thanks to Ely
-        val mcdLatlon: DataStorage = DataStorage("MCD_LATLON")
+        val watchLatLonList: DataStorage = DataStorage("WATCH_LATLON_LIST")
+        val mcdLatLon: DataStorage = DataStorage("MCD_LATLON")
         val mcdNoList: DataStorage = DataStorage("MCD_NO_LIST")
-        val mpdLatlon: DataStorage = DataStorage("MPD_LATLON")
+        val mpdLatLon: DataStorage = DataStorage("MPD_LATLON")
         val mpdNoList: DataStorage = DataStorage("MPD_NO_LIST")
         var wfoTextFav: String = ""
         var wpcTextFav: String = ""
@@ -361,24 +377,22 @@ class MyApplication : Application() {
                     165,
                     172
             ).forEach {
-                radarColorPalette[it.toString()] =
-                        getInitialPreferenceString("RADAR_COLOR_PALETTE_$it", "CODENH")
+                radarColorPalette[it.toString()] = getInitialPreferenceString("RADAR_COLOR_PALETTE_$it", "CODENH")
             }
             cardCorners = TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP,
                     preferences.getInt("CARD_CORNER_RADIUS", 0).toFloat(),
                     dm
-            ) // was 0 as of 2018-10-27
+            )
             telecineVideoSizePercentage = preferencesTelecine.getInt("video-size", 100)
             telecineSwitchShowCountdown = preferencesTelecine.getBoolean("show-countdown", false)
-            telecineSwitchRecordingNotification =
-                    preferencesTelecine.getBoolean("recording-notification", false)
+            telecineSwitchRecordingNotification = preferencesTelecine.getBoolean("recording-notification", false)
             telecineSwitchShowTouches = false
             vrButton = getInitialPreference("VR_BUTTON", "false")
             radarUseJni = getInitialPreference("RADAR_USE_JNI", "false")
             tileDownsize = getInitialPreference("TILE_IMAGE_DOWNSIZE", "false")
             iconsEvenSpaced = getInitialPreference("UI_ICONS_EVENLY_SPACED", "false")
-            simpleMode = getInitialPreference("SIMPLE_MODE", "")
+            simpleMode = getInitialPreference("SIMPLE_MODE", "false")
             checkspc = getInitialPreference("CHECKSPC", "false")
             checkwpc = getInitialPreference("CHECKWPC", "false")
             checktor = getInitialPreference("CHECKTOR", "false")
@@ -396,15 +410,12 @@ class MyApplication : Application() {
             unitsF = getInitialPreference("UNITS_F", "true")
             drawToolColor = getInitialPreference("DRAW_TOOL_COLOR", Color.rgb(255, 0, 0))
             widgetTextColor = getInitialPreference("WIDGET_TEXT_COLOR", Color.WHITE)
-            widgetHighlightTextColor =
-                    getInitialPreference("WIDGET_HIGHLIGHT_TEXT_COLOR", Color.YELLOW)
+            widgetHighlightTextColor = getInitialPreference("WIDGET_HIGHLIGHT_TEXT_COLOR", Color.YELLOW)
             widgetNexradSize = getInitialPreference("WIDGET_NEXRAD_SIZE", 10)
             widgetCCShow7Day = getInitialPreference("WIDGET_CC_DONOTSHOW_7_DAY", "true")
             nwsIconTextColor = getInitialPreference("NWS_ICON_TEXT_COLOR", Color.rgb(38, 97, 139))
-            nwsIconBottomColor =
-                    getInitialPreference("NWS_ICON_BOTTOM_COLOR", Color.rgb(255, 255, 255))
-            nexradRadarBackgroundColor =
-                    getInitialPreference("NEXRAD_RADAR_BACKGROUND_COLOR", Color.rgb(0, 0, 0))
+            nwsIconBottomColor = getInitialPreference("NWS_ICON_BOTTOM_COLOR", Color.rgb(255, 255, 255))
+            nexradRadarBackgroundColor = getInitialPreference("NEXRAD_RADAR_BACKGROUND_COLOR", Color.rgb(0, 0, 0))
             if (UtilityUI.isTablet()) {
                 wxoglSizeDefault = 8
             }
@@ -415,7 +426,7 @@ class MyApplication : Application() {
             ridFav = getInitialPreferenceString("RID_FAV", prefSeparator)
             sndFav = getInitialPreferenceString("SND_FAV", prefSeparator)
             srefFav = getInitialPreferenceString("SREF_FAV", prefSeparator)
-            spcmesoFav = getInitialPreferenceString("SPCMESO_FAV", prefSeparator)
+            spcMesoFav = getInitialPreferenceString("SPCMESO_FAV", prefSeparator)
             spcmesoLabelFav = getInitialPreferenceString("SPCMESO_LABEL_FAV", prefSeparator)
             nwsTextFav = getInitialPreferenceString("NWS_TEXT_FAV", prefSeparator)
             notifSoundUri = getInitialPreferenceString("NOTIF_SOUND_URI", "")
@@ -425,42 +436,35 @@ class MyApplication : Application() {
             spotterFav = getInitialPreferenceString("SPOTTER_FAV", "")
             homescreenFav = getInitialPreferenceString("HOMESCREEN_FAV", HOMESCREEN_FAV_DEFAULT)
             locDisplayImg = homescreenFav.contains("OGL-RADAR") || homescreenFav.contains("NXRD")
-            alertNotificationSoundTornadoCurrent =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_TORNADO", "")
-            alertNotificationSoundSpcmcd =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCMCD", "")
-            alertNotificationSoundWpcmpd =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_WPCMPD", "")
-            alertNotificationSoundNhcEpac =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_EPAC", "")
-            alertNotificationSoundNhcAtl =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_ATL", "")
-            alertNotificationSoundSpcwat =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCWAT", "")
-            alertNotificationSoundSpcswo =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCSWO", "")
-            alertNotificationSoundTextProd =
-                    getInitialPreference("ALERT_NOTIFICATION_SOUND_TEXT_PROD", "")
-            notifSoundRepeat = getInitialPreference("NOTIF_SOUND_REPEAT", "")
-            notifTts = getInitialPreference("NOTIF_TTS", "")
+
+            alertNotificationSoundTornadoCurrent = getInitialPreference("ALERT_NOTIFICATION_SOUND_TORNADO", "false")
+            alertNotificationSoundSpcmcd = getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCMCD", "false")
+            alertNotificationSoundWpcmpd = getInitialPreference("ALERT_NOTIFICATION_SOUND_WPCMPD", "false")
+            alertNotificationSoundNhcEpac = getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_EPAC", "false")
+            alertNotificationSoundNhcAtl = getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_ATL", "false")
+            alertNotificationSoundSpcwat = getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCWAT", "false")
+            alertNotificationSoundSpcswo = getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCSWO", "false")
+
+            alertNotificationSoundTextProd = getInitialPreference("ALERT_NOTIFICATION_SOUND_TEXT_PROD", "false")
+            notifSoundRepeat = getInitialPreference("NOTIF_SOUND_REPEAT", "false")
+            notifTts = getInitialPreference("NOTIF_TTS", "false")
             alertBlackoutAmCurrent = getInitialPreference("ALERT_BLACKOUT_AM", -1)
             alertBlackoutPmCurrent = getInitialPreference("ALERT_BLACKOUT_PM", -1)
-            alertTornadoNotificationCurrent = getInitialPreference("ALERT_TORNADO_NOTIFICATION", "")
-            alertSpcmcdNotificationCurrent = getInitialPreference("ALERT_SPCMCD_NOTIFICATION", "")
-            alertSpcwatNotificationCurrent = getInitialPreference("ALERT_SPCWAT_NOTIFICATION", "")
-            alertSpcswoNotificationCurrent = getInitialPreference("ALERT_SPCSWO_NOTIFICATION", "")
-            alertSpcswoSlightNotificationCurrent =
-                    getInitialPreference("ALERT_SPCSWO_SLIGHT_NOTIFICATION", "")
-            alertWpcmpdNotificationCurrent = getInitialPreference("ALERT_WPCMPD_NOTIFICATION", "")
-            alertBlackoutTornadoCurrent = getInitialPreference("ALERT_BLACKOUT_TORNADO", "")
-            alertNhcEpacNotificationCurrent =
-                    getInitialPreference("ALERT_NHC_EPAC_NOTIFICATION", "")
-            alertNhcAtlNotificationCurrent = getInitialPreference("ALERT_NHC_ATL_NOTIFICATION", "")
+
+            alertTornadoNotification = getInitialPreference("ALERT_TORNADO_NOTIFICATION", "false")
+            alertSpcMcdNotification = getInitialPreference("ALERT_SPCMCD_NOTIFICATION", "false")
+            alertSpcWatchNotification = getInitialPreference("ALERT_SPCWAT_NOTIFICATION", "false")
+            alertSpcSwoNotification = getInitialPreference("ALERT_SPCSWO_NOTIFICATION", "false")
+            alertSpcSwoSlightNotification = getInitialPreference("ALERT_SPCSWO_SLIGHT_NOTIFICATION", "false")
+            alertWpcMpdNotification = getInitialPreference("ALERT_WPCMPD_NOTIFICATION", "false")
+
+            alertBlackoutTornado = getInitialPreference("ALERT_BLACKOUT_TORNADO", "false")
+            alertNhcEpacNotification = getInitialPreference("ALERT_NHC_EPAC_NOTIFICATION", "false")
+            alertNhcAtlNotification = getInitialPreference("ALERT_NHC_ATL_NOTIFICATION", "false")
             alertAutocancel = getInitialPreference("ALERT_AUTOCANCEL", "false")
-            alertBlackout = getInitialPreference("ALERT_BLACKOUT", "")
+            alertBlackout = getInitialPreference("ALERT_BLACKOUT", "false")
             playlistStr = getInitialPreferenceString("PLAYLIST", "")
-            notifTextProdStr =
-                    getInitialPreferenceString(UtilityNotificationTextProduct.PREF_TOKEN, "")
+            notifTextProdStr = getInitialPreferenceString(UtilityNotificationTextProduct.PREF_TOKEN, "")
             WXGLNexrad.colorPaletteProducts.forEach {
                 radarColorPaletteList[it] = getInitialPreferenceString("RADAR_COLOR_PALETTE_" + it + "_LIST", "")
             }
@@ -477,12 +481,12 @@ class MyApplication : Application() {
             severeDashboardMcd.update(context)
             severeDashboardMpd.update(context)
             watchNoList.update(context)
-            watchLatlonList.update(context)
-            watchLatlon.update(context)
-            watchLatlonTor.update(context)
-            mcdLatlon.update(context)
+            watchLatLonList.update(context)
+            watchLatLon.update(context)
+            watchLatLonTor.update(context)
+            mcdLatLon.update(context)
             mcdNoList.update(context)
-            mpdLatlon.update(context)
+            mpdLatLon.update(context)
             mpdNoList.update(context)
             wfoTextFav = getInitialPreferenceString("WFO_TEXT_FAV", "AFD")
             wpcTextFav = getInitialPreferenceString("WPC_TEXT_FAV", "pmdspd")
@@ -561,15 +565,14 @@ class MyApplication : Application() {
         var radarColorObsWindbarbs: Int = 0
         var radarColorCountyLabels: Int = 0
         var radarWarningPolygons = mutableListOf<ObjectPolygonWarning>()
-        val animationIntervalDefault = 8
+        const val animationIntervalDefault = 8
 
         private fun radarGeometrySetColors() {
             radarColorHw = getInitialPreference("RADAR_COLOR_HW", Color.rgb(135, 135, 135))
             radarColorHwExt = getInitialPreference("RADAR_COLOR_HW_EXT", Color.rgb(91, 91, 91))
             radarColorState = getInitialPreference("RADAR_COLOR_STATE", Color.rgb(255, 255, 255))
             radarColorTstorm = getInitialPreference("RADAR_COLOR_TSTORM", Color.rgb(255, 255, 0))
-            radarColorTstormWatch =
-                    getInitialPreference("RADAR_COLOR_TSTORM_WATCH", Color.rgb(255, 187, 0))
+            radarColorTstormWatch = getInitialPreference("RADAR_COLOR_TSTORM_WATCH", Color.rgb(255, 187, 0))
             radarColorTor = getInitialPreference("RADAR_COLOR_TOR", Color.rgb(243, 85, 243))
             radarColorTorWatch = getInitialPreference("RADAR_COLOR_TOR_WATCH", Color.rgb(255, 0, 0))
             radarColorFfw = getInitialPreference("RADAR_COLOR_FFW", Color.rgb(0, 255, 0))
@@ -583,10 +586,8 @@ class MyApplication : Application() {
             radarColorSti = getInitialPreference("RADAR_COLOR_STI", Color.rgb(255, 255, 255))
             radarColorHi = getInitialPreference("RADAR_COLOR_HI", Color.rgb(0, 255, 0))
             radarColorObs = getInitialPreference("RADAR_COLOR_OBS", Color.rgb(255, 255, 255))
-            radarColorObsWindbarbs =
-                    getInitialPreference("RADAR_COLOR_OBS_WINDBARBS", Color.rgb(255, 255, 255))
-            radarColorCountyLabels =
-                    getInitialPreference("RADAR_COLOR_COUNTY_LABELS", Color.rgb(234, 214, 123))
+            radarColorObsWindbarbs = getInitialPreference("RADAR_COLOR_OBS_WINDBARBS", Color.rgb(255, 255, 255))
+            radarColorCountyLabels = getInitialPreference("RADAR_COLOR_COUNTY_LABELS", Color.rgb(234, 214, 123))
         }
 
         private fun initRadarGeometryAll(context: Context) {
@@ -712,10 +713,9 @@ class MyApplication : Application() {
         // Radar Preferences
         //
         const val NWS_RADAR_PUB: String = "https://tgftp.nws.noaa.gov/"
-        const val nwsRadarLevel2Pub: String =
-                "https://nomads.ncep.noaa.gov/pub/data/nccf/radar/nexrad_level2/"
+        const val nwsRadarLevel2Pub: String = "https://nomads.ncep.noaa.gov/pub/data/nccf/radar/nexrad_level2/"
         var radarWarnings: Boolean = false
-        var locdotFollowsGps: Boolean = false
+        var locationDotFollowsGps: Boolean = false
         var dualpaneshareposn: Boolean = false
         var radarSpotters: Boolean = false
         var radarSpottersLabel: Boolean = false
@@ -736,7 +736,7 @@ class MyApplication : Application() {
         var radarHi: Boolean = false
         var radarTvs: Boolean = false
         var radarShowLegend: Boolean = false
-        var drawtoolSize: Int = 0
+        var drawToolSize: Int = 0
         var radarObsExtZoom: Int = 0
         var radarSpotterSize: Int = 0
         var radarAviationSize: Int = 0
@@ -744,10 +744,10 @@ class MyApplication : Application() {
         var radarLocdotSize: Int = 0
         var radarHiSize: Int = 0
         var radarTvsSize: Int = 0
-        var radarWarnLinesize: Int = 5
-        val radarWarnLinesizeDefault = 5
-        var radarWatmcdLinesize: Int = 4
-        var radarWatmcdLinesizeDefault: Int = 4
+        var radarWarnLineSize: Float = 5.0f
+        const val radarWarnLineSizeDefault = 5
+        var radarWatchMcdLineSize: Float = 4.0f
+        var radarWatchMcdLineSizeDefault: Int = 4
         private var radarHwEnh: Boolean = true
         var radarHwEnhExt: Boolean = false
         private var radarCamxBorders: Boolean = false
@@ -763,16 +763,15 @@ class MyApplication : Application() {
         var radarWbLineSize: Int = 0
         var wxoglCenterOnLocation: Boolean = false
         var radarShowWpcFronts: Boolean = false
-
-        var radarSpotterSizeDefault = 4
-        var radarAviationSizeDefault = 7
-        var radarLocdotSizeDefault = 8
+        var radarSpotterSizeDefault: Int = 4
+        var radarAviationSizeDefault: Int = 7
+        var radarLocationDotSizeDefault: Int = 8
 
         private fun initRadarPreferences() {
             radarShowWpcFronts = getInitialPreference("RADAR_SHOW_WPC_FRONTS", "false")
             radarLocationUpdateInterval = getInitialPreference("RADAR_LOCATION_UPDATE_INTERVAL", 10)
             radarWarnings = getInitialPreference("COD_WARNINGS_DEFAULT", "false")
-            locdotFollowsGps = getInitialPreference("LOCDOT_FOLLOWS_GPS", "false")
+            locationDotFollowsGps = getInitialPreference("LOCDOT_FOLLOWS_GPS", "false")
             dualpaneshareposn = getInitialPreference("DUALPANE_SHARE_POSN", "true")
             radarSpotters = getInitialPreference("WXOGL_SPOTTERS", "false")
             radarSpottersLabel = getInitialPreference("WXOGL_SPOTTERS_LABEL", "false")
@@ -797,23 +796,23 @@ class MyApplication : Application() {
             radarIconsLevel2 = getInitialPreference("WXOGL_ICONS_LEVEL2", "false")
             radarShowLegend = getInitialPreference("RADAR_SHOW_LEGEND", "false")
             wxoglCenterOnLocation = getInitialPreference("RADAR_CENTER_ON_LOCATION", "false")
-            drawtoolSize = getInitialPreference("DRAWTOOL_SIZE", 4)
+            drawToolSize = getInitialPreference("DRAWTOOL_SIZE", 4)
 
             if (UtilityUI.isTablet()) {
                 radarSpotterSizeDefault = 2
                 radarAviationSizeDefault = 3
-                radarLocdotSizeDefault = 4
+                radarLocationDotSizeDefault = 4
             }
 
             radarObsExtZoom = getInitialPreference("RADAR_OBS_EXT_ZOOM", 7)
             radarSpotterSize = getInitialPreference("RADAR_SPOTTER_SIZE", radarSpotterSizeDefault)
             radarAviationSize = getInitialPreference("RADAR_AVIATION_SIZE", radarAviationSizeDefault)
             radarTextSize = getInitialPreference("RADAR_TEXT_SIZE", 1.0f)
-            radarLocdotSize = getInitialPreference("RADAR_LOCDOT_SIZE", radarLocdotSizeDefault)
+            radarLocdotSize = getInitialPreference("RADAR_LOCDOT_SIZE", radarLocationDotSizeDefault)
             radarHiSize = getInitialPreference("RADAR_HI_SIZE", 8)
             radarTvsSize = getInitialPreference("RADAR_TVS_SIZE", 8)
-            radarWarnLinesize = getInitialPreference("RADAR_WARN_LINESIZE", radarWarnLinesizeDefault)
-            radarWatmcdLinesize = getInitialPreference("RADAR_WATMCD_LINESIZE", radarWatmcdLinesizeDefault)
+            radarWarnLineSize = getInitialPreference("RADAR_WARN_LINESIZE", radarWarnLineSizeDefault).toFloat()
+            radarWatchMcdLineSize = getInitialPreference("RADAR_WATMCD_LINESIZE", radarWatchMcdLineSizeDefault).toFloat()
             radarStateLineSize = getInitialPreference("RADAR_STATE_LINESIZE", 2)
             radarCountyLineSize = getInitialPreference("RADAR_COUNTY_LINESIZE", 2)
             radarHwLineSize = getInitialPreference("RADAR_HW_LINESIZE", 2)

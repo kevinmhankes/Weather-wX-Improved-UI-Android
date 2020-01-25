@@ -162,7 +162,7 @@ object UtilityFavorites {
         }
         Utility.writePref(context, "SPCMESO_FAV", ridFav)
         Utility.writePref(context, "SPCMESO_LABEL_FAV", ridFavLabel)
-        MyApplication.spcmesoFav = ridFav
+        MyApplication.spcMesoFav = ridFav
         MyApplication.spcmesoLabelFav = ridFavLabel
     }
 

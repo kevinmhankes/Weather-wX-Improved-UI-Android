@@ -20,9 +20,11 @@
 // TODO [FIX] use dialogue instead of spinners when it makes sense: more flexible and cleaner code
 // TODO [ADD] warning count in nexrad
 // TODO [REF] reconcile  utilPref2 for items that don't need to be set here
+// TODO [FIX] chromeOS - navigate from main screen to hourly, two finger swipe does not work w/o focus to text
 
 55332 2020_01_25    [FIX] In national text activity combine the first two subsections into one section as they are basically the same
                     [FIX] reconcile  utilPref2 for items that don't need to be set here - WIP
+                    [REF] various variable camelCase/rename in MyApp
 55331 2020_01_25    [FIX] on tablet reduce padding around location label on main screen
                     [ADD] CLI product in WFO (significant due to subsites per WFO)
 55330 2020_01_25    [ADD] convert WFO Text viewer to use navigation drawer for products and submenu for actions

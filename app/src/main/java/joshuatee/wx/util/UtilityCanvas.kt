@@ -182,10 +182,10 @@ internal object UtilityCanvas {
         paint.color = polyType.color
         var prefToken = ""
         when (polyType) {
-            PolygonType.MCD -> prefToken = MyApplication.mcdLatlon.value
-            PolygonType.MPD -> prefToken = MyApplication.mpdLatlon.value
-            PolygonType.WATCH -> prefToken = MyApplication.watchLatlon.value
-            PolygonType.WATCH_TORNADO -> prefToken = MyApplication.watchLatlonTor.value
+            PolygonType.MCD -> prefToken = MyApplication.mcdLatLon.value
+            PolygonType.MPD -> prefToken = MyApplication.mpdLatLon.value
+            PolygonType.WATCH -> prefToken = MyApplication.watchLatLon.value
+            PolygonType.WATCH_TORNADO -> prefToken = MyApplication.watchLatLonTor.value
             else -> {
             }
         }

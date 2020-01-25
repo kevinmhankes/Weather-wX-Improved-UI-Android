@@ -197,7 +197,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 displayData.paramLabel[curImg]
         )
         favListParm = UtilityFavorites.setupFavMenuSpcMeso(
-                MyApplication.spcmesoFav,
+                MyApplication.spcMesoFav,
                 displayData.param[curImg]
         )
         sp = ObjectSpinner(this, this, this, R.id.spinner1, favListLabel)
@@ -227,7 +227,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 displayData.paramLabel[curImg]
         )
         favListParm = UtilityFavorites.setupFavMenuSpcMeso(
-                MyApplication.spcmesoFav,
+                MyApplication.spcMesoFav,
                 displayData.param[curImg]
         )
         sp.refreshData(this@SpcMesoActivity, favListLabel)
@@ -235,7 +235,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        if (MyApplication.spcmesoFav.contains(":" + displayData.param[curImg] + ":"))
+        if (MyApplication.spcMesoFav.contains(":" + displayData.param[curImg] + ":"))
             star.setIcon(MyApplication.STAR_ICON)
         else
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
@@ -509,7 +509,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 displayData.paramLabel[curImg]
         )
         favListParm = UtilityFavorites.setupFavMenuSpcMeso(
-                MyApplication.spcmesoFav,
+                MyApplication.spcMesoFav,
                 displayData.param[curImg]
         )
         sp.refreshData(this@SpcMesoActivity, favListLabel)
@@ -557,7 +557,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 displayData.paramLabel[curImg]
         )
         favListParm = UtilityFavorites.setupFavMenuSpcMeso(
-                MyApplication.spcmesoFav,
+                MyApplication.spcMesoFav,
                 displayData.param[curImg]
         )
         sp.refreshData(this@SpcMesoActivity, favListLabel)

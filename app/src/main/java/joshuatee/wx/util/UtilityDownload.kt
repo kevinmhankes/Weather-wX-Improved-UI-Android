@@ -203,7 +203,7 @@ object UtilityDownload {
             }
             "SPCMESO1" -> {
                 var param = "500mb"
-                tmpArr = MyApplication.spcmesoFav.split(":").dropLastWhile { it.isEmpty() }
+                tmpArr = MyApplication.spcMesoFav.split(":").dropLastWhile { it.isEmpty() }
                 if (tmpArr.size > 3) {
                     param = tmpArr[3]
                 }
@@ -220,7 +220,7 @@ object UtilityDownload {
             }
             "SPCMESO2" -> {
                 var param = "pmsl"
-                tmpArr = MyApplication.spcmesoFav.split(":")
+                tmpArr = MyApplication.spcMesoFav.split(":")
                 if (tmpArr.size > 4) param = tmpArr[4]
                 needsBitmap = false
                 bm = UtilitySpcMesoInputOutput.getImage(
@@ -235,7 +235,7 @@ object UtilityDownload {
             }
             "SPCMESO3" -> {
                 var param = "ttd"
-                tmpArr = MyApplication.spcmesoFav.split(":")
+                tmpArr = MyApplication.spcMesoFav.split(":")
                 if (tmpArr.size > 5) param = tmpArr[5]
                 needsBitmap = false
                 bm = UtilitySpcMesoInputOutput.getImage(
@@ -250,7 +250,7 @@ object UtilityDownload {
             }
             "SPCMESO4" -> {
                 var param = "rgnlrad"
-                tmpArr = MyApplication.spcmesoFav.split(":")
+                tmpArr = MyApplication.spcMesoFav.split(":")
                 if (tmpArr.size > 6) param = tmpArr[6]
                 needsBitmap = false
                 bm = UtilitySpcMesoInputOutput.getImage(
@@ -265,7 +265,7 @@ object UtilityDownload {
             }
             "SPCMESO5" -> {
                 var param = "lllr"
-                tmpArr = MyApplication.spcmesoFav.split(":")
+                tmpArr = MyApplication.spcMesoFav.split(":")
                 if (tmpArr.size > 7) param = tmpArr[7]
                 needsBitmap = false
                 bm = UtilitySpcMesoInputOutput.getImage(
@@ -280,7 +280,7 @@ object UtilityDownload {
             }
             "SPCMESO6" -> {
                 var param = "laps"
-                tmpArr = MyApplication.spcmesoFav.split(":")
+                tmpArr = MyApplication.spcMesoFav.split(":")
                 if (tmpArr.size > 8) param = tmpArr[8]
                 needsBitmap = false
                 bm = UtilitySpcMesoInputOutput.getImage(
@@ -517,29 +517,29 @@ object UtilityDownload {
             text = textUrl.getHtmlSep()
             text = text.parse("<div class=.haztext.>(.*?)</div>")
         } else if (prod.contains("PMD30D")) {
-            val textUrl = "https://tgftp.nws.noaa.gov/data/raw/fx/fxus07.kwbc.pmd.30d.txt";
+            val textUrl = "https://tgftp.nws.noaa.gov/data/raw/fx/fxus07.kwbc.pmd.30d.txt"
             text = textUrl.getHtmlSep()
             text = text.removeLineBreaks()
         } else if (prod.contains("PMD90D")) {
-            val textUrl = "https://tgftp.nws.noaa.gov/data/raw/fx/fxus05.kwbc.pmd.90d.txt";
+            val textUrl = "https://tgftp.nws.noaa.gov/data/raw/fx/fxus05.kwbc.pmd.90d.txt"
             text = textUrl.getHtmlSep()
             text = text.removeLineBreaks()
         } else if (prod.contains("PMDHCO")) {
-            val textUrl = "https://tgftp.nws.noaa.gov/data/raw/fx/fxhw40.kwbc.pmd.hco.txt";
+            val textUrl = "https://tgftp.nws.noaa.gov/data/raw/fx/fxhw40.kwbc.pmd.hco.txt"
             text = textUrl.getHtmlSep()
         } else if (prod.startsWith("RWR")) {
-            val product = prod.substring(0, 3);
-            val location = prod.substring(3).replace("%", "");
+            val product = prod.substring(0, 3)
+            val location = prod.substring(3).replace("%", "")
             val locationName = Utility.getWfoSiteName(location)
             val state = locationName.split(",")[0]
             //final masterHtml = await ("https://www.weather.gov/" + location + "/textproducts").getHtmlSep();
-            val url = "https://forecast.weather.gov/product.php?site=" + location + "&issuedby=" + state + "&product=" + product
+            val url = "https://forecast.weather.gov/product.php?site=$location&issuedby=$state&product=$product"
             // https://forecast.weather.gov/product.php?site=ILX&issuedby=IL&product=RWR
             text = url.getHtmlSep()
             text = UtilityString.extractPreLsr(text)
             text = text.replace("<br>", "\n")
         } else if (prod.startsWith("CLI")) {
-            val product = prod.substring(0, 3)
+            //val product = prod.substring(0, 3)
             val location = prod.substring(3, 6).replace("%", "")
             val wfo = prod.substring(6).replace("%", "")
             // TODO each WFO has multiple locations for this product
@@ -553,7 +553,6 @@ object UtilityDownload {
             var t2 = prod.substring(3)
             t2 = t2.replace("%", "")
             val url = MyApplication.nwsApiUrl + "/products/types/$t1/locations/$t2"
-            UtilityLog.d("wx", "NWSTEXT: " + url)
             val html = url.getNwsHtml()
             val urlProd = html.parse("\"id\": \"(.*?)\"")
             val prodHtml = (MyApplication.nwsApiUrl + "/products/$urlProd").getNwsHtml()

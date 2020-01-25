@@ -938,7 +938,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
-            if (MyApplication.locdotFollowsGps && !archiveMode) {
+            if (MyApplication.locationDotFollowsGps && !archiveMode) {
                 makeUseOfNewLocation(location)
             }
         }

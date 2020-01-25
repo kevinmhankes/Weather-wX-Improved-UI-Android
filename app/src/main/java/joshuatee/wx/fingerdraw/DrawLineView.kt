@@ -92,7 +92,7 @@ class DrawLineView : View {
         this.setOnTouchListener(drawListener)
         paint.color = MyApplication.drawToolColor
         paint.isAntiAlias = true
-        paint.strokeWidth = MyApplication.drawtoolSize.toFloat()
+        paint.strokeWidth = MyApplication.drawToolSize.toFloat()
         paint.textSize = textSize
         paintText.color = Color.WHITE
         if (!MyApplication.blackBg) {

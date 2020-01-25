@@ -58,7 +58,7 @@ internal object UtilityDownloadMpd {
         }
         val locationNeedsMpd = UtilityNotificationWpc.locationNeedsMpd()
         if (PolygonType.MPD.pref || locationNeedsMpd) {
-            MyApplication.mpdLatlon.valueSet(context, latLonString)
+            MyApplication.mpdLatLon.valueSet(context, latLonString)
         }
         return WatchData(numberList, htmlList)
     }
