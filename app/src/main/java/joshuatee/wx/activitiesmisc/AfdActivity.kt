@@ -22,6 +22,7 @@
 package joshuatee.wx.activitiesmisc
 
 import android.annotation.SuppressLint
+import android.graphics.Typeface
 import java.util.Locale
 
 import androidx.cardview.widget.CardView
@@ -176,7 +177,19 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         if (html == "") {
             html = "None issued by this office recently."
         }
-        textCard.setTextAndTranslate(Utility.fromHtml(html))
+
+        if (product == "RTP" || product == "RWR") {
+            textCard.setTextAndTranslate(html)
+        } else {
+            textCard.setTextAndTranslate(Utility.fromHtml(html))
+        }
+
+        if (product == "RTP" || product == "RWR") {
+            textCard.tv.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
+        } else {
+            textCard.tv.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+        }
+
         UtilityTts.conditionalPlay(activityArguments, 2, applicationContext, html, product)
         if (activityArguments[1] == "") {
             Utility.writePref(this@AfdActivity, "WFO_TEXT_FAV", product)
@@ -220,6 +233,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             R.id.action_rva -> getProduct("RVA")
             R.id.action_esf -> getProduct("ESF")
             R.id.action_rtp -> getProduct("RTP")
+            R.id.action_rwr -> getProduct("RWR")
             R.id.action_fwf -> getProduct("FWF")
             R.id.action_pns -> getProduct("PNS")
             R.id.action_lsr -> getProduct("LSR")

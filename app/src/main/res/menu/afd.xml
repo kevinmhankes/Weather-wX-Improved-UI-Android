@@ -98,6 +98,10 @@
         android:title="Regional Temp/Precip Summary"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_rwr"
+        android:title="Regional Weather Roundup"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_fwf"
         android:title="Fire Weather Forecast"
         app:showAsAction="never" />

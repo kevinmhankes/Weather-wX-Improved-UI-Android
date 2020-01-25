@@ -32,6 +32,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.radar.LatLon
 import joshuatee.wx.radar.UtilityRadar
 import joshuatee.wx.radar.UtilityRadarUI
 import joshuatee.wx.ui.UtilityUI
@@ -69,7 +70,7 @@ object Utility {
         return UtilityRadar.radarSiteToLon[radarSite] ?: ""
     }
 
-    /*fun getWfoSiteName(wfo: String): String {
+    fun getWfoSiteName(wfo: String): String {
         return UtilityRadar.wfoIdToName[wfo] ?: ""
     }
 
@@ -77,7 +78,7 @@ object Utility {
         val lat = UtilityRadar.wfoSitetoLat[wfo] ?: ""
         val lon = UtilityRadar.wfoSitetoLon[wfo] ?: ""
         return LatLon(lat, lon)
-    }*/
+    }
 
     /*fun getSoundingSiteLatLon(wfo: String): LatLon {
         val lat = UtilityRadar.soundingSiteToLat[wfo] ?: ""

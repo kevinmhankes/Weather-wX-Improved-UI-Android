@@ -512,6 +512,17 @@ object UtilityDownload {
             )
             text = text.removeBreaks()
             UtilityLog.d("wx", text)
+        } else if (prod.startsWith("RWR")) {
+            val product = prod.substring(0, 3);
+            val location = prod.substring(3).replace("%", "");
+            val locationName = Utility.getWfoSiteName(location)
+            val state = locationName.split(",")[0]
+            //final masterHtml = await ("https://www.weather.gov/" + location + "/textproducts").getHtmlSep();
+            val url = "https://forecast.weather.gov/product.php?site=" + location + "&issuedby=" + state + "&product=" + product
+            // https://forecast.weather.gov/product.php?site=ILX&issuedby=IL&product=RWR
+            text = url.getHtmlSep()
+            text = UtilityString.extractPreLsr(text)
+            text = text.replace("<br>", "\n")
         } else if (prod.contains("CTOF")) {
             text = "Celsius to Fahrenheit table" + MyApplication.newline + UtilityMath.celsiusToFahrenheitTable()
         } else {
@@ -524,8 +535,12 @@ object UtilityDownload {
             val urlProd = html.parse("\"id\": \"(.*?)\"")
             val prodHtml = (MyApplication.nwsApiUrl + "/products/$urlProd").getNwsHtml()
             text = UtilityString.parseAcrossLines(prodHtml, "\"productText\": \"(.*?)\\}")
-            text = text.replace("\\n\\n", "<BR>")
-            text = text.replace("\\n", " ")
+            if (!prod.startsWith("RTP")) {
+                text = text.replace("\\n\\n", "<BR>")
+                text = text.replace("\\n", " ")
+            } else {
+                text = text.replace("\\n", "\n")
+            }
         }
         UtilityPlayList.checkAndSave(context, prod, text)
         return text
