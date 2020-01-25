@@ -376,7 +376,7 @@ class MyApplication : Application() {
             vrButton = getInitialPreference("VR_BUTTON", "false")
             radarUseJni = getInitialPreference("RADAR_USE_JNI", "false")
             tileDownsize = getInitialPreference("TILE_IMAGE_DOWNSIZE", "false")
-            iconsEvenSpaced = getInitialPreference("UI_ICONS_EVENLY_SPACED", "true")
+            iconsEvenSpaced = getInitialPreference("UI_ICONS_EVENLY_SPACED", "false")
             simpleMode = getInitialPreference("SIMPLE_MODE", "")
             checkspc = getInitialPreference("CHECKSPC", "false")
             checkwpc = getInitialPreference("CHECKWPC", "false")

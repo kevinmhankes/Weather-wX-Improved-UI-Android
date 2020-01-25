@@ -90,7 +90,7 @@ object UtilityPref2 {
             val mediaControlNotifDefault = "false"
             val codForVisDefault = "true"
             val ouForSoundingsDefault = "false"
-            editor.putString("UI_ICONS_EVENLY_SPACED", "false")
+            //editor.putString("UI_ICONS_EVENLY_SPACED", "false")
             editor.putString("ALERT_ONLYONCE", "true")
             editor.putString("ALERT_AUTOCANCEL", "true")
             editor.putInt("RADAR_WARN_LINESIZE", 5)
