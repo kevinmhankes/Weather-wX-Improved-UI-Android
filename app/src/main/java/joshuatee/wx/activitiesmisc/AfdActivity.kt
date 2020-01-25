@@ -132,8 +132,6 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 prefToken
         )
 
-        //checkForCliSite()
-
         spinner = ObjectSpinner(this, this, this, R.id.spinner1, locationList)
         imageMap = ObjectImageMap(
                 this,
