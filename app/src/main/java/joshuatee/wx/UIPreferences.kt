@@ -74,7 +74,7 @@ object UIPreferences {
         mainScreenRadarFab = Utility.readPref(context, "UI_MAIN_SCREEN_RADAR_FAB", "true").startsWith("t")
         homescreenTextLength = Utility.readPref(context, "HOMESCREEN_TEXT_LENGTH_PREF", 500)
         refreshLocMin = Utility.readPref(context, "REFRESH_LOC_MIN", 10)
-        translateText = Utility.readPref(context, "TRANSLATE_TEXT", "").startsWith("t")
+        translateText = Utility.readPref(context, "TRANSLATE_TEXT", "false").startsWith("t")
         nwsTextRemovelinebreaks = Utility.readPref(context, "NWS_TEXT_REMOVELINEBREAKS", "true").startsWith("t")
         recordScreenShare = Utility.readPref(context, "RECORD_SCREEN_SHARE", "true").startsWith("t")
         prefPreventAccidentalExit = Utility.readPref(context, "PREF_PREVENT_ACCIDENTAL_EXIT", "true").startsWith("t")

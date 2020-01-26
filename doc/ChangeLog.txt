@@ -1,28 +1,19 @@
 // TODO [ADD] Level 2 BV colormap and wrapping (Alex)
 // TODO [FIX] base velocity legend
 // TODO [ADD] line size - swo, wb, wb gusts, sti
-// TODO [ADD] make location update interval configurable
-// TODO [ADD] add vtec end date check to tor notification
-// TODO [ADD] color pal , allow cloning of a user created pal
-// TODO [ADD] in Tabs show labels in addition or instead of icons
 // TODO [REF] OkHttp 3.13 Requires Android 5+ – Square Corner Blog – Medium  https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce
-// TODO [REF] UtilityMetar in radar has optimization related to text file loading
 // TODO [REF] move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
 // TODO [FIX] fix issue for precipitation radar products when there is no data
 // TODO [FIX] in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
 // TODO [FIX] many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
-// TODO [FIX] if change between radar mosaic provides, change on misc tab is not immediate
-// TODO [FIX] minimize app restarts such as after homescreen changes (test nexrad addition/removal)
 // TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
 // TODO [ADD] enhance radar obs to support multipane
 // TODO [ADD] radar file class from flutter
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
-// TODO [FIX] use dialogue instead of spinners when it makes sense: more flexible and cleaner code
 // TODO [ADD] warning count in nexrad
-// TODO [REF] reconcile  utilPref2 for items that don't need to be set here
-// TODO [FIX] chromeOS - navigate from main screen to hourly, two finger swipe does not work w/o focus to text
 
-55333 2020_01_25
+55333 2020_01_25    [FIX] in hourly have text card request focus (chromebook)
+                    [ADD] com.squareup.okhttp3:okhttp:3.12.3 -> com.squareup.okhttp3:okhttp:3.12.8
 55332 2020_01_25    [FIX] In national text activity combine the first two subsections into one section as they are basically the same
                     [FIX] reconcile  utilPref2 for items that don't need to be set here - WIP
                     [REF] various variable camelCase/rename in MyApp

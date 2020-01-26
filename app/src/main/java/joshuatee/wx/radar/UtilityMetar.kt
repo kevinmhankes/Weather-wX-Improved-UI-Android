@@ -49,7 +49,7 @@ internal object UtilityMetar {
     var obsArrWbGust = listOf<String>()
     var obsArrAviationColor = listOf<Int>()
     private var obsStateOld = ""
-    private val OBS_LATLON = mutableMapOf<String, Array<String>>()
+    private val obsLatLon = mutableMapOf<String, Array<String>>()
     var timer = DownloadTimer("METAR")
 
     fun getStateMetarArrayForWXOGL(context: Context, rid: String) {
@@ -64,19 +64,16 @@ internal object UtilityMetar {
             obsStateOld = rid
             val obsList = getObservationSites(context, rid)
             // https://www.aviationweather.gov/metar/data?ids=KDTW%2CKARB&format=raw&date=&hours=0
-            val html =
-                "${MyApplication.nwsAWCwebsitePrefix}/adds/metars/index?submit=1&station_ids=$obsList&chk_metars=on".getHtml()
-            val metarArrTmp =
-                    html.parseColumn("<FONT FACE=\"Monospace,Courier\">(.*?)</FONT><BR>")
+            val html = "${MyApplication.nwsAWCwebsitePrefix}/adds/metars/index?submit=1&station_ids=$obsList&chk_metars=on".getHtml()
+            val metarArrTmp = html.parseColumn("<FONT FACE=\"Monospace,Courier\">(.*?)</FONT><BR>")
             val metarArr = condenseObs(metarArrTmp)
             if (!initializedObsMap) {
-                val xmlFileInputStream = context.resources.openRawResource(R.raw.us_metar3)
-                val text = UtilityIO.readTextFile(xmlFileInputStream)
+                val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
                 val lines = text.split("\n").dropLastWhile { it.isEmpty() }
                 var tmpArr: List<String>
                 lines.forEach {
                     tmpArr = it.split(" ")
-                    OBS_LATLON[tmpArr[0]] = arrayOf(tmpArr[1], tmpArr[2])
+                    obsLatLon[tmpArr[0]] = arrayOf(tmpArr[1], tmpArr[2])
                 }
                 initializedObsMap = true
             }
@@ -98,7 +95,7 @@ internal object UtilityMetar {
             var latLon: Array<String>
             var windDir = ""
             var windInKt = ""
-            var windgustInKt = ""
+            var windGustInKt = ""
             var windDirD: Double
             var validWind: Boolean
             var validWindGust: Boolean
@@ -186,10 +183,10 @@ internal object UtilityMetar {
                         validWindGust = true
                         windDir = windBlob.substring(0, 3)
                         windInKt = windBlob.substring(3, 5)
-                        windgustInKt = windBlob.substring(6, 8)
+                        windGustInKt = windBlob.substring(6, 8)
                         windDirD = windDir.toDoubleOrNull() ?: 0.0
                         windBlob = windDir + " (" + UtilityMath.convertWindDir(windDirD) + ") " +
-                                windInKt + " G " + windgustInKt + " kt"
+                                windInKt + " G " + windGustInKt + " kt"
                     }
                     if (tdArr.size > 1) {
                         t = tdArr[0]
@@ -197,7 +194,7 @@ internal object UtilityMetar {
                         t = UtilityMath.celsiusToFahrenheit(t.replace("M", "-"))
                         d = UtilityMath.celsiusToFahrenheit(d.replace("M", "-"))
                         obsSite = tmpArr2[0]
-                        latLon = OBS_LATLON[obsSite] ?: arrayOf("0.0", "0.0")
+                        latLon = obsLatLon[obsSite] ?: arrayOf("0.0", "0.0")
                         if (latLon[0] != "0.0") {
                             obsAl.add(latLon[0] + ":" + latLon[1] + ":" + t + "/" + d)
                             obsAlExt.add(
@@ -217,7 +214,7 @@ internal object UtilityMetar {
                                     obsAlAviationColor.add(aviationColor)
                                 }
                                 if (validWindGust) {
-                                    obsAlWbGust.add(latLon[0] + ":" + latLon[1] + ":" + windDir + ":" + windgustInKt)
+                                    obsAlWbGust.add(latLon[0] + ":" + latLon[1] + ":" + windDir + ":" + windGustInKt)
                                 }
                             } catch (e: Exception) {
                                 UtilityLog.handleException(e)
@@ -239,8 +236,7 @@ internal object UtilityMetar {
     }
 
     fun findClosestMetar(context: Context, location: LatLon): String {
-        val xmlFileInputStream = context.resources.openRawResource(R.raw.us_metar3)
-        val text = UtilityIO.readTextFile(xmlFileInputStream)
+        val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }
         val metarSites = mutableListOf<RID>()
         lines.indices.forEach {
@@ -267,8 +263,7 @@ internal object UtilityMetar {
     }
 
     fun findClosestObservation(context: Context, location: LatLon): RID {
-        val xmlFileInputStream = context.resources.openRawResource(R.raw.us_metar3)
-        val text = UtilityIO.readTextFile(xmlFileInputStream)
+        val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }
         val metarSites = mutableListOf<RID>()
         lines.indices.forEach {
@@ -295,8 +290,7 @@ internal object UtilityMetar {
     private fun getObservationSites(context: Context, rid: String): String {
         val radarLocation = UtilityLocation.getSiteLocation(context, rid)
         val obsListSb = StringBuilder(100)
-        val xmlFileInputStream = context.resources.openRawResource(R.raw.us_metar3)
-        val text = UtilityIO.readTextFile(xmlFileInputStream)
+        val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }
         val obsSites = mutableListOf<RID>()
         lines.forEach {

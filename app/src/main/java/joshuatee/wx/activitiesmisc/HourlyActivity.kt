@@ -98,6 +98,7 @@ class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
                 hourlyData.conditions
             )
         )
+        objectCardVerticalText.card.requestFocus()
         plotData()
     }
 

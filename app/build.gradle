@@ -114,7 +114,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     // Other
-    implementation "com.squareup.okhttp3:okhttp:3.12.3"
+    implementation "com.squareup.okhttp3:okhttp:3.12.8"
     implementation 'com.jjoe64:graphview:4.2.2'
 }
 
