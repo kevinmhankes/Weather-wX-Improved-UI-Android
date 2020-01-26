@@ -245,13 +245,14 @@ internal object UtilityMetar {
     // Method below is similar, please see comments below for more information
     //
     fun findClosestMetar(context: Context, location: LatLon): String {
-        val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
+        /*val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }
         val metarSites = mutableListOf<RID>()
         lines.indices.forEach {
             val tokens = lines[it].split(" ")
             metarSites.add(RID(tokens[0], LatLon(tokens[1], tokens[2])))
-        }
+        }*/
+        readMetarData(context)
         var shortestDistance = 1000.00
         var currentDistance: Double
         var bestRid = -1
