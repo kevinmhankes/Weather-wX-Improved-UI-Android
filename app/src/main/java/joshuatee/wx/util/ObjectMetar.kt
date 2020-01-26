@@ -32,6 +32,10 @@ import java.util.*
 internal class ObjectMetar(context: Context, location: LatLon) {
 
 
+    //
+    // This is used to show the current conditions on the main screen of the app
+    //
+
 /*
  ANN ARBOR MUNICIPAL AIRPORT, MI, United States (KARB) 42-13N 083-45W 251M
  Feb 11, 2018 - 06:53 PM EST / 2018.02.11 2353 UTC

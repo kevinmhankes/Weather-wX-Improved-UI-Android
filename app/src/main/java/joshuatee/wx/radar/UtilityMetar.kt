@@ -235,6 +235,9 @@ internal object UtilityMetar {
         }
     }
 
+    //
+    // Long press in nexrad radar uses this to find closest observation and return obs data
+    //
     fun findClosestMetar(context: Context, location: LatLon): String {
         val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }
@@ -262,6 +265,12 @@ internal object UtilityMetar {
         }
     }
 
+    //
+    // long press in nexrad radar uses this for nearest meteogram and to show obs name in long press itself
+    // it returns a RID object for the closest observation
+    //
+    // This is also used on the main screen of the app to find the closest observation site
+    //
     fun findClosestObservation(context: Context, location: LatLon): RID {
         val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }

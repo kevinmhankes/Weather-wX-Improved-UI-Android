@@ -14,6 +14,7 @@
 
 55334 2020_01_25    [REF] various code cleanup and var rename for readability
                     [ADD] change Hourly graph to a black line
+                    [ADD] code cleanup and comments
 55333 2020_01_25    [FIX] in hourly have text card request focus (chromebook)
                     [ADD] com.squareup.okhttp3:okhttp:3.12.3 -> com.squareup.okhttp3:okhttp:3.12.8
 55332 2020_01_25    [FIX] In national text activity combine the first two subsections into one section as they are basically the same
