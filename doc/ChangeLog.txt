@@ -3,9 +3,6 @@
 // TODO [ADD] line size - swo, wb, wb gusts, sti
 // TODO [REF] OkHttp 3.13 Requires Android 5+ – Square Corner Blog – Medium  https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce
 // TODO [REF] move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
-// TODO [FIX] fix issue for precipitation radar products when there is no data
-// TODO [FIX] in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
-// TODO [FIX] many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
 // TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
 // TODO [ADD] radar file class from flutter
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
