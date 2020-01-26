@@ -282,15 +282,32 @@ internal object UtilityMetar {
     // K1BM 47.2833333333 -110.366666667
     // K1BW 41.5166666667 -104.0
     //
+
+    private var metarDataRaw = ""
+    private val metarSites = mutableListOf<RID>()
+
+    private fun readMetarData(context: Context) {
+        if (metarSites.size < 1) {
+            UtilityLog.d("wx", "CC init metar data")
+            metarDataRaw = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
+            val metarDataAsList = metarDataRaw.split("\n").dropLastWhile { it.isEmpty() }
+            metarDataAsList.indices.forEach {
+                val tokens = metarDataAsList[it].split(" ")
+                metarSites.add(RID(tokens[0], LatLon(tokens[1], tokens[2])))
+            }
+        }
+    }
+
     fun findClosestObservation(context: Context, location: LatLon): RID {
         UtilityLog.d("wx", "OBS1: " + UtilityTime.currentTimeMillis())
-        val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
-        val lines = text.split("\n").dropLastWhile { it.isEmpty() }
+        /*val metarDataRaw = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
+        val metarDataAsList = metarDataRaw.split("\n").dropLastWhile { it.isEmpty() }
         val metarSites = mutableListOf<RID>()
-        lines.indices.forEach {
-            val tokens = lines[it].split(" ")
+        metarDataAsList.indices.forEach {
+            val tokens = metarDataAsList[it].split(" ")
             metarSites.add(RID(tokens[0], LatLon(tokens[1], tokens[2])))
-        }
+        }*/
+        readMetarData(context)
         var shortestDistance = 1000.00
         var currentDistance: Double
         var bestRid = -1
