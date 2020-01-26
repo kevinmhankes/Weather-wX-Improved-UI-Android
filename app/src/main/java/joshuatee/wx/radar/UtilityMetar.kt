@@ -35,6 +35,7 @@ import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
 import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.objects.DownloadTimer
+import joshuatee.wx.util.UtilityTime
 
 internal object UtilityMetar {
 
@@ -238,13 +239,15 @@ internal object UtilityMetar {
     //
     // Long press in nexrad radar uses this to find closest observation and return obs data
     //
+    // Method below is similar, please see comments below for more information
+    //
     fun findClosestMetar(context: Context, location: LatLon): String {
         val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }
         val metarSites = mutableListOf<RID>()
         lines.indices.forEach {
-            val tmpArr = lines[it].split(" ")
-            metarSites.add(RID(tmpArr[0], LatLon(tmpArr[1], tmpArr[2])))
+            val tokens = lines[it].split(" ")
+            metarSites.add(RID(tokens[0], LatLon(tokens[1], tokens[2])))
         }
         var shortestDistance = 1000.00
         var currentDistance: Double
@@ -277,6 +280,7 @@ internal object UtilityMetar {
     // K1BW 41.5166666667 -104.0
     //
     fun findClosestObservation(context: Context, location: LatLon): RID {
+        UtilityLog.d("wx", "OBS1: " + UtilityTime.currentTimeMillis())
         val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }
         val metarSites = mutableListOf<RID>()
@@ -294,6 +298,7 @@ internal object UtilityMetar {
                 bestRid = it
             }
         }
+        UtilityLog.d("wx", "OBS2: " + UtilityTime.currentTimeMillis())
         // In the unlikely event no closest site is found just return the first one
         return if (bestRid == -1) {
             metarSites[0]
