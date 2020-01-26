@@ -288,7 +288,7 @@ internal object UtilityMetar {
     private val metarSites = mutableListOf<RID>()
 
     private fun readMetarData(context: Context) {
-        if (metarSites.size < 1) {
+        if (metarSites.isEmpty()) {
             UtilityLog.d("wx", "CC init metar data")
             metarDataRaw = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
             val metarDataAsList = metarDataRaw.split("\n").dropLastWhile { it.isEmpty() }
