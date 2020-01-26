@@ -307,6 +307,13 @@ internal object UtilityMetar {
         }
     }
 
+    //
+    // Returns a comma separated list of the closest obs to a particular radar site
+    // obs site must be within 200 miles of location
+    // Used only within this class in one spot
+    // Used for nexrad radar when obs site is turn on
+    //
+    //
     private fun getObservationSites(context: Context, rid: String): String {
         val radarLocation = UtilityLocation.getSiteLocation(context, rid)
         val obsListSb = StringBuilder(100)
@@ -314,14 +321,13 @@ internal object UtilityMetar {
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }
         val obsSites = mutableListOf<RID>()
         lines.forEach {
-            val tmpArr = it.split(" ")
-            obsSites.add(RID(tmpArr[0], LatLon(tmpArr[1], tmpArr[2])))
+            val tokens = it.split(" ")
+            obsSites.add(RID(tokens[0], LatLon(tokens[1], tokens[2])))
         }
         val obsSiteRange = 200.0
         var currentDistance: Double
         obsSites.indices.forEach {
-            currentDistance =
-                LatLon.distance(radarLocation, obsSites[it].location, DistanceUnit.MILE)
+            currentDistance = LatLon.distance(radarLocation, obsSites[it].location, DistanceUnit.MILE)
             if (currentDistance < obsSiteRange) {
                 obsListSb.append(obsSites[it].name)
                 obsListSb.append(",")
