@@ -11,6 +11,7 @@
 // TODO [ADD] radar file class from flutter
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [ADD] warning count in nexrad
+// TODO [ADD] in UtilMetar keep obs lat/lon map in memory and used by all other methods
 
 55334 2020_01_25    [REF] various code cleanup and var rename for readability
                     [ADD] change Hourly graph to a black line

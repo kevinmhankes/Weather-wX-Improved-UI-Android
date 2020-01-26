@@ -39,7 +39,6 @@ import joshuatee.wx.util.UtilityTime
 
 internal object UtilityMetar {
 
-    private var initializedObsMap = false
     var obsArr = listOf<String>()
     var obsArrExt = listOf<String>()
     var obsArrWb = listOf<String>()
@@ -50,6 +49,10 @@ internal object UtilityMetar {
     var obsArrWbGust = listOf<String>()
     var obsArrAviationColor = listOf<Int>()
     private var obsStateOld = ""
+    // A data structure (map) consisting of a Lat/Lon string array for each Obs site
+    // A flag is used to track if it's been initialized
+    // TODO, use this in other methods - pull out of method below
+    private var initializedObsMap = false
     private val obsLatLon = mutableMapOf<String, Array<String>>()
     var timer = DownloadTimer("METAR")
 
@@ -71,10 +74,10 @@ internal object UtilityMetar {
             if (!initializedObsMap) {
                 val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
                 val lines = text.split("\n").dropLastWhile { it.isEmpty() }
-                var tmpArr: List<String>
+                var tokens: List<String>
                 lines.forEach {
-                    tmpArr = it.split(" ")
-                    obsLatLon[tmpArr[0]] = arrayOf(tmpArr[1], tmpArr[2])
+                    tokens = it.split(" ")
+                    obsLatLon[tokens[0]] = arrayOf(tokens[1], tokens[2])
                 }
                 initializedObsMap = true
             }
