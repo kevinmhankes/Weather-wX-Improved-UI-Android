@@ -87,7 +87,6 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
             Utility.writePref(this, prefToken, ridFav)
             MyApplication.playlistStr = ridFav
             ridArr.add(getLongString("AFD" + strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)))
-            //ca.notifyDataSetChanged()
             getContent()
             dialog.dismiss()
         })
@@ -98,7 +97,6 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
                     strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)
             Utility.writePref(this, prefToken, ridFav)
             ridArr.add(getLongString(strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)))
-            //ca.notifyDataSetChanged()
             MyApplication.playlistStr = ridFav
             getContent()
             dialog.dismiss()
@@ -136,13 +134,6 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-           /* R.id.action_downloadall -> ObjectIntent(
-                    this,
-                    DownloadPlaylistService::class.java,
-                    DownloadPlaylistService.URL,
-                    "false",
-                    true
-            )*/
             R.id.action_autodownload -> ObjectIntent(
                     this,
                     SettingsPlaylistAutodownloadActivity::class.java
@@ -155,7 +146,6 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
     }
 
     override fun onRestart() {
-        //updateListNoInit()
         updateListNoInit()
         ca.notifyDataSetChanged()
         super.onRestart()

@@ -53,7 +53,9 @@ class USWarningsImpactActivity : BaseActivity() {
     // TODO onrestart
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        warningsList = withContext(Dispatchers.IO) { UtilityWarningsImpact.data }
+        warningsList = withContext(Dispatchers.IO) {
+            UtilityWarningsImpact.data
+        }
         warningsListSorted = warningsList.sortedWith(compareByDescending { it.title })
         val ca = AdapterUSWarningsImpact(warningsListSorted)
         recyclerView.recyclerView.adapter = ca

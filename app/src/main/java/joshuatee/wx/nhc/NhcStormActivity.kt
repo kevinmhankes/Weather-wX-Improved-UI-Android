@@ -163,12 +163,6 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun setProduct(productF: String) {
-        /*ObjectIntent(
-                this@NhcStormActivity,
-                WpcTextProductsActivity::class.java,
-                WpcTextProductsActivity.URL,
-                arrayOf(productF)
-        )*/
         product = productF
         getText()
     }

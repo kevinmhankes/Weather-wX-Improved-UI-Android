@@ -52,7 +52,7 @@ class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_usalertsdetail, R.menu.shared_tts)
         title = ""
-        ObjectCard(this, R.id.cv1)
+        ObjectCard(this, R.id.cardView)
         val m = toolbarBottom.menu
         val tts = m.findItem(R.id.action_playlist)
         tts.isVisible = false
@@ -68,7 +68,9 @@ class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        capAlert = withContext(Dispatchers.IO) { CapAlert.createFromUrl(activityArguments[0]) }
+        capAlert = withContext(Dispatchers.IO) {
+            CapAlert.createFromUrl(activityArguments[0])
+        }
         objectAlertDetail.updateContent(capAlert, activityArguments[0])
         toolbar.subtitle = objectAlertDetail.wfoTitle
         title = objectAlertDetail.title

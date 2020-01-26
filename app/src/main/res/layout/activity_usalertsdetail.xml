@@ -45,7 +45,7 @@
                 android:stretchColumns="*">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cv1"
+                    android:id="@+id/cardView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center">

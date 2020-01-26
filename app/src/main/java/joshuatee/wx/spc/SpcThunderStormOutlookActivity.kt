@@ -62,8 +62,12 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         ll.removeAllViews()
-        bitmaps = withContext(Dispatchers.IO) { UtilitySpc.thunderStormOutlookImages }
-        bitmaps.forEach { ObjectCardImage(this@SpcThunderStormOutlookActivity, ll, it) }
+        bitmaps = withContext(Dispatchers.IO) {
+            UtilitySpc.thunderStormOutlookImages
+        }
+        bitmaps.forEach {
+            ObjectCardImage(this@SpcThunderStormOutlookActivity, ll, it)
+        }
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
