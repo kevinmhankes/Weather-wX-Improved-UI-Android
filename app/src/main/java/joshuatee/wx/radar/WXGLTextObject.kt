@@ -46,7 +46,8 @@ class WXGLTextObject(
         private val relativeLayout: RelativeLayout,
         private val wxglSurfaceView: WXGLSurfaceView,
         private var wxglRender: WXGLRender,
-        private val numberOfPanes: Int
+        private val numberOfPanes: Int,
+        private val paneNumber: Int
 ) {
     private var layoutParams: RelativeLayout.LayoutParams
     private var cityextTvArrInit = false
@@ -500,8 +501,8 @@ class WXGLTextObject(
                 oglrZoom = wxglRender.zoom * 0.8f
             }
             textSize = MyApplication.textSizeSmall * oglrZoom * fontScaleFactorObs * MyApplication.radarTextSize
-            val obsArr = UtilityMetar.obsArr.toList()
-            val obsArrExt = UtilityMetar.obsArrExt.toList()
+            val obsArr = UtilityMetar.metarDataList[paneNumber].obsArr.toList()
+            val obsArrExt = UtilityMetar.metarDataList[paneNumber].obsArrExt.toList()
             if (wxglRender.zoom > 0.5) {
                 obsArr.indices.forEach {
                     if (it < obsArr.size && it < obsArrExt.size) {

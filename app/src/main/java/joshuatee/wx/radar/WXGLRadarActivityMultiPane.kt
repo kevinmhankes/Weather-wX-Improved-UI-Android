@@ -242,7 +242,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         numPanesArr.forEach {
             glviewArr.add(WXGLSurfaceView(this, widthDivider, numPanes, heightDivider))
             glviewArr[it].idxInt = it
-            oglrArr.add(WXGLRender(this))
+            oglrArr.add(WXGLRender(this, it))
             oglrArr[it].radarStatusStr = (it + 1).toString()
             oglrArr[it].indexString = (it + 1).toString()
         }
@@ -390,7 +390,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             }
         }
         numPanesArr.forEach {
-            wxgltextArr.add(WXGLTextObject(this, rlArr[it], glviewArr[it], oglrArr[it], numPanes))
+            wxgltextArr.add(WXGLTextObject(this, rlArr[it], glviewArr[it], oglrArr[it], numPanes, it))
             glviewArr[it].wxgltextArr = wxgltextArr
             wxgltextArr[it].initializeTextLabels(this)
         }

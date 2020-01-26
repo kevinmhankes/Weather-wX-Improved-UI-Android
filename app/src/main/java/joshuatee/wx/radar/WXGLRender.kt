@@ -42,7 +42,7 @@ import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.*
 
-class WXGLRender(private val context: Context) : Renderer {
+class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
 
     // The is the OpenGL rendering engine that is used on the main screen and the main radar interface
     // The goal is to be highly performant and configurable as such this module relies on C code accessed via JNI extensively
@@ -1132,14 +1132,14 @@ class WXGLRender(private val context: Context) : Renderer {
     }
 
     fun constructWBLines() {
-        val fWb = WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, provider, false)
+        val fWb = WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, provider, false, paneNumber)
         constructGenericLinesShort(wbBuffers, fWb)
         constructWBLinesGusts()
         constructWBCircle()
     }
 
     private fun constructWBLinesGusts() {
-        val fWbGusts = WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, provider, true)
+        val fWbGusts = WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, provider, true, paneNumber)
         constructGenericLinesShort(wbGustsBuffers, fWbGusts)
     }
 
@@ -1208,9 +1208,9 @@ class WXGLRender(private val context: Context) : Renderer {
 
     private fun constructWBCircle() {
         wbCircleBuffers.lenInit = MyApplication.radarAviationSize.toFloat()
-        wbCircleBuffers.xList = UtilityMetar.x
-        wbCircleBuffers.yList = UtilityMetar.y
-        wbCircleBuffers.colorIntArray = UtilityMetar.obsArrAviationColor
+        wbCircleBuffers.xList = UtilityMetar.metarDataList[paneNumber].x
+        wbCircleBuffers.yList = UtilityMetar.metarDataList[paneNumber].y
+        wbCircleBuffers.colorIntArray = UtilityMetar.metarDataList[paneNumber].obsArrAviationColor
         wbCircleBuffers.count = wbCircleBuffers.xList.size
         wbCircleBuffers.triangleCount = 6
         wbCircleBuffers.initialize(

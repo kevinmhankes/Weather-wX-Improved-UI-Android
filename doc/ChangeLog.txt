@@ -7,16 +7,15 @@
 // TODO [FIX] in Nexrad, navigate to Nexrad EET, then go to TDWR, the tap ref product, tilt option remains gone
 // TODO [FIX] many Nexrad products display tilt submenu when it should be hidden ( like precip prod ) when nexrad activity is freshly started
 // TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
-// TODO [ADD] enhance radar obs to support multipane
 // TODO [ADD] radar file class from flutter
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [ADD] warning count in nexrad
-// TODO [ADD] in UtilMetar keep obs lat/lon map in memory and used by all other methods
 
-55334 2020_01_25    [REF] various code cleanup and var rename for readability
+55334 2020_01_26    [REF] various code cleanup and var rename for readability
                     [ADD] change Hourly graph to a black line
                     [ADD] code cleanup and comments
                     [ADD] UtilityMetar - start to use a persistent metar data var after reading in from file - WIP
+                    [ADD] enhance radar obs to support multipane
 55333 2020_01_25    [FIX] in hourly have text card request focus (chromebook)
                     [ADD] com.squareup.okhttp3:okhttp:3.12.3 -> com.squareup.okhttp3:okhttp:3.12.8
 55332 2020_01_25    [FIX] In national text activity combine the first two subsections into one section as they are basically the same

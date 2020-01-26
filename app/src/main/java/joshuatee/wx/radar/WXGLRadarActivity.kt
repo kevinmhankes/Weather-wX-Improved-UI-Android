@@ -229,7 +229,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         rl = findViewById(R.id.rl)
         rl.addView(glview)
         val rlArr = arrayOf(rl)
-        oglr = WXGLRender(this)
+        oglr = WXGLRender(this, 0)
         oglrArr.add(oglr)
         glviewArr.add(glview)
         UtilityRadarUI.initGlView(
@@ -259,7 +259,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             }
         }
         numPanesArr.forEach {
-            wxgltextArr.add(WXGLTextObject(this, rlArr[it], glviewArr[it], oglrArr[it], numPanes))
+            wxgltextArr.add(WXGLTextObject(this, rlArr[it], glviewArr[it], oglrArr[it], numPanes, it))
             glviewArr[it].wxgltextArr = wxgltextArr
             wxgltextArr[it].initializeTextLabels(this)
         }

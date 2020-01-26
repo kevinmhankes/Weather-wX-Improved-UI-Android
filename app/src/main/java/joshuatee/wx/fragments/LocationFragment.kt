@@ -147,7 +147,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                     day7Added = true
                 }
             } else if (tok == "OGL-RADAR") {
-                oglrArr.add(WXGLRender(activityReference))
+                oglrArr.add(WXGLRender(activityReference, 4))
                 oglrIdx = oglrCount
                 oglrCount += 1
                 cardViews.add(ObjectCard(activityReference).card)
@@ -163,7 +163,8 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                                 rlArr[index],
                                 glviewArr[index],
                                 oglrArr[index],
-                                numPanes
+                                numPanes,
+                                4
                         )
                 )
                 glviewArr[index].wxgltextArr = wxgltextArr
@@ -188,7 +189,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                 hsImages.add(hsImageTmp)
                 setImageOnClick()
             } else if (tok.contains("NXRD-")) {
-                oglrArr.add(WXGLRender(activityReference))
+                oglrArr.add(WXGLRender(activityReference, 4))
                 oglrCount += 1
                 cardViews.add(ObjectCard(activityReference).card)
                 glviewArr.add(WXGLSurfaceView(activityReference, widthDivider, numPanes, 1))
@@ -203,7 +204,8 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                                 rlArr[index],
                                 glviewArr[index],
                                 oglrArr[index],
-                                numPanes
+                                numPanes,
+                                4 // FIXME
                         )
                 )
                 glviewArr[index].wxgltextArr = wxgltextArr

@@ -35,29 +35,22 @@ import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
 import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.objects.DownloadTimer
-import joshuatee.wx.util.UtilityTime
 
 internal object UtilityMetar {
 
-    var obsArr = listOf<String>()
-    var obsArrExt = listOf<String>()
-    var obsArrWb = listOf<String>()
-    var x = DoubleArray(1)
-        private set
-    var y = DoubleArray(1)
-        private set
-    var obsArrWbGust = listOf<String>()
-    var obsArrAviationColor = listOf<Int>()
-    private var obsStateOld = ""
+    // 0-3 are for nexrad radar
+    // 4 is for the main screen
+    // 5 is for canvas
+    val metarDataList = List(6) { MetarData() }
+
     // A data structure (map) consisting of a Lat/Lon string array for each Obs site
     // A flag is used to track if it's been initialized
-    // TODO, use this in other methods - pull out of method below
     private var initializedObsMap = false
     private val obsLatLon = mutableMapOf<String, Array<String>>()
     var timer = DownloadTimer("METAR")
 
-    fun getStateMetarArrayForWXOGL(context: Context, rid: String) {
-        if (timer.isRefreshNeeded(context) || rid != obsStateOld) {
+    fun getStateMetarArrayForWXOGL(context: Context, rid: String, paneNumber: Int) {
+        if (timer.isRefreshNeeded(context) || rid != metarDataList[paneNumber].obsStateOld) {
             val obsAl = mutableListOf<String>()
             val obsAlExt = mutableListOf<String>()
             val obsAlWb = mutableListOf<String>()
@@ -65,7 +58,7 @@ internal object UtilityMetar {
             val obsAlX = mutableListOf<Double>()
             val obsAlY = mutableListOf<Double>()
             val obsAlAviationColor = mutableListOf<Int>()
-            obsStateOld = rid
+            metarDataList[paneNumber].obsStateOld = rid
             val obsList = getObservationSites(context, rid)
             // https://www.aviationweather.gov/metar/data?ids=KDTW%2CKARB&format=raw&date=&hours=0
             val html = "${MyApplication.nwsAWCwebsitePrefix}/adds/metars/index?submit=1&station_ids=$obsList&chk_metars=on".getHtml()
@@ -227,15 +220,19 @@ internal object UtilityMetar {
                     }
                 }
             }
-            obsArr = obsAl.toList()
-            obsArrExt = obsAlExt.toList()
-            obsArrWb = obsAlWb.toList()
-            x = DoubleArray(obsAlX.size)
-            obsAlX.indices.forEach { x[it] = obsAlX[it] }
-            y = DoubleArray(obsAlY.size)
-            obsAlY.indices.forEach { y[it] = obsAlY[it] }
-            obsArrWbGust = obsAlWbGust.toList()
-            obsArrAviationColor = obsAlAviationColor.toList()
+            metarDataList[paneNumber].obsArr = obsAl.toList()
+            metarDataList[paneNumber].obsArrExt = obsAlExt.toList()
+            metarDataList[paneNumber].obsArrWb = obsAlWb.toList()
+            metarDataList[paneNumber].x = DoubleArray(obsAlX.size)
+            obsAlX.indices.forEach {
+                metarDataList[paneNumber].x[it] = obsAlX[it]
+            }
+            metarDataList[paneNumber].y = DoubleArray(obsAlY.size)
+            obsAlY.indices.forEach {
+                metarDataList[paneNumber].y[it] = obsAlY[it]
+            }
+            metarDataList[paneNumber].obsArrWbGust = obsAlWbGust.toList()
+            metarDataList[paneNumber].obsArrAviationColor = obsAlAviationColor.toList()
         }
     }
 
@@ -300,7 +297,7 @@ internal object UtilityMetar {
     }
 
     fun findClosestObservation(context: Context, location: LatLon): RID {
-        UtilityLog.d("wx", "OBS1: " + UtilityTime.currentTimeMillis())
+        //UtilityLog.d("wx", "OBS1: " + UtilityTime.currentTimeMillis())
         /*val metarDataRaw = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
         val metarDataAsList = metarDataRaw.split("\n").dropLastWhile { it.isEmpty() }
         val metarSites = mutableListOf<RID>()
@@ -319,7 +316,7 @@ internal object UtilityMetar {
                 bestRid = it
             }
         }
-        UtilityLog.d("wx", "OBS2: " + UtilityTime.currentTimeMillis())
+        //UtilityLog.d("wx", "OBS2: " + UtilityTime.currentTimeMillis())
         // In the unlikely event no closest site is found just return the first one
         return if (bestRid == -1) {
             metarSites[0]
@@ -338,19 +335,20 @@ internal object UtilityMetar {
     private fun getObservationSites(context: Context, rid: String): String {
         val radarLocation = UtilityLocation.getSiteLocation(context, rid)
         val obsListSb = StringBuilder(100)
-        val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
+        readMetarData(context)
+        /*val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }
         val obsSites = mutableListOf<RID>()
         lines.forEach {
             val tokens = it.split(" ")
             obsSites.add(RID(tokens[0], LatLon(tokens[1], tokens[2])))
-        }
+        }*/
         val obsSiteRange = 200.0
         var currentDistance: Double
-        obsSites.indices.forEach {
-            currentDistance = LatLon.distance(radarLocation, obsSites[it].location, DistanceUnit.MILE)
+        metarSites.indices.forEach {
+            currentDistance = LatLon.distance(radarLocation, metarSites[it].location, DistanceUnit.MILE)
             if (currentDistance < obsSiteRange) {
-                obsListSb.append(obsSites[it].name)
+                obsListSb.append(metarSites[it].name)
                 obsListSb.append(",")
             }
         }

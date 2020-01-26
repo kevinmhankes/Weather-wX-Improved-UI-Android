@@ -483,15 +483,23 @@ internal object UtilityRadarUI {
         } else {
             wxglRender.deconstructLocationDot()
         }
+        if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && !archiveMode) {
+            UtilityMetar.getStateMetarArrayForWXOGL(context, wxglRender.rid, wxglRender.paneNumber)
+        }
+        if (PolygonType.WIND_BARB.pref && !archiveMode) {
+            wxglRender.constructWBLines()
+        } else {
+            wxglRender.deconstructWBLines()
+        }
         if (showExtras) {
-            if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && !archiveMode) {
-                UtilityMetar.getStateMetarArrayForWXOGL(context, wxglRender.rid)
+            /*if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && !archiveMode) {
+                UtilityMetar.getStateMetarArrayForWXOGL(context, wxglRender.rid, wxglRender.paneNumber)
             }
             if (PolygonType.WIND_BARB.pref && !archiveMode) {
                 wxglRender.constructWBLines()
             } else {
                 wxglRender.deconstructWBLines()
-            }
+            }*/
             if (PolygonType.SWO.pref && !archiveMode) {
                 UtilitySwoD1.get(context)
                 wxglRender.constructSwoLines()
