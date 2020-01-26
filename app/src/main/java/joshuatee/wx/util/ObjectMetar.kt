@@ -83,11 +83,19 @@ internal class ObjectMetar(context: Context, location: LatLon) {
     private var metarSkyCondition = ""
     private var metarWeatherCondition = ""
 
+    //
+    // Capitalize the first letter of each word in the current condition string
+    //
     private fun capitalizeString(string: String): String {
+        UtilityLog.d("wx", "CC1: $string")
         val tokens = string.split(" ")
         var newString = ""
-        tokens.forEach { newString += it.capitalize() + " " }
-        return newString.trimEnd()
+        tokens.forEach {
+            newString += it.capitalize() + " "
+        }
+        val stringToReturn = newString.trimEnd()
+        UtilityLog.d("wx", "CC2: $stringToReturn")
+        return stringToReturn
     }
 
     private fun changeDegreeUnits(value: String): String {

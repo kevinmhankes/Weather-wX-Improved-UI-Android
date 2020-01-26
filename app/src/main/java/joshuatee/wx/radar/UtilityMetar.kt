@@ -271,13 +271,18 @@ internal object UtilityMetar {
     //
     // This is also used on the main screen of the app to find the closest observation site
     //
+    // Input file is like this
+    // name Lat Lon
+    // K1BM 47.2833333333 -110.366666667
+    // K1BW 41.5166666667 -104.0
+    //
     fun findClosestObservation(context: Context, location: LatLon): RID {
         val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }
         val metarSites = mutableListOf<RID>()
         lines.indices.forEach {
-            val tmpArr = lines[it].split(" ")
-            metarSites.add(RID(tmpArr[0], LatLon(tmpArr[1], tmpArr[2])))
+            val tokens = lines[it].split(" ")
+            metarSites.add(RID(tokens[0], LatLon(tokens[1], tokens[2])))
         }
         var shortestDistance = 1000.00
         var currentDistance: Double
@@ -289,6 +294,7 @@ internal object UtilityMetar {
                 bestRid = it
             }
         }
+        // In the unlikely event no closest site is found just return the first one
         return if (bestRid == -1) {
             metarSites[0]
         } else {
