@@ -74,11 +74,11 @@ object Utility {
         return UtilityRadar.wfoIdToName[wfo] ?: ""
     }
 
-    fun getWfoSiteLatLon(wfo: String): LatLon {
+   /* fun getWfoSiteLatLon(wfo: String): LatLon {
         val lat = UtilityRadar.wfoSitetoLat[wfo] ?: ""
         val lon = UtilityRadar.wfoSitetoLon[wfo] ?: ""
         return LatLon(lat, lon)
-    }
+    }*/
 
     /*fun getSoundingSiteLatLon(wfo: String): LatLon {
         val lat = UtilityRadar.soundingSiteToLat[wfo] ?: ""

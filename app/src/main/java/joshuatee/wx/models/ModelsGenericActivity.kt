@@ -24,7 +24,6 @@ package joshuatee.wx.models
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.content.res.Configuration
-import android.view.Gravity
 import android.view.KeyEvent
 
 import java.util.Locale

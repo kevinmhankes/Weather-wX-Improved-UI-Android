@@ -7,8 +7,9 @@
 // TODO [ADD] radar file class from flutter
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [ADD] warning count in nexrad
+// TODO [FIX] Obs not working multiplane
 
-55336 2020_01_27
+55336 2020_01_27    [REF] lint cleanup
 55335 2020_01_27    [FIX] hardcore hourly graph background
 55334 2020_01_26    [REF] various code cleanup and var rename for readability
                     [ADD] change Hourly graph to a black line

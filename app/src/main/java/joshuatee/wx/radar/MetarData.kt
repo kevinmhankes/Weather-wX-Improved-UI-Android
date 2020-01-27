@@ -22,7 +22,7 @@
 package joshuatee.wx.radar
 
 
-class MetarData() {
+class MetarData {
 
     // temp / dew per site
     var obsArr = listOf<String>()
@@ -31,9 +31,7 @@ class MetarData() {
     // lat lon winDir kt
     var obsArrWb = listOf<String>()
     var x = DoubleArray(1)
-        set
     var y = DoubleArray(1)
-        set
     // lat lon winDir gustKt
     var obsArrWbGust = listOf<String>()
     // aviation color per site
