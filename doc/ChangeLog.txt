@@ -11,6 +11,7 @@
 
 55336 2020_01_27    [REF] lint cleanup
                     [ADD] fix radar legend pnd - LIFR was not pink
+                    [ADD] RadarFileGeometry (wip)
 55335 2020_01_27    [FIX] hardcore hourly graph background
 55334 2020_01_26    [REF] various code cleanup and var rename for readability
                     [ADD] change Hourly graph to a black line
