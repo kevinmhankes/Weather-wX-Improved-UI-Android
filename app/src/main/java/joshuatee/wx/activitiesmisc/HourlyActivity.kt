@@ -129,6 +129,7 @@ class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         val series = LineGraphSeries(dataPoints.toTypedArray())
         series.color = Color.BLACK
         graph.viewport.isXAxisBoundsManual = true
+        graph.viewport.backgroundColor = Color.LTGRAY
         graph.viewport.setMinX(0.0)
         graph.viewport.setMaxX(160.0)
         graph.gridLabelRenderer.numHorizontalLabels = 10
