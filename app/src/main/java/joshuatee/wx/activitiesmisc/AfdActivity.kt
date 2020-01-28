@@ -106,7 +106,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         star = toolbarBottom.menu.findItem(R.id.action_fav)
         notificationToggle = toolbarBottom.menu.findItem(R.id.action_notif_text_prod)
-        activityArguments = intent.getStringArrayExtra(URL)
+        activityArguments = intent.getStringArrayExtra(URL)!!
         wfo = activityArguments[0]
         if (Utility.readPref(this, "WFO_REMEMBER_LOCATION", "") == "true") {
             wfo = Utility.readPref(this, "WFO_LAST_USED", Location.wfo)

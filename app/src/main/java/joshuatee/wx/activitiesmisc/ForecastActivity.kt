@@ -69,7 +69,7 @@ class ForecastActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // FIXME activity_linear_layout need ll to be renamed to linearLayout, need to asses which activities are using it
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
-        activityArguments = intent.getStringArrayExtra(URL)
+        activityArguments = intent.getStringArrayExtra(URL)!!
         latLon = LatLon(activityArguments[0], activityArguments[1])
         title = "Forecast for"
         toolbar.subtitle = latLon.latString + "," + latLon.lonString
@@ -101,10 +101,6 @@ class ForecastActivity : BaseActivity() {
             // 7day
             //
             objSevenDay.icons.mapTo(bitmaps) { UtilityNws.getIcon(this@ForecastActivity, it) }
-            //
-            // hazards
-            //
-            //hazardRaw = objHazards!!.hazards
         }
         //
         // CC

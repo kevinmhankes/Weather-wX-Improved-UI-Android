@@ -421,9 +421,7 @@ class WXGLTextObject(
     fun addTextLabels() {
         addTextLabelsCitiesExtended()
         addTextLabelsCountyLabels()
-        if (numberOfPanes == 1) {
-            addTextLabelsObservations()
-        }
+        addTextLabelsObservations()
         addTextLabelsSpottersLabels()
         if (numberOfPanes == 1 && WXGLRadarActivity.spotterShowSelected) {
             addTextLabelForSpotter()
@@ -434,9 +432,7 @@ class WXGLTextObject(
     fun hideTextLabels() {
         hideCitiesExtended()
         hideCountyLabels()
-        if (numberOfPanes == 1) {
-            hideObservations()
-        }
+        hideObservations()
         hideSpottersLabels()
         if (numberOfPanes == 1 && WXGLRadarActivity.spotterShowSelected) {
             hideSpotter()

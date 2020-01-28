@@ -65,7 +65,7 @@ class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLi
                 iconsEvenlySpaced = true,
                 bottomToolbar = true
         )
-        activityArguments = intent.getStringArrayExtra(TYPE)
+        activityArguments = intent.getStringArrayExtra(TYPE)!!
         imageCollection = MyApplication.imageCollectionMap[activityArguments[0]]!!
         toolbarBottom.setOnMenuItemClickListener(this)
         val menu = toolbarBottom.menu

@@ -70,7 +70,7 @@ class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
             true
         )
         toolbarBottom.setOnMenuItemClickListener(this)
-        locationNumber = (intent.getStringExtra(LOC_NUM).toIntOrNull() ?: 0) - 1
+        locationNumber = (intent.getStringExtra(LOC_NUM)!!.toIntOrNull() ?: 0) - 1
         objectCard = ObjectCard(this, R.color.black, R.id.graphCard)
         graphCard.visibility = View.GONE
         objectCardVerticalText = ObjectCardVerticalText(this, 5, linearLayout, toolbar)

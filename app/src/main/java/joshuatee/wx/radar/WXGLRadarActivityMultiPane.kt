@@ -506,6 +506,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         numPanes,
                         wxgltextArr
                 )
+                if (PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) {
+                    UtilityWXGLTextObject.updateObs(numPanes, wxgltextArr)
+                }
                 glview.requestRender()
                 setSubTitle()
                 animRan = false

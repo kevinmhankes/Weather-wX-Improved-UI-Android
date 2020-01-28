@@ -53,12 +53,12 @@ class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
         super.onCreate(savedInstanceState, R.layout.activity_usalertsdetail, R.menu.shared_tts)
         title = ""
         ObjectCard(this, R.id.cardView)
-        val m = toolbarBottom.menu
-        val tts = m.findItem(R.id.action_playlist)
+        val menu = toolbarBottom.menu
+        val tts = menu.findItem(R.id.action_playlist)
         tts.isVisible = false
         toolbarBottom.setOnMenuItemClickListener(this)
         objectAlertDetail = ObjectAlertDetail(this, linearLayout)
-        activityArguments = intent.getStringArrayExtra(URL)
+        activityArguments = intent.getStringArrayExtra(URL)!!
         getContent()
     }
 
