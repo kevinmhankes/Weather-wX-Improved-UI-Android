@@ -81,7 +81,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 R.menu.nhc_storm
         )
         toolbarBottom.setOnMenuItemClickListener(this)
-        activityArguments = intent.getStringArrayExtra(URL).toList()
+        activityArguments = intent.getStringArrayExtra(URL)!!.toList()
         url = activityArguments[0]
         toolbarTitle = activityArguments[1]
         val titleArr = toolbarTitle.split(" - ")
@@ -141,7 +141,9 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
             }
         }
         bitmaps.filter { it.width > 100 }
-                .forEach { ObjectCardImage(this@NhcStormActivity, ll, it) }
+                .forEach {
+                    ObjectCardImage(this@NhcStormActivity, ll, it)
+                }
         if (activityArguments.size > 2) {
             if (activityArguments[2] == "sound") UtilityTts.synthesizeTextAndPlay(
                     applicationContext,
@@ -159,7 +161,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
             cTextProd.text = url
         }
         html = url
-        sv.smoothScrollTo(0, 0)
+        scrollView.smoothScrollTo(0, 0)
     }
 
     private fun setProduct(productF: String) {

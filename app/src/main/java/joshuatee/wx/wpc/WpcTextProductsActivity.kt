@@ -85,7 +85,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
         toolbarBottom.setOnMenuItemClickListener(this)
         star = toolbarBottom.menu.findItem(R.id.action_fav)
         notifToggle = toolbarBottom.menu.findItem(R.id.action_notif_text_prod)
-        activityArguments = intent.getStringArrayExtra(URL)
+        activityArguments = intent.getStringArrayExtra(URL)!!
         if (activityArguments[0] == "pmdspd") {
             prod = MyApplication.wpcTextFav
         } else {

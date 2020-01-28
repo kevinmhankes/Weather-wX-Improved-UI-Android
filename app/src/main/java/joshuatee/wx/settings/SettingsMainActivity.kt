@@ -233,8 +233,8 @@ class SettingsMainActivity : BaseActivity() {
     override fun onStop() {
         super.onStop()
         MyApplication.initPreferences(this)
-        val restartNotif = Utility.readPref(this, "RESTART_NOTIF", "false")
-        if (restartNotif == "true") {
+        val restartNotification = Utility.readPref(this, "RESTART_NOTIF", "false")
+        if (restartNotification == "true") {
             UtilityWXJobService.startService(this)
             Utility.writePref(this, "RESTART_NOTIF", "false")
         }

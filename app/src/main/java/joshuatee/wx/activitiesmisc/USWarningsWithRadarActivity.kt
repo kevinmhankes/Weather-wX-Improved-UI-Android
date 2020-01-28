@@ -84,7 +84,7 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
         toolbarBottom.setOnMenuItemClickListener(this)
         toolbar.setOnClickListener { toolbar.showOverflowMenu() }
         val activityArguments = intent.getStringArrayExtra(URL)
-        turlLocal[0] = activityArguments[0]
+        turlLocal[0] = activityArguments!![0]
         turlLocal[1] = activityArguments[1]
         objectAlertSummary = ObjectAlertSummary(this, this, linearLayout, scrollView)
         objectNavDrawer = ObjectNavDrawer(this, objectAlertSummary.filterArray.toList())

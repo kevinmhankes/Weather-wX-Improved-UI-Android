@@ -65,7 +65,7 @@ class WebscreenAB : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_webview_toolbar, null, false)
         val activityArguments = intent.getStringArrayExtra(URL)
-        url = activityArguments[0]
+        url = activityArguments!![0]
         title = activityArguments[1]
         val webSettings = webview.settings
         webSettings.javaScriptEnabled = true

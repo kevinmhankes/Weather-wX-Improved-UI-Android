@@ -77,7 +77,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
             }
         }
         showLoadFromFileMenuItem()
-        activityArguments = intent.getStringArrayExtra(URL)
+        activityArguments = intent.getStringArrayExtra(URL)!!
         type = activityArguments[0]
         title = "Palette Editor"
         toolbar.subtitle = WXGLNexrad.productCodeStringToName[type]
@@ -297,8 +297,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
 
     private fun readTextFromUri(uri: Uri): String {
         val content = UtilityIO.readTextFromUri(this, uri)
-        val uriArr =
-                uri.lastPathSegment!!.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val uriArr = uri.lastPathSegment!!.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         var fileName = "map"
         if (uriArr.isNotEmpty()) {
             fileName = uriArr.last()

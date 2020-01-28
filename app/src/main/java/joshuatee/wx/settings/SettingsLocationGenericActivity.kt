@@ -83,7 +83,6 @@ class SettingsLocationGenericActivity : BaseActivity(),
     private lateinit var alertSwoSw: ObjectSettingsCheckBox
     private lateinit var alertSpcfwSw: ObjectSettingsCheckBox
     private lateinit var alertWpcmpdSw: ObjectSettingsCheckBox
-    //private lateinit var cityAa: ArrayAdapter<String>
     private var menuLocal: Menu? = null
 
     @SuppressLint("MissingSuperCall")
@@ -102,7 +101,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         val me = toolbarBottom.menu
         listOf(R.id.cv1).forEach { ObjectCard(this, it) }
         val locNumArr = intent.getStringArrayExtra(LOC_NUM)
-        locNum = locNumArr[0]
+        locNum = locNumArr!![0]
         val locNumInt = locNum.toIntOrNull() ?: 0
         title = "Location $locNum"
         locXStr = Utility.readPref(this, "LOC" + locNum + "_X", "")
@@ -373,8 +372,6 @@ class SettingsLocationGenericActivity : BaseActivity(),
         if (!UtilityCitiesCanada.cityInit) {
             UtilityCitiesCanada.loadCitiesArray()
         }
-        //val combinedCitiesList = UtilityCities.cities.toList() + UtilityCitiesCanada.CITIES_CA.toList()
-        //val combinedCitiesList = UtilityCitiesExtended.cityLabels.toList() + UtilityCitiesCanada.CITIES_CA.toList()
         val combinedCitiesList = UtilityCitiesExtended.cityLabels.toList()
         val cityArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, combinedCitiesList)
         cityArrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
@@ -388,12 +385,9 @@ class SettingsLocationGenericActivity : BaseActivity(),
                     break
                 }
             }
-            //if (k < UtilityCities.cities.size) {
             if (k < UtilityCitiesExtended.cityLabels.size) {
                 searchView.setText(cityArrayAdapter.getItem(position)!!)
                 locLabelEt.setText(cityArrayAdapter.getItem(position))
-                //locXEt.setText(UtilityCities.lat[k].toString())
-                //locYEt.setText("-" + UtilityCities.lon[k].toString())
                 locXEt.setText(UtilityCitiesExtended.cityLat[k].toString())
                 locYEt.setText("-" + UtilityCitiesExtended.cityLon[k].toString())
                 val searchViewLocal = menuLocal!!.findItem(R.id.ab_search).actionView as SearchView
@@ -594,7 +588,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == requestOk && resultCode == Activity.RESULT_OK) {
             val thingsYouSaid = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-            showMessage(thingsYouSaid[0])
+            showMessage(thingsYouSaid!![0])
             val addrStrTmp = thingsYouSaid[0]
             locLabelEt.setText(addrStrTmp)
             val addrSend = addrStrTmp.replace(" ", "+")

@@ -64,7 +64,7 @@ class SettingsColorPickerActivity : AppCompatActivity(), OnColorChangedListener 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         UtilityToolbar.fullScreenMode(toolbar, false)
         val activityArguments = intent.getStringArrayExtra(INFO)
-        prefVal = activityArguments[0]
+        prefVal = activityArguments!![0]
         title = activityArguments[1]
         color = UtilityColor.setColor(prefVal)
         val currentColor = Utility.readPref(this, prefVal, color)
@@ -86,8 +86,7 @@ class SettingsColorPickerActivity : AppCompatActivity(), OnColorChangedListener 
     }
 
     override fun onColorChanged(color: Int) {
-        toolbar.subtitle = "(" + Color.red(color) + "," + Color.green(color) + "," +
-                Color.blue(color) + ")"
+        toolbar.subtitle = "(" + Color.red(color) + "," + Color.green(color) + "," + Color.blue(color) + ")"
         picker.oldCenterColor = picker.color
         Utility.writePref(this, prefVal, picker.color)
     }

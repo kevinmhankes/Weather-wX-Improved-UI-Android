@@ -68,7 +68,9 @@ class WpcRainfallForecastActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
         linearLayout.removeAllViews()
         bitmaps = mutableListOf()
         withContext(Dispatchers.IO) {
-            UtilityWpcRainfallForecast.imageUrls.forEach { bitmaps.add(it.getImage()) }
+            UtilityWpcRainfallForecast.imageUrls.forEach {
+                bitmaps.add(it.getImage())
+            }
         }
         bitmaps.indices.forEach {
             val card = ObjectCardImage(this@WpcRainfallForecastActivity, linearLayout, bitmaps[it])

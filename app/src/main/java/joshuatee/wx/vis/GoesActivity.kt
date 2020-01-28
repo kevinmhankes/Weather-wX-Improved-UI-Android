@@ -64,7 +64,7 @@ class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
         )
         toolbarBottom.setOnMenuItemClickListener(this)
         UtilityShortcut.hidePinIfNeeded(toolbarBottom)
-        activityArguments = intent.getStringArrayExtra(RID)
+        activityArguments = intent.getStringArrayExtra(RID)!!
         drw = ObjectNavDrawer(this, UtilityGoes.labels, UtilityGoes.codes)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, drw, "")
         img.setMaxZoom(8f)

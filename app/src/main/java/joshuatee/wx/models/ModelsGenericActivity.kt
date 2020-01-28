@@ -100,9 +100,9 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
         }
         toolbarBottom.setOnMenuItemClickListener(this)
         title = activityArguments!![2]
-        val m = toolbarBottom.menu
-        miStatusParam1 = m.findItem(R.id.action_status_param1)
-        miStatusParam2 = m.findItem(R.id.action_status_param2)
+        val menu = toolbarBottom.menu
+        miStatusParam1 = menu.findItem(R.id.action_status_param1)
+        miStatusParam2 = menu.findItem(R.id.action_status_param2)
         if (om.numPanes < 2) {
             fab1 = ObjectFab(
                     this,
@@ -114,11 +114,11 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
                     this,
                     R.id.fab2,
                     View.OnClickListener { UtilityModels.moveForward(om.spTime) })
-            m.findItem(R.id.action_img1).isVisible = false
-            m.findItem(R.id.action_img2).isVisible = false
+            menu.findItem(R.id.action_img1).isVisible = false
+            menu.findItem(R.id.action_img2).isVisible = false
             if (UIPreferences.fabInModels) {
-                val leftArrow = m.findItem(R.id.action_back)
-                val rightArrow = m.findItem(R.id.action_forward)
+                val leftArrow = menu.findItem(R.id.action_back)
+                val rightArrow = menu.findItem(R.id.action_forward)
                 leftArrow.isVisible = false
                 rightArrow.isVisible = false
             }
@@ -126,11 +126,11 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
             fab2?.visibility = View.GONE
             miStatusParam2.isVisible = false
         } else {
-            m.findItem(R.id.action_multipane).isVisible = false
+            menu.findItem(R.id.action_multipane).isVisible = false
         }
-        miStatus = m.findItem(R.id.action_status)
+        miStatus = menu.findItem(R.id.action_status)
         miStatus.title = "in through"
-        m.findItem(R.id.action_map).isVisible = false
+        menu.findItem(R.id.action_map).isVisible = false
         om.spTime = ObjectSpinner(this, this, this, R.id.spinner_time)
         om.displayData = DisplayData(this, this, om.numPanes, om.spTime)
         spRun = ObjectSpinner(this, this, this, R.id.spinner_run)
@@ -179,8 +179,9 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
             drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item))
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true
+        }
         when (item.itemId) {
             R.id.action_back -> UtilityModels.moveBack(om.spTime)
             R.id.action_forward -> UtilityModels.moveForward(om.spTime)

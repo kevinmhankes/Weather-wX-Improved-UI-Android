@@ -64,7 +64,7 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        sv.smoothScrollTo(0, 0)
+        scrollView.smoothScrollTo(0, 0)
         withContext(Dispatchers.IO) { objNhc.getTextData() }
         objNhc.showTextData()
         withContext(Dispatchers.IO) { objNhc.getAtlanticImageData()}

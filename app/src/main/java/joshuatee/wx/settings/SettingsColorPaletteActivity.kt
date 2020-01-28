@@ -71,7 +71,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                 null,
                 false
         )
-        type = intent.getStringArrayExtra(TYPE)[0]
+        type = intent.getStringArrayExtra(TYPE)!![0]
         toolbar.subtitle = WXGLNexrad.productCodeStringToName[type]
         title = MyApplication.radarColorPalette[type]
         prefToken = "RADAR_COLOR_PALETTE_$type"

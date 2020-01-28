@@ -80,7 +80,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
                 if (img.currentZoom < 1.01f) showPrevImg()
             }
         })
-        activityArguments = intent.getStringArrayExtra(URL)
+        activityArguments = intent.getStringArrayExtra(URL)!!
         activityArguments.let {
             if (activityArguments.size > 1 && activityArguments[0] == "HS") {
                 homeScreenId = activityArguments[1]

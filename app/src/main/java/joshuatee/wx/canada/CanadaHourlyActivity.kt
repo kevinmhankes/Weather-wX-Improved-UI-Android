@@ -46,7 +46,7 @@ class CanadaHourlyActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
-        locNumInt = (intent.getStringExtra(LOC_NUM).toIntOrNull() ?: 0) - 1
+        locNumInt = (intent.getStringExtra(LOC_NUM)!!.toIntOrNull() ?: 0) - 1
         c0 = ObjectCardText(this, ll, toolbar)
         ObjectCALegal(this, ll, UtilityCanadaHourly.getUrl(Location.locationIndex))
         title = Location.getName(locNumInt) + " hourly forecast"

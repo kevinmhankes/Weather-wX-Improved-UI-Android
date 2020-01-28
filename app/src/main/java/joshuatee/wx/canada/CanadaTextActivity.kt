@@ -68,7 +68,7 @@ class CanadaTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         title = description
-        sv.smoothScrollTo(0, 0)
+        scrollView.smoothScrollTo(0, 0)
         withContext(Dispatchers.IO) {
             html =
                     if (product != "https://weather.gc.ca/forecast/public_bulletins_e.html?Bulletin=fpcn48.cwao") {

@@ -74,7 +74,9 @@ class SettingsColorsActivity : BaseActivity() {
 
         mapColorToPref.keys.asSequence().sorted()
             .mapTo(colorObjects) { ObjectSettingsColorLabel(this, it, mapColorToPref[it]!!) }
-        colorObjects.forEach { ll.addView(it.card) }
+        colorObjects.forEach {
+            ll.addView(it.card)
+        }
     }
 
     override fun onRestart() {
@@ -90,7 +92,9 @@ class SettingsColorsActivity : BaseActivity() {
 
     private fun setColorOnButtons() {
         MyApplication.initPreferences(this)
-        colorObjects.forEach { it.refreshColor() }
+        colorObjects.forEach {
+            it.refreshColor()
+        }
     }
 }
 
