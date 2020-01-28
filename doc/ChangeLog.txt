@@ -6,7 +6,7 @@
 // TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
 // TODO [ADD] radar file class from flutter
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
-// TODO [ADD] warning count in nexrad
+// TODO [ADD] warning counts in nexrad
 
 55336 2020_01_27    [REF] lint cleanup
                     [ADD] fix radar legend pnd - LIFR was not pink
