@@ -10,6 +10,7 @@
 
 55338 2020_01_28    [ADD] in settings -> location if choose Canada location via map return to location screen after tapping on map
                     [REF] various code cleanup
+                    [ADD] minor visual enhancements in location edit
 55337 2020_01_28    [ADD] RadarFileGeometry (wip)
                     [FIX] add @Synchronized to readMetarData() in UtilityMetar - BackgroundFetch is using along wit main screen
 55336 2020_01_27    [REF] lint cleanup

@@ -252,7 +252,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
             } else {
                 val addrSend = locNumArr[1].replace(" ", "+")
                 locLabelEt.setText(locNumArr[1])
-                addressSearchAndSave("osm", locNum, addrSend, locNumArr[1])
+                addressSearchAndSave(locNum, addrSend, locNumArr[1])
             }
         }
     }
@@ -319,8 +319,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         hideNonUSNotifications()
     }
 
-    private fun saveLoc(
-            mapType: String,
+    private fun saveLocation(
             locNum: String,
             xStr: String,
             yStr: String,
@@ -329,12 +328,11 @@ class SettingsLocationGenericActivity : BaseActivity(),
         var toastStr = ""
         var xLoc = ""
         withContext(Dispatchers.IO) {
-            if (mapType == "osm") {
-                toastStr = Location.locationSave(this@SettingsLocationGenericActivity, locNum, xStr, yStr, labelStr)
-                xLoc = xStr
-            }
+            toastStr = Location.locationSave(this@SettingsLocationGenericActivity, locNum, xStr, yStr, labelStr)
+            xLoc = xStr
         }
         showMessage(toastStr)
+        updateTitle = true
         updateSubTitle()
         if (xLoc.startsWith("CANADA:")) {
             notificationsCanada(true)
@@ -351,7 +349,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         val xStr = locXEt.text.toString()
         val yStr = locYEt.text.toString()
         val labelStr = locLabelEt.text.toString()
-        saveLoc("osm", locNum, xStr, yStr, labelStr)
+        saveLocation(locNum, xStr, yStr, labelStr)
     }
 
     override fun onStop() {
@@ -396,7 +394,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 val xStr = locXEt.text.toString()
                 val yStr = locYEt.text.toString()
                 val labelStr = locLabelEt.text.toString()
-                saveLoc("osm", locNum, xStr, yStr, labelStr)
+                saveLocation(locNum, xStr, yStr, labelStr)
             } else {
                 k -= UtilityCitiesExtended.cityLabels.size
                 var prov = MyApplication.comma.split(cityArrayAdapter.getItem(position))[1]
@@ -414,7 +412,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 val yStr = locYEt.text.toString()
                 val labelStr = locLabelEt.text.toString()
                 showMessage("Saving location: $labelStr")
-                saveLoc("osm", locNum, xStr, yStr, labelStr)
+                saveLocation(locNum, xStr, yStr, labelStr)
             }
         })
 
@@ -592,12 +590,11 @@ class SettingsLocationGenericActivity : BaseActivity(),
             val addrStrTmp = thingsYouSaid[0]
             locLabelEt.setText(addrStrTmp)
             val addrSend = addrStrTmp.replace(" ", "+")
-            addressSearchAndSave("osm", locNum, addrSend, addrStrTmp)
+            addressSearchAndSave(locNum, addrSend, addrStrTmp)
         }
     }
 
     private fun addressSearchAndSave(
-            type: String,
             locNum: String,
             address: String,
             labelStr: String
@@ -606,12 +603,10 @@ class SettingsLocationGenericActivity : BaseActivity(),
         var toastStr = ""
         var goodLocation = false
         withContext(Dispatchers.IO) {
-            if (type == "osm") {
-                xyStr = UtilityLocation.getXYFromAddressOsm(address)
-                if (xyStr.size > 1) {
-                    toastStr = Location.locationSave(this@SettingsLocationGenericActivity, locNum, xyStr[0], xyStr[1], labelStr)
-                    goodLocation = true
-                }
+            xyStr = UtilityLocation.getXYFromAddressOsm(address)
+            if (xyStr.size > 1) {
+                toastStr = Location.locationSave(this@SettingsLocationGenericActivity, locNum, xyStr[0], xyStr[1], labelStr)
+                goodLocation = true
             }
         }
         locXEt.setText(xyStr[0])
@@ -669,12 +664,14 @@ class SettingsLocationGenericActivity : BaseActivity(),
     }
 
     private fun updateSubTitle() {
-        val subStr = Utility.readPref(this, "NWS$locNum", "") + " " + Utility.readPref(
+        val subTitleString = "WFO: " + Utility.readPref(this, "NWS$locNum", "") + " - Nexrad: " + Utility.readPref(
                 this,
                 "RID$locNum",
                 ""
         )
-        if (subStr != "   " && updateTitle) toolbar.subtitle = subStr
+        if (subTitleString != "WFO:  - Nexrad: " && updateTitle) {
+            toolbar.subtitle = subTitleString
+        }
     }
 
     private fun changeSearchViewTextColor(view: View?) {
@@ -693,7 +690,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         val xStr = locXEt.text.toString()
         val yStr = locYEt.text.toString()
         val labelStr = locLabelEt.text.toString()
-        saveLoc("osm", locNum, xStr, yStr, labelStr)
+        saveLocation(locNum, xStr, yStr, labelStr)
     }
 
     private fun openCanadaMap(s: String) {
