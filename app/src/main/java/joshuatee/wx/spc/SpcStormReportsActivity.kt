@@ -110,7 +110,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         val playlistMi = menu.findItem(R.id.action_playlist)
         playlistMi.isVisible = false
         val activityArguments = intent.getStringArrayExtra(NO)
-        no = activityArguments[0]
+        no = activityArguments!![0]
         val cal = Calendar.getInstance()
         pYear = cal.get(Calendar.YEAR)
         pMonth = cal.get(Calendar.MONTH)

@@ -95,7 +95,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
         miText.isVisible = false
         miUrl.isVisible = false
         miImage.isVisible = false
-        number = intent.getStringArrayExtra(NO)[0]
+        number = intent.getStringArrayExtra(NO)!![0]
         if (number.contains("wat")) {
             number = number.replace("w", "")
             imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/ww" + number + "_radar.gif"

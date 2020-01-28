@@ -66,7 +66,9 @@ class SpcFireOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmaps = mutableListOf()
         withContext(Dispatchers.IO) {
-            UtilitySpcFireOutlook.imageUrls.mapTo(bitmaps) { it.getImage() }
+            UtilitySpcFireOutlook.imageUrls.mapTo(bitmaps) {
+                it.getImage()
+            }
         }
         bitmaps.forEach { bitmap ->
             val card = ObjectCardImage(this@SpcFireOutlookActivity, ll, bitmap)

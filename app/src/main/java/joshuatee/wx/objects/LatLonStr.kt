@@ -21,6 +21,10 @@
 
 package joshuatee.wx.objects
 
+//
+// Used in canada locations
+//
+
 class LatLonStr {
 
     var latStr: String = ""

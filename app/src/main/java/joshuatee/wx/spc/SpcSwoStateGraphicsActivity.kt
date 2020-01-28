@@ -72,7 +72,7 @@ class SpcSwoStateGraphicsActivity : VideoRecordActivity(), OnItemSelectedListene
                 bottomToolbar = true
         )
         toolbarBottom.setOnMenuItemClickListener(this)
-        day = intent.getStringArrayExtra(NO)[0]
+        day = intent.getStringArrayExtra(NO)!![0]
         state = Utility.readPref(this, "NWS_LOCATION_${Location.wfo}", "").split(",")[0]
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv)
         ObjectSpinner(this, this, this, R.id.spinner1, GlobalArrays.states, state)

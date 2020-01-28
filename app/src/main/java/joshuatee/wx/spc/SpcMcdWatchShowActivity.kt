@@ -74,7 +74,7 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
         toolbarBottom.setOnMenuItemClickListener(this)
         objectCardImage = ObjectCardImage(this, ll)
         objectCardText = ObjectCardText(this, ll, toolbar, toolbarBottom)
-        activityArguments = intent.getStringArrayExtra(NO)
+        activityArguments = intent.getStringArrayExtra(NO)!!
         number = activityArguments[0]
         when (activityArguments[2]) {
             "MCD" -> objectWatchProduct = ObjectWatchProduct(PolygonType.MCD, number)

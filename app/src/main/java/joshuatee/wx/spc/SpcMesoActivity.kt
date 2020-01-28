@@ -54,10 +54,12 @@ import kotlinx.coroutines.*
 class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         AdapterView.OnItemSelectedListener {
 
+    //
     // native interface to the mobile SPC meso website
     //
     // arg1 - number of panes, 1 or 2
     // arg2 - pref model token and hash lookup
+    //
 
     companion object {
         var INFO: String = ""
@@ -298,7 +300,6 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
             return true
         }
         when (item.itemId) {
-            // FIXME consolidate code below
             R.id.action_toggleRadar -> {
                 if (showRadar) {
                     Utility.writePref(this, prefModel + "_SHOW_RADAR", "false")
@@ -392,18 +393,16 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
                     arrayOf("", "2", prefModel)
             )
             R.id.action_fav -> toggleFavorite()
-            // FIXME consolidate code below
-            R.id.action_img1 -> {
-                curImg = 0
-                setTitle()
-            }
-            R.id.action_img2 -> {
-                curImg = 1
-                setTitle()
-            }
+            R.id.action_img1 -> setImage(0)
+            R.id.action_img2 -> setImage(1)
             else -> return super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    private fun setImage(frameNumber: Int) {
+        curImg = frameNumber
+        setTitle()
     }
 
     private fun setTitle() {
@@ -415,7 +414,9 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true
+        }
         when (item.itemId) {
             R.id.action_a6 -> getAnimate(6)
             R.id.action_a12 -> getAnimate(12)

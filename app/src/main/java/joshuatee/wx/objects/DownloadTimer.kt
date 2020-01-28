@@ -25,6 +25,11 @@ import android.content.Context
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityTime
 
+//
+// Used as an object to determine when data should be downloaded again
+// particularly in nexrad radar
+//
+
 class DownloadTimer(private var identifier: String) {
 
     private var initialized = false

@@ -25,6 +25,10 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 
+//
+// Used to start another activity
+//
+
 class ObjectIntent() {
 
     constructor(

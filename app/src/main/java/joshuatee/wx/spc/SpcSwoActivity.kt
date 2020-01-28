@@ -85,7 +85,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
             objectCardImageList.add(ObjectCardImage(this, linearLayoutHorizontalList[i / 2].linearLayout))
         }
         objectCardText = ObjectCardText(this, ll, toolbar, toolbarBottom)
-        activityArguments = intent.getStringArrayExtra(NO)
+        activityArguments = intent.getStringArrayExtra(NO)!!
         day = activityArguments[0]
         title = "Day $day Convective Outlook"
         val menu = toolbarBottom.menu
