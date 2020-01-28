@@ -1,5 +1,3 @@
-import joshuatee.wx.util.Utility
-
 /*
 
     Copyright 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020  joshua.tee@gmail.com
@@ -23,19 +21,30 @@ import joshuatee.wx.util.Utility
 
 // work in progress - currently not used
 
+import android.content.Context
+import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityLog
+import java.io.BufferedInputStream
+import java.io.DataInputStream
+import java.io.IOException
+import java.nio.ByteBuffer
+
+import joshuatee.wx.R
+
 class RadarGeometryFile {
 
-    //var relativeBuffer = MemoryBuffer()
-    //var byteData: ByteData
+    var byteBuffer: ByteBuffer = ByteBuffer.allocateDirect(0)
     var count: Int
-    var fileName: String
+    var context: Context
+    var fileId: Int
     var initialized = false
     var preferenceToken: String
     var showItem: Boolean
     var showItemDefault: Boolean
 
-    constructor(fileName: String, count: Int, preferenceToken: String, showItemDefault: Boolean) {
-        this.fileName = fileName
+    constructor(context: Context, fileId: Int, count: Int, preferenceToken: String, showItemDefault: Boolean) {
+        this.context = context
+        this.fileId = fileId
         this.count = count
         this.preferenceToken = preferenceToken
         this.showItemDefault = showItemDefault
@@ -61,77 +70,97 @@ class RadarGeometryFile {
         }
     }
 
-    /*factory RadarGeometryFile.byType(RadarGeometryFileType type) {
-     switch (type) {
-     case RadarGeometryFileType.countyLines:
-     return RadarGeometryFile(
-     "county.bin", 212992, "RADAR_SHOW_COUNTY", true);
-     break;
-     case RadarGeometryFileType.highways:
-     return RadarGeometryFile("hwv4.bin", 862208, "COD_HW_DEFAULT", true);
-     break;
-     case RadarGeometryFileType.stateLines:
-     return RadarGeometryFile(
-     "statev2.bin", 205748, "RADAR_SHOW_STATELINES", true);
-     break;
-     case RadarGeometryFileType.rivers:
-     return RadarGeometryFile(
-     "lakesv3.bin", 503812, "COD_LAKES_DEFAULT", false);
-     break;
-     case RadarGeometryFileType.highwaysExtended:
-     return RadarGeometryFile(
-     "hwv4ext.bin", 770048, "RADAR_HW_ENH_EXT", false);
-     break;
-     case RadarGeometryFileType.canadaLines:
-     return RadarGeometryFile("ca.bin", 161792, "RADAR_CANADA_LINES", false);
-     break;
-     case RadarGeometryFileType.mexicoLines:
-     return RadarGeometryFile("mx.bin", 151552, "RADAR_MEXICO_LINES", false);
-     break;
-     default:
-     return RadarGeometryFile(
-     "statev2.bin", 205748, "RADAR_SHOW_STATELINES", true);
-     break;
-     }
-     }*/
-
-    /* func initialize() {
-     if (!initialized) {
-     relativeBuffer = MemoryBuffer(count * 4);
-     relativeBuffer.byteData = rootBundle.load("assets/res/" + fileName);
-     byteData = ByteData(relativeBuffer.byteData.lengthInBytes);
-     initialized = true;
-     }
-     }*/
-
     fun initialize(addData: Boolean) {
         if (!initialized) {
-            /*let floatSize: Float = 0.0
-            var newArray = [UInt8](repeating: 0, count: count * 4)
-            let path = Bundle.main.path(forResource: fileName, ofType: "bin")
-            let data = NSData(contentsOfFile: path!)
-            data!.getBytes(&newArray, length: MemoryLayout.size(ofValue: floatSize) * count)
-            if addData {
-                relativeBuffer.appendArray(newArray)
-            } else {
-                relativeBuffer.copy(newArray)
+            try {
+                val inputStream = context.resources.openRawResource(fileId)
+                val dis = DataInputStream(BufferedInputStream(inputStream))
+                (0 until count).forEach { _ -> byteBuffer.putFloat(dis.readFloat()) }
+                dis.close()
+                inputStream.close()
+            } catch (e: IOException) {
+                UtilityLog.handleException(e)
             }
-            initialized = true*/
+            initialized = true
         }
     }
 
-    /*static func checkForInitialization() {
-     for (var index = 0; index < RadarGeometryFileType.values.length; index++) {
-     await RadarGeometryFile.byTypes[RadarGeometryFileType.values[index]]
-     .initializeIfNeeded();
-     }
-     }*/
 
-    //static var byTypes = [RadarGeometryFileType: RadarGeometryFile]()
+    companion object {
 
-    /*static func instantiateAll() {
-     RadarGeometryFileType.values.forEach((v) {
-     byTypes[v] = RadarGeometryFile.byType(v);
-     });
-     }*/
+        fun byType(context: Context, type: RadarGeometryFileType): RadarGeometryFile {
+            when (type) {
+                RadarGeometryFileType.countyLines -> return RadarGeometryFile(
+                        context,
+                        R.raw.county,
+                        212992,
+                        "RADAR_SHOW_COUNTY",
+                        true
+                )
+                RadarGeometryFileType.highways -> return RadarGeometryFile(
+                        context,
+                        R.raw.hwv4,
+                        862208,
+                        "COD_HW_DEFAULT",
+                        true
+                )
+                RadarGeometryFileType.stateLines -> return RadarGeometryFile(
+                        context,
+                        R.raw.statev2,
+                        205748,
+                        "RADAR_SHOW_STATELINES",
+                        true
+                )
+                RadarGeometryFileType.rivers -> return RadarGeometryFile(
+                        context,
+                        R.raw.lakesv3,
+                        503812,
+                        "COD_LAKES_DEFAULT",
+                        false
+                )
+                RadarGeometryFileType.highwaysExtended -> return RadarGeometryFile(
+                        context,
+                        R.raw.hwv4ext,
+                        770048,
+                        "RADAR_HW_ENH_EXT",
+                        false
+                )
+                RadarGeometryFileType.canadaLines -> return RadarGeometryFile(
+                        context,
+                        R.raw.ca,
+                        161792,
+                        "RADAR_CANADA_LINES",
+                        false
+                )
+                RadarGeometryFileType.mexicoLines -> return RadarGeometryFile(
+                        context,
+                        R.raw.mx,
+                        151552,
+                        "RADAR_MEXICO_LINES",
+                        false
+                )
+                else -> return RadarGeometryFile(
+                        context,
+                        R.raw.statev2,
+                        205748,
+                        "RADAR_SHOW_STATELINES",
+                        true
+                )
+            }
+        }
+
+        fun checkForInitialization() {
+            RadarGeometryFileType.values().forEach {
+                RadarGeometryFile.byTypes[it]!!.initializeIfNeeded()
+            }
+        }
+
+        var byTypes: MutableMap<RadarGeometryFileType, RadarGeometryFile> = mutableMapOf()
+
+        fun instantiateAll(context: Context) {
+            RadarGeometryFileType.values().forEach {
+                byTypes[it] = RadarGeometryFile.byType(context, it)
+            }
+        }
+    }
 }
