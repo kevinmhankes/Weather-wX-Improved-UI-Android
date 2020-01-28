@@ -103,7 +103,7 @@ class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
             )
         )
         // For ChromeOS
-        objectCardVerticalText.card.requestFocus()
+        //objectCardVerticalText.card.requestFocus()
         plotData()
     }
 
