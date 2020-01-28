@@ -268,7 +268,8 @@ class SettingsLocationGenericActivity : BaseActivity(),
         if (caProv != "" || caCity != "" || caId != "") {
             locXEt.setText(resources.getString(R.string.settings_loc_generic_ca_x, caProv))
             locYEt.setText(caId)
-            locLabelEt.setText("$caCity, $caProv")
+            val locationLabel = "$caCity, $caProv"
+            locLabelEt.setText(locationLabel)
             notificationsCanada(true)
             fabSaveLocation()
         }
@@ -341,9 +342,8 @@ class SettingsLocationGenericActivity : BaseActivity(),
         }
     }
 
-    private fun addressSearch(type: String, address: String) = GlobalScope.launch(uiDispatcher) {
-        var xyStr = listOf<String>()
-        if (type == "osm") xyStr = withContext(Dispatchers.IO) { UtilityLocation.getXYFromAddressOsm(address) }
+    private fun addressSearch(address: String) = GlobalScope.launch(uiDispatcher) {
+        val xyStr = withContext(Dispatchers.IO) { UtilityLocation.getXYFromAddressOsm(address) }
         locXEt.setText(xyStr[0])
         locYEt.setText(xyStr[1])
         val xStr = locXEt.text.toString()
@@ -387,7 +387,8 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 searchView.setText(cityArrayAdapter.getItem(position)!!)
                 locLabelEt.setText(cityArrayAdapter.getItem(position))
                 locXEt.setText(UtilityCitiesExtended.cityLat[k].toString())
-                locYEt.setText("-" + UtilityCitiesExtended.cityLon[k].toString())
+                val longitudeLabel = "-" + UtilityCitiesExtended.cityLon[k].toString()
+                locYEt.setText(longitudeLabel)
                 val searchViewLocal = menuLocal!!.findItem(R.id.ab_search).actionView as SearchView
                 searchViewLocal.onActionViewCollapsed()
                 searchViewLocal.isIconified = true
@@ -403,8 +404,10 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 // Y: CODE:-84.
                 searchView.setText(cityArrayAdapter.getItem(position)!!) // removed .toString() on this and below
                 locLabelEt.setText(cityArrayAdapter.getItem(position))
-                locXEt.setText("CANADA:" + prov + ":" + UtilityCitiesCanada.LAT_CA[k].toString())
-                locYEt.setText(UtilityCitiesCanada.code[k] + ":-" + UtilityCitiesCanada.LON_CA[k].toString())
+                val latitudeLabel = "CANADA:" + prov + ":" + UtilityCitiesCanada.LAT_CA[k].toString()
+                val longitudeLabel = UtilityCitiesCanada.code[k] + ":-" + UtilityCitiesCanada.LON_CA[k].toString()
+                locXEt.setText(latitudeLabel)
+                locYEt.setText(longitudeLabel)
                 val searchViewLocal = menuLocal!!.findItem(R.id.ab_search).actionView as SearchView
                 searchViewLocal.onActionViewCollapsed()
                 searchViewLocal.isIconified = true
@@ -425,7 +428,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
             override fun onQueryTextSubmit(query: String): Boolean {
                 locLabelEt.setText(query)
                 val addressToSend = query.replace(" ", "+")
-                addressSearch("osm", addressToSend)
+                addressSearch(addressToSend)
                 val searchViewLocal = menuLocal!!.findItem(R.id.ab_search).actionView as SearchView
                 searchViewLocal.onActionViewCollapsed()
                 return false
