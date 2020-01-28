@@ -8,6 +8,7 @@
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [ADD] warning counts in nexrad
 
+55337 2020_01_27
 55336 2020_01_27    [REF] lint cleanup
                     [ADD] fix radar legend pnd - LIFR was not pink
                     [ADD] RadarFileGeometry (wip)
