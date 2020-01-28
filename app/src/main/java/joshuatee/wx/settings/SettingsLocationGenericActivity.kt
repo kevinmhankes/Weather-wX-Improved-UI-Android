@@ -399,6 +399,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
             } else {
                 k -= UtilityCitiesExtended.cityLabels.size
                 var prov = MyApplication.comma.split(cityArrayAdapter.getItem(position))[1]
+                //var prov = cityArrayAdapter.getItem(position)!!.split(",")[1]
                 prov = prov.replace(" ", "")
                 // X: CANADA:ON:46.5
                 // Y: CODE:-84.
