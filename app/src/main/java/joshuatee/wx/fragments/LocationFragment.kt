@@ -91,7 +91,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
     private val hsImages = mutableListOf<ObjectCardHSImage>()
     private var oglrArr = mutableListOf<WXGLRender>()
     private var glviewArr = mutableListOf<WXGLSurfaceView>()
-    private var wxgltextArr = mutableListOf<WXGLTextObject>()
+    private var wxglTextArr = mutableListOf<WXGLTextObject>()
     private var numRadars = 0
     private var oldRidArr = Array(2) { "" }
     private val radarLocationChangedAl = mutableListOf<Boolean>()
@@ -127,7 +127,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         oldRidArr = Array(numRadars) { "" }
         val rlArr = mutableListOf<RelativeLayout>()
         glviewArr.clear()
-        wxgltextArr.clear()
+        wxglTextArr.clear()
         var index = 0
         homeScreenTokens.forEach { tok ->
             val widthDivider = 1
@@ -157,7 +157,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                 radarLocationChangedAl.add(false)
                 glviewArr[index].idx = index
                 rlArr.add(RelativeLayout(activityReference))
-                wxgltextArr.add(
+                wxglTextArr.add(
                         WXGLTextObject(
                                 activityReference,
                                 rlArr[index],
@@ -167,9 +167,9 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                                 4
                         )
                 )
-                glviewArr[index].wxgltextArr = wxgltextArr
+                glviewArr[index].wxgltextArr = wxglTextArr
                 glviewArr[index].locationFragment = true
-                wxgltextArr[index].initializeTextLabels(activityReference)
+                wxglTextArr[index].initializeTextLabels(activityReference)
                 rlArr[index].addView(glviewArr[index])
                 cardViews.last().addView(rlArr[index])
                 cardViews.last().layoutParams = RelativeLayout.LayoutParams(
@@ -198,7 +198,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                 oldRidArr[index] = ""
                 radarLocationChangedAl.add(false)
                 rlArr.add(RelativeLayout(activityReference))
-                wxgltextArr.add(
+                wxglTextArr.add(
                         WXGLTextObject(
                                 activityReference,
                                 rlArr[index],
@@ -208,9 +208,9 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                                 4 // FIXME
                         )
                 )
-                glviewArr[index].wxgltextArr = wxgltextArr
+                glviewArr[index].wxgltextArr = wxglTextArr
                 glviewArr[index].locationFragment = true
-                wxgltextArr[index].initializeTextLabels(activityReference)
+                wxglTextArr[index].initializeTextLabels(activityReference)
                 rlArr[index].addView(glviewArr[index])
                 cardViews.last().addView(rlArr[index])
                 cardViews.last().layoutParams = RelativeLayout.LayoutParams(
@@ -305,7 +305,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                         it,
                         oglrArr,
                         glviewArr,
-                        wxgltextArr,
+                        wxglTextArr,
                         changeListener
                 )
             }
@@ -342,7 +342,9 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                     activityReference,
                     SettingsLocationGenericActivity::class.java,
                     SettingsLocationGenericActivity.LOC_NUM,
-                    arrayOf((pos + 1).toString(), "")
+                    arrayOf((pos + 1).toString(),
+                            ""
+                    )
             )
         }
         locationLabel.text = Location.name
@@ -373,15 +375,21 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
     override fun onResume() {
         super.onResume()
         if (glviewInitialized) {
-            glviewArr.forEach { it.onResume() }
+            glviewArr.forEach {
+                it.onResume()
+            }
         }
         cardCC?.refreshTextSize()
         locationLabel.refreshTextSize(TextSize.MEDIUM)
         locationLabel.text = Location.name
         sevenDayCards.forEach{ it.refreshTextSize() }
         cardSunrise?.refreshTextSize(TextSize.MEDIUM)
-        hsTextAl.forEach{ it.refreshTextSize() }
-        hazardsCards.forEach{it.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)}
+        hsTextAl.forEach{
+            it.refreshTextSize()
+        }
+        hazardsCards.forEach{
+            it.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
+        }
         // TODO use a Timer class to handle the data refresh stuff
         val currentTime = UtilityTime.currentTimeMillis()
         val currentTimeSec = currentTime / 1000
@@ -396,7 +404,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                             it,
                             oglrArr,
                             glviewArr,
-                            wxgltextArr,
+                            wxglTextArr,
                             changeListener
                     )
                 }
@@ -433,7 +441,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                 idx,
                 oldRidArr,
                 oglrArr,
-                wxgltextArr,
+                wxglTextArr,
                 numPanesArr,
                 null,
                 glviewArr,
@@ -502,12 +510,12 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         // some time ago there were crashes caused by this additional content but I don't recall the details
         // guess it's worth another try to see if the issue back then was fixed in the various re-writes that have
         // occured since
-        if (Location.isUS) {
-            //if (PolygonType.OBS.pref) {
-            //    UtilityWXGLTextObject.updateObs(numRadars, wxgltextArr)
-            //}
+        if (Location.isUS && idx == 0) {
+            if (PolygonType.OBS.pref) {
+                UtilityWXGLTextObject.updateObs(numRadars, wxglTextArr)
+            }
             if (PolygonType.SPOTTER_LABELS.pref) {
-                UtilityWXGLTextObject.updateSpotterLabels(numRadars, wxgltextArr)
+                UtilityWXGLTextObject.updateSpotterLabels(numRadars, wxglTextArr)
             }
             glviewArr[idx].requestRender()
             if (idx == oglrIdx) {
@@ -540,13 +548,13 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
 
     private fun getImageProduct(productString: String) = GlobalScope.launch(uiDispatcher) {
         val productIndex = productString.toIntOrNull() ?: 0
-        val b = withContext(Dispatchers.IO) {
+        val bitmap = withContext(Dispatchers.IO) {
             UtilityDownload.getImageProduct(
                     MyApplication.appContext,
                     hsImages[productIndex].product
             )
         }
-        hsImages[productIndex].setImage(b)
+        hsImages[productIndex].setImage(bitmap)
     }
 
     private fun showHelp(helpItem: Int) {
@@ -575,7 +583,9 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                         alertDialogRadarLongPress!!
                 )
             } else {
-                (0 until numRadars).forEach { wxgltextArr[it].addTextLabels() }
+                (0 until numRadars).forEach {
+                    wxglTextArr[it].addTextLabels()
+                }
             }
         }
     }
@@ -585,11 +595,10 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
             ts = ""
             val info = Utility.readPref("WX_RADAR_CURRENT_INFO", "")
             val tmpArr = MyApplication.space.split(info)
-            if (tmpArr.size > 3)
+            if (tmpArr.size > 3) {
                 ts = tmpArr[3]
-
-            return if (oglrIdx != -1)
-                " " + oglrArr[idxIntG].rid + ": " + ts
+            }
+            return if (oglrIdx != -1) " " + oglrArr[idxIntG].rid + ": " + ts
             else
                 ""
         }
@@ -599,10 +608,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         val tmpArr = MyApplication.space.split(str)
         if (tmpArr.size > 3)
             ts = tmpArr[3]
-        return oglrArr[j].rid + ": " + ts + " (" + Utility.readPref(
-                "RID_LOC_" + oglrArr[j].rid,
-                ""
-        ) + ")"
+        return oglrArr[j].rid + ": " + ts + " (" + Utility.readPref("RID_LOC_" + oglrArr[j].rid, "") + ")"
     }
 
     private fun getGPSFromDouble() {
@@ -612,7 +618,9 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
 
     override fun onPause() {
         if (glviewInitialized) {
-            glviewArr.forEach { it.onPause() }
+            glviewArr.forEach {
+                it.onPause()
+            }
         }
         super.onPause()
     }
@@ -675,16 +683,13 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
     private fun resetAllGlview() {
         glviewArr.indices.forEach {
             UtilityRadarUI.resetGlview(glviewArr[it], oglrArr[it])
-            wxgltextArr[it].addTextLabels()
+            wxglTextArr[it].addTextLabels()
         }
     }
 
     private fun radarTimestamps(): List<String> {
         return (0 until glviewArr.size).mapTo(mutableListOf()) {
-            getRadarTimeStamp(
-                    oglrArr[it].radarL3Object.timestamp,
-                    it
-            )
+            getRadarTimeStamp(oglrArr[it].radarL3Object.timestamp, it)
         }
     }
 
@@ -791,11 +796,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         }
         radarLocationChangedAl[idxIntG] = true
         glviewArr[idxIntG].scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
-        oglrArr[idxIntG].setViewInitial(
-                MyApplication.wxoglSize.toFloat() / 10.0f,
-                0.0f,
-                0.0f
-        )
+        oglrArr[idxIntG].setViewInitial(MyApplication.wxoglSize.toFloat() / 10.0f, 0.0f, 0.0f)
         getRadar(idxIntG)
     }
 
@@ -874,13 +875,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                     bitmapForCurrentConditions = if (Location.isUS) {
                         UtilityNws.getIcon(activityReference, objCc.iconUrl)
                     } else {
-                        UtilityNws.getIcon(
-                                activityReference,
-                                UtilityCanada.translateIconNameCurrentConditions(
-                                        objCc.data,
-                                        objCc.status
-                                )
-                        )
+                        UtilityNws.getIcon(activityReference, UtilityCanada.translateIconNameCurrentConditions(objCc.data, objCc.status))
                     }
                 }
             } catch (e: Exception) {
@@ -1008,7 +1003,6 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         }
         withContext(Dispatchers.IO) {
             try {
-                //objHazards = Utility.getCurrentHazards(Location.currentLocation)
                 objHazards = if (Location.isUS(Location.currentLocation)) {
                     ObjectForecastPackageHazards(Location.currentLocation)
                 } else {
