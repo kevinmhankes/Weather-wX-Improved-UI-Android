@@ -210,4 +210,45 @@ object WXGLNexrad {
     fun saveProductPrefs(context: Context, prefPrefix: String, idx: Int, wxglRender: WXGLRender) {
         Utility.writePref(context, prefPrefix + "_PROD" + idx.toString(), wxglRender.product)
     }
+
+
+
+    fun getTimeLastScan(): String {
+        val timeStamp = Utility.readPref("WX_RADAR_CURRENT_DATE_" + "0", "").split(" ")
+        return if (timeStamp.size > 1) {
+            timeStamp[1]
+        } else {
+            ""
+        }
+    }
+
+    /*static String getLastVcp(int pane) {
+     return Utility.readPref("WX_RADAR_CURRENT_VCP_" + pane.toString(), "");
+   }
+
+   static String getLastVcpMultiPane(List<int> paneList) {
+     var vcpList = "";
+     paneList.forEach((pane) {
+       vcpList +=
+           Utility.readPref("WX_RADAR_CURRENT_VCP_" + pane.toString(), "");
+       vcpList += " ";
+     });
+     return vcpList;
+   }
+
+   static void resetLastVcp(List<int> panes) {
+     panes.forEach((data) {
+       Utility.writePref("WX_RADAR_CURRENT_VCP_" + data.toString(), "");
+     });
+   }
+
+   static void resetLastDates(List<int> panes) {
+     panes.forEach((data) {
+       Utility.writePref("WX_RADAR_CURRENT_DATE_" + data.toString(), "");
+     });
+   }*/
+
+    fun getRadarInfo(pane: Int): String {
+        return Utility.readPref("WX_RADAR_CURRENT_INFO_$pane", "")
+    }
 }
