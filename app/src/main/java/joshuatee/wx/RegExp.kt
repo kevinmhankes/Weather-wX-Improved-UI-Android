@@ -60,10 +60,7 @@ object RegExp {
     val patternMetarWxogl5: Pattern = Pattern.compile("SM (.*?) M?[0-9]{2}/")
 
     val utilnxanimPattern1: Pattern = Pattern.compile(">(sn.[0-9]{4})</a>")
-    val utilnxanimPattern2: Pattern =
-        Pattern.compile(".*?([0-9]{2}-[A-Za-z]{3}-[0-9]{4} [0-9]{2}:[0-9]{2}).*?")
-    //val uswarnPattern: Pattern =
-    //    Pattern.compile("<entry>.*?<id>(.+?-[0-9]{7})</id>.*?<title>(.+?)</title>.*?<summary>(.*?)</summary>.*?<cap:event>(.*?)</cap:event>.*?<cap:areaDesc>(.*?)</cap:areaDesc>.*?<valueName>UGC</valueName>.*?<value>(.*?)</value>.*?<valueName>VTEC</valueName>.*?<value>(.*?)</value>.*?</entry>.*?")
+    val utilnxanimPattern2: Pattern = Pattern.compile(".*?([0-9]{2}-[A-Za-z]{3}-[0-9]{4} [0-9]{2}:[0-9]{2}).*?")
     val stiPattern1: Pattern = Pattern.compile("AZ/RAN(.*?)V")
     val stiPattern2: Pattern = Pattern.compile("MVT(.*?)V")
     val stiPattern3: Pattern = Pattern.compile("\\d+")
@@ -75,21 +72,16 @@ object RegExp {
     val tvsPattern2: Pattern = Pattern.compile(".{9}(.{7})")
     val utilNhcPattern1: Pattern = Pattern.compile("<title>(.*?)</title>")
     val utilNhcPattern2: Pattern = Pattern.compile("<nhc:Cyclone>(.*?)</nhc:Cyclone>")
-    val utilNhcPattern3: Pattern =
-        Pattern.compile("<link>.*?(https://www.nhc.noaa.gov/text/refresh/MIATCP[AE][TP][0-9].shtml/.*?shtml).*?</link>")
+    val utilNhcPattern3: Pattern = Pattern.compile("<link>.*?(https://www.nhc.noaa.gov/text/refresh/MIATCP[AE][TP][0-9].shtml/.*?shtml).*?</link>")
     val utilNhcPattern4: Pattern = Pattern.compile("<nhc:wallet>(.*?)</nhc:wallet>")
     val utilNhcPattern5: Pattern = Pattern.compile("<img src=.(.*?png).")
     val srefPattern1: Pattern = Pattern.compile("([0-9]{2}z)")
     val srefPattern2: Pattern = Pattern.compile("([0-9]{10}z</a>&nbsp in through <b>f[0-9]{3})")
-    val srefPattern3: Pattern =
-        Pattern.compile("<tr><td class=.previous.><a href=sref.php\\?run=[0-9]{10}&id=SREF_H5__>([0-9]{10}z)</a></td></tr>")
+    val srefPattern3: Pattern = Pattern.compile("<tr><td class=.previous.><a href=sref.php\\?run=[0-9]{10}&id=SREF_H5__>([0-9]{10}z)</a></td></tr>")
     val ncepPattern1: Pattern = Pattern.compile("([0-9]{2}Z)")
-    //val ncepPattern2: Pattern = Pattern.compile("([0-9]{10}UTC selected_cell)")
     val ncepPattern2: Pattern = Pattern.compile("var current_cycle_white . .([0-9 ]{11} UTC)")
-    val eslHrrrPattern1: Pattern =
-        Pattern.compile("<option selected>([0-9]{2} \\w{3} [0-9]{4} - [0-9]{2}Z)<.option>")
-    val eslHrrrPattern2: Pattern =
-        Pattern.compile("<option>([0-9]{2} \\w{3} [0-9]{4} - [0-9]{2}Z)<.option>")
+    val eslHrrrPattern1: Pattern = Pattern.compile("<option selected>([0-9]{2} \\w{3} [0-9]{4} - [0-9]{2}Z)<.option>")
+    val eslHrrrPattern2: Pattern = Pattern.compile("<option>([0-9]{2} \\w{3} [0-9]{4} - [0-9]{2}Z)<.option>")
     val eslHrrrPattern3: Pattern = Pattern.compile("[0-9]{2} \\w{3} ([0-9]{4}) - [0-9]{2}Z")
     val eslHrrrPattern4: Pattern = Pattern.compile("([0-9]{2}) \\w{3} [0-9]{4} - [0-9]{2}Z")
     val eslHrrrPattern5: Pattern = Pattern.compile("[0-9]{2} \\w{3} [0-9]{4} - ([0-9]{2})Z")

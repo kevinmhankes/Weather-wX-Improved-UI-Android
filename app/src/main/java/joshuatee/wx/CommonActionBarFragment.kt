@@ -68,8 +68,9 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.cab, menu)
         helpMi = menu.findItem(R.id.action_help)
-        if (MyApplication.helpMode)
+        if (MyApplication.helpMode) {
             helpMi.title = helpStr
+        }
         return true
     }
 

@@ -33,6 +33,7 @@ import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
+import joshuatee.wx.fragments.LocationFragment
 
 import joshuatee.wx.fragments.ViewPagerAdapter
 import joshuatee.wx.spc.UtilitySpc
