@@ -10,7 +10,7 @@
 // TODO [ADD] textual obs in fixed radars on homescreen
 // TODO [FIX] create method for reading radar status
 
-55340 2020_01_29
+55340 2020_01_29    [REF] use methods in WXGLNexrad to read radar info in pref
 55339 2020_01_29    [FIX] on homescreen if more then one nexrad timestemp in cc box is not correct
 55338 2020_01_28    [ADD] in settings -> location if choose Canada location via map return to location screen after tapping on map
                     [REF] various code cleanup

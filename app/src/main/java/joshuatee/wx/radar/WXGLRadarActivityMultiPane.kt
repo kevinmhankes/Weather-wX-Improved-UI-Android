@@ -104,10 +104,10 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private var locXCurrent = ""
     private var locYCurrent = ""
     private var infoAnim = Array(2) { "" }
-    private var tmpArr1 = Array(2) { "" }
-    private var tmpArr2 = Array(2) { "" }
-    private var tmpArr3 = Array(2) { "" }
-    private var tmpArr4 = Array(2) { "" }
+    //private var tmpArr1 = Array(2) { "" }
+    //private var tmpArr2 = Array(2) { "" }
+    //private var tmpArr3 = Array(2) { "" }
+    //private var tmpArr4 = Array(2) { "" }
     private val latlonArr = mutableListOf("", "")
     private var latD = 0.0
     private var lonD = 0.0
@@ -945,7 +945,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private fun showRadarScanInfo() {
         var scanInfo = ""
         numPanesArr.forEach {
-            infoArr[it] = Utility.readPref(this, "WX_RADAR_CURRENT_INFO" + (it + 1).toString(), "")
+            infoArr[it] = WXGLNexrad.getRadarInfo(this,(it + 1).toString())
             scanInfo = scanInfo + infoArr[it] + MyApplication.newline + MyApplication.newline
         }
         UtilityAlertDialog.showHelpText(scanInfo, this)
@@ -1179,29 +1179,28 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private fun setSubTitle() {
         if (numPanes == 4) {
             numPanesArr.forEach {
-                infoArr[it] =
-                        Utility.readPref(this, "WX_RADAR_CURRENT_INFO" + (it + 1).toString(), "")
+                infoArr[it] = WXGLNexrad.getRadarInfo(this,(it + 1).toString())
             }
-            tmpArr1 = MyApplication.space.split(infoArr[0])
-            tmpArr2 = MyApplication.space.split(infoArr[1])
-            tmpArr3 = MyApplication.space.split(infoArr[2])
-            tmpArr4 = MyApplication.space.split(infoArr[3])
-            if (tmpArr1.size > 3 && tmpArr2.size > 3 && tmpArr3.size > 3 && tmpArr4.size > 3)
-                toolbar.subtitle = tmpArr1[3] + "/" + tmpArr2[3] + "/" + tmpArr3[3] + "/" +
-                        tmpArr4[3]
-            else
+            val tmpArr1 = MyApplication.space.split(infoArr[0])
+            val tmpArr2 = MyApplication.space.split(infoArr[1])
+            val tmpArr3 = MyApplication.space.split(infoArr[2])
+            val tmpArr4 = MyApplication.space.split(infoArr[3])
+            if (tmpArr1.size > 3 && tmpArr2.size > 3 && tmpArr3.size > 3 && tmpArr4.size > 3) {
+                toolbar.subtitle = tmpArr1[3] + "/" + tmpArr2[3] + "/" + tmpArr3[3] + "/" + tmpArr4[3]
+            } else {
                 toolbar.subtitle = ""
+            }
         } else if (numPanes == 2) {
             numPanesArr.forEach {
-                infoArr[it] =
-                        Utility.readPref(this, "WX_RADAR_CURRENT_INFO" + (it + 1).toString(), "")
+                infoArr[it] = WXGLNexrad.getRadarInfo(this,(it + 1).toString())
             }
-            tmpArr1 = MyApplication.space.split(infoArr[0])
-            tmpArr2 = MyApplication.space.split(infoArr[1])
-            if (tmpArr1.size > 3 && tmpArr2.size > 3)
+            val tmpArr1 = MyApplication.space.split(infoArr[0])
+            val tmpArr2 = MyApplication.space.split(infoArr[1])
+            if (tmpArr1.size > 3 && tmpArr2.size > 3) {
                 toolbar.subtitle = tmpArr1[3] + "/" + tmpArr2[3]
-            else
+            } else {
                 toolbar.subtitle = ""
+            }
         }
     }
 
@@ -1209,29 +1208,28 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private fun setSubTitle(a: String, b: String) {
         if (numPanes == 4) {
             numPanesArr.forEach {
-                infoAnim[it] =
-                        Utility.readPref(this, "WX_RADAR_CURRENT_INFO" + (it + 1).toString(), "")
+                infoAnim[it] = WXGLNexrad.getRadarInfo(this,(it + 1).toString())
             }
-            tmpArr1 = MyApplication.space.split(infoAnim[0])
-            tmpArr2 = MyApplication.space.split(infoAnim[1])
-            tmpArr3 = MyApplication.space.split(infoAnim[2])
-            tmpArr4 = MyApplication.space.split(infoAnim[3])
-            if (tmpArr1.size > 3 && tmpArr2.size > 3 && tmpArr3.size > 3 && tmpArr4.size > 3)
-                toolbar.subtitle = tmpArr1[3] + "/" + tmpArr2[3] + "/" + tmpArr3[3] + "/" +
-                        tmpArr4[3] + "(" + a + "/" + b + ")"
-            else
+            val tmpArr1 = MyApplication.space.split(infoAnim[0])
+            val tmpArr2 = MyApplication.space.split(infoAnim[1])
+            val tmpArr3 = MyApplication.space.split(infoAnim[2])
+            val tmpArr4 = MyApplication.space.split(infoAnim[3])
+            if (tmpArr1.size > 3 && tmpArr2.size > 3 && tmpArr3.size > 3 && tmpArr4.size > 3) {
+                toolbar.subtitle = tmpArr1[3] + "/" + tmpArr2[3] + "/" + tmpArr3[3] + "/" + tmpArr4[3] + "(" + a + "/" + b + ")"
+            } else {
                 toolbar.subtitle = ""
+            }
         } else if (numPanes == 2) {
             numPanesArr.forEach {
-                infoAnim[it] =
-                        Utility.readPref(this, "WX_RADAR_CURRENT_INFO" + (it + 1).toString(), "")
+                infoAnim[it] = WXGLNexrad.getRadarInfo(this,(it + 1).toString())
             }
-            tmpArr1 = MyApplication.space.split(infoAnim[0])
-            tmpArr2 = MyApplication.space.split(infoAnim[1])
-            if (tmpArr1.size > 3 && tmpArr2.size > 3)
+            val tmpArr1 = MyApplication.space.split(infoAnim[0])
+            val tmpArr2 = MyApplication.space.split(infoAnim[1])
+            if (tmpArr1.size > 3 && tmpArr2.size > 3) {
                 toolbar.subtitle = tmpArr1[3] + "/" + tmpArr2[3] + "/" + "(" + a + "/" + b + ")"
-            else
+            } else {
                 toolbar.subtitle = ""
+            }
         }
     }
 

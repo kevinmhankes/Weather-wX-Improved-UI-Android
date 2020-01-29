@@ -577,7 +577,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     private fun progressUpdate(vararg values: String) {
         if ((values[1].toIntOrNull() ?: 0) > 1) {
-            val tmpArrAnim = Utility.readPref(this@WXGLRadarActivity, "WX_RADAR_CURRENT_INFO", "").split(" ")
+            val tmpArrAnim = WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"").split(" ")
             if (tmpArrAnim.size > 3)
                 toolbar.subtitle = tmpArrAnim[3] + " (" + values[0] + "/" + values[1] + ")"
             else
@@ -588,7 +588,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun setSubTitle() {
-        val info = Utility.readPref(this@WXGLRadarActivity, "WX_RADAR_CURRENT_INFO", "")
+        val info = WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"")
         val tmpArr = info.split(" ")
         if (tmpArr.size > 3) {
             toolbar.subtitle = tmpArr[3]
@@ -804,7 +804,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun showRadarScanInfo() {
-        val info = Utility.readPref(this@WXGLRadarActivity, "WX_RADAR_CURRENT_INFO", "")
+        val info = WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"")
         UtilityAlertDialog.showHelpText(info, this as Activity)
     }
 

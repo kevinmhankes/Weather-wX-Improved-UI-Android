@@ -41,10 +41,10 @@ class RadarGeometryFile//initialize()
     var showItem: Boolean
 
     init {
-        if (showItemDefault) {
-            showItem = Utility.readPref(preferenceToken, "true").startsWith("t")
+        showItem = if (showItemDefault) {
+            Utility.readPref(preferenceToken, "true").startsWith("t")
         } else {
-            showItem = Utility.readPref(preferenceToken, "false").startsWith("t")
+            Utility.readPref(preferenceToken, "false").startsWith("t")
         }
         if (showItem) {
             //initialize()
