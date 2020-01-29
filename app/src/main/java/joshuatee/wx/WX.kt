@@ -26,21 +26,19 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import com.google.android.material.tabs.TabLayout
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.appcompat.widget.Toolbar
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
+import androidx.appcompat.widget.Toolbar
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.google.android.material.tabs.TabLayout
 import joshuatee.wx.fragments.LocationFragment
-
 import joshuatee.wx.fragments.ViewPagerAdapter
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
-
 import kotlinx.android.synthetic.main.activity_main.*
 
 class WX : CommonActionBarFragment() {
@@ -289,11 +287,11 @@ class WX : CommonActionBarFragment() {
                 }
                 return true
             }
-            //KeyEvent.KEYCODE_REFRESH -> {
-            //    val fragment = vpa.getItem(0) as LocationFragment
-            //    fragment.getContent()
-            //    return true
-            //}
+            KeyEvent.KEYCODE_REFRESH -> {
+                val currentFragment = supportFragmentManager.fragments.first() as LocationFragment
+                currentFragment.getContent()
+                return true
+            }
             else -> return super.onKeyUp(keyCode, event)
         }
     }
