@@ -19,6 +19,8 @@
 
  */
 
+package joshuatee.wx.radar
+
 enum class RadarGeometryFileType {
     stateLines,
     countyLines,

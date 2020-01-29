@@ -77,24 +77,15 @@ class Location(val context: Context, locNumInt: Int) {
         wfo = Utility.readPref(context, "NWS$jStr", "")
         rid = Utility.readPref(context, "RID$jStr", "")
         nwsStateCurrent = Utility.readPref(context, "NWS" + jStr + "_STATE", "")
-        alertNotificationCurrent =
-            Utility.readPref(context, "ALERT" + jStr + "_NOTIFICATION", "false")
-        alertNotificationRadarCurrent =
-            Utility.readPref(context, "ALERT_NOTIFICATION_RADAR$jStr", "false")
-        alertCcNotificationCurrent =
-            Utility.readPref(context, "ALERT_CC" + jStr + "_NOTIFICATION", "false")
-        alertSevenDayNotificationCurrent =
-            Utility.readPref(context, "ALERT_7DAY_" + jStr + "_NOTIFICATION", "false")
-        alertNotificationSoundCurrent =
-            Utility.readPref(context, "ALERT_NOTIFICATION_SOUND$jStr", "false")
-        alertNotificationMcdCurrent =
-            Utility.readPref(context, "ALERT_NOTIFICATION_MCD$jStr", "false")
-        alertNotificationSwoCurrent =
-            Utility.readPref(context, "ALERT_NOTIFICATION_SWO$jStr", "false")
-        alertNotificationSpcfwCurrent =
-            Utility.readPref(context, "ALERT_NOTIFICATION_SPCFW$jStr", "false")
-        alertNotificationWpcmpdCurrent =
-            Utility.readPref(context, "ALERT_NOTIFICATION_WPCMPD$jStr", "false")
+        alertNotificationCurrent = Utility.readPref(context, "ALERT" + jStr + "_NOTIFICATION", "false")
+        alertNotificationRadarCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_RADAR$jStr", "false")
+        alertCcNotificationCurrent = Utility.readPref(context, "ALERT_CC" + jStr + "_NOTIFICATION", "false")
+        alertSevenDayNotificationCurrent = Utility.readPref(context, "ALERT_7DAY_" + jStr + "_NOTIFICATION", "false")
+        alertNotificationSoundCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_SOUND$jStr", "false")
+        alertNotificationMcdCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_MCD$jStr", "false")
+        alertNotificationSwoCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_SWO$jStr", "false")
+        alertNotificationSpcfwCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_SPCFW$jStr", "false")
+        alertNotificationWpcmpdCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_WPCMPD$jStr", "false")
         raw = Utility.readPref(context, "LOC" + jStr + "_TIMERAW", "")
         dst = Utility.readPref(context, "LOC" + jStr + "_TIMEDST", "")
         state = Utility.readPref(context, "NWS_LOCATION_$wfo", "").split(",")[0]
@@ -263,8 +254,6 @@ class Location(val context: Context, locNumInt: Int) {
             val wfo = pointData.parse("\"cwa\": \"(.*?)\"")
             var radarStation = pointData.parse("\"radarStation\": \"(.*?)\"")
             radarStation = UtilityString.getLastXChars(radarStation, 3)
-            //print(wfo);
-            //print(radarStation);
             return listOf(wfo, radarStation)
         }
 

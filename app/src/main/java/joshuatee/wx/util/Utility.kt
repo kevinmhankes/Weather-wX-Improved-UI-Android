@@ -32,7 +32,6 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 
 import joshuatee.wx.Extensions.*
-import joshuatee.wx.radar.LatLon
 import joshuatee.wx.radar.UtilityRadar
 import joshuatee.wx.radar.UtilityRadarUI
 import joshuatee.wx.ui.UtilityUI

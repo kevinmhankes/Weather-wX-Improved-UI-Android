@@ -21,6 +21,8 @@
 
 // work in progress - currently not used
 
+package joshuatee.wx.radar
+
 import android.content.Context
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
@@ -31,24 +33,14 @@ import java.nio.ByteBuffer
 
 import joshuatee.wx.R
 
-class RadarGeometryFile {
+class RadarGeometryFile//initialize()
+(var context: Context, var fileId: Int, var count: Int, var preferenceToken: String, var showItemDefault: Boolean) {
 
     var byteBuffer: ByteBuffer = ByteBuffer.allocateDirect(0)
-    var count: Int
-    var context: Context
-    var fileId: Int
     var initialized = false
-    var preferenceToken: String
     var showItem: Boolean
-    var showItemDefault: Boolean
 
-    constructor(context: Context, fileId: Int, count: Int, preferenceToken: String, showItemDefault: Boolean) {
-        this.context = context
-        this.fileId = fileId
-        this.count = count
-        this.preferenceToken = preferenceToken
-        this.showItemDefault = showItemDefault
-
+    init {
         if (showItemDefault) {
             showItem = Utility.readPref(preferenceToken, "true").startsWith("t")
         } else {
@@ -60,10 +52,10 @@ class RadarGeometryFile {
     }
 
     fun initializeIfNeeded() {
-        if (showItemDefault) {
-            showItem = Utility.readPref(preferenceToken, "true").startsWith("t")
+        showItem = if (showItemDefault) {
+            Utility.readPref(preferenceToken, "true").startsWith("t")
         } else {
-            showItem = Utility.readPref(preferenceToken, "false").startsWith("t")
+            Utility.readPref(preferenceToken, "false").startsWith("t")
         }
         if (showItem && !initialized) {
             //initialize()
@@ -151,7 +143,7 @@ class RadarGeometryFile {
 
         fun checkForInitialization() {
             RadarGeometryFileType.values().forEach {
-                RadarGeometryFile.byTypes[it]!!.initializeIfNeeded()
+                byTypes[it]!!.initializeIfNeeded()
             }
         }
 
@@ -159,7 +151,7 @@ class RadarGeometryFile {
 
         fun instantiateAll(context: Context) {
             RadarGeometryFileType.values().forEach {
-                byTypes[it] = RadarGeometryFile.byType(context, it)
+                byTypes[it] = byType(context, it)
             }
         }
     }
