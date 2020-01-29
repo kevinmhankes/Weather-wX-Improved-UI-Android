@@ -51,15 +51,14 @@ class FavAddActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_recyclerview_toolbar, null, false)
-        type = intent.getStringArrayExtra(TYPE)[0]
+        type = intent.getStringArrayExtra(TYPE)!![0]
         title = "Add $type"
         when (type) {
             "SND" -> {
                 prefToken = "SND_FAV"
                 val tmpArr = mutableListOf<String>()
                 GlobalArrays.soundingSites.indices.forEach {
-                    var tmpLoc =
-                            Utility.readPref(this, "NWS_LOCATION_" + GlobalArrays.soundingSites[it], "")
+                    var tmpLoc = Utility.readPref(this, "NWS_LOCATION_" + GlobalArrays.soundingSites[it], "")
                     if (tmpLoc == "") {
                         tmpLoc = Utility.readPref(
                                 this,

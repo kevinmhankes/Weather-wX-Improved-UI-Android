@@ -62,7 +62,8 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             item.gravity = Gravity.CENTER_HORIZONTAL
             item.color = Color.BLACK
             item.tv.setOnClickListener {
-                fnList[index](position); dismiss()
+                fnList[index](position)
+                dismiss()
             }
             linearLayout.addView(item.tv)
         }
@@ -83,7 +84,6 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         super.onStart()
         val behavior = BottomSheetBehavior.from(requireView().parent as View)
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        //behavior.peekHeight = 0
     }
 
     private fun initView() {
