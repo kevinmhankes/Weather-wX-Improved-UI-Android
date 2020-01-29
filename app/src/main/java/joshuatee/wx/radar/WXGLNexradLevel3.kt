@@ -26,12 +26,12 @@ import java.io.DataInputStream
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
-import java.util.Date
 
 import android.content.Context
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.*
+import java.util.*
 
 class WXGLNexradLevel3 internal constructor() {
 
@@ -101,7 +101,7 @@ class WXGLNexradLevel3 internal constructor() {
     }
 
     // final argument is whether or not to handle decompression, by default true
-    fun decodeAndPlot(context: Context, fileName: String, radarStatusStr: String) {
+    fun decodeAndPlot(context: Context, fileName: String, site: String, radarStatusStr: String) {
         try {
             val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, fileName))
             dis.bigEndian = true
@@ -138,6 +138,7 @@ class WXGLNexradLevel3 internal constructor() {
                     volumeCoveragePattern.toInt()
             )
             Utility.writePref(context, "WX_RADAR_CURRENT_INFO$radarStatusStr", radarInfo)
+            Utility.writePref(context, "WX_RADAR_CURRENT_INFO$radarStatusStr${site.toUpperCase(Locale.US)}", radarInfo)
             timestamp = radarInfo
             // Apr 2016
             // Because the scale for storm total precip ( 172 ) is stored as a float in halfwords 33/34

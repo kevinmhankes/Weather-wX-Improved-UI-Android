@@ -352,6 +352,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                     radarL3Object.decodeAndPlot(
                             context,
                             radarBuffers.fn,
+                            rid,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)

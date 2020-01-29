@@ -75,7 +75,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
     private var radarTime = ""
     private var x = ""
     private var y = ""
-    private var ts = ""
+    //private var ts = ""
     private var glviewInitialized = false
     private var sevenDayExtShown = false
     private lateinit var intent: Intent
@@ -424,6 +424,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
     }
 
     private fun getRadar(idx: Int) = GlobalScope.launch(uiDispatcher) {
+        var radarTimeStampLocal = ""
         if (oglrIdx != -1)
             if (!radarLocationChangedAl[oglrIdx])
                 oglrArr[oglrIdx].rid = Location.rid
@@ -463,6 +464,9 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                         ::getLatLon,
                         false
                 )
+            }
+            if (idx == oglrIdx) {
+                radarTimeStampLocal = getRadarTimeStampForHomescreen(oglrArr[oglrIdx].rid)
             }
         }
         // recent adds Jan 2020
@@ -519,8 +523,10 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
             }
             glviewArr[idx].requestRender()
             if (idx == oglrIdx) {
-                radarTime = radarTimeStamp
+                //radarTime = radarTimeStamp
+                radarTime = radarTimeStampLocal
                 cardCC?.setStatus(currentConditionsTime + radarTime)
+                UtilityLog.d("wx", "UPDATE RADAR for " + oglrIdx.toString() + " " + radarTime)
             }
         }
     }
@@ -590,24 +596,43 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         }
     }
 
-    private val radarTimeStamp: String
+   /* private val radarTimeStamp: String
         get() {
             ts = ""
-            val info = Utility.readPref("WX_RADAR_CURRENT_INFO", "")
-            val tmpArr = MyApplication.space.split(info)
-            if (tmpArr.size > 3) {
-                ts = tmpArr[3]
+            //val info = Utility.readPref("WX_RADAR_CURRENT_INFO", "")
+            //val tmpArr = MyApplication.space.split(info)
+            val tokens = Utility.readPref("WX_RADAR_CURRENT_INFO" + radarSite, "")
+            if (tokens.size > 3) {
+                ts = tokens[3]
             }
-            return if (oglrIdx != -1) " " + oglrArr[idxIntG].rid + ": " + ts
-            else
+            return if (oglrIdx != -1) {
+                " " + oglrArr[idxIntG].rid + ": " + ts
+            } else {
                 ""
-        }
+            }
+        }*/
 
-    private fun getRadarTimeStamp(str: String, j: Int): String {
-        ts = ""
-        val tmpArr = MyApplication.space.split(str)
-        if (tmpArr.size > 3)
-            ts = tmpArr[3]
+    private fun getRadarTimeStampForHomescreen(radarSite: String): String {
+        var ts = ""
+        //val info = Utility.readPref("WX_RADAR_CURRENT_INFO", "")
+        //val tmpArr = MyApplication.space.split(info)
+        val tokens = Utility.readPref("WX_RADAR_CURRENT_INFO" + radarSite, "").split(" ")
+        if (tokens.size > 3) {
+            ts = tokens[3]
+        }
+        return if (oglrIdx != -1) {
+            " " + oglrArr[idxIntG].rid + ": " + ts
+        } else {
+            ""
+        }
+    }
+
+    private fun getRadarTimeStamp(string: String, j: Int): String {
+        var ts = ""
+        //val tmpArr = MyApplication.space.split(string)
+        val tokens = string.split(" ")
+        if (tokens.size > 3)
+            ts = tokens[3]
         return oglrArr[j].rid + ": " + ts + " (" + Utility.readPref("RID_LOC_" + oglrArr[j].rid, "") + ")"
     }
 
