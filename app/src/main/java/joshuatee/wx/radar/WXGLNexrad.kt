@@ -251,4 +251,8 @@ object WXGLNexrad {
     fun getRadarInfo(context: Context, pane: String): String {
         return Utility.readPref(context, "WX_RADAR_CURRENT_INFO$pane", "")
     }
+
+    fun writeRadarInfo(context: Context, pane: String, info: String) {
+         Utility.writePref(context, "WX_RADAR_CURRENT_INFO$pane", info)
+    }
 }

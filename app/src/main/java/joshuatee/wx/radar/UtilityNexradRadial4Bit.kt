@@ -81,7 +81,7 @@ internal object UtilityNexradRadial4Bit {
                         "Radar height: " + heightOfRadar.toInt().toString() + newline +
                         "Radar Lat: " + latitudeOfRadar.toString() + newline +
                         "Radar Lon: " + longitudeOfRadar.toString() + newline
-                Utility.writePref(context, "WX_RADAR_CURRENT_INFO", radarInfo)
+                WXGLNexrad.writeRadarInfo(context, "", radarInfo)
                 dis.skipBytes(68)
                 dis.skipBytes(20)
                 val numberOfRangeBins = dis.readUnsignedShort()

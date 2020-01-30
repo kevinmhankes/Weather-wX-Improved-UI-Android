@@ -90,8 +90,7 @@ internal object UtilityNexradRadial8Bit {
                 Utility.writePref(context, "WX_RADAR_CURRENT_INFO_WIDGET_TIME", "")
             }
             dis.skipBytes(74)
-            val rangeBinAlloc =
-                1390 // 460 for reflect, set to max possible for velocity - was 1200 for velocity, TZL requires 1390
+            val rangeBinAlloc = 1390 // 460 for reflect, set to max possible for velocity - was 1200 for velocity, TZL requires 1390
             val numberOfRadials = 360
             radialStart = ByteBuffer.allocateDirect(4 * numberOfRadials)
             radialStart.position(0)
@@ -101,10 +100,8 @@ internal object UtilityNexradRadial8Bit {
             binWord.order(ByteOrder.nativeOrder())
             rBuff.order(ByteOrder.nativeOrder())
             rBuff.position(0)
-            val numberOfRangeBins =
-                UtilityWXOGLPerf.decode8BitWX(context, fileName, radialStart, binWord)
-            val binSize =
-                WXGLNexrad.getBinSize(productCode.toInt()) * 0.2f * MyApplication.widgetNexradSize.toFloat()
+            val numberOfRangeBins = UtilityWXOGLPerf.decode8BitWX(context, fileName, radialStart, binWord)
+            val binSize = WXGLNexrad.getBinSize(productCode.toInt()) * 0.2f * MyApplication.widgetNexradSize.toFloat()
             val centerX = 500 + UtilityCanvasMain.xOffset.toInt()
             val centerY = 500 + UtilityCanvasMain.yOffset.toInt()
             val wallpaint = Paint()
