@@ -137,8 +137,10 @@ class WXGLNexradLevel3 internal constructor() {
                     longitudeOfRadar,
                     volumeCoveragePattern.toInt()
             )
-            Utility.writePref(context, "WX_RADAR_CURRENT_INFO$radarStatusStr", radarInfo)
-            Utility.writePref(context, "WX_RADAR_CURRENT_INFO$radarStatusStr${site.toUpperCase(Locale.US)}", radarInfo)
+            // Generally speaking radarStatusStr will be blank string for single pane or homescreen
+            // and "1", "2", "3", or "4" for multi-pane
+            WXGLNexrad.writeRadarInfo(context, radarStatusStr, radarInfo)
+            WXGLNexrad.writeRadarInfo(context, radarStatusStr + site.toUpperCase(Locale.US), radarInfo)
             timestamp = radarInfo
             // Apr 2016
             // Because the scale for storm total precip ( 172 ) is stored as a float in halfwords 33/34
