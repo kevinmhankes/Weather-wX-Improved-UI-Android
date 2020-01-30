@@ -9,6 +9,7 @@
 // TODO [ADD] warning counts in nexrad
 // TODO [ADD] textual obs in fixed radars on homescreen
 
+55342 2020_01_30
 55341 2020_01_30    [ADD] additional graphics for SPC Convective Outlook Day 2
 55340 2020_01_30    [REF] use methods in WXGLNexrad to read/write radar info in pref
                     [FIX] FragmentPagerAdapter deprecated in ViewPagerAdapter.kt
