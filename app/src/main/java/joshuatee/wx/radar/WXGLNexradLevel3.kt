@@ -223,7 +223,7 @@ class WXGLNexradLevel3 internal constructor() {
                     longitudeOfRadar,
                     volumeCoveragePattern.toInt()
             )
-            Utility.writePref(context, "WX_RADAR_CURRENT_INFO$radarStatusStr", radarInfo)
+            WXGLNexrad.writeRadarInfo(context, radarStatusStr, radarInfo)
             timestamp = radarInfo
             /*final short  p1                        = (short) dis.readUnsignedShort();
         final short        p2                        = (short) dis.readUnsignedShort();
