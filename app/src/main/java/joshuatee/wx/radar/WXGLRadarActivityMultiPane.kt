@@ -89,7 +89,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private var restartedZoom = false
     private var inOglAnim = false
     private var inOglAnimPaused = false
-    private var infoArr = Array(2) { "" }
     private var oglInView = true
     private var oglrArr = mutableListOf<WXGLRender>()
     private var glviewArr = mutableListOf<WXGLSurfaceView>()
@@ -103,11 +102,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private var frameCountGlobal = 0
     private var locXCurrent = ""
     private var locYCurrent = ""
-    private var infoAnim = Array(2) { "" }
-    //private var tmpArr1 = Array(2) { "" }
-    //private var tmpArr2 = Array(2) { "" }
-    //private var tmpArr3 = Array(2) { "" }
-    //private var tmpArr4 = Array(2) { "" }
+    //private var infoAnim = Array(2) { "" }
     private val latlonArr = mutableListOf("", "")
     private var latD = 0.0
     private var lonD = 0.0
@@ -192,9 +187,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         UtilityUI.immersiveMode(this as Activity)
         locXCurrent = joshuatee.wx.settings.Location.x
         locYCurrent = joshuatee.wx.settings.Location.y
-        infoAnim = Array(numPanes) { "" }
         oldRidArr = Array(numPanes) { "" }
-        infoArr = Array(numPanes) { "" }
         if (numPanes == 4) {
             widthDivider = 2
             prefPrefix = "WXOGL_QUADPANE"
@@ -944,6 +937,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     private fun showRadarScanInfo() {
         var scanInfo = ""
+        val infoArr = Array(numPanes) { "" }
         numPanesArr.forEach {
             infoArr[it] = WXGLNexrad.getRadarInfo(this,(it + 1).toString())
             scanInfo = scanInfo + infoArr[it] + MyApplication.newline + MyApplication.newline
@@ -1177,14 +1171,15 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     private fun setSubTitle() {
+        val infoArr = Array(numPanes) { "" }
         if (numPanes == 4) {
             numPanesArr.forEach {
                 infoArr[it] = WXGLNexrad.getRadarInfo(this,(it + 1).toString())
             }
-            val tmpArr1 = MyApplication.space.split(infoArr[0])
-            val tmpArr2 = MyApplication.space.split(infoArr[1])
-            val tmpArr3 = MyApplication.space.split(infoArr[2])
-            val tmpArr4 = MyApplication.space.split(infoArr[3])
+            val tmpArr1 = infoArr[0].split(" ")
+            val tmpArr2 = infoArr[1].split(" ")
+            val tmpArr3 = infoArr[2].split(" ")
+            val tmpArr4 = infoArr[3].split(" ")
             if (tmpArr1.size > 3 && tmpArr2.size > 3 && tmpArr3.size > 3 && tmpArr4.size > 3) {
                 toolbar.subtitle = tmpArr1[3] + "/" + tmpArr2[3] + "/" + tmpArr3[3] + "/" + tmpArr4[3]
             } else {
@@ -1194,8 +1189,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             numPanesArr.forEach {
                 infoArr[it] = WXGLNexrad.getRadarInfo(this,(it + 1).toString())
             }
-            val tmpArr1 = MyApplication.space.split(infoArr[0])
-            val tmpArr2 = MyApplication.space.split(infoArr[1])
+            val tmpArr1 = infoArr[0].split(" ")
+            val tmpArr2 = infoArr[1].split(" ")
             if (tmpArr1.size > 3 && tmpArr2.size > 3) {
                 toolbar.subtitle = tmpArr1[3] + "/" + tmpArr2[3]
             } else {
@@ -1206,14 +1201,15 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     // used for animations - BUG: code is not used as animations are not working across all 4 ( commented out code not working )
     private fun setSubTitle(a: String, b: String) {
+        val infoAnim = Array(numPanes) { "" }
         if (numPanes == 4) {
             numPanesArr.forEach {
                 infoAnim[it] = WXGLNexrad.getRadarInfo(this,(it + 1).toString())
             }
-            val tmpArr1 = MyApplication.space.split(infoAnim[0])
-            val tmpArr2 = MyApplication.space.split(infoAnim[1])
-            val tmpArr3 = MyApplication.space.split(infoAnim[2])
-            val tmpArr4 = MyApplication.space.split(infoAnim[3])
+            val tmpArr1 = infoAnim[0].split(" ")
+            val tmpArr2 = infoAnim[1].split(" ")
+            val tmpArr3 = infoAnim[2].split(" ")
+            val tmpArr4 = infoAnim[3].split(" ")
             if (tmpArr1.size > 3 && tmpArr2.size > 3 && tmpArr3.size > 3 && tmpArr4.size > 3) {
                 toolbar.subtitle = tmpArr1[3] + "/" + tmpArr2[3] + "/" + tmpArr3[3] + "/" + tmpArr4[3] + "(" + a + "/" + b + ")"
             } else {
@@ -1223,8 +1219,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             numPanesArr.forEach {
                 infoAnim[it] = WXGLNexrad.getRadarInfo(this,(it + 1).toString())
             }
-            val tmpArr1 = MyApplication.space.split(infoAnim[0])
-            val tmpArr2 = MyApplication.space.split(infoAnim[1])
+            val tmpArr1 = infoAnim[0].split(" ")
+            val tmpArr2 = infoAnim[1].split(" ")
             if (tmpArr1.size > 3 && tmpArr2.size > 3) {
                 toolbar.subtitle = tmpArr1[3] + "/" + tmpArr2[3] + "/" + "(" + a + "/" + b + ")"
             } else {
