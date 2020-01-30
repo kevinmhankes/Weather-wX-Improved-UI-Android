@@ -211,48 +211,19 @@ object WXGLNexrad {
         Utility.writePref(context, prefPrefix + "_PROD" + idx.toString(), wxglRender.product)
     }
 
-
-
-    fun getTimeLastScan(): String {
-        val timeStamp = Utility.readPref("WX_RADAR_CURRENT_DATE_" + "0", "").split(" ")
-        return if (timeStamp.size > 1) {
-            timeStamp[1]
-        } else {
-            ""
-        }
-    }
-
-    /*static String getLastVcp(int pane) {
-     return Utility.readPref("WX_RADAR_CURRENT_VCP_" + pane.toString(), "");
-   }
-
-   static String getLastVcpMultiPane(List<int> paneList) {
-     var vcpList = "";
-     paneList.forEach((pane) {
-       vcpList +=
-           Utility.readPref("WX_RADAR_CURRENT_VCP_" + pane.toString(), "");
-       vcpList += " ";
-     });
-     return vcpList;
-   }
-
-   static void resetLastVcp(List<int> panes) {
-     panes.forEach((data) {
-       Utility.writePref("WX_RADAR_CURRENT_VCP_" + data.toString(), "");
-     });
-   }
-
-   static void resetLastDates(List<int> panes) {
-     panes.forEach((data) {
-       Utility.writePref("WX_RADAR_CURRENT_DATE_" + data.toString(), "");
-     });
-   }*/
-
     fun getRadarInfo(context: Context, pane: String): String {
         return Utility.readPref(context, "WX_RADAR_CURRENT_INFO$pane", "")
     }
 
     fun writeRadarInfo(context: Context, pane: String, info: String) {
-         Utility.writePref(context, "WX_RADAR_CURRENT_INFO$pane", info)
+        Utility.writePref(context, "WX_RADAR_CURRENT_INFO$pane", info)
+    }
+
+    fun writeRadarTimeForWidget(context: Context, time: String) {
+        Utility.writePref(context, "WX_RADAR_CURRENT_INFO_WIDGET_TIME", time)
+    }
+
+    fun readRadarTimeForWidget(context: Context): String {
+        return Utility.readPref(context, "WX_RADAR_CURRENT_INFO_WIDGET_TIME", "")
     }
 }

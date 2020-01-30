@@ -250,7 +250,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         try {
             when {
                 product.contains("L2") -> {
-                    rdL2.decocodeAndPlot(
+                    rdL2.decodeAndPlot(
                             context,
                             radarBuffers.fn,
                             prod,

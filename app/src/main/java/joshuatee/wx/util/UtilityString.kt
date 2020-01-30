@@ -80,7 +80,7 @@ object UtilityString {
         try {
             val m = pattern.matcher(str)
             while (m.find()) {
-                content = m.group(1)
+                content = m.group(1)!!
             }
         } catch (e: Exception) {
             UtilityLog.handleException(e)
@@ -94,7 +94,7 @@ object UtilityString {
             val p = Pattern.compile(match)
             val m = p.matcher(string)
             while (m.find()) {
-                content = m.group(1)
+                content = m.group(1)!!
             }
         } catch (e: Exception) {
             UtilityLog.handleException(e)
@@ -107,7 +107,7 @@ object UtilityString {
         try {
             val p = Pattern.compile(match)
             val m = p.matcher(data)
-            if (m.find()) content = m.group(1)
+            if (m.find()) content = m.group(1)!!
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
@@ -119,7 +119,7 @@ object UtilityString {
         try {
             val pattern = Pattern.compile(match, Pattern.DOTALL)
             val m = pattern.matcher(data)
-            if (m.find()) content = m.group(1)
+            if (m.find()) content = m.group(1)!!
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
@@ -130,7 +130,7 @@ object UtilityString {
         var content = ""
         try {
             val m = pattern.matcher(data)
-            if (m.find()) content = m.group(1)
+            if (m.find()) content = m.group(1)!!
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
@@ -157,7 +157,7 @@ object UtilityString {
             val pattern = Pattern.compile(match)
             val m = pattern.matcher(data)
             m.find()
-            (0 until number).forEach { result[it] = m.group(it + 1) }
+            (0 until number).forEach { result[it] = m.group(it + 1)!! }
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
@@ -170,7 +170,7 @@ object UtilityString {
             val pattern = Pattern.compile(match)
             val m = pattern.matcher(data)
             while (m.find()) {
-                (0 until number).forEach { result[it] = m.group(it + 1) }
+                (0 until number).forEach { result[it] = m.group(it + 1)!! }
             }
         } catch (e: Exception) {
             UtilityLog.handleException(e)
@@ -183,7 +183,7 @@ object UtilityString {
         try {
             val m = pattern.matcher(data)
             while (m.find()) {
-                (0 until number).forEach { result[it] = m.group(it + 1) }
+                (0 until number).forEach { result[it] = m.group(it + 1)!! }
             }
         } catch (e: Exception) {
             UtilityLog.handleException(e)
@@ -197,7 +197,7 @@ object UtilityString {
             val pattern = Pattern.compile(match)
             val m = pattern.matcher(data)
             while (m.find()) {
-                result.add(m.group(1))
+                result.add(m.group(1)!!)
             }
         } catch (e: Exception) {
             UtilityLog.handleException(e)
@@ -211,7 +211,7 @@ object UtilityString {
             val pattern = Pattern.compile(match)
             val m = pattern.matcher(data)
             while (m.find()) {
-                result.add(m.group(1))
+                result.add(m.group(1)!!)
             }
         } catch (e: Exception) {
             UtilityLog.handleException(e)
@@ -224,7 +224,7 @@ object UtilityString {
         try {
             val m = pattern.matcher(data)
             while (m.find()) {
-                result.add(m.group(1))
+                result.add(m.group(1)!!)
             }
         } catch (e: Exception) {
             UtilityLog.handleException(e)
@@ -237,7 +237,7 @@ object UtilityString {
         try {
             val m = pattern.matcher(data)
             while (m.find()) {
-                result.add(m.group(1))
+                result.add(m.group(1)!!)
             }
         } catch (e: Exception) {
             UtilityLog.handleException(e)
@@ -250,7 +250,7 @@ object UtilityString {
         try {
             val m = pattern.matcher(data)
             while (m.find()) {
-                result.add(m.group(1))
+                result.add(m.group(1)!!)
             }
         } catch (e: Exception) {
             UtilityLog.handleException(e)

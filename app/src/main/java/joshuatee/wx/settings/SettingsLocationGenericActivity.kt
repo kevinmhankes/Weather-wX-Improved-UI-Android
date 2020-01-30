@@ -396,7 +396,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 val yStr = locYEt.text.toString()
                 val labelStr = locLabelEt.text.toString()
                 saveLocation(locNum, xStr, yStr, labelStr)
-            } else {
+            } /*else {
                 k -= UtilityCitiesExtended.cityLabels.size
                 var prov = MyApplication.comma.split(cityArrayAdapter.getItem(position))[1]
                 //var prov = cityArrayAdapter.getItem(position)!!.split(",")[1]
@@ -417,7 +417,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 val labelStr = locLabelEt.text.toString()
                 showMessage("Saving location: $labelStr")
                 saveLocation(locNum, xStr, yStr, labelStr)
-            }
+            }*/
         })
 
         searchView.setOnQueryTextListener(object : OnQueryTextListener {

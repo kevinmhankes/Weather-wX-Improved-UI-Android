@@ -63,7 +63,7 @@ class VoiceCommandActivity : Activity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == requestOk && resultCode == RESULT_OK) {
             val thingsYouSaid = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-            UtilityUI.makeSnackBar(mainView, thingsYouSaid[0])
+            UtilityUI.makeSnackBar(mainView, thingsYouSaid!![0])
             val address = thingsYouSaid[0]
             val gotHit = UtilityVoiceCommand.processCommand(
                     this,

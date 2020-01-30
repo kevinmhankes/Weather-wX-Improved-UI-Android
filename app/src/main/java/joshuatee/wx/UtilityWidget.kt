@@ -54,9 +54,7 @@ object UtilityWidget {
         val intentHome = Intent("android.intent.action.MAIN")
         intentHome.addCategory("android.intent.category.HOME")
         try {
-            val str =
-                localPackageManager.resolveActivity(intentHome, PackageManager.MATCH_DEFAULT_ONLY)
-                    .activityInfo.packageName
+            val str = localPackageManager.resolveActivity(intentHome, PackageManager.MATCH_DEFAULT_ONLY)!!.activityInfo.packageName
             context.grantUriPermission(str, imgUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
         } catch (e: Exception) {
             UtilityLog.handleException(e)

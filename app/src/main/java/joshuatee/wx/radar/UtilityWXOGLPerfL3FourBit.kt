@@ -102,8 +102,8 @@ internal object UtilityWXOGLPerfL3FourBit {
             var bin: Short
             var numOfBins: Int
             var u: Int
-            var totalPerRow = 0
-            (0 until numberOfRows).forEach { r ->
+            var totalPerRow: Int
+            (0 until numberOfRows).forEach { _ ->
                 val numberOfBytes = dis.readUnsignedShort()
                 totalPerRow = 0
                 s = 0
