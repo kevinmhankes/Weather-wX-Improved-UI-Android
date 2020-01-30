@@ -137,7 +137,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private var urlStr = ""
     private var fixedSite = false
     private lateinit var rl: RelativeLayout
-    private val latlonArr = mutableListOf("", "")
+    //private val latlonArr = mutableListOf("", "")
     private var latD = 0.0
     private var lonD = 0.0
     private var locationManager: LocationManager? = null
@@ -959,10 +959,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun getGPSFromDouble() {
-        latlonArr[0] = latD.toString()
-        latlonArr[1] = lonD.toString()
-        locXCurrent = latlonArr[0]
-        locYCurrent = latlonArr[1]
+        //latlonArr[0] = latD.toString()
+        //latlonArr[1] = lonD.toString()
+        locXCurrent = latD.toString()
+        locYCurrent = lonD.toString()
     }
 
     private fun getLatLon() = LatLon(locXCurrent, locYCurrent)

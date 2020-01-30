@@ -102,8 +102,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private var frameCountGlobal = 0
     private var locXCurrent = ""
     private var locYCurrent = ""
-    //private var infoAnim = Array(2) { "" }
-    private val latlonArr = mutableListOf("", "")
     private var latD = 0.0
     private var lonD = 0.0
     private var locationManager: LocationManager? = null
@@ -1067,14 +1065,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     private fun getGpsFromDouble() {
-        try {
-            latlonArr[0] = latD.toString()
-            latlonArr[1] = lonD.toString()
-            locXCurrent = latlonArr[0]
-            locYCurrent = latlonArr[1]
-        } catch (e: Exception) {
-            UtilityLog.handleException(e)
-        }
+        locXCurrent = latD.toString()
+        locYCurrent = lonD.toString()
     }
 
     private fun getLatLon() = LatLon(locXCurrent, locYCurrent)
