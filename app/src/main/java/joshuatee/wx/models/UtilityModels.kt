@@ -288,6 +288,8 @@ object UtilityModels {
                 z[it] = img[it].currentZoom
                 if (img[it].scrollPosition != null) {
                     poi.add(img[it].scrollPosition)
+                } else {
+                    poi.add(PointF(0.5f, 0.5f))
                 }
                 x[it] = poi[it].x
                 y[it] = poi[it].y
