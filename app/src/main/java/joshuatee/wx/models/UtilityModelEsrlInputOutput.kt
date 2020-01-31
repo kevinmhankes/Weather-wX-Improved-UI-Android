@@ -181,8 +181,9 @@ internal object UtilityModelEsrlInputOutput {
 
     fun getAnimation(context: Context, om: ObjectModel): AnimationDrawable {
         if (om.spinnerTimeValue == -1) return AnimationDrawable()
-        val bmAl = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) {
-            getImage(om, om.spTime.list[it].split(" ").getOrNull(0) ?: "")
+        val timeList = om.spTime.list.toMutableList()
+        val bmAl = (om.spinnerTimeValue until timeList.size).mapTo(mutableListOf()) {
+            getImage(om, timeList[it].split(" ").getOrNull(0) ?: "")
         }
         return UtilityImgAnim.getAnimationDrawableFromBMList(context, bmAl)
     }
