@@ -58,7 +58,7 @@ class FavAddActivity : BaseActivity() {
                 prefToken = "SND_FAV"
                 val tmpArr = mutableListOf<String>()
                 GlobalArrays.soundingSites.indices.forEach {
-                    var tmpLoc = Utility.readPref(this, "NWS_LOCATION_" + GlobalArrays.soundingSites[it], "")
+                    var tmpLoc = Utility.getWfoSiteName(GlobalArrays.soundingSites[it])
                     if (tmpLoc == "") {
                         tmpLoc = Utility.readPref(
                                 this,
