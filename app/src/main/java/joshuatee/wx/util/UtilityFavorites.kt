@@ -37,7 +37,7 @@ object UtilityFavorites {
 
     // TODO refactor method/var names
 
-    private fun checkAndCorrectFav(context: Context, fav: String, prefToken: String) {
+    private fun checkAndCorrectFavorites(context: Context, fav: String, prefToken: String) {
         if (fav.contains("::")) {
             val newFav = fav.replace(":{2,}".toRegex(), ":")
             savePref(context, newFav, prefToken)
@@ -63,7 +63,7 @@ object UtilityFavorites {
         nwsOffice: String,
         prefToken: String
     ): List<String> {
-        checkAndCorrectFav(context, ridFav, prefToken)
+        checkAndCorrectFavorites(context, ridFav, prefToken)
         var ridArr = MyApplication.colon.split(ridFav)
         ridArr[0] = nwsOffice
         if (ridArr.size > 2) {
@@ -83,10 +83,11 @@ object UtilityFavorites {
                 "SND_FAV" -> Utility.getSoundingSiteName(ridArr[k])
                 else -> "FIXME"
             }
-            if (k == 1 || k == 2)
+            if (k == 1 || k == 2) {
                 ridArrLoc[k] = ridArr[k]
-            else
+            } else {
                 ridArrLoc[k] = ridArr[k] + DELIM_TOKEN + ridLoc
+            }
         }
         return ridArrLoc.toList()
     }

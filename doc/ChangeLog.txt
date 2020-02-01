@@ -9,10 +9,10 @@
 // TODO [FIX] select radar from main screen via icon brings up zoomed out view UtilityLocationFragment
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [ADD] textual obs in fixed radars on homescreen
-// TODO [ADD] move to normal twitter w/o tokens
+// TODO [ADD]
 // TODO [ADD] use ENUM instead of RID_FAV WFO_FAV SND_FAV (util/UtilityFavorites)
 
-55347 2020_02_01
+55347 2020_02_01    [ADD] move to normal twitter w/o tokens
 55346 2020_02_01    [REF] remove un-needed pref storage in util pref
                     [FIX] twitter activity wasn't going to state of current location
 55345 2020_02_01    [REF] remove un-needed pref storage in util pref

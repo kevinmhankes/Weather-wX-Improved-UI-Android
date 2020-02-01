@@ -39,7 +39,6 @@ import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectSpinner
 
 import joshuatee.wx.GlobalArrays
-import joshuatee.wx.GlobalDictionaries
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.Location
 import joshuatee.wx.util.Utility
@@ -68,14 +67,14 @@ class WebscreenABState : BaseActivity(), OnItemSelectedListener {
     )
     private var stateArr = listOf<String>()
     private var stateCodeCurrent = ""
-    private var twitterStateId = ""
     private lateinit var sp: ObjectSpinner
 
     override fun onBackPressed() {
-        if (webview.canGoBack())
+        if (webview.canGoBack()) {
             webview.goBack()
-        else
+        } else {
             super.onBackPressed()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -86,20 +85,10 @@ class WebscreenABState : BaseActivity(), OnItemSelectedListener {
     @SuppressLint("SetJavaScriptEnabled", "MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_webview_toolbar_state, null, false)
-        title = "twitter"
+        title = "Twitter"
         stateArr = GlobalArrays.states + caArr
         stateCodeCurrent = Location.state
-        //stateCodeCurrent = Utility.readPref(this, "STATE_CODE", "")
-        //twitterStateId = Utility.readPref(this, "STATE_TW_ID_$stateCodeCurrent", "")
-        //twitterStateId = GlobalDictionaries.twitterToId[stateCodeCurrent] ?: ""
-        twitterStateId = ""
-        url =
-            "<a class=\"twitter-timeline\" data-dnt=\"true\" href=\"https://twitter.com/search?q=%23" +
-                    stateCodeCurrent.toLowerCase(Locale.US) + "wx\" data-widget-id=\"" +
-                    twitterStateId +
-                    "\" data-chrome=\"noscrollbar noheader nofooter noborders  \" data-tweet-limit=20>Tweets about \"#" +
-                    stateCodeCurrent.toLowerCase(Locale.US) +
-                    "wx\"</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\"://platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);}}(document,\"script\",\"twitter-wjs\");</script>"
+        url = "https://mobile.twitter.com/hashtag/" + stateCodeCurrent.toLowerCase(Locale.US) + "wx"
         sp = ObjectSpinner(this, this, this, R.id.spinner1, stateArr)
         sp.setSelection(findPosition(stateCodeCurrent.toLowerCase(Locale.US)))
         val webSettings = webview.settings
@@ -114,17 +103,8 @@ class WebscreenABState : BaseActivity(), OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         Utility.writePref(this, "STATE_CODE", MyApplication.colon.split(stateArr[pos])[0])
         stateCodeCurrent = Utility.readPref(this, "STATE_CODE", "")
-        //twitterStateId = Utility.readPref(this, "STATE_TW_ID_$stateCodeCurrent", "")
-        //twitterStateId = GlobalDictionaries.twitterToId[stateCodeCurrent] ?: ""
-        twitterStateId = ""
-        url =
-            "<a class=\"twitter-timeline\" data-dnt=\"true\" href=\"https://twitter.com/search?q=%23" +
-                    stateCodeCurrent.toLowerCase(Locale.US) + "wx\" data-widget-id=\"" +
-                    twitterStateId +
-                    "\" data-chrome=\"noscrollbar noheader nofooter noborders  \" data-tweet-limit=20>Tweets about \"#" +
-                    stateCodeCurrent.toLowerCase(Locale.US) +
-                    "wx\"</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\"://platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);}}(document,\"script\",\"twitter-wjs\");</script>"
-        webview.loadDataWithBaseURL("fake://not/needed", url, "text/html", "utf-8", null)
+        url = "https://mobile.twitter.com/hashtag/" + stateCodeCurrent.toLowerCase(Locale.US) + "wx"
+        webview.loadUrl(url)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
