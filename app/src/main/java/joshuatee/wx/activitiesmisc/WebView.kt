@@ -73,22 +73,12 @@ class WebView : BaseActivity() {
         if (url.startsWith("http")) {
             webview.loadUrl(url)
         } else {
-            //if (url.contains("twitter"))
-            //    webview.loadDataWithBaseURL("fake://not/needed", url, "text/html", "utf-8", null)
-            //else
             webview.loadData(url, "text/html", null)
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.action_browser -> {
-            //var urlExt = url
-            //if (url.contains("https://twitter.com/search?q=%23tornado")) {
-            //    urlExt = "https://twitter.com/hashtag/tornado"
-            //}
-            //if (url.contains("https://twitter.com/wunderground")) {
-            //    urlExt = "https://twitter.com/wunderground"
-            //}
             ObjectIntent(this, Intent.ACTION_VIEW, Uri.parse(url))
             true
         }
