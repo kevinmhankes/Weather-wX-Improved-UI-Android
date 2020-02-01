@@ -42,7 +42,7 @@ import joshuatee.wx.util.UtilityIO
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityLog
 
-import joshuatee.wx.NEXRAD_PRODUCT_STRING
+import joshuatee.wx.GlobalDictionaries
 import joshuatee.wx.R
 
 object UtilityUSImgWX {
@@ -73,7 +73,7 @@ object UtilityUSImgWX {
             inputStream = UtilityDownload.getInputStreamFromUrl(
                     MyApplication.NWS_RADAR_PUB
                             + "SL.us008001/DF.of/DC.radar/"
-                            + NEXRAD_PRODUCT_STRING[product]
+                            + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
                             + "/SI." + ridPrefix + radarSite.toLowerCase(
                             Locale.US
                     ) + "/sn.last"

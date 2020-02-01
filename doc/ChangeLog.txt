@@ -9,8 +9,11 @@
 // TODO [FIX] select radar from main screen via icon brings up zoomed out view UtilityLocationFragment
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [ADD] textual obs in fixed radars on homescreen
+// TODO [ADD] move to normal twitter w/o tokens
+// TODO [ADD] use ENUM instead of RID_FAV WFO_FAV SND_FAV (util/UtilityFavorites)
 
-55346 2020_02_01
+55346 2020_02_01    [REF] remove un-needed pref storage in util pref
+                    [FIX] twitter activity wasn't going to state of current location
 55345 2020_02_01    [REF] remove un-needed pref storage in util pref
 55344 2020_02_01    [REF] remove un-needed pref storage in util pref
 55343 2020_02_01    [ADD] in nexrad radar if show warnings show count in upper left, tap on count goes to severe dashboard - WIP
@@ -36,7 +39,7 @@
 55336 2020_01_27    [REF] lint cleanup
                     [ADD] fix radar legend pnd - LIFR was not pink
                     [ADD] RadarFileGeometry (wip)
-                    [FIX] Obs not working multiplane
+                    [FIX] Obs not working multipane
 55335 2020_01_27    [FIX] hardcore hourly graph background
 55334 2020_01_26    [REF] various code cleanup and var rename for readability
                     [ADD] change Hourly graph to a black line

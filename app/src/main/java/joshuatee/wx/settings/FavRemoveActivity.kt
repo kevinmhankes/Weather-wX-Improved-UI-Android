@@ -149,6 +149,7 @@ class FavRemoveActivity : BaseActivity() {
         }
     }
 
+    // FIXME needs to be const: " : : "
     private fun moveDown(pos: Int) {
         ridFav = Utility.readPref(this, prefToken, "")
         tempList = ridFav.split(":").dropLastWhile { it.isEmpty() }
@@ -183,14 +184,7 @@ class FavRemoveActivity : BaseActivity() {
     private fun getFullString(shortCode: String): String {
         var fullName = ""
         when (type) {
-            "SND" -> {
-                fullName = Utility.getWfoSiteName(shortCode)
-                fullName = if (fullName == "") {
-                    shortCode + ": " + Utility.readPref(this, "NWS_SOUNDINGLOCATION_$shortCode", "")
-                } else {
-                    "$shortCode: $fullName"
-                }
-            }
+            "SND" -> fullName = Utility.getSoundingSiteName(shortCode)
             "WFO" -> fullName = shortCode + ": " + Utility.getWfoSiteName(shortCode)
             "RID" -> fullName = shortCode + ": " + Utility.getRadarSiteName(shortCode)
             "NWSTEXT" -> fullName = UtilityWpcText.labels[UtilityFavorites.findPositionNwsText(shortCode)]

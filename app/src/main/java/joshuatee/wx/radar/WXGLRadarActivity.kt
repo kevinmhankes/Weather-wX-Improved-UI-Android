@@ -279,7 +279,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 this,
                 MyApplication.ridFav,
                 oglr.rid,
-                prefTokenLocation,
                 prefToken
         )
         sp = ObjectSpinner(this, this, this, R.id.spinner1, ridArrLoc)
@@ -326,7 +325,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     this,
                     MyApplication.ridFav,
                     oglr.rid,
-                    prefTokenLocation,
                     prefToken
             )
             sp.refreshData(this@WXGLRadarActivity, ridArrLoc)
@@ -790,7 +788,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 this,
                 MyApplication.ridFav,
                 oglr.rid,
-                prefTokenLocation,
                 prefToken
         )
         adjustTiltMenu()
@@ -799,7 +796,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleFavoriteString(this, oglr.rid, star, prefToken)
-        ridArrLoc = UtilityFavorites.setupFavMenu(this, ridFav, oglr.rid, prefTokenLocation, prefToken)
+        ridArrLoc = UtilityFavorites.setupFavMenu(this, ridFav, oglr.rid, prefToken)
         sp.refreshData(this@WXGLRadarActivity, ridArrLoc)
     }
 

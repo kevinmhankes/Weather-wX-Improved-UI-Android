@@ -35,6 +35,8 @@ object UtilityFavorites {
     private const val ADD_STR = "Add..."
     private const val MODIFY_STR = "Modify..."
 
+    // TODO refactor method/var names
+
     private fun checkAndCorrectFav(context: Context, fav: String, prefToken: String) {
         if (fav.contains("::")) {
             val newFav = fav.replace(":{2,}".toRegex(), ":")
@@ -59,7 +61,6 @@ object UtilityFavorites {
         context: Context,
         ridFav: String,
         nwsOffice: String,
-        prefTokenLocation: String,
         prefToken: String
     ): List<String> {
         checkAndCorrectFav(context, ridFav, prefToken)
@@ -79,10 +80,9 @@ object UtilityFavorites {
             ridLoc = when (prefToken) {
                 "RID_FAV" -> Utility.getRadarSiteName(ridArr[k])
                 "WFO_FAV" -> Utility.getWfoSiteName(ridArr[k])
-                else -> Utility.readPref(context, prefTokenLocation + ridArr[k], "")
+                "SND_FAV" -> Utility.getSoundingSiteName(ridArr[k])
+                else -> "FIXME"
             }
-            if (ridLoc == "")
-                ridLoc = Utility.readPref(context, "NWS_SOUNDINGLOCATION_" + ridArr[k], "")
             if (k == 1 || k == 2)
                 ridArrLoc[k] = ridArr[k]
             else

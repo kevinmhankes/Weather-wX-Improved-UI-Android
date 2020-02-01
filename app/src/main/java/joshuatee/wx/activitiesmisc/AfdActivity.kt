@@ -128,7 +128,6 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 this,
                 MyApplication.wfoFav,
                 wfo,
-                prefTokenLocation,
                 prefToken
         )
 
@@ -159,7 +158,6 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                     this,
                     MyApplication.wfoFav,
                     wfo,
-                    prefTokenLocation,
                     prefToken
             )
             spinner.refreshData(this, locationList)
@@ -300,7 +298,6 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 this,
                 MyApplication.wfoFav,
                 wfo,
-                prefTokenLocation,
                 prefToken
         )
         spinner.refreshData(this, locationList)
@@ -308,7 +305,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
 
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleFavoriteString(this, wfo, star, prefToken)
-        locationList = UtilityFavorites.setupFavMenu(this, ridFav, wfo, prefTokenLocation, prefToken)
+        locationList = UtilityFavorites.setupFavMenu(this, ridFav, wfo, prefToken)
         spinner.refreshData(this, locationList)
     }
 

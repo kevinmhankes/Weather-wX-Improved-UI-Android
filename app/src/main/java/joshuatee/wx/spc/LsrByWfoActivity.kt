@@ -94,7 +94,6 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
                 this,
                 MyApplication.wfoFav,
                 wfo,
-                prefTokenLocation,
                 prefToken
         )
         sp = ObjectSpinner(this, this, this, R.id.spinner1, locations)
@@ -104,13 +103,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
 
     override fun onRestart() {
         if (ridFavOld != MyApplication.wfoFav) {
-            locations = UtilityFavorites.setupFavMenu(
-                    this,
-                    MyApplication.wfoFav,
-                    wfo,
-                    prefTokenLocation,
-                    prefToken
-            )
+            locations = UtilityFavorites.setupFavMenu(this, MyApplication.wfoFav, wfo, prefToken)
             sp.refreshData(this@LsrByWfoActivity, locations)
         }
         super.onRestart()
@@ -137,19 +130,13 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
         scrollView.visibility = View.VISIBLE
         wfo = loc.toUpperCase(Locale.US)
         mapShown = false
-        locations = UtilityFavorites.setupFavMenu(
-                this,
-                MyApplication.wfoFav,
-                wfo,
-                prefTokenLocation,
-                prefToken
-        )
+        locations = UtilityFavorites.setupFavMenu(this, MyApplication.wfoFav, wfo, prefToken)
         sp.refreshData(this@LsrByWfoActivity, locations)
     }
 
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleFavoriteString(this, wfo, star, prefToken)
-        locations = UtilityFavorites.setupFavMenu(this, ridFav, wfo, prefTokenLocation, prefToken)
+        locations = UtilityFavorites.setupFavMenu(this, ridFav, wfo, prefToken)
         sp.refreshData(this@LsrByWfoActivity, locations)
     }
 

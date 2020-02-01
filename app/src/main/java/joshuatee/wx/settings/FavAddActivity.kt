@@ -56,19 +56,11 @@ class FavAddActivity : BaseActivity() {
         when (type) {
             "SND" -> {
                 prefToken = "SND_FAV"
-                val tmpArr = mutableListOf<String>()
-                GlobalArrays.soundingSites.indices.forEach {
-                    var tmpLoc = Utility.getWfoSiteName(GlobalArrays.soundingSites[it])
-                    if (tmpLoc == "") {
-                        tmpLoc = Utility.readPref(
-                                this,
-                                "NWS_SOUNDINGLOCATION_" + GlobalArrays.soundingSites[it],
-                                ""
-                        )
-                    }
-                    tmpArr.add(GlobalArrays.soundingSites[it] + " " + tmpLoc)
+                val list = mutableListOf<String>()
+                GlobalArrays.soundingSites.forEach {
+                    list.add("$it " + Utility.getSoundingSiteName(it))
                 }
-                data = tmpArr.toList()
+                data = list.toList()
             }
             "RIDCA" -> {
                 prefToken = "RID_CA_FAV"
@@ -100,6 +92,7 @@ class FavAddActivity : BaseActivity() {
         ObjectRecyclerView(this, this, R.id.card_list, data.toMutableList(), ::itemClicked)
     }
 
+    // FIXME should be const: " : : :"
     private fun itemClicked(position: Int) {
         val item = data[position]
         var ridFav = Utility.readPref(this, prefToken, " : : :")

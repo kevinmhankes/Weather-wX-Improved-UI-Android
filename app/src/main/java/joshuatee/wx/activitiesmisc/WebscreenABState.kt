@@ -39,7 +39,9 @@ import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectSpinner
 
 import joshuatee.wx.GlobalArrays
+import joshuatee.wx.GlobalDictionaries
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.settings.Location
 import joshuatee.wx.util.Utility
 
 import kotlinx.android.synthetic.main.activity_webview_toolbar_state.*
@@ -86,8 +88,11 @@ class WebscreenABState : BaseActivity(), OnItemSelectedListener {
         super.onCreate(savedInstanceState, R.layout.activity_webview_toolbar_state, null, false)
         title = "twitter"
         stateArr = GlobalArrays.states + caArr
-        stateCodeCurrent = Utility.readPref(this, "STATE_CODE", "")
-        twitterStateId = Utility.readPref(this, "STATE_TW_ID_$stateCodeCurrent", "")
+        stateCodeCurrent = Location.state
+        //stateCodeCurrent = Utility.readPref(this, "STATE_CODE", "")
+        //twitterStateId = Utility.readPref(this, "STATE_TW_ID_$stateCodeCurrent", "")
+        //twitterStateId = GlobalDictionaries.twitterToId[stateCodeCurrent] ?: ""
+        twitterStateId = ""
         url =
             "<a class=\"twitter-timeline\" data-dnt=\"true\" href=\"https://twitter.com/search?q=%23" +
                     stateCodeCurrent.toLowerCase(Locale.US) + "wx\" data-widget-id=\"" +
@@ -109,7 +114,9 @@ class WebscreenABState : BaseActivity(), OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         Utility.writePref(this, "STATE_CODE", MyApplication.colon.split(stateArr[pos])[0])
         stateCodeCurrent = Utility.readPref(this, "STATE_CODE", "")
-        twitterStateId = Utility.readPref(this, "STATE_TW_ID_$stateCodeCurrent", "")
+        //twitterStateId = Utility.readPref(this, "STATE_TW_ID_$stateCodeCurrent", "")
+        //twitterStateId = GlobalDictionaries.twitterToId[stateCodeCurrent] ?: ""
+        twitterStateId = ""
         url =
             "<a class=\"twitter-timeline\" data-dnt=\"true\" href=\"https://twitter.com/search?q=%23" +
                     stateCodeCurrent.toLowerCase(Locale.US) + "wx\" data-widget-id=\"" +

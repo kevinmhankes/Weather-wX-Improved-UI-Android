@@ -8,9 +8,7 @@ import joshuatee.wx.notifications.UtilityWXJobService
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.settings.Location
-import joshuatee.wx.settings.UtilityPref
-import joshuatee.wx.settings.UtilityPref2
-import joshuatee.wx.settings.UtilityPref4
+import joshuatee.wx.settings.UtilityStorePreferences
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
 
@@ -27,11 +25,7 @@ class StartupActivity : Activity() {
         super.onCreate(savedInstanceState)
         if (Utility.readPrefWithNull(this, "LOC1_LABEL", null) == null) {
             UtilityLog.d("wx", "INIT PREF")
-            UtilityPref.prefInitRIDXY2(this)
-            UtilityPref2.prefInitSetDefaults(this)
-            UtilityPref.prefInitBig(this)
-            UtilityPref.prefInitTwitterCA(this)
-            UtilityPref4.prefInitSoundingSites(this)
+            UtilityStorePreferences.setDefaults(this)
         }
         MyApplication.initPreferences(this)
         Location.refreshLocationData(this)

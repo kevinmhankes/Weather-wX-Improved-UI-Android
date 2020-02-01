@@ -101,7 +101,7 @@ object Utility {
         return LatLon(lat, lon)
     }*/
 
-    /*  fun getSoundingSiteName(wfo: String): String {
+     fun getSoundingSiteName(wfo: String): String {
           var site = UtilityRadar.wfoIdToName[wfo] ?: ""
           if (site == "") {
               site = UtilityRadar.soundingIdToName[wfo] ?: ""
@@ -109,14 +109,14 @@ object Utility {
           return site
       }
 
-      fun generateSoundingNameList(): List<String> {
-          val list = mutableListOf<String>()
-          GlobalArrays.soundingSites.sorted()
-          GlobalArrays.soundingSites.forEach {
-              list.add(it + ": " + getSoundingSiteName(it))
-          }
-          return list
-      }*/
+    /* fun generateSoundingNameList(): List<String> {
+        val list = mutableListOf<String>()
+        GlobalArrays.soundingSites.sorted()
+        GlobalArrays.soundingSites.forEach {
+            list.add(it + ": " + getSoundingSiteName(it))
+        }
+        return list
+    }*/
 
     fun getVersion(context: Context): String {
         var version = ""

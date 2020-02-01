@@ -30,6 +30,7 @@ import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
 import java.util.*
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.GlobalDictionaries
 import joshuatee.wx.util.UtilityString
 
 // implement up/down mini fab in settings
@@ -296,11 +297,7 @@ class Location(val context: Context, locNumInt: Int) {
                     }
                     // CT shows mosaic not nexrad so the old way is needed
                     if (radarSite == "") {
-                        radarSite = Utility.readPref(
-                            context,
-                            "NWS_RID_" + wfo.toUpperCase(Locale.US),
-                            ""
-                        )
+                        radarSite = GlobalDictionaries.wfoToRadarSite[wfo.toUpperCase(Locale.US)] ?: ""
                     }
                     Utility.writePref(context, "RID$locNum", radarSite.toUpperCase(Locale.US))
                     Utility.writePref(
