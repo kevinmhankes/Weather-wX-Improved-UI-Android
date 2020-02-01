@@ -90,19 +90,19 @@ object UtilityFavorites {
     }
 
     fun setupFavMenuCanada(ridFav: String, nwsOffice: String): List<String> {
-        val ridArr = MyApplication.colon.split(ridFav)
-        ridArr[0] = nwsOffice
-        ridArr[1] = ADD_STR
-        ridArr[2] = MODIFY_STR
-        val ridArrLoc = MutableList(ridArr.size) { "" }
-        ridArr.indices.forEach { k ->
-            GlobalArrays.canadaRadars.indices.filter { GlobalArrays.canadaRadars[it].contains(ridArr[k]) }
-                .forEach { ridArrLoc[k] = GlobalArrays.canadaRadars[it].replace(":", "") }
+        val favorites = MyApplication.colon.split(ridFav)
+        favorites[0] = nwsOffice
+        favorites[1] = ADD_STR
+        favorites[2] = MODIFY_STR
+        val returnList = MutableList(favorites.size) { "" }
+        favorites.indices.forEach { k ->
+            GlobalArrays.canadaRadars.indices.filter { GlobalArrays.canadaRadars[it].contains(favorites[k]) }
+                .forEach { returnList[k] = GlobalArrays.canadaRadars[it].replace(":", "") }
             if (k == 1 || k == 2) {
-                ridArrLoc[k] = ridArr[k]
+                returnList[k] = favorites[k]
             }
         }
-        return ridArrLoc.toList()
+        return returnList.toList()
     }
 
     fun toggleFavorite(context: Context, rid: String, star: MenuItem, prefToken: String) {
