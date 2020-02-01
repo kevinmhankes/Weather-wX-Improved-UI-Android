@@ -220,14 +220,14 @@ object UtilityLocation {
         linearLayout: LinearLayout,
         uiDispatcher: CoroutineDispatcher
     ) = GlobalScope.launch(uiDispatcher) {
-        var toastStr = ""
+        var toastString = ""
         withContext(Dispatchers.IO) {
             val locNumIntCurrent = joshuatee.wx.settings.Location.numLocations + 1
             val locNumToSaveStr = locNumIntCurrent.toString()
-            val loc = Utility.readPref(context, "NWS_LOCATION_$nwsOffice", "")
-            val addrSend = loc.replace(" ", "+")
-            val xyStr = getXYFromAddressOsm(addrSend)
-            toastStr = joshuatee.wx.settings.Location.locationSave(
+            val loc = Utility.getWfoSiteName(nwsOffice)
+            val addressToSend = loc.replace(" ", "+")
+            val xyStr = getXYFromAddressOsm(addressToSend)
+            toastString = joshuatee.wx.settings.Location.locationSave(
                 context,
                 locNumToSaveStr,
                 xyStr[0],
@@ -235,7 +235,7 @@ object UtilityLocation {
                 loc
             )
         }
-        UtilityUI.makeSnackBar(linearLayout, toastStr)
+        UtilityUI.makeSnackBar(linearLayout, toastString)
     }
 
     fun hasAlerts(locNum: Int): Boolean = MyApplication.locations[locNum].notification

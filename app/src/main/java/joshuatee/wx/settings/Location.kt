@@ -88,7 +88,7 @@ class Location(val context: Context, locNumInt: Int) {
         alertNotificationWpcmpdCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_WPCMPD$jStr", "false")
         raw = Utility.readPref(context, "LOC" + jStr + "_TIMERAW", "")
         dst = Utility.readPref(context, "LOC" + jStr + "_TIMEDST", "")
-        state = Utility.readPref(context, "NWS_LOCATION_$wfo", "").split(",")[0]
+        state = Utility.getWfoSiteName(wfo).split(",")[0]
         observation = Utility.readPref(context, "LOC" + jStr + "_OBSERVATION", "")
         isUS = us(x)
         addToListOfNames(name)

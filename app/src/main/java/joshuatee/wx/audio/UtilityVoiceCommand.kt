@@ -60,6 +60,7 @@ object UtilityVoiceCommand {
             var validRid = true
             if (tokens.size > 1) {
                 radarSite = tokens[1].toUpperCase(Locale.US)
+                // FIXME redo to use new code
                 if (Utility.readPrefWithNull(context, "RID_LOC_$radarSite", null) == null) {
                     validRid = false
                 }

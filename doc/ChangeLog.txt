@@ -5,6 +5,7 @@
 // TODO [REF] move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
 // TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
 // TODO [ADD] radar file class from flutter
+// TODO [FIX] select radar from main screen via icon brings up zoomed out view UtilityLocationFragment
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [ADD] textual obs in fixed radars on homescreen
 

@@ -184,7 +184,7 @@ class FavRemoveActivity : BaseActivity() {
         var fullName = ""
         when (type) {
             "SND" -> {
-                fullName = Utility.readPref(this, "NWS_LOCATION_$shortCode", "")
+                fullName = Utility.getWfoSiteName(shortCode)
                 fullName = if (fullName == "") {
                     shortCode + ": " + Utility.readPref(this, "NWS_SOUNDINGLOCATION_$shortCode", "")
                 } else {
