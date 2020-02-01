@@ -9,7 +9,7 @@
 // TODO [ADD] warning counts in nexrad
 // TODO [ADD] textual obs in fixed radars on homescreen
 
-55343 2020_01_31
+55343 2020_01_31    [ADD] in nexrad radar if show warnings show count in upper left, tap on count goes to severe dashboard - WIP
 55342 2020_01_31    [FIX] prelaunch report: at joshuatee.wx.models.UtilityModels.setSubtitleRestoreIMGXYZOOM(UtilityModels.kt:292)
                         java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
                     [FIX] prelaunch report: at joshuatee.wx.models.UtilityModelEsrlInputOutput.getAnimation(UtilityModelEsrlInputOutput.kt:185)

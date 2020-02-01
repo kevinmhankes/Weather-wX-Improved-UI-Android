@@ -65,6 +65,7 @@ import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
 
 import joshuatee.wx.GlobalArrays
+import joshuatee.wx.activitiesmisc.SevereDashboardActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.util.*
@@ -163,6 +164,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 bottomToolbar = true
         )
         toolbarBottom.setOnMenuItemClickListener(this)
+        toolbar.setOnClickListener {
+            ObjectIntent(this, SevereDashboardActivity::class.java)
+        }
         UtilityUI.immersiveMode(this as Activity)
         if (UIPreferences.radarStatusBarTransparent && Build.VERSION.SDK_INT >= 21) {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -463,6 +467,15 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             }
             if (!oglr.product.startsWith("2")) {
                 UtilityRadarUI.plotWarningPolygons(glview, oglr, archiveMode)
+            }
+            val tstCount = UtilityVtec.getStormCount(this@WXGLRadarActivity, MyApplication.severeDashboardTst.value)
+            val torCount = UtilityVtec.getStormCount(this@WXGLRadarActivity, MyApplication.severeDashboardTor.value)
+            val ffwCount = UtilityVtec.getStormCount(this@WXGLRadarActivity, MyApplication.severeDashboardFfw.value)
+            UtilityLog.d("wx", "WARNINGS: " + tstCount.toString())
+            UtilityLog.d("wx", "WARNINGS: " + torCount.toString())
+            UtilityLog.d("wx", "WARNINGS: " + ffwCount.toString())
+            if (MyApplication.radarWarnings) {
+                title = oglr.product + " (" + tstCount.toString() + "," + torCount.toString() + "," + ffwCount.toString() + ")"
             }
 
             if (PolygonType.MCD.pref && !archiveMode) {
@@ -798,8 +811,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleFavoriteString(this, oglr.rid, star, prefToken)
-        ridArrLoc =
-                UtilityFavorites.setupFavMenu(this, ridFav, oglr.rid, prefTokenLocation, prefToken)
+        ridArrLoc = UtilityFavorites.setupFavMenu(this, ridFav, oglr.rid, prefTokenLocation, prefToken)
         sp.refreshData(this@WXGLRadarActivity, ridArrLoc)
     }
 
