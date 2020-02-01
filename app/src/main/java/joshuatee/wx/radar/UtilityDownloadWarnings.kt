@@ -43,7 +43,7 @@ internal object UtilityDownloadWarnings {
 
     fun get(context: Context) {
         if (timer.isRefreshNeeded(context)) {
-            UtilityLog.d("wx", "DOWNLOAD WARNINGS")
+            //UtilityLog.d("wx", "DOWNLOAD WARNINGS")
             if (PolygonType.TST.pref) {
                 getPolygonVtec(context)
             }

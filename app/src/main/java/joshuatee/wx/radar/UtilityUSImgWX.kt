@@ -162,10 +162,7 @@ object UtilityUSImgWX {
         val colorDrawable = ColorDrawable(MyApplication.nexradRadarBackgroundColor)
         var bitmapCanvas = Bitmap.createBitmap(CANVAS_X, CANVAS_Y, Config.ARGB_8888)
         if (!prod.contains("L2")) {
-            if (prod.contains("N0R") || prod.contains("N0S") || prod.contains("N0V") || prod.contains(
-                            "TR"
-                    )
-            ) {
+            if (prod.contains("N0R") || prod.contains("N0S") || prod.contains("N0V") || prod.contains("TR")) {
                 UtilityNexradRadial4Bit.decodeAndPlot(
                         context,
                         bitmapCanvas,

@@ -114,7 +114,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private var wxgltextArr = mutableListOf<WXGLTextObject>()
     private lateinit var act: Activity
     private var alertDialogRadarLongPress: ObjectDialogue? = null
-    private var dontSavePref = false
+    private var doNotSavePref = false
     private var useSinglePanePref = false
     private var landScape = false
     private var isGetContentInProgress = false
@@ -129,7 +129,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         val activityArguments = intent.getStringArrayExtra(RID)
         if (activityArguments != null && activityArguments.size > 3 ) {
             if (activityArguments[3] == "true") {
-                dontSavePref = true
+                doNotSavePref = true
                 useSinglePanePref = true
             }
         }
@@ -845,7 +845,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 }
             }
             R.id.action_radar_4 -> {
-                if (!dontSavePref) {
+                if (!doNotSavePref) {
                     numPanesArr.forEach { WXGLNexrad.savePrefs(this, prefPrefix, it + 1, oglrArr[it]) }
                 } else {
                     numPanesArr.forEach { WXGLNexrad.saveProductPrefs(this, prefPrefix, it + 1, oglrArr[it]) }
@@ -946,10 +946,14 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     override fun onStop() {
         super.onStop()
-        if (!dontSavePref) {
-            numPanesArr.forEach { WXGLNexrad.savePrefs(this, prefPrefix, it + 1, oglrArr[it]) }
+        if (!doNotSavePref) {
+            numPanesArr.forEach {
+                WXGLNexrad.savePrefs(this, prefPrefix, it + 1, oglrArr[it])
+            }
         } else {
-            numPanesArr.forEach { WXGLNexrad.saveProductPrefs(this, prefPrefix, it + 1, oglrArr[it]) }
+            numPanesArr.forEach {
+                WXGLNexrad.saveProductPrefs(this, prefPrefix, it + 1, oglrArr[it])
+            }
         }
         // otherwise cpu will spin with no fix but to kill app
         inOglAnim = false

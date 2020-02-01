@@ -78,11 +78,8 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
                 val ridLoc = Utility.readPref(this, "RID_LOC_$rid1", "")
                 val nwsLocationArr = ridLoc.split(",").dropLastWhile { it.isEmpty() }
                 val state = nwsLocationArr.getOrNull(0) ?: ""
-                nwsRadarMosaicSectorLabelCurrent =
-                        UtilityUSImgNwsMosaic.getSectorFromState(state)
-                nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNwsMosaic.getSectorLabelFromCode(
-                        nwsRadarMosaicSectorLabelCurrent
-                )
+                nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNwsMosaic.getSectorFromState(state)
+                nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNwsMosaic.getSectorLabelFromCode(nwsRadarMosaicSectorLabelCurrent)
                 doNotSavePref = true
             } else if (activityArguments.isNotEmpty() && activityArguments[0] == "widget") {
                 val widgetLocNum = Utility.readPref(this, "WIDGET_LOCATION", "1")
@@ -90,11 +87,8 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
                 val ridLoc = Utility.readPref(this, "RID_LOC_$rid1", "")
                 val nwsLocationArr = ridLoc.split(",").dropLastWhile { it.isEmpty() }
                 val state = Utility.readPref(this, "STATE_CODE_" + nwsLocationArr.getOrNull(0), "")
-                nwsRadarMosaicSectorLabelCurrent =
-                        UtilityUSImgNwsMosaic.getSectorFromState(state)
-                nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNwsMosaic.getSectorLabelFromCode(
-                        nwsRadarMosaicSectorLabelCurrent
-                )
+                nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNwsMosaic.getSectorFromState(state)
+                nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNwsMosaic.getSectorLabelFromCode(nwsRadarMosaicSectorLabelCurrent)
             } else {
                 nwsRadarMosaicSectorLabelCurrent = Utility.readPref(
                         this,

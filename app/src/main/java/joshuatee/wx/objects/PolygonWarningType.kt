@@ -32,7 +32,6 @@ enum class PolygonWarningType constructor(
 ) {
     SpecialMarineWarning(
             "SMW",
-            //"Flood%20Warning",
             "Special%20Marine%20Warning",
             Color.rgb(255, 165, 0)
     ),

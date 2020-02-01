@@ -138,7 +138,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private var urlStr = ""
     private var fixedSite = false
     private lateinit var rl: RelativeLayout
-    //private val latlonArr = mutableListOf("", "")
     private var latD = 0.0
     private var lonD = 0.0
     private var locationManager: LocationManager? = null
@@ -474,7 +473,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             if (MyApplication.radarWarnings) {
                 title = oglr.product + " (" + tstCount.toString() + "," + torCount.toString() + "," + ffwCount.toString() + ")"
             }
-
             if (PolygonType.MCD.pref && !archiveMode) {
                 withContext(Dispatchers.IO) {
                     UtilityDownloadMcd.get(this@WXGLRadarActivity)
