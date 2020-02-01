@@ -191,23 +191,13 @@ object UtilityFavorites {
     // followed by each token in the string as list items
     // If somehow the input colon separated string is to small correct it in this method
     fun setupFavMenuSpcMeso(favoriteString: String, value: String): List<String> {
-        //var ridArr = MyApplication.colon.split(ridFav)
         var favorites = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
-        // bug experienced where somehow size was below 3
         if (favorites.size < 3) {
-            //ridArr = Array(3) { "" }
             favorites = MutableList(3) { "" }
         }
         favorites[0] = value
         favorites[1] = ADD_STR
         favorites[2] = MODIFY_STR
-        //val returnList = MutableList(favorites.size) { "" }
-        //val returnList = favorites.toList()
-        //favorites.indices.forEach {
-        //    returnList[it] = favorites[it]
-        //}
-        //UtilityLog.d("wx", "MESO1: " + favoriteString)
-        //UtilityLog.d("wx", "MESO2: " + returnList.toString())
         return favorites.toList()
     }
 
