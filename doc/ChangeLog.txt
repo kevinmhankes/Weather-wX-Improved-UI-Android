@@ -11,7 +11,7 @@
 // TODO [ADD] textual obs in fixed radars on homescreen
 // TODO [ADD] use ENUM instead of RID_FAV WFO_FAV SND_FAV (util/UtilityFavorites)
 
-55348 2020_02_01
+55348 2020_02_01    [REF] utilFav refactoring
 55347 2020_02_01    [ADD] move to normal twitter w/o tokens
 55346 2020_02_01    [REF] remove un-needed pref storage in util pref
                     [FIX] twitter activity wasn't going to state of current location

@@ -187,10 +187,12 @@ object UtilityFavorites {
     }
 
     fun setupFavMenuSpcMeso(ridFav: String, param: String): List<String> {
-        var ridArr = MyApplication.colon.split(ridFav)
+        //var ridArr = MyApplication.colon.split(ridFav)
+        var ridArr = ridFav.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
         // bug experienced where somehow size was below 3
         if (ridArr.size < 3) {
-            ridArr = Array(3) { "" }
+            //ridArr = Array(3) { "" }
+            ridArr = MutableList(3) { "" }
         }
         ridArr[0] = param
         ridArr[1] = ADD_STR
@@ -202,6 +204,8 @@ object UtilityFavorites {
             else
                 ridArrLoc[it] = ridArr[it]
         }
+        UtilityLog.d("wx", "MESO1: " + ridFav)
+        UtilityLog.d("wx", "MESO2: " + ridArrLoc.toString())
         return ridArrLoc.toList()
     }
 
