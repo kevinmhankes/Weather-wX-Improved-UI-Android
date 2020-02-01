@@ -37,16 +37,17 @@ import kotlinx.android.synthetic.main.activity_webview_toolbar.*
 
 class WebView : BaseActivity() {
 
+    //
     // This is a general purpose activity used to view web pages.
     // Toolbar is displayed ( thus AB ie ActionBar (old name) in activity name )
     // arg0 URL
     // arg1 Title
+    //
 
     companion object {
         const val URL: String = ""
     }
 
-    // added to support webview history, this var and block below it
     private var url = ""
 
     override fun onBackPressed() {
