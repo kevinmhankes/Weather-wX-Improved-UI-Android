@@ -727,11 +727,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         )
                         UtilityShare.shareAnimGif(
                                 this,
-                                oglrArr[curRadar].rid + " (" + Utility.readPref(
-                                        this,
-                                        "RID_LOC_" + oglrArr[curRadar].rid,
-                                        ""
-                                )
+                                oglrArr[curRadar].rid + " (" + Utility.getRadarSiteName(oglrArr[curRadar].rid)
                                         + ") " + oglrArr[curRadar].product, animDrawable
                         )
                     } else {
@@ -739,11 +735,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                                 this,
                                 this,
                                 oglrArr[curRadar].rid +
-                                        " (" + Utility.readPref(
-                                        this,
-                                        "RID_LOC_" + oglrArr[curRadar].rid,
-                                        ""
-                                ) + ") "
+                                        " (" + Utility.getRadarSiteName(oglrArr[curRadar].rid) + ") "
                                         + oglrArr[curRadar].product,
                                 UtilityUSImgWX.layeredImgFromFile(
                                         applicationContext,

@@ -666,22 +666,14 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                         )
                         UtilityShare.shareAnimGif(
                                 this,
-                                oglr.rid + " (" + Utility.readPref(
-                                        this@WXGLRadarActivity,
-                                        "RID_LOC_" + oglr.rid,
-                                        ""
-                                ) + ") " + oglr.product,
+                                oglr.rid + " (" + Utility.getRadarSiteName(oglr.rid) + ") " + oglr.product,
                                 animDrawable
                         )
                     } else {
                         UtilityShare.shareBitmap(
                                 this,
                                 this,
-                                oglr.rid + " (" + Utility.readPref(
-                                        this@WXGLRadarActivity,
-                                        "RID_LOC_" + oglr.rid,
-                                        ""
-                                ) + ") " + oglr.product,
+                                oglr.rid + " (" + Utility.getRadarSiteName(oglr.rid) + ") " + oglr.product,
                                 UtilityUSImgWX.layeredImgFromFile(
                                         applicationContext,
                                         oglr.rid,
