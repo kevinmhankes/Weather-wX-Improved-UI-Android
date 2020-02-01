@@ -471,9 +471,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             val tstCount = UtilityVtec.getStormCount(this@WXGLRadarActivity, MyApplication.severeDashboardTst.value)
             val torCount = UtilityVtec.getStormCount(this@WXGLRadarActivity, MyApplication.severeDashboardTor.value)
             val ffwCount = UtilityVtec.getStormCount(this@WXGLRadarActivity, MyApplication.severeDashboardFfw.value)
-            UtilityLog.d("wx", "WARNINGS: " + tstCount.toString())
-            UtilityLog.d("wx", "WARNINGS: " + torCount.toString())
-            UtilityLog.d("wx", "WARNINGS: " + ffwCount.toString())
             if (MyApplication.radarWarnings) {
                 title = oglr.product + " (" + tstCount.toString() + "," + torCount.toString() + "," + ffwCount.toString() + ")"
             }
