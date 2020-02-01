@@ -33,7 +33,6 @@ import android.webkit.WebViewClient
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 
-import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectSpinner
@@ -45,14 +44,13 @@ import joshuatee.wx.util.Utility
 
 import kotlinx.android.synthetic.main.activity_webview_toolbar_state.*
 
-class WebscreenABState : BaseActivity(), OnItemSelectedListener {
+class WebViewTwitter : BaseActivity(), OnItemSelectedListener {
 
-    // This is a general purpose activity used to view web pages.
-    // Toolbar is displayed ( thus AB ie ActionBar (old name) in activity name )
-    // URL and title are passed in via extras
+    //
+    // WebView for twitter weather tags
+    //
 
-    private var url = ""
-    private val caArr = listOf(
+    private val canadianSectors = listOf(
         "bcstorm: British Columbia",
         "abstorm: Alberta",
         "skstorm: Saskatchewan",
@@ -65,9 +63,10 @@ class WebscreenABState : BaseActivity(), OnItemSelectedListener {
         "ntstorm: North West Territories",
         "nlwx: Newfoundland"
     )
-    private var stateArr = listOf<String>()
-    private var stateCodeCurrent = ""
+    private var sectorList = listOf<String>()
+    private var sector = ""
     private lateinit var sp: ObjectSpinner
+    val prefToken = "STATE_CODE"
 
     override fun onBackPressed() {
         if (webview.canGoBack()) {
@@ -86,11 +85,10 @@ class WebscreenABState : BaseActivity(), OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_webview_toolbar_state, null, false)
         title = "Twitter"
-        stateArr = GlobalArrays.states + caArr
-        stateCodeCurrent = Location.state
-        url = "https://mobile.twitter.com/hashtag/" + stateCodeCurrent.toLowerCase(Locale.US) + "wx"
-        sp = ObjectSpinner(this, this, this, R.id.spinner1, stateArr)
-        sp.setSelection(findPosition(stateCodeCurrent.toLowerCase(Locale.US)))
+        sectorList = GlobalArrays.states + canadianSectors
+        sector = Utility.readPref(prefToken, Location.state)
+        sp = ObjectSpinner(this, this, this, R.id.spinner1, sectorList)
+        sp.setSelection(findPosition(sector.toLowerCase(Locale.US)))
         val webSettings = webview.settings
         webSettings.javaScriptEnabled = true
         webview.webViewClient = WebViewClient()
@@ -101,9 +99,12 @@ class WebscreenABState : BaseActivity(), OnItemSelectedListener {
             ?: 0
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        Utility.writePref(this, "STATE_CODE", MyApplication.colon.split(stateArr[pos])[0])
-        stateCodeCurrent = Utility.readPref(this, "STATE_CODE", "")
-        url = "https://mobile.twitter.com/hashtag/" + stateCodeCurrent.toLowerCase(Locale.US) + "wx"
+        sector = sectorList[pos].split(":")[0]
+        Utility.writePref(this, prefToken, sector)
+        var url = "https://mobile.twitter.com/hashtag/" + sector.toLowerCase(Locale.US)
+        if (sector.length == 2) {
+            url += "wx"
+        }
         webview.loadUrl(url)
     }
 
@@ -113,8 +114,8 @@ class WebscreenABState : BaseActivity(), OnItemSelectedListener {
         return when (item.itemId) {
             R.id.action_browser -> {
                 var tail = "wx"
-                var stateTmp = stateCodeCurrent.toLowerCase(Locale.US)
-                caArr.forEach {
+                var stateTmp = sector.toLowerCase(Locale.US)
+                canadianSectors.forEach {
                     if (it.contains("$stateTmp:")) {
                         tail = ""
                         stateTmp = stateTmp.replace("wx", "")

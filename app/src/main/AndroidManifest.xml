@@ -200,7 +200,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".activitiesmisc.WebscreenABState"
+      android:name=".activitiesmisc.WebViewTwitter"
       android:parentActivityName="WX" >
   </activity>
   <activity

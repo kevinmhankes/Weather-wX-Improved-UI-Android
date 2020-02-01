@@ -163,7 +163,7 @@ class MiscFragment : Fragment() {
             )
             hm["twitter_state"] = TileObject(
                     R.drawable.twstate,
-                    WebscreenABState::class.java,
+                    WebViewTwitter::class.java,
                     "",
                     arrayOf(),
                     resources.getString(R.string.help_twitter),
