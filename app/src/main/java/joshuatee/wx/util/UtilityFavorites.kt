@@ -186,6 +186,10 @@ object UtilityFavorites {
         return ridArrLoc.toList()
     }
 
+    // Takes a value and a colon separated string
+    // returns a List with the value at the start followed by two constant values (add/modify)
+    // followed by each token in the string as list items
+    // If somehow the input colon separated string is to small correct it in this method
     fun setupFavMenuSpcMeso(ridFav: String, param: String): List<String> {
         //var ridArr = MyApplication.colon.split(ridFav)
         var ridArr = ridFav.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
