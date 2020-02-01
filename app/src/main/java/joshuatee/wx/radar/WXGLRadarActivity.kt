@@ -130,6 +130,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private lateinit var l2Menu: MenuItem
     private lateinit var tdwrMenu: MenuItem
     private var delay = 0
+    // TODO eventually remove this var, prefToken can be used to ID
     private val prefTokenLocation = "RID_LOC_"
     private val prefToken = "RID_FAV"
     private var frameCountGlobal = 0

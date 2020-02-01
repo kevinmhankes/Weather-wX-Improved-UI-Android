@@ -181,27 +181,24 @@ class FavRemoveActivity : BaseActivity() {
     }
 
     private fun getFullString(shortCode: String): String {
-        var tmpLoc = ""
+        var fullName = ""
         when (type) {
             "SND" -> {
-                tmpLoc = Utility.readPref(this, "NWS_LOCATION_$shortCode", "")
-                tmpLoc = if (tmpLoc == "") {
+                fullName = Utility.readPref(this, "NWS_LOCATION_$shortCode", "")
+                fullName = if (fullName == "") {
                     shortCode + ": " + Utility.readPref(this, "NWS_SOUNDINGLOCATION_$shortCode", "")
                 } else {
-                    "$shortCode: $tmpLoc"
+                    "$shortCode: $fullName"
                 }
             }
-            "WFO" -> tmpLoc = shortCode + ": " +
-                    Utility.readPref(this, prefTokenLocation + shortCode, "")
-            "RID" -> tmpLoc = shortCode + ": " +
-                    Utility.readPref(this, prefTokenLocation + shortCode, "")
-            "NWSTEXT" -> tmpLoc =
-                    UtilityWpcText.labels[UtilityFavorites.findPositionNwsText(shortCode)]
-            "SREF" -> tmpLoc = shortCode
-            "RIDCA" -> tmpLoc = findCanadaRadarSiteLabel(shortCode)
-            "SPCMESO" -> tmpLoc = findSpcMesoLabel(shortCode)
+            "WFO" -> fullName = shortCode + ": " + Utility.getWfoSiteName(shortCode)
+            "RID" -> fullName = shortCode + ": " + Utility.getRadarSiteName(shortCode)
+            "NWSTEXT" -> fullName = UtilityWpcText.labels[UtilityFavorites.findPositionNwsText(shortCode)]
+            "SREF" -> fullName = shortCode
+            "RIDCA" -> fullName = findCanadaRadarSiteLabel(shortCode)
+            "SPCMESO" -> fullName = findSpcMesoLabel(shortCode)
         }
-        return tmpLoc
+        return fullName
     }
 
     private fun saveMyApp(fav: String, favLabel: String) {

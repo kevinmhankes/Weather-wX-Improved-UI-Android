@@ -76,7 +76,7 @@ object UtilityFavorites {
         val ridArrLoc = MutableList(ridArr.size) { "" }
         var ridLoc: String
         ridArr.indices.forEach { k ->
-            if (prefTokenLocation == "RID_LOC_") {
+            if (prefToken == "RID_FAV") {
                 ridLoc = Utility.getRadarSiteName(ridArr[k])
             } else {
                 ridLoc = Utility.readPref(context, prefTokenLocation + ridArr[k], "")
