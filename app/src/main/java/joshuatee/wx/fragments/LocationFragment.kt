@@ -655,8 +655,8 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                             args[z] = Location.rid
                         if (args[z] == "ONEK")
                             args[z] = Utility.readPref("COD_1KM_" + Location.rid, "")
-                        if (args[z] == "TWOK")
-                            args[z] = Utility.readPref("STATE_CODE_" + Location.state, "")
+                        //if (args[z] == "TWOK")
+                        //    args[z] = Utility.readPref("STATE_CODE_" + Location.state, "")
                     }
                     if (cl != null && id != null) {
                         intent = Intent(activityReference, cl)

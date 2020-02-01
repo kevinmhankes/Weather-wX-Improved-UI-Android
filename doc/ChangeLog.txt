@@ -3,6 +3,7 @@
 // TODO [ADD] line size - swo, wb, wb gusts, sti
 // TODO [REF] OkHttp 3.13 Requires Android 5+ – Square Corner Blog – Medium  https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce
 // TODO [REF] move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
+// TODO       NWS_LOCATION RID_LOC
 // TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
 // TODO [ADD] radar file class from flutter
 // TODO [FIX] select radar from main screen via icon brings up zoomed out view UtilityLocationFragment
@@ -12,6 +13,7 @@
 55343 2020_01_31    [ADD] in nexrad radar if show warnings show count in upper left, tap on count goes to severe dashboard - WIP
                     [FIX] non tst/tor/ffw warnings were not being downloaded outside of backgroundFetch
                     [REF] WIP - move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
+                    [REF] remove un-needed pref storage in util pref
 55342 2020_01_31    [FIX] prelaunch report: at joshuatee.wx.models.UtilityModels.setSubtitleRestoreIMGXYZOOM(UtilityModels.kt:292)
                         java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
                     [FIX] prelaunch report: at joshuatee.wx.models.UtilityModelEsrlInputOutput.getAnimation(UtilityModelEsrlInputOutput.kt:185)

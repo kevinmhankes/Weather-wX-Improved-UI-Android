@@ -86,7 +86,8 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
                 val rid1 = Location.getRid(this, widgetLocNum)
                 val ridLoc = Utility.getRadarSiteName(rid1)
                 val nwsLocationArr = ridLoc.split(",").dropLastWhile { it.isEmpty() }
-                val state = Utility.readPref(this, "STATE_CODE_" + nwsLocationArr.getOrNull(0), "")
+                //val state = Utility.readPref(this, "STATE_CODE_" + nwsLocationArr.getOrNull(0), "")
+                val state = nwsLocationArr.getOrNull(0) ?: ""
                 nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNwsMosaic.getSectorFromState(state)
                 nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNwsMosaic.getSectorLabelFromCode(nwsRadarMosaicSectorLabelCurrent)
             } else {

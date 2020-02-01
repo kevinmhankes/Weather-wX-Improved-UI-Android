@@ -427,7 +427,7 @@ object UtilityPref {
         }
     }
 
-    fun prefInitStateCode(context: Context) {
+    /*fun prefInitStateCode(context: Context) {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = preferences.edit()
         val value = preferences.getString("STATE_CODE_AL", null)
@@ -484,9 +484,9 @@ object UtilityPref {
             editor.putString("STATE_CODE_WY", "CO_UT")
             editor.apply()
         }
-    }
+    }*/
 
-    fun prefInitNWSXY(context: Context) {
+    /*fun prefInitNWSXY(context: Context) {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = preferences.edit()
         val value = preferences.getString("NWS_UNR_X", null)
@@ -925,9 +925,9 @@ object UtilityPref {
             editor.putString("NWS_YUX_Y", "-114.65583")
             editor.apply()
         }
-    }
+    }*/
 
-    fun prefInitRIDXY(context: Context) {
+    /*fun prefInitRIDXY(context: Context) {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = preferences.edit()
         val value = preferences.getString("RID_ABR_Xmay14_2", null)
@@ -1247,7 +1247,7 @@ object UtilityPref {
             editor.putString("RID_HKM_Y", "155.778")
             editor.apply()
         }
-    }
+    }*/
 
 
     fun prefInitRIDXY2(context: Context) {
@@ -1290,7 +1290,8 @@ object UtilityPref {
             editor.putString("RID_iowa_mosaic_HICOMP_Y", "156.94")
             editor.putString("RID_iowa_mosaic_PRCOMP_X", "18.205")
             editor.putString("RID_iowa_mosaic_PRCOMP_Y", "66.158")
-            editor.putString("RID_TDTW_X", "42.11111")  // Detroit (DTW), MI TDTW DTX 772
+
+            /*editor.putString("RID_TDTW_X", "42.11111")  // Detroit (DTW), MI TDTW DTX 772
             editor.putString("RID_TDTW_Y", "83.515")
             editor.putString("RID_TADW_X", "5") //  Andrews Air Force Base (ADW), MD TADW LWX 346
             editor.putString("RID_TADW_Y", "5")
@@ -1379,7 +1380,8 @@ object UtilityPref {
             editor.putString("RID_TTPA_X", "27.85867") // Tampa Bay (TPA), FL TTPA TBW 93
             editor.putString("RID_TTPA_Y", "82.51755")
             editor.putString("RID_TTUL_X", "36.070184") // Tulsa (TUL), OK TTUL TSA 823
-            editor.putString("RID_TTUL_Y", "95.826313")
+            editor.putString("RID_TTUL_Y", "95.826313")*/
+
             editor.apply()
         }
     }

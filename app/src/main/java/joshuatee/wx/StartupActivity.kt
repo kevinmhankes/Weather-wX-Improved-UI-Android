@@ -13,6 +13,7 @@ import joshuatee.wx.settings.UtilityPref2
 import joshuatee.wx.settings.UtilityPref3
 import joshuatee.wx.settings.UtilityPref4
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityLog
 
 class StartupActivity : Activity() {
 
@@ -25,11 +26,12 @@ class StartupActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Utility.readPrefWithNull(this, "NWS_UNR_X", null) == null) {
-            UtilityPref.prefInitStateCode(this)
+        if (Utility.readPrefWithNull(this, "STATE_LOOKUP_Alabama", null) == null) {
+            UtilityLog.d("wx", "INIT PREF")
+            //UtilityPref.prefInitStateCode(this)
             UtilityPref.prefInitStateCodeLookup(this)
-            UtilityPref.prefInitNWSXY(this)
-            UtilityPref.prefInitRIDXY(this)
+            //UtilityPref.prefInitNWSXY(this)
+            //UtilityPref.prefInitRIDXY(this)
             UtilityPref.prefInitRIDXY2(this)
             UtilityPref.prefInitNWSLoc(this)
             UtilityPref2.prefInitSetDefaults(this)
@@ -38,12 +40,9 @@ class StartupActivity : Activity() {
             UtilityPref.prefInitTwitterCA(this)
             UtilityPref4.prefInitSoundingSites(this)
         }
-        if (Utility.readPrefWithNull(
-                this,
-                "SND_LIX_X",
-                null
-            ) == null
-        ) UtilityPref4.prefInitSoundingSitesLoc(this)
+        if (Utility.readPrefWithNull(this, "SND_LIX_X", null) == null) {
+            UtilityPref4.prefInitSoundingSitesLoc(this)
+        }
         MyApplication.initPreferences(this)
         Location.refreshLocationData(this)
         UtilityWXJobService.startService(this)
