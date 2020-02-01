@@ -75,7 +75,7 @@ object UtilitySpc {
         return listOf(returnStr, html)
     }
 
-    fun checkSpc(context: Context): List<String> {
+    fun checkSpc(): List<String> {
         var tabStr = ""
         val tabStrSpc: String
         var mdPresent = false
@@ -129,17 +129,18 @@ object UtilitySpc {
         var tstormCount = 0
         var floodCount = 0
         if (MyApplication.checktor) {
-            tstormCount = UtilityVtec.getStormCount(context, MyApplication.severeDashboardTst.value)
-            torCount = UtilityVtec.getStormCount(context, MyApplication.severeDashboardTor.value)
-            floodCount = UtilityVtec.getStormCount(context, MyApplication.severeDashboardFfw.value)
+            tstormCount = UtilityVtec.getStormCount(MyApplication.severeDashboardTst.value)
+            torCount = UtilityVtec.getStormCount(MyApplication.severeDashboardTor.value)
+            floodCount = UtilityVtec.getStormCount(MyApplication.severeDashboardFfw.value)
             if (tstormCount > 0 || torCount > 0 || floodCount > 0) {
                 uswarnPresent = true
             }
         }
-        tabStr = if (uswarnPresent)
+        tabStr = if (uswarnPresent) {
             tabStr + "  " + MyApplication.tabHeaders[2] + " W(" + tstormCount + "," + torCount + "," + floodCount + ")"
-        else
+        } else {
             MyApplication.tabHeaders[2]
+        }
         return listOf(tabStrSpc, tabStr)
     }
 }

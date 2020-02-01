@@ -468,9 +468,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             if (!oglr.product.startsWith("2")) {
                 UtilityRadarUI.plotWarningPolygons(glview, oglr, archiveMode)
             }
-            val tstCount = UtilityVtec.getStormCount(this@WXGLRadarActivity, MyApplication.severeDashboardTst.value)
-            val torCount = UtilityVtec.getStormCount(this@WXGLRadarActivity, MyApplication.severeDashboardTor.value)
-            val ffwCount = UtilityVtec.getStormCount(this@WXGLRadarActivity, MyApplication.severeDashboardFfw.value)
+            val tstCount = UtilityVtec.getStormCount(MyApplication.severeDashboardTst.value)
+            val torCount = UtilityVtec.getStormCount(MyApplication.severeDashboardTor.value)
+            val ffwCount = UtilityVtec.getStormCount(MyApplication.severeDashboardFfw.value)
             if (MyApplication.radarWarnings) {
                 title = oglr.product + " (" + tstCount.toString() + "," + torCount.toString() + "," + ffwCount.toString() + ")"
             }
