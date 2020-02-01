@@ -27,6 +27,7 @@ import joshuatee.wx.objects.DownloadTimer
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.PolygonWarningType
 import joshuatee.wx.util.UtilityDownloadNws
+import joshuatee.wx.util.UtilityLog
 
 internal object UtilityDownloadWarnings {
 
@@ -42,8 +43,16 @@ internal object UtilityDownloadWarnings {
 
     fun get(context: Context) {
         if (timer.isRefreshNeeded(context)) {
+            UtilityLog.d("wx", "DOWNLOAD WARNINGS")
             if (PolygonType.TST.pref) {
                 getPolygonVtec(context)
+            }
+            MyApplication.radarWarningPolygons.forEach {
+                if (it.isEnabled) {
+                    it.storage.valueSet(context, UtilityDownloadWarnings.getVtecByType(it.type))
+                } else {
+                    it.storage.valueSet(context, "")
+                }
             }
         }
     }
