@@ -60,36 +60,33 @@ object UtilityFavorites {
     fun setupFavMenu(
         context: Context,
         ridFav: String,
-        nwsOffice: String,
+        value: String,
         prefToken: String
     ): List<String> {
         checkAndCorrectFavorites(context, ridFav, prefToken)
-        var ridArr = MyApplication.colon.split(ridFav)
-        ridArr[0] = nwsOffice
-        if (ridArr.size > 2) {
-            ridArr[1] = ADD_STR
-            ridArr[2] = MODIFY_STR
-        } else {
-            ridArr = Array(3) { "" }
-            ridArr[1] = ADD_STR
-            ridArr[2] = MODIFY_STR
+        var favorites = ridFav.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
+        if (favorites.size < 3) {
+            favorites = MutableList(3) { "" }
         }
-        val ridArrLoc = MutableList(ridArr.size) { "" }
-        var ridLoc: String
-        ridArr.indices.forEach { k ->
-            ridLoc = when (prefToken) {
-                "RID_FAV" -> Utility.getRadarSiteName(ridArr[k])
-                "WFO_FAV" -> Utility.getWfoSiteName(ridArr[k])
-                "SND_FAV" -> Utility.getSoundingSiteName(ridArr[k])
+        favorites[0] = value
+        favorites[1] = ADD_STR
+        favorites[2] = MODIFY_STR
+        val returnList = MutableList(favorites.size) { "" }
+        var name: String
+        favorites.indices.forEach { k ->
+            name = when (prefToken) {
+                "RID_FAV" -> Utility.getRadarSiteName(favorites[k])
+                "WFO_FAV" -> Utility.getWfoSiteName(favorites[k])
+                "SND_FAV" -> Utility.getSoundingSiteName(favorites[k])
                 else -> "FIXME"
             }
             if (k == 1 || k == 2) {
-                ridArrLoc[k] = ridArr[k]
+                returnList[k] = favorites[k]
             } else {
-                ridArrLoc[k] = ridArr[k] + DELIM_TOKEN + ridLoc
+                returnList[k] = favorites[k] + DELIM_TOKEN + name
             }
         }
-        return ridArrLoc.toList()
+        return returnList.toList()
     }
 
     fun setupFavMenuCanada(ridFav: String, nwsOffice: String): List<String> {
@@ -170,7 +167,7 @@ object UtilityFavorites {
         MyApplication.spcMesoFav = ridFav
         MyApplication.spcmesoLabelFav = ridFavLabel
     }
-    
+
     // Takes a value and a colon separated string
     // returns a List with the value at the start followed by two constant values (add/modify)
     // followed by each token in the string as list items
