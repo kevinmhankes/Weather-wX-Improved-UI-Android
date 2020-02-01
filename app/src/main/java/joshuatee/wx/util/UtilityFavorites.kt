@@ -48,23 +48,23 @@ object UtilityFavorites {
         }
     }
 
-    private fun savePref(context: Context, newFav: String, prefToken: String) {
-        Utility.writePref(context, prefToken, newFav)
+    private fun savePref(context: Context, value: String, prefToken: String) {
+        Utility.writePref(context, prefToken, value)
         when (prefToken) {
-            "WFO_FAV" -> MyApplication.wfoFav = newFav
-            "RID_FAV" -> MyApplication.ridFav = newFav
-            "SND_FAV" -> MyApplication.sndFav = newFav
+            "WFO_FAV" -> MyApplication.wfoFav = value
+            "RID_FAV" -> MyApplication.ridFav = value
+            "SND_FAV" -> MyApplication.sndFav = value
         }
     }
 
     fun setupFavMenu(
         context: Context,
-        ridFav: String,
+        favoriteString: String,
         value: String,
         prefToken: String
     ): List<String> {
-        checkAndCorrectFavorites(context, ridFav, prefToken)
-        var favorites = ridFav.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
+        checkAndCorrectFavorites(context, favoriteString, prefToken)
+        var favorites = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
         if (favorites.size < 3) {
             favorites = MutableList(3) { "" }
         }
