@@ -10,6 +10,7 @@
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [ADD] textual obs in fixed radars on homescreen
 
+55346 2020_02_01
 55345 2020_02_01    [REF] remove un-needed pref storage in util pref
 55344 2020_02_01    [REF] remove un-needed pref storage in util pref
 55343 2020_02_01    [ADD] in nexrad radar if show warnings show count in upper left, tap on count goes to severe dashboard - WIP
