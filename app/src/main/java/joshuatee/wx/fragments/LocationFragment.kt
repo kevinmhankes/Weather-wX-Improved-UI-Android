@@ -608,11 +608,12 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
     }
 
     private fun getRadarTimeStamp(string: String, j: Int): String {
-        var ts = ""
+        var timestamp = ""
         val tokens = string.split(" ")
-        if (tokens.size > 3)
-            ts = tokens[3]
-        return oglrArr[j].rid + ": " + ts + " (" + Utility.readPref("RID_LOC_" + oglrArr[j].rid, "") + ")"
+        if (tokens.size > 3) {
+            timestamp = tokens[3]
+        }
+        return oglrArr[j].rid + ": " + timestamp + " (" + Utility.getRadarSiteName(oglrArr[j].rid) + ")"
     }
 
     private fun getGPSFromDouble() {
