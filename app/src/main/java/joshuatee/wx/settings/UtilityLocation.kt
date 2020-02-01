@@ -171,19 +171,32 @@ object UtilityLocation {
     }
 
     fun getSiteLocation(context: Context, site: String, officeType: String = "RID"): LatLon {
+        // SND, NWS, or RID
         var addChar = "-"
         if (officeType == "NWS") {
             addChar = ""
         } // WFO
         val x: String
         val y: String
-        if (officeType == "RID") {
-            x = Utility.getRadarSiteX(site.toUpperCase(Locale.US))
-            y = addChar + Utility.getRadarSiteY(site.toUpperCase(Locale.US))
-        } else {
-            x = Utility.readPref(context, officeType + "_" + site.toUpperCase(Locale.US) + "_X", "0.0")
-            y =
-                    addChar + Utility.readPref(context, officeType + "_" + site.toUpperCase(Locale.US) + "_Y", "0.0")
+        when (officeType) {
+            "RID" -> {
+                x = Utility.getRadarSiteX(site.toUpperCase(Locale.US))
+                y = addChar + Utility.getRadarSiteY(site.toUpperCase(Locale.US))
+            }
+            "NWS" -> {
+                x = Utility.getWfoSiteX(site.toUpperCase(Locale.US))
+                y = addChar + Utility.getWfoSiteY(site.toUpperCase(Locale.US))
+            }
+            "SND" -> {
+                x = Utility.getSoundingSiteX(site.toUpperCase(Locale.US))
+                y = addChar + Utility.getSoundingSiteY(site.toUpperCase(Locale.US))
+            }
+            else -> {
+                x = "0.0"
+                y = "-0.0"
+                //x = Utility.readPref(context, officeType + "_" + site.toUpperCase(Locale.US) + "_X", "0.0")
+                //y = addChar + Utility.readPref(context, officeType + "_" + site.toUpperCase(Locale.US) + "_Y", "0.0")
+            }
         }
         return LatLon(x, y)
     }

@@ -32,7 +32,6 @@ class StartupActivity : Activity() {
             UtilityPref.prefInitBig(this)
             UtilityPref.prefInitTwitterCA(this)
             UtilityPref4.prefInitSoundingSites(this)
-            UtilityPref4.prefInitSoundingSitesLoc(this)
         }
         MyApplication.initPreferences(this)
         Location.refreshLocationData(this)

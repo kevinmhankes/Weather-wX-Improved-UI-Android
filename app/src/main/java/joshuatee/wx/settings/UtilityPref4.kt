@@ -26,7 +26,7 @@ import androidx.preference.PreferenceManager
 
 object UtilityPref4 {
 
-    fun prefInitSoundingSitesLoc(context: Context) {
+    /*fun prefInitSoundingSitesLoc(context: Context) {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = preferences.edit()
         val value = preferences.getString("SND_LIX_X", null)
@@ -225,7 +225,7 @@ object UtilityPref4 {
             editor.putString("SND_LIX_Y", "89.82528")
             editor.apply()
         }
-    }
+    }*/
 
     fun prefInitSoundingSites(context: Context) {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)

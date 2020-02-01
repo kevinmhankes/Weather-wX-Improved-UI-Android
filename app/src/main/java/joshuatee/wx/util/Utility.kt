@@ -69,8 +69,24 @@ object Utility {
         return UtilityRadar.radarSiteToLon[radarSite] ?: ""
     }
 
+    fun getWfoSiteX(site: String): String {
+        return UtilityRadar.wfoSiteToLat[site] ?: ""
+    }
+
+    fun getWfoSiteY(site: String): String {
+        return UtilityRadar.wfoSiteToLon[site] ?: ""
+    }
+
     fun getWfoSiteName(wfo: String): String {
         return UtilityRadar.wfoIdToName[wfo] ?: ""
+    }
+
+    fun getSoundingSiteX(site: String): String {
+        return UtilityRadar.soundingSiteToLat[site] ?: ""
+    }
+
+    fun getSoundingSiteY(site: String): String {
+        return UtilityRadar.soundingSiteToLon[site] ?: ""
     }
 
    /* fun getWfoSiteLatLon(wfo: String): LatLon {
