@@ -170,27 +170,12 @@ object UtilityFavorites {
         MyApplication.spcMesoFav = ridFav
         MyApplication.spcmesoLabelFav = ridFavLabel
     }
-
-    fun setupFavMenuSref(ridFav: String, param: String): List<String> {
-        val ridArr = MyApplication.colon.split(ridFav)
-        ridArr[0] = param
-        ridArr[1] = ADD_STR
-        ridArr[2] = MODIFY_STR
-        val ridArrLoc = MutableList(ridArr.size) { "" }
-        ridArr.indices.forEach {
-            if (it == 1 || it == 2)
-                ridArrLoc[it] = ridArr[it]
-            else
-                ridArrLoc[it] = ridArr[it]
-        }
-        return ridArrLoc.toList()
-    }
-
+    
     // Takes a value and a colon separated string
     // returns a List with the value at the start followed by two constant values (add/modify)
     // followed by each token in the string as list items
     // If somehow the input colon separated string is to small correct it in this method
-    fun setupFavMenuSpcMeso(favoriteString: String, value: String): List<String> {
+    fun setupFavoriteMenuSpc(favoriteString: String, value: String): List<String> {
         var favorites = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
         if (favorites.size < 3) {
             favorites = MutableList(3) { "" }
