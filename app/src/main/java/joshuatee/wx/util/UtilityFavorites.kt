@@ -190,27 +190,25 @@ object UtilityFavorites {
     // returns a List with the value at the start followed by two constant values (add/modify)
     // followed by each token in the string as list items
     // If somehow the input colon separated string is to small correct it in this method
-    fun setupFavMenuSpcMeso(ridFav: String, param: String): List<String> {
+    fun setupFavMenuSpcMeso(favoriteString: String, value: String): List<String> {
         //var ridArr = MyApplication.colon.split(ridFav)
-        var ridArr = ridFav.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
+        var favorites = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
         // bug experienced where somehow size was below 3
-        if (ridArr.size < 3) {
+        if (favorites.size < 3) {
             //ridArr = Array(3) { "" }
-            ridArr = MutableList(3) { "" }
+            favorites = MutableList(3) { "" }
         }
-        ridArr[0] = param
-        ridArr[1] = ADD_STR
-        ridArr[2] = MODIFY_STR
-        val ridArrLoc = MutableList(ridArr.size) { "" }
-        ridArr.indices.forEach {
-            if (it == 1 || it == 2)
-                ridArrLoc[it] = ridArr[it]
-            else
-                ridArrLoc[it] = ridArr[it]
-        }
-        UtilityLog.d("wx", "MESO1: " + ridFav)
-        UtilityLog.d("wx", "MESO2: " + ridArrLoc.toString())
-        return ridArrLoc.toList()
+        favorites[0] = value
+        favorites[1] = ADD_STR
+        favorites[2] = MODIFY_STR
+        //val returnList = MutableList(favorites.size) { "" }
+        //val returnList = favorites.toList()
+        //favorites.indices.forEach {
+        //    returnList[it] = favorites[it]
+        //}
+        //UtilityLog.d("wx", "MESO1: " + favoriteString)
+        //UtilityLog.d("wx", "MESO2: " + returnList.toString())
+        return favorites.toList()
     }
 
     fun setupFavMenuNwsText(ridFav: String, param: String): List<String> {
