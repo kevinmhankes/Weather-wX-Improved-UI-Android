@@ -35,7 +35,7 @@ import joshuatee.wx.ui.BaseActivity
 
 import kotlinx.android.synthetic.main.activity_webview_toolbar.*
 
-class WebscreenAB : BaseActivity() {
+class WebView : BaseActivity() {
 
     // This is a general purpose activity used to view web pages.
     // Toolbar is displayed ( thus AB ie ActionBar (old name) in activity name )

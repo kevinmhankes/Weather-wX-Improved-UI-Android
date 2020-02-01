@@ -196,7 +196,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".activitiesmisc.WebscreenAB"
+      android:name=".activitiesmisc.WebView"
       android:parentActivityName="WX" >
   </activity>
   <activity

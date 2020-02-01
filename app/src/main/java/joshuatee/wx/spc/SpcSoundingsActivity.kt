@@ -31,7 +31,7 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
-import joshuatee.wx.activitiesmisc.WebscreenAB
+import joshuatee.wx.activitiesmisc.WebView
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.*
 import joshuatee.wx.ui.*
@@ -39,7 +39,7 @@ import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
 class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
-    OnMenuItemClickListener {
+        OnMenuItemClickListener {
 
     companion object {
         const val URL: String = ""
@@ -63,10 +63,10 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(
-            savedInstanceState,
-            R.layout.activity_spcsoundings,
-            R.menu.spcsoundings,
-            true
+                savedInstanceState,
+                R.layout.activity_spcsoundings,
+                R.menu.spcsoundings,
+                true
         )
         toolbarBottom.setOnMenuItemClickListener(this)
         star = toolbarBottom.menu.findItem(R.id.action_fav)
@@ -103,8 +103,8 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
         imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/$upperAir"
         withContext(Dispatchers.IO) {
             val date = UtilityString.getHtmlAndParse(
-                "${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/",
-                "/obswx/maps/" + upperAir + "_([0-9]{6}_[0-9]{2}).gif"
+                    "${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/",
+                    "/obswx/maps/" + upperAir + "_([0-9]{6}_[0-9]{2}).gif"
             )
             bitmap = UtilityImg.getBitmapAddWhiteBG(this@SpcSoundingsActivity, imgUrl + "_" + date + ".gif")
         }
@@ -126,13 +126,13 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
             R.id.action_map -> imageMap.toggleMap()
             R.id.action_fav -> toggleFavorite()
             R.id.action_spc_help -> ObjectIntent(
-                this,
-                WebscreenAB::class.java,
-                WebscreenAB.URL,
-                arrayOf(
-                    "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/help/begin.html",
-                    nwsOffice
-                )
+                    this,
+                    WebView::class.java,
+                    WebView.URL,
+                    arrayOf(
+                            "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/help/begin.html",
+                            nwsOffice
+                    )
             )
             else -> return super.onOptionsItemSelected(item)
         }
@@ -166,16 +166,16 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
             }
             when (pos) {
                 1 -> ObjectIntent(
-                    this,
-                    FavAddActivity::class.java,
-                    FavAddActivity.TYPE,
-                    arrayOf("SND")
+                        this,
+                        FavAddActivity::class.java,
+                        FavAddActivity.TYPE,
+                        arrayOf("SND")
                 )
                 2 -> ObjectIntent(
-                    this,
-                    FavRemoveActivity::class.java,
-                    FavRemoveActivity.TYPE,
-                    arrayOf("SND")
+                        this,
+                        FavRemoveActivity::class.java,
+                        FavRemoveActivity.TYPE,
+                        arrayOf("SND")
                 )
                 else -> {
                     nwsOffice = locations[pos].split(" ").getOrNull(0) ?: ""

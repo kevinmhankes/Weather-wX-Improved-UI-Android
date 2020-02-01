@@ -170,7 +170,7 @@ class MiscFragment : Fragment() {
                     "twitter_state", "Twitter state"
             )
             hm["twitter_tornado"] = TileObject(
-                    R.drawable.twtornado, WebscreenAB::class.java, WebscreenAB.URL,
+                    R.drawable.twtornado, WebView::class.java, WebView.URL,
                     arrayOf("https://mobile.twitter.com/hashtag/tornado", "#tornado"),
                     resources.getString(R.string.help_twitter), "twitter_tornado", "Twitter tornado"
             )

@@ -182,8 +182,8 @@ class SpottersActivity : BaseActivity() {
     private fun showItemOnMap(position: Int) {
         ObjectIntent(
                 this,
-                WebscreenAB::class.java,
-                WebscreenAB.URL,
+                WebView::class.java,
+                WebView.URL,
                 arrayOf(
                         UtilityMap.getMapUrl(
                                 spotterList[position].lat,

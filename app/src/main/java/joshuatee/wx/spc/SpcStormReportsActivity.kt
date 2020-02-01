@@ -52,7 +52,7 @@ import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.ui.ObjectNavDrawer
 import joshuatee.wx.radar.WXGLNexrad
 import joshuatee.wx.radar.LatLon
-import joshuatee.wx.activitiesmisc.WebscreenAB
+import joshuatee.wx.activitiesmisc.WebView
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.settings.Location
@@ -208,8 +208,8 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 stormCard.setListener(View.OnClickListener {
                     ObjectIntent(
                             this@SpcStormReportsActivity,
-                            WebscreenAB::class.java,
-                            WebscreenAB.URL,
+                            WebView::class.java,
+                            WebView.URL,
                             arrayOf(UtilityMap.getMapUrl(xStr, yStr, "10"), "$xStr,$yStr")
                     )
                 })
