@@ -201,19 +201,19 @@ object UtilityFavorites {
         return favorites.toList()
     }
 
-    fun setupFavMenuNwsText(ridFav: String, param: String): List<String> {
-        val ridArr = MyApplication.colon.split(ridFav)
-        ridArr[0] = param
-        ridArr[1] = ADD_STR
-        ridArr[2] = MODIFY_STR
-        val ridArrLoc = MutableList(ridArr.size) { "" }
-        ridArr.indices.forEach {
+    fun setupFavMenuNwsText(favoriteString: String, value: String): List<String> {
+        val favorites = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
+        favorites[0] = value
+        favorites[1] = ADD_STR
+        favorites[2] = MODIFY_STR
+        val returnList = MutableList(favorites.size) { "" }
+        favorites.indices.forEach {
             if (it == 1 || it == 2)
-                ridArrLoc[it] = ridArr[it]
+                returnList[it] = favorites[it]
             else
-                ridArrLoc[it] = UtilityWpcText.labels[findPositionNwsText(ridArr[it])]
+                returnList[it] = UtilityWpcText.labels[findPositionNwsText(favorites[it])]
         }
-        return ridArrLoc.toList()
+        return returnList.toList()
     }
 
     fun findPositionNwsText(key: String): Int =
