@@ -137,12 +137,12 @@ class FavRemoveActivity : BaseActivity() {
         }
         when (type) {
             "SPCMESO" -> {
-                ridFav = " : : "
+                ridFav = initialValue
                 ridArr.forEach {
                     ridFav += ":$it"
                 }
                 Utility.writePref(this, prefToken, "$ridFav:")
-                ridFavLabel = " : : "
+                ridFavLabel = initialValue
                 ridFavLabel += recyclerView.toString()
                 Utility.writePref(this, prefTokenLabel, ridFavLabel)
             }
@@ -250,7 +250,7 @@ class FavRemoveActivity : BaseActivity() {
                 ridFav = Utility.readPref(this, prefToken, " : :")
                 ridFav = ridFav.replace(ridArr[position] + ":", "")
                 recyclerView.deleteItem(position)
-                ridFavLabel = " : : "
+                ridFavLabel = initialValue
                 ridFavLabel += recyclerView.toString()
                 Utility.writePref(this, prefToken, ridFav)
                 Utility.writePref(this, prefTokenLabel, ridFavLabel)
