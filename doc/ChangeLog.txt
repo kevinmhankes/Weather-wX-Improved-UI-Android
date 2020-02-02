@@ -12,7 +12,8 @@
 // TODO [ADD] use ENUM instead of RID_FAV WFO_FAV SND_FAV (util/UtilityFavorites)
 // TODO [FIX] dual/quad pane radar don't take up the entire screen on chomeOS
 
-55349 2020_02_02
+55349 2020_02_02    [REF] utilFav/SettingsHomeScreen refactoring
+                    [REF] lint cleanup
 55348 2020_02_02    [REF] utilFav/SettingsHomeScreen refactoring
 55347 2020_02_01    [ADD] move to normal twitter w/o tokens
 55346 2020_02_01    [REF] remove un-needed pref storage in util pref

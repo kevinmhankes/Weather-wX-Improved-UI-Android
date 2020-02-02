@@ -286,7 +286,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         val index = v.id
         val x = storms[index].lat
         val y = storms[index].lon
-        val radarSite = UtilityLocation.getNearestOffice(this, "RADAR", LatLon(x, y))
+        val radarSite = UtilityLocation.getNearestOffice("RADAR", LatLon(x, y))
         menu.add(0, v.id, 0, "Show L2REF from $radarSite")
         menu.add(0, v.id, 0, "Show L2VEL from $radarSite")
     }
@@ -304,7 +304,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         var x = storms[id].lat
         var y = storms[id].lon
         var time = storms[id].time
-        var radarSite = UtilityLocation.getNearestOffice(this, "RADAR", LatLon(x, y))
+        var radarSite = UtilityLocation.getNearestOffice("RADAR", LatLon(x, y))
         time = UtilityStringExternal.truncate(time, 3)
         if (prod == "TR0" || prod == "TV0") {
             radarSite = WXGLNexrad.getTdwrFromRid(radarSite)

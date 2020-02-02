@@ -109,7 +109,7 @@ object UtilityLocation {
         return gps
     }
 
-    fun getNearestOffice(context: Context, officeType: String, location: LatLon): String {
+    fun getNearestOffice(officeType: String, location: LatLon): String {
         var officeArray = GlobalArrays.radars
         var prefToken = "RID"
         if (officeType == "WFO") {
@@ -119,7 +119,7 @@ object UtilityLocation {
         val sites = mutableListOf<RID>()
         officeArray.forEach {
             val labelArr = it.split(":")
-            sites.add(RID(labelArr[0], getSiteLocation(context, labelArr[0], prefToken)))
+            sites.add(RID(labelArr[0], getSiteLocation(labelArr[0], prefToken)))
         }
         var shortestDistance = 30000.00
         var currentDistance: Double
@@ -134,15 +134,15 @@ object UtilityLocation {
         return sites[bestRid].name
     }
 
-    fun getNearestRid(context: Context, location: LatLon, cnt: Int): List<RID> {
+    fun getNearestRid(location: LatLon, cnt: Int): List<RID> {
         val radarSites = mutableListOf<RID>()
         GlobalArrays.radars.forEach {
             val labels = it.split(":")
-            radarSites.add(RID(labels[0], getSiteLocation(context, labels[0])))
+            radarSites.add(RID(labels[0], getSiteLocation(labels[0])))
         }
         GlobalArrays.tdwrRadars.forEach {
             val labels = it.split(" ")
-            radarSites.add(RID(labels[0], getSiteLocation(context, labels[0])))
+            radarSites.add(RID(labels[0], getSiteLocation(labels[0])))
         }
         var currentDistance: Double
         radarSites.forEach {
@@ -153,8 +153,8 @@ object UtilityLocation {
         return radarSites.subList(0, cnt)
     }
 
-    fun getNearestSnd(context: Context, location: LatLon): String {
-        val sites = GlobalArrays.soundingSites.map { RID(it, getSiteLocation(context, it, "SND")) }
+    fun getNearestSnd(location: LatLon): String {
+        val sites = GlobalArrays.soundingSites.map { RID(it, getSiteLocation(it, "SND")) }
         var shortestDistance = 1000.00
         var currentDistance: Double
         var bestRid = -1
@@ -170,7 +170,7 @@ object UtilityLocation {
         return sites[bestRid].name
     }
 
-    fun getSiteLocation(context: Context, site: String, officeType: String = "RID"): LatLon {
+    fun getSiteLocation(site: String, officeType: String = "RID"): LatLon {
         // SND, NWS, or RID
         var addChar = "-"
         if (officeType == "NWS") {

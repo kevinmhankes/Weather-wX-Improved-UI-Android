@@ -309,10 +309,7 @@ object UtilityDownload {
             }
             "SND" -> {
                 needsBitmap = false
-                bm = UtilitySpcSoundings.getImage(
-                        context,
-                        UtilityLocation.getNearestSnd(context, Location.latLon)
-                )
+                bm = UtilitySpcSoundings.getImage(context, UtilityLocation.getNearestSnd(Location.latLon))
             }
             "STRPT" -> url = UtilitySpc.getStormReportsTodayUrl()
             else -> {

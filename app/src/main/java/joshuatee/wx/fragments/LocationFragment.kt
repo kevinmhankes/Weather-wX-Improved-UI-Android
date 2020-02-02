@@ -641,10 +641,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                     System.arraycopy(argsOrig, 0, args, 0, argsOrig.size)
                     args.indices.forEach { z ->
                         if (args[z] == "WFO_FOR_SND")
-                            args[z] = UtilityLocation.getNearestSnd(
-                                    activityReference,
-                                    LatLon(Location.x, Location.y)
-                            )
+                            args[z] = UtilityLocation.getNearestSnd(LatLon(Location.x, Location.y))
                         if (args[z] == "WFO_FOR_GOES")
                             args[z] = Location.wfo.toLowerCase(Locale.US)
                         if (args[z] == "STATE_LOWER")

@@ -196,7 +196,6 @@ class SpottersActivity : BaseActivity() {
 
     private fun showItemOnRadar(position: Int) {
         val radarSite = UtilityLocation.getNearestOffice(
-                this,
                 "RADAR",
                 LatLon(spotterList[position].lat, spotterList[position].lon)
         )

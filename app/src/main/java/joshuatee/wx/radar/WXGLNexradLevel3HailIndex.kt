@@ -39,11 +39,11 @@ internal object WXGLNexradLevel3HailIndex {
     private const val hiBaseFn = "nids_hi_tab"
     private const val markerSize = 0.015
 
-    fun decodeAndPlot(context: Context, rid: String, fnSuffix: String): List<Double> {
+    fun decodeAndPlot(context: Context, radarSite: String, fnSuffix: String): List<Double> {
         val stormList = mutableListOf<Double>()
         val retStr: String
-        val location = UtilityLocation.getSiteLocation(context, rid)
-        WXGLDownload.getNidsTab(context, "HI", rid, hiBaseFn + fnSuffix)
+        val location = UtilityLocation.getSiteLocation(radarSite)
+        WXGLDownload.getNidsTab(context, "HI", radarSite, hiBaseFn + fnSuffix)
         val dis: UCARRandomAccessFile
         val posn: List<String>
         val hailPercent: List<String>

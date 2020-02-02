@@ -54,7 +54,6 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
     private var firstTime = true
     private lateinit var star: MenuItem
     private var locations = listOf<String>()
-    private val prefTokenLocation = "NWS_LOCATION_"
     private val prefToken = "SND_FAV"
     private var upperAir = ""
     private var bitmap = UtilityImg.getBlankBitmap()
@@ -71,7 +70,7 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
         toolbarBottom.setOnMenuItemClickListener(this)
         star = toolbarBottom.menu.findItem(R.id.action_fav)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv)
-        nwsOffice = UtilityLocation.getNearestSnd(this, Location.latLon)
+        nwsOffice = UtilityLocation.getNearestSnd(Location.latLon)
         locations = UtilityFavorites.setupFavMenu(this, MyApplication.sndFav, nwsOffice, prefToken)
         objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, locations)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))

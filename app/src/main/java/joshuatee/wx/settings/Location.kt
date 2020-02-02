@@ -288,12 +288,10 @@ class Location(val context: Context, locNumInt: Int) {
                     wfo = wfoAndRadar[0]
                     radarSite = wfoAndRadar[1]
                     if (wfo == "") {
-                        wfo =
-                                UtilityLocation.getNearestOffice(context, "WFO", LatLon(xStr, yStr))
-                                        .toLowerCase(Locale.US)
+                        wfo = UtilityLocation.getNearestOffice( "WFO", LatLon(xStr, yStr)).toLowerCase(Locale.US)
                     }
                     if (radarSite == "") {
-                        radarSite = UtilityLocation.getNearestOffice(context, "RADAR", LatLon(xStr, yStr))
+                        radarSite = UtilityLocation.getNearestOffice( "RADAR", LatLon(xStr, yStr))
                     }
                     // CT shows mosaic not nexrad so the old way is needed
                     if (radarSite == "") {
