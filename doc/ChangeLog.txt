@@ -11,6 +11,7 @@
 // TODO [ADD] textual obs in fixed radars on homescreen
 // TODO [ADD] use ENUM instead of RID_FAV WFO_FAV SND_FAV (util/UtilityFavorites)
 // TODO [FIX] dual/quad pane radar don't take up the entire screen on chomeOS
+// TODO [REF] migrate off WebscreenABModels?
 
 55349 2020_02_02    [REF] utilFav/SettingsHomeScreen refactoring
                     [REF] lint cleanup
