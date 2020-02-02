@@ -58,6 +58,7 @@ class FavRemoveActivity : BaseActivity() {
     private var ridArrLabel = mutableListOf<String>()
     private lateinit var recyclerView: ObjectRecyclerView
     private var type = ""
+    private val initialValue = " : : "
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,15 +138,19 @@ class FavRemoveActivity : BaseActivity() {
         when (type) {
             "SPCMESO" -> {
                 ridFav = " : : "
-                ridArr.indices.forEach { ridFav += ":" + ridArr[it] }
+                ridArr.forEach {
+                    ridFav += ":$it"
+                }
                 Utility.writePref(this, prefToken, "$ridFav:")
                 ridFavLabel = " : : "
                 ridFavLabel += recyclerView.toString()
                 Utility.writePref(this, prefTokenLabel, ridFavLabel)
             }
             else -> {
-                ridFav = " : : "
-                ridArr.indices.forEach { ridFav += ":" + ridArr[it] }
+                ridFav = initialValue
+                ridArr.forEach {
+                    ridFav += ":$it"
+                }
                 Utility.writePref(this, prefToken, "$ridFav:")
             }
         }
@@ -170,14 +175,14 @@ class FavRemoveActivity : BaseActivity() {
             ridArr[ridArr.lastIndex] = tmp
             recyclerView.setItem(ridArr.lastIndex, getFullString(tmp))
         }
-        ridFav = " : : "
-        ridArr.indices.forEach {
-            ridFav = ridFav + ":" + ridArr[it]
+        ridFav = initialValue
+        ridArr.forEach {
+            ridFav += ":$it"
         }
         Utility.writePref(this, prefToken, "$ridFav:")
         when (type) {
             "SPCMESO" -> {
-                ridFavLabel = " : : "
+                ridFavLabel = initialValue
                 ridFavLabel += recyclerView.toString()
                 Utility.writePref(this, prefTokenLabel, ridFavLabel)
             }
