@@ -35,7 +35,6 @@ import joshuatee.wx.spc.UtilitySpcMeso
 import joshuatee.wx.ui.ObjectRecyclerView
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityFavorites
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.wpc.UtilityWpcText
 
 class FavAddActivity : BaseActivity() {

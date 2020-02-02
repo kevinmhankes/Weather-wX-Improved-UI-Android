@@ -124,8 +124,8 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
         if (favoriteString != "") {
             favoriteList.clear()
-            tempList.indices.forEach {
-                favoriteList.add(tempList[it])
+            tempList.forEach {
+                favoriteList.add(it)
             }
             if (firstTime) {
                 labels = mutableListOf()
@@ -222,7 +222,8 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
             favoriteString += ":$it"
         }
         favoriteString = favoriteString.replace("^:".toRegex(), "")
-        Utility.writePref(this, prefToken, favoriteString)
+        saveHomescreenList()
+        updateList()
     }
 
     private fun moveDown(pos: Int) {
@@ -246,7 +247,13 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
             favoriteString += ":$it"
         }
         favoriteString = favoriteString.replace("^:".toRegex(), "")
+        saveHomescreenList()
+        updateList()
+    }
+
+    private fun saveHomescreenList() {
         Utility.writePref(this, prefToken, favoriteString)
+        MyApplication.homescreenFav = favoriteString
     }
 
     private fun findPositionTEXT(key: String) = (UtilityWpcText.labels.indices)
@@ -316,23 +323,11 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         val bottomSheetFragment = BottomSheetFragment()
         bottomSheetFragment.position = position
         bottomSheetFragment.usedForLocation = false
-        bottomSheetFragment.fnList = listOf(::deleteItem, ::moveUpItem, ::moveDownItem)
+        bottomSheetFragment.fnList = listOf(::deleteItem, ::moveUp, ::moveDown)
         bottomSheetFragment.labelList = listOf("Delete Item", "Move Up", "Move Down")
         bottomSheetFragment.actContext = this
         bottomSheetFragment.topLabel = recyclerView.getItem(position)
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
-    }
-
-    private fun moveUpItem(position: Int) {
-        moveUp(position)
-        MyApplication.homescreenFav = favoriteString
-        updateList()
-    }
-
-    private fun moveDownItem(position: Int) {
-        moveDown(position)
-        MyApplication.homescreenFav = favoriteString
-        updateList()
     }
 
     private fun deleteItem(position: Int) {
@@ -341,8 +336,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
             favoriteString += ":"
             favoriteString = favoriteString.replace(favoriteList[position] + ":", "")
             favoriteString = favoriteString.replace(":$".toRegex(), "")
-            Utility.writePref(this, prefToken, favoriteString)
-            MyApplication.homescreenFav = favoriteString
+            saveHomescreenList()
             recyclerView.deleteItem(position)
             recyclerView.notifyDataSetChanged()
             updateList()
