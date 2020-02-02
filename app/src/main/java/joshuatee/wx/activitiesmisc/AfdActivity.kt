@@ -82,8 +82,6 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     private lateinit var notificationToggle: MenuItem
     private lateinit var star: MenuItem
     private lateinit var locationList: List<String>
-    // FIXME this var should be removed
-    private val prefTokenLocation = "NWS_LOCATION_"
     private val prefToken = "WFO_FAV"
     private var ridFavOld = ""
     private var version = 0

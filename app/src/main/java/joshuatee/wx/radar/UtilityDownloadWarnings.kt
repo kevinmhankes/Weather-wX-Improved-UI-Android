@@ -27,7 +27,6 @@ import joshuatee.wx.objects.DownloadTimer
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.PolygonWarningType
 import joshuatee.wx.util.UtilityDownloadNws
-import joshuatee.wx.util.UtilityLog
 
 internal object UtilityDownloadWarnings {
 
@@ -35,7 +34,7 @@ internal object UtilityDownloadWarnings {
     var timer = DownloadTimer(type)
 
     private const val baseUrl = "https://api.weather.gov/alerts/active?event="
-    private const val tstormUrl = baseUrl + "Severe%20Thunderstorm%20Warning"
+    private const val tStormUrl = baseUrl + "Severe%20Thunderstorm%20Warning"
     private const val ffwUrl = baseUrl + "Flash%20Flood%20Warning"
     private const val tornadoUrl = baseUrl + "Tornado%20Warning"
     // Below is for testing
@@ -49,7 +48,7 @@ internal object UtilityDownloadWarnings {
             }
             MyApplication.radarWarningPolygons.forEach {
                 if (it.isEnabled) {
-                    it.storage.valueSet(context, UtilityDownloadWarnings.getVtecByType(it.type))
+                    it.storage.valueSet(context, getVtecByType(it.type))
                 } else {
                     it.storage.valueSet(context, "")
                 }
@@ -72,7 +71,7 @@ internal object UtilityDownloadWarnings {
     }
 
     private fun getPolygonVtec(context: Context) {
-        val tstData = UtilityDownloadNws.getStringFromUrlNoAcceptHeader(tstormUrl)
+        val tstData = UtilityDownloadNws.getStringFromUrlNoAcceptHeader(tStormUrl)
         if (tstData != "") {
             MyApplication.severeDashboardTst.valueSet(context, tstData)
         }

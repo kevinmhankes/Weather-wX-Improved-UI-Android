@@ -45,7 +45,6 @@ import joshuatee.wx.ui.ObjectNavDrawer
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.util.UtilityImg
-import joshuatee.wx.util.UtilityLog
 import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_show_navdrawer_bottom_toolbar.*
