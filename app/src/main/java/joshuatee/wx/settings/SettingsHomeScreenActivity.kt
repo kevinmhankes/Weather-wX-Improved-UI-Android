@@ -179,14 +179,12 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
             R.id.action_help -> showHelpText(resources.getString(R.string.homescreen_help_label))
             R.id.action_reset -> {
                 MyApplication.homescreenFav = MyApplication.HOMESCREEN_FAV_DEFAULT
-                Utility.writePref(this, prefToken, MyApplication.homescreenFav)
                 favoriteString = MyApplication.homescreenFav
                 updateList(true)
                 recyclerView.refreshList(labels)
             }
             R.id.action_reset_ca -> {
                 MyApplication.homescreenFav = MyApplication.HOMESCREEN_FAV_DEFAULT_CA
-                Utility.writePref(this, prefToken, MyApplication.homescreenFav)
                 favoriteString = MyApplication.homescreenFav
                 updateList(true)
                 recyclerView.refreshList(labels)
@@ -202,11 +200,12 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
 
     private fun moveUp(pos: Int) {
         favoriteString = MyApplication.homescreenFav
-        val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
-        favoriteList.clear()
-        tempList.forEach {
-            favoriteList.add(it)
-        }
+        favoriteList = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
+        //val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
+        //favoriteList.clear()
+        //tempList.forEach {
+        //    favoriteList.add(it)
+        //}
         if (pos != 0) {
             val tmp = favoriteList[pos - 1]
             favoriteList[pos - 1] = favoriteList[pos]
@@ -225,11 +224,12 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
 
     private fun moveDown(pos: Int) {
         favoriteString = MyApplication.homescreenFav
-        val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
+        favoriteList = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
+        /*val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
         favoriteList.clear()
         tempList.forEach {
             favoriteList.add(it)
-        }
+        }*/
         if (pos != favoriteList.lastIndex) {
             val tmp = favoriteList[pos + 1]
             favoriteList[pos + 1] = favoriteList[pos]
