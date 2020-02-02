@@ -37,10 +37,12 @@ import joshuatee.wx.wpc.UtilityWpcText
 
 class FavRemoveActivity : BaseActivity() {
 
+    //
     // called from various activities that need favorite management,
     // allows one to remove from list of favorite sites and reorder
     //
     // arg1: type such as SND WFO RID
+    //
 
     companion object {
         const val TYPE: String = ""
@@ -101,13 +103,13 @@ class FavRemoveActivity : BaseActivity() {
         ridArr.clear()
         (3 until tempList.size).mapTo(ridArr) { tempList[it] }
         ridArrLabel = mutableListOf()
-        ridArr.indices.forEach {
+        ridArr.forEach {
             when (type) {
-                "NWSTEXT" -> ridArrLabel.add(getFullString(ridArr[it]))
-                "SREF" -> ridArrLabel.add(ridArr[it])
-                "RIDCA" -> ridArrLabel.add(findCanadaRadarSiteLabel(ridArr[it]))
-                "SPCMESO" -> ridArrLabel.add(findSpcMesoLabel(ridArr[it]))
-                else -> ridArrLabel.add(getFullString(ridArr[it]))
+                "NWSTEXT" -> ridArrLabel.add(getFullString(it))
+                "SREF" -> ridArrLabel.add(it)
+                "RIDCA" -> ridArrLabel.add(findCanadaRadarSiteLabel(it))
+                "SPCMESO" -> ridArrLabel.add(findSpcMesoLabel(it))
+                else -> ridArrLabel.add(getFullString(it))
             }
         }
     }
