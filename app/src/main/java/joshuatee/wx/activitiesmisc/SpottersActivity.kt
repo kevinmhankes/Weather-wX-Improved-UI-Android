@@ -129,8 +129,7 @@ class SpottersActivity : BaseActivity() {
 
     private fun checkFavorite(position: Int) {
         if (MyApplication.spotterFav.contains(spotterList[position].uniq + ":")) {
-            MyApplication.spotterFav =
-                    MyApplication.spotterFav.replace(spotterList[position].uniq + ":", "")
+            MyApplication.spotterFav = MyApplication.spotterFav.replace(spotterList[position].uniq + ":", "")
             spotterList[position].lastName = spotterList[position].lastName.replace("0FAV ", "")
         } else {
             MyApplication.spotterFav = MyApplication.spotterFav + spotterList[position].uniq + ":"
@@ -144,7 +143,9 @@ class SpottersActivity : BaseActivity() {
     private fun markFavorites() {
         spotterList
                 .filter { MyApplication.spotterFav.contains(it.uniq + ":") && !it.lastName.contains("0FAV ") }
-                .forEach { it.lastName = "0FAV " + it.lastName }
+                .forEach {
+                    it.lastName = "0FAV " + it.lastName
+                }
         sortSpotters()
     }
 
