@@ -69,7 +69,6 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
     private var mapShown = false
     private lateinit var star: MenuItem
     private var locations = listOf<String>()
-    private val prefTokenLocation = "NWS_LOCATION_"
     private val prefToken = "WFO_FAV"
     private var ridFavOld = ""
     private var wfoProd = listOf<String>()
@@ -90,12 +89,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
         else
             activityArguments[1]
         toolbar.title = prod
-        locations = UtilityFavorites.setupFavMenu(
-                this,
-                MyApplication.wfoFav,
-                wfo,
-                prefToken
-        )
+        locations = UtilityFavorites.setupFavMenu(this, MyApplication.wfoFav, wfo, prefToken)
         sp = ObjectSpinner(this, this, this, R.id.spinner1, locations)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(scrollView))
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToWfo)
@@ -181,26 +175,26 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
 
     private val lsrFromWfo: List<String>
         get() {
-            val lsrs = mutableListOf<String>()
+            val localStormReports = mutableListOf<String>()
             val numberLSR = UtilityString.getHtmlAndParseLastMatch(
                     "https://forecast.weather.gov/product.php?site=$wfo&issuedby=$wfo&product=LSR&format=txt&version=1&glossary=0",
                     "product=LSR&format=TXT&version=(.*?)&glossary"
             )
             if (numberLSR == "") {
-                lsrs.add("None issued by this office recently.")
+                localStormReports.add("None issued by this office recently.")
             } else {
                 var maxVersions = numberLSR.toIntOrNull() ?: 0
                 if (maxVersions > 30) {
                     maxVersions = 30
                 }
-                (1..maxVersions + 1 step 2).mapTo(lsrs) {
+                (1..maxVersions + 1 step 2).mapTo(localStormReports) {
                     UtilityDownload.getTextProduct(
                             "LSR$wfo",
                             it
                     )
                 }
             }
-            return lsrs
+            return localStormReports
         }
 }
 

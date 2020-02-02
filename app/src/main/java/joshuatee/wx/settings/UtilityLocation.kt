@@ -134,7 +134,7 @@ object UtilityLocation {
         return sites[bestRid].name
     }
 
-    fun getNearestRid(location: LatLon, cnt: Int): List<RID> {
+    fun getNearestRid(location: LatLon, count: Int): List<RID> {
         val radarSites = mutableListOf<RID>()
         GlobalArrays.radars.forEach {
             val labels = it.split(":")
@@ -150,7 +150,7 @@ object UtilityLocation {
             it.distance = currentDistance.toInt()
         }
         Collections.sort(radarSites, RID.DESCENDING_COMPARATOR)
-        return radarSites.subList(0, cnt)
+        return radarSites.subList(0, count)
     }
 
     fun getNearestSnd(location: LatLon): String {
