@@ -201,11 +201,6 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
     private fun moveUp(pos: Int) {
         favoriteString = MyApplication.homescreenFav
         favoriteList = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
-        //val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
-        //favoriteList.clear()
-        //tempList.forEach {
-        //    favoriteList.add(it)
-        //}
         if (pos != 0) {
             val tmp = favoriteList[pos - 1]
             favoriteList[pos - 1] = favoriteList[pos]
@@ -225,11 +220,6 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
     private fun moveDown(pos: Int) {
         favoriteString = MyApplication.homescreenFav
         favoriteList = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
-        /*val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
-        favoriteList.clear()
-        tempList.forEach {
-            favoriteList.add(it)
-        }*/
         if (pos != favoriteList.lastIndex) {
             val tmp = favoriteList[pos + 1]
             favoriteList[pos + 1] = favoriteList[pos]
