@@ -89,7 +89,7 @@ class FavRemoveActivity : BaseActivity() {
                 prefTokenLabel = "SPCMESO_LABEL_FAV"
             }
         }
-        ridFav = Utility.readPref(this, prefToken, " : : :")
+        ridFav = Utility.readPref(this, prefToken, UtilityFavorites.initialValue)
         title = "Modify $type"
         toolbar.subtitle = "Tap item to delete or move."
         updateList()
@@ -149,7 +149,6 @@ class FavRemoveActivity : BaseActivity() {
         }
     }
 
-    // FIXME needs to be const: " : : "
     private fun moveDown(pos: Int) {
         ridFav = Utility.readPref(this, prefToken, "")
         tempList = ridFav.split(":").dropLastWhile { it.isEmpty() }
@@ -170,7 +169,9 @@ class FavRemoveActivity : BaseActivity() {
             recyclerView.setItem(ridArr.lastIndex, getFullString(tmp))
         }
         ridFav = " : : "
-        ridArr.indices.forEach { ridFav = ridFav + ":" + ridArr[it] }
+        ridArr.indices.forEach {
+            ridFav = ridFav + ":" + ridArr[it]
+        }
         Utility.writePref(this, prefToken, "$ridFav:")
         when (type) {
             "SPCMESO" -> {

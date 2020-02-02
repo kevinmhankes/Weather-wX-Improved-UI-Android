@@ -34,6 +34,7 @@ object UtilityFavorites {
     private const val DELIM_TOKEN = " "
     private const val ADD_STR = "Add..."
     private const val MODIFY_STR = "Modify..."
+    const val initialValue = " : : :"
 
     // TODO refactor method/var names
 
@@ -106,7 +107,7 @@ object UtilityFavorites {
     }
 
     fun toggleFavorite(context: Context, value: String, star: MenuItem, prefToken: String) {
-        var favoriteString = Utility.readPref(context, prefToken, " : : :")
+        var favoriteString = Utility.readPref(context, prefToken, initialValue)
         if (favoriteString.contains(value)) {
             favoriteString = favoriteString.replace("$value:", "")
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
@@ -131,7 +132,7 @@ object UtilityFavorites {
         star: MenuItem,
         prefToken: String
     ): String {
-        var favoriteString = Utility.readPref(context, prefToken, " : : :")
+        var favoriteString = Utility.readPref(context, prefToken, initialValue)
         if (favoriteString.contains(value)) {
             favoriteString = favoriteString.replace("$value:", "")
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
@@ -151,8 +152,8 @@ object UtilityFavorites {
     }
 
     fun toggleFavoriteSpcMeso(context: Context, value: String, label: String, star: MenuItem) {
-        var favoriteString = Utility.readPref(context, "SPCMESO_FAV", " : : :")
-        var favoriteLabelString = Utility.readPref(context, "SPCMESO_LABEL_FAV", " : : :")
+        var favoriteString = Utility.readPref(context, "SPCMESO_FAV", initialValue)
+        var favoriteLabelString = Utility.readPref(context, "SPCMESO_LABEL_FAV", initialValue)
         if (favoriteString.contains(value)) {
             favoriteString = favoriteString.replace("$value:", "")
             favoriteLabelString = favoriteLabelString.replace("$label:", "")

@@ -34,6 +34,7 @@ import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.spc.UtilitySpcMeso
 import joshuatee.wx.ui.ObjectRecyclerView
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityFavorites
 import joshuatee.wx.wpc.UtilityWpcText
 
 class FavAddActivity : BaseActivity() {
@@ -92,15 +93,14 @@ class FavAddActivity : BaseActivity() {
         ObjectRecyclerView(this, this, R.id.card_list, data.toMutableList(), ::itemClicked)
     }
 
-    // FIXME should be const: " : : :"
     private fun itemClicked(position: Int) {
         val item = data[position]
-        var ridFav = Utility.readPref(this, prefToken, " : : :")
+        var ridFav = Utility.readPref(this, prefToken, UtilityFavorites.initialValue)
         var ridFavLabel = ""
         val tmpArr: Array<String>
         when (type) {
             "SPCMESO" -> {
-                ridFavLabel = Utility.readPref(this, prefTokenLabel, " : : :")
+                ridFavLabel = Utility.readPref(this, prefTokenLabel, UtilityFavorites.initialValue)
                 tmpArr = if (dataTokens[position].contains(":")) {
                     MyApplication.colon.split(dataTokens[position])
                 } else {
