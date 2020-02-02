@@ -119,8 +119,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
 
     private fun updateList(firstTime: Boolean = false) {
         favoriteString = favoriteString.replace("^:".toRegex(), "")
-        MyApplication.homescreenFav = favoriteString
-        Utility.writePref(this, prefToken, favoriteString)
+        saveHomescreenList()
         val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
         if (favoriteString != "") {
             favoriteList.clear()
@@ -221,8 +220,6 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         favoriteList.forEach {
             favoriteString += ":$it"
         }
-        favoriteString = favoriteString.replace("^:".toRegex(), "")
-        saveHomescreenList()
         updateList()
     }
 
@@ -246,8 +243,6 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         favoriteList.forEach {
             favoriteString += ":$it"
         }
-        favoriteString = favoriteString.replace("^:".toRegex(), "")
-        saveHomescreenList()
         updateList()
     }
 
@@ -336,7 +331,6 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
             favoriteString += ":"
             favoriteString = favoriteString.replace(favoriteList[position] + ":", "")
             favoriteString = favoriteString.replace(":$".toRegex(), "")
-            saveHomescreenList()
             recyclerView.deleteItem(position)
             recyclerView.notifyDataSetChanged()
             updateList()
