@@ -33,6 +33,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
+import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.wpc.UtilityWpcText
 import java.util.*
 
@@ -41,7 +42,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
 
     // FIXME var naming
     private var ridArr = mutableListOf<String>()
-    private var ridFav = ""
+    private var favoriteString = ""
     private val prefToken = "HOMESCREEN_FAV"
     private var labels = mutableListOf<String>()
     private var homeScreenFavOrig = ""
@@ -60,8 +61,8 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
                 true
         )
         toolbarBottom.setOnMenuItemClickListener(this)
-        ridFav = MyApplication.homescreenFav
-        homeScreenFavOrig = ridFav
+        favoriteString = MyApplication.homescreenFav
+        homeScreenFavOrig = favoriteString
         toolbar.subtitle = "Tap item to delete or move."
         UtilityToolbar.fullScreenMode(toolbar, false)
         ObjectFab(
@@ -69,7 +70,8 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
                 this,
                 R.id.fab,
                 MyApplication.ICON_ADD,
-                View.OnClickListener { dialogueMain.show() })
+                View.OnClickListener { dialogueMain.show() }
+        )
         updateList(true)
         recyclerView = ObjectRecyclerView(this, this, R.id.card_list, labels, ::prodClicked)
         dialogueMain = ObjectDialogue(
@@ -119,13 +121,15 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
     }
 
     private fun updateList(firstTime: Boolean = false) {
-        ridFav = ridFav.replace("^:".toRegex(), "")
-        MyApplication.homescreenFav = ridFav
-        Utility.writePref(this, prefToken, ridFav)
-        val tempList = ridFav.split(":").dropLastWhile { it.isEmpty() }
-        if (ridFav != "") {
+        favoriteString = favoriteString.replace("^:".toRegex(), "")
+        MyApplication.homescreenFav = favoriteString
+        Utility.writePref(this, prefToken, favoriteString)
+        val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
+        if (favoriteString != "") {
             ridArr.clear()
-            tempList.indices.forEach { ridArr.add(tempList[it]) }
+            tempList.indices.forEach {
+                ridArr.add(tempList[it])
+            }
             if (firstTime) {
                 labels = mutableListOf()
             }
@@ -180,14 +184,14 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
             R.id.action_reset -> {
                 MyApplication.homescreenFav = MyApplication.HOMESCREEN_FAV_DEFAULT
                 Utility.writePref(this, prefToken, MyApplication.homescreenFav)
-                ridFav = MyApplication.homescreenFav
+                favoriteString = MyApplication.homescreenFav
                 updateList(true)
                 recyclerView.refreshList(labels)
             }
             R.id.action_reset_ca -> {
                 MyApplication.homescreenFav = MyApplication.HOMESCREEN_FAV_DEFAULT_CA
                 Utility.writePref(this, prefToken, MyApplication.homescreenFav)
-                ridFav = MyApplication.homescreenFav
+                favoriteString = MyApplication.homescreenFav
                 updateList(true)
                 recyclerView.refreshList(labels)
             }
@@ -201,10 +205,15 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
     }
 
     private fun moveUp(pos: Int) {
-        ridFav = MyApplication.homescreenFav
-        val tempList = MyApplication.colon.split(ridFav)
+        favoriteString = MyApplication.homescreenFav
+        // FIXME
+        //val tempList = MyApplication.colon.split(favoriteString)
+        val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
+        UtilityLog.d("wx","HOMESCREEN" + tempList)
         ridArr.clear()
-        tempList.indices.forEach { ridArr.add(tempList[it]) }
+        tempList.forEach {
+            ridArr.add(it)
+        }
         if (pos != 0) {
             val tmp = ridArr[pos - 1]
             ridArr[pos - 1] = ridArr[pos]
@@ -214,17 +223,24 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
             ridArr[ridArr.lastIndex] = ridArr[pos]
             ridArr[0] = tmp
         }
-        ridFav = ""
-        ridArr.indices.forEach { ridFav = ridFav + ":" + ridArr[it] }
-        ridFav = ridFav.replace("^:".toRegex(), "")
-        Utility.writePref(this, prefToken, ridFav)
+        favoriteString = ""
+        ridArr.forEach {
+            favoriteString += ":$it"
+        }
+        favoriteString = favoriteString.replace("^:".toRegex(), "")
+        Utility.writePref(this, prefToken, favoriteString)
     }
 
     private fun moveDown(pos: Int) {
-        ridFav = MyApplication.homescreenFav
-        val tempList = MyApplication.colon.split(ridFav)
+        favoriteString = MyApplication.homescreenFav
+        // FIXME
+        //val tempList = MyApplication.colon.split(favoriteString).toList()
+        val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
+        UtilityLog.d("wx","HOMESCREEN" + tempList)
         ridArr.clear()
-        tempList.indices.forEach { ridArr.add(tempList[it]) }
+        tempList.forEach {
+            ridArr.add(it)
+        }
         if (pos != ridArr.lastIndex) {
             val tmp = ridArr[pos + 1]
             ridArr[pos + 1] = ridArr[pos]
@@ -234,10 +250,12 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
             ridArr[0] = ridArr[pos]
             ridArr[ridArr.lastIndex] = tmp
         }
-        ridFav = ""
-        ridArr.indices.forEach { ridFav = ridFav + ":" + ridArr[it] }
-        ridFav = ridFav.replace("^:".toRegex(), "")
-        Utility.writePref(this, prefToken, ridFav)
+        favoriteString = ""
+        ridArr.forEach {
+            favoriteString += ":$it"
+        }
+        favoriteString = favoriteString.replace("^:".toRegex(), "")
+        Utility.writePref(this, prefToken, favoriteString)
     }
 
     private fun findPositionTEXT(key: String) = (UtilityWpcText.labels.indices)
@@ -296,7 +314,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
     }
 
     override fun onBackPressed() {
-        if (ridFav != homeScreenFavOrig) {
+        if (favoriteString != homeScreenFavOrig) {
             UtilityAlertDialog.restart()
         } else {
             super.onBackPressed()
@@ -316,24 +334,24 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
 
     private fun moveUpItem(position: Int) {
         moveUp(position)
-        MyApplication.homescreenFav = ridFav
+        MyApplication.homescreenFav = favoriteString
         updateList()
     }
 
     private fun moveDownItem(position: Int) {
         moveDown(position)
-        MyApplication.homescreenFav = ridFav
+        MyApplication.homescreenFav = favoriteString
         updateList()
     }
 
     private fun deleteItem(position: Int) {
         if (position < ridArr.size) {
-            ridFav = MyApplication.homescreenFav
-            ridFav += ":"
-            ridFav = ridFav.replace(ridArr[position] + ":", "")
-            ridFav = ridFav.replace(":$".toRegex(), "")
-            Utility.writePref(this, prefToken, ridFav)
-            MyApplication.homescreenFav = ridFav
+            favoriteString = MyApplication.homescreenFav
+            favoriteString += ":"
+            favoriteString = favoriteString.replace(ridArr[position] + ":", "")
+            favoriteString = favoriteString.replace(":$".toRegex(), "")
+            Utility.writePref(this, prefToken, favoriteString)
+            MyApplication.homescreenFav = favoriteString
             recyclerView.deleteItem(position)
             recyclerView.notifyDataSetChanged()
             updateList()
@@ -350,12 +368,12 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
                 "OGL-" + textProduct.toUpperCase(Locale.US)
             }
         }
-        ridFav = MyApplication.homescreenFav
-        val homeScreenList = ridFav.split(":")
+        favoriteString = MyApplication.homescreenFav
+        val homeScreenList = favoriteString.split(":")
         if (!homeScreenList.contains(textProduct)) {
-            ridFav = "$ridFav:$textProduct"
-            Utility.writePref(this, prefToken, ridFav)
-            MyApplication.homescreenFav = ridFav
+            favoriteString = "$favoriteString:$textProduct"
+            Utility.writePref(this, prefToken, favoriteString)
+            MyApplication.homescreenFav = favoriteString
             labels.add(textProduct)
             updateList()
             recyclerView.notifyDataSetChanged()
