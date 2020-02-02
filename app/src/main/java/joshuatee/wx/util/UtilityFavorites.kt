@@ -37,13 +37,13 @@ object UtilityFavorites {
 
     // TODO refactor method/var names
 
-    private fun checkAndCorrectFavorites(context: Context, fav: String, prefToken: String) {
-        if (fav.contains("::")) {
-            val newFav = fav.replace(":{2,}".toRegex(), ":")
+    private fun checkAndCorrectFavorites(context: Context, value: String, prefToken: String) {
+        if (value.contains("::")) {
+            val newFav = value.replace(":{2,}".toRegex(), ":")
             savePref(context, newFav, prefToken)
         }
-        if (!fav.contains(MyApplication.prefSeparator)) {
-            val newFav = MyApplication.prefSeparator + fav.trimStart()
+        if (!value.contains(MyApplication.prefSeparator)) {
+            val newFav = MyApplication.prefSeparator + value.trimStart()
             savePref(context, newFav, prefToken)
         }
     }
@@ -105,67 +105,67 @@ object UtilityFavorites {
         return returnList.toList()
     }
 
-    fun toggleFavorite(context: Context, rid: String, star: MenuItem, prefToken: String) {
-        var ridFav = Utility.readPref(context, prefToken, " : : :")
-        if (ridFav.contains(rid)) {
-            ridFav = ridFav.replace("$rid:", "")
+    fun toggleFavorite(context: Context, value: String, star: MenuItem, prefToken: String) {
+        var favoriteString = Utility.readPref(context, prefToken, " : : :")
+        if (favoriteString.contains(value)) {
+            favoriteString = favoriteString.replace("$value:", "")
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         } else {
-            ridFav = "$ridFav$rid:"
+            favoriteString = "$favoriteString$value:"
             star.setIcon(MyApplication.STAR_ICON)
         }
-        Utility.writePref(context, prefToken, ridFav)
+        Utility.writePref(context, prefToken, favoriteString)
         when (prefToken) {
-            "RID_FAV" -> MyApplication.ridFav = ridFav
-            "WFO_FAV" -> MyApplication.wfoFav = ridFav
-            "SND_FAV" -> MyApplication.sndFav = ridFav
-            "SREF_FAV" -> MyApplication.srefFav = ridFav
-            "NWS_TEXT_FAV" -> MyApplication.nwsTextFav = ridFav
+            "RID_FAV" -> MyApplication.ridFav = favoriteString
+            "WFO_FAV" -> MyApplication.wfoFav = favoriteString
+            "SND_FAV" -> MyApplication.sndFav = favoriteString
+            "SREF_FAV" -> MyApplication.srefFav = favoriteString
+            "NWS_TEXT_FAV" -> MyApplication.nwsTextFav = favoriteString
         }
     }
 
     // mirror of method above save it returns the string
     fun toggleFavoriteString(
         context: Context,
-        rid: String,
+        value: String,
         star: MenuItem,
         prefToken: String
     ): String {
-        var ridFav = Utility.readPref(context, prefToken, " : : :")
-        if (ridFav.contains(rid)) {
-            ridFav = ridFav.replace("$rid:", "")
+        var favoriteString = Utility.readPref(context, prefToken, " : : :")
+        if (favoriteString.contains(value)) {
+            favoriteString = favoriteString.replace("$value:", "")
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         } else {
-            ridFav = "$ridFav$rid:"
+            favoriteString = "$favoriteString$value:"
             star.setIcon(MyApplication.STAR_ICON)
         }
-        Utility.writePref(context, prefToken, ridFav)
+        Utility.writePref(context, prefToken, favoriteString)
         when (prefToken) {
-            "RID_FAV" -> MyApplication.ridFav = ridFav
-            "WFO_FAV" -> MyApplication.wfoFav = ridFav
-            "SND_FAV" -> MyApplication.sndFav = ridFav
-            "SREF_FAV" -> MyApplication.srefFav = ridFav
-            "NWS_TEXT_FAV" -> MyApplication.nwsTextFav = ridFav
+            "RID_FAV" -> MyApplication.ridFav = favoriteString
+            "WFO_FAV" -> MyApplication.wfoFav = favoriteString
+            "SND_FAV" -> MyApplication.sndFav = favoriteString
+            "SREF_FAV" -> MyApplication.srefFav = favoriteString
+            "NWS_TEXT_FAV" -> MyApplication.nwsTextFav = favoriteString
         }
-        return ridFav
+        return favoriteString
     }
 
-    fun toggleFavoriteSpcMeso(context: Context, rid: String, label: String, star: MenuItem) {
-        var ridFav = Utility.readPref(context, "SPCMESO_FAV", " : : :")
-        var ridFavLabel = Utility.readPref(context, "SPCMESO_LABEL_FAV", " : : :")
-        if (ridFav.contains(rid)) {
-            ridFav = ridFav.replace("$rid:", "")
-            ridFavLabel = ridFavLabel.replace("$label:", "")
+    fun toggleFavoriteSpcMeso(context: Context, value: String, label: String, star: MenuItem) {
+        var favoriteString = Utility.readPref(context, "SPCMESO_FAV", " : : :")
+        var favoriteLabelString = Utility.readPref(context, "SPCMESO_LABEL_FAV", " : : :")
+        if (favoriteString.contains(value)) {
+            favoriteString = favoriteString.replace("$value:", "")
+            favoriteLabelString = favoriteLabelString.replace("$label:", "")
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         } else {
-            ridFav = "$ridFav$rid:"
-            ridFavLabel = "$ridFavLabel$label:"
+            favoriteString = "$favoriteString$value:"
+            favoriteLabelString = "$favoriteLabelString$label:"
             star.setIcon(MyApplication.STAR_ICON)
         }
-        Utility.writePref(context, "SPCMESO_FAV", ridFav)
-        Utility.writePref(context, "SPCMESO_LABEL_FAV", ridFavLabel)
-        MyApplication.spcMesoFav = ridFav
-        MyApplication.spcmesoLabelFav = ridFavLabel
+        Utility.writePref(context, "SPCMESO_FAV", favoriteString)
+        Utility.writePref(context, "SPCMESO_LABEL_FAV", favoriteLabelString)
+        MyApplication.spcMesoFav = favoriteString
+        MyApplication.spcmesoLabelFav = favoriteLabelString
     }
 
     // Takes a value and a colon separated string

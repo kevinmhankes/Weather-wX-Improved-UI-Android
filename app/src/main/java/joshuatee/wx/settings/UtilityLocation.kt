@@ -194,8 +194,6 @@ object UtilityLocation {
             else -> {
                 x = "0.0"
                 y = "-0.0"
-                //x = Utility.readPref(context, officeType + "_" + site.toUpperCase(Locale.US) + "_X", "0.0")
-                //y = addChar + Utility.readPref(context, officeType + "_" + site.toUpperCase(Locale.US) + "_Y", "0.0")
             }
         }
         return LatLon(x, y)
