@@ -43,8 +43,7 @@ internal object UtilityCitiesExtended {
             var longitude: Double
             val lines: List<String>
             var tokens: Array<String>
-            val xmlFileInputStream = context.resources.openRawResource(R.raw.cityall)
-            text = UtilityIO.readTextFile(xmlFileInputStream)
+            text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.cityall)
             lines = text.split("\n").dropLastWhile { it.isEmpty() }
             lines.forEach {
                 tokens = MyApplication.comma.split(it)

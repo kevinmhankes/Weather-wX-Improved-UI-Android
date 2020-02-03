@@ -39,8 +39,7 @@ internal object UtilityCountyLabels {
             val text: String
             val lines: List<String>
             var tmpArr: Array<String>
-            val xmlFileInputStream = context.resources.openRawResource(R.raw.gaz_counties_national)
-            text = UtilityIO.readTextFile(xmlFileInputStream)
+            text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.gaz_counties_national)
             lines = text.split("\n").dropLastWhile { it.isEmpty() }
             countyName = Array(lines.size) { "" }
             countyLat = DoubleArray(lines.size)

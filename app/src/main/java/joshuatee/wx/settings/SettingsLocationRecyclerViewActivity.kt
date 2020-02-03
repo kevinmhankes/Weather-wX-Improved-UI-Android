@@ -39,6 +39,7 @@ import kotlinx.coroutines.*
 
 class SettingsLocationRecyclerViewActivity : BaseActivity() {
 
+    //
     // Activity to manage ( add, delete, edit ) all locations
     //
 
