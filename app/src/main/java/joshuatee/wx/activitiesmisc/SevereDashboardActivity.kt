@@ -160,9 +160,9 @@ class SevereDashboardActivity : BaseActivity() {
         val wFfw = SevereWarning(PolygonType.FFW)
         withContext(Dispatchers.IO) {
             UtilityDownloadWarnings.getForSevereDashboard(this@SevereDashboardActivity)
-            wTor.generateString(this@SevereDashboardActivity, MyApplication.severeDashboardTor.value)
-            wTst.generateString(this@SevereDashboardActivity, MyApplication.severeDashboardTst.value)
-            wFfw.generateString(this@SevereDashboardActivity, MyApplication.severeDashboardFfw.value)
+            wTor.generateString(MyApplication.severeDashboardTor.value)
+            wTst.generateString(MyApplication.severeDashboardTst.value)
+            wFfw.generateString(MyApplication.severeDashboardFfw.value)
         }
         listOf(wTor, wTst, wFfw).forEach { warn ->
             if (warn.count > 0) {

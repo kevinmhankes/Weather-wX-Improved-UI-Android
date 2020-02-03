@@ -21,7 +21,6 @@
 
 package joshuatee.wx.activitiesmisc
 
-import android.content.Context
 import joshuatee.wx.MyApplication
 import joshuatee.wx.external.ExternalDuplicateRemover
 import joshuatee.wx.objects.PolygonType
@@ -40,7 +39,6 @@ internal class SevereWarning(private val type: PolygonType) {
     var count = 0
         private set
 
-    //var collapsed = false
     var idList = listOf<String>()
     var areaDescList = listOf<String>()
     var effectiveList = listOf<String>()
@@ -48,10 +46,6 @@ internal class SevereWarning(private val type: PolygonType) {
     var eventList = listOf<String>()
     var senderNameList = listOf<String>()
     var warnings = listOf<String>()
-
-    //fun toggleCollapsed() {
-    //    collapsed = !collapsed
-    //}
 
     fun getName(): String {
         var name = ""
@@ -64,7 +58,7 @@ internal class SevereWarning(private val type: PolygonType) {
         return name
     }
 
-    fun generateString(context: Context, html: String) {
+    fun generateString(html: String) {
         var vtecComponents: List<String>
         var wfo: String
         var wfoLocation = ""
