@@ -23,11 +23,8 @@ package joshuatee.wx.settings
 
 import android.annotation.SuppressLint
 
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.view.View
 import joshuatee.wx.MyApplication
 
@@ -110,17 +107,6 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         Location.refreshLocationData(this)
         getContent()
         super.onRestart()
-    }
-
-    override fun onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(onBroadcast)
-        super.onPause()
-    }
-
-    private val onBroadcast = object : BroadcastReceiver() {
-        override fun onReceive(ctxt: Context, intent: Intent) {
-            updateList()
-        }
     }
 
     private fun updateTitle() {
