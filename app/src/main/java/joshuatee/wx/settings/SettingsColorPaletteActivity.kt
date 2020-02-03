@@ -109,8 +109,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                     allItems.add(TileObjectColorPalette("NWSD", toolbar, prefToken, cg, type, true))
                     allItems.add(TileObjectColorPalette("AF", toolbar, prefToken, cg, type, true))
                     allItems.add(TileObjectColorPalette("EAK", toolbar, prefToken, cg, type, true))
-                    val prefArr =
-                            MyApplication.radarColorPaletteList["94"]!!.split(":").dropLastWhile { it.isEmpty() }
+                    val prefArr = MyApplication.radarColorPaletteList["94"]!!.split(":").dropLastWhile { it.isEmpty() }
                     prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
                         TileObjectColorPalette(
                                 it,
@@ -126,8 +125,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                     listOf("CODENH", "AF", "EAK").forEach {
                         allItems.add(TileObjectColorPalette(it, toolbar, prefToken, cg, type, true))
                     }
-                    val prefArr =
-                            MyApplication.radarColorPaletteList["99"]!!.split(":").dropLastWhile { it.isEmpty() }
+                    val prefArr = MyApplication.radarColorPaletteList["99"]!!.split(":").dropLastWhile { it.isEmpty() }
                     prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
                         TileObjectColorPalette(
                                 it,
