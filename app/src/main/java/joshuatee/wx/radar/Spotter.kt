@@ -29,17 +29,18 @@ class Spotter internal constructor(
     reportAt: String,
     email: String,
     phone: String,
-    uniq: String
+    unique: String
 ) {
 
     var firstName: String = ""
     var lastName: String = ""
+    // FIXME use LatLon instead
     var lat: String = ""
     var lon: String = ""
     var reportAt: String = ""
     var email: String = ""
     var phone: String = ""
-    var uniq: String = ""
+    var unique: String = ""
     var latD: Double = 0.0
         private set
     var lonD: Double = 0.0
@@ -53,7 +54,7 @@ class Spotter internal constructor(
         this.reportAt = reportAt
         this.email = email
         this.phone = phone
-        this.uniq = uniq
+        this.unique = unique
         latD = lat.toDoubleOrNull() ?: 0.0
         lonD = -1.0 * (lon.toDoubleOrNull() ?: 0.0)
     }

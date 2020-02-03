@@ -351,9 +351,10 @@ class WXGLTextObject(
             var report = false
             hideSpotter()
             wxglSurfaceView.spotterTv = mutableListOf()
+            // FIXME var rename
             var aa = 0
             while (aa < UtilitySpotter.spotterList.size) {
-                if (UtilitySpotter.spotterList[aa].uniq == WXGLRadarActivity.spotterId) {
+                if (UtilitySpotter.spotterList[aa].unique == WXGLRadarActivity.spotterId) {
                     break
                 }
                 aa += 1

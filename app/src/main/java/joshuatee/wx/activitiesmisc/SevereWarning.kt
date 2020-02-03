@@ -30,9 +30,11 @@ import joshuatee.wx.RegExp
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityTime
 
-// encapsulates VTEC data and count for tst,tor, or ffw
-
 internal class SevereWarning(private val type: PolygonType) {
+
+    //
+    // encapsulates VTEC data and count for tst,tor, or ffw
+    //
 
     var text = ""
         private set
@@ -94,8 +96,7 @@ internal class SevereWarning(private val type: PolygonType) {
         val remover = ExternalDuplicateRemover()
         text = remover.stripDuplicates(text)
         text = "(" + text.split(MyApplication.newline).dropLastWhile { it.isEmpty() }.size +
-                ") " + label + MyApplication.newline +
-                text.replace((MyApplication.newline + "$").toRegex(), "")
+                ") " + label + MyApplication.newline + text.replace((MyApplication.newline + "$").toRegex(), "")
     }
 }
 

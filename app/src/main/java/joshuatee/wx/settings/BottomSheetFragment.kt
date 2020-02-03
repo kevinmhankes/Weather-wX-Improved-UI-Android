@@ -43,6 +43,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     lateinit  var delete: TextView
     var position = -1
     lateinit var actContext: Context
+    // FIXME rename var functions
     lateinit var fnList: List<(Int) -> Unit>
     lateinit var labelList: List<String>
     lateinit var topLabel: String

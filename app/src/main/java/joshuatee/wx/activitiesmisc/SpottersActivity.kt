@@ -50,6 +50,12 @@ import java.util.*
 
 class SpottersActivity : BaseActivity() {
 
+    //
+    // Show active spotters
+    // can tape on name to open bottom sheet
+    // can tap on email or phone to respectively email or call the individual
+    //
+
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var ca: AdapterSpotter
     private var spotterList = mutableListOf<Spotter>()
@@ -110,7 +116,9 @@ class SpottersActivity : BaseActivity() {
             if (view is TextView) {
                 view.setTextColor(Color.WHITE)
             } else if (view is ViewGroup) {
-                (0 until view.childCount).forEach { changeSearchViewTextColor(view.getChildAt(it)) }
+                (0 until view.childCount).forEach {
+                    changeSearchViewTextColor(view.getChildAt(it))
+                }
             }
         }
     }
@@ -128,11 +136,11 @@ class SpottersActivity : BaseActivity() {
     }
 
     private fun checkFavorite(position: Int) {
-        if (MyApplication.spotterFav.contains(spotterList[position].uniq + ":")) {
-            MyApplication.spotterFav = MyApplication.spotterFav.replace(spotterList[position].uniq + ":", "")
+        if (MyApplication.spotterFav.contains(spotterList[position].unique + ":")) {
+            MyApplication.spotterFav = MyApplication.spotterFav.replace(spotterList[position].unique + ":", "")
             spotterList[position].lastName = spotterList[position].lastName.replace("0FAV ", "")
         } else {
-            MyApplication.spotterFav = MyApplication.spotterFav + spotterList[position].uniq + ":"
+            MyApplication.spotterFav = MyApplication.spotterFav + spotterList[position].unique + ":"
             spotterList[position].lastName = "0FAV " + spotterList[position].lastName
         }
         sortSpotters()
@@ -142,7 +150,7 @@ class SpottersActivity : BaseActivity() {
 
     private fun markFavorites() {
         spotterList
-                .filter { MyApplication.spotterFav.contains(it.uniq + ":") && !it.lastName.contains("0FAV ") }
+                .filter { MyApplication.spotterFav.contains(it.unique + ":") && !it.lastName.contains("0FAV ") }
                 .forEach {
                     it.lastName = "0FAV " + it.lastName
                 }
@@ -204,7 +212,7 @@ class SpottersActivity : BaseActivity() {
                 this,
                 WXGLRadarActivity::class.java,
                 WXGLRadarActivity.RID,
-                arrayOf(radarSite, "", "N0Q", "", spotterList[position].uniq)
+                arrayOf(radarSite, "", "N0Q", "", spotterList[position].unique)
         )
     }
 
