@@ -59,8 +59,8 @@ internal class SettingsLocationAdapterList(private val dataSet: MutableList<Stri
         if (Location.isUS(position)) {
             nonUs = false
         } else {
-            val latArr = MyApplication.colon.split(Location.getX(position))
-            val lonArr = MyApplication.colon.split(Location.getY(position))
+            val latArr = Location.getX(position).split(":")
+            val lonArr = Location.getY(position).split(":")
             if (latArr.size > 2 && lonArr.size > 1) {
                 lat = latArr[2]
                 lon = lonArr[1]

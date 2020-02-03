@@ -181,8 +181,8 @@ class SpcFragment : Fragment() {
                 spcPref += "spchref:"
                 Utility.writePref("FRAGMENT_SPC_ORDER", spcPref)
             }
-            // FIXME  .split(":").dropLastWhile { it.isEmpty() }
-            val tileOrderArr = MyApplication.colon.split(spcPref)
+            //val tileOrderArr = MyApplication.colon.split(spcPref)
+            val tileOrderArr = spcPref.split(":").dropLastWhile { it.isEmpty() }
             return tileOrderArr
                     .filterNot { it.contains("modeltt") }.filterNot { it.contains("spcsseo") }
                     .mapTo(mutableListOf()) { hm[it]!! }

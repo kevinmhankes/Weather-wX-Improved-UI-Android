@@ -11,6 +11,8 @@
 // TODO [ADD] textual obs in fixed radars on homescreen
 // TODO [ADD] use ENUM instead of RID_FAV WFO_FAV SND_FAV (util/UtilityFavorites)
 // TODO [FIX] dual/quad pane radar don't take up the entire screen on chomeOS
+// TODO [REF] move off MyApplication.colon.split MyApplication.colon.space
+// TODO       miscPref.split(":").dropLastWhile { it.isEmpty() }
 // TODO [REF] migrate off WebscreenABModels?
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 

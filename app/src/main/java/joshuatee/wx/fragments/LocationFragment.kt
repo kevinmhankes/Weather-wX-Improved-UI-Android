@@ -122,7 +122,8 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
     private fun addDynamicCards() {
         var ccAdded = false
         var day7Added = false
-        val homeScreenTokens = MyApplication.colon.split(homescreenFavLocal)
+        //val homeScreenTokens = MyApplication.colon.split(homescreenFavLocal)
+        val homeScreenTokens = homescreenFavLocal.split(":").dropLastWhile { it.isEmpty() }
         numRadars = homeScreenTokens.count { it == "OGL-RADAR" || it.contains("NXRD-") }
         oldRidArr = Array(numRadars) { "" }
         val rlArr = mutableListOf<RelativeLayout>()

@@ -121,15 +121,17 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
     private fun updateList() {
         MyApplication.playlistStr = ridFav
-        val tempList = MyApplication.colon.split(ridFav)
+        val tempList = ridFav.split(":")
         ridArr.clear()
         (1 until tempList.size).mapTo(ridArr) { getLongString(tempList[it]) }
     }
 
     private fun updateListNoInit() {
         MyApplication.playlistStr = ridFav
-        val tempList = MyApplication.colon.split(ridFav)
-        (1 until tempList.size).forEach { ridArr[it - 1] = getLongString(tempList[it]) }
+        val tempList = ridFav.split(":")
+        (1 until tempList.size).forEach {
+            ridArr[it - 1] = getLongString(tempList[it])
+        }
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
