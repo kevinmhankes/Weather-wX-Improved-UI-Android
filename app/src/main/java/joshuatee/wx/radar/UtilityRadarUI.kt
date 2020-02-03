@@ -168,7 +168,7 @@ internal object UtilityRadarUI {
         val heightMsl = (wxglRender.radarL3Object.radarHeight + heightAgl)
         alertDialogRadarLongpressAl.add("Beam Height MSL: " + heightMsl.roundToInt().toString() + " ft, AGL: " + heightAgl.roundToInt().toString() + " ft")
         if (MyApplication.radarShowWpcFronts) {
-            var wpcFrontsTimeStamp = Utility.readPref("WPC_FRONTS_TIMESTAMP", "")
+            var wpcFrontsTimeStamp = Utility.readPref(context,"WPC_FRONTS_TIMESTAMP", "")
             wpcFrontsTimeStamp = wpcFrontsTimeStamp.replace(UtilityTime.getYear().toString(), "")
             wpcFrontsTimeStamp = wpcFrontsTimeStamp.insert(4, " ")
             alertDialogRadarLongpressAl.add(MyApplication.newline + "WPC Fronts: " + wpcFrontsTimeStamp)

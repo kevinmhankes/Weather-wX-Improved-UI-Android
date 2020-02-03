@@ -274,7 +274,7 @@ object Utility {
         }
         var string = activity.resources.getString(R.string.about_wx) +
                 MyApplication.newline + version + MyApplication.newline + MyApplication.newline +
-                showMainScreenShortCuts()
+                "Use alt-? on the main screen and in nexrad radar to show keyboard shortcuts"
         string += MyApplication.newline + MyApplication.newline + "Diagnostics information:" + MyApplication.newline
         string += readPref(
                 context,

@@ -44,7 +44,6 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private lateinit var activityArguments: Array<String>
     private var html = ""
     private lateinit var textCard: ObjectCardText
-    private var keyCodeDiag = ""
     private val faqUrl = "https://docs.google.com/document/d/1OQrviP10XBvQZ7QKh5R4bsd72ZKffK5f0ISRuCaSk5k/edit?usp=sharing"
     private val iOSUrl = "https://apps.apple.com/us/app/wxl23/id1171250052"
     private val releaseNotesUrl = "https://docs.google.com/document/d/1A7rvP3QrJg0QqoEtKgU4B_VqLkjECijb4CFtXyNQNAM/edit?usp=sharing"
@@ -70,7 +69,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     this,
                     WebView::class.java,
                     WebView.URL,
-                    arrayOf(faqUrl, "wX Frequently Asked Questions")
+                    arrayOf(faqUrl, "Frequently Asked Questions")
             )
         })
         val releaseNotesButton = ObjectCardText(this, ll, toolbar, toolbarBottom)
@@ -81,7 +80,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     this,
                     WebView::class.java,
                     WebView.URL,
-                    arrayOf(releaseNotesUrl, "wX Frequently Asked Questions")
+                    arrayOf(releaseNotesUrl, "Release Notes")
             )
         })
         val emailButton = ObjectCardText(this, ll, toolbar, toolbarBottom)
@@ -106,7 +105,8 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
             )
         })
         textCard = ObjectCardText(this, ll, toolbar, toolbarBottom)
-        textCard.text = keyCodeDiag + " " + Utility.showVersion(this, this)
+        textCard.text = Utility.showVersion(this, this)
+        html = Utility.showVersion(this, this)
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {

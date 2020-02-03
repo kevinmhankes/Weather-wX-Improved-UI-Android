@@ -42,9 +42,9 @@ class RadarGeometryFile//initialize()
 
     init {
         showItem = if (showItemDefault) {
-            Utility.readPref(preferenceToken, "true").startsWith("t")
+            Utility.readPref(context, preferenceToken, "true").startsWith("t")
         } else {
-            Utility.readPref(preferenceToken, "false").startsWith("t")
+            Utility.readPref(context, preferenceToken, "false").startsWith("t")
         }
         if (showItem) {
             //initialize()
@@ -53,9 +53,9 @@ class RadarGeometryFile//initialize()
 
     fun initializeIfNeeded() {
         showItem = if (showItemDefault) {
-            Utility.readPref(preferenceToken, "true").startsWith("t")
+            Utility.readPref(context, preferenceToken, "true").startsWith("t")
         } else {
-            Utility.readPref(preferenceToken, "false").startsWith("t")
+            Utility.readPref(context, preferenceToken, "false").startsWith("t")
         }
         if (showItem && !initialized) {
             //initialize()

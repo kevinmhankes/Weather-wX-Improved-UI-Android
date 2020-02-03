@@ -75,7 +75,7 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     private fun updateButton() {
         val menu = toolbarBottom.menu
         lastUsedMenuItem = menu.findItem(R.id.action_lastused)
-        lastUsedMenuItem.title = "Last Used: " + Utility.readPref(prefToken, "")
+        lastUsedMenuItem.title = "Last Used: " + Utility.readPref(this, prefToken, "")
     }
 
     private fun itemClicked(position: Int) {
@@ -132,7 +132,7 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_lastused -> showObsSite(Utility.readPref(prefToken, ""))
+            R.id.action_lastused -> showObsSite(Utility.readPref(this, prefToken, ""))
             R.id.action_map -> {
                 val url = "https://www.wrh.noaa.gov/map/?obs=true&wfo=" + Location.wfo.toLowerCase(Locale.US)
                 ObjectIntent(

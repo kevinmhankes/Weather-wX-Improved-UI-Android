@@ -91,8 +91,8 @@ object UtilityDownload {
                 val prefTokenSector = "AWCMOSAIC_SECTOR_LAST_USED"
                 val prefTokenProduct = "AWCMOSAIC_PRODUCT_LAST_USED"
                 var sector = "us"
-                sector = Utility.readPref(prefTokenSector, sector)
-                product = Utility.readPref(prefTokenProduct, product)
+                sector = Utility.readPref(context, prefTokenSector, sector)
+                product = Utility.readPref(context, prefTokenProduct, product)
                 bitmap = UtilityAwcRadarMosaic.get(sector, product)
             }
         } catch (e: Exception) {
@@ -128,8 +128,6 @@ object UtilityDownload {
                             UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, rid)
                         else
                             UtilityCanadaImg.getRadarBitmapOptionsApplied(context, rid, "")
-            }
-            "RAD_1KM" -> {
             }
             "RAD_2KM" -> {
                 needsBitmap = false

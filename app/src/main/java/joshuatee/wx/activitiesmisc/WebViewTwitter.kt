@@ -86,7 +86,7 @@ class WebViewTwitter : BaseActivity(), OnItemSelectedListener {
         super.onCreate(savedInstanceState, R.layout.activity_webview_toolbar_state, null, false)
         title = "Twitter"
         sectorList = GlobalArrays.states + canadianSectors
-        sector = Utility.readPref(prefToken, Location.state)
+        sector = Utility.readPref(this, prefToken, Location.state)
         sp = ObjectSpinner(this, this, this, R.id.spinner1, sectorList)
         sp.setSelection(findPosition(sector.toLowerCase(Locale.US)))
         val webSettings = webview.settings
