@@ -14,6 +14,7 @@
 // TODO [REF] migrate off WebscreenABModels?
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 
+55350 2020_02_03
 55349 2020_02_03    [REF] utilFav/SettingsHomeScreen refactoring
                     [REF] lint cleanup
 55348 2020_02_02    [REF] utilFav/SettingsHomeScreen refactoring
