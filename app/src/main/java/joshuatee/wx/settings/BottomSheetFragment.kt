@@ -41,13 +41,9 @@ class BottomSheetFragment(val actContext: Context, val position: Int, val topLab
     lateinit  var label: TextView
     lateinit  var edit: TextView
     lateinit  var delete: TextView
-    //var position = -1
-    //lateinit var actContext: Context
     lateinit var functions: List<(Int) -> Unit>
     lateinit var labelList: List<String>
-    //lateinit var topLabel: String
     private var textViewList = mutableListOf<ObjectTextView>()
-    //var usedForLocation = false
 
     private var fragmentView: View? = null
 

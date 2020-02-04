@@ -115,7 +115,9 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     }
 
     private fun itemSelected(position: Int) {
+        // FIXME
         val bottomSheetFragment = BottomSheetFragment(this, position, Location.getName(position), true)
+        //val bottomSheetFragment = BottomSheetFragment(this, position, ca.getItem(position), true)
         bottomSheetFragment.functions = listOf(::edit, ::delete, ::moveUp, ::moveDown)
         bottomSheetFragment.labelList = listOf("Edit Location", "Delete Location", "Move Up", "Move Down")
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
