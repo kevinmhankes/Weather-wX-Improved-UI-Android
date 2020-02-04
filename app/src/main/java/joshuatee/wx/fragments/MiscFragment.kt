@@ -31,7 +31,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
 import joshuatee.wx.R
-import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.*
 import joshuatee.wx.models.ModelsGenericActivity

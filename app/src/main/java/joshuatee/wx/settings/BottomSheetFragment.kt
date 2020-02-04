@@ -35,7 +35,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import joshuatee.wx.ui.ObjectTextView
 
-class BottomSheetFragment(val actContext: Context, val position: Int, val topLabel: String, val usedForLocation: Boolean) : BottomSheetDialogFragment() {
+class BottomSheetFragment(private val actContext: Context, val position: Int, private val topLabel: String, private val usedForLocation: Boolean) : BottomSheetDialogFragment() {
 
     lateinit  var linearLayout: LinearLayout
     lateinit  var label: TextView

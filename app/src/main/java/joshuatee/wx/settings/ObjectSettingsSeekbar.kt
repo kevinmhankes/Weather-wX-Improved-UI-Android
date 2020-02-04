@@ -37,7 +37,6 @@ import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
-import joshuatee.wx.util.UtilityLog
 
 internal class ObjectSettingsSeekbar(
         context: Context,

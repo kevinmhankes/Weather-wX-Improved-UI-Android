@@ -34,7 +34,6 @@ import joshuatee.wx.R
 import joshuatee.wx.models.ModelsSpcHrrrActivity
 import joshuatee.wx.models.ModelsSpcSrefActivity
 import joshuatee.wx.models.ModelsSpcHrefActivity
-import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.spc.SpcCompmapActivity
 import joshuatee.wx.spc.SpcFireOutlookActivity

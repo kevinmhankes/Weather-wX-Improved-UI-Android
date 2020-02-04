@@ -36,10 +36,9 @@ internal object UtilityCountyLabels {
     fun create(context: Context) {
         if (!initialized) {
             initialized = true
-            val text: String
             val lines: List<String>
             var tmpArr: Array<String>
-            text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.gaz_counties_national)
+            val text: String = UtilityIO.readTextFileFromRaw(context.resources, R.raw.gaz_counties_national)
             lines = text.split("\n").dropLastWhile { it.isEmpty() }
             countyName = Array(lines.size) { "" }
             countyLat = DoubleArray(lines.size)

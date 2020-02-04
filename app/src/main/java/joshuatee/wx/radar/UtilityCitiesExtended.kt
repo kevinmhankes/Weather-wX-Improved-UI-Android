@@ -38,12 +38,11 @@ internal object UtilityCitiesExtended {
         if (!initialized) {
             cities = mutableListOf()
             initialized = true
-            val text: String
             var latitude: Double
             var longitude: Double
             val lines: List<String>
             var tokens: Array<String>
-            text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.cityall)
+            val text: String = UtilityIO.readTextFileFromRaw(context.resources, R.raw.cityall)
             lines = text.split("\n").dropLastWhile { it.isEmpty() }
             lines.forEach {
                 tokens = MyApplication.comma.split(it)
