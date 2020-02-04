@@ -40,10 +40,9 @@ internal object UtilityCitiesExtended {
             initialized = true
             var latitude: Double
             var longitude: Double
-            val lines: List<String>
             var tokens: Array<String>
-            val text: String = UtilityIO.readTextFileFromRaw(context.resources, R.raw.cityall)
-            lines = text.split("\n").dropLastWhile { it.isEmpty() }
+            val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.cityall)
+            val lines = text.split("\n").dropLastWhile { it.isEmpty() }
             lines.forEach {
                 tokens = MyApplication.comma.split(it)
                 latitude = tokens[2].toDoubleOrNull() ?: 0.0
