@@ -178,13 +178,9 @@ class SpottersActivity : BaseActivity() {
     }
 
     private fun itemClicked(position: Int) {
-        val bottomSheetFragment = BottomSheetFragment()
-        bottomSheetFragment.position = position
-        bottomSheetFragment.usedForLocation = false
-        bottomSheetFragment.fnList = listOf(::showItemOnRadar, ::showItemOnMap, ::toggleFavorite)
+        val bottomSheetFragment = BottomSheetFragment(this, position, ca.getItem(position).toString(), false)
+        bottomSheetFragment.functions = listOf(::showItemOnRadar, ::showItemOnMap, ::toggleFavorite)
         bottomSheetFragment.labelList = listOf("Show on radar", "Show on map", "Toggle favorite")
-        bottomSheetFragment.actContext = this
-        bottomSheetFragment.topLabel = ca.getItem(position).toString()
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
     }
 

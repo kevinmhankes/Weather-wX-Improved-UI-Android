@@ -16,8 +16,9 @@
 // TODO [REF] migrate off WebscreenABModels?
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 
-55350 2020_02_03    [FIX] update google doc links to point to published versions in settings -> about
+55350 2020_02_04    [FIX] update google doc links to point to published versions in settings -> about
                     [FIX] in SettingsLocationRecyclerViewActivity remove broadcastReceiver that is not needed
+                    [REF] bottomsheet refactor to move more stuff into constructor
 55349 2020_02_03    [REF] utilFav/SettingsHomeScreen refactoring
                     [REF] lint cleanup
 55348 2020_02_02    [REF] utilFav/SettingsHomeScreen refactoring
