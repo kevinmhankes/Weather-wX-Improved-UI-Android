@@ -84,7 +84,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
                 }
             }
         })
-        activityArguments = intent.getStringArrayExtra(URL)!!
+        activityArguments = intent.getStringArrayExtra(URL)
         activityArguments.let {
             if (activityArguments.size > 1 && activityArguments[0] == "HS") {
                 homeScreenId = activityArguments[1]
