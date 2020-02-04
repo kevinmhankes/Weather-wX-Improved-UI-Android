@@ -741,6 +741,7 @@ class MyApplication : Application() {
         var radarSpotterSize: Int = 0
         var radarAviationSize: Int = 0
         var radarTextSize: Float = 0f
+        var radarTextSizeDefault: Float = 1.0f
         var radarLocdotSize: Int = 0
         var radarHiSize: Int = 0
         var radarTvsSize: Int = 0
@@ -807,7 +808,7 @@ class MyApplication : Application() {
             radarObsExtZoom = getInitialPreference("RADAR_OBS_EXT_ZOOM", 7)
             radarSpotterSize = getInitialPreference("RADAR_SPOTTER_SIZE", radarSpotterSizeDefault)
             radarAviationSize = getInitialPreference("RADAR_AVIATION_SIZE", radarAviationSizeDefault)
-            radarTextSize = getInitialPreference("RADAR_TEXT_SIZE", 1.0f)
+            radarTextSize = getInitialPreference("RADAR_TEXT_SIZE", radarTextSizeDefault)
             radarLocdotSize = getInitialPreference("RADAR_LOCDOT_SIZE", radarLocationDotSizeDefault)
             radarHiSize = getInitialPreference("RADAR_HI_SIZE", 8)
             radarTvsSize = getInitialPreference("RADAR_TVS_SIZE", 8)

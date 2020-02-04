@@ -576,7 +576,7 @@ class SettingsRadarActivity : BaseActivity() {
                         "Text size",
                         "RADAR_TEXT_SIZE",
                         R.string.text_size_label,
-                        (MyApplication.radarTextSize * 10).toInt(),
+                        (MyApplication.radarTextSizeDefault * 10).toInt(),
                         4,
                         20
                 ).card

@@ -597,7 +597,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
 
     private fun getRadarTimeStampForHomescreen(radarSite: String): String {
         var ts = ""
-        val tokens = WXGLNexrad.getRadarInfo(activityReference, radarSite).split(" ")
+        val tokens = WXGLNexrad.getRadarInfo(radarSite).split(" ")
         if (tokens.size > 3) {
             ts = tokens[3]
         }

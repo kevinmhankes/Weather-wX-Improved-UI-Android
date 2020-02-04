@@ -16,7 +16,10 @@
 // TODO [REF] migrate off WebscreenABModels?
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 
-55352 2020_02_04
+55352 2020_02_04    [FIX] settings -> radar -> text size, default value was changing
+                    [ADD] settings -> UI -> text size - size of text in card changes as you move along slider
+                    [FIX] don't show - show warnings - in radar long press unless warnings are enabled
+                    [FIX] LocationFragment - don't pass context when querying radar time
 55351 2020_02_04    [FIX] WPCImage widget had to have launch updated to use flags (would crash otherwise)
 55350 2020_02_04    [FIX] update google doc links to point to published versions in settings -> about
                     [FIX] in SettingsLocationRecyclerViewActivity remove broadcastReceiver that is not needed

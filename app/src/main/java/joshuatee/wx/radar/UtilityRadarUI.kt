@@ -177,7 +177,9 @@ internal object UtilityRadarUI {
             "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name)
         }
         val obsSite = UtilityMetar.findClosestObservation(context, wxglSurfaceView.latLon)
-        alertDialogRadarLongpressAl.add("Show Warning text")
+        if (MyApplication.radarWarnings) {
+            alertDialogRadarLongpressAl.add("Show Warning text")
+        }
         // Thanks to Ely
         if (MyApplication.radarWatMcd) {
             alertDialogRadarLongpressAl.add("Show Watch text")

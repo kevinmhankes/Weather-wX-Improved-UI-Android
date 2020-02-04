@@ -34,8 +34,10 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectCardText
+import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
+import joshuatee.wx.util.UtilityLog
 
 internal class ObjectSettingsSeekbar(
         context: Context,
@@ -102,6 +104,9 @@ internal class ObjectSettingsSeekbar(
 
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                if (pref == "TEXTVIEW_FONT_SIZE") {
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, UtilityUI.spToPx(convertForSave(seekBar.progress), context))
+                }
                 updateLabel()
             }
 
