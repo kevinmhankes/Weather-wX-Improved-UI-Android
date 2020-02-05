@@ -45,22 +45,6 @@ class CapAlert {
     var effective: String  = ""
     var expires: String  = ""
 
-    /*constructor(
-        url: String,
-        title: String,
-        event: String,
-        area: String,
-        zones: String,
-        vtec: String
-    ) {
-        this.url = url
-        this.title = title
-        this.event = event
-        this.area = area
-        this.zones = zones
-        this.vtec = vtec
-    }*/
-
     companion object {
 
         // used by usAlerts
@@ -130,11 +114,9 @@ class CapAlert {
                 obj.summary = html.parse("\"description\": \"(.*?)\"")
                 obj.instructions = html.parse("\"instruction\": \"(.*?)\"")
                 obj.area = html.parse("\"areaDesc\": \"(.*?)\"")
-                //obj.summary = obj.summary.replace("\\n", "\n")
                 obj.summary = obj.summary.replace("\\n\\n", "ABC123")
                 obj.summary = obj.summary.replace("\\n", " ")
                 obj.summary = obj.summary.replace("ABC123", "\n\n")
-                //obj.instructions = obj.instructions.replace("\\n", "\n")
                 obj.instructions = obj.instructions.replace("\\n", " ")
                 obj.text = "<h4><b>"
                 obj.text += obj.title
@@ -152,7 +134,6 @@ class CapAlert {
                 obj.instructions = obj.instructions.replace("<br><br>", "<BR><BR>")
                 obj.instructions = obj.instructions.replace("<br>", " ")
             }
-
             return obj
         }
     }
