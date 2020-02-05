@@ -60,7 +60,7 @@ object UtilityIO {
         return readTextFile(inputStream)
     }
 
-    fun readTextFile(inputStream: InputStream): String {
+    private fun readTextFile(inputStream: InputStream): String {
         val outputStream = ByteArrayOutputStream()
         val buf = ByteArray(32768)
         var len: Int

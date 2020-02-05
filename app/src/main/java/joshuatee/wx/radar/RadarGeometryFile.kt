@@ -23,20 +23,25 @@
 
 package joshuatee.wx.radar
 
-import android.content.Context
+/*import android.content.Context
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
 import java.io.BufferedInputStream
 import java.io.DataInputStream
 import java.io.IOException
-import java.nio.ByteBuffer
+import java.nio.ByteBuffer*/
 
 import joshuatee.wx.R
 
-class RadarGeometryFile//initialize()
-(var context: Context, var fileId: Int, var count: Int, var preferenceToken: String, var showItemDefault: Boolean) {
+class RadarGeometryFile(
+        //var context: Context,
+        //var fileId: Int,
+        //var count: Int,
+        //var preferenceToken: String,
+        //var showItemDefault: Boolean
+) {
 
-    var byteBuffer: ByteBuffer = ByteBuffer.allocateDirect(0)
+    /*var byteBuffer: ByteBuffer = ByteBuffer.allocateDirect(0)
     var initialized = false
     var showItem: Boolean
 
@@ -154,5 +159,5 @@ class RadarGeometryFile//initialize()
                 byTypes[it] = byType(context, it)
             }
         }
-    }
+    }*/
 }
