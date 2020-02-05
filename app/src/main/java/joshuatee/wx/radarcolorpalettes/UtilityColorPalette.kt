@@ -80,7 +80,7 @@ object UtilityColorPalette {
             }
         }
         if (text == "null") {
-            text = UtilityIO.readTextFile(context.resources.openRawResource(cmFileInt))
+            text = UtilityIO.readTextFileFromRaw(context.resources, cmFileInt)
         }
         return text
     }
