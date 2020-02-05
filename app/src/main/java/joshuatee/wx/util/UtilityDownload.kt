@@ -51,9 +51,9 @@ import joshuatee.wx.vis.UtilityGoes
 
 object UtilityDownload {
 
-    private fun get1KmUrl() = UtilityImg.getBlankBitmap()
+    //private fun get1KmUrl() = UtilityImg.getBlankBitmap()
 
-    private fun get2KmUrl() = UtilityImg.getBlankBitmap()
+    //private fun get2KmUrl() = UtilityImg.getBlankBitmap()
 
     fun getRadarMosaic(context: Context): Bitmap {
         val location = Location.currentLocationStr
@@ -117,7 +117,7 @@ object UtilityDownload {
             }
             "VIS_1KM", "VIS_MAIN" -> {
                 needsBitmap = false
-                bm = get1KmUrl()
+                //bm = get1KmUrl()
             }
             "CARAIN" -> if (Location.x.contains("CANADA")) {
                 needsBitmap = false
@@ -135,7 +135,7 @@ object UtilityDownload {
             }
             "IR_2KM", "WV_2KM", "VIS_2KM" -> {
                 needsBitmap = false
-                bm = get2KmUrl()
+                //bm = get2KmUrl()
             }
             "VIS_CONUS" -> {
                 needsBitmap = false
@@ -219,7 +219,9 @@ object UtilityDownload {
             "SPCMESO2" -> {
                 var param = "pmsl"
                 tmpArr = MyApplication.spcMesoFav.split(":")
-                if (tmpArr.size > 4) param = tmpArr[4]
+                if (tmpArr.size > 4) {
+                    param = tmpArr[4]
+                }
                 needsBitmap = false
                 bm = UtilitySpcMesoInputOutput.getImage(
                         context,
@@ -234,7 +236,9 @@ object UtilityDownload {
             "SPCMESO3" -> {
                 var param = "ttd"
                 tmpArr = MyApplication.spcMesoFav.split(":")
-                if (tmpArr.size > 5) param = tmpArr[5]
+                if (tmpArr.size > 5) {
+                    param = tmpArr[5]
+                }
                 needsBitmap = false
                 bm = UtilitySpcMesoInputOutput.getImage(
                         context,
@@ -249,7 +253,9 @@ object UtilityDownload {
             "SPCMESO4" -> {
                 var param = "rgnlrad"
                 tmpArr = MyApplication.spcMesoFav.split(":")
-                if (tmpArr.size > 6) param = tmpArr[6]
+                if (tmpArr.size > 6) {
+                    param = tmpArr[6]
+                }
                 needsBitmap = false
                 bm = UtilitySpcMesoInputOutput.getImage(
                         context,
@@ -264,7 +270,9 @@ object UtilityDownload {
             "SPCMESO5" -> {
                 var param = "lllr"
                 tmpArr = MyApplication.spcMesoFav.split(":")
-                if (tmpArr.size > 7) param = tmpArr[7]
+                if (tmpArr.size > 7) {
+                    param = tmpArr[7]
+                }
                 needsBitmap = false
                 bm = UtilitySpcMesoInputOutput.getImage(
                         context,
@@ -279,7 +287,9 @@ object UtilityDownload {
             "SPCMESO6" -> {
                 var param = "laps"
                 tmpArr = MyApplication.spcMesoFav.split(":")
-                if (tmpArr.size > 8) param = tmpArr[8]
+                if (tmpArr.size > 8) {
+                    param = tmpArr[8]
+                }
                 needsBitmap = false
                 bm = UtilitySpcMesoInputOutput.getImage(
                         context,
@@ -311,7 +321,7 @@ object UtilityDownload {
             }
             "STRPT" -> url = UtilitySpc.getStormReportsTodayUrl()
             else -> {
-                bm = get1KmUrl()
+                //bm = get1KmUrl()
                 needsBitmap = false
             }
         }
