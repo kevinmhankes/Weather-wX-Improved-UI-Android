@@ -449,7 +449,6 @@ class WXGLTextObject(
 
     fun addWpcPressureCenters() {
         if (MyApplication.radarShowWpcFronts) {
-            // FIXME pn should not be set in every method to draws
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             hideWpcPressureCenters()
             wxglSurfaceView.pressureCenterLabelAl = mutableListOf()
