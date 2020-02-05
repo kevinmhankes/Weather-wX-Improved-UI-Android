@@ -17,7 +17,8 @@
 // TODO [ADD] use Smaller images on larger screens
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 
-55353 2020_02_04    [REF] misc refactor
+55353 2020_02_05    [REF] misc refactor
+                    [ADD] SpcMcdWatchShowActivity - if tablet in landscape change orientation of linearLayout
 55352 2020_02_04    [FIX] settings -> radar -> text size, default value was changing
                     [ADD] settings -> UI -> text size - size of text in card changes as you move along slider
                     [FIX] don't show - show warnings - in radar long press unless warnings are enabled

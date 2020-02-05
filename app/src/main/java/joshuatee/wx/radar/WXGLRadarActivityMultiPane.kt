@@ -133,9 +133,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 useSinglePanePref = true
             }
         }
-        if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
-            landScape = true
-        }
+        landScape = UtilityUI.isLandScape(this)
         numPanes = activityArguments!![2].toIntOrNull() ?: 0
         numPanesArr = (0 until numPanes).toList()
         UtilityFileManagement.deleteCacheFiles(this)
