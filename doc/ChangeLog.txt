@@ -17,7 +17,7 @@
 // TODO [ADD] use Smaller images on larger screens
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 // TODO [ADD] NHC change format to severe dashboard including tap on image to open in dedicated fashion
-// TODO [ADD] keyboard shortcut for location selector on main screen
+// TODO [ADD] keyboard shortcut for location selector on main screen ( performClick() )
 // TODO [FIX] hourly now has quotes around temp
 
 55354 2020_02_06
