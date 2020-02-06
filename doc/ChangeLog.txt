@@ -18,6 +18,7 @@
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 // TODO [ADD] NHC change format to severe dashboard including tap on image to open in dedicated fashion
 
+55354 2020_02_06
 55354 2020_02_06    [ADD] have WebView respect TextSize setting
 55353 2020_02_05    [REF] misc refactor
                     [ADD] SpcMcdWatchShowActivity - if tablet in landscape change orientation of linearLayout
