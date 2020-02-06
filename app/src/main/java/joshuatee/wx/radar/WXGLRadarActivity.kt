@@ -271,7 +271,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             oglr.product = MyApplication.wxoglProd
             oglr.setViewInitial(MyApplication.wxoglZoom, MyApplication.wxoglX, MyApplication.wxoglY)
         }
-        if (MyApplication.radarShowLegend) showLegend()
+        if (MyApplication.radarShowLegend) {
+            showLegend()
+        }
         title = oglr.product
         ridArrLoc = UtilityFavorites.setupFavMenu(
                 this,
@@ -479,7 +481,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     UtilityRadarUI.plotMcdWatchPolygons(glview, oglr, archiveMode)
                 }
             }
-
             if (PolygonType.MPD.pref && !archiveMode) {
                 withContext(Dispatchers.IO) {
                     UtilityDownloadMpd.get(this@WXGLRadarActivity)
@@ -779,8 +780,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         getContent()
     }
 
-    private fun ridMapSwitch(r: String) {
-        oglr.rid = r
+    private fun ridMapSwitch(radarSite: String) {
+        oglr.rid = radarSite
         mapShown = false
         ridArrLoc = UtilityFavorites.setupFavMenu(
                 this,

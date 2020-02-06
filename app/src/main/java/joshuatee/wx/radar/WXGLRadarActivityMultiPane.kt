@@ -300,30 +300,22 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 initialRadarSite = joshuatee.wx.settings.Location.rid
             }
             if (!useSinglePanePref) {
-                oglrArr[it].rid = Utility.readPref(
-                        this,
-                        prefPrefix + "_RID" + (it + 1).toString(),
-                        initialRadarSite
-                )
+                oglrArr[it].rid = Utility.readPref(this, prefPrefix + "_RID" + (it + 1).toString(), initialRadarSite)
             } else {
-                oglrArr[it].rid = Utility.readPref(
-                        this,
-                        prefPrefix + "_RID",
-                        initialRadarSite
-                )
+                oglrArr[it].rid = Utility.readPref(this, prefPrefix + "_RID", initialRadarSite)
             }
         }
         if (MyApplication.dualpaneshareposn) {
-            (1 until numPanes).forEach { oglrArr[it].rid = oglrArr[0].rid }
+            (1 until numPanes).forEach {
+                oglrArr[it].rid = oglrArr[0].rid
+            }
         }
-        numPanesArr.forEach { oldRidArr[it] = "" }
+        numPanesArr.forEach {
+            oldRidArr[it] = ""
+        }
         val defaultProducts = listOf("N0Q", "N0U", "N0C", "DVL")
         (0 until numPanes).forEach {
-            oglrArr[it].product = Utility.readPref(
-                    this,
-                    prefPrefix + "_PROD" + (it + 1).toString(),
-                    defaultProducts[it]
-            )
+            oglrArr[it].product = Utility.readPref(this, prefPrefix + "_PROD" + (it + 1).toString(), defaultProducts[it])
         }
         var zoomPref = "_ZOOM1"
         var xPref = "_X1"
@@ -333,17 +325,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             xPref = "_X"
             yPref = "_Y"
         }
-        glviewArr[0].scaleFactor = Utility.readPref(
-                this,
-                prefPrefix + zoomPref,
-                MyApplication.wxoglSize.toFloat() / 10.0f
-        )
+        glviewArr[0].scaleFactor = Utility.readPref(this, prefPrefix + zoomPref, MyApplication.wxoglSize.toFloat() / 10.0f)
         oglrArr[0].setViewInitial(
-                Utility.readPref(
-                        this,
-                        prefPrefix + zoomPref,
-                        MyApplication.wxoglSize.toFloat() / 10.0f
-                ),
+                Utility.readPref(this, prefPrefix + zoomPref, MyApplication.wxoglSize.toFloat() / 10.0f),
                 Utility.readPref(this, prefPrefix + xPref, 0.0f),
                 Utility.readPref(this, prefPrefix + yPref, 0.0f)
         )
@@ -351,27 +335,15 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             (1 until numPanes).forEach {
                 glviewArr[it].scaleFactor = glviewArr[0].scaleFactor
                 oglrArr[it].setViewInitial(
-                        Utility.readPref(
-                                this,
-                                prefPrefix + zoomPref,
-                                MyApplication.wxoglSize.toFloat() / 10.0f
-                        ),
+                        Utility.readPref(this, prefPrefix + zoomPref, MyApplication.wxoglSize.toFloat() / 10.0f),
                         oglrArr[0].x, oglrArr[0].y
                 )
             }
         } else {
             (1 until numPanes).forEach {
-                glviewArr[it].scaleFactor = Utility.readPref(
-                        this,
-                        prefPrefix + "_ZOOM" + (it + 1).toString(),
-                        MyApplication.wxoglSize.toFloat() / 10.0f
-                )
+                glviewArr[it].scaleFactor = Utility.readPref(this, prefPrefix + "_ZOOM" + (it + 1).toString(), MyApplication.wxoglSize.toFloat() / 10.0f)
                 oglrArr[it].setViewInitial(
-                        Utility.readPref(
-                                this,
-                                prefPrefix + "_ZOOM" + (it + 1).toString(),
-                                MyApplication.wxoglSize.toFloat() / 10.0f
-                        ),
+                        Utility.readPref(this, prefPrefix + "_ZOOM" + (it + 1).toString(), MyApplication.wxoglSize.toFloat() / 10.0f),
                         Utility.readPref(this, prefPrefix + "_X" + (it + 1).toString(), 0.0f),
                         Utility.readPref(this, prefPrefix + "_Y" + (it + 1).toString(), 0.0f)
                 )
@@ -500,14 +472,12 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 glview.requestRender()
                 setSubTitle()
                 animRan = false
-
                 withContext(Dispatchers.IO) {
                     UtilityDownloadWarnings.get(this@WXGLRadarActivityMultiPane)
                 }
                 if (!oglr.product.startsWith("2")) {
                     UtilityRadarUI.plotWarningPolygons(glview, oglr, false)
                 }
-
                 if (PolygonType.MCD.pref) {
                     withContext(Dispatchers.IO) {
                         UtilityDownloadMcd.get(this@WXGLRadarActivityMultiPane)
@@ -517,7 +487,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         UtilityRadarUI.plotMcdWatchPolygons(glview, oglr, false)
                     }
                 }
-
                 if (PolygonType.MPD.pref) {
                     withContext(Dispatchers.IO) {
                         UtilityDownloadMpd.get(this@WXGLRadarActivityMultiPane)
@@ -612,7 +581,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     priorTime = UtilityTime.currentTimeMillis()
                     // added because if paused and then another icon life vel/ref it won't load correctly, likely
                     // timing issue
-                    if (!inOglAnim) break
+                    if (!inOglAnim) {
+                        break
+                    }
                     if (loopCnt > 0) {
                         numPanesArr.forEach { z ->
                             oglrArr[z].constructPolygons(
@@ -633,7 +604,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     launch(uiDispatcher) {
                         progressUpdate((r + 1).toString(), (animArray[0].size).toString())
                     }
-                    numPanesArr.forEach { glviewArr[it].requestRender() }
+                    numPanesArr.forEach {
+                        glviewArr[it].requestRender()
+                    }
                     timeMilli = UtilityTime.currentTimeMillis()
                     if ((timeMilli - priorTime) < delay)
                         SystemClock.sleep(delay - ((timeMilli - priorTime)))
@@ -835,9 +808,13 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             }
             R.id.action_radar_4 -> {
                 if (!doNotSavePref) {
-                    numPanesArr.forEach { WXGLNexrad.savePrefs(this, prefPrefix, it + 1, oglrArr[it]) }
+                    numPanesArr.forEach {
+                        WXGLNexrad.savePrefs(this, prefPrefix, it + 1, oglrArr[it])
+                    }
                 } else {
-                    numPanesArr.forEach { WXGLNexrad.saveProductPrefs(this, prefPrefix, it + 1, oglrArr[it]) }
+                    numPanesArr.forEach {
+                        WXGLNexrad.saveProductPrefs(this, prefPrefix, it + 1, oglrArr[it])
+                    }
                 }
                 ObjectIntent(
                         this,
@@ -975,7 +952,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         alertDialogRadarLongPress!!
                 )
             } else {
-                numPanesArr.forEach { wxgltextArr[it].addTextLabels() }
+                numPanesArr.forEach {
+                    wxgltextArr[it].addTextLabels()
+                }
             }
         }
     }
@@ -1009,13 +988,17 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     override fun onPause() {
         mHandler?.let { stopRepeatingTask() }
-        numPanesArr.forEach { glviewArr[it].onPause() }
+        numPanesArr.forEach {
+            glviewArr[it].onPause()
+        }
         super.onPause()
     }
 
     override fun onResume() {
         checkForAutoRefresh()
-        numPanesArr.forEach { glviewArr[it].onResume() }
+        numPanesArr.forEach {
+            glviewArr[it].onResume()
+        }
         super.onResume()
     }
 
@@ -1124,7 +1107,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private fun getContentSerial() {
         if (!isGetContentInProgress) {
             isGetContentInProgress = true
-            numPanesArr.forEach { getContentSingleThreaded(glviewArr[it], oglrArr[it], it) }
+            numPanesArr.forEach {
+                getContentSingleThreaded(glviewArr[it], oglrArr[it], it)
+            }
             isGetContentInProgress = false
         }
     }
@@ -1132,7 +1117,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private fun getContentParallel() {
         if (!isGetContentInProgress) {
             isGetContentInProgress = true
-            numPanesArr.forEach { getContent(glviewArr[it], oglrArr[it], it) }
+            numPanesArr.forEach {
+                getContent(glviewArr[it], oglrArr[it], it)
+            }
             isGetContentInProgress = false
         }
     }

@@ -38,8 +38,10 @@ import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectSpinner
 
 import joshuatee.wx.GlobalArrays
+import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.Location
+import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
 
 import kotlinx.android.synthetic.main.activity_webview_toolbar_state.*
@@ -91,6 +93,11 @@ class WebViewTwitter : BaseActivity(), OnItemSelectedListener {
         sp.setSelection(findPosition(sector.toLowerCase(Locale.US)))
         val webSettings = webview.settings
         webSettings.javaScriptEnabled = true
+        if (UtilityUI.isTablet()) {
+            webSettings.textZoom = (120 * (UIPreferences.normalTextSize.toDouble() / UIPreferences.normalTextSizeDefault.toDouble())).toInt()
+        } else {
+            webSettings.textZoom = (100 * (UIPreferences.normalTextSize.toDouble() / UIPreferences.normalTextSizeDefault.toDouble())).toInt()
+        }
         webview.webViewClient = WebViewClient()
     }
 

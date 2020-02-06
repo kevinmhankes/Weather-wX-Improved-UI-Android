@@ -26,7 +26,9 @@ import android.os.Bundle
 import android.webkit.WebViewClient
 
 import joshuatee.wx.R
+import joshuatee.wx.UIPreferences
 import joshuatee.wx.ui.BaseActivity
+import joshuatee.wx.ui.UtilityUI
 
 import kotlinx.android.synthetic.main.activity_webview_toolbar.*
 
@@ -37,6 +39,8 @@ class WebscreenABModels : BaseActivity() {
     // URL and title are passed in via extras
     // arg0 URL
     // arg1 Title
+
+    // FIXME rename activity and see if this is needed instead of WebView
 
     companion object {
         const val URL: String = ""
@@ -61,7 +65,11 @@ class WebscreenABModels : BaseActivity() {
         webSettings.displayZoomControls = false
         webSettings.useWideViewPort = true
         webSettings.loadWithOverviewMode = true
-        webview.webViewClient = WebViewClient()
+        if (UtilityUI.isTablet()) {
+            webSettings.textZoom = (120 * (UIPreferences.normalTextSize.toDouble() / UIPreferences.normalTextSizeDefault.toDouble())).toInt()
+        } else {
+            webSettings.textZoom = (100 * (UIPreferences.normalTextSize.toDouble() / UIPreferences.normalTextSizeDefault.toDouble())).toInt()
+        }
         webview.webViewClient = WebViewClient()
         if (url.startsWith("http")) {
             webview.loadUrl(url)
