@@ -301,7 +301,7 @@ object Utility {
                 "Ctrl-n: NCEP Models" + MyApplication.newline +
                 "Ctrl-h: Hourly" + MyApplication.newline +
                 "Ctrl-o: NHC" + MyApplication.newline +
-                "Ctrl-l: Lightning" + MyApplication.newline +
+                "Ctrl-l: Show locations" + MyApplication.newline +
                 "Ctrl-i: National images" + MyApplication.newline +
                 "Ctrl-z: National text discussions" + MyApplication.newline +
                 "Ctrl-j: Previous tab" + MyApplication.newline +

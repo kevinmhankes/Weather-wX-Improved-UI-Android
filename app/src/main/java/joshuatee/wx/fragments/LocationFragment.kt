@@ -1040,5 +1040,9 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
             }
         }
     }
+
+    fun showLocations() {
+        locationDialogue.show()
+    }
 }
 
