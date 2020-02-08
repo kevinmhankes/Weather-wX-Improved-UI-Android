@@ -395,37 +395,13 @@ object UtilityDownload {
                 text = text.replace("^<br>".toRegex(), "")
             }
             prod.contains("MIAT") || prod == "HFOTWOCP" -> {
-                text = UtilityString.getHtmlAndParseSep(
-                        "${MyApplication.nwsNhcWebsitePrefix}/ftp/pub/forecasts/discussion/$prod",
-                        "(.*)"
-                )
-                text = text.substring(text.indexOf('>') + 1)
-                text = text.substring(text.indexOf('>') + 1)
-                text = text.substring(text.indexOf('>') + 1)
-                text = text.substring(text.indexOf('>') + 1)
-                text = text.replace("^<br>".toRegex(), "")
-                if (UIPreferences.nwsTextRemovelinebreaks && (prod == "MIATWOAT" ||
-                                prod == "MIATWDAT" ||
-                                prod == "MIATWOEP" ||
-                                prod == "MIATWDEP"
-                                )
-                ) {
-                    text = text.replace("<br><br>", "<BR><BR>")
-                    text = text.replace("<br>", " ")
-                }
+                val url = "${MyApplication.nwsNhcWebsitePrefix}/ftp/pub/forecasts/discussion/$prod"
+                text = url.getHtmlWithNewLine().removeLineBreaks()
             }
             prod.startsWith("SCCNS") -> {
-                val url = "${MyApplication.nwsWPCwebsitePrefix}/discussions/nfd" + prod.toLowerCase(Locale.US).replace(
-                        "ns",
-                        ""
-                ) + ".html"
-                text = url.getHtmlSep()
-                text = UtilityString.extractPre(text)
-                if (UIPreferences.nwsTextRemovelinebreaks) {
-                    text = text.replace("<br><br>", "<BR><BR>")
-                    text = text.replace("<br>", " ")
-                }
-                text = text.replace("<br>".toRegex(), "<BR>")
+                val url = "${MyApplication.nwsWPCwebsitePrefix}/discussions/nfd" + prod.toLowerCase(Locale.US).replace("ns", "") + ".html"
+                text = url.getHtmlWithNewLine()
+                text = UtilityString.extractPre(text).removeHtml()
             }
             prod.contains("SPCMCD") -> {
                 val no = prod.substring(6)
