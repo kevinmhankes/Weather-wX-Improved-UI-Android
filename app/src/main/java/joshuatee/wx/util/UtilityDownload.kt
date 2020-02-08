@@ -448,21 +448,16 @@ object UtilityDownload {
                 text = (MyApplication.nwsOpcWebsitePrefix + "/mobile/mobile_product.php?id=" + prod.toUpperCase(Locale.US)).getHtml()
                 text = Utility.fromHtml(text)
             }
-            prod.contains("OFF") -> {
-                val t1 = prod.substring(0, 3)
-                val t2 = prod.substring(3)
-                val url = "https://forecast.weather.gov/product.php?site=" +
-                        "NWS" +
-                        "&issuedby=" +
-                        t2 +
-                        "&product=" +
-                        t1 +
-                        "&format=txt&version=1&glossary=0"
+            // use forecast but site=NWS
+            prod.contains("OFF")
+                    || prod == "UVICAC"
+                    || prod == "RWRMX"
+                    || prod.startsWith("TPT") -> {
+                val product = prod.substring(0, 3)
+                val site = prod.substring(3)
+                val url = "https://forecast.weather.gov/product.php?site=NWS&issuedby=$site&product=$product&format=txt&version=1&glossary=0"
                 val html = url.getHtmlWithNewLine()
                 text = UtilityString.extractPreLsr(html)
-
-                //text = (MyApplication.nwsOpcWebsitePrefix + "/mobile/mobile_product.php?id=" + prod.toUpperCase(Locale.US)).getHtml()
-                //text = Utility.fromHtml(text)
             }
             prod.contains("FWDDY1") -> {
                 val url = "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/fwdy1.html"
