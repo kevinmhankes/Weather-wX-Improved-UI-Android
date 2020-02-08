@@ -17,6 +17,7 @@
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 // TODO [ADD] NHC change format to severe dashboard including tap on image to open in dedicated fashion
 
+55359 2020_02_08
 55358 2020_02_08    [ADD] substantial revamp of utilDownload, WFO text, national text with regards to data download and presentation
 55357 2020_02_08    [REF] lint (utilDownload)
                     [ADD] substantial revamp of utilDownload, WFO text, national text with regards to data download and presentation
