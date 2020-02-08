@@ -18,7 +18,7 @@
 // TODO [ADD] NHC change format to severe dashboard including tap on image to open in dedicated fashion
 // TODO [REF] utilDownload use when for text product get
 
-55357 2020_02_08
+55357 2020_02_08    [REF] lint (utilDownload)
 55356 2020_02_08    [REF] migrate off WebscreenABModels
                     [FIX] use alternative sources for text products: WFO: AFD, SPC Convective Outlooks, Short Range disc
 55355 2020_02_06    [FIX] hourly now has quotes around temp

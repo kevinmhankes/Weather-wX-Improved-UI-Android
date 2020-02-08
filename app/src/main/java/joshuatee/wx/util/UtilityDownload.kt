@@ -105,27 +105,27 @@ object UtilityDownload {
 
     fun getImageProduct(context: Context, product: String): Bitmap {
         var url = ""
-        var bm = UtilityImg.getBlankBitmap()
+        var bitmap = UtilityImg.getBlankBitmap()
         val tmpArr: List<String>
         var needsBitmap = true
         when (product) {
             "GOES16" -> {
                 needsBitmap = false
                 val index = Utility.readPref(context, "GOES16_IMG_FAV_IDX", 0)
-                bm = UtilityGoes.getImage(
+                bitmap = UtilityGoes.getImage(
                         UtilityGoes.codes[index],
                         Utility.readPref(context, "GOES16_SECTOR", "cgl")
                 )
             }
             "VIS_1KM", "VIS_MAIN" -> {
                 needsBitmap = false
-                //bm = get1KmUrl()
+                //bitmap = get1KmUrl()
             }
             "CARAIN" -> if (Location.x.contains("CANADA")) {
                 needsBitmap = false
                 var rid = Location.rid
                 if (rid == "NAT") rid = "CAN"
-                bm =
+                bitmap =
                         if (rid == "CAN" || rid == "PAC" || rid == "WRN" || rid == "ONT" || rid == "QUE" || rid == "ERN")
                             UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, rid)
                         else
@@ -133,15 +133,15 @@ object UtilityDownload {
             }
             "RAD_2KM" -> {
                 needsBitmap = false
-                bm = getRadarMosaic(context)
+                bitmap = getRadarMosaic(context)
             }
             "IR_2KM", "WV_2KM", "VIS_2KM" -> {
                 needsBitmap = false
-                //bm = get2KmUrl()
+                //bitmap = get2KmUrl()
             }
             "VIS_CONUS" -> {
                 needsBitmap = false
-                bm = UtilityGoes.getImage("02", "CONUS")
+                bitmap = UtilityGoes.getImage("02", "CONUS")
             }
             "USWARN" -> url = "https://forecast.weather.gov/wwamap/png/US.png"
             "AKWARN" -> url = "https://forecast.weather.gov/wwamap/png/ak.png"
@@ -175,31 +175,31 @@ object UtilityDownload {
             "SPC_TST" -> {
                 needsBitmap = false
                 val images = UtilitySpc.thunderStormOutlookImages
-                bm = UtilityImg.mergeImagesVertically(images)
+                bitmap = UtilityImg.mergeImagesVertically(images)
             }
             "SWOD1" -> {
                 needsBitmap = false
-                bm = UtilitySpcSwo.getImages("1", false)[0]
+                bitmap = UtilitySpcSwo.getImages("1", false)[0]
             }
             "WEATHERSTORY" -> {
                 needsBitmap = false
-                bm = ("https://www.weather.gov/images/" + Location.wfo.toLowerCase(Locale.US) + "/wxstory/Tab2FileL.png").getImage()
+                bitmap = ("https://www.weather.gov/images/" + Location.wfo.toLowerCase(Locale.US) + "/wxstory/Tab2FileL.png").getImage()
             }
             "WFOWARNINGS" -> {
                 needsBitmap = false
-                bm = ("https://www.weather.gov/wwamap/png/" + Location.wfo.toLowerCase(Locale.US) + ".png").getImage()
+                bitmap = ("https://www.weather.gov/wwamap/png/" + Location.wfo.toLowerCase(Locale.US) + ".png").getImage()
             }
             "SWOD2" -> {
                 needsBitmap = false
-                bm = UtilitySpcSwo.getImages("2", false)[0]
+                bitmap = UtilitySpcSwo.getImages("2", false)[0]
             }
             "SWOD3" -> {
                 needsBitmap = false
-                bm = UtilitySpcSwo.getImages("3", false)[0]
+                bitmap = UtilitySpcSwo.getImages("3", false)[0]
             }
             "SWOD4" -> {
                 needsBitmap = false
-                bm = UtilitySpcSwo.getImages("4", false)[0]
+                bitmap = UtilitySpcSwo.getImages("4", false)[0]
             }
             "SPCMESO1" -> {
                 var param = "500mb"
@@ -208,7 +208,7 @@ object UtilityDownload {
                     param = tmpArr[3]
                 }
                 needsBitmap = false
-                bm = UtilitySpcMesoInputOutput.getImage(
+                bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
                         param,
                         Utility.readPref(
@@ -225,7 +225,7 @@ object UtilityDownload {
                     param = tmpArr[4]
                 }
                 needsBitmap = false
-                bm = UtilitySpcMesoInputOutput.getImage(
+                bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
                         param,
                         Utility.readPref(
@@ -242,7 +242,7 @@ object UtilityDownload {
                     param = tmpArr[5]
                 }
                 needsBitmap = false
-                bm = UtilitySpcMesoInputOutput.getImage(
+                bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
                         param,
                         Utility.readPref(
@@ -259,7 +259,7 @@ object UtilityDownload {
                     param = tmpArr[6]
                 }
                 needsBitmap = false
-                bm = UtilitySpcMesoInputOutput.getImage(
+                bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
                         param,
                         Utility.readPref(
@@ -276,7 +276,7 @@ object UtilityDownload {
                     param = tmpArr[7]
                 }
                 needsBitmap = false
-                bm = UtilitySpcMesoInputOutput.getImage(
+                bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
                         param,
                         Utility.readPref(
@@ -293,7 +293,7 @@ object UtilityDownload {
                     param = tmpArr[8]
                 }
                 needsBitmap = false
-                bm = UtilitySpcMesoInputOutput.getImage(
+                bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
                         param,
                         Utility.readPref(
@@ -305,11 +305,11 @@ object UtilityDownload {
             }
             "CONUSWV" -> {
                 needsBitmap = false
-                bm = UtilityGoes.getImage("09", "CONUS")
+                bitmap = UtilityGoes.getImage("09", "CONUS")
             }
             "LTG" -> {
                 needsBitmap = false
-                bm = UtilityLightning.getImage(
+                bitmap = UtilityLightning.getImage(
                         Utility.readPref(
                                 context,
                                 "LIGHTNING_SECTOR",
@@ -319,18 +319,17 @@ object UtilityDownload {
             }
             "SND" -> {
                 needsBitmap = false
-                bm = UtilitySpcSoundings.getImage(context, UtilityLocation.getNearestSnd(Location.latLon))
+                bitmap = UtilitySpcSoundings.getImage(context, UtilityLocation.getNearestSnd(Location.latLon))
             }
             "STRPT" -> url = UtilitySpc.getStormReportsTodayUrl()
             else -> {
-                //bm = get1KmUrl()
                 needsBitmap = false
             }
         }
         if (needsBitmap) {
-            bm = url.getImage()
+            bitmap = url.getImage()
         }
-        return bm
+        return bitmap
     }
 
     fun getTextProduct(context: Context, prodF: String): String {
