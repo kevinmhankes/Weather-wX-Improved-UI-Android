@@ -401,13 +401,6 @@ object UtilityDownload {
                 text = text.replace("<br>", " ")
             }
         } else if (prod.startsWith("SCCNS")) {
-            /*text = UtilityString.getHtmlAndParseSep(
-                    "${MyApplication.nwsWPCwebsitePrefix}/discussions/nfd" + prod.toLowerCase(Locale.US).replace(
-                            "ns",
-                            ""
-                    ) + ".html", RegExp.pre2Pattern
-            )
-            text = text.replace("^<br><br>".toRegex(), "")*/
             val url = "${MyApplication.nwsWPCwebsitePrefix}/discussions/nfd" + prod.toLowerCase(Locale.US).replace(
                     "ns",
                     ""
