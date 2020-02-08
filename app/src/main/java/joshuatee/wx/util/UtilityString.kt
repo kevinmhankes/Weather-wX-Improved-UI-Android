@@ -42,7 +42,6 @@ object UtilityString {
         val htmlOneLine = html.replace(MyApplication.newline, separator)
         val parsedText = htmlOneLine.parse(RegExp.prePattern)
         return parsedText.replace(separator, MyApplication.newline)
-        //return html.parse(RegExp.prePattern)
     }
 
     internal fun capitalizeString(string: String): String {

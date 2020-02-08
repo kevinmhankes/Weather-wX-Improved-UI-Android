@@ -172,8 +172,6 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         if (wfo != oldWfo) {
             version = 1
         }
-
-
         html = withContext(Dispatchers.IO) {
             if (product != "CLI") {
                 if (version == 1) {
