@@ -93,7 +93,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     private lateinit var spinner: ObjectSpinner
     private lateinit var drw: ObjectNavDrawer
     private var originalWfo = ""
-    private val fixedWidthProducts = listOf("RTP", "RWR", "CLI")
+    private val fixedWidthProducts = listOf("RTP", "RWR", "CLI", "RVA")
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -203,7 +203,8 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         if (fixedWidthProducts.contains(product)) {
             textCard.setTextAndTranslate(html)
         } else {
-            textCard.setTextAndTranslate(Utility.fromHtml(html))
+            //textCard.setTextAndTranslate(Utility.fromHtml(html))
+            textCard.setTextAndTranslate(html)
         }
         if (fixedWidthProducts.contains(product)) {
             textCard.tv.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)

@@ -19,6 +19,7 @@
 // TODO [REF] utilDownload use when for text product get
 
 55357 2020_02_08    [REF] lint (utilDownload)
+                    [ADD] substantial revamp of utilDownload, WFO text, national text with regards to data download and presentation
 55356 2020_02_08    [REF] migrate off WebscreenABModels
                     [FIX] use alternative sources for text products: WFO: AFD, SPC Convective Outlooks, Short Range disc
 55355 2020_02_06    [FIX] hourly now has quotes around temp
