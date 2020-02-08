@@ -552,18 +552,22 @@ object UtilityDownload {
                 text = text.parse("<div class=.haztext.>(.*?)</div>")
             }
             prod.contains("PMD30D") -> {
-                val textUrl = "https://tgftp.nws.noaa.gov/data/raw/fx/fxus07.kwbc.pmd.30d.txt"
-                text = textUrl.getHtmlSep()
+                val textUrl = MyApplication.tgftpSitePrefix +  "/data/raw/fx/fxus07.kwbc.pmd.30d.txt"
+                text = textUrl.getHtmlWithNewLine()
                 text = text.removeLineBreaks()
             }
             prod.contains("PMD90D") -> {
-                val textUrl = "https://tgftp.nws.noaa.gov/data/raw/fx/fxus05.kwbc.pmd.90d.txt"
-                text = textUrl.getHtmlSep()
+                val textUrl = MyApplication.tgftpSitePrefix +  "/data/raw/fx/fxus05.kwbc.pmd.90d.txt"
+                text = textUrl.getHtmlWithNewLine()
                 text = text.removeLineBreaks()
             }
             prod.contains("PMDHCO") -> {
-                val textUrl = "https://tgftp.nws.noaa.gov/data/raw/fx/fxhw40.kwbc.pmd.hco.txt"
-                text = textUrl.getHtmlSep()
+                val textUrl = MyApplication.tgftpSitePrefix +  "/data/raw/fx/fxhw40.kwbc.pmd.hco.txt"
+                text = textUrl.getHtmlWithNewLine()
+            }
+            prod.contains("PMDMRD") -> {
+                val textUrl = MyApplication.nwsCPCNcepWebsitePrefix +  "/products/predictions/610day/fxus06.html"
+                text = textUrl.getHtmlWithNewLine()
             }
             prod.startsWith("RWR") -> {
                 val product = prod.substring(0, 3)
@@ -633,8 +637,18 @@ object UtilityDownload {
                             val html = url.getHtmlWithNewLine()
                             text = UtilityString.extractPreLsr(html).removeLineBreaks().removeHtml()
                         }
-                        "PMDSPD", "PMDEPD", "PMDHMD", "PMDHI" -> {
+                        "PMDSPD", "PMDEPD", "PMDHMD", "PMDHI", "PMDAK" -> {
                             val url = "https://www.wpc.ncep.noaa.gov/discussions/hpcdiscussions.php?disc=" + prod.toLowerCase(Locale.US)
+                            val html = url.getHtmlWithNewLine()
+                            text = UtilityString.extractPreLsr(html).removeLineBreaks().removeHtml()
+                        }
+                        "PMDSA"-> {
+                            val url = "https://www.wpc.ncep.noaa.gov/discussions/hpcdiscussions.php?disc=fxsa20"
+                            val html = url.getHtmlWithNewLine()
+                            text = UtilityString.extractPreLsr(html).removeLineBreaks().removeHtml()
+                        }
+                        "PMDCA"-> {
+                            val url = "https://www.wpc.ncep.noaa.gov/discussions/hpcdiscussions.php?disc=fxca20"
                             val html = url.getHtmlWithNewLine()
                             text = UtilityString.extractPreLsr(html).removeLineBreaks().removeHtml()
                         }
