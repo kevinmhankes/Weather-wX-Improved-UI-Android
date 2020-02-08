@@ -464,17 +464,6 @@ object UtilityDownload {
                     text = text.replace("<br>", " ")
                 }
             }
-            prod.contains("QPFHSD") -> {
-                val textUrl =
-                        "${MyApplication.nwsWPCwebsitePrefix}/discussions/hpcdiscussions.php?disc=qpfhsd"
-                text = UtilityString.getHtmlAndParseSep(textUrl, RegExp.pre2Pattern)
-                text = text.replace("^<br>".toRegex(), "")
-                text = text.replace("^ <br>".toRegex(), "")
-                if (UIPreferences.nwsTextRemovelinebreaks) {
-                    text = text.replace("<br><br>", "<BR><BR>")
-                    text = text.replace("<br>", " ")
-                }
-            }
             (prod.startsWith("GLF") && !prod.contains("%")) -> {
                 text = getTextProduct(context, "$prod%")
             }
@@ -495,18 +484,20 @@ object UtilityDownload {
                         Locale.US
                 )).getHtml()
             }
+            prod.contains("FWDDY1") -> {
+                val url = "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/fwdy1.html"
+                text = url.getHtmlWithNewLine()
+                text = UtilityString.extractPre(text).removeLineBreaks()
+            }
+            prod.contains("FWDDY2") -> {
+                val url = "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/fwdy2.html"
+                text = url.getHtmlWithNewLine()
+                text = UtilityString.extractPre(text).removeLineBreaks()
+            }
             prod.contains("FWDDY38") -> {
-                text = UtilityString.getHtmlAndParseSep(
-                        "${MyApplication.nwsSPCwebsitePrefix}/products/exper/fire_wx/",
-                        "<pre>(.*?)</pre>"
-                )
-                text = text.replace("^<br>".toRegex(), "")
-                text = text.replace("^ <br>".toRegex(), "")
-                if (UIPreferences.nwsTextRemovelinebreaks) {
-                    text = text.replace(" &nbsp", "")
-                    text = text.replace("<br><br>", "<BR><BR>")
-                    text = text.replace("<br>", " ")
-                }
+                val url = "${MyApplication.nwsSPCwebsitePrefix}/products/exper/fire_wx/"
+                text = url.getHtmlWithNewLine()
+                text = UtilityString.extractPre(text).removeLineBreaks()
             }
             prod.startsWith("FXCN01") -> {
                 text = ("http://collaboration.cmc.ec.gc.ca/cmc/cmop/FXCN/").getHtmlSep()
@@ -539,17 +530,23 @@ object UtilityDownload {
                 text = text.parse(RegExp.pre2Pattern)
             }
             prod.contains("PMDTHR") -> {
-                text = UtilityString.getHtmlAndParseSep(
+                /*text = UtilityString.getHtmlAndParseSep(
                         MyApplication.nwsCPCNcepWebsitePrefix + "/products/predictions/threats/threats.php",
                         "<div id=\"discDiv\">(.*?)</div>"
                 )
                 text = text.removeBreaks()
-                UtilityLog.d("wx", text)
+                UtilityLog.d("wx", text)*/
+
+                val url = MyApplication.nwsCPCNcepWebsitePrefix + "/products/predictions/threats/threats.php"
+                text = url.getHtmlSep()
+                text = text.parse("<div id=\"discDiv\">(.*?)</div>")
+                text = text.replace("<br><br>", MyApplication.newline).removeHtml()
             }
             prod.contains("USHZD37") -> {
-                val textUrl = "https://www.wpc.ncep.noaa.gov/threats/threats.php"
-                text = textUrl.getHtmlSep()
+                val url = "https://www.wpc.ncep.noaa.gov/threats/threats.php"
+                text = url.getHtmlSep()
                 text = text.parse("<div class=.haztext.>(.*?)</div>")
+                text = text.replace("<br><br>", MyApplication.newline)
             }
             prod.contains("PMD30D") -> {
                 val textUrl = MyApplication.tgftpSitePrefix +  "/data/raw/fx/fxus07.kwbc.pmd.30d.txt"
@@ -566,8 +563,8 @@ object UtilityDownload {
                 text = textUrl.getHtmlWithNewLine()
             }
             prod.contains("PMDMRD") -> {
-                val textUrl = MyApplication.nwsCPCNcepWebsitePrefix +  "/products/predictions/610day/fxus06.html"
-                text = textUrl.getHtmlWithNewLine()
+                val textUrl = MyApplication.tgftpSitePrefix +  "/data/raw/fx/fxus06.kwbc.pmd.mrd.txt"
+                text = textUrl.getHtmlWithNewLine().removeLineBreaks()
             }
             prod.startsWith("RWR") -> {
                 val product = prod.substring(0, 3)
@@ -637,7 +634,7 @@ object UtilityDownload {
                             val html = url.getHtmlWithNewLine()
                             text = UtilityString.extractPreLsr(html).removeLineBreaks().removeHtml()
                         }
-                        "PMDSPD", "PMDEPD", "PMDHMD", "PMDHI", "PMDAK" -> {
+                        "PMDSPD", "PMDEPD", "PMDHMD", "PMDHI", "PMDAK", "QPFERD", "QPFHSD" -> {
                             val url = "https://www.wpc.ncep.noaa.gov/discussions/hpcdiscussions.php?disc=" + prod.toLowerCase(Locale.US)
                             val html = url.getHtmlWithNewLine()
                             text = UtilityString.extractPreLsr(html).removeLineBreaks().removeHtml()
