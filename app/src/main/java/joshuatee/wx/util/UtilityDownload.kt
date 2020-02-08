@@ -442,7 +442,7 @@ object UtilityDownload {
                 text = "${MyApplication.NWS_RADAR_PUB}/data/raw/fo/focn45.cwwg..txt".getHtmlWithNewLine().removeLineBreaks()
             }
             prod.startsWith("AWCN") -> {
-                text = ("${MyApplication.NWS_RADAR_PUB}/data/raw/aw/" + prod.toLowerCase(Locale.US) + ".cwwg..txt").getHtmlSep()
+                text = ("${MyApplication.NWS_RADAR_PUB}/data/raw/aw/" + prod.toLowerCase(Locale.US) + ".cwwg..txt").getHtmlWithNewLine().removeLineBreaks()
             }
             prod.contains("NFD") -> {
                 text = (MyApplication.nwsOpcWebsitePrefix + "/mobile/mobile_product.php?id=" + prod.toUpperCase(Locale.US)).getHtml()
@@ -455,6 +455,13 @@ object UtilityDownload {
                     || prod.startsWith("TPT") -> {
                 val product = prod.substring(0, 3)
                 val site = prod.substring(3)
+                val url = "https://forecast.weather.gov/product.php?site=NWS&issuedby=$site&product=$product&format=txt&version=1&glossary=0"
+                val html = url.getHtmlWithNewLine()
+                text = UtilityString.extractPreLsr(html)
+            }
+            prod.startsWith("GLF") -> {
+                val product = prod.substring(0, 3)
+                val site = prod.substring(3).replace("%", "")
                 val url = "https://forecast.weather.gov/product.php?site=NWS&issuedby=$site&product=$product&format=txt&version=1&glossary=0"
                 val html = url.getHtmlWithNewLine()
                 text = UtilityString.extractPreLsr(html)
@@ -482,6 +489,7 @@ object UtilityDownload {
                 text = ("http://collaboration.cmc.ec.gc.ca/cmc/cmop/FXCN/" + dateString + "/fx_" + daysAndRegion + "_" + dateString + "00.html")
                         .getHtml()
                         .replace(MyApplication.newline + MyApplication.newline, MyApplication.newline)
+                text = Utility.fromHtml(text)
             }
             prod.startsWith("VFD") -> {
                 val t2 = prod.substring(3)
@@ -535,6 +543,16 @@ object UtilityDownload {
                 val state = locationName.split(",")[0]
                 //final masterHtml = await ("https://www.weather.gov/" + location + "/textproducts").getHtmlSep();
                 val url = "https://forecast.weather.gov/product.php?site=$location&issuedby=$state&product=$product"
+                // https://forecast.weather.gov/product.php?site=ILX&issuedby=IL&product=RWR
+                text = url.getHtmlSep()
+                text = UtilityString.extractPreLsr(text)
+                text = text.replace("<br>", "\n")
+            }
+            prod.startsWith("NSH")
+                    || prod.startsWith("RTP") -> {
+                val product = prod.substring(0, 3)
+                val location = prod.substring(3).replace("%", "")
+                val url = "https://forecast.weather.gov/product.php?site=$location&issuedby=$location&product=$product"
                 // https://forecast.weather.gov/product.php?site=ILX&issuedby=IL&product=RWR
                 text = url.getHtmlSep()
                 text = UtilityString.extractPreLsr(text)
