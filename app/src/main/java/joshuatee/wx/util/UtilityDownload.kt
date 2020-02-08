@@ -51,11 +51,7 @@ import joshuatee.wx.vis.UtilityGoes
 
 object UtilityDownload {
 
-    val useNwsApi = false
-
-    //private fun get1KmUrl() = UtilityImg.getBlankBitmap()
-
-    //private fun get2KmUrl() = UtilityImg.getBlankBitmap()
+    private const val useNwsApi = false
 
     fun getRadarMosaic(context: Context): Bitmap {
         val location = Location.currentLocationStr
@@ -370,22 +366,22 @@ object UtilityDownload {
                 text = UtilityString.extractPre(html).removeSingleLineBreaks().removeBreaks()
             }
             prod == "SWPC3DAY" -> {
-                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/3-day-forecast.txt").getHtmlSep()
+                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/3-day-forecast.txt").getHtmlWithNewLine()
             }
             prod == "SWPC27DAY" -> {
-                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/27-day-outlook.txt").getHtmlSep()
+                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/27-day-outlook.txt").getHtmlWithNewLine()
             }
             prod == "SWPCWWA" -> {
-                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/advisory-outlook.txt").getHtmlSep()
+                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/advisory-outlook.txt").getHtmlWithNewLine()
             }
             prod == "SWPCHIGH" -> {
-                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/weekly.txt").getHtmlSep()
+                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/weekly.txt").getHtmlWithNewLine().removeLineBreaks()
             }
             prod == "SWPCDISC" -> {
-                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/discussion.txt").getHtmlSep()
+                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/discussion.txt").getHtmlWithNewLine().removeLineBreaks()
             }
             prod == "SWPC3DAYGEO" -> {
-                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/3-day-geomag-forecast.txt").getHtmlSep()
+                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/3-day-geomag-forecast.txt").getHtmlWithNewLine()
             }
             prod.contains("MIATCP") || prod.contains("MIATCM") || prod.contains("MIATCD") || prod.contains(
                     "MIAPWS"
@@ -468,21 +464,14 @@ object UtilityDownload {
                 text = getTextProduct(context, "$prod%")
             }
             prod.contains("FOCN45") -> {
-                text = "${MyApplication.NWS_RADAR_PUB}/data/raw/fo/focn45.cwwg..txt".getHtmlSep()
-                if (UIPreferences.nwsTextRemovelinebreaks) {
-                    text = text.replace(" &nbsp", "")
-                    text = text.replace("<br><br>", "<BR><BR>")
-                    text = text.replace("<br>", " ")
-                }
+                text = "${MyApplication.NWS_RADAR_PUB}/data/raw/fo/focn45.cwwg..txt".getHtmlWithNewLine().removeLineBreaks()
             }
             prod.startsWith("AWCN") -> {
-                text =
-                        ("${MyApplication.NWS_RADAR_PUB}/data/raw/aw/" + prod.toLowerCase(Locale.US) + ".cwwg..txt").getHtmlSep()
+                text = ("${MyApplication.NWS_RADAR_PUB}/data/raw/aw/" + prod.toLowerCase(Locale.US) + ".cwwg..txt").getHtmlSep()
             }
             prod.contains("NFD") -> {
-                text = (MyApplication.nwsOpcWebsitePrefix + "/mobile/mobile_product.php?id=" + prod.toUpperCase(
-                        Locale.US
-                )).getHtml()
+                text = (MyApplication.nwsOpcWebsitePrefix + "/mobile/mobile_product.php?id=" + prod.toUpperCase(Locale.US)).getHtml()
+                text = Utility.fromHtml(text)
             }
             prod.contains("FWDDY1") -> {
                 val url = "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/fwdy1.html"
@@ -513,12 +502,6 @@ object UtilityDownload {
                 text = (MyApplication.nwsAWCwebsitePrefix + "/fcstdisc/data?cwa=K$t2").getHtmlSep()
                 text = text.parse("<!-- raw data starts -->(.*?)<!-- raw data ends -->")
                 text = text.replace(Regex("<br>\\s+<br>\\s+"), MyApplication.newline).removeHtml()
-
-                //if (UIPreferences.nwsTextRemovelinebreaks) {
-                //    text = text.replace("<br> <br>".toRegex(), "<BR><BR>")
-                //    text = text.replace("<br> {4}<br> {4}".toRegex(), "<BR><BR>")
-                //    text = text.replace("<br>", " ")
-                //}
             }
             prod.contains("FPCN48") -> {
                 text = "${MyApplication.NWS_RADAR_PUB}/data/raw/fp/fpcn48.cwao..txt".getHtmlSep()
@@ -530,13 +513,6 @@ object UtilityDownload {
                 text = text.parse(RegExp.pre2Pattern)
             }
             prod.contains("PMDTHR") -> {
-                /*text = UtilityString.getHtmlAndParseSep(
-                        MyApplication.nwsCPCNcepWebsitePrefix + "/products/predictions/threats/threats.php",
-                        "<div id=\"discDiv\">(.*?)</div>"
-                )
-                text = text.removeBreaks()
-                UtilityLog.d("wx", text)*/
-
                 val url = MyApplication.nwsCPCNcepWebsitePrefix + "/products/predictions/threats/threats.php"
                 text = url.getHtmlSep()
                 text = text.parse("<div id=\"discDiv\">(.*?)</div>")
