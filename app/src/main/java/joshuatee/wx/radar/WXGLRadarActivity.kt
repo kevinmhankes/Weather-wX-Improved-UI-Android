@@ -52,7 +52,6 @@ import android.view.KeyEvent
 import joshuatee.wx.R
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.activitiesmisc.TextScreenActivity
-import joshuatee.wx.activitiesmisc.WebscreenABModels
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.telecine.TelecineService
 import joshuatee.wx.MyApplication
@@ -66,6 +65,7 @@ import joshuatee.wx.UIPreferences
 
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.activitiesmisc.SevereDashboardActivity
+import joshuatee.wx.activitiesmisc.WebView
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.util.*
@@ -694,20 +694,22 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             R.id.action_radar_4 -> showMultipaneRadar("4")
             R.id.action_radar_site_status_l3 -> ObjectIntent(
                     this,
-                    WebscreenABModels::class.java,
-                    WebscreenABModels.URL,
+                    WebView::class.java,
+                    WebView.URL,
                     arrayOf(
                             "http://radar3pub.ncep.noaa.gov",
-                            resources.getString(R.string.action_radar_site_status_l3)
+                            resources.getString(R.string.action_radar_site_status_l3),
+                            "extended"
                     )
             )
             R.id.action_radar_site_status_l2 -> ObjectIntent(
                     this,
-                    WebscreenABModels::class.java,
-                    WebscreenABModels.URL,
+                    WebView::class.java,
+                    WebView.URL,
                     arrayOf(
                             "http://radar2pub.ncep.noaa.gov",
-                            resources.getString(R.string.action_radar_site_status_l2)
+                            resources.getString(R.string.action_radar_site_status_l2),
+                            "extended"
                     )
             )
             R.id.action_n0q, R.id.action_n0q_menu  -> getReflectivity()

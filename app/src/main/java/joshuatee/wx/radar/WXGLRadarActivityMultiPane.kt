@@ -45,7 +45,6 @@ import android.os.Handler
 import joshuatee.wx.*
 
 import joshuatee.wx.activitiesmisc.ImageShowActivity
-import joshuatee.wx.activitiesmisc.WebscreenABModels
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.UtilityToolbar
@@ -54,6 +53,7 @@ import joshuatee.wx.settings.SettingsRadarActivity
 import joshuatee.wx.ui.ObjectImageMap
 
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.activitiesmisc.WebView
 
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
@@ -732,20 +732,22 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             )
             R.id.action_radar_site_status_l3 -> ObjectIntent(
                     this,
-                    WebscreenABModels::class.java,
-                    WebscreenABModels.URL,
+                    WebView::class.java,
+                    WebView.URL,
                     arrayOf(
                             "http://radar3pub.ncep.noaa.gov",
-                            resources.getString(R.string.action_radar_site_status_l3)
+                            resources.getString(R.string.action_radar_site_status_l3),
+                            "extended"
                     )
             )
             R.id.action_radar_site_status_l2 -> ObjectIntent(
                     this,
-                    WebscreenABModels::class.java,
-                    WebscreenABModels.URL,
+                    WebView::class.java,
+                    WebView.URL,
                     arrayOf(
                             "http://radar2pub.ncep.noaa.gov",
-                            resources.getString(R.string.action_radar_site_status_l2)
+                            resources.getString(R.string.action_radar_site_status_l2),
+                            "extended"
                     )
             )
             R.id.action_radar1 -> switchRadar(0)

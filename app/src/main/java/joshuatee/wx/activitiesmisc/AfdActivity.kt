@@ -248,9 +248,9 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.AFD)
             R.id.action_website -> ObjectIntent(
                     this,
-                    WebscreenABModels::class.java,
-                    WebscreenABModels.URL,
-                    arrayOf("https://www.weather.gov/" + wfo.toLowerCase(Locale.US), wfo)
+                    WebView::class.java,
+                    WebView.URL,
+                    arrayOf("https://www.weather.gov/" + wfo.toLowerCase(Locale.US), wfo, "extended")
             )
             R.id.action_hazards -> ObjectIntent(
                     this,

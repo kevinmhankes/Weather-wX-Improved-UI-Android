@@ -572,10 +572,6 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".activitiesmisc.WebscreenABModels"
-      android:parentActivityName="WX" >
-  </activity>
-  <activity
       android:name=".audio.VoiceCommandActivity"
       android:theme="@style/Theme.Transparent" >
   </activity>

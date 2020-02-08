@@ -72,16 +72,12 @@ class WebView : BaseActivity() {
         title = activityArguments[1]
         val webSettings = webview.settings
         webSettings.javaScriptEnabled = true
-
-
-        // WebscreenABModels has these enabled
-        // pass in arg2 true/false to use these extended settings, not sure what they are used for
-        /*webSettings.builtInZoomControls = true
-        webSettings.displayZoomControls = false
-        webSettings.useWideViewPort = true
-        webSettings.loadWithOverviewMode = true*/
-
-
+        if (activityArguments.size > 2) {
+            webSettings.builtInZoomControls = true
+            webSettings.displayZoomControls = false
+            webSettings.useWideViewPort = true
+            webSettings.loadWithOverviewMode = true
+        }
         if (UtilityUI.isTablet()) {
             webSettings.textZoom = (120 * (UIPreferences.normalTextSize.toDouble() / UIPreferences.normalTextSizeDefault.toDouble())).toInt()
         } else {
