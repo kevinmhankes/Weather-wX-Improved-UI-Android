@@ -51,6 +51,8 @@ import joshuatee.wx.vis.UtilityGoes
 
 object UtilityDownload {
 
+    val useNwsApi = false
+
     //private fun get1KmUrl() = UtilityImg.getBlankBitmap()
 
     //private fun get2KmUrl() = UtilityImg.getBlankBitmap()
@@ -554,20 +556,78 @@ object UtilityDownload {
         } else if (prod.contains("CTOF")) {
             text = "Celsius to Fahrenheit table" + MyApplication.newline + UtilityMath.celsiusToFahrenheitTable()
         } else {
+
+            // Feb 8 2020 Sat
+            // The NWS API for text products has been unstable Since Wed Feb 5
+            // resorting to alternatives
+
             val t1 = prod.substring(0, 3)
             var t2 = prod.substring(3)
             t2 = t2.replace("%", "")
-            val url = MyApplication.nwsApiUrl + "/products/types/$t1/locations/$t2"
-            val html = url.getNwsHtml()
-            val urlProd = html.parse("\"id\": \"(.*?)\"")
-            val prodHtml = (MyApplication.nwsApiUrl + "/products/$urlProd").getNwsHtml()
-            text = UtilityString.parseAcrossLines(prodHtml, "\"productText\": \"(.*?)\\}")
-            if (!prod.startsWith("RTP")) {
-                text = text.replace("\\n\\n", "<BR>")
-                text = text.replace("\\n", " ")
+
+            if (useNwsApi) {
+                val url = MyApplication.nwsApiUrl + "/products/types/$t1/locations/$t2"
+                val html = url.getNwsHtml()
+                val urlProd = html.parse("\"id\": \"(.*?)\"")
+                val prodHtml = (MyApplication.nwsApiUrl + "/products/$urlProd").getNwsHtml()
+                text = UtilityString.parseAcrossLines(prodHtml, "\"productText\": \"(.*?)\\}")
+                if (!prod.startsWith("RTP")) {
+                    text = text.replace("\\n\\n", "<BR>")
+                    text = text.replace("\\n", " ")
+                } else {
+                    text = text.replace("\\n", "\n")
+                }
             } else {
-                text = text.replace("\\n", "\n")
+
+                when (prod) {
+                     "SWODY1" -> {
+                         val url = "https://www.spc.noaa.gov/products/outlook/day1otlk.html"
+                         val html = url.getNwsHtml()
+                         text = UtilityString.extractPreLsr(html).removeLineBreaks()
+                     }
+                    "SWODY2" -> {
+                        val url = "https://www.spc.noaa.gov/products/outlook/day2otlk.html"
+                        val html = url.getNwsHtml()
+                        text = UtilityString.extractPreLsr(html).removeLineBreaks()
+                    }
+                    "SWODY3" -> {
+                        val url = "https://www.spc.noaa.gov/products/outlook/day3otlk.html"
+                        val html = url.getNwsHtml()
+                        text = UtilityString.extractPreLsr(html).removeLineBreaks()
+                    }
+                    "SWOD48" -> {
+                        val url = "https://www.spc.noaa.gov/products/exper/day4-8/"
+                        val html = url.getNwsHtml()
+                        text = UtilityString.extractPreLsr(html).removeLineBreaks()
+                    }
+
+                    "PMDSPD" -> {
+                        val url = "https://www.wpc.ncep.noaa.gov/discussions/hpcdiscussions.php?disc=pmdspd"
+                        val html = url.getNwsHtml()
+                        text = UtilityString.extractPreLsr(html).removeLineBreaks()
+                    }
+                    "PMDEPD" -> {
+                        val url = "https://www.wpc.ncep.noaa.gov/discussions/hpcdiscussions.php?disc=pmdepd"
+                        val html = url.getNwsHtml()
+                        text = UtilityString.extractPreLsr(html).removeLineBreaks()
+                    }
+                    else -> {
+                        // https://forecast.weather.gov/product.php?site=DTX&issuedby=DTX&product=AFD&format=txt&version=1&glossary=0
+                        val url = "https://forecast.weather.gov/product.php?site=" +
+                                t2 +
+                                "&issuedby=" +
+                                t2 +
+                                "&product=" +
+                                t1 +
+                                "&format=txt&version=1&glossary=0"
+                        val html = url.getHtmlSep().replace("<br>", MyApplication.newline)
+                        text = UtilityString.extractPreLsr(html).removeLineBreaks()
+                        //UtilityLog.d("wx", text)
+                    }
+                }
             }
+
+
         }
         UtilityPlayList.checkAndSave(context, prod, text)
         return text

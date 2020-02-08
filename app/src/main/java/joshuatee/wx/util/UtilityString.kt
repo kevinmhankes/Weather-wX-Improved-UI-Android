@@ -38,10 +38,10 @@ object UtilityString {
     }
 
     fun extractPreLsr(html: String): String {
-        val seperator = "ABC123E"
-        val htmlOneLine = html.replace(MyApplication.newline, seperator)
+        val separator = "ABC123E"
+        val htmlOneLine = html.replace(MyApplication.newline, separator)
         val parsedText = htmlOneLine.parse(RegExp.prePattern)
-        return parsedText.replace(seperator, MyApplication.newline)
+        return parsedText.replace(separator, MyApplication.newline)
     }
 
     internal fun capitalizeString(string: String): String {
