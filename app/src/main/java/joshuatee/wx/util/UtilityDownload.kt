@@ -383,16 +383,15 @@ object UtilityDownload {
             prod == "SWPC3DAYGEO" -> {
                 text = (MyApplication.nwsSwpcWebSitePrefix + "/text/3-day-geomag-forecast.txt").getHtmlWithNewLine()
             }
-            prod.contains("MIATCP") || prod.contains("MIATCM") || prod.contains("MIATCD") || prod.contains(
-                    "MIAPWS"
-            ) || prod.contains("MIAHS")
+            prod.contains("MIATCP")
+                    || prod.contains("MIATCM")
+                    || prod.contains("MIATCD")
+                    || prod.contains("MIAPWS")
+                    || prod.contains("MIAHS")
             -> {
-                text = UtilityString.getNwsPre("${MyApplication.nwsNhcWebsitePrefix}/text/$prod.shtml")
-                if (prod.contains("MIATCD")) {
-                    text = text.replace("<br><br>", "<BR><BR>")
-                    text = text.replace("<br>", " ")
-                }
-                text = text.replace("^<br>".toRegex(), "")
+                val url = "${MyApplication.nwsNhcWebsitePrefix}/text/$prod.shtml"
+                text = url.getHtmlWithNewLine()
+                text = UtilityString.extractPre(text).removeHtml()
             }
             prod.contains("MIAT") || prod == "HFOTWOCP" -> {
                 val url = "${MyApplication.nwsNhcWebsitePrefix}/ftp/pub/forecasts/discussion/$prod"
@@ -448,6 +447,22 @@ object UtilityDownload {
             prod.contains("NFD") -> {
                 text = (MyApplication.nwsOpcWebsitePrefix + "/mobile/mobile_product.php?id=" + prod.toUpperCase(Locale.US)).getHtml()
                 text = Utility.fromHtml(text)
+            }
+            prod.contains("OFF") -> {
+                val t1 = prod.substring(0, 3)
+                val t2 = prod.substring(3)
+                val url = "https://forecast.weather.gov/product.php?site=" +
+                        "NWS" +
+                        "&issuedby=" +
+                        t2 +
+                        "&product=" +
+                        t1 +
+                        "&format=txt&version=1&glossary=0"
+                val html = url.getHtmlWithNewLine()
+                text = UtilityString.extractPreLsr(html)
+
+                //text = (MyApplication.nwsOpcWebsitePrefix + "/mobile/mobile_product.php?id=" + prod.toUpperCase(Locale.US)).getHtml()
+                //text = Utility.fromHtml(text)
             }
             prod.contains("FWDDY1") -> {
                 val url = "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/fwdy1.html"
