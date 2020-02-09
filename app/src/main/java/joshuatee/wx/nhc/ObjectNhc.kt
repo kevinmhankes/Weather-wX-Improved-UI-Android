@@ -33,6 +33,7 @@ import joshuatee.wx.util.UtilityString
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.ui.ObjectLinearLayout
 
 class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
 
@@ -54,6 +55,8 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     private var notificationCard: ObjectCardText? = null
     private val cardNotificationHeaderText = "Currently blocked storm notifications, tap this text to clear all blocks "
     var html: String = ""
+    private var numberOfImages = 0
+    private val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout>()
 
     fun getTextData() {
         var dataRet: ObjectNhcStormInfo
@@ -172,15 +175,45 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     }
 
     fun showAtlanticImageData() {
-        bitmapsAtlantic.forEach { ObjectCardImage(context, linearLayout, it) }
+        bitmapsAtlantic.forEach {
+            if (numberOfImages % 2 == 0) {
+                val objectLinearLayout = ObjectLinearLayout(context, linearLayout)
+                objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
+                horizontalLinearLayouts.add(objectLinearLayout)
+                ObjectCardImage(context, objectLinearLayout.linearLayout, it, 2)
+            } else {
+                ObjectCardImage(context, horizontalLinearLayouts.last().linearLayout, it, 2)
+            }
+            numberOfImages += 1
+        }
     }
 
     fun showPacificImageData() {
-        bitmapsPacific.forEach { ObjectCardImage(context, linearLayout, it) }
+        bitmapsPacific.forEach {
+            if (numberOfImages % 2 == 0) {
+                val objectLinearLayout = ObjectLinearLayout(context, linearLayout)
+                objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
+                horizontalLinearLayouts.add(objectLinearLayout)
+                ObjectCardImage(context, objectLinearLayout.linearLayout, it, 2)
+            } else {
+                ObjectCardImage(context, horizontalLinearLayouts.last().linearLayout, it, 2)
+            }
+            numberOfImages += 1
+        }
     }
 
     fun showCentralImageData() {
-        bitmapsCentral.forEach { ObjectCardImage(context, linearLayout, it) }
+        bitmapsCentral.forEach {
+            if (numberOfImages % 2 == 0) {
+                val objectLinearLayout = ObjectLinearLayout(context, linearLayout)
+                objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
+                horizontalLinearLayouts.add(objectLinearLayout)
+                ObjectCardImage(context, objectLinearLayout.linearLayout, it, 2)
+            } else {
+                ObjectCardImage(context, horizontalLinearLayouts.last().linearLayout, it, 2)
+            }
+            numberOfImages += 1
+        }
     }
 
     private fun clearNhcNotificationBlock() {
