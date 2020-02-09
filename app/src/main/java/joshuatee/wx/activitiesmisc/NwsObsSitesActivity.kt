@@ -41,6 +41,12 @@ import java.util.*
 
 class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
+    //
+    // Used to view NWS website for obs data and provide a link to the map
+    // User is presented with a list of states that can be drilled down on
+    // Last used is displayed in toolbar
+    //
+
     private val listIds = mutableListOf<String>()
     private val listCity = mutableListOf<String>()
     private val listSort = mutableListOf<String>()
@@ -53,12 +59,7 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_recyclerview_bottom_toolbar,
-                R.menu.nwsobssites,
-                true
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_recyclerview_bottom_toolbar, R.menu.nwsobssites, true)
         toolbarBottom.setOnMenuItemClickListener(this)
         title = titleString
         updateButton()

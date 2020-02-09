@@ -53,6 +53,13 @@ import kotlinx.android.synthetic.main.activity_linear_layout.*
 
 class SevereDashboardActivity : BaseActivity() {
 
+    //
+    // Show a variety of graphical and textual data including
+    // US Alert map, Storm reports, any active Watch/MPD/MCD
+    // Tornado, Tstorm, or FFW warnings
+    // All data items can be tapped on for further exploration
+    //
+
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmaps = mutableListOf<Bitmap>()
     private var watchCount = 0
