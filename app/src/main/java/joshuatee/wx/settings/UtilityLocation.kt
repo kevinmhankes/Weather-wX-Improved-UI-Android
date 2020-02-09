@@ -71,15 +71,10 @@ object UtilityLocation {
             return latLon
         }
 
-    fun getXYFromAddressOsm(addressF: String): List<String> {
+    fun getLatLonFromAddress(addressF: String): List<String> {
         val address = addressF.replace(" ", "+")
-        val url =
-            "http://nominatim.openstreetmap.org/search?q=$address&format=xml&polygon=0&addressdetails=1"
-        return UtilityString.getHtmlAndParseMultipleFirstMatch(
-            url,
-            "lat=.(.*?).\\slon=.(.*?).\\s",
-            2
-        ).toList()
+        val url = "http://nominatim.openstreetmap.org/search?q=$address&format=xml&polygon=0&addressdetails=1"
+        return UtilityString.getHtmlAndParseMultipleFirstMatch(url, "lat=.(.*?).\\slon=.(.*?).\\s", 2).toList()
     }
 
     fun getGps(context: Context): DoubleArray {
@@ -134,7 +129,7 @@ object UtilityLocation {
         return sites[bestRid].name
     }
 
-    fun getNearestRid(location: LatLon, count: Int): List<RID> {
+    fun getNearestRadarSite(location: LatLon, count: Int): List<RID> {
         val radarSites = mutableListOf<RID>()
         GlobalArrays.radars.forEach {
             val labels = it.split(":")
@@ -153,7 +148,7 @@ object UtilityLocation {
         return radarSites.subList(0, count)
     }
 
-    fun getNearestSnd(location: LatLon): String {
+    fun getNearestSoundingSite(location: LatLon): String {
         val sites = GlobalArrays.soundingSites.map { RID(it, getSiteLocation(it, "SND")) }
         var shortestDistance = 1000.00
         var currentDistance: Double
@@ -165,8 +160,12 @@ object UtilityLocation {
                 bestRid = it
             }
         }
-        if (bestRid == -1) return "BLAH"
-        if (sites[bestRid].name == "MFX") return "MFL"
+        if (bestRid == -1) {
+            return "BLAH"
+        }
+        if (sites[bestRid].name == "MFX") {
+            return "MFL"
+        }
         return sites[bestRid].name
     }
 
@@ -237,7 +236,7 @@ object UtilityLocation {
             val locNumToSaveStr = locNumIntCurrent.toString()
             val loc = Utility.getWfoSiteName(nwsOffice)
             val addressToSend = loc.replace(" ", "+")
-            val xyStr = getXYFromAddressOsm(addressToSend)
+            val xyStr = getLatLonFromAddress(addressToSend)
             toastString = joshuatee.wx.settings.Location.locationSave(
                 context,
                 locNumToSaveStr,

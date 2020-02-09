@@ -315,7 +315,7 @@ object UtilityDownload {
             }
             "SND" -> {
                 needsBitmap = false
-                bitmap = UtilitySpcSoundings.getImage(context, UtilityLocation.getNearestSnd(Location.latLon))
+                bitmap = UtilitySpcSoundings.getImage(context, UtilityLocation.getNearestSoundingSite(Location.latLon))
             }
             "STRPT" -> url = UtilitySpc.getStormReportsTodayUrl()
             else -> {
