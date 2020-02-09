@@ -32,6 +32,7 @@ import joshuatee.wx.util.UtilityString
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
+import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectLinearLayout
 
@@ -108,6 +109,18 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         ).forEach { bitmapsCentral.add(it.getImage()) }
     }
 
+    val imageList = listOf(
+            "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_0d0.png",
+            "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_2d0.png",
+            "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_5d0.png",
+            "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_0d0.png",
+            "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_2d0.png",
+            "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_5d0.png",
+            "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_0d0.png",
+            "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_2d0.png",
+            "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_5d0.png"
+    )
+
     fun showTextData() {
         linearLayout.removeAllViewsInLayout()
         html = ""
@@ -176,15 +189,25 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
 
     fun showAtlanticImageData() {
         bitmapsAtlantic.forEach {
+            val objectCardImage: ObjectCardImage
             if (numberOfImages % 2 == 0) {
                 val objectLinearLayout = ObjectLinearLayout(context, linearLayout)
                 objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
                 horizontalLinearLayouts.add(objectLinearLayout)
-                ObjectCardImage(context, objectLinearLayout.linearLayout, it, 2)
+                objectCardImage = ObjectCardImage(context, objectLinearLayout.linearLayout, it, 2)
             } else {
-                ObjectCardImage(context, horizontalLinearLayouts.last().linearLayout, it, 2)
+                objectCardImage = ObjectCardImage(context, horizontalLinearLayouts.last().linearLayout, it, 2)
             }
             numberOfImages += 1
+            val url = imageList[numberOfImages - 1]
+            objectCardImage.setOnClickListener(View.OnClickListener {
+                ObjectIntent(
+                        context,
+                        ImageShowActivity::class.java,
+                        ImageShowActivity.URL,
+                        arrayOf(url, "")
+                )
+            })
         }
     }
 

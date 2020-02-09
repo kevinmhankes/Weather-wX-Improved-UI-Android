@@ -37,7 +37,7 @@
 55351 2020_02_04    [FIX] WPCImage widget had to have launch updated to use flags (would crash otherwise)
 55350 2020_02_04    [FIX] update google doc links to point to published versions in settings -> about
                     [FIX] in SettingsLocationRecyclerViewActivity remove broadcastReceiver that is not needed
-                    [REF] bottomsheet refactor to move more stuff into constructor
+                    [REF] bottom sheet refactor to move more stuff into constructor
 55349 2020_02_03    [REF] utilFav/SettingsHomeScreen refactoring
                     [REF] lint cleanup
 55348 2020_02_02    [REF] utilFav/SettingsHomeScreen refactoring
