@@ -16,6 +16,7 @@
 // TODO [ADD] use Smaller images on larger screens
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 
+55360 2020_02_09
 55359 2020_02_09    [REF] lint
                     [ADD] CPC 3 month temp/precip outlook in WPC Images
                     [ADD] NHC change format to severe dashboard including tap on image to open in dedicated fashion
