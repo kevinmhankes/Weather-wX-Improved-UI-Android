@@ -68,9 +68,9 @@ class SevereDashboardActivity : BaseActivity() {
     private var tstCount = 0
     private var ffwCount = 0
     private var torCount = 0
-    private var totalImages = 0
-    private var linearLayoutHorizontalList: MutableList<ObjectLinearLayout> = mutableListOf()
-    private val imagesPerRow = 2
+    private var numberOfImages = 0
+    private var horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
+    private var imagesPerRow = 2
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.severe_dashboard, menu)
@@ -81,6 +81,9 @@ class SevereDashboardActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
+        if (UtilityUI.isLandScape(this)) {
+            imagesPerRow = 3
+        }
         getContent()
     }
 
@@ -91,7 +94,7 @@ class SevereDashboardActivity : BaseActivity() {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmaps = mutableListOf()
-        linearLayoutHorizontalList = mutableListOf()
+        horizontalLinearLayouts = mutableListOf()
         val snWat = SevereNotice(PolygonType.WATCH)
         val snMcd = SevereNotice(PolygonType.MCD)
         val snMpd = SevereNotice(PolygonType.MPD)
@@ -102,23 +105,35 @@ class SevereDashboardActivity : BaseActivity() {
         withContext(Dispatchers.IO) {
             bitmaps.add((UtilitySpc.getStormReportsTodayUrl()).getImage())
         }
-        totalImages = bitmaps.size + snMcd.bitmaps.size + snWat.bitmaps.size + snMpd.bitmaps.size
+        //totalImages = bitmaps.size + snMcd.bitmaps.size + snWat.bitmaps.size + snMpd.bitmaps.size
         // FIXME should not be hardcoded
-        for (i in 0..20) {
+        /*for (i in 0..20) {
             linearLayoutHorizontalList.add(ObjectLinearLayout(this@SevereDashboardActivity, ll))
         }
         linearLayoutHorizontalList.forEach {
             it.linearLayout.orientation = LinearLayout.HORIZONTAL
-        }
-        totalImages = 0
+        }*/
+        numberOfImages = 0
         if (bitmaps.size > 0) {
             bitmaps.indices.forEach {
-                val card = ObjectCardImage(
-                        this@SevereDashboardActivity,
-                        linearLayoutHorizontalList[totalImages / imagesPerRow].linearLayout,
-                        bitmaps[it],
-                        imagesPerRow
-                )
+                val card: ObjectCardImage
+                if (numberOfImages % imagesPerRow == 0) {
+                    val objectLinearLayout = ObjectLinearLayout(this@SevereDashboardActivity, ll)
+                    objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
+                    horizontalLinearLayouts.add(objectLinearLayout)
+                    card = ObjectCardImage(
+                            this@SevereDashboardActivity,
+                            objectLinearLayout.linearLayout,
+                            bitmaps[it],
+                            imagesPerRow
+                    )
+                } else {
+                    card = ObjectCardImage(
+                            this@SevereDashboardActivity,
+                            horizontalLinearLayouts.last().linearLayout,
+                            bitmaps[it],
+                            imagesPerRow)
+                }
                 if (it == 0) {
                     card.setOnClickListener(View.OnClickListener {
                         ObjectIntent(
@@ -141,7 +156,7 @@ class SevereDashboardActivity : BaseActivity() {
                         )
                     })
                 }
-                totalImages += 1
+                numberOfImages += 1
             }
         }
         withContext(Dispatchers.IO) {
@@ -237,12 +252,32 @@ class SevereDashboardActivity : BaseActivity() {
                 .filter { it.bitmaps.size > 0 }
                 .forEach { severeNotice ->
                     severeNotice.bitmaps.indices.forEach { j ->
-                        val card = ObjectCardImage(
-                                this@SevereDashboardActivity,
-                                linearLayoutHorizontalList[totalImages / imagesPerRow].linearLayout,
-                                severeNotice.bitmaps[j],
-                                imagesPerRow
-                        )
+                        val card: ObjectCardImage
+                        if (numberOfImages % imagesPerRow == 0) {
+                            val objectLinearLayout = ObjectLinearLayout(this@SevereDashboardActivity, ll)
+                            objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
+                            horizontalLinearLayouts.add(objectLinearLayout)
+                            card = ObjectCardImage(
+                                    this@SevereDashboardActivity,
+                                    objectLinearLayout.linearLayout,
+                                    severeNotice.bitmaps[j],
+                                    imagesPerRow
+                            )
+                        } else {
+                            card = ObjectCardImage(
+                                    this@SevereDashboardActivity,
+                                    horizontalLinearLayouts.last().linearLayout,
+                                    severeNotice.bitmaps[j],
+                                    imagesPerRow
+                            )
+                        }
+                        /* val card = ObjectCardImage(
+                                 this@SevereDashboardActivity,
+                                 linearLayoutHorizontalList[totalImages / imagesPerRow].linearLayout,
+                                 severeNotice.bitmaps[j],
+                                 imagesPerRow
+                         )*/
+
                         val claArgStr = severeNotice.numbers[j]
                         card.setOnClickListener(View.OnClickListener {
                             ObjectIntent(
@@ -252,7 +287,7 @@ class SevereDashboardActivity : BaseActivity() {
                                     arrayOf(claArgStr, "", severeNotice.toString())
                             )
                         })
-                        totalImages += 1
+                        numberOfImages += 1
                     }
                 }
 
