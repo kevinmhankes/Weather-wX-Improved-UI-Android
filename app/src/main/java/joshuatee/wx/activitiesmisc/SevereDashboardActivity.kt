@@ -70,6 +70,7 @@ class SevereDashboardActivity : BaseActivity() {
     private var torCount = 0
     private var totalImages = 0
     private var linearLayoutHorizontalList: MutableList<ObjectLinearLayout> = mutableListOf()
+    private val imagesPerRow = 2
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.severe_dashboard, menu)
@@ -114,9 +115,9 @@ class SevereDashboardActivity : BaseActivity() {
             bitmaps.indices.forEach {
                 val card = ObjectCardImage(
                         this@SevereDashboardActivity,
-                        linearLayoutHorizontalList[totalImages / 2].linearLayout,
+                        linearLayoutHorizontalList[totalImages / imagesPerRow].linearLayout,
                         bitmaps[it],
-                        2
+                        imagesPerRow
                 )
                 if (it == 0) {
                     card.setOnClickListener(View.OnClickListener {
@@ -238,12 +239,11 @@ class SevereDashboardActivity : BaseActivity() {
                     severeNotice.bitmaps.indices.forEach { j ->
                         val card = ObjectCardImage(
                                 this@SevereDashboardActivity,
-                                linearLayoutHorizontalList[totalImages / 2].linearLayout,
+                                linearLayoutHorizontalList[totalImages / imagesPerRow].linearLayout,
                                 severeNotice.bitmaps[j],
-                                2
+                                imagesPerRow
                         )
                         val claArgStr = severeNotice.numbers[j]
-
                         card.setOnClickListener(View.OnClickListener {
                             ObjectIntent(
                                     this@SevereDashboardActivity,

@@ -35,6 +35,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectLinearLayout
+import joshuatee.wx.ui.UtilityUI
 
 class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
 
@@ -57,7 +58,14 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     private val cardNotificationHeaderText = "Currently blocked storm notifications, tap this text to clear all blocks "
     var html: String = ""
     private var numberOfImages = 0
+    private var imagesPerRow = 2
     private val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout>()
+
+    init {
+        if (UtilityUI.isLandScape(context)) {
+            imagesPerRow = 3
+        }
+    }
 
     fun getTextData() {
         var dataRet: ObjectNhcStormInfo
@@ -202,13 +210,13 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     fun showAtlanticImageData() {
         bitmapsAtlantic.forEach {
             val objectCardImage: ObjectCardImage
-            if (numberOfImages % 2 == 0) {
+            if (numberOfImages % imagesPerRow == 0) {
                 val objectLinearLayout = ObjectLinearLayout(context, linearLayout)
                 objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
                 horizontalLinearLayouts.add(objectLinearLayout)
-                objectCardImage = ObjectCardImage(context, objectLinearLayout.linearLayout, it, 2)
+                objectCardImage = ObjectCardImage(context, objectLinearLayout.linearLayout, it, imagesPerRow)
             } else {
-                objectCardImage = ObjectCardImage(context, horizontalLinearLayouts.last().linearLayout, it, 2)
+                objectCardImage = ObjectCardImage(context, horizontalLinearLayouts.last().linearLayout, it, imagesPerRow)
             }
             numberOfImages += 1
             val url = imageList[numberOfImages - 1]
@@ -227,13 +235,13 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     fun showPacificImageData() {
         bitmapsPacific.forEach {
             val objectCardImage: ObjectCardImage
-            if (numberOfImages % 2 == 0) {
+            if (numberOfImages % imagesPerRow == 0) {
                 val objectLinearLayout = ObjectLinearLayout(context, linearLayout)
                 objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
                 horizontalLinearLayouts.add(objectLinearLayout)
-                objectCardImage = ObjectCardImage(context, objectLinearLayout.linearLayout, it, 2)
+                objectCardImage = ObjectCardImage(context, objectLinearLayout.linearLayout, it, imagesPerRow)
             } else {
-                objectCardImage = ObjectCardImage(context, horizontalLinearLayouts.last().linearLayout, it, 2)
+                objectCardImage = ObjectCardImage(context, horizontalLinearLayouts.last().linearLayout, it, imagesPerRow)
             }
             numberOfImages += 1
             val url = imageList[numberOfImages - 1]
@@ -252,13 +260,13 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     fun showCentralImageData() {
         bitmapsCentral.forEach {
             val objectCardImage: ObjectCardImage
-            if (numberOfImages % 2 == 0) {
+            if (numberOfImages % imagesPerRow == 0) {
                 val objectLinearLayout = ObjectLinearLayout(context, linearLayout)
                 objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
                 horizontalLinearLayouts.add(objectLinearLayout)
-                objectCardImage = ObjectCardImage(context, objectLinearLayout.linearLayout, it, 2)
+                objectCardImage = ObjectCardImage(context, objectLinearLayout.linearLayout, it, imagesPerRow)
             } else {
-                objectCardImage = ObjectCardImage(context, horizontalLinearLayouts.last().linearLayout, it, 2)
+                objectCardImage = ObjectCardImage(context, horizontalLinearLayouts.last().linearLayout, it, imagesPerRow)
             }
             numberOfImages += 1
             val url = imageList[numberOfImages - 1]
