@@ -105,14 +105,6 @@ class SevereDashboardActivity : BaseActivity() {
         withContext(Dispatchers.IO) {
             bitmaps.add((UtilitySpc.getStormReportsTodayUrl()).getImage())
         }
-        //totalImages = bitmaps.size + snMcd.bitmaps.size + snWat.bitmaps.size + snMpd.bitmaps.size
-        // FIXME should not be hardcoded
-        /*for (i in 0..20) {
-            linearLayoutHorizontalList.add(ObjectLinearLayout(this@SevereDashboardActivity, ll))
-        }
-        linearLayoutHorizontalList.forEach {
-            it.linearLayout.orientation = LinearLayout.HORIZONTAL
-        }*/
         numberOfImages = 0
         if (bitmaps.size > 0) {
             bitmaps.indices.forEach {
@@ -271,20 +263,13 @@ class SevereDashboardActivity : BaseActivity() {
                                     imagesPerRow
                             )
                         }
-                        /* val card = ObjectCardImage(
-                                 this@SevereDashboardActivity,
-                                 linearLayoutHorizontalList[totalImages / imagesPerRow].linearLayout,
-                                 severeNotice.bitmaps[j],
-                                 imagesPerRow
-                         )*/
-
-                        val claArgStr = severeNotice.numbers[j]
+                        val number = severeNotice.numbers[j]
                         card.setOnClickListener(View.OnClickListener {
                             ObjectIntent(
                                     this@SevereDashboardActivity,
                                     SpcMcdWatchShowActivity::class.java,
                                     SpcMcdWatchShowActivity.NO,
-                                    arrayOf(claArgStr, "", severeNotice.toString())
+                                    arrayOf(number, "", severeNotice.toString())
                             )
                         })
                         numberOfImages += 1
