@@ -37,10 +37,10 @@ import joshuatee.wx.ui.ObjectTextView
 
 class BottomSheetFragment(private val actContext: Context, val position: Int, private val topLabel: String, private val usedForLocation: Boolean) : BottomSheetDialogFragment() {
 
-    lateinit  var linearLayout: LinearLayout
-    lateinit  var label: TextView
-    lateinit  var edit: TextView
-    lateinit  var delete: TextView
+    lateinit var linearLayout: LinearLayout
+    lateinit var label: TextView
+    lateinit var edit: TextView
+    lateinit var delete: TextView
     lateinit var functions: List<(Int) -> Unit>
     lateinit var labelList: List<String>
     private var textViewList = mutableListOf<ObjectTextView>()

@@ -252,7 +252,7 @@ object UtilityLocation {
             || MyApplication.locations[locNum].notificationMcd
             || MyApplication.locations[locNum].ccNotification
             || MyApplication.locations[locNum].sevenDayNotification
-            || MyApplication.locations[locNum].notificationSpcfw
+            || MyApplication.locations[locNum].notificationSpcFw
             || MyApplication.locations[locNum].notificationSwo
-            || MyApplication.locations[locNum].notificationWpcmpd
+            || MyApplication.locations[locNum].notificationWpcMpd
 }
