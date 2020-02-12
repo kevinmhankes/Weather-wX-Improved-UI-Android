@@ -17,8 +17,10 @@
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 // TODO [ADD] SPC Fire weather outlook - multiple images per row
 // TODO [ADD] SPC Thunder Storm outlook - multiple images per row
+// TODO [FIX] severe dashboard on restart don't clear images until new ones have downloaded
 
-55361 2020_02_12
+55361 2020_02_12    [FIX] locfrag radar warn/watch - check for activityReferenceWithNull != null before proceed
+                    [FIX] OnSwipeTouchListener(java) check for nulls in onFling
 55360 2020_02_10    [FIX] removeLineBreaks was changing newline to nothing instead of single space
 55359 2020_02_09    [REF] lint
                     [ADD] CPC 3 month temp/precip outlook in WPC Images

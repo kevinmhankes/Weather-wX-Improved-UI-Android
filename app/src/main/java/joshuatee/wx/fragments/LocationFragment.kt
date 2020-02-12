@@ -471,14 +471,16 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
             }
         }
         // recent adds Jan 2020
-        withContext(Dispatchers.IO) {
-            UtilityDownloadWarnings.get(activityReference)
-        }
-        if (!oglrArr[idx].product.startsWith("2")) {
-            UtilityRadarUI.plotWarningPolygons(glviewArr[idx], oglrArr[idx], false)
+        if (MyApplication.radarWarnings && activityReferenceWithNull != null) {
+            withContext(Dispatchers.IO) {
+                UtilityDownloadWarnings.get(activityReference)
+            }
+            if (!oglrArr[idx].product.startsWith("2")) {
+                UtilityRadarUI.plotWarningPolygons(glviewArr[idx], oglrArr[idx], false)
+            }
         }
 
-        if (PolygonType.MCD.pref) {
+        if (PolygonType.MCD.pref && activityReferenceWithNull != null) {
             withContext(Dispatchers.IO) {
                 UtilityDownloadMcd.get(activityReference)
                 UtilityDownloadWatch.get(activityReference)
@@ -488,7 +490,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
             }
         }
 
-        if (PolygonType.MPD.pref) {
+        if (PolygonType.MPD.pref && activityReferenceWithNull != null) {
             withContext(Dispatchers.IO) {
                 UtilityDownloadMpd.get(activityReference)
             }
@@ -817,21 +819,6 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
         mActivity = null
     }
 
-    // FIXME change to return context and use getContext in API greater then 22
-    // FIXME duplicate for 2 other areas
-
-    private val activityReference: FragmentActivity
-        get() {
-            if (mActivity == null) {
-                mActivity = if (android.os.Build.VERSION.SDK_INT >= 23 ) {
-                    activity
-                } else {
-                    activity
-                }
-            }
-            return mActivity!!
-        }
-
     private fun setupHazardCards() {
         linearLayoutHazards?.removeAllViews()
         hazardsExpandedAl.clear()
@@ -1044,5 +1031,32 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
     fun showLocations() {
         locationDialogue.show()
     }
+
+    // FIXME change to return context and use getContext in API greater then 22
+    // FIXME duplicate for 2 other areas
+
+    private val activityReference: FragmentActivity
+        get() {
+            if (mActivity == null) {
+                mActivity = if (android.os.Build.VERSION.SDK_INT >= 23 ) {
+                    activity
+                } else {
+                    activity
+                }
+            }
+            return mActivity!!
+        }
+
+    private val activityReferenceWithNull: FragmentActivity?
+        get() {
+            if (mActivity == null) {
+                mActivity = if (android.os.Build.VERSION.SDK_INT >= 23 ) {
+                    activity
+                } else {
+                    activity
+                }
+            }
+            return mActivity
+        }
 }
 
