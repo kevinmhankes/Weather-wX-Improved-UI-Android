@@ -15,8 +15,10 @@
 // TODO       miscPref.split(":").dropLastWhile { it.isEmpty() }
 // TODO [ADD] use Smaller images on larger screens
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
+// TODO [ADD] SPC Fire weather outlook - multiple images per row
+// TODO [ADD] SPC Thunder Storm outlook - multiple images per row
 
-55361 2020_02_10
+55361 2020_02_12
 55360 2020_02_10    [FIX] removeLineBreaks was changing newline to nothing instead of single space
 55359 2020_02_09    [REF] lint
                     [ADD] CPC 3 month temp/precip outlook in WPC Images
