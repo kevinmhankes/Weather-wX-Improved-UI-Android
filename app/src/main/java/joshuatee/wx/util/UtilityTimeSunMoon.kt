@@ -41,7 +41,7 @@ object UtilityTimeSunMoon {
         val officialSunsetCal = calculator.getOfficialSunsetCalendarForDate(Calendar.getInstance())
         return listOf(officialSunriseCal, officialSunsetCal)
     }
-    
+
     fun getSunriseSunset(context: Context, locNum: String, shortFormat: Boolean): String {
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
         val lat: String

@@ -10,7 +10,6 @@ import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityStorePreferences
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityLog
 
 class StartupActivity : Activity() {
 
@@ -24,7 +23,6 @@ class StartupActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (Utility.readPrefWithNull(this, "LOC1_LABEL", null) == null) {
-            UtilityLog.d("wx", "INIT PREF")
             UtilityStorePreferences.setDefaults(this)
         }
         MyApplication.initPreferences(this)
