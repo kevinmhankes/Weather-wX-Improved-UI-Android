@@ -15,9 +15,9 @@
 // TODO       miscPref.split(":").dropLastWhile { it.isEmpty() }
 // TODO [ADD] use Smaller images on larger screens
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
-// TODO [ADD] SPC Fire weather outlook - multiple images per row
 
 55362 2020_02_13    [ADD] SPC Thunder Storm outlook - multiple images per row (and tap on image to enter dedicated image viewer)
+                    [ADD] SPC Fire weather outlook - multiple images per row
 55361 2020_02_12    [FIX] locfrag radar warn/watch - check for activityReferenceWithNull != null before proceed
                     [FIX] OnSwipeTouchListener(java) check for nulls in onFling
 55360 2020_02_10    [FIX] removeLineBreaks was changing newline to nothing instead of single space

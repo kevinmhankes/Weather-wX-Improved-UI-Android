@@ -469,17 +469,17 @@ object UtilityDownload {
             prod.contains("FWDDY1") -> {
                 val url = "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/fwdy1.html"
                 text = url.getHtmlWithNewLine()
-                text = UtilityString.extractPre(text).removeLineBreaks()
+                text = UtilityString.extractPre(text).removeLineBreaks().removeHtml()
             }
             prod.contains("FWDDY2") -> {
                 val url = "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/fwdy2.html"
                 text = url.getHtmlWithNewLine()
-                text = UtilityString.extractPre(text).removeLineBreaks()
+                text = UtilityString.extractPre(text).removeLineBreaks().removeHtml()
             }
             prod.contains("FWDDY38") -> {
                 val url = "${MyApplication.nwsSPCwebsitePrefix}/products/exper/fire_wx/"
                 text = url.getHtmlWithNewLine()
-                text = UtilityString.extractPre(text).removeLineBreaks()
+                text = UtilityString.extractPre(text).removeLineBreaks().removeHtml()
             }
             prod.startsWith("FXCN01") -> {
                 text = ("http://collaboration.cmc.ec.gc.ca/cmc/cmop/FXCN/").getHtmlSep()

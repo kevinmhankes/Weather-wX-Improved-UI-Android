@@ -26,6 +26,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.Extensions.getImage
 
@@ -33,6 +34,8 @@ import joshuatee.wx.R
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCardImage
+import joshuatee.wx.ui.ObjectLinearLayout
+import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.wpc.WpcTextProductsActivity
 import kotlinx.coroutines.*
@@ -43,6 +46,7 @@ class SpcFireOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmaps = mutableListOf<Bitmap>()
+    private var imagesPerRow = 2
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +56,9 @@ class SpcFireOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
                 R.menu.shared_multigraphics,
                 true
         )
+        if (UtilityUI.isLandScape(this)) {
+            imagesPerRow = 3
+        }
         toolbarBottom.setOnMenuItemClickListener(this)
         title = "SPC"
         toolbar.subtitle = "Fire Weather Outlook"
@@ -70,10 +77,32 @@ class SpcFireOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
                 it.getImage()
             }
         }
+        ll.removeAllViews()
+        var numberOfImages = 0
+        val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
         bitmaps.forEach { bitmap ->
-            val card = ObjectCardImage(this@SpcFireOutlookActivity, ll, bitmap)
+            val objectCardImage: ObjectCardImage
+            if (numberOfImages % imagesPerRow == 0) {
+                val objectLinearLayout = ObjectLinearLayout(this@SpcFireOutlookActivity, ll)
+                objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
+                horizontalLinearLayouts.add(objectLinearLayout)
+                objectCardImage = ObjectCardImage(
+                        this@SpcFireOutlookActivity,
+                        objectLinearLayout.linearLayout,
+                        bitmap,
+                        imagesPerRow
+                )
+            } else {
+                objectCardImage = ObjectCardImage(
+                        this@SpcFireOutlookActivity,
+                        horizontalLinearLayouts.last().linearLayout,
+                        bitmap,
+                        imagesPerRow
+                )
+            }
+            //val card = ObjectCardImage(this@SpcFireOutlookActivity, ll, bitmap)
             val prod = UtilitySpcFireOutlook.textProducts[bitmaps.indexOf(bitmap)]
-            card.setOnClickListener(View.OnClickListener {
+            objectCardImage.setOnClickListener(View.OnClickListener {
                 ObjectIntent(
                         this@SpcFireOutlookActivity,
                         WpcTextProductsActivity::class.java,
@@ -81,6 +110,7 @@ class SpcFireOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
                         arrayOf(prod)
                 )
             })
+            numberOfImages += 1
         }
     }
 
