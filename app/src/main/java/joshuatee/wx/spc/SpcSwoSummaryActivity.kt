@@ -69,6 +69,12 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        bitmaps = mutableListOf()
+        withContext(Dispatchers.IO) {
+            arrayOf("1", "2", "3", "4-8").forEach {
+                bitmaps.addAll(UtilitySpcSwo.getImages(it, false))
+            }
+        }
         ll.removeAllViews()
         linearLayoutHorizontalList = listOf(
                 ObjectLinearLayout(this@SpcSwoSummaryActivity, ll),
@@ -78,12 +84,6 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         )
         linearLayoutHorizontalList.forEach {
             it.linearLayout.orientation = LinearLayout.HORIZONTAL
-        }
-        bitmaps = mutableListOf()
-        withContext(Dispatchers.IO) {
-            arrayOf("1", "2", "3", "4-8").forEach {
-                bitmaps.addAll(UtilitySpcSwo.getImages(it, false))
-            }
         }
         bitmaps.forEach { bitmap ->
             val index = bitmaps.indexOf(bitmap)

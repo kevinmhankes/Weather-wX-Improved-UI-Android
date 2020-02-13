@@ -15,7 +15,8 @@
 // TODO       miscPref.split(":").dropLastWhile { it.isEmpty() }
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 
-55363 2020_02_13
+55363 2020_02_13    [FIX] SpcSwoSummaryActivity - onrestart don't remove views until new images are downloaded
+                    [ADD] WIP - not done - SPC Storm reports optimize for large landscape
 55362 2020_02_13    [ADD] SPC Thunder Storm outlook - multiple images per row (and tap on image to enter dedicated image viewer)
                     [ADD] SPC Fire weather outlook - multiple images per row
 55361 2020_02_12    [FIX] locfrag radar warn/watch - check for activityReferenceWithNull != null before proceed
