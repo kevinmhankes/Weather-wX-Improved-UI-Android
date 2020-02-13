@@ -13,7 +13,6 @@
 // TODO [FIX] dual/quad pane radar don't take up the entire screen on chomeOS
 // TODO [REF] move off MyApplication.colon.split MyApplication.colon.space
 // TODO       miscPref.split(":").dropLastWhile { it.isEmpty() }
-// TODO [ADD] use Smaller images on larger screens
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 
 55362 2020_02_13    [ADD] SPC Thunder Storm outlook - multiple images per row (and tap on image to enter dedicated image viewer)
