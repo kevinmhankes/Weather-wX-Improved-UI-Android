@@ -129,10 +129,7 @@ class ForecastActivity : BaseActivity() {
         cardSunrise.center()
         try {
             cardSunrise.text = (
-                    UtilityTimeSunMoon.getSunriseSunset(
-                            this@ForecastActivity,
-                            Location.currentLocationStr
-                    ) + MyApplication.newline + UtilityTime.gmtTime()
+                    UtilityTimeSunMoon.getSunriseSunset(this@ForecastActivity, Location.currentLocationStr, false) + MyApplication.newline + UtilityTime.gmtTime()
             )
         } catch (e: Exception) {
             UtilityLog.handleException(e)

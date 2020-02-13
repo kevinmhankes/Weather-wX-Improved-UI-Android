@@ -13,10 +13,12 @@
 // TODO [FIX] dual/quad pane radar don't take up the entire screen on chomeOS
 // TODO [REF] move off MyApplication.colon.split MyApplication.colon.space
 // TODO       miscPref.split(":").dropLastWhile { it.isEmpty() }
+// TODO [REF] reduce dependance on RegExp class
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 
 55363 2020_02_13    [FIX] SpcSwoSummaryActivity - onrestart don't remove views until new images are downloaded
                     [ADD] WIP - not done - SPC Storm reports optimize for large landscape
+                    [REF] remove redundant code in UtilityTimeSunMoon
 55362 2020_02_13    [ADD] SPC Thunder Storm outlook - multiple images per row (and tap on image to enter dedicated image viewer)
                     [ADD] SPC Fire weather outlook - multiple images per row
 55361 2020_02_12    [FIX] locfrag radar warn/watch - check for activityReferenceWithNull != null before proceed
@@ -29,7 +31,7 @@
 55358 2020_02_08    [ADD] substantial revamp of utilDownload, WFO text, national text with regards to data download and presentation
 55357 2020_02_08    [REF] lint (utilDownload)
                     [ADD] substantial revamp of utilDownload, WFO text, national text with regards to data download and presentation
-55356 2020_02_08    [REF] migrate off WebscreenABModels
+55356 2020_02_08    [REF] migrate off Web screenABModels
                     [FIX] use alternative sources for text products: WFO: AFD, SPC Convective Outlooks, Short Range disc
 55355 2020_02_06    [FIX] hourly now has quotes around temp
                     [ADD] keyboard shortcut for location selector on main screen

@@ -954,14 +954,16 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                         cardSunrise!!.text = (
                                 UtilityTimeSunMoon.getSunriseSunset(
                                         activityReference,
-                                        Location.currentLocationStr
+                                        Location.currentLocationStr,
+                                        false
                                 ) + MyApplication.newline + UtilityTime.gmtTime()
                                 )
                     } else {
                         cardSunrise!!.text = (
                                 UtilityTimeSunMoon.getSunriseSunset(
                                         activityReference,
-                                        Location.currentLocationStr
+                                        Location.currentLocationStr,
+                                        false
                                 ) + MyApplication.newline + UtilityTime.gmtTime()
                                 )
                     }
