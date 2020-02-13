@@ -100,7 +100,6 @@ class SpcFireOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
                         imagesPerRow
                 )
             }
-            //val card = ObjectCardImage(this@SpcFireOutlookActivity, ll, bitmap)
             val prod = UtilitySpcFireOutlook.textProducts[bitmaps.indexOf(bitmap)]
             objectCardImage.setOnClickListener(View.OnClickListener {
                 ObjectIntent(
