@@ -20,6 +20,7 @@
                     [ADD] WIP - not done - SPC Storm reports optimize for large landscape
                     [REF] remove redundant code in UtilityTimeSunMoon
                     [ADD] text product by state - temp and precip table, example RTPWI
+                    [ADD] increase max text size in settings -> radar from 20 to 40
 55362 2020_02_13    [ADD] SPC Thunder Storm outlook - multiple images per row (and tap on image to enter dedicated image viewer)
                     [ADD] SPC Fire weather outlook - multiple images per row
 55361 2020_02_12    [FIX] locfrag radar warn/watch - check for activityReferenceWithNull != null before proceed
