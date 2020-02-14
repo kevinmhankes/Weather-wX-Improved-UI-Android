@@ -118,6 +118,10 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         } else {
             activityArguments[1]
         }
+        if (product.startsWith("RTP") && product.length == 5) {
+            val state = Utility.getWfoSiteName(wfo).split(",")[0]
+            product = "RTP$state"
+        }
         title = product
         version = 1
         oldProduct = ""
@@ -222,7 +226,11 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         }
         UtilityTts.conditionalPlay(activityArguments, 2, applicationContext, html, product)
         if (activityArguments[1] == "") {
-            Utility.writePref(this@AfdActivity, "WFO_TEXT_FAV", product)
+            if (product.startsWith("RTP") && product.length == 5) {
+                Utility.writePref(this@AfdActivity, "WFO_TEXT_FAV", "RTPZZ")
+            } else {
+                Utility.writePref(this@AfdActivity, "WFO_TEXT_FAV", product)
+            }
             MyApplication.wfoTextFav = product
         }
         oldProduct = product
@@ -290,6 +298,10 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         wfo = loc.toUpperCase(Locale.US)
         originalWfo = wfo
         mapShown = false
+       /* if (product.startsWith("RTP") && product.length == 5) {
+            val state = Utility.getWfoSiteName(wfo).split(",")[0]
+            product = "RTP$state"
+        }*/
         locationList = UtilityFavorites.setupFavMenu(this, MyApplication.wfoFav, wfo, prefToken)
         spinner.refreshData(this, locationList)
     }
@@ -318,6 +330,10 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 else -> {
                     wfo = locationList[pos].split(" ").getOrNull(0) ?: ""
                     originalWfo = wfo
+                    if (product.startsWith("RTP") && product.length == 5) {
+                        val state = Utility.getWfoSiteName(wfo).split(",")[0]
+                        product = "RTP$state"
+                    }
                     if (product == "CLI") {
                         checkForCliSite()
                     } else {

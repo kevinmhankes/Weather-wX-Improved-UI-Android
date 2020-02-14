@@ -566,17 +566,8 @@ object UtilityDownload {
                 val urlProd = html.parse("\"id\": \"(.*?)\"")
                 val prodHtml = (MyApplication.nwsApiUrl + "/products/$urlProd").getNwsHtml()
                 text = UtilityString.parseAcrossLines(prodHtml, "\"productText\": \"(.*?)\\}")
-                if (!prod.startsWith("RTP")) {
-                    text = text.replace("\\n\\n", "<BR>")
-                    text = text.replace("\\n", " ")
-                } else {
-                    text = text.replace("\\n", "\n")
-                }
-                /*val url = "https://forecast.weather.gov/product.php?site=$location&issuedby=$location&product=$product"
-                // https://forecast.weather.gov/product.php?site=ILX&issuedby=IL&product=RWR
-                text = url.getHtmlSep()
-                text = UtilityString.extractPreLsr(text)
-                text = text.replace("<br>", "\n")*/
+                text = text.replace("\\n\\n", "\n")
+                text = text.replace("\\n", "\n")
             }
             prod.startsWith("CLI") -> {
                 //val product = prod.substring(0, 3)
