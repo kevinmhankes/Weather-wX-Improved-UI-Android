@@ -16,6 +16,8 @@
 // TODO [REF] reduce use of RegExp class
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 // TODO [REF] objectNhc refactor
+// TODO [FIX] settings -> about crash when hit share icon (set share text to about)
+// TODO [FIX] Shorten nhc verbiage when no cyclones
 
 55364 2020_02_14
 55363 2020_02_14    [FIX] SpcSwoSummaryActivity - onrestart don't remove views until new images are downloaded
