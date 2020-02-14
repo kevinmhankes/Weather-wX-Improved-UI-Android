@@ -331,7 +331,6 @@ object UtilityDownload {
     fun getTextProduct(context: Context, prodF: String): String {
         var text: String
         val prod = prodF.toUpperCase(Locale.US)
-
         when {
             prod == "AFDLOC" -> {
                 text = getTextProduct(context, "afd" + Location.wfo.toLowerCase(Locale.US))
@@ -549,7 +548,7 @@ object UtilityDownload {
                 text = text.replace("<br>", "\n")
             }
             prod.startsWith("NSH")
-                    || prod.startsWith("RTP") -> {
+                    || (prod.startsWith("RTP") && prod.length == 6) -> {
                 val product = prod.substring(0, 3)
                 val location = prod.substring(3).replace("%", "")
                 val url = "https://forecast.weather.gov/product.php?site=$location&issuedby=$location&product=$product"
@@ -557,6 +556,27 @@ object UtilityDownload {
                 text = url.getHtmlSep()
                 text = UtilityString.extractPreLsr(text)
                 text = text.replace("<br>", "\n")
+            }
+            prod.startsWith("RTP") && prod.length == 5 -> {
+                val product = prod.substring(0, 3)
+                val location = prod.substring(3, 5).replace("%", "")
+                val url = MyApplication.nwsApiUrl + "/products/types/$product/locations/$location"
+                UtilityLog.d("Wx", url)
+                val html = url.getNwsHtml()
+                val urlProd = html.parse("\"id\": \"(.*?)\"")
+                val prodHtml = (MyApplication.nwsApiUrl + "/products/$urlProd").getNwsHtml()
+                text = UtilityString.parseAcrossLines(prodHtml, "\"productText\": \"(.*?)\\}")
+                if (!prod.startsWith("RTP")) {
+                    text = text.replace("\\n\\n", "<BR>")
+                    text = text.replace("\\n", " ")
+                } else {
+                    text = text.replace("\\n", "\n")
+                }
+                /*val url = "https://forecast.weather.gov/product.php?site=$location&issuedby=$location&product=$product"
+                // https://forecast.weather.gov/product.php?site=ILX&issuedby=IL&product=RWR
+                text = url.getHtmlSep()
+                text = UtilityString.extractPreLsr(text)
+                text = text.replace("<br>", "\n")*/
             }
             prod.startsWith("CLI") -> {
                 //val product = prod.substring(0, 3)
