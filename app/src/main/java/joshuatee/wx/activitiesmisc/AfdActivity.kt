@@ -298,10 +298,6 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         wfo = loc.toUpperCase(Locale.US)
         originalWfo = wfo
         mapShown = false
-       /* if (product.startsWith("RTP") && product.length == 5) {
-            val state = Utility.getWfoSiteName(wfo).split(",")[0]
-            product = "RTP$state"
-        }*/
         locationList = UtilityFavorites.setupFavMenu(this, MyApplication.wfoFav, wfo, prefToken)
         spinner.refreshData(this, locationList)
     }

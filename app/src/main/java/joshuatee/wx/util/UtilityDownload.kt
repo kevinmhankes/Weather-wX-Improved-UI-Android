@@ -561,7 +561,6 @@ object UtilityDownload {
                 val product = prod.substring(0, 3)
                 val location = prod.substring(3, 5).replace("%", "")
                 val url = MyApplication.nwsApiUrl + "/products/types/$product/locations/$location"
-                UtilityLog.d("Wx", url)
                 val html = url.getNwsHtml()
                 val urlProd = html.parse("\"id\": \"(.*?)\"")
                 val prodHtml = (MyApplication.nwsApiUrl + "/products/$urlProd").getNwsHtml()
