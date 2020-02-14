@@ -19,6 +19,7 @@
 // TODO [REF] Add Image class that stores bitmap, url and anything else relevant ( like Swift )
 // TODO [FIX] settings -> about crash when hit share icon (set share text to about)
 // TODO [FIX] Shorten nhc verbiage when no cyclones
+// TODO [FIX] chromeOS: text size for observations in nexrad
 
 55364 2020_02_14
 55363 2020_02_14    [FIX] SpcSwoSummaryActivity - onrestart don't remove views until new images are downloaded
