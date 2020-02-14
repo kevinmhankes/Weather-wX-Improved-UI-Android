@@ -13,10 +13,10 @@
 // TODO [FIX] dual/quad pane radar don't take up the entire screen on chomeOS
 // TODO [REF] move off MyApplication.colon.split MyApplication.colon.space
 // TODO       miscPref.split(":").dropLastWhile { it.isEmpty() }
-// TODO [REF] reduce dependance on RegExp class
+// TODO [REF] reduce use of RegExp class
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
 
-55363 2020_02_13    [FIX] SpcSwoSummaryActivity - onrestart don't remove views until new images are downloaded
+55363 2020_02_14    [FIX] SpcSwoSummaryActivity - onrestart don't remove views until new images are downloaded
                     [ADD] WIP - not done - SPC Storm reports optimize for large landscape
                     [REF] remove redundant code in UtilityTimeSunMoon
                     [ADD] text product by state - temp and precip table, example RTPWI
