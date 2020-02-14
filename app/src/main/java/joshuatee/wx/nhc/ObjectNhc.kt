@@ -207,6 +207,8 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         }
     }
 
+
+    // FIXME reduce to one method ( below 3 )
     fun showAtlanticImageData() {
         bitmapsAtlantic.forEach {
             val objectCardImage: ObjectCardImage

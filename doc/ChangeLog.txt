@@ -15,6 +15,7 @@
 // TODO       miscPref.split(":").dropLastWhile { it.isEmpty() }
 // TODO [REF] reduce use of RegExp class
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
+// TODO [REF] objectNhc refactor
 
 55364 2020_02_14
 55363 2020_02_14    [FIX] SpcSwoSummaryActivity - onrestart don't remove views until new images are downloaded
