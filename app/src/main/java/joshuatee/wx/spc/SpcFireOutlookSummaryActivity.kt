@@ -37,7 +37,6 @@ import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectLinearLayout
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.UtilityShare
-import joshuatee.wx.wpc.WpcTextProductsActivity
 import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
@@ -80,7 +79,7 @@ class SpcFireOutlookSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickLis
         ll.removeAllViews()
         var numberOfImages = 0
         val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
-        bitmaps.forEachIndexed() { index, bitmap ->
+        bitmaps.forEachIndexed { index, bitmap ->
             val objectCardImage: ObjectCardImage
             if (numberOfImages % imagesPerRow == 0) {
                 val objectLinearLayout = ObjectLinearLayout(this@SpcFireOutlookSummaryActivity, ll)
@@ -100,7 +99,6 @@ class SpcFireOutlookSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickLis
                         imagesPerRow
                 )
             }
-            //val prod = UtilitySpcFireOutlook.textProducts[bitmaps.indexOf(bitmap)]
             objectCardImage.setOnClickListener(View.OnClickListener {
                 ObjectIntent(
                         this@SpcFireOutlookSummaryActivity,

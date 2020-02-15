@@ -61,6 +61,8 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     private var imagesPerRow = 2
     private val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout>()
 
+    val regionMap: MutableMap<String, ObjectNhcRegionSummary> = mutableMapOf()
+
     init {
         if (UtilityUI.isLandScape(context)) {
             imagesPerRow = 3
