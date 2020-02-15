@@ -35,6 +35,7 @@ import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectLinearLayout
+import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.util.UtilityShortcut
 import kotlinx.coroutines.*
@@ -45,7 +46,7 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmaps = mutableListOf<Bitmap>()
-    private lateinit var linearLayoutHorizontalList: List<ObjectLinearLayout>
+    private var imagesPerRow = 2
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +56,9 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
                 R.menu.spc_swo_summary,
                 true
         )
+        if (UtilityUI.isLandScape(this)) {
+            imagesPerRow = 3
+        }
         toolbarBottom.setOnMenuItemClickListener(this)
         val menu = toolbarBottom.menu
         UtilityShortcut.hidePinIfNeeded(menu)
@@ -76,26 +80,42 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
             }
         }
         ll.removeAllViews()
-        linearLayoutHorizontalList = listOf(
-                ObjectLinearLayout(this@SpcSwoSummaryActivity, ll),
-                ObjectLinearLayout(this@SpcSwoSummaryActivity, ll),
-                ObjectLinearLayout(this@SpcSwoSummaryActivity, ll),
-                ObjectLinearLayout(this@SpcSwoSummaryActivity, ll)
-        )
-        linearLayoutHorizontalList.forEach {
-            it.linearLayout.orientation = LinearLayout.HORIZONTAL
-        }
-        bitmaps.forEach { bitmap ->
-            val index = bitmaps.indexOf(bitmap)
-            val card = ObjectCardImage(this@SpcSwoSummaryActivity, linearLayoutHorizontalList[index / 2].linearLayout, bitmap, 2)
-            val day = if (bitmaps.indexOf(bitmap) < 3) {
-                (bitmaps.indexOf(bitmap) + 1).toString()
+        var numberOfImages = 0
+        val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
+        bitmaps.forEachIndexed { index, bitmap ->
+            val day = if (index < 3) {
+                (index + 1).toString()
             } else {
                 "4-8"
             }
-            card.setOnClickListener(View.OnClickListener {
-                ObjectIntent(this@SpcSwoSummaryActivity, SpcSwoActivity::class.java, SpcSwoActivity.NO, arrayOf(day, ""))
+            val objectCardImage: ObjectCardImage
+            if (numberOfImages % imagesPerRow == 0) {
+                val objectLinearLayout = ObjectLinearLayout(this@SpcSwoSummaryActivity, ll)
+                objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
+                horizontalLinearLayouts.add(objectLinearLayout)
+                objectCardImage = ObjectCardImage(
+                        this@SpcSwoSummaryActivity,
+                        objectLinearLayout.linearLayout,
+                        bitmap,
+                        imagesPerRow
+                )
+            } else {
+                objectCardImage = ObjectCardImage(
+                        this@SpcSwoSummaryActivity,
+                        horizontalLinearLayouts.last().linearLayout,
+                        bitmap,
+                        imagesPerRow
+                )
+            }
+            objectCardImage.setOnClickListener(View.OnClickListener {
+                ObjectIntent(
+                        this@SpcSwoSummaryActivity,
+                        SpcSwoActivity::class.java,
+                        SpcSwoActivity.NO,
+                        arrayOf(day, "")
+                )
             })
+            numberOfImages += 1
         }
     }
 

@@ -24,6 +24,7 @@
                     [ADD] dedicated SpcFireOutlookActivity activity to show graphic and text
                     [REF] objectNhc refactor
                     [ADD] enhance WPC Rainfall forecast, support landscape, use dedicate image/text viewer for each day
+                    [ADD] SPC Summary support landscape and use generic LinearLayout code
 55363 2020_02_14    [FIX] SpcSwoSummaryActivity - onrestart don't remove views until new images are downloaded
                     [ADD] WIP - not done - SPC Storm reports optimize for large landscape
                     [REF] remove redundant code in UtilityTimeSunMoon
