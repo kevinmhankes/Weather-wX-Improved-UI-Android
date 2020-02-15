@@ -85,7 +85,8 @@ class SpcFireOutlookActivity : AudioPlayActivity(), OnMenuItemClickListener {
         activityArguments = intent.getStringArrayExtra(NUMBER)!!
         textProduct = activityArguments[0]
         imageUrl = activityArguments[1]
-        title = textProduct
+        title = "Fire Weather Outlook"
+        toolbar.subtitle = "SPC $textProduct"
         getContent()
     }
 

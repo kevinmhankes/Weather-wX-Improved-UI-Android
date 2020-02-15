@@ -88,6 +88,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         activityArguments = intent.getStringArrayExtra(NO)!!
         day = activityArguments[0]
         title = "Day $day Convective Outlook"
+        toolbar.subtitle = "SPC"
         val menu = toolbarBottom.menu
         val miTornado = menu.findItem(R.id.action_share_tornado)
         val miHail = menu.findItem(R.id.action_share_hail)

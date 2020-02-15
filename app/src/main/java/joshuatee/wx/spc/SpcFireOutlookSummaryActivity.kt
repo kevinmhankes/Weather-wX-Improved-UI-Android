@@ -59,8 +59,8 @@ class SpcFireOutlookSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickLis
             imagesPerRow = 3
         }
         toolbarBottom.setOnMenuItemClickListener(this)
-        title = "SPC"
-        toolbar.subtitle = "Fire Weather Outlook"
+        toolbar.subtitle = "SPC"
+        title = "Fire Weather Outlooks"
         getContent()
     }
 

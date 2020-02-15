@@ -62,8 +62,8 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         toolbarBottom.setOnMenuItemClickListener(this)
         val menu = toolbarBottom.menu
         UtilityShortcut.hidePinIfNeeded(menu)
-        title = "SPC"
-        toolbar.subtitle = "Convective Outlook Summary"
+        toolbar.subtitle = "SPC"
+        title = "Convective Outlooks"
         getContent()
     }
 
