@@ -29,7 +29,6 @@ import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityString
 
-import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectLinearLayout
@@ -55,35 +54,24 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     }
 
     fun getTextData() {
-        var stormInfo: ObjectNhcStormInfo
-        (1 until 6).forEach {
-            stormInfo = UtilityNhc.getHurricaneInfo("${MyApplication.nwsNhcWebsitePrefix}/nhc_at" + it.toString() + ".xml")
-            if (stormInfo.title != "") {
-                regionMap[NhcOceanEnum.ATL]!!.storms.add(
-                        ObjectNhcStormInfo(
-                                stormInfo.title.replace(regionMap[NhcOceanEnum.ATL]!!.replaceString, ""),
-                                stormInfo.summary,
-                                UtilityString.getNwsPre(stormInfo.url),
-                                stormInfo.image1,
-                                stormInfo.image2,
-                                stormInfo.wallet
+        NhcOceanEnum.values().forEach { type ->
+            if (type != NhcOceanEnum.CPAC) {
+                var stormInfo: ObjectNhcStormInfo
+                (1 until 6).forEach {
+                    stormInfo = UtilityNhc.getHurricaneInfo(regionMap[type]!!.baseUrl + it.toString() + ".xml")
+                    if (stormInfo.title != "") {
+                        regionMap[type]!!.storms.add(
+                                ObjectNhcStormInfo(
+                                        stormInfo.title.replace(regionMap[type]!!.replaceString, ""),
+                                        stormInfo.summary,
+                                        UtilityString.getNwsPre(stormInfo.url),
+                                        stormInfo.image1,
+                                        stormInfo.image2,
+                                        stormInfo.wallet
+                                )
                         )
-                )
-            }
-        }
-        (1 until 6).forEach {
-            stormInfo = UtilityNhc.getHurricaneInfo("${MyApplication.nwsNhcWebsitePrefix}/nhc_ep" + it.toString() + ".xml")
-            if (stormInfo.title != "") {
-                regionMap[NhcOceanEnum.EPAC]!!.storms.add(
-                        ObjectNhcStormInfo(
-                                stormInfo.title.replace(regionMap[NhcOceanEnum.EPAC]!!.replaceString, ""),
-                                stormInfo.summary,
-                                UtilityString.getNwsPre(stormInfo.url),
-                                stormInfo.image1,
-                                stormInfo.image2,
-                                stormInfo.wallet
-                        )
-                )
+                    }
+                }
             }
         }
     }

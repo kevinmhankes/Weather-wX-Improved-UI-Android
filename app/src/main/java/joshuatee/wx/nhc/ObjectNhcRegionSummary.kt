@@ -34,6 +34,7 @@ class ObjectNhcRegionSummary(region: NhcOceanEnum) {
     var bitmaps = listOf<Bitmap>()
     var storms = mutableListOf<ObjectNhcStormInfo>()
     var replaceString: String
+    var baseUrl: String
 
     init {
         when (region) {
@@ -49,6 +50,7 @@ class ObjectNhcRegionSummary(region: NhcOceanEnum) {
                         "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_5d0.png"
                 )
                 replaceString = "NHC Atlantic Wallet"
+                baseUrl = "${MyApplication.nwsNhcWebsitePrefix}/nhc_at"
             }
             NhcOceanEnum.EPAC -> {
                 titles = listOf(
@@ -62,6 +64,7 @@ class ObjectNhcRegionSummary(region: NhcOceanEnum) {
                         "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_5d0.png"
                 )
                 replaceString = "NHC Eastern Pacific Wallet"
+                baseUrl = "${MyApplication.nwsNhcWebsitePrefix}/nhc_ep"
             }
             NhcOceanEnum.CPAC -> {
                 titles = listOf(
@@ -75,6 +78,7 @@ class ObjectNhcRegionSummary(region: NhcOceanEnum) {
                         "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_5d0.png"
                 )
                 replaceString = ""
+                baseUrl = ""
             }
         }
     }
