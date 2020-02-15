@@ -288,7 +288,6 @@ class MiscFragment : Fragment() {
                 miscPref += "wpc_rainfall:"
                 Utility.writePref("FRAGMENT_MISC_ORDER", miscPref)
             }
-            //val tileOrderArr = MyApplication.colon.split(miscPref)
             val tileOrderArr = miscPref.split(":").dropLastWhile { it.isEmpty() }
             return tileOrderArr
                     .filterNot { it.contains("model_cod") || it.contains("model_wrf") || it.contains("model_ncar_ensemble") }

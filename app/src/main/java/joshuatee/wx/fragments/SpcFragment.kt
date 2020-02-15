@@ -36,7 +36,7 @@ import joshuatee.wx.models.ModelsSpcSrefActivity
 import joshuatee.wx.models.ModelsSpcHrefActivity
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.spc.SpcCompmapActivity
-import joshuatee.wx.spc.SpcFireOutlookActivity
+import joshuatee.wx.spc.SpcFireOutlookSummaryActivity
 import joshuatee.wx.spc.SpcMcdWatchShowSummaryActivity
 import joshuatee.wx.spc.SpcMesoActivity
 import joshuatee.wx.spc.SpcSwoActivity
@@ -139,7 +139,7 @@ class SpcFragment : Fragment() {
                     "spcmeso", "Mesoanalysis"
             )
             hm["spcfire"] = TileObject(
-                    R.drawable.fire_outlook, SpcFireOutlookActivity::class.java, "",
+                    R.drawable.fire_outlook, SpcFireOutlookSummaryActivity::class.java, "",
                     arrayOf(""), resources.getString(R.string.help_spc_fire_weather), "spcfire", "Fire outlooks"
             )
             hm["spctstorm"] = TileObject(
@@ -180,7 +180,6 @@ class SpcFragment : Fragment() {
                 spcPref += "spchref:"
                 Utility.writePref("FRAGMENT_SPC_ORDER", spcPref)
             }
-            //val tileOrderArr = MyApplication.colon.split(spcPref)
             val tileOrderArr = spcPref.split(":").dropLastWhile { it.isEmpty() }
             return tileOrderArr
                     .filterNot { it.contains("modeltt") }.filterNot { it.contains("spcsseo") }

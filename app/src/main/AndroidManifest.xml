@@ -273,6 +273,11 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
+      android:name=".spc.SpcFireOutlookSummaryActivity"
+      android:label="@string/title_activity_spcfire_outlook"
+      android:parentActivityName="WX" >
+  </activity>
+  <activity
       android:name=".spc.SpcFireOutlookActivity"
       android:label="@string/title_activity_spcfire_outlook"
       android:parentActivityName="WX" >
