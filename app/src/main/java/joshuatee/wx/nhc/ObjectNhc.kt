@@ -37,25 +37,12 @@ import joshuatee.wx.ui.UtilityUI
 
 class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
 
-    private val atlSumList = mutableListOf<String>()
-    private val atlLinkList = mutableListOf<String>()
-    private val atlImg1List = mutableListOf<String>()
-    private val atlImg2List = mutableListOf<String>()
-    private val atlWalletList = mutableListOf<String>()
-    private val atlTitleList = mutableListOf<String>()
-    private val pacSumList = mutableListOf<String>()
-    private val pacLinkList = mutableListOf<String>()
-    private val pacImg1List = mutableListOf<String>()
-    private val pacImg2List = mutableListOf<String>()
-    private val pacWalletList = mutableListOf<String>()
-    private val pacTitleList = mutableListOf<String>()
     private var notificationCard: ObjectCardText? = null
     private val cardNotificationHeaderText = "Currently blocked storm notifications, tap this text to clear all blocks "
     var html: String = ""
     private var numberOfImages = 0
     private var imagesPerRow = 2
     private val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout>()
-
     val regionMap: MutableMap<NhcOceanEnum, ObjectNhcRegionSummary> = mutableMapOf()
 
     init {
@@ -68,27 +55,35 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     }
 
     fun getTextData() {
-        var dataRet: ObjectNhcStormInfo
+        var stormInfo: ObjectNhcStormInfo
         (1 until 6).forEach {
-            dataRet = UtilityNhc.getHurricaneInfo("${MyApplication.nwsNhcWebsitePrefix}/nhc_at" + it.toString() + ".xml")
-            if (dataRet.title != "") {
-                atlSumList.add(dataRet.summary)
-                atlLinkList.add(UtilityString.getNwsPre(dataRet.url))
-                atlImg1List.add(dataRet.img1)
-                atlImg2List.add(dataRet.img2)
-                atlWalletList.add(dataRet.wallet)
-                atlTitleList.add(dataRet.title.replace("NHC Atlantic Wallet", ""))
+            stormInfo = UtilityNhc.getHurricaneInfo("${MyApplication.nwsNhcWebsitePrefix}/nhc_at" + it.toString() + ".xml")
+            if (stormInfo.title != "") {
+                regionMap[NhcOceanEnum.ATL]!!.storms.add(
+                        ObjectNhcStormInfo(
+                                stormInfo.title.replace(regionMap[NhcOceanEnum.ATL]!!.replaceString, ""),
+                                stormInfo.summary,
+                                UtilityString.getNwsPre(stormInfo.url),
+                                stormInfo.image1,
+                                stormInfo.image2,
+                                stormInfo.wallet
+                        )
+                )
             }
         }
         (1 until 6).forEach {
-            dataRet = UtilityNhc.getHurricaneInfo("${MyApplication.nwsNhcWebsitePrefix}/nhc_ep" + it.toString() + ".xml")
-            if (dataRet.title != "") {
-                pacSumList.add(dataRet.summary)
-                pacLinkList.add(UtilityString.getNwsPre(dataRet.url))
-                pacImg1List.add(dataRet.img1)
-                pacImg2List.add(dataRet.img2)
-                pacWalletList.add(dataRet.wallet)
-                pacTitleList.add(dataRet.title.replace("NHC Eastern Pacific Wallet", ""))
+            stormInfo = UtilityNhc.getHurricaneInfo("${MyApplication.nwsNhcWebsitePrefix}/nhc_ep" + it.toString() + ".xml")
+            if (stormInfo.title != "") {
+                regionMap[NhcOceanEnum.EPAC]!!.storms.add(
+                        ObjectNhcStormInfo(
+                                stormInfo.title.replace(regionMap[NhcOceanEnum.EPAC]!!.replaceString, ""),
+                                stormInfo.summary,
+                                UtilityString.getNwsPre(stormInfo.url),
+                                stormInfo.image1,
+                                stormInfo.image2,
+                                stormInfo.wallet
+                        )
+                )
             }
         }
     }
@@ -105,21 +100,21 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         } else {
             notificationCard?.visibility = View.GONE
         }
-        if (atlSumList.size < 1) {
+        if (regionMap[NhcOceanEnum.ATL]!!.storms.size < 1) {
             val noAtl = "There are no tropical cyclones in the Atlantic at this time."
             ObjectCardText(context, linearLayout, noAtl)
             html = noAtl
         } else {
-            atlSumList.indices.forEach { k ->
-                if (atlImg1List[k] != "") {
-                    val objStormData = ObjectNhcStormDetails(atlSumList[k])
+            regionMap[NhcOceanEnum.ATL]!!.storms.forEach {
+                if (it.image1 != "") {
+                    val objStormData = ObjectNhcStormDetails(it.summary)
                     val cAtlData = ObjectCardNhcStormReportItem(context, linearLayout, objStormData)
-                    html += atlSumList[k]
-                    val url = atlLinkList[k]
-                    val imgUrl1 = atlImg1List[k]
-                    val imgUrl2 = atlImg2List[k]
-                    val title = atlTitleList[k]
-                    val wallet = atlWalletList[k]
+                    html += it.summary
+                    val url = it.url
+                    val imgUrl1 = it.image1
+                    val imgUrl2 = it.image2
+                    val title = it.title
+                    val wallet = it.wallet
                     cAtlData.setListener(View.OnClickListener {
                         ObjectIntent(
                                 context,
@@ -131,21 +126,21 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
                 }
             }
         }
-        if (pacSumList.size < 1) {
+        if (regionMap[NhcOceanEnum.EPAC]!!.storms.size < 1) {
             val noPac = "There are no tropical cyclones in the Eastern Pacific at this time."
             ObjectCardText(context, linearLayout, noPac)
             html += noPac
         } else {
-            pacSumList.indices.forEach { k ->
-                if (pacImg1List[k] != "") {
-                    val objStormData = ObjectNhcStormDetails(pacSumList[k])
+            regionMap[NhcOceanEnum.ATL]!!.storms.forEach {
+                if (it.image1 != "") {
+                    val objStormData = ObjectNhcStormDetails(it.summary)
                     val cPacData = ObjectCardNhcStormReportItem(context, linearLayout, objStormData)
-                    html += pacSumList[k]
-                    val url = pacLinkList[k]
-                    val imgUrl1 = pacImg1List[k]
-                    val imgUrl2 = pacImg2List[k]
-                    val title = pacTitleList[k]
-                    val wallet = pacWalletList[k]
+                    html += it.summary
+                    val url = it.url
+                    val imgUrl1 = it.image1
+                    val imgUrl2 = it.image2
+                    val title = it.title
+                    val wallet = it.wallet
                     cPacData.setListener(View.OnClickListener {
                         ObjectIntent(
                                 context,
