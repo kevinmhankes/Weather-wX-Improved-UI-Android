@@ -19,7 +19,9 @@
 // TODO [ADD] storm reports - optimization for landscape
 // TODO [ADD] us alerts - optimization for landscape
 // TODO [FIX] chromeOS: text size for observations in nexrad
+// TODO [ADD] for multipane like SPC Meso and model if in landscape due horizonal
 
+55366 2020_02_15
 55365 2020_02_15    [FIX] fire weather header
                     [ADD] SPC SWO for landscape ( 4 wide )
 55364 2020_02_15    [FIX] settings -> about crash when hit share icon (set share text to about)
