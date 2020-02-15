@@ -25,12 +25,6 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 
 internal object UtilityWpcRainfallForecast {
-    
-    val productLabels = listOf(
-            "Day 1",
-            "Day 2",
-            "Day 3"
-    )
 
     val productCode = listOf(
             "QPF94E",

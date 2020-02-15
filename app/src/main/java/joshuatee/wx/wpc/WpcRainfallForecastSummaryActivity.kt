@@ -59,7 +59,7 @@ class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemCli
             imagesPerRow = 3
         }
         toolbarBottom.setOnMenuItemClickListener(this)
-        title = "Excessive Rainfall Forecasts"
+        title = "Excessive Rainfall Outlooks"
         toolbar.subtitle = "WPC"
         getContent()
     }
