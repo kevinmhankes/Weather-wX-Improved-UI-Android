@@ -66,10 +66,10 @@ class WX : CommonActionBarFragment() {
         toolbarBottom.setOnMenuItemClickListener(this)
         toolbarBottom.setOnClickListener { toolbarBottom.showOverflowMenu() }
         val menu = toolbarBottom.menu
-        helpMi = menu.findItem(R.id.action_help)
+        //helpMi = menu.findItem(R.id.action_help)
         miVr = menu.findItem(R.id.action_vr)
         miVr.isVisible = MyApplication.vrButton
-        if (MyApplication.helpMode) helpMi.title = helpStr
+        //if (MyApplication.helpMode) helpMi.title = helpStr
         val fab = ObjectFab(
                 this,
                 this,
@@ -154,10 +154,10 @@ class WX : CommonActionBarFragment() {
     override fun onRestart() {
         super.onRestart()
         miVr.isVisible = MyApplication.vrButton
-        if (MyApplication.helpMode)
-            helpMi.title = helpStr
-        else
-            helpMi.title = "Help"
+        //if (MyApplication.helpMode)
+        //    helpMi.title = helpStr
+        //else
+        //    helpMi.title = "Help"
         backButtonCounter = 0
         refreshDynamicContent()
     }

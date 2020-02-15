@@ -61,22 +61,22 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
     // settings, and about
 
     private val requestOk = 1
-    protected lateinit var helpMi: MenuItem
-    protected val helpStr: String = "Help is on"
+    //protected lateinit var helpMi: MenuItem
+    //protected val helpStr: String = "Help is on"
     lateinit var view: View
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.cab, menu)
-        helpMi = menu.findItem(R.id.action_help)
-        if (MyApplication.helpMode) {
-            helpMi.title = helpStr
-        }
+        //helpMi = menu.findItem(R.id.action_help)
+        //if (MyApplication.helpMode) {
+        //    helpMi.title = helpStr
+        //}
         return true
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_help -> {
+            /*R.id.action_help -> {
                 if (MyApplication.helpMode) {
                     MyApplication.helpMode = false
                     UtilityUI.makeSnackBar(
@@ -92,11 +92,11 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                     )
                     helpMi.title = helpStr
                 }
-            }
+            }*/
             R.id.action_alert -> {
-                if (MyApplication.helpMode) {
-                    showHelpCAB(item.itemId)
-                } else {
+                //if (MyApplication.helpMode) {
+                //    showHelpCAB(item.itemId)
+                //} else {
                     if (Location.isUS) {
                         ObjectIntent(
                                 this,
@@ -110,12 +110,12 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                     } else {
                         ObjectIntent(this, CanadaAlertsActivity::class.java)
                     }
-                }
+                //}
             }
             R.id.action_observations -> {
-                if (MyApplication.helpMode) {
-                    showHelpCAB(item.itemId)
-                } else {
+                //if (MyApplication.helpMode) {
+                //    showHelpCAB(item.itemId)
+                //} else {
                     if (Location.isUS) {
                         ObjectIntent(
                                 this,
@@ -134,26 +134,26 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                                 )
                         )
                     }
-                }
+                //}
             }
             R.id.action_playlist -> {
-                if (MyApplication.helpMode) {
-                    showHelpCAB(item.itemId)
-                } else {
+                //if (MyApplication.helpMode) {
+                //    showHelpCAB(item.itemId)
+                //} else {
                     ObjectIntent(this, SettingsPlaylistActivity::class.java)
-                }
+                //}
             }
             R.id.action_soundings -> {
-                if (MyApplication.helpMode) {
-                    showHelpCAB(item.itemId)
-                } else {
+                //if (MyApplication.helpMode) {
+                //    showHelpCAB(item.itemId)
+                //} else {
                     if (Location.isUS) ObjectIntent(
                             this,
                             SpcSoundingsActivity::class.java,
                             SpcSoundingsActivity.URL,
                             arrayOf(Location.wfo, "")
                     )
-                }
+                //}
             }
             R.id.action_cloud -> openVis(item.itemId)
             R.id.action_radar -> openNexradRadar(this, item.itemId)
@@ -163,9 +163,9 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
             R.id.action_spotters -> ObjectIntent(this, SpottersActivity::class.java)
             R.id.action_settings -> openSettings(item.itemId)
             R.id.action_radar_mosaic -> {
-                if (MyApplication.helpMode) {
-                    showHelpCAB(item.itemId)
-                } else {
+                //if (MyApplication.helpMode) {
+                //    showHelpCAB(item.itemId)
+                //} else {
                     if (Location.isUS) {
                         if (!UIPreferences.useAwcRadarMosaic) {
                             ObjectIntent(
@@ -195,12 +195,12 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                                 arrayOf(UtilityCanada.getECSectorFromProv(prov), "rad")
                         )
                     }
-                }
+                //}
             }
             R.id.action_vr -> {
-                if (MyApplication.helpMode) {
-                    showHelpCAB(item.itemId)
-                } else {
+                //if (MyApplication.helpMode) {
+                //    showHelpCAB(item.itemId)
+                //} else {
                     if (UtilityTts.mMediaPlayer != null && UtilityTts.mMediaPlayer!!.isPlaying) {
                         UtilityTts.mMediaPlayer!!.stop()
                         UtilityTts.ttsIsPaused = true
@@ -216,14 +216,14 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                                 Toast.LENGTH_LONG
                         ).show()
                     }
-                }
+                //}
             }
             else -> return super.onOptionsItemSelected(item)
         }
         return true
     }
 
-    private fun showHelpCAB(helpItem: Int) {
+    /*private fun showHelpCAB(helpItem: Int) {
         when (helpItem) {
             R.id.action_alert -> showHelpTextCAB(resources.getString(R.string.help_uswarn))
             R.id.action_cloud -> showHelpTextCAB(resources.getString(R.string.help_cloud))
@@ -237,9 +237,9 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
             R.id.action_playlist -> showHelpTextCAB(resources.getString(R.string.help_playlist))
             R.id.action_soundings -> showHelpTextCAB(resources.getString(R.string.help_soundings))
         }
-    }
+    }*/
 
-    private fun showHelpTextCAB(helpStr: String) = UtilityAlertDialog.showHelpText(helpStr, this)
+    //private fun showHelpTextCAB(helpStr: String) = UtilityAlertDialog.showHelpText(helpStr, this)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -259,9 +259,9 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
     }
 
     fun openNexradRadar(context: Context, itemID: Int) {
-        if (MyApplication.helpMode) {
-            showHelpCAB(itemID)
-        } else {
+        //if (MyApplication.helpMode) {
+        //    showHelpCAB(itemID)
+        //} else {
             if (Location.isUS) {
                 if (!UIPreferences.dualpaneRadarIcon) {
                     ObjectIntent(
@@ -286,13 +286,13 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                         arrayOf(Location.rid, "rad")
                 )
             }
-        }
+        //}
     }
 
     fun openAfd(itemID: Int) {
-        if (MyApplication.helpMode) {
-            showHelpCAB(itemID)
-        } else {
+        //if (MyApplication.helpMode) {
+        //    showHelpCAB(itemID)
+        //} else {
             if (Location.isUS) {
                 ObjectIntent(
                         this,
@@ -303,21 +303,21 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
             } else {
                 ObjectIntent(this, CanadaTextActivity::class.java)
             }
-        }
+        //}
     }
 
     fun openSettings(itemID: Int) {
-        if (MyApplication.helpMode) {
-            showHelpCAB(itemID)
-        } else {
+        //if (MyApplication.helpMode) {
+        //    showHelpCAB(itemID)
+        //} else {
             ObjectIntent(this, SettingsMainActivity::class.java)
-        }
+        //}
     }
 
     fun openVis(itemID: Int) {
-        if (MyApplication.helpMode) {
-            showHelpCAB(itemID)
-        } else {
+        //if (MyApplication.helpMode) {
+        //    showHelpCAB(itemID)
+        //} else {
             if (Location.isUS) {
                 ObjectIntent(this, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
             } else {
@@ -328,25 +328,25 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                         arrayOf(Location.rid, "vis")
                 )
             }
-        }
+        //}
     }
 
     fun openDashboard(itemID: Int) {
-        if (MyApplication.helpMode) {
-            showHelpCAB(itemID)
-        } else {
+        //if (MyApplication.helpMode) {
+        //    showHelpCAB(itemID)
+        //} else {
             if (Location.isUS) {
                 ObjectIntent(this, SevereDashboardActivity::class.java)
             } else {
                 ObjectIntent(this, CanadaAlertsActivity::class.java)
             }
-        }
+        //}
     }
 
     fun openHourly(itemID: Int) {
-        if (MyApplication.helpMode) {
-            showHelpCAB(itemID)
-        } else {
+        //if (MyApplication.helpMode) {
+        //    showHelpCAB(itemID)
+        //} else {
             if (Location.isUS) {
                 ObjectIntent(
                         this,
@@ -362,7 +362,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                         Location.currentLocationStr
                 )
             }
-        }
+        //}
     }
 
     fun openActivity(context: Context, activityName: String) {

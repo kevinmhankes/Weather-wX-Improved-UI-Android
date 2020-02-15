@@ -15,12 +15,11 @@
 // TODO       miscPref.split(":").dropLastWhile { it.isEmpty() }
 // TODO [REF] reduce use of RegExp class
 // TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
-// TODO [REF] Add Image class that stores bitmap, url and anything else relevant ( like Swift )
 // TODO [ADD] storm reports - optimization for landscape
 // TODO [ADD] us alerts - optimization for landscape
 // TODO [FIX] chromeOS: text size for observations in nexrad
 
-55367 2020_02_15
+55367 2020_02_15    [ADD] remove help option from main menu in favor of offline documentation and FAQ
 55366 2020_02_15    [ADD] for multipane SPC Meso/Models if in landscape have images side by side
 55365 2020_02_15    [FIX] fire weather header
                     [ADD] SPC SWO for landscape ( 4 wide )
