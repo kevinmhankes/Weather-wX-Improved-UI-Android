@@ -51,9 +51,9 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     private val pacImg2List = mutableListOf<String>()
     private val pacWalletList = mutableListOf<String>()
     private val pacTitleList = mutableListOf<String>()
-    private val bitmapsAtlantic = mutableListOf<Bitmap>()
-    private val bitmapsPacific = mutableListOf<Bitmap>()
-    private val bitmapsCentral = mutableListOf<Bitmap>()
+    //private val bitmapsAtlantic = mutableListOf<Bitmap>()
+    //private val bitmapsPacific = mutableListOf<Bitmap>()
+    //private val bitmapsCentral = mutableListOf<Bitmap>()
     private var notificationCard: ObjectCardText? = null
     private val cardNotificationHeaderText = "Currently blocked storm notifications, tap this text to clear all blocks "
     var html: String = ""
@@ -61,11 +61,14 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     private var imagesPerRow = 2
     private val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout>()
 
-    val regionMap: MutableMap<String, ObjectNhcRegionSummary> = mutableMapOf()
+    val regionMap: MutableMap<NhcOceanEnum, ObjectNhcRegionSummary> = mutableMapOf()
 
     init {
         if (UtilityUI.isLandScape(context)) {
             imagesPerRow = 3
+        }
+        NhcOceanEnum.values().forEach {
+            regionMap[it] = ObjectNhcRegionSummary(it)
         }
     }
 
@@ -95,7 +98,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         }
     }
 
-    fun getAtlanticImageData() {
+    /*fun getAtlanticImageData() {
         listOf(
                 "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_0d0.png",
                 "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_2d0.png",
@@ -117,9 +120,9 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
                 "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_2d0.png",
                 "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_5d0.png"
         ).forEach { bitmapsCentral.add(it.getImage()) }
-    }
+    }*/
 
-    private val imageList = listOf(
+    /*private val imageList = listOf(
             "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_0d0.png",
             "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_2d0.png",
             "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_5d0.png",
@@ -141,7 +144,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
             "CPAC Tropical Cyclones and Disturbances ",
             "CPAC: Two-Day Graphical Tropical Weather Outlook",
             "CPAC: Five-Day Graphical Tropical Weather Outlook"
-    )
+    )*/
 
     fun showTextData() {
         linearLayout.removeAllViewsInLayout()
@@ -209,9 +212,30 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         }
     }
 
+    fun showImageData(region: NhcOceanEnum) {
+        regionMap[region]!!.bitmaps.forEachIndexed { index, bitmap ->
+            val objectCardImage: ObjectCardImage
+            if (numberOfImages % imagesPerRow == 0) {
+                val objectLinearLayout = ObjectLinearLayout(context, linearLayout)
+                objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
+                horizontalLinearLayouts.add(objectLinearLayout)
+                objectCardImage = ObjectCardImage(context, objectLinearLayout.linearLayout, bitmap, imagesPerRow)
+            } else {
+                objectCardImage = ObjectCardImage(context, horizontalLinearLayouts.last().linearLayout, bitmap, imagesPerRow)
+            }
+            numberOfImages += 1
+            objectCardImage.setOnClickListener(View.OnClickListener {
+                ObjectIntent(
+                        context,
+                        ImageShowActivity::class.java,
+                        ImageShowActivity.URL,
+                        regionMap[region]!!.getTitle(index)
+                )
+            })
+        }
+    }
 
-    // FIXME reduce to one method ( below 3 )
-    fun showAtlanticImageData() {
+    /*fun showAtlanticImageData() {
         bitmapsAtlantic.forEach {
             val objectCardImage: ObjectCardImage
             if (numberOfImages % imagesPerRow == 0) {
@@ -284,7 +308,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
                 )
             })
         }
-    }
+    }*/
 
     private fun clearNhcNotificationBlock() {
         Utility.writePref(context, "NOTIF_NHC_MUTE", "")
