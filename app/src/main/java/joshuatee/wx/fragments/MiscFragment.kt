@@ -43,7 +43,7 @@ import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.radar.WXGLRadarActivityMultiPane
 import joshuatee.wx.util.Utility
 import joshuatee.wx.wpc.WpcImagesActivity
-import joshuatee.wx.wpc.WpcRainfallForecastActivity
+import joshuatee.wx.wpc.WpcRainfallForecastSummaryActivity
 import joshuatee.wx.wpc.WpcTextProductsActivity
 
 class MiscFragment : Fragment() {
@@ -251,7 +251,7 @@ class MiscFragment : Fragment() {
             )
             hm["wpc_rainfall"] = TileObject(
                     R.drawable.wpc_rainfall,
-                    WpcRainfallForecastActivity::class.java,
+                    WpcRainfallForecastSummaryActivity::class.java,
                     "",
                     arrayOf(),
                     resources.getString(R.string.help_wpc_rainfall),

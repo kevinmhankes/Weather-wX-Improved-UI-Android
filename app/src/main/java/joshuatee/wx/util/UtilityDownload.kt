@@ -350,19 +350,18 @@ object UtilityDownload {
             }
             prod == "QPF94E" -> {
                 val textUrl = "https://www.wpc.ncep.noaa.gov/qpf/ero.php?opt=curr&day=" + "1"
-                val html = textUrl.getHtmlSep()
-                // occurences of " <br>" requires removeBreaks()
-                text = UtilityString.extractPre(html).removeSingleLineBreaks().removeBreaks()
+                val html = textUrl.getHtmlWithNewLine()
+                text = UtilityString.extractPre(html).removeHtml()
             }
             prod == "QPF98E" -> {
                 val textUrl = "https://www.wpc.ncep.noaa.gov/qpf/ero.php?opt=curr&day=" + "2"
-                val html = textUrl.getHtmlSep()
-                text = UtilityString.extractPre(html).removeSingleLineBreaks().removeBreaks()
+                val html = textUrl.getHtmlWithNewLine()
+                text = UtilityString.extractPre(html).removeHtml()
             }
             prod == "QPF99E" -> {
                 val textUrl = "https://www.wpc.ncep.noaa.gov/qpf/ero.php?opt=curr&day=" + "3"
-                val html = textUrl.getHtmlSep()
-                text = UtilityString.extractPre(html).removeSingleLineBreaks().removeBreaks()
+                val html = textUrl.getHtmlWithNewLine()
+                text = UtilityString.extractPre(html).removeHtml()
             }
             prod == "SWPC3DAY" -> {
                 text = (MyApplication.nwsSwpcWebSitePrefix + "/text/3-day-forecast.txt").getHtmlWithNewLine()

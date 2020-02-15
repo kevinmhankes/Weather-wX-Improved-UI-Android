@@ -288,6 +288,11 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
+      android:name=".wpc.WpcRainfallForecastSummaryActivity"
+      android:label="@string/title_activity_hpcrainfall_forecast"
+      android:parentActivityName="WX" >
+  </activity>
+  <activity
       android:name=".spc.SpcSoundingsActivity"
       android:label="@string/title_activity_spcsoundings"
       android:parentActivityName="WX" >
