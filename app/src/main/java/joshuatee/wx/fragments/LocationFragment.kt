@@ -272,9 +272,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
             cardCC?.setListener(
                     alertDialogStatus,
                     alertDialogStatusList,
-                    ::radarTimestamps,
-                    helpCurrentGeneric,
-                    ::showHelp
+                    ::radarTimestamps
             )
         } else {
             cardCC = ObjectCardCurrentConditions(activityReference, 1)
@@ -284,7 +282,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
             linearLayoutForecast?.orientation = LinearLayout.VERTICAL
         }
         addDynamicCards()
-        cardCC?.let { objectCardCC ->
+        /*cardCC?.let { objectCardCC ->
             objectCardCC.textViewTop.setOnClickListener(OnClickListener {
                 if (Location.isUS) {
                     if (MyApplication.helpMode) {
@@ -297,7 +295,7 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
                     showHelp(helpForecastGenericStatus)
                 }
             })
-        }
+        }*/
         getContent()
         if (MyApplication.locDisplayImg) {
             glviewArr.indices.forEach {
@@ -420,8 +418,8 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
     }
 
     override fun onClick(v2: View) {
-        if (MyApplication.helpMode)
-            showHelp(v2.id)
+        //if (MyApplication.helpMode)
+        //    showHelp(v2.id)
     }
 
     private fun getRadar(idx: Int) = GlobalScope.launch(uiDispatcher) {

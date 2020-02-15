@@ -38,15 +38,15 @@ internal class RecyclerViewHolders(itemView: View, private val itemList: List<Ti
     }
 
     override fun onClick(view: View) {
-        if (!MyApplication.helpMode) {
+        //if (!MyApplication.helpMode) {
             val intent = Intent(view.context, itemList[adapterPosition].activity)
             intent.putExtra(itemList[adapterPosition].target, itemList[adapterPosition].argsArr)
             view.context.startActivity(intent)
-        } else {
-            UtilityAlertDialog.showHelpText(
-                itemList[adapterPosition].helpStr,
-                view.context as Activity
-            )
-        }
+        //} else {
+        //    UtilityAlertDialog.showHelpText(
+        //        itemList[adapterPosition].helpStr,
+        //        view.context as Activity
+        //    )
+        //}
     }
 }

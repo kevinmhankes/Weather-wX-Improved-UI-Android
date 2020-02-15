@@ -221,7 +221,7 @@ class MyApplication : Application() {
         var telecineSwitchShowTouches: Boolean = false
         var tileDownsize: Boolean = false
         var iconsEvenSpaced: Boolean = false
-        var helpMode: Boolean = false
+        //var helpMode: Boolean = false
         var simpleMode: Boolean = false
         var checkspc: Boolean = false
         var checkwpc: Boolean = false
