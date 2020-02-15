@@ -60,8 +60,9 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.vis.GoesActivity
 import kotlinx.coroutines.*
 
-class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
+class LocationFragment : Fragment()  {
 
+    //
     // Displays the main content when wX is first opened including current conditions
     // hazards, 7 days and radar ( option )
     //
@@ -81,9 +82,6 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
     private lateinit var intent: Intent
     private var cardCC: ObjectCardCurrentConditions? = null
     private lateinit var linearLayout: LinearLayout
-    private val helpForecastGenericStatus = 1
-    private val helpCurrentGeneric = 2
-    private val helpForecastGeneric = 3
     private var homescreenFavLocal = ""
     private val cardViews = mutableListOf<CardView>()
     private var sevenDayCards = mutableListOf<ObjectCard7Day>()
@@ -282,20 +280,6 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
             linearLayoutForecast?.orientation = LinearLayout.VERTICAL
         }
         addDynamicCards()
-        /*cardCC?.let { objectCardCC ->
-            objectCardCC.textViewTop.setOnClickListener(OnClickListener {
-                if (Location.isUS) {
-                    if (MyApplication.helpMode) {
-                        showHelp(helpCurrentGeneric)
-                    }
-                }
-            })
-            objectCardCC.textViewBottom.setOnClickListener(OnClickListener {
-                if (MyApplication.helpMode) {
-                    showHelp(helpForecastGenericStatus)
-                }
-            })
-        }*/
         getContent()
         if (MyApplication.locDisplayImg) {
             glviewArr.indices.forEach {
@@ -415,11 +399,6 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
             }
             dataNotInitialized = false
         }
-    }
-
-    override fun onClick(v2: View) {
-        //if (MyApplication.helpMode)
-        //    showHelp(v2.id)
     }
 
     private fun getRadar(idx: Int) = GlobalScope.launch(uiDispatcher) {
@@ -560,18 +539,6 @@ class LocationFragment : Fragment(), OnClickListener { // OnItemSelectedListener
             )
         }
         hsImages[productIndex].setImage(bitmap)
-    }
-
-    private fun showHelp(helpItem: Int) {
-        when (helpItem) {
-            helpForecastGenericStatus -> showHelpText(resources.getString(R.string.help_forecast_generic_status))
-            helpCurrentGeneric -> showHelpText(resources.getString(R.string.help_current_generic))
-            helpForecastGeneric -> showHelpText(resources.getString(R.string.help_forecast_generic))
-        }
-    }
-
-    private fun showHelpText(helpStr: String) {
-        UtilityAlertDialog.showHelpText(helpStr, activityReference)
     }
 
     private val changeListener = object : WXGLSurfaceView.OnProgressChangeListener {
