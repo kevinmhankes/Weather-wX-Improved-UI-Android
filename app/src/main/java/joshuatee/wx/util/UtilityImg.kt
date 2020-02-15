@@ -43,6 +43,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.radar.WXGLNexrad
 import joshuatee.wx.ui.ObjectNavDrawer
 import joshuatee.wx.ui.TouchImageView2
+import joshuatee.wx.ui.UtilityUI
 
 object UtilityImg {
 
@@ -88,6 +89,7 @@ object UtilityImg {
         return layerDrawableToBitmap(layers)
     }
 
+    // FIXME rename Posn to Position
     fun firstRunSetZoomPosn(firstRunF: Boolean, img: TouchImageView2, pref: String): Boolean {
         var firstRun = firstRunF
         if (!firstRun) {
@@ -231,12 +233,28 @@ object UtilityImg {
         iv.setImageBitmap(bitmap)
     }
 
-    fun resizeViewSetImgByHeight(bitmap: Bitmap, iv: ImageView) {
-        val paramsIv = iv.layoutParams
+    fun resizeViewAndSetImage(context: Context, bitmap: Bitmap, imageView: ImageView) {
+        if (UtilityUI.isLandScape(context)) {
+            resizeViewSetImgByWidth(bitmap, imageView)
+        } else {
+            resizeViewSetImgByHeight(bitmap, imageView)
+        }
+    }
+
+    fun resizeViewSetImgByHeight(bitmap: Bitmap, imageView: ImageView) {
+        val paramsIv = imageView.layoutParams
         paramsIv.height = MyApplication.dm.heightPixels / 2
         paramsIv.width = paramsIv.height * bitmap.width / bitmap.height
-        iv.layoutParams = paramsIv
-        iv.setImageBitmap(bitmap)
+        imageView.layoutParams = paramsIv
+        imageView.setImageBitmap(bitmap)
+    }
+
+    private fun resizeViewSetImgByWidth(bitmap: Bitmap, imageView: ImageView) {
+        val paramsIv = imageView.layoutParams
+        paramsIv.width = MyApplication.dm.widthPixels / 2
+        paramsIv.height = paramsIv.width * bitmap.width / bitmap.height
+        imageView.layoutParams = paramsIv
+        imageView.setImageBitmap(bitmap)
     }
 
     fun scaleBitmap(bitmap: Bitmap, wantedWidth: Int, wantedHeight: Int): Bitmap {
