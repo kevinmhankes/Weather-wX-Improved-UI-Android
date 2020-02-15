@@ -267,7 +267,7 @@ class SevereDashboardActivity : BaseActivity() {
                             ObjectIntent(
                                     this@SevereDashboardActivity,
                                     SpcMcdWatchShowActivity::class.java,
-                                    SpcMcdWatchShowActivity.NO,
+                                    SpcMcdWatchShowActivity.NUMBER,
                                     arrayOf(number, "", severeNotice.toString())
                             )
                         })

@@ -46,7 +46,7 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class WpcRainfallForecastActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
-    // show a fire outlook for a specific day
+    // show a rainfall outlook for a specific day
     //
     // Arguments
     //

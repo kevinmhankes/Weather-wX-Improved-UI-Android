@@ -530,7 +530,7 @@ internal object UtilityRadarUI {
             ObjectIntent(
                     context,
                     SpcMcdWatchShowActivity::class.java,
-                    SpcMcdWatchShowActivity.NO,
+                    SpcMcdWatchShowActivity.NUMBER,
                     arrayOf(text, "", polygonType.toString())
             )
         }
