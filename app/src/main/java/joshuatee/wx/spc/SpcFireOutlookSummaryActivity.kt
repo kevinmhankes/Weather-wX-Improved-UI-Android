@@ -47,7 +47,6 @@ class SpcFireOutlookSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickLis
     // SPC Fire Weather Outlooks
     //
 
-
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmaps = mutableListOf<Bitmap>()
     private var imagesPerRow = 2

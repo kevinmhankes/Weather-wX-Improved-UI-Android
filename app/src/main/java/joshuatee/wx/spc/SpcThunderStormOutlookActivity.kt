@@ -45,6 +45,10 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
+    //
+    // SPC Thunderstorm Outlooks
+    //
+
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmaps = listOf<Bitmap>()
     private var urls = listOf<String>()
