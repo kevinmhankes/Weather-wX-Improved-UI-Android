@@ -80,7 +80,6 @@ class MiscFragment : Fragment() {
                     resources.getString(R.string.help_ncep_models),
                     "model_ncep", "NCEP"
             )
-            //hm["model_hrrr"] = TileObject(R.drawable.hrrrviewer, ModelsESRLActivity::class.java, ModelsESRLActivity.INFO, arrayOf("1", "ESRL"), resources.getString(R.string.help_hrrr_viewer), "model_hrrr")
             hm["model_hrrr"] = TileObject(
                     R.drawable.hrrrviewer,
                     ModelsGenericActivity::class.java,
