@@ -43,6 +43,11 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class SpcFireOutlookSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
+    //
+    // SPC Fire Weather Outlooks
+    //
+
+
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmaps = mutableListOf<Bitmap>()
     private var imagesPerRow = 2

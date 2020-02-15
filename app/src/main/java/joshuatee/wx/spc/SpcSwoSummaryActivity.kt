@@ -111,7 +111,7 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
                 ObjectIntent(
                         this@SpcSwoSummaryActivity,
                         SpcSwoActivity::class.java,
-                        SpcSwoActivity.NO,
+                        SpcSwoActivity.NUMBER,
                         arrayOf(day, "")
                 )
             })

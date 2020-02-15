@@ -49,11 +49,15 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
+    //
     // show SWO for Day X as specified in extra
+    // Arguments
+    //
+    // 1: day
     //
 
     companion object {
-        const val NO: String = ""
+        const val NUMBER: String = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
@@ -85,10 +89,9 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
             objectCardImageList.add(ObjectCardImage(this, linearLayoutHorizontalList[i / 2].linearLayout))
         }
         objectCardText = ObjectCardText(this, ll, toolbar, toolbarBottom)
-        activityArguments = intent.getStringArrayExtra(NO)!!
+        activityArguments = intent.getStringArrayExtra(NUMBER)!!
         day = activityArguments[0]
         title = "Day $day Convective Outlook"
-        toolbar.subtitle = "SPC"
         val menu = toolbarBottom.menu
         val miTornado = menu.findItem(R.id.action_share_tornado)
         val miHail = menu.findItem(R.id.action_share_hail)
@@ -147,9 +150,8 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
             urls = UtilitySpcSwo.getUrls(day)
             bitmaps = urls.map { it.getImage() }
         }
-        //objectCardText.text = Utility.fromHtml(html)
         objectCardText.text = html
-        toolbar.subtitle = html.parse("(Valid.*?)<")
+        toolbar.subtitle = html.parse("(Valid.*?Z - [0-9]{6}Z)")
         if (activityArguments[1] == "sound") {
             UtilityTts.synthesizeTextAndPlay(applicationContext, html, "spcswo")
         }

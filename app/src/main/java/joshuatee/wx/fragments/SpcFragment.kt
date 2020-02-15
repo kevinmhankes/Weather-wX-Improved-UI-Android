@@ -83,19 +83,19 @@ class SpcFragment : Fragment() {
                     arrayOf(), resources.getString(R.string.help_spc_swo_summary), "spcsummary", "Convective Summary by Image"
             )
             hm["spcswod1"] = TileObject(
-                    R.drawable.day1, SpcSwoActivity::class.java, SpcSwoActivity.NO,
+                    R.drawable.day1, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER,
                     arrayOf("1", ""), resources.getString(R.string.help_spc_swo_detail), "spcswod1", "Day 1"
             )
             hm["spcswod2"] = TileObject(
-                    R.drawable.day2, SpcSwoActivity::class.java, SpcSwoActivity.NO,
+                    R.drawable.day2, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER,
                     arrayOf("2", ""), resources.getString(R.string.help_spc_swo_detail), "spcswod2", "Day 2"
             )
             hm["spcswod3"] = TileObject(
-                    R.drawable.day3, SpcSwoActivity::class.java, SpcSwoActivity.NO,
+                    R.drawable.day3, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER,
                     arrayOf("3", ""), resources.getString(R.string.help_spc_swo_detail), "spcswod3", "Day 3"
             )
             hm["spcswod48"] = TileObject(
-                    R.drawable.day48, SpcSwoActivity::class.java, SpcSwoActivity.NO,
+                    R.drawable.day48, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER,
                     arrayOf("4-8", ""), resources.getString(R.string.help_spc_swo_detail), "spcswod48", "Day 4 through 8"
             )
             hm["spcstormrpt1"] = TileObject(
