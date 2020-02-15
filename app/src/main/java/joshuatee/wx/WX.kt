@@ -75,7 +75,7 @@ class WX : CommonActionBarFragment() {
                 this,
                 R.id.fab,
                 MyApplication.ICON_RADAR,
-                OnClickListener { openNexradRadar(this, 0) })
+                OnClickListener { openNexradRadar(this) })
         if (UIPreferences.mainScreenRadarFab) {
             val radarMi = menu.findItem(R.id.action_radar)
             radarMi.isVisible = false
@@ -166,31 +166,31 @@ class WX : CommonActionBarFragment() {
         when (keyCode) {
             KeyEvent.KEYCODE_R -> {
                 if (event.isCtrlPressed) {
-                    openNexradRadar(this, 0)
+                    openNexradRadar(this)
                 }
                 return true
             }
             KeyEvent.KEYCODE_A -> {
                 if (event.isCtrlPressed) {
-                    openAfd(0)
+                    openAfd()
                 }
                 return true
             }
             KeyEvent.KEYCODE_S -> {
                 if (event.isCtrlPressed) {
-                    openSettings(0)
+                    openSettings()
                 }
                 return true
             }
             KeyEvent.KEYCODE_C -> {
                 if (event.isCtrlPressed) {
-                    openVis(0)
+                    openVis()
                 }
                 return true
             }
             KeyEvent.KEYCODE_D -> {
                 if (event.isCtrlPressed) {
-                    openDashboard(0)
+                    openDashboard()
                 }
                 return true
             }
@@ -233,7 +233,7 @@ class WX : CommonActionBarFragment() {
             }
             KeyEvent.KEYCODE_H -> {
                 if (event.isCtrlPressed) {
-                    openHourly(0)
+                    openHourly()
                 }
                 return true
             }

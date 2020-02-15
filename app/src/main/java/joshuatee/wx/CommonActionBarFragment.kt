@@ -121,7 +121,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
             R.id.action_afd -> openAfd()
             R.id.action_dashboard -> openDashboard()
             R.id.action_spotters -> ObjectIntent(this, SpottersActivity::class.java)
-            R.id.action_settings -> ObjectIntent(this, SettingsMainActivity::class.java)
+            R.id.action_settings -> openSettings()
             R.id.action_radar_mosaic -> {
                 if (Location.isUS) {
                     if (!UIPreferences.useAwcRadarMosaic) {
@@ -230,6 +230,10 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
         } else {
             ObjectIntent(this, CanadaTextActivity::class.java)
         }
+    }
+
+    fun openSettings() {
+        ObjectIntent(this, SettingsMainActivity::class.java)
     }
 
     fun openVis() {
