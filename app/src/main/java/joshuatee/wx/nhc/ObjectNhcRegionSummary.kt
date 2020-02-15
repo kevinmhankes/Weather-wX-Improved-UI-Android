@@ -21,14 +21,13 @@
 
 package joshuatee.wx.nhc
 
-import android.content.Context
 import android.graphics.Bitmap
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.MyApplication
 
 
-class ObjectNhcRegionSummary(val region: NhcOceanEnum) {
+class ObjectNhcRegionSummary(region: NhcOceanEnum) {
 
     var urls: List<String>
     var titles: List<String>
@@ -47,7 +46,6 @@ class ObjectNhcRegionSummary(val region: NhcOceanEnum) {
                         "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_2d0.png",
                         "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_5d0.png"
                 )
-
             }
             NhcOceanEnum.EPAC -> {
                 titles = listOf(
@@ -60,7 +58,6 @@ class ObjectNhcRegionSummary(val region: NhcOceanEnum) {
                         "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_2d0.png",
                         "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_5d0.png"
                 )
-
             }
             NhcOceanEnum.CPAC -> {
                 titles = listOf(
@@ -73,7 +70,6 @@ class ObjectNhcRegionSummary(val region: NhcOceanEnum) {
                         "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_2d0.png",
                         "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_5d0.png"
                 )
-
             }
         }
     }
