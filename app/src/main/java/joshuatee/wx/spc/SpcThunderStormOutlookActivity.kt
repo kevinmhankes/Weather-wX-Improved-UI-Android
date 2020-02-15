@@ -66,8 +66,8 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
             imagesPerRow = 3
         }
         toolbarBottom.setOnMenuItemClickListener(this)
-        title = "SPC"
-        toolbar.subtitle = "Thunderstorm Outlook"
+        toolbar.subtitle = "SPC"
+        title = "Thunderstorm Outlooks"
         getContent()
     }
 
