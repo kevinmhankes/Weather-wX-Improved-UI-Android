@@ -41,7 +41,6 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
-    private lateinit var activityArguments: Array<String>
     private var html = ""
     private lateinit var textCard: ObjectCardText
     private val faqUrl = "https://docs.google.com/document/u/1/d/e/2PACX-1vQVkTWlnpRZCSn-ZI7tNLMDHUq-oWp9i1bf8e1yFf1ebEA2CFMapVUsALGJASj2aNhEMYAwBMs4GstL/pub"
@@ -116,8 +115,8 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         when (item.itemId) {
             R.id.action_share -> UtilityShare.shareText(
                 this,
-                activityArguments[1],
-                Utility.fromHtml(html)
+                "About wX",
+                html
             )
             else -> return super.onOptionsItemSelected(item)
         }

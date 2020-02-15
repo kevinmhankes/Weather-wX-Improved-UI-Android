@@ -22,7 +22,7 @@
 // TODO [FIX] Shorten nhc verbiage when no cyclones
 // TODO [FIX] chromeOS: text size for observations in nexrad
 
-55364 2020_02_14
+55364 2020_02_14    [FIX] settings -> about crash when hit share icon (set share text to about)
 55363 2020_02_14    [FIX] SpcSwoSummaryActivity - onrestart don't remove views until new images are downloaded
                     [ADD] WIP - not done - SPC Storm reports optimize for large landscape
                     [REF] remove redundant code in UtilityTimeSunMoon

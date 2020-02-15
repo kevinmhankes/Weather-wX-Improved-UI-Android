@@ -540,7 +540,6 @@ object UtilityDownload {
                 val location = prod.substring(3).replace("%", "")
                 val locationName = Utility.getWfoSiteName(location)
                 val state = locationName.split(",")[0]
-                //final masterHtml = await ("https://www.weather.gov/" + location + "/textproducts").getHtmlSep();
                 val url = "https://forecast.weather.gov/product.php?site=$location&issuedby=$state&product=$product"
                 // https://forecast.weather.gov/product.php?site=ILX&issuedby=IL&product=RWR
                 text = url.getHtmlSep()
@@ -569,7 +568,6 @@ object UtilityDownload {
                 text = text.replace("\\n", "\n")
             }
             prod.startsWith("CLI") -> {
-                //val product = prod.substring(0, 3)
                 val location = prod.substring(3, 6).replace("%", "")
                 val wfo = prod.substring(6).replace("%", "")
                 // TODO each WFO has multiple locations for this product
@@ -581,15 +579,12 @@ object UtilityDownload {
                 text = "Celsius to Fahrenheit table" + MyApplication.newline + UtilityMath.celsiusToFahrenheitTable()
             }
             else -> {
-
                 // Feb 8 2020 Sat
                 // The NWS API for text products has been unstable Since Wed Feb 5
                 // resorting to alternatives
-
                 val t1 = prod.substring(0, 3)
                 var t2 = prod.substring(3)
                 t2 = t2.replace("%", "")
-
                 if (useNwsApi) {
                     val url = MyApplication.nwsApiUrl + "/products/types/$t1/locations/$t2"
                     val html = url.getNwsHtml()
@@ -650,13 +645,9 @@ object UtilityDownload {
                                     "&format=txt&version=1&glossary=0"
                             val html = url.getHtmlWithNewLine()
                             text = UtilityString.extractPreLsr(html).removeLineBreaks().removeHtml()
-                            //val html = url.getHtmlSep().replace("<br>", MyApplication.newline)
-                            //text = UtilityString.extractPreLsr(html).removeLineBreaks()
                         }
                     }
                 }
-
-
             }
         }
         UtilityPlayList.checkAndSave(context, prod, text)
