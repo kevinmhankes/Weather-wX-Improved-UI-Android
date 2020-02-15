@@ -20,6 +20,7 @@
 // TODO [ADD] us alerts - optimization for landscape
 // TODO [FIX] chromeOS: text size for observations in nexrad
 
+55365 2020_02_15
 55364 2020_02_15    [FIX] settings -> about crash when hit share icon (set share text to about)
                     [REF] rename SpcFireOutlookActivity to SpcFireOutlookSummaryActivity
                     [ADD] dedicated SpcFireOutlookActivity activity to show graphic and text
