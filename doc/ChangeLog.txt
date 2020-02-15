@@ -21,6 +21,7 @@
 // TODO [FIX] chromeOS: text size for observations in nexrad
 // TODO [ADD] for multipane like SPC Meso and model if in landscape due horizonal
 
+55367 2020_02_15 
 55366 2020_02_15    [ADD] for multipane SPC Meso/Models if in landscape have images side by side
 55365 2020_02_15    [FIX] fire weather header
                     [ADD] SPC SWO for landscape ( 4 wide )
