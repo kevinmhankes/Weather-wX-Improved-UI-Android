@@ -111,26 +111,6 @@ class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemCli
             })
             numberOfImages += 1
         }
-
-
-        /* bitmaps.indices.forEach {
-             val card = ObjectCardImage(this@WpcRainfallForecastActivity, ll, bitmaps[it])
-             val prodTitleLocal = UtilityWpcRainfallForecast.productLabels[it] + " - " + getString(UtilityWpcRainfallForecast.activityTitle)
-             var prodTextUrlLocal = ""
-             withContext(Dispatchers.IO) {
-                 prodTextUrlLocal = UtilityDownload.getTextProduct(this@WpcRainfallForecastActivity,
-                         UtilityWpcRainfallForecast.productCode[it]
-                 )
-             }
-             card.setOnClickListener(View.OnClickListener {
-                 ObjectIntent(
-                         this@WpcRainfallForecastActivity,
-                         TextScreenActivity::class.java,
-                         TextScreenActivity.URL,
-                         arrayOf(prodTextUrlLocal, prodTitleLocal)
-                 )
-             })
-         }*/
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
