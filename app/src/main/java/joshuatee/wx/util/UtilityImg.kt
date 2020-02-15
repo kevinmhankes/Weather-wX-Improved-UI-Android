@@ -266,7 +266,7 @@ object UtilityImg {
         return output
     }
 
-    fun drawTextToBitmap(context: Context, bitmap: Bitmap, mText: String, textColor: Int): Bitmap {
+    fun drawTextToBitmap(context: Context, bitmap: Bitmap, text: String, textColor: Int): Bitmap {
         try {
             val scale = context.resources.displayMetrics.density
             val canvas = Canvas(bitmap)
@@ -275,10 +275,10 @@ object UtilityImg {
             paint.textSize = (12 * scale).toInt().toFloat()
             paint.setShadowLayer(1f, 0f, 1f, Color.DKGRAY)
             val bounds = Rect()
-            paint.getTextBounds(mText, 0, mText.length, bounds)
+            paint.getTextBounds(text, 0, text.length, bounds)
             val x = (bitmap.width - bounds.width()) / 6
             val y = 15
-            canvas.drawText(mText, x * scale, y * scale, paint)
+            canvas.drawText(text, x * scale, y * scale, paint)
             return bitmap
         } catch (e: Exception) {
             UtilityLog.handleException(e)
@@ -307,8 +307,8 @@ object UtilityImg {
         }
     }
 
-    fun vectorDrawableToBitmap(context: Context, resdraw: Int, color: Int): Bitmap {
-        val d = ContextCompat.getDrawable(context, resdraw)!!
+    fun vectorDrawableToBitmap(context: Context, resourceDrawable: Int, color: Int): Bitmap {
+        val d = ContextCompat.getDrawable(context, resourceDrawable)!!
         DrawableCompat.setTint(d, color)
         val b = Bitmap.createBitmap(d.intrinsicWidth, d.intrinsicHeight, Config.ARGB_8888)
         val c = Canvas(b)
