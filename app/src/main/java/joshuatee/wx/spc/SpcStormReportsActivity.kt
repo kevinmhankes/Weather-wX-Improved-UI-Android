@@ -167,7 +167,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }*/
 
 
-        var c0 = ObjectCardImage(this@SpcStormReportsActivity, linearLayout, bitmap)
+        val c0 = ObjectCardImage(this@SpcStormReportsActivity, linearLayout, bitmap)
         //if (UtilityUI.isTablet() && UtilityUI.isLandScape(this@SpcStormReportsActivity)) {
         //    c0 = ObjectCardImage(this@SpcStormReportsActivity, linearLayout, bitmap, 2)
         //}

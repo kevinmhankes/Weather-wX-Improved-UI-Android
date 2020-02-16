@@ -241,7 +241,7 @@ object UtilityImg {
         }
     }
 
-    fun resizeViewSetImgByHeight(bitmap: Bitmap, imageView: ImageView) {
+    private fun resizeViewSetImgByHeight(bitmap: Bitmap, imageView: ImageView) {
         val paramsIv = imageView.layoutParams
         paramsIv.height = MyApplication.dm.heightPixels / 2
         paramsIv.width = paramsIv.height * bitmap.width / bitmap.height

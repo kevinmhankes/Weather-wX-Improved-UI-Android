@@ -140,14 +140,18 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     }
 
     private fun getContentFixThis() {
-        if (drw.token == "CLI") {
-            product = drw.token
-            checkForCliSite()
-        } else if (drw.token == "RTPZZ") {
-            val state = Utility.getWfoSiteName(wfo).split(",")[0]
-            getProduct(drw.token.replace("ZZ", state))
-        } else {
-            getProduct(drw.token)
+        when (drw.token) {
+            "CLI" -> {
+                product = drw.token
+                checkForCliSite()
+            }
+            "RTPZZ" -> {
+                val state = Utility.getWfoSiteName(wfo).split(",")[0]
+                getProduct(drw.token.replace("ZZ", state))
+            }
+            else -> {
+                getProduct(drw.token)
+            }
         }
     }
 

@@ -490,10 +490,10 @@ class LocationFragment : Fragment()  {
 
         // NOTE: below was backed out, data structures for these features only support one radar site
         // so locfrag and multi-pane don't current support. Would be nice to fix someday.
-        // Showextras a few lines above was changed from false to true along with few lines added below
+        // Show extras a few lines above was changed from false to true along with few lines added below
         // some time ago there were crashes caused by this additional content but I don't recall the details
         // guess it's worth another try to see if the issue back then was fixed in the various re-writes that have
-        // occured since
+        // occurred since
         if (Location.isUS && idx == 0) {
             if (PolygonType.OBS.pref) {
                 UtilityWXGLTextObject.updateObs(numRadars, wxglTextArr)

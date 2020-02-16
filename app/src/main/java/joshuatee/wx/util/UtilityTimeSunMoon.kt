@@ -85,10 +85,10 @@ object UtilityTimeSunMoon {
             ssTime = (officialSunsetCal.get(Calendar.HOUR_OF_DAY)).toString() + ":" +
                     String.format("%2s", (officialSunsetCal.get(Calendar.MINUTE))).replace(' ', '0')
         }
-        if (shortFormat) {
-            return "$srTime$amStr / $ssTime$pmStr"
+        return if (shortFormat) {
+            "$srTime$amStr / $ssTime$pmStr"
         } else {
-            return "Sunrise: $srTime$amStr   Sunset: $ssTime$pmStr"
+            "Sunrise: $srTime$amStr   Sunset: $ssTime$pmStr"
         }
     }
 }
