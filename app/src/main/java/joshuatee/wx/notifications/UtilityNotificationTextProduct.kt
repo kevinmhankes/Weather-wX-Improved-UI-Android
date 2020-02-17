@@ -61,19 +61,23 @@ object UtilityNotificationTextProduct {
     internal fun notifyOnAll(context: Context) {
         var textProdChunk: String
         var textProdFirstline = ""
-        var arrTmp: List<String>
+        //var arrTmp: List<String>
         TextUtils.split(MyApplication.notifTextProdStr, ":").forEach { s ->
             if (s != "") {
                 textProdChunk = UtilityDownload.getTextProduct(context, s)
-                arrTmp = textProdChunk.split("<BR>").dropLastWhile { it.isEmpty() }
-                if (arrTmp.size > 1)
-                    textProdFirstline = arrTmp[0]
+                //arrTmp = textProdChunk.split("<BR>").dropLastWhile { it.isEmpty() }
+                //if (arrTmp.size > 1)
+                //    textProdFirstline = arrTmp[0]
+                if (textProdChunk.length > 50) {
+                    textProdFirstline = textProdChunk.substring(0, 49)
+                }
                 // compare the first line to a stored first line, if not execute first block
-                if (textProdFirstline != "")
+                if (textProdFirstline != "") {
                     if (textProdFirstline != Utility.readPref(context, PREF_TOKEN + "_" + s, "")) {
                         send(context, s, textProdFirstline, textProdChunk)
                         Utility.writePref(context, PREF_TOKEN + "_" + s, textProdFirstline)
                     }
+                }
             }
         }
     }
