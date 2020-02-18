@@ -19,6 +19,7 @@
 // TODO [ADD] us alerts - optimization for landscape
 // TODO [FIX] chromeOS: text size for observations in nexrad
 
+55370 2020_02_18
 55369 2020_02_18    [FIX] text product notifications were dependent on "<BR>"
 55368 2020_02_17    [FIX] attempt for hourly onrestart needs to reset graph
                     [FIX] text product notifications were dependent on "<BR>"
