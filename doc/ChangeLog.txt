@@ -18,8 +18,9 @@
 // TODO [ADD] storm reports - optimization for landscape
 // TODO [ADD] us alerts - optimization for landscape
 // TODO [FIX] chromeOS: text size for observations in nexrad
+// TODO [REF] rename AfdActivity to WfoText
 
-55370 2020_02_18
+55370 2020_02_20
 55369 2020_02_18    [FIX] text product notifications were dependent on "<BR>"
 55368 2020_02_17    [FIX] attempt for hourly onrestart needs to reset graph
                     [FIX] text product notifications were dependent on "<BR>"
