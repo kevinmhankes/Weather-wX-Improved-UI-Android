@@ -21,6 +21,7 @@
 // TODO [REF] rename AfdActivity to WfoText
 // TODO [FIX] hitting this? https://stackoverflow.com/questions/54120745/android-9-0-notificationmanager-notify-throwing-java-lang-securityexception
 
+55371 2020_02_25
 55370 2020_02_25    [ADD] android studio update to 3.6
                     [ADD] in UIPreferences use flutter/dart blue for highlight (88, 121, 169)
 55369 2020_02_18    [FIX] text product notifications were dependent on "<BR>"
