@@ -32,7 +32,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.app.ActivityCompat
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
+//import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
@@ -76,13 +76,13 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         }
         diaAfd = ObjectDialogue(this, "Select fixed location AFD products:", GlobalArrays.wfos)
         diaAfd.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            val strName = diaAfd.getItem(which)
-            val product = "AFD" + strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)
+            val name = diaAfd.getItem(which)
+            val product = "AFD" + name.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)
             if (!ridFav.contains(product)) {
                 ridFav = "$ridFav:$product"
                 Utility.writePref(this, prefToken, ridFav)
                 MyApplication.playlistStr = ridFav
-                ridArr.add(getLongString("AFD" + strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)))
+                ridArr.add(getLongString(product))
                 getContent()
                 dialog.dismiss()
             } else {
@@ -93,8 +93,8 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         })
         diaMain = ObjectDialogue(this, "Select text products:", UtilityWpcText.labels)
         diaMain.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            val strName = diaMain.getItem(which)
-            val product = strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)
+            val name = diaMain.getItem(which)
+            val product = name.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)
             if (!ridFav.contains(product)) {
                 ridFav = "$ridFav:$product"
                 Utility.writePref(this, prefToken, ridFav)
@@ -160,23 +160,23 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         super.onRestart()
     }
 
-    private val onBroadcast = object : BroadcastReceiver() {
+   /* private val onBroadcast = object : BroadcastReceiver() {
         override fun onReceive(ctxt: Context, intent: Intent) {
             updateListNoInit()
             ca.notifyDataSetChanged()
         }
     }
-
-    override fun onResume() {
+*/
+  /*  override fun onResume() {
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(onBroadcast, IntentFilter("playlistdownloaded"))
         super.onResume()
-    }
+    }*/
 
-    override fun onPause() {
+  /*  override fun onPause() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(onBroadcast)
         super.onPause()
-    }
+    }*/
 
     private fun getLongString(code: String) = "$code;" + Utility.readPref(
             this,
@@ -254,8 +254,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
     private fun deleteItem(position: Int) {
         ridFav = Utility.readPref(this, prefToken, "")
-        ridFav =
-                ridFav.replace(":" + MyApplication.semicolon.split(ridArr[position])[0], "")
+        ridFav = ridFav.replace(":" + MyApplication.semicolon.split(ridArr[position])[0], "")
         Utility.writePref(this, prefToken, ridFav)
         Utility.removePref(
                 this,
