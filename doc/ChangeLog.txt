@@ -23,6 +23,9 @@
 // TODO [FIX] chromeOS - multipane radar toolbar is not fully transparent
 // TODO [FIX] change animation interval to animation speed
 // TODO [FIX] update PlayList to be more like iOS
+// TODO [ADD] playlist onrestart does not get new content
+// TODO [ADD] playlist should use WPCText instead of textivewer
+// TODO [ADD] playlist shoould show more text
 
 55373 2020_02_29    [ADD] gradle plugin update
                     [REF] misc lint
