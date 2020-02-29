@@ -21,8 +21,10 @@
 // TODO [REF] rename AfdActivity to WfoText
 // TODO [FIX] hitting this? https://stackoverflow.com/questions/54120745/android-9-0-notificationmanager-notify-throwing-java-lang-securityexception
 // TODO [FIX] chromeOS - multipane radar toolbar is not fully transparent
+// TODO [FIX] change animation interval to animation speed
+// TODO [FIX] update PlayList to be more like iOS
 
-55373 2020_02_28    [ADD] gradle plugin update
+55373 2020_02_29    [ADD] gradle plugin update
                     [REF] misc lint
                     [FIX] playlist allows duplicate entry
                     [FIX] remove LocalBroadcastManager in playlist
