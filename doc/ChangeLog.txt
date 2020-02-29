@@ -22,10 +22,10 @@
 // TODO [FIX] hitting this? https://stackoverflow.com/questions/54120745/android-9-0-notificationmanager-notify-throwing-java-lang-securityexception
 // TODO [FIX] chromeOS - multipane radar toolbar is not fully transparent
 // TODO [ADD] alerts to us alerts
-// TODO [FIX] playlist allows duplicate entry
 
 55373 2020_02_28    [ADD] gradle plugin update
                     [REF] misc lint
+                    [FIX] playlist allows duplicate entry
 55372 2020_02_27    [FIX] Canadian hourly
                     [ADD] main menu change from Hourly to Hourly Forecast
                     [FIX] whitespace issue in some text products

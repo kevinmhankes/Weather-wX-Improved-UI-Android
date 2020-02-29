@@ -23,27 +23,21 @@ package joshuatee.wx.audio
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
-import android.content.IntentFilter
+import android.app.Activity
+import android.content.*
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import androidx.core.app.ActivityCompat
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.view.MenuItem
 import android.view.View
-
-import joshuatee.wx.R
+import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
+import androidx.core.app.ActivityCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import joshuatee.wx.GlobalArrays
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.TextScreenActivity
 import joshuatee.wx.notifications.UtilityNotification
-
-import joshuatee.wx.GlobalArrays
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.BottomSheetFragment
 import joshuatee.wx.ui.*
@@ -51,6 +45,7 @@ import joshuatee.wx.util.Utility
 import joshuatee.wx.wpc.UtilityWpcText
 import kotlinx.coroutines.*
 import java.util.*
+import joshuatee.wx.R
 
 class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
@@ -82,24 +77,36 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         diaAfd = ObjectDialogue(this, "Select fixed location AFD products:", GlobalArrays.wfos)
         diaAfd.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = diaAfd.getItem(which)
-            ridFav = ridFav + ":" + "AFD" +
-                    strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)
-            Utility.writePref(this, prefToken, ridFav)
-            MyApplication.playlistStr = ridFav
-            ridArr.add(getLongString("AFD" + strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)))
-            getContent()
-            dialog.dismiss()
+            val product = "AFD" + strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)
+            if (!ridFav.contains(product)) {
+                ridFav = "$ridFav:$product"
+                Utility.writePref(this, prefToken, ridFav)
+                MyApplication.playlistStr = ridFav
+                ridArr.add(getLongString("AFD" + strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)))
+                getContent()
+                dialog.dismiss()
+            } else {
+                dialog.dismiss()
+                val rootView: View = (this as Activity).window.decorView.findViewById(android.R.id.content)
+                UtilityUI.makeSnackBar(rootView, "$product already in playlist")
+            }
         })
         diaMain = ObjectDialogue(this, "Select text products:", UtilityWpcText.labels)
         diaMain.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = diaMain.getItem(which)
-            ridFav = ridFav + ":" +
-                    strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)
-            Utility.writePref(this, prefToken, ridFav)
-            ridArr.add(getLongString(strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)))
-            MyApplication.playlistStr = ridFav
-            getContent()
-            dialog.dismiss()
+            val product = strName.split(":").dropLastWhile { it.isEmpty() }[0].toUpperCase(Locale.US)
+            if (!ridFav.contains(product)) {
+                ridFav = "$ridFav:$product"
+                Utility.writePref(this, prefToken, ridFav)
+                ridArr.add(getLongString(product))
+                MyApplication.playlistStr = ridFav
+                getContent()
+                dialog.dismiss()
+            } else {
+                dialog.dismiss()
+                val rootView: View = (this as Activity).window.decorView.findViewById(android.R.id.content)
+                UtilityUI.makeSnackBar(rootView, "$product already in playlist")
+            }
         })
         toolbar.subtitle = "Tap item to play, view, delete or move."
         ridFav = Utility.readPref(this, prefToken, "")
