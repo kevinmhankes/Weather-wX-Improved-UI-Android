@@ -25,6 +25,7 @@
 // TODO [FIX] playlist allows duplicate entry
 
 55373 2020_02_28    [ADD] gradle plugin update
+                    [REF] misc lint
 55372 2020_02_27    [FIX] Canadian hourly
                     [ADD] main menu change from Hourly to Hourly Forecast
                     [FIX] whitespace issue in some text products
