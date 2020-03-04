@@ -28,6 +28,7 @@
 // TODO [ADD] playlist shoould show more text
 // TODO [ADD] migrate to https://medium.com/google-design/material-design-components-for-android-1-1-0-are-now-available-45e1d576037c
 
+55374 2020_03_03
 55373 2020_03_03    [ADD] gradle plugin update
                     [REF] misc lint
                     [FIX] playlist allows duplicate entry
