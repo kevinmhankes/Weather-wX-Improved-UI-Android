@@ -25,6 +25,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MenuItem
@@ -98,6 +99,10 @@ class WX : CommonActionBarFragment() {
                         0
                 )
         )
+        // material 1.1.0
+        //slidingTabLayout.setTabTextColors(-1711276033, Color.WHITE)
+        //val a = slidingTabLayout.tabTextColors
+        //UtilityLog.d("wx COLOR", a.toString()) // -13746343
         refreshDynamicContent()
         if (android.os.Build.VERSION.SDK_INT < 21) {
             toolbarBottom.bringToFront()
