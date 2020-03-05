@@ -66,6 +66,12 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.cab, menu)
+        val warningMenuItem = menu.findItem(R.id.action_alert)
+        if (Location.isUS) {
+            warningMenuItem.title = "US Alerts"
+        } else {
+            warningMenuItem.title = "Canadian Alerts"
+        }
         return true
     }
 
