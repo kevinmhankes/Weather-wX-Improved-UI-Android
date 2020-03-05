@@ -25,9 +25,11 @@
 // TODO [FIX] update PlayList to be more like iOS
 // TODO [ADD] playlist onrestart does not get new content
 // TODO [ADD] playlist should use WPCText instead of textviewer
-// TODO [ADD] playlist should show more text
+// TODO [ADD] Canadian locations - have alerts act like US on front screen
+// TODO [ADD] main screen submenu show Canadian Warnings if on CA location
+// TODO [ADD] Canadian Warnings detailed formatting
 
-55376 2020_03_05
+55376 2020_03_05    [FIX] Canadian warnings formatting improvements
 55375 2020_03_05    [FIX] crash in severedashboard when attempting to share when MCDs are present
                     [FIX] playList onrestart was not working
                     [ADD] playList show more text in preview
