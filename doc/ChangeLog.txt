@@ -27,7 +27,9 @@
 // TODO [ADD] playlist should use WPCText instead of textviewer
 // TODO [ADD] playlist should show more text
 
-55375 2020_03_04
+55375 2020_03_05    [FIX] crash in severedashboard when attempting to share when MCDs are present
+                    [FIX] playList onrestart was not working
+                    [ADD] playList show more text in preview
 55374 2020_03_04    [ADD] 'com.google.android.material:material:1.0.0' to 1.1.0
 55373 2020_03_03    [ADD] gradle plugin update
                     [REF] misc lint

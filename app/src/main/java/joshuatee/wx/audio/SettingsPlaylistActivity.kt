@@ -143,10 +143,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_autodownload -> ObjectIntent(
-                    this,
-                    SettingsPlaylistAutodownloadActivity::class.java
-            )
+            R.id.action_autodownload -> ObjectIntent(this, SettingsPlaylistAutodownloadActivity::class.java)
             R.id.action_add -> diaMain.show()
             R.id.action_afd -> diaAfd.show()
             else -> return super.onOptionsItemSelected(item)
@@ -155,8 +152,9 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
     }
 
     override fun onRestart() {
-        updateListNoInit()
-        ca.notifyDataSetChanged()
+        //updateListNoInit()
+        //ca.notifyDataSetChanged()
+        getContent()
         super.onRestart()
     }
 
@@ -256,10 +254,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         ridFav = Utility.readPref(this, prefToken, "")
         ridFav = ridFav.replace(":" + MyApplication.semicolon.split(ridArr[position])[0], "")
         Utility.writePref(this, prefToken, ridFav)
-        Utility.removePref(
-                this,
-                "PLAYLIST_" + MyApplication.semicolon.split(ridArr[position])[0]
-        )
+        Utility.removePref(this, "PLAYLIST_" + MyApplication.semicolon.split(ridArr[position])[0])
         ca.deleteItem(position)
         MyApplication.playlistStr = ridFav
     }
@@ -280,11 +275,8 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
                 TextScreenActivity::class.java,
                 TextScreenActivity.URL,
                 arrayOf(
-                        Utility.readPref(
-                                this,
-                                "PLAYLIST_" + MyApplication.semicolon.split(ridArr[position])[0],
-                                ""
-                        ), ridArr[position]
+                        Utility.readPref(this, "PLAYLIST_" + MyApplication.semicolon.split(ridArr[position])[0], ""),
+                        ridArr[position]
                 )
         )
     }
