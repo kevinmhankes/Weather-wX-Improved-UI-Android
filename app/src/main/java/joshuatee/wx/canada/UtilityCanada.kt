@@ -340,16 +340,13 @@ object UtilityCanada {
         val statementUrl: String
         val watchUrl: String
         val result = mutableListOf("", "")
-        var urls =
-            html.parseColumn("<div id=\"statement\" class=\"floatLeft\">.*?<a href=\"(.*?)\">.*?</a>.*?</div>")
-        var titles =
-            html.parseColumn("<div id=\"statement\" class=\"floatLeft\">.*?<a href=\".*?\">(.*?)</a>.*?</div>")
+        var urls = html.parseColumn("<div id=\"statement\" class=\"floatLeft\">.*?<a href=\"(.*?)\">.*?</a>.*?</div>")
+        var titles = html.parseColumn("<div id=\"statement\" class=\"floatLeft\">.*?<a href=\".*?\">(.*?)</a>.*?</div>")
         statementUrl = urls.joinToString("")
         statement = titles.joinToString("<BR>")
         var chunk = html.parse("<entry>(.*?)<category term=\"Warnings and Watches\"/>")
         urls = chunk.parseColumn("<title>.*?</title>.*?<link type=\"text/html\" href=\"(.*?)\"/>")
-        titles =
-            chunk.parseColumn("<title>(.*?)</title>.*?<link type=\"text/html\" href=\".*?\"/>")
+        titles = chunk.parseColumn("<title>(.*?)</title>.*?<link type=\"text/html\" href=\".*?\"/>")
         warningUrl = urls.joinToString(",")
         warning = titles.joinToString("<BR>")
         chunk = html.parse("<div id=\"watch\" class=\"floatLeft\">(.*?)</div>")
