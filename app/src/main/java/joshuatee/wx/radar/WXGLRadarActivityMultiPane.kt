@@ -95,8 +95,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private var oldRidArr = Array(2) { "" }
     private lateinit var imageMap: ObjectImageMap
     private var mapShown = false
-    private lateinit var star: MenuItem
-    private lateinit var anim: MenuItem
+    private lateinit var pauseButton: MenuItem
+    private lateinit var animateButton: MenuItem
     private var delay = 0
     private var frameCountGlobal = 0
     private var locXCurrent = ""
@@ -122,6 +122,10 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private lateinit var tdwrMenu: MenuItem
     private lateinit var tiltMenu: MenuItem
     private lateinit var tiltMenuOption4: MenuItem
+    private val animateButtonPlayString = "Animate Frames"
+    private val animateButtonStopString = "Stop animation"
+    private val pauseButtonString = "Pause animation"
+    private val resumeButtonString = "Resume animation"
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -198,8 +202,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         latD = latLonListAsDoubles[0]
         lonD = latLonListAsDoubles[1]
         val menu = toolbarBottom.menu
-        star = menu.findItem(R.id.action_fav)
-        anim = menu.findItem(R.id.action_a)
+        pauseButton = menu.findItem(R.id.action_fav)
+        pauseButton.title = pauseButtonString
+        animateButton = menu.findItem(R.id.action_a)
         tiltMenu = menu.findItem(R.id.action_tilt)
         tiltMenuOption4 = menu.findItem(R.id.action_tilt4)
         l3Menu = menu.findItem(R.id.action_l3)
@@ -395,7 +400,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         delay = UtilityImg.animInterval(this)
         inOglAnim = false
         inOglAnimPaused = false
-        anim.setIcon(MyApplication.ICON_PLAY)
+        animateButton.setIcon(MyApplication.ICON_PLAY)
+        animateButton.title = animateButtonPlayString
         restartedZoom = true
         numPanesArr.forEach {
             if (imageMap.map.visibility == View.GONE) {
@@ -663,7 +669,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             if (oglrArr[0].product.contains("L2") || oglrArr[1].product.contains("L2")) SystemClock.sleep(
                     2000
             )
-            anim.setIcon(MyApplication.ICON_PLAY)
+            animateButton.setIcon(MyApplication.ICON_PLAY)
+            animateButton.title = animateButtonPlayString
             // spotter code is serialized for now
             if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) {
                 getContentSerial()
@@ -800,10 +807,12 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             R.id.action_fav -> {
                 if (inOglAnim) {
                     inOglAnimPaused = if (!inOglAnimPaused) {
-                        star.setIcon(MyApplication.ICON_PLAY)
+                        pauseButton.setIcon(MyApplication.ICON_PLAY)
+                        pauseButton.title = resumeButtonString
                         true
                     } else {
-                        star.setIcon(MyApplication.ICON_PAUSE)
+                        pauseButton.setIcon(MyApplication.ICON_PAUSE)
+                        pauseButton.title = pauseButtonString
                         false
                     }
                 }
@@ -842,8 +851,10 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     private fun animateRadar(frameCount: Int) {
-        anim.setIcon(MyApplication.ICON_STOP)
-        star.setIcon(MyApplication.ICON_PAUSE)
+        animateButton.setIcon(MyApplication.ICON_STOP)
+        animateButton.title = animateButtonStopString
+        pauseButton.setIcon(MyApplication.ICON_PAUSE)
+        pauseButton.title = pauseButtonString
         getAnimate(frameCount)
     }
 
@@ -877,7 +888,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             if (oglrArr[0].product.contains("L2") || oglrArr[1].product.contains("L2")) SystemClock.sleep(
                     2000
             )
-            anim.setIcon(MyApplication.ICON_PLAY)
+            animateButton.setIcon(MyApplication.ICON_PLAY)
+            animateButton.title = animateButtonPlayString
         }
 
         if (MyApplication.dualpaneshareposn) {

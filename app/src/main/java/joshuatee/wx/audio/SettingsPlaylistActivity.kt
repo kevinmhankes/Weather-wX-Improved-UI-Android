@@ -152,29 +152,9 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
     }
 
     override fun onRestart() {
-        //updateListNoInit()
-        //ca.notifyDataSetChanged()
         getContent()
         super.onRestart()
     }
-
-   /* private val onBroadcast = object : BroadcastReceiver() {
-        override fun onReceive(ctxt: Context, intent: Intent) {
-            updateListNoInit()
-            ca.notifyDataSetChanged()
-        }
-    }
-*/
-  /*  override fun onResume() {
-        LocalBroadcastManager.getInstance(this)
-                .registerReceiver(onBroadcast, IntentFilter("playlistdownloaded"))
-        super.onResume()
-    }*/
-
-  /*  override fun onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(onBroadcast)
-        super.onPause()
-    }*/
 
     private fun getLongString(code: String) = "$code;" + Utility.readPref(
             this,
