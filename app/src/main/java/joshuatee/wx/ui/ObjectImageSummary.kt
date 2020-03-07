@@ -38,7 +38,7 @@ class ObjectImageSummary(
 ) {
 
     init {
-        var imagesPerRow = 2
+        val imagesPerRow = 2
         ll.removeAllViews()
         var numberOfImages = 0
         val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()

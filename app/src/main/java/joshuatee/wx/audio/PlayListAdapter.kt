@@ -16,7 +16,7 @@ import joshuatee.wx.util.Utility
 internal class PlayListAdapter(private val dataSet: MutableList<String>) :
     RecyclerView.Adapter<PlayListAdapter.DataObjectHolder>() {
 
-    val maxLength = 400
+    private val maxLength = 400
 
     internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {

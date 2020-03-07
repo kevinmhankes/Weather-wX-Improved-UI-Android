@@ -29,7 +29,7 @@
 // TODO [ADD] main screen submenu show Canadian Warnings if on CA location
 // TODO [ADD] Canadian Warnings detailed formatting
 
-55376 2020_03_05    [FIX] Canadian warnings formatting improvements
+55376 2020_03_07    [FIX] Canadian warnings formatting improvements
 55375 2020_03_05    [FIX] crash in severedashboard when attempting to share when MCDs are present
                     [FIX] playList onrestart was not working
                     [ADD] playList show more text in preview

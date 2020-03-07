@@ -45,6 +45,7 @@ import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp
+import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.objects.ObjectIntent
 import kotlinx.coroutines.*
 
@@ -96,14 +97,25 @@ class WpcMpdShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
         mpdList.indices.forEach { mpdIndex ->
             val card = ObjectCardImage(this@WpcMpdShowSummaryActivity, ll, bitmaps[mpdIndex])
-            card.setOnClickListener(View.OnClickListener {
-                ObjectIntent(
-                        this@WpcMpdShowSummaryActivity,
-                        SpcMcdWatchShowActivity::class.java,
-                        SpcMcdWatchShowActivity.NUMBER,
-                        arrayOf(mpdNumbers[mpdIndex], "", PolygonType.MPD.toString())
-                )
-            })
+            if (mpdList.size == 1) {
+                card.setOnClickListener(View.OnClickListener {
+                    ObjectIntent(
+                            this@WpcMpdShowSummaryActivity,
+                            ImageShowActivity::class.java,
+                            ImageShowActivity.URL,
+                            arrayOf(imageUrl, titleString, "true")
+                    )
+                })
+            } else {
+                card.setOnClickListener(View.OnClickListener {
+                    ObjectIntent(
+                            this@WpcMpdShowSummaryActivity,
+                            SpcMcdWatchShowActivity::class.java,
+                            SpcMcdWatchShowActivity.NUMBER,
+                            arrayOf(mpdNumbers[mpdIndex], "", PolygonType.MPD.toString())
+                    )
+                })
+            }
             if (mpdList.size == 1) {
                 registerForContextMenu(card.img)
             }
