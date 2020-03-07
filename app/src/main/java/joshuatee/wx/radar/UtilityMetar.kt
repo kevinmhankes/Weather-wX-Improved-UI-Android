@@ -62,19 +62,19 @@ internal object UtilityMetar {
             val obsList = getObservationSites(context, rid)
             // https://www.aviationweather.gov/metar/data?ids=KDTW%2CKARB&format=raw&date=&hours=0
             val html = "${MyApplication.nwsAWCwebsitePrefix}/adds/metars/index?submit=1&station_ids=$obsList&chk_metars=on".getHtml()
-            val metarArrTmp = html.parseColumn("<FONT FACE=\"Monospace,Courier\">(.*?)</FONT><BR>")
-            val metarArr = condenseObs(metarArrTmp)
+            val metarsTmp = html.parseColumn("<FONT FACE=\"Monospace,Courier\">(.*?)</FONT><BR>")
+            val metars = condenseObs(metarsTmp)
             if (!initializedObsMap) {
                 val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
                 val lines = text.split("\n").dropLastWhile { it.isEmpty() }
                 var tokens: List<String>
-                lines.forEach {
-                    tokens = it.split(" ")
+                lines.forEach { line ->
+                    tokens = line.split(" ")
                     obsLatLon[tokens[0]] = arrayOf(tokens[1], tokens[2])
                 }
                 initializedObsMap = true
             }
-            metarArr.forEach { z ->
+            metars.forEach { z ->
                 var validWind = false
                 var validWindGust = false
                 if ((z.startsWith("K") || z.startsWith("P")) && !z.contains("NIL")) {
@@ -178,20 +178,16 @@ internal object UtilityMetar {
                                         + MyApplication.newline + conditionsBlob
                                         + MyApplication.newline + timeBlob
                             )
-                            try {
-                                if (validWind) {
-                                    obsAlWb.add(latLon[0] + ":" + latLon[1] + ":" + windDir + ":" + windInKt)
-                                    val x = latLon[0].toDoubleOrNull() ?: 0.0
-                                    val y = (latLon[1].toDoubleOrNull() ?: 0.0) * -1.0
-                                    obsAlX.add(x)
-                                    obsAlY.add(y)
-                                    obsAlAviationColor.add(aviationColor)
-                                }
-                                if (validWindGust) {
-                                    obsAlWbGust.add(latLon[0] + ":" + latLon[1] + ":" + windDir + ":" + windGustInKt)
-                                }
-                            } catch (e: Exception) {
-                                UtilityLog.handleException(e)
+                            if (validWind) {
+                                obsAlWb.add(latLon[0] + ":" + latLon[1] + ":" + windDir + ":" + windInKt)
+                                val x = latLon[0].toDoubleOrNull() ?: 0.0
+                                val y = (latLon[1].toDoubleOrNull() ?: 0.0) * -1.0
+                                obsAlX.add(x)
+                                obsAlY.add(y)
+                                obsAlAviationColor.add(aviationColor)
+                            }
+                            if (validWindGust) {
+                                obsAlWbGust.add(latLon[0] + ":" + latLon[1] + ":" + windDir + ":" + windGustInKt)
                             }
                         }
                     }
@@ -219,13 +215,6 @@ internal object UtilityMetar {
     // Method below is similar, please see comments below for more information
     //
     fun findClosestMetar(context: Context, location: LatLon): String {
-        /*val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
-        val lines = text.split("\n").dropLastWhile { it.isEmpty() }
-        val metarSites = mutableListOf<RID>()
-        lines.indices.forEach {
-            val tokens = lines[it].split(" ")
-            metarSites.add(RID(tokens[0], LatLon(tokens[1], tokens[2])))
-        }*/
         readMetarData(context)
         var shortestDistance = 1000.00
         var currentDistance: Double
@@ -274,14 +263,6 @@ internal object UtilityMetar {
     }
 
     fun findClosestObservation(context: Context, location: LatLon): RID {
-        //UtilityLog.d("wx", "OBS1: " + UtilityTime.currentTimeMillis())
-        /*val metarDataRaw = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
-        val metarDataAsList = metarDataRaw.split("\n").dropLastWhile { it.isEmpty() }
-        val metarSites = mutableListOf<RID>()
-        metarDataAsList.indices.forEach {
-            val tokens = metarDataAsList[it].split(" ")
-            metarSites.add(RID(tokens[0], LatLon(tokens[1], tokens[2])))
-        }*/
         readMetarData(context)
         var shortestDistance = 1000.00
         var currentDistance: Double
@@ -293,7 +274,6 @@ internal object UtilityMetar {
                 bestRid = it
             }
         }
-        //UtilityLog.d("wx", "OBS2: " + UtilityTime.currentTimeMillis())
         // In the unlikely event no closest site is found just return the first one
         return if (bestRid == -1) {
             metarSites[0]
@@ -313,13 +293,6 @@ internal object UtilityMetar {
         val radarLocation = UtilityLocation.getSiteLocation(radarSite)
         val obsListSb = StringBuilder(100)
         readMetarData(context)
-        /*val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
-        val lines = text.split("\n").dropLastWhile { it.isEmpty() }
-        val obsSites = mutableListOf<RID>()
-        lines.forEach {
-            val tokens = it.split(" ")
-            obsSites.add(RID(tokens[0], LatLon(tokens[1], tokens[2])))
-        }*/
         val obsSiteRange = 200.0
         var currentDistance: Double
         metarSites.indices.forEach {
