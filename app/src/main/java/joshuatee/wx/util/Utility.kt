@@ -283,7 +283,8 @@ object Utility {
         ) + "  Last background update" + MyApplication.newline
         string += UtilityRadarUI.getLastRadarTime(context) + "  Last radar update" + MyApplication.newline
         string += showDiagnostics(context)
-        string += "Tablet: " + UtilityUI.isTablet().toString()
+        string += "Tablet: " + UtilityUI.isTablet().toString() + MyApplication.newline
+        string += "Forecast zone: " + UtilityDownloadNws.forecastZone + MyApplication.newline
         return string
     }
 

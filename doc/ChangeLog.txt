@@ -29,7 +29,7 @@
 // TODO [ADD] main screen submenu show Canadian Warnings if on CA location
 // TODO [ADD] Canadian Warnings detailed formatting
 
-55377 2020_03_07
+55377 2020_03_10    [ADD] forecast zone to settings -> About
 55376 2020_03_07    [FIX] Canadian warnings formatting improvements
                     [FIX] more minor tweaks for issues after updating to MDC 1.1.0
                     [REF] misc cleanup/refactor
