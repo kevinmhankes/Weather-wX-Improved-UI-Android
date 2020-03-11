@@ -29,6 +29,7 @@
 // TODO [ADD] Canadian locations - have alerts act like US on front screen
 // TODO [ADD] main screen submenu show Canadian Warnings if on CA location
 // TODO [ADD] Canadian Warnings detailed formatting
+// TODO [ADD] look into magnification gestures 
 
 55378 2020_03_10
 55377 2020_03_10    [ADD] forecast zone to settings -> About
