@@ -29,6 +29,7 @@ import joshuatee.wx.util.UtilityImg
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
+import joshuatee.wx.util.UtilityLog
 
 internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
 
