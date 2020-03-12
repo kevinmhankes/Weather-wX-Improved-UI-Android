@@ -54,8 +54,7 @@ internal object WXGLPolygonWarnings {
                             && !vtecs[polygonCount].startsWith("O.EXP")
                             && !vtecs[polygonCount].startsWith("O.CAN"))
             ) {
-                val polyTmp =
-                        polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
+                val polyTmp = polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
                 val testArr = polyTmp.split(" ")
                 val y = testArr.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }
                         .map {
