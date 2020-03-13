@@ -31,7 +31,7 @@
 // TODO [ADD] Canadian Warnings detailed formatting
 // TODO [ADD] look into magnification gestures 
 
-55378 2020_03_10
+55378 2020_03_13    [REF] misc
 55377 2020_03_10    [ADD] forecast zone to settings -> About
 55376 2020_03_07    [FIX] Canadian warnings formatting improvements
                     [FIX] more minor tweaks for issues after updating to MDC 1.1.0

@@ -72,30 +72,10 @@ internal object UtilitySwoD1 {
                     coordinates.forEach { coordinate ->
                             data += LatLon(coordinate).print()
                     }
-                    /*coordinates.forEach { temp ->
-                        var xStrTmp = temp.substring(0, 4)
-                        var yStrTmp = temp.substring(4, 8)
-                        if (yStrTmp.matches("^0".toRegex())) {
-                            yStrTmp = yStrTmp.replace("^0".toRegex(), "")
-                            yStrTmp += "0"
-                        }
-                        xStrTmp = UtilityString.addPeriodBeforeLastTwoChars(xStrTmp)
-                        yStrTmp = UtilityString.addPeriodBeforeLastTwoChars(yStrTmp)
-                        try {
-                            var tmpDbl = yStrTmp.toDoubleOrNull() ?: 0.0
-                            if (tmpDbl < 40.00) {
-                                tmpDbl += 100
-                                yStrTmp = tmpDbl.toString()
-                            }
-                        } catch (e: Exception) {
-                            UtilityLog.handleException(e)
-                        }
-                        data = "$data$xStrTmp $yStrTmp "
-                    }*/
                     data += ":"
                     data = data.replace(" :", ":")
                 }
-                val polygons = MyApplication.colon.split(data)
+                val polygons = data.split(":").dropLastWhile { it.isEmpty() }
                 polygons.forEach { polygon ->
                     val numbers = MyApplication.space.split(polygon)
                     val x = numbers.filterIndexed { index: Int, _: String -> index and 1 == 0 }.map {

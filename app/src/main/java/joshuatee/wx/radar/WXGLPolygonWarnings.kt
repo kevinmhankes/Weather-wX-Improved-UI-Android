@@ -35,11 +35,7 @@ import joshuatee.wx.util.UtilityTime
 
 internal object WXGLPolygonWarnings {
 
-    fun addGeneric(
-            projectionType: ProjectionType,
-            radarSite: String,
-            objectPolygonWarning: ObjectPolygonWarning
-    ): List<Double> {
+    fun addGeneric(projectionType: ProjectionType, radarSite: String, objectPolygonWarning: ObjectPolygonWarning): List<Double> {
         val warningList = mutableListOf<Double>()
         val prefToken = objectPolygonWarning.storage.value
         val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
@@ -81,11 +77,7 @@ internal object WXGLPolygonWarnings {
         return warningList
     }
 
-    fun add(
-            projectionType: ProjectionType,
-            radarSite: String,
-            polygonType: PolygonType
-    ): List<Double> {
+    fun add(projectionType: ProjectionType, radarSite: String, polygonType: PolygonType): List<Double> {
         val warningList = mutableListOf<Double>()
         val prefToken = when (polygonType) {
             PolygonType.TOR -> MyApplication.severeDashboardTor.value
