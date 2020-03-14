@@ -53,13 +53,13 @@ object UtilitySpc {
 
     fun checkSpcDayX(context: Context, prod: String): List<String> {
         val highStr = "THERE IS A HIGH RISK OF"
-        val modtStr = "THERE IS A MODERATE RISK OF"
+        val moderateStr = "THERE IS A MODERATE RISK OF"
         val slightStr = "THERE IS A SLIGHT RISK"
         val enhStr = "THERE IS AN ENHANCED RISK OF"
-        val mrglStr = "THERE IS A MARGINAL RISK OF"
+        val marginalStr = "THERE IS A MARGINAL RISK OF"
         var returnStr = ""
         var html = UtilityDownload.getTextProduct(context, prod)
-        if (html.contains(mrglStr)) {
+        if (html.contains(marginalStr)) {
             returnStr = "marginal"
         }
         if (html.contains(slightStr)) {
@@ -68,7 +68,7 @@ object UtilitySpc {
         if (html.contains(enhStr)) {
             returnStr = "enh"
         }
-        if (html.contains(modtStr)) {
+        if (html.contains(moderateStr)) {
             returnStr = "modt"
         }
         if (html.contains(highStr)) {
