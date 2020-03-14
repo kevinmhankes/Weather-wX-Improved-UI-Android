@@ -43,23 +43,15 @@ internal object WXGLNexradLevel3WindBarbs {
         } else {
             UtilityMetar.metarDataList[index].obsArrWbGust
         }
-        //var degree: Double
-        //var nm: Double
-        //var degree2: Double
         val bearing = DoubleArray(2)
-        //var start: ExternalGlobalCoordinates
-        //var end: ExternalGlobalCoordinates
-        //var ec: ExternalGlobalCoordinates
         val degreeShift = 180.00
         val arrowLength = 2.5
         val arrowSpacing = 3.0
         val barbLengthScaleFactor = 0.4
         val arrowBend = 60.0
         val nmScaleFactor = -1852.0
-        //var startLength: Double
         val barbLength = 15.0
         val barbOffset = 0.0
-        //var above50: Boolean
         arrWb.forEach { line ->
             val ecc = ExternalGeodeticCalculator()
             val metarArr = line.split(":").dropLastWhile { it.isEmpty() }
@@ -77,10 +69,7 @@ internal object WXGLNexradLevel3WindBarbs {
                 locYDbl = 0.0
             }
             if (length > 4) {
-                //degree = 0.0
-                //val nm = 0.0
                 val degree2 = angle.toDouble()
-                //startLength = nm * nmScaleFactor
                 val startLength = 0.0
                 var start = ExternalGlobalCoordinates(locXDbl, locYDbl)
                 var ec = ecc.calculateEndingGlobalCoordinates(
