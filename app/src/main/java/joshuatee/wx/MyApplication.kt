@@ -323,7 +323,6 @@ class MyApplication : Application() {
         const val ICON_FORWARD: Int = R.drawable.ic_keyboard_arrow_right_24dp
         const val ICON_SKIP_BACK: Int = R.drawable.ic_skip_previous_24dp
         const val ICON_SKIP_FORWARD: Int = R.drawable.ic_skip_next_24dp
-
         var spchrrrZoom: Float = 0f
         var spchrrrX: Float = 0f
         var spchrrrY: Float = 0f
@@ -336,7 +335,6 @@ class MyApplication : Application() {
         var paddingSmall: Int = 0
         var tabHeaders: Array<String> = arrayOf("", "", "")
         var radarLocationUpdateInterval = 10
-
 
         fun initPreferences(context: Context) {
             initRadarPreferences()
