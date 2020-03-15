@@ -80,12 +80,12 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private var monthStr = ""
     private var dayStr = ""
     private var yearStr = ""
-    private var pYear = 0
-    private var pMonth = 0
-    private var pDay = 0
-    private var cYear = 0
-    private var cMonth = 0
-    private var cDay = 0
+    private var year = 0
+    private var month = 0
+    private var day = 0
+    private var previousYear = 0
+    private var previousMonth = 0
+    private var previousDay = 0
     private var stateArray = listOf<String>()
     private var firstRun = true
     private var filter = "All"
@@ -108,15 +108,15 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         val activityArguments = intent.getStringArrayExtra(NO)
         no = activityArguments!![0]
         val cal = Calendar.getInstance()
-        pYear = cal.get(Calendar.YEAR)
-        pMonth = cal.get(Calendar.MONTH)
-        pDay = cal.get(Calendar.DAY_OF_MONTH)
+        year = cal.get(Calendar.YEAR)
+        month = cal.get(Calendar.MONTH)
+        day = cal.get(Calendar.DAY_OF_MONTH)
         if (no == "yesterday") {
-            pDay -= 1
+            day -= 1
         }
-        cYear = pYear
-        cMonth = pMonth
-        cDay = pDay
+        previousYear = year
+        previousMonth = month
+        previousDay = day
         updateIowaMesoData()
         imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/climo/reports/$no.gif"
         textUrl = "${MyApplication.nwsSPCwebsitePrefix}/climo/reports/$no.csv"
@@ -160,7 +160,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             val stDatePicker = DatePickerDialog(
                     this,
                     pDateSetListener,
-                    pYear, pMonth, pDay
+                    year, month, day
             )
             val cal = Calendar.getInstance()
             cal.set(
@@ -243,15 +243,15 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private val pDateSetListener =
-            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                pYear = year
-                pMonth = monthOfYear
-                pDay = dayOfMonth
+            DatePickerDialog.OnDateSetListener { _, yearinDate, monthOfYear, dayOfMonth ->
+                year = yearinDate
+                month = monthOfYear
+                day = dayOfMonth
                 updateDisplay()
             }
 
     private fun updateDisplay() {
-        if (cMonth != pMonth || cYear != pYear || cDay != pDay) {
+        if (previousMonth != month || previousYear != year || previousDay != day) {
             updateIowaMesoData()
             no = date + "_rpts"
             imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/climo/reports/$no.gif"
@@ -259,9 +259,9 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             firstRun = true
             filter = "All"
             getContent()
-            cYear = pYear
-            cMonth = pMonth
-            cDay = pDay
+            previousYear = year
+            previousMonth = month
+            previousDay = day
         }
     }
 
@@ -304,9 +304,9 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             radarSite = WXGLNexrad.getTdwrFromRid(radarSite)
         }
         if ((stormReports[id].time.toIntOrNull() ?: 0) < 1000) {
-            monthStr = String.format(Locale.US, "%02d", pMonth + 1)
-            dayStr = String.format(Locale.US, "%02d", pDay + 1)
-            yearStr = pYear.toString()
+            monthStr = String.format(Locale.US, "%02d", month + 1)
+            dayStr = String.format(Locale.US, "%02d", day + 1)
+            yearStr = year.toString()
             yearStr = yearStr.substring(2, 4)
             date = yearStr + monthStr + dayStr
             iowaMesoStr = "20$yearStr$monthStr$dayStr"
@@ -325,9 +325,9 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun updateIowaMesoData() {
-        monthStr = String.format(Locale.US, "%02d", pMonth + 1)
-        dayStr = String.format(Locale.US, "%02d", pDay)
-        yearStr = pYear.toString()
+        monthStr = String.format(Locale.US, "%02d", month + 1)
+        dayStr = String.format(Locale.US, "%02d", day)
+        yearStr = year.toString()
         yearStr = yearStr.substring(2, 4)
         date = yearStr + monthStr + dayStr
         iowaMesoStr = "20$yearStr$monthStr$dayStr"
