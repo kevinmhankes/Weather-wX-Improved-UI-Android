@@ -48,6 +48,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
     private lateinit var dialogueImages: ObjectDialogue
     private lateinit var dialogueAfd: ObjectDialogue
     private lateinit var dialogueRadar: ObjectDialogue
+    private val HOMESCREEN_FAV_DEFAULT_CA = "TXT-CC2:TXT-HAZ:IMG-CARAIN:TXT-7DAY2"
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -184,7 +185,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
                 recyclerView.refreshList(labels)
             }
             R.id.action_reset_ca -> {
-                MyApplication.homescreenFav = MyApplication.HOMESCREEN_FAV_DEFAULT_CA
+                MyApplication.homescreenFav = HOMESCREEN_FAV_DEFAULT_CA
                 favoriteString = MyApplication.homescreenFav
                 updateList(true)
                 recyclerView.refreshList(labels)

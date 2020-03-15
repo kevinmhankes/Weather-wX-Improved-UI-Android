@@ -64,7 +64,7 @@ class WXGLTextObject(
     private var oglrZoom = 0.toFloat()
     private var textSize = 0.toFloat()
     private var projectionNumbers: ProjectionNumbers
-    val TEXTVIEW_MAGIC_FUDGE_FACTOR = 4.05f
+    private val TEXTVIEW_MAGIC_FUDGE_FACTOR = 4.05f
 
     init {
         this.maxCitiesPerGlview = maxCitiesPerGlview / numberOfPanes

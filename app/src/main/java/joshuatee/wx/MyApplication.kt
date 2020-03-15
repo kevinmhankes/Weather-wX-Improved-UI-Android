@@ -240,7 +240,6 @@ class MyApplication : Application() {
         var notifSoundUri: String = ""
         var homescreenFav: String = ""
         const val HOMESCREEN_FAV_DEFAULT: String = "TXT-CC2:TXT-HAZ:OGL-RADAR:TXT-7DAY2"
-        const val HOMESCREEN_FAV_DEFAULT_CA: String = "TXT-CC2:TXT-HAZ:IMG-CARAIN:TXT-7DAY2"
         var alertNotificationSoundTornadoCurrent: Boolean = false
         var alertNotificationSoundSpcmcd: Boolean = false
         var alertNotificationSoundWpcmpd: Boolean = false
