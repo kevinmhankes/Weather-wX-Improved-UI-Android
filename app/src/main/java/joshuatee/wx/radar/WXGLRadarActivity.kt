@@ -24,7 +24,6 @@ package joshuatee.wx.radar
 import android.annotation.SuppressLint
 import java.io.File
 
-import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -146,7 +145,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private val numPanes = 1
     private var numPanesArr = listOf<Int>()
     private var wxgltextArr = mutableListOf<WXGLTextObject>()
-    private lateinit var act: Activity
     // TODO rename this
     private lateinit var sp: ObjectSpinner
     private var alertDialogRadarLongPress: ObjectDialogue? = null
@@ -170,12 +168,11 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         toolbar.setOnClickListener {
             ObjectIntent(this, SevereDashboardActivity::class.java)
         }
-        UtilityUI.immersiveMode(this as Activity)
+        UtilityUI.immersiveMode(this)
         if (UIPreferences.radarStatusBarTransparent && Build.VERSION.SDK_INT >= 21) {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             window.statusBarColor = Color.TRANSPARENT
         }
-        act = this
         spotterShowSelected = false
         isGetContentInProgress = false
         locXCurrent = joshuatee.wx.settings.Location.x
@@ -244,7 +241,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 glviewArr,
                 oglr,
                 oglrArr,
-                act,
+                this@WXGLRadarActivity,
                 toolbar,
                 toolbarBottom,
                 changeListener,
@@ -623,7 +620,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        UtilityUI.immersiveMode(this as Activity)
+        UtilityUI.immersiveMode(this)
         // This code is mostly dupicated below in the keyboard shortcut area
         if (inOglAnim && (item.itemId != R.id.action_fav) && (item.itemId != R.id.action_share) && (item.itemId != R.id.action_tools)) {
             inOglAnim = false
@@ -812,7 +809,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     private fun showRadarScanInfo() {
         val info = WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"")
-        UtilityAlertDialog.showHelpText(info, this as Activity)
+        UtilityAlertDialog.showHelpText(info, this)
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
@@ -856,7 +853,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 firstTime = false
             }
         }
-        UtilityUI.immersiveMode(this as Activity)
+        UtilityUI.immersiveMode(this)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -979,14 +976,14 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         alertDialogRadarLongPress = ObjectDialogue(this@WXGLRadarActivity, alertDialogStatusAl)
         alertDialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
-            UtilityUI.immersiveMode(act)
+            UtilityUI.immersiveMode(this@WXGLRadarActivity)
         })
         alertDialogRadarLongPress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogStatusAl[which]
             UtilityRadarUI.doLongPressAction(
                     strName,
                     this@WXGLRadarActivity,
-                    act,
+                    this@WXGLRadarActivity,
                     glview,
                     oglr,
                     uiDispatcher,
@@ -1006,7 +1003,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         val diaTdwr = ObjectDialogue(this@WXGLRadarActivity, GlobalArrays.tdwrRadars)
         diaTdwr.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
-            UtilityUI.immersiveMode(act)
+            UtilityUI.immersiveMode(this@WXGLRadarActivity)
         })
         diaTdwr.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = GlobalArrays.tdwrRadars[which]
@@ -1034,7 +1031,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     RelativeLayout.LayoutParams.WRAP_CONTENT
             )
             rLParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1)
-            legend = ViewColorLegend(this as Activity, oglr.product)
+            legend = ViewColorLegend(this, oglr.product)
             rl.addView(legend, rLParams)
             MyApplication.radarShowLegend = true
             Utility.writePref(this, "RADAR_SHOW_LEGEND", "true")
@@ -1053,7 +1050,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 RelativeLayout.LayoutParams.WRAP_CONTENT
         )
         rLParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1)
-        legend = ViewColorLegend(this as Activity, oglr.product)
+        legend = ViewColorLegend(this, oglr.product)
         rl.addView(legend, rLParams)
     }
 
