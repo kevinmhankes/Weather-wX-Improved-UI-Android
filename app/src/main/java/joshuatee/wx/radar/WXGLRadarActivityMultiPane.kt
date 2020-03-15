@@ -24,7 +24,6 @@ package joshuatee.wx.radar
 import android.annotation.SuppressLint
 import java.io.File
 
-import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -111,7 +110,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private var prefPrefix = "WXOGL_DUALPANE"
     private var rlArr = mutableListOf<RelativeLayout>()
     private var wxgltextArr = mutableListOf<WXGLTextObject>()
-    private lateinit var act: Activity
     private var alertDialogRadarLongPress: ObjectDialogue? = null
     private var doNotSavePref = false
     private var useSinglePanePref = false
@@ -182,8 +180,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             )
         }
         toolbarBottom.setOnMenuItemClickListener(this)
-        act = this
-        UtilityUI.immersiveMode(this as Activity)
+        UtilityUI.immersiveMode(this)
         locXCurrent = joshuatee.wx.settings.Location.x
         locYCurrent = joshuatee.wx.settings.Location.y
         oldRidArr = Array(numPanes) { "" }
@@ -283,7 +280,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     glviewArr,
                     oglrArr[it],
                     oglrArr,
-                    act,
+                    this@WXGLRadarActivityMultiPane,
                     toolbar,
                     toolbarBottom,
                     changeListener
@@ -637,7 +634,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        UtilityUI.immersiveMode(this as Activity)
+        UtilityUI.immersiveMode(this)
     }
 
     private fun adjustTiltAndProductMenus() {
@@ -1065,14 +1062,14 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         alertDialogRadarLongPress = ObjectDialogue(this@WXGLRadarActivityMultiPane, alertDialogStatusAl)
         alertDialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
-            UtilityUI.immersiveMode(act)
+            UtilityUI.immersiveMode(this)
         })
         alertDialogRadarLongPress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogStatusAl[which]
             UtilityRadarUI.doLongPressAction(
                     strName,
                     this@WXGLRadarActivityMultiPane,
-                    act,
+                    this,
                     glviewArr[idxIntAl],
                     oglrArr[idxIntAl],
                     uiDispatcher,
@@ -1102,7 +1099,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         val diaTdwr = ObjectDialogue(this@WXGLRadarActivityMultiPane, GlobalArrays.tdwrRadars)
         diaTdwr.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
-            UtilityUI.immersiveMode(act)
+            UtilityUI.immersiveMode(this)
         })
         diaTdwr.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = GlobalArrays.tdwrRadars[which]

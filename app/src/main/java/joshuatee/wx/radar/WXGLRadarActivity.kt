@@ -241,7 +241,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 glviewArr,
                 oglr,
                 oglrArr,
-                this@WXGLRadarActivity,
+                this,
                 toolbar,
                 toolbarBottom,
                 changeListener,
@@ -336,7 +336,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     oglr.rid,
                     prefToken
             )
-            sp.refreshData(this@WXGLRadarActivity, ridArrLoc)
+            sp.refreshData(this, ridArrLoc)
         }
         checkForAutoRefresh()
         super.onRestart()
