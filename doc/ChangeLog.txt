@@ -31,8 +31,11 @@
 // TODO [ADD] Canadian Warnings detailed formatting
 // TODO [ADD] look into magnification gestures 
 
-55378 2020_03_14    [REF] misc
+55378 2020_03_15    [REF] misc
                     [ADD] prp for future move to targetSdkVersion to 30 from 29 in build.gradle
+                    [ADD] remove MPD summary link from WPC Text, users should go to severe dashboard
+                    [ADD] in WPC Text, move add to playlist to submenu above add notification - similar to WFO text
+                    [REF] remove WpcMpdShowSummaryActivity.kt
 55377 2020_03_10    [ADD] forecast zone to settings -> About
 55376 2020_03_07    [FIX] Canadian warnings formatting improvements
                     [FIX] more minor tweaks for issues after updating to MDC 1.1.0

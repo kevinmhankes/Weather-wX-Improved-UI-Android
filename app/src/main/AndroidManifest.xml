@@ -303,10 +303,6 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".wpc.WpcMpdShowSummaryActivity"
-      android:parentActivityName="WX" >
-  </activity>
-  <activity
       android:name=".activitiesmisc.AfdActivity"
       android:label=""
       android:parentActivityName="WX" >

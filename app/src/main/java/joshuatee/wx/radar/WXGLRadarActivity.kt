@@ -280,7 +280,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             showLegend()
         }
         title = oglr.product
-        ridArrLoc = UtilityFavorites.setupFavMenu(
+        ridArrLoc = UtilityFavorites.setupMenu(
                 this,
                 MyApplication.ridFav,
                 oglr.rid,
@@ -333,7 +333,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         if (glview.toolbarsHidden) {
             getContent()
         } else {
-            ridArrLoc = UtilityFavorites.setupFavMenu(
+            ridArrLoc = UtilityFavorites.setupMenu(
                     this,
                     MyApplication.ridFav,
                     oglr.rid,
@@ -794,7 +794,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private fun ridMapSwitch(radarSite: String) {
         oglr.rid = radarSite
         mapShown = false
-        ridArrLoc = UtilityFavorites.setupFavMenu(
+        ridArrLoc = UtilityFavorites.setupMenu(
                 this,
                 MyApplication.ridFav,
                 oglr.rid,
@@ -805,8 +805,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun toggleFavorite() {
-        val ridFav = UtilityFavorites.toggleFavoriteString(this, oglr.rid, starButton, prefToken)
-        ridArrLoc = UtilityFavorites.setupFavMenu(this, ridFav, oglr.rid, prefToken)
+        val ridFav = UtilityFavorites.toggleString(this, oglr.rid, starButton, prefToken)
+        ridArrLoc = UtilityFavorites.setupMenu(this, ridFav, oglr.rid, prefToken)
         sp.refreshData(this@WXGLRadarActivity, ridArrLoc)
     }
 
