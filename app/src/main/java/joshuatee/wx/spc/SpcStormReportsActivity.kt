@@ -25,7 +25,6 @@ import android.annotation.SuppressLint
 import java.util.Calendar
 import java.util.Locale
 import java.util.TreeMap
-import java.util.regex.Pattern
 
 import android.app.Activity
 import android.os.Bundle
@@ -92,9 +91,9 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private var filter = "All"
     private var text = ""
     private var bitmap = UtilityImg.getBlankBitmap()
-    private lateinit var br: Pattern
+    // FIXME get rid of this and create a method to iterate over storm reports
     private val out = StringBuilder(5000)
-    private var storms = mutableListOf<StormReport>()
+    private var stormReports = mutableListOf<StormReport>()
     private lateinit var objectNavDrawer: ObjectNavDrawer
     private lateinit var activity: Activity
 
@@ -121,7 +120,6 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         updateIowaMesoData()
         imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/climo/reports/$no.gif"
         textUrl = "${MyApplication.nwsSPCwebsitePrefix}/climo/reports/$no.csv"
-        br = Pattern.compile("<br>")
         stateArray = listOf("")
         objectNavDrawer = ObjectNavDrawer(this, stateArray)
         objectNavDrawer.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -151,7 +149,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun displayData() {
         out.setLength(0)
-        val textArr = br.split(text)
+        val linesOfData = text.split("<br>").dropLastWhile { it.isEmpty() }
         mapState.clear()
         title = "Storm Reports"
         toolbar.subtitle = no
@@ -184,9 +182,9 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             filter = "All"
             displayData()
         })
-        storms = UtilitySpcStormReports.process(textArr.toList())
+        stormReports = UtilitySpcStormReports.process(linesOfData)
         var stormCnt = -3
-        storms.forEachIndexed { k, stormReport ->
+        stormReports.forEachIndexed { k, stormReport ->
             val isHeader =  stormReport.title == "Tornado Reports" || stormReport.title == "Wind Reports" || stormReport.title == "Hail Reports"
             if (filter == "All" || stormReport.state == filter || isHeader ) {
                 stormCnt += 1
@@ -280,8 +278,8 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
         val index = v.id
-        val x = storms[index].lat
-        val y = storms[index].lon
+        val x = stormReports[index].lat
+        val y = stormReports[index].lon
         val radarSite = UtilityLocation.getNearestOffice("RADAR", LatLon(x, y))
         menu.add(0, v.id, 0, "Show L2REF from $radarSite")
         menu.add(0, v.id, 0, "Show L2VEL from $radarSite")
@@ -297,15 +295,15 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun radarProdShow(id: Int, prod: String) {
-        var x = storms[id].lat
-        var y = storms[id].lon
-        var time = storms[id].time
+        var x = stormReports[id].lat
+        var y = stormReports[id].lon
+        var time = stormReports[id].time
         var radarSite = UtilityLocation.getNearestOffice("RADAR", LatLon(x, y))
         time = UtilityStringExternal.truncate(time, 3)
         if (prod == "TR0" || prod == "TV0") {
             radarSite = WXGLNexrad.getTdwrFromRid(radarSite)
         }
-        if ((storms[id].time.toIntOrNull() ?: 0) < 1000) {
+        if ((stormReports[id].time.toIntOrNull() ?: 0) < 1000) {
             monthStr = String.format(Locale.US, "%02d", pMonth + 1)
             dayStr = String.format(Locale.US, "%02d", pDay + 1)
             yearStr = pYear.toString()
