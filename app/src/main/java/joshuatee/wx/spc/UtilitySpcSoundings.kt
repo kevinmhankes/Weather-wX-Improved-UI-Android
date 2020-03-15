@@ -28,7 +28,7 @@ import joshuatee.wx.util.UtilityImg
 
 object UtilitySpcSoundings {
     fun getImage(context: Context, nwsOffice: String): Bitmap {
-        return UtilityImg.getBitmapAddWhiteBG(
+        return UtilityImg.getBitmapAddWhiteBackground(
             context,
             "${MyApplication.nwsSPCwebsitePrefix}/exper/soundings/LATEST/$nwsOffice.gif"
         )

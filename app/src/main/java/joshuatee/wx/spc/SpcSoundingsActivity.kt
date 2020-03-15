@@ -105,7 +105,7 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
                     "${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/",
                     "/obswx/maps/" + upperAir + "_([0-9]{6}_[0-9]{2}).gif"
             )
-            bitmap = UtilityImg.getBitmapAddWhiteBG(this@SpcSoundingsActivity, imgUrl + "_" + date + ".gif")
+            bitmap = UtilityImg.getBitmapAddWhiteBackground(this@SpcSoundingsActivity, imgUrl + "_" + date + ".gif")
         }
         img.img.visibility = View.VISIBLE
         img.setBitmap(bitmap)

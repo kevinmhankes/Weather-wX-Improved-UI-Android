@@ -31,7 +31,7 @@
 // TODO [ADD] Canadian Warnings detailed formatting
 // TODO [ADD] look into magnification gestures 
 
-55379 2020_03_15
+55379 2020_03_15    [REF] misc for readability
 55378 2020_03_15    [REF] misc
                     [ADD] prp for future move to targetSdkVersion to 30 from 29 in build.gradle
                     [ADD] remove MPD summary link from WPC Text, users should go to severe dashboard
