@@ -175,7 +175,6 @@ class MyApplication : Application() {
             UtilityHomeScreen.setupMap()
         }
         var primaryColor: Int = 0
-        const val TEXTVIEW_MAGIC_FUDGE_FACTOR: Float = 4.05f
         var deviceScale: Float = 0f
         var httpClient: OkHttpClient? = null
         var httpClientUnsafe: OkHttpClient? = null
