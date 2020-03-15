@@ -364,7 +364,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                             LocationManager.GPS_PROVIDER,
                             //20000.toLong(),
                             (MyApplication.radarLocationUpdateInterval * 1000).toLong(),
-                            MyApplication.radarLocationUpdateDistanceInMeters.toFloat(),
+                            WXGLNexrad.radarLocationUpdateDistanceInMeters,
                             locationListener
                     )
                 }

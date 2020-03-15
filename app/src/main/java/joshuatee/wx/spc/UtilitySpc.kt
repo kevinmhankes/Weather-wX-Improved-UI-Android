@@ -83,9 +83,9 @@ object UtilitySpc {
     }
 
     fun checkSpc(): List<String> {
-        val MD_COMP: String = "<center>No Mesoscale Discussions are currently in effect."
-        val WATCH_COMP: String = "<center><strong>No watches are currently valid"
-        val MPD_COMP: String = "No MPDs are currently in effect."
+        val MD_COMP = "<center>No Mesoscale Discussions are currently in effect."
+        val WATCH_COMP = "<center><strong>No watches are currently valid"
+        val MPD_COMP = "No MPDs are currently in effect."
         var tabStr = ""
         val tabStrSpc: String
         var mdPresent = false

@@ -336,7 +336,7 @@ class MyApplication : Application() {
         var paddingSmall: Int = 0
         var tabHeaders: Array<String> = arrayOf("", "", "")
         var radarLocationUpdateInterval = 10
-        const val radarLocationUpdateDistanceInMeters = 30
+
 
         fun initPreferences(context: Context) {
             initRadarPreferences()

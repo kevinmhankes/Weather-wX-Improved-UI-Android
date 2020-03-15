@@ -385,7 +385,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     locationManager?.requestLocationUpdates(
                             LocationManager.GPS_PROVIDER,
                             (MyApplication.radarLocationUpdateInterval * 1000).toLong(),
-                            MyApplication.radarLocationUpdateDistanceInMeters.toFloat(),
+                            WXGLNexrad.radarLocationUpdateDistanceInMeters,
                             locationListener
                     )
                 }
