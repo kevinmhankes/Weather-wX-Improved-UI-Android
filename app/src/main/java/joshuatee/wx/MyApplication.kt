@@ -227,7 +227,7 @@ class MyApplication : Application() {
         var wxoglSize: Int = 0
         var wxoglSizeDefault = 13
         var wxoglRememberLocation: Boolean = false
-        var wxoglRadarAutorefresh: Boolean = false
+        var wxoglRadarAutoRefresh: Boolean = false
         var wfoFav: String = ""
         var ridFav: String = ""
         var sndFav: String = ""
@@ -394,7 +394,7 @@ class MyApplication : Application() {
             }
             wxoglSize = getInitialPreference("WXOGL_SIZE", wxoglSizeDefault)
             wxoglRememberLocation = getInitialPreference("WXOGL_REMEMBER_LOCATION", "false")
-            wxoglRadarAutorefresh = getInitialPreference("RADAR_AUTOREFRESH", "false")
+            wxoglRadarAutoRefresh = getInitialPreference("RADAR_AUTOREFRESH", "false")
             wfoFav = getInitialPreferenceString("WFO_FAV", prefSeparator)
             ridFav = getInitialPreferenceString("RID_FAV", prefSeparator)
             sndFav = getInitialPreferenceString("SND_FAV", prefSeparator)

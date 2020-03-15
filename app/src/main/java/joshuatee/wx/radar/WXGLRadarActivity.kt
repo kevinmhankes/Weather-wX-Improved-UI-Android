@@ -346,7 +346,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun checkForAutoRefresh() {
-        if (MyApplication.wxoglRadarAutorefresh) {
+        if (MyApplication.wxoglRadarAutoRefresh) {
             mInterval = 60000 * Utility.readPref(this, "RADAR_REFRESH_INTERVAL", 3)
             locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
             if (ContextCompat.checkSelfPermission(
