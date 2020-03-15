@@ -73,7 +73,7 @@ class ObjectCardStormReportItem(context: Context) {
     }
 
     fun setTextHeader(stormReport: StormReport) {
-        textViewTop.text = stormReport.text.toUpperCase(Locale.US)
+        textViewTop.text = stormReport.title.toUpperCase(Locale.US)
         textViewTop.setTextSize(TextSize.LARGE)
         textViewTop.setPadding(20,20,20,20)
         textViewTop.color = UIPreferences.textHighlightColor

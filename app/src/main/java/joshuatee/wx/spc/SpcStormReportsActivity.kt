@@ -159,7 +159,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
         linearLayout.removeAllViews()
 
-        var verticalLinearLayout = LinearLayout(this@SpcStormReportsActivity)
+        //var verticalLinearLayout = LinearLayout(this@SpcStormReportsActivity)
         /*if (UtilityUI.isTablet() && UtilityUI.isLandScape(this@SpcStormReportsActivity)) {
             linearLayout.orientation = LinearLayout.HORIZONTAL
             verticalLinearLayout = LinearLayout(this@SpcStormReportsActivity)
@@ -205,7 +205,8 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         storms = UtilitySpcStormReports.processData(textArr.toList())
         var stormCnt = -3
         storms.forEachIndexed { k, s ->
-            if (filter == "All" || s.state == filter || s.text.contains("<H2>") || s.text == "Tornado Reports" || s.text == "Wind Reports" || s.text == "Hail Reports") {
+            val isHeader =  s.title == "Tornado Reports" || s.title == "Wind Reports" || s.title == "Hail Reports"
+            if (filter == "All" || s.state == filter || isHeader ) {
                 stormCnt += 1
                 if (s.state != "") {
                     val freq3 = mapState[s.state]
@@ -215,7 +216,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 stormCard.setId(k)
                 linearLayout.addView(stormCard.card)
                 stormCard.setTextFields(s)
-                if (!s.text.contains("<H2>")) {
+                if (!isHeader) {
                     registerForContextMenu(stormCard.card)
                 }
                 val xStr = s.lat
@@ -228,7 +229,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                             arrayOf(UtilityMap.getMapUrl(xStr, yStr, "10"), "$xStr,$yStr")
                     )
                 })
-                if (s.text.contains("(") && s.text.contains(")")) {
+                if (s.damageReport.contains("(") && s.damageReport.contains(")")) {
 
                 } else {
                     stormCard.setTextHeader(s)

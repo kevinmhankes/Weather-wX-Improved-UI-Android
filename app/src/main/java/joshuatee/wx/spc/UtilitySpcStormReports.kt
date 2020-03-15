@@ -21,12 +21,10 @@
 
 package joshuatee.wx.spc
 
-import joshuatee.wx.UIPreferences
-
 internal object UtilitySpcStormReports {
 
     fun processData(textArr: List<String>): MutableList<StormReport> {
-        val output = StringBuilder()
+        var title = ""
         val outAl = mutableListOf<StormReport>()
         var lineChunks: List<String>
         var lat: String
@@ -37,7 +35,6 @@ internal object UtilitySpcStormReports {
         var damageReport: String
         var magnitude: String
         var city: String
-        //var damageHeader: String
         textArr.forEach {
             lat = ""
             lon = ""
@@ -47,38 +44,15 @@ internal object UtilitySpcStormReports {
             damageReport = ""
             magnitude = ""
             city = ""
-            //damageHeader = ""
-            output.setLength(0)
             if (it.contains(",F_Scale,")) {
-                output.append("Tornado Reports")
+                title = "Tornado Reports"
             } else if (it.contains(",Speed,")) {
-                output.append("Wind Reports")
+                title = "Wind Reports"
             } else if (it.contains(",Size,")) {
-                output.append("Hail Reports")
+                title = "Hail Reports"
             } else {
                 lineChunks = it.split(",")
                 if (lineChunks.size > 7) {
-                    output.append(lineChunks[0])
-                    output.append(" ")
-                    output.append(lineChunks[1])
-                    output.append(" ")
-                    output.append(lineChunks[2])
-                    // FIXME get rid of HTML
-                    output.append("<font color=")
-                    output.append(UIPreferences.highlightColorStr)
-                    output.append("> ")
-                    output.append(lineChunks[3])
-                    output.append(" ")
-                    output.append(lineChunks[4])
-                    output.append("</font>  ")
-                    output.append(lineChunks[5])
-                    output.append(" ")
-                    output.append(lineChunks[6])
-                    output.append("<br>")
-                    output.append("<i>")
-                    output.append(lineChunks[7])
-                    output.append("</i>")
-
                     // 0 - GMT time
                     // 1 - unit
                     // 2 - address
@@ -87,12 +61,6 @@ internal object UtilitySpcStormReports {
                     // 5 - X
                     // 6 - Y
                     // 7 - description (WFO)
-
-                    //x = lineArr[5]
-                    //y = lineArr[6]
-                    //time = lineArr[0]
-                    //state = lineArr[4]
-
                     time = lineChunks[0]
                     magnitude = lineChunks[1]
                     address = lineChunks[2]
@@ -103,10 +71,9 @@ internal object UtilitySpcStormReports {
                     damageReport = lineChunks[7]
                 }
             }
-            //outAl.add(StormReport(output.toString(), lat, lon, time, state))
             outAl.add(
                 StormReport(
-                    output.toString(),
+                    title,
                     lat,
                     lon,
                     time,

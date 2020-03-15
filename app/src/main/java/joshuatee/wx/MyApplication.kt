@@ -772,13 +772,11 @@ class MyApplication : Application() {
             radarShowLegend = getInitialPreference("RADAR_SHOW_LEGEND", "false")
             wxoglCenterOnLocation = getInitialPreference("RADAR_CENTER_ON_LOCATION", "false")
             drawToolSize = getInitialPreference("DRAWTOOL_SIZE", 4)
-
             if (UtilityUI.isTablet()) {
                 radarSpotterSizeDefault = 2
                 radarAviationSizeDefault = 3
                 radarLocationDotSizeDefault = 4
             }
-
             radarObsExtZoom = getInitialPreference("RADAR_OBS_EXT_ZOOM", 7)
             radarSpotterSize = getInitialPreference("RADAR_SPOTTER_SIZE", radarSpotterSizeDefault)
             radarAviationSize = getInitialPreference("RADAR_AVIATION_SIZE", radarAviationSizeDefault)
