@@ -372,7 +372,7 @@ class MyApplication : Application() {
             if (UtilityUI.isTablet()) {
                 UIPreferences.nwsIconSizeDefault = 6
             }
-            nwsIconSize = preferences.getInt("NWS_ICON_SIZE_PREF", UIPreferences.nwsIconSizeDefault) // was 24 10-27-2018
+            nwsIconSize = preferences.getInt("NWS_ICON_SIZE_PREF", UIPreferences.nwsIconSizeDefault)
             uiAnimIconFrames = getInitialPreferenceString("UI_ANIM_ICON_FRAMES", "10")
             blackBg = getInitialPreference("NWS_RADAR_BG_BLACK", "")
             widgetPreventTap = getInitialPreference("UI_WIDGET_PREVENT_TAP", "")
@@ -565,7 +565,9 @@ class MyApplication : Application() {
 
         private fun initRadarGeometryAll(context: Context) {
             initGenericRadarWarnings(context)
-            GeographyType.values().forEach { initRadarGeometryByType(context, it) }
+            GeographyType.values().forEach {
+                initRadarGeometryByType(context, it)
+            }
         }
 
         fun initGenericRadarWarnings(context: Context) {
@@ -686,7 +688,6 @@ class MyApplication : Application() {
         // Radar Preferences
         //
         const val NWS_RADAR_PUB: String = "https://tgftp.nws.noaa.gov/"
-        const val nwsRadarLevel2Pub: String = "https://nomads.ncep.noaa.gov/pub/data/nccf/radar/nexrad_level2/"
         var radarWarnings: Boolean = false
         var locationDotFollowsGps: Boolean = false
         var dualpaneshareposn: Boolean = false
