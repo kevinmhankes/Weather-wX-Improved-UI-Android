@@ -150,7 +150,6 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun displayData() {
-        // Time,F_Scale,Location,County,State,Lat,Lon,Comments ( Speed / Size )
         out.setLength(0)
         val textArr = br.split(text)
         mapState.clear()
@@ -158,20 +157,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         toolbar.subtitle = no
         val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
         linearLayout.removeAllViews()
-
-        //var verticalLinearLayout = LinearLayout(this@SpcStormReportsActivity)
-        /*if (UtilityUI.isTablet() && UtilityUI.isLandScape(this@SpcStormReportsActivity)) {
-            linearLayout.orientation = LinearLayout.HORIZONTAL
-            verticalLinearLayout = LinearLayout(this@SpcStormReportsActivity)
-            linearLayout.addView(verticalLinearLayout)
-        }*/
-
-
         val c0 = ObjectCardImage(this@SpcStormReportsActivity, linearLayout, bitmap)
-        //if (UtilityUI.isTablet() && UtilityUI.isLandScape(this@SpcStormReportsActivity)) {
-        //    c0 = ObjectCardImage(this@SpcStormReportsActivity, linearLayout, bitmap, 2)
-        //}
-
         c0.setOnClickListener(View.OnClickListener {
             val stDatePicker = DatePickerDialog(
                     this,
@@ -192,17 +178,13 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         })
         c0.resetZoom()
         val objectCardText: ObjectCardText
-        //if (UtilityUI.isLandScape(this@SpcStormReportsActivity) && UtilityUI.isTablet()) {
-        //    objectCardText = ObjectCardText(this@SpcStormReportsActivity, verticalLinearLayout)
-        //} else {
         objectCardText = ObjectCardText(this@SpcStormReportsActivity, linearLayout)
-        //}
         objectCardText.visibility = View.GONE
         objectCardText.setOnClickListener(View.OnClickListener {
             filter = "All"
             displayData()
         })
-        storms = UtilitySpcStormReports.processData(textArr.toList())
+        storms = UtilitySpcStormReports.process(textArr.toList())
         var stormCnt = -3
         storms.forEachIndexed { k, stormReport ->
             val isHeader =  stormReport.title == "Tornado Reports" || stormReport.title == "Wind Reports" || stormReport.title == "Hail Reports"
@@ -229,7 +211,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                             arrayOf(UtilityMap.getMapUrl(xStr, yStr, "10"), "$xStr,$yStr")
                     )
                 })
-                if (!(stormReport.damageReport.contains("(") && stormReport.damageReport.contains(")"))) {
+                if (!(stormReport.description.contains("(") && stormReport.description.contains(")"))) {
                     stormCard.setTextHeader(stormReport)
                     stormCard.setListener(View.OnClickListener {
                         scrollView.smoothScrollTo(

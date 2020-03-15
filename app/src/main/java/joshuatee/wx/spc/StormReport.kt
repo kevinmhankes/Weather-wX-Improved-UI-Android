@@ -30,7 +30,7 @@ class StormReport(
     val address: String = "",
     val city: String = "",
     val state: String = "",
-    val damageReport: String = ""
+    val description: String = ""
 )
 
 
