@@ -30,6 +30,7 @@ import joshuatee.wx.util.Utility
 import java.util.*
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.GlobalDictionaries
+import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityString
 
 // implement up/down mini fab in settings
@@ -251,6 +252,10 @@ class Location(val context: Context, locNumInt: Int) {
             var radarStation = pointData.parse("\"radarStation\": \"(.*?)\"")
             radarStation = UtilityString.getLastXChars(radarStation, 3)
             return listOf(wfo, radarStation)
+        }
+
+        fun locationSave(context: Context, latLon: LatLon): String {
+            return locationSave(context, (numLocations + 1).toString(), latLon.latString, latLon.lonString, latLon.toString())
         }
 
         fun locationSave(
