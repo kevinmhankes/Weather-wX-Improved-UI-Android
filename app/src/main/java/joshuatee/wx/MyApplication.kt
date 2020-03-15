@@ -323,9 +323,7 @@ class MyApplication : Application() {
         const val ICON_FORWARD: Int = R.drawable.ic_keyboard_arrow_right_24dp
         const val ICON_SKIP_BACK: Int = R.drawable.ic_skip_previous_24dp
         const val ICON_SKIP_FORWARD: Int = R.drawable.ic_skip_next_24dp
-        const val MD_COMP: String = "<center>No Mesoscale Discussions are currently in effect."
-        const val WATCH_COMP: String = "<center><strong>No watches are currently valid"
-        const val MPD_COMP: String = "No MPDs are currently in effect."
+
         var spchrrrZoom: Float = 0f
         var spchrrrX: Float = 0f
         var spchrrrY: Float = 0f
