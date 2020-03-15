@@ -195,7 +195,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         //if (UtilityUI.isLandScape(this@SpcStormReportsActivity) && UtilityUI.isTablet()) {
         //    objectCardText = ObjectCardText(this@SpcStormReportsActivity, verticalLinearLayout)
         //} else {
-            objectCardText = ObjectCardText(this@SpcStormReportsActivity, linearLayout)
+        objectCardText = ObjectCardText(this@SpcStormReportsActivity, linearLayout)
         //}
         objectCardText.visibility = View.GONE
         objectCardText.setOnClickListener(View.OnClickListener {
@@ -204,23 +204,23 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         })
         storms = UtilitySpcStormReports.processData(textArr.toList())
         var stormCnt = -3
-        storms.forEachIndexed { k, s ->
-            val isHeader =  s.title == "Tornado Reports" || s.title == "Wind Reports" || s.title == "Hail Reports"
-            if (filter == "All" || s.state == filter || isHeader ) {
+        storms.forEachIndexed { k, stormReport ->
+            val isHeader =  stormReport.title == "Tornado Reports" || stormReport.title == "Wind Reports" || stormReport.title == "Hail Reports"
+            if (filter == "All" || stormReport.state == filter || isHeader ) {
                 stormCnt += 1
-                if (s.state != "") {
-                    val freq3 = mapState[s.state]
-                    mapState[s.state] = if (freq3 == null) 1 else freq3 + 1
+                if (stormReport.state != "") {
+                    val freq3 = mapState[stormReport.state]
+                    mapState[stormReport.state] = if (freq3 == null) 1 else freq3 + 1
                 }
                 val stormCard = ObjectCardStormReportItem(this@SpcStormReportsActivity)
                 stormCard.setId(k)
                 linearLayout.addView(stormCard.card)
-                stormCard.setTextFields(s)
+                stormCard.setTextFields(stormReport)
                 if (!isHeader) {
                     registerForContextMenu(stormCard.card)
                 }
-                val xStr = s.lat
-                val yStr = s.lon
+                val xStr = stormReport.lat
+                val yStr = stormReport.lon
                 stormCard.setListener(View.OnClickListener {
                     ObjectIntent(
                             this@SpcStormReportsActivity,
@@ -229,10 +229,8 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                             arrayOf(UtilityMap.getMapUrl(xStr, yStr, "10"), "$xStr,$yStr")
                     )
                 })
-                if (s.damageReport.contains("(") && s.damageReport.contains(")")) {
-
-                } else {
-                    stormCard.setTextHeader(s)
+                if (!(stormReport.damageReport.contains("(") && stormReport.damageReport.contains(")"))) {
+                    stormCard.setTextHeader(stormReport)
                     stormCard.setListener(View.OnClickListener {
                         scrollView.smoothScrollTo(
                                 0,
