@@ -32,7 +32,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.app.ActivityCompat
-//import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences

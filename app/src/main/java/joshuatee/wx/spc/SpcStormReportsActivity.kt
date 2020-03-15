@@ -26,7 +26,6 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.TreeMap
 
-import android.app.Activity
 import android.os.Bundle
 import android.app.DatePickerDialog
 import android.content.res.Configuration
@@ -95,16 +94,14 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private val out = StringBuilder(5000)
     private var stormReports = mutableListOf<StormReport>()
     private lateinit var objectNavDrawer: ObjectNavDrawer
-    private lateinit var activity: Activity
+    //private lateinit var activity: Activity
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_show_navdrawer_bottom_toolbar, R.menu.spc_stormreports)
         toolbarBottom.setOnMenuItemClickListener(this)
-        activity = this
-        val menu = toolbarBottom.menu
-        val playlistMi = menu.findItem(R.id.action_playlist)
-        playlistMi.isVisible = false
+        //activity = this
+        toolbarBottom.menu.findItem(R.id.action_playlist).isVisible = false
         val activityArguments = intent.getStringArrayExtra(NO)
         no = activityArguments!![0]
         val cal = Calendar.getInstance()
@@ -155,8 +152,8 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         toolbar.subtitle = no
         val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
         linearLayout.removeAllViews()
-        val c0 = ObjectCardImage(this@SpcStormReportsActivity, linearLayout, bitmap)
-        c0.setOnClickListener(View.OnClickListener {
+        val objectCardImage = ObjectCardImage(this@SpcStormReportsActivity, linearLayout, bitmap)
+        objectCardImage.setOnClickListener(View.OnClickListener {
             val stDatePicker = DatePickerDialog(
                     this,
                     pDateSetListener,
@@ -174,9 +171,8 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             stDatePicker.setCanceledOnTouchOutside(true)
             stDatePicker.show()
         })
-        c0.resetZoom()
-        val objectCardText: ObjectCardText
-        objectCardText = ObjectCardText(this@SpcStormReportsActivity, linearLayout)
+        objectCardImage.resetZoom()
+        val objectCardText = ObjectCardText(this@SpcStormReportsActivity, linearLayout)
         objectCardText.visibility = View.GONE
         objectCardText.setOnClickListener(View.OnClickListener {
             filter = "All"
@@ -229,7 +225,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             val stateArrayLabel = mutableListOf<String>()
             stateArray.indices.forEach { stateArrayLabel.add(stateArray[it] + ": " + mapState[stateArray[it]]) }
             if (stateArrayLabel.size > 0) {
-                objectNavDrawer.updateLists(activity, stateArrayLabel)
+                objectNavDrawer.updateLists(this@SpcStormReportsActivity, stateArrayLabel)
             }
             firstRun = false
         }
@@ -287,8 +283,8 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when {
-            (item.title as String).contains("Show L2REF") -> radarProdShow(item.itemId, "L2REF")
-            (item.title as String).contains("Show L2VEL") -> radarProdShow(item.itemId, "L2VEL")
+            item.title.contains("Show L2REF") -> radarProdShow(item.itemId, "L2REF")
+            item.title.contains("Show L2VEL") -> radarProdShow(item.itemId, "L2VEL")
             else -> return false
         }
         return true
