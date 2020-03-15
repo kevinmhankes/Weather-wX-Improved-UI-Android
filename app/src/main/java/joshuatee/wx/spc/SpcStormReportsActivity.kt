@@ -94,13 +94,11 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private val out = StringBuilder(5000)
     private var stormReports = mutableListOf<StormReport>()
     private lateinit var objectNavDrawer: ObjectNavDrawer
-    //private lateinit var activity: Activity
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_show_navdrawer_bottom_toolbar, R.menu.spc_stormreports)
         toolbarBottom.setOnMenuItemClickListener(this)
-        //activity = this
         toolbarBottom.menu.findItem(R.id.action_playlist).isVisible = false
         val activityArguments = intent.getStringArrayExtra(NO)
         no = activityArguments!![0]
