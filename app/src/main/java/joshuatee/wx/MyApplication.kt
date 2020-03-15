@@ -91,13 +91,11 @@ class MyApplication : Application() {
                 res.getDimension(R.dimen.padding_dynamic_tv_small),
                 dm
         ).toInt()
-
         // FIXME needed? dup in UIpref
         val normalTextSize = getInitialPreference("TEXTVIEW_FONT_SIZE", 16) // 14 16 21
         textSizeSmall = UtilityUI.spToPx(normalTextSize - 2, this)
         textSizeNormal = UtilityUI.spToPx(normalTextSize, this)
         textSizeLarge = UtilityUI.spToPx(normalTextSize + 5, this)
-
         lLpadding = res.getDimension(R.dimen.padding_ll)
         // Calculate ActionBar height
         val tv = TypedValue()
@@ -132,14 +130,11 @@ class MyApplication : Application() {
                 .readTimeout(15, TimeUnit.SECONDS)
                 .addInterceptor(okHttp3Interceptor)
                 .build()
-
         UtilityTts.initTts(applicationContext)
         UtilityCities.initCitiesArray()
-
         if (!loadedBuffers) {
             initBuffers(this)
         }
-
         httpClientUnsafe = UtilityHttp.getUnsafeOkHttpClient()
         imageCollectionMap = ObjectImagesCollection.initialize()
     }
@@ -167,24 +162,18 @@ class MyApplication : Application() {
         const val nwsSwpcWebSitePrefix = "https://services.swpc.noaa.gov"
         const val canadaEcSitePrefix = "https://weather.gc.ca"
         const val tgftpSitePrefix = "https://tgftp.nws.noaa.gov"
-
         const val prefSeparator: String = " : : :"
         const val sep = "ABC123"
         const val pre2Pattern = "<pre>(.*?)</pre>"
-
         var uiAnimIconFrames: String = "rid"
-
         const val WIDGET_FILE_BAK: String = "BAK"
-
         val HM_CLASS: MutableMap<String, Class<*>> = mutableMapOf()
         val HM_CLASS_ARGS: MutableMap<String, Array<String>> = mutableMapOf()
         val HM_CLASS_ID: MutableMap<String, String> = mutableMapOf()
-
         var imageCollectionMap: MutableMap<String, ObjectImagesCollection> = mutableMapOf()
         init {
             UtilityHomeScreen.setupMap()
         }
-
         var primaryColor: Int = 0
         const val TEXTVIEW_MAGIC_FUDGE_FACTOR: Float = 4.05f
         var deviceScale: Float = 0f
