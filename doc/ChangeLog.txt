@@ -25,7 +25,6 @@
 // TODO [FIX] chromeOS - multipane radar toolbar is not fully transparent
 // TODO [FIX] change animation interval to animation speed
 // TODO [FIX] update PlayList to be more like iOS
-// TODO [ADD] playlist onrestart does not get new content
 // TODO [ADD] playlist should use WPCText instead of textviewer
 // TODO [ADD] main screen submenu show Canadian Warnings if on CA location
 // TODO [ADD] Canadian Warnings detailed formatting
@@ -34,6 +33,7 @@
                     [ADD] Canadian locations - have alerts act like US on front screen
                     [ADD] add save location button in adhoc location accessed via nexrad long press
                     [FIX] Canadian Warnings detailed formatting minor improvement
+                    [REF] minor optimizations in MyApp
 55378 2020_03_15    [REF] misc
                     [ADD] prp for future move to targetSdkVersion to 30 from 29 in build.gradle
                     [ADD] remove MPD summary link from WPC Text, users should go to severe dashboard
