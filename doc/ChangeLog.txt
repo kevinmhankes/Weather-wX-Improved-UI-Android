@@ -33,6 +33,7 @@
 55379 2020_03_15    [REF] misc for readability
                     [ADD] Canadian locations - have alerts act like US on front screen
                     [ADD] add save location button in adhoc location accessed via nexrad long press
+                    [FIX] Canadian Warnings detailed formatting minor improvement
 55378 2020_03_15    [REF] misc
                     [ADD] prp for future move to targetSdkVersion to 30 from 29 in build.gradle
                     [ADD] remove MPD summary link from WPC Text, users should go to severe dashboard

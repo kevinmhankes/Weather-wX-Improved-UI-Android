@@ -361,6 +361,7 @@ object UtilityCanada {
         } else {
             result[1] = result[0]
         }
+        result[1] = result[1].replace("ATOM", "")
         return result
     }
 
