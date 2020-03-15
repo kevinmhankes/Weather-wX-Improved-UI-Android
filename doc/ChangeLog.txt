@@ -10,6 +10,7 @@
 // TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
 // TODO [ADD] textual obs in fixed radars on homescreen
 // TODO [ADD] use ENUM instead of RID_FAV WFO_FAV SND_FAV (util/UtilityFavorites)
+// TODO [ADD] look into magnification gestures
 // TODO [FIX] dual/quad pane radar don't take up the entire screen on chomeOS
 // TODO [REF] move off MyApplication.colon.split MyApplication.colon.space
 // TODO       miscPref.split(":").dropLastWhile { it.isEmpty() }
@@ -28,8 +29,6 @@
 // TODO [ADD] playlist should use WPCText instead of textviewer
 // TODO [ADD] main screen submenu show Canadian Warnings if on CA location
 // TODO [ADD] Canadian Warnings detailed formatting
-// TODO [ADD] look into magnification gestures
-// TODO [ADD] in adhoc location add save location button in top right
 
 55379 2020_03_15    [REF] misc for readability
                     [ADD] Canadian locations - have alerts act like US on front screen

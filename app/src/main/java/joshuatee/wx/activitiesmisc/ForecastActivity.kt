@@ -40,7 +40,6 @@ import java.util.*
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.LatLon
-import joshuatee.wx.settings.UtilityLocation
 import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout.*
@@ -137,7 +136,7 @@ class ForecastActivity : BaseActivity() {
         try {
             cardSunrise.text = (
                     UtilityTimeSunMoon.getSunriseSunset(this@ForecastActivity, Location.currentLocationStr, false) + MyApplication.newline + UtilityTime.gmtTime()
-            )
+                    )
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
