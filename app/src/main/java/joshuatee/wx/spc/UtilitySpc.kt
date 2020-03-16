@@ -83,9 +83,9 @@ object UtilitySpc {
     }
 
     fun checkSpc(): List<String> {
-        val MD_COMP = "<center>No Mesoscale Discussions are currently in effect."
-        val WATCH_COMP = "<center><strong>No watches are currently valid"
-        val MPD_COMP = "No MPDs are currently in effect."
+        val mcdNothingString = "<center>No Mesoscale Discussions are currently in effect."
+        val watchNothingString = "<center><strong>No watches are currently valid"
+        val mpdNothingString = "No MPDs are currently in effect."
         var tabStr = ""
         val tabStrSpc: String
         var mdPresent = false
@@ -98,7 +98,7 @@ object UtilitySpc {
         var dashboardStrMpd = ""
         var dashboardStrMcd = ""
         if (MyApplication.checkspc) {
-            if (!MyApplication.severeDashboardMcd.value.contains(MD_COMP)) {
+            if (!MyApplication.severeDashboardMcd.value.contains(mcdNothingString)) {
                 mdPresent = true
                 val al = MyApplication.severeDashboardMcd.value.parseColumn(RegExp.mcdPatternUtilspc)
                 mdCount = al.size
@@ -106,7 +106,7 @@ object UtilitySpc {
                     dashboardStrMcd += ":$it"
                 }
             }
-            if (!MyApplication.severeDashboardWat.value.contains(WATCH_COMP)) {
+            if (!MyApplication.severeDashboardWat.value.contains(watchNothingString)) {
                 watchPresent = true
                 val al = MyApplication.severeDashboardWat.value.parseColumn(RegExp.watchPattern)
                 watchCount = al.size
@@ -116,7 +116,7 @@ object UtilitySpc {
             }
         }
         if (MyApplication.checkwpc) {
-            if (!MyApplication.severeDashboardMpd.value.contains(MPD_COMP)) {
+            if (!MyApplication.severeDashboardMpd.value.contains(mpdNothingString)) {
                 mpdPresent = true
                 val al = MyApplication.severeDashboardMpd.value.parseColumn(RegExp.mpdPattern)
                 mpdCount = al.size
