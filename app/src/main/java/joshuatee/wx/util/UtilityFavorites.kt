@@ -191,19 +191,19 @@ object UtilityFavorites {
         favorites[2] = MODIFY_STR
         val returnList = MutableList(favorites.size) { "" }
         favorites.indices.forEach {
-            if (it == 1 || it == 2)
+            if (it == 1 || it == 2) {
                 returnList[it] = favorites[it]
-            else
+            } else {
                 returnList[it] = UtilityWpcText.labels[findPositionNwsText(favorites[it])]
+            }
         }
         return returnList.toList()
     }
 
-    fun findPositionNwsText(key: String): Int =
-            UtilityWpcText.labels.indices.firstOrNull {
-                UtilityWpcText.labels[it].contains(
-                key
-            )
-        }
-            ?: 0
+    fun findPositionNwsText(key: String): Int {
+        val index = UtilityWpcText.labels.indices.firstOrNull {
+            UtilityWpcText.labels[it].startsWith(key)
+        } ?: 0
+        return index
+    }
 }

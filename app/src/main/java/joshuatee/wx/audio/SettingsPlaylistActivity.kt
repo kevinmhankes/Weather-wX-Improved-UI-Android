@@ -45,6 +45,8 @@ import joshuatee.wx.wpc.UtilityWpcText
 import kotlinx.coroutines.*
 import java.util.*
 import joshuatee.wx.R
+import joshuatee.wx.util.UtilityLog
+import joshuatee.wx.wpc.WpcTextProductsActivity
 
 class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
@@ -249,7 +251,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
     }
 
     private fun viewItem(position: Int) {
-        ObjectIntent(
+        /*ObjectIntent(
                 this,
                 TextScreenActivity::class.java,
                 TextScreenActivity.URL,
@@ -257,6 +259,12 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
                         Utility.readPref(this, "PLAYLIST_" + MyApplication.semicolon.split(ridArr[position])[0], ""),
                         ridArr[position]
                 )
+        )*/
+        ObjectIntent(
+                this,
+                WpcTextProductsActivity::class.java,
+                WpcTextProductsActivity.URL,
+                arrayOf(ridArr[position].split(";")[0].toLowerCase())
         )
     }
 
