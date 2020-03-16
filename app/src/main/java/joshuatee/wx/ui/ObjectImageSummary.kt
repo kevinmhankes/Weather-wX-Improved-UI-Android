@@ -24,10 +24,6 @@ package joshuatee.wx.ui
 import android.content.Context
 import android.graphics.Bitmap
 import android.widget.LinearLayout
-import joshuatee.wx.activitiesmisc.UtilityOpcImages
-import joshuatee.wx.activitiesmisc.UtilityObservations
-import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.vis.UtilityGoesFullDisk
 
 class ObjectImageSummary(
         context: Context,

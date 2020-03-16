@@ -13,7 +13,7 @@ object UtilityLog {
         }
     }
 
-    fun bigLog(tag: String, message: String) {
+    /*fun bigLog(tag: String, message: String) {
         var delim = "\n"
         if (!message.contains(delim)) {
             delim = "<br/>"
@@ -21,7 +21,7 @@ object UtilityLog {
         message.split(delim).forEach { line ->
             android.util.Log.d(tag, line)
         }
-    }
+    }*/
 
     fun handleException(exception: Exception): Unit = exception.printStackTrace()
 

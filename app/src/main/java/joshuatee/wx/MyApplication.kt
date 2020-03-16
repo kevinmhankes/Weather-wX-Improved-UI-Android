@@ -805,7 +805,7 @@ class MyApplication : Application() {
             UtilityDownloadWatch.timer.resetTimer()
             UtilityMetar.timer.resetTimer()
             UtilitySpotter.timer.resetTimer()
-            UtilitySwoD1.timer.resetTimer()
+            UtilitySwoDayOne.timer.resetTimer()
         }
 
         private fun getInitialPreference(pref: String, initValue: Int): Int {

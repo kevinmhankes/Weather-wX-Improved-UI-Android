@@ -46,9 +46,7 @@ import joshuatee.wx.settings.SettingsMainActivity
 import joshuatee.wx.spc.SpcSoundingsActivity
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.vis.GoesActivity
-
 
 open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListener {
 

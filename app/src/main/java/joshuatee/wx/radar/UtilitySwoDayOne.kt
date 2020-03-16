@@ -23,16 +23,13 @@ package joshuatee.wx.radar
 
 import android.annotation.SuppressLint
 import android.content.Context
-
+import joshuatee.wx.Extensions.getHtmlSep
+import joshuatee.wx.Extensions.parse
+import joshuatee.wx.Extensions.parseColumn
 import joshuatee.wx.MyApplication
-import joshuatee.wx.util.UtilityLog
-import joshuatee.wx.util.UtilityString
-
-import joshuatee.wx.Extensions.*
 import joshuatee.wx.objects.DownloadTimer
 
-// TODO rename
-internal object UtilitySwoD1 {
+internal object UtilitySwoDayOne {
 
     var timer = DownloadTimer("SWO")
 

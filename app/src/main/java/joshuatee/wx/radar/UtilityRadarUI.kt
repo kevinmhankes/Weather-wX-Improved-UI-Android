@@ -503,7 +503,7 @@ internal object UtilityRadarUI {
                 wxglRender.deconstructWBLines()
             }*/
             if (PolygonType.SWO.pref && !archiveMode) {
-                UtilitySwoD1.get(context)
+                UtilitySwoDayOne.get(context)
                 wxglRender.constructSwoLines()
             } else {
                 wxglRender.deconstructSwoLines()
