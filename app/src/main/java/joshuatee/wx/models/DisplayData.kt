@@ -45,16 +45,14 @@ class DisplayData(
     var bitmap: MutableList<Bitmap> = mutableListOf()
 
     init {
-        for (it in 0 until numPanes) {
+        val resourceId = listOf(R.id.iv1, R.id.iv2)
+        (0 until numPanes).forEach {index ->
             img.add(TouchImageView2(context))
             bitmap.add(UtilityImg.getBlankBitmap())
             param.add("")
             paramLabel.add("")
             animDrawable.add(AnimationDrawable())
-        }
-        val resId = listOf(R.id.iv1, R.id.iv2)
-        (0 until numPanes).forEach {
-            img[it] = activity.findViewById(resId[it])
+            img[index] = activity.findViewById(resourceId[index])
         }
         if (numPanes > 1) {
             img[0].setOnTouchImageViewListener { img[1].setZoom(img[0]) }
@@ -63,11 +61,15 @@ class DisplayData(
         (0 until numPanes).forEach {
             img[it].setOnTouchListener(object : OnSwipeTouchListener(context) {
                 override fun onSwipeLeft() {
-                    if (img[0].currentZoom < 1.01f) UtilityModels.moveForward(spTime)
+                    if (img[0].currentZoom < 1.01f) {
+                        UtilityModels.moveForward(spTime)
+                    }
                 }
 
                 override fun onSwipeRight() {
-                    if (img[0].currentZoom < 1.01f) UtilityModels.moveBack(spTime)
+                    if (img[0].currentZoom < 1.01f) {
+                        UtilityModels.moveBack(spTime)
+                    }
                 }
             })
         }
