@@ -194,7 +194,12 @@ object UtilityFavorites {
             if (it == 1 || it == 2) {
                 returnList[it] = favorites[it]
             } else {
-                returnList[it] = UtilityWpcText.labels[findPositionNwsText(favorites[it])]
+                val index = findPositionNwsText(favorites[it])
+                if (index == -1) {
+                    returnList[it] = value
+                } else {
+                    returnList[it] = UtilityWpcText.labels[findPositionNwsText(favorites[it])]
+                }
             }
         }
         return returnList.toList()
@@ -203,7 +208,7 @@ object UtilityFavorites {
     fun findPositionNwsText(key: String): Int {
         val index = UtilityWpcText.labels.indices.firstOrNull {
             UtilityWpcText.labels[it].startsWith(key)
-        } ?: 0
+        } ?: -1
         return index
     }
 }

@@ -208,7 +208,14 @@ class FavRemoveActivity : BaseActivity() {
             "SND" -> fullName = Utility.getSoundingSiteName(shortCode)
             "WFO" -> fullName = shortCode + ": " + Utility.getWfoSiteName(shortCode)
             "RID" -> fullName = shortCode + ": " + Utility.getRadarSiteName(shortCode)
-            "NWSTEXT" -> fullName = UtilityWpcText.labels[UtilityFavorites.findPositionNwsText(shortCode)]
+            "NWSTEXT" -> {
+                    val index = UtilityFavorites.findPositionNwsText(shortCode)
+                    if (index != -1) {
+                        fullName = UtilityWpcText.labels[index]
+                    } else {
+                        fullName = shortCode
+                    }
+            }
             "SREF" -> fullName = shortCode
             "RIDCA" -> fullName = findCanadaRadarSiteLabel(shortCode)
             "SPCMESO" -> fullName = findSpcMesoLabel(shortCode)
