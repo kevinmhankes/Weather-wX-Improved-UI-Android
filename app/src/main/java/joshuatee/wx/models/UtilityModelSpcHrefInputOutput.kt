@@ -51,7 +51,7 @@ internal object UtilityModelSpcHrefInputOutput {
         }
 
     fun getImage(context: Context, om: ObjectModel, time: String): Bitmap {
-        val sectorIndex: Int = if (om.sector == "") {
+        val sectorIndex = if (om.sector == "") {
             0
         } else {
             UtilityModelSpcHrefInterface.sectorsLong.indexOf(om.sector)
@@ -65,10 +65,11 @@ internal object UtilityModelSpcHrefInputOutput {
         val day = om.run.substring(6, 8)
         val hour = om.run.substring(8, 10)
         val products = om.currentParam.split(",")
-        val bitmapArr = mutableListOf<Bitmap>()
-        val urlArr = mutableListOf<String>()
-        urlArr.add("${MyApplication.nwsSPCwebsitePrefix}/exper/href/graphics/spc_white_1050px.png")
-        urlArr.add("${MyApplication.nwsSPCwebsitePrefix}/exper/href/graphics/noaa_overlay_1050px.png")
+        val bitmaps = mutableListOf<Bitmap>()
+        val urls = mutableListOf(
+                "${MyApplication.nwsSPCwebsitePrefix}/exper/href/graphics/spc_white_1050px.png",
+                "${MyApplication.nwsSPCwebsitePrefix}/exper/href/graphics/noaa_overlay_1050px.png"
+        )
         products.forEach {
             val url = if (it.contains("cref_members")) {
                 val paramArr = it.split(" ")
@@ -81,14 +82,14 @@ internal object UtilityModelSpcHrefInputOutput {
                         "/" + month + "/" + day + "/" + hour + "00/f0" + time + "00/" + it +
                         "." + sector.toLowerCase(Locale.US) + ".f0" + time + "00.png"
             }
-            urlArr.add(url)
+            urls.add(url)
         }
-        urlArr.add("${MyApplication.nwsSPCwebsitePrefix}/exper/href/graphics/blank_maps/$sector.png")
-        urlArr.forEach {
-            bitmapArr.add(it.getImage())
+        urls.add("${MyApplication.nwsSPCwebsitePrefix}/exper/href/graphics/blank_maps/$sector.png")
+        urls.forEach {
+            bitmaps.add(it.getImage())
         }
         val layers = mutableListOf<Drawable>()
-        bitmapArr.forEach {
+        bitmaps.forEach {
             layers.add(BitmapDrawable(context.resources, it))
         }
         return UtilityImg.layerDrawableToBitmap(layers)
@@ -98,9 +99,9 @@ internal object UtilityModelSpcHrefInputOutput {
         if (om.spinnerTimeValue == -1) {
             return AnimationDrawable()
         }
-        val bmAl = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) {
+        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) {
             getImage(context, om, om.spTime.list[it].split(" ").getOrNull(0) ?: "")
         }
-        return UtilityImgAnim.getAnimationDrawableFromBMList(context, bmAl)
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
 }

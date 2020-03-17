@@ -69,7 +69,7 @@ internal object UtilityModelSpcSrefInputOutput {
         val bmAl = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) {
             getImage(context, om, om.spTime.list[it].split(" ").getOrNull(0) ?: "")
         }
-        return UtilityImgAnim.getAnimationDrawableFromBMList(context, bmAl)
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bmAl)
     }
 }
 

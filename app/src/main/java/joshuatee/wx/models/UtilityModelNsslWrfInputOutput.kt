@@ -49,12 +49,11 @@ internal object UtilityModelNsslWrfInputOutput {
             runData.listRunAddAll(UtilityTime.genModelRuns(mostRecentRun, 12, "yyyyMMddHH"))
             runData.mostRecentRun = mostRecentRun
             return runData
-            // FIXME standardize on listRunAdd,listRunAddAll or appendListRun
         }
 
-    fun getImage(context: Context, om: ObjectModel, timeF: String): Bitmap {
-        val time = timeF.split(" ")[0]
-        val sectorIndex: Int = if (om.sector == "") {
+    fun getImage(context: Context, om: ObjectModel, timeOriginal: String): Bitmap {
+        val time = timeOriginal.split(" ")[0]
+        val sectorIndex = if (om.sector == "") {
             0
         } else {
             UtilityModelNsslWrfInterface.sectorsLong.indexOf(om.sector)
@@ -65,8 +64,7 @@ internal object UtilityModelNsslWrfInputOutput {
         var model = om.model.toLowerCase(Locale.US)
         if (om.model == "HRRRV3") {
             modelPostfix = ""
-        }
-        if (om.model == "WRF_3KM") {
+        } else if (om.model == "WRF_3KM") {
             model = "wrf_nssl_3km"
             modelPostfix = ""
         }
@@ -79,11 +77,11 @@ internal object UtilityModelNsslWrfInputOutput {
                 baseUrl + "/graphics/models/" + model + modelPostfix + "/" + year + "/" + month + "/" +
                         day + "/" + hour + "00/f" + time + "00/" + om.currentParam + ".spc_" +
                         sector.toLowerCase(Locale.US) + ".f" + time + "00.png"
-            val baseLayer = baseLayerUrl.getImage()
-            val prodLayer = url.getImage()
+            val baseLayerImage = baseLayerUrl.getImage()
+            val productLayerImage = url.getImage()
             return UtilityImg.addColorBackground(
                 context,
-                UtilityImg.mergeImages(context, prodLayer, baseLayer),
+                UtilityImg.mergeImages(context, productLayerImage, baseLayerImage),
                 Color.WHITE
             )
         } else {
@@ -95,9 +93,9 @@ internal object UtilityModelNsslWrfInputOutput {
         if (om.spinnerTimeValue == -1) {
             return AnimationDrawable()
         }
-        val bmAl = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) {
+        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) {
             getImage(context, om, om.spTime.list[it].split(" ").getOrNull(0) ?: "")
         }
-        return UtilityImgAnim.getAnimationDrawableFromBMList(context, bmAl)
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
 }

@@ -174,8 +174,8 @@ object UtilityModels {
     // FIXME don't need this - to simple
     fun parameterInList(list: List<String>, parameter: String): Boolean = list.contains(parameter)
 
-    fun convertTimeRunToTimeString(runStr: String, timeStrF: String, showDate: Boolean): String {
-        var timeStr = timeStrF
+    fun convertTimeRunToTimeString(runStr: String, timeStringOriginal: String, showDate: Boolean): String {
+        var timeStr = timeStringOriginal
         // in response to timeStr coming in as the following on rare occasions we need to truncate
         // 000 Wed 8pm
         // example input GFS 06Z would have repeated calls to this method as follows
@@ -242,14 +242,14 @@ object UtilityModels {
     }
 
     fun updateTime(
-            runF: String,
+            runOriginal: String,
             modelCurrentTimeF: String,
             listTime: MutableList<String>,
             dataAdapterTime: ArrayAdapter<String>,
             prefix: String,
             showDate: Boolean
     ) {
-        var run = runF
+        var run = runOriginal
         var modelCurrentTime = modelCurrentTimeF
         // run is the current run , ie 12Z
         // modelCurrentTime is the most recent model run

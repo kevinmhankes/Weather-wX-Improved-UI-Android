@@ -49,9 +49,8 @@ internal object UtilityModelEsrlInputOutput {
             else -> ("$urlBase/" + model.toLowerCase(Locale.US) + "/" + model + "/Welcome.cgi?dsKey="
                     + model.toLowerCase(Locale.US) + "_jet&domain=full").getHtml()
         }
-        val oldRunTimes: List<String>
         var html = htmlRunStatus.parse(RegExp.eslHrrrPattern1)
-        oldRunTimes = htmlRunStatus.parseColumn(RegExp.eslHrrrPattern2)
+        val oldRunTimes = htmlRunStatus.parseColumn(RegExp.eslHrrrPattern2)
         var year = html.parse(RegExp.eslHrrrPattern3)
         var day = html.parse(RegExp.eslHrrrPattern4)
         var hour = html.parse(RegExp.eslHrrrPattern5)
@@ -184,9 +183,9 @@ internal object UtilityModelEsrlInputOutput {
             return AnimationDrawable()
         }
         val timeList = om.spTime.list.toMutableList()
-        val bmAl = (om.spinnerTimeValue until timeList.size).mapTo(mutableListOf()) {
+        val bitmaps = (om.spinnerTimeValue until timeList.size).mapTo(mutableListOf()) {
             getImage(om, timeList[it].split(" ").getOrNull(0) ?: "")
         }
-        return UtilityImgAnim.getAnimationDrawableFromBMList(context, bmAl)
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
 }

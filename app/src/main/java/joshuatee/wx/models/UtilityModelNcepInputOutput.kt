@@ -95,9 +95,9 @@ internal object UtilityModelNcepInputOutput {
             return AnimationDrawable()
         }
         val timeList = om.spTime.list.toMutableList()
-        val bmAl = (om.spinnerTimeValue until timeList.size).mapTo(mutableListOf()) {
+        val bitmaps = (om.spinnerTimeValue until timeList.size).mapTo(mutableListOf()) {
             getImage(om, timeList[it].split(" ").getOrNull(0) ?: "")
         }
-        return UtilityImgAnim.getAnimationDrawableFromBMList(context, bmAl)
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
 }

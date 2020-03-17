@@ -87,7 +87,7 @@ object UtilityGoes {
         val bitmaps = imageUrls.map {
             it.getImage()
         }
-        return UtilityImgAnim.getAnimationDrawableFromBMList(
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(
                 context,
                 bitmaps,
                 UtilityImg.animInterval(context)

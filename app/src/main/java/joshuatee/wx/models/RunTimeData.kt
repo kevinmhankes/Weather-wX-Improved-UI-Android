@@ -30,16 +30,16 @@ class RunTimeData {
     var timeStrConv: String = ""
     var validTime: String = ""
 
-    fun listRunAdd(s: String) {
-        listRun.add(s)
+    fun listRunAdd(string: String) {
+        listRun.add(string)
     }
 
     fun listRunClear() {
         listRun.clear()
     }
 
-    fun listRunAddAll(l: List<String>) {
-        listRun.addAll(l)
+    fun listRunAddAll(list: List<String>) {
+        listRun.addAll(list)
     }
 }
 

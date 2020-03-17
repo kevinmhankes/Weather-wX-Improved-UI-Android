@@ -201,7 +201,7 @@ object UtilityUSImgNwsMosaic {
             bitmapCanvas = UtilityImg.getBlankBitmap()
         }
         val delay = UtilityImg.animInterval(context)
-        return UtilityImgAnim.getAnimationDrawableFromBMListWithCanvas(
+        return UtilityImgAnim.getAnimationDrawableFromBitmapListWithCanvas(
                 context,
                 bitmaps,
                 delay,

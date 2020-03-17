@@ -110,7 +110,7 @@ object UtilitySpcMesoInputOutput {
                 -1
             ).mapTo(urlAl) { "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/s" + sector + "/" + param + "/" + param + "_" + timeList[it] + ".gif" }
         }
-        return UtilityImgAnim.getAnimationDrawableFromUrlListWhiteBG(context, urlAl, delay)
+        return UtilityImgAnim.getAnimationDrawableFromUrlListWhiteBackground(context, urlAl, delay)
     }
 
     private fun stride(start: Int, end: Int, incr: Int): IntArray {

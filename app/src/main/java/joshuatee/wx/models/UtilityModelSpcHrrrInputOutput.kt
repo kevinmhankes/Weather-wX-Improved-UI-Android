@@ -96,7 +96,7 @@ internal object UtilityModelSpcHrrrInputOutput {
                 overlayImg
             )
         }
-        return UtilityImgAnim.getAnimationDrawableFromBMList(context, bmAl)
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bmAl)
     }
 
     private fun getSectorCode(sectorName: String) =

@@ -117,6 +117,6 @@ object UtilityAwcRadarMosaic {
                     + imageType + ")."
         )
         val bitmaps = urls.map { (baseUrl + baseAddOn + it).getImage() }
-        return UtilityImgAnim.getAnimationDrawableFromBMList(context, bitmaps)
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
 }

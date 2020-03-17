@@ -92,7 +92,7 @@ object UtilityCanadaImg {
                     MyApplication.canadaEcSitePrefix + it.replace("detailed/", "")
             )
         }
-        return UtilityImgAnim.getAnimationDrawableFromBMList(
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(
                 context,
                 bitmaps,
                 UtilityImg.animInterval(context)
