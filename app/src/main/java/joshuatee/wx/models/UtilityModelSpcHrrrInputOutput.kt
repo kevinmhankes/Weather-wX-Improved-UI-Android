@@ -62,21 +62,21 @@ internal object UtilityModelSpcHrrrInputOutput {
     ): Bitmap {
         val layerUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/"
         var imgUrl: String
-        val bitmapAl = mutableListOf<Bitmap>()
-        val layersAl = mutableListOf<Drawable>()
+        val bitmaps = mutableListOf<Bitmap>()
+        val layers = mutableListOf<Drawable>()
         overlayImg.forEach {
             imgUrl = layerUrl + getSectorCode(om.sector).toLowerCase(Locale.US) + "/" + it + "/" + it + ".gif"
-            bitmapAl.add(UtilityImg.eraseBackground(imgUrl.getImage(), -1))
+            bitmaps.add(UtilityImg.eraseBackground(imgUrl.getImage(), -1))
         }
         imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/hrrr/data/hrrr3/" +
                 getSectorCode(om.sector).toLowerCase(Locale.US) + "/R" +
                 om.run.replace("Z", "") + "_F" +
                 formatTime(time) + "_V" + getValidTime(om.run, time, om.rtd.validTime) +
                 "_" + getSectorCode(om.sector) + "_" + om.currentParam + ".gif"
-        bitmapAl.add(UtilityImg.eraseBackground(imgUrl.getImage(), -1))
-        layersAl.add(ColorDrawable(Color.WHITE))
-        bitmapAl.mapTo(layersAl) { BitmapDrawable(context.resources, it) }
-        return UtilityImg.layerDrawableToBitmap(layersAl)
+        bitmaps.add(UtilityImg.eraseBackground(imgUrl.getImage(), -1))
+        layers.add(ColorDrawable(Color.WHITE))
+        bitmaps.mapTo(layers) { BitmapDrawable(context.resources, it) }
+        return UtilityImg.layerDrawableToBitmap(layers)
     }
 
     fun getAnimation(
