@@ -32,26 +32,21 @@ import joshuatee.wx.ui.TouchImageView2
 import joshuatee.wx.util.UtilityImg
 
 class DisplayData(
-    context: Context,
-    activity: Activity,
-    numPanes: Int,
-    spTime: ObjectSpinner
+        context: Context,
+        activity: Activity,
+        numPanes: Int,
+        spTime: ObjectSpinner
 ) {
 
-    var animDrawable: MutableList<AnimationDrawable> = mutableListOf()
-    var param: MutableList<String> = mutableListOf()
-    var paramLabel: MutableList<String> = mutableListOf()
-    var img: MutableList<TouchImageView2> = mutableListOf()
-    var bitmap: MutableList<Bitmap> = mutableListOf()
+    var animDrawable: MutableList<AnimationDrawable> = MutableList(numPanes) {AnimationDrawable()}
+    var param: MutableList<String> = MutableList(numPanes) {""}
+    var paramLabel: MutableList<String> = MutableList(numPanes) {""}
+    var img: MutableList<TouchImageView2> = MutableList(numPanes) {TouchImageView2(context)}
+    var bitmap: MutableList<Bitmap> = MutableList(numPanes) {UtilityImg.getBlankBitmap()}
 
     init {
         val resourceId = listOf(R.id.iv1, R.id.iv2)
         (0 until numPanes).forEach {index ->
-            img.add(TouchImageView2(context))
-            bitmap.add(UtilityImg.getBlankBitmap())
-            param.add("")
-            paramLabel.add("")
-            animDrawable.add(AnimationDrawable())
             img[index] = activity.findViewById(resourceId[index])
         }
         if (numPanes > 1) {
