@@ -47,15 +47,15 @@ object UtilityCanadaImg {
         val times = html.parseColumn(">([0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}h[0-9]{2}m)</option>")
         val frameCnt = 10
         val delay = UtilityImg.animInterval(context)
-        val urlAl = mutableListOf<String>()
+        val urls = mutableListOf<String>()
         if (times.size > frameCnt)
-            (times.size - frameCnt until times.size).mapTo(urlAl) {
+            (times.size - frameCnt until times.size).mapTo(urls) {
                 "https://weather.gc.ca/data/satellite/goes_" + region + "_" + imgType + "_m_" + times[it].replace(
                         " ",
                         "_"
                 ).replace("/", "@") + ".jpg"
             }
-        return UtilityImgAnim.getAnimationDrawableFromUrlList(context, urlAl, delay)
+        return UtilityImgAnim.getAnimationDrawableFromUrlList(context, urls, delay)
     }
 
     private fun getRadarAnimStringArray(rid: String, duration: String): String {
@@ -65,15 +65,17 @@ object UtilityCanadaImg {
             durationPattern = "<p>Long .3hr.:</p>(.*?)</div>"
         }
         val radarHtml1Hr = radHtml.parse(durationPattern)
-        var urlList = ""
+        var urlString = ""
         var timeStamps = radarHtml1Hr.parseColumn("display='(.*?)'&amp;")
         val radarSiteCode = (timeStamps.first()).split("_")[0]
         timeStamps.forEach {
-            urlList += ":/data/radar/detailed/temp_image/$radarSiteCode/$it.GIF"
+            urlString += ":/data/radar/detailed/temp_image/$radarSiteCode/$it.GIF"
         }
         timeStamps = radHtml.parseColumn("src=.(/data/radar/.*?GIF)\"")
-        timeStamps.forEach { urlList += ":$it" }
-        return urlList
+        timeStamps.forEach {
+            urlString += ":$it"
+        }
+        return urlString
     }
 
     internal fun getRadarAnimOptionsApplied(
@@ -110,9 +112,10 @@ object UtilityCanadaImg {
         } else {
             urlImg = url
         }
-        var layerCnt = 1
-        if (GeographyType.CITIES.pref) {
-            layerCnt = 2
+        val layerCnt = if (GeographyType.CITIES.pref) {
+            2
+        } else {
+            1
         }
         val bitmaps = mutableListOf<Bitmap>()
         val layers = mutableListOf<Drawable>()
@@ -147,9 +150,10 @@ object UtilityCanadaImg {
         val matchStr = "(/data/radar/.*?GIF)\""
         var summary = radHtml.parse(matchStr)
         summary = summary.replace("detailed/", "")
-        var layerCnt = 1
-        if (GeographyType.CITIES.pref) {
-            layerCnt = 2
+        val layerCnt = if (GeographyType.CITIES.pref) {
+            2
+        } else {
+            1
         }
         val bitmaps = mutableListOf<Bitmap>()
         val layers = mutableListOf<Drawable>()

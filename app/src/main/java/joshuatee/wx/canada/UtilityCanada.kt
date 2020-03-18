@@ -50,9 +50,11 @@ object UtilityCanada {
 
     fun getIcons7Day(html: String): String {
         var iconList = ""
-        val dayAr = html.split((MyApplication.newline + MyApplication.newline))
+        val days = html.split((MyApplication.newline + MyApplication.newline))
             .dropLastWhile { it.isEmpty() }
-        dayAr.forEach { iconList += translateIconName(it) + "!" }
+        days.forEach {
+            iconList += translateIconName(it) + "!"
+        }
         return iconList
     }
 
@@ -267,11 +269,11 @@ object UtilityCanada {
     fun getLocationHtml(location: LatLon): String {
         val prov = location.latString.split(":").dropLastWhile { it.isEmpty() }
         val id = location.lonString.split(":").dropLastWhile { it.isEmpty() }
-        var data = ""
-        if (prov.size > 1 && id.isNotEmpty()) {
-            data = (MyApplication.canadaEcSitePrefix + "/rss/city/" + prov[1].toLowerCase(Locale.US) + "-" + id[0] + "_e.xml").getHtmlSep()
+        return if (prov.size > 1 && id.isNotEmpty()) {
+            (MyApplication.canadaEcSitePrefix + "/rss/city/" + prov[1].toLowerCase(Locale.US) + "-" + id[0] + "_e.xml").getHtmlSep()
+        } else {
+            ""
         }
-        return data
     }
 
     fun getLocationUrl(x: String, y: String): String {
@@ -295,17 +297,13 @@ object UtilityCanada {
 
     fun getConditions(html: String): String {
         val sum = html.parse("<b>Condition:</b> (.*?) <br/>.*?<b>Pressure.*?:</b> .*? kPa.*?<br/>")
-        val pressure =
-            html.parse("<b>Condition:</b> .*? <br/>.*?<b>Pressure.*?:</b> (.*?) kPa.*?<br/>")
+        val pressure = html.parse("<b>Condition:</b> .*? <br/>.*?<b>Pressure.*?:</b> (.*?) kPa.*?<br/>")
         var vis = html.parse("<b>Visibility:</b> (.*?)<br/>")
         vis = vis.replace("<.*?>".toRegex(), "")
         vis = vis.replace("\\s+".toRegex(), "")
-        val temp =
-            html.parse("<b>Temperature:</b> (.*?)&deg;C <br/>.*?<b>Humidity:</b> .*? %<br/>.*?<b>Dewpoint:</b> .*?&deg;C <br/>")
-        val rh =
-            html.parse("<b>Temperature:</b> .*?&deg;C <br/>.*?<b>Humidity:</b> (.*?) %<br/>.*?<b>Dewpoint:</b> .*?&deg;C <br/>")
-        val dew =
-            html.parse("<b>Temperature:</b> .*?&deg;C <br/>.*?<b>Humidity:</b> .*? %<br/>.*?<b>Dewpoint:</b> (.*?)&deg;C <br/>")
+        val temp = html.parse("<b>Temperature:</b> (.*?)&deg;C <br/>.*?<b>Humidity:</b> .*? %<br/>.*?<b>Dewpoint:</b> .*?&deg;C <br/>")
+        val rh = html.parse("<b>Temperature:</b> .*?&deg;C <br/>.*?<b>Humidity:</b> (.*?) %<br/>.*?<b>Dewpoint:</b> .*?&deg;C <br/>")
+        val dew = html.parse("<b>Temperature:</b> .*?&deg;C <br/>.*?<b>Humidity:</b> .*? %<br/>.*?<b>Dewpoint:</b> (.*?)&deg;C <br/>")
         var wind = Utility.fromHtml(html.parse("<b>Wind:</b> (.*?)<br/>"))
         wind = wind.replace(MyApplication.newline, "")
         vis = vis.replace(" miles", "mi")
@@ -313,8 +311,7 @@ object UtilityCanada {
     }
 
     fun get7Day(html: String): String {
-        val stringList =
-            html.parseColumn("<category term=\"Weather Forecasts\"/><br> <summary type=\"html\">(.*?\\.) Forecast.*?</summary>")
+        val stringList = html.parseColumn("<category term=\"Weather Forecasts\"/><br> <summary type=\"html\">(.*?\\.) Forecast.*?</summary>")
         var sevenDayForecast = ""
         val resultListDay = html.parseColumn("<title>(.*?)</title>")
         var j = 0
@@ -367,9 +364,9 @@ object UtilityCanada {
 
     fun getHazardsFromUrl(url: String): String {
         var warningData = ""
-        val urlArr = url.split(",").dropLastWhile { it.isEmpty() }
+        val urls = url.split(",").dropLastWhile { it.isEmpty() }
         var notFound = true
-        urlArr.forEach {
+        urls.forEach {
             if (it != "" && notFound) {
                 warningData += it.getHtml().parse("<main.*?container.>(.*?)</div>")
                 notFound = false
