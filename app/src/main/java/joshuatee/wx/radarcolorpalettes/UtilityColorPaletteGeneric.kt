@@ -30,7 +30,7 @@ import joshuatee.wx.MyApplication
 
 object UtilityColorPaletteGeneric {
 
-    private fun generate(context: Context, prod: String, code: String) {
+    private fun generate(context: Context, product: String, code: String) {
         // prod will be a string such as "94" for refl
         // -32 to 95
         var colorMapR: ByteBuffer
@@ -42,12 +42,12 @@ object UtilityColorPaletteGeneric {
         val lowerEnd: Int
         var prodOffset = 0.0
         var prodScale = 1.0
-        var colorMapProductCode = prod.toIntOrNull() ?: 0
+        var colorMapProductCode = product.toIntOrNull() ?: 0
         val objColormap = MyApplication.colorMap[colorMapProductCode]!!
         colorMapR = objColormap.redValues
         colorMapG = objColormap.greenValues
         colorMapB = objColormap.blueValues
-        when (prod) {
+        when (product) {
             "94" -> {
                 scale = 2
                 lowerEnd = -32
@@ -104,62 +104,54 @@ object UtilityColorPaletteGeneric {
         val rAl = mutableListOf<Int>()
         val gAl = mutableListOf<Int>()
         val bAl = mutableListOf<Int>()
-        val text = UtilityColorPalette.getColorMapStringFromDisk(context, prod, code)
+        val text = UtilityColorPalette.getColorMapStringFromDisk(context, product, code)
         val lines = text.split("\n")
-        var tmpArr: List<String>
         var r = "0"
         var g = "0"
         var b = "0"
         var priorLineHas6 = false
-        lines.forEach {
-            if (it.contains("olor") && !it.contains("#")) {
-                tmpArr = if (it.contains(","))
-                    it.split(",")
+        lines.forEach { line ->
+            if (line.contains("olor") && !line.contains("#")) {
+                val items = if (line.contains(","))
+                    line.split(",")
                 else
-                    it.split(" ")
-                if (tmpArr.size > 4) {
+                    line.split(" ")
+                if (items.size > 4) {
                     if (priorLineHas6) {
                         dbzAl.add(
-                                ((tmpArr[1].toDoubleOrNull()
+                                ((items[1].toDoubleOrNull()
                                         ?: 0.0) * prodScale + prodOffset - 1).toInt()
                         )
                         rAl.add(r.toIntOrNull() ?: 0)
                         gAl.add(g.toIntOrNull() ?: 0)
                         bAl.add(b.toIntOrNull() ?: 0)
                         dbzAl.add(
-                                ((tmpArr[1].toDoubleOrNull()
+                                ((items[1].toDoubleOrNull()
                                         ?: 0.0) * prodScale + prodOffset).toInt()
                         )
-                        rAl.add(tmpArr[2].toIntOrNull() ?: 0)
-                        gAl.add(tmpArr[3].toIntOrNull() ?: 0)
-                        bAl.add(tmpArr[4].toIntOrNull() ?: 0)
+                        rAl.add(items[2].toIntOrNull() ?: 0)
+                        gAl.add(items[3].toIntOrNull() ?: 0)
+                        bAl.add(items[4].toIntOrNull() ?: 0)
                         priorLineHas6 = false
                     } else {
                         dbzAl.add(
-                                ((tmpArr[1].toDoubleOrNull()
+                                ((items[1].toDoubleOrNull()
                                         ?: 0.0) * prodScale + prodOffset).toInt()
                         )
-                        rAl.add(tmpArr[2].toIntOrNull() ?: 0)
-                        gAl.add(tmpArr[3].toIntOrNull() ?: 0)
-                        bAl.add(tmpArr[4].toIntOrNull() ?: 0)
+                        rAl.add(items[2].toIntOrNull() ?: 0)
+                        gAl.add(items[3].toIntOrNull() ?: 0)
+                        bAl.add(items[4].toIntOrNull() ?: 0)
                     }
-                    if (tmpArr.size > 7) {
+                    if (items.size > 7) {
                         priorLineHas6 = true
-                        r = tmpArr[5]
-                        g = tmpArr[6]
-                        b = tmpArr[7]
+                        r = items[5]
+                        g = items[6]
+                        b = items[7]
                     }
                 }
             }
-        } // end loop over lines
-        var low: Int
-        var high: Int
-        var lowColor: Int
-        var highColor: Int
-        var diff: Int
-        var colorInt: Int
-        var colorInt2: Int
-        if (prod == "161") {
+        }
+        if (product == "161") {
             // pad first 16, think this is needed
             (0 until 10).forEach { _ ->
                 if (rAl.size > 0 && gAl.size > 0 && bAl.size > 0) {
@@ -169,7 +161,7 @@ object UtilityColorPaletteGeneric {
                 }
             }
         }
-        if (prod == "99" || prod == "135") {
+        if (product == "99" || product == "135") {
             // first two levels are range folder per ICD
             if (rAl.size > 0 && gAl.size > 0 && bAl.size > 0) {
                 colorMapR.put(rAl[0].toByte())
@@ -194,11 +186,11 @@ object UtilityColorPaletteGeneric {
         }
         dbzAl.indices.forEach { index ->
             if (index < dbzAl.lastIndex) {
-                low = dbzAl[index]
-                lowColor = Color.rgb(rAl[index], gAl[index], bAl[index])
-                high = dbzAl[index + 1]
-                highColor = Color.rgb(rAl[index + 1], gAl[index + 1], bAl[index + 1])
-                diff = high - low
+                val low = dbzAl[index]
+                val lowColor = Color.rgb(rAl[index], gAl[index], bAl[index])
+                val high = dbzAl[index + 1]
+                val highColor = Color.rgb(rAl[index + 1], gAl[index + 1], bAl[index + 1])
+                val diff = high - low
                 if (colorMapR.hasRemaining())
                     colorMapR.put(rAl[index].toByte())
                 if (colorMapG.hasRemaining())
@@ -215,7 +207,7 @@ object UtilityColorPaletteGeneric {
                 }
                 (1 until diff).forEach { j ->
                     if (scale == 1) {
-                        colorInt = UtilityNexradColors.interpolateColor(
+                        val colorInt = UtilityNexradColors.interpolateColor(
                                 lowColor,
                                 highColor,
                                 j.toDouble() / (diff * scale).toDouble()
@@ -230,12 +222,12 @@ object UtilityColorPaletteGeneric {
                             colorMapB.put(Color.blue(colorInt).toByte())
                         }
                     } else if (scale == 2) {
-                        colorInt = UtilityNexradColors.interpolateColor(
+                        val colorInt = UtilityNexradColors.interpolateColor(
                                 lowColor,
                                 highColor,
                                 (j * scale - 1).toDouble() / (diff * scale).toDouble()
                         )
-                        colorInt2 = UtilityNexradColors.interpolateColor(
+                        val colorInt2 = UtilityNexradColors.interpolateColor(
                                 lowColor,
                                 highColor,
                                 (j * scale).toDouble() / (diff * scale).toDouble()
