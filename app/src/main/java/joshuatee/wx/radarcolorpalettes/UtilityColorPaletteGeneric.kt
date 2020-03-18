@@ -177,7 +177,7 @@ object UtilityColorPaletteGeneric {
                 colorMapR.put(rAl[0].toByte())
                 colorMapG.put(gAl[0].toByte())
                 colorMapB.put(bAl[0].toByte())
-                if (scale == 2) { // ie 94 refl
+                if (scale == 2) { // 94 reflectivity
                     colorMapR.put(rAl[0].toByte())
                     colorMapG.put(gAl[0].toByte())
                     colorMapB.put(bAl[0].toByte())
@@ -266,78 +266,78 @@ object UtilityColorPaletteGeneric {
         }
     }
 
-    fun loadColorMap(context: Context, prod: String) {
+    fun loadColorMap(context: Context, product: String) {
         // This is the entrance method to load a colormap called at various spots
         // http://www.usawx.com/grradarexamples.htm
-        when (prod) {
-            "94" -> when (MyApplication.radarColorPalette[prod]) {
-                "AF" -> generate(context, prod, "AF")
-                "EAK" -> generate(context, prod, "EAK")
-                "DKenh" -> generate(context, prod, "DKenh")
-                "COD", "CODENH" -> generate(context, prod, "CODENH")
-                "MENH" -> generate(context, prod, "MENH")
+        when (product) {
+            "94" -> when (MyApplication.radarColorPalette[product]) {
+                "AF" -> generate(context, product, "AF")
+                "EAK" -> generate(context, product, "EAK")
+                "DKenh" -> generate(context, product, "DKenh")
+                "COD", "CODENH" -> generate(context, product, "CODENH")
+                "MENH" -> generate(context, product, "MENH")
                 else -> generate(
                         context,
-                        prod,
-                        MyApplication.radarColorPalette[prod]!!
+                        product,
+                        MyApplication.radarColorPalette[product]!!
                 )
             }
-            "99" -> when (MyApplication.radarColorPalette[prod]) {
-                "COD", "CODENH" -> generate(context, prod, "CODENH")
-                "AF" -> generate(context, prod, "AF")
-                "EAK" -> generate(context, prod, "EAK")
+            "99" -> when (MyApplication.radarColorPalette[product]) {
+                "COD", "CODENH" -> generate(context, product, "CODENH")
+                "AF" -> generate(context, product, "AF")
+                "EAK" -> generate(context, product, "EAK")
                 else -> generate(
                         context,
-                        prod,
-                        MyApplication.radarColorPalette[prod]!!
+                        product,
+                        MyApplication.radarColorPalette[product]!!
                 )
             }
-            "134" -> when (MyApplication.radarColorPalette[prod]) {
-                "CODENH" -> generate(context, prod, "CODENH")
+            "134" -> when (MyApplication.radarColorPalette[product]) {
+                "CODENH" -> generate(context, product, "CODENH")
                 else -> generate(
                         context,
-                        prod,
-                        MyApplication.radarColorPalette[prod]!!
+                        product,
+                        MyApplication.radarColorPalette[product]!!
                 )
             }
-            "135" -> when (MyApplication.radarColorPalette[prod]) {
-                "CODENH" -> generate(context, prod, "CODENH")
+            "135" -> when (MyApplication.radarColorPalette[product]) {
+                "CODENH" -> generate(context, product, "CODENH")
                 else -> generate(
                         context,
-                        prod,
-                        MyApplication.radarColorPalette[prod]!!
+                        product,
+                        MyApplication.radarColorPalette[product]!!
                 )
             }
-            "159" -> when (MyApplication.radarColorPalette[prod]) {
-                "CODENH" -> generate(context, prod, "CODENH")
+            "159" -> when (MyApplication.radarColorPalette[product]) {
+                "CODENH" -> generate(context, product, "CODENH")
                 else -> generate(
                         context,
-                        prod,
-                        MyApplication.radarColorPalette[prod]!!
+                        product,
+                        MyApplication.radarColorPalette[product]!!
                 )
             }
-            "161" -> when (MyApplication.radarColorPalette[prod]) {
-                "CODENH" -> generate(context, prod, "CODENH")
+            "161" -> when (MyApplication.radarColorPalette[product]) {
+                "CODENH" -> generate(context, product, "CODENH")
                 else -> generate(
                         context,
-                        prod,
-                        MyApplication.radarColorPalette[prod]!!
+                        product,
+                        MyApplication.radarColorPalette[product]!!
                 )
             }
-            "163" -> when (MyApplication.radarColorPalette[prod]) {
-                "CODENH" -> generate(context, prod, "CODENH")
+            "163" -> when (MyApplication.radarColorPalette[product]) {
+                "CODENH" -> generate(context, product, "CODENH")
                 else -> generate(
                         context,
-                        prod,
-                        MyApplication.radarColorPalette[prod]!!
+                        product,
+                        MyApplication.radarColorPalette[product]!!
                 )
             }
-            "172" -> when (MyApplication.radarColorPalette[prod]) {
-                "CODENH" -> generate(context, prod, "CODENH")
+            "172" -> when (MyApplication.radarColorPalette[product]) {
+                "CODENH" -> generate(context, product, "CODENH")
                 else -> generate(
                         context,
-                        prod,
-                        MyApplication.radarColorPalette[prod]!!
+                        product,
+                        MyApplication.radarColorPalette[product]!!
                 )
             }
             else -> {
