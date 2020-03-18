@@ -63,7 +63,6 @@ class ObjectForecastPackageCurrentConditions {
     }
 
     private fun getConditionsViaMetar(context: Context, latLon: LatLon): List<String> {
-        var stringBuffer = ""
         val objectMetar = ObjectMetar(context, latLon)
         time = objectMetar.conditionsTimeStr
         val temperature = objectMetar.temperature + MyApplication.DEGREE_SYMBOL
@@ -77,32 +76,31 @@ class ObjectForecastPackageCurrentConditions {
         val windGust = objectMetar.windGust
         val visibility = objectMetar.visibility
         val condition = objectMetar.condition
-        stringBuffer += temperature
+        var string = temperature
         if (objectMetar.windChill != "NA") {
-            stringBuffer += "($windChill)"
+            string += "($windChill)"
         } else if (objectMetar.heatIndex != "NA") {
-            stringBuffer += "($heatIndex)"
+            string += "($heatIndex)"
         }
-        stringBuffer += " / $dewPoint($relativeHumidity) - "
-        stringBuffer += "$seaLevelPressure - $windDirection $windSpeed"
+        string += " / $dewPoint($relativeHumidity) - "
+        string += "$seaLevelPressure - $windDirection $windSpeed"
         if (windGust != "") {
-            stringBuffer += " G "
+            string += " G "
         }
-        stringBuffer += "$windGust mph - $visibility mi - $condition"
-        return listOf(stringBuffer, objectMetar.icon)
-        //sb    String    "NA° / 22°(NA%) - 1016 mb - W 13 mph - 10 mi - Mostly Cloudy"
+        string += "$windGust mph - $visibility mi - $condition"
+        return listOf(string, objectMetar.icon)
+        // "NA° / 22°(NA%) - 1016 mb - W 13 mph - 10 mi - Mostly Cloudy"
     }
 
-    // FIXME sync up with flutter/ios port
-    fun formatCurrentConditions() {
-        val separator = " - "
-        val dataList = data.split(separator)
-        var tmpString = ""
-        if (dataList.size > 4) {
-            val tmpList = dataList[0].split("/")
-            tmpString = dataList[4].replace("^ ", "") + " " + tmpList[0] + dataList[2]
+    fun format() {
+        val dataList = data.split(" - ")
+        val string = if (dataList.size > 4) {
+            val items = dataList[0].split("/")
+            dataList[4].replace("^ ", "") + " " + items[0] + dataList[2]
+        } else {
+            ""
         }
-        topLine = tmpString
+        topLine = string
     }
 }
 

@@ -47,7 +47,7 @@ class ObjectForecastPackage7Day {
         if (Location.isUS(locationNumber)) {
             val html = UtilityDownloadNws.get7DayData(Location.getLatLon(locationNumber))
             iconsAsString = getIcons7Day(html)
-            sevenDayLong = get7DayExt(html)
+            sevenDayLong = get7DayExtended(html)
             sevenDayShort = get7DayShort(html)
         } else {
             val html = UtilityCanada.getLocationHtml(Location.getLatLon(locationNumber))
@@ -61,7 +61,7 @@ class ObjectForecastPackage7Day {
     constructor(latLon: LatLon) {
         val html = UtilityDownloadNws.get7DayData(latLon)
         iconsAsString = getIcons7Day(html)
-        sevenDayLong = get7DayExt(html)
+        sevenDayLong = get7DayExtended(html)
         sevenDayShort = get7DayShort(html)
     }
 
@@ -74,58 +74,58 @@ class ObjectForecastPackage7Day {
     }
 
     private fun getIcons7Day(html: String): String {
-        val iconAl = html.parseColumn("\"icon\": \"(.*?)\",")
+        val icons = html.parseColumn("\"icon\": \"(.*?)\",")
         var iconList = ""
-        iconAl.forEach {
+        icons.forEach {
             iconList += "$it!"
         }
         return iconList
     }
 
     private fun get7DayShort(html: String): String {
-        val nameAl = html.parseColumn("\"name\": \"(.*?)\",")
-        val temperatureAl = html.parseColumn("\"temperature\": (.*?),")
-        val shortForecastAl = html.parseColumn("\"shortForecast\": \"(.*?)\",")
-        val detailedForecastAl = html.parseColumn("\"detailedForecast\": \"(.*?)\"")
-        if ((nameAl.size == temperatureAl.size) && (temperatureAl.size == shortForecastAl.size) && (shortForecastAl.size == detailedForecastAl.size)) {
-            val forecastAl = (nameAl.indices).mapTo(mutableListOf()) {
+        val names = html.parseColumn("\"name\": \"(.*?)\",")
+        val temperatures = html.parseColumn("\"temperature\": (.*?),")
+        val shortForecasts = html.parseColumn("\"shortForecast\": \"(.*?)\",")
+        val detailedForecasts = html.parseColumn("\"detailedForecast\": \"(.*?)\"")
+        if ((names.size == temperatures.size) && (temperatures.size == shortForecasts.size) && (shortForecasts.size == detailedForecasts.size)) {
+            val objectForecasts = (names.indices).mapTo(mutableListOf()) {
                 ObjectForecast(
-                        nameAl[it],
-                        temperatureAl[it],
-                        shortForecastAl[it],
-                        detailedForecastAl[it]
+                        names[it],
+                        temperatures[it],
+                        shortForecasts[it],
+                        detailedForecasts[it]
                 )
             }
-            var forecast = MyApplication.newline + MyApplication.newline
-            forecastAl.forEach {
-                forecast += it.name + "(" + it.temperature + "): " + it.shortForecast
-                forecast += MyApplication.newline + MyApplication.newline
+            var forecasts = MyApplication.newline + MyApplication.newline
+            objectForecasts.forEach {
+                forecasts += it.name + "(" + it.temperature + "): " + it.shortForecast
+                forecasts += MyApplication.newline + MyApplication.newline
             }
-            return forecast
+            return forecasts
         } else {
             return ""
         }
     }
 
-    private fun get7DayExt(html: String): String {
-        val forecastAl = mutableListOf<ObjectForecast>()
-        val nameAl = html.parseColumn("\"name\": \"(.*?)\",")
-        val temperatureAl = html.parseColumn("\"temperature\": (.*?),")
+    private fun get7DayExtended(html: String): String {
+        val forecasts = mutableListOf<ObjectForecast>()
+        val names = html.parseColumn("\"name\": \"(.*?)\",")
+        val temperatures = html.parseColumn("\"temperature\": (.*?),")
         this.icons = html.parseColumn("\"icon\": \"(.*?)\",")
-        val shortForecastAl = html.parseColumn("\"shortForecast\": \"(.*?)\",")
-        val detailedForecastAlLocal = html.parseColumn("\"detailedForecast\": \"(.*?)\"")
-        if (nameAl.size == temperatureAl.size && temperatureAl.size == shortForecastAl.size && shortForecastAl.size == detailedForecastAlLocal.size) {
-            (nameAl.indices).mapTo(forecastAl) {
+        val shortForecasts = html.parseColumn("\"shortForecast\": \"(.*?)\",")
+        val detailedForecastsLocal = html.parseColumn("\"detailedForecast\": \"(.*?)\"")
+        if (names.size == temperatures.size && temperatures.size == shortForecasts.size && shortForecasts.size == detailedForecastsLocal.size) {
+            (names.indices).mapTo(forecasts) {
                 ObjectForecast(
-                        nameAl[it],
-                        temperatureAl[it],
-                        shortForecastAl[it],
-                        detailedForecastAlLocal[it]
+                        names[it],
+                        temperatures[it],
+                        shortForecasts[it],
+                        detailedForecastsLocal[it]
                 )
             }
         }
         var forecast = MyApplication.newline + MyApplication.newline
-        forecastAl.forEach {
+        forecasts.forEach {
             forecast += it.name + ": " + it.detailedForecast
             forecast += MyApplication.newline + MyApplication.newline
             detailedForecasts.add(it.name + ": " + it.detailedForecast)

@@ -35,14 +35,14 @@ import kotlin.system.exitProcess
 
 object UtilityAlertDialog {
 
-    fun showHelpText(helpStr: String, activity: Activity) {
-        ObjectDialogue(activity, helpStr)
+    fun showHelpText(help: String, activity: Activity) {
+        ObjectDialogue(activity, help)
     }
 
-    fun showHelpTextWeb(helpStr: String, activity: Activity) {
+    fun showHelpTextWeb(help: String, activity: Activity) {
         val alert = AlertDialog.Builder(activity)
         val wv = WebView(activity)
-        wv.loadUrl(helpStr)
+        wv.loadUrl(help)
         wv.webViewClient = object : WebViewClient() {
             @SuppressWarnings("deprecation")
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
