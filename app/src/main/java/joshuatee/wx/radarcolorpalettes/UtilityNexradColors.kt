@@ -55,7 +55,7 @@ internal object UtilityNexradColors {
         }
     }
 
-    /** Returns an interpolated color, between `a` and `b`  */
+    // Returns an interpolated color, between `a` and `b`
     fun interpolateColor(a: Int, b: Int, proportion: Double): Int {
         val hsvA = FloatArray(3)
         val hsvB = FloatArray(3)
