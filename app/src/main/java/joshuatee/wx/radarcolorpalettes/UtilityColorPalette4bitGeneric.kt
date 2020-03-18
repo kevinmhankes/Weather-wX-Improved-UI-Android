@@ -42,9 +42,9 @@ internal object UtilityColorPalette4bitGeneric {
         }
         val text = UtilityIO.readTextFileFromRaw(context.resources, cmFileInt)
         val lines = text.split("\n")
-        lines.forEach {
-            if (it.contains(",")) {
-                val colors = it.split(",")
+        lines.forEach {line ->
+            if (line.contains(",")) {
+                val colors = line.split(",")
                 val red = colors[0].toInt().toByte()
                 val green = colors[1].toInt().toByte()
                 val blue = colors[2].toInt().toByte()

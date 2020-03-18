@@ -26,7 +26,7 @@
 // TODO [FIX] change animation interval to animation speed
 // TODO [FIX] update PlayList to be more like iOS
 
-55379 2020_03_17    [REF] misc for readability
+55379 2020_03_18    [REF] misc for readability
                     [ADD] Canadian locations - have alerts act like US on front screen
                     [ADD] add save location button in adhoc location accessed via nexrad long press
                     [FIX] Canadian Warnings detailed formatting minor improvement

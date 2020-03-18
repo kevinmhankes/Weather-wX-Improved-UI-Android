@@ -33,33 +33,30 @@ internal object UtilityColorPalette165 {
         obj165.redValues.position(0)
         obj165.greenValues.position(0)
         obj165.blueValues.position(0)
-        val dbzAl = mutableListOf<Int>()
+        val dbzs = mutableListOf<Int>()
         val rAl = mutableListOf<Int>()
         val gAl = mutableListOf<Int>()
         val bAl = mutableListOf<Int>()
         val text = UtilityColorPalette.getColorMapStringFromDisk(context, "165", code)
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }
-        var tmpArr: List<String>
-        lines.forEach {
-            if (it.contains("olor") && !it.contains("#")) {
-                tmpArr = if (it.contains(","))
-                    it.split(",")
+        lines.forEach { line ->
+            if (line.contains("olor") && !line.contains("#")) {
+                val items = if (line.contains(","))
+                    line.split(",")
                 else
-                    it.split(" ")
+                    line.split(" ")
 
-                if (tmpArr.size > 4) {
-                    dbzAl.add(tmpArr[1].toIntOrNull() ?: 0)
-                    rAl.add(tmpArr[2].toIntOrNull() ?: 0)
-                    gAl.add(tmpArr[3].toIntOrNull() ?: 0)
-                    bAl.add(tmpArr[4].toIntOrNull() ?: 0)
+                if (items.size > 4) {
+                    dbzs.add(items[1].toIntOrNull() ?: 0)
+                    rAl.add(items[2].toIntOrNull() ?: 0)
+                    gAl.add(items[3].toIntOrNull() ?: 0)
+                    bAl.add(items[4].toIntOrNull() ?: 0)
                 }
             }
         }
-        var lowColor: Int
-        var diff: Int
-        dbzAl.indices.forEach {
-            lowColor = Color.rgb(rAl[it], gAl[it], bAl[it])
-            diff = 10
+        dbzs.indices.forEach {
+            val lowColor = Color.rgb(rAl[it], gAl[it], bAl[it])
+            val diff = 10
             obj165.redValues.put(rAl[it].toByte())
             obj165.greenValues.put(gAl[it].toByte())
             obj165.blueValues.put(bAl[it].toByte())

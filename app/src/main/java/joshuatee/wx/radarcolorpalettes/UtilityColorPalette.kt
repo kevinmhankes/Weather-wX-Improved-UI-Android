@@ -29,58 +29,58 @@ import joshuatee.wx.util.UtilityIO
 
 object UtilityColorPalette {
 
-    fun getColorMapStringFromDisk(context: Context, prod: String, code: String): String {
-        var cmFileInt = 0
+    fun getColorMapStringFromDisk(context: Context, product: String, code: String): String {
+        var fileId = 0
         var text = "null"
-        when (prod) {
+        when (product) {
             "94" -> when (code) {
-                "AF" -> cmFileInt = R.raw.colormaprefaf
-                "EAK" -> cmFileInt = R.raw.colormaprefeak
-                "DKenh" -> cmFileInt = R.raw.colormaprefdkenh
-                "CUST", "CODE" -> cmFileInt = R.raw.colormaprefcode
-                "NSSL" -> cmFileInt = R.raw.colormaprefnssl
-                "NWSD" -> cmFileInt = R.raw.colormaprefnwsd
-                "COD", "CODENH" -> cmFileInt = R.raw.colormaprefcodenh
-                "MENH" -> cmFileInt = R.raw.colormaprefmenh
-                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + prod + "_" + code, "")
+                "AF" -> fileId = R.raw.colormaprefaf
+                "EAK" -> fileId = R.raw.colormaprefeak
+                "DKenh" -> fileId = R.raw.colormaprefdkenh
+                "CUST", "CODE" -> fileId = R.raw.colormaprefcode
+                "NSSL" -> fileId = R.raw.colormaprefnssl
+                "NWSD" -> fileId = R.raw.colormaprefnwsd
+                "COD", "CODENH" -> fileId = R.raw.colormaprefcodenh
+                "MENH" -> fileId = R.raw.colormaprefmenh
+                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + product + "_" + code, "")
             }
             "99" -> when (code) {
-                "COD", "CODENH" -> cmFileInt = R.raw.colormapbvcod
-                "AF" -> cmFileInt = R.raw.colormapbvaf
-                "EAK" -> cmFileInt = R.raw.colormapbveak
-                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + prod + "_" + code, "")
+                "COD", "CODENH" -> fileId = R.raw.colormapbvcod
+                "AF" -> fileId = R.raw.colormapbvaf
+                "EAK" -> fileId = R.raw.colormapbveak
+                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + product + "_" + code, "")
             }
             "135" -> when (code) {
-                "COD", "CODENH" -> cmFileInt = R.raw.colormap135cod
-                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + prod + "_" + code, "")
+                "COD", "CODENH" -> fileId = R.raw.colormap135cod
+                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + product + "_" + code, "")
             }
             "161" -> when (code) {
-                "COD", "CODENH" -> cmFileInt = R.raw.colormap161cod
-                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + prod + "_" + code, "")
+                "COD", "CODENH" -> fileId = R.raw.colormap161cod
+                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + product + "_" + code, "")
             }
             "163" -> when (code) {
-                "COD", "CODENH" -> cmFileInt = R.raw.colormap163cod
-                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + prod + "_" + code, "")
+                "COD", "CODENH" -> fileId = R.raw.colormap163cod
+                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + product + "_" + code, "")
             }
             "159" -> when (code) {
-                "COD", "CODENH" -> cmFileInt = R.raw.colormap159cod
-                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + prod + "_" + code, "")
+                "COD", "CODENH" -> fileId = R.raw.colormap159cod
+                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + product + "_" + code, "")
             }
             "134" -> when (code) {
-                "COD", "CODENH" -> cmFileInt = R.raw.colormap134cod
-                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + prod + "_" + code, "")
+                "COD", "CODENH" -> fileId = R.raw.colormap134cod
+                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + product + "_" + code, "")
             }
             "165" -> when (code) {
-                "COD", "CODENH" -> cmFileInt = R.raw.colormap165cod
-                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + prod + "_" + code, "")
+                "COD", "CODENH" -> fileId = R.raw.colormap165cod
+                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + product + "_" + code, "")
             }
             "172" -> when (code) {
-                "COD", "CODENH" -> cmFileInt = R.raw.colormap172cod
-                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + prod + "_" + code, "")
+                "COD", "CODENH" -> fileId = R.raw.colormap172cod
+                else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + product + "_" + code, "")
             }
         }
         if (text == "null") {
-            text = UtilityIO.readTextFileFromRaw(context.resources, cmFileInt)
+            text = UtilityIO.readTextFileFromRaw(context.resources, fileId)
         }
         return text
     }
