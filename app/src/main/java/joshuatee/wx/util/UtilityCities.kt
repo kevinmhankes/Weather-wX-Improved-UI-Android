@@ -23,11 +23,11 @@ package joshuatee.wx.util
 
 object UtilityCities {
 
-    private const val num = 345
-    internal val list = arrayOfNulls<City>(num)
-    val cities: Array<String> = Array(num) { "" }
-    val lat: DoubleArray = DoubleArray(num)
-    val lon: DoubleArray = DoubleArray(num)
+    private const val numberOfCities = 345
+    internal val list = arrayOfNulls<City>(numberOfCities)
+    val cities: Array<String> = Array(numberOfCities) { "" }
+    val lat: DoubleArray = DoubleArray(numberOfCities)
+    val lon: DoubleArray = DoubleArray(numberOfCities)
 
     fun initCitiesArray() {
         loadCitiesArray()
