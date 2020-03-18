@@ -49,7 +49,7 @@ class ObjectNhcStormDetails(val data: String) {
     var pressure = data.parse("<nhc:pressure>(.*?)<br> ")
     var wind = data.parse("<nhc:wind>(.*?)<br> ")
     var headline = data.parse("<nhc:headline>(.*?)<br> ")
-    
+
     override fun toString (): String {
         var string = center + MyApplication.newline
         string += type + MyApplication.newline
