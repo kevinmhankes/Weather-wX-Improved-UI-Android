@@ -46,14 +46,14 @@ internal object UtilityCanvas {
         val wallPath = Path()
         wallPath.reset()
         val paintList = listOf(
-            MyApplication.radarColorFfw,
-            MyApplication.radarColorTstorm,
-            MyApplication.radarColorTor
+                MyApplication.radarColorFfw,
+                MyApplication.radarColorTstorm,
+                MyApplication.radarColorTor
         )
         val warningDataList = listOf(
-            MyApplication.severeDashboardFfw.value,
-            MyApplication.severeDashboardTst.value,
-            MyApplication.severeDashboardTor.value
+                MyApplication.severeDashboardFfw.value,
+                MyApplication.severeDashboardTst.value,
+                MyApplication.severeDashboardTor.value
         )
         if (provider.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
@@ -65,12 +65,12 @@ internal object UtilityCanvas {
             var warningHTML = it.replace("\n", "")
             warningHTML = warningHTML.replace(" ", "")
             val warningAl =
-                UtilityString.parseColumnMutable(warningHTML, RegExp.warningLatLonPattern)
+                    UtilityString.parseColumnMutable(warningHTML, RegExp.warningLatLonPattern)
             val vtecs = warningHTML.parseColumn(RegExp.warningVtecPattern)
             warningAl.forEachIndexed { i, warn ->
                 UtilityLog.d("wx", vtecs[i])
                 warningAl[i] =
-                    warn.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
+                        warn.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
                 if (vtecs[i].startsWith("O.EXP") || vtecs[i].startsWith("O.CAN")) {
                     warningAl.removeAt(i)
                 }
@@ -80,10 +80,10 @@ internal object UtilityCanvas {
     }
 
     fun drawCitiesUS(
-        provider: ProjectionType,
-        bitmap: Bitmap,
-        radarSite: String,
-        textSize: Int
+            provider: ProjectionType,
+            bitmap: Bitmap,
+            radarSite: String,
+            textSize: Int
     ) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -104,25 +104,25 @@ internal object UtilityCanvas {
         UtilityCities.list.indices.forEach {
             tmpCoords = if (provider.isMercator) {
                 UtilityCanvasProjection.computeMercatorNumbers(
-                    UtilityCities.list[it]!!.x,
-                    UtilityCities.list[it]!!.y,
-                    pn
+                        UtilityCities.list[it]!!.x,
+                        UtilityCities.list[it]!!.y,
+                        pn
                 )
             } else {
                 UtilityCanvasProjection.compute4326Numbers(
-                    UtilityCities.list[it]!!.x,
-                    UtilityCities.list[it]!!.y,
-                    pn
+                        UtilityCities.list[it]!!.x,
+                        UtilityCities.list[it]!!.y,
+                        pn
                 )
             }
             pixXInit = tmpCoords[0]
             pixYInit = tmpCoords[1]
             if (textSize > 0) {
                 canvas.drawText(
-                    MyApplication.comma.split(UtilityCities.list[it]!!.city)[0],
-                    pixXInit.toFloat() + 4,
-                    pixYInit.toFloat() - 4,
-                    paint
+                        MyApplication.comma.split(UtilityCities.list[it]!!.city)[0],
+                        pixXInit.toFloat() + 4,
+                        pixYInit.toFloat() - 4,
+                        paint
                 )
                 canvas.drawCircle(pixXInit.toFloat(), pixYInit.toFloat(), 2f, paint)
             } else {
@@ -132,26 +132,26 @@ internal object UtilityCanvas {
     }
 
     fun addLocationDotForCurrentLocation(
-        provider: ProjectionType,
-        bitmap: Bitmap,
-        radarSite: String
+            projectionType: ProjectionType,
+            bitmap: Bitmap,
+            radarSite: String
     ) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.FILL
         paint.strokeWidth = 1.0f
         paint.color = MyApplication.radarColorLocdot
-        if (provider.needsCanvasShift) {
+        if (projectionType.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
         val locXCurrent = Location.x
         var locYCurrent = Location.y
         locYCurrent = locYCurrent.replace("-", "")
-        val pn = ProjectionNumbers(radarSite, provider)
+        val pn = ProjectionNumbers(radarSite, projectionType)
         val x = locXCurrent.toDoubleOrNull() ?: 0.0
         val y = locYCurrent.toDoubleOrNull() ?: 0.0
         val tmpCoords: DoubleArray
-        tmpCoords = if (provider.isMercator) {
+        tmpCoords = if (projectionType.isMercator) {
             UtilityCanvasProjection.computeMercatorNumbers(x, y, pn)
         } else {
             UtilityCanvasProjection.compute4326Numbers(x, y, pn)
@@ -163,10 +163,10 @@ internal object UtilityCanvas {
     }
 
     fun addMcd(
-        provider: ProjectionType,
-        bitmap: Bitmap,
-        radarSite: String,
-        polyType: PolygonType
+            provider: ProjectionType,
+            bitmap: Bitmap,
+            radarSite: String,
+            polyType: PolygonType
     ) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -195,12 +195,12 @@ internal object UtilityCanvas {
 
     // used by MCD/WAT/MPD
     private fun canvasDrawWarnings(
-        warningAl: List<String>,
-        canvas: Canvas,
-        wallPath: Path,
-        paint: Paint,
-        mercator: Boolean,
-        pn: ProjectionNumbers
+            warningAl: List<String>,
+            canvas: Canvas,
+            wallPath: Path,
+            paint: Paint,
+            mercator: Boolean,
+            pn: ProjectionNumbers
     ) {
         var pixXInit: Double
         var pixYInit: Double
@@ -245,13 +245,13 @@ internal object UtilityCanvas {
     }
 
     private fun canvasDrawWarningsNewApi(
-        warnings: List<String>,
-        vtecs: List<String>,
-        canvas: Canvas,
-        wallPath: Path,
-        paint: Paint,
-        mercator: Boolean,
-        pn: ProjectionNumbers
+            warnings: List<String>,
+            vtecs: List<String>,
+            canvas: Canvas,
+            wallPath: Path,
+            paint: Paint,
+            mercator: Boolean,
+            pn: ProjectionNumbers
     ) {
         var pixXInit: Double
         var pixYInit: Double
@@ -263,8 +263,8 @@ internal object UtilityCanvas {
         warnings.forEach { warning ->
             polyCount += 1
             if (vtecs.isNotEmpty() && vtecs.size > polyCount && !vtecs[polyCount].startsWith("0.EXP") && !vtecs[polyCount].startsWith(
-                    "0.CAN"
-                )
+                            "0.CAN"
+                    )
             ) {
                 testArr = MyApplication.space.split(warning)
                 val y = testArr.filterIndexed { idx: Int, _: String -> idx and 1 == 0 }.map {
