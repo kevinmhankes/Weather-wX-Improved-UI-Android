@@ -36,6 +36,7 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.WXGLNexrad
 import joshuatee.wx.radarcolorpalettes.UtilityColorPaletteGeneric
 import joshuatee.wx.ui.BaseActivity
+import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
@@ -232,7 +233,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                 rcAdapter = TileAdapterColorPalette(rowListItem, UIPreferences.tilesPerRow)
                 card_list.adapter = rcAdapter
             } else {
-                UtilityAlertDialog.showHelpText(builtInHelpMsg, this)
+                ObjectDialogue(this, builtInHelpMsg)
             }
         }
     }

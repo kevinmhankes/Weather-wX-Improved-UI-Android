@@ -34,6 +34,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectCardText
+import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
@@ -135,8 +136,9 @@ internal class ObjectSettingsSeekbar(
         tv.text = label + " (default is " +  defValue.toString() + "): " + convertForSave(seekBar.progress).toString()
     }
 
-    private fun showHelpText(helpStr: String) {
-        UtilityAlertDialog.showHelpText(helpStr, activity)
+    // FIXME remove pass through method
+    private fun showHelpText(help: String) {
+        ObjectDialogue(activity, help)
     }
 
     val card get() = objCard.card

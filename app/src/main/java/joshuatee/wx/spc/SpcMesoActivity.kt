@@ -39,13 +39,10 @@ import joshuatee.wx.R
 import joshuatee.wx.models.DisplayData
 import joshuatee.wx.models.UtilityModels
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.ui.ObjectNavDrawerCombo
-import joshuatee.wx.ui.ObjectSpinner
-import joshuatee.wx.ui.OnSwipeTouchListener
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.settings.FavAddActivity
 import joshuatee.wx.settings.FavRemoveActivity
-import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
 import joshuatee.wx.util.UtilityFavorites
@@ -463,8 +460,9 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         showHelpTextDialog(Utility.fromHtml(helpText))
     }
 
-    private fun showHelpTextDialog(help_str: String) {
-        UtilityAlertDialog.showHelpText(help_str, this)
+    // FIXME remove pass through
+    private fun showHelpTextDialog(help: String) {
+        ObjectDialogue(this, help)
     }
 
     private fun setAndLaunchParam(paramStr: String, a: Int, b: Int) {

@@ -637,14 +637,13 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
         // TODO mark begin of menu stuff
         when (item.itemId) {
-            R.id.action_help -> UtilityAlertDialog.showHelpText(
+            R.id.action_help -> ObjectDialogue( this,
                     resources.getString(R.string.help_radar)
                             + MyApplication.newline + MyApplication.newline
                             + resources.getString(R.string.help_radar_drawingtools)
                             + MyApplication.newline + MyApplication.newline
                             + resources.getString(R.string.help_radar_recording)
                             + MyApplication.newline + MyApplication.newline
-                    , this
             )
             R.id.action_jellybean_drawtools -> {
                 val tI = TelecineService.newIntent(this, 1, Intent())
@@ -808,8 +807,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun showRadarScanInfo() {
-        val info = WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"")
-        UtilityAlertDialog.showHelpText(info, this)
+        ObjectDialogue(this, WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,""))
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {

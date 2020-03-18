@@ -677,14 +677,13 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             if (item.itemId == R.id.action_a) return true
         }
         when (item.itemId) {
-            R.id.action_help -> UtilityAlertDialog.showHelpText(
+            R.id.action_help -> ObjectDialogue(this,
                     resources.getString(R.string.help_radar)
                             + MyApplication.newline + MyApplication.newline
                             + resources.getString(R.string.help_radar_drawingtools)
                             + MyApplication.newline + MyApplication.newline
                             + resources.getString(R.string.help_radar_recording)
                             + MyApplication.newline + MyApplication.newline
-                    , this
             )
             R.id.action_share -> {
                 if (Build.VERSION.SDK_INT > 20) {
@@ -917,9 +916,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             infoArr[it] = WXGLNexrad.getRadarInfo(this,(it + 1).toString())
             scanInfo = scanInfo + infoArr[it] + MyApplication.newline + MyApplication.newline
         }
-        UtilityAlertDialog.showHelpText(scanInfo, this)
+        ObjectDialogue(this, scanInfo)
     }
-
 
     override fun onStop() {
         super.onStop()

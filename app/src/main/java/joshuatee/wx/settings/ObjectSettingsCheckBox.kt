@@ -38,6 +38,7 @@ import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectCardText
+import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
 
@@ -184,8 +185,8 @@ class ObjectSettingsCheckBox(
         objCard.addView(ll)
     }
 
-    private fun showHelpText(helpStr: String) {
-        UtilityAlertDialog.showHelpText(helpStr, activity)
+    private fun showHelpText(help: String) {
+        ObjectDialogue(activity, help)
     }
 
     fun isChecked(value: Boolean) {

@@ -42,6 +42,7 @@ import joshuatee.wx.radar.WXGLNexrad
 import joshuatee.wx.radarcolorpalettes.UtilityColorPalette
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCard
+import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.util.*
 
@@ -116,7 +117,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
             }
             toolbar.subtitle = "Last saved: $date"
         } else {
-            UtilityAlertDialog.showHelpText(errorCheck, this)
+            ObjectDialogue(this, errorCheck)
         }
         val fileName = "colormap" + type + palTitle.text.toString()
         if (UtilityFileManagement.internalFileExist(context, fileName)) {
@@ -194,7 +195,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
                     )
             )
             R.id.action_clear -> palContent.setText("")
-            R.id.action_help -> UtilityAlertDialog.showHelpText("Not implemented yet.", this)
+            R.id.action_help -> ObjectDialogue(this,"Not implemented yet.")
             R.id.action_share -> UtilityShare.shareTextAsAttachment(
                     this,
                     this,

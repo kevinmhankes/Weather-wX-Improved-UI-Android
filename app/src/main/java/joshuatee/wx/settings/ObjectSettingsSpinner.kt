@@ -41,6 +41,7 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectCardText
+import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
 
@@ -124,8 +125,8 @@ class ObjectSettingsSpinner(
         objCard.addView(ll)
     }
 
-    private fun showHelpText(helpStr: String) {
-        UtilityAlertDialog.showHelpText(helpStr, activity)
+    private fun showHelpText(help: String) {
+        ObjectDialogue(activity, help)
     }
 
     val card: CardView get() = objCard.card

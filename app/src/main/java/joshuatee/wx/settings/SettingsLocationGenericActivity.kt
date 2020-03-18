@@ -257,8 +257,9 @@ class SettingsLocationGenericActivity : BaseActivity(),
         }
     }
 
-    private fun showHelpText(helpStr: String) {
-        UtilityAlertDialog.showHelpText(helpStr, this)
+    // FIXME remove pass through
+    private fun showHelpText(help: String) {
+        ObjectDialogue(this, help)
     }
 
     override fun onRestart() {

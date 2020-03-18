@@ -35,9 +35,9 @@ import kotlin.system.exitProcess
 
 object UtilityAlertDialog {
 
-    fun showHelpText(help: String, activity: Activity) {
-        ObjectDialogue(activity, help)
-    }
+    //fun showHelpText(help: String, activity: Activity) {
+    //    ObjectDialogue(activity, help)
+    //}
 
     fun showHelpTextWeb(help: String, activity: Activity) {
         val alert = AlertDialog.Builder(activity)

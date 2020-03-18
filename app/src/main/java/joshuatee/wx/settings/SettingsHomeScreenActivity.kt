@@ -195,8 +195,9 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         return true
     }
 
-    private fun showHelpText(helpStr: String) {
-        UtilityAlertDialog.showHelpText(helpStr, this)
+    // FIXME remove pass through
+    private fun showHelpText(help: String) {
+        ObjectDialogue(this, help)
     }
 
     private fun moveUp(pos: Int) {
