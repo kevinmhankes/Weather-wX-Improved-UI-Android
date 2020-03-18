@@ -141,7 +141,6 @@ class SettingsMainActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Check for SPC MCD/Watches",
                         "CHECKSPC",
                         R.string.checkspc_switch_label
@@ -149,7 +148,6 @@ class SettingsMainActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Check for WPC MPDs",
                         "CHECKWPC",
@@ -159,7 +157,6 @@ class SettingsMainActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Check for TOR,TST,FFW",
                         "CHECKTOR",
                         R.string.checktor_switch_label
@@ -167,7 +164,6 @@ class SettingsMainActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Media control notification",
                         "MEDIA_CONTROL_NOTIF",
@@ -177,7 +173,6 @@ class SettingsMainActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Dual-pane radar from main screen",
                         "DUALPANE_RADAR_ICON",
                         R.string.dualpane_radar_icon_tv
@@ -186,7 +181,6 @@ class SettingsMainActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Translate abbreviations",
                         "TRANSLATE_TEXT",
                         R.string.translate_text_label
@@ -194,7 +188,6 @@ class SettingsMainActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "Refresh interval for location in minutes",
                         "REFRESH_LOC_MIN",
@@ -207,7 +200,6 @@ class SettingsMainActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "Roaming distance check in miles",
                         "ROAMING_LOCATION_DISTANCE_CHECK",
                         R.string.roaming_location_distance_check_np_label,
@@ -218,7 +210,6 @@ class SettingsMainActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "Text to speech speed",
                         "TTS_SPEED_PREF",

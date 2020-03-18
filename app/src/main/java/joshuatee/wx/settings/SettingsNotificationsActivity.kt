@@ -66,7 +66,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "US Tornado",
                         "ALERT_TORNADO_NOTIFICATION",
                         R.string.b_tornado
@@ -74,7 +73,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "SPC MCD",
                         "ALERT_SPCMCD_NOTIFICATION",
@@ -84,7 +82,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "SPC Watch",
                         "ALERT_SPCWAT_NOTIFICATION",
                         R.string.b_wat
@@ -92,7 +89,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "SPC SWO",
                         "ALERT_SPCSWO_NOTIFICATION",
@@ -102,7 +98,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "SPC SWO include slight",
                         "ALERT_SPCSWO_SLIGHT_NOTIFICATION",
                         R.string.b_swo2
@@ -110,7 +105,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "WPC MPD",
                         "ALERT_WPCMPD_NOTIFICATION",
@@ -120,7 +114,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "NHC Advisories EPAC",
                         "ALERT_NHC_EPAC_NOTIFICATION",
                         R.string.b_nhc_epac
@@ -128,7 +121,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "NHC Advisories ATL",
                         "ALERT_NHC_ATL_NOTIFICATION",
@@ -138,7 +130,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "US Tornado Sound",
                         "ALERT_NOTIFICATION_SOUND_TORNADO",
                         R.string.alert_sound_tornado_label
@@ -146,7 +137,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "SPC MCD Sound",
                         "ALERT_NOTIFICATION_SOUND_SPCMCD",
@@ -156,7 +146,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "SPC Watch Sound",
                         "ALERT_NOTIFICATION_SOUND_SPCWAT",
                         R.string.alert_sound_spcwat_label
@@ -164,7 +153,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "SPC SWO Sound",
                         "ALERT_NOTIFICATION_SOUND_SPCSWO",
@@ -174,7 +162,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "WPC MPD Sound",
                         "ALERT_NOTIFICATION_SOUND_WPCMPD",
                         R.string.alert_sound_wpcmpd_label
@@ -182,7 +169,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "NHC Advisories EPAC Sound",
                         "ALERT_NOTIFICATION_SOUND_NHC_EPAC",
@@ -192,7 +178,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "NHC Advisories ATL Sound",
                         "ALERT_NOTIFICATION_SOUND_NHC_ATL",
                         R.string.alert_sound_nhc_atl_label
@@ -200,7 +185,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Text products Sound",
                         "ALERT_NOTIFICATION_SOUND_TEXT_PROD",
@@ -210,7 +194,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Play sound repeatedly",
                         "NOTIF_SOUND_REPEAT",
                         R.string.tv_notif_sound_repeat_label
@@ -218,7 +201,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Notif text to speech",
                         "NOTIF_TTS",
@@ -228,7 +210,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Blackout alert sounds",
                         "ALERT_BLACKOUT",
                         R.string.alert_blackout_label
@@ -236,7 +217,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Alert only once",
                         "ALERT_ONLYONCE",
@@ -246,7 +226,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Auto cancel notifs",
                         "ALERT_AUTOCANCEL",
                         R.string.alert_autocancel_label
@@ -255,7 +234,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Tor warn override blackout",
                         "ALERT_BLACKOUT_TORNADO",
                         R.string.alert_blackout_tornado_label
@@ -263,7 +241,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "Notification check interval in minutes",
                         "ALERT_NOTIFICATION_INTERVAL",
@@ -276,7 +253,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "Notification blackout - PM(h)",
                         "ALERT_BLACKOUT_PM",
                         R.string.alert_blackout_pm_np_label,
@@ -287,7 +263,6 @@ class SettingsNotificationsActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "Notification blackout - AM(h)",
                         "ALERT_BLACKOUT_AM",

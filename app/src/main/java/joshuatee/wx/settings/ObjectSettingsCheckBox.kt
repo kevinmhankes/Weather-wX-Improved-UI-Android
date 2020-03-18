@@ -21,7 +21,6 @@
 
 package joshuatee.wx.settings
 
-import android.app.Activity
 import android.app.NotificationManager
 import android.content.Context
 import android.util.TypedValue
@@ -44,14 +43,13 @@ import joshuatee.wx.util.UtilityAlertDialog
 
 class ObjectSettingsCheckBox(
     context: Context,
-    private val activity: Activity,
     label: String,
     pref: String,
     strId: Int
 ) {
 
-    private val objCard = ObjectCard(context)
-    private val cb = CheckBox(context)
+    private val objectCard = ObjectCard(context)
+    private val checkBox = CheckBox(context)
 
     init {
         val tv = TextView(context)
@@ -81,7 +79,7 @@ class ObjectSettingsCheckBox(
         ll.orientation = LinearLayout.HORIZONTAL
         ll.gravity = Gravity.CENTER_VERTICAL
         ll.addView(tv)
-        cb.gravity = Gravity.CENTER_VERTICAL
+        checkBox.gravity = Gravity.CENTER_VERTICAL
         val truePrefs = listOf(
             "COD_HW_DEFAULT",
             "DUALPANE_SHARE_POSN",
@@ -95,12 +93,12 @@ class ObjectSettingsCheckBox(
             "UI_MAIN_SCREEN_RADAR_FAB",
             "RADAR_TOOLBAR_TRANSPARENT"
         )
-        cb.isChecked = Utility.readPref(
+        checkBox.isChecked = Utility.readPref(
             context,
             pref,
             java.lang.Boolean.toString(truePrefs.contains(pref))
         ) == "true"
-        cb.setOnCheckedChangeListener { compoundButton, _ ->
+        checkBox.setOnCheckedChangeListener { compoundButton, _ ->
             if (compoundButton.isChecked) {
                 if (pref == "MEDIA_CONTROL_NOTIF") {
                     if (Utility.readPref(context, "MEDIA_CONTROL_NOTIF", "").startsWith("f")) {
@@ -181,18 +179,18 @@ class ObjectSettingsCheckBox(
                 }
             }
         }
-        ll.addView(cb)
-        objCard.addView(ll)
+        ll.addView(checkBox)
+        objectCard.addView(ll)
     }
 
     fun isChecked(value: Boolean) {
-        cb.isChecked = value
+        checkBox.isChecked = value
     }
 
-    val card: CardView get() = objCard.card
+    val card: CardView get() = objectCard.card
 
     internal fun setOnCheckedChangeListener(l: CompoundButton.OnCheckedChangeListener) {
-        cb.setOnCheckedChangeListener(l)
+        checkBox.setOnCheckedChangeListener(l)
     }
 }
 

@@ -161,14 +161,12 @@ class SettingsLocationGenericActivity : BaseActivity(),
         }
         alertSw = ObjectSettingsCheckBox(
                 this,
-                this,
                 "Alert",
                 "ALERT" + locNum + "_NOTIFICATION",
                 R.string.alert_switch_text
         )
         alertSw.isChecked(alertNotificationCurrent == "true")
         alertCcSw = ObjectSettingsCheckBox(
-                this,
                 this,
                 "Conditions",
                 "ALERT_CC" + locNum + "_NOTIFICATION",
@@ -177,14 +175,12 @@ class SettingsLocationGenericActivity : BaseActivity(),
         alertCcSw.isChecked(alertCcNotificationCurrent == "true")
         alert7Day1Sw = ObjectSettingsCheckBox(
                 this,
-                this,
                 "7day",
                 "ALERT_7DAY_" + locNum + "_NOTIFICATION",
                 R.string.alert_7day_1_switch_text
         )
         alert7Day1Sw.isChecked(alert7Day1NotificationCurrent == "true")
         alertSoundSw = ObjectSettingsCheckBox(
-                this,
                 this,
                 "Sound",
                 "ALERT_NOTIFICATION_SOUND$locNum",
@@ -193,14 +189,12 @@ class SettingsLocationGenericActivity : BaseActivity(),
         alertSoundSw.isChecked(alertNotificationSoundCurrent == "true")
         alertRadar1Sw = ObjectSettingsCheckBox(
                 this,
-                this,
                 "Radar",
                 "ALERT_NOTIFICATION_RADAR$locNum",
                 R.string.alert_radar1_switch_text
         )
         alertRadar1Sw.isChecked(alertNotificationRadarCurrent == "true")
         alertMcdSw = ObjectSettingsCheckBox(
-                this,
                 this,
                 "SPC MCD",
                 "ALERT_NOTIFICATION_MCD$locNum",
@@ -209,7 +203,6 @@ class SettingsLocationGenericActivity : BaseActivity(),
         alertMcdSw.isChecked(alertNotificationMcdCurrent == "true")
         alertSwoSw = ObjectSettingsCheckBox(
                 this,
-                this,
                 "SPC SWO",
                 "ALERT_NOTIFICATION_SWO$locNum",
                 R.string.alert_swo_switch_text
@@ -217,14 +210,12 @@ class SettingsLocationGenericActivity : BaseActivity(),
         alertSwoSw.isChecked(alertNotificationSwoCurrent == "true")
         alertSpcfwSw = ObjectSettingsCheckBox(
                 this,
-                this,
                 "SPC FW",
                 "ALERT_NOTIFICATION_SPCFW$locNum",
                 R.string.alert_spcfw_switch_text
         )
         alertSpcfwSw.isChecked(alertNotificationSpcfwCurrent == "true")
         alertWpcmpdSw = ObjectSettingsCheckBox(
-                this,
                 this,
                 "WPC MPD",
                 "ALERT_NOTIFICATION_WPCMPD$locNum",

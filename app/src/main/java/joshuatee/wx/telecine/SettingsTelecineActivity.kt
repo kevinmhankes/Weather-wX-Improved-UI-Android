@@ -37,7 +37,6 @@ class SettingsTelecineActivity : BaseActivity() {
         ll.addView(
             ObjectSettingsCheckBox(
                 this,
-                this,
                 "Three Second Countdown",
                 "show-countdown",
                 R.string.loc1_radar_label
@@ -45,7 +44,6 @@ class SettingsTelecineActivity : BaseActivity() {
         )
         ll.addView(
             ObjectSettingsCheckBox(
-                this,
                 this,
                 "Recording Notification",
                 "recording-notification",

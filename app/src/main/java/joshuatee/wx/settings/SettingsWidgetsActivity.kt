@@ -60,7 +60,6 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Warnings in radar mosaic",
                         "WIDGET_MOSAIC_WARNINGS",
                         R.string.loc1_radar_warnings_label
@@ -68,7 +67,6 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
         )
         linearLayout.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Do not show 7day in CC widget",
                         "WIDGET_CC_DONOTSHOW_7_DAY",
@@ -78,7 +76,6 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Download nexrad radar",
                         WidgetFile.NEXRAD_RADAR.prefString,
                         R.string.loc1_radar_label
@@ -86,7 +83,6 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
         )
         linearLayout.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Download mosaics",
                         WidgetFile.VIS.prefString,
@@ -96,7 +92,6 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Download radar mosaic",
                         WidgetFile.MOSAIC_RADAR.prefString,
                         R.string.loc1_mosaics_rad_label
@@ -105,7 +100,6 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Download AFD",
                         WidgetFile.AFD.prefString,
                         R.string.loc1_txt_label
@@ -113,7 +107,6 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
         )
         linearLayout.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Download HWO",
                         WidgetFile.HWO.prefString,
@@ -153,7 +146,6 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
         linearLayout.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "Widget check interval in minutes",
                         "CC_NOTIFICATION_INTERVAL",
                         R.string.cc_interval_np_label,
@@ -164,7 +156,6 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
         )
         linearLayout.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "Widget nexrad size",
                         "WIDGET_NEXRAD_SIZE",

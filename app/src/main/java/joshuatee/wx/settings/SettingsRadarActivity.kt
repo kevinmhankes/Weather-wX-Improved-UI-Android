@@ -75,7 +75,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Show warnings (TST/TOR/FFW)",
                         "COD_WARNINGS_DEFAULT",
                         R.string.cod_warnings_default_label
@@ -84,7 +83,6 @@ class SettingsRadarActivity : BaseActivity() {
         MyApplication.radarWarningPolygons.forEach {
             ll.addView(
                     ObjectSettingsCheckBox(
-                            this,
                             this,
                             "Show " + it.name,
                             it.prefTokenEnabled,
@@ -95,7 +93,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Show SPC MCD/Watches",
                         "RADAR_SHOW_WATCH",
                         R.string.radar_show_watch_default_label
@@ -103,7 +100,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Show WPC MPDs",
                         "RADAR_SHOW_MPD",
@@ -113,7 +109,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Show cities",
                         "COD_CITIES_DEFAULT",
                         R.string.cod_cities_default_label
@@ -121,7 +116,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Show highways",
                         "COD_HW_DEFAULT",
@@ -131,7 +125,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Show secondary roads",
                         "RADAR_HW_ENH_EXT",
                         R.string.hw_enh_ext_label
@@ -139,7 +132,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Show CA/MX borders",
                         "RADAR_CAMX_BORDERS",
@@ -149,7 +141,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Show lakes and rivers",
                         "COD_LAKES_DEFAULT",
                         R.string.cod_lakes_default_label
@@ -157,7 +148,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Show spotters",
                         "WXOGL_SPOTTERS",
@@ -167,7 +157,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Show spotter labels",
                         "WXOGL_SPOTTERS_LABEL",
                         R.string.spotters_label_label
@@ -175,7 +164,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Show observations",
                         "WXOGL_OBS",
@@ -185,7 +173,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Show wind barbs",
                         "WXOGL_OBS_WINDBARBS",
                         R.string.obs_windbarbs_label
@@ -194,14 +181,12 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Show location marker",
                         "COD_LOCDOT_DEFAULT",
                         R.string.cod_locdot_default_label
                 ).card
         )
         val gpsSw = ObjectSettingsCheckBox(
-                this,
                 this,
                 "Location marker follows GPS",
                 "LOCDOT_FOLLOWS_GPS",
@@ -227,7 +212,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Center radar on location",
                         "RADAR_CENTER_ON_LOCATION",
                         R.string.radar_center_on_location_default_label
@@ -235,7 +219,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Black background",
                         "NWS_RADAR_BG_BLACK",
@@ -245,7 +228,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Show counties",
                         "RADAR_SHOW_COUNTY",
                         R.string.show_county_label
@@ -253,7 +235,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Show county labels",
                         "RADAR_COUNTY_LABELS",
@@ -263,7 +244,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Counties: use hires data",
                         "RADAR_COUNTY_HIRES",
                         R.string.county_hires_label
@@ -271,7 +251,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "States: use hires data",
                         "RADAR_STATE_HIRES",
@@ -281,7 +260,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Show storm tracks",
                         "RADAR_SHOW_STI",
                         R.string.show_sti_label
@@ -289,7 +267,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Show Hail index",
                         "RADAR_SHOW_HI",
@@ -299,7 +276,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Show TVS",
                         "RADAR_SHOW_TVS",
                         R.string.show_tvs_label
@@ -307,7 +283,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Show Day 1 Convective Outlook",
                         "RADAR_SHOW_SWO",
@@ -317,7 +292,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Screen on and auto refresh",
                         "RADAR_AUTOREFRESH",
                         R.string.autorefresh_label
@@ -325,7 +299,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Multi-pane: share lat/lon/zoom",
                         "DUALPANE_SHARE_POSN",
@@ -335,7 +308,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Remember location",
                         "WXOGL_REMEMBER_LOCATION",
                         R.string.rememberloc_label
@@ -343,7 +315,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Launch app directly to radar",
                         "LAUNCH_TO_RADAR",
@@ -353,7 +324,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Use JNI for radar (beta)",
                         "RADAR_USE_JNI",
                         R.string.radar_use_jni_label
@@ -361,7 +331,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Enable multipurpose radar icons",
                         "WXOGL_ICONS_LEVEL2",
@@ -371,7 +340,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Show WPC Fronts and pressure highs and lows",
                         "RADAR_SHOW_WPC_FRONTS",
                         R.string.radar_show_wpc_fronts_label
@@ -379,7 +347,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "Animation interval",
                         "ANIM_INTERVAL",
@@ -392,7 +359,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "Warning line size",
                         "RADAR_WARN_LINESIZE",
                         R.string.warn_linesize_np_label,
@@ -403,7 +369,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "MCD/MPD/Watch line size",
                         "RADAR_WATMCD_LINESIZE",
@@ -416,7 +381,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "State line size",
                         "RADAR_STATE_LINESIZE",
                         R.string.state_linesize_np,
@@ -427,7 +391,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "County line size",
                         "RADAR_COUNTY_LINESIZE",
@@ -440,7 +403,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "Highway line size",
                         "RADAR_HW_LINESIZE",
                         R.string.hw_linesize_np,
@@ -451,7 +413,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "Secondary road line size",
                         "RADAR_HWEXT_LINESIZE",
@@ -464,7 +425,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "Lake line size",
                         "RADAR_LAKE_LINESIZE",
                         R.string.lakes_linesize_np,
@@ -475,7 +435,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "GPS Circle line size",
                         "RADAR_GPSCIRCLE_LINESIZE",
@@ -488,7 +447,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "Location marker size",
                         "RADAR_LOCDOT_SIZE",
                         R.string.locdot_size_np,
@@ -499,7 +457,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "Hail marker size",
                         "RADAR_HI_SIZE",
@@ -512,7 +469,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "TVS marker size",
                         "RADAR_TVS_SIZE",
                         R.string.tvs_size_np,
@@ -523,7 +479,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "WXOGL initial view size",
                         "WXOGL_SIZE",
@@ -536,7 +491,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "Refresh interval",
                         "RADAR_REFRESH_INTERVAL",
                         R.string.wxogl_refresh_interval_label,
@@ -547,7 +501,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "Storm spotter size",
                         "RADAR_SPOTTER_SIZE",
@@ -560,7 +513,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "Aviation dot size",
                         "RADAR_AVIATION_SIZE",
                         R.string.aviation_size_label,
@@ -571,7 +523,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "Text size",
                         "RADAR_TEXT_SIZE",
@@ -584,7 +535,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "Draw tool line size",
                         "DRAWTOOL_SIZE",
                         R.string.drawtool_size_label,
@@ -596,7 +546,6 @@ class SettingsRadarActivity : BaseActivity() {
         ll.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "Detailed observations Zoom",
                         "RADAR_OBS_EXT_ZOOM",
                         R.string.obs_ext_zoom_label,
@@ -607,7 +556,6 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ll.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "GPS update interval",
                         "RADAR_LOCATION_UPDATE_INTERVAL",

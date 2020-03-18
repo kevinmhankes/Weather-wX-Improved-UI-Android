@@ -72,7 +72,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Icons evenly spaced",
                         "UI_ICONS_EVENLY_SPACED",
                         R.string.icons_spacing_label
@@ -80,7 +79,6 @@ class SettingsUIActivity : BaseActivity() {
         )
         linearLayout.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Fullscreen mode",
                         "FULLSCREEN_MODE",
@@ -90,7 +88,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Lock toolbars",
                         "LOCK_TOOLBARS",
                         R.string.lock_toolbars_label
@@ -98,7 +95,6 @@ class SettingsUIActivity : BaseActivity() {
         )
         linearLayout.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Simple mode (restarts app)",
                         "SIMPLE_MODE",
@@ -108,7 +104,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Hide top toolbar (restarts app)",
                         "HIDE_TOP_TOOLBAR",
                         R.string.hide_top_toolbar_label
@@ -116,7 +111,6 @@ class SettingsUIActivity : BaseActivity() {
         )
         linearLayout.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Use fahrenheit",
                         "UNITS_F",
@@ -126,7 +120,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Use millibars",
                         "UNITS_M",
                         R.string.units_m_label
@@ -134,7 +127,6 @@ class SettingsUIActivity : BaseActivity() {
         )
         linearLayout.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Reduce size of tile images",
                         "TILE_IMAGE_DOWNSIZE",
@@ -144,7 +136,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Use FAB in models",
                         "FAB_IN_MODELS",
                         R.string.fab_in_models_label
@@ -152,7 +143,6 @@ class SettingsUIActivity : BaseActivity() {
         )
         linearLayout.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "NWS Text, remove line breaks",
                         "NWS_TEXT_REMOVELINEBREAKS",
@@ -162,7 +152,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Radar: transparent toolbars",
                         "RADAR_TOOLBAR_TRANSPARENT",
                         R.string.radar_toolbar_transparent_label
@@ -170,7 +159,6 @@ class SettingsUIActivity : BaseActivity() {
         )
         linearLayout.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Radar: transparent status bar",
                         "RADAR_STATUSBAR_TRANSPARENT",
@@ -180,7 +168,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Radar: immersive mode",
                         "RADAR_IMMERSIVE_MODE",
                         R.string.radar_immersive_mode_label
@@ -188,7 +175,6 @@ class SettingsUIActivity : BaseActivity() {
         )
         linearLayout.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Record screen for sharing",
                         "RECORD_SCREEN_SHARE",
@@ -198,7 +184,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Prevent accidental exit",
                         "PREF_PREVENT_ACCIDENTAL_EXIT",
                         R.string.prevent_accidental_exit_label
@@ -206,7 +191,6 @@ class SettingsUIActivity : BaseActivity() {
         )
         linearLayout.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Show VR button on main screen",
                         "VR_BUTTON",
@@ -216,7 +200,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "WFO - remember location",
                         "WFO_REMEMBER_LOCATION",
                         R.string.wfo_remember
@@ -224,7 +207,6 @@ class SettingsUIActivity : BaseActivity() {
         )
         linearLayout.addView(
                 ObjectSettingsCheckBox(
-                        this,
                         this,
                         "Main screen radar button (requires restart)",
                         "UI_MAIN_SCREEN_RADAR_FAB",
@@ -234,7 +216,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Widgets: prevent opening app on tap",
                         "UI_WIDGET_PREVENT_TAP",
                         R.string.widget_prevent_tap
@@ -243,7 +224,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        this,
                         "Use the AWC Radar mosaic images instead of the main NWS images.",
                         "USE_AWC_RADAR_MOSAIC",
                         R.string.ui_awc_radar_mosaic
@@ -251,7 +231,6 @@ class SettingsUIActivity : BaseActivity() {
         )
         linearLayout.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "UI elevation height",
                         "ELEVATION_PREF",
@@ -264,7 +243,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "NWS icon size",
                         "NWS_ICON_SIZE_PREF",
                         R.string.nws_icon_size_np_label,
@@ -275,7 +253,6 @@ class SettingsUIActivity : BaseActivity() {
         )
         linearLayout.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "Card corner radius",
                         "CARD_CORNER_RADIUS",
@@ -288,7 +265,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "Image tiles per row",
                         "UI_TILES_PER_ROW",
                         R.string.tiles_per_row_label,
@@ -299,7 +275,6 @@ class SettingsUIActivity : BaseActivity() {
         )
         linearLayout.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "Animation - frames for toolbar icon",
                         "UI_ANIM_ICON_FRAMES",
@@ -312,7 +287,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsSeekbar(
                         this,
-                        this,
                         "Home screen text length",
                         "HOMESCREEN_TEXT_LENGTH_PREF",
                         R.string.homescreen_text_length_np_label,
@@ -323,7 +297,6 @@ class SettingsUIActivity : BaseActivity() {
         )
         linearLayout.addView(
                 ObjectSettingsSeekbar(
-                        this,
                         this,
                         "Text size",
                         "TEXTVIEW_FONT_SIZE",

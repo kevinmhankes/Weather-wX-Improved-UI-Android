@@ -21,7 +21,6 @@
 
 package joshuatee.wx.settings
 
-import android.app.Activity
 import android.content.Context
 import android.util.TypedValue
 import android.view.Gravity
@@ -40,7 +39,6 @@ import joshuatee.wx.util.Utility
 
 internal class ObjectSettingsSeekbar(
         context: Context,
-        private val activity: Activity,
         val label: String,
         pref: String,
         strId: Int,
