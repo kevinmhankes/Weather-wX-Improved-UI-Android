@@ -34,29 +34,22 @@ import joshuatee.wx.objects.TextSize
 
 class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7Arr: List<String>) {
 
-    private val objCard: ObjectCard
+    private val objCard = ObjectCard(context)
     private val imageView = ObjectImageView(context)
-    private val topLineText: ObjectTextView
-    private val bottomLineText: ObjectTextView
+    private val topLineText = ObjectTextView(context, TextSize.MEDIUM)
+    private val bottomLineText = ObjectTextView(context)
 
     init {
         val horizontalContainer = LinearLayout(context)
         horizontalContainer.orientation = LinearLayout.HORIZONTAL
         val verticalContainer = LinearLayout(context)
         verticalContainer.orientation = LinearLayout.VERTICAL
-        topLineText = ObjectTextView(context, TextSize.MEDIUM)
         topLineText.setPadding(
             MyApplication.padding,
             0,
             MyApplication.paddingSmall,
             0
         )
-        //TextViewCompat.setAutoSizeTextTypeWithDefaults(
-        //    topLineText.tv,
-        //    TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
-        //)
-        //topLineText.maxLines = 1
-        bottomLineText = ObjectTextView(context)
         bottomLineText.setPadding(
             MyApplication.padding,
             0,
@@ -66,7 +59,6 @@ class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7
         bottomLineText.setAsBackgroundText()
         verticalContainer.addView(topLineText.tv)
         verticalContainer.addView(bottomLineText.tv)
-        objCard = ObjectCard(context)
         if (!UIPreferences.locfragDontShowIcons) {
             horizontalContainer.addView(imageView.image)
         }
