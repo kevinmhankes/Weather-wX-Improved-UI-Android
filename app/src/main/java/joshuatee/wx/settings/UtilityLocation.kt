@@ -50,20 +50,19 @@ object UtilityLocation {
             val latLon = mutableListOf<Double>()
             var tmpX = ""
             var tmpY = ""
-            var tmpXArr: List<String>
-            var tmpYArr: List<String>
             (0 until joshuatee.wx.settings.Location.numLocations).forEach {
                 if (!joshuatee.wx.settings.Location.getX(it).contains(":")) {
                     tmpX = joshuatee.wx.settings.Location.getX(it)
                     tmpY = joshuatee.wx.settings.Location.getY(it).replace("-", "")
                 } else {
-                    tmpXArr = joshuatee.wx.settings.Location.getX(it).split(":")
-                    if (tmpXArr.size > 2)
+                    val tmpXArr = joshuatee.wx.settings.Location.getX(it).split(":")
+                    if (tmpXArr.size > 2) {
                         tmpX = tmpXArr[2]
-
-                    tmpYArr = joshuatee.wx.settings.Location.getY(it).replace("-", "").split(":")
-                    if (tmpYArr.size > 1)
+                    }
+                    val tmpYArr = joshuatee.wx.settings.Location.getY(it).replace("-", "").split(":")
+                    if (tmpYArr.size > 1) {
                         tmpY = tmpYArr[1]
+                    }
                 }
                 latLon.add(tmpX.toDoubleOrNull() ?: 0.0)
                 latLon.add(tmpY.toDoubleOrNull() ?: 0.0)
@@ -71,8 +70,8 @@ object UtilityLocation {
             return latLon
         }
 
-    fun getLatLonFromAddress(addressF: String): List<String> {
-        val address = addressF.replace(" ", "+")
+    fun getLatLonFromAddress(addressOriginal: String): List<String> {
+        val address = addressOriginal.replace(" ", "+")
         val url = "http://nominatim.openstreetmap.org/search?q=$address&format=xml&polygon=0&addressdetails=1"
         return UtilityString.getHtmlAndParseMultipleFirstMatch(url, "lat=.(.*?).\\slon=.(.*?).\\s", 2).toList()
     }
