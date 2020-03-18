@@ -182,10 +182,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_help -> UtilityAlertDialog.showDialogueWithContext(
-                    resources.getString(R.string.settings_color_palette_help),
-                    this
-            )
+            R.id.action_help -> ObjectDialogue(this, resources.getString(R.string.settings_color_palette_help))
             else -> return super.onOptionsItemSelected(item)
         }
         return true

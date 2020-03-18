@@ -60,14 +60,6 @@ object UtilityAlertDialog {
         alert.show()
     }
 
-    fun showDialogueWithContext(str: String, context: Context) {
-        val alertDialogBuilder = AlertDialog.Builder(context)
-        alertDialogBuilder.setMessage(str).setCancelable(false)
-            .setPositiveButton("OK") { dialog, _ -> dialog.cancel() }
-        val alertDialog = alertDialogBuilder.create()
-        alertDialog.show()
-    }
-
     fun restart() {
         exitProcess(0)
     }
