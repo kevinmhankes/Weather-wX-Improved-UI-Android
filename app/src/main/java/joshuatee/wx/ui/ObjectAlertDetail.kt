@@ -56,24 +56,14 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
                 MyApplication.padding,
                 MyApplication.padding
         )
-        objectTextViews[2].setPadding(
-                MyApplication.padding,
-                MyApplication.padding,
-                MyApplication.padding,
-                MyApplication.padding
-        )
-        objectTextViews[3].setPadding(
-                MyApplication.padding,
-                MyApplication.padding,
-                MyApplication.padding,
-                MyApplication.padding
-        )
-        objectTextViews[4].setPadding(
-                MyApplication.padding,
-                MyApplication.padding,
-                MyApplication.padding,
-                MyApplication.padding
-        )
+        (2..4).forEach {
+            objectTextViews[it].setPadding(
+                    MyApplication.padding,
+                    MyApplication.padding,
+                    MyApplication.padding,
+                    MyApplication.padding
+            )
+        }
     }
 
     fun updateContent(capAlert: CapAlert, url: String) {

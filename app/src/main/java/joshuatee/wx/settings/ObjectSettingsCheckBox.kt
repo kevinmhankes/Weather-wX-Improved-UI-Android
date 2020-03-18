@@ -50,7 +50,7 @@ class ObjectSettingsCheckBox(
 ) {
 
     private val objCard = ObjectCard(context)
-    private val cb: CheckBox
+    private val cb = CheckBox(context)
 
     init {
         val tv = TextView(context)
@@ -80,7 +80,6 @@ class ObjectSettingsCheckBox(
         ll.orientation = LinearLayout.HORIZONTAL
         ll.gravity = Gravity.CENTER_VERTICAL
         ll.addView(tv)
-        cb = CheckBox(context)
         cb.gravity = Gravity.CENTER_VERTICAL
         val truePrefs = listOf(
             "COD_HW_DEFAULT",

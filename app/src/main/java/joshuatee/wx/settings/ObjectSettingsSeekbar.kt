@@ -62,7 +62,7 @@ internal class ObjectSettingsSeekbar(
         else -> Utility.readPref(context, pref, defValue)
     }
     private val tv: TextView = TextView(context)
-    private val seekBar: SeekBar
+    private val seekBar = SeekBar(context)
 
     init {
         ObjectCardText.textViewSetup(tv)
@@ -79,7 +79,6 @@ internal class ObjectSettingsSeekbar(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 1.0f
         )
-        //tv.text = label
         tv.gravity = Gravity.TOP
         tv.setOnClickListener { showHelpText(context.resources.getString(strId)) }
         val ll = LinearLayout(context)
@@ -90,7 +89,6 @@ internal class ObjectSettingsSeekbar(
         ll.orientation = LinearLayout.VERTICAL
         ll.gravity = Gravity.CENTER_VERTICAL
         ll.addView(tv)
-        seekBar = SeekBar(context)
         seekBar.max = highValue - lowValue
         seekBar.progress = convert(initValue)
         val padding = 30
