@@ -55,11 +55,10 @@ object UtilityUS {
         try {
             val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.stations_us4)
             val lines = text.split("\n").dropLastWhile { it.isEmpty() }
-            val tmpArr: List<String>
             val tmp = lines.lastOrNull { it.contains(",$obsShortCode") } ?: ""
-            tmpArr = tmp.split(",")
-            if (tmpArr.size > 2) {
-                locationName = tmpArr[0] + ", " + tmpArr[1]
+            val items = tmp.split(",")
+            if (items.size > 2) {
+                locationName = items[0] + ", " + items[1]
             }
         } catch (e: Exception) {
             UtilityLog.handleException(e)

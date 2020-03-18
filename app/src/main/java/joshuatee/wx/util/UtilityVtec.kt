@@ -29,28 +29,28 @@ import joshuatee.wx.Extensions.*
 
 object UtilityVtec {
 
-    fun getStormCount(textTor: String): Int {
-        var dashboardStrTor = ""
-        var nwsLoc = ""
-        var offices: List<String>
-        var wfo: String
+    fun getStormCount(text: String): Int {
+        var dashboardString = ""
         val vtecPattern = "([A-Z0]{1}\\.[A-Z]{3}\\.[A-Z]{4}\\.[A-Z]{2}\\.[A-Z]\\.[0-9]{4}\\.[0-9]{6}T[0-9]{4}Z\\-[0-9]{6}T[0-9]{4}Z)"
-        val stormList = textTor.parseColumn(vtecPattern)
+        val stormList = text.parseColumn(vtecPattern)
         stormList.forEach {
             val vtecIsCurrent = UtilityTime.isVtecCurrent(it)
             if (!it.startsWith("O.EXP") && vtecIsCurrent) {
-                dashboardStrTor += it
-                offices = it.split(".")
+                dashboardString += it
+                val offices = it.split(".")
+                val nwsLoc: String
                 if (offices.size > 1) {
-                    wfo = offices[2]
+                    var wfo = offices[2]
                     wfo = wfo.replace("^[KP]".toRegex(), "")
                     nwsLoc = Utility.getWfoSiteName(wfo)
+                } else {
+                    nwsLoc = ""
                 }
-                dashboardStrTor += "  " + nwsLoc + MyApplication.newline
+                dashboardString += "  " + nwsLoc + MyApplication.newline
             }
         }
-        dashboardStrTor = ExternalDuplicateRemover().stripDuplicates(dashboardStrTor)
-        return dashboardStrTor.split(MyApplication.newline).dropLastWhile { it.isEmpty() }.size
+        dashboardString = ExternalDuplicateRemover().stripDuplicates(dashboardString)
+        return dashboardString.split(MyApplication.newline).dropLastWhile { it.isEmpty() }.size
     }
 }
 
