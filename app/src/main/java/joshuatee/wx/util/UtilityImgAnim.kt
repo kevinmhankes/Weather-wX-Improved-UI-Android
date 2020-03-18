@@ -38,19 +38,19 @@ import joshuatee.wx.ui.ObjectTouchImageView
 object UtilityImgAnim {
 
     fun getUrlArray(url: String, pattern: String, frameCount: Int): List<String> {
-        val retAl = mutableListOf<String>()
+        val urls = mutableListOf<String>()
         try {
             val radarIndexHtml = url.getHtml()
-            val radarAl = radarIndexHtml.parseColumn(pattern)
-            if (radarAl.size >= frameCount) {
-                (radarAl.size - frameCount until radarAl.size).mapTo(retAl) { radarAl[it] }
+            val items = radarIndexHtml.parseColumn(pattern)
+            if (items.size >= frameCount) {
+                (items.size - frameCount until items.size).mapTo(urls) { items[it] }
             } else {
-                (radarAl.indices).mapTo(retAl) { radarAl[it] }
+                items.indices.mapTo(urls) { items[it] }
             }
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
-        return retAl
+        return urls
     }
 
     fun getAnimationDrawableFromUrlList(

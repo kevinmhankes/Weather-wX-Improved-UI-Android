@@ -242,27 +242,27 @@ object UtilityImg {
     }
 
     private fun resizeViewSetImgByHeight(bitmap: Bitmap, imageView: ImageView) {
-        val paramsIv = imageView.layoutParams
-        paramsIv.height = MyApplication.dm.heightPixels / 2
-        paramsIv.width = paramsIv.height * bitmap.width / bitmap.height
-        imageView.layoutParams = paramsIv
+        val layoutParams = imageView.layoutParams
+        layoutParams.height = MyApplication.dm.heightPixels / 2
+        layoutParams.width = layoutParams.height * bitmap.width / bitmap.height
+        imageView.layoutParams = layoutParams
         imageView.setImageBitmap(bitmap)
     }
 
     private fun resizeViewSetImgByWidth(bitmap: Bitmap, imageView: ImageView) {
-        val paramsIv = imageView.layoutParams
-        paramsIv.width = MyApplication.dm.widthPixels / 2
-        paramsIv.height = paramsIv.width * bitmap.width / bitmap.height
-        imageView.layoutParams = paramsIv
+        val layoutParams = imageView.layoutParams
+        layoutParams.width = MyApplication.dm.widthPixels / 2
+        layoutParams.height = layoutParams.width * bitmap.width / bitmap.height
+        imageView.layoutParams = layoutParams
         imageView.setImageBitmap(bitmap)
     }
 
     fun scaleBitmap(bitmap: Bitmap, wantedWidth: Int, wantedHeight: Int): Bitmap {
         val output = Bitmap.createBitmap(wantedWidth, wantedHeight, Config.ARGB_8888)
         val canvas = Canvas(output)
-        val m = Matrix()
-        m.setScale(wantedWidth.toFloat() / bitmap.width, wantedHeight.toFloat() / bitmap.height)
-        canvas.drawBitmap(bitmap, m, Paint())
+        val matrix = Matrix()
+        matrix.setScale(wantedWidth.toFloat() / bitmap.width, wantedHeight.toFloat() / bitmap.height)
+        canvas.drawBitmap(bitmap, matrix, Paint())
         return output
     }
 

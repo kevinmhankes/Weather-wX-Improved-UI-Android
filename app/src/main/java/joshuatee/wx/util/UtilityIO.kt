@@ -61,33 +61,31 @@ object UtilityIO {
     }
 
     private fun readTextFile(inputStream: InputStream): String {
-        val outputStream = ByteArrayOutputStream()
-        val buf = ByteArray(32768)
-        var len: Int
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        val byteArray = ByteArray(32768)
         try {
-            len = inputStream.read(buf)
+            var len = inputStream.read(byteArray)
             while (len != -1) {
-                outputStream.write(buf, 0, len)
-                len = inputStream.read(buf)
+                byteArrayOutputStream.write(byteArray, 0, len)
+                len = inputStream.read(byteArray)
             }
-            outputStream.close()
+            byteArrayOutputStream.close()
             inputStream.close()
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
-        return outputStream.toString()
+        return byteArrayOutputStream.toString()
     }
 
     fun saveRawToInternalStorage(context: Context, rawFileId: Int, intStorageFn: String) {
         try {
             val input = context.resources.openRawResource(rawFileId)
             val output = context.openFileOutput(intStorageFn, Context.MODE_PRIVATE)
-            val data = ByteArray(1024)
-            var count: Int
-            count = input.read(data)
+            val byteArray = ByteArray(1024)
+            var count = input.read(byteArray)
             while (count != -1) {
-                output.write(data, 0, count)
-                count = input.read(data)
+                output.write(byteArray, 0, count)
+                count = input.read(byteArray)
             }
             output.flush()
             output.close()
@@ -98,7 +96,7 @@ object UtilityIO {
     }
 
     fun bitmapFromInternalStorage(context: Context, path: String): Bitmap {
-        var bitmap: Bitmap = UtilityImg.getBlankBitmap()
+        var bitmap = UtilityImg.getBlankBitmap()
         try {
             val inputSteam = context.openFileInput(path)
             bitmap = BitmapFactory.decodeStream(inputSteam)
