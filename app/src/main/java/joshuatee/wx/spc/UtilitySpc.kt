@@ -86,8 +86,6 @@ object UtilitySpc {
         val mcdNothingString = "<center>No Mesoscale Discussions are currently in effect."
         val watchNothingString = "<center><strong>No watches are currently valid"
         val mpdNothingString = "No MPDs are currently in effect."
-        var tabStr = ""
-        val tabStrSpc: String
         var mdPresent = false
         var watchPresent = false
         var mpdPresent = false
@@ -100,17 +98,17 @@ object UtilitySpc {
         if (MyApplication.checkspc) {
             if (!MyApplication.severeDashboardMcd.value.contains(mcdNothingString)) {
                 mdPresent = true
-                val al = MyApplication.severeDashboardMcd.value.parseColumn(RegExp.mcdPatternUtilspc)
-                mdCount = al.size
-                al.forEach {
+                val items = MyApplication.severeDashboardMcd.value.parseColumn(RegExp.mcdPatternUtilspc)
+                mdCount = items.size
+                items.forEach {
                     dashboardStrMcd += ":$it"
                 }
             }
             if (!MyApplication.severeDashboardWat.value.contains(watchNothingString)) {
                 watchPresent = true
-                val al = MyApplication.severeDashboardWat.value.parseColumn(RegExp.watchPattern)
-                watchCount = al.size
-                al.forEach {
+                val items = MyApplication.severeDashboardWat.value.parseColumn(RegExp.watchPattern)
+                watchCount = items.size
+                items.forEach {
                     dashboardStrWat += ":$it"
                 }
             }
@@ -118,14 +116,15 @@ object UtilitySpc {
         if (MyApplication.checkwpc) {
             if (!MyApplication.severeDashboardMpd.value.contains(mpdNothingString)) {
                 mpdPresent = true
-                val al = MyApplication.severeDashboardMpd.value.parseColumn(RegExp.mpdPattern)
-                mpdCount = al.size
-                al.forEach {
+                val items = MyApplication.severeDashboardMpd.value.parseColumn(RegExp.mpdPattern)
+                mpdCount = items.size
+                items.forEach {
                     dashboardStrMpd += ":$it"
                 }
             }
         }
         var label = MyApplication.tabHeaders[1]
+        val tabStrSpc: String
         if (watchPresent || mdPresent || mpdPresent) {
             if (watchPresent) {
                 label += " W($watchCount)"
@@ -153,8 +152,8 @@ object UtilitySpc {
                 usWarnPresent = true
             }
         }
-        tabStr = if (usWarnPresent) {
-            tabStr + "  " + MyApplication.tabHeaders[2] + " W(" + tStormCount + "," + torCount + "," + floodCount + ")"
+        val tabStr = if (usWarnPresent) {
+            MyApplication.tabHeaders[2] + " W(" + tStormCount + "," + torCount + "," + floodCount + ")"
         } else {
             MyApplication.tabHeaders[2]
         }

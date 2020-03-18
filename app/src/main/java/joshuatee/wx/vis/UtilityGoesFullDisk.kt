@@ -60,8 +60,8 @@ internal object UtilityGoesFullDisk {
         "${MyApplication.nwsGoesWebsitePrefix}/dimg/jma/fd/rbtop/10.gif"
     )
 
-    fun getAnimation(context: Context, urlF: String): AnimationDrawable {
-        val url = urlF.replace("10.gif", "")
+    fun getAnimation(context: Context, urlOriginal: String): AnimationDrawable {
+        val url = urlOriginal.replace("10.gif", "")
         val count = 10
         val urls = (1 until count + 1).mapTo(mutableListOf()) { "$url$it.gif" }
         return UtilityImgAnim.getAnimationDrawableFromUrlList(
