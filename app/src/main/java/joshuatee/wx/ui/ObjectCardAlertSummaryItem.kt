@@ -34,20 +34,15 @@ import joshuatee.wx.util.UtilityString
 
 class ObjectCardAlertSummaryItem(context: Context) {
 
-    private val objCard: ObjectCard
-    private val textViewTop: ObjectTextView
-    private val textViewTitle: ObjectTextView
-    private val textViewStart: ObjectTextView
-    private val textViewEnd: ObjectTextView
-    private val textViewBottom: ObjectTextView
+    private val objCard = ObjectCard(context)
+    private val textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
+    private val textViewTitle = ObjectTextView(context)
+    private val textViewStart = ObjectTextView(context, TextSize.SMALL)
+    private val textViewEnd = ObjectTextView(context, TextSize.SMALL)
+    private val textViewBottom = ObjectTextView(context)
 
     init {
         val linearLayoutVertical = LinearLayout(context)
-        textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
-        textViewTitle = ObjectTextView(context)
-        textViewStart = ObjectTextView(context, TextSize.SMALL)
-        textViewEnd = ObjectTextView(context, TextSize.SMALL)
-        textViewBottom = ObjectTextView(context)
         textViewBottom.setAsBackgroundText()
         linearLayoutVertical.orientation = LinearLayout.VERTICAL
         linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
@@ -56,10 +51,8 @@ class ObjectCardAlertSummaryItem(context: Context) {
         linearLayoutVertical.addView(textViewStart.tv)
         linearLayoutVertical.addView(textViewEnd.tv)
         linearLayoutVertical.addView(textViewBottom.tv)
-        objCard = ObjectCard(context)
         objCard.addView(linearLayoutVertical)
     }
-
 
     val card: CardView get() = objCard.card
 
