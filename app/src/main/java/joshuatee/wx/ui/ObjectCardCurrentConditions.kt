@@ -34,30 +34,20 @@ import joshuatee.wx.util.ObjectForecastPackageCurrentConditions
 
 class ObjectCardCurrentConditions(context: Context, version: Int) {
 
-    private val objCard: ObjectCard
+    private val objCard = ObjectCard(context)
     private var imageView = ObjectImageView(context)
-    private val textViewTop: ObjectTextView
-    private val textViewBottom: ObjectTextView
-    private val textViewMiddle: ObjectTextView
+    private val textViewTop = ObjectTextView(context, TextSize.MEDIUM)
+    private val textViewBottom = ObjectTextView(context)
+    private val textViewMiddle = ObjectTextView(context)
 
     init {
         val linearLayoutHorizontal = LinearLayout(context)
         val linearLayoutVertical = LinearLayout(context)
-        textViewTop = ObjectTextView(context, TextSize.MEDIUM)
         textViewTop.gravity = Gravity.CENTER
         textViewTop.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
-       /* if (android.os.Build.VERSION.SDK_INT > 20) {
-            TextViewCompat.setAutoSizeTextTypeWithDefaults(
-                textViewTop.tv,
-                TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
-            )
-            textViewTop.maxLines = 1
-        }*/
-        textViewBottom = ObjectTextView(context)
         textViewBottom.gravity = Gravity.CENTER
         textViewBottom.setAsBackgroundText()
         textViewBottom.setPadding(MyApplication.padding, 0, MyApplication.padding, 2)
-        textViewMiddle = ObjectTextView(context)
         textViewMiddle.gravity = Gravity.CENTER
         textViewMiddle.setAsBackgroundText()
         textViewMiddle.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
@@ -92,7 +82,6 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
             linearLayoutHorizontal.addView(textViewTop.tv)
             linearLayoutHorizontal.addView(textViewBottom.tv)
         }
-        objCard = ObjectCard(context)
         objCard.addView(linearLayoutHorizontal)
     }
 

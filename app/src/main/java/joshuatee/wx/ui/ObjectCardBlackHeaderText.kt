@@ -33,16 +33,14 @@ import joshuatee.wx.objects.TextSize
 
 class ObjectCardBlackHeaderText(context: Context, val linearLayout: LinearLayout, val text: String) {
 
-    private val objCard: ObjectCard
-    private val textViewTop: ObjectTextView
+    private val objCard = ObjectCard(context)
+    private val textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
 
     init {
         val linearLayoutVertical = LinearLayout(context)
-        textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
         linearLayoutVertical.orientation = LinearLayout.VERTICAL
         linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
         linearLayoutVertical.addView(textViewTop.tv)
-        objCard = ObjectCard(context)
         objCard.addView(linearLayoutVertical)
         linearLayout.addView(objCard.card)
         setTextHeader()
