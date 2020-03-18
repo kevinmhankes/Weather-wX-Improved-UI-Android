@@ -37,7 +37,7 @@ object UtilityLightning {
         return url.getImage()
     }
 
-    val labels: List<String> = listOf(
+    val labels = listOf(
         "USA",
         "FL",
         "TX",
@@ -48,7 +48,7 @@ object UtilityLightning {
         "New Zealand"
     )
 
-    val urls: List<String> = listOf(
+    val urls = listOf(
         "usa_big",
         "florida_big",
         "texas_big",
