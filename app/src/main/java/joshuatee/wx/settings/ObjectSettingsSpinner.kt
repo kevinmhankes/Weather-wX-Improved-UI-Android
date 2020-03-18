@@ -21,7 +21,6 @@
 
 package joshuatee.wx.settings
 
-import android.app.Activity
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
@@ -47,7 +46,6 @@ import joshuatee.wx.util.UtilityAlertDialog
 
 class ObjectSettingsSpinner(
     context: Context,
-    private val activity: Activity,
     label: String,
     pref: String,
     prefInit: String,
@@ -75,7 +73,7 @@ class ObjectSettingsSpinner(
         )
         tv.text = label
         tv.gravity = Gravity.CENTER_VERTICAL
-        tv.setOnClickListener { showHelpText(context.resources.getString(strId)) }
+        tv.setOnClickListener { ObjectDialogue(context, context.resources.getString(strId)) }
         val ll = LinearLayout(context)
         ll.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -123,10 +121,6 @@ class ObjectSettingsSpinner(
         spinner.setSelection(dataAdapter.getPosition(val1))
         ll.addView(spinner)
         objCard.addView(ll)
-    }
-
-    private fun showHelpText(help: String) {
-        ObjectDialogue(activity, help)
     }
 
     val card: CardView get() = objCard.card

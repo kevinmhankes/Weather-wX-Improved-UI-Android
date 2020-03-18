@@ -72,7 +72,7 @@ class ObjectSettingsCheckBox(
         tv.text = label
         tv.gravity = Gravity.CENTER_VERTICAL
         val strInner = context.resources.getString(strId)
-        tv.setOnClickListener { showHelpText(strInner) }
+        tv.setOnClickListener { ObjectDialogue(context, strInner) }
         val ll = LinearLayout(context)
         ll.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -183,10 +183,6 @@ class ObjectSettingsCheckBox(
         }
         ll.addView(cb)
         objCard.addView(ll)
-    }
-
-    private fun showHelpText(help: String) {
-        ObjectDialogue(activity, help)
     }
 
     fun isChecked(value: Boolean) {

@@ -177,7 +177,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
             R.id.action_img -> dialogueImages.show()
             R.id.action_afd -> dialogueAfd.show()
             R.id.action_radar -> dialogueRadar.show()
-            R.id.action_help -> showHelpText(resources.getString(R.string.homescreen_help_label))
+            R.id.action_help -> ObjectDialogue(this, resources.getString(R.string.homescreen_help_label))
             R.id.action_reset -> {
                 MyApplication.homescreenFav = MyApplication.HOMESCREEN_FAV_DEFAULT
                 favoriteString = MyApplication.homescreenFav
@@ -193,11 +193,6 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
             else -> return super.onOptionsItemSelected(item)
         }
         return true
-    }
-
-    // FIXME remove pass through
-    private fun showHelpText(help: String) {
-        ObjectDialogue(this, help)
     }
 
     private fun moveUp(pos: Int) {

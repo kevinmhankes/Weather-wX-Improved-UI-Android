@@ -44,7 +44,6 @@ import joshuatee.wx.settings.FavAddActivity
 import joshuatee.wx.settings.FavRemoveActivity
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityAlertDialog
 import joshuatee.wx.util.UtilityFavorites
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare

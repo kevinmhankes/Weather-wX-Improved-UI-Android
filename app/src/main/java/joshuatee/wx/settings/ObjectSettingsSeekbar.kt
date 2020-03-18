@@ -37,7 +37,6 @@ import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityAlertDialog
 
 internal class ObjectSettingsSeekbar(
         context: Context,
@@ -81,7 +80,7 @@ internal class ObjectSettingsSeekbar(
                 1.0f
         )
         tv.gravity = Gravity.TOP
-        tv.setOnClickListener { showHelpText(context.resources.getString(strId)) }
+        tv.setOnClickListener { ObjectDialogue(context, context.resources.getString(strId)) }
         val ll = LinearLayout(context)
         ll.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -134,11 +133,6 @@ internal class ObjectSettingsSeekbar(
 
     fun updateLabel() {
         tv.text = label + " (default is " +  defValue.toString() + "): " + convertForSave(seekBar.progress).toString()
-    }
-
-    // FIXME remove pass through method
-    private fun showHelpText(help: String) {
-        ObjectDialogue(activity, help)
     }
 
     val card get() = objCard.card

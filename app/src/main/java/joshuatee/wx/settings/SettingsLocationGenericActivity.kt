@@ -257,11 +257,6 @@ class SettingsLocationGenericActivity : BaseActivity(),
         }
     }
 
-    // FIXME remove pass through
-    private fun showHelpText(help: String) {
-        ObjectDialogue(this, help)
-    }
-
     override fun onRestart() {
         val caProv = Utility.readPref(this, "LOCATION_CANADA_PROV", "")
         val caCity = Utility.readPref(this, "LOCATION_CANADA_CITY", "")
@@ -522,7 +517,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                     ).show()
                 }
             }
-            R.id.action_help -> showHelpText(resources.getString(R.string.activity_settings_generic_help))
+            R.id.action_help -> ObjectDialogue(this, resources.getString(R.string.activity_settings_generic_help))
             else -> return super.onOptionsItemSelected(item)
         }
         return true

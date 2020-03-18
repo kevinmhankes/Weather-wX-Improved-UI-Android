@@ -123,7 +123,6 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
         linearLayout.addView(
                 ObjectSettingsSpinner(
                         this,
-                        this,
                         "Radar mosaic level",
                         "WIDGET_RADAR_LEVEL",
                         "1km",
@@ -134,7 +133,6 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
         linearLayout.addView(
                 ObjectSettingsSpinner(
                         this,
-                        this,
                         "Location",
                         "WIDGET_LOCATION",
                         "",
@@ -144,7 +142,6 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
         )
         linearLayout.addView(
                 ObjectSettingsSpinner(
-                        this,
                         this,
                         "Nexrad centered at:",
                         "WIDGET_NEXRAD_CENTER",

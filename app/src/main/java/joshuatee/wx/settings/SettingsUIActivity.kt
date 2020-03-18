@@ -62,7 +62,6 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsSpinner(
                         this,
-                        this,
                         "Theme (restarts app)",
                         "THEME_BLUE",
                         "white",
