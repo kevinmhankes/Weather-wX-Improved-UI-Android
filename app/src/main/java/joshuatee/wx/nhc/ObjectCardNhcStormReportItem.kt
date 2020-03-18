@@ -33,22 +33,16 @@ import joshuatee.wx.ui.ObjectTextView
 
 class ObjectCardNhcStormReportItem(context: Context, linearLayout: LinearLayout, stormData: ObjectNhcStormDetails) {
 
-    private val objCard: ObjectCard
-    private val textViewTop: ObjectTextView
-    private val textViewTime: ObjectTextView
-    private val textViewMovement: ObjectTextView
-    private val textViewPressure: ObjectTextView
-    private val textViewWindSpeed: ObjectTextView
-    private val textViewBottom: ObjectTextView
+    private val objectCard = ObjectCard(context)
+    private val textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
+    private val textViewTime = ObjectTextView(context)
+    private val textViewMovement = ObjectTextView(context)
+    private val textViewPressure = ObjectTextView(context)
+    private val textViewWindSpeed = ObjectTextView(context)
+    private val textViewBottom = ObjectTextView(context)
 
     init {
         val linearLayoutVertical = LinearLayout(context)
-        textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
-        textViewTime = ObjectTextView(context)
-        textViewMovement = ObjectTextView(context)
-        textViewPressure = ObjectTextView(context)
-        textViewWindSpeed = ObjectTextView(context)
-        textViewBottom = ObjectTextView(context)
         textViewBottom.setAsBackgroundText()
         linearLayoutVertical.orientation = LinearLayout.VERTICAL
         linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
@@ -58,21 +52,20 @@ class ObjectCardNhcStormReportItem(context: Context, linearLayout: LinearLayout,
         linearLayoutVertical.addView(textViewPressure.tv)
         linearLayoutVertical.addView(textViewWindSpeed.tv)
         linearLayoutVertical.addView(textViewBottom.tv)
-        objCard = ObjectCard(context)
-        objCard.addView(linearLayoutVertical)
+        objectCard.addView(linearLayoutVertical)
         textViewTop.text = stormData.name + " (" + stormData.type + ") " + stormData.center
         textViewTime.text = stormData.dateTime
         textViewMovement.text = "Moving: " + stormData.movement
         textViewPressure.text = "Min pressure: " + stormData.pressure
         textViewWindSpeed.text = "Max sustained: " + stormData.wind
         textViewBottom.text = stormData.headline + " " + stormData.wallet + " " + stormData.atcf
-        linearLayout.addView(objCard.card)
+        linearLayout.addView(objectCard.card)
     }
 
-    val card: CardView get() = objCard.card
+    val card: CardView get() = objectCard.card
 
     fun setListener(fn: View.OnClickListener) {
-        objCard.card.setOnClickListener(fn)
+        objectCard.card.setOnClickListener(fn)
     }
 }
 

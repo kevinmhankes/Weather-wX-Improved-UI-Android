@@ -39,30 +39,17 @@ class ObjectNhcStormDetails(val data: String) {
    <nhc:headline> ...ANDREA IS A REMNANT LOW... ...THIS IS THE LAST ADVISORY...<br>
      */
 
-    var center = ""
-    var type = ""
-    var name = ""
-    var wallet = ""
-    var atcf = ""
-    var dateTime = ""
-    var movement = ""
-    var pressure = ""
-    var wind = ""
-    var headline = ""
-
-    init {
-        center = data.parse("<nhc:center>(.*?)<br> ")
-        type = data.parse("<nhc:type>(.*?)<br> ")
-        name = data.parse("<nhc:name>(.*?)<br> ")
-        wallet = data.parse("<nhc:wallet>(.*?)<br> ")
-        atcf = data.parse("<nhc:atcf>(.*?)<br> ")
-        dateTime = data.parse("<nhc:datetime>(.*?)<br> ")
-        movement = data.parse("<nhc:movement>(.*?)<br> ")
-        pressure = data.parse("<nhc:pressure>(.*?)<br> ")
-        wind = data.parse("<nhc:wind>(.*?)<br> ")
-        headline = data.parse("<nhc:headline>(.*?)<br> ")
-    }
-
+    var center = data.parse("<nhc:center>(.*?)<br> ")
+    var type = data.parse("<nhc:type>(.*?)<br> ")
+    var name = data.parse("<nhc:name>(.*?)<br> ")
+    var wallet = data.parse("<nhc:wallet>(.*?)<br> ")
+    var atcf = data.parse("<nhc:atcf>(.*?)<br> ")
+    var dateTime = data.parse("<nhc:datetime>(.*?)<br> ")
+    var movement = data.parse("<nhc:movement>(.*?)<br> ")
+    var pressure = data.parse("<nhc:pressure>(.*?)<br> ")
+    var wind = data.parse("<nhc:wind>(.*?)<br> ")
+    var headline = data.parse("<nhc:headline>(.*?)<br> ")
+    
     override fun toString (): String {
         var string = center + MyApplication.newline
         string += type + MyApplication.newline
