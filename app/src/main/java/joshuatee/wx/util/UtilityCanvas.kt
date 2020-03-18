@@ -101,17 +101,17 @@ internal object UtilityCanvas {
         var pixXInit: Double
         var pixYInit: Double
         var tmpCoords: DoubleArray
-        UtilityCities.CITY_OBJ.indices.forEach {
+        UtilityCities.list.indices.forEach {
             tmpCoords = if (provider.isMercator) {
                 UtilityCanvasProjection.computeMercatorNumbers(
-                    UtilityCities.CITY_OBJ[it]!!.x,
-                    UtilityCities.CITY_OBJ[it]!!.y,
+                    UtilityCities.list[it]!!.x,
+                    UtilityCities.list[it]!!.y,
                     pn
                 )
             } else {
                 UtilityCanvasProjection.compute4326Numbers(
-                    UtilityCities.CITY_OBJ[it]!!.x,
-                    UtilityCities.CITY_OBJ[it]!!.y,
+                    UtilityCities.list[it]!!.x,
+                    UtilityCities.list[it]!!.y,
                     pn
                 )
             }
@@ -119,7 +119,7 @@ internal object UtilityCanvas {
             pixYInit = tmpCoords[1]
             if (textSize > 0) {
                 canvas.drawText(
-                    MyApplication.comma.split(UtilityCities.CITY_OBJ[it]!!.city)[0],
+                    MyApplication.comma.split(UtilityCities.list[it]!!.city)[0],
                     pixXInit.toFloat() + 4,
                     pixYInit.toFloat() - 4,
                     paint

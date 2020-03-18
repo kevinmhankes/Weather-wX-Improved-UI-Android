@@ -24,14 +24,14 @@ package joshuatee.wx.util
 object UtilityCities {
 
     private const val num = 345
-    internal val CITY_OBJ = arrayOfNulls<City>(num)
+    internal val list = arrayOfNulls<City>(num)
     val cities: Array<String> = Array(num) { "" }
     val lat: DoubleArray = DoubleArray(num)
     val lon: DoubleArray = DoubleArray(num)
 
     fun initCitiesArray() {
         loadCitiesArray()
-        (0 until num).forEach { CITY_OBJ[it] = City(cities[it], lat[it], lon[it]) }
+        list.indices.forEach { list[it] = City(cities[it], lat[it], lon[it]) }
     }
 
     private fun loadCitiesArray() {
