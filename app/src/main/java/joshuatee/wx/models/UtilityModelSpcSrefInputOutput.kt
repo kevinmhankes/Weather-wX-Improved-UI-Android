@@ -66,10 +66,10 @@ internal object UtilityModelSpcSrefInputOutput {
         if (om.spinnerTimeValue == -1) {
             return AnimationDrawable()
         }
-        val bmAl = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) {
+        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) {
             getImage(context, om, om.spTime.list[it].split(" ").getOrNull(0) ?: "")
         }
-        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bmAl)
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
 }
 

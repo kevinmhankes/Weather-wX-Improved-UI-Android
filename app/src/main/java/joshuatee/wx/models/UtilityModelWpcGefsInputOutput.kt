@@ -59,9 +59,10 @@ internal object UtilityModelWpcGefsInputOutput {
         }
 
     fun getImage(om: ObjectModel, time: String): Bitmap {
-        var sectorAdd = ""
-        if (om.sector == "AK") {
-            sectorAdd = "_ak"
+        val sectorAdd = if (om.sector == "AK") {
+            "_ak"
+        } else {
+            "_ak"
         }
         val imgUrl = "${MyApplication.nwsWPCwebsitePrefix}/exper/gefs/" + om.run + "/GEFS_" +
                         om.currentParam + "_" + om.run + "Z_f" + time + sectorAdd + ".gif"
@@ -72,9 +73,9 @@ internal object UtilityModelWpcGefsInputOutput {
         if (om.spinnerTimeValue == -1) {
             return AnimationDrawable()
         }
-        val bmAl = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) {
+        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) {
             getImage(om, om.spTime.list[it].split(" ").getOrNull(0) ?: "")
         }
-        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bmAl)
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
 }

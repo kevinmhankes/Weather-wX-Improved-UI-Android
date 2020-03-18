@@ -87,7 +87,7 @@ internal object UtilityModelSpcHrrrInputOutput {
         if (om.spinnerTimeValue == -1) {
             return AnimationDrawable()
         }
-        val bmAl = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) { k ->
+        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) { k ->
             getImage(
                 context,
                 om,
@@ -96,7 +96,7 @@ internal object UtilityModelSpcHrrrInputOutput {
                 overlayImg
             )
         }
-        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bmAl)
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
 
     private fun getSectorCode(sectorName: String) =
