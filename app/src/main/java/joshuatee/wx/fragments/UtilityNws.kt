@@ -36,7 +36,6 @@ object UtilityNws {
     // FIXME better var naming in this class
 
     fun getIcon(context: Context, url: String): Bitmap {
-        val bitmap: Bitmap
         if (url == "NULL") {
             return Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888)
         }
@@ -50,31 +49,28 @@ object UtilityNws {
             fn = fn.replace("night/", "n")
                 .replace("/", "/n")
         }
-        val fnResId = UtilityNwsIcon.iconMap["$fn.png"]
-        bitmap = if (fnResId == null || fn.contains(",")) {
+        val fileId = UtilityNwsIcon.iconMap["$fn.png"]
+        return if (fileId == null || fn.contains(",")) {
             parseBitmap(context, fn)
         } else {
-            UtilityImg.loadBitmap(context, fnResId, false)
+            UtilityImg.loadBitmap(context, fileId, false)
         }
-        return bitmap
     }
 
     private fun parseBitmap(context: Context, url: String): Bitmap {
-        val bitmap: Bitmap
-        val conditions: List<String>
-        if (url.contains("/")) {
-            conditions = url.split("/").dropLastWhile { it.isEmpty() } //  snow,20/ovc,20
-            bitmap = if (conditions.size > 1) {
+        return if (url.contains("/")) {
+            val conditions = url.split("/").dropLastWhile { it.isEmpty() } //  snow,20/ovc,20
+            if (conditions.size > 1) {
                 dualBitmapWithNumbers(context, conditions[0], conditions[1])
             } else {
                 UtilityImg.getBlankBitmap()
             }
         } else {
-            bitmap = dualBitmapWithNumbers(context, url)
+            dualBitmapWithNumbers(context, url)
         }
-        return bitmap
     }
 
+    // FIXME naming issues
     private fun dualBitmapWithNumbers(context: Context, aF: String, bF: String): Bitmap {
         var a = aF
         var b = bF
@@ -147,6 +143,7 @@ object UtilityNws {
         return bitmap
     }
 
+    // FIXME naming issues
     private fun dualBitmapWithNumbers(context: Context, aF: String): Bitmap {
         var a = aF
         var num1 = ""
