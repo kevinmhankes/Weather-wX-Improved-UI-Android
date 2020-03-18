@@ -39,7 +39,7 @@ import joshuatee.wx.objects.TextSize
 class ObjectCardText(private val context: Context) {
 
     private val objCard = ObjectCard(context)
-    val tv: TextView = TextView(context)
+    val tv = TextView(context)
     var padding = MyApplication.padding
 
     init {

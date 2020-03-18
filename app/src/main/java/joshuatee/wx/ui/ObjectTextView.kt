@@ -33,7 +33,7 @@ import joshuatee.wx.objects.TextSize
 
 class ObjectTextView(val context: Context) {
 
-    var tv: AppCompatTextView
+    var tv = AppCompatTextView(context)
 
     var text: String
         get() = tv.text.toString()
@@ -47,14 +47,7 @@ class ObjectTextView(val context: Context) {
             tv.gravity = value
         }
 
-    /*var maxLines: Int
-        get() = tv.maxLines
-        set(value) {
-            tv.maxLines = value
-        }*/
-
     init {
-        tv = AppCompatTextView(context)
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         tv.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
         tv.gravity = Gravity.START

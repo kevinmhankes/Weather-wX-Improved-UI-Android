@@ -35,14 +35,13 @@ class ObjectRecyclerView(
 ) {
 
     var recyclerView: RecyclerView = activity.findViewById(resourceId)
-    var ca: SingleTextAdapterList
+    var ca = SingleTextAdapterList(list)
 
     init {
         recyclerView.setHasFixedSize(true)
         val llm = LinearLayoutManager(context)
         llm.orientation = RecyclerView.VERTICAL
         recyclerView.layoutManager = llm
-        ca = SingleTextAdapterList(list)
         recyclerView.adapter = ca
         ca.setOnItemClickListener(object : SingleTextAdapterList.MyClickListener {
             override fun onItemClick(position: Int) {

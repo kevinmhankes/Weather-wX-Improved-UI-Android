@@ -38,45 +38,38 @@ class ObjectCardDashAlertItem(
         private val areaDescription: String
 ) {
 
-    private val objCard: ObjectCard
-    private val textViewTop: ObjectTextView
-    private val textViewTitle: ObjectTextView
-    private val textViewStart: ObjectTextView
-    private val textViewEnd: ObjectTextView
-    private val textViewBottom: ObjectTextView
+    private val objectCard = ObjectCard(context)
+    private val textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
+    private val textViewTitle = ObjectTextView(context)
+    private val textViewStart = ObjectTextView(context)
+    private val textViewEnd = ObjectTextView(context)
+    private val textViewBottom = ObjectTextView(context)
 
     init {
         val linearLayoutVertical = LinearLayout(context)
-        textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
-        textViewTitle = ObjectTextView(context)
-        textViewStart = ObjectTextView(context)
-        textViewEnd= ObjectTextView(context)
-        textViewBottom = ObjectTextView(context)
         textViewBottom.setAsBackgroundText()
         linearLayoutVertical.orientation = LinearLayout.VERTICAL
         linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
-        linearLayoutVertical.addView(textViewTop.tv)
-        linearLayoutVertical.addView(textViewTitle.tv)
-        linearLayoutVertical.addView(textViewStart.tv)
-        linearLayoutVertical.addView(textViewEnd.tv)
-        linearLayoutVertical.addView(textViewBottom.tv)
-        objCard = ObjectCard(context)
-        objCard.addView(linearLayoutVertical)
+        listOf(textViewTop, textViewTitle, textViewStart, textViewEnd, textViewBottom).forEach {
+            linearLayoutVertical.addView(it.tv)
+        }
+        objectCard.addView(linearLayoutVertical)
         setTextFields()
-        linearLayout.addView(objCard.card)
+        linearLayout.addView(objectCard.card)
     }
 
-    val card: CardView get() = objCard.card
+    val card: CardView get() = objectCard.card
 
     fun setListener(fn: View.OnClickListener) {
-        objCard.card.setOnClickListener(fn)
+        objectCard.card.setOnClickListener(fn)
     }
 
+    // FIXME use objectAlertDetail which has timezone
     private fun setTextFields() {
         textViewTop.text = senderName
         textViewTitle.text = eventType
-        textViewStart.text = effectiveTime.replace("T", " ").replace(Regex(":00-0[0-9]:00"), "")
-        textViewEnd.text = expiresTime.replace("T", " ").replace(Regex(":00-0[0-9]:00"), "")
+        textViewStart.text = effectiveTime.replace("T", " ").replace(Regex(":00-0[0-9]:00"), "").replace(Regex(":00-10:00"), "")
+        textViewEnd.text = expiresTime.replace("T", " ").replace(Regex(":00-0[0-9]:00"), "").replace(Regex(":00-10:00"), "")
         textViewBottom.text = areaDescription
     }
 }

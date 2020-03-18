@@ -35,35 +35,30 @@ import java.util.*
 
 class ObjectCardStormReportItem(context: Context) {
 
-    private val objCard: ObjectCard
-    private val textViewTop: ObjectTextView
-    private val textViewTitle: ObjectTextView
-    private val textViewBottom: ObjectTextView
+    private val objectCard = ObjectCard(context)
+    private val textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
+    private val textViewTitle = ObjectTextView(context)
+    private val textViewBottom = ObjectTextView(context)
 
     init {
         val linearLayoutVertical = LinearLayout(context)
-        textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
-        textViewTitle = ObjectTextView(context)
-        textViewBottom = ObjectTextView(context)
         textViewBottom.setAsBackgroundText()
         linearLayoutVertical.orientation = LinearLayout.VERTICAL
         linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
         linearLayoutVertical.addView(textViewTop.tv)
         linearLayoutVertical.addView(textViewTitle.tv)
         linearLayoutVertical.addView(textViewBottom.tv)
-        objCard = ObjectCard(context)
-        objCard.addView(linearLayoutVertical)
+        objectCard.addView(linearLayoutVertical)
     }
 
-
-    val card: CardView get() = objCard.card
+    val card: CardView get() = objectCard.card
 
     fun setId(id: Int) {
-        objCard.card.id = id
+        objectCard.card.id = id
     }
 
     fun setListener(fn: View.OnClickListener) {
-        objCard.card.setOnClickListener(fn)
+        objectCard.card.setOnClickListener(fn)
     }
 
     fun setTextFields(stormReport: StormReport) {
