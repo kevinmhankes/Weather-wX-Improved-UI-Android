@@ -61,9 +61,6 @@ internal class SevereWarning(private val type: PolygonType) {
     }
 
     fun generateString(html: String) {
-        var vtecComponents: List<String>
-        var wfo: String
-        var wfoLocation = ""
         idList = html.parseColumn("\"id\": \"(NWS.*?)\"")
         areaDescList = html.parseColumn("\"areaDesc\": \"(.*?)\"")
         effectiveList = html.parseColumn("\"effective\": \"(.*?)\"")
@@ -81,12 +78,13 @@ internal class SevereWarning(private val type: PolygonType) {
         warnings = html.parseColumn(RegExp.warningVtecPattern)
         warnings.forEach {
             val vtecIsCurrent = UtilityTime.isVtecCurrent(it)
+            var wfoLocation = ""
             if (!it.startsWith("O.EXP") && vtecIsCurrent) {
                 text += it
                 count += 1
-                vtecComponents = it.split(".")
+                val vtecComponents = it.split(".")
                 if (vtecComponents.size > 1) {
-                    wfo = vtecComponents[2]
+                    var wfo = vtecComponents[2]
                     wfo = wfo.replace("^[KP]".toRegex(), "")
                     wfoLocation = Utility.getWfoSiteName(wfo)
                 }
