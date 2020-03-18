@@ -35,8 +35,7 @@ import joshuatee.wx.RegExp
 
 object UtilityDownloadNws {
 
-    private const val USER_AGENT_STR =
-        "Android ${MyApplication.packageNameAsString} ${MyApplication.emailAsString}"
+    private const val USER_AGENT_STR = "Android ${MyApplication.packageNameAsString} ${MyApplication.emailAsString}"
 
     var forecastZone = ""
 
@@ -49,16 +48,14 @@ object UtilityDownloadNws {
         html = html.replace("\n", "")
         html = html.replace(" ", "")
         val polygonArr = html.parseColumn(RegExp.warningLatLonPattern)
-        var test: List<String>
         var lat = "42.00"
         var lon = "-84.00"
-        var polyTmp: String
         polygonArr.forEach { poly ->
-            polyTmp = poly.replace("[", "").replace("]", "").replace(",", " ")
-            test = polyTmp.split(" ").dropLastWhile { it.isEmpty() }
-            if (test.size > 1) {
-                lat = test[1]
-                lon = test[0]
+            val polyTmp = poly.replace("[", "").replace("]", "").replace(",", " ")
+            val items = polyTmp.split(" ").dropLastWhile { it.isEmpty() }
+            if (items.size > 1) {
+                lat = items[1]
+                lon = items[0]
             }
         }
         return listOf(lat, lon)

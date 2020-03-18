@@ -39,6 +39,7 @@ import joshuatee.wx.objects.GeographyType
 
 internal object UtilityCanvas {
 
+    // FIXME major cleanup needed
     fun addWarnings(provider: ProjectionType, bitmap: Bitmap, radarSite: String) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)

@@ -102,7 +102,6 @@ object UtilityDownload {
     fun getImageProduct(context: Context, product: String): Bitmap {
         var url = ""
         var bitmap = UtilityImg.getBlankBitmap()
-        val tmpArr: List<String>
         var needsBitmap = true
         when (product) {
             "GOES16" -> {
@@ -115,7 +114,6 @@ object UtilityDownload {
             }
             "VIS_1KM", "VIS_MAIN" -> {
                 needsBitmap = false
-                //bitmap = get1KmUrl()
             }
             "CARAIN" -> if (Location.x.contains("CANADA")) {
                 needsBitmap = false
@@ -199,9 +197,9 @@ object UtilityDownload {
             }
             "SPCMESO1" -> {
                 var param = "500mb"
-                tmpArr = MyApplication.spcMesoFav.split(":").dropLastWhile { it.isEmpty() }
-                if (tmpArr.size > 3) {
-                    param = tmpArr[3]
+                val items = MyApplication.spcMesoFav.split(":").dropLastWhile { it.isEmpty() }
+                if (items.size > 3) {
+                    param = items[3]
                 }
                 needsBitmap = false
                 bitmap = UtilitySpcMesoInputOutput.getImage(
@@ -216,9 +214,9 @@ object UtilityDownload {
             }
             "SPCMESO2" -> {
                 var param = "pmsl"
-                tmpArr = MyApplication.spcMesoFav.split(":")
-                if (tmpArr.size > 4) {
-                    param = tmpArr[4]
+                val items = MyApplication.spcMesoFav.split(":")
+                if (items.size > 4) {
+                    param = items[4]
                 }
                 needsBitmap = false
                 bitmap = UtilitySpcMesoInputOutput.getImage(
@@ -233,9 +231,9 @@ object UtilityDownload {
             }
             "SPCMESO3" -> {
                 var param = "ttd"
-                tmpArr = MyApplication.spcMesoFav.split(":")
-                if (tmpArr.size > 5) {
-                    param = tmpArr[5]
+                val items = MyApplication.spcMesoFav.split(":")
+                if (items.size > 5) {
+                    param = items[5]
                 }
                 needsBitmap = false
                 bitmap = UtilitySpcMesoInputOutput.getImage(
@@ -250,9 +248,9 @@ object UtilityDownload {
             }
             "SPCMESO4" -> {
                 var param = "rgnlrad"
-                tmpArr = MyApplication.spcMesoFav.split(":")
-                if (tmpArr.size > 6) {
-                    param = tmpArr[6]
+                val items = MyApplication.spcMesoFav.split(":")
+                if (items.size > 6) {
+                    param = items[6]
                 }
                 needsBitmap = false
                 bitmap = UtilitySpcMesoInputOutput.getImage(
@@ -267,9 +265,9 @@ object UtilityDownload {
             }
             "SPCMESO5" -> {
                 var param = "lllr"
-                tmpArr = MyApplication.spcMesoFav.split(":")
-                if (tmpArr.size > 7) {
-                    param = tmpArr[7]
+                val items = MyApplication.spcMesoFav.split(":")
+                if (items.size > 7) {
+                    param = items[7]
                 }
                 needsBitmap = false
                 bitmap = UtilitySpcMesoInputOutput.getImage(
@@ -284,9 +282,9 @@ object UtilityDownload {
             }
             "SPCMESO6" -> {
                 var param = "laps"
-                tmpArr = MyApplication.spcMesoFav.split(":")
-                if (tmpArr.size > 8) {
-                    param = tmpArr[8]
+                val items = MyApplication.spcMesoFav.split(":")
+                if (items.size > 8) {
+                    param = items[8]
                 }
                 needsBitmap = false
                 bitmap = UtilitySpcMesoInputOutput.getImage(
