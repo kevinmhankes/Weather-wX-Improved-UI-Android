@@ -197,26 +197,30 @@ object UtilityCanadaImg {
             duration: String
     ): AnimationDrawable {
         var sector = sectorOriginal
-        var url = MyApplication.canadaEcSitePrefix + "/radar/index_e.html?id=$sector"
-        if (sector == "CAN") {
-            url = MyApplication.canadaEcSitePrefix + "/radar/index_e.html"
+        val url = if (sector == "CAN") {
+            MyApplication.canadaEcSitePrefix + "/radar/index_e.html"
+        } else {
+            MyApplication.canadaEcSitePrefix + "/radar/index_e.html?id=$sector"
         }
         val radHtml = url.getHtmlSep()
         if (sector == "CAN") {
             sector = "NAT"
         }
-        var durationPatMatch = "<p>Short .1hr.:</p>(.*?)</div>"
-        if (duration == "long") {
-            durationPatMatch = "<p>Long .3hr.:</p>(.*?)</div>"
+        val durationPatMatch = if (duration == "long") {
+            "<p>Long .3hr.:</p>(.*?)</div>"
+        } else {
+            "<p>Short .1hr.:</p>(.*?)</div>"
         }
         val radarHtml1Hr = radHtml.parse(durationPatMatch)
         var urlList = ""
-        var tmpAl = radarHtml1Hr.parseColumn("display='(.*?)'&amp;")
-        tmpAl.forEach {
+        val list = radarHtml1Hr.parseColumn("display='(.*?)'&amp;")
+        list.forEach {
             urlList += ":/data/radar/detailed/temp_image/COMPOSITE_$sector/$it.GIF"
         }
-        tmpAl = radHtml.parseColumn("src=.(/data/radar/.*?GIF)\"")
-        tmpAl.forEach { urlList += ":$it" }
+        val tmpAl = radHtml.parseColumn("src=.(/data/radar/.*?GIF)\"")
+        tmpAl.forEach {
+            urlList += ":$it"
+        }
         val urls = urlList.split(":").dropLastWhile { it.isEmpty() }
         val urlAl = urls.mapTo(mutableListOf()) { MyApplication.canadaEcSitePrefix + it.replace("detailed/", "") }
         urlAl.reverse()
