@@ -393,6 +393,8 @@ object UtilityCanada {
         return UtilityCitiesCanada.cities.any { it.contains(label) }
     }
 
+    // FIXME use indexOf and check for -1
+    // FIXME use LatLon and decom LatLonStr
     fun getLatLonFromLabel(label: String): LatLonStr {
         val latLon = DoubleArray(2)
         var i = 0
