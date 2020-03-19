@@ -354,8 +354,8 @@ class SettingsLocationGenericActivity : BaseActivity(),
         inflater.inflate(R.menu.settings_location_generic, menu)
         val searchView = menu.findItem(R.id.ab_search).actionView as ArrayAdapterSearchView
         UtilityCitiesExtended.create(this)
-        if (!UtilityCitiesCanada.cityInit) {
-            UtilityCitiesCanada.loadCitiesArray()
+        if (!UtilityCitiesCanada.initialized) {
+            UtilityCitiesCanada.load()
         }
         val combinedCitiesList = UtilityCitiesExtended.cityLabels.toList()
         val cityArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, combinedCitiesList)
