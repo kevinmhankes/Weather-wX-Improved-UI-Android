@@ -23,37 +23,32 @@ package joshuatee.wx.activitiesmisc
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.GlobalDictionaries
 import joshuatee.wx.MyApplication
-
-import joshuatee.wx.R
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.radar.*
-import joshuatee.wx.radar.UtilityDownloadMcd
-import joshuatee.wx.radar.UtilityDownloadMpd
-import joshuatee.wx.radar.UtilityDownloadWarnings
-import joshuatee.wx.radar.UtilityDownloadWatch
 import joshuatee.wx.spc.SpcMcdWatchShowActivity
 import joshuatee.wx.spc.SpcStormReportsActivity
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.UtilityDownload
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.util.UtilityShortcut
-
-import kotlinx.coroutines.*
-
 import kotlinx.android.synthetic.main.activity_linear_layout.*
+import kotlinx.coroutines.*
+import joshuatee.wx.R
 
 class SevereDashboardActivity : BaseActivity() {
 
@@ -305,6 +300,9 @@ class SevereDashboardActivity : BaseActivity() {
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
+        //val colorDrawable = ColorDrawable()
+        //colorDrawable.color = ContextCompat.getColor(this, android.R.color.white)
+        //v.background = colorDrawable
         //val zone = objectAlertSummary.mapButtonZone[v.id]
         menu.add(0, v.id, 0, "Open radar interface")
         //menu.add(0, v.id, 0, "Add new location for this warning ($zone)")
