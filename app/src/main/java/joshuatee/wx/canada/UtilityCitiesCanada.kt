@@ -23,7 +23,7 @@ package joshuatee.wx.canada
 
 object UtilityCitiesCanada {
 
-    var initialized: Boolean = false
+    private var initialized: Boolean = false
 
     private const val numberOfCities = 838
     val cities: Array<String> = Array(numberOfCities) { "" }

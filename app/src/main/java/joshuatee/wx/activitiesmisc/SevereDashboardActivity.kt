@@ -75,6 +75,7 @@ class SevereDashboardActivity : BaseActivity() {
     private var numberOfImages = 0
     private var horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
     private var imagesPerRow = 2
+    private var listOfWfoForWarnings = mutableListOf<String>()
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.severe_dashboard, menu)
@@ -182,6 +183,8 @@ class SevereDashboardActivity : BaseActivity() {
             wTst.generateString(MyApplication.severeDashboardTst.value)
             wFfw.generateString(MyApplication.severeDashboardFfw.value)
         }
+        listOfWfoForWarnings = mutableListOf()
+        var numberOfWarnings = 0
         listOf(wTor, wTst, wFfw).forEach { warn ->
             if (warn.count > 0) {
                 ObjectCardBlackHeaderText(
@@ -210,8 +213,9 @@ class SevereDashboardActivity : BaseActivity() {
                                     arrayOf("https://api.weather.gov/alerts/$url", "")
                             )
                         })
-                        UtilityLog.d("wx", "DEBUGJ: " + warn.senderNameList)
-                        objectCardDashAlertItem.setId(index)
+                        listOfWfoForWarnings.add(warn.listOfWfo[index])
+                        objectCardDashAlertItem.setId(numberOfWarnings)
+                        numberOfWarnings += 1
                         registerForContextMenu(objectCardDashAlertItem.card)
                     }
                 }
@@ -316,14 +320,13 @@ class SevereDashboardActivity : BaseActivity() {
     }
 
     private fun radarInterface(id: Int) {
-        UtilityLog.d("wx", "DEBUGJ: " + id.toString())
-       /* val radarSite = GlobalDictionaries.wfoToRadarSite[objectAlertSummary.mapButtonNws[id]] ?: ""
+        val radarSite = GlobalDictionaries.wfoToRadarSite[listOfWfoForWarnings[id]] ?: ""
         ObjectIntent(
                 this@SevereDashboardActivity,
                 WXGLRadarActivity::class.java,
                 WXGLRadarActivity.RID,
                 arrayOf(radarSite, "", "N0Q", "") // 2nd arg was objectAlertSummary.mapButtonState[id]!!
-        )*/
+        )
     }
 
    /* private fun locationAdd(id: Int) {

@@ -25,9 +25,12 @@
 // TODO [FIX] chromeOS - multipane radar toolbar is not fully transparent
 // TODO [FIX] change animation interval to animation speed
 // TODO [FIX] update PlayList to be more like iOS
+// TODO [ADD] severedash long press to add location
+// TODO [ADD] severedash long press color is off
 
 55380 2020_03_19    [REF] misc for readability
                     [ADD] minor formatting enhancement in spotter reports (light gray for description)
+                    [ADD] In SevereDashboard, octago icon main screen - you can now press and hold on a warning for a menu, menu allows one to show nexrad radar
 55379 2020_03_18    [REF] misc for readability
                     [ADD] Canadian locations - have alerts act like US on front screen
                     [ADD] add save location button in adhoc location accessed via nexrad long press

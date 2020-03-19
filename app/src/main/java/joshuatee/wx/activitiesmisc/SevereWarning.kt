@@ -48,6 +48,7 @@ internal class SevereWarning(private val type: PolygonType) {
     var eventList = listOf<String>()
     var senderNameList = listOf<String>()
     var warnings = listOf<String>()
+    var listOfWfo = mutableListOf<String>()
 
     fun getName(): String {
         var name = ""
@@ -86,9 +87,14 @@ internal class SevereWarning(private val type: PolygonType) {
                 if (vtecComponents.size > 1) {
                     var wfo = vtecComponents[2]
                     wfo = wfo.replace("^[KP]".toRegex(), "")
+                    listOfWfo.add(wfo)
                     wfoLocation = Utility.getWfoSiteName(wfo)
+                } else {
+                    listOfWfo.add("")
                 }
                 text += "  " + wfoLocation + MyApplication.newline
+            } else {
+                listOfWfo.add("")
             }
         }
         val remover = ExternalDuplicateRemover()
