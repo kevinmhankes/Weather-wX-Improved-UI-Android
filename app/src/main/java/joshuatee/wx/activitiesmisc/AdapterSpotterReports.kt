@@ -72,11 +72,11 @@ internal class AdapterSpotterReports(private val dataSet: List<SpotterReports>) 
         holder.email.text = dataSet[position].city.replace(MyApplication.newline, " ")
         holder.phone.text = dataSet[position].lastName + ", " + dataSet[position].firstName
         holder.summary.text = dataSet[position].narrative
-        holder.summary.setAsBackgroundText()
         listOf(holder.time, holder.email, holder.phone, holder.summary).forEach {
             it.color = UIPreferences.backgroundColor
             it.setTextSize(TextSize.SMALL)
         }
+        holder.summary.setAsBackgroundText()
     }
 
     override fun getItemCount() = dataSet.size

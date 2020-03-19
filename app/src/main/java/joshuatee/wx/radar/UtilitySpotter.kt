@@ -46,74 +46,71 @@ object UtilitySpotter {
     // thanks Landei
     // http://stackoverflow.com/questions/6720236/sorting-an-arraylist-of-objects-by-last-name-and-firstname-in-java
 
-     fun get(context: Context): MutableList<Spotter> {
-            if (timer.isRefreshNeeded(context)) {
-                spotterList = mutableListOf()
-                reportsList = mutableListOf()
-                val latAl = mutableListOf<String>()
-                val lonAl = mutableListOf<String>()
-                var html = ("http://www.spotternetwork.org/feeds/csv.txt").getHtmlSep()
-                val reportData = html.replace(".*?#storm reports".toRegex(), "")
-                process(reportData)
-                html = html.replace("#storm reports.*?$".toRegex(), "")
-                val htmlArr = html.split("<br>").dropLastWhile { it.isEmpty() }
-                var tmpArr: List<String>
-                htmlArr.forEach { line ->
-                    tmpArr = line.split(";;").dropLastWhile { it.isEmpty() }
-                    if (tmpArr.size > 15) {
-                        spotterList.add(
+    fun get(context: Context): MutableList<Spotter> {
+        if (timer.isRefreshNeeded(context)) {
+            spotterList = mutableListOf()
+            reportsList = mutableListOf()
+            val lats = mutableListOf<String>()
+            val lons = mutableListOf<String>()
+            var html = ("http://www.spotternetwork.org/feeds/csv.txt").getHtmlSep()
+            val reportData = html.replace(".*?#storm reports".toRegex(), "")
+            process(reportData)
+            html = html.replace("#storm reports.*?$".toRegex(), "")
+            val lines = html.split("<br>").dropLastWhile { it.isEmpty() }
+            lines.forEach { line ->
+                val items = line.split(";;").dropLastWhile { it.isEmpty() }
+                if (items.size > 15) {
+                    spotterList.add(
                             Spotter(
-                                tmpArr[14],
-                                tmpArr[15],
-                                tmpArr[4],
-                                tmpArr[5],
-                                tmpArr[3],
-                                tmpArr[11],
-                                tmpArr[10],
-                                tmpArr[0]
+                                    items[14],
+                                    items[15],
+                                    items[4],
+                                    items[5],
+                                    items[3],
+                                    items[11],
+                                    items[10],
+                                    items[0]
                             )
-                        )
-                        latAl.add(tmpArr[4])
-                        lonAl.add(tmpArr[5])
-                    }
-                }
-                if (latAl.size == lonAl.size) {
-                    x = DoubleArray(latAl.size)
-                    y = DoubleArray(latAl.size)
-                    latAl.indices.forEach {
-                        x[it] = latAl[it].toDoubleOrNull() ?: 0.0
-                        y[it] = -1.0 * (lonAl[it].toDoubleOrNull() ?: 0.0)
-                    }
-                } else {
-                    x = DoubleArray(1)
-                    y = DoubleArray(1)
-                    x[0] = 0.0
-                    y[0] = 0.0
+                    )
+                    lats.add(items[4])
+                    lons.add(items[5])
                 }
             }
-            return spotterList
+            if (lats.size == lons.size) {
+                x = DoubleArray(lats.size)
+                y = DoubleArray(lats.size)
+                lats.indices.forEach {
+                    x[it] = lats[it].toDoubleOrNull() ?: 0.0
+                    y[it] = -1.0 * (lons[it].toDoubleOrNull() ?: 0.0)
+                }
+            } else {
+                x = DoubleArray(1)
+                y = DoubleArray(1)
+                x[0] = 0.0
+                y[0] = 0.0
+            }
         }
+        return spotterList
+    }
 
     // need to return an array of x ( lat ) and an array of y ( lon ) where long is positive
-
     private fun process(txt: String) {
-        val htmlArr = txt.split("<br>").dropLastWhile { it.isEmpty() }
-        var tmpArr: List<String>
-        htmlArr.forEach { line ->
-            tmpArr = line.split(";;").dropLastWhile { it.isEmpty() }
-            if (tmpArr.size > 10 && !tmpArr[0].startsWith("#")) {
+        val lines = txt.split("<br>").dropLastWhile { it.isEmpty() }
+        lines.forEach { line ->
+            val items = line.split(";;").dropLastWhile { it.isEmpty() }
+            if (items.size > 10 && !items[0].startsWith("#")) {
                 reportsList.add(
-                    SpotterReports(
-                        tmpArr[9],
-                        tmpArr[10],
-                        tmpArr[5],
-                        tmpArr[6],
-                        tmpArr[8],
-                        tmpArr[0],
-                        tmpArr[3],
-                        tmpArr[2],
-                        tmpArr[7]
-                    )
+                        SpotterReports(
+                                items[9],
+                                items[10],
+                                items[5],
+                                items[6],
+                                items[8],
+                                items[0],
+                                items[3],
+                                items[2],
+                                items[7]
+                        )
                 )
             }
         }
