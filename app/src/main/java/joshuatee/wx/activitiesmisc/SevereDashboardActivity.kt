@@ -318,13 +318,12 @@ class SevereDashboardActivity : BaseActivity() {
     private fun radarInterface(id: Int) {
         val radarSite = GlobalDictionaries.wfoToRadarSite[listOfWfoForWarnings[id]] ?: ""
         val radarLabel = Utility.getRadarSiteName(radarSite)
-        UtilityLog.d("wx", "DEBUG: " + radarLabel)
         val state = radarLabel.split(",")[0]
         ObjectIntent(
                 this@SevereDashboardActivity,
                 WXGLRadarActivity::class.java,
                 WXGLRadarActivity.RID,
-                arrayOf(radarSite, state, "N0Q", "") // 2nd arg was objectAlertSummary.mapButtonState[id]!!
+                arrayOf(radarSite, state, "N0Q", "")
         )
     }
 
