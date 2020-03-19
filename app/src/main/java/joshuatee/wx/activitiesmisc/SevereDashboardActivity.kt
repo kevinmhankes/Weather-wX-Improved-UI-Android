@@ -24,26 +24,30 @@ package joshuatee.wx.activitiesmisc
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import joshuatee.wx.Extensions.getImage
+import joshuatee.wx.GlobalDictionaries
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ShortcutType
+import joshuatee.wx.radar.*
 import joshuatee.wx.radar.UtilityDownloadMcd
 import joshuatee.wx.radar.UtilityDownloadMpd
-import joshuatee.wx.radar.UtilityDownloadWatch
 import joshuatee.wx.radar.UtilityDownloadWarnings
+import joshuatee.wx.radar.UtilityDownloadWatch
 import joshuatee.wx.spc.SpcMcdWatchShowActivity
 import joshuatee.wx.spc.SpcStormReportsActivity
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.UtilityDownload
+import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.util.UtilityShortcut
 
@@ -206,6 +210,9 @@ class SevereDashboardActivity : BaseActivity() {
                                     arrayOf("https://api.weather.gov/alerts/$url", "")
                             )
                         })
+                        UtilityLog.d("wx", "DEBUGJ: " + warn.senderNameList)
+                        objectCardDashAlertItem.setId(index)
+                        registerForContextMenu(objectCardDashAlertItem.card)
                     }
                 }
             }
@@ -291,4 +298,60 @@ class SevereDashboardActivity : BaseActivity() {
         }
         return true
     }
+
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        //val zone = objectAlertSummary.mapButtonZone[v.id]
+        menu.add(0, v.id, 0, "Open radar interface")
+        //menu.add(0, v.id, 0, "Add new location for this warning ($zone)")
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        when {
+            item.title == "Open radar interface" -> radarInterface(item.itemId)
+            //(item.title as String).contains("Add new location for this warning") -> locationAdd(item.itemId)
+            else -> return false
+        }
+        return true
+    }
+
+    private fun radarInterface(id: Int) {
+        UtilityLog.d("wx", "DEBUGJ: " + id.toString())
+       /* val radarSite = GlobalDictionaries.wfoToRadarSite[objectAlertSummary.mapButtonNws[id]] ?: ""
+        ObjectIntent(
+                this@SevereDashboardActivity,
+                WXGLRadarActivity::class.java,
+                WXGLRadarActivity.RID,
+                arrayOf(radarSite, "", "N0Q", "") // 2nd arg was objectAlertSummary.mapButtonState[id]!!
+        )*/
+    }
+
+   /* private fun locationAdd(id: Int) {
+        saveLocFromZone(id)
+    }
+
+    private fun saveLocFromZone(id: Int) = GlobalScope.launch(uiDispatcher) {
+        var toastStr = ""
+        var coord = listOf<String>()
+        withContext(Dispatchers.IO) {
+            var locNumIntCurrent = Location.numLocations
+            locNumIntCurrent += 1
+            val locNumToSaveStr = locNumIntCurrent.toString()
+            val zone = objectAlertSummary.mapButtonZone[id]
+            var state = objectAlertSummary.mapButtonState[id]
+            val county = objectAlertSummary.mapButtonCounty[id]
+            if (zone!!.length > 3) {
+                coord = if (zone.matches("[A-Z][A-Z]C.*?".toRegex())) {
+                    UtilityLocation.getLatLonFromAddress(county + "," + zone.substring(0, 2))
+                } else {
+                    UtilityDownloadNws.getLatLonForZone(zone)
+                }
+                state = zone.substring(0, 2)
+            }
+            val x = coord[0]
+            val y = coord[1]
+            toastStr = Location.locationSave(this@USWarningsWithRadarActivity, locNumToSaveStr, x, y, state + "_" + county)
+        }
+        UtilityUI.makeSnackBar(linearLayout, toastStr)
+    }*/
 }

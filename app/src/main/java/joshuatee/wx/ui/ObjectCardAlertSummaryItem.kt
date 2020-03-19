@@ -34,7 +34,7 @@ import joshuatee.wx.util.UtilityString
 
 class ObjectCardAlertSummaryItem(context: Context) {
 
-    private val objCard = ObjectCard(context)
+    private val objectCard = ObjectCard(context)
     private val textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
     private val textViewTitle = ObjectTextView(context)
     private val textViewStart = ObjectTextView(context, TextSize.SMALL)
@@ -51,17 +51,17 @@ class ObjectCardAlertSummaryItem(context: Context) {
         linearLayoutVertical.addView(textViewStart.tv)
         linearLayoutVertical.addView(textViewEnd.tv)
         linearLayoutVertical.addView(textViewBottom.tv)
-        objCard.addView(linearLayoutVertical)
+        objectCard.addView(linearLayoutVertical)
     }
 
-    val card: CardView get() = objCard.card
+    val card: CardView get() = objectCard.card
 
     fun setId(id: Int) {
-        objCard.card.id = id
+        objectCard.card.id = id
     }
 
     fun setListener(fn: View.OnClickListener) {
-        objCard.card.setOnClickListener(fn)
+        objectCard.card.setOnClickListener(fn)
     }
 
     fun setTextFields(nwsOffice: String, nwsLoc: String, ca: CapAlert) {

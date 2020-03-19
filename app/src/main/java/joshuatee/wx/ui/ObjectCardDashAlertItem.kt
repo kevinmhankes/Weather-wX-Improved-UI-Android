@@ -72,6 +72,10 @@ class ObjectCardDashAlertItem(
         textViewEnd.text = expiresTime.replace("T", " ").replace(Regex(":00-0[0-9]:00"), "").replace(Regex(":00-10:00"), "")
         textViewBottom.text = areaDescription
     }
+
+    fun setId(id: Int) {
+        objectCard.card.id = id
+    }
 }
 
 
