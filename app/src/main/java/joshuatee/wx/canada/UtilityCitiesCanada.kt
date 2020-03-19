@@ -38,7 +38,6 @@ object UtilityCitiesCanada {
         }
     }
 
-    // FIXME incorporate a check for initialized into load method
     private fun load() {
         cities[0] = "Airdrie, AB"
         lat[0] = 51.2859257
