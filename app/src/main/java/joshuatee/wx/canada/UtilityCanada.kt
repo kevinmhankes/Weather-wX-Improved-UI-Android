@@ -389,18 +389,14 @@ object UtilityCanada {
     fun getECSectorFromProv(prov: String): String = providenceToSector[prov] ?: ""
 
     fun isLabelPresent(label: String): Boolean {
-        if (!UtilityCitiesCanada.initialized) {
-            UtilityCitiesCanada.load()
-        }
+        UtilityCitiesCanada.initialize()
         return UtilityCitiesCanada.cities.any { it.contains(label) }
     }
 
     fun getLatLonFromLabel(label: String): LatLonStr {
         val latLon = DoubleArray(2)
         var i = 0
-        if (!UtilityCitiesCanada.initialized) {
-            UtilityCitiesCanada.load()
-        }
+        UtilityCitiesCanada.initialize()
         for (l in UtilityCitiesCanada.cities) {
             if (l == label) {
                 latLon[0] = UtilityCitiesCanada.lat[i]

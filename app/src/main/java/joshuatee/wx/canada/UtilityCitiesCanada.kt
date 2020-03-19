@@ -31,8 +31,15 @@ object UtilityCitiesCanada {
     val lon: DoubleArray = DoubleArray(numberOfCities)
     val code: Array<String> = Array(numberOfCities) { "" }
 
+    fun initialize() {
+        if (!initialized) {
+            load()
+            initialized = true
+        }
+    }
+
     // FIXME incorporate a check for initialized into load method
-    fun load() {
+    private fun load() {
         cities[0] = "Airdrie, AB"
         lat[0] = 51.2859257
         lon[0] = 114.0105993
@@ -3386,7 +3393,6 @@ object UtilityCitiesCanada {
         code[835] = "14"
         code[836] = "13"
         code[837] = "16"
-        initialized = true
     }
 }
 
