@@ -43,12 +43,10 @@ import joshuatee.wx.spc.SpcMcdWatchShowActivity
 import joshuatee.wx.spc.SpcStormReportsActivity
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.ui.*
-import joshuatee.wx.util.UtilityDownload
-import joshuatee.wx.util.UtilityShare
-import joshuatee.wx.util.UtilityShortcut
 import kotlinx.android.synthetic.main.activity_linear_layout.*
 import kotlinx.coroutines.*
 import joshuatee.wx.R
+import joshuatee.wx.util.*
 
 class SevereDashboardActivity : BaseActivity() {
 
@@ -319,11 +317,14 @@ class SevereDashboardActivity : BaseActivity() {
 
     private fun radarInterface(id: Int) {
         val radarSite = GlobalDictionaries.wfoToRadarSite[listOfWfoForWarnings[id]] ?: ""
+        val radarLabel = Utility.getRadarSiteName(radarSite)
+        UtilityLog.d("wx", "DEBUG: " + radarLabel)
+        val state = radarLabel.split(",")[0]
         ObjectIntent(
                 this@SevereDashboardActivity,
                 WXGLRadarActivity::class.java,
                 WXGLRadarActivity.RID,
-                arrayOf(radarSite, "", "N0Q", "") // 2nd arg was objectAlertSummary.mapButtonState[id]!!
+                arrayOf(radarSite, state, "N0Q", "") // 2nd arg was objectAlertSummary.mapButtonState[id]!!
         )
     }
 
