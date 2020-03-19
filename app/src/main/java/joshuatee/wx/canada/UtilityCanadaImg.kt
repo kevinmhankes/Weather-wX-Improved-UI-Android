@@ -193,10 +193,10 @@ object UtilityCanadaImg {
 
     internal fun getRadarMosaicAnimation(
             context: Context,
-            sectorF: String,
+            sectorOriginal: String,
             duration: String
     ): AnimationDrawable {
-        var sector = sectorF
+        var sector = sectorOriginal
         var url = MyApplication.canadaEcSitePrefix + "/radar/index_e.html?id=$sector"
         if (sector == "CAN") {
             url = MyApplication.canadaEcSitePrefix + "/radar/index_e.html"
