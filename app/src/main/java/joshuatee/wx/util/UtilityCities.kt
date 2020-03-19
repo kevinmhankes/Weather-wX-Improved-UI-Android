@@ -29,12 +29,14 @@ object UtilityCities {
     val lat: DoubleArray = DoubleArray(numberOfCities)
     val lon: DoubleArray = DoubleArray(numberOfCities)
 
-    fun initCitiesArray() {
-        loadCitiesArray()
-        list.indices.forEach { list[it] = City(cities[it], lat[it], lon[it]) }
+    fun initialize() {
+        load()
+        list.indices.forEach {
+            list[it] = City(cities[it], lat[it], lon[it])
+        }
     }
 
-    private fun loadCitiesArray() {
+    private fun load() {
         cities[0] = "Anchorage, AK"
         cities[1] = "Fairbanks, AK"
         cities[2] = "Juneau, AK"

@@ -131,7 +131,7 @@ class MyApplication : Application() {
                 .addInterceptor(okHttp3Interceptor)
                 .build()
         UtilityTts.initTts(applicationContext)
-        UtilityCities.initCitiesArray()
+        UtilityCities.initialize()
         if (!loadedBuffers) {
             initBuffers(this)
         }

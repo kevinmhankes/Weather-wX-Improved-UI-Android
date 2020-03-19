@@ -29,7 +29,7 @@ object UtilityCitiesCanada {
     val cities: Array<String> = Array(numberOfCities) { "" }
     val lat: DoubleArray = DoubleArray(numberOfCities)
     val lon: DoubleArray = DoubleArray(numberOfCities)
-    val code: MutableList<String> = MutableList(numberOfCities) { "" }
+    val code: Array<String> = Array(numberOfCities) { "" }
 
     // FIXME incorporate a check for initialized into load method
     fun load() {
