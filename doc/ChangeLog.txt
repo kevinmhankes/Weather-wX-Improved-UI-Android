@@ -28,6 +28,7 @@
 // TODO [ADD] severedash long press to add location
 // TODO [ADD] severedash long press color is off
 
+55381 2020_03_20
 55380 2020_03_20    [REF] misc for readability
                     [ADD] minor formatting enhancement in spotter reports (light gray for description)
                     [ADD] In SevereDashboard, octago icon main screen - you can now press and hold on a warning for a menu, menu allows one to show nexrad radar
