@@ -63,7 +63,7 @@ class ObjectCardDashAlertItem(
             linearLayoutVertical.addView(it.tv)
         }
 
-        val button = MaterialButton(context)
+        /*val button = MaterialButton(context)
         button.text = "Radar"
         button.setIconResource(MyApplication.ICON_RADAR)
         button.setBackgroundColor(Color.TRANSPARENT);
@@ -74,8 +74,8 @@ class ObjectCardDashAlertItem(
         val linearLayoutHorizontal = LinearLayout(context)
         linearLayoutHorizontal.layoutParams = layoutParams
         linearLayoutHorizontal.addView(button)
-        linearLayoutVertical.addView(linearLayoutHorizontal)
-        //objectCard.addView(linearLayoutHorizontal)
+        linearLayoutVertical.addView(linearLayoutHorizontal)*/
+        
         objectCard.addView(linearLayoutVertical)
         setTextFields()
         linearLayout.addView(objectCard.card)
