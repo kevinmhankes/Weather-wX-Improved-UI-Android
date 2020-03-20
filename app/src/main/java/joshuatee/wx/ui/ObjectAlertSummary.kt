@@ -153,13 +153,13 @@ class ObjectAlertSummary(
                     mapButtonCounty[i] = firstCounty
                     mapButtonZone[i] = firstZone
                     objectCardAlertSummaryItem.setTextFields(nwsOffice, nwsLoc, capAlert)
-                    val urlStr = capAlert.url
+                    val url = capAlert.url
                     objectCardAlertSummaryItem.setListener(View.OnClickListener {
                         ObjectIntent(
                                 context,
                                 USAlertsDetailActivity::class.java,
                                 USAlertsDetailActivity.URL,
-                                arrayOf(urlStr, "")
+                                arrayOf(url, "")
                         )
                     })
                     linearLayout.addView(objectCardAlertSummaryItem.card)
@@ -183,6 +183,7 @@ class ObjectAlertSummary(
         } else {
             cardText.text = ("Filter: " + filter.replace("\\^".toRegex(), "") + " (" + i + ")")
         }
+        // FIXME this is a mess
         if (firstRun) {
             val filterArray1 = mapEvent.keys.toList()
             val filterArray1Label = mutableListOf<String>()
