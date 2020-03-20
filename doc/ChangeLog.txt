@@ -27,9 +27,8 @@
 // TODO [FIX] update PlayList to be more like iOS
 // TODO [ADD] severedash long press to add location
 // TODO [ADD] severedash long press color is off
-// TODO [FIX] using nexrad from severe dash throws off the x/y/zoom when going in via normal method
 
-55380 2020_03_19    [REF] misc for readability
+55380 2020_03_20    [REF] misc for readability
                     [ADD] minor formatting enhancement in spotter reports (light gray for description)
                     [ADD] In SevereDashboard, octago icon main screen - you can now press and hold on a warning for a menu, menu allows one to show nexrad radar
 55379 2020_03_18    [REF] misc for readability

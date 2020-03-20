@@ -75,7 +75,7 @@ class ObjectCardDashAlertItem(
         linearLayoutHorizontal.layoutParams = layoutParams
         linearLayoutHorizontal.addView(button)
         linearLayoutVertical.addView(linearLayoutHorizontal)*/
-        
+
         objectCard.addView(linearLayoutVertical)
         setTextFields()
         linearLayout.addView(objectCard.card)
