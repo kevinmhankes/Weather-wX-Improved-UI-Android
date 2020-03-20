@@ -46,7 +46,7 @@ class ObjectAlertSummary(
         private val activity: Activity,
         private val context: Context,
         private val linearLayout: LinearLayout,
-        private val sv: ScrollView
+        private val scrollView: ScrollView
 ) {
 
     private var totalAlertsCnt = 0
@@ -63,9 +63,9 @@ class ObjectAlertSummary(
     @SuppressLint("UseSparseArrays")
     val mapButtonCounty: MutableMap<Int, String> = mutableMapOf()
 
-    fun updateContent(bitmap: Bitmap, data: String, filterEventStr: String, firstRun: Boolean) {
+    fun updateContent(bitmap: Bitmap, data: String, filterOriginal: String, firstRun: Boolean) {
         linearLayout.removeAllViews()
-        sv.smoothScrollTo(0, 0)
+        scrollView.smoothScrollTo(0, 0)
         val cardText = ObjectCardText(context)
         linearLayout.addView(cardText.card)
         val objectCardImageView = ObjectCardImage(context, bitmap)
@@ -88,21 +88,24 @@ class ObjectAlertSummary(
         val map = TreeMap<String, Int>()
         var i = 0
         try {
-            var html = ""
-            var countyArr: List<String>
-            var zoneArr: List<String>
-            var firstCounty = ""
-            var firstZone = ""
-            val ca = mutableListOf<CapAlert>()
+            val capAlerts = mutableListOf<CapAlert>()
             val alerts = UtilityString.parseColumnMutable(data, "<entry>(.*?)</entry>")
-            alerts.forEach {
-                ca.add(CapAlert.initializeFromCap(it))
+            alerts.forEach { alert ->
+                capAlerts.add(CapAlert.initializeFromCap(alert))
             }
-            ca.forEach { cc ->
-                countyArr = cc.area.split(";")
-                if (countyArr.isNotEmpty()) firstCounty = countyArr[0]
-                zoneArr = cc.zones.split(" ")
-                if (zoneArr.isNotEmpty()) firstZone = zoneArr[0]
+            capAlerts.forEach { capAlert ->
+                val counties = capAlert.area.split(";")
+                val firstCounty = if (counties.isNotEmpty()) {
+                    counties[0]
+                } else {
+                    ""
+                }
+                val zoneArr = capAlert.zones.split(" ")
+                val firstZone = if (zoneArr.isNotEmpty()) {
+                    zoneArr[0]
+                } else {
+                    ""
+                }
                 totalAlertsCnt += 1
                 val tmpStateList = zoneArr.asSequence().filter { it.length > 1 }
                         .mapTo(mutableListOf()) { it.substring(0, 2) }
@@ -111,16 +114,13 @@ class ObjectAlertSummary(
                     val freq3 = mapState[it]
                     mapState[it] = if (freq3 == null) 1 else freq3 + 1
                 }
-                val freq2: Int? = mapEvent[cc.event]
-                mapEvent[cc.event] = if (freq2 == null) 1 else freq2 + 1
-                if (cc.event.matches(filterEventStr.toRegex())) {
-                    html += "<b>" + cc.title + "</b><br>"
-                    html += "<b>Counties: " + cc.area + "</b><br>"
-                    html += cc.vtec + "<br><br>"
+                val freq2: Int? = mapEvent[capAlert.event]
+                mapEvent[capAlert.event] = if (freq2 == null) 1 else freq2 + 1
+                if (capAlert.event.matches(filterOriginal.toRegex())) {
                     val nwsOffice: String
                     val nwsLoc: String
-                    if (cc.vtec.length > 15 && cc.event != "Special Weather Statement") {
-                        nwsOffice = cc.vtec.substring(8, 11)
+                    if (capAlert.vtec.length > 15 && capAlert.event != "Special Weather Statement") {
+                        nwsOffice = capAlert.vtec.substring(8, 11)
                         nwsLoc = Utility.getWfoSiteName(nwsOffice)
                     } else {
                         nwsOffice = ""
@@ -140,9 +140,8 @@ class ObjectAlertSummary(
                     mapButtonNws[i] = nwsOffice
                     mapButtonCounty[i] = firstCounty
                     mapButtonZone[i] = firstZone
-                    cText.setTextFields(nwsOffice, nwsLoc, cc)
-                    val urlStr = cc.url
-                    //UtilityLog.d("wx", "URL: " + nwsOffice)
+                    cText.setTextFields(nwsOffice, nwsLoc, capAlert)
+                    val urlStr = capAlert.url
                     cText.setListener(View.OnClickListener {
                         ObjectIntent(
                                 context,
@@ -161,30 +160,33 @@ class ObjectAlertSummary(
 
         var mapOut = map.toString()
         mapOut = mapOut.replace("[{}]".toRegex(), "")
-        var filter = filterEventStr
+        var filter = filterOriginal
         filter = filter.replace("[|*?.]".toRegex(), " ")
-        //filter = filter.replace("\\||\\*|\\?|\\.".toRegex(), " ")
-        if (mapOut.isNotEmpty())
+        if (mapOut.isNotEmpty()) {
             cardText.text = (
                     "Filter: " + filter.replace(
                             "\\^".toRegex(),
                             ""
                     ) + " (" + i + ")" + MyApplication.newline + mapOut
-            )
-        else
+                    )
+        } else {
             cardText.text = ("Filter: " + filter.replace("\\^".toRegex(), "") + " (" + i + ")")
+        }
         if (firstRun) {
             val filterArray1 = mapEvent.keys.toList()
             val filterArray1Label = mutableListOf<String>()
-            filterArray1.indices.forEach { filterArray1Label.add(filterArray1[it] + ": " + mapEvent[filterArray1[it]]) }
+            filterArray1.indices.forEach {
+                filterArray1Label.add(filterArray1[it] + ": " + mapEvent[filterArray1[it]])
+            }
             val filterArray2 = mapState.keys.toList()
             val filterArray2Label = mutableListOf<String>()
-            filterArray2.indices.forEach { filterArray2Label.add(filterArray2[it] + ": " + mapState[filterArray2[it]]) }
+            filterArray2.indices.forEach {
+                filterArray2Label.add(filterArray2[it] + ": " + mapState[filterArray2[it]])
+            }
             filterArray = filterArray1 + filterArray2
             navList = filterArray1Label + filterArray2Label
         }
     }
 
-    fun getTitle(title: String): String =
-            "(" + totalAlertsCnt + ") " + title.toUpperCase(Locale.US) + " Alerts"
+    fun getTitle(title: String): String = "(" + totalAlertsCnt + ") " + title.toUpperCase(Locale.US) + " Alerts"
 }
