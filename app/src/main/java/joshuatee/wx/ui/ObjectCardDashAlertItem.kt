@@ -21,15 +21,21 @@
 
 package joshuatee.wx.ui
 
+import android.R
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.os.Build
 import android.view.Gravity
 import android.view.View
-import android.widget.ImageButton
+import android.widget.Button
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
+import androidx.core.graphics.drawable.DrawableCompat
+import com.google.android.material.button.MaterialButton
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
-import kotlinx.android.synthetic.main.widget_item.view.*
+
 
 class ObjectCardDashAlertItem(
         context: Context,
@@ -57,16 +63,25 @@ class ObjectCardDashAlertItem(
             linearLayoutVertical.addView(it.tv)
         }
 
-        /*val button = ImageButton(context)
-        button.setImageResource(MyApplication.ICON_RADAR)
+        val button = MaterialButton(context)
+        button.text = "Radar"
+        //button.setTextColor(Color.GRAY)
+        button.setIconResource(MyApplication.ICON_RADAR)
+
+        //var drawable: Drawable? = context.resources.getDrawable(MyApplication.ICON_RADAR)
+       // drawable = DrawableCompat.wrap(drawable!!)
+       // DrawableCompat.setTint(drawable, context.resources.getColor(android.R.color.black))
+       // button.setCompoundDrawables(drawable, null, null, null)
+
+        button.setBackgroundColor(Color.TRANSPARENT);
         val layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         )
         val linearLayoutHorizontal = LinearLayout(context)
         linearLayoutHorizontal.layoutParams = layoutParams
-        linearLayoutHorizontal.addView(linearLayoutVertical)
-        linearLayoutHorizontal.addView(button)*/
+        linearLayoutHorizontal.addView(button)
+        linearLayoutVertical.addView(linearLayoutHorizontal)
         //objectCard.addView(linearLayoutHorizontal)
         objectCard.addView(linearLayoutVertical)
         setTextFields()
