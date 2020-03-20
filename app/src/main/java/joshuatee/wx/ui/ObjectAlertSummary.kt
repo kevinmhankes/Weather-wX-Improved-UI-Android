@@ -100,22 +100,30 @@ class ObjectAlertSummary(
                 } else {
                     ""
                 }
-                val zoneArr = capAlert.zones.split(" ")
-                val firstZone = if (zoneArr.isNotEmpty()) {
-                    zoneArr[0]
+                val zones = capAlert.zones.split(" ")
+                val firstZone = if (zones.isNotEmpty()) {
+                    zones[0]
                 } else {
                     ""
                 }
                 totalAlertsCnt += 1
-                val tmpStateList = zoneArr.asSequence().filter { it.length > 1 }
+                val tmpStateList = zones.asSequence().filter { it.length > 1 }
                         .mapTo(mutableListOf()) { it.substring(0, 2) }
                 val uniqueStates = HashSet(tmpStateList)
                 uniqueStates.forEach {
-                    val freq3 = mapState[it]
-                    mapState[it] = if (freq3 == null) 1 else freq3 + 1
+                    val frequency = mapState[it]
+                    mapState[it] = if (frequency == null) {
+                        1
+                    } else {
+                        frequency + 1
+                    }
                 }
-                val freq2: Int? = mapEvent[capAlert.event]
-                mapEvent[capAlert.event] = if (freq2 == null) 1 else freq2 + 1
+                val frequency = mapEvent[capAlert.event]
+                mapEvent[capAlert.event] = if (frequency == null) {
+                    1
+                } else {
+                    frequency + 1
+                }
                 if (capAlert.event.matches(filterOriginal.toRegex())) {
                     val nwsOffice: String
                     val nwsLoc: String
@@ -126,7 +134,7 @@ class ObjectAlertSummary(
                         nwsOffice = ""
                         nwsLoc = ""
                     }
-                    val tmp2StateList = zoneArr.asSequence().filter { it.length > 1 }
+                    val tmp2StateList = zones.asSequence().filter { it.length > 1 }
                             .mapTo(mutableListOf()) { it.substring(0, 2) }
                     val unique2States = HashSet(tmp2StateList)
                     unique2States.forEach { s ->
@@ -134,15 +142,15 @@ class ObjectAlertSummary(
                         map[s] = if (freq == null) 1 else freq + 1
                         mapButtonState[i] = s
                     }
-                    val cText = ObjectCardAlertSummaryItem(context)
-                    cText.setId(i)
-                    activity.registerForContextMenu(cText.card)
+                    val objectCardAlertSummaryItem = ObjectCardAlertSummaryItem(context)
+                    objectCardAlertSummaryItem.setId(i)
+                    activity.registerForContextMenu(objectCardAlertSummaryItem.card)
                     mapButtonNws[i] = nwsOffice
                     mapButtonCounty[i] = firstCounty
                     mapButtonZone[i] = firstZone
-                    cText.setTextFields(nwsOffice, nwsLoc, capAlert)
+                    objectCardAlertSummaryItem.setTextFields(nwsOffice, nwsLoc, capAlert)
                     val urlStr = capAlert.url
-                    cText.setListener(View.OnClickListener {
+                    objectCardAlertSummaryItem.setListener(View.OnClickListener {
                         ObjectIntent(
                                 context,
                                 USAlertsDetailActivity::class.java,
@@ -150,14 +158,13 @@ class ObjectAlertSummary(
                                 arrayOf(urlStr, "")
                         )
                     })
-                    linearLayout.addView(cText.card)
+                    linearLayout.addView(objectCardAlertSummaryItem.card)
                     i += 1
                 }
             }
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
-
         var mapOut = map.toString()
         mapOut = mapOut.replace("[{}]".toRegex(), "")
         var filter = filterOriginal
