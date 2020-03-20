@@ -65,14 +65,7 @@ class ObjectCardDashAlertItem(
 
         val button = MaterialButton(context)
         button.text = "Radar"
-        //button.setTextColor(Color.GRAY)
         button.setIconResource(MyApplication.ICON_RADAR)
-
-        //var drawable: Drawable? = context.resources.getDrawable(MyApplication.ICON_RADAR)
-       // drawable = DrawableCompat.wrap(drawable!!)
-       // DrawableCompat.setTint(drawable, context.resources.getColor(android.R.color.black))
-       // button.setCompoundDrawables(drawable, null, null, null)
-
         button.setBackgroundColor(Color.TRANSPARENT);
         val layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
