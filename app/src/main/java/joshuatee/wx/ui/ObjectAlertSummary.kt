@@ -137,10 +137,14 @@ class ObjectAlertSummary(
                     val tmp2StateList = zones.asSequence().filter { it.length > 1 }
                             .mapTo(mutableListOf()) { it.substring(0, 2) }
                     val unique2States = HashSet(tmp2StateList)
-                    unique2States.forEach { s ->
-                        val freq = map[s]
-                        map[s] = if (freq == null) 1 else freq + 1
-                        mapButtonState[i] = s
+                    unique2States.forEach { state ->
+                        val frequencyLocal = map[state]
+                        map[state] = if (frequencyLocal == null) {
+                            1
+                        } else {
+                            frequencyLocal + 1
+                        }
+                        mapButtonState[i] = state
                     }
                     val objectCardAlertSummaryItem = ObjectCardAlertSummaryItem(context)
                     objectCardAlertSummaryItem.setId(i)
