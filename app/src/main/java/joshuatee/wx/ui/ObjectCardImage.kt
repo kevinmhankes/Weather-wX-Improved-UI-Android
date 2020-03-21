@@ -33,7 +33,7 @@ import joshuatee.wx.util.UtilityImg
 
 open class ObjectCardImage {
 
-    private val objCard: ObjectCard
+    private val objectCard: ObjectCard
     private val context: Context
     var img: TouchImageView2
         internal set
@@ -44,30 +44,30 @@ open class ObjectCardImage {
 
     constructor(context: Context, bitmap: Bitmap) {
         this.context = context
-        objCard = ObjectCard(context)
+        objectCard = ObjectCard(context)
         img = TouchImageView2(context)
         img.layoutParams = layoutParams
         UtilityImg.resizeViewSetImgInCard(bitmap, img)
-        objCard.addView(img)
+        objectCard.addView(img)
     }
 
     constructor(context: Context, linearLayout: LinearLayout, bitmap: Bitmap, numberAcross: Int = 1) {
         this.context = context
-        objCard = ObjectCard(context)
+        objectCard = ObjectCard(context)
         img = TouchImageView2(context)
         img.layoutParams = layoutParams
         UtilityImg.resizeViewSetImgInCard(bitmap, img, numberAcross)
-        objCard.addView(img)
+        objectCard.addView(img)
         linearLayout.addView(card)
     }
 
     constructor(context: Context, linearLayout: LinearLayout, toolbar: Toolbar, bitmap: Bitmap) {
         this.context = context
-        objCard = ObjectCard(context)
+        objectCard = ObjectCard(context)
         img = TouchImageView2(context)
         img.layoutParams = layoutParams
         UtilityImg.resizeViewSetImgInCard(bitmap, img)
-        objCard.addView(img)
+        objectCard.addView(img)
         linearLayout.addView(card)
         setOnClickListener(View.OnClickListener {
             UtilityToolbar.showHide(toolbar)
@@ -82,11 +82,11 @@ open class ObjectCardImage {
         bitmap: Bitmap
     ) {
         this.context = context
-        objCard = ObjectCard(context)
+        objectCard = ObjectCard(context)
         img = TouchImageView2(context)
         img.layoutParams = layoutParams
         UtilityImg.resizeViewSetImgInCard(bitmap, img)
-        objCard.addView(img)
+        objectCard.addView(img)
         linearLayout.addView(card)
         setOnClickListener(View.OnClickListener {
             UtilityToolbar.showHide(toolbar, toolbarBottom)
@@ -96,13 +96,13 @@ open class ObjectCardImage {
     constructor(context: Context) {
         this.context = context
         img = TouchImageView2(context)
-        objCard = ObjectCard(context)
+        objectCard = ObjectCard(context)
     }
 
     constructor(context: Context, linearLayout: LinearLayout) {
         this.context = context
         img = TouchImageView2(context)
-        objCard = ObjectCard(context)
+        objectCard = ObjectCard(context)
         linearLayout.addView(card)
     }
 
@@ -110,19 +110,19 @@ open class ObjectCardImage {
         img = TouchImageView2(context)
         img.layoutParams = layoutParams
         UtilityImg.resizeViewSetImgInCard(bitmap, img, numberAcross)
-        objCard.addView(img)
+        objectCard.addView(img)
     }
 
     fun resetZoom() {
         img.resetZoom()
     }
 
-    val card: CardView get() = objCard.card
+    val card: CardView get() = objectCard.card
 
     var visibility: Int
-        get() = objCard.visibility
+        get() = objectCard.visibility
         set(newValue) {
-            objCard.visibility = newValue
+            objectCard.visibility = newValue
         }
 
     fun setOnClickListener(fn: View.OnClickListener) {
