@@ -32,20 +32,20 @@ import joshuatee.wx.objects.ObjectIntent
 
 class ObjectCALegal(context: Context, linearLayout: LinearLayout, url: String) {
 
-    private val c1 = ObjectCardText(context)
+    private val objectCardText = ObjectCardText(context)
 
     init {
-        c1.lightText()
-        c1.center()
-        c1.setOnClickListener(View.OnClickListener {
+        objectCardText.lightText()
+        objectCardText.center()
+        objectCardText.setOnClickListener(View.OnClickListener {
             ObjectIntent(
                 context,
                 Intent.ACTION_VIEW,
                 Uri.parse(url)
             )
         })
-        c1.text = context.resources.getText(R.string.main_screen_ca_disclaimor).toString()
-        linearLayout.addView(c1.card)
+        objectCardText.text = context.resources.getText(R.string.main_screen_ca_disclaimor).toString()
+        linearLayout.addView(objectCardText.card)
     }
 }
 
