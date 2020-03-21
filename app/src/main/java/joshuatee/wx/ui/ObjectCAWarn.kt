@@ -131,7 +131,7 @@ class ObjectCAWarn(
         ObjectCALegal(activity, linearLayout, MyApplication.canadaEcSitePrefix + "/warnings/index_e.html")
     }
 
-    val title: String get() = PROV_TO_LABEL[prov] + " (" + listLocUrl.size + ")"
+    val title: String get() = provinceToLabel[prov] + " (" + listLocUrl.size + ")"
 
     private fun getWarningDetail(url: String, location: String) =
             GlobalScope.launch(uiDispatcher) {
@@ -147,7 +147,7 @@ class ObjectCAWarn(
             }
 
     companion object {
-        private val PROV_TO_LABEL = mapOf(
+        private val provinceToLabel = mapOf(
                 "ca" to "Canada",
                 "ab" to "Alberta",
                 "bc" to "British Columbia",
