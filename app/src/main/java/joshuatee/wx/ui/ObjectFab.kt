@@ -40,7 +40,7 @@ class ObjectFab {
 
     constructor(activity: Activity, context: Context, resId: Int, fn: View.OnClickListener) {
         fab = activity.findViewById(resId)
-        setupFAB(context)
+        setupFab(context)
         setOnClickListener(fn)
     }
 
@@ -52,7 +52,7 @@ class ObjectFab {
             fn: View.OnClickListener
     ) {
         fab = activity.findViewById(resId)
-        setupFAB(context, iconID)
+        setupFab(context, iconID)
         setOnClickListener(fn)
     }
 
@@ -72,8 +72,6 @@ class ObjectFab {
     fun fabSetResDrawable(context: Context, resourceDrawable: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val drawable = ContextCompat.getDrawable(context, resourceDrawable)
-            //drawable!!.mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
-            //drawable!!.mutate().colorFilter
             fab.setImageDrawable(drawable)
         } else {
             val d = ContextCompat.getDrawable(context, resourceDrawable)!!
@@ -89,7 +87,7 @@ class ObjectFab {
         }
     }
 
-    private fun setupFAB(context: Context, icon: Int) {
+    private fun setupFab(context: Context, icon: Int) {
         if (UIPreferences.themeIsWhite) {
             fab.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue_accent))
         }
@@ -100,7 +98,7 @@ class ObjectFab {
         }
     }
 
-    private fun setupFAB(context: Context) {
+    private fun setupFab(context: Context) {
         if (UIPreferences.themeIsWhite) {
             fab.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue_accent))
         }
