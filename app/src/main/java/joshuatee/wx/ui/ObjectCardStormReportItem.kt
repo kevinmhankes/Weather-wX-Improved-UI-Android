@@ -71,7 +71,7 @@ class ObjectCardStormReportItem(context: Context) {
         textViewTop.text = stormReport.title.toUpperCase(Locale.US)
         textViewTop.setTextSize(TextSize.LARGE)
         textViewTop.setPadding(20,20,20,20)
-        textViewTop.color = UIPreferences.textHighlightColor
+      //  textViewTop.color = UIPreferences.textHighlightColor
         textViewTitle.tv.visibility = View.GONE
         textViewBottom.tv.visibility = View.GONE
         textViewTop.tv.setBackgroundColor(Color.BLACK)

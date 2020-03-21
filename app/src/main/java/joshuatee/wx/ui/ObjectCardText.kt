@@ -38,7 +38,7 @@ import joshuatee.wx.objects.TextSize
 
 class ObjectCardText(private val context: Context) {
 
-    private val objCard = ObjectCard(context)
+    private val objectCard = ObjectCard(context)
     val tv = TextView(context)
     var padding = MyApplication.padding
 
@@ -46,7 +46,7 @@ class ObjectCardText(private val context: Context) {
         textViewSetup(this)
         tv.setTextIsSelectable(true)
         tv.isFocusable = false
-        objCard.addView(tv)
+        objectCard.addView(tv)
     }
 
     constructor(
@@ -286,12 +286,12 @@ class ObjectCardText(private val context: Context) {
         tv.setTextAppearance(context, UIPreferences.smallTextTheme)
     }
 
-    val card: CardView get() = objCard.card
+    val card: CardView get() = objectCard.card
 
     var visibility: Int
-        get() = objCard.visibility
+        get() = objectCard.visibility
         set(newValue) {
-            objCard.visibility = newValue
+            objectCard.visibility = newValue
         }
 
     fun setOnClickListener(fn: View.OnClickListener) {

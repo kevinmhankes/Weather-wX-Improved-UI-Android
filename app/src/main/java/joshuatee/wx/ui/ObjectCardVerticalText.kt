@@ -33,19 +33,19 @@ import joshuatee.wx.MyApplication
 
 class ObjectCardVerticalText(context: Context, numColumns: Int) {
 
-    private val objCard = ObjectCard(context)
-    private var tvArr = mutableListOf<TextView>()
+    private val objectCard = ObjectCard(context)
+    private var textViews = mutableListOf<TextView>()
 
     init {
-        val ll = LinearLayout(context)
-        ll.gravity = Gravity.CENTER
-        ll.layoutParams = LinearLayout.LayoutParams(
+        val linearLayout = LinearLayout(context)
+        linearLayout.gravity = Gravity.CENTER
+        linearLayout.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT
         )
-        ll.orientation = LinearLayout.HORIZONTAL
-        ll.isBaselineAligned = false
-        objCard.addView(ll)
+        linearLayout.orientation = LinearLayout.HORIZONTAL
+        linearLayout.isBaselineAligned = false
+        objectCard.addView(linearLayout)
         (0 until numColumns).forEach {
             val llv = LinearLayout(context)
             llv.layoutParams = LinearLayout.LayoutParams(
@@ -53,14 +53,14 @@ class ObjectCardVerticalText(context: Context, numColumns: Int) {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 1.0f
             )
-            ll.addView(llv)
-            tvArr.add(TextView(context))
-            tvArr[it].gravity = Gravity.START
-            tvArr[it].layoutParams = LinearLayout.LayoutParams(
+            linearLayout.addView(llv)
+            textViews.add(TextView(context))
+            textViews[it].gravity = Gravity.START
+            textViews[it].layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            llv.addView(tvArr[it])
+            llv.addView(textViews[it])
         }
     }
 
@@ -78,21 +78,21 @@ class ObjectCardVerticalText(context: Context, numColumns: Int) {
         })
     }
 
-    fun setText(textArr: List<String>) {
-        if (textArr.size == tvArr.size) {
-            (textArr.indices).forEach {
-                tvArr[it].text = textArr[it]
+    fun setText(list: List<String>) {
+        if (list.size == textViews.size) {
+            (list.indices).forEach {
+                textViews[it].text = list[it]
             }
-            (textArr.indices).forEach {
-                tvArr[it].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
+            (list.indices).forEach {
+                textViews[it].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
             }
         }
     }
 
-    val card: CardView get() = objCard.card
+    val card: CardView get() = objectCard.card
 
     fun setOnClickListener(fn: View.OnClickListener) {
-        objCard.setOnClickListener(fn)
+        objectCard.setOnClickListener(fn)
     }
 }
 
