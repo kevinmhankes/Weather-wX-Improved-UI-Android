@@ -32,16 +32,16 @@ import joshuatee.wx.util.Utility
 class ObjectCardHSText(context: Context, val product: String) {
 
     private val objectCard = ObjectCard(context)
-    val tv: TextView = TextView(context)
+    val textView: TextView = TextView(context)
     private var textShort = ""
     private var textLong = ""
     private var textShownSmall = true
 
     init {
-        ObjectCardText.textViewSetup(tv)
-        tv.setTextIsSelectable(true)
-        tv.isFocusable = false
-        objectCard.addView(tv)
+        ObjectCardText.textViewSetup(textView)
+        textView.setTextIsSelectable(true)
+        textView.isFocusable = false
+        objectCard.addView(textView)
     }
 
     fun toggleText() {
@@ -56,14 +56,14 @@ class ObjectCardHSText(context: Context, val product: String) {
 
     fun setText(text: String) {
         if (text.contains("<br>") || text.contains("<BR>")) {
-            tv.text = Utility.fromHtml(text)
+            textView.text = Utility.fromHtml(text)
         } else {
-            tv.text = text
+            textView.text = text
         }
     }
 
     fun refreshTextSize() {
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
     }
 
     fun setTextLong(text: String) {

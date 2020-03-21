@@ -182,7 +182,7 @@ class LocationFragment : Fragment()  {
                 val hsTextTmp = ObjectCardHSText(activityReference, tok.replace("TXT-", ""))
                 linearLayout.addView(hsTextTmp.card)
                 hsTextAl.add(hsTextTmp)
-                hsTextTmp.tv.setOnClickListener { hsTextTmp.toggleText() }
+                hsTextTmp.textView.setOnClickListener { hsTextTmp.toggleText() }
             } else if (tok.contains("IMG-")) {
                 val hsImageTmp = ObjectCardHSImage(activityReference, tok.replace("IMG-", ""))
                 linearLayout.addView(hsImageTmp.card)
@@ -527,7 +527,7 @@ class LocationFragment : Fragment()  {
         hsTextAl[productIndex].setTextShort(shortText)
         hsTextAl[productIndex].setText(shortText)
         if (hsTextAl[productIndex].product == "HOURLY") {
-            hsTextAl[productIndex].tv.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
+            hsTextAl[productIndex].textView.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
         }
     }
 
