@@ -31,7 +31,7 @@ import joshuatee.wx.util.Utility
 
 class ObjectCardHSText(context: Context, val product: String) {
 
-    private val objCard = ObjectCard(context)
+    private val objectCard = ObjectCard(context)
     val tv: TextView = TextView(context)
     private var textShort = ""
     private var textLong = ""
@@ -41,7 +41,7 @@ class ObjectCardHSText(context: Context, val product: String) {
         ObjectCardText.textViewSetup(tv)
         tv.setTextIsSelectable(true)
         tv.isFocusable = false
-        objCard.addView(tv)
+        objectCard.addView(tv)
     }
 
     fun toggleText() {
@@ -74,7 +74,7 @@ class ObjectCardHSText(context: Context, val product: String) {
         textShort = text
     }
 
-    val card: CardView get() = objCard.card
+    val card: CardView get() = objectCard.card
 }
 
 
