@@ -100,25 +100,21 @@ class ObjectCAWarn(
         var locWarning: String
         var locWatch: String
         var locStatement: String
-        //var provL: String
         listLocUrl.indices.forEach {
             locWarning = listLocWarning[it]
             locWatch = listLocWatch[it]
             locStatement = listLocStatement[it]
             if (locWarning.contains("href")) {
-                //locWarning += "(Warning)"
                 locWarning = locWarning.parse("class=.wb-inv.>(.*?)</span>")
                 locWarning = locWarning.replace("</.*?>".toRegex(), "")
                 locWarning = locWarning.replace("<.*?>".toRegex(), "")
             }
             if (locWatch.contains("href")) {
-                //locWatch += "(Watch)"
                 locWatch = locWatch.parse("class=.wb-inv.>(.*?)</span>")
                 locWatch = locWatch.replace("</.*?>".toRegex(), "")
                 locWatch = locWatch.replace("<*?>>".toRegex(), "")
             }
             if (locStatement.contains("href")) {
-                //locStatement += "(Statement)"
                 locStatement = locStatement.parse("class=.wb-inv.>(.*?)</span>")
                 locStatement = locStatement.replace("</.*?>".toRegex(), "")
                 locStatement = locStatement.replace("<.*?>".toRegex(), "")
@@ -137,11 +133,10 @@ class ObjectCAWarn(
 
     val title: String get() = PROV_TO_LABEL[prov] + " (" + listLocUrl.size + ")"
 
-    private fun getWarningDetail(urlStr: String, location: String) =
+    private fun getWarningDetail(url: String, location: String) =
             GlobalScope.launch(uiDispatcher) {
-                var data = ""
-                withContext(Dispatchers.IO) {
-                    data = UtilityCanada.getHazardsFromUrl(urlStr)
+                val data = withContext(Dispatchers.IO) {
+                    UtilityCanada.getHazardsFromUrl(url)
                 }
                 ObjectIntent(
                         context,
