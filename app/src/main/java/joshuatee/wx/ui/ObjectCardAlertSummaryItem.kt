@@ -64,30 +64,30 @@ class ObjectCardAlertSummaryItem(context: Context) {
         objectCard.card.setOnClickListener(fn)
     }
 
-    fun setTextFields(nwsOffice: String, nwsLoc: String, ca: CapAlert) {
+    fun setTextFields(office: String, nwsLoc: String, capAlert: CapAlert) {
         val title: String
         val startTime: String
         var endTime = ""
-        if (ca.title.contains("until")) {
+        if (capAlert.title.contains("until")) {
             val tmpArr = UtilityString.parseMultiple(
-                ca.title,
-                "(.*?) issued (.*?) until (.*?) by (.*?)$", // changed expiring to until
-                4
+                    capAlert.title,
+                    "(.*?) issued (.*?) until (.*?) by (.*?)$", // changed expiring to until
+                    4
             )
             title = tmpArr[0]
             startTime = tmpArr[1]
             endTime = tmpArr[2]
         } else {
             val tmpArr =
-                UtilityString.parseMultiple(ca.title, "(.*?) issued (.*?) by (.*?)$", 3)
+                    UtilityString.parseMultiple(capAlert.title, "(.*?) issued (.*?) by (.*?)$", 3)
             title = tmpArr[0]
             startTime = tmpArr[1]
         }
-        textViewTop.text = "$nwsOffice ($nwsLoc)"
-        if (nwsOffice == "") {
+        textViewTop.text = "$office ($nwsLoc)"
+        if (office == "") {
             textViewTop.tv.visibility = View.GONE
         }
-        textViewBottom.text = ca.area
+        textViewBottom.text = capAlert.area
         textViewTitle.text = title
         textViewStart.text = "Start: $startTime"
         if (endTime != "") {

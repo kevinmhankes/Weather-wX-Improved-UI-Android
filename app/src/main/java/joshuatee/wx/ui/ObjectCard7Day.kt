@@ -34,7 +34,7 @@ import joshuatee.wx.objects.TextSize
 
 class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7Arr: List<String>) {
 
-    private val objCard = ObjectCard(context)
+    private val objectCard = ObjectCard(context)
     private val imageView = ObjectImageView(context)
     private val topLineText = ObjectTextView(context, TextSize.MEDIUM)
     private val bottomLineText = ObjectTextView(context)
@@ -63,14 +63,14 @@ class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7
             horizontalContainer.addView(imageView.image)
         }
         horizontalContainer.addView(verticalContainer)
-        objCard.addView(horizontalContainer)
+        objectCard.addView(horizontalContainer)
         var dayTmpArr = listOf<String>()
         if (day7Arr.size > day) {
             dayTmpArr = day7Arr[day].split(": ")
         }
         if (dayTmpArr.size > 1) {
             if (isUS) {
-                setTv1(
+                setTopLine(
                     dayTmpArr[0].replace(":", " ") + " (" + UtilityLocationFragment.extractTemperature(
                         dayTmpArr[1]
                     )
@@ -79,7 +79,7 @@ class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7
                             + UtilityLocationFragment.extract7DayMetrics(dayTmpArr[1].substring(1)) + ")"
                 )
             } else {
-                setTv1(
+                setTopLine(
                     dayTmpArr[0].replace(":", " ") + " ("
                             + UtilityLocationFragment.extractCanadaTemperature(dayTmpArr[1])
                             + MyApplication.DEGREE_SYMBOL
@@ -88,9 +88,9 @@ class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7
                 )
             }
             if (isUS) {
-                setTv2(dayTmpArr[1])
+                setBottomLine(dayTmpArr[1])
             } else {
-                setTv2(dayTmpArr[1])
+                setBottomLine(dayTmpArr[1])
             }
         }
         if (!UIPreferences.locfragDontShowIcons) {
@@ -98,28 +98,24 @@ class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7
         }
     }
 
-    private fun setTv1(text: String) {
+    private fun setTopLine(text: String) {
         topLineText.text = text
     }
 
-    private fun setTv2(text: String) {
+    private fun setBottomLine(text: String) {
         bottomLineText.text = text
     }
 
     fun setOnClickListener(fn: View.OnClickListener) {
-        objCard.setOnClickListener(fn)
+        objectCard.setOnClickListener(fn)
     }
 
     fun refreshTextSize() {
         topLineText.refreshTextSize(TextSize.MEDIUM)
         bottomLineText.refreshTextSize(TextSize.MEDIUM)
-        //TextViewCompat.setAutoSizeTextTypeWithDefaults(
-        //        topLineText.tv,
-        //        TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
-        //)
     }
 
-    val card: CardView get() = objCard.card
+    val card: CardView get() = objectCard.card
 }
 
 

@@ -43,32 +43,13 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
     init {
         val linearLayoutHorizontal = LinearLayout(context)
         val linearLayoutVertical = LinearLayout(context)
-        textViewTop.gravity = Gravity.CENTER
-        textViewTop.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
-        textViewBottom.gravity = Gravity.CENTER
         textViewBottom.setAsBackgroundText()
-        textViewBottom.setPadding(MyApplication.padding, 0, MyApplication.padding, 2)
-        textViewMiddle.gravity = Gravity.CENTER
         textViewMiddle.setAsBackgroundText()
-        textViewMiddle.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
         if (version == 2) {
             linearLayoutHorizontal.orientation = LinearLayout.HORIZONTAL
-            textViewTop.gravity = Gravity.START
-            textViewMiddle.gravity = Gravity.START
-            textViewBottom.gravity = Gravity.START
-            textViewTop.setPadding(
-                MyApplication.padding,
-                MyApplication.paddingSmall,
-                MyApplication.paddingSmall,
-                0
-            )
+            textViewTop.setPadding(MyApplication.padding, MyApplication.paddingSmall, MyApplication.paddingSmall, 0)
             textViewMiddle.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, 0)
-            textViewBottom.setPadding(
-                MyApplication.padding,
-                0,
-                MyApplication.paddingSmall,
-                MyApplication.paddingSmall
-            )
+            textViewBottom.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, MyApplication.paddingSmall)
             linearLayoutVertical.orientation = LinearLayout.VERTICAL
             linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
             linearLayoutVertical.addView(textViewTop.tv)
@@ -78,6 +59,12 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
             linearLayoutHorizontal.addView(linearLayoutVertical)
         } else {
             // legacy code
+            textViewTop.gravity = Gravity.CENTER
+            textViewBottom.gravity = Gravity.CENTER
+            textViewMiddle.gravity = Gravity.CENTER
+            textViewTop.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
+            textViewBottom.setPadding(MyApplication.padding, 0, MyApplication.padding, 2)
+            textViewMiddle.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
             linearLayoutHorizontal.orientation = LinearLayout.VERTICAL
             linearLayoutHorizontal.addView(textViewTop.tv)
             linearLayoutHorizontal.addView(textViewBottom.tv)
@@ -106,9 +93,9 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
     }
 
     fun setListener(
-        alertDialogStatus: ObjectDialogue?,
-        alertDialogStatusAl: MutableList<String>,
-        radarTimestamps: () -> List<String>
+            alertDialogStatus: ObjectDialogue?,
+            alertDialogStatusAl: MutableList<String>,
+            radarTimestamps: () -> List<String>
     ) {
         imageView.image.setOnClickListener {
             alertDialogStatusAl.clear()
@@ -125,35 +112,24 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
     }
 
     fun updateContent(
-        bitmap: Bitmap,
-        objCc: ObjectForecastPackageCurrentConditions,
-        isUS: Boolean,
-        ccTime: String,
-        radarTime: String
+            bitmap: Bitmap,
+            objCc: ObjectForecastPackageCurrentConditions,
+            isUS: Boolean,
+            ccTime: String,
+            radarTime: String
     ) {
         imageView.setImage(bitmap)
         val sep = " - "
-        val tmpArrCc = objCc.data.split(sep).dropLastWhile { it.isEmpty() }
-        val tempArr: List<String>
-        if (tmpArrCc.size > 4 && isUS) {
-            tempArr = tmpArrCc[0].split("/").dropLastWhile { it.isEmpty() }
-            setTopLine(tmpArrCc[4].replace("^ ".toRegex(), "") + " " + tempArr[0] + tmpArrCc[2])
-            setMiddleLine(
-                tempArr[1].replace(
-                    "^ ".toRegex(),
-                    ""
-                ) + sep + tmpArrCc[1] + sep + tmpArrCc[3]
-            )
+        val conditionTokens = objCc.data.split(sep).dropLastWhile { it.isEmpty() }
+        if (conditionTokens.size > 4 && isUS) {
+            val items = conditionTokens[0].split("/").dropLastWhile { it.isEmpty() }
+            setTopLine(conditionTokens[4].replace("^ ".toRegex(), "") + " " + items[0] + conditionTokens[2])
+            setMiddleLine(items[1].replace("^ ".toRegex(), "") + sep + conditionTokens[1] + sep + conditionTokens[3])
             setStatus(ccTime + radarTime)
         } else {
-            tempArr = tmpArrCc[0].split("/").dropLastWhile { it.isEmpty() }
-            setTopLine(tmpArrCc[4] + "" + tempArr[0] + tmpArrCc[2])
-            setMiddleLine(
-                tempArr[1].replace(
-                    "^ ".toRegex(),
-                    ""
-                ) + sep + tmpArrCc[1] + sep + tmpArrCc[3]
-            )
+            val items = conditionTokens[0].split("/").dropLastWhile { it.isEmpty() }
+            setTopLine(conditionTokens[4] + "" + items[0] + conditionTokens[2])
+            setMiddleLine(items[1].replace("^ ".toRegex(), "") + sep + conditionTokens[1] + sep + conditionTokens[3])
             setStatus(ccTime.replace("^ ".toRegex(), "") + radarTime)
         }
     }

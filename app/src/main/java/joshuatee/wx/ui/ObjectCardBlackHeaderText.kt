@@ -33,32 +33,32 @@ import joshuatee.wx.objects.TextSize
 
 class ObjectCardBlackHeaderText(context: Context, val linearLayout: LinearLayout, val text: String) {
 
-    private val objCard = ObjectCard(context)
-    private val textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
+    private val objectCard = ObjectCard(context)
+    private val objectTextView = ObjectTextView(context, UIPreferences.textHighlightColor)
 
     init {
         val linearLayoutVertical = LinearLayout(context)
         linearLayoutVertical.orientation = LinearLayout.VERTICAL
         linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
-        linearLayoutVertical.addView(textViewTop.tv)
-        objCard.addView(linearLayoutVertical)
-        linearLayout.addView(objCard.card)
+        linearLayoutVertical.addView(objectTextView.tv)
+        objectCard.addView(linearLayoutVertical)
+        linearLayout.addView(objectCard.card)
         setTextHeader()
     }
 
-    val card: CardView get() = objCard.card
+    val card: CardView get() = objectCard.card
 
     fun setListener(fn: View.OnClickListener) {
-        objCard.card.setOnClickListener(fn)
+        objectCard.card.setOnClickListener(fn)
     }
 
     private fun setTextHeader() {
-        textViewTop.text = text
-        textViewTop.setTextSize(TextSize.LARGE)
-        textViewTop.setPadding(20,20,20,20)
-        textViewTop.color = UIPreferences.textHighlightColor
-        textViewTop.tv.setBackgroundColor(Color.BLACK)
-        textViewTop.tv.setTextColor(Color.WHITE)
+        objectTextView.text = text
+        objectTextView.setTextSize(TextSize.LARGE)
+        objectTextView.setPadding(20,20,20,20)
+        objectTextView.color = UIPreferences.textHighlightColor
+        objectTextView.tv.setBackgroundColor(Color.BLACK)
+        objectTextView.tv.setTextColor(Color.WHITE)
     }
 }
 
