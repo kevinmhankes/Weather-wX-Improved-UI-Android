@@ -116,11 +116,12 @@ internal object UtilityWXOGLPerf {
                     } catch (e: Exception) {
                         UtilityLog.handleException(e)
                     }
-                    if (bin == 0)
+                    if (bin == 0) {
                         level = curLevel
-                    if (curLevel == level)
+                    }
+                    if (curLevel == level) {
                         levelCount += 1
-                    else {
+                    } else {
                         angleVCos = cos((angleV / M_180_div_PI).toDouble()).toFloat()
                         angleVSin = sin((angleV / M_180_div_PI).toDouble()).toFloat()
                         radarBuffers.floatBuffer.putFloat(radialIndex, binStart * angleVCos)
