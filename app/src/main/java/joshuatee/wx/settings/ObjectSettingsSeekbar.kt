@@ -28,13 +28,11 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
+import joshuatee.wx.Extensions.setPadding
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.ui.ObjectCard
-import joshuatee.wx.ui.ObjectCardText
-import joshuatee.wx.ui.ObjectDialogue
-import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 
 internal class ObjectSettingsSeekbar(
@@ -47,7 +45,7 @@ internal class ObjectSettingsSeekbar(
         highValue: Int
 ) {
 
-    private val objCard = ObjectCard(context)
+    private val objectCard = ObjectCard(context)
     private val initValue: Int = when (pref) {
         "RADAR_TEXT_SIZE" -> (Utility.readPref(context, pref, defValue.toFloat()) * 10).toInt()
         "UI_ANIM_ICON_FRAMES" -> (Utility.readPref(
@@ -59,48 +57,37 @@ internal class ObjectSettingsSeekbar(
         "CARD_CORNER_RADIUS" -> (Utility.readPref(context, pref, 0))
         else -> Utility.readPref(context, pref, defValue)
     }
-    private val tv: TextView = TextView(context)
+    private val textView = TextView(context)
     private val seekBar = SeekBar(context)
 
     init {
-        ObjectCardText.textViewSetup(tv)
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-        tv.setTextColor(UIPreferences.backgroundColor)
-        tv.setPadding(
-                MyApplication.padding,
-                MyApplication.padding,
-                MyApplication.padding,
-                MyApplication.padding
-        )
-        tv.layoutParams = LinearLayout.LayoutParams(
+        ObjectCardText.textViewSetup(textView)
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
+        textView.setTextColor(UIPreferences.backgroundColor)
+        textView.setPadding(MyApplication.padding)
+        textView.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 1.0f
         )
-        tv.gravity = Gravity.TOP
-        tv.setOnClickListener { ObjectDialogue(context, context.resources.getString(strId)) }
-        val ll = LinearLayout(context)
-        ll.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        )
-        ll.orientation = LinearLayout.VERTICAL
-        ll.gravity = Gravity.CENTER_VERTICAL
-        ll.addView(tv)
+        textView.gravity = Gravity.TOP
+        textView.setOnClickListener { ObjectDialogue(context, context.resources.getString(strId)) }
+        val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
+        objectLinearLayout.matchParent()
+        objectLinearLayout.addView(textView)
         seekBar.max = highValue - lowValue
         seekBar.progress = convert(initValue)
         val padding = 30
         val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         layoutParams.setMargins(padding, padding, padding, padding)
         seekBar.layoutParams = layoutParams
-        ll.addView(seekBar)
-        objCard.addView(ll)
+        objectLinearLayout.addView(seekBar)
+        objectCard.addView(objectLinearLayout.linearLayout)
         updateLabel()
-
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 if (pref == "TEXTVIEW_FONT_SIZE") {
-                    tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, UtilityUI.spToPx(convertForSave(seekBar.progress), context))
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, UtilityUI.spToPx(convertForSave(seekBar.progress), context))
                 }
                 updateLabel()
             }
@@ -130,10 +117,10 @@ internal class ObjectSettingsSeekbar(
     }
 
     fun updateLabel() {
-        tv.text = label + " (default is " +  defValue.toString() + "): " + convertForSave(seekBar.progress).toString()
+        textView.text = label + " (default is " +  defValue.toString() + "): " + convertForSave(seekBar.progress).toString()
     }
 
-    val card get() = objCard.card
+    val card get() = objectCard.card
 }
 
 
