@@ -89,6 +89,11 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         if (titleArr.size > 1) {
             toolbar.subtitle = titleArr[1]
         }
+        initializeEnvironment()
+        getContent()
+    }
+
+    private fun initializeEnvironment() {
         val imgUrl1 = activityArguments[3]
         val year = UtilityTime.year()
         var yearInString = year.toString()
@@ -108,7 +113,6 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
         product = "MIATCP$stormId"
         baseUrlShort = baseUrl.replace(yearInStringFull, "") + yearInStringShort
-        getContent()
     }
 
     // TODO onrestart

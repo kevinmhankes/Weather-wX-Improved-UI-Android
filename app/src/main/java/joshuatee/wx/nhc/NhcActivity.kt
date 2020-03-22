@@ -82,12 +82,12 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
         )
     }
 
-    private fun showImageProduct(imageUrl: String, title: String, needWhiteBG: String) {
+    private fun showImageProduct(imageUrl: String, title: String, needWhiteBackground: String) {
         ObjectIntent(
                 this,
                 ImageShowActivity::class.java,
                 ImageShowActivity.URL,
-                arrayOf(imageUrl, title, needWhiteBG)
+                arrayOf(imageUrl, title, needWhiteBackground)
         )
     }
 
