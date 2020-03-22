@@ -38,7 +38,7 @@ internal class AdapterUSWarningsImpact(private val dataSet: List<ObjectImpactGra
     internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
-        val title = ObjectTextView(itemView, R.id.title)
+        val title = ObjectTextView(itemView, R.id.title, UIPreferences.textHighlightColor)
         val cities = ObjectTextView(itemView, R.id.cities)
         val population = ObjectTextView(itemView, R.id.population)
 
@@ -63,7 +63,6 @@ internal class AdapterUSWarningsImpact(private val dataSet: List<ObjectImpactGra
 
     override fun onBindViewHolder(holder: DataObjectHolder, position: Int) {
         holder.title.text = dataSet[position].title
-        holder.title.color = UIPreferences.textHighlightColor
         holder.title.setTextSize(TextSize.SMALL)
         holder.cities.text = dataSet[position].cities
         holder.population.text = dataSet[position].population

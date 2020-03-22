@@ -40,16 +40,17 @@ class ObjectSpinner {
     private val spinner: Spinner
     val list: MutableList<String>
 
+    // FIXME the below can inherit code, isolate and test
     constructor(
         activity: Activity,
         context: Context,
         fn: AdapterView.OnItemSelectedListener,
-        spinnerRedId: Int,
+        spinnerResourceId: Int,
         dataArray: List<String>,
         initialValue: String
     ) {
         list = dataArray.toMutableList()
-        spinner = activity.findViewById(spinnerRedId)
+        spinner = activity.findViewById(spinnerResourceId)
         setupSpinner()
         arrayAdapter = ArrayAdapter(context, R.layout.simple_spinner_item, dataArray)
         arrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
@@ -63,12 +64,12 @@ class ObjectSpinner {
         activity: Activity,
         context: Context,
         fn: AdapterView.OnItemSelectedListener,
-        spinnerRedId: Int,
+        spinnerResourceId: Int,
         dataArray: List<String>,
         initialPosition: Int
     ) {
         list = dataArray.toMutableList()
-        spinner = activity.findViewById(spinnerRedId)
+        spinner = activity.findViewById(spinnerResourceId)
         setupSpinner()
         arrayAdapter = ArrayAdapter(context, R.layout.simple_spinner_item, dataArray)
         arrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
@@ -82,11 +83,11 @@ class ObjectSpinner {
         activity: Activity,
         context: Context,
         fn: AdapterView.OnItemSelectedListener,
-        spinnerRedId: Int,
+        spinnerResourceId: Int,
         dataArray: List<String>
     ) {
         list = dataArray.toMutableList()
-        spinner = activity.findViewById(spinnerRedId)
+        spinner = activity.findViewById(spinnerResourceId)
         setupSpinner()
         arrayAdapter = ArrayAdapter(context, R.layout.simple_spinner_item, dataArray)
         arrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
@@ -99,10 +100,10 @@ class ObjectSpinner {
         activity: Activity,
         context: Context,
         fn: AdapterView.OnItemSelectedListener,
-        spinnerRedId: Int
+        spinnerResourceId: Int
     ) {
         list = mutableListOf()
-        spinner = activity.findViewById(spinnerRedId)
+        spinner = activity.findViewById(spinnerResourceId)
         setupSpinner()
         arrayAdapter = ArrayAdapter(context, R.layout.simple_spinner_item, list)
         arrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)

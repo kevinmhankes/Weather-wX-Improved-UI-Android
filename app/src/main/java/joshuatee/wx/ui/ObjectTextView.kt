@@ -61,6 +61,12 @@ class ObjectTextView(val context: Context) {
         this.color = color
     }
 
+    constructor(context: Context, backgroundText: Boolean) : this(context) {
+        if (backgroundText) {
+            setAsBackgroundText()
+        }
+    }
+
     constructor(view: View, resourceId: Int) : this(view.context) {
         tv = view.findViewById(resourceId)
     }

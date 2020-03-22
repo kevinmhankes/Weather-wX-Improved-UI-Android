@@ -32,12 +32,12 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.fragments.UtilityLocationFragment
 import joshuatee.wx.objects.TextSize
 
-class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7Arr: List<String>) {
+class ObjectCard7Day(context: Context, bitmap: Bitmap, isUS: Boolean, day: Int, forecasts: List<String>) {
 
     private val objectCard = ObjectCard(context)
     private val imageView = ObjectImageView(context)
     private val topLineText = ObjectTextView(context, TextSize.MEDIUM)
-    private val bottomLineText = ObjectTextView(context)
+    private val bottomLineText = ObjectTextView(context, backgroundText = true)
 
     init {
         val horizontalContainer = LinearLayout(context)
@@ -45,18 +45,17 @@ class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7
         val verticalContainer = LinearLayout(context)
         verticalContainer.orientation = LinearLayout.VERTICAL
         topLineText.setPadding(
-            MyApplication.padding,
-            0,
-            MyApplication.paddingSmall,
-            0
+                MyApplication.padding,
+                0,
+                MyApplication.paddingSmall,
+                0
         )
         bottomLineText.setPadding(
-            MyApplication.padding,
-            0,
-            MyApplication.paddingSmall,
-            0
+                MyApplication.padding,
+                0,
+                MyApplication.paddingSmall,
+                0
         )
-        bottomLineText.setAsBackgroundText()
         verticalContainer.addView(topLineText.tv)
         verticalContainer.addView(bottomLineText.tv)
         if (!UIPreferences.locfragDontShowIcons) {
@@ -64,37 +63,33 @@ class ObjectCard7Day(context: Context, bm: Bitmap, isUS: Boolean, day: Int, day7
         }
         horizontalContainer.addView(verticalContainer)
         objectCard.addView(horizontalContainer)
-        var dayTmpArr = listOf<String>()
-        if (day7Arr.size > day) {
-            dayTmpArr = day7Arr[day].split(": ")
+        var items = listOf<String>()
+        if (forecasts.size > day) {
+            items = forecasts[day].split(": ")
         }
-        if (dayTmpArr.size > 1) {
+        if (items.size > 1) {
             if (isUS) {
                 setTopLine(
-                    dayTmpArr[0].replace(":", " ") + " (" + UtilityLocationFragment.extractTemperature(
-                        dayTmpArr[1]
-                    )
-                            + MyApplication.DEGREE_SYMBOL
-                            + UtilityLocationFragment.extractWindDirection(dayTmpArr[1].substring(1))
-                            + UtilityLocationFragment.extract7DayMetrics(dayTmpArr[1].substring(1)) + ")"
+                        items[0] + " (" + UtilityLocationFragment.extractTemperature(
+                                items[1]
+                        )
+                                + MyApplication.DEGREE_SYMBOL
+                                + UtilityLocationFragment.extractWindDirection(items[1].substring(1))
+                                + UtilityLocationFragment.extract7DayMetrics(items[1].substring(1)) + ")"
                 )
             } else {
                 setTopLine(
-                    dayTmpArr[0].replace(":", " ") + " ("
-                            + UtilityLocationFragment.extractCanadaTemperature(dayTmpArr[1])
-                            + MyApplication.DEGREE_SYMBOL
-                            + UtilityLocationFragment.extractCanadaWindDirection(dayTmpArr[1])
-                            + UtilityLocationFragment.extractCanadaWindSpeed(dayTmpArr[1]) + ")"
+                        items[0] + " ("
+                                + UtilityLocationFragment.extractCanadaTemperature(items[1])
+                                + MyApplication.DEGREE_SYMBOL
+                                + UtilityLocationFragment.extractCanadaWindDirection(items[1])
+                                + UtilityLocationFragment.extractCanadaWindSpeed(items[1]) + ")"
                 )
             }
-            if (isUS) {
-                setBottomLine(dayTmpArr[1])
-            } else {
-                setBottomLine(dayTmpArr[1])
-            }
+            setBottomLine(items[1])
         }
         if (!UIPreferences.locfragDontShowIcons) {
-            imageView.setImage(bm)
+            imageView.setImage(bitmap)
         }
     }
 
