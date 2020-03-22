@@ -346,7 +346,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Animation interval",
                         "ANIM_INTERVAL",
@@ -357,7 +357,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Warning line size",
                         "RADAR_WARN_LINESIZE",
@@ -368,7 +368,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "MCD/MPD/Watch line size",
                         "RADAR_WATMCD_LINESIZE",
@@ -379,7 +379,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "State line size",
                         "RADAR_STATE_LINESIZE",
@@ -390,7 +390,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "County line size",
                         "RADAR_COUNTY_LINESIZE",
@@ -401,7 +401,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Highway line size",
                         "RADAR_HW_LINESIZE",
@@ -412,7 +412,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Secondary road line size",
                         "RADAR_HWEXT_LINESIZE",
@@ -423,7 +423,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Lake line size",
                         "RADAR_LAKE_LINESIZE",
@@ -434,7 +434,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "GPS Circle line size",
                         "RADAR_GPSCIRCLE_LINESIZE",
@@ -445,7 +445,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Location marker size",
                         "RADAR_LOCDOT_SIZE",
@@ -456,7 +456,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Hail marker size",
                         "RADAR_HI_SIZE",
@@ -467,7 +467,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "TVS marker size",
                         "RADAR_TVS_SIZE",
@@ -478,7 +478,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "WXOGL initial view size",
                         "WXOGL_SIZE",
@@ -489,7 +489,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Refresh interval",
                         "RADAR_REFRESH_INTERVAL",
@@ -500,7 +500,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Storm spotter size",
                         "RADAR_SPOTTER_SIZE",
@@ -511,7 +511,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Aviation dot size",
                         "RADAR_AVIATION_SIZE",
@@ -522,7 +522,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Text size",
                         "RADAR_TEXT_SIZE",
@@ -533,7 +533,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Draw tool line size",
                         "DRAWTOOL_SIZE",
@@ -544,7 +544,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Detailed observations Zoom",
                         "RADAR_OBS_EXT_ZOOM",
@@ -555,7 +555,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "GPS update interval",
                         "RADAR_LOCATION_UPDATE_INTERVAL",

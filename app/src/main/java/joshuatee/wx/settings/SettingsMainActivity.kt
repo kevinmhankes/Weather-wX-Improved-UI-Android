@@ -187,7 +187,7 @@ class SettingsMainActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Refresh interval for location in minutes",
                         "REFRESH_LOC_MIN",
@@ -198,7 +198,7 @@ class SettingsMainActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Roaming distance check in miles",
                         "ROAMING_LOCATION_DISTANCE_CHECK",
@@ -209,7 +209,7 @@ class SettingsMainActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Text to speech speed",
                         "TTS_SPEED_PREF",

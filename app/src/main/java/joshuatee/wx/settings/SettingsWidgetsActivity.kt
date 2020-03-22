@@ -144,7 +144,7 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
                 ).card
         )
         linearLayout.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Widget check interval in minutes",
                         "CC_NOTIFICATION_INTERVAL",
@@ -155,7 +155,7 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
                 ).card
         )
         linearLayout.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Widget nexrad size",
                         "WIDGET_NEXRAD_SIZE",

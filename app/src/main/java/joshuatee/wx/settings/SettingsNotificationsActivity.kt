@@ -240,7 +240,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Notification check interval in minutes",
                         "ALERT_NOTIFICATION_INTERVAL",
@@ -251,7 +251,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Notification blackout - PM(h)",
                         "ALERT_BLACKOUT_PM",
@@ -262,7 +262,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                 ).card
         )
         ll.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Notification blackout - AM(h)",
                         "ALERT_BLACKOUT_AM",

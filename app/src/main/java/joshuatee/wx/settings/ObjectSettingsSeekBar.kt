@@ -27,15 +27,12 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.SeekBar
-import android.widget.TextView
-import joshuatee.wx.Extensions.setPadding
 
 import joshuatee.wx.MyApplication
-import joshuatee.wx.UIPreferences
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 
-internal class ObjectSettingsSeekbar(
+internal class ObjectSettingsSeekBar(
         context: Context,
         val label: String,
         pref: String,
@@ -57,24 +54,21 @@ internal class ObjectSettingsSeekbar(
         "CARD_CORNER_RADIUS" -> (Utility.readPref(context, pref, 0))
         else -> Utility.readPref(context, pref, defValue)
     }
-    private val textView = TextView(context)
+    private val objectTextView = ObjectTextView(context)
     private val seekBar = SeekBar(context)
 
     init {
-        ObjectCardText.textViewSetup(textView)
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-        textView.setTextColor(UIPreferences.backgroundColor)
-        textView.setPadding(MyApplication.padding)
-        textView.layoutParams = LinearLayout.LayoutParams(
+        objectTextView.setPadding(MyApplication.padding)
+        objectTextView.tv.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 1.0f
         )
-        textView.gravity = Gravity.TOP
-        textView.setOnClickListener { ObjectDialogue(context, context.resources.getString(strId)) }
+        objectTextView.gravity = Gravity.TOP
+        objectTextView.tv.setOnClickListener { ObjectDialogue(context, context.resources.getString(strId)) }
         val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
         objectLinearLayout.matchParent()
-        objectLinearLayout.addView(textView)
+        objectLinearLayout.addView(objectTextView.tv)
         seekBar.max = highValue - lowValue
         seekBar.progress = convert(initValue)
         val padding = 30
@@ -87,7 +81,7 @@ internal class ObjectSettingsSeekbar(
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 if (pref == "TEXTVIEW_FONT_SIZE") {
-                    textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, UtilityUI.spToPx(convertForSave(seekBar.progress), context))
+                    objectTextView.tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, UtilityUI.spToPx(convertForSave(seekBar.progress), context))
                 }
                 updateLabel()
             }
@@ -117,7 +111,7 @@ internal class ObjectSettingsSeekbar(
     }
 
     fun updateLabel() {
-        textView.text = label + " (default is " +  defValue.toString() + "): " + convertForSave(seekBar.progress).toString()
+        objectTextView.text = label + " (default is " +  defValue.toString() + "): " + convertForSave(seekBar.progress).toString()
     }
 
     val card get() = objectCard.card

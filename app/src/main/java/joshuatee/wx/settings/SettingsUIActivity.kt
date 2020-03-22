@@ -230,7 +230,7 @@ class SettingsUIActivity : BaseActivity() {
                 ).card
         )
         linearLayout.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "UI elevation height",
                         "ELEVATION_PREF",
@@ -241,7 +241,7 @@ class SettingsUIActivity : BaseActivity() {
                 ).card
         )
         linearLayout.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "NWS icon size",
                         "NWS_ICON_SIZE_PREF",
@@ -252,7 +252,7 @@ class SettingsUIActivity : BaseActivity() {
                 ).card
         )
         linearLayout.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Card corner radius",
                         "CARD_CORNER_RADIUS",
@@ -263,7 +263,7 @@ class SettingsUIActivity : BaseActivity() {
                 ).card
         )
         linearLayout.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Image tiles per row",
                         "UI_TILES_PER_ROW",
@@ -274,7 +274,7 @@ class SettingsUIActivity : BaseActivity() {
                 ).card
         )
         linearLayout.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Animation - frames for toolbar icon",
                         "UI_ANIM_ICON_FRAMES",
@@ -285,7 +285,7 @@ class SettingsUIActivity : BaseActivity() {
                 ).card
         )
         linearLayout.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Home screen text length",
                         "HOMESCREEN_TEXT_LENGTH_PREF",
@@ -296,7 +296,7 @@ class SettingsUIActivity : BaseActivity() {
                 ).card
         )
         linearLayout.addView(
-                ObjectSettingsSeekbar(
+                ObjectSettingsSeekBar(
                         this,
                         "Text size",
                         "TEXTVIEW_FONT_SIZE",
