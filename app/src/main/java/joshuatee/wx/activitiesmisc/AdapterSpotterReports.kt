@@ -41,10 +41,10 @@ internal class AdapterSpotterReports(private val dataSet: List<SpotterReports>) 
         View.OnClickListener {
 
         val name = ObjectTextView(itemView, R.id.name, UIPreferences.textHighlightColor, TextSize.MEDIUM)
-        val email = ObjectTextView(itemView, R.id.email)
-        val time = ObjectTextView(itemView, R.id.time)
-        val phone = ObjectTextView(itemView, R.id.phone)
-        val summary = ObjectTextView(itemView, R.id.summary)
+        val email = ObjectTextView(itemView, R.id.email, backgroundText = true)
+        val time = ObjectTextView(itemView, R.id.time, backgroundText = true)
+        val phone = ObjectTextView(itemView, R.id.phone, backgroundText = true)
+        val summary = ObjectTextView(itemView, R.id.summary, backgroundText = true)
 
         init {
             ObjectCard(itemView, R.id.cv1)
@@ -72,10 +72,6 @@ internal class AdapterSpotterReports(private val dataSet: List<SpotterReports>) 
         holder.email.text = dataSet[position].city.replace(MyApplication.newline, " ")
         holder.phone.text = dataSet[position].lastName + ", " + dataSet[position].firstName
         holder.summary.text = dataSet[position].narrative
-        listOf(holder.time, holder.email, holder.phone, holder.summary).forEach {
-            it.color = UIPreferences.backgroundColor
-            it.setTextSize(TextSize.SMALL)
-        }
         holder.summary.setAsBackgroundText()
     }
 

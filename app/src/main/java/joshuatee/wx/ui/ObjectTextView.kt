@@ -61,23 +61,28 @@ class ObjectTextView(val context: Context) {
         this.color = color
     }
 
-    constructor(view: View, resId: Int) : this(view.context) {
-        tv = view.findViewById(resId)
+    constructor(view: View, resourceId: Int) : this(view.context) {
+        tv = view.findViewById(resourceId)
     }
 
-    constructor(view: View, resId: Int, color: Int) : this(view, resId) {
+    constructor(view: View, resourceId: Int, backgroundText: Boolean) : this(view, resourceId) {
+        tv = view.findViewById(resourceId)
+        if (backgroundText) {
+            setAsBackgroundText()
+        }
+    }
+
+    constructor(view: View, resourceId: Int, color: Int) : this(view, resourceId) {
         this.color = color
     }
 
-    constructor(view: View, resId: Int, size: TextSize) : this(view.context, size) {
-        tv = view.findViewById(resId)
+    constructor(view: View, resourceId: Int, size: TextSize) : this(view.context, size) {
+        tv = view.findViewById(resourceId)
         refreshTextSize(size)
     }
 
-    constructor(view: View, resId: Int, color: Int, size: TextSize) : this(view.context, size) {
-        tv = view.findViewById(resId)
+    constructor(view: View, resourceId: Int, color: Int, size: TextSize) : this(view, resourceId, size) {
         this.color = color
-        refreshTextSize(size)
     }
 
     constructor(context: Context, size: TextSize) : this(context) {

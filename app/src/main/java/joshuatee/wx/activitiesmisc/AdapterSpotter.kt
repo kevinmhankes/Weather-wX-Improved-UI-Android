@@ -45,12 +45,12 @@ internal class AdapterSpotter(private val dataSet: MutableList<Spotter>) :
         View.OnClickListener {
 
         val name = ObjectTextView(itemView, R.id.name, UIPreferences.textHighlightColor, TextSize.MEDIUM)
-        val email = ObjectTextView(itemView, R.id.email)
-        val time = ObjectTextView(itemView, R.id.time)
-        val phone = ObjectTextView(itemView, R.id.phone)
-        val objCard = ObjectCard(itemView, R.id.cv1)
+        val email = ObjectTextView(itemView, R.id.email, backgroundText = true)
+        val time = ObjectTextView(itemView, R.id.time, backgroundText = true)
+        val phone = ObjectTextView(itemView, R.id.phone, backgroundText = true)
 
         init {
+            ObjectCard(itemView, R.id.cv1)
             itemView.setOnClickListener(this)
         }
 
@@ -84,9 +84,6 @@ internal class AdapterSpotter(private val dataSet: MutableList<Spotter>) :
             holder.email.context.startActivity(Intent.createChooser(intent, "Send Email"))
         })
         holder.phone.text = dataSet[position].phone.replace(MyApplication.newline, " ")
-        listOf(holder.time, holder.email, holder.phone).forEach {
-            it.setAsBackgroundText()
-        }
         holder.phone.setOnClickListener(View.OnClickListener {
             val telephonyManager = holder.phone.context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
             if (telephonyManager.phoneType != TelephonyManager.PHONE_TYPE_NONE) {
