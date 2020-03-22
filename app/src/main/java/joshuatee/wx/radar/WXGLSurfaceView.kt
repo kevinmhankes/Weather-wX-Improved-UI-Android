@@ -53,7 +53,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             private set
     }
 
-    var idx: Int = 0
+    var index: Int = 0
     private var listener: OnProgressChangeListener? = null
     var fullScreen: Boolean = false
     var toolbar: Toolbar? = null
@@ -144,7 +144,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             MotionEvent.ACTION_MOVE -> {
             }
             MotionEvent.ACTION_UP -> {
-                listener?.onProgressChanged(50000, idx, idxInt)
+                listener?.onProgressChanged(50000, index, idxInt)
                 (0 until numPanes).forEach {
                     oglr[it].displayHold = false
                     wxgl[it].requestRender()
@@ -223,7 +223,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             LatLon(newY.toString(), (newX * -1).toString()),
             5
         )
-        listener?.onProgressChanged(idx, idx, idxInt)
+        listener?.onProgressChanged(index, index, idxInt)
     }
 
     override fun onScroll(
@@ -374,7 +374,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             if (!archiveMode)
                 toolbarBottom!!.visibility = View.VISIBLE
         }
-        listener?.onProgressChanged(50000, idx, idxInt)
+        listener?.onProgressChanged(50000, index, idxInt)
         return true
     }
 
@@ -436,7 +436,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             if (!archiveMode)
                 toolbarBottom!!.visibility = View.VISIBLE
         }
-        listener?.onProgressChanged(50000, idx, idxInt)
+        listener?.onProgressChanged(50000, index, idxInt)
         return true
     }
 

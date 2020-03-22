@@ -155,7 +155,7 @@ class LocationFragment : Fragment()  {
                 oglrArr[index].rid = ""
                 oldRidArr[index] = ""
                 radarLocationChangedAl.add(false)
-                glviewArr[index].idx = index
+                glviewArr[index].index = index
                 rlArr.add(RelativeLayout(activityReference))
                 wxglTextArr.add(
                         WXGLTextObject(
@@ -193,7 +193,7 @@ class LocationFragment : Fragment()  {
                 oglrCount += 1
                 cardViews.add(ObjectCard(activityReference).card)
                 glviewArr.add(WXGLSurfaceView(activityReference, widthDivider, numPanes, 1))
-                glviewArr[index].idx = index
+                glviewArr[index].index = index
                 oglrArr[index].rid = tok.replace("NXRD-", "")
                 oldRidArr[index] = ""
                 radarLocationChangedAl.add(false)
