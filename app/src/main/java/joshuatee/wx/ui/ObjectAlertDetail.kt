@@ -23,6 +23,7 @@ package joshuatee.wx.ui
 
 import android.content.Context
 import android.widget.LinearLayout
+import joshuatee.wx.Extensions.setPadding
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
@@ -58,12 +59,7 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
                 MyApplication.padding
         )
         (2..4).forEach {
-            objectTextViews[it].setPadding(
-                    MyApplication.padding,
-                    MyApplication.padding,
-                    MyApplication.padding,
-                    MyApplication.padding
-            )
+            objectTextViews[it].setPadding(MyApplication.padding)
         }
     }
 

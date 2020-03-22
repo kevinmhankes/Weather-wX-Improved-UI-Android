@@ -26,6 +26,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
+import joshuatee.wx.Extensions.setPadding
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
@@ -138,6 +139,10 @@ class ObjectTextView(val context: Context) {
 
     fun setPadding(left: Int, top: Int, right: Int, bottom: Int) {
         tv.setPadding(left, top, right, bottom)
+    }
+
+    fun setPadding(padding: Int) {
+        tv.setPadding(padding)
     }
 }
 
