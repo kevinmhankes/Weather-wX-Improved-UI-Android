@@ -41,20 +41,14 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
     private val textViewMiddle = ObjectTextView(context, backgroundText = true)
 
     init {
-        val linearLayoutHorizontal = LinearLayout(context)
-        val linearLayoutVertical = LinearLayout(context)
+        val linearLayoutHorizontal = ObjectLinearLayout(context, LinearLayout.HORIZONTAL)
+        val linearLayoutVertical = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
         if (version == 2) {
-            linearLayoutHorizontal.orientation = LinearLayout.HORIZONTAL
             textViewTop.setPadding(MyApplication.padding, MyApplication.paddingSmall, MyApplication.paddingSmall, 0)
             textViewMiddle.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, 0)
             textViewBottom.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, MyApplication.paddingSmall)
-            linearLayoutVertical.orientation = LinearLayout.VERTICAL
-            linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
-            linearLayoutVertical.addView(textViewTop.tv)
-            linearLayoutVertical.addView(textViewMiddle.tv)
-            linearLayoutVertical.addView(textViewBottom.tv)
-            linearLayoutHorizontal.addView(imageView.image)
-            linearLayoutHorizontal.addView(linearLayoutVertical)
+            linearLayoutVertical.addViews(listOf(textViewTop.tv, textViewMiddle.tv, textViewBottom.tv))
+            linearLayoutHorizontal.addViews(listOf(imageView.image, linearLayoutVertical.linearLayout))
         } else {
             // legacy code
             textViewTop.gravity = Gravity.CENTER
@@ -67,7 +61,7 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
             linearLayoutHorizontal.addView(textViewTop.tv)
             linearLayoutHorizontal.addView(textViewBottom.tv)
         }
-        objCard.addView(linearLayoutHorizontal)
+        objCard.addView(linearLayoutHorizontal.linearLayout)
     }
 
     val card: CardView get() = objCard.card

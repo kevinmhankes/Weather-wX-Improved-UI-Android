@@ -25,13 +25,26 @@ import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
 
-class ObjectLinearLayout(context: Context, parentView: LinearLayout) {
+class ObjectLinearLayout(context: Context) {
 
     val linearLayout: LinearLayout = LinearLayout(context)
 
-    init {
+   /* init {
         linearLayout.orientation = LinearLayout.VERTICAL
         parentView.addView(linearLayout)
+    }*/
+
+    constructor(context: Context, parentView: LinearLayout) : this(context) {
+        linearLayout.orientation = LinearLayout.VERTICAL
+        parentView.addView(linearLayout)
+    }
+
+    constructor(context: Context, orientation: Int) : this(context) {
+        this.orientation = orientation
+    }
+
+    constructor(context: Context, orientation: Int, gravity: Int) : this(context, orientation) {
+        this.gravity = gravity
     }
 
     fun removeAllViewsInLayout() {
@@ -56,6 +69,18 @@ class ObjectLinearLayout(context: Context, parentView: LinearLayout) {
         get() = linearLayout.visibility
         set(value) {
             linearLayout.visibility = value
+        }
+
+    var orientation: Int
+        get() = linearLayout.orientation
+        set(value) {
+            linearLayout.orientation = value
+        }
+
+    var gravity: Int
+        get() = linearLayout.gravity
+        set(value) {
+            linearLayout.gravity = value
         }
 }
 
