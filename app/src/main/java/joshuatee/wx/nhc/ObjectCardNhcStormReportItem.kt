@@ -29,6 +29,7 @@ import androidx.cardview.widget.CardView
 import joshuatee.wx.UIPreferences
 
 import joshuatee.wx.ui.ObjectCard
+import joshuatee.wx.ui.ObjectLinearLayout
 import joshuatee.wx.ui.ObjectTextView
 
 class ObjectCardNhcStormReportItem(context: Context, linearLayout: LinearLayout, stormData: ObjectNhcStormDetails) {
@@ -39,20 +40,13 @@ class ObjectCardNhcStormReportItem(context: Context, linearLayout: LinearLayout,
     private val textViewMovement = ObjectTextView(context)
     private val textViewPressure = ObjectTextView(context)
     private val textViewWindSpeed = ObjectTextView(context)
-    private val textViewBottom = ObjectTextView(context)
+    private val textViewBottom = ObjectTextView(context, backgroundText = true)
 
     init {
-        val linearLayoutVertical = LinearLayout(context)
-        textViewBottom.setAsBackgroundText()
-        linearLayoutVertical.orientation = LinearLayout.VERTICAL
-        linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
-        linearLayoutVertical.addView(textViewTop.tv)
-        linearLayoutVertical.addView(textViewTime.tv)
-        linearLayoutVertical.addView(textViewMovement.tv)
-        linearLayoutVertical.addView(textViewPressure.tv)
-        linearLayoutVertical.addView(textViewWindSpeed.tv)
-        linearLayoutVertical.addView(textViewBottom.tv)
-        objectCard.addView(linearLayoutVertical)
+        val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
+        objectLinearLayout.addViews(listOf(textViewTop.tv, textViewTime.tv, textViewMovement.tv))
+        objectLinearLayout.addViews(listOf(textViewPressure.tv, textViewWindSpeed.tv, textViewBottom.tv))
+        objectCard.addView(objectLinearLayout.linearLayout)
         textViewTop.text = stormData.name + " (" + stormData.type + ") " + stormData.center
         textViewTime.text = stormData.dateTime
         textViewMovement.text = "Moving: " + stormData.movement

@@ -43,8 +43,8 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
-    // URL is not really used save in the homescreen map since most other activities have a var
     companion object {
+        // Not used other then in homescreen activities
         const val URL: String = ""
     }
 
@@ -53,11 +53,7 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_linear_layout_bottom_toolbar,
-                R.menu.nhc
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.nhc)
         toolbarBottom.setOnMenuItemClickListener(this)
         objNhc = ObjectNhc(this, ll)
         getContent()
@@ -65,10 +61,14 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         scrollView.smoothScrollTo(0, 0)
-        withContext(Dispatchers.IO) { objNhc.getTextData() }
+        withContext(Dispatchers.IO) {
+            objNhc.getTextData()
+        }
         objNhc.showTextData()
         NhcOceanEnum.values().forEach {
-            withContext(Dispatchers.IO) { objNhc.regionMap[it]!!.getImages() }
+            withContext(Dispatchers.IO) {
+                objNhc.regionMap[it]!!.getImages()
+            }
             objNhc.showImageData(it)
         }
     }

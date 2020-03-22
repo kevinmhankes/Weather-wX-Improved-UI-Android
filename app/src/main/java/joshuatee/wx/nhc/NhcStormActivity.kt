@@ -164,8 +164,8 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         scrollView.smoothScrollTo(0, 0)
     }
 
-    private fun setProduct(productF: String) {
-        product = productF
+    private fun setProduct(product: String) {
+        this.product = product
         getText()
     }
 
