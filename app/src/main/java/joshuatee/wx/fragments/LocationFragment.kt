@@ -260,7 +260,7 @@ class LocationFragment : Fragment()  {
         if (UtilityUI.isTablet()) {
             locationLabelPadding = 10
         }
-        locationLabel.tv.setPadding(locationLabelPadding,locationLabelPadding,locationLabelPadding,locationLabelPadding)
+        locationLabel.tv.setPadding(locationLabelPadding)
         locationLabel.setTextColor(UIPreferences.textHighlightColor)
         locationLabel.setOnClickListener(OnClickListener {
             locationDialogue.show()
