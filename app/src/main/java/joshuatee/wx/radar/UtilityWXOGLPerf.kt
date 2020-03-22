@@ -309,7 +309,7 @@ internal object UtilityWXOGLPerf {
 
     fun genIndex(indexBuff: ByteBuffer, len: Int, breakSizeF: Int) {
         var breakSize = breakSizeF
-        var incr: Int
+        //var incr: Int
         val remainder: Int
         var chunkCount = 1
         var iCount = 0
@@ -322,25 +322,26 @@ internal object UtilityWXOGLPerf {
             chunkCount += 1
         }
         var chunkIndex = 0
-        var j: Int
         while (chunkIndex < chunkCount) {
-            incr = 0
-            if (chunkIndex == chunkCount - 1) breakSize = remainder
-            j = 0
+            var increment = 0
+            if (chunkIndex == chunkCount - 1) {
+                breakSize = remainder
+            }
+            var j = 0
             while (j < breakSize) {
-                indexBuff.putShort(iCount, incr.toShort())
+                indexBuff.putShort(iCount, increment.toShort())
                 iCount += 2
-                indexBuff.putShort(iCount, (1 + incr).toShort())
+                indexBuff.putShort(iCount, (1 + increment).toShort())
                 iCount += 2
-                indexBuff.putShort(iCount, (2 + incr).toShort())
+                indexBuff.putShort(iCount, (2 + increment).toShort())
                 iCount += 2
-                indexBuff.putShort(iCount, incr.toShort())
+                indexBuff.putShort(iCount, increment.toShort())
                 iCount += 2
-                indexBuff.putShort(iCount, (2 + incr).toShort())
+                indexBuff.putShort(iCount, (2 + increment).toShort())
                 iCount += 2
-                indexBuff.putShort(iCount, (3 + incr).toShort())
+                indexBuff.putShort(iCount, (3 + increment).toShort())
                 iCount += 2
-                incr += 4
+                increment += 4
                 j += 1
             }
             chunkIndex += 1
