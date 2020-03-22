@@ -28,7 +28,7 @@
 // TODO [ADD] severedash long press to add location
 // TODO [ADD] severedash long press color is off
 
-55381 2020_03_21    [REF] misc for readability
+55381 2020_03_22    [REF] misc for readability
                     [FIX] in nexrad with transparent toolbars, show toolbar background when map is shown
 55380 2020_03_20    [REF] misc for readability
                     [ADD] minor formatting enhancement in spotter reports (light gray for description)

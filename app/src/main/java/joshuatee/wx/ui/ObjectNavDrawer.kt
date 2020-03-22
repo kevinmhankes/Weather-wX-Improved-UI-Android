@@ -67,34 +67,19 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
         this.tokens = tokens
     }
 
-    fun getLabel(position: Int): String = labels[position]
-
-    //fun getToken(position: Int): String = tokens[position]
-
-    //fun getUrl(): String = tokens[index]
-
     var url: String = ""
         get() = tokens[index]
-        //set(newValue) {
-        //    card.visibility = newValue
-        //}
 
     fun getUrlCount(): Int = tokens.size
 
-    // TODO convert to getter
+    fun getLabel(position: Int): String = labels[position]
+
     fun getLabel(): String {
         if (index >= labels.size) {
             index = labels.size - 1
         }
         return labels[index]
     }
-
-    /*fun getToken(): String {
-        if (index >= tokens.size) {
-            index = tokens.size - 1
-        }
-        return tokens[index]
-    }*/
 
     var token: String = ""
         get() {
