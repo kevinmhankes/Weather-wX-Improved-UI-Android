@@ -44,7 +44,7 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
         val linearLayoutHorizontal = ObjectLinearLayout(context, LinearLayout.HORIZONTAL)
         val linearLayoutVertical = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
         if (version == 2) {
-            textViewTop.setPadding(MyApplication.padding, MyApplication.paddingSmall, MyApplication.paddingSmall, 0)
+            textViewTop.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, 0)
             textViewMiddle.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, 0)
             textViewBottom.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, MyApplication.paddingSmall)
             linearLayoutVertical.addViews(listOf(textViewTop.tv, textViewMiddle.tv, textViewBottom.tv))

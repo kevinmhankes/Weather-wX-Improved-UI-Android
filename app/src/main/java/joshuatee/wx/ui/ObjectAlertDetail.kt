@@ -32,7 +32,7 @@ import joshuatee.wx.activitiesmisc.CapAlert
 import joshuatee.wx.objects.TextSize
 import joshuatee.wx.util.UtilityString
 
-class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
+class ObjectAlertDetail(val context: Context, linearLayout: LinearLayout) {
 
     private val objectTextViews = mutableListOf<ObjectTextView>()
     var title: String = ""
@@ -44,7 +44,7 @@ class ObjectAlertDetail(val context: Context, ll: LinearLayout) {
         (0 until 5).forEach { _ ->
             val objectTextView = ObjectTextView(context)
             objectTextViews.add(objectTextView)
-            ll.addView(objectTextView.tv)
+            linearLayout.addView(objectTextView.tv)
         }
         objectTextViews[0].setPadding(
                 MyApplication.padding,

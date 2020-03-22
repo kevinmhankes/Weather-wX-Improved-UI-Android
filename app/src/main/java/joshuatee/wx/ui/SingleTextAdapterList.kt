@@ -20,7 +20,7 @@ class SingleTextAdapterList(private val dataSet: MutableList<String>) :
         init {
             ObjectCard(itemView, R.id.cv1)
             itemView.setOnClickListener(this)
-            label.setPadding(MyApplication.paddingSettings, MyApplication.paddingSettings, MyApplication.paddingSettings, MyApplication.paddingSettings)
+            label.setPadding(MyApplication.paddingSettings)
         }
 
         override fun onClick(v: View) {
@@ -31,14 +31,6 @@ class SingleTextAdapterList(private val dataSet: MutableList<String>) :
     fun setOnItemClickListener(myClickListenerloc: MyClickListener) {
         myClickListener = myClickListenerloc
     }
-
-    /*fun setListener(fn: (Int) -> Unit) {
-        myClickListener = object : MyClickListener {
-            override fun onItemClick(position: Int) {
-                fn(position)
-            }
-        }
-    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataObjectHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.textview, parent, false)

@@ -37,11 +37,9 @@ class ObjectCardBlackHeaderText(context: Context, val linearLayout: LinearLayout
     private val objectTextView = ObjectTextView(context, UIPreferences.textHighlightColor)
 
     init {
-        val linearLayoutVertical = LinearLayout(context)
-        linearLayoutVertical.orientation = LinearLayout.VERTICAL
-        linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
-        linearLayoutVertical.addView(objectTextView.tv)
-        objectCard.addView(linearLayoutVertical)
+        val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
+        objectLinearLayout.addView(objectTextView.tv)
+        objectCard.addView(objectLinearLayout.linearLayout)
         linearLayout.addView(objectCard.card)
         setTextHeader()
     }

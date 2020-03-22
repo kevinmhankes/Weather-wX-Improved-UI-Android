@@ -29,6 +29,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
+import joshuatee.wx.Extensions.setPadding
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
@@ -121,7 +122,7 @@ class ObjectCardText(private val context: Context) {
 
     constructor(context: Context, text: String, textSize: Float, padding: Int) : this(context, text) {
         tv.text = text
-        tv.setPadding(padding, padding, padding, padding)
+        tv.setPadding(padding)
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         tv.isFocusable = false
     }
@@ -152,7 +153,7 @@ class ObjectCardText(private val context: Context) {
             textSize
     ) {
         this.padding = padding
-        tv.setPadding(padding, padding, padding, padding)
+        tv.setPadding(padding)
         tv.text = text
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         tv.isFocusable = false
@@ -164,7 +165,7 @@ class ObjectCardText(private val context: Context) {
             text
     ) {
         this.padding = padding
-        tv.setPadding(padding, padding, padding, padding)
+        tv.setPadding(padding)
         tv.text = text
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         tv.isFocusable = false
@@ -229,7 +230,7 @@ class ObjectCardText(private val context: Context) {
             clazz
     ) {
         this.padding = padding
-        tv.setPadding(padding, padding, padding, padding)
+        tv.setPadding(padding)
         tv.text = text
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         tv.isFocusable = false
@@ -244,7 +245,7 @@ class ObjectCardText(private val context: Context) {
 
     fun setPaddingAmount(padding: Int) {
         this.padding = padding
-        tv.setPadding(padding, padding, padding, padding)
+        tv.setPadding(padding)
     }
 
     fun setTextAndTranslate(text: String) {
@@ -256,19 +257,11 @@ class ObjectCardText(private val context: Context) {
         tv.text = localText
     }
 
-    //fun setText(text: String) {
-    //    tv.text = text
-    //}
-
     var text: String
         get() = tv.text.toString()
         set(newValue) {
             tv.text = newValue
         }
-
-    //fun setText(text: CharSequence) {
-    //    tv.text = text.toString()
-   // }
 
     fun center() {
         tv.gravity = Gravity.CENTER
@@ -316,28 +309,18 @@ class ObjectCardText(private val context: Context) {
     }
 
     companion object {
-        fun textViewSetup(tvTmp: TextView) {
-            tvTmp.setPadding(
-                    MyApplication.padding,
-                    MyApplication.padding,
-                    MyApplication.padding,
-                    MyApplication.padding
-            )
-            tvTmp.gravity = Gravity.START
-            tvTmp.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-            tvTmp.setTextColor(UIPreferences.backgroundColor)
+        fun textViewSetup(textView: TextView) {
+            textView.setPadding(MyApplication.padding)
+            textView.gravity = Gravity.START
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
+            textView.setTextColor(UIPreferences.backgroundColor)
         }
 
-        fun textViewSetup(objCardText: ObjectCardText) {
-            objCardText.tv.setPadding(
-                    objCardText.padding,
-                    objCardText.padding,
-                    objCardText.padding,
-                    objCardText.padding
-            )
-            objCardText.tv.gravity = Gravity.START
-            objCardText.tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-            objCardText.tv.setTextColor(UIPreferences.backgroundColor)
+        fun textViewSetup(objectCardText: ObjectCardText) {
+            objectCardText.tv.setPadding(objectCardText.padding)
+            objectCardText.tv.gravity = Gravity.START
+            objectCardText.tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
+            objectCardText.tv.setTextColor(UIPreferences.backgroundColor)
         }
     }
 }
