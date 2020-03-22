@@ -72,8 +72,8 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
     private var yPos = 0.0f
     private var xMiddle = 0.0f
     private var yMiddle = 0.0f
-    private val mScaleDetector: ScaleGestureDetector
-    private val mGestureDetector: GestureDetector
+    private val scaleDetector: ScaleGestureDetector
+    private val gestureDetector: GestureDetector
     private var numPanes = 0
     private var oglr = mutableListOf<WXGLRender>()
     private lateinit var oglrCurrent: WXGLRender
@@ -96,13 +96,13 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         this.widthDivider = widthDivider
         this.heightDivider = heightDivider
         this.numPanes = numPanes
-        mGestureDetector = GestureDetector(context, this)
-        mScaleDetector = ScaleGestureDetector(context, ScaleListener())
+        gestureDetector = GestureDetector(context, this)
+        scaleDetector = ScaleGestureDetector(context, ScaleListener())
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        mGestureDetector = GestureDetector(context, this)
-        mScaleDetector = ScaleGestureDetector(context, ScaleListener())
+        gestureDetector = GestureDetector(context, this)
+        scaleDetector = ScaleGestureDetector(context, ScaleListener())
     }
 
     // FIXME variable naming is bad
@@ -151,8 +151,8 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
                 }
             }
         }
-        var retVal = mScaleDetector.onTouchEvent(event)
-        retVal = mGestureDetector.onTouchEvent(event) || retVal
+        var retVal = scaleDetector.onTouchEvent(event)
+        retVal = gestureDetector.onTouchEvent(event) || retVal
         return retVal || super.onTouchEvent(event)
     }
 
