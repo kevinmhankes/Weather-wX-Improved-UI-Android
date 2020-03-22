@@ -285,12 +285,7 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun generate4326Projection(
-        inBuff: ByteBuffer,
-        outBuff: ByteBuffer,
-        pn: ProjectionNumbers,
-        count: Int
-    ) {
+    fun generate4326Projection(inBuff: ByteBuffer, outBuff: ByteBuffer, pn: ProjectionNumbers, count: Int) {
         val pnXFloat = pn.xFloat
         val pnYFloat = pn.yFloat
         val pnXCenter = pn.xCenter
