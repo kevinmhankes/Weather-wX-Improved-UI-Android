@@ -37,8 +37,7 @@ import joshuatee.wx.ui.ObjectTextView
 internal class AdapterSpotterReports(private val dataSet: List<SpotterReports>) :
     RecyclerView.Adapter<AdapterSpotterReports.DataObjectHolder>() {
 
-    internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+    internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         val name = ObjectTextView(itemView, R.id.name, UIPreferences.textHighlightColor, TextSize.MEDIUM)
         val email = ObjectTextView(itemView, R.id.email, backgroundText = true)

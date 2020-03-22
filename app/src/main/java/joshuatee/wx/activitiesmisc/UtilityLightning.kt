@@ -30,11 +30,11 @@ object UtilityLightning {
     fun getImage(sector: String, period: String): Bitmap {
         val baseUrl = "http://images.lightningmaps.org/blitzortung/america/index.php?map="
         val baseUrlOceania = "http://images.lightningmaps.org/blitzortung/oceania/index.php?map="
-        val url = if (sector.contains("australia") || sector.contains("new_zealand"))
-            "$baseUrlOceania$sector&period=$period"
-        else
-            "$baseUrl$sector&period=$period"
-        return url.getImage()
+        return if (sector.contains("australia") || sector.contains("new_zealand")) {
+            "$baseUrlOceania$sector&period=$period".getImage()
+        } else {
+            "$baseUrl$sector&period=$period".getImage()
+        }
     }
 
     val labels = listOf(

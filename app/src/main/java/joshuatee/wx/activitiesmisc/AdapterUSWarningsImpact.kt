@@ -35,8 +35,7 @@ import joshuatee.wx.ui.ObjectTextView
 internal class AdapterUSWarningsImpact(private val dataSet: List<ObjectImpactGraphic>) :
     RecyclerView.Adapter<AdapterUSWarningsImpact.DataObjectHolder>() {
 
-    internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+    internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         val title = ObjectTextView(itemView, R.id.title, UIPreferences.textHighlightColor)
         val cities = ObjectTextView(itemView, R.id.cities)

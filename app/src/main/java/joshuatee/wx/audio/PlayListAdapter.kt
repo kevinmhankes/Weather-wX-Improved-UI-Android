@@ -17,8 +17,7 @@ internal class PlayListAdapter(private val dataSet: MutableList<String>) : Recyc
 
     private val maxLength = 400
 
-    internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+    internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         val label = ObjectTextView(itemView, R.id.singletext, UIPreferences.textHighlightColor, TextSize.MEDIUM)
         val contentPreview = ObjectTextView(itemView, R.id.text2, backgroundText = true)

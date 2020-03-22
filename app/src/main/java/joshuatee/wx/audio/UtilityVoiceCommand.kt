@@ -45,14 +45,14 @@ object UtilityVoiceCommand {
     fun processCommand(
             context: Context,
             view: View,
-            vrStringF: String,
+            vrStringOriginal: String,
             radarSiteArg: String,
-            nws1CurrentF: String,
-            nws1StateCurrent: String
+            wfoOriginal: String,
+            state: String
     ): Boolean {
-        var vrString = vrStringF
+        var vrString = vrStringOriginal
         var radarSite = radarSiteArg
-        var nws1Current = nws1CurrentF
+        var wfo = wfoOriginal
         var gotHit = true
         val tokens = MyApplication.space.split(vrString)
         if (vrString.contains("radar")) {
@@ -67,13 +67,13 @@ object UtilityVoiceCommand {
                     context,
                     WXGLRadarActivity::class.java,
                     WXGLRadarActivity.RID,
-                    arrayOf(radarSite, nws1StateCurrent)
+                    arrayOf(radarSite, state)
             )
         } else if (vrString.contains("AFD") || vrString.contains("text")) {
             if (tokens.size > 1) {
-                nws1Current = tokens[1].toUpperCase(Locale.US)
+                wfo = tokens[1].toUpperCase(Locale.US)
             }
-            if (nws1Current == "WPC") {
+            if (wfo == "WPC") {
                 ObjectIntent(
                         context,
                         WpcTextProductsActivity::class.java,
@@ -85,7 +85,7 @@ object UtilityVoiceCommand {
                         context,
                         AfdActivity::class.java,
                         AfdActivity.URL,
-                        arrayOf(nws1Current, "AFD", "sound")
+                        arrayOf(wfo, "AFD", "sound")
                 )
             }
         } else if (vrString.contains("cloud")) {
@@ -218,8 +218,8 @@ object UtilityVoiceCommand {
                     arrayOf("", "1", "SPCMESO")
             )
         } else if (vrString.contains("forecast")) {
-            val fcstStr = Utility.readPref(context, "FCST", "")
-            UtilityTts.synthesizeTextAndPlay(context, fcstStr, "7day")
+            val forecast = Utility.readPref(context, "FCST", "")
+            UtilityTts.synthesizeTextAndPlay(context, forecast, "7day")
         } else if (vrString.contains("download playlist")) {
             UtilityUI.makeSnackBar(view, "Download initiated")
             ObjectIntent(
