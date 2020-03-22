@@ -22,17 +22,13 @@
 package joshuatee.wx.ui
 
 import android.content.Context
+import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 
 class ObjectLinearLayout(context: Context) {
 
     val linearLayout: LinearLayout = LinearLayout(context)
-
-   /* init {
-        linearLayout.orientation = LinearLayout.VERTICAL
-        parentView.addView(linearLayout)
-    }*/
 
     constructor(context: Context, parentView: LinearLayout) : this(context) {
         linearLayout.orientation = LinearLayout.VERTICAL
@@ -77,10 +73,13 @@ class ObjectLinearLayout(context: Context) {
             linearLayout.orientation = value
         }
 
+    var gravityBacking = Gravity.START
+
     var gravity: Int
-        get() = linearLayout.gravity
+        get() = gravityBacking
         set(value) {
             linearLayout.gravity = value
+            gravityBacking = value
         }
 }
 

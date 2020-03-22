@@ -55,10 +55,8 @@ class ObjectCardDashAlertItem(
     private val textViewBottom = ObjectTextView(context)
 
     init {
-        val linearLayoutVertical = LinearLayout(context)
+        val linearLayoutVertical = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
         textViewBottom.setAsBackgroundText()
-        linearLayoutVertical.orientation = LinearLayout.VERTICAL
-        linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
         listOf(textViewTop, textViewTitle, textViewStart, textViewEnd, textViewBottom).forEach {
             linearLayoutVertical.addView(it.tv)
         }
@@ -76,7 +74,7 @@ class ObjectCardDashAlertItem(
         linearLayoutHorizontal.addView(button)
         linearLayoutVertical.addView(linearLayoutHorizontal)*/
 
-        objectCard.addView(linearLayoutVertical)
+        objectCard.addView(linearLayoutVertical.linearLayout)
         setTextFields()
         linearLayout.addView(objectCard.card)
     }

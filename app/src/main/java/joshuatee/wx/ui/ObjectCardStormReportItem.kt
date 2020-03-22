@@ -38,17 +38,12 @@ class ObjectCardStormReportItem(context: Context) {
     private val objectCard = ObjectCard(context)
     private val textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
     private val textViewTitle = ObjectTextView(context)
-    private val textViewBottom = ObjectTextView(context)
+    private val textViewBottom = ObjectTextView(context, backgroundText = true)
 
     init {
-        val linearLayoutVertical = LinearLayout(context)
-        textViewBottom.setAsBackgroundText()
-        linearLayoutVertical.orientation = LinearLayout.VERTICAL
-        linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
-        linearLayoutVertical.addView(textViewTop.tv)
-        linearLayoutVertical.addView(textViewTitle.tv)
-        linearLayoutVertical.addView(textViewBottom.tv)
-        objectCard.addView(linearLayoutVertical)
+        val linearLayoutVertical = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
+        linearLayoutVertical.addViews(listOf(textViewTop.tv, textViewTitle.tv, textViewBottom.tv))
+        objectCard.addView(linearLayoutVertical.linearLayout)
     }
 
     val card: CardView get() = objectCard.card
