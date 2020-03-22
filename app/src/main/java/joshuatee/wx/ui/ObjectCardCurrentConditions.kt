@@ -37,14 +37,12 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
     private val objCard = ObjectCard(context)
     private var imageView = ObjectImageView(context)
     private val textViewTop = ObjectTextView(context, TextSize.MEDIUM)
-    private val textViewBottom = ObjectTextView(context)
-    private val textViewMiddle = ObjectTextView(context)
+    private val textViewBottom = ObjectTextView(context, backgroundText = true)
+    private val textViewMiddle = ObjectTextView(context, backgroundText = true)
 
     init {
         val linearLayoutHorizontal = LinearLayout(context)
         val linearLayoutVertical = LinearLayout(context)
-        textViewBottom.setAsBackgroundText()
-        textViewMiddle.setAsBackgroundText()
         if (version == 2) {
             linearLayoutHorizontal.orientation = LinearLayout.HORIZONTAL
             textViewTop.setPadding(MyApplication.padding, MyApplication.paddingSmall, MyApplication.paddingSmall, 0)
