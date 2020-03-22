@@ -29,6 +29,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import joshuatee.wx.Extensions.setPadding
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
@@ -43,31 +44,26 @@ internal class ObjectSettingsColorLabel(
     private val pref: String
 ) {
 
-    private val objCard = ObjectCard(context, R.color.black)
-    private val tv = TextView(context)
+    private val objectCard = ObjectCard(context, R.color.black)
+    private val textView = TextView(context)
 
     init {
-        ObjectCardText.textViewSetup(tv)
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
+        ObjectCardText.textViewSetup(textView)
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         refreshColor()
-        tv.setPadding(
-            MyApplication.paddingSettings,
-            MyApplication.paddingSettings,
-            MyApplication.paddingSettings,
-            MyApplication.paddingSettings
-        )
-        tv.layoutParams = LinearLayout.LayoutParams(
+        textView.setPadding(MyApplication.paddingSettings)
+        textView.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT,
             1.0f
         )
-        tv.text = label
-        tv.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
-        objCard.card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.black))
-        tv.gravity = Gravity.CENTER_VERTICAL
+        textView.text = label
+        textView.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
+        objectCard.card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.black))
+        textView.gravity = Gravity.CENTER_VERTICAL
         val prefInner = pref
-        objCard.addView(tv)
-        objCard.setOnClickListener(View.OnClickListener {
+        objectCard.addView(textView)
+        objectCard.setOnClickListener(View.OnClickListener {
             ObjectIntent(
                 context,
                 SettingsColorPickerActivity::class.java,
@@ -80,13 +76,13 @@ internal class ObjectSettingsColorLabel(
     fun refreshColor() {
         val colorInt = Utility.readPref(context, pref, UtilityColor.setColor(pref))
         if (colorInt != Color.BLACK) {
-            tv.setTextColor(colorInt)
+            textView.setTextColor(colorInt)
         } else {
-            tv.setTextColor(Color.WHITE)
+            textView.setTextColor(Color.WHITE)
         }
     }
 
-    val card get() = objCard.card
+    val card get() = objectCard.card
 }
 
 
