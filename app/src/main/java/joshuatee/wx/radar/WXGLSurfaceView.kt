@@ -152,13 +152,13 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             mScaleFactor *= detector.scaleFactor
             if (MyApplication.dualpaneshareposn) {
                 (0 until numPanes).forEach {
-                    oglr[it].x = oglr[it].x * (mScaleFactor / oldScaleFactor)
-                    oglr[it].y = oglr[it].y * (mScaleFactor / oldScaleFactor)
+                    oglr[it].x *= (mScaleFactor / oldScaleFactor)
+                    oglr[it].y *= (mScaleFactor / oldScaleFactor)
                     oglr[it].zoom = mScaleFactor
                 }
             } else {
-                oglrCurrent.x = oglrCurrent.x * (mScaleFactor / oldScaleFactor)
-                oglrCurrent.y = oglrCurrent.y * (mScaleFactor / oldScaleFactor)
+                oglrCurrent.x *= (mScaleFactor / oldScaleFactor)
+                oglrCurrent.y *= (mScaleFactor / oldScaleFactor)
                 oglrCurrent.zoom = mScaleFactor
             }
             if (MyApplication.dualpaneshareposn) {
@@ -178,12 +178,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         return true
     }
 
-    override fun onFling(
-        event1: MotionEvent,
-        event2: MotionEvent,
-        velocityX: Float,
-        velocityY: Float
-    ): Boolean {
+    override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
         return true
     }
 
@@ -216,13 +211,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         listener?.onProgressChanged(index, index, idxInt)
     }
 
-    override fun onScroll(
-        e1: MotionEvent,
-        e2: MotionEvent,
-        distanceX: Float,
-        distanceY: Float
-    ): Boolean {
-        //UtilityLog.d("wx", distanceX.toString() + " " + distanceY.toString())
+    override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
         var panned = false
         if (!locationFragment && !MyApplication.wxoglCenterOnLocation) {
             if (distanceX != 0f) {
@@ -259,11 +248,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         return panned
     }
 
-    fun onScrollByKeyboard(
-            distanceX: Float,
-            distanceY: Float
-    ) {
-        //UtilityLog.d("wx", distanceX.toString() + " " + distanceY.toString())
+    fun onScrollByKeyboard(distanceX: Float, distanceY: Float) {
         var panned = false
         if (!locationFragment) {
             if (distanceX != 0f) {
@@ -355,8 +340,6 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
                 requestRender()
             }
         }
-
-
         scaleFactorGlobal = mScaleFactor
         if (fullScreen || numPanes > 1) {
             toolbar!!.visibility = View.VISIBLE
@@ -370,28 +353,16 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
 
     fun zoomInByKey() {
         density = (oglrCurrent.ortInt * 2).toFloat() / width
-        //xPos = 0f
-        //yPos = 0f
-        //xMiddle = (width / 2).toFloat()
-        //yMiddle = (height / 2).toFloat()
         if (MyApplication.dualpaneshareposn && !locationFragment) {
             mScaleFactor *= 2.0f
             (0 until numPanes).forEach {
-                oglr[it].setViewInitial(
-                        mScaleFactor,
-                        oglr[it].x * 2.0f,
-                        oglr[it].y * 2.0f
-                )
+                oglr[it].setViewInitial(mScaleFactor, oglr[it].x * 2.0f, oglr[it].y * 2.0f)
                 wxgl[it].mScaleFactor = mScaleFactor
                 wxgl[it].requestRender()
             }
         } else {
             mScaleFactor *= 2.0f
-            oglrCurrent.setViewInitial(
-                    mScaleFactor,
-                    oglrCurrent.x * 2.0f,
-                    oglrCurrent.y * 2.0f
-            )
+            oglrCurrent.setViewInitial(mScaleFactor, oglrCurrent.x * 2.0f, oglrCurrent.y * 2.0f)
             requestRender()
         }
         scaleFactorGlobal = mScaleFactor
@@ -476,18 +447,13 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
                 else
                     MyApplication.dm.widthPixels / widthDivider
             if (Build.VERSION.SDK_INT >= 19 && (UIPreferences.radarImmersiveMode || UIPreferences.radarToolbarTransparent)) {
-                //height = MyApplication.dm.heightPixels / heightDivider + UtilityUI.statusBarHeight(context)
                 height = MyApplication.dm.heightPixels / heightDivider
                 if (numPanes == 2) {
-                    //height = MyApplication.dm.heightPixels / heightDivider - UtilityUI.statusBarHeight(context) / 2
                     height = MyApplication.dm.heightPixels / heightDivider
                 }
             } else {
                 height = MyApplication.dm.heightPixels / heightDivider - MyApplication.actionBarHeight
             }
-            //if (Build.VERSION.SDK_INT >= 19 && UIPreferences.radarToolbarTransparent && !UIPreferences.radarImmersiveMode && numPanes == 4)
-            //    height = MyApplication.dm.heightPixels / heightDivider - UtilityUI.statusBarHeight(context) / 2
-
             this.setMeasuredDimension(width, height)
         }
     }
