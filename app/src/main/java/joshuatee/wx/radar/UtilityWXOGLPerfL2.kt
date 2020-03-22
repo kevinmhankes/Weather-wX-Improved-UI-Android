@@ -38,24 +38,24 @@ internal object UtilityWXOGLPerfL2 {
     private const val FILE_HEADER_SIZE = 24
 
     fun writeDecodedFile(
-        context: Context,
-        fn: String,
-        radialStart: ByteBuffer,
-        binWord: ByteBuffer,
-        days: ByteBuffer,
-        msecs: ByteBuffer
+            context: Context,
+            fn: String,
+            radialStart: ByteBuffer,
+            binWord: ByteBuffer,
+            days: ByteBuffer,
+            milliSeconds: ByteBuffer
     ) {
         radialStart.position(0)
         binWord.position(0)
         days.position(0)
-        msecs.position(0)
+        milliSeconds.position(0)
         try {
             val fos = context.openFileOutput(fn, Context.MODE_PRIVATE)
             val wChannel = fos.channel
             while (days.hasRemaining())
                 wChannel.write(days)
-            while (msecs.hasRemaining())
-                wChannel.write(msecs)
+            while (milliSeconds.hasRemaining())
+                wChannel.write(milliSeconds)
             while (radialStart.hasRemaining())
                 wChannel.write(radialStart)
             while (binWord.hasRemaining())
@@ -68,24 +68,24 @@ internal object UtilityWXOGLPerfL2 {
     }
 
     fun readDecodedFile(
-        context: Context,
-        fn: String,
-        radialStart: ByteBuffer,
-        binWord: ByteBuffer,
-        days: ByteBuffer,
-        msecs: ByteBuffer
+            context: Context,
+            fileName: String,
+            radialStart: ByteBuffer,
+            binWord: ByteBuffer,
+            days: ByteBuffer,
+            milliSeconds: ByteBuffer
     ) {
         radialStart.position(0)
         binWord.position(0)
         days.position(0)
-        msecs.position(0)
+        milliSeconds.position(0)
         try {
-            val file = File(context.filesDir, fn)
+            val file = File(context.filesDir, fileName)
             val rChannel = FileInputStream(file).channel
             while (days.hasRemaining())
                 rChannel.read(days)
-            while (msecs.hasRemaining())
-                rChannel.read(msecs)
+            while (milliSeconds.hasRemaining())
+                rChannel.read(milliSeconds)
             while (radialStart.hasRemaining())
                 rChannel.read(radialStart)
             while (binWord.hasRemaining())

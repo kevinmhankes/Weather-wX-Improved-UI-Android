@@ -52,11 +52,10 @@ class ObjectCardDashAlertItem(
     private val textViewTitle = ObjectTextView(context)
     private val textViewStart = ObjectTextView(context)
     private val textViewEnd = ObjectTextView(context)
-    private val textViewBottom = ObjectTextView(context)
+    private val textViewBottom = ObjectTextView(context, backgroundText = true)
 
     init {
         val linearLayoutVertical = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
-        textViewBottom.setAsBackgroundText()
         listOf(textViewTop, textViewTitle, textViewStart, textViewEnd, textViewBottom).forEach {
             linearLayoutVertical.addView(it.tv)
         }

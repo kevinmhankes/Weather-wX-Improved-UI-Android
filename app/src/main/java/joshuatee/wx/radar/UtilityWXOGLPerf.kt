@@ -66,7 +66,6 @@ internal object UtilityWXOGLPerf {
             val decompressedStream = compression.decompress(ByteArrayInputStream(buf))
             val dis2 = DataInputStream(BufferedInputStream(decompressedStream))
             dis2.skipBytes(30)
-            var r = 0
             var numberOfRleHalfWords: Int
             radarBuffers.colormap.redValues.put(0, Color.red(radarBuffers.bgColor).toByte())
             radarBuffers.colormap.greenValues.put(0, Color.green(radarBuffers.bgColor).toByte())
@@ -79,8 +78,8 @@ internal object UtilityWXOGLPerf {
             var levelCount: Int
             var binStart: Float
             var bin: Int
-            var cI = 0
-            var rI = 0
+            var colorIndex = 0
+            var radialIndex = 0
             var curLevel = 0.toByte()
             var angleSin: Float
             var angleCos: Float
@@ -89,11 +88,11 @@ internal object UtilityWXOGLPerf {
             var angleNext = 0f
             var angle0 = 0f
             val numberOfRadials = 360
-            while (r < numberOfRadials) {
+            (0 until numberOfRadials).forEach { radialNumber ->
                 numberOfRleHalfWords = dis2.readUnsignedShort()
                 angle = 450f - dis2.readUnsignedShort() / 10f
                 dis2.skipBytes(2)
-                if (r < numberOfRadials - 1) {
+                if (radialNumber < numberOfRadials - 1) {
                     dis2.mark(100000)
                     dis2.skipBytes(numberOfRleHalfWords + 2)
                     angleNext = 450f - dis2.readUnsignedShort() / 10f
@@ -102,8 +101,10 @@ internal object UtilityWXOGLPerf {
                 level = 0.toByte()
                 levelCount = 0
                 binStart = radarBuffers.binSize
-                if (r == 0) angle0 = angle
-                angleV = if (r < numberOfRadials - 1)
+                if (radialNumber == 0) {
+                    angle0 = angle
+                }
+                angleV = if (radialNumber < numberOfRadials - 1)
                     angleNext
                 else
                     angle0
@@ -122,49 +123,31 @@ internal object UtilityWXOGLPerf {
                     else {
                         angleVCos = cos((angleV / M_180_div_PI).toDouble()).toFloat()
                         angleVSin = sin((angleV / M_180_div_PI).toDouble()).toFloat()
-                        radarBuffers.floatBuffer.putFloat(rI, binStart * angleVCos)
-                        rI += 4
-                        radarBuffers.floatBuffer.putFloat(rI, binStart * angleVSin)
-                        rI += 4
-                        radarBuffers.floatBuffer.putFloat(
-                            rI,
-                            (binStart + radarBuffers.binSize * levelCount) * angleVCos
-                        )
-                        rI += 4
-                        radarBuffers.floatBuffer.putFloat(
-                            rI,
-                            (binStart + radarBuffers.binSize * levelCount) * angleVSin
-                        )
-                        rI += 4
+                        radarBuffers.floatBuffer.putFloat(radialIndex, binStart * angleVCos)
+                        radialIndex += 4
+                        radarBuffers.floatBuffer.putFloat(radialIndex, binStart * angleVSin)
+                        radialIndex += 4
+                        radarBuffers.floatBuffer.putFloat(radialIndex, (binStart + radarBuffers.binSize * levelCount) * angleVCos)
+                        radialIndex += 4
+                        radarBuffers.floatBuffer.putFloat(radialIndex, (binStart + radarBuffers.binSize * levelCount) * angleVSin)
+                        radialIndex += 4
                         angleCos = cos((angle / M_180_div_PI).toDouble()).toFloat()
                         angleSin = sin((angle / M_180_div_PI).toDouble()).toFloat()
-                        radarBuffers.floatBuffer.putFloat(
-                            rI,
-                            (binStart + radarBuffers.binSize * levelCount) * angleCos
-                        )
-                        rI += 4
-                        radarBuffers.floatBuffer.putFloat(
-                            rI,
-                            (binStart + radarBuffers.binSize * levelCount) * angleSin
-                        )
-                        rI += 4
-                        radarBuffers.floatBuffer.putFloat(rI, binStart * angleCos)
-                        rI += 4
-                        radarBuffers.floatBuffer.putFloat(rI, binStart * angleSin)
-                        rI += 4
+                        radarBuffers.floatBuffer.putFloat(radialIndex, (binStart + radarBuffers.binSize * levelCount) * angleCos)
+                        radialIndex += 4
+                        radarBuffers.floatBuffer.putFloat(radialIndex, (binStart + radarBuffers.binSize * levelCount) * angleSin)
+                        radialIndex += 4
+                        radarBuffers.floatBuffer.putFloat(radialIndex, binStart * angleCos)
+                        radialIndex += 4
+                        radarBuffers.floatBuffer.putFloat(radialIndex, binStart * angleSin)
+                        radialIndex += 4
                         (0..3).forEach { _ ->
-                            radarBuffers.colorBuffer.put(
-                                cI++,
-                                radarBuffers.colormap.redValues.get(level.toInt() and 0xFF)
-                            )
-                            radarBuffers.colorBuffer.put(
-                                cI++,
-                                radarBuffers.colormap.greenValues.get(level.toInt() and 0xFF)
-                            )
-                            radarBuffers.colorBuffer.put(
-                                cI++,
-                                radarBuffers.colormap.blueValues.get(level.toInt() and 0xFF)
-                            )
+                            radarBuffers.colorBuffer.put(colorIndex, radarBuffers.colormap.redValues.get(level.toInt() and 0xFF))
+                            colorIndex += 1
+                            radarBuffers.colorBuffer.put(colorIndex, radarBuffers.colormap.greenValues.get(level.toInt() and 0xFF))
+                            colorIndex += 1
+                            radarBuffers.colorBuffer.put(colorIndex, radarBuffers.colormap.blueValues.get(level.toInt() and 0xFF))
+                            colorIndex += 1
                         }
                         totalBins += 1
                         level = curLevel
@@ -173,7 +156,6 @@ internal object UtilityWXOGLPerf {
                     }
                     bin += 1
                 }
-                r += 1
             }
             dis2.close()
         } catch (e: Exception) {
@@ -193,7 +175,6 @@ internal object UtilityWXOGLPerf {
         radarBuffers.colormap.greenValues.put(0, Color.green(radarBuffers.bgColor).toByte())
         radarBuffers.colormap.blueValues.put(0, Color.blue(radarBuffers.bgColor).toByte())
         var totalBins = 0
-        var g = 0
         var angle: Float
         var angleV: Float
         var level: Int
@@ -201,8 +182,8 @@ internal object UtilityWXOGLPerf {
         var binStart: Float
         var bin: Int
         var bI = 0
-        var cI = 0
-        var rI = 0
+        var colorIndex = 0
+        var radialIndex = 0
         var curLevel: Int
         var angleSin: Float
         var angleCos: Float
@@ -222,13 +203,13 @@ internal object UtilityWXOGLPerf {
             radarBlackHole = 4.0f
             radarBlackHoleAdd = 4.0f
         }
-        while (g < radarBuffers.numberOfRadials) {
-            angle = radialStart.getFloat(g * 4)
+        (0 until radarBuffers.numberOfRadials).forEach { radialNumber ->
+            angle = radialStart.getFloat(radialNumber * 4)
             level = binBuff.get(bI).toInt()
             levelCount = 0
             binStart = radarBlackHole
-            angleV = if (g < radarBuffers.numberOfRadials - 1)
-                radialStart.getFloat(g * 4 + 4)
+            angleV = if (radialNumber < radarBuffers.numberOfRadials - 1)
+                radialStart.getFloat(radialNumber * 4 + 4)
             else
                 radialStart.getFloat(0)
             bin = 0
@@ -240,49 +221,31 @@ internal object UtilityWXOGLPerf {
                 else {
                     angleVCos = cos((angleV / M_180_div_PI).toDouble()).toFloat()
                     angleVSin = sin((angleV / M_180_div_PI).toDouble()).toFloat()
-                    radarBuffers.floatBuffer.putFloat(rI, binStart * angleVCos)
-                    rI += 4
-                    radarBuffers.floatBuffer.putFloat(rI, binStart * angleVSin)
-                    rI += 4
-                    radarBuffers.floatBuffer.putFloat(
-                        rI,
-                        (binStart + radarBuffers.binSize * levelCount) * angleVCos
-                    )
-                    rI += 4
-                    radarBuffers.floatBuffer.putFloat(
-                        rI,
-                        (binStart + radarBuffers.binSize * levelCount) * angleVSin
-                    )
-                    rI += 4
+                    radarBuffers.floatBuffer.putFloat(radialIndex, binStart * angleVCos)
+                    radialIndex += 4
+                    radarBuffers.floatBuffer.putFloat(radialIndex, binStart * angleVSin)
+                    radialIndex += 4
+                    radarBuffers.floatBuffer.putFloat(radialIndex, (binStart + radarBuffers.binSize * levelCount) * angleVCos)
+                    radialIndex += 4
+                    radarBuffers.floatBuffer.putFloat(radialIndex, (binStart + radarBuffers.binSize * levelCount) * angleVSin)
+                    radialIndex += 4
                     angleCos = cos((angle / M_180_div_PI).toDouble()).toFloat()
                     angleSin = sin((angle / M_180_div_PI).toDouble()).toFloat()
-                    radarBuffers.floatBuffer.putFloat(
-                        rI,
-                        (binStart + radarBuffers.binSize * levelCount) * angleCos
-                    )
-                    rI += 4
-                    radarBuffers.floatBuffer.putFloat(
-                        rI,
-                        (binStart + radarBuffers.binSize * levelCount) * angleSin
-                    )
-                    rI += 4
-                    radarBuffers.floatBuffer.putFloat(rI, binStart * angleCos)
-                    rI += 4
-                    radarBuffers.floatBuffer.putFloat(rI, binStart * angleSin)
-                    rI += 4
+                    radarBuffers.floatBuffer.putFloat(radialIndex, (binStart + radarBuffers.binSize * levelCount) * angleCos)
+                    radialIndex += 4
+                    radarBuffers.floatBuffer.putFloat(radialIndex, (binStart + radarBuffers.binSize * levelCount) * angleSin)
+                    radialIndex += 4
+                    radarBuffers.floatBuffer.putFloat(radialIndex, binStart * angleCos)
+                    radialIndex += 4
+                    radarBuffers.floatBuffer.putFloat(radialIndex, binStart * angleSin)
+                    radialIndex += 4
                     (0..3).forEach { _ ->
-                        radarBuffers.colorBuffer.put(
-                            cI++,
-                            radarBuffers.colormap.redValues.get(level and 0xFF)
-                        )
-                        radarBuffers.colorBuffer.put(
-                            cI++,
-                            radarBuffers.colormap.greenValues.get(level and 0xFF)
-                        )
-                        radarBuffers.colorBuffer.put(
-                            cI++,
-                            radarBuffers.colormap.blueValues.get(level and 0xFF)
-                        )
+                        radarBuffers.colorBuffer.put(colorIndex, radarBuffers.colormap.redValues.get(level and 0xFF))
+                        colorIndex += 1
+                        radarBuffers.colorBuffer.put(colorIndex, radarBuffers.colormap.greenValues.get(level and 0xFF))
+                        colorIndex += 1
+                        radarBuffers.colorBuffer.put(colorIndex, radarBuffers.colormap.blueValues.get(level and 0xFF))
+                        colorIndex += 1
                     }
                     totalBins += 1
                     level = curLevel
@@ -291,7 +254,6 @@ internal object UtilityWXOGLPerf {
                 }
                 bin += 1
             }
-            g += 1
         }
         return totalBins
     }
