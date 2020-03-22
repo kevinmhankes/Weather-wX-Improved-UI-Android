@@ -212,9 +212,9 @@ internal object WXGLNexradLevel3StormInfo {
             distance,
             bearing
         )
-        val tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(ec, pn)
-        list.add(tmpCoords[0])
-        list.add(tmpCoords[1])
+        val items = UtilityCanvasProjection.computeMercatorNumbers(ec, pn)
+        list.add(items[0])
+        list.add(items[1])
     }
 
     private fun drawLine(
@@ -236,8 +236,8 @@ internal object WXGLNexradLevel3StormInfo {
             distance,
             bearing
         )
-        val tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(ec, pn)
-        list.add(tmpCoords[0])
-        list.add(tmpCoords[1])
+        val items = UtilityCanvasProjection.computeMercatorNumbers(ec, pn)
+        list.add(items[0])
+        list.add(items[1])
     }
 }
