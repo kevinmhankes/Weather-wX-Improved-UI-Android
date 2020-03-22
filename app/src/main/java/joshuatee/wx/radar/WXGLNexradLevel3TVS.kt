@@ -60,10 +60,10 @@ internal object WXGLNexradLevel3TVS {
         val bearing = DoubleArray(2)
         tvs.forEach {
             val ecc = ExternalGeodeticCalculator()
-            val tmpStr = it.parse(RegExp.tvsPattern2)
-            val tmpStrArr = MyApplication.slash.split(tmpStr)
-            val degree = tmpStrArr[0].replace(" ", "").toIntOrNull() ?: 0
-            val nm = tmpStrArr[1].replace(" ", "").toIntOrNull() ?: 0
+            val string = it.parse(RegExp.tvsPattern2)
+            val items = MyApplication.slash.split(string)
+            val degree = items[0].replace(" ", "").toIntOrNull() ?: 0
+            val nm = items[1].replace(" ", "").toIntOrNull() ?: 0
             val start = ExternalGlobalCoordinates(location)
             val ec = ecc.calculateEndingGlobalCoordinates(
                 ExternalEllipsoid.WGS84,
