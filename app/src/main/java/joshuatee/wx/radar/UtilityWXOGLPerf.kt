@@ -499,12 +499,7 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun genCircleWithColor(
-        buffers: ObjectOglBuffers,
-        pn: ProjectionNumbers,
-        x: DoubleArray,
-        y: DoubleArray
-    ) {
+    fun genCircleWithColor(buffers: ObjectOglBuffers, pn: ProjectionNumbers, x: DoubleArray, y: DoubleArray) {
         var pointX: Double
         var pointY: Double
         var pixYD: Float
@@ -514,8 +509,8 @@ internal object UtilityWXOGLPerf {
         var test1: Float
         var test2: Float
         val len = buffers.lenInit * 0.50f
-        var iI = 0
-        var lI = 0
+        var indexForIndex = 0
+        var bufferIndex = 0
         val col = ByteArray(3)
         val triangleAmount = buffers.triangleCount
         buffers.setToPositionZero()
@@ -533,39 +528,26 @@ internal object UtilityWXOGLPerf {
                 pixYD = -((test1 - test2) * pn.oneDegreeScaleFactorFloat) + pn.yCenter.toFloat()
                 pixXD = (-((pointY - pn.yDbl) * pn.oneDegreeScaleFactor) + pn.xCenter).toFloat()
                 (0 until triangleAmount).forEach {
-                    buffers.putFloat(lI, pixXD)
-                    lI += 4
-                    buffers.putFloat(lI, -pixYD)
-                    lI += 4
-                    buffers.putFloat(
-                        lI,
-                        pixXD + len * cos((it * TWICE_PI / triangleAmount).toDouble()).toFloat()
-                    )
-                    lI += 4
-                    buffers.putFloat(
-                        lI,
-                        -pixYD + len * sin((it * TWICE_PI / triangleAmount).toDouble()).toFloat()
-                    )
-                    lI += 4
-                    buffers.putFloat(
-                        lI,
-                        pixXD + len * cos(((it + 1) * TWICE_PI / triangleAmount).toDouble()).toFloat()
-                    )
-                    lI += 4
-                    buffers.putFloat(
-                        lI,
-                        -pixYD + len * sin(((it + 1) * TWICE_PI / triangleAmount).toDouble()).toFloat()
-                    )
-                    lI += 4
-                    buffers.putIndex(iI, ixCount.toShort())
-                    iI += 2
-                    buffers.putIndex(iI, (ixCount + 1).toShort())
-                    iI += 2
-                    buffers.putIndex(iI, (ixCount + 2).toShort())
-                    iI += 2
+                    buffers.putFloat(bufferIndex, pixXD)
+                    bufferIndex += 4
+                    buffers.putFloat(bufferIndex, -pixYD)
+                    bufferIndex += 4
+                    buffers.putFloat(bufferIndex, pixXD + len * cos((it * TWICE_PI / triangleAmount).toDouble()).toFloat())
+                    bufferIndex += 4
+                    buffers.putFloat(bufferIndex, -pixYD + len * sin((it * TWICE_PI / triangleAmount).toDouble()).toFloat())
+                    bufferIndex += 4
+                    buffers.putFloat(bufferIndex, pixXD + len * cos(((it + 1) * TWICE_PI / triangleAmount).toDouble()).toFloat())
+                    bufferIndex += 4
+                    buffers.putFloat(bufferIndex, -pixYD + len * sin(((it + 1) * TWICE_PI / triangleAmount).toDouble()).toFloat())
+                    bufferIndex += 4
+                    buffers.putIndex(indexForIndex, ixCount.toShort())
+                    indexForIndex += 2
+                    buffers.putIndex(indexForIndex, (ixCount + 1).toShort())
+                    indexForIndex += 2
+                    buffers.putIndex(indexForIndex, (ixCount + 2).toShort())
+                    indexForIndex += 2
                     ixCount += 3
                     (0..2).forEach { _ ->
-                        // TODO use class method
                         buffers.putColor(col[0])
                         buffers.putColor(col[1])
                         buffers.putColor(col[2])
