@@ -24,6 +24,7 @@ package joshuatee.wx.ui
 import android.content.Context
 import android.graphics.Bitmap
 import android.widget.ImageView
+import joshuatee.wx.Extensions.setPadding
 import joshuatee.wx.MyApplication
 import joshuatee.wx.fragments.UtilityLocationFragment
 
@@ -33,12 +34,7 @@ class ObjectImageView(context: Context) {
 
     fun setImage(bitmap: Bitmap) {
         imageView.setImageBitmap(bitmap)
-        imageView.setPadding(
-            MyApplication.paddingSmall,
-            MyApplication.paddingSmall,
-            MyApplication.paddingSmall,
-            MyApplication.paddingSmall
-        )
+        imageView.setPadding(MyApplication.paddingSmall)
         val layoutParams = imageView.layoutParams
         val imageSize = UtilityLocationFragment.setNwsIconSize()
         layoutParams.width = imageSize

@@ -23,6 +23,7 @@ package joshuatee.wx.Extensions
 
 import android.graphics.Bitmap
 import android.os.Build
+import android.view.View
 import java.util.regex.Pattern
 
 import joshuatee.wx.util.UtilityString
@@ -132,6 +133,10 @@ fun String.parseLastMatch(pattern: Pattern): String {
 
 fun String.parseLastMatch(match: String): String {
     return UtilityString.parseLastMatch(this, match)
+}
+
+fun View.setPadding(padding: Int) {
+    this.setPadding(padding, padding, padding, padding)
 }
 
 
