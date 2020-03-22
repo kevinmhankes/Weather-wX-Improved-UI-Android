@@ -167,11 +167,7 @@ internal object UtilityWXOGLPerf {
         return totalBins
     }
 
-    fun genRadials(
-        radarBuffers: ObjectOglRadarBuffers,
-        binBuff: ByteBuffer,
-        radialStart: ByteBuffer
-    ): Int {
+    fun genRadials(radarBuffers: ObjectOglRadarBuffers, binBuff: ByteBuffer, radialStart: ByteBuffer): Int {
         radarBuffers.colormap.redValues.put(0, Color.red(radarBuffers.bgColor).toByte())
         radarBuffers.colormap.greenValues.put(0, Color.green(radarBuffers.bgColor).toByte())
         radarBuffers.colormap.blueValues.put(0, Color.blue(radarBuffers.bgColor).toByte())
@@ -209,17 +205,18 @@ internal object UtilityWXOGLPerf {
             level = binBuff.get(bI).toInt()
             levelCount = 0
             binStart = radarBlackHole
-            angleV = if (radialNumber < radarBuffers.numberOfRadials - 1)
+            angleV = if (radialNumber < radarBuffers.numberOfRadials - 1) {
                 radialStart.getFloat(radialNumber * 4 + 4)
-            else
+            } else {
                 radialStart.getFloat(0)
+            }
             bin = 0
             while (bin < radarBuffers.numRangeBins) {
                 curLevel = binBuff.get(bI).toInt()
                 bI += 1
-                if (curLevel == level)
+                if (curLevel == level) {
                     levelCount += 1
-                else {
+                } else {
                     angleVCos = cos((angleV / M_180_div_PI).toDouble()).toFloat()
                     angleVSin = sin((angleV / M_180_div_PI).toDouble()).toFloat()
                     radarBuffers.floatBuffer.putFloat(radialIndex, binStart * angleVCos)
