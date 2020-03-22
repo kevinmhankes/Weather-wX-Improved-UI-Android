@@ -44,6 +44,8 @@ class FavRemoveActivity : BaseActivity() {
     // arg1: type such as SND WFO RID
     //
 
+    // FIXME this is nasty, works but has not been touched in years
+
     companion object {
         const val TYPE: String = ""
     }

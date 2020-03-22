@@ -61,6 +61,13 @@ class ObjectLinearLayout(context: Context) {
         linearLayout.removeAllViews()
     }
 
+    fun matchParent() {
+        linearLayout.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        )
+    }
+
     var visibility: Int
         get() = linearLayout.visibility
         set(value) {

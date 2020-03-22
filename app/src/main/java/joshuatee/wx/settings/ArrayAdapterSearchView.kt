@@ -16,8 +16,7 @@ import androidx.appcompat.R
 
 class ArrayAdapterSearchView : SearchView {
 
-    private var mSearchAutoComplete: SearchAutoComplete =
-        findViewById(R.id.search_src_text)
+    private var searchAutoComplete: SearchAutoComplete = findViewById(R.id.search_src_text)
 
     constructor(context: Context) : super(context) {
         initialize()
@@ -35,14 +34,14 @@ class ArrayAdapterSearchView : SearchView {
     override fun setSuggestionsAdapter(adapter: CursorAdapter) {}
 
     fun setOnItemClickListener(listener: AdapterView.OnItemClickListener?) {
-        mSearchAutoComplete.onItemClickListener = listener
+        searchAutoComplete.onItemClickListener = listener
     }
 
     fun setAdapter(adapter: ArrayAdapter<*>?) {
-        mSearchAutoComplete.setAdapter<ArrayAdapter<*>>(adapter)
+        searchAutoComplete.setAdapter<ArrayAdapter<*>>(adapter)
     }
 
     fun setText(text: String) {
-        mSearchAutoComplete.setText(text)
+        searchAutoComplete.setText(text)
     }
 }
