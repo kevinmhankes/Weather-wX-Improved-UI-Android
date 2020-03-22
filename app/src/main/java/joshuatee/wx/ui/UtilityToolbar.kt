@@ -43,14 +43,6 @@ object UtilityToolbar {
         }
     }
 
-    /*fun transparentToolbars(context: Context, toolbar: Toolbar) {
-        if (UIPreferences.radarToolbarTransparent) {
-            toolbar.background.mutate().alpha = 0
-            toolbar.background.alpha = 0
-            toolbar.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
-        }
-    }*/
-
     fun fullScreenMode(toolbar: Toolbar, toolbarBottom: Toolbar) {
         if (android.os.Build.VERSION.SDK_INT > 20) {
             toolbar.elevation = MyApplication.elevationPref

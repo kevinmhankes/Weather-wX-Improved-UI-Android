@@ -23,10 +23,12 @@ package joshuatee.wx.ui
 
 import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.view.View
 import joshuatee.wx.util.ImageMap
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.MyApplication
+import joshuatee.wx.util.UtilityLog
 
 class ObjectImageMap(
     val activity: Activity,
@@ -38,18 +40,33 @@ class ObjectImageMap(
 ) {
 
     var map: ImageMap = activity.findViewById(resId)
+    var isRadarWithTransparent = false
 
     init {
         map.visibility = View.GONE
     }
 
     fun toggleMap() {
+        var toolbarAlpha = 255
+        if (Build.VERSION.SDK_INT > 20) {
+            toolbarAlpha = toolbar.background.alpha
+        }
+        if (toolbarAlpha == 0) {
+            isRadarWithTransparent = true
+        }
         if (map.visibility == View.GONE) {
             setupMap()
+            if (isRadarWithTransparent) {
+                toolbar.background.mutate().alpha = 255
+                toolbarBottom.background.mutate().alpha = 255
+            }
         } else {
             map.visibility = View.GONE
             views.forEach {
                 it.visibility = View.VISIBLE
+            }
+            if (isRadarWithTransparent) {
+                UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
             }
         }
     }
@@ -70,6 +87,9 @@ class ObjectImageMap(
         addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
             override fun onImageMapClicked(id: Int, im2: ImageMap) {
                 im2.visibility = View.GONE
+                if (isRadarWithTransparent) {
+                    UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
+                }
                 fn(mapFn(id))
             }
 
