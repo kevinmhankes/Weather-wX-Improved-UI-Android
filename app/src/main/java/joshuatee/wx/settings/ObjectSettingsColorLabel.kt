@@ -36,23 +36,21 @@ import joshuatee.wx.ui.ObjectTextView
 import joshuatee.wx.util.Utility
 
 internal class ObjectSettingsColorLabel(
-    val context: Context,
-    label: String,
-    private val pref: String
+        val context: Context,
+        label: String,
+        private val pref: String
 ) {
 
     private val objectCard = ObjectCard(context, R.color.black)
     private val objectTextView = ObjectTextView(context)
 
     init {
-        //ObjectCardText.textViewSetup(textView)
-        //textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         refreshColor()
         objectTextView.setPadding(MyApplication.paddingSettings)
         objectTextView.tv.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1.0f
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1.0f
         )
         objectTextView.text = label
         objectTextView.tv.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
@@ -62,10 +60,10 @@ internal class ObjectSettingsColorLabel(
         objectCard.addView(objectTextView.tv)
         objectCard.setOnClickListener(View.OnClickListener {
             ObjectIntent(
-                context,
-                SettingsColorPickerActivity::class.java,
-                SettingsColorPickerActivity.INFO,
-                arrayOf(prefInner, label)
+                    context,
+                    SettingsColorPickerActivity::class.java,
+                    SettingsColorPickerActivity.INFO,
+                    arrayOf(prefInner, label)
             )
         })
     }
