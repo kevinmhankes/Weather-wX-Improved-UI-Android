@@ -127,8 +127,7 @@ internal class ObjectMetar(context: Context, location: LatLon) {
         currentCal.time = Date()
         currentCal.add(Calendar.DATE, 1)
         val currentTimeTomorrow = currentCal.time
-        val fallsBetweenTomorrow =
-            currentTimeTomorrow.after(sunRiseDate) && currentTimeTomorrow.before(sunSetDate)
+        val fallsBetweenTomorrow = currentTimeTomorrow.after(sunRiseDate) && currentTimeTomorrow.before(sunSetDate)
         var timeOfDay = "night"
         if (fallsBetween || fallsBetweenTomorrow) {
             timeOfDay = "day"

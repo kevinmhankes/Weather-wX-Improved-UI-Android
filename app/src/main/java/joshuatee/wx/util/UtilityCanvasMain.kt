@@ -94,8 +94,7 @@ object UtilityCanvasMain {
     ) {
         val highwayProvider = scaleType.isCanvas
         val stateLinesProvider = scaleType.isCanvas
-        val countyProvider =
-                scaleType === ProjectionType.WX_RENDER_48 || scaleType === ProjectionType.WX_RENDER
+        val countyProvider = scaleType === ProjectionType.WX_RENDER_48 || scaleType === ProjectionType.WX_RENDER
         val cityProvider = true
         val windBarbProvider = scaleType.isMercator
         val stormMotionProvider = scaleType.isMercator

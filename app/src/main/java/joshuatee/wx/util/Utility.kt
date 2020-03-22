@@ -44,7 +44,7 @@ object Utility {
         diagnostics += MyApplication.dm.heightPixels.toString() + " Screen height" + MyApplication.newline
         diagnostics += UtilityUI.statusBarHeight(context).toString() + " Status bar height" + MyApplication.newline
         var landScape = false
-        if(context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
+        if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             landScape = true
         }
         diagnostics += landScape.toString() + " Landscape" + MyApplication.newline
@@ -240,8 +240,7 @@ object Utility {
         else -> R.style.MyCustomTheme_NOAB
     }
 
-    fun getHazards(url: String): String =
-            url.parse("<!-- AddThis Button END --> {3}<hr /><br />(.*?)</div>")
+    fun getHazards(url: String): String = url.parse("<!-- AddThis Button END --> {3}<hr /><br />(.*?)</div>")
 
     fun fromHtml(source: String): String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY).toString()
