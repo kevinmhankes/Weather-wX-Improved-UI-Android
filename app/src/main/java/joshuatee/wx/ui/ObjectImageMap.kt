@@ -34,7 +34,7 @@ class ObjectImageMap(
     resId: Int,
     val toolbar: Toolbar,
     val toolbarBottom: Toolbar,
-    private val viewArr: List<View>
+    private val views: List<View>
 ) {
 
     var map: ImageMap = activity.findViewById(resId)
@@ -48,14 +48,14 @@ class ObjectImageMap(
             setupMap()
         } else {
             map.visibility = View.GONE
-            viewArr.forEach {
+            views.forEach {
                 it.visibility = View.VISIBLE
             }
         }
     }
 
     private fun setupMap() {
-        viewArr.forEach {
+        views.forEach {
             it.visibility = View.GONE
         }
         setupImageMap(context, toolbar, toolbarBottom)
