@@ -24,23 +24,19 @@ package joshuatee.wx.settings
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Spinner
-import android.widget.TextView
 import androidx.cardview.widget.CardView
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.external.UtilityStringExternal
-import joshuatee.wx.ui.ObjectCard
-import joshuatee.wx.ui.ObjectCardText
-import joshuatee.wx.ui.ObjectDialogue
+import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
 
@@ -53,35 +49,22 @@ class ObjectSettingsSpinner(
     spinnerArr: List<String>
 ) {
 
-    private val objCard = ObjectCard(context)
+    private val objectCard = ObjectCard(context)
 
     init {
-        val tv = TextView(context)
-        ObjectCardText.textViewSetup(tv)
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-        tv.setTextColor(UIPreferences.backgroundColor)
-        tv.setPadding(
-            MyApplication.paddingSettings,
-            MyApplication.paddingSettings,
-            MyApplication.paddingSettings,
-            MyApplication.paddingSettings
-        )
-        tv.layoutParams = LinearLayout.LayoutParams(
+        val objectTextView = ObjectTextView(context)
+        objectTextView.setPadding(MyApplication.paddingSettings)
+        objectTextView.tv.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT,
             1.0f
         )
-        tv.text = label
-        tv.gravity = Gravity.CENTER_VERTICAL
-        tv.setOnClickListener { ObjectDialogue(context, context.resources.getString(strId)) }
-        val ll = LinearLayout(context)
-        ll.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT
-        )
-        ll.orientation = LinearLayout.HORIZONTAL
-        ll.gravity = Gravity.CENTER_VERTICAL
-        ll.addView(tv)
+        objectTextView.text = label
+        objectTextView.gravity = Gravity.CENTER_VERTICAL
+        objectTextView.tv.setOnClickListener { ObjectDialogue(context, context.resources.getString(strId)) }
+        val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.HORIZONTAL, Gravity.CENTER_VERTICAL)
+        objectLinearLayout.matchParent()
+        objectLinearLayout.addView(objectTextView.tv)
         val spinner = Spinner(context)
         if (Build.VERSION.SDK_INT > 20) {
             if (UIPreferences.themeInt == R.style.MyCustomTheme_white_NOAB) {
@@ -119,11 +102,11 @@ class ObjectSettingsSpinner(
             )
         }
         spinner.setSelection(dataAdapter.getPosition(val1))
-        ll.addView(spinner)
-        objCard.addView(ll)
+        objectLinearLayout.addView(spinner)
+        objectCard.addView(objectLinearLayout.linearLayout)
     }
 
-    val card: CardView get() = objCard.card
+    val card: CardView get() = objectCard.card
 
     companion object {
 
