@@ -579,12 +579,7 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun decode8BitWX(
-        context: Context,
-        src: String,
-        radialStartAngle: ByteBuffer,
-        binWord: ByteBuffer
-    ): Short {
+    fun decode8BitWX(context: Context, src: String, radialStartAngle: ByteBuffer, binWord: ByteBuffer): Short {
         var numberOfRangeBins = 0
         try {
             val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, src))
