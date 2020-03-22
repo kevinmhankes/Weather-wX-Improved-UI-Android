@@ -130,22 +130,21 @@ object UtilityUI {
     }
 
     fun statusBarHeight(context: Context): Int {
-        var result = 0
         val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
-        if (resourceId > 0) {
-            result = context.resources.getDimensionPixelSize(resourceId)
+        return if (resourceId > 0) {
+            context.resources.getDimensionPixelSize(resourceId)
+        } else {
+            0
         }
-        return result
     }
 
     fun navigationBarHeight(context: Context): Int {
-        var result = 0
-        val resourceId =
-            context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
-        if (resourceId > 0) {
-            result = context.resources.getDimensionPixelSize(resourceId)
+        val resourceId = context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
+        return if (resourceId > 0) {
+            context.resources.getDimensionPixelSize(resourceId)
+        } else {
+            0
         }
-        return result
     }
 
     fun spToPx(sp: Int, context: Context): Float {
@@ -161,9 +160,6 @@ object UtilityUI {
     }
 
     fun isLandScape(context: Context): Boolean {
-        if(context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            return true
-        }
-        return false
+        return context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     }
 }
