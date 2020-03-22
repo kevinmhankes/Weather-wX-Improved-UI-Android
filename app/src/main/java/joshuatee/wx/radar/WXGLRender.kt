@@ -378,7 +378,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         val cB = objColPal.blueValues
         try {
             if (product.startsWith("NC") || radarBuffers.productCode.toInt() == 41 || radarBuffers.productCode.toInt() == 57) {
-                totalBins = UtilityWXOGLPerfRaster.genRaster(radarBuffers, radarL3Object.binWord)
+                totalBins = UtilityWXOGLPerfRaster.generate(radarBuffers, radarL3Object.binWord)
             } else if (!product.contains("L2")) {
                 totalBins = // FIXME
                         if (radarBuffers.productCode != 56.toShort()

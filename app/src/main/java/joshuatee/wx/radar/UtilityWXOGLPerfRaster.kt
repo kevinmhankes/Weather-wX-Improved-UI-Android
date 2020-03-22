@@ -27,7 +27,7 @@ import java.nio.ByteBuffer
 
 internal object UtilityWXOGLPerfRaster {
 
-    fun genRaster(radarBuffers: ObjectOglRadarBuffers, binBuff: ByteBuffer): Int {
+    fun generate(radarBuffers: ObjectOglRadarBuffers, binBuff: ByteBuffer): Int {
         radarBuffers.colormap.redValues.put(0, Color.red(radarBuffers.bgColor).toByte())
         radarBuffers.colormap.greenValues.put(0, Color.green(radarBuffers.bgColor).toByte())
         radarBuffers.colormap.blueValues.put(0, Color.blue(radarBuffers.bgColor).toByte())
