@@ -153,10 +153,10 @@ object UtilityUI {
 
     fun isTablet(): Boolean {
         val displayMetrics = MyApplication.dm
-        val wInches = displayMetrics.widthPixels / displayMetrics.densityDpi
-        val hInches = displayMetrics.heightPixels / displayMetrics.densityDpi
-        val screenDiagonal = sqrt(wInches.toDouble().pow(2.0) + hInches.toDouble().pow(2.0))
-        return (screenDiagonal >= 7.0)
+        val width = displayMetrics.widthPixels / displayMetrics.densityDpi
+        val height = displayMetrics.heightPixels / displayMetrics.densityDpi
+        val screenDiagonal = sqrt(width.toDouble().pow(2.0) + height.toDouble().pow(2.0))
+        return screenDiagonal >= 7.0
     }
 
     fun isLandScape(context: Context): Boolean {

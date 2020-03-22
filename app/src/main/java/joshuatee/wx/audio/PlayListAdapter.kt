@@ -13,8 +13,7 @@ import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectTextView
 import joshuatee.wx.util.Utility
 
-internal class PlayListAdapter(private val dataSet: MutableList<String>) :
-    RecyclerView.Adapter<PlayListAdapter.DataObjectHolder>() {
+internal class PlayListAdapter(private val dataSet: MutableList<String>) : RecyclerView.Adapter<PlayListAdapter.DataObjectHolder>() {
 
     private val maxLength = 400
 
@@ -22,7 +21,7 @@ internal class PlayListAdapter(private val dataSet: MutableList<String>) :
         View.OnClickListener {
 
         val label = ObjectTextView(itemView, R.id.singletext, UIPreferences.textHighlightColor, TextSize.MEDIUM)
-        val contentPreview = ObjectTextView(itemView, R.id.text2)
+        val contentPreview = ObjectTextView(itemView, R.id.text2, backgroundText = true)
         val timeAndSize = ObjectTextView(itemView, R.id.timeandsize, TextSize.SMALL)
 
         init {
@@ -49,12 +48,11 @@ internal class PlayListAdapter(private val dataSet: MutableList<String>) :
     }
 
     override fun onBindViewHolder(holder: DataObjectHolder, position: Int) {
-        val dataList = dataSet[position].split(";")
-        holder.label.text = dataList[0]
-        holder.timeAndSize.text = dataList[1]
-        val tmpStr = Utility.fromHtml(Utility.readPref("PLAYLIST_" + dataList[0], ""))
-        holder.contentPreview.text = tmpStr.replace(MyApplication.newline, " ").take(maxLength)
-        holder.contentPreview.setAsBackgroundText()
+        val items = dataSet[position].split(";")
+        holder.label.text = items[0]
+        holder.timeAndSize.text = items[1]
+        val string = Utility.fromHtml(Utility.readPref("PLAYLIST_" + items[0], ""))
+        holder.contentPreview.text = string.replace(MyApplication.newline, " ").take(maxLength)
     }
 
     fun deleteItem(index: Int) {

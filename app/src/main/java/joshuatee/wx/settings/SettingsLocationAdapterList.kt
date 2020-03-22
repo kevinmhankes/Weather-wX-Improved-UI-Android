@@ -12,8 +12,7 @@ import joshuatee.wx.objects.TextSize
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectTextView
 
-internal class SettingsLocationAdapterList(private val dataSet: MutableList<String>) :
-    RecyclerView.Adapter<SettingsLocationAdapterList.DataObjectHolder>() {
+internal class SettingsLocationAdapterList(private val dataSet: MutableList<String>) : RecyclerView.Adapter<SettingsLocationAdapterList.DataObjectHolder>() {
 
     companion object {
         private var myClickListener: MyClickListener? = null
@@ -23,11 +22,11 @@ internal class SettingsLocationAdapterList(private val dataSet: MutableList<Stri
 
         val text1 = ObjectTextView(itemView, R.id.text1, TextSize.MEDIUM)
         val currentConditions = ObjectTextView(itemView, R.id.currentConditions, TextSize.SMALL)
-        val text2 = ObjectTextView(itemView, R.id.text2)
-        val text3 = ObjectTextView(itemView, R.id.text3)
-        val objCard = ObjectCard(itemView, R.id.cv1)
+        val text2 = ObjectTextView(itemView, R.id.text2, backgroundText = true)
+        val text3 = ObjectTextView(itemView, R.id.text3, backgroundText = true)
 
         init {
+            ObjectCard(itemView, R.id.cv1)
             itemView.setOnClickListener(this)
         }
 
@@ -81,15 +80,11 @@ internal class SettingsLocationAdapterList(private val dataSet: MutableList<Stri
                 Location.getX(position),
                 6
             )} , ${UtilityStringExternal.truncate(Location.getY(position), 6)}"
-        holder.text2.setAsBackgroundText()
         if (nonUs) {
-            holder.text3.text =
-                "RID: ${Location.getRid(position)} ${UtilityLocation.hasAlerts(position)}"
+            holder.text3.text = "RID: ${Location.getRid(position)} ${UtilityLocation.hasAlerts(position)}"
         } else {
-            holder.text3.text =
-                "WFO: ${Location.getWfo(position)}  RID: ${Location.getRid(position)}"
+            holder.text3.text = "WFO: ${Location.getWfo(position)}  RID: ${Location.getRid(position)}"
         }
-        holder.text3.setAsBackgroundText()
     }
 
     fun deleteItem(index: Int) {
