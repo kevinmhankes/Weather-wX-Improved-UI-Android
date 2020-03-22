@@ -264,7 +264,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
         numPanesArr.forEach {
             wxgltextArr.add(WXGLTextObject(this, rlArr[it], glviewArr[it], oglrArr[it], numPanes, it))
-            glviewArr[it].wxgltextArr = wxgltextArr
+            glviewArr[it].wxglTextObjects = wxgltextArr
             wxgltextArr[it].initializeTextLabels(this)
         }
         if (MyApplication.wxoglRememberLocation && !archiveMode && !fixedSite) {

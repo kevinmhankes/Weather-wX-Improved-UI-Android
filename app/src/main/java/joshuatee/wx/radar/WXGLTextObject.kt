@@ -92,7 +92,7 @@ class WXGLTextObject(
         if (GeographyType.CITIES.pref && cityextTvArrInit) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             hideCitiesExtended()
-            wxglSurfaceView.citiesExtAl = mutableListOf()
+            wxglSurfaceView.cities = mutableListOf()
             scale = getScale()
             oglrZoom = 1.0f
             if (wxglRender.zoom < 1.00f) {
@@ -103,11 +103,11 @@ class WXGLTextObject(
             if (wxglRender.zoom > cityMinZoom) {
                 val cityExtLength = UtilityCitiesExtended.cities.size
                 for (c in 0 until cityExtLength) {
-                    if (wxglSurfaceView.citiesExtAl.size > maxCitiesPerGlview) {
+                    if (wxglSurfaceView.cities.size > maxCitiesPerGlview) {
                         break
                     }
                     checkAndDrawText(
-                            wxglSurfaceView.citiesExtAl,
+                            wxglSurfaceView.cities,
                             UtilityCitiesExtended.cities[c].latD,
                             UtilityCitiesExtended.cities[c].lonD,
                             UtilityCitiesExtended.cities[c].name,
@@ -123,9 +123,9 @@ class WXGLTextObject(
     }
 
     private fun hideCitiesExtended() {
-        wxglSurfaceView.citiesExtAl.indices.forEach {
-            wxglSurfaceView.citiesExtAl[it].visibility = View.GONE
-            relativeLayout.removeView(wxglSurfaceView.citiesExtAl[it])
+        wxglSurfaceView.cities.indices.forEach {
+            wxglSurfaceView.cities[it].visibility = View.GONE
+            relativeLayout.removeView(wxglSurfaceView.cities[it])
         }
     }
 
@@ -150,7 +150,7 @@ class WXGLTextObject(
         if (MyApplication.radarCountyLabels && countyLabelsTvArrInit) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             hideCountyLabels()
-            wxglSurfaceView.countyLabelsAl = mutableListOf()
+            wxglSurfaceView.countyLabels = mutableListOf()
             scale = getScale()
             oglrZoom = 1.0f
             if (wxglRender.zoom < 1.00f) {
@@ -160,7 +160,7 @@ class WXGLTextObject(
             if (wxglRender.zoom > 1.50) {
                 UtilityCountyLabels.countyName.indices.forEach {
                     checkAndDrawText(
-                            wxglSurfaceView.countyLabelsAl,
+                            wxglSurfaceView.countyLabels,
                             UtilityCountyLabels.countyLat[it],
                             UtilityCountyLabels.countyLon[it],
                             UtilityCountyLabels.countyName[it],
@@ -176,9 +176,9 @@ class WXGLTextObject(
     }
 
     private fun hideCountyLabels() {
-        wxglSurfaceView.countyLabelsAl.indices.forEach {
-            wxglSurfaceView.countyLabelsAl[it].visibility = View.GONE
-            relativeLayout.removeView(wxglSurfaceView.countyLabelsAl[it])
+        wxglSurfaceView.countyLabels.indices.forEach {
+            wxglSurfaceView.countyLabels[it].visibility = View.GONE
+            relativeLayout.removeView(wxglSurfaceView.countyLabels[it])
         }
     }
 
@@ -351,7 +351,7 @@ class WXGLTextObject(
             val spotterLon: Double
             var report = false
             hideSpotter()
-            wxglSurfaceView.spotterTv = mutableListOf()
+            wxglSurfaceView.spotterTextView = mutableListOf()
             // FIXME var rename
             var aa = 0
             while (aa < UtilitySpotter.spotterList.size) {
@@ -383,7 +383,7 @@ class WXGLTextObject(
             if (wxglRender.zoom > 0.5) {
                 for (c in 0 until 1) {
                    val drawText = checkButDoNotDrawText(
-                            wxglSurfaceView.spotterTv,
+                            wxglSurfaceView.spotterTextView,
                             spotterLat,
                             spotterLon * -1,
                             MyApplication.radarColorSpotter,
@@ -391,10 +391,10 @@ class WXGLTextObject(
                     )
                     if (drawText) {
                         if (!report) {
-                            wxglSurfaceView.spotterTv[c].text =
+                            wxglSurfaceView.spotterTextView[c].text =
                                     UtilitySpotter.spotterList[aa].lastName.replace("0FAV ", "")
                         } else {
-                            wxglSurfaceView.spotterTv[c].text = UtilitySpotter.spotterReports[bb].type
+                            wxglSurfaceView.spotterTextView[c].text = UtilitySpotter.spotterReports[bb].type
                         }
                     }
 
@@ -407,10 +407,9 @@ class WXGLTextObject(
 
     private fun hideSpotter() {
         if (WXGLRadarActivity.spotterShowSelected) {
-            wxglSurfaceView.spotterTv.indices.forEach {
-                UtilityLog.d("Wx", "hide spotter")
-                wxglSurfaceView.spotterTv[it].visibility = View.GONE
-                relativeLayout.removeView(wxglSurfaceView.spotterTv[it])
+            wxglSurfaceView.spotterTextView.indices.forEach {
+                wxglSurfaceView.spotterTextView[it].visibility = View.GONE
+                relativeLayout.removeView(wxglSurfaceView.spotterTextView[it])
             }
         }
     }
@@ -452,7 +451,7 @@ class WXGLTextObject(
         if (MyApplication.radarShowWpcFronts) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             hideWpcPressureCenters()
-            wxglSurfaceView.pressureCenterLabelAl = mutableListOf()
+            wxglSurfaceView.pressureCenterLabels = mutableListOf()
             scale = getScale()
             oglrZoom = 1.0f
             if (wxglRender.zoom < 1.00f) {
@@ -466,7 +465,7 @@ class WXGLTextObject(
                         color = Color.RED
                     }
                     checkAndDrawText(
-                            wxglSurfaceView.pressureCenterLabelAl,
+                            wxglSurfaceView.pressureCenterLabels,
                             UtilityWpcFronts.pressureCenters[it].lat,
                             UtilityWpcFronts.pressureCenters[it].lon,
                             UtilityWpcFronts.pressureCenters[it].pressureInMb,
@@ -489,7 +488,7 @@ class WXGLTextObject(
             spotterLon = 0.0
             val fontScaleFactorObs = 0.65f
             hideObservations()
-            wxglSurfaceView.obsAl = mutableListOf()
+            wxglSurfaceView.observations = mutableListOf()
             var tmpArrObs: Array<String>
             var tmpArrObsExt: Array<String>
             scale = getScale()
@@ -510,7 +509,7 @@ class WXGLTextObject(
                             spotterLon = tmpArrObs[1].toDoubleOrNull() ?: 0.0
                         }
                         val drawText = checkButDoNotDrawText(
-                                wxglSurfaceView.obsAl,
+                                wxglSurfaceView.observations,
                                 spotterLat,
                                 spotterLon * -1,
                                 MyApplication.radarColorObs,
@@ -518,9 +517,9 @@ class WXGLTextObject(
                         )
                         if (drawText) {
                             if (wxglRender.zoom > obsExtZoom) {
-                                wxglSurfaceView.obsAl.last().text = tmpArrObsExt[2]
+                                wxglSurfaceView.observations.last().text = tmpArrObsExt[2]
                             } else if (PolygonType.OBS.pref) {
-                                wxglSurfaceView.obsAl.last().text = tmpArrObs[2]
+                                wxglSurfaceView.observations.last().text = tmpArrObs[2]
                             }
                         }
                     }
@@ -534,16 +533,16 @@ class WXGLTextObject(
     }
 
     private fun hideObservations() {
-        wxglSurfaceView.obsAl.indices.forEach {
-            wxglSurfaceView.obsAl[it].visibility = View.GONE
-            relativeLayout.removeView(wxglSurfaceView.obsAl[it])
+        wxglSurfaceView.observations.indices.forEach {
+            wxglSurfaceView.observations[it].visibility = View.GONE
+            relativeLayout.removeView(wxglSurfaceView.observations[it])
         }
     }
 
     private fun hideWpcPressureCenters() {
-        wxglSurfaceView.pressureCenterLabelAl.indices.forEach {
-            wxglSurfaceView.pressureCenterLabelAl[it].visibility = View.GONE
-            relativeLayout.removeView(wxglSurfaceView.pressureCenterLabelAl[it])
+        wxglSurfaceView.pressureCenterLabels.indices.forEach {
+            wxglSurfaceView.pressureCenterLabels[it].visibility = View.GONE
+            relativeLayout.removeView(wxglSurfaceView.pressureCenterLabels[it])
         }
     }
 

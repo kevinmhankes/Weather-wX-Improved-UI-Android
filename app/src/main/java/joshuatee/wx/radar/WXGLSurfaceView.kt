@@ -82,15 +82,15 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
     var idxInt: Int = 0
     private var widthDivider = 0
     private var heightDivider = 2
-    var citiesExtAl: MutableList<TextView> = mutableListOf()
-    var countyLabelsAl: MutableList<TextView> = mutableListOf()
-    var obsAl: MutableList<TextView> = mutableListOf()
-    var pressureCenterLabelAl: MutableList<TextView> = mutableListOf()
+    var cities: MutableList<TextView> = mutableListOf()
+    var countyLabels: MutableList<TextView> = mutableListOf()
+    var observations: MutableList<TextView> = mutableListOf()
+    var pressureCenterLabels: MutableList<TextView> = mutableListOf()
     var spotterLabels = mutableListOf<TextView>()
-    var spotterTv = mutableListOf<TextView>()
-    var wxgltextArr: MutableList<WXGLTextObject> = mutableListOf()
+    var spotterTextView = mutableListOf<TextView>()
+    var wxglTextObjects: MutableList<WXGLTextObject> = mutableListOf()
     var locationFragment: Boolean = false
-    private var act: Activity? = null
+    private var activity: Activity? = null
 
     constructor(context: Context, widthDivider: Int, numPanes: Int, heightDivider: Int) : super(context) {
         this.widthDivider = widthDivider
@@ -125,7 +125,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         oglr = OGLR_r
         oglrCurrent = wxglRender
         wxgl = wxglR
-        act = activity
+        this.activity = activity
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -133,12 +133,12 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             MotionEvent.ACTION_DOWN -> {
                 if (!locationFragment) {
                     (0 until numPanes).forEach {
-                        wxgltextArr[it].hideTextLabels()
+                        wxglTextObjects[it].hideTextLabels()
                         oglr[it].displayHold = true
                     }
                 }
                 if (numPanes == 1 && fullScreen || numPanes > 1) {
-                    UtilityUI.immersiveMode(act!!)
+                    UtilityUI.immersiveMode(activity!!)
                 }
             }
             MotionEvent.ACTION_MOVE -> {

@@ -170,7 +170,6 @@ object WXGLNexrad {
     private const val binSize16 = 0.590022f
     private const val binSize110 = 2.0f * binSize54
 
-
     fun getBinSize(prodId: Int): Float = when (prodId) {
         134, 135 -> binSize54
         186 -> binSize16
@@ -182,8 +181,7 @@ object WXGLNexrad {
     }
 
     // FIXME use different split
-    fun isRidTdwr(rid: String): Boolean =
-            GlobalArrays.tdwrRadars.any { rid == MyApplication.space.split(it)[0] }
+    fun isRidTdwr(rid: String): Boolean = GlobalArrays.tdwrRadars.any { rid == MyApplication.space.split(it)[0] }
 
     fun getTdwrFromRid(rid: String): String = closestTdwrToNexrad[rid] ?: ""
 

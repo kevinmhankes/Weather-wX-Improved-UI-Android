@@ -167,7 +167,7 @@ class LocationFragment : Fragment()  {
                                 4
                         )
                 )
-                glviewArr[index].wxgltextArr = wxglTextArr
+                glviewArr[index].wxglTextObjects = wxglTextArr
                 glviewArr[index].locationFragment = true
                 wxglTextArr[index].initializeTextLabels(activityReference)
                 rlArr[index].addView(glviewArr[index])
@@ -208,7 +208,7 @@ class LocationFragment : Fragment()  {
                                 4 // FIXME
                         )
                 )
-                glviewArr[index].wxgltextArr = wxglTextArr
+                glviewArr[index].wxglTextObjects = wxglTextArr
                 glviewArr[index].locationFragment = true
                 wxglTextArr[index].initializeTextLabels(activityReference)
                 rlArr[index].addView(glviewArr[index])

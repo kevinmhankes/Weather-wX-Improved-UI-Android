@@ -101,7 +101,7 @@ class WXGLNexradLevel3 internal constructor() {
     }
 
     // final argument is whether or not to handle decompression, by default true
-    fun decodeAndPlot(context: Context, fileName: String, site: String, radarStatusStr: String) {
+    fun decodeAndPlot(context: Context, fileName: String, site: String, radarStatus: String) {
         try {
             val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, fileName))
             dis.bigEndian = true
@@ -144,8 +144,8 @@ class WXGLNexradLevel3 internal constructor() {
             )
             // Generally speaking radarStatusStr will be blank string for single pane or homescreen
             // and "1", "2", "3", or "4" for multi-pane
-            WXGLNexrad.writeRadarInfo(context, radarStatusStr, radarInfo)
-            WXGLNexrad.writeRadarInfo(context, radarStatusStr + site.toUpperCase(Locale.US), radarInfo)
+            WXGLNexrad.writeRadarInfo(context, radarStatus, radarInfo)
+            WXGLNexrad.writeRadarInfo(context, radarStatus + site.toUpperCase(Locale.US), radarInfo)
             timestamp = radarInfo
             // Apr 2016
             // Because the scale for storm total precip ( 172 ) is stored as a float in halfwords 33/34
@@ -190,10 +190,10 @@ class WXGLNexradLevel3 internal constructor() {
     }
 
     // Used for Legacy 4bit radar - only SRM
-    fun decodeAndPlotFourBit(context: Context, fn: String, radarStatusStr: String) {
+    fun decodeAndPlotFourBit(context: Context, fileName: String, radarStatus: String) {
         //init4Bit()
         try {
-            val fis = context.openFileInput(fn)
+            val fis = context.openFileInput(fileName)
             val dis = DataInputStream(BufferedInputStream(fis))
             dis.skipBytes(30)
             /*final short	message_code      = (short) dis.readUnsignedShort();
@@ -236,7 +236,7 @@ class WXGLNexradLevel3 internal constructor() {
                     longitudeOfRadar,
                     volumeCoveragePattern.toInt()
             )
-            WXGLNexrad.writeRadarInfo(context, radarStatusStr, radarInfo)
+            WXGLNexrad.writeRadarInfo(context, radarStatus, radarInfo)
             timestamp = radarInfo
             /*final short  p1                        = (short) dis.readUnsignedShort();
         final short        p2                        = (short) dis.readUnsignedShort();
@@ -287,9 +287,9 @@ class WXGLNexradLevel3 internal constructor() {
             dis.skipBytes(32)
             dis.close()
             numberOfRangeBins = if (productCode.toInt() == 37 || productCode.toInt() == 38 || productCode.toInt() == 41 || productCode.toInt() == 57) {
-                UtilityWXOGLPerfL3FourBit.decodeRaster(context, fn, binWord)
+                UtilityWXOGLPerfL3FourBit.decodeRaster(context, fileName, binWord)
             } else {
-                UtilityWXOGLPerfL3FourBit.decodeRadial(context, fn, radialStart, binWord)
+                UtilityWXOGLPerfL3FourBit.decodeRadial(context, fileName, radialStart, binWord)
             }
             binSize = WXGLNexrad.getBinSize(productCode.toInt())
         } catch (e: IOException) {
@@ -300,7 +300,7 @@ class WXGLNexradLevel3 internal constructor() {
     }
 
     private fun formatRadarString(
-            d: Date,
+            date: Date,
             operationalMode: Int,
             productCode: Int,
             heightOfRadar: Int,
@@ -309,7 +309,7 @@ class WXGLNexradLevel3 internal constructor() {
             vcp: Int
     ): String {
         return try {
-            d.toString() + MyApplication.newline +
+            date.toString() + MyApplication.newline +
                     "Radar Mode: " + operationalMode + MyApplication.newline +
                     "VCP: " + vcp + MyApplication.newline +
                     "Product Code: " + productCode + MyApplication.newline +
