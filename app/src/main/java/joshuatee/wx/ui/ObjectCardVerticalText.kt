@@ -37,15 +37,13 @@ class ObjectCardVerticalText(context: Context, numColumns: Int) {
     private var textViews = mutableListOf<TextView>()
 
     init {
-        val linearLayout = LinearLayout(context)
-        linearLayout.gravity = Gravity.CENTER
-        linearLayout.layoutParams = LinearLayout.LayoutParams(
+        val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.HORIZONTAL, Gravity.CENTER)
+        objectLinearLayout.linearLayout.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT
         )
-        linearLayout.orientation = LinearLayout.HORIZONTAL
-        linearLayout.isBaselineAligned = false
-        objectCard.addView(linearLayout)
+        objectLinearLayout.linearLayout.isBaselineAligned = false
+        objectCard.addView(objectLinearLayout.linearLayout)
         (0 until numColumns).forEach {
             val llv = LinearLayout(context)
             llv.layoutParams = LinearLayout.LayoutParams(
@@ -53,7 +51,7 @@ class ObjectCardVerticalText(context: Context, numColumns: Int) {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 1.0f
             )
-            linearLayout.addView(llv)
+            objectLinearLayout.linearLayout.addView(llv)
             textViews.add(TextView(context))
             textViews[it].gravity = Gravity.START
             textViews[it].layoutParams = LinearLayout.LayoutParams(

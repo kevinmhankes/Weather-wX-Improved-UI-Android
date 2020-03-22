@@ -29,21 +29,21 @@ import joshuatee.wx.fragments.UtilityLocationFragment
 
 class ObjectImageView(context: Context) {
 
-    val image: ImageView = ImageView(context)
+    val imageView = ImageView(context)
 
     fun setImage(bitmap: Bitmap) {
-        image.setImageBitmap(bitmap)
-        image.setPadding(
+        imageView.setImageBitmap(bitmap)
+        imageView.setPadding(
             MyApplication.paddingSmall,
             MyApplication.paddingSmall,
             MyApplication.paddingSmall,
             MyApplication.paddingSmall
         )
-        val layoutParams = image.layoutParams
+        val layoutParams = imageView.layoutParams
         val imageSize = UtilityLocationFragment.setNwsIconSize()
         layoutParams.width = imageSize
         layoutParams.height = imageSize
-        image.layoutParams = layoutParams
+        imageView.layoutParams = layoutParams
     }
 }
 

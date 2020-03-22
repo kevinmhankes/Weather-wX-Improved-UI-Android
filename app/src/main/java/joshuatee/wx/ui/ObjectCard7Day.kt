@@ -35,7 +35,7 @@ import joshuatee.wx.objects.TextSize
 class ObjectCard7Day(context: Context, bitmap: Bitmap, isUS: Boolean, day: Int, forecasts: List<String>) {
 
     private val objectCard = ObjectCard(context)
-    private val imageView = ObjectImageView(context)
+    private val objectImageView = ObjectImageView(context)
     private val topLineText = ObjectTextView(context, TextSize.MEDIUM)
     private val bottomLineText = ObjectTextView(context, backgroundText = true)
 
@@ -57,7 +57,7 @@ class ObjectCard7Day(context: Context, bitmap: Bitmap, isUS: Boolean, day: Int, 
         verticalContainer.addView(topLineText.tv)
         verticalContainer.addView(bottomLineText.tv)
         if (!UIPreferences.locfragDontShowIcons) {
-            horizontalContainer.addView(imageView.image)
+            horizontalContainer.addView(objectImageView.imageView)
         }
         horizontalContainer.addView(verticalContainer.linearLayout)
         objectCard.addView(horizontalContainer.linearLayout)
@@ -87,7 +87,7 @@ class ObjectCard7Day(context: Context, bitmap: Bitmap, isUS: Boolean, day: Int, 
             setBottomLine(items[1])
         }
         if (!UIPreferences.locfragDontShowIcons) {
-            imageView.setImage(bitmap)
+            objectImageView.setImage(bitmap)
         }
     }
 

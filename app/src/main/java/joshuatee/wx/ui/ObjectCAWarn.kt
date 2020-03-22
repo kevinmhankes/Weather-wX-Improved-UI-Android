@@ -120,13 +120,13 @@ class ObjectCAWarn(
                 locStatement = locStatement.replace("<.*?>".toRegex(), "")
             }
             val province = listLocUrl[it].parse("report_e.html.([a-z]{2}).*?")
-            val cText = ObjectCardText(context, linearLayout)
-            cText.text = (Utility.fromHtml(
+            val objectCardText = ObjectCardText(context, linearLayout)
+            objectCardText.text = (Utility.fromHtml(
                     province.toUpperCase(Locale.US) + ": " + locWarning + " " + locWatch + " " + locStatement
             ))
             val urlStr = MyApplication.canadaEcSitePrefix + listLocUrl[it]
             val location = listLocName[it]
-            cText.setOnClickListener(View.OnClickListener { getWarningDetail(urlStr, location) })
+            objectCardText.setOnClickListener(View.OnClickListener { getWarningDetail(urlStr, location) })
         }
         ObjectCALegal(activity, linearLayout, MyApplication.canadaEcSitePrefix + "/warnings/index_e.html")
     }

@@ -35,7 +35,7 @@ import joshuatee.wx.util.ObjectForecastPackageCurrentConditions
 class ObjectCardCurrentConditions(context: Context, version: Int) {
 
     private val objCard = ObjectCard(context)
-    private var imageView = ObjectImageView(context)
+    private var objectImageView = ObjectImageView(context)
     private val textViewTop = ObjectTextView(context, TextSize.MEDIUM)
     private val textViewBottom = ObjectTextView(context, backgroundText = true)
     private val textViewMiddle = ObjectTextView(context, backgroundText = true)
@@ -48,7 +48,7 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
             textViewMiddle.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, 0)
             textViewBottom.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, MyApplication.paddingSmall)
             linearLayoutVertical.addViews(listOf(textViewTop.tv, textViewMiddle.tv, textViewBottom.tv))
-            linearLayoutHorizontal.addViews(listOf(imageView.image, linearLayoutVertical.linearLayout))
+            linearLayoutHorizontal.addViews(listOf(objectImageView.imageView, linearLayoutVertical.linearLayout))
         } else {
             // legacy code
             textViewTop.gravity = Gravity.CENTER
@@ -89,7 +89,7 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
             alertDialogStatusAl: MutableList<String>,
             radarTimestamps: () -> List<String>
     ) {
-        imageView.image.setOnClickListener {
+        objectImageView.imageView.setOnClickListener {
             alertDialogStatusAl.clear()
             alertDialogStatusAl.add("Edit Location...")
             alertDialogStatusAl.add("Force Data Refresh...")
@@ -110,7 +110,7 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
             ccTime: String,
             radarTime: String
     ) {
-        imageView.setImage(bitmap)
+        objectImageView.setImage(bitmap)
         val sep = " - "
         val conditionTokens = objCc.data.split(sep).dropLastWhile { it.isEmpty() }
         if (conditionTokens.size > 4 && isUS) {
