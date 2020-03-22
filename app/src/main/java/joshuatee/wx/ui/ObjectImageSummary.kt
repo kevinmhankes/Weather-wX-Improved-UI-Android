@@ -27,7 +27,7 @@ import android.widget.LinearLayout
 
 class ObjectImageSummary(
         context: Context,
-        var ll: LinearLayout,
+        var linearLayout: LinearLayout,
         var bitmaps: List<Bitmap>,
         var classTarget: String,
         var cl: Class<*>
@@ -35,13 +35,13 @@ class ObjectImageSummary(
 
     init {
         val imagesPerRow = 2
-        ll.removeAllViews()
+        linearLayout.removeAllViews()
         var numberOfImages = 0
         val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
         bitmaps.forEachIndexed { index, bitmap ->
             val objectCardImage: ObjectCardImage
             if (numberOfImages % imagesPerRow == 0) {
-                val objectLinearLayout = ObjectLinearLayout(context, ll)
+                val objectLinearLayout = ObjectLinearLayout(context, linearLayout)
                 objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
                 horizontalLinearLayouts.add(objectLinearLayout)
                 objectCardImage = ObjectCardImage(
