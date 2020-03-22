@@ -105,26 +105,16 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         scaleDetector = ScaleGestureDetector(context, ScaleListener())
     }
 
-    // FIXME variable naming is bad
-    fun setRenderVar(
-            wxglRender: WXGLRender,
-            OGLR_r: MutableList<WXGLRender>,
-            wxglR: MutableList<WXGLSurfaceView>
-    ) {
-        oglr = OGLR_r
-        oglrCurrent = wxglRender
-        wxgl = wxglR
+    fun setRenderVar(oglrCurrent: WXGLRender, oglr: MutableList<WXGLRender>, wxgl: MutableList<WXGLSurfaceView>) {
+        this.oglr = oglr
+        this.oglrCurrent = oglrCurrent
+        this.wxgl = wxgl
     }
 
-    fun setRenderVar(
-            wxglRender: WXGLRender,
-            OGLR_r: MutableList<WXGLRender>,
-            wxglR: MutableList<WXGLSurfaceView>,
-            activity: Activity
-    ) {
-        oglr = OGLR_r
-        oglrCurrent = wxglRender
-        wxgl = wxglR
+    fun setRenderVar(oglrCurrent: WXGLRender, oglr: MutableList<WXGLRender>, wxgl: MutableList<WXGLSurfaceView>, activity: Activity) {
+        this.oglr = oglr
+        this.oglrCurrent = oglrCurrent
+        this.wxgl = wxgl
         this.activity = activity
     }
 
