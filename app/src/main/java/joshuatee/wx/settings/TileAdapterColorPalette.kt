@@ -36,10 +36,7 @@ internal class TileAdapterColorPalette(
     private val tilesPerRow: Int
 ) : RecyclerView.Adapter<TileAdapterColorPalette.RecyclerViewHoldersColorPalette>() {
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): RecyclerViewHoldersColorPalette {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHoldersColorPalette {
         val layoutView = LayoutInflater.from(parent.context).inflate(R.layout.cardview_tiles, null)
         return RecyclerViewHoldersColorPalette(layoutView)
     }

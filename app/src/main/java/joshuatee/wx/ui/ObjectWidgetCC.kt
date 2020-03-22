@@ -39,7 +39,7 @@ import joshuatee.wx.util.UtilityTimeSunMoon
 
 class ObjectWidgetCC(context: Context) {
 
-    val remoteViews: RemoteViews = RemoteViews(context.packageName, R.layout.widget_cc_layout)
+    val remoteViews = RemoteViews(context.packageName, R.layout.widget_cc_layout)
 
     init {
         val widgetLocationNumber = Utility.readPref(context, "WIDGET_LOCATION", "1")

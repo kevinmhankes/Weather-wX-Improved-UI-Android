@@ -35,7 +35,7 @@ import joshuatee.wx.wpc.WpcImagesActivity
 
 class ObjectWidgetGeneric(context: Context, val type: WidgetFile) {
 
-    val remoteViews: RemoteViews = RemoteViews(context.packageName, R.layout.widget_generic_layout)
+    val remoteViews = RemoteViews(context.packageName, R.layout.widget_generic_layout)
 
     init {
         UtilityWidget.setImage(context, remoteViews, type.fileName)

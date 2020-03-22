@@ -33,7 +33,7 @@ import joshuatee.wx.wpc.WpcTextProductsActivity
 
 class ObjectWidgetTextWpc(context: Context) {
 
-    val remoteViews: RemoteViews = RemoteViews(context.packageName, R.layout.widget_textview_layout)
+    val remoteViews = RemoteViews(context.packageName, R.layout.widget_textview_layout)
 
     init {
         val text = Utility.readPref(context, "TEXTWPC_WIDGET", "")

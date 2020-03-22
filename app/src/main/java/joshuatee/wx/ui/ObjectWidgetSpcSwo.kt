@@ -31,11 +31,11 @@ import joshuatee.wx.spc.SpcSwoActivity
 
 class ObjectWidgetSpcSwo(context: Context) {
 
-    val remoteViews: RemoteViews = RemoteViews(context.packageName, R.layout.widget_spcswo_layout)
+    val remoteViews = RemoteViews(context.packageName, R.layout.widget_spcswo_layout)
     private val ivList = listOf(R.id.iv1, R.id.iv2, R.id.iv3, R.id.iv4)
 
     init {
-        (0..3).forEach {
+        ivList.indices.forEach {
             val dayAsString = (it + 1).toString()
             UtilityWidget.setImage(context, remoteViews, ivList[it], SPCSWO.fileName + dayAsString)
             if (!MyApplication.widgetPreventTap) {
