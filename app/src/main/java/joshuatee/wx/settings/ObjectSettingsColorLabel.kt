@@ -56,8 +56,8 @@ internal class ObjectSettingsColorLabel(
         objectTextView.tv.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
         objectCard.card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.black))
         objectTextView.gravity = Gravity.CENTER_VERTICAL
-        val prefInner = pref
         objectCard.addView(objectTextView.tv)
+        val prefInner = pref
         objectCard.setOnClickListener(View.OnClickListener {
             ObjectIntent(
                     context,
