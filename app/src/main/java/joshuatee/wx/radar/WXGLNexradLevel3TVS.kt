@@ -47,9 +47,9 @@ internal object WXGLNexradLevel3TVS {
         try {
             val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, tvsBaseFn + fnSuffix))
             dis.bigEndian = true
-            val retStr = UtilityLevel3TextProduct.read(dis)
+            val data = UtilityLevel3TextProduct.read(dis)
             // P  TVS    R7   216/ 50    29    57    57/ 6.5    15.9    6.5/ 22.4    18/ 6.5    &#0;
-            tvs = retStr.parseColumn(RegExp.tvsPattern1).toMutableList()
+            tvs = data.parseColumn(RegExp.tvsPattern1).toMutableList()
         } catch (e: Exception) {
             UtilityLog.handleException(e)
             return listOf()
