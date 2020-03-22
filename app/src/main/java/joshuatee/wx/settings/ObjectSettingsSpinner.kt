@@ -91,17 +91,17 @@ class ObjectSettingsSpinner(
 
             override fun onNothingSelected(arg0: AdapterView<*>) {}
         }
-        var val1 = Utility.readPref(context, pref, prefInit)
+        var value = Utility.readPref(context, pref, prefInit)
         if (pref == "WIDGET_LOCATION") {
-            val1 += ": " + UtilityStringExternal.truncate(
+            value += ": " + UtilityStringExternal.truncate(
                 Utility.readPref(
                     context,
-                    "LOC" + val1 + "_LABEL",
+                    "LOC" + value + "_LABEL",
                     ""
                 ), 20
             )
         }
-        spinner.setSelection(dataAdapter.getPosition(val1))
+        spinner.setSelection(dataAdapter.getPosition(value))
         objectLinearLayout.addView(spinner)
         objectCard.addView(objectLinearLayout.linearLayout)
     }
