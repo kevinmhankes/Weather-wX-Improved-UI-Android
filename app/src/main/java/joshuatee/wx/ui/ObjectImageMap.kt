@@ -28,7 +28,6 @@ import android.view.View
 import joshuatee.wx.util.ImageMap
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.MyApplication
-import joshuatee.wx.util.UtilityLog
 
 class ObjectImageMap(
     val activity: Activity,
