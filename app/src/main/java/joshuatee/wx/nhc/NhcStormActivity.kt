@@ -71,15 +71,11 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private lateinit var topBitmap: Bitmap
     private var baseUrl = ""
     private var baseUrlShort = ""
-    private lateinit var cTextProd: ObjectCardText
+    private lateinit var objectCardText: ObjectCardText
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_linear_layout_bottom_toolbar,
-                R.menu.nhc_storm
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.nhc_storm)
         toolbarBottom.setOnMenuItemClickListener(this)
         activityArguments = intent.getStringArrayExtra(URL)!!.toList()
         url = activityArguments[0]
@@ -124,8 +120,8 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         withContext(Dispatchers.IO) {
             url = UtilityDownload.getTextProduct(this@NhcStormActivity, product)
         }
-        cTextProd = ObjectCardText(this@NhcStormActivity, ll, toolbar, toolbarBottom)
-        cTextProd.text = Utility.fromHtml(url)
+        objectCardText = ObjectCardText(this@NhcStormActivity, ll, toolbar, toolbarBottom)
+        objectCardText.text = Utility.fromHtml(url)
         html = url
         withContext(Dispatchers.IO) {
             listOf(
@@ -160,9 +156,9 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private fun getText() = GlobalScope.launch(uiDispatcher) {
         url = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@NhcStormActivity, product) }
         if (url.contains("<")) {
-            cTextProd.text = Utility.fromHtml(url)
+            objectCardText.text = Utility.fromHtml(url)
         } else {
-            cTextProd.text = url
+            objectCardText.text = url
         }
         html = url
         scrollView.smoothScrollTo(0, 0)
