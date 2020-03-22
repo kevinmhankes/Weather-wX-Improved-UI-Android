@@ -39,11 +39,10 @@ class ObjectCardAlertSummaryItem(context: Context) {
     private val textViewTitle = ObjectTextView(context)
     private val textViewStart = ObjectTextView(context, TextSize.SMALL)
     private val textViewEnd = ObjectTextView(context, TextSize.SMALL)
-    private val textViewBottom = ObjectTextView(context)
+    private val textViewBottom = ObjectTextView(context, backgroundText = true)
 
     init {
         val linearLayoutVertical = LinearLayout(context)
-        textViewBottom.setAsBackgroundText()
         linearLayoutVertical.orientation = LinearLayout.VERTICAL
         linearLayoutVertical.gravity = Gravity.CENTER_VERTICAL
         linearLayoutVertical.addView(textViewTop.tv)

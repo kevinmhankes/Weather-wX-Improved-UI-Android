@@ -42,6 +42,12 @@ class ObjectLinearLayout(context: Context, parentView: LinearLayout) {
         linearLayout.addView(child)
     }
 
+    fun addViews(children: List<View>) {
+        children.forEach { view ->
+            linearLayout.addView(view)
+        }
+    }
+
     fun removeAllViews() {
         linearLayout.removeAllViews()
     }
