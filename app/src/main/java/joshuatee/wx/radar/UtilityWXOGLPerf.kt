@@ -415,24 +415,19 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun genTriangleUp(
-        buffers: ObjectOglBuffers,
-        pn: ProjectionNumbers,
-        x: DoubleArray,
-        y: DoubleArray
-    ) {
+    fun genTriangleUp(buffers: ObjectOglBuffers, pn: ProjectionNumbers, x: DoubleArray, y: DoubleArray) {
         var pointX: Double
         var pointY: Double
         var pixYD: Float
         var pixXD: Float
-        var iCount = 0
         var ixCount = 0
         var test1: Float
         var test2: Float
         buffers.setToPositionZero()
-        while (iCount < buffers.count) {
-            pointX = x[iCount]
-            pointY = y[iCount]
+        //while (iCount < buffers.count) {
+        (0 until buffers.count).forEach { index ->
+            pointX = x[index]
+            pointY = y[index]
             test1 = M_180_div_PI * log(tan(M_PI_div_4 + pointX * M_PI_div_360), E).toFloat()
             test2 = M_180_div_PI * log(tan(M_PI_div_4 + pn.xDbl * M_PI_div_360), E).toFloat()
             pixYD = -((test1 - test2) * pn.oneDegreeScaleFactorFloat) + pn.yCenter.toFloat()
@@ -448,12 +443,10 @@ internal object UtilityWXOGLPerf {
             buffers.putIndex((ixCount + 2).toShort())
             ixCount += 3
             (0..2).forEach { _ ->
-                // TODO use class method
                 buffers.putColor(buffers.solidColorRed)
                 buffers.putColor(buffers.solidColorGreen)
                 buffers.putColor(buffers.solidColorBlue)
             }
-            iCount += 1
         }
     }
 
