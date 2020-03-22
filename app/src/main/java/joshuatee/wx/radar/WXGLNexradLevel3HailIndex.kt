@@ -41,20 +41,18 @@ internal object WXGLNexradLevel3HailIndex {
 
     fun decodeAndPlot(context: Context, radarSite: String, fnSuffix: String): List<Double> {
         val stormList = mutableListOf<Double>()
-        val retStr: String
         val location = UtilityLocation.getSiteLocation(radarSite)
         WXGLDownload.getNidsTab(context, "HI", radarSite, hiBaseFn + fnSuffix)
-        val dis: UCARRandomAccessFile
         val posn: List<String>
         val hailPercent: List<String>
         val hailSize: List<String>
         try {
-            dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, hiBaseFn + fnSuffix))
+            val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, hiBaseFn + fnSuffix))
             dis.bigEndian = true
-            retStr = UtilityLevel3TextProduct.read(dis)
-            posn = retStr.parseColumn(RegExp.hiPattern1)
-            hailPercent = retStr.parseColumn(RegExp.hiPattern2)
-            hailSize = retStr.parseColumn(RegExp.hiPattern3)
+            val data = UtilityLevel3TextProduct.read(dis)
+            posn = data.parseColumn(RegExp.hiPattern1)
+            hailPercent = data.parseColumn(RegExp.hiPattern2)
+            hailSize = data.parseColumn(RegExp.hiPattern3)
         } catch (e: Exception) {
             UtilityLog.handleException(e)
             return listOf()
@@ -62,35 +60,36 @@ internal object WXGLNexradLevel3HailIndex {
         var posnStr = ""
         var hailPercentStr = ""
         var hailSizeStr = ""
-        posn.forEach { posnStr += it.replace("/", " ") }
-        hailPercent.forEach { hailPercentStr += it.replace("/", " ") }
+        posn.forEach {
+            posnStr += it.replace("/", " ")
+        }
+        hailPercent.forEach {
+            hailPercentStr += it.replace("/", " ")
+        }
         hailPercentStr = hailPercentStr.replace("UNKNOWN", " 0 0 ")
-        hailSize.forEach { hailSizeStr += it.replace("/", " ") }
+        hailSize.forEach {
+            hailSizeStr += it.replace("/", " ")
+        }
         hailSizeStr = hailSizeStr.replace("UNKNOWN", " 0.00 ")
         hailSizeStr = hailSizeStr.replace("<0.50", " 0.49 ")
         val posnNumbers = posnStr.parseColumnAll(RegExp.stiPattern3)
         val hailPercentNumbers = hailPercentStr.parseColumnAll(RegExp.stiPattern3)
         val hailSizeNumbers = hailSizeStr.parseColumnAll(RegExp.hiPattern4)
         if (posnNumbers.size == hailPercentNumbers.size && posnNumbers.size > 1 && hailSizeNumbers.isNotEmpty()) {
-            var degree: Double
-            var nm: Double
             val bearing = DoubleArray(2)
-            var start: ExternalGlobalCoordinates
-            var ec: ExternalGlobalCoordinates
-            var hailSizeDbl: Double
             var k = 0 // k is used to track hail size which is /2 of other 2 arrays
             var s = 0
             while (s < posnNumbers.size) {
-                hailSizeDbl = hailSizeNumbers[k].toDoubleOrNull() ?: 0.0
+                val hailSizeDbl = hailSizeNumbers[k].toDoubleOrNull() ?: 0.0
                 if (hailSizeDbl > 0.49 && ((hailPercentNumbers[s].toIntOrNull()
                         ?: 0) > 60 || (hailPercentNumbers[s + 1].toDoubleOrNull()
                         ?: 0.0) > 60)
                 ) {
                     val ecc = ExternalGeodeticCalculator()
-                    degree = posnNumbers[s].toDoubleOrNull() ?: 0.0
-                    nm = posnNumbers[s + 1].toDoubleOrNull() ?: 0.0
-                    start = ExternalGlobalCoordinates(location)
-                    ec = ecc.calculateEndingGlobalCoordinates(
+                    val degree = posnNumbers[s].toDoubleOrNull() ?: 0.0
+                    val nm = posnNumbers[s + 1].toDoubleOrNull() ?: 0.0
+                    val start = ExternalGlobalCoordinates(location)
+                    val ec = ecc.calculateEndingGlobalCoordinates(
                         ExternalEllipsoid.WGS84,
                         start,
                         degree,
