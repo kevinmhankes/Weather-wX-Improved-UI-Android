@@ -43,10 +43,13 @@ internal object WXGLNexradLevel3TVS {
         val stormList = mutableListOf<Double>()
         val location = UtilityLocation.getSiteLocation(radarSite)
         WXGLDownload.getNidsTab(context, "TVS", radarSite, tvsBaseFn + fnSuffix)
-        val dis: UCARRandomAccessFile
+        val tvs: MutableList<String>
         try {
-            dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, tvsBaseFn + fnSuffix))
+            val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, tvsBaseFn + fnSuffix))
             dis.bigEndian = true
+            val retStr = UtilityLevel3TextProduct.read(dis)
+            // P  TVS    R7   216/ 50    29    57    57/ 6.5    15.9    6.5/ 22.4    18/ 6.5    &#0;
+            tvs = retStr.parseColumn(RegExp.tvsPattern1).toMutableList()
         } catch (e: Exception) {
             UtilityLog.handleException(e)
             return listOf()
@@ -54,25 +57,15 @@ internal object WXGLNexradLevel3TVS {
             UtilityLog.handleException(e)
             return listOf()
         }
-        var retStr = UtilityLevel3TextProduct.read(dis)
-        // P  TVS    R7   216/ 50    29    57    57/ 6.5    15.9    6.5/ 22.4    18/ 6.5    &#0;
-        val tvs = retStr.parseColumn(RegExp.tvsPattern1)
-        var tmpStr: String
-        var tmpStrArr: Array<String>
-        var degree: Int
-        var nm: Int
         val bearing = DoubleArray(2)
-        var start: ExternalGlobalCoordinates
-        var ec: ExternalGlobalCoordinates
         tvs.forEach {
             val ecc = ExternalGeodeticCalculator()
-            tmpStr = it.parse(RegExp.tvsPattern2)
-            tmpStrArr = MyApplication.slash.split(tmpStr)
-            retStr += tmpStr
-            degree = tmpStrArr[0].replace(" ", "").toIntOrNull() ?: 0
-            nm = tmpStrArr[1].replace(" ", "").toIntOrNull() ?: 0
-            start = ExternalGlobalCoordinates(location)
-            ec = ecc.calculateEndingGlobalCoordinates(
+            val tmpStr = it.parse(RegExp.tvsPattern2)
+            val tmpStrArr = MyApplication.slash.split(tmpStr)
+            val degree = tmpStrArr[0].replace(" ", "").toIntOrNull() ?: 0
+            val nm = tmpStrArr[1].replace(" ", "").toIntOrNull() ?: 0
+            val start = ExternalGlobalCoordinates(location)
+            val ec = ecc.calculateEndingGlobalCoordinates(
                 ExternalEllipsoid.WGS84,
                 start,
                 degree.toDouble(),
