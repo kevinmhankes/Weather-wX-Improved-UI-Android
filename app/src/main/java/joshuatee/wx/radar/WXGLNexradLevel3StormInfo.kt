@@ -45,19 +45,17 @@ internal object WXGLNexradLevel3StormInfo {
             projectionType: ProjectionType
     ): List<Double> {
         val stormList = mutableListOf<Double>()
-        val retStr: String
         val location = UtilityLocation.getSiteLocation(radarSite)
         val pn = ProjectionNumbers(radarSite, projectionType)
         WXGLDownload.getNidsTab(context, "STI", pn.radarSite.toLowerCase(Locale.US), stiBaseFn + fnSuffix)
-        val dis: UCARRandomAccessFile
         val posn: List<String>
         val motion: List<String>
         try {
-            dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, stiBaseFn + fnSuffix))
+            val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, stiBaseFn + fnSuffix))
             dis.bigEndian = true
-            retStr = UtilityLevel3TextProduct.read(dis)
-            posn = retStr.parseColumn(RegExp.stiPattern1)
-            motion = retStr.parseColumn(RegExp.stiPattern2)
+            val data = UtilityLevel3TextProduct.read(dis)
+            posn = data.parseColumn(RegExp.stiPattern1)
+            motion = data.parseColumn(RegExp.stiPattern2)
         } catch (e: Exception) {
             UtilityLog.handleException(e)
             return listOf()
