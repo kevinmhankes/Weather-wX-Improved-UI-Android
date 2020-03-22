@@ -216,7 +216,9 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         if (!locationFragment && !MyApplication.wxoglCenterOnLocation) {
             if (distanceX != 0f) {
                 if (MyApplication.dualpaneshareposn) {
-                    (0 until numPanes).forEach { oglr[it].x += -1.0f * distanceX }
+                    (0 until numPanes).forEach {
+                        oglr[it].x += -1.0f * distanceX
+                    }
                 } else {
                     oglrCurrent.x += -1.0f * distanceX
                 }
@@ -224,7 +226,9 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             }
             if (distanceY != 0f) {
                 if (MyApplication.dualpaneshareposn) {
-                    (0 until numPanes).forEach { oglr[it].y += distanceY }
+                    (0 until numPanes).forEach {
+                        oglr[it].y += distanceY
+                    }
                 } else {
                     oglrCurrent.y += distanceY
                 }
@@ -232,7 +236,9 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             }
             if (panned) {
                 if (MyApplication.dualpaneshareposn) {
-                    (0 until numPanes).forEach { wxgl[it].requestRender() }
+                    (0 until numPanes).forEach {
+                        wxgl[it].requestRender()
+                    }
                 } else {
                     requestRender()
                 }
