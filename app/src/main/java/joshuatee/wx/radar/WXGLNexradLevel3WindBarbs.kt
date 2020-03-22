@@ -31,13 +31,13 @@ import joshuatee.wx.util.ProjectionNumbers
 internal object WXGLNexradLevel3WindBarbs {
 
     fun decodeAndPlot(
-            rid: String,
+            radarSite: String,
             projectionType: ProjectionType,
             isGust: Boolean,
             index: Int
     ): List<Double> {
         val stormList = mutableListOf<Double>()
-        val pn = ProjectionNumbers(rid, projectionType)
+        val pn = ProjectionNumbers(radarSite, projectionType)
         val arrWb = if (!isGust) {
             UtilityMetar.metarDataList[index].obsArrWb
         } else {
