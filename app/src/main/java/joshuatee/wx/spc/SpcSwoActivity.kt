@@ -106,11 +106,9 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         val miDay6Img = menu.findItem(R.id.action_share_d6)
         val miDay7Img = menu.findItem(R.id.action_share_d7)
         val miDay8Img = menu.findItem(R.id.action_share_d8)
-        miDay4Img.isVisible = false
-        miDay5Img.isVisible = false
-        miDay6Img.isVisible = false
-        miDay7Img.isVisible = false
-        miDay8Img.isVisible = false
+        listOf(miDay4Img, miDay5Img, miDay6Img, miDay7Img, miDay8Img).forEach {
+            it.isVisible = false
+        }
         if (day == "1" || day == "2") {
             miProbabilistic.isVisible = false
         } else {
@@ -128,11 +126,9 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         if (day == "4-8") {
             val state = menu.findItem(R.id.action_state_graphics)
             state.isVisible = false
-            miDay4Img.isVisible = true
-            miDay5Img.isVisible = true
-            miDay6Img.isVisible = true
-            miDay7Img.isVisible = true
-            miDay8Img.isVisible = true
+            listOf(miDay4Img, miDay5Img, miDay6Img, miDay7Img, miDay8Img).forEach {
+                it.isVisible = true
+            }
         }
         getContent()
     }
