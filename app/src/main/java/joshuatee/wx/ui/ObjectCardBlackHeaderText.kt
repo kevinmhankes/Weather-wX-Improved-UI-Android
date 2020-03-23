@@ -38,8 +38,8 @@ class ObjectCardBlackHeaderText(context: Context, val linearLayout: LinearLayout
 
     init {
         val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
-        objectLinearLayout.addView(objectTextView.tv)
-        objectCard.addView(objectLinearLayout.linearLayout)
+        objectLinearLayout.addView(objectTextView)
+        objectCard.addView(objectLinearLayout)
         linearLayout.addView(objectCard.card)
         setTextHeader()
     }

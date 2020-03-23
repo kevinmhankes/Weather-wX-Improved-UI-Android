@@ -44,7 +44,7 @@ class ObjectCardAlertSummaryItem(context: Context) {
     init {
         val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
         objectLinearLayout.addViews(listOf(textViewTop.tv, textViewTitle.tv, textViewStart.tv, textViewEnd.tv, textViewBottom.tv))
-        objectCard.addView(objectLinearLayout.linearLayout)
+        objectCard.addView(objectLinearLayout)
     }
 
     val card: CardView get() = objectCard.card
