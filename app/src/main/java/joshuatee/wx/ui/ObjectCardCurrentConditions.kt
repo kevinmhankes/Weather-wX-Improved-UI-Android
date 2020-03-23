@@ -58,10 +58,10 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
             textViewBottom.setPadding(MyApplication.padding, 0, MyApplication.padding, 2)
             textViewMiddle.setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
             linearLayoutHorizontal.orientation = LinearLayout.VERTICAL
-            linearLayoutHorizontal.addView(textViewTop.tv)
-            linearLayoutHorizontal.addView(textViewBottom.tv)
+            linearLayoutHorizontal.addView(textViewTop)
+            linearLayoutHorizontal.addView(textViewBottom)
         }
-        objCard.addView(linearLayoutHorizontal.linearLayout)
+        objCard.addView(linearLayoutHorizontal)
     }
 
     val card: CardView get() = objCard.card

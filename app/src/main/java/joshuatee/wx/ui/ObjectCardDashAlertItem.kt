@@ -56,7 +56,7 @@ class ObjectCardDashAlertItem(
     init {
         val linearLayoutVertical = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
         listOf(textViewTop, textViewTitle, textViewStart, textViewEnd, textViewBottom).forEach {
-            linearLayoutVertical.addView(it.tv)
+            linearLayoutVertical.addView(it)
         }
 
         /*val button = MaterialButton(context)
@@ -72,7 +72,7 @@ class ObjectCardDashAlertItem(
         linearLayoutHorizontal.addView(button)
         linearLayoutVertical.addView(linearLayoutHorizontal)*/
 
-        objectCard.addView(linearLayoutVertical.linearLayout)
+        objectCard.addView(linearLayoutVertical)
         setTextFields()
         linearLayout.addView(objectCard.card)
     }

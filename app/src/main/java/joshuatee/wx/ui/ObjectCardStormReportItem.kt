@@ -43,7 +43,7 @@ class ObjectCardStormReportItem(context: Context) {
     init {
         val linearLayoutVertical = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
         linearLayoutVertical.addViews(listOf(textViewTop.tv, textViewTitle.tv, textViewBottom.tv))
-        objectCard.addView(linearLayoutVertical.linearLayout)
+        objectCard.addView(linearLayoutVertical)
     }
 
     val card: CardView get() = objectCard.card
@@ -65,8 +65,7 @@ class ObjectCardStormReportItem(context: Context) {
     fun setTextHeader(stormReport: StormReport) {
         textViewTop.text = stormReport.title.toUpperCase(Locale.US)
         textViewTop.setTextSize(TextSize.LARGE)
-        textViewTop.setPadding(20,20,20,20)
-      //  textViewTop.color = UIPreferences.textHighlightColor
+        textViewTop.setPadding(20)
         textViewTitle.tv.visibility = View.GONE
         textViewBottom.tv.visibility = View.GONE
         textViewTop.tv.setBackgroundColor(Color.BLACK)
