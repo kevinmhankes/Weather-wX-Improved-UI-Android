@@ -38,8 +38,8 @@ internal class AdapterUSWarningsImpact(private val dataSet: List<ObjectImpactGra
     internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         val title = ObjectTextView(itemView, R.id.title, UIPreferences.textHighlightColor)
-        val cities = ObjectTextView(itemView, R.id.cities)
-        val population = ObjectTextView(itemView, R.id.population)
+        val cities = ObjectTextView(itemView, R.id.cities, backgroundText = true)
+        val population = ObjectTextView(itemView, R.id.population, backgroundText = true)
 
         init {
             ObjectCard(itemView, R.id.cv1)
@@ -62,12 +62,12 @@ internal class AdapterUSWarningsImpact(private val dataSet: List<ObjectImpactGra
 
     override fun onBindViewHolder(holder: DataObjectHolder, position: Int) {
         holder.title.text = dataSet[position].title
-        holder.title.setTextSize(TextSize.SMALL)
+        //holder.title.setTextSize(TextSize.SMALL)
         holder.cities.text = dataSet[position].cities
         holder.population.text = dataSet[position].population
-        listOf(holder.cities, holder.population).forEach {
-            it.setAsSmallText()
-        }
+        //listOf(holder.cities, holder.population).forEach {
+        //    it.setAsSmallText()
+        //}
     }
 
     override fun getItemCount() = dataSet.size
