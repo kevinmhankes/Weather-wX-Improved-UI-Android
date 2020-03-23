@@ -44,12 +44,7 @@ class SpotterReportsActivity : BaseActivity() {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-            savedInstanceState,
-            R.layout.activity_recyclerview_toolbar,
-            null,
-            false
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_recyclerview_toolbar, null, false)
         val objectRecyclerViewGeneric = ObjectRecyclerViewGeneric(this, this, R.id.card_list)
         val adapterSpotterReports = AdapterSpotterReports(UtilitySpotter.spotterReports)
         objectRecyclerViewGeneric.recyclerView.adapter = adapterSpotterReports
