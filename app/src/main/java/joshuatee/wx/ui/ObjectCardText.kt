@@ -50,10 +50,7 @@ class ObjectCardText(private val context: Context) {
         objectCard.addView(tv)
     }
 
-    constructor(
-            context: Context,
-            linearLayout: LinearLayout
-    ) : this(context) {
+    constructor(context: Context, linearLayout: LinearLayout) : this(context) {
         linearLayout.addView(card)
     }
 
@@ -90,11 +87,7 @@ class ObjectCardText(private val context: Context) {
         text = textValue
     }
 
-    constructor(
-            context: Context,
-            linearLayout: LinearLayout,
-            toolbar: Toolbar
-    ) : this(context) {
+    constructor(context: Context, linearLayout: LinearLayout, toolbar: Toolbar) : this(context) {
         linearLayout.addView(card)
         setOnClickListener(View.OnClickListener {
             UtilityToolbar.showHide(
