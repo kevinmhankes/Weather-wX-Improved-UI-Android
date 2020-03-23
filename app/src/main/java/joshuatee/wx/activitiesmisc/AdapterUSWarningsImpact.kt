@@ -62,12 +62,8 @@ internal class AdapterUSWarningsImpact(private val dataSet: List<ObjectImpactGra
 
     override fun onBindViewHolder(holder: DataObjectHolder, position: Int) {
         holder.title.text = dataSet[position].title
-        //holder.title.setTextSize(TextSize.SMALL)
         holder.cities.text = dataSet[position].cities
         holder.population.text = dataSet[position].population
-        //listOf(holder.cities, holder.population).forEach {
-        //    it.setAsSmallText()
-        //}
     }
 
     override fun getItemCount() = dataSet.size
