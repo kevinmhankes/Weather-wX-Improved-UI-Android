@@ -51,6 +51,18 @@ class ObjectLinearLayout(context: Context) {
         linearLayout.addView(child)
     }
 
+    fun addView(objectTextView: ObjectTextView) {
+        linearLayout.addView(objectTextView.tv)
+    }
+
+    fun addView(objectLinearLayout: ObjectLinearLayout) {
+        linearLayout.addView(objectLinearLayout.linearLayout)
+    }
+
+    fun addView(objectImageView: ObjectImageView) {
+        linearLayout.addView(objectImageView.imageView)
+    }
+
     fun addViews(children: List<View>) {
         children.forEach { view ->
             linearLayout.addView(view)

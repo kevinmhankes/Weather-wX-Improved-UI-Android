@@ -84,8 +84,12 @@ class ObjectCard {
             card.visibility = newValue
         }
 
-    fun addView(v: View) {
-        card.addView(v)
+    fun addView(view: View) {
+        card.addView(view)
+    }
+
+    fun addView(objectLinearLayout: ObjectLinearLayout) {
+        card.addView(objectLinearLayout.linearLayout)
     }
 
     fun setOnClickListener(fn: View.OnClickListener) {
