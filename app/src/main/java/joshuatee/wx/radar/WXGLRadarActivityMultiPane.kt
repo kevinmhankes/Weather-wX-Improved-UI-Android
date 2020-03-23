@@ -158,26 +158,14 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     layoutType = R.layout.activity_uswxoglmultipane
                 }
             }
-            super.onCreate(
-                    savedInstanceState,
-                    layoutType,
-                    R.menu.uswxoglradarmultipane,
-                    iconsEvenlySpaced = true,
-                    bottomToolbar = true
-            )
+            super.onCreate(savedInstanceState, layoutType, R.menu.uswxoglradarmultipane, iconsEvenlySpaced = true, bottomToolbar = true)
         } else {
             layoutType = if (UIPreferences.radarImmersiveMode || UIPreferences.radarToolbarTransparent) {
                 R.layout.activity_uswxoglmultipane_quad_immersive
             } else {
                 R.layout.activity_uswxoglmultipane_quad
             }
-            super.onCreate(
-                    savedInstanceState,
-                    layoutType,
-                    R.menu.uswxoglradarmultipane,
-                    iconsEvenlySpaced = true,
-                    bottomToolbar = true
-            )
+            super.onCreate(savedInstanceState, layoutType, R.menu.uswxoglradarmultipane, iconsEvenlySpaced = true, bottomToolbar = true)
         }
         toolbarBottom.setOnMenuItemClickListener(this)
         UtilityUI.immersiveMode(this)

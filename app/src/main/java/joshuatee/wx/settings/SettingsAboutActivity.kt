@@ -49,11 +49,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-            savedInstanceState,
-            R.layout.activity_linear_layout_bottom_toolbar,
-            R.menu.shared_tts
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.shared_tts)
         val menu = toolbarBottom.menu
         val playlistMi = menu.findItem(R.id.action_playlist)
         playlistMi.isVisible = false

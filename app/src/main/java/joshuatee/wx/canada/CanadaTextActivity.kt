@@ -48,11 +48,7 @@ class CanadaTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_linear_layout_bottom_toolbar,
-                R.menu.canada_text
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.canada_text)
         toolbarBottom.setOnMenuItemClickListener(this)
         objectCardText = ObjectCardText(this, ll, toolbar, toolbarBottom)
         ObjectCALegal(this, ll, "")

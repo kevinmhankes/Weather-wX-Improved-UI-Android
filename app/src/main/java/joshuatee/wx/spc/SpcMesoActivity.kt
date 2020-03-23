@@ -108,21 +108,9 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         val numPanesAsString = activityArguments[1]
         numPanes = numPanesAsString.toIntOrNull() ?: 0
         if (numPanes == 1) {
-            super.onCreate(
-                    savedInstanceState,
-                    R.layout.activity_spcmeso,
-                    R.menu.spcmesomultipane,
-                    iconsEvenlySpaced = false,
-                    bottomToolbar = true
-            )
+            super.onCreate(savedInstanceState, R.layout.activity_spcmeso, R.menu.spcmesomultipane, iconsEvenlySpaced = false, bottomToolbar = true)
         } else {
-            super.onCreate(
-                    savedInstanceState,
-                    R.layout.activity_spcmeso_multipane,
-                    R.menu.spcmesomultipane,
-                    iconsEvenlySpaced = false,
-                    bottomToolbar = true
-            )
+            super.onCreate(savedInstanceState, R.layout.activity_spcmeso_multipane, R.menu.spcmesomultipane, iconsEvenlySpaced = false, bottomToolbar = true)
             val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
             if (UtilityUI.isLandScape(this)) {
                 linearLayout.orientation = LinearLayout.HORIZONTAL

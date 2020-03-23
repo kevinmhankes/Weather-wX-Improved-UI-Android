@@ -51,12 +51,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_settings_location_recyclerview,
-                null,
-                false
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_settings_location_recyclerview, null, false)
         ObjectFab(this, this, R.id.fab_add, View.OnClickListener { addItemFab() })
         toolbar.subtitle = "Tap location to edit, delete, or move."
         updateList()

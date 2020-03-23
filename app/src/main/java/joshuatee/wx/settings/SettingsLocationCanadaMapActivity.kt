@@ -50,12 +50,7 @@ class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_settings_location_canada_map,
-                null,
-                false
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_settings_location_canada_map, null, false)
         val activityArguments = intent.getStringArrayExtra(URL)
         url = activityArguments!![0]
         title = url.toUpperCase(Locale.US)

@@ -52,12 +52,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_recyclerview_homescreen,
-                R.menu.settings_homescreen,
-                true
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_recyclerview_homescreen, R.menu.settings_homescreen, true)
         toolbarBottom.setOnMenuItemClickListener(this)
         favoriteString = MyApplication.homescreenFav
         homeScreenFavOrig = favoriteString

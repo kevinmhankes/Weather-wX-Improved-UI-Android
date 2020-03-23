@@ -44,12 +44,7 @@ class CanadaAlertsActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-            savedInstanceState,
-            R.layout.activity_linear_layout_bottom_toolbar,
-            R.menu.caalerts,
-            true
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.caalerts, true)
         toolbarBottom.setOnMenuItemClickListener(this)
         objectCAWarn = ObjectCAWarn(this, this, ll, toolbar)
         objectCAWarn.prov = Utility.readPref(this, "CA_ALERTS_PROV", objectCAWarn.prov)

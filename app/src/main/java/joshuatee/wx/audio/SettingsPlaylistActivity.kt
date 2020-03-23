@@ -59,12 +59,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_recyclerview_playlist,
-                R.menu.settings_playlist,
-                true
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_recyclerview_playlist, R.menu.settings_playlist, true)
         toolbarBottom.setOnMenuItemClickListener(this)
         ObjectFab(this, this, R.id.fab, View.OnClickListener { playAll() })
         fabPause = ObjectFab(this, this, R.id.fab3, View.OnClickListener { playItemFAB() })

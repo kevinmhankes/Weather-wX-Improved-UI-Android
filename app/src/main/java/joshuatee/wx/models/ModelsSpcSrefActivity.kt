@@ -87,21 +87,9 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         activityArguments = intent.getStringArrayExtra(INFO)!!
         om = ObjectModel(this, activityArguments[1], activityArguments[0])
         if (om.numPanes == 1) {
-            super.onCreate(
-                    savedInstanceState,
-                    R.layout.activity_models_spcsref,
-                    R.menu.models_spcsref,
-                    iconsEvenlySpaced = false,
-                    bottomToolbar = true
-            )
+            super.onCreate(savedInstanceState, R.layout.activity_models_spcsref, R.menu.models_spcsref, iconsEvenlySpaced = false, bottomToolbar = true)
         } else {
-            super.onCreate(
-                    savedInstanceState,
-                    R.layout.activity_models_spcsrefmultipane,
-                    R.menu.models_spcsref,
-                    iconsEvenlySpaced = false,
-                    bottomToolbar = true
-            )
+            super.onCreate(savedInstanceState, R.layout.activity_models_spcsrefmultipane, R.menu.models_spcsref, iconsEvenlySpaced = false, bottomToolbar = true)
             val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
             if (UtilityUI.isLandScape(this)) {
                 linearLayout.orientation = LinearLayout.HORIZONTAL
