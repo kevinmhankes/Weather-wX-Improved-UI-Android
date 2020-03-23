@@ -36,7 +36,6 @@ import com.google.android.material.button.MaterialButton
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 
-
 class ObjectCardDashAlertItem(
         context: Context,
         val linearLayout: LinearLayout,
@@ -84,7 +83,6 @@ class ObjectCardDashAlertItem(
         objectCard.card.setOnClickListener(fn)
     }
 
-    // FIXME use objectAlertDetail which has timezone
     private fun setTextFields() {
         textViewTop.text = senderName
         textViewTitle.text = eventType
