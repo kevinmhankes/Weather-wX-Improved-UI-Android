@@ -156,24 +156,23 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
         when (day) {
             "1", "2" -> {
-                setImageAndClickAction(0, urls, textUrl)
-                setImageAndClickAction(1, urls, textUrl)
-                setImageAndClickAction(2, urls, textUrl)
-                setImageAndClickAction(3, urls, textUrl)
+                listOf(0, 1, 2, 3).forEach {
+                    setImageAndClickAction(it, urls, textUrl)
+                }
                 objectCardImageList[4].visibility = View.GONE
             }
             "3" -> {
-                setImageAndClickAction(0, urls, textUrl)
-                setImageAndClickAction(1, urls, textUrl)
-                for (index in 2..4)
-                    objectCardImageList[index].visibility = View.GONE
+                listOf(0, 1).forEach {
+                    setImageAndClickAction(it, urls, textUrl)
+                }
+                (2..4).forEach {
+                    objectCardImageList[it].visibility = View.GONE
+                }
             }
             "4-8" -> {
-                setImageAndClickAction(0, urls, textUrl)
-                setImageAndClickAction(1, urls, textUrl)
-                setImageAndClickAction(2, urls, textUrl)
-                setImageAndClickAction(3, urls, textUrl)
-                setImageAndClickAction(4, urls, textUrl)
+                listOf(0, 1, 2, 3, 4).forEach {
+                    setImageAndClickAction(it, urls, textUrl)
+                }
             }
         }
     }
