@@ -72,12 +72,8 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        urls = withContext(Dispatchers.IO) {
-            UtilitySpc.thunderStormOutlookUrls
-        }
-        bitmaps = withContext(Dispatchers.IO) {
-            urls.map { it.getImage() }
-        }
+        urls = withContext(Dispatchers.IO) { UtilitySpc.thunderStormOutlookUrls }
+        bitmaps = withContext(Dispatchers.IO) { urls.map { it.getImage() } }
         ll.removeAllViews()
         var numberOfImages = 0
         val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
@@ -115,13 +111,7 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(
-                    this,
-                    this,
-                    "SPC Thunderstorm Outlook",
-                    "",
-                    bitmaps
-            )
+            R.id.action_share -> UtilityShare.shareText(this, this, "SPC Thunderstorm Outlook", "", bitmaps)
             else -> return super.onOptionsItemSelected(item)
         }
         return true
