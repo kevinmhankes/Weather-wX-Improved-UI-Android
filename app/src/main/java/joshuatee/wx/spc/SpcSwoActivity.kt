@@ -80,7 +80,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         toolbarBottom.setOnMenuItemClickListener(this)
         var numberOfImages = 0
         val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
-        for (index in 0..4) {
+        (0..4).forEach { _ ->
             if (numberOfImages % imagesPerRow == 0) {
                 val objectLinearLayout = ObjectLinearLayout(this, ll)
                 objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL

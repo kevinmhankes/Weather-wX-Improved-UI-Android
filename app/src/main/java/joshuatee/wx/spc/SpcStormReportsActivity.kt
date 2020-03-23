@@ -221,7 +221,9 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         if (firstRun) {
             stateArray = mapState.keys.toList()
             val stateArrayLabel = mutableListOf<String>()
-            stateArray.indices.forEach { stateArrayLabel.add(stateArray[it] + ": " + mapState[stateArray[it]]) }
+            stateArray.indices.forEach {
+                stateArrayLabel.add(stateArray[it] + ": " + mapState[stateArray[it]])
+            }
             if (stateArrayLabel.size > 0) {
                 objectNavDrawer.updateLists(this@SpcStormReportsActivity, stateArrayLabel)
             }
@@ -342,11 +344,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     bitmap,
                     out.toString()
             )
-            R.id.action_share_text -> UtilityShare.shareText(
-                    this,
-                    "Storm Reports - $no",
-                    out.toString()
-            )
+            R.id.action_share_text -> UtilityShare.shareText(this, "Storm Reports - $no", out.toString())
             R.id.action_share_image -> UtilityShare.shareBitmap(this, this, "Storm Reports - $no", bitmap)
             R.id.action_lsrbywfo -> ObjectIntent(
                     this,

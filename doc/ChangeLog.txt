@@ -33,6 +33,7 @@
                     [FIX] in nexrad with transparent toolbars, show toolbar background when map is shown
                     [ADD] minor padding change in current conditions card
                     [ADD] minor formatting changes in warning impact graphics
+                    [ADD] kotlin plugin 1.3.70 -> 1.3.71
 55380 2020_03_20    [REF] misc for readability
                     [ADD] minor formatting enhancement in spotter reports (light gray for description)
                     [ADD] In SevereDashboard, octago icon main screen - you can now press and hold on a warning for a menu, menu allows one to show nexrad radar
