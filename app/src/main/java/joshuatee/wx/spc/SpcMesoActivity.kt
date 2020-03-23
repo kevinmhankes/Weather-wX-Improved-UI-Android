@@ -90,7 +90,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     private var prefModel = ""
     private lateinit var prefParam: String
     private lateinit var prefParamLabel: String
-    private lateinit var sp: ObjectSpinner
+    private lateinit var objectSpinner: ObjectSpinner
     private lateinit var drw: ObjectNavDrawerCombo
     private lateinit var displayData: DisplayData
 
@@ -173,20 +173,20 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
             displayData.img[0].setOnTouchListener(object : OnSwipeTouchListener(this) {
                 override fun onSwipeLeft() {
                     if (displayData.img[curImg].currentZoom < 1.01f) {
-                        UtilitySpcMeso.moveForward(sp)
+                        UtilitySpcMeso.moveForward(objectSpinner)
                     }
                 }
 
                 override fun onSwipeRight() {
                     if (displayData.img[curImg].currentZoom < 1.01f) {
-                        UtilitySpcMeso.moveBack(sp)
+                        UtilitySpcMeso.moveBack(objectSpinner)
                     }
                 }
             })
         }
         favListLabel = UtilityFavorites.setupMenuSpc(MyApplication.spcmesoLabelFav, displayData.paramLabel[curImg])
         favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])
-        sp = ObjectSpinner(this, this, this, R.id.spinner1, favListLabel)
+        objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, favListLabel)
         UtilitySpcMeso.createData()
         drw = ObjectNavDrawerCombo(
                 this,
@@ -216,7 +216,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 MyApplication.spcMesoFav,
                 displayData.param[curImg]
         )
-        sp.refreshData(this@SpcMesoActivity, favListLabel)
+        objectSpinner.refreshData(this@SpcMesoActivity, favListLabel)
         super.onRestart()
     }
 
@@ -444,12 +444,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         if (helpText.contains("Page Not Found")) {
             helpText = "Help is not available for this parameter."
         }
-        showHelpTextDialog(Utility.fromHtml(helpText))
-    }
-
-    // FIXME remove pass through
-    private fun showHelpTextDialog(help: String) {
-        ObjectDialogue(this, help)
+        ObjectDialogue(this@SpcMesoActivity, Utility.fromHtml(helpText))
     }
 
     private fun setAndLaunchParam(paramStr: String, a: Int, b: Int) {
@@ -463,8 +458,9 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
 
     private fun setAndLaunchSector(sectorNo: String) {
         displayData.img[0].resetZoom()
-        if (numPanes > 1)
+        if (numPanes > 1) {
             displayData.img[1].resetZoom()
+        }
         sector = sectorNo
         Utility.writePref(this, prefSector, sector)
         getContent()
@@ -498,13 +494,13 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 MyApplication.spcMesoFav,
                 displayData.param[curImg]
         )
-        sp.refreshData(this@SpcMesoActivity, favListLabel)
+        objectSpinner.refreshData(this@SpcMesoActivity, favListLabel)
     }
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
         when (parent.id) {
             R.id.spinner1 -> {
-                when (pos) {
+                when (position) {
                     1 -> ObjectIntent(
                             this,
                             FavAddActivity::class.java,
@@ -518,9 +514,9 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
                             arrayOf("SPCMESO")
                     )
                     else -> {
-                        if (favListParm.count() > pos && favListLabel.count() > pos) {
-                            displayData.param[curImg] = favListParm[pos]
-                            displayData.paramLabel[curImg] = favListLabel[pos]
+                        if (favListParm.count() > position && favListLabel.count() > position) {
+                            displayData.param[curImg] = favListParm[position]
+                            displayData.paramLabel[curImg] = favListLabel[position]
                             Utility.writePref(this, prefParam + curImg, displayData.param[curImg])
                             Utility.writePref(
                                     this,
@@ -546,6 +542,6 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 MyApplication.spcMesoFav,
                 displayData.param[curImg]
         )
-        sp.refreshData(this@SpcMesoActivity, favListLabel)
+        objectSpinner.refreshData(this@SpcMesoActivity, favListLabel)
     }
 }
