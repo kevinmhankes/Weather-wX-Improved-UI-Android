@@ -72,7 +72,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
     private val prefToken = "WFO_FAV"
     private var ridFavOld = ""
     private var wfoProd = listOf<String>()
-    private lateinit var sp: ObjectSpinner
+    private lateinit var objectSpinner: ObjectSpinner
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,13 +84,14 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
         if (wfo == "") {
             wfo = "OUN"
         }
-        prod = if (activityArguments[1] == "")
+        prod = if (activityArguments[1] == "") {
             MyApplication.wfoTextFav
-        else
+        } else {
             activityArguments[1]
+        }
         toolbar.title = prod
         locations = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
-        sp = ObjectSpinner(this, this, this, R.id.spinner1, locations)
+        objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, locations)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(scrollView))
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToWfo)
     }
@@ -98,7 +99,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
     override fun onRestart() {
         if (ridFavOld != MyApplication.wfoFav) {
             locations = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
-            sp.refreshData(this@LsrByWfoActivity, locations)
+            objectSpinner.refreshData(this@LsrByWfoActivity, locations)
         }
         super.onRestart()
     }
@@ -125,13 +126,13 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
         wfo = loc.toUpperCase(Locale.US)
         mapShown = false
         locations = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
-        sp.refreshData(this@LsrByWfoActivity, locations)
+        objectSpinner.refreshData(this@LsrByWfoActivity, locations)
     }
 
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleString(this, wfo, star, prefToken)
         locations = UtilityFavorites.setupMenu(this, ridFav, wfo, prefToken)
-        sp.refreshData(this@LsrByWfoActivity, locations)
+        objectSpinner.refreshData(this@LsrByWfoActivity, locations)
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
@@ -188,10 +189,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
                     maxVersions = 30
                 }
                 (1..maxVersions + 1 step 2).mapTo(localStormReports) {
-                    UtilityDownload.getTextProduct(
-                            "LSR$wfo",
-                            it
-                    )
+                    UtilityDownload.getTextProduct("LSR$wfo", it)
                 }
             }
             return localStormReports
