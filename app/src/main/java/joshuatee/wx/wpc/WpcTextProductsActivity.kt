@@ -77,11 +77,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_wpctextproducts,
-                R.menu.wpctext_products
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_wpctextproducts, R.menu.wpctext_products)
         toolbarBottom.setOnMenuItemClickListener(this)
         star = toolbarBottom.menu.findItem(R.id.action_fav)
         notificationToggle = toolbarBottom.menu.findItem(R.id.action_notif_text_prod)

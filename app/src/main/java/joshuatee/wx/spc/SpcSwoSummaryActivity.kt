@@ -50,12 +50,7 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_linear_layout_bottom_toolbar,
-                R.menu.spc_swo_summary,
-                true
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.spc_swo_summary, true)
         if (UtilityUI.isLandScape(this)) {
             imagesPerRow = 3
         }

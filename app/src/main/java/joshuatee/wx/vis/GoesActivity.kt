@@ -55,13 +55,7 @@ class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_image_show_navdrawer_bottom_toolbar,
-                R.menu.goes16,
-                iconsEvenlySpaced = true,
-                bottomToolbar = true
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer_bottom_toolbar, R.menu.goes16, iconsEvenlySpaced = true, bottomToolbar = true)
         toolbarBottom.setOnMenuItemClickListener(this)
         UtilityShortcut.hidePinIfNeeded(toolbarBottom)
         activityArguments = intent.getStringArrayExtra(RID)!!

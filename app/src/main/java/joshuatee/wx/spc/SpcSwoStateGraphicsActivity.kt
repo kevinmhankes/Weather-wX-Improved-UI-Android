@@ -64,13 +64,7 @@ class SpcSwoStateGraphicsActivity : VideoRecordActivity(), OnItemSelectedListene
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_spcswostate,
-                R.menu.spcswostate,
-                iconsEvenlySpaced = true,
-                bottomToolbar = true
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_spcswostate, R.menu.spcswostate, iconsEvenlySpaced = true, bottomToolbar = true)
         toolbarBottom.setOnMenuItemClickListener(this)
         day = intent.getStringArrayExtra(NO)!![0]
         state = Utility.getWfoSiteName(Location.wfo).split(",")[0]

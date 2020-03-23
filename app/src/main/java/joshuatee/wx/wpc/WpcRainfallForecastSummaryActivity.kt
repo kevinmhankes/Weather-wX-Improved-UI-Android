@@ -49,12 +49,7 @@ class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemCli
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_linear_layout_bottom_toolbar,
-                R.menu.shared_multigraphics,
-                true
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.shared_multigraphics, true)
         if (UtilityUI.isLandScape(this)) {
             imagesPerRow = 3
         }

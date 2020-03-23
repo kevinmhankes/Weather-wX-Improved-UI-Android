@@ -61,12 +61,7 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_spcsoundings,
-                R.menu.spcsoundings,
-                true
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_spcsoundings, R.menu.spcsoundings, true)
         toolbarBottom.setOnMenuItemClickListener(this)
         star = toolbarBottom.menu.findItem(R.id.action_fav)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv)

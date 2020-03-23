@@ -73,11 +73,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_linear_layout_bottom_toolbar,
-                R.menu.spcswo
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.spcswo)
         if (UtilityUI.isLandScape(this) && UtilityUI.isTablet()) {
             imagesPerRow = 4
         }
