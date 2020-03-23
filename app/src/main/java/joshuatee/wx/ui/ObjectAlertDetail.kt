@@ -23,7 +23,6 @@ package joshuatee.wx.ui
 
 import android.content.Context
 import android.widget.LinearLayout
-import joshuatee.wx.Extensions.setPadding
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R

@@ -133,13 +133,11 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
             }
             if (mcdList.size == 1) {
                 if (number.contains("at")) {
-                    textUrl = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/w" +
-                            mcdNumbers[0] + ".html"
+                    textUrl = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/w" + mcdNumbers[0] + ".html"
                     titleString = "Watch " + mcdNumbers[0].replace("w", "")
                     product = "SPCWAT" + mcdNumbers[0].replace("w", "")
                 } else {
-                    textUrl = "${MyApplication.nwsSPCwebsitePrefix}/products/md/md" +
-                            mcdNumbers[0] + ".html"
+                    textUrl = "${MyApplication.nwsSPCwebsitePrefix}/products/md/md" + mcdNumbers[0] + ".html"
                     titleString = "MCD " + mcdNumbers[0]
                     product = "SPCMCD" + mcdNumbers[0]
                 }
@@ -147,8 +145,8 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
             }
         }
         mcdList.indices.forEach { mcdIndex ->
-            val card = ObjectCardImage(this@SpcMcdWatchShowSummaryActivity, ll, bitmaps[mcdIndex])
-            card.setOnClickListener(View.OnClickListener {
+            val objectCardImage = ObjectCardImage(this@SpcMcdWatchShowSummaryActivity, ll, bitmaps[mcdIndex])
+            objectCardImage.setOnClickListener(View.OnClickListener {
                 ObjectIntent(
                         this@SpcMcdWatchShowSummaryActivity,
                         SpcMcdWatchShowActivity::class.java,
@@ -157,7 +155,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
                 )
             })
             if (mcdList.size == 1) {
-                registerForContextMenu(card.img)
+                registerForContextMenu(objectCardImage.img)
             }
         }
         if (mcdList.size == 1) {
@@ -194,7 +192,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        wfos.filter { item.title.toString().contains(it) }.forEach {
+        wfos.filter { item.title.contains(it) }.forEach {
             UtilityLocation.saveLocationForMcd(it, this@SpcMcdWatchShowSummaryActivity, ll, uiDispatcher)
         }
         return true

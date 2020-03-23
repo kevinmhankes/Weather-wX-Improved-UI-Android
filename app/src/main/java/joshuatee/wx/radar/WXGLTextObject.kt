@@ -35,7 +35,6 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ProjectionType
 import joshuatee.wx.util.ProjectionNumbers
 import joshuatee.wx.util.UtilityCanvasProjection
-import joshuatee.wx.util.UtilityLog
 
 import kotlin.math.*
 

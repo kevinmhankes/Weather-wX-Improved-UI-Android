@@ -80,7 +80,7 @@ class ObjectLinearLayout(context: Context) {
             linearLayout.orientation = value
         }
 
-    var gravityBacking = Gravity.START
+    private var gravityBacking = Gravity.START
 
     var gravity: Int
         get() = gravityBacking

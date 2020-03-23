@@ -28,7 +28,6 @@ import android.view.ViewGroup
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.objects.TextSize
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectTextView
 

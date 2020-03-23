@@ -22,12 +22,10 @@
 package joshuatee.wx.util
 
 import android.app.Activity
-import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
-import joshuatee.wx.ui.ObjectDialogue
 import android.webkit.WebResourceRequest
 import android.os.Build
 import android.annotation.TargetApi

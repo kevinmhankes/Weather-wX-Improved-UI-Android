@@ -123,12 +123,12 @@ class ObjectTextView(val context: Context) {
             tv.setTextColor(newValue)
         }
 
-    fun setAsBackgroundText() {
+    private fun setAsBackgroundText() {
         setAsSmallText()
         tv.setTextColor(UIPreferences.textSmallThemeColor)
     }
 
-    fun setAsSmallText() {
+    private fun setAsSmallText() {
         tv.setTextColor(UIPreferences.backgroundColor)
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
     }

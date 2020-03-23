@@ -23,15 +23,12 @@ package joshuatee.wx.activitiesmisc
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.GlobalDictionaries
 import joshuatee.wx.MyApplication
@@ -307,8 +304,8 @@ class SevereDashboardActivity : BaseActivity() {
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        when {
-            item.title == "Open radar interface" -> radarInterface(item.itemId)
+        when (item.title) {
+            "Open radar interface" -> radarInterface(item.itemId)
             //(item.title as String).contains("Add new location for this warning") -> locationAdd(item.itemId)
             else -> return false
         }

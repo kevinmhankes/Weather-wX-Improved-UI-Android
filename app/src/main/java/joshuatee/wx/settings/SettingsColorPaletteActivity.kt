@@ -39,7 +39,6 @@ import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityAlertDialog
 import joshuatee.wx.util.UtilityFileManagement
 
 import kotlinx.android.synthetic.main.activity_recyclerview_toolbar_with_twofab.*
