@@ -27,6 +27,7 @@
 // TODO [FIX] update PlayList to be more like iOS
 // TODO [ADD] severedash long press to add location
 // TODO [ADD] severedash long press color is off
+// TODO [FIX] severedash -> long press -> go to dual pane ( does not use current location )
 
 55381 2020_03_23    [REF] misc for readability
                     [FIX] in nexrad with transparent toolbars, show toolbar background when map is shown
