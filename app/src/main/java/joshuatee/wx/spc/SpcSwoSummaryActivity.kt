@@ -32,10 +32,7 @@ import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.R
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.ShortcutType
-import joshuatee.wx.ui.BaseActivity
-import joshuatee.wx.ui.ObjectCardImage
-import joshuatee.wx.ui.ObjectLinearLayout
-import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.ui.*
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.util.UtilityShortcut
 import kotlinx.coroutines.*
@@ -75,7 +72,7 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
             }
         }
         ll.removeAllViews()
-        var numberOfImages = 0
+      /*  var numberOfImages = 0
         val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
         bitmaps.forEachIndexed { index, bitmap ->
             val day = if (index < 3) {
@@ -111,6 +108,23 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
                 )
             })
             numberOfImages += 1
+        }*/
+
+        val objectImageSummary = ObjectImageSummary(this@SpcSwoSummaryActivity, ll, bitmaps)
+        objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
+            val day = if (index < 3) {
+                (index + 1).toString()
+            } else {
+                "4-8"
+            }
+            objectCardImage.setOnClickListener(View.OnClickListener {
+                ObjectIntent(
+                        this@SpcSwoSummaryActivity,
+                        SpcSwoActivity::class.java,
+                        SpcSwoActivity.NUMBER,
+                        arrayOf(day, "")
+                )
+            })
         }
     }
 
