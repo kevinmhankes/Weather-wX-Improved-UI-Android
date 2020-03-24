@@ -25,20 +25,16 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.widget.LinearLayout
 
-class ObjectImageSummary(
-        context: Context,
-        var linearLayout: LinearLayout,
-        var bitmaps: List<Bitmap>,
-        var classTarget: String,
-        var cl: Class<*>
-) {
+class ObjectImageSummary(context: Context, var linearLayout: LinearLayout, var bitmaps: List<Bitmap>) {
+
+    var objectCardImages = mutableListOf<ObjectCardImage>()
 
     init {
         val imagesPerRow = 2
         linearLayout.removeAllViews()
         var numberOfImages = 0
         val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
-        bitmaps.forEachIndexed { index, bitmap ->
+        bitmaps.forEach { bitmap ->
             val objectCardImage: ObjectCardImage
             if (numberOfImages % imagesPerRow == 0) {
                 val objectLinearLayout = ObjectLinearLayout(context, linearLayout)
@@ -58,14 +54,7 @@ class ObjectImageSummary(
                         imagesPerRow
                 )
             }
-            /*objectCardImage.setOnClickListener(View.OnClickListener {
-                ObjectIntent(
-                        this@SpcThunderStormOutlookActivity,
-                        ImageShowActivity::class.java,
-                        ImageShowActivity.URL,
-                        arrayOf(urls[index], "")
-                )
-            })*/
+            objectCardImages.add(objectCardImage)
             numberOfImages += 1
         }
     }
