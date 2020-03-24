@@ -32,10 +32,9 @@ import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.ui.BaseActivity
-import joshuatee.wx.ui.ObjectCardImage
-import joshuatee.wx.ui.ObjectLinearLayout
-import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.spc.SpcFireOutlookActivity
+import joshuatee.wx.spc.UtilitySpcFireOutlook
+import joshuatee.wx.ui.*
 import joshuatee.wx.util.UtilityShare
 import kotlinx.coroutines.*
 
@@ -72,7 +71,7 @@ class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemCli
             }
         }
         ll.removeAllViews()
-        var numberOfImages = 0
+        /*var numberOfImages = 0
         val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
         bitmaps.forEachIndexed { index, bitmap ->
             val textProduct = UtilityWpcRainfallForecast.productCode[index]
@@ -106,6 +105,21 @@ class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemCli
                 )
             })
             numberOfImages += 1
+        }*/
+
+        val objectImageSummary = ObjectImageSummary(this@WpcRainfallForecastSummaryActivity, ll, bitmaps)
+        objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
+            objectCardImage.setOnClickListener(View.OnClickListener {
+                val textProduct = UtilityWpcRainfallForecast.productCode[index]
+                val imageUrl = UtilityWpcRainfallForecast.imageUrls[index]
+                val day = (index + 1).toString()
+                ObjectIntent(
+                        this@WpcRainfallForecastSummaryActivity,
+                        WpcRainfallForecastActivity::class.java,
+                        WpcRainfallForecastActivity.NUMBER,
+                        arrayOf(textProduct, imageUrl, day)
+                )
+            })
         }
     }
 
