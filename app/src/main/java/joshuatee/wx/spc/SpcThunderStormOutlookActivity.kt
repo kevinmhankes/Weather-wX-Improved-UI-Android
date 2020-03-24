@@ -34,10 +34,7 @@ import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.R
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.ui.BaseActivity
-import joshuatee.wx.ui.ObjectCardImage
-import joshuatee.wx.ui.ObjectLinearLayout
-import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.ui.*
 import joshuatee.wx.util.UtilityShare
 import kotlinx.coroutines.*
 
@@ -75,9 +72,9 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
         urls = withContext(Dispatchers.IO) { UtilitySpc.thunderStormOutlookUrls }
         bitmaps = withContext(Dispatchers.IO) { urls.map { it.getImage() } }
         ll.removeAllViews()
-        var numberOfImages = 0
-        val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
-        bitmaps.forEachIndexed { index, bitmap ->
+        //var numberOfImages = 0
+        //val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
+        /*bitmaps.forEachIndexed { index, bitmap ->
             val objectCardImage: ObjectCardImage
             if (numberOfImages % imagesPerRow == 0) {
                 val objectLinearLayout = ObjectLinearLayout(this@SpcThunderStormOutlookActivity, ll)
@@ -106,6 +103,18 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
                 )
             })
             numberOfImages += 1
+        }*/
+
+        val objectImageSummary = ObjectImageSummary(this@SpcThunderStormOutlookActivity, ll, bitmaps)
+        objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
+            objectCardImage.setOnClickListener(View.OnClickListener {
+                ObjectIntent(
+                        this@SpcThunderStormOutlookActivity,
+                        ImageShowActivity::class.java,
+                        ImageShowActivity.URL,
+                        arrayOf(urls[index], "")
+                )
+            })
         }
     }
 

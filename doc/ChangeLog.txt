@@ -29,7 +29,7 @@
 // TODO [ADD] severedash long press color is off
 // TODO [FIX] severedash -> long press -> go to dual pane ( does not use current location )
 
-55382 2020_03_24
+55382 2020_03_24    [REF] make use of ObjectImageSummary in SPC Fire/tstorm
 55381 2020_03_24    [REF] misc for readability
                     [FIX] in nexrad with transparent toolbars, show toolbar background when map is shown
                     [ADD] minor padding change in current conditions card

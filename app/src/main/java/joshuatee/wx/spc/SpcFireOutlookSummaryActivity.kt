@@ -31,11 +31,9 @@ import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
+import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.ui.BaseActivity
-import joshuatee.wx.ui.ObjectCardImage
-import joshuatee.wx.ui.ObjectLinearLayout
-import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.ui.*
 import joshuatee.wx.util.UtilityShare
 import kotlinx.coroutines.*
 
@@ -72,7 +70,7 @@ class SpcFireOutlookSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickLis
         bitmaps = mutableListOf()
         withContext(Dispatchers.IO) { UtilitySpcFireOutlook.imageUrls.mapTo(bitmaps) { it.getImage() } }
         ll.removeAllViews()
-        var numberOfImages = 0
+       /* var numberOfImages = 0
         val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
         bitmaps.forEachIndexed { index, bitmap ->
             val objectCardImage: ObjectCardImage
@@ -103,7 +101,20 @@ class SpcFireOutlookSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickLis
                 )
             })
             numberOfImages += 1
+        }*/
+
+        val objectImageSummary = ObjectImageSummary(this@SpcFireOutlookSummaryActivity, ll, bitmaps)
+        objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
+            objectCardImage.setOnClickListener(View.OnClickListener {
+                ObjectIntent(
+                        this@SpcFireOutlookSummaryActivity,
+                        SpcFireOutlookActivity::class.java,
+                        SpcFireOutlookActivity.NUMBER,
+                        arrayOf(UtilitySpcFireOutlook.textProducts[index], UtilitySpcFireOutlook.imageUrls[index])
+                )
+            })
         }
+
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
