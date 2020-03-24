@@ -40,7 +40,7 @@ import joshuatee.wx.objects.GeographyType
 internal object UtilityCanvas {
 
     // FIXME major cleanup needed
-    fun addWarnings(provider: ProjectionType, bitmap: Bitmap, radarSite: String) {
+    fun addWarnings(projectionType: ProjectionType, bitmap: Bitmap, radarSite: String) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.STROKE
@@ -48,10 +48,10 @@ internal object UtilityCanvas {
         wallPath.reset()
         val paintList = listOf(MyApplication.radarColorFfw, MyApplication.radarColorTstorm, MyApplication.radarColorTor)
         val warningDataList = listOf(MyApplication.severeDashboardFfw.value, MyApplication.severeDashboardTst.value, MyApplication.severeDashboardTor.value)
-        if (provider.needsCanvasShift) {
+        if (projectionType.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
-        val pn = ProjectionNumbers(radarSite, provider)
+        val pn = ProjectionNumbers(radarSite, projectionType)
         paint.strokeWidth = pn.polygonWidth.toFloat()
         warningDataList.forEachIndexed { index, it ->
             paint.color = paintList[index]
@@ -68,26 +68,26 @@ internal object UtilityCanvas {
                     warnings.add(warningAl[i])
                 }
             }
-            canvasDrawWarningsNewApi(warnings, vtecs, canvas, wallPath, paint, provider.isMercator, pn)
+            canvasDrawWarningsNewApi(warnings, vtecs, canvas, wallPath, paint, projectionType.isMercator, pn)
         }
     }
 
-    fun drawCitiesUS(provider: ProjectionType, bitmap: Bitmap, radarSite: String, textSize: Int) {
+    fun drawCitiesUS(projectionType: ProjectionType, bitmap: Bitmap, radarSite: String, textSize: Int) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.FILL
         paint.strokeWidth = 1.0f
         paint.color = GeographyType.CITIES.color
-        if (provider.needsCanvasShift) {
+        if (projectionType.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
-        if (provider.needsBlackPaint) {
+        if (projectionType.needsBlackPaint) {
             paint.color = Color.rgb(0, 0, 0)
         }
         paint.textSize = textSize.toFloat()
-        val projectionNumbers = ProjectionNumbers(radarSite, provider)
+        val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
         UtilityCities.list.indices.forEach {
-            val latLon = if (provider.isMercator) {
+            val latLon = if (projectionType.isMercator) {
                 UtilityCanvasProjection.computeMercatorNumbers(
                         UtilityCities.list[it]!!.x,
                         UtilityCities.list[it]!!.y,
@@ -114,11 +114,7 @@ internal object UtilityCanvas {
         }
     }
 
-    fun addLocationDotForCurrentLocation(
-            projectionType: ProjectionType,
-            bitmap: Bitmap,
-            radarSite: String
-    ) {
+    fun addLocationDotForCurrentLocation(projectionType: ProjectionType, bitmap: Bitmap, radarSite: String) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.FILL
@@ -130,41 +126,33 @@ internal object UtilityCanvas {
         val locXCurrent = Location.x
         var locYCurrent = Location.y
         locYCurrent = locYCurrent.replace("-", "")
-        val pn = ProjectionNumbers(radarSite, projectionType)
+        val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
         val x = locXCurrent.toDoubleOrNull() ?: 0.0
         val y = locYCurrent.toDoubleOrNull() ?: 0.0
-        val tmpCoords: DoubleArray
-        tmpCoords = if (projectionType.isMercator) {
-            UtilityCanvasProjection.computeMercatorNumbers(x, y, pn)
+        val latLon = if (projectionType.isMercator) {
+            UtilityCanvasProjection.computeMercatorNumbers(x, y, projectionNumbers)
         } else {
-            UtilityCanvasProjection.compute4326Numbers(x, y, pn)
+            UtilityCanvasProjection.compute4326Numbers(x, y, projectionNumbers)
         }
-        val pixXInit = tmpCoords[0]
-        val pixYInit = tmpCoords[1]
         paint.color = MyApplication.radarColorLocdot
-        canvas.drawCircle(pixXInit.toFloat(), pixYInit.toFloat(), 2f, paint)
+        canvas.drawCircle(latLon[0].toFloat(), latLon[1].toFloat(), 2f, paint)
     }
 
-    fun addMcd(
-            provider: ProjectionType,
-            bitmap: Bitmap,
-            radarSite: String,
-            polyType: PolygonType
-    ) {
+    fun addMcd(projectionType: ProjectionType, bitmap: Bitmap, radarSite: String, polygonType: PolygonType) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.STROKE
         paint.color = Color.rgb(255, 0, 0)
         val wallPath = Path()
         wallPath.reset()
-        if (provider.needsCanvasShift) {
+        if (projectionType.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
-        val pn = ProjectionNumbers(radarSite, provider)
+        val pn = ProjectionNumbers(radarSite, projectionType)
         paint.strokeWidth = pn.polygonWidth.toFloat()
-        paint.color = polyType.color
+        paint.color = polygonType.color
         var prefToken = ""
-        when (polyType) {
+        when (polygonType) {
             PolygonType.MCD -> prefToken = MyApplication.mcdLatLon.value
             PolygonType.MPD -> prefToken = MyApplication.mpdLatLon.value
             PolygonType.WATCH -> prefToken = MyApplication.watchLatLon.value
@@ -173,7 +161,7 @@ internal object UtilityCanvas {
             }
         }
         val tmpArr = MyApplication.colon.split(prefToken).toList()
-        canvasDrawWarnings(tmpArr, canvas, wallPath, paint, provider.isMercator, pn)
+        canvasDrawWarnings(tmpArr, canvas, wallPath, paint, projectionType.isMercator, pn)
     }
 
     // used by MCD/WAT/MPD
