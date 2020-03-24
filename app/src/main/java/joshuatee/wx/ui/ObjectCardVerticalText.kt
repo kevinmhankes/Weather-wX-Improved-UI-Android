@@ -43,7 +43,7 @@ class ObjectCardVerticalText(context: Context, numColumns: Int) {
             LinearLayout.LayoutParams.MATCH_PARENT
         )
         objectLinearLayout.linearLayout.isBaselineAligned = false
-        objectCard.addView(objectLinearLayout.linearLayout)
+        objectCard.addView(objectLinearLayout)
         (0 until numColumns).forEach {
             val llv = LinearLayout(context)
             llv.layoutParams = LinearLayout.LayoutParams(

@@ -40,23 +40,13 @@ class ObjectAlertDetail(val context: Context, linearLayout: LinearLayout) {
         private set
 
     init {
-        (0 until 5).forEach { _ ->
+        (0..4).forEach { _ ->
             val objectTextView = ObjectTextView(context)
             objectTextViews.add(objectTextView)
             linearLayout.addView(objectTextView.tv)
         }
-        objectTextViews[0].setPadding(
-                MyApplication.padding,
-                0,
-                MyApplication.padding,
-                0
-        )
-        objectTextViews[1].setPadding(
-                MyApplication.padding,
-                0,
-                MyApplication.padding,
-                MyApplication.padding
-        )
+        objectTextViews[0].setPadding(MyApplication.padding, 0, MyApplication.padding, 0)
+        objectTextViews[1].setPadding(MyApplication.padding, 0, MyApplication.padding, MyApplication.padding)
         (2..4).forEach {
             objectTextViews[it].setPadding(MyApplication.padding)
         }
