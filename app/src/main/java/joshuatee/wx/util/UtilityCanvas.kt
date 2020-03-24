@@ -161,55 +161,48 @@ internal object UtilityCanvas {
             }
         }
         val list = prefToken.split(":").dropLastWhile { it.isEmpty() }
-        canvasDrawWarnings(list, canvas, wallPath, paint, projectionType.isMercator, projectionNumbers)
+        canvasDrawWatchMcdMpd(list, canvas, wallPath, paint, projectionType.isMercator, projectionNumbers)
     }
 
-    // used by MCD/WAT/MPD
-    private fun canvasDrawWarnings(
-            warningAl: List<String>,
+    private fun canvasDrawWatchMcdMpd(
+            warnings: List<String>,
             canvas: Canvas,
-            wallPath: Path,
+            path: Path,
             paint: Paint,
             mercator: Boolean,
-            pn: ProjectionNumbers
+            projectionNumbers: ProjectionNumbers
     ) {
-        var pixXInit: Double
-        var pixYInit: Double
-        var tmpCoords: DoubleArray
-        var pixX: Double
-        var pixY: Double
-        var testArr: Array<String>
-        warningAl.forEach { warn ->
-            testArr = MyApplication.space.split(warn)
-            val x = testArr.filterIndexed { idx: Int, _: String -> idx and 1 == 0 }.map {
+        var firstX: Double
+        var firstY: Double
+        warnings.forEach { warning ->
+            val list = warning.split(" ").dropLastWhile { it.isEmpty() }
+            val x = list.filterIndexed { idx: Int, _: String -> idx and 1 == 0 }.map {
                 it.toDoubleOrNull() ?: 0.0
             }
-            val y = testArr.filterIndexed { idx: Int, _: String -> idx and 1 != 0 }.map {
+            val y = list.filterIndexed { idx: Int, _: String -> idx and 1 != 0 }.map {
                 it.toDoubleOrNull() ?: 0.0
             }
-            wallPath.reset()
+            path.reset()
             if (y.isNotEmpty() && x.isNotEmpty()) {
-                tmpCoords = if (mercator) {
-                    UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], pn)
+                val latLon = if (mercator) {
+                    UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers)
                 } else {
-                    UtilityCanvasProjection.compute4326Numbers(x[0], y[0], pn)
+                    UtilityCanvasProjection.compute4326Numbers(x[0], y[0], projectionNumbers)
                 }
-                pixXInit = tmpCoords[0]
-                pixYInit = tmpCoords[1]
-                wallPath.moveTo(pixXInit.toFloat(), pixYInit.toFloat())
+                firstX = latLon[0]
+                firstY = latLon[1]
+                path.moveTo(firstX.toFloat(), firstY.toFloat())
                 if (x.size == y.size) {
                     (1 until x.size).forEach {
-                        tmpCoords = if (mercator) {
-                            UtilityCanvasProjection.computeMercatorNumbers(x[it], y[it], pn)
+                        val coordinates = if (mercator) {
+                            UtilityCanvasProjection.computeMercatorNumbers(x[it], y[it], projectionNumbers)
                         } else {
-                            UtilityCanvasProjection.compute4326Numbers(x[it], y[it], pn)
+                            UtilityCanvasProjection.compute4326Numbers(x[it], y[it], projectionNumbers)
                         }
-                        pixX = tmpCoords[0]
-                        pixY = tmpCoords[1]
-                        wallPath.lineTo(pixX.toFloat(), pixY.toFloat())
+                        path.lineTo(coordinates[0].toFloat(), coordinates[1].toFloat())
                     }
-                    wallPath.lineTo(pixXInit.toFloat(), pixYInit.toFloat())
-                    canvas.drawPath(wallPath, paint)
+                    path.lineTo(firstX.toFloat(), firstY.toFloat())
+                    canvas.drawPath(path, paint)
                 }
             }
         }
