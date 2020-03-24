@@ -46,23 +46,15 @@ internal object UtilityCanvas {
         paint.style = Style.STROKE
         val wallPath = Path()
         wallPath.reset()
-        val paintList = listOf(
-                MyApplication.radarColorFfw,
-                MyApplication.radarColorTstorm,
-                MyApplication.radarColorTor
-        )
-        val warningDataList = listOf(
-                MyApplication.severeDashboardFfw.value,
-                MyApplication.severeDashboardTst.value,
-                MyApplication.severeDashboardTor.value
-        )
+        val paintList = listOf(MyApplication.radarColorFfw, MyApplication.radarColorTstorm, MyApplication.radarColorTor)
+        val warningDataList = listOf(MyApplication.severeDashboardFfw.value, MyApplication.severeDashboardTst.value, MyApplication.severeDashboardTor.value)
         if (provider.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
         val pn = ProjectionNumbers(radarSite, provider)
         paint.strokeWidth = pn.polygonWidth.toFloat()
-        warningDataList.forEachIndexed { idx, it ->
-            paint.color = paintList[idx]
+        warningDataList.forEachIndexed { index, it ->
+            paint.color = paintList[index]
             var warningHTML = it.replace("\n", "")
             warningHTML = warningHTML.replace(" ", "")
             val warningAl = UtilityString.parseColumnMutable(warningHTML, RegExp.warningLatLonPattern)
