@@ -44,16 +44,16 @@ class ObjectCard7Day(context: Context, bitmap: Bitmap, isUS: Boolean, day: Int, 
         val verticalContainer = ObjectLinearLayout(context, LinearLayout.VERTICAL)
         topLineText.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, 0)
         bottomLineText.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, 0)
-        verticalContainer.addView(topLineText)
-        verticalContainer.addView(bottomLineText)
+        verticalContainer.addViews(listOf(topLineText.tv, bottomLineText.tv))
         if (!UIPreferences.locfragDontShowIcons) {
             horizontalContainer.addView(objectImageView)
         }
         horizontalContainer.addView(verticalContainer)
         objectCard.addView(horizontalContainer)
-        var items = listOf<String>()
-        if (forecasts.size > day) {
-            items = forecasts[day].split(": ")
+        val items = if (forecasts.size > day) {
+            forecasts[day].split(": ")
+        } else {
+            listOf()
         }
         if (items.size > 1) {
             if (isUS) {
