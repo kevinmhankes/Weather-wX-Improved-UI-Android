@@ -87,9 +87,7 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
     private fun getContent(productLocal: String) = GlobalScope.launch(uiDispatcher) {
         product = productLocal
         toolbar.subtitle = objectNavDrawer.getLabel()
-        bitmap = withContext(Dispatchers.IO) {
-            UtilityAwcRadarMosaic.get(objectNavDrawer.url, product)
-        }
+        bitmap = withContext(Dispatchers.IO) { UtilityAwcRadarMosaic.get(objectNavDrawer.url, product) }
         img.setBitmap(bitmap)
         animRan = false
         img.firstRunSetZoomPosn(prefImagePosition)

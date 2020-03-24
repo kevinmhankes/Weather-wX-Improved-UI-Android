@@ -64,8 +64,7 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
         UtilityShortcut.hidePinIfNeeded(toolbarBottom)
         val activityArguments = intent.getStringArrayExtra(URL)
         if (activityArguments == null) {
-            nwsRadarMosaicSectorLabelCurrent =
-                    Utility.readPref(this, "NWS_RADAR_MOSAIC_SECTOR_CURRENT", "Central Great Lakes")
+            nwsRadarMosaicSectorLabelCurrent = Utility.readPref(this, "NWS_RADAR_MOSAIC_SECTOR_CURRENT", "Central Great Lakes")
         } else {
             if (activityArguments.isNotEmpty() && activityArguments[0] == "location") {
                 val rid1 = Location.rid
@@ -84,11 +83,7 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
                 nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNwsMosaic.getSectorFromState(state)
                 nwsRadarMosaicSectorLabelCurrent = UtilityUSImgNwsMosaic.getSectorLabelFromCode(nwsRadarMosaicSectorLabelCurrent)
             } else {
-                nwsRadarMosaicSectorLabelCurrent = Utility.readPref(
-                        this,
-                        "NWS_RADAR_MOSAIC_SECTOR_CURRENT",
-                        "Central Great Lakes"
-                )
+                nwsRadarMosaicSectorLabelCurrent = Utility.readPref(this, "NWS_RADAR_MOSAIC_SECTOR_CURRENT", "Central Great Lakes")
             }
         }
         objectNavDrawer = ObjectNavDrawer(this, UtilityUSImgNwsMosaic.labels, UtilityUSImgNwsMosaic.sectors)
@@ -111,8 +106,7 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
         if (key == "latest") {
             key = "CONUS"
         }
-        return UtilityUSImgNwsMosaic.labels.indices.firstOrNull { key == UtilityUSImgNwsMosaic.labels[it] }
-                ?: 0
+        return UtilityUSImgNwsMosaic.labels.indices.firstOrNull { key == UtilityUSImgNwsMosaic.labels[it] } ?: 0
     }
 
     override fun onRestart() {
@@ -123,19 +117,11 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         toolbar.subtitle = objectNavDrawer.getLabel()
         bitmap = withContext(Dispatchers.IO) {
-            UtilityUSImgNwsMosaic.get(
-                    this@USNwsMosaicActivity,
-                    objectNavDrawer.url,
-                    true
-            )
+            UtilityUSImgNwsMosaic.get(this@USNwsMosaicActivity, objectNavDrawer.url, true)
         }
         // FIXME bug in API 28 after changing
         if (!doNotSavePref) {
-            Utility.writePref(
-                    this@USNwsMosaicActivity,
-                    "NWS_RADAR_MOSAIC_SECTOR_CURRENT",
-                    objectNavDrawer.getLabel()
-            )
+            Utility.writePref(this@USNwsMosaicActivity, "NWS_RADAR_MOSAIC_SECTOR_CURRENT", objectNavDrawer.getLabel())
         }
         img.setBitmap(bitmap)
         animRan = false
@@ -144,12 +130,7 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
 
     private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
         animDrawable = withContext(Dispatchers.IO) {
-            UtilityUSImgNwsMosaic.getAnimation(
-                    this@USNwsMosaicActivity,
-                    objectNavDrawer.url,
-                    frameCount,
-                    true
-            )
+            UtilityUSImgNwsMosaic.getAnimation(this@USNwsMosaicActivity, objectNavDrawer.url, frameCount, true)
         }
         animRan = UtilityImgAnim.startAnimation(animDrawable, img)
     }
@@ -179,18 +160,9 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
                     checkOverlayPerms()
                 } else {
                     if (animRan) {
-                        UtilityShare.shareAnimGif(
-                                this,
-                                "NWS mosaic",
-                                animDrawable
-                        )
+                        UtilityShare.shareAnimGif(this, "NWS mosaic", animDrawable)
                     } else {
-                        UtilityShare.shareBitmap(
-                                this,
-                                this,
-                                "NWS mosaic",
-                                bitmap
-                        )
+                        UtilityShare.shareBitmap(this, this, "NWS mosaic", bitmap)
                     }
                 }
             }

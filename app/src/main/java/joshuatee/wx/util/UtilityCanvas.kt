@@ -65,18 +65,18 @@ internal object UtilityCanvas {
             paint.color = paintList[idx]
             var warningHTML = it.replace("\n", "")
             warningHTML = warningHTML.replace(" ", "")
-            val warningAl =
-                    UtilityString.parseColumnMutable(warningHTML, RegExp.warningLatLonPattern)
+            val warningAl = UtilityString.parseColumnMutable(warningHTML, RegExp.warningLatLonPattern)
+            val warnings = mutableListOf<String>()
             val vtecs = warningHTML.parseColumn(RegExp.warningVtecPattern)
             warningAl.forEachIndexed { i, warn ->
-                UtilityLog.d("wx", vtecs[i])
-                warningAl[i] =
-                        warn.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
+                warningAl[i] = warn.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
                 if (vtecs[i].startsWith("O.EXP") || vtecs[i].startsWith("O.CAN")) {
-                    warningAl.removeAt(i)
+                    //warningAl.removeAt(i)
+                } else {
+                    warnings.add(warningAl[i])
                 }
             }
-            canvasDrawWarningsNewApi(warningAl, vtecs, canvas, wallPath, paint, provider.isMercator, pn)
+            canvasDrawWarningsNewApi(warnings, vtecs, canvas, wallPath, paint, provider.isMercator, pn)
         }
     }
 
