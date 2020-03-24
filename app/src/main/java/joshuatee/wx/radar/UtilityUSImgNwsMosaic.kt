@@ -144,12 +144,7 @@ object UtilityUSImgNwsMosaic {
 
     fun getSectorFromState(state: String): String = stateToSector[state] ?: ""
 
-    internal fun getAnimation(
-            context: Context,
-            sector: String,
-            frameCount: Int,
-            isInteractive: Boolean
-    ): AnimationDrawable {
+    internal fun getAnimation(context: Context, sector: String, frameCount: Int, isInteractive: Boolean): AnimationDrawable {
         val urls: List<String>
         val bitmaps = mutableListOf<Bitmap>()
         var scaleType = ProjectionType.NWS_MOSAIC_SECTOR

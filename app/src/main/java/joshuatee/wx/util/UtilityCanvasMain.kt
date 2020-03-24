@@ -22,6 +22,7 @@
 package joshuatee.wx.util
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Bitmap
 
 import joshuatee.wx.R
@@ -221,7 +222,7 @@ object UtilityCanvasMain {
                         stateRelativeBuffer.position(0)
                         listOf(3).forEach {
                             loadBuffer(
-                                    context,
+                                    context.resources,
                                     fileIds[it],
                                     stateRelativeBuffer,
                                     countArr[it]
@@ -233,7 +234,7 @@ object UtilityCanvasMain {
                         hwRelativeBuffer.order(ByteOrder.nativeOrder())
                         hwRelativeBuffer.position(0)
                         for (s in intArrayOf(1)) {
-                            loadBuffer(context, fileIds[s], hwRelativeBuffer, countArr[s])
+                            loadBuffer(context.resources, fileIds[s], hwRelativeBuffer, countArr[s])
                         }
                     }
                     GeographyType.HIGHWAYS_EXTENDED -> {
@@ -243,7 +244,7 @@ object UtilityCanvasMain {
                     hwExtRelativeBuffer.position(0)
                 }*/
                         for (s in intArrayOf(6)) {
-                            loadBuffer(context, fileIds[s], hwExtRelativeBuffer, countArr[s])
+                            loadBuffer(context.resources, fileIds[s], hwExtRelativeBuffer, countArr[s])
                         }
                     }
                     GeographyType.LAKES -> {
@@ -251,14 +252,14 @@ object UtilityCanvasMain {
                         lakesRelativeBuffer.order(ByteOrder.nativeOrder())
                         lakesRelativeBuffer.position(0)
                         val s = 0
-                        loadBuffer(context, fileIds[s], lakesRelativeBuffer, countArr[s])
+                        loadBuffer(context.resources, fileIds[s], lakesRelativeBuffer, countArr[s])
                     }
                     GeographyType.COUNTY_LINES -> {
                         countyRelativeBuffer = ByteBuffer.allocateDirect(4 * countCounty)
                         countyRelativeBuffer.order(ByteOrder.nativeOrder())
                         countyRelativeBuffer.position(0)
                         val s = 2
-                        loadBuffer(context, fileIds[s], countyRelativeBuffer, countArr[s])
+                        loadBuffer(context.resources, fileIds[s], countyRelativeBuffer, countArr[s])
                     }
                     else -> {
                     }
@@ -275,15 +276,14 @@ object UtilityCanvasMain {
         )
     }
 
-    private fun loadBuffer(context: Context, fileID: Int, byteBuffer: ByteBuffer, count: Int) {
-        val res = context.resources
+    private fun loadBuffer(resources: Resources, fileId: Int, byteBuffer: ByteBuffer, count: Int) {
         try {
-            val inputStream = res.openRawResource(fileID)
-            val dis = DataInputStream(BufferedInputStream(inputStream))
-            for (it in 0 until count) {
-                byteBuffer.putFloat(dis.readFloat())
+            val inputStream = resources.openRawResource(fileId)
+            val dataInputStream = DataInputStream(BufferedInputStream(inputStream))
+            (0 until count).forEach { _ ->
+                byteBuffer.putFloat(dataInputStream.readFloat())
             }
-            dis.close()
+            dataInputStream.close()
             inputStream.close()
         } catch (e: IOException) {
             UtilityLog.handleException(e)
