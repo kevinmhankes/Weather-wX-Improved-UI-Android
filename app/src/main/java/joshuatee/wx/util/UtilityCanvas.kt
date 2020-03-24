@@ -72,12 +72,7 @@ internal object UtilityCanvas {
         }
     }
 
-    fun drawCitiesUS(
-            provider: ProjectionType,
-            bitmap: Bitmap,
-            radarSite: String,
-            textSize: Int
-    ) {
+    fun drawCitiesUS(provider: ProjectionType, bitmap: Bitmap, radarSite: String, textSize: Int) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.FILL
