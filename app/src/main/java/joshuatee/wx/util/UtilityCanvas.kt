@@ -85,36 +85,31 @@ internal object UtilityCanvas {
             paint.color = Color.rgb(0, 0, 0)
         }
         paint.textSize = textSize.toFloat()
-        val pn = ProjectionNumbers(radarSite, provider)
-        var pixXInit: Double
-        var pixYInit: Double
-        var tmpCoords: DoubleArray
+        val projectionNumbers = ProjectionNumbers(radarSite, provider)
         UtilityCities.list.indices.forEach {
-            tmpCoords = if (provider.isMercator) {
+            val latLon = if (provider.isMercator) {
                 UtilityCanvasProjection.computeMercatorNumbers(
                         UtilityCities.list[it]!!.x,
                         UtilityCities.list[it]!!.y,
-                        pn
+                        projectionNumbers
                 )
             } else {
                 UtilityCanvasProjection.compute4326Numbers(
                         UtilityCities.list[it]!!.x,
                         UtilityCities.list[it]!!.y,
-                        pn
+                        projectionNumbers
                 )
             }
-            pixXInit = tmpCoords[0]
-            pixYInit = tmpCoords[1]
             if (textSize > 0) {
                 canvas.drawText(
                         MyApplication.comma.split(UtilityCities.list[it]!!.city)[0],
-                        pixXInit.toFloat() + 4,
-                        pixYInit.toFloat() - 4,
+                        latLon[0].toFloat() + 4,
+                        latLon[1].toFloat() - 4,
                         paint
                 )
-                canvas.drawCircle(pixXInit.toFloat(), pixYInit.toFloat(), 2f, paint)
+                canvas.drawCircle(latLon[0].toFloat(), latLon[1].toFloat(), 2f, paint)
             } else {
-                canvas.drawCircle(pixXInit.toFloat(), pixYInit.toFloat(), 1f, paint)
+                canvas.drawCircle(latLon[0].toFloat(), latLon[1].toFloat(), 1f, paint)
             }
         }
     }
