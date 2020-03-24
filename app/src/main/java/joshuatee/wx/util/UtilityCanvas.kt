@@ -148,8 +148,8 @@ internal object UtilityCanvas {
         if (projectionType.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
-        val pn = ProjectionNumbers(radarSite, projectionType)
-        paint.strokeWidth = pn.polygonWidth.toFloat()
+        val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
+        paint.strokeWidth = projectionNumbers.polygonWidth.toFloat()
         paint.color = polygonType.color
         var prefToken = ""
         when (polygonType) {
@@ -160,8 +160,8 @@ internal object UtilityCanvas {
             else -> {
             }
         }
-        val tmpArr = MyApplication.colon.split(prefToken).toList()
-        canvasDrawWarnings(tmpArr, canvas, wallPath, paint, projectionType.isMercator, pn)
+        val list = prefToken.split(":").dropLastWhile { it.isEmpty() }
+        canvasDrawWarnings(list, canvas, wallPath, paint, projectionType.isMercator, projectionNumbers)
     }
 
     // used by MCD/WAT/MPD
