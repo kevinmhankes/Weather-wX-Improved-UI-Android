@@ -39,7 +39,6 @@ import joshuatee.wx.objects.GeographyType
 
 internal object UtilityCanvas {
 
-    // FIXME major cleanup needed
     fun addWarnings(projectionType: ProjectionType, bitmap: Bitmap, radarSite: String) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -68,7 +67,7 @@ internal object UtilityCanvas {
                     warnings.add(warningAl[i])
                 }
             }
-            canvasDrawWarningsNewApi(warnings, vtecs, canvas, wallPath, paint, projectionType.isMercator, pn)
+            canvasDrawWarnings(warnings, vtecs, canvas, wallPath, paint, projectionType.isMercator, pn)
         }
     }
 
@@ -176,10 +175,10 @@ internal object UtilityCanvas {
         var firstY: Double
         warnings.forEach { warning ->
             val list = warning.split(" ").dropLastWhile { it.isEmpty() }
-            val x = list.filterIndexed { idx: Int, _: String -> idx and 1 == 0 }.map {
+            val x = list.filterIndexed { index: Int, _: String -> index and 1 == 0 }.map {
                 it.toDoubleOrNull() ?: 0.0
             }
-            val y = list.filterIndexed { idx: Int, _: String -> idx and 1 != 0 }.map {
+            val y = list.filterIndexed { index: Int, _: String -> index and 1 != 0 }.map {
                 it.toDoubleOrNull() ?: 0.0
             }
             path.reset()
@@ -208,58 +207,54 @@ internal object UtilityCanvas {
         }
     }
 
-    private fun canvasDrawWarningsNewApi(
+    private fun canvasDrawWarnings(
             warnings: List<String>,
             vtecs: List<String>,
             canvas: Canvas,
-            wallPath: Path,
+            path: Path,
             paint: Paint,
             mercator: Boolean,
-            pn: ProjectionNumbers
+            projectionNumbers: ProjectionNumbers
     ) {
-        var pixXInit: Double
-        var pixYInit: Double
-        var tmpCoords: DoubleArray
-        var pixX: Double
-        var pixY: Double
-        var polyCount = -1
-        var testArr: Array<String>
+        var firstX: Double
+        var firstY: Double
+        var polygonCount = -1
         warnings.forEach { warning ->
-            polyCount += 1
-            if (vtecs.isNotEmpty() && vtecs.size > polyCount && !vtecs[polyCount].startsWith("0.EXP") && !vtecs[polyCount].startsWith(
-                            "0.CAN"
-                    )
+            polygonCount += 1
+            if (
+                    vtecs.isNotEmpty() &&
+                    vtecs.size > polygonCount &&
+                    !vtecs[polygonCount].startsWith("0.EXP") &&
+                    !vtecs[polygonCount].startsWith("0.CAN")
             ) {
-                testArr = MyApplication.space.split(warning)
-                val y = testArr.filterIndexed { idx: Int, _: String -> idx and 1 == 0 }.map {
+                val list = warning.split(" ").dropLastWhile { it.isEmpty() }
+                val y = list.filterIndexed { index: Int, _: String -> index and 1 == 0 }.map {
                     it.toDoubleOrNull() ?: 0.0
                 }
-                val x = testArr.filterIndexed { idx: Int, _: String -> idx and 1 != 0 }.map {
+                val x = list.filterIndexed { index: Int, _: String -> index and 1 != 0 }.map {
                     it.toDoubleOrNull() ?: 0.0
                 }
-                wallPath.reset()
+                path.reset()
                 if (y.isNotEmpty() && x.isNotEmpty()) {
-                    tmpCoords = if (mercator) {
-                        UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], pn)
+                    val coordinates = if (mercator) {
+                        UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers)
                     } else {
-                        UtilityCanvasProjection.compute4326Numbers(x[0], y[0], pn)
+                        UtilityCanvasProjection.compute4326Numbers(x[0], y[0], projectionNumbers)
                     }
-                    pixXInit = tmpCoords[0]
-                    pixYInit = tmpCoords[1]
-                    wallPath.moveTo(pixXInit.toFloat(), pixYInit.toFloat())
+                    firstX = coordinates[0]
+                    firstY = coordinates[1]
+                    path.moveTo(firstX.toFloat(), firstY.toFloat())
                     if (x.size == y.size) {
                         (1 until x.size).forEach {
-                            tmpCoords = if (mercator) {
-                                UtilityCanvasProjection.computeMercatorNumbers(x[it], y[it], pn)
+                            val latLon = if (mercator) {
+                                UtilityCanvasProjection.computeMercatorNumbers(x[it], y[it], projectionNumbers)
                             } else {
-                                UtilityCanvasProjection.compute4326Numbers(x[it], y[it], pn)
+                                UtilityCanvasProjection.compute4326Numbers(x[it], y[it], projectionNumbers)
                             }
-                            pixX = tmpCoords[0]
-                            pixY = tmpCoords[1]
-                            wallPath.lineTo(pixX.toFloat(), pixY.toFloat())
+                            path.lineTo(latLon[0].toFloat(), latLon[1].toFloat())
                         }
-                        wallPath.lineTo(pixXInit.toFloat(), pixYInit.toFloat())
-                        canvas.drawPath(wallPath, paint)
+                        path.lineTo(firstX.toFloat(), firstY.toFloat())
+                        canvas.drawPath(path, paint)
                     }
                 }
             }
