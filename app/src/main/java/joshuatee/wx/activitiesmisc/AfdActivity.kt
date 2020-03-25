@@ -220,7 +220,6 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         if (fixedWidthProducts.contains(product) || product.startsWith("RTP")) {
             objectCardText.setTextAndTranslate(html)
         } else {
-            //textCard.setTextAndTranslate(Utility.fromHtml(html))
             objectCardText.setTextAndTranslate(html)
         }
         if (fixedWidthProducts.contains(product) || product.startsWith("RTP")) {

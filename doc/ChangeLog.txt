@@ -28,10 +28,10 @@
 // TODO [ADD] severedash long press to add location
 // TODO [ADD] severedash long press color is off
 // TODO [FIX] severedash -> long press -> go to dual pane ( does not use current location )
-// TODO [ADD] mono for certain WPC text products
 
 55382 2020_03_25    [REF] make use of ObjectImageSummary in SPC Fire/tstorm
                     [REF] misc for readability
+                    [ADD] monospace for certain national text products
 55381 2020_03_24    [REF] misc for readability
                     [FIX] in nexrad with transparent toolbars, show toolbar background when map is shown
                     [ADD] minor padding change in current conditions card

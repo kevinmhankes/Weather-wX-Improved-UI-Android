@@ -114,6 +114,11 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
         ridFavOld = MyApplication.nwsTextFav
         html = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@WpcTextProductsActivity, product) }
         textCard.setTextAndTranslate(html)
+        if (UtilityWpcText.needsFixedWidthFont(product.toUpperCase(Locale.US))) {
+            textCard.typefaceMono()
+        } else {
+            textCard.typefaceDefault()
+        }
         UtilityTts.conditionalPlay(activityArguments, 2, applicationContext, html, "wpctext")
         if (initialProduct != product) {
             Utility.writePref(this@WpcTextProductsActivity, "WPC_TEXT_FAV", product)

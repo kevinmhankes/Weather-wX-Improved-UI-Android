@@ -178,9 +178,7 @@ class SpottersActivity : BaseActivity() {
     }
 
     private fun itemClicked(position: Int) {
-        // FIXME use recyclerView.getItem(position)
         val bottomSheetFragment = BottomSheetFragment(this, position, ca.getItem(position).toString(), false)
-        //val bottomSheetFragment = BottomSheetFragment(this, position, recyclerView.getItem(position), false)
         bottomSheetFragment.functions = listOf(::showItemOnRadar, ::showItemOnMap, ::toggleFavorite)
         bottomSheetFragment.labelList = listOf("Show on radar", "Show on map", "Toggle favorite")
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)

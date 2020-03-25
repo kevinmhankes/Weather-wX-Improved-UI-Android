@@ -62,8 +62,7 @@ class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLi
         activityArguments = intent.getStringArrayExtra(TYPE)!!
         imageCollection = MyApplication.imageCollectionMap[activityArguments[0]]!!
         toolbarBottom.setOnMenuItemClickListener(this)
-        val menu = toolbarBottom.menu
-        actionAnimate = menu.findItem(R.id.action_animate)
+        actionAnimate = toolbarBottom.menu.findItem(R.id.action_animate)
         actionAnimate.isVisible = false
         title = imageCollection.title
         drw = ObjectNavDrawer(this, imageCollection.labels, imageCollection.urls)

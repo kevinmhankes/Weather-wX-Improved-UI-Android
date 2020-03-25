@@ -74,8 +74,7 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     }
 
     private fun updateButton() {
-        val menu = toolbarBottom.menu
-        lastUsedMenuItem = menu.findItem(R.id.action_lastused)
+        lastUsedMenuItem = toolbarBottom.menu.findItem(R.id.action_lastused)
         lastUsedMenuItem.title = "Last Used: " + Utility.readPref(this, prefToken, "")
     }
 
