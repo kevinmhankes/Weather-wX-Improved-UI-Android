@@ -47,11 +47,11 @@ object UtilityDownloadNws {
         var html = (MyApplication.nwsApiUrl + "/zones/forecast/" + zone.toUpperCase(Locale.US)).getNwsHtml()
         html = html.replace("\n", "")
         html = html.replace(" ", "")
-        val polygonArr = html.parseColumn(RegExp.warningLatLonPattern)
+        val polygons = html.parseColumn(RegExp.warningLatLonPattern)
         var lat = "42.00"
         var lon = "-84.00"
-        polygonArr.forEach { poly ->
-            val polyTmp = poly.replace("[", "").replace("]", "").replace(",", " ")
+        polygons.forEach { polygon ->
+            val polyTmp = polygon.replace("[", "").replace("]", "").replace(",", " ")
             val items = polyTmp.split(" ").dropLastWhile { it.isEmpty() }
             if (items.size > 1) {
                 lat = items[1]
@@ -64,24 +64,17 @@ object UtilityDownloadNws {
     fun getCap(sector: String): String = if (sector == "us") {
         getStringFromUrlXml(MyApplication.nwsApiUrl + "/alerts/active?region_type=land")
     } else {
-        getStringFromUrlXml(
-                MyApplication.nwsApiUrl + "/alerts/active/area/" + sector.toUpperCase(
-                Locale.US
-            )
-        )
+        getStringFromUrlXml(MyApplication.nwsApiUrl + "/alerts/active/area/" + sector.toUpperCase(Locale.US))
     }
 
     // https://forecast-v3.weather.gov/documentation?redirect=legacy
     // http://www.nws.noaa.gov/os/notification/pns16-35forecastgov.htm
 
-    fun getStringFromUrl(url: String): String =
-        getStringFromURLBase(url, "application/vnd.noaa.dwml+xml;version=1")
+    fun getStringFromUrl(url: String) = getStringFromURLBase(url, "application/vnd.noaa.dwml+xml;version=1")
 
-    private fun getStringFromUrlJson(url: String): String =
-        getStringFromURLBase(url, "application/geo+json;version=1")
+    private fun getStringFromUrlJson(url: String) = getStringFromURLBase(url, "application/geo+json;version=1")
 
-    fun getStringFromUrlNoAcceptHeader(url: String): String =
-            getStringFromUrlBaseNoHeader(url)
+    fun getStringFromUrlNoAcceptHeader(url: String) = getStringFromUrlBaseNoHeader(url)
 
     private fun getStringFromURLBase(url: String, header: String): String {
         val out = StringBuilder(5000)
@@ -93,13 +86,13 @@ object UtilityDownloadNws {
                 .build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body()!!.byteStream())
-            val br = BufferedReader(InputStreamReader(inputStream))
-            var line: String? = br.readLine()
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            var line: String? = bufferedReader.readLine()
             while (line != null) {
                 out.append(line)
-                line = br.readLine()
+                line = bufferedReader.readLine()
             }
-            br.close()
+            bufferedReader.close()
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
@@ -115,13 +108,13 @@ object UtilityDownloadNws {
                     .build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body()!!.byteStream())
-            val br = BufferedReader(InputStreamReader(inputStream))
-            var line: String? = br.readLine()
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            var line: String? = bufferedReader.readLine()
             while (line != null) {
                 out.append(line)
-                line = br.readLine()
+                line = bufferedReader.readLine()
             }
-            br.close()
+            bufferedReader.close()
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
@@ -139,25 +132,22 @@ object UtilityDownloadNws {
                 .build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body()!!.byteStream())
-            val br = BufferedReader(InputStreamReader(inputStream))
-            var line: String? = br.readLine()
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            var line: String? = bufferedReader.readLine()
             while (line != null) {
                 out.append(line)
-                line = br.readLine()
+                line = bufferedReader.readLine()
             }
             out.append(breakStr)
-            br.close()
+            bufferedReader.close()
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
         return out.toString().replace(breakStr, "<br>")
     }
 
-    private fun getStringFromUrlXml(url: String) =
-        getStringFromURLBase(url, "application/atom+xml")
+    private fun getStringFromUrlXml(url: String) = getStringFromURLBase(url, "application/atom+xml")
 
-
-    // Following methods derived from flutter port in response to June 2019 change
     fun getHourlyData(latLon: LatLon): String {
         val pointsData = getLocationPointData(latLon)
         val hourlyUrl = pointsData.parse("\"forecastHourly\": \"(.*?)\"")
@@ -171,11 +161,6 @@ object UtilityDownloadNws {
         forecastZone = forecastUrl
         return forecastUrl.getNwsHtml()
     }
-
-    //fun get7DayUrl(latLon: LatLon): String {
-    //    val pointsData = getLocationPointData(latLon)
-    //    return pointsData.parse("\"forecast\": \"(.*?)\"")
-    //}
 
     private fun getLocationPointData(latLon: LatLon): String {
         val url = MyApplication.nwsApiUrl + "/points/" + latLon.latString + "," + latLon.lonString
