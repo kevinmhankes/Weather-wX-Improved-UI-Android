@@ -58,12 +58,7 @@ object UtilityFavorites {
         }
     }
 
-    fun setupMenu(
-        context: Context,
-        favoriteString: String,
-        value: String,
-        prefToken: String
-    ): List<String> {
+    fun setupMenu(context: Context, favoriteString: String, value: String, prefToken: String): List<String> {
         checkAndCorrect(context, favoriteString, prefToken)
         var favorites = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
         if (favorites.size < 3) {
@@ -126,12 +121,7 @@ object UtilityFavorites {
     }
 
     // mirror of method above save it returns the string
-    fun toggleString(
-        context: Context,
-        value: String,
-        star: MenuItem,
-        prefToken: String
-    ): String {
+    fun toggleString(context: Context, value: String, star: MenuItem, prefToken: String): String {
         var favoriteString = Utility.readPref(context, prefToken, initialValue)
         if (favoriteString.contains(value)) {
             favoriteString = favoriteString.replace("$value:", "")
@@ -206,9 +196,8 @@ object UtilityFavorites {
     }
 
     fun findPositionNwsText(key: String): Int {
-        val index = UtilityWpcText.labels.indices.firstOrNull {
+        return UtilityWpcText.labels.indices.firstOrNull {
             UtilityWpcText.labels[it].startsWith(key)
         } ?: -1
-        return index
     }
 }
