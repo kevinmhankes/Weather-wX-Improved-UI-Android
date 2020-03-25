@@ -27,7 +27,7 @@ import android.graphics.Bitmap
 import joshuatee.wx.radar.UtilityUSImgWX
 
 object UtilityUSImg {
-    fun getPreferredLayeredImg(context: Context, radarSite: String, isInteractive: Boolean): Bitmap =
+    fun getPreferredLayeredImg(context: Context, radarSite: String, isInteractive: Boolean) =
         UtilityUSImgWX.layeredImg(context, radarSite, "N0Q", isInteractive)
 }
 

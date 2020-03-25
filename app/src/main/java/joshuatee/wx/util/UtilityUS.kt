@@ -51,27 +51,18 @@ object UtilityUS {
     }
 
     private fun findObsName(context: Context, obsShortCode: String): String {
-        var locationName = ""
-        try {
-            val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.stations_us4)
-            val lines = text.split("\n").dropLastWhile { it.isEmpty() }
-            val tmp = lines.lastOrNull { it.contains(",$obsShortCode") } ?: ""
-            val items = tmp.split(",")
-            if (items.size > 2) {
-                locationName = items[0] + ", " + items[1]
-            }
-        } catch (e: Exception) {
-            UtilityLog.handleException(e)
+        val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.stations_us4)
+        val lines = text.split("\n").dropLastWhile { it.isEmpty() }
+        val list = lines.lastOrNull { it.contains(",$obsShortCode") } ?: ""
+        val items = list.split(",")
+        return if (items.size > 2) {
+            items[0] + ", " + items[1]
+        } else {
+            ""
         }
-        return locationName
     }
 
-    fun checkForNotifications(
-            context: Context,
-            currentLoc: Int,
-            inBlackout: Boolean,
-            tornadoWarningString: String
-    ): String {
+    fun checkForNotifications(context: Context, currentLoc: Int, inBlackout: Boolean, tornadoWarningString: String): String {
         var html = ObjectForecastPackageHazards.getHazardsHtml(Location.getLatLon(currentLoc))
         var notificationUrls = ""
         val locationLabelString = "(" + Location.getName(currentLoc) + ") "

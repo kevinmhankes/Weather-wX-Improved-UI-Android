@@ -41,7 +41,7 @@
                     [FIX] crash in radar mosaic when radar warnings enabled under some circumstances
 55380 2020_03_20    [REF] misc for readability
                     [ADD] minor formatting enhancement in spotter reports (light gray for description)
-                    [ADD] In SevereDashboard, octago icon main screen - you can now press and hold on a warning for a menu, menu allows one to show nexrad radar
+                    [ADD] In SevereDashboard, octagon icon main screen - you can now press and hold on a warning for a menu, menu allows one to show nexrad radar
 55379 2020_03_18    [REF] misc for readability
                     [ADD] Canadian locations - have alerts act like US on front screen
                     [ADD] add save location button in adhoc location accessed via nexrad long press

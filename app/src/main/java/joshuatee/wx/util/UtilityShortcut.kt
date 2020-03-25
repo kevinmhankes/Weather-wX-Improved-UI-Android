@@ -104,7 +104,7 @@ object UtilityShortcut {
                 }
             }
             val shortcutId = type.toString()
-            val mShortcutManager = context.getSystemService(ShortcutManager::class.java)
+            val shortcutManager = context.getSystemService(ShortcutManager::class.java)
             val shortcut = ShortcutInfo.Builder(context, shortcutId)
                     .setShortLabel(shortcutId)
                     .setLongLabel(shortcutId)
@@ -121,9 +121,9 @@ object UtilityShortcut {
                             )
                     )
                     .build()
-            val pinnedShortcutCallbackIntent = mShortcutManager!!.createShortcutResultIntent(shortcut)
+            val pinnedShortcutCallbackIntent = shortcutManager!!.createShortcutResultIntent(shortcut)
             val successCallback = PendingIntent.getBroadcast(context, 0, pinnedShortcutCallbackIntent, 0)
-            mShortcutManager.requestPinShortcut(shortcut, successCallback.intentSender)
+            shortcutManager.requestPinShortcut(shortcut, successCallback.intentSender)
 
         }
     }

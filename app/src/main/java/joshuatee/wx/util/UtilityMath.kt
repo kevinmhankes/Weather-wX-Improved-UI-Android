@@ -33,13 +33,7 @@ object UtilityMath {
         return sqrt((x2 - x1).pow(2.0) + (y2 - y1).pow(2.0))
     }
 
-    fun computeTipPoint(
-            x0: Double,
-            y0: Double,
-            x1: Double,
-            y1: Double,
-            right: Boolean
-    ): List<Double> {
+    fun computeTipPoint(x0: Double, y0: Double, x1: Double, y1: Double, right: Boolean): List<Double> {
         val dx = x1 - x0
         val dy = y1 - y0
         val length = sqrt(dx * dx + dy * dy)
@@ -61,13 +55,7 @@ object UtilityMath {
         return listOf(rx, ry)
     }
 
-    fun computeMiddishPoint(
-            x0: Double,
-            y0: Double,
-            x1: Double,
-            y1: Double,
-            fraction: Double
-    ): List<Double> {
+    fun computeMiddishPoint(x0: Double, y0: Double, x1: Double, y1: Double, fraction: Double): List<Double> {
         return listOf(x0 + fraction * (x1 - x0) , y0 + fraction * (y1 - y0))
     }
 
@@ -155,9 +143,9 @@ object UtilityMath {
         return radius * (PI / 180) * cos(Math.toRadians(centerX))
     }
 
-    fun deg2rad(deg: Double): Double = deg * PI / 180.0
+    fun deg2rad(deg: Double) = deg * PI / 180.0
 
-    fun rad2deg(rad: Double): Double = rad * 180.0 / PI
+    fun rad2deg(rad: Double) = rad * 180.0 / PI
 
     fun convertWindDir(direction: Double): String {
         var dirStr = ""
@@ -177,6 +165,8 @@ object UtilityMath {
             dirStr = "W"
         else if (direction > 292.5 && direction <= 337.5)
             dirStr = "NW"
+        else
+            dirStr = ""
         return dirStr
     }
 
