@@ -75,8 +75,8 @@ class SpcCompmapActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     }
 
     private fun setupInitLayerString() {
-        val tmpArr = layerStr.split(":").dropLastWhile { it.isEmpty() }
-        tmpArr.forEach {
+        val items = layerStr.split(":").dropLastWhile { it.isEmpty() }
+        items.forEach {
             selectItemNoGet(it.replace("a", "").toIntOrNull() ?: 0)
         }
     }

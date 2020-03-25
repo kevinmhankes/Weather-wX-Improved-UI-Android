@@ -134,13 +134,8 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
             displayData.paramLabel[0] = tmpArrFav[1]
         } else {
             (0 until numPanes).forEach {
-                displayData.param[it] =
-                        Utility.readPref(this, prefParam + it.toString(), displayData.param[it])
-                displayData.paramLabel[it] = Utility.readPref(
-                        this,
-                        prefParamLabel + it.toString(),
-                        displayData.paramLabel[it]
-                )
+                displayData.param[it] = Utility.readPref(this, prefParam + it.toString(), displayData.param[it])
+                displayData.paramLabel[it] = Utility.readPref(this, prefParamLabel + it.toString(), displayData.paramLabel[it])
             }
         }
         sector = Utility.readPref(this, prefSector, sector)

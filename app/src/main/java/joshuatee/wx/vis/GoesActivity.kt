@@ -77,9 +77,7 @@ class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
         writePrefs()
         toolbar.title = UtilityGoes.sectorToName[sector] ?: ""
         toolbar.subtitle = drw.getLabel()
-        bitmap = withContext(Dispatchers.IO) {
-            UtilityGoes.getImage(drw.url, sector)
-        }
+        bitmap = withContext(Dispatchers.IO) { UtilityGoes.getImage(drw.url, sector) }
         img.setBitmap(bitmap)
         img.firstRunSetZoomPosn(prefImagePosition)
         if (oldSector != sector) {
