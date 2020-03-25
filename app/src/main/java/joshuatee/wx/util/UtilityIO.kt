@@ -39,8 +39,7 @@ object UtilityIO {
         try {
             val fos = context.openFileOutput(filename, Context.MODE_PRIVATE)
             val buffer = ByteArray(8192)
-            var read: Int
-            read = inputSteam.read(buffer)
+            var read = inputSteam.read(buffer)
             while (read != -1) {
                 fos.write(buffer, 0, read)
                 read = inputSteam.read(buffer)

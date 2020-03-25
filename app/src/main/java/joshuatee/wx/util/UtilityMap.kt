@@ -23,10 +23,10 @@ package joshuatee.wx.util
 
 object UtilityMap {
 
-    fun getMapUrl(x: String, y: String, zoomLevel: String): String =
+    fun getMapUrl(x: String, y: String, zoomLevel: String) =
         "http://www.openstreetmap.org/?mlat=$x&mlon=$y&zoom=$zoomLevel&layers=M"
 
-    fun getMapUrlFromStreetAddress(streetAddress: String): String =
+    fun getMapUrlFromStreetAddress(streetAddress: String) =
         "http://www.openstreetmap.org/search?query=" + streetAddress.replace(",", "%2C").replace(
             " ",
             "%20"

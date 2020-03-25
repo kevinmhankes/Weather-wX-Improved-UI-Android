@@ -53,57 +53,45 @@ object UtilityImgAnim {
         return urls
     }
 
-    fun getAnimationDrawableFromUrlList(
-        context: Context,
-        urls: List<String>,
-        delayOriginal: Int
-    ): AnimationDrawable {
+    fun getAnimationDrawableFromUrlList(context: Context, urls: List<String>, delayOriginal: Int): AnimationDrawable {
         var delay = delayOriginal
         val animDrawable = AnimationDrawable()
         val bitmaps = urls.map { it.getImage() }
-        bitmaps.forEachIndexed { i, it ->
-            if (it.width > 10) {
-                if (i == bitmaps.lastIndex) {
+        bitmaps.forEachIndexed { index, bitmap ->
+            if (bitmap.width > 10) {
+                if (index == bitmaps.lastIndex) {
                     delay *= 3
                 }
-                animDrawable.addFrame(BitmapDrawable(context.resources, it), delay)
+                animDrawable.addFrame(BitmapDrawable(context.resources, bitmap), delay)
             }
         }
         return animDrawable
     }
 
-    fun getAnimationDrawableFromUrlListWhiteBackground(
-        context: Context,
-        urls: List<String>,
-        delayOriginal: Int
-    ): AnimationDrawable {
+    fun getAnimationDrawableFromUrlListWhiteBackground(context: Context, urls: List<String>, delayOriginal: Int): AnimationDrawable {
         var delay = delayOriginal
         val animDrawable = AnimationDrawable()
         val bitmaps = urls.mapTo(mutableListOf()) { UtilityImg.getBitmapAddWhiteBackground(context, it) }
-        bitmaps.forEachIndexed { i, it ->
-            if (it.width > 10) {
-                if (i == bitmaps.lastIndex) {
+        bitmaps.forEachIndexed { index, bitmap ->
+            if (bitmap.width > 10) {
+                if (index == bitmaps.lastIndex) {
                     delay *= 3
                 }
-                animDrawable.addFrame(BitmapDrawable(context.resources, it), delay)
+                animDrawable.addFrame(BitmapDrawable(context.resources, bitmap), delay)
             }
         }
         return animDrawable
     }
 
-    fun getAnimationDrawableFromBitmapList(
-        context: Context,
-        bitmaps: List<Bitmap>,
-        delayOriginal: Int
-    ): AnimationDrawable {
+    fun getAnimationDrawableFromBitmapList(context: Context, bitmaps: List<Bitmap>, delayOriginal: Int): AnimationDrawable {
         var delay = delayOriginal
         val animDrawable = AnimationDrawable()
-        bitmaps.forEachIndexed { i, it ->
-            if (it.width > 10) {
-                if (i == bitmaps.lastIndex) {
+        bitmaps.forEachIndexed { index, bitmap ->
+            if (bitmap.width > 10) {
+                if (index == bitmaps.lastIndex) {
                     delay *= 3
                 }
-                animDrawable.addFrame(BitmapDrawable(context.resources, it), delay)
+                animDrawable.addFrame(BitmapDrawable(context.resources, bitmap), delay)
             }
         }
         return animDrawable
@@ -112,34 +100,28 @@ object UtilityImgAnim {
     fun getAnimationDrawableFromBitmapList(context: Context, bitmaps: List<Bitmap>): AnimationDrawable {
         val animDrawable = AnimationDrawable()
         var delay = UtilityImg.animInterval(context) * 2
-        bitmaps.forEachIndexed { i, it ->
-            if (it.width > 10) {
-                if (i == bitmaps.lastIndex) {
+        bitmaps.forEachIndexed { index, bitmap ->
+            if (bitmap.width > 10) {
+                if (index == bitmaps.lastIndex) {
                     delay *= 3
                 }
-                animDrawable.addFrame(BitmapDrawable(context.resources, it), delay)
+                animDrawable.addFrame(BitmapDrawable(context.resources, bitmap), delay)
             }
         }
         return animDrawable
     }
 
-    fun getAnimationDrawableFromBitmapListWithCanvas(
-        context: Context,
-        bitmaps: List<Bitmap>,
-        delayOriginal: Int,
-        colorDrawable: ColorDrawable,
-        bitmapCanvas: Bitmap
-    ): AnimationDrawable {
+    fun getAnimationDrawableFromBitmapListWithCanvas(context: Context, bitmaps: List<Bitmap>, delayOriginal: Int, colorDrawable: ColorDrawable, bitmapCanvas: Bitmap): AnimationDrawable {
         var delay = delayOriginal
         val animDrawable = AnimationDrawable()
         val layers = arrayOfNulls<Drawable>(3)
-        bitmaps.forEachIndexed { i, it ->
-            if (it.width > 10) {
-                if (i == bitmaps.lastIndex) {
+        bitmaps.forEachIndexed { index, bitmap ->
+            if (bitmap.width > 10) {
+                if (index == bitmaps.lastIndex) {
                     delay *= 3
                 }
                 layers[0] = colorDrawable
-                layers[1] = BitmapDrawable(context.resources, it)
+                layers[1] = BitmapDrawable(context.resources, bitmap)
                 layers[2] = BitmapDrawable(context.resources, bitmapCanvas)
                 animDrawable.addFrame(LayerDrawable(layers), delay)
             }
