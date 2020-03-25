@@ -52,18 +52,18 @@ class SettingsNotificationsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
         toolbar.subtitle = "Please tap on text for additional help."
-        val cardSound = ObjectCardText(this, ll, "Notification sound chooser", MyApplication.textSizeNormal, MyApplication.paddingSettings)
-        val cardWFOFilter = ObjectCardText(this, ll, "WFO notification filter", MyApplication.textSizeNormal, MyApplication.paddingSettings)
+        val cardSound = ObjectCardText(this, linearLayout, "Notification sound chooser", MyApplication.textSizeNormal, MyApplication.paddingSettings)
+        val cardWFOFilter = ObjectCardText(this, linearLayout, "WFO notification filter", MyApplication.textSizeNormal, MyApplication.paddingSettings)
         ObjectCardText(
                 this,
-                ll,
+                linearLayout,
                 "Text product notifications: " + UtilityNotificationTextProduct.showAll(),
                 MyApplication.textSizeNormal,
                 MyApplication.paddingSettings
         )
         cardSound.setOnClickListener(View.OnClickListener { notifSoundPicker() })
         cardWFOFilter.setOnClickListener(View.OnClickListener { showWFONotificationFilterDialogue() })
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "US Tornado",
@@ -71,7 +71,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.b_tornado
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "SPC MCD",
@@ -79,7 +79,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.b_mcd
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "SPC Watch",
@@ -87,7 +87,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.b_wat
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "SPC SWO",
@@ -95,7 +95,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.b_swo
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "SPC SWO include slight",
@@ -103,7 +103,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.b_swo2
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "WPC MPD",
@@ -111,7 +111,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.b_mpd
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "NHC Advisories EPAC",
@@ -119,7 +119,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.b_nhc_epac
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "NHC Advisories ATL",
@@ -127,7 +127,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.b_nhc_atl
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "US Tornado Sound",
@@ -135,7 +135,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.alert_sound_tornado_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "SPC MCD Sound",
@@ -143,7 +143,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.alert_sound_spcmcd_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "SPC Watch Sound",
@@ -151,7 +151,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.alert_sound_spcwat_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "SPC SWO Sound",
@@ -159,7 +159,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.alert_sound_spcswo_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "WPC MPD Sound",
@@ -167,7 +167,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.alert_sound_wpcmpd_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "NHC Advisories EPAC Sound",
@@ -175,7 +175,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.alert_sound_nhc_epac_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "NHC Advisories ATL Sound",
@@ -183,7 +183,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.alert_sound_nhc_atl_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Text products Sound",
@@ -191,7 +191,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.alert_sound_text_prod_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Play sound repeatedly",
@@ -199,7 +199,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.tv_notif_sound_repeat_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Notif text to speech",
@@ -207,7 +207,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.tv_notif_tts_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Blackout alert sounds",
@@ -215,7 +215,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.alert_blackout_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Alert only once",
@@ -223,7 +223,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.alert_onlyonce_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Auto cancel notifs",
@@ -231,7 +231,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.alert_autocancel_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Tor warn override blackout",
@@ -239,7 +239,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.alert_blackout_tornado_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Notification check interval in minutes",
@@ -250,7 +250,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         120
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Notification blackout - PM(h)",
@@ -261,7 +261,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         23
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Notification blackout - AM(h)",
@@ -285,18 +285,19 @@ class SettingsNotificationsActivity : BaseActivity() {
             showFileWritePermsDialogue()
         }
         MyApplication.initPreferences(this)
-        restartNotifs()
+        restartNotifications()
     }
 
-    private fun restartNotifs() {
+    private fun restartNotifications() {
         UtilityWXJobService.startService(this)
         Utility.writePref(this, "RESTART_NOTIF", "false")
     }
 
     private fun notifSoundPicker() {
         var uri: Uri? = null
-        if (MyApplication.notifSoundUri != "")
+        if (MyApplication.notifSoundUri != "") {
             uri = Uri.parse(MyApplication.notifSoundUri)
+        }
         val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Tone")

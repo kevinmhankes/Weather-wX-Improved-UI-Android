@@ -107,17 +107,16 @@ class SevereDashboardActivity : BaseActivity() {
             UtilityDownloadMcd.get(this@SevereDashboardActivity)
             snMcd.getBitmaps(MyApplication.severeDashboardMcd.value)
         }
-        //showItems(snMcd)
         withContext(Dispatchers.IO) {
             UtilityDownloadMpd.get(this@SevereDashboardActivity)
             snMpd.getBitmaps(MyApplication.severeDashboardMpd.value)
         }
-        ll.removeAllViews()
+        linearLayout.removeAllViews()
         numberOfImages = 0
         listOf(0,1).forEach {
             val card: ObjectCardImage
             if (numberOfImages % imagesPerRow == 0) {
-                val objectLinearLayout = ObjectLinearLayout(this@SevereDashboardActivity, ll)
+                val objectLinearLayout = ObjectLinearLayout(this@SevereDashboardActivity, linearLayout)
                 objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
                 horizontalLinearLayouts.add(objectLinearLayout)
                 card = ObjectCardImage(
@@ -177,17 +176,13 @@ class SevereDashboardActivity : BaseActivity() {
         var numberOfWarnings = 0
         listOf(wTor, wTst, wFfw).forEach { warn ->
             if (warn.count > 0) {
-                ObjectCardBlackHeaderText(
-                        this@SevereDashboardActivity,
-                        ll,
-                        "(" + warn.count + ") " + warn.getName()
-                )
+                ObjectCardBlackHeaderText(this@SevereDashboardActivity, linearLayout, "(" + warn.count + ") " + warn.getName())
                 warn.effectiveList.forEachIndexed { index, _ ->
                     val data = warn.warnings[index]
                     if (!data.startsWith("O.EXP")) {
                         val objectCardDashAlertItem = ObjectCardDashAlertItem(
                                 this@SevereDashboardActivity,
-                                ll,
+                                linearLayout,
                                 warn.senderNameList[index],
                                 warn.eventList[index],
                                 warn.effectiveList[index],
@@ -246,7 +241,7 @@ class SevereDashboardActivity : BaseActivity() {
                     severeNotice.bitmaps.indices.forEach { j ->
                         val card: ObjectCardImage
                         if (numberOfImages % imagesPerRow == 0) {
-                            val objectLinearLayout = ObjectLinearLayout(this@SevereDashboardActivity, ll)
+                            val objectLinearLayout = ObjectLinearLayout(this@SevereDashboardActivity, linearLayout)
                             objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
                             horizontalLinearLayouts.add(objectLinearLayout)
                             card = ObjectCardImage(

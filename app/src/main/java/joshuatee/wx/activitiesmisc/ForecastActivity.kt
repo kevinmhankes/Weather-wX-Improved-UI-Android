@@ -82,9 +82,9 @@ class ForecastActivity : BaseActivity() {
         title = "Forecast for"
         toolbar.subtitle = latLon.latString + "," + latLon.lonString
         cardCC = ObjectCardCurrentConditions(this, 2)
-        ll.addView(cardCC.card)
-        linearLayoutHazards = ObjectLinearLayout(this, ll)
-        linearLayoutForecast = ObjectLinearLayout(this, ll)
+        linearLayout.addView(cardCC.card)
+        linearLayoutHazards = ObjectLinearLayout(this, linearLayout)
+        linearLayoutForecast = ObjectLinearLayout(this, linearLayout)
         getContent()
     }
 
@@ -124,23 +124,23 @@ class ForecastActivity : BaseActivity() {
         //
         linearLayoutForecast.removeAllViewsInLayout()
         bitmaps.forEachIndexed { index, bitmap ->
-            val c7day = ObjectCard7Day(this@ForecastActivity, bitmap, true, index, objSevenDay.forecastList)
-            c7day.setOnClickListener(View.OnClickListener {
-                sv.smoothScrollTo(0, 0)
+            val objectCard7Day = ObjectCard7Day(this@ForecastActivity, bitmap, true, index, objSevenDay.forecastList)
+            objectCard7Day.setOnClickListener(View.OnClickListener {
+                scrollView.smoothScrollTo(0, 0)
             })
-            linearLayoutForecast.addView(c7day.card)
+            linearLayoutForecast.addView(objectCard7Day.card)
         }
         // sunrise card
-        val cardSunrise = ObjectCardText(this@ForecastActivity)
-        cardSunrise.center()
+        val objectCardText = ObjectCardText(this@ForecastActivity)
+        objectCardText.center()
         try {
-            cardSunrise.text = (
+            objectCardText.text = (
                     UtilityTimeSunMoon.getSunriseSunset(this@ForecastActivity, Location.currentLocationStr, false) + MyApplication.newline + UtilityTime.gmtTime()
                     )
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
-        linearLayoutForecast.addView(cardSunrise.card)
+        linearLayoutForecast.addView(objectCardText.card)
         //
         // hazards
         //
@@ -187,7 +187,7 @@ class ForecastActivity : BaseActivity() {
     private fun saveLocation() = GlobalScope.launch(uiDispatcher) {
         withContext(Dispatchers.IO) {
             val message = Location.locationSave(this@ForecastActivity, latLon)
-            UtilityUI.makeSnackBar(ll, message)
+            UtilityUI.makeSnackBar(linearLayout, message)
         }
     }
 }

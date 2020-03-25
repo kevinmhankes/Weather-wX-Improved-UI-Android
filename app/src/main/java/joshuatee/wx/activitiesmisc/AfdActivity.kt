@@ -89,8 +89,8 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     private var oldWfo = ""
     private var wfoListPerState = mutableListOf<String>()
     private val cardList = mutableListOf<CardView>()
-    private lateinit var textCard: ObjectCardText
-    private lateinit var spinner: ObjectSpinner
+    private lateinit var objectCardText: ObjectCardText
+    private lateinit var objectSpinner: ObjectSpinner
     private lateinit var drw: ObjectNavDrawer
     private var originalWfo = ""
     private val fixedWidthProducts = listOf("RTP", "RWR", "CLI", "RVA")
@@ -102,7 +102,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         drw = ObjectNavDrawer(this, UtilityWfoText.labels, UtilityWfoText.codes)
         drw.setListener(::getContentFixThis)
         UtilityShortcut.hidePinIfNeeded(toolbarBottom)
-        textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
+        objectCardText = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         star = toolbarBottom.menu.findItem(R.id.action_fav)
         notificationToggle = toolbarBottom.menu.findItem(R.id.action_notif_text_prod)
         activityArguments = intent.getStringArrayExtra(URL)!!
@@ -127,14 +127,14 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         oldProduct = ""
         oldWfo = ""
         locationList = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
-        spinner = ObjectSpinner(this, this, this, R.id.spinner1, locationList)
+        objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, locationList)
         imageMap = ObjectImageMap(
                 this,
                 this,
                 R.id.map,
                 toolbar,
                 toolbarBottom,
-                listOf<View>(textCard.card, scrollView)
+                listOf<View>(objectCardText.card, scrollView)
         )
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToWfo)
     }
@@ -163,7 +163,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                     wfo,
                     prefToken
             )
-            spinner.refreshData(this, locationList)
+            objectSpinner.refreshData(this, locationList)
         }
         super.onRestart()
     }
@@ -212,21 +212,21 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         cardList.forEach {
             linearLayout.removeView(it)
         }
-        textCard.visibility = View.VISIBLE
+        objectCardText.visibility = View.VISIBLE
         scrollView.visibility = View.VISIBLE
         if (html == "") {
             html = "None issued by this office recently."
         }
         if (fixedWidthProducts.contains(product) || product.startsWith("RTP")) {
-            textCard.setTextAndTranslate(html)
+            objectCardText.setTextAndTranslate(html)
         } else {
             //textCard.setTextAndTranslate(Utility.fromHtml(html))
-            textCard.setTextAndTranslate(html)
+            objectCardText.setTextAndTranslate(html)
         }
         if (fixedWidthProducts.contains(product) || product.startsWith("RTP")) {
-            textCard.tv.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
+            objectCardText.tv.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
         } else {
-            textCard.tv.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+            objectCardText.tv.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
         }
         UtilityTts.conditionalPlay(activityArguments, 2, applicationContext, html, product)
         if (activityArguments[1] == "") {
@@ -303,13 +303,13 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         originalWfo = wfo
         mapShown = false
         locationList = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
-        spinner.refreshData(this, locationList)
+        objectSpinner.refreshData(this, locationList)
     }
 
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleString(this, wfo, star, prefToken)
         locationList = UtilityFavorites.setupMenu(this, ridFav, wfo, prefToken)
-        spinner.refreshData(this, locationList)
+        objectSpinner.refreshData(this, locationList)
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
@@ -392,7 +392,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 wfoProd.add(html)
             }
         }
-        textCard.visibility = View.GONE
+        objectCardText.visibility = View.GONE
         cardList.clear()
         wfoProd.forEach {
             val textCard = ObjectCardText(this@AfdActivity, linearLayout)
@@ -420,8 +420,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     }
 
     // For navigation drawer
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-            drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     // For navigation drawer
     override fun onPostCreate(savedInstanceState: Bundle?) {

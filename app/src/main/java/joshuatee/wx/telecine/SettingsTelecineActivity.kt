@@ -33,8 +33,8 @@ class SettingsTelecineActivity : BaseActivity() {
             R.string.widget_nexrad_size_label,
             vidSize
         )
-        ll.addView(vidSpinner.card)
-        ll.addView(
+        linearLayout.addView(vidSpinner.card)
+        linearLayout.addView(
             ObjectSettingsCheckBox(
                 this,
                 "Three Second Countdown",
@@ -42,7 +42,7 @@ class SettingsTelecineActivity : BaseActivity() {
                 R.string.loc1_radar_label
             ).card
         )
-        ll.addView(
+        linearLayout.addView(
             ObjectSettingsCheckBox(
                 this,
                 "Recording Notification",

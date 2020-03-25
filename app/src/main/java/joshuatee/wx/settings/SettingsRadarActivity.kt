@@ -50,7 +50,7 @@ class SettingsRadarActivity : BaseActivity() {
         toolbar.subtitle = "Please tap on text for additional help."
         ObjectCardText(
                 this,
-                ll,
+                linearLayout,
                 "Colors",
                 MyApplication.textSizeNormal,
                 SettingsColorsActivity::class.java,
@@ -58,7 +58,7 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ObjectCardText(
                 this,
-                ll,
+                linearLayout,
                 "Color Palettes",
                 MyApplication.textSizeNormal,
                 SettingsColorPaletteListingActivity::class.java,
@@ -66,13 +66,13 @@ class SettingsRadarActivity : BaseActivity() {
         )
         ObjectCardText(
                 this,
-                ll,
+                linearLayout,
                 "Screen Recorder",
                 MyApplication.textSizeNormal,
                 SettingsTelecineActivity::class.java,
                 MyApplication.paddingSettings
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show warnings (TST/TOR/FFW)",
@@ -81,7 +81,7 @@ class SettingsRadarActivity : BaseActivity() {
                 ).card
         )
         MyApplication.radarWarningPolygons.forEach {
-            ll.addView(
+            linearLayout.addView(
                     ObjectSettingsCheckBox(
                             this,
                             "Show " + it.name,
@@ -90,7 +90,7 @@ class SettingsRadarActivity : BaseActivity() {
                     ).card
             )
         }
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show SPC MCD/Watches",
@@ -98,7 +98,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.radar_show_watch_default_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show WPC MPDs",
@@ -106,7 +106,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.radar_show_mpd_default_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show cities",
@@ -114,7 +114,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.cod_cities_default_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show highways",
@@ -122,7 +122,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.cod_hw_default_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show secondary roads",
@@ -130,7 +130,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.hw_enh_ext_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show CA/MX borders",
@@ -138,7 +138,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.camx_borders_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show lakes and rivers",
@@ -146,7 +146,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.cod_lakes_default_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show spotters",
@@ -154,7 +154,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.spotters_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show spotter labels",
@@ -162,7 +162,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.spotters_label_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show observations",
@@ -170,7 +170,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.obs_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show wind barbs",
@@ -178,7 +178,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.obs_windbarbs_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show location marker",
@@ -192,7 +192,7 @@ class SettingsRadarActivity : BaseActivity() {
                 "LOCDOT_FOLLOWS_GPS",
                 R.string.locdot_follows_gps_label
         )
-        ll.addView(gpsSw.card)
+        linearLayout.addView(gpsSw.card)
         gpsSw.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, _ ->
             MyApplication.locationDotFollowsGps = compoundButton.isChecked
             if (MyApplication.locationDotFollowsGps != Utility.readPref(
@@ -209,7 +209,7 @@ class SettingsRadarActivity : BaseActivity() {
                 Utility.writePref(this, "LOCDOT_FOLLOWS_GPS", "false")
             }
         })
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Center radar on location",
@@ -217,7 +217,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.radar_center_on_location_default_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Black background",
@@ -225,7 +225,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.nws_black_bg_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show counties",
@@ -233,7 +233,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.show_county_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show county labels",
@@ -241,7 +241,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.show_county_labels_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Counties: use hires data",
@@ -249,7 +249,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.county_hires_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "States: use hires data",
@@ -257,7 +257,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.state_hires_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show storm tracks",
@@ -265,7 +265,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.show_sti_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show Hail index",
@@ -273,7 +273,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.show_hi_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show TVS",
@@ -281,7 +281,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.show_tvs_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show Day 1 Convective Outlook",
@@ -289,7 +289,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.show_swo_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Screen on and auto refresh",
@@ -297,7 +297,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.autorefresh_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Multi-pane: share lat/lon/zoom",
@@ -305,7 +305,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.dualpaneshareposn_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Remember location",
@@ -313,7 +313,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.rememberloc_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Launch app directly to radar",
@@ -321,7 +321,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.launch_to_radar_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Use JNI for radar (beta)",
@@ -329,7 +329,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.radar_use_jni_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Enable multipurpose radar icons",
@@ -337,7 +337,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.radar_icons_level2_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Show WPC Fronts and pressure highs and lows",
@@ -345,7 +345,7 @@ class SettingsRadarActivity : BaseActivity() {
                         R.string.radar_show_wpc_fronts_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Animation interval",
@@ -356,7 +356,7 @@ class SettingsRadarActivity : BaseActivity() {
                         15
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Warning line size",
@@ -367,7 +367,7 @@ class SettingsRadarActivity : BaseActivity() {
                         10
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "MCD/MPD/Watch line size",
@@ -378,7 +378,7 @@ class SettingsRadarActivity : BaseActivity() {
                         10
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "State line size",
@@ -389,7 +389,7 @@ class SettingsRadarActivity : BaseActivity() {
                         10
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "County line size",
@@ -400,7 +400,7 @@ class SettingsRadarActivity : BaseActivity() {
                         10
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Highway line size",
@@ -411,7 +411,7 @@ class SettingsRadarActivity : BaseActivity() {
                         10
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Secondary road line size",
@@ -422,7 +422,7 @@ class SettingsRadarActivity : BaseActivity() {
                         10
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Lake line size",
@@ -433,7 +433,7 @@ class SettingsRadarActivity : BaseActivity() {
                         10
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "GPS Circle line size",
@@ -444,7 +444,7 @@ class SettingsRadarActivity : BaseActivity() {
                         10
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Location marker size",
@@ -455,7 +455,7 @@ class SettingsRadarActivity : BaseActivity() {
                         50
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Hail marker size",
@@ -466,7 +466,7 @@ class SettingsRadarActivity : BaseActivity() {
                         50
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "TVS marker size",
@@ -477,7 +477,7 @@ class SettingsRadarActivity : BaseActivity() {
                         50
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "WXOGL initial view size",
@@ -488,7 +488,7 @@ class SettingsRadarActivity : BaseActivity() {
                         25
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Refresh interval",
@@ -499,7 +499,7 @@ class SettingsRadarActivity : BaseActivity() {
                         15
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Storm spotter size",
@@ -510,7 +510,7 @@ class SettingsRadarActivity : BaseActivity() {
                         50
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Aviation dot size",
@@ -521,7 +521,7 @@ class SettingsRadarActivity : BaseActivity() {
                         50
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Text size",
@@ -532,7 +532,7 @@ class SettingsRadarActivity : BaseActivity() {
                         40
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Draw tool line size",
@@ -543,7 +543,7 @@ class SettingsRadarActivity : BaseActivity() {
                         20
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Detailed observations Zoom",
@@ -554,7 +554,7 @@ class SettingsRadarActivity : BaseActivity() {
                         10
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "GPS update interval",

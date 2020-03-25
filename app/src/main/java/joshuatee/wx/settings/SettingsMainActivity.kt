@@ -115,10 +115,7 @@ class SettingsMainActivity : BaseActivity() {
             )
         })
         cardDeleteFiles.setOnClickListener(View.OnClickListener {
-            UtilityUI.makeSnackBar(
-                    ll,
-                    "Deleted old radar files: " + UtilityFileManagement.deleteCacheFiles(this)
-            )
+            UtilityUI.makeSnackBar(linearLayout, "Deleted old radar files: " + UtilityFileManagement.deleteCacheFiles(this))
         })
         cardAbout.setOnClickListener(View.OnClickListener {
             ObjectIntent(this, SettingsAboutActivity::class.java)
@@ -136,9 +133,9 @@ class SettingsMainActivity : BaseActivity() {
                 cardCtoF.card,
                 cardDeleteFiles.card
         ).forEach {
-            ll.addView(it)
+            linearLayout.addView(it)
         }
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Check for SPC MCD/Watches",
@@ -146,7 +143,7 @@ class SettingsMainActivity : BaseActivity() {
                         R.string.checkspc_switch_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Check for WPC MPDs",
@@ -154,7 +151,7 @@ class SettingsMainActivity : BaseActivity() {
                         R.string.checkwpc_switch_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Check for TOR,TST,FFW",
@@ -162,7 +159,7 @@ class SettingsMainActivity : BaseActivity() {
                         R.string.checktor_switch_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Media control notification",
@@ -170,7 +167,7 @@ class SettingsMainActivity : BaseActivity() {
                         R.string.media_control_notif_tv
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Dual-pane radar from main screen",
@@ -178,7 +175,7 @@ class SettingsMainActivity : BaseActivity() {
                         R.string.dualpane_radar_icon_tv
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Translate abbreviations",
@@ -186,7 +183,7 @@ class SettingsMainActivity : BaseActivity() {
                         R.string.translate_text_label
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Refresh interval for location in minutes",
@@ -197,7 +194,7 @@ class SettingsMainActivity : BaseActivity() {
                         120
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Roaming distance check in miles",
@@ -208,7 +205,7 @@ class SettingsMainActivity : BaseActivity() {
                         120
                 ).card
         )
-        ll.addView(
+        linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Text to speech speed",

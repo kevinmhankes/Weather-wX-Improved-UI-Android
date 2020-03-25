@@ -44,7 +44,7 @@ class SettingsColorPaletteListingActivity : BaseActivity() {
         WXGLNexrad.colorPaletteProducts.forEach {
             val card = ObjectCardText(
                     this,
-                    ll,
+                    linearLayout,
                     WXGLNexrad.productCodeStringToName[it] + ": " + MyApplication.radarColorPalette[it],
                     MyApplication.textSizeNormal,
                     MyApplication.paddingSettings
