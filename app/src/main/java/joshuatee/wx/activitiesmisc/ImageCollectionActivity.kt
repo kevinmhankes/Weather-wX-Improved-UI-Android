@@ -136,8 +136,7 @@ class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLi
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-            drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onStop() {
         img.imgSavePosnZoom(this, imageCollection.prefImagePosition)
@@ -145,9 +144,7 @@ class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLi
     }
 
     private fun getAnimate() = GlobalScope.launch(uiDispatcher) {
-        animDrawable = withContext(Dispatchers.IO) {
-            UtilityGoesFullDisk.getAnimation(this@ImageCollectionActivity, drw.url)
-        }
+        animDrawable = withContext(Dispatchers.IO) { UtilityGoesFullDisk.getAnimation(this@ImageCollectionActivity, drw.url) }
         UtilityImgAnim.startAnimation(animDrawable, img)
     }
 }

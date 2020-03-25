@@ -72,7 +72,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
     private lateinit var notificationToggle: MenuItem
     private var ridFavOld = ""
     private lateinit var textCard: ObjectCardText
-    private lateinit var sp: ObjectSpinner
+    private lateinit var objectSpinner: ObjectSpinner
     private lateinit var drw: ObjectNavDrawerCombo
 
     @SuppressLint("MissingSuperCall")
@@ -90,7 +90,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
         }
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
-        sp = ObjectSpinner(this, this, this, R.id.spinner1, products)
+        objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, products)
         UtilityWpcText.createData()
         drw = ObjectNavDrawerCombo(
                 this,
@@ -112,9 +112,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         }
         ridFavOld = MyApplication.nwsTextFav
-        html = withContext(Dispatchers.IO) {
-            UtilityDownload.getTextProduct(this@WpcTextProductsActivity, product)
-        }
+        html = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@WpcTextProductsActivity, product) }
         textCard.setTextAndTranslate(html)
         UtilityTts.conditionalPlay(activityArguments, 2, applicationContext, html, "wpctext")
         if (initialProduct != product) {
@@ -123,8 +121,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-            drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (audioPlayMenu(item.itemId, html, product, product)) {
@@ -133,11 +130,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
         when (item.itemId) {
             R.id.action_fav -> toggleFavorite()
             R.id.action_notif_text_prod -> {
-                UtilityNotificationTextProduct.toggle(
-                        this,
-                        linearLayout,
-                        product.toUpperCase(Locale.US)
-                )
+                UtilityNotificationTextProduct.toggle(this, linearLayout, product.toUpperCase(Locale.US))
                 updateSubmenuNotificationText()
             }
             R.id.action_share -> UtilityShare.shareText(this, product, Utility.fromHtml(html))
@@ -174,8 +167,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
                 UtilityWpcText.labels[it].contains(
                         key
                 )
-            }
-                    ?: 0
+            } ?: 0
 
     override fun onRestart() {
         if (ridFavOld != MyApplication.nwsTextFav) {
@@ -183,7 +175,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
                     MyApplication.nwsTextFav,
                     UtilityWpcText.labels[findPosition(product)]
             )
-            sp.refreshData(this, products)
+            objectSpinner.refreshData(this, products)
         }
         super.onRestart()
     }
@@ -191,7 +183,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
     private fun toggleFavorite() {
         UtilityFavorites.toggle(this, product, star, "NWS_TEXT_FAV")
         products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
-        sp.refreshData(this, products)
+        objectSpinner.refreshData(this, products)
     }
 
     private fun changeProduct() {
@@ -200,7 +192,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
                 MyApplication.nwsTextFav,
                 UtilityWpcText.labels[findPosition(product)]
         )
-        sp.refreshData(this, products)
+        objectSpinner.refreshData(this, products)
     }
 
     private fun updateSubmenuNotificationText() {

@@ -109,7 +109,7 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when {
             item.title == "Open radar interface" -> radarInterface(item.itemId)
-            (item.title as String).contains("Add new location for this warning") -> locationAdd(item.itemId)
+            item.title.contains("Add new location for this warning") -> locationAdd(item.itemId)
             else -> return false
         }
         return true
@@ -190,8 +190,7 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
         objectNavDrawer.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-            objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem) = objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) {

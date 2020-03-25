@@ -53,9 +53,7 @@ class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
         super.onCreate(savedInstanceState, R.layout.activity_usalertsdetail, R.menu.shared_tts)
         title = ""
         ObjectCard(this, R.id.cardView)
-        val menu = toolbarBottom.menu
-        val tts = menu.findItem(R.id.action_playlist)
-        tts.isVisible = false
+        toolbarBottom.menu.findItem(R.id.action_playlist).isVisible = false
         toolbarBottom.setOnMenuItemClickListener(this)
         objectAlertDetail = ObjectAlertDetail(this, linearLayout)
         activityArguments = intent.getStringArrayExtra(URL)!!
@@ -68,9 +66,7 @@ class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        capAlert = withContext(Dispatchers.IO) {
-            CapAlert.createFromUrl(activityArguments[0])
-        }
+        capAlert = withContext(Dispatchers.IO) { CapAlert.createFromUrl(activityArguments[0]) }
         objectAlertDetail.updateContent(capAlert, activityArguments[0])
         toolbar.subtitle = objectAlertDetail.wfoTitle
         title = objectAlertDetail.title
