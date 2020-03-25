@@ -224,9 +224,9 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             objectCardText.setTextAndTranslate(html)
         }
         if (fixedWidthProducts.contains(product) || product.startsWith("RTP")) {
-            objectCardText.tv.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
+            objectCardText.typefaceMono()
         } else {
-            objectCardText.tv.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+            objectCardText.typefaceDefault()
         }
         UtilityTts.conditionalPlay(activityArguments, 2, applicationContext, html, product)
         if (activityArguments[1] == "") {

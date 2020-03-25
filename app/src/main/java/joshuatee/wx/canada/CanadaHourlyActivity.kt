@@ -61,6 +61,6 @@ class CanadaHourlyActivity : BaseActivity() {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         objectCardText.text = withContext(Dispatchers.IO) { UtilityCanadaHourly.getString(locNumInt) }
-        objectCardText.tv.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
+        objectCardText.typefaceMono()
     }
 }

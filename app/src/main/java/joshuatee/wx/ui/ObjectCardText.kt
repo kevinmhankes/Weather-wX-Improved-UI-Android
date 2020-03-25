@@ -22,6 +22,7 @@
 package joshuatee.wx.ui
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -270,6 +271,14 @@ class ObjectCardText(private val context: Context) {
 
     fun lightText() {
         tv.setTextAppearance(context, UIPreferences.smallTextTheme)
+    }
+
+    fun typefaceMono() {
+        tv.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
+    }
+
+    fun typefaceDefault() {
+        tv.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
     }
 
     val card: CardView get() = objectCard.card
