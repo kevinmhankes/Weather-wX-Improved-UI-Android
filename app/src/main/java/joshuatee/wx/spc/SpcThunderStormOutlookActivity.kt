@@ -72,39 +72,6 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
         urls = withContext(Dispatchers.IO) { UtilitySpc.thunderStormOutlookUrls }
         bitmaps = withContext(Dispatchers.IO) { urls.map { it.getImage() } }
         ll.removeAllViews()
-        //var numberOfImages = 0
-        //val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
-        /*bitmaps.forEachIndexed { index, bitmap ->
-            val objectCardImage: ObjectCardImage
-            if (numberOfImages % imagesPerRow == 0) {
-                val objectLinearLayout = ObjectLinearLayout(this@SpcThunderStormOutlookActivity, ll)
-                objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
-                horizontalLinearLayouts.add(objectLinearLayout)
-                objectCardImage = ObjectCardImage(
-                        this@SpcThunderStormOutlookActivity,
-                        objectLinearLayout.linearLayout,
-                        bitmap,
-                        imagesPerRow
-                )
-            } else {
-                objectCardImage = ObjectCardImage(
-                        this@SpcThunderStormOutlookActivity,
-                        horizontalLinearLayouts.last().linearLayout,
-                        bitmap,
-                        imagesPerRow
-                )
-            }
-            objectCardImage.setOnClickListener(View.OnClickListener {
-                ObjectIntent(
-                        this@SpcThunderStormOutlookActivity,
-                        ImageShowActivity::class.java,
-                        ImageShowActivity.URL,
-                        arrayOf(urls[index], "")
-                )
-            })
-            numberOfImages += 1
-        }*/
-
         val objectImageSummary = ObjectImageSummary(this@SpcThunderStormOutlookActivity, ll, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
             objectCardImage.setOnClickListener(View.OnClickListener {

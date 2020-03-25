@@ -70,39 +70,6 @@ class SpcFireOutlookSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickLis
         bitmaps = mutableListOf()
         withContext(Dispatchers.IO) { UtilitySpcFireOutlook.imageUrls.mapTo(bitmaps) { it.getImage() } }
         ll.removeAllViews()
-       /* var numberOfImages = 0
-        val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
-        bitmaps.forEachIndexed { index, bitmap ->
-            val objectCardImage: ObjectCardImage
-            if (numberOfImages % imagesPerRow == 0) {
-                val objectLinearLayout = ObjectLinearLayout(this@SpcFireOutlookSummaryActivity, ll)
-                objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
-                horizontalLinearLayouts.add(objectLinearLayout)
-                objectCardImage = ObjectCardImage(
-                        this@SpcFireOutlookSummaryActivity,
-                        objectLinearLayout.linearLayout,
-                        bitmap,
-                        imagesPerRow
-                )
-            } else {
-                objectCardImage = ObjectCardImage(
-                        this@SpcFireOutlookSummaryActivity,
-                        horizontalLinearLayouts.last().linearLayout,
-                        bitmap,
-                        imagesPerRow
-                )
-            }
-            objectCardImage.setOnClickListener(View.OnClickListener {
-                ObjectIntent(
-                        this@SpcFireOutlookSummaryActivity,
-                        SpcFireOutlookActivity::class.java,
-                        SpcFireOutlookActivity.NUMBER,
-                        arrayOf(UtilitySpcFireOutlook.textProducts[index], UtilitySpcFireOutlook.imageUrls[index])
-                )
-            })
-            numberOfImages += 1
-        }*/
-
         val objectImageSummary = ObjectImageSummary(this@SpcFireOutlookSummaryActivity, ll, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
             objectCardImage.setOnClickListener(View.OnClickListener {

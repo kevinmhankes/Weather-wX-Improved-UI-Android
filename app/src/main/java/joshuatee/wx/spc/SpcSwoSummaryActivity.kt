@@ -72,44 +72,6 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
             }
         }
         ll.removeAllViews()
-      /*  var numberOfImages = 0
-        val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
-        bitmaps.forEachIndexed { index, bitmap ->
-            val day = if (index < 3) {
-                (index + 1).toString()
-            } else {
-                "4-8"
-            }
-            val objectCardImage: ObjectCardImage
-            if (numberOfImages % imagesPerRow == 0) {
-                val objectLinearLayout = ObjectLinearLayout(this@SpcSwoSummaryActivity, ll)
-                objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
-                horizontalLinearLayouts.add(objectLinearLayout)
-                objectCardImage = ObjectCardImage(
-                        this@SpcSwoSummaryActivity,
-                        objectLinearLayout.linearLayout,
-                        bitmap,
-                        imagesPerRow
-                )
-            } else {
-                objectCardImage = ObjectCardImage(
-                        this@SpcSwoSummaryActivity,
-                        horizontalLinearLayouts.last().linearLayout,
-                        bitmap,
-                        imagesPerRow
-                )
-            }
-            objectCardImage.setOnClickListener(View.OnClickListener {
-                ObjectIntent(
-                        this@SpcSwoSummaryActivity,
-                        SpcSwoActivity::class.java,
-                        SpcSwoActivity.NUMBER,
-                        arrayOf(day, "")
-                )
-            })
-            numberOfImages += 1
-        }*/
-
         val objectImageSummary = ObjectImageSummary(this@SpcSwoSummaryActivity, ll, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
             val day = if (index < 3) {

@@ -71,42 +71,6 @@ class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemCli
             }
         }
         ll.removeAllViews()
-        /*var numberOfImages = 0
-        val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
-        bitmaps.forEachIndexed { index, bitmap ->
-            val textProduct = UtilityWpcRainfallForecast.productCode[index]
-            val imageUrl = UtilityWpcRainfallForecast.imageUrls[index]
-            val day = (index + 1).toString()
-            val objectCardImage: ObjectCardImage
-            if (numberOfImages % imagesPerRow == 0) {
-                val objectLinearLayout = ObjectLinearLayout(this@WpcRainfallForecastSummaryActivity, ll)
-                objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
-                horizontalLinearLayouts.add(objectLinearLayout)
-                objectCardImage = ObjectCardImage(
-                        this@WpcRainfallForecastSummaryActivity,
-                        objectLinearLayout.linearLayout,
-                        bitmap,
-                        imagesPerRow
-                )
-            } else {
-                objectCardImage = ObjectCardImage(
-                        this@WpcRainfallForecastSummaryActivity,
-                        horizontalLinearLayouts.last().linearLayout,
-                        bitmap,
-                        imagesPerRow
-                )
-            }
-            objectCardImage.setOnClickListener(View.OnClickListener {
-                ObjectIntent(
-                        this@WpcRainfallForecastSummaryActivity,
-                        WpcRainfallForecastActivity::class.java,
-                        WpcRainfallForecastActivity.NUMBER,
-                        arrayOf(textProduct, imageUrl, day)
-                )
-            })
-            numberOfImages += 1
-        }*/
-
         val objectImageSummary = ObjectImageSummary(this@WpcRainfallForecastSummaryActivity, ll, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
             objectCardImage.setOnClickListener(View.OnClickListener {
