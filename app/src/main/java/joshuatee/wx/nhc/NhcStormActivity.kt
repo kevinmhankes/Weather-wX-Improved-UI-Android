@@ -116,11 +116,11 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmaps.clear()
         withContext(Dispatchers.IO) { topBitmap = (baseUrl + "_5day_cone_with_line_and_wind_sm2.png").getImage() }
-        ObjectCardImage(this@NhcStormActivity, ll, topBitmap)
+        ObjectCardImage(this@NhcStormActivity, linearLayout, topBitmap)
         withContext(Dispatchers.IO) {
             url = UtilityDownload.getTextProduct(this@NhcStormActivity, product)
         }
-        objectCardText = ObjectCardText(this@NhcStormActivity, ll, toolbar, toolbarBottom)
+        objectCardText = ObjectCardText(this@NhcStormActivity, linearLayout, toolbar, toolbarBottom)
         objectCardText.text = Utility.fromHtml(url)
         html = url
         withContext(Dispatchers.IO) {
@@ -142,7 +142,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
         bitmaps.filter { it.width > 100 }
                 .forEach {
-                    ObjectCardImage(this@NhcStormActivity, ll, it)
+                    ObjectCardImage(this@NhcStormActivity, linearLayout, it)
                 }
         if (activityArguments.size > 2) {
             if (activityArguments[2] == "sound") UtilityTts.synthesizeTextAndPlay(

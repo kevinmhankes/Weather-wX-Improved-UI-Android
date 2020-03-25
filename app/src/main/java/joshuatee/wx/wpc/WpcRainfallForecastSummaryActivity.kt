@@ -70,8 +70,8 @@ class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemCli
                 bitmaps.add(it.getImage())
             }
         }
-        ll.removeAllViews()
-        val objectImageSummary = ObjectImageSummary(this@WpcRainfallForecastSummaryActivity, ll, bitmaps)
+        linearLayout.removeAllViews()
+        val objectImageSummary = ObjectImageSummary(this@WpcRainfallForecastSummaryActivity, linearLayout, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
             objectCardImage.setOnClickListener(View.OnClickListener {
                 val textProduct = UtilityWpcRainfallForecast.productCode[index]

@@ -26,7 +26,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar
 
 import joshuatee.wx.R
@@ -71,8 +70,8 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
                 bitmaps.addAll(UtilitySpcSwo.getImages(it, false))
             }
         }
-        ll.removeAllViews()
-        val objectImageSummary = ObjectImageSummary(this@SpcSwoSummaryActivity, ll, bitmaps)
+        linearLayout.removeAllViews()
+        val objectImageSummary = ObjectImageSummary(this@SpcSwoSummaryActivity, linearLayout, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
             val day = if (index < 3) {
                 (index + 1).toString()

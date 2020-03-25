@@ -82,7 +82,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
         (0..4).forEach { _ ->
             if (numberOfImages % imagesPerRow == 0) {
-                val objectLinearLayout = ObjectLinearLayout(this, ll)
+                val objectLinearLayout = ObjectLinearLayout(this, linearLayout)
                 objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
                 horizontalLinearLayouts.add(objectLinearLayout)
                 objectCardImageList.add(ObjectCardImage(this, objectLinearLayout.linearLayout))
@@ -91,7 +91,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
             }
             numberOfImages += 1
         }
-        objectCardText = ObjectCardText(this, ll, toolbar, toolbarBottom)
+        objectCardText = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         activityArguments = intent.getStringArrayExtra(NUMBER)!!
         day = activityArguments[0]
         title = "Day $day Convective Outlook"

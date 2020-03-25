@@ -56,7 +56,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         toolbarBottom.setOnMenuItemClickListener(this)
         val version = Utility.getVersion(this)
         toolbar.subtitle = "version: $version"
-        val faqButton = ObjectCardText(this, ll, toolbar, toolbarBottom)
+        val faqButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         faqButton.setTextColor(UIPreferences.textHighlightColor)
         faqButton.text = "View FAQ (Outage notifications listed at top if any current)"
         faqButton.setOnClickListener(View.OnClickListener {
@@ -67,7 +67,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     arrayOf(faqUrl, "Frequently Asked Questions")
             )
         })
-        val releaseNotesButton = ObjectCardText(this, ll, toolbar, toolbarBottom)
+        val releaseNotesButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         releaseNotesButton.setTextColor(UIPreferences.textHighlightColor)
         releaseNotesButton.text = "View release notes"
         releaseNotesButton.setOnClickListener(View.OnClickListener {
@@ -78,7 +78,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     arrayOf(releaseNotesUrl, "Release Notes")
             )
         })
-        val emailButton = ObjectCardText(this, ll, toolbar, toolbarBottom)
+        val emailButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         emailButton.setTextColor(UIPreferences.textHighlightColor)
         emailButton.text = "Email developer"
         emailButton.setOnClickListener(View.OnClickListener {
@@ -88,7 +88,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
             intent.putExtra(Intent.EXTRA_SUBJECT, "")
             startActivity(Intent.createChooser(intent, "Send Email"))
         })
-        val iOSVersion = ObjectCardText(this, ll, toolbar, toolbarBottom)
+        val iOSVersion = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         iOSVersion.setTextColor(UIPreferences.textHighlightColor)
         iOSVersion.text = "iOS port of wX is called wXL23"
         iOSVersion.setOnClickListener(View.OnClickListener {
@@ -99,7 +99,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     arrayOf(iOSUrl, "wXL23 for iOS")
             )
         })
-        textCard = ObjectCardText(this, ll, toolbar, toolbarBottom)
+        textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         textCard.text = Utility.showVersion(this, this)
         html = Utility.showVersion(this, this)
     }

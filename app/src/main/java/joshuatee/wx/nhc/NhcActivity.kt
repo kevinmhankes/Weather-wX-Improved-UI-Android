@@ -55,7 +55,7 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.nhc)
         toolbarBottom.setOnMenuItemClickListener(this)
-        objNhc = ObjectNhc(this, ll)
+        objNhc = ObjectNhc(this, linearLayout)
         getContent()
     }
 

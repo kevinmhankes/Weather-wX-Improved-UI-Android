@@ -145,7 +145,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
             }
         }
         mcdList.indices.forEach { mcdIndex ->
-            val objectCardImage = ObjectCardImage(this@SpcMcdWatchShowSummaryActivity, ll, bitmaps[mcdIndex])
+            val objectCardImage = ObjectCardImage(this@SpcMcdWatchShowSummaryActivity, linearLayout, bitmaps[mcdIndex])
             objectCardImage.setOnClickListener(View.OnClickListener {
                 ObjectIntent(
                         this@SpcMcdWatchShowSummaryActivity,
@@ -161,7 +161,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
         if (mcdList.size == 1) {
             val wfoStr = text.parse("ATTN...WFO...(.*?)... ")
             wfos = wfoStr.split("\\.\\.\\.".toRegex()).dropLastWhile { it.isEmpty() }
-            ObjectCardText(this@SpcMcdWatchShowSummaryActivity, ll, toolbar, toolbarBottom, Utility.fromHtml(text))
+            ObjectCardText(this@SpcMcdWatchShowSummaryActivity, linearLayout, toolbar, toolbarBottom, Utility.fromHtml(text))
             title = titleString
             if (!number.contains("at")) {
                 toolbar.subtitle = text.parse("Areas affected...(.*?)<BR>")
@@ -180,7 +180,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
             title = titleString
         }
         if (mcdList.isEmpty()) {
-            ObjectCardText(this@SpcMcdWatchShowSummaryActivity, ll, toolbar, toolbarBottom, nothingPresentStr)
+            ObjectCardText(this@SpcMcdWatchShowSummaryActivity, linearLayout, toolbar, toolbarBottom, nothingPresentStr)
         }
     }
 
@@ -193,7 +193,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         wfos.filter { item.title.contains(it) }.forEach {
-            UtilityLocation.saveLocationForMcd(it, this@SpcMcdWatchShowSummaryActivity, ll, uiDispatcher)
+            UtilityLocation.saveLocationForMcd(it, this@SpcMcdWatchShowSummaryActivity, linearLayout, uiDispatcher)
         }
         return true
     }

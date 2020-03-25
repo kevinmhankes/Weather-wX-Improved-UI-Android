@@ -69,8 +69,8 @@ class SpcFireOutlookSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickLis
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmaps = mutableListOf()
         withContext(Dispatchers.IO) { UtilitySpcFireOutlook.imageUrls.mapTo(bitmaps) { it.getImage() } }
-        ll.removeAllViews()
-        val objectImageSummary = ObjectImageSummary(this@SpcFireOutlookSummaryActivity, ll, bitmaps)
+        linearLayout.removeAllViews()
+        val objectImageSummary = ObjectImageSummary(this@SpcFireOutlookSummaryActivity, linearLayout, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
             objectCardImage.setOnClickListener(View.OnClickListener {
                 ObjectIntent(

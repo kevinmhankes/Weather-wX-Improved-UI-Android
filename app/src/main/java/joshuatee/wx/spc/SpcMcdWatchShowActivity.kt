@@ -74,12 +74,12 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
         toolbarBottom.setOnMenuItemClickListener(this)
         tabletInLandscape = UtilityUI.isTablet() && UtilityUI.isLandScape(this)
         if (tabletInLandscape) {
-            ll.orientation = LinearLayout.HORIZONTAL
-            objectCardImage = ObjectCardImage(this, ll, UtilityImg.getBlankBitmap(), 2)
+            linearLayout.orientation = LinearLayout.HORIZONTAL
+            objectCardImage = ObjectCardImage(this, linearLayout, UtilityImg.getBlankBitmap(), 2)
         } else {
-            objectCardImage = ObjectCardImage(this, ll)
+            objectCardImage = ObjectCardImage(this, linearLayout)
         }
-        objectCardText = ObjectCardText(this, ll, toolbar, toolbarBottom)
+        objectCardText = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         activityArguments = intent.getStringArrayExtra(NUMBER)!!
         number = activityArguments[0]
         when (activityArguments[2]) {
@@ -124,7 +124,7 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         objectWatchProduct.wfos.filter { item.title.contains(it) }.forEach {
-            UtilityLocation.saveLocationForMcd(it, this@SpcMcdWatchShowActivity, ll, uiDispatcher)
+            UtilityLocation.saveLocationForMcd(it, this@SpcMcdWatchShowActivity, linearLayout, uiDispatcher)
         }
         return true
     }

@@ -71,8 +71,8 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         urls = withContext(Dispatchers.IO) { UtilitySpc.thunderStormOutlookUrls }
         bitmaps = withContext(Dispatchers.IO) { urls.map { it.getImage() } }
-        ll.removeAllViews()
-        val objectImageSummary = ObjectImageSummary(this@SpcThunderStormOutlookActivity, ll, bitmaps)
+        linearLayout.removeAllViews()
+        val objectImageSummary = ObjectImageSummary(this@SpcThunderStormOutlookActivity, linearLayout, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
             objectCardImage.setOnClickListener(View.OnClickListener {
                 ObjectIntent(

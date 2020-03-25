@@ -50,8 +50,8 @@ class CanadaTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.canada_text)
         toolbarBottom.setOnMenuItemClickListener(this)
-        objectCardText = ObjectCardText(this, ll, toolbar, toolbarBottom)
-        ObjectCALegal(this, ll, "")
+        objectCardText = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
+        ObjectCALegal(this, linearLayout, "")
         product = Utility.readPref(this, "CA_TEXT_LASTUSED", product)
         description = Utility.readPref(this, "CA_TEXT_LASTUSED_TITLE", description)
         getContent()
