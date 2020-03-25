@@ -217,7 +217,6 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
     }
 
     private fun itemSelected(position: Int) {
-        // FIXME use recyclerView.getItem(position)
         val bottomSheetFragment = BottomSheetFragment(this, position, playListItems[position], false)
         bottomSheetFragment.functions = listOf(::playItem, ::viewItem, ::deleteItem, ::moveUpItem, ::moveDownItem)
         bottomSheetFragment.labelList = listOf("Play Item", "View Item", "Delete Item", "Move Up", "Move Down")

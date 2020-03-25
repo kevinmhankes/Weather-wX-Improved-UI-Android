@@ -43,13 +43,12 @@ class VoiceCommandActivity : Activity() {
             UtilityTts.mMediaPlayer!!.stop()
             UtilityTts.ttsIsPaused = true
         }
-        val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-        i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US")
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US")
         try {
-            startActivityForResult(i, requestOk)
+            startActivityForResult(intent, requestOk)
         } catch (e: Exception) {
-            Toast.makeText(this, "Error initializing speech to text engine.", Toast.LENGTH_LONG)
-                    .show()
+            Toast.makeText(this, "Error initializing speech to text engine.", Toast.LENGTH_LONG).show()
         }
     }
 

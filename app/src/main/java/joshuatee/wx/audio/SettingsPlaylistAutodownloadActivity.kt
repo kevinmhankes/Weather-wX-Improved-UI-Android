@@ -45,7 +45,6 @@ class SettingsPlaylistAutodownloadActivity : BaseActivity() {
     private var deleteMode = false
     private var hour = 0
     private var minute = 0
-    private var gposition = 0
     private val modifyModeString = "Modify mode"
     private lateinit var recyclerView: ObjectRecyclerView
 
@@ -124,7 +123,6 @@ class SettingsPlaylistAutodownloadActivity : BaseActivity() {
     }
 
     private fun pickItem(position: Int) {
-        gposition = position
         if (deleteMode) {
             ridArr.indices.forEach { UtilityPlayListAutoDownload.cancelAlarm(this@SettingsPlaylistAutodownloadActivity, it) }
             ridFav = ridFav.replace(ridArr[position] + tokenSep, "")
@@ -159,7 +157,7 @@ class SettingsPlaylistAutodownloadActivity : BaseActivity() {
                             )
                             UtilityPlayListAutoDownload.setAlarm(
                                     this@SettingsPlaylistAutodownloadActivity,
-                                    gposition,
+                                    position,
                                     selectedHour,
                                     selectedMinute
                             )
