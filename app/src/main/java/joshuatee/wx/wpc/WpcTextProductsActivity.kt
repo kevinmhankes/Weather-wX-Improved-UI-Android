@@ -193,10 +193,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
 
     private fun changeProduct() {
         product = drw.getUrl()
-        products = UtilityFavorites.setupMenuNwsText(
-                MyApplication.nwsTextFav,
-                UtilityWpcText.labels[findPosition(product)]
-        )
+        products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, UtilityWpcText.labels[findPosition(product)])
         objectSpinner.refreshData(this, products)
     }
 

@@ -38,7 +38,6 @@ import joshuatee.wx.fragments.ViewPagerAdapter
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityLog
 import kotlinx.android.synthetic.main.activity_main.*
 
 class WX : CommonActionBarFragment() {
@@ -50,7 +49,6 @@ class WX : CommonActionBarFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(UIPreferences.themeInt)
-        UtilityLog.d("wx", "TABLET: " + UtilityUI.isTablet().toString())
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         UtilityTheme.setPrimaryColor(this)
@@ -112,10 +110,7 @@ class WX : CommonActionBarFragment() {
     override fun onBackPressed() {
         if (UIPreferences.prefPreventAccidentalExit) {
             if (backButtonCounter < 1) {
-                UtilityUI.makeSnackBar(
-                        slidingTabLayout,
-                        "Please tap the back button one more time to close wX."
-                )
+                UtilityUI.makeSnackBar(slidingTabLayout, "Please tap the back button one more time to close wX.")
                 backButtonCounter += 1
             } else {
                 finish()
@@ -139,8 +134,7 @@ class WX : CommonActionBarFragment() {
     }
 
     override fun onResume() {
-        LocalBroadcastManager.getInstance(this)
-                .registerReceiver(onBroadcast, IntentFilter("notifran"))
+        LocalBroadcastManager.getInstance(this).registerReceiver(onBroadcast, IntentFilter("notifran"))
         super.onResume()
     }
 
