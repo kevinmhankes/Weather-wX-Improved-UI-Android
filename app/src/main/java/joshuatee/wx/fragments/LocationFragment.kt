@@ -84,7 +84,6 @@ class LocationFragment : Fragment()  {
     private var cardCC: ObjectCardCurrentConditions? = null
     private lateinit var linearLayout: LinearLayout
     private var homescreenFavLocal = ""
-    private val cardViews = mutableListOf<CardView>()
     private var sevenDayCards = mutableListOf<ObjectCard7Day>()
     private val hsTextAl = mutableListOf<ObjectCardHSText>()
     private val hsImages = mutableListOf<ObjectCardHSImage>()
@@ -110,7 +109,7 @@ class LocationFragment : Fragment()  {
     private var idxIntG = 0
     private var alertDialogRadarLongPress: ObjectDialogue? = null
     private val alertDialogRadarLongPressAl = mutableListOf<String>()
-    private var objCc = ObjectForecastPackageCurrentConditions()
+    //private var objCc = ObjectForecastPackageCurrentConditions()
     private var objHazards = ObjectForecastPackageHazards()
     private var objSevenDay = ObjectForecastPackage7Day()
     private var locationChangedSevenDay = false
@@ -122,6 +121,7 @@ class LocationFragment : Fragment()  {
         var ccAdded = false
         var day7Added = false
         //val homeScreenTokens = MyApplication.colon.split(homescreenFavLocal)
+        val cardViews = mutableListOf<CardView>()
         val homeScreenTokens = homescreenFavLocal.split(":").dropLastWhile { it.isEmpty() }
         numRadars = homeScreenTokens.count { it == "OGL-RADAR" || it.contains("NXRD-") }
         oldRidArr = Array(numRadars) { "" }
@@ -809,6 +809,7 @@ class LocationFragment : Fragment()  {
 
     private fun getLocationForecast() = GlobalScope.launch(uiDispatcher) {
         var bitmapForCurrentConditions: Bitmap? = null
+        var objCc = ObjectForecastPackageCurrentConditions()
         //
         // Current Conditions
         //

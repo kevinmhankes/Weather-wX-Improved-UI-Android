@@ -22,7 +22,6 @@
 package joshuatee.wx.canada
 
 import android.annotation.SuppressLint
-import android.graphics.Typeface
 import android.os.Bundle
 
 import joshuatee.wx.R

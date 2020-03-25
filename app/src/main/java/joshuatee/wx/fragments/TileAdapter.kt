@@ -32,10 +32,10 @@ internal class TileAdapter(
         } else {
             UtilityImg.loadBitmap(context, itemList[position].photo, true)
         }
-        val paramsIv = holder.iv.layoutParams
-        paramsIv.width = MyApplication.dm.widthPixels / tilesPerRow
-        paramsIv.height = paramsIv.width * bitmap.height / bitmap.width
-        holder.iv.layoutParams = paramsIv
+        val layoutParams = holder.iv.layoutParams
+        layoutParams.width = MyApplication.dm.widthPixels / tilesPerRow
+        layoutParams.height = layoutParams.width * bitmap.height / bitmap.width
+        holder.iv.layoutParams = layoutParams
         holder.iv.setImageBitmap(bitmap)
         holder.iv.contentDescription = itemList[position].description
     }
