@@ -56,9 +56,9 @@ class ObjectForecastPackageCurrentConditions {
     }
 
     constructor(context: Context, latLon: LatLon) {
-        val tmpArr = getConditionsViaMetar(context, latLon)
-        data = tmpArr[0]
-        iconUrl = tmpArr[1]
+        val items = getConditionsViaMetar(context, latLon)
+        data = items[0]
+        iconUrl = items[1]
         status = UtilityUS.getStatusViaMetar(context, time)
     }
 
