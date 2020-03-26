@@ -201,8 +201,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
 
     fun initializeGeometry() {
         totalBins = 0
-        // FIXME method for tdwr
-        if (prod.startsWith("TV") || prod == "TZL" || prod.startsWith("TR") || prod.startsWith("TZ") || prod == "N1P" || prod == "NTP" || prod == "ET" || prod == "VIL") {
+        if (WXGLNexrad.isProductTdwr(prod)) {
             tdwr = true
             val oldRid = this.rid
             if (this.rid == "") {
