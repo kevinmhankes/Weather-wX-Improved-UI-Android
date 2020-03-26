@@ -291,9 +291,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
     }
 
-    private fun isTdwr(): Boolean {
-        return ( oglr.product in WXGLNexrad.tdwrProductList )
-    }
+    private fun isTdwr() = oglr.product in WXGLNexrad.tdwrProductList
 
     private fun setStarButton() {
         if (MyApplication.ridFav.contains(":" + oglr.rid + ":")) {

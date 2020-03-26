@@ -639,9 +639,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         }
     }
 
-    private fun isTdwr(product: String): Boolean {
-        return product in WXGLNexrad.tdwrProductList
-    }
+    private fun isTdwr(product: String) = product in WXGLNexrad.tdwrProductList
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         UtilityUI.immersiveMode(this)
