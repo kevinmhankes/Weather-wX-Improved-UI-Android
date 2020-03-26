@@ -247,6 +247,7 @@ open class ObjectOglBuffers() {
                 )
         }
 
+        // FIXME consolidate arguments below and above as buffers is used in 3 spots
         // WIND BARB CIRCLE
         private fun redrawCircleWithColor(buffers: ObjectOglBuffers, pn: ProjectionNumbers) {
             if (!MyApplication.radarUseJni)
