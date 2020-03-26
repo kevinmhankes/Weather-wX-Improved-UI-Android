@@ -383,7 +383,7 @@ internal object UtilityWXOGLPerf {
     fun genTriangle(buffers: ObjectOglBuffers, projectionNumbers: ProjectionNumbers) {
         var pixYD: Float
         var pixXD: Float
-        var ixCount = 0
+        var indexCount = 0
         var test1: Float
         var test2: Float
         buffers.setToPositionZero()
@@ -398,10 +398,10 @@ internal object UtilityWXOGLPerf {
             buffers.putFloat(-pixYD + buffers.lenInit)
             buffers.putFloat(pixXD + buffers.lenInit)
             buffers.putFloat(-pixYD + buffers.lenInit)
-            buffers.putIndex(ixCount.toShort())
-            buffers.putIndex((ixCount + 1).toShort())
-            buffers.putIndex((ixCount + 2).toShort())
-            ixCount += 3
+            buffers.putIndex(indexCount.toShort())
+            buffers.putIndex((indexCount + 1).toShort())
+            buffers.putIndex((indexCount + 2).toShort())
+            indexCount += 3
             (0..2).forEach { _ ->
                 buffers.putColor(buffers.solidColorRed)
                 buffers.putColor(buffers.solidColorGreen)
@@ -413,7 +413,7 @@ internal object UtilityWXOGLPerf {
     fun genTriangleUp(buffers: ObjectOglBuffers, projectionNumbers: ProjectionNumbers) {
         var pixYD: Float
         var pixXD: Float
-        var ixCount = 0
+        var indexCount = 0
         var test1: Float
         var test2: Float
         buffers.setToPositionZero()
@@ -428,10 +428,10 @@ internal object UtilityWXOGLPerf {
             buffers.putFloat(-pixYD - buffers.lenInit)
             buffers.putFloat(pixXD + buffers.lenInit)
             buffers.putFloat(-pixYD - buffers.lenInit)
-            buffers.putIndex(ixCount.toShort())
-            buffers.putIndex((ixCount + 1).toShort())
-            buffers.putIndex((ixCount + 2).toShort())
-            ixCount += 3
+            buffers.putIndex(indexCount.toShort())
+            buffers.putIndex((indexCount + 1).toShort())
+            buffers.putIndex((indexCount + 2).toShort())
+            indexCount += 3
             (0..2).forEach { _ ->
                 buffers.putColor(buffers.solidColorRed)
                 buffers.putColor(buffers.solidColorGreen)
@@ -448,7 +448,7 @@ internal object UtilityWXOGLPerf {
         var test2: Float
         val len = buffers.lenInit * 0.50f
         val triangleAmount = buffers.triangleCount
-        var indexForIndex = 0
+        var indexCount = 0
         var bufferIndex = 0
         buffers.setToPositionZero()
         (0 until buffers.count).forEach { index ->
@@ -469,12 +469,12 @@ internal object UtilityWXOGLPerf {
                 bufferIndex += 4
                 buffers.putFloat(bufferIndex, -pixYD + len * sin(((it + 1) * TWICE_PI / triangleAmount).toDouble()).toFloat())
                 bufferIndex += 4
-                buffers.putIndex(indexForIndex, ixCount.toShort())
-                indexForIndex += 2
-                buffers.putIndex(indexForIndex, (ixCount + 1).toShort())
-                indexForIndex += 2
-                buffers.putIndex(indexForIndex, (ixCount + 2).toShort())
-                indexForIndex += 2
+                buffers.putIndex(indexCount, ixCount.toShort())
+                indexCount += 2
+                buffers.putIndex(indexCount, (ixCount + 1).toShort())
+                indexCount += 2
+                buffers.putIndex(indexCount, (ixCount + 2).toShort())
+                indexCount += 2
                 ixCount += 3
                 (0..2).forEach { _ ->
                     buffers.putColor(buffers.solidColorRed)
@@ -489,7 +489,7 @@ internal object UtilityWXOGLPerf {
         var pixYD: Float
         var pixXD: Float
         var iCount: Int
-        var ixCount = 0
+        var indexCount = 0
         var test1: Float
         var test2: Float
         val len = buffers.lenInit * 0.50f
@@ -522,13 +522,13 @@ internal object UtilityWXOGLPerf {
                     bufferIndex += 4
                     buffers.putFloat(bufferIndex, -pixYD + len * sin(((it + 1) * TWICE_PI / triangleAmount).toDouble()).toFloat())
                     bufferIndex += 4
-                    buffers.putIndex(indexForIndex, ixCount.toShort())
+                    buffers.putIndex(indexForIndex, indexCount.toShort())
                     indexForIndex += 2
-                    buffers.putIndex(indexForIndex, (ixCount + 1).toShort())
+                    buffers.putIndex(indexForIndex, (indexCount + 1).toShort())
                     indexForIndex += 2
-                    buffers.putIndex(indexForIndex, (ixCount + 2).toShort())
+                    buffers.putIndex(indexForIndex, (indexCount + 2).toShort())
                     indexForIndex += 2
-                    ixCount += 3
+                    indexCount += 3
                     (0..2).forEach { _ ->
                         buffers.putColor(col[0])
                         buffers.putColor(col[1])
