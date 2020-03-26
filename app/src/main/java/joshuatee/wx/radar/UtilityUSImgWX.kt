@@ -61,7 +61,7 @@ object UtilityUSImgWX {
         var ridTdwr = ""
         var scaleType = ProjectionType.WX_RENDER
         val hwLineWidth = 1
-        if (product == "TR0" || product == "TV0" || product == "TZL") {
+        if (WXGLNexrad.isProductTdwr(product)) {
             ridTdwr = WXGLNexrad.getTdwrFromRid(radarSite)
             tdwr = true
             radarSite = ridTdwr
@@ -143,7 +143,7 @@ object UtilityUSImgWX {
     fun layeredImgFromFile(
             context: Context,
             radarSiteArg: String,
-            prod: String,
+            product: String,
             idxStr: String,
             isInteractive: Boolean
     ): Bitmap {
@@ -152,7 +152,7 @@ object UtilityUSImgWX {
         var ridTdwr = ""
         var scaleType = ProjectionType.WX_RENDER
         val hwLineWidth = 1
-        if (prod == "TR0" || prod == "TV0" || prod == "TZL") {
+        if (WXGLNexrad.isProductTdwr(product)) {
             ridTdwr = WXGLNexrad.getTdwrFromRid(radarSite)
             tdwr = true
             radarSite = ridTdwr
@@ -161,24 +161,24 @@ object UtilityUSImgWX {
         val layers = mutableListOf<Drawable>()
         val colorDrawable = ColorDrawable(MyApplication.nexradRadarBackgroundColor)
         var bitmapCanvas = Bitmap.createBitmap(CANVAS_X, CANVAS_Y, Config.ARGB_8888)
-        if (!prod.contains("L2")) {
-            if (prod.contains("N0R") || prod.contains("N0S") || prod.contains("N0V") || prod.contains("TR")) {
+        if (!product.contains("L2")) {
+            if (product.contains("N0R") || product.contains("N0S") || product.contains("N0V") || product.contains("TR")) {
                 UtilityNexradRadial4Bit.decodeAndPlot(
                         context,
                         bitmapCanvas,
                         "nids$idxStr",
-                        prod
+                        product
                 )
             } else {
                 UtilityNexradRadial8Bit.decodeAndPlot(
                         context,
                         bitmapCanvas,
                         "nids$idxStr",
-                        prod
+                        product
                 )
             }
         } else {
-            UtilityNexradL2.decodeAndPlot(context, bitmapCanvas, prod)
+            UtilityNexradL2.decodeAndPlot(context, bitmapCanvas, product)
         }
         if (tdwr) {
             radarSite = ridTdwr
@@ -202,7 +202,7 @@ object UtilityUSImgWX {
     fun animationFromFiles(
             context: Context,
             rid1F: String,
-            prod: String,
+            product: String,
             frameCount: Int,
             idxStr: String,
             isInteractive: Boolean
@@ -211,7 +211,7 @@ object UtilityUSImgWX {
         val layerCnt = 3
         var scaleType = ProjectionType.WX_RENDER
         val ridTdwr: String
-        if (prod == "TR0" || prod == "TV0" || prod == "TZL") {
+        if (WXGLNexrad.isProductTdwr(product)) {
             ridTdwr = WXGLNexrad.getTdwrFromRid(rid1)
             rid1 = ridTdwr
             scaleType = ProjectionType.WX_RENDER_48
@@ -221,7 +221,7 @@ object UtilityUSImgWX {
             if (idxStr == "") {
                 nidsArr[it] = "nexrad_anim$it"
             } else {
-                nidsArr[it] = idxStr + prod + "nexrad_anim" + it.toString()
+                nidsArr[it] = idxStr + product + "nexrad_anim" + it.toString()
             }
         }
         val hwLineWidth = 1
@@ -235,17 +235,17 @@ object UtilityUSImgWX {
         val bmArr = Array(frameCount) { UtilityImg.getBlankBitmap() }
         (0 until frameCount).forEach {
             bmArr[it] = Bitmap.createBitmap(CANVAS_X, CANVAS_Y, Config.ARGB_8888)
-            if (prod.contains("N0R") || prod.contains("N0S") || prod.contains("N0V") || prod.contains(
+            if (product.contains("N0R") || product.contains("N0S") || product.contains("N0V") || product.contains(
                             "TR"
                     )
             ) {
-                UtilityNexradRadial4Bit.decodeAndPlot(context, bmArr[it], nidsArr[it], prod)
+                UtilityNexradRadial4Bit.decodeAndPlot(context, bmArr[it], nidsArr[it], product)
             } else {
                 UtilityNexradRadial8Bit.decodeAndPlot(
                         context,
                         bmArr[it],
                         nidsArr[it],
-                        prod
+                        product
                 )
             }
         }
