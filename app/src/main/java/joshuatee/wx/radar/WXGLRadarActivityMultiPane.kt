@@ -640,7 +640,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     private fun isTdwr(product: String): Boolean {
-        return ( product in WXGLNexrad.tdwrProductList )
+        return product in WXGLNexrad.tdwrProductList
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -709,12 +709,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     }
                 }
             }
-            R.id.action_settings -> startActivity(
-                    Intent(
-                            this@WXGLRadarActivityMultiPane,
-                            SettingsRadarActivity::class.java
-                    )
-            )
+            R.id.action_settings -> startActivity(Intent(this@WXGLRadarActivityMultiPane, SettingsRadarActivity::class.java))
             R.id.action_radar_markers -> ObjectIntent(
                     this,
                     ImageShowActivity::class.java,
