@@ -161,8 +161,8 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                 }
             }
             R.id.action_vr -> {
-                if (UtilityTts.mMediaPlayer != null && UtilityTts.mMediaPlayer!!.isPlaying) {
-                    UtilityTts.mMediaPlayer!!.stop()
+                if (UtilityTts.mediaPlayer != null && UtilityTts.mediaPlayer!!.isPlaying) {
+                    UtilityTts.mediaPlayer!!.stop()
                     UtilityTts.ttsIsPaused = true
                 }
                 val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)

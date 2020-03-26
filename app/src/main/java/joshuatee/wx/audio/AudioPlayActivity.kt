@@ -77,7 +77,7 @@ abstract class AudioPlayActivity : AppCompatActivity() {
         pause = menu.findItem(R.id.action_stop)
         val playlist = menu.findItem(R.id.action_playlist)
         playlist.let { playlist.setIcon(R.drawable.ic_playlist_add_24dp) }
-        if (UtilityTts.mMediaPlayer != null && !UtilityTts.mMediaPlayer!!.isPlaying)
+        if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying)
             pause.setIcon(MyApplication.ICON_PAUSE_PRESSED)
         else
             pause.setIcon(MyApplication.ICON_PAUSE)
@@ -103,13 +103,13 @@ abstract class AudioPlayActivity : AppCompatActivity() {
                 }
             }
             R.id.action_stop -> {
-                if (UtilityTts.mMediaPlayer != null)
+                if (UtilityTts.mediaPlayer != null)
                     UtilityTts.playMediaPlayer(1)
-                if (UtilityTts.mMediaPlayer != null && !UtilityTts.mMediaPlayer!!.isPlaying)
+                if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying)
                     pause.setIcon(MyApplication.ICON_PAUSE_PRESSED)
                 else
                     pause.setIcon(MyApplication.ICON_PAUSE)
-                if (UtilityTts.mMediaPlayer != null && UtilityTts.mMediaPlayer!!.isPlaying)
+                if (UtilityTts.mediaPlayer != null && UtilityTts.mediaPlayer!!.isPlaying)
                     if (UIPreferences.mediaControlNotif)
                         UtilityNotification.createMediaControlNotification(applicationContext, "")
             }
@@ -120,7 +120,7 @@ abstract class AudioPlayActivity : AppCompatActivity() {
     }
 
     override fun onRestart() {
-        if (UtilityTts.mMediaPlayer != null && !UtilityTts.mMediaPlayer!!.isPlaying)
+        if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying)
             pause.setIcon(MyApplication.ICON_PAUSE_PRESSED)
         else
             pause.setIcon(MyApplication.ICON_PAUSE)

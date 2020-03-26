@@ -39,8 +39,8 @@ class VoiceCommandActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainView = findViewById(android.R.id.content)
-        if (UtilityTts.mMediaPlayer != null && UtilityTts.mMediaPlayer!!.isPlaying) {
-            UtilityTts.mMediaPlayer!!.stop()
+        if (UtilityTts.mediaPlayer != null && UtilityTts.mediaPlayer!!.isPlaying) {
+            UtilityTts.mediaPlayer!!.stop()
             UtilityTts.ttsIsPaused = true
         }
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)

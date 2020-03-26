@@ -63,7 +63,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         toolbarBottom.setOnMenuItemClickListener(this)
         ObjectFab(this, this, R.id.fab, View.OnClickListener { playAll() })
         fabPause = ObjectFab(this, this, R.id.fab3, View.OnClickListener { playItemFAB() })
-        if (UtilityTts.mMediaPlayer != null && !UtilityTts.mMediaPlayer!!.isPlaying) {
+        if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying) {
             fabPause.fabSetResDrawable(this, MyApplication.ICON_PAUSE_PRESSED)
         } else {
             fabPause.fabSetResDrawable(this, MyApplication.ICON_PAUSE)
@@ -189,15 +189,15 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
     }
 
     private fun playItemFAB() {
-        if (UtilityTts.mMediaPlayer != null) {
+        if (UtilityTts.mediaPlayer != null) {
             UtilityTts.playMediaPlayer(1)
         }
-        if (UtilityTts.mMediaPlayer != null && !UtilityTts.mMediaPlayer!!.isPlaying) {
+        if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying) {
             fabPause.fabSetResDrawable(this, MyApplication.ICON_PAUSE_PRESSED)
         } else {
             fabPause.fabSetResDrawable(this, MyApplication.ICON_PAUSE)
         }
-        if (UtilityTts.mMediaPlayer != null && UtilityTts.mMediaPlayer!!.isPlaying) {
+        if (UtilityTts.mediaPlayer != null && UtilityTts.mediaPlayer!!.isPlaying) {
             if (UIPreferences.mediaControlNotif) {
                 UtilityNotification.createMediaControlNotification(applicationContext, "")
             }
@@ -209,7 +209,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         if (isStoragePermissionGranted) {
             UtilityTts.synthesizeTextAndPlayPlaylist(this, 1)
         }
-        if (UtilityTts.mMediaPlayer != null && UtilityTts.mMediaPlayer!!.isPlaying) {
+        if (UtilityTts.mediaPlayer != null && UtilityTts.mediaPlayer!!.isPlaying) {
             if (UIPreferences.mediaControlNotif) {
                 UtilityNotification.createMediaControlNotification(applicationContext, "")
             }

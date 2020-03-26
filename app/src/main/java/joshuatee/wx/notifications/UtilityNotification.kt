@@ -478,7 +478,7 @@ object UtilityNotification {
         else
             MyApplication.mediaNotifTtsTitle = title
         val pauseIcon: Int =
-                if (UtilityTts.mMediaPlayer != null && !UtilityTts.mMediaPlayer!!.isPlaying)
+                if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying)
                     MyApplication.ICON_PAUSE_PRESSED
                 else
                     MyApplication.ICON_PAUSE

@@ -44,7 +44,7 @@ object UtilityTts {
     private var ttsInit = false
     private var ttobjGlobal: TextToSpeech? = null
     private const val TEXT_OLD = ""
-    var mMediaPlayer: MediaPlayer? = null
+    var mediaPlayer: MediaPlayer? = null
     private const val FILENAME = "/${MyApplication.packageNameAsString}_tts.wav"
     private var mpInit = false
     private var fileCount = 0
@@ -75,11 +75,7 @@ object UtilityTts {
         }
         ttobjGlobal!!.setSpeechRate(Utility.readPref(context, "TTS_SPEED_PREF", 10) / 10f)
         splitInChunks(Utility.fromHtml(TEXT_OLD), 1000).forEach {
-            ttobjGlobal!!.speak(
-                    it,
-                    TextToSpeech.QUEUE_ADD,
-                    null
-            )
+            ttobjGlobal!!.speak(it, TextToSpeech.QUEUE_ADD, null)
         }
     }
 
@@ -91,8 +87,8 @@ object UtilityTts {
     }
 
     private fun initMediaPlayer(context: Context) {
-        mMediaPlayer = MediaPlayer()
-        mMediaPlayer!!.setOnCompletionListener {
+        mediaPlayer = MediaPlayer()
+        mediaPlayer!!.setOnCompletionListener {
             if (currentFile < fileCount) {
                 playMediaPlayerFile(context, currentFile)
                 currentFile += 1
@@ -104,15 +100,15 @@ object UtilityTts {
         mpInit = true
     }
 
-    internal fun synthesizeTextAndPlayPlaylist(context: Context, idx: Int) {
+    internal fun synthesizeTextAndPlayPlaylist(context: Context, index: Int) {
         playlistArr = MyApplication.playlistStr.split(":")
-        playlistNumber = idx
+        playlistNumber = index
         // perform check to see if idx is correct in array
         // got one bug for index being greater
-        if (idx >= playlistArr.size) {
+        if (index >= playlistArr.size) {
             return
         }
-        val prodg = playlistArr[idx]
+        val prodg = playlistArr[index]
         playlistTotal = playlistArr.size
         currentFile = 0
         ttsIsPaused = false
@@ -124,7 +120,7 @@ object UtilityTts {
         }
         synthesizeText(
                 context,
-                Utility.readPref(context, "PLAYLIST_" + playlistArr[idx], ""),
+                Utility.readPref(context, "PLAYLIST_" + playlistArr[index], ""),
                 prodg
         )
         ttobjGlobal!!.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
@@ -158,7 +154,7 @@ object UtilityTts {
             if (!mpInit) {
                 initMediaPlayer(context)
             }
-            if (mMediaPlayer!!.isPlaying) mMediaPlayer!!.stop()
+            if (mediaPlayer!!.isPlaying) mediaPlayer!!.stop()
             synthesizeText(
                     context,
                     Utility.readPref(context, "PLAYLIST_" + playlistArr[playlistNumber], ""),
@@ -195,7 +191,7 @@ object UtilityTts {
         if (!mpInit) {
             initMediaPlayer(context)
         }
-        if (mMediaPlayer!!.isPlaying) mMediaPlayer!!.stop()
+        if (mediaPlayer!!.isPlaying) mediaPlayer!!.stop()
         synthesizeText(
                 context,
                 Utility.readPref(context, "PLAYLIST_" + playlistArr[playlistNumber], ""),
@@ -242,8 +238,8 @@ object UtilityTts {
 
     private fun synthesizeText(context: Context, txtF: String, prod: String) {
         var txt = txtF
-        if (mMediaPlayer != null && mMediaPlayer!!.isPlaying) {
-            mMediaPlayer!!.stop()
+        if (mediaPlayer != null && mediaPlayer!!.isPlaying) {
+            mediaPlayer!!.stop()
         }
         txt = UtilityTtsTranslations.translateAbbreviation(txt)
         val myHashRender = HashMap<String, String>()
@@ -268,14 +264,14 @@ object UtilityTts {
 
     internal fun playMediaPlayer(status: Int) {
         if (status == 0) {
-            mMediaPlayer!!.start()
+            mediaPlayer!!.start()
         }
         if (status == 1) {
             ttsIsPaused = if (!ttsIsPaused) {
-                mMediaPlayer!!.pause()
+                mediaPlayer!!.pause()
                 true
             } else {
-                mMediaPlayer!!.start()
+                mediaPlayer!!.start()
                 false
             }
         }
@@ -283,14 +279,14 @@ object UtilityTts {
 
     internal fun mediaPlayerPause() {
         if (mpInit) {
-            mMediaPlayer!!.pause()
+            mediaPlayer!!.pause()
             ttsIsPaused = true
         }
     }
 
     internal fun mediaPlayerRewind(context: Context) {
         if (mpInit) {
-            if (mMediaPlayer!!.currentPosition < 10000) {
+            if (mediaPlayer!!.currentPosition < 10000) {
                 synthesizeTextAndPlayPrevious(context)
             } else {
                 playMediaPlayerFile(context, 0)
@@ -306,13 +302,13 @@ object UtilityTts {
         if (!wxDir.exists() && !wxDir.mkdirs()) {
             return
         }
-        mMediaPlayer?.reset()
+        mediaPlayer?.reset()
         val fileName = File(wxDir, FILENAME + fileNum.toString()).absolutePath
         val uri = Uri.parse("file://$fileName")
         try {
-            mMediaPlayer?.setDataSource(context, uri)
-            mMediaPlayer?.prepare()
-            mMediaPlayer?.start()
+            mediaPlayer?.setDataSource(context, uri)
+            mediaPlayer?.prepare()
+            mediaPlayer?.start()
         } catch (e: IOException) {
             UtilityLog.handleException(e)
         } catch (e: Exception) {
@@ -321,13 +317,7 @@ object UtilityTts {
 
     }
 
-    fun conditionalPlay(
-            activityArguments: Array<String>,
-            index: Int,
-            context: Context,
-            html: String,
-            label: String
-    ) {
+    fun conditionalPlay(activityArguments: Array<String>, index: Int, context: Context, html: String, label: String) {
         if (activityArguments.size > index) {
             if (activityArguments[index] == "sound") {
                 synthesizeTextAndPlay(context, html, label)
