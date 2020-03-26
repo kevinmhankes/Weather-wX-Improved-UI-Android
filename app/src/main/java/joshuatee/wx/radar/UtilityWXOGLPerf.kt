@@ -200,7 +200,7 @@ internal object UtilityWXOGLPerf {
             radarBlackHole = 4.0f
             radarBlackHoleAdd = 4.0f
         }
-        (0 until radarBuffers.numberOfRadials).forEach { radialNumber ->
+        for (radialNumber in 0 until radarBuffers.numberOfRadials) {
             angle = radialStart.getFloat(radialNumber * 4)
             level = binBuff.get(bI).toInt()
             levelCount = 0
@@ -237,7 +237,7 @@ internal object UtilityWXOGLPerf {
                     radialIndex += 4
                     radarBuffers.floatBuffer.putFloat(radialIndex, binStart * angleSin)
                     radialIndex += 4
-                    (0..3).forEach { _ ->
+                    for (notUsed in 0..3) {
                         radarBuffers.colorBuffer.put(colorIndex, radarBuffers.colormap.redValues.get(level and 0xFF))
                         colorIndex += 1
                         radarBuffers.colorBuffer.put(colorIndex, radarBuffers.colormap.greenValues.get(level and 0xFF))
