@@ -379,22 +379,25 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 l2Menu.isVisible = true
                 tdwrMenu.isVisible = false
             }
+            // FIXME use matches
             if ((oglr.product == "N0Q" || oglr.product == "N1Q" || oglr.product == "N2Q" || oglr.product == "N3Q" || oglr.product == "L2REF") && ridIsTdwr) {
                 if (tilt == "3") {
                     tilt = "2"
                 }
                 oglr.product = "TZL"
             }
-            if ((oglr.product == "TZL" || oglr.product.startsWith("TR") || oglr.product.startsWith("TZ")) && !ridIsTdwr)
+            if ((oglr.product == "TZL" || oglr.product.startsWith("TZ")) && !ridIsTdwr) {
                 oglr.product = "N" + tilt + "Q"
+            }
             if ((oglr.product == "N0U" || oglr.product == "N1U" || oglr.product == "N2U" || oglr.product == "N3U" || oglr.product == "L2VEL") && ridIsTdwr) {
                 if (tilt == "3") {
                     tilt = "2"
                 }
                 oglr.product = "TV$tilt"
             }
-            if (oglr.product.startsWith("TV") && !ridIsTdwr)
+            if (oglr.product.startsWith("TV") && !ridIsTdwr) {
                 oglr.product = "N" + tilt + "U"
+            }
             title = oglr.product
             adjustTiltMenu()
             setStarButton()
@@ -514,14 +517,14 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         withContext(Dispatchers.IO) {
             frameCountGlobal = frameCount
             var animArray = oglr.rdDownload.getRadarFilesForAnimation(this@WXGLRadarActivity, frameCount)
-            var fh: File
+            var file: File
             var timeMilli: Long
             var priorTime: Long
             try {
                 animArray.indices.forEach {
-                    fh = File(this@WXGLRadarActivity.filesDir, animArray[it])
+                    file = File(this@WXGLRadarActivity.filesDir, animArray[it])
                     this@WXGLRadarActivity.deleteFile("nexrad_anim$it")
-                    if (!fh.renameTo(File(this@WXGLRadarActivity.filesDir, "nexrad_anim$it")))
+                    if (!file.renameTo(File(this@WXGLRadarActivity.filesDir, "nexrad_anim$it")))
                         UtilityLog.d("wx", "Problem moving to nexrad_anim$it")
                 }
             } catch (e: Exception) {
@@ -533,9 +536,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     animArray = oglr.rdDownload.getRadarFilesForAnimation(this@WXGLRadarActivity, frameCount)
                     try {
                         animArray.indices.forEach {
-                            fh = File(this@WXGLRadarActivity.filesDir, animArray[it])
+                            file = File(this@WXGLRadarActivity.filesDir, animArray[it])
                             this@WXGLRadarActivity.deleteFile("nexrad_anim$it")
-                            if (!fh.renameTo(
+                            if (!file.renameTo(
                                             File(
                                                     this@WXGLRadarActivity.filesDir,
                                                     "nexrad_anim$it"
@@ -956,8 +959,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun getGPSFromDouble() {
-        //latlonArr[0] = latD.toString()
-        //latlonArr[1] = lonD.toString()
         locXCurrent = latD.toString()
         locYCurrent = lonD.toString()
     }

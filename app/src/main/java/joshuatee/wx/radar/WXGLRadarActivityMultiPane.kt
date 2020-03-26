@@ -406,18 +406,21 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     private fun getContent(glview: WXGLSurfaceView, oglr: WXGLRender, z: Int) =
             GlobalScope.launch(uiDispatcher) {
+                // FIXME Use matches
                 if ((oglrArr[z].product == "N0Q" || oglrArr[z].product == "N1Q" || oglrArr[z].product == "N2Q" || oglrArr[z].product == "N3Q" || oglrArr[z].product == "L2REF") && WXGLNexrad.isRidTdwr(
                                 oglrArr[z].rid
                         )
                 ) oglrArr[z].product = "TZL"
-                if (oglrArr[z].product == "TZL" && !WXGLNexrad.isRidTdwr(oglrArr[z].rid)) oglrArr[z].product =
-                        "N0Q"
+                if (oglrArr[z].product == "TZL" && !WXGLNexrad.isRidTdwr(oglrArr[z].rid)) {
+                    oglrArr[z].product = "N0Q"
+                }
                 if ((oglrArr[z].product == "N0U" || oglrArr[z].product == "N1U" || oglrArr[z].product == "N2U" || oglrArr[z].product == "N3U" || oglrArr[z].product == "L2VEL") && WXGLNexrad.isRidTdwr(
                                 oglrArr[z].rid
                         )
                 ) oglrArr[z].product = "TV0"
-                if (oglrArr[z].product == "TV0" && !WXGLNexrad.isRidTdwr(oglrArr[z].rid)) oglrArr[z].product =
-                        "N0U"
+                if (oglrArr[z].product == "TV0" && !WXGLNexrad.isRidTdwr(oglrArr[z].rid)) {
+                    oglrArr[z].product = "N0U"
+                }
                 toolbar.subtitle = ""
                 setToolbarTitle()
                 adjustTiltAndProductMenus()
@@ -506,7 +509,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         inOglAnim = true
         animRan = true
         withContext(Dispatchers.IO) {
-            var fh: File
+            var file: File
             var timeMilli: Long
             var priorTime: Long
             frameCountGlobal = frameCount
@@ -516,19 +519,16 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         .toTypedArray()
                 try {
                     (animArray[z].indices).forEach { r ->
-                        fh = File(this@WXGLRadarActivityMultiPane.filesDir, animArray[z][r])
+                        file = File(this@WXGLRadarActivityMultiPane.filesDir, animArray[z][r])
                         this@WXGLRadarActivityMultiPane.deleteFile((z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())
-                        if (!fh.renameTo(
+                        if (!file.renameTo(
                                         File(
                                                 this@WXGLRadarActivityMultiPane.filesDir,
                                                 (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString()
                                         )
                                 )
                         )
-                            UtilityLog.d(
-                                    "wx",
-                                    "Problem moving to " + (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString()
-                            )
+                            UtilityLog.d("wx", "Problem moving to " + (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())
                     }
                 } catch (e: Exception) {
                     UtilityLog.handleException(e)
@@ -546,19 +546,16 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                                         .toTypedArray()
                         try {
                             (animArray[z].indices).forEach { r ->
-                                fh = File(this@WXGLRadarActivityMultiPane.filesDir, animArray[z][r])
+                                file = File(this@WXGLRadarActivityMultiPane.filesDir, animArray[z][r])
                                 this@WXGLRadarActivityMultiPane.deleteFile((z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())
-                                if (!fh.renameTo(
+                                if (!file.renameTo(
                                                 File(
                                                         this@WXGLRadarActivityMultiPane.filesDir,
                                                         (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString()
                                                 )
                                         )
                                 )
-                                    UtilityLog.d(
-                                            "wx",
-                                            "Problem moving to " + (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString()
-                                    )
+                                    UtilityLog.d("wx", "Problem moving to " + (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())
                             }
                         } catch (e: Exception) {
                             UtilityLog.handleException(e)
@@ -567,7 +564,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     animTriggerDownloads = false
                 }
                 for (r in animArray[0].indices) {
-                    while (inOglAnimPaused) SystemClock.sleep(delay.toLong())
+                    while (inOglAnimPaused) {
+                        SystemClock.sleep(delay.toLong())
+                    }
                     // formerly priorTime was set at the end but that is goofed up with pause
                     priorTime = UtilityTime.currentTimeMillis()
                     // added because if paused and then another icon life vel/ref it won't load correctly, likely
@@ -599,12 +598,15 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         glviewArr[it].requestRender()
                     }
                     timeMilli = UtilityTime.currentTimeMillis()
-                    if ((timeMilli - priorTime) < delay)
+                    if ((timeMilli - priorTime) < delay) {
                         SystemClock.sleep(delay - ((timeMilli - priorTime)))
-                    if (!inOglAnim)
+                    }
+                    if (!inOglAnim) {
                         break
-                    if (r == (animArray[0].lastIndex))
+                    }
+                    if (r == (animArray[0].lastIndex)) {
                         SystemClock.sleep(delay.toLong() * 2)
+                    }
                 }
                 loopCnt += 1
             }

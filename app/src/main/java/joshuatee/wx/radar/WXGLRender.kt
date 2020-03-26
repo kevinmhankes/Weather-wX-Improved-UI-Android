@@ -146,9 +146,6 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         }
     private var prod = "N0Q"
     private val defaultLineWidth = 2.0f
-    // TODO - the below 2 vars should come directly from MyApp
-    //private var warnLineWidth = 2.0f
-    //private var watmcdLineWidth = 2.0f
     private var ridPrefixGlobal = ""
     private var bgColorFRed = 0.0f
     private var bgColorFGreen = 0.0f
@@ -175,8 +172,6 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         bgColorFRed = Color.red(MyApplication.nexradRadarBackgroundColor) / 255.0f
         bgColorFGreen = Color.green(MyApplication.nexradRadarBackgroundColor) / 255.0f
         bgColorFBlue = Color.blue(MyApplication.nexradRadarBackgroundColor) / 255.0f
-        //warnLineWidth = MyApplication.radarWarnLineSize.toFloat()
-        //watmcdLineWidth = MyApplication.radarWatchMcdLineSize.toFloat()
         try {
             triangleIndexBuffer = ByteBuffer.allocateDirect(12 * breakSize15)
             lineIndexBuffer = ByteBuffer.allocateDirect(4 * breakSizeLine)
@@ -225,8 +220,8 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         radarBuffers.fileName = fileName
         totalBins = 0
         // added to allow animations to skip a frame and continue
-        // fixme method for tdwr
-        if (product.startsWith("TV") || product == "TZL" || product.startsWith("TR") || prod.startsWith("TZ") || product == "N1P" || product == "NTP" || product == "ET" || product == "VIL") {
+        // FIXME method for tdwr
+        if (product.startsWith("TV") || product == "TZL" || prod.startsWith("TZ")) {
             tdwr = true
             val oldRid = this.rid
             if (this.rid == "") {
@@ -247,7 +242,6 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             }
         }
         radarBuffers.setProductCodeFromString(product)
-        // FIXME to much code below
         try {
             when {
                 product.contains("L2") -> {
@@ -261,87 +255,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                     )
                     radarBuffers.extractL2Data(rdL2)
                 }
-                product.contains("NSW") -> {
-                    radarL3Object.decodeAndPlotFourBit(
-                            context,
-                            radarBuffers.fileName,
-                            radarStatusStr
-                    )
-                    radarBuffers.extractL3Data(radarL3Object)
-                }
-                /*product.startsWith("TR") -> {
-                    radarL3Object.decodeAndPlotFourBit(
-                            context,
-                            radarBuffers.fileName,
-                            radarStatusStr
-                    )
-                    radarBuffers.extractL3Data(radarL3Object)
-                }*/
-                product.startsWith("NC") -> {
-                    radarL3Object.decodeAndPlotFourBit(
-                            context,
-                            radarBuffers.fileName,
-                            radarStatusStr
-                    )
-                    radarBuffers.extractL3Data(radarL3Object)
-                }
-                /*product.startsWith("N1P") -> {
-                    radarL3Object.decodeAndPlotFourBit(
-                            context,
-                            radarBuffers.fileName,
-                            radarStatusStr
-                    )
-                    radarBuffers.extractL3Data(radarL3Object)
-                }*/
-                /*product.startsWith("NTP") -> {
-                    radarL3Object.decodeAndPlotFourBit(
-                            context,
-                            radarBuffers.fileName,
-                            radarStatusStr
-                    )
-                    radarBuffers.extractL3Data(radarL3Object)
-                }*/
-                /*product.contains("VIL") -> {
-                    radarL3Object.decodeAndPlotFourBit(
-                            context,
-                            radarBuffers.fileName,
-                            radarStatusStr
-                    )
-                    radarBuffers.extractL3Data(radarL3Object)
-                }*/
-                /*product.startsWith("ET") -> {
-                    radarL3Object.decodeAndPlotFourBit(
-                            context,
-                            radarBuffers.fileName,
-                            radarStatusStr
-                    )
-                    radarBuffers.extractL3Data(radarL3Object)
-                }*/
-                product.contains("N0S") -> {
-                    radarL3Object.decodeAndPlotFourBit(
-                            context,
-                            radarBuffers.fileName,
-                            radarStatusStr
-                    )
-                    radarBuffers.extractL3Data(radarL3Object)
-                }
-                product.contains("N1S") -> {
-                    radarL3Object.decodeAndPlotFourBit(
-                            context,
-                            radarBuffers.fileName,
-                            radarStatusStr
-                    )
-                    radarBuffers.extractL3Data(radarL3Object)
-                }
-                product.contains("N2S") -> {
-                    radarL3Object.decodeAndPlotFourBit(
-                            context,
-                            radarBuffers.fileName,
-                            radarStatusStr
-                    )
-                    radarBuffers.extractL3Data(radarL3Object)
-                }
-                product.contains("N3S") -> {
+                product.contains("NSW") || product.startsWith("NC") || product.matches(Regex("N[0-3]S")) -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
                             radarBuffers.fileName,
@@ -1179,7 +1093,6 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 FrontTypeEnum.OCFNT -> wpcFrontPaints.add(Color.rgb(255, 0, 255))
                 FrontTypeEnum.TROF -> wpcFrontPaints.add(Color.rgb(254, 216, 177))
             }
-            //UtilityLog.d("wx", front.toString())
             for (j in 0 until front.coordinates.size step 2) {
                 if ( j < front.coordinates.size - 1) { // stationary front workaround
                     tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(front.coordinates[j].lat, front.coordinates[j].lon, projectionNumbers)
