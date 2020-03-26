@@ -84,17 +84,14 @@ internal object UtilityNotificationSpcFireWeather {
         val threatList = listOf("EXTR", "CRIT", "ELEV", "SDRT", "IDRT")
         (1..2).forEach { day ->
             val urlLocal = "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/fwdy" + day.toString() + ".html"
-            var urlBlob = UtilityString.getHtmlAndParse(
-                    urlLocal,
-                    "CLICK FOR <a href=.(.*?txt).>DAY [12] FIREWX AREAL OUTLINE PRODUCT .KWNSPFWFD[12].</a>"
-            )
+            var urlBlob = UtilityString.getHtmlAndParse(urlLocal, "CLICK FOR <a href=.(.*?txt).>DAY [12] FIREWX AREAL OUTLINE PRODUCT .KWNSPFWFD[12].</a>")
             urlBlob = "${MyApplication.nwsSPCwebsitePrefix}$urlBlob"
             var html = urlBlob.getHtmlSep()
             val validTime = html.parse("VALID TIME ([0-9]{6}Z - [0-9]{6}Z)")
             html = html.replace("<br>", " ")
             val htmlBlob = html.parse("FIRE WEATHER OUTLOOK POINTS DAY $day(.*?&)&") // was (.*?)&&
             threatList.indices.forEach { m ->
-                var retStr = ""
+                var string = ""
                 val threatLevelCode = threatList[m]
                 val htmlList = htmlBlob.parseColumn(threatLevelCode.substring(1) + "(.*?)[A-Z&]")
                 htmlList.indices.forEach { h ->
@@ -117,16 +114,13 @@ internal object UtilityNotificationSpcFireWeather {
                         } catch (e: Exception) {
                             UtilityLog.handleException(e)
                         }
-                        retStr = "$retStr$xStrTmp $yStrTmp "
+                        string = "$string$xStrTmp $yStrTmp "
                     }
-                    retStr += ":"
-                    retStr = retStr.replace(" :", ":")
-                    retStr = retStr.replace(
-                            " 99.99 99.99 ",
-                            " "
-                    ) // need for the way SPC ConvO seperates on 8 's
+                    string += ":"
+                    string = string.replace(" :", ":")
+                    string = string.replace(" 99.99 99.99 ", " ") // need for the way SPC ConvO seperates on 8 's
                 } // end looping over polygons of one threat level
-                val items = MyApplication.colon.split(retStr)
+                val items = MyApplication.colon.split(string)
                 items.indices.forEach { z ->
                     val list = MyApplication.space.split(items[z])
                     val x = mutableListOf<Double>()
@@ -157,12 +151,7 @@ internal object UtilityNotificationSpcFireWeather {
                                 // call secondary method to send notif if required
                                 val locXDbl = MyApplication.locations[n - 1].x.toDoubleOrNull() ?: 0.0
                                 val locYDbl = MyApplication.locations[n - 1].y.toDoubleOrNull() ?: 0.0
-                                val contains = polygon2.contains(
-                                        ExternalPoint(
-                                                locXDbl.toFloat(),
-                                                locYDbl.toFloat()
-                                        )
-                                )
+                                val contains = polygon2.contains(ExternalPoint(locXDbl.toFloat(), locYDbl.toFloat()))
                                 if (contains) {
                                     if (!notifUrls.contains("spcfwloc$day$locNum"))
                                         notifUrls += sendSpcFireWeatherNotification(
