@@ -44,47 +44,32 @@ internal object UtilityNotificationSpcFireWeather {
         }
     }
 
-    private fun sendSpcFireWeatherNotification(
-            context: Context,
-            locNum: String,
-            day: Int,
-            threatLevel: String,
-            validTime: String
-    ): String {
+    private fun sendSpcFireWeatherNotification(context: Context, locNum: String, day: Int, threatLevel: String, validTime: String): String {
         var notifUrls = ""
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
-        val noMain: String
-        val noBody: String
-        val noSummary: String
-        val locLabelStr: String
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
-        locLabelStr = "(" + Location.getName(locNumInt) + ") "
+        val locLabelStr = "(" + Location.getName(locNumInt) + ") "
         val dayStr = "SPC FWDY$day"
-        noMain = "$locLabelStr$dayStr $threatLevel"
+        val noMain = "$locLabelStr$dayStr $threatLevel"
         var detailRaw = threatLevel.replace("<.*?>".toRegex(), " ")
         detailRaw = detailRaw.replace("&nbsp".toRegex(), " ")
-        noBody = detailRaw
-        noSummary = noBody
-        val objPI = ObjectPendingIntents(context, SpcFireOutlookSummaryActivity::class.java)
+        val noBody = detailRaw
+        val objectPendingIntents = ObjectPendingIntents(context, SpcFireOutlookSummaryActivity::class.java)
         val cancelStr = "spcfwloc$day$locNum$threatLevel$validTime"
-        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(
-                        context,
-                        cancelStr
-                ))
-        ) {
+        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, cancelStr))) {
             val sound = MyApplication.locations[locNumInt].sound && !inBlackout
             val objectNotification = ObjectNotification(
                     context,
                     sound,
                     noMain,
                     noBody,
-                    objPI.resultPendingIntent,
+                    objectPendingIntents.resultPendingIntent,
                     MyApplication.ICON_ALERT,
-                    noSummary,
+                    noBody,
                     NotificationCompat.PRIORITY_HIGH, // was Notification.PRIORITY_DEFAULT
                     Color.YELLOW,
                     MyApplication.ICON_ACTION,
-                    objPI.resultPendingIntent2,
+                    objectPendingIntents.resultPendingIntent2,
                     context.resources.getString(R.string.read_aloud)
             )
             val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
@@ -96,18 +81,10 @@ internal object UtilityNotificationSpcFireWeather {
 
     fun sendSpcFireWeatherD12LocationNotifications(context: Context): String {
         var notifUrls = ""
-        var retStr: String
-        val threatList = mutableListOf<String>()
-        threatList.add("EXTR")
-        threatList.add("CRIT")
-        threatList.add("ELEV")
-        threatList.add("SDRT")
-        threatList.add("IDRT")
-        var urlBlob: String
-        for (day in 1..2) {
-            val urlLocal =
-                    "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/fwdy" + day.toString() + ".html"
-            urlBlob = UtilityString.getHtmlAndParse(
+        val threatList = listOf("EXTR", "CRIT", "ELEV", "SDRT", "IDRT")
+        (1..2).forEach { day ->
+            val urlLocal = "${MyApplication.nwsSPCwebsitePrefix}/products/fire_wx/fwdy" + day.toString() + ".html"
+            var urlBlob = UtilityString.getHtmlAndParse(
                     urlLocal,
                     "CLICK FOR <a href=.(.*?txt).>DAY [12] FIREWX AREAL OUTLINE PRODUCT .KWNSPFWFD[12].</a>"
             )
@@ -115,19 +92,16 @@ internal object UtilityNotificationSpcFireWeather {
             var html = urlBlob.getHtmlSep()
             val validTime = html.parse("VALID TIME ([0-9]{6}Z - [0-9]{6}Z)")
             html = html.replace("<br>", " ")
-            val htmlBlob =
-                    html.parse("FIRE WEATHER OUTLOOK POINTS DAY $day(.*?&)&") // was (.*?)&&
-            for (m in threatList.indices) {
-                retStr = ""
+            val htmlBlob = html.parse("FIRE WEATHER OUTLOOK POINTS DAY $day(.*?&)&") // was (.*?)&&
+            threatList.indices.forEach { m ->
+                var retStr = ""
                 val threatLevelCode = threatList[m]
                 val htmlList = htmlBlob.parseColumn(threatLevelCode.substring(1) + "(.*?)[A-Z&]")
-                for (h in htmlList.indices) {
-                    val coords = htmlList[h].parseColumn("([0-9]{8}).*?")
-                    var xStrTmp: String
-                    var yStrTmp: String
-                    for (temp in coords) {
-                        xStrTmp = temp.substring(0, 4)
-                        yStrTmp = temp.substring(4, 8)
+                htmlList.indices.forEach { h ->
+                    val coordinates = htmlList[h].parseColumn("([0-9]{8}).*?")
+                    coordinates.forEach { temp ->
+                        var xStrTmp = temp.substring(0, 4)
+                        var yStrTmp = temp.substring(4, 8)
                         if (yStrTmp.matches("^0".toRegex())) {
                             yStrTmp = yStrTmp.replace("^0".toRegex(), "")
                             yStrTmp += "0"
@@ -152,27 +126,17 @@ internal object UtilityNotificationSpcFireWeather {
                             " "
                     ) // need for the way SPC ConvO seperates on 8 's
                 } // end looping over polygons of one threat level
-                val x = mutableListOf<Double>()
-                val y = mutableListOf<Double>()
-                var locNum: String
-                var locXDbl: Double
-                var locYDbl: Double
-                var i: Int
-                val tmpArr = MyApplication.colon.split(retStr)
-                var z = 0
-                var test: Array<String>
-                while (z < tmpArr.size) {
-                    test = MyApplication.space.split(tmpArr[z])
-                    x.clear()
-                    y.clear()
-                    i = 0
-                    while (i < test.size) {
+                val items = MyApplication.colon.split(retStr)
+                items.indices.forEach { z ->
+                    val list = MyApplication.space.split(items[z])
+                    val x = mutableListOf<Double>()
+                    val y = mutableListOf<Double>()
+                    list.indices.forEach { i ->
                         if (i and 1 == 0) {
-                            x.add(test[i].toDoubleOrNull() ?: 0.0)
+                            x.add(list[i].toDoubleOrNull() ?: 0.0)
                         } else {
-                            y.add((test[i].toDoubleOrNull() ?: 0.0) * -1)
+                            y.add((list[i].toDoubleOrNull() ?: 0.0) * -1)
                         }
-                        i += 1
                     }
                     // inject bounding box coords if first doesn't equal last
                     // focus on east coast for now
@@ -182,17 +146,17 @@ internal object UtilityNotificationSpcFireWeather {
                     //
                     if (y.size >= 3 && x.size >= 3 && x.size == y.size) {
                         val poly2 = ExternalPolygon.Builder()
-                        for (j in x.indices) {
+                        x.indices.forEach { j ->
                             poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
                         }
                         val polygon2 = poly2.build()
-                        for (n in 1..Location.numLocations) {
-                            locNum = n.toString()
+                        (1..Location.numLocations).forEach { n ->
+                            val locNum = n.toString()
                             if (MyApplication.locations.getOrNull(n - 1)?.notificationSpcFw == true) {
                                 // if location is watching for MCDs pull ib lat/lon and interate over polygons
                                 // call secondary method to send notif if required
-                                locXDbl = MyApplication.locations[n - 1].x.toDoubleOrNull() ?: 0.0
-                                locYDbl = MyApplication.locations[n - 1].y.toDoubleOrNull() ?: 0.0
+                                val locXDbl = MyApplication.locations[n - 1].x.toDoubleOrNull() ?: 0.0
+                                val locYDbl = MyApplication.locations[n - 1].y.toDoubleOrNull() ?: 0.0
                                 val contains = polygon2.contains(
                                         ExternalPoint(
                                                 locXDbl.toFloat(),
@@ -212,7 +176,6 @@ internal object UtilityNotificationSpcFireWeather {
                             }
                         }
                     }
-                    z += 1
                 } // end loop over polygons for specific day
             } // end loop over treat level
         } // end loop of day 1-3

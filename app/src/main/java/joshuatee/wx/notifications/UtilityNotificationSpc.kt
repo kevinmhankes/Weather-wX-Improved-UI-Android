@@ -113,10 +113,7 @@ internal object UtilityNotificationSpc {
         }
     }
 
-    fun sendSwoLocationNotifications(context: Context): String {
-        var notifUrls = ""
-        var retStr: String
-        /*	... CATEGORICAL ...
+    /*	... CATEGORICAL ...
 
 		SLGT   26488256 27058145 27138124 27337986
 		MRGL   28789106 30249015 31008913 31258721 31278684 30718447
@@ -132,29 +129,22 @@ internal object UtilityNotificationSpc {
 		       41912155 42182207 42402218 42952203 43482148
 
 		&&*/
-        val threatList = mutableListOf<String>()
-        threatList.add("HIGH")
-        threatList.add("MDT")
-        threatList.add("ENH")
-        threatList.add("SLGT")
-        threatList.add("MRGL")
-        val noDays = 3
-        for (day in 1..noDays) {
+    fun sendSwoLocationNotifications(context: Context): String {
+        var notifUrls = ""
+        val threatList = listOf("HIGH", "MDT", "ENH", "SLGT", "MRGL")
+        (1..3).forEach { day ->
             val urlBlob = "${MyApplication.nwsSPCwebsitePrefix}/products/outlook/KWNSPTSDY" + day.toString() + ".txt"
             val html = urlBlob.getHtmlSep()
             val validTime = html.parse("VALID TIME ([0-9]{6}Z - [0-9]{6}Z)")
             val htmlBlob = html.parse("... CATEGORICAL ...(.*?&)&")
-            for (m in threatList.indices) {
-                retStr = ""
-                val threatLevelCode = threatList[m]
-                val htmlList = htmlBlob.parseColumn(threatLevelCode.substring(1) + "(.*?)[A-Z&]")
+            threatList.forEach { threat ->
+                var string = ""
+                val htmlList = htmlBlob.parseColumn(threat.substring(1) + "(.*?)[A-Z&]")
                 htmlList.forEach {
-                    val coords = it.parseColumn("([0-9]{8}).*?")
-                    var xStrTmp: String
-                    var yStrTmp: String
-                    for (temp in coords) {
-                        xStrTmp = temp.substring(0, 4)
-                        yStrTmp = temp.substring(4, 8)
+                    val coordinates = it.parseColumn("([0-9]{8}).*?")
+                    coordinates.forEach { temp ->
+                        var xStrTmp = temp.substring(0, 4)
+                        var yStrTmp = temp.substring(4, 8)
                         if (yStrTmp.matches("^0".toRegex())) {
                             yStrTmp = yStrTmp.replace("^0".toRegex(), "")
                             yStrTmp += "0"
@@ -166,38 +156,23 @@ internal object UtilityNotificationSpc {
                             tmpDbl += 100
                             yStrTmp = tmpDbl.toString()
                         }
-                        retStr = "$retStr$xStrTmp $yStrTmp "
+                        string = "$string$xStrTmp $yStrTmp "
                     }
-                    retStr += ":"
-                    retStr = retStr.replace(" :", ":")
-                    retStr = retStr.replace(
-                            " 99.99 99.99 ",
-                            " "
-                    ) // need for the way SPC ConvO seperates on 8 's
+                    string += ":"
+                    string = string.replace(" :", ":")
+                    string = string.replace(" 99.99 99.99 ", " ") // need for the way SPC ConvO seperates on 8 's
                 } // end looping over polygons of one threat level
-                val x = mutableListOf<Double>()
-                val y = mutableListOf<Double>()
-                var locXStr: String
-                var locYStr: String
-                var locNum: String
-                var locXDbl: Double
-                var locYDbl: Double
-                var i: Int
-                val tmpArr = MyApplication.colon.split(retStr)
-                var z = 0
-                var test: Array<String>
-                while (z < tmpArr.size) {
-                    test = MyApplication.space.split(tmpArr[z])
-                    x.clear()
-                    y.clear()
-                    i = 0
-                    while (i < test.size) {
+                val items = MyApplication.colon.split(string)
+                items.forEach {
+                    val list = MyApplication.space.split(it)
+                    val x = mutableListOf<Double>()
+                    val y = mutableListOf<Double>()
+                    list.indices.forEach { i ->
                         if (i and 1 == 0) {
-                            x.add(test[i].toDoubleOrNull() ?: 0.0)
+                            x.add(list[i].toDoubleOrNull() ?: 0.0)
                         } else {
-                            y.add((test[i].toDoubleOrNull() ?: 0.0) * -1)
+                            y.add((list[i].toDoubleOrNull() ?: 0.0) * -1)
                         }
-                        i += 1
                     }
                     // inject bounding box coords if first doesn't equal last
                     // focus on east coast for now
@@ -207,19 +182,19 @@ internal object UtilityNotificationSpc {
                     //
                     if (y.size >= 3 && x.size >= 3 && x.size == y.size) {
                         val poly2 = ExternalPolygon.Builder()
-                        for (j in x.indices) {
+                        x.indices.forEach { j ->
                             poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
                         }
                         val polygon2 = poly2.build()
-                        for (n in 1..Location.numLocations) {
-                            locNum = n.toString()
+                        (1..Location.numLocations).forEach { n ->
+                            val locNum = n.toString()
                             if (MyApplication.locations[n - 1].notificationSwo) {
                                 // if location is watching for MCDs pull ib lat/lon and interate over polygons
                                 // call secondary method to send notif if required
-                                locXStr = MyApplication.locations[n - 1].x
-                                locYStr = MyApplication.locations[n - 1].y
-                                locXDbl = locXStr.toDoubleOrNull() ?: 0.0
-                                locYDbl = locYStr.toDoubleOrNull() ?: 0.0
+                                val locXStr = MyApplication.locations[n - 1].x
+                                val locYStr = MyApplication.locations[n - 1].y
+                                val locXDbl = locXStr.toDoubleOrNull() ?: 0.0
+                                val locYDbl = locYStr.toDoubleOrNull() ?: 0.0
                                 val contains = polygon2.contains(
                                         ExternalPoint(
                                                 locXDbl.toFloat(),
@@ -232,14 +207,13 @@ internal object UtilityNotificationSpc {
                                                 context,
                                                 locNum,
                                                 day,
-                                                threatLevelCode,
+                                                threat,
                                                 validTime
                                         )
                                 }
                             }
                         }
                     }
-                    z += 1
                 } // end loop over polygons for specific day
             } // end loop over treat level
         } // end loop of day 1-3
@@ -249,55 +223,42 @@ internal object UtilityNotificationSpc {
     fun sendMcdLocationNotifications(context: Context): String {
         val textMcd = MyApplication.mcdLatLon.value
         val textMcdNoList = MyApplication.mcdNoList.value
-        val x = mutableListOf<Double>()
-        val y = mutableListOf<Double>()
-        var locXStr: String
-        var locYStr: String
-        var locNum: String
-        var locXDbl: Double
-        var locYDbl: Double
         var notifUrls = ""
-        var i: Int
-        val tmpArr = MyApplication.colon.split(textMcd)
-        val mcdNoArr = MyApplication.colon.split(textMcdNoList)
-        var test: List<String>
-        var z = 0
-        while (z < tmpArr.size) {
-            test = tmpArr[z].split(" ")
-            x.clear()
-            y.clear()
-            i = 0
-            while (i < test.size) {
+        val items = MyApplication.colon.split(textMcd)
+        val mcdNumbers = MyApplication.colon.split(textMcdNoList)
+        items.indices.forEach { z ->
+            val list = items[z].split(" ")
+            val x = mutableListOf<Double>()
+            val y = mutableListOf<Double>()
+            list.indices.forEach { i ->
                 if (i and 1 == 0) {
-                    x.add(test[i].toDoubleOrNull() ?: 0.0)
+                    x.add(list[i].toDoubleOrNull() ?: 0.0)
                 } else {
-                    y.add((test[i].toDoubleOrNull() ?: 0.0) * -1)
+                    y.add((list[i].toDoubleOrNull() ?: 0.0) * -1)
                 }
-                i += 1
             }
             if (y.size > 3 && x.size > 3 && x.size == y.size) {
                 val poly2 = ExternalPolygon.Builder()
-                for (j in x.indices) {
+                x.indices.forEach { j ->
                     poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
                 }
                 val polygon2 = poly2.build()
                 for (n in 1..Location.numLocations) {
-                    locNum = n.toString()
+                    val locNum = n.toString()
                     if (MyApplication.locations[n - 1].notificationMcd) {
                         // if location is watching for MCDs pull ib lat/lon and interate over polygons
                         // call secondary method to send notif if required
-                        locXStr = MyApplication.locations[n - 1].x
-                        locYStr = MyApplication.locations[n - 1].y
-                        locXDbl = locXStr.toDoubleOrNull() ?: 0.0
-                        locYDbl = locYStr.toDoubleOrNull() ?: 0.0
+                        val locXStr = MyApplication.locations[n - 1].x
+                        val locYStr = MyApplication.locations[n - 1].y
+                        val locXDbl = locXStr.toDoubleOrNull() ?: 0.0
+                        val locYDbl = locYStr.toDoubleOrNull() ?: 0.0
                         val contains = polygon2.contains(ExternalPoint(locXDbl.toFloat(), locYDbl.toFloat()))
                         if (contains) {
-                            notifUrls += sendMcdNotification(context, locNum, mcdNoArr[z])
+                            notifUrls += sendMcdNotification(context, locNum, mcdNumbers[z])
                         }
                     }
                 }
             }
-            z += 1
         }
         return notifUrls
     }
@@ -306,19 +267,15 @@ internal object UtilityNotificationSpc {
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
         var notifUrls = ""
         val sep = ","
-        val locLabel: String = Utility.readPref(context, "LOC" + locNum + "_LABEL", "")
-        val noMain: String
-        val noBody: String
-        val noSummary: String
-        val locLabelStr: String
+        val locLabel = Utility.readPref(context, "LOC" + locNum + "_LABEL", "")
         val requestID = UtilityTime.currentTimeMillis().toInt()
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
-        locLabelStr = "($locLabel) "
+        val locLabelStr = "($locLabel) "
         var mcdPre = UtilityDownload.getTextProduct(context, "SPCMCD$mdNo")
-        noMain = "$locLabelStr SPC MCD #$mdNo"
+        val noMain = "$locLabelStr SPC MCD #$mdNo"
         mcdPre = mcdPre.replace("<.*?>".toRegex(), " ")
-        noBody = mcdPre
-        noSummary = mcdPre
+        val noBody = mcdPre
+        val noSummary = mcdPre
         val resultIntent = Intent(context, SpcMcdWatchShowActivity::class.java)
         val resultIntent2 = Intent(context, SpcMcdWatchShowActivity::class.java)
         val polygonType = PolygonType.MCD
@@ -339,11 +296,7 @@ internal object UtilityNotificationSpc {
                 PendingIntent.FLAG_UPDATE_CURRENT
         )
         val cancelStr = "spcmcdloc$mdNo$locNum"
-        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(
-                        context,
-                        cancelStr
-                ))
-        ) {
+        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, cancelStr))) {
             val sound = MyApplication.locations[locNumInt].sound && !inBlackout
             val objectNotification = ObjectNotification(
                     context,
@@ -366,35 +319,25 @@ internal object UtilityNotificationSpc {
         return notifUrls
     }
 
-    private fun sendSwoNotification(
-            context: Context,
-            locNum: String,
-            day: Int,
-            threatLevel: String,
-            validTime: String
-    ): String {
+    private fun sendSwoNotification(context: Context, locNum: String, day: Int, threatLevel: String, validTime: String): String {
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
         var notifUrls = ""
         val sep = ","
         val locLabel = Utility.readPref(context, "LOC" + locNum + "_LABEL", "")
-        val noMain: String
-        val noBody: String
-        val noSummary: String
-        val locLabelStr: String
         val requestID = UtilityTime.currentTimeMillis().toInt()
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
-        locLabelStr = "($locLabel) "
+        val locLabelStr = "($locLabel) "
         val dayStr = "SWODY$day"
-        noMain = "$locLabelStr$dayStr $threatLevel"
+        val noMain = "$locLabelStr$dayStr $threatLevel"
         var detailRaw = threatLevel.replace("<.*?>".toRegex(), " ")
         detailRaw = detailRaw.replace("&nbsp".toRegex(), " ")
-        noBody = detailRaw
-        noSummary = noBody
+        val noBody = detailRaw
         val resultIntent = Intent(context, SpcSwoActivity::class.java)
         val resultIntent2 = Intent(context, SpcSwoActivity::class.java)
         var dayStrArg = day.toString()
-        if (day > 3)
+        if (day > 3) {
             dayStrArg = "4-8"
+        }
         resultIntent.putExtra(SpcSwoActivity.NUMBER, arrayOf(dayStrArg, ""))
         resultIntent2.putExtra(SpcSwoActivity.NUMBER, arrayOf(dayStrArg, "sound"))
         val stackBuilder = TaskStackBuilder.create(context)
@@ -409,8 +352,6 @@ internal object UtilityNotificationSpc {
         )
         val cancelStr = "spcswoloc$day$locNum$threatLevel$validTime"
         if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, cancelStr))) {
-            //val sound = MyApplication.locations[locNumInt].sound && !inBlackout
-            // MyApplication.locations.getOrNull(it)?.notificationSwo ?: false
             val sound = (MyApplication.locations.getOrNull(locNumInt)?.sound ?: false) && !inBlackout
             val objectNotification = ObjectNotification(
                     context,
@@ -419,7 +360,7 @@ internal object UtilityNotificationSpc {
                     noBody,
                     resultPendingIntent,
                     MyApplication.ICON_ALERT,
-                    noSummary,
+                    noBody,
                     NotificationCompat.PRIORITY_HIGH,
                     Color.YELLOW,
                     MyApplication.ICON_ACTION,
@@ -435,10 +376,7 @@ internal object UtilityNotificationSpc {
 
     fun sendSwoD48LocationNotifications(context: Context): String {
         var notifUrls = ""
-        var retStr: String
-        val threatList = mutableListOf<String>()
-        threatList.add("SPC30percent")
-        threatList.add("SPC15percent")
+        val threatList = listOf("SPC30percent", "SPC15percent")
         var urlBlob = UtilityString.getHtmlAndParse(
                 "${MyApplication.nwsSPCwebsitePrefix}/products/exper/day4-8/",
                 "CLICK TO GET <a href=.(.*?txt).>WUUS48 PTSD48</a>"
@@ -449,19 +387,16 @@ internal object UtilityNotificationSpc {
         html = html.replace("<br>", " ")
         html = html.replace("0.30", "SPC30percent")
         html = html.replace("0.15", "SPC15percent")
-        for (day in 4..8) {
-            val htmlBlob =
-                    html.parse("SEVERE WEATHER OUTLOOK POINTS DAY $day(.*?&)&") // was (.*?)&&
+        (4..8).forEach { day ->
+            val htmlBlob = html.parse("SEVERE WEATHER OUTLOOK POINTS DAY $day(.*?&)&") // was (.*?)&&
             threatList.forEach {
-                retStr = ""
+                var string = ""
                 val htmlList = htmlBlob.parseColumn(it.substring(1) + "(.*?)[A-Z&]")
                 htmlList.indices.forEach { h ->
-                    val coords = htmlList[h].parseColumn("([0-9]{8}).*?")
-                    var xStrTmp: String
-                    var yStrTmp: String
-                    for (temp in coords) {
-                        xStrTmp = temp.substring(0, 4)
-                        yStrTmp = temp.substring(4, 8)
+                    val coordinates = htmlList[h].parseColumn("([0-9]{8}).*?")
+                    coordinates.forEach { temp ->
+                        var xStrTmp = temp.substring(0, 4)
+                        var yStrTmp = temp.substring(4, 8)
                         if (yStrTmp.matches("^0".toRegex())) {
                             yStrTmp = yStrTmp.replace("^0".toRegex(), "")
                             yStrTmp += "0"
@@ -473,40 +408,28 @@ internal object UtilityNotificationSpc {
                             tmpDbl += 100
                             yStrTmp = tmpDbl.toString()
                         }
-                        retStr = "$retStr$xStrTmp $yStrTmp "
+                        string = "$string$xStrTmp $yStrTmp "
                     }
-                    retStr += ":"
-                    retStr = retStr.replace(" :", ":")
-                    retStr = retStr.replace(
+                    string += ":"
+                    string = string.replace(" :", ":")
+                    string = string.replace(
                             " 99.99 99.99 ",
                             " "
                     ) // need for the way SPC ConvO seperates on 8 's
                 } // end looping over polygons of one threat level
-                val x = mutableListOf<Double>()
-                val y = mutableListOf<Double>()
-                var locXStr: String
-                var locYStr: String
-                var locNum: String
-                var locXDbl: Double
-                var locYDbl: Double
-                var i: Int
-                val tmpArr = retStr.split(":")
-                var z = 0
-                var test: Array<String>
-                while (z < tmpArr.size) {
-                    test = MyApplication.space.split(tmpArr[z])
-                    x.clear()
-                    y.clear()
-                    i = 0
-                    while (i < test.size) {
+                val items = string.split(":")
+                items.indices.forEach { z ->
+                    val list = MyApplication.space.split(items[z])
+                    val x = mutableListOf<Double>()
+                    val y = mutableListOf<Double>()
+                    list.indices.forEach { i ->
                         if (i and 1 == 0) {
-                            x.add(test[i].toDoubleOrNull() ?: 0.0)
+                            x.add(list[i].toDoubleOrNull() ?: 0.0)
                         } else {
-                            y.add((test[i].toDoubleOrNull() ?: 0.0) * -1)
+                            y.add((list[i].toDoubleOrNull() ?: 0.0) * -1)
                         }
-                        i += 1
                     }
-                    //  inject bounding box coords if first doesn't equal last
+                    //  inject bounding box coordinates if first doesn't equal last
                     // focus on east coast for now
                     //
                     // 52,-130               52,-62
@@ -514,39 +437,28 @@ internal object UtilityNotificationSpc {
                     //
                     if (y.size >= 3 && x.size >= 3 && x.size == y.size) {
                         val poly2 = ExternalPolygon.Builder()
-                        for (j in x.indices) {
+                        x.indices.forEach { j ->
                             poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
                         }
                         val polygon2 = poly2.build()
-                        for (n in 1..Location.numLocations) {
-                            locNum = n.toString()
+                        (1..Location.numLocations).forEach { n ->
+                            val locNum = n.toString()
                             if (MyApplication.locations[n - 1].notificationSwo) {
                                 // if location is watching for MCDs pull ib lat/lon and interate over polygons
                                 // call secondary method to send notif if required
-                                locXStr = MyApplication.locations[n - 1].x
-                                locYStr = MyApplication.locations[n - 1].y
-                                locXDbl = locXStr.toDoubleOrNull() ?: 0.0
-                                locYDbl = locYStr.toDoubleOrNull() ?: 0.0
-                                val contains = polygon2.contains(
-                                        ExternalPoint(
-                                                locXDbl.toFloat(),
-                                                locYDbl.toFloat()
-                                        )
-                                )
+                                val locXStr = MyApplication.locations[n - 1].x
+                                val locYStr = MyApplication.locations[n - 1].y
+                                val locXDbl = locXStr.toDoubleOrNull() ?: 0.0
+                                val locYDbl = locYStr.toDoubleOrNull() ?: 0.0
+                                val contains = polygon2.contains(ExternalPoint(locXDbl.toFloat(), locYDbl.toFloat()))
                                 if (contains) {
-                                    if (!notifUrls.contains("spcswoloc$day$locNum"))
-                                        notifUrls += sendSwoNotification(
-                                                context,
-                                                locNum,
-                                                day,
-                                                it,
-                                                validTime
-                                        )
+                                    if (!notifUrls.contains("spcswoloc$day$locNum")) {
+                                        notifUrls += sendSwoNotification(context, locNum, day, it, validTime)
+                                    }
                                 }
                             }
                         }
                     }
-                    z += 1
                 } // end loop over polygons for specific day
             } // end loop over treat level
         } // end loop of day 1-3
