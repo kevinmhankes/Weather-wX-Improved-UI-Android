@@ -33,13 +33,7 @@ class ObjectPendingIntents {
     var resultPendingIntent: PendingIntent
     var resultPendingIntent2: PendingIntent
 
-    constructor(
-        context: Context,
-        cl: Class<*>,
-        classFlag: String,
-        classArgs1: Array<String>,
-        classArgs2: Array<String>
-    ) {
+    constructor(context: Context, cl: Class<*>, classFlag: String, classArgs1: Array<String>, classArgs2: Array<String>) {
         val resultIntent = Intent(context, cl)
         val resultIntent2 = Intent(context, cl)
         resultIntent.putExtra(classFlag, classArgs1)

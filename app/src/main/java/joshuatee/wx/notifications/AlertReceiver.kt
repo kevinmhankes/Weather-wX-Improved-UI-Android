@@ -34,10 +34,6 @@ class AlertReceiver : BroadcastReceiver() {
 
     override fun onReceive(context1: Context, intent1: Intent) {
         BackgroundFetch(context1).getContent()
-        Utility.writePref(
-            context1,
-            "JOBSERVICE_TIME_LAST_RAN",
-            UtilityTime.getCurrentLocalTimeAsString()
-        )
+        Utility.writePref(context1, "JOBSERVICE_TIME_LAST_RAN", UtilityTime.getCurrentLocalTimeAsString())
     }
 }
