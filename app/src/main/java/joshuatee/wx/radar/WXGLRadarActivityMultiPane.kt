@@ -300,11 +300,12 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 oglrArr[it].rid = oglrArr[0].rid
             }
         }
+        //numPanesArr.forEach {
+        //    oldRidArr[it] = ""
+        //}
+        val defaultProducts = listOf("N0Q", "N0U", "N0C", "DVL")
         numPanesArr.forEach {
             oldRidArr[it] = ""
-        }
-        val defaultProducts = listOf("N0Q", "N0U", "N0C", "DVL")
-        (0 until numPanes).forEach {
             oglrArr[it].product = Utility.readPref(this, prefPrefix + "_PROD" + (it + 1).toString(), defaultProducts[it])
         }
         var zoomPref = "_ZOOM1"
