@@ -286,9 +286,6 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 } else {
                     MyApplication.colorMap[94]!!
                 }
-        //val cR = objectColorPalette.redValues
-        //val cG = objectColorPalette.greenValues
-        //val cB = objectColorPalette.blueValues
         try {
             if (product.startsWith("NC") || radarBuffers.productCode.toInt() == 41 || radarBuffers.productCode.toInt() == 57) {
                 totalBins = UtilityWXOGLPerfRaster.generate(radarBuffers, wxglNexradLevel3.binWord)
@@ -461,7 +458,6 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 drawElement(it)
             }
         }
-
         // whether or not to respect the display being touched needs to be stored in
         // object gl buffers. The wXL23 Metal code is more generic and thus each element drawn will need
         // to be checked. Will do this later when I have more time
@@ -483,14 +479,12 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 }
             }
         }
-
         GLES20.glLineWidth(MyApplication.radarGpsCircleLineSize.toFloat())
         drawTriangles(locationDotBuffers)
         if (MyApplication.locationDotFollowsGps && locCircleBuffers.floatBuffer.capacity() != 0 && locCircleBuffers.indexBuffer.capacity() != 0 && locCircleBuffers.colorBuffer.capacity() != 0) {
             locCircleBuffers.chunkCount = 1
             drawPolygons(locCircleBuffers, 16)
         }
-
         GLES20.glLineWidth(MyApplication.radarWarnLineSize)
         listOf(warningTstBuffers, warningFfwBuffers, warningTorBuffers).forEach {
             drawPolygons(
@@ -498,13 +492,11 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                     8
             )
         }
-
         genericWarningBuffers.forEach {
             if (it.warningType!!.isEnabled) {
                 drawPolygons(it, 8)
             }
         }
-
         GLES20.glLineWidth(MyApplication.radarWatchMcdLineSize)
         listOf(
                 mpdBuffers,
@@ -512,11 +504,14 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 watchBuffers,
                 watchTornadoBuffers,
                 swoBuffers
-        ).forEach { drawPolygons(it, 8) }
-
+        ).forEach {
+            drawPolygons(it, 8)
+        }
         if (zoom < (0.50 / zoomScreenScaleFactor)) {
             GLES20.glLineWidth(MyApplication.radarWatchMcdLineSize)
-            wpcFrontBuffersList.forEach { drawElement(it) }
+            wpcFrontBuffersList.forEach {
+                drawElement(it)
+            }
         }
     }
 
