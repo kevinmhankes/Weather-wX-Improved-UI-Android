@@ -31,7 +31,7 @@ import joshuatee.wx.radarcolorpalettes.ObjectColorPalette
 
 class ObjectOglRadarBuffers(val context: Context, var bgColor: Int) : ObjectOglBuffers() {
 
-    var fn: String = "nids"
+    var fileName: String = "nids"
     var numberOfRadials: Int = 360
     var binSize: Float = 0f
     var numRangeBins: Int = 0

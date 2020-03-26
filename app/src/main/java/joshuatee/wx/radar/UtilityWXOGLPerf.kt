@@ -47,7 +47,7 @@ internal object UtilityWXOGLPerf {
     fun decode8BitAndGenRadials(context: Context, radarBuffers: ObjectOglRadarBuffers): Int {
         var totalBins = 0
         try {
-            val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, radarBuffers.fn))
+            val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, radarBuffers.fileName))
             dis.bigEndian = true
             // ADVANCE PAST WMO HEADER
             while (dis.readShort().toInt() != -1) {

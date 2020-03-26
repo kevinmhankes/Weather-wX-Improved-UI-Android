@@ -222,7 +222,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
 
     // final arg is whether or not to perform decompression
     fun constructPolygons(fileName: String, urlStr: String, performDecomp: Boolean) {
-        radarBuffers.fn = fileName
+        radarBuffers.fileName = fileName
         totalBins = 0
         // added to allow animations to skip a frame and continue
         // fixme method for tdwr
@@ -237,9 +237,9 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         }
         // if fn is empty string then we need to fetch the radar file
         // if set, its part of an anim sequence
-        if (radarBuffers.fn == "") {
+        if (radarBuffers.fileName == "") {
             ridPrefixGlobal = rdDownload.getRadarFile(context, urlStr, this.rid, prod, indexString, tdwr)
-            radarBuffers.fn = if (!product.contains("L2")) {
+            radarBuffers.fileName = if (!product.contains("L2")) {
                 val l3BaseFn = "nids"
                 l3BaseFn + indexString
             } else {
@@ -247,12 +247,13 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             }
         }
         radarBuffers.setProductCodeFromString(product)
+        // FIXME to much code below
         try {
             when {
                 product.contains("L2") -> {
                     rdL2.decodeAndPlot(
                             context,
-                            radarBuffers.fn,
+                            radarBuffers.fileName,
                             prod,
                             radarStatusStr,
                             indexString,
@@ -263,7 +264,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 product.contains("NSW") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
-                            radarBuffers.fn,
+                            radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
@@ -271,7 +272,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 product.startsWith("TR") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
-                            radarBuffers.fn,
+                            radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
@@ -279,7 +280,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 product.startsWith("NC") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
-                            radarBuffers.fn,
+                            radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
@@ -287,7 +288,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 product.startsWith("N1P") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
-                            radarBuffers.fn,
+                            radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
@@ -295,7 +296,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 product.startsWith("NTP") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
-                            radarBuffers.fn,
+                            radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
@@ -303,7 +304,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 product.contains("VIL") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
-                            radarBuffers.fn,
+                            radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
@@ -311,7 +312,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 product.startsWith("ET") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
-                            radarBuffers.fn,
+                            radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
@@ -319,7 +320,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 product.contains("N0S") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
-                            radarBuffers.fn,
+                            radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
@@ -327,7 +328,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 product.contains("N1S") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
-                            radarBuffers.fn,
+                            radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
@@ -335,7 +336,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 product.contains("N2S") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
-                            radarBuffers.fn,
+                            radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
@@ -343,7 +344,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 product.contains("N3S") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
-                            radarBuffers.fn,
+                            radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
@@ -351,7 +352,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 else -> {
                     radarL3Object.decodeAndPlot(
                             context,
-                            radarBuffers.fn,
+                            radarBuffers.fileName,
                             rid,
                             radarStatusStr
                     )
@@ -395,7 +396,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                                 UtilityWXOGLPerf.decode8BitAndGenRadials(context, radarBuffers)
                             else {
                                 Jni.decode8BitAndGenRadials(
-                                        UtilityIO.getFilePath(context, radarBuffers.fn),
+                                        UtilityIO.getFilePath(context, radarBuffers.fileName),
                                         radarL3Object.seekStart,
                                         radarL3Object.compressedFileSize,
                                         radarL3Object.iBuff,
