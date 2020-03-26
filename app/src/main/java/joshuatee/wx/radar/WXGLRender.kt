@@ -280,15 +280,15 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         }
         radarBuffers.initialize()
         radarBuffers.setToPositionZero()
-        val objColPal: ObjectColorPalette =
+        val objectColorPalette =
                 if (MyApplication.colorMap.containsKey(radarBuffers.productCode.toInt())) {
                     MyApplication.colorMap[radarBuffers.productCode.toInt()]!!
                 } else {
                     MyApplication.colorMap[94]!!
                 }
-        val cR = objColPal.redValues
-        val cG = objColPal.greenValues
-        val cB = objColPal.blueValues
+        //val cR = objectColorPalette.redValues
+        //val cG = objectColorPalette.greenValues
+        //val cB = objectColorPalette.blueValues
         try {
             if (product.startsWith("NC") || radarBuffers.productCode.toInt() == 41 || radarBuffers.productCode.toInt() == 57) {
                 totalBins = UtilityWXOGLPerfRaster.generate(radarBuffers, wxglNexradLevel3.binWord)
@@ -319,9 +319,9 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                                         Color.red(radarBuffers.bgColor).toByte(),
                                         Color.green(radarBuffers.bgColor).toByte(),
                                         Color.blue(radarBuffers.bgColor).toByte(),
-                                        cR,
-                                        cG,
-                                        cB
+                                        objectColorPalette.redValues,
+                                        objectColorPalette.greenValues,
+                                        objectColorPalette.blueValues
                                 )
                             }
                         } else {
@@ -343,9 +343,9 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                             radarBuffers.numRangeBins,
                             radarBuffers.binSize,
                             radarBuffers.bgColor,
-                            cR,
-                            cG,
-                            cB,
+                            objectColorPalette.redValues,
+                            objectColorPalette.greenValues,
+                            objectColorPalette.blueValues,
                             radarBuffers.productCode.toInt()
                     )
                 else
