@@ -378,7 +378,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 tdwrMenu.isVisible = false
             }
             // FIXME use matches
-            if ((oglr.product == "N0Q" || oglr.product == "N1Q" || oglr.product == "N2Q" || oglr.product == "N3Q" || oglr.product == "L2REF") && ridIsTdwr) {
+            if ((oglr.product.matches(Regex("N[0-3]Q")) || oglr.product == "L2REF") && ridIsTdwr) {
                 if (tilt == "3") {
                     tilt = "2"
                 }
@@ -387,7 +387,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             if ((oglr.product == "TZL" || oglr.product.startsWith("TZ")) && !ridIsTdwr) {
                 oglr.product = "N" + tilt + "Q"
             }
-            if ((oglr.product == "N0U" || oglr.product == "N1U" || oglr.product == "N2U" || oglr.product == "N3U" || oglr.product == "L2VEL") && ridIsTdwr) {
+            if ((oglr.product.matches(Regex("N[0-3]U")) || oglr.product == "L2VEL") && ridIsTdwr) {
                 if (tilt == "3") {
                     tilt = "2"
                 }
