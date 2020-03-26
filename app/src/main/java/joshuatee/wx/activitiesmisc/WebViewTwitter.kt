@@ -67,7 +67,7 @@ class WebViewTwitter : BaseActivity(), OnItemSelectedListener {
     )
     private var sectorList = listOf<String>()
     private var sector = ""
-    private lateinit var sp: ObjectSpinner
+    private lateinit var objectSpinner: ObjectSpinner
     val prefToken = "STATE_CODE"
 
     override fun onBackPressed() {
@@ -89,8 +89,8 @@ class WebViewTwitter : BaseActivity(), OnItemSelectedListener {
         title = "Twitter"
         sectorList = GlobalArrays.states + canadianSectors
         sector = Utility.readPref(this, prefToken, Location.state)
-        sp = ObjectSpinner(this, this, this, R.id.spinner1, sectorList)
-        sp.setSelection(findPosition(sector.toLowerCase(Locale.US)))
+        objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, sectorList)
+        objectSpinner.setSelection(findPosition(sector.toLowerCase(Locale.US)))
         val webSettings = webview.settings
         webSettings.javaScriptEnabled = true
         if (UtilityUI.isTablet()) {
@@ -101,9 +101,7 @@ class WebViewTwitter : BaseActivity(), OnItemSelectedListener {
         webview.webViewClient = WebViewClient()
     }
 
-    private fun findPosition(key: String) =
-        (0 until sp.size()).firstOrNull { sp[it].toLowerCase(Locale.US).startsWith("$key:") }
-            ?: 0
+    private fun findPosition(key: String) = (0 until objectSpinner.size()).firstOrNull { objectSpinner[it].toLowerCase(Locale.US).startsWith("$key:") } ?: 0
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         sector = sectorList[pos].split(":")[0]

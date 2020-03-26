@@ -42,7 +42,7 @@ import java.nio.ByteBuffer
 import joshuatee.wx.util.UCARRandomAccessFile
 
 internal class Level2Record @Throws(IOException::class)
-private constructor(din: UCARRandomAccessFile, record: Int, message_offset31: Long) {
+private constructor(ucarRandomAccessFile: UCARRandomAccessFile, record: Int, message_offset31: Long) {
 
     private val messageOffset: Long // offset of start of message
     var hasHighResREFData = false
@@ -67,44 +67,44 @@ private constructor(din: UCARRandomAccessFile, record: Int, message_offset31: Lo
 
     init {
         messageOffset = (record * RADAR_DATA_SIZE).toLong() + FILE_HEADER_SIZE.toLong() + message_offset31
-        din.seek(messageOffset)
-        din.skipBytes(CTM_HEADER_SIZE)
-        messageSize = din.readShort() // size in "halfwords" = 2 bytes
-        din.skipBytes(1)
-        messageType = din.readByte()
-        din.skipBytes(12)
+        ucarRandomAccessFile.seek(messageOffset)
+        ucarRandomAccessFile.skipBytes(CTM_HEADER_SIZE)
+        messageSize = ucarRandomAccessFile.readShort() // size in "halfwords" = 2 bytes
+        ucarRandomAccessFile.skipBytes(1)
+        messageType = ucarRandomAccessFile.readByte()
+        ucarRandomAccessFile.skipBytes(12)
         if (messageType.toInt() == 1) {
             // data header
-            dataMsecs = din.readInt()   // collection time for this radial, msecs since midnight
-            dataJulianDate = din.readShort() // prob "collection time"
-            din.skipBytes(10)
-            elevationNum = din.readShort() // RDA elevation number
-            din.skipBytes(26)
-            vcp = din.readShort() // volume coverage pattern
-            din.skipBytes(20)
+            dataMsecs = ucarRandomAccessFile.readInt()   // collection time for this radial, msecs since midnight
+            dataJulianDate = ucarRandomAccessFile.readShort() // prob "collection time"
+            ucarRandomAccessFile.skipBytes(10)
+            elevationNum = ucarRandomAccessFile.readShort() // RDA elevation number
+            ucarRandomAccessFile.skipBytes(26)
+            vcp = ucarRandomAccessFile.readShort() // volume coverage pattern
+            ucarRandomAccessFile.skipBytes(20)
         } else if (messageType.toInt() == 31) {
             // data header
-            din.skipBytes(4)
-            dataMsecs = din.readInt()   // collection time for this radial, msecs since midnight
-            dataJulianDate = din.readShort() // prob "collection time"
-            din.skipBytes(2)
-            azimuth = din.readFloat() // LOOK why unsigned ??
-            din.skipBytes(6)
-            elevationNum = din.readByte().toShort() // RDA elevation number
-            din.skipBytes(9)
-            dbp1 = din.readInt()
-            din.skipBytes(8)
-            dbp4 = din.readInt()
-            dbp5 = din.readInt()
-            dbp6 = din.readInt()
-            dbp7 = din.readInt()
-            dbp8 = din.readInt()
-            dbp9 = din.readInt()
-            vcp = getDataBlockValue(din, dbp1.toShort(), 40)
+            ucarRandomAccessFile.skipBytes(4)
+            dataMsecs = ucarRandomAccessFile.readInt()   // collection time for this radial, msecs since midnight
+            dataJulianDate = ucarRandomAccessFile.readShort() // prob "collection time"
+            ucarRandomAccessFile.skipBytes(2)
+            azimuth = ucarRandomAccessFile.readFloat() // LOOK why unsigned ??
+            ucarRandomAccessFile.skipBytes(6)
+            elevationNum = ucarRandomAccessFile.readByte().toShort() // RDA elevation number
+            ucarRandomAccessFile.skipBytes(9)
+            dbp1 = ucarRandomAccessFile.readInt()
+            ucarRandomAccessFile.skipBytes(8)
+            dbp4 = ucarRandomAccessFile.readInt()
+            dbp5 = ucarRandomAccessFile.readInt()
+            dbp6 = ucarRandomAccessFile.readInt()
+            dbp7 = ucarRandomAccessFile.readInt()
+            dbp8 = ucarRandomAccessFile.readInt()
+            dbp9 = ucarRandomAccessFile.readInt()
+            vcp = getDataBlockValue(ucarRandomAccessFile, dbp1.toShort(), 40)
             var dbpp4 = 0
             var dbpp5 = 0
             if (dbp4 > 0) {
-                val tname = getDataBlockStringValue(din, dbp4.toShort(), 1, 3)
+                val tname = getDataBlockStringValue(ucarRandomAccessFile, dbp4.toShort(), 1, 3)
                 if (tname.startsWith("REF")) {
                     hasHighResREFData = true
                     dbpp4 = dbp4
@@ -114,7 +114,7 @@ private constructor(din: UCARRandomAccessFile, record: Int, message_offset31: Lo
                 }
             }
             if (dbp5 > 0) {
-                val tname = getDataBlockStringValue(din, dbp5.toShort(), 1, 3)
+                val tname = getDataBlockStringValue(ucarRandomAccessFile, dbp5.toShort(), 1, 3)
                 if (tname.startsWith("REF")) {
                     hasHighResREFData = true
                     dbpp4 = dbp5
@@ -124,7 +124,7 @@ private constructor(din: UCARRandomAccessFile, record: Int, message_offset31: Lo
                 }
             }
             if (dbp6 > 0) {
-                val tname = getDataBlockStringValue(din, dbp6.toShort(), 1, 3)
+                val tname = getDataBlockStringValue(ucarRandomAccessFile, dbp6.toShort(), 1, 3)
                 if (tname.startsWith("REF")) {
                     hasHighResREFData = true
                     dbpp4 = dbp6
@@ -134,7 +134,7 @@ private constructor(din: UCARRandomAccessFile, record: Int, message_offset31: Lo
                 }
             }
             if (dbp7 > 0) {
-                val tname = getDataBlockStringValue(din, dbp7.toShort(), 1, 3)
+                val tname = getDataBlockStringValue(ucarRandomAccessFile, dbp7.toShort(), 1, 3)
                 if (tname.startsWith("REF")) {
                     hasHighResREFData = true
                     dbpp4 = dbp7
@@ -144,7 +144,7 @@ private constructor(din: UCARRandomAccessFile, record: Int, message_offset31: Lo
                 }
             }
             if (dbp8 > 0) {
-                val tname = getDataBlockStringValue(din, dbp8.toShort(), 1, 3)
+                val tname = getDataBlockStringValue(ucarRandomAccessFile, dbp8.toShort(), 1, 3)
                 if (tname.startsWith("REF")) {
                     hasHighResREFData = true
                     dbpp4 = dbp8
@@ -154,7 +154,7 @@ private constructor(din: UCARRandomAccessFile, record: Int, message_offset31: Lo
                 }
             }
             if (dbp9 > 0) {
-                val tname = getDataBlockStringValue(din, dbp9.toShort(), 1, 3)
+                val tname = getDataBlockStringValue(ucarRandomAccessFile, dbp9.toShort(), 1, 3)
                 if (tname.startsWith("REF")) {
                     hasHighResREFData = true
                     dbpp4 = dbp9
@@ -181,38 +181,38 @@ private constructor(din: UCARRandomAccessFile, record: Int, message_offset31: Lo
     }
 
     @Throws(IOException::class)
-    private fun getDataBlockValue(raf: UCARRandomAccessFile, offset: Short, skip: Int): Short {
+    private fun getDataBlockValue(ucarRandomAccessFile: UCARRandomAccessFile, offset: Short, skip: Int): Short {
         val off = offset.toLong() + messageOffset + MESSAGE_HEADER_SIZE.toLong()
-        raf.seek(off)
-        raf.skipBytes(skip)
-        return raf.readShort()
+        ucarRandomAccessFile.seek(off)
+        ucarRandomAccessFile.skipBytes(skip)
+        return ucarRandomAccessFile.readShort()
     }
 
     @Throws(IOException::class)
     private fun getDataBlockStringValue(
-        raf: UCARRandomAccessFile,
-        offset: Short,
-        skip: Int,
-        size: Int
+            ucarRandomAccessFile: UCARRandomAccessFile,
+            offset: Short,
+            skip: Int,
+            size: Int
     ): String {
         val off = offset.toLong() + messageOffset + MESSAGE_HEADER_SIZE.toLong()
-        raf.seek(off)
-        raf.skipBytes(skip)
-        val b = ByteArray(size)
+        ucarRandomAccessFile.seek(off)
+        ucarRandomAccessFile.skipBytes(skip)
+        val byteArray = ByteArray(size)
         for (i in 0 until size) {
-            b[i] = raf.readByte()
+            byteArray[i] = ucarRandomAccessFile.readByte()
         }
-        return String(b)
+        return String(byteArray)
     }
 
     @Throws(IOException::class)
-    fun readData(raf: UCARRandomAccessFile, datatype: Int, binWord: ByteBuffer) {
+    fun readData(ucarRandomAccessFile: UCARRandomAccessFile, datatype: Int, binWord: ByteBuffer) {
         var offset = messageOffset
         offset += MESSAGE_HEADER_SIZE.toLong() // offset is from "start of digital radar data message header"
         offset += getDataOffset(datatype).toLong()
-        raf.seek(offset)
+        ucarRandomAccessFile.seek(offset)
         for (i in 0..915) {
-            binWord.put(raf.readUnsignedByte().toByte())
+            binWord.put(ucarRandomAccessFile.readUnsignedByte().toByte())
         }
     }
 

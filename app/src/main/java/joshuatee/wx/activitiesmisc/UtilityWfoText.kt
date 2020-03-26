@@ -23,7 +23,7 @@ package joshuatee.wx.activitiesmisc
 
 object UtilityWfoText {
 
-    val labels: List<String> = listOf(
+    val labels = listOf(
             "Area Forecast Discussion",
             "Aviation only AFD",
             "Hazardous Weather Outlook",
@@ -41,7 +41,7 @@ object UtilityWfoText {
             "Daily Climate Report"
     )
 
-    val codes: List<String> = listOf(
+    val codes = listOf(
             "AFD",
             "VFD",
             "HWO",

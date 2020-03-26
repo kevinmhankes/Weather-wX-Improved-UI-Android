@@ -61,14 +61,14 @@ object UtilityPlayListAutoDownload {
         }
         val intent = Intent(context, DownloadPlaylistService::class.java)
         intent.putExtra(DownloadPlaylistService.URL, "true")
-        val pi = PendingIntent.getService(context, pos, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, timeToAlarm, AlarmManager.INTERVAL_DAY, pi)
+        val pendingIntent = PendingIntent.getService(context, pos, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, timeToAlarm, AlarmManager.INTERVAL_DAY, pendingIntent)
     }
 
     fun cancelAlarm(context: Context, pos: Int) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, DownloadPlaylistService::class.java)
-        val pi = PendingIntent.getService(context, pos, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        alarmManager.cancel(pi)
+        val pendingIntent = PendingIntent.getService(context, pos, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        alarmManager.cancel(pendingIntent)
     }
 }
