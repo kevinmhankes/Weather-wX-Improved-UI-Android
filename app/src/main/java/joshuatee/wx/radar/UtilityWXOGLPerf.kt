@@ -307,41 +307,40 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun genIndex(indexBuff: ByteBuffer, len: Int, breakSizeF: Int) {
+    fun genIndex(indexBuff: ByteBuffer, length: Int, breakSizeF: Int) {
         var breakSize = breakSizeF
-        //var incr: Int
         val remainder: Int
         var chunkCount = 1
-        var iCount = 0
-        if (len < breakSize) {
-            breakSize = len
+        var indexForIndex = 0
+        if (length < breakSize) {
+            breakSize = length
             remainder = breakSize
         } else {
-            chunkCount = len / breakSize
-            remainder = len - breakSize * chunkCount
+            chunkCount = length / breakSize
+            remainder = length - breakSize * chunkCount
             chunkCount += 1
         }
         var chunkIndex = 0
         while (chunkIndex < chunkCount) {
-            var increment = 0
+            var indexCount = 0
             if (chunkIndex == chunkCount - 1) {
                 breakSize = remainder
             }
             var j = 0
             while (j < breakSize) {
-                indexBuff.putShort(iCount, increment.toShort())
-                iCount += 2
-                indexBuff.putShort(iCount, (1 + increment).toShort())
-                iCount += 2
-                indexBuff.putShort(iCount, (2 + increment).toShort())
-                iCount += 2
-                indexBuff.putShort(iCount, increment.toShort())
-                iCount += 2
-                indexBuff.putShort(iCount, (2 + increment).toShort())
-                iCount += 2
-                indexBuff.putShort(iCount, (3 + increment).toShort())
-                iCount += 2
-                increment += 4
+                indexBuff.putShort(indexForIndex, indexCount.toShort())
+                indexForIndex += 2
+                indexBuff.putShort(indexForIndex, (1 + indexCount).toShort())
+                indexForIndex += 2
+                indexBuff.putShort(indexForIndex, (2 + indexCount).toShort())
+                indexForIndex += 2
+                indexBuff.putShort(indexForIndex, indexCount.toShort())
+                indexForIndex += 2
+                indexBuff.putShort(indexForIndex, (2 + indexCount).toShort())
+                indexForIndex += 2
+                indexBuff.putShort(indexForIndex, (3 + indexCount).toShort())
+                indexForIndex += 2
+                indexCount += 4
                 j += 1
             }
             chunkIndex += 1
@@ -443,12 +442,12 @@ internal object UtilityWXOGLPerf {
     fun genCircle(buffers: ObjectOglBuffers, projectionNumbers: ProjectionNumbers) {
         var pixYD: Float
         var pixXD: Float
-        var ixCount = 0
+        var indexCount = 0
         var test1: Float
         var test2: Float
         val len = buffers.lenInit * 0.50f
         val triangleAmount = buffers.triangleCount
-        var indexCount = 0
+        var indexForIndex = 0
         var bufferIndex = 0
         buffers.setToPositionZero()
         (0 until buffers.count).forEach { index ->
@@ -469,13 +468,13 @@ internal object UtilityWXOGLPerf {
                 bufferIndex += 4
                 buffers.putFloat(bufferIndex, -pixYD + len * sin(((it + 1) * TWICE_PI / triangleAmount).toDouble()).toFloat())
                 bufferIndex += 4
-                buffers.putIndex(indexCount, ixCount.toShort())
-                indexCount += 2
-                buffers.putIndex(indexCount, (ixCount + 1).toShort())
-                indexCount += 2
-                buffers.putIndex(indexCount, (ixCount + 2).toShort())
-                indexCount += 2
-                ixCount += 3
+                buffers.putIndex(indexForIndex, indexCount.toShort())
+                indexForIndex += 2
+                buffers.putIndex(indexForIndex, (indexCount + 1).toShort())
+                indexForIndex += 2
+                buffers.putIndex(indexForIndex, (indexCount + 2).toShort())
+                indexForIndex += 2
+                indexCount += 3
                 (0..2).forEach { _ ->
                     buffers.putColor(buffers.solidColorRed)
                     buffers.putColor(buffers.solidColorGreen)
@@ -547,14 +546,14 @@ internal object UtilityWXOGLPerf {
         var indexCount = 0
         val test1 = M_180_div_PI * log(tan(M_PI_div_4 + x * M_PI_div_360), E).toFloat()
         val test2 = M_180_div_PI * log(tan(M_PI_div_4 + projectionNumbers.xDbl * M_PI_div_360), E).toFloat()
-        val len = buffers.lenInit * 2.0f
+        val length = buffers.lenInit * 2.0f
         val triangleAmount = buffers.triangleCount
         pixYD = -((test1 - test2) * projectionNumbers.oneDegreeScaleFactorFloat) + projectionNumbers.yCenter.toFloat()
         (0 until triangleAmount).forEach {
-            buffers.putFloat(pixXD + len * cos((it * TWICE_PI / triangleAmount).toDouble()).toFloat())
-            buffers.putFloat(-pixYD + len * sin((it * TWICE_PI / triangleAmount).toDouble()).toFloat())
-            buffers.putFloat(pixXD + len * cos(((it + 1) * TWICE_PI / triangleAmount).toDouble()).toFloat())
-            buffers.putFloat(-pixYD + len * sin(((it + 1) * TWICE_PI / triangleAmount).toDouble()).toFloat())
+            buffers.putFloat(pixXD + length * cos((it * TWICE_PI / triangleAmount).toDouble()).toFloat())
+            buffers.putFloat(-pixYD + length * sin((it * TWICE_PI / triangleAmount).toDouble()).toFloat())
+            buffers.putFloat(pixXD + length * cos(((it + 1) * TWICE_PI / triangleAmount).toDouble()).toFloat())
+            buffers.putFloat(-pixYD + length * sin(((it + 1) * TWICE_PI / triangleAmount).toDouble()).toFloat())
             buffers.putIndex(indexCount.toShort())
             buffers.putIndex((indexCount + 1).toShort())
             indexCount += 2
@@ -564,26 +563,26 @@ internal object UtilityWXOGLPerf {
     fun decode8BitWX(context: Context, src: String, radialStartAngle: ByteBuffer, binWord: ByteBuffer): Short {
         var numberOfRangeBins = 0
         try {
-            val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, src))
-            dis.bigEndian = true
+            val ucarRandomAccessFile = UCARRandomAccessFile(UtilityIO.getFilePath(context, src))
+            ucarRandomAccessFile.bigEndian = true
             // ADVANCE PAST WMO HEADER
-            while (dis.readShort().toInt() != -1) {
+            while (ucarRandomAccessFile.readShort().toInt() != -1) {
                 // while (dis.readUnsignedShort() != 16) {
             }
             // the following chunk was added to analyze the header so that status info could be extracted
             // index 4 is radar height
             // index 0,1 is lat as Int
             // index 2,3 is long as Int
-            dis.skipBytes(100)
+            ucarRandomAccessFile.skipBytes(100)
             val magic = ByteArray(3)
             magic[0] = 'B'.toByte()
             magic[1] = 'Z'.toByte()
             magic[2] = 'h'.toByte()
             val compression = Compression.getCompression(magic)
-            val compressedFileSize = dis.length() - dis.filePointer
+            val compressedFileSize = ucarRandomAccessFile.length() - ucarRandomAccessFile.filePointer
             val buf = ByteArray(compressedFileSize.toInt())
-            dis.read(buf)
-            dis.close()
+            ucarRandomAccessFile.read(buf)
+            ucarRandomAccessFile.close()
             val decompStream = compression.decompress(ByteArrayInputStream(buf))
             val dis2 = DataInputStream(BufferedInputStream(decompStream))
             dis2.skipBytes(20)
@@ -647,12 +646,15 @@ internal object UtilityWXOGLPerf {
         rBuff.putFloat((binStart * sin(((angle - angleV) / M_180_div_PI).toDouble()).toFloat() - centerY) * -1)
     }
 
-    fun colorGen(colorBuff: ByteBuffer, len: Int, colArr: ByteArray) {
-        if (len * 3 <= colorBuff.limit()) {
-            (0 until len).forEach { _ ->
-                if (colorBuff.hasRemaining()) colorBuff.put(colArr[0])
-                if (colorBuff.hasRemaining()) colorBuff.put(colArr[1])
-                if (colorBuff.hasRemaining()) colorBuff.put(colArr[2])
+    fun colorGen(colorBuff: ByteBuffer, length: Int, colors: ByteArray) {
+        if (length * 3 <= colorBuff.limit()) {
+            (0 until length).forEach { _ ->
+                if (colorBuff.hasRemaining())
+                    colorBuff.put(colors[0])
+                if (colorBuff.hasRemaining())
+                    colorBuff.put(colors[1])
+                if (colorBuff.hasRemaining())
+                    colorBuff.put(colors[2])
             }
         }
     }
