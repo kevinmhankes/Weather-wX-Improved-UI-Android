@@ -159,8 +159,8 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     // so far, only the base geometry ( state lines, county, etc ) respect this setting
     private var useMercatorProjection = true
     private val wxglNexradLevel2 = WXGLNexradLevel2()
-    val wxglNexradLevel3: WXGLNexradLevel3 = WXGLNexradLevel3()
-    val wxglDownload: WXGLDownload = WXGLDownload()
+    val wxglNexradLevel3 = WXGLNexradLevel3()
+    val wxglDownload = WXGLDownload()
     private var projectionNumbers = ProjectionNumbers()
     var product: String
         get() = prod
