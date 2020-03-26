@@ -380,7 +380,7 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun genTriangle(buffers: ObjectOglBuffers, pn: ProjectionNumbers, x: DoubleArray, y: DoubleArray) {
+    fun genTriangle(buffers: ObjectOglBuffers, pn: ProjectionNumbers) {
         var pointX: Double
         var pointY: Double
         var pixYD: Float
@@ -389,10 +389,9 @@ internal object UtilityWXOGLPerf {
         var test1: Float
         var test2: Float
         buffers.setToPositionZero()
-        //while (iCount < buffers.count) {
         (0 until buffers.count).forEach { index ->
-            pointX = x[index]
-            pointY = y[index]
+            pointX = buffers.xList[index]
+            pointY = buffers.yList[index]
             test1 = M_180_div_PI * log(tan(M_PI_div_4 + pointX * M_PI_div_360), E).toFloat()
             test2 = M_180_div_PI * log(tan(M_PI_div_4 + pn.xDbl * M_PI_div_360), E).toFloat()
             pixYD = -((test1 - test2) * pn.oneDegreeScaleFactorFloat) + pn.yCenter.toFloat()
@@ -415,7 +414,7 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun genTriangleUp(buffers: ObjectOglBuffers, pn: ProjectionNumbers, x: DoubleArray, y: DoubleArray) {
+    fun genTriangleUp(buffers: ObjectOglBuffers, pn: ProjectionNumbers) {
         var pointX: Double
         var pointY: Double
         var pixYD: Float
@@ -424,10 +423,9 @@ internal object UtilityWXOGLPerf {
         var test1: Float
         var test2: Float
         buffers.setToPositionZero()
-        //while (iCount < buffers.count) {
         (0 until buffers.count).forEach { index ->
-            pointX = x[index]
-            pointY = y[index]
+            pointX = buffers.xList[index]
+            pointY = buffers.yList[index]
             test1 = M_180_div_PI * log(tan(M_PI_div_4 + pointX * M_PI_div_360), E).toFloat()
             test2 = M_180_div_PI * log(tan(M_PI_div_4 + pn.xDbl * M_PI_div_360), E).toFloat()
             pixYD = -((test1 - test2) * pn.oneDegreeScaleFactorFloat) + pn.yCenter.toFloat()
@@ -450,7 +448,7 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun genCircle(buffers: ObjectOglBuffers, pn: ProjectionNumbers, x: DoubleArray, y: DoubleArray) {
+    fun genCircle(buffers: ObjectOglBuffers, pn: ProjectionNumbers) {
         var pointX: Double
         var pointY: Double
         var pixYD: Float
@@ -464,8 +462,8 @@ internal object UtilityWXOGLPerf {
         var bufferIndex = 0
         buffers.setToPositionZero()
         (0 until buffers.count).forEach { index ->
-            pointX = x[index]
-            pointY = y[index]
+            pointX = buffers.xList[index]
+            pointY = buffers.yList[index]
             test1 = M_180_div_PI * log(tan(M_PI_div_4 + pointX * M_PI_div_360), E).toFloat()
             test2 = M_180_div_PI * log(tan(M_PI_div_4 + pn.xDbl * M_PI_div_360), E).toFloat()
             pixYD = -((test1 - test2) * pn.oneDegreeScaleFactorFloat) + pn.yCenter.toFloat()
@@ -499,7 +497,7 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun genCircleWithColor(buffers: ObjectOglBuffers, pn: ProjectionNumbers, x: DoubleArray, y: DoubleArray) {
+    fun genCircleWithColor(buffers: ObjectOglBuffers, pn: ProjectionNumbers) {
         var pointX: Double
         var pointY: Double
         var pixYD: Float
@@ -516,13 +514,13 @@ internal object UtilityWXOGLPerf {
         buffers.setToPositionZero()
         if (buffers.colorIntArray.size == buffers.count) {
             iCount = 0
-            while (iCount < buffers.count && iCount < x.size && iCount < y.size) {
+            while (iCount < buffers.count && iCount < buffers.xList.size && iCount < buffers.yList.size) {
                 // TODO set the object colors to these values
                 col[0] = Color.red(buffers.colorIntArray[iCount]).toByte()
                 col[1] = Color.green(buffers.colorIntArray[iCount]).toByte()
                 col[2] = Color.blue(buffers.colorIntArray[iCount]).toByte()
-                pointX = x[iCount]
-                pointY = y[iCount]
+                pointX = buffers.xList[iCount]
+                pointY = buffers.yList[iCount]
                 test1 = M_180_div_PI * log(tan(M_PI_div_4 + pointX * M_PI_div_360), E).toFloat()
                 test2 = M_180_div_PI * log(tan(M_PI_div_4 + pn.xDbl * M_PI_div_360), E).toFloat()
                 pixYD = -((test1 - test2) * pn.oneDegreeScaleFactorFloat) + pn.yCenter.toFloat()

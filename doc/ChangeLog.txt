@@ -29,7 +29,7 @@
 // TODO [ADD] severedash long press color is off
 // TODO [FIX] severedash -> long press -> go to dual pane ( does not use current location )
 
-55383 2020_03_25    [REF] misc for readability
+55383 2020_03_26    [REF] misc for readability
 55382 2020_03_25    [REF] make use of ObjectImageSummary in SPC Fire/tstorm
                     [REF] misc for readability
                     [ADD] monospace for certain national text products

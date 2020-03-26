@@ -181,18 +181,18 @@ open class ObjectOglBuffers() {
 
     companion object {
         // TVS
-        private fun redrawTriangle(buffers: ObjectOglBuffers, pn: ProjectionNumbers) {
+        private fun redrawTriangle(buffers: ObjectOglBuffers, projectionNumbers: ProjectionNumbers) {
             if (!MyApplication.radarUseJni)
-                UtilityWXOGLPerf.genTriangle(buffers, pn, buffers.xList, buffers.yList)
+                UtilityWXOGLPerf.genTriangle(buffers, projectionNumbers)
             else
                 Jni.genTriangle(
                     buffers.floatBuffer,
                     buffers.indexBuffer,
-                    pn.xFloat,
-                    pn.yFloat,
-                    pn.xCenter.toFloat(),
-                    pn.yCenter.toFloat(),
-                    pn.oneDegreeScaleFactorFloat,
+                    projectionNumbers.xFloat,
+                    projectionNumbers.yFloat,
+                    projectionNumbers.xCenter.toFloat(),
+                    projectionNumbers.yCenter.toFloat(),
+                    projectionNumbers.oneDegreeScaleFactorFloat,
                     buffers.xList,
                     buffers.yList,
                     buffers.count,
@@ -203,18 +203,18 @@ open class ObjectOglBuffers() {
         }
 
         // HI
-        private fun redrawTriangleUp(buffers: ObjectOglBuffers, pn: ProjectionNumbers) {
+        private fun redrawTriangleUp(buffers: ObjectOglBuffers, projectionNumbers: ProjectionNumbers) {
             if (!MyApplication.radarUseJni)
-                UtilityWXOGLPerf.genTriangleUp(buffers, pn, buffers.xList, buffers.yList)
+                UtilityWXOGLPerf.genTriangleUp(buffers, projectionNumbers)
             else
                 Jni.genTriangleUp(
                     buffers.floatBuffer,
                     buffers.indexBuffer,
-                    pn.xFloat,
-                    pn.yFloat,
-                    pn.xCenter.toFloat(),
-                    pn.yCenter.toFloat(),
-                    pn.oneDegreeScaleFactorFloat,
+                    projectionNumbers.xFloat,
+                    projectionNumbers.yFloat,
+                    projectionNumbers.xCenter.toFloat(),
+                    projectionNumbers.yCenter.toFloat(),
+                    projectionNumbers.oneDegreeScaleFactorFloat,
                     buffers.xList,
                     buffers.yList,
                     buffers.count,
@@ -225,18 +225,18 @@ open class ObjectOglBuffers() {
         }
 
         // LOCDOT, SPOTTER
-        private fun redrawCircle(buffers: ObjectOglBuffers, pn: ProjectionNumbers) {
+        private fun redrawCircle(buffers: ObjectOglBuffers, projectionNumbers: ProjectionNumbers) {
             if (!MyApplication.radarUseJni)
-                UtilityWXOGLPerf.genCircle(buffers, pn, buffers.xList, buffers.yList)
+                UtilityWXOGLPerf.genCircle(buffers, projectionNumbers)
             else
                 Jni.genCircle(
                     buffers.floatBuffer,
                     buffers.indexBuffer,
-                    pn.xFloat,
-                    pn.yFloat,
-                    pn.xCenter.toFloat(),
-                    pn.yCenter.toFloat(),
-                    pn.oneDegreeScaleFactorFloat,
+                    projectionNumbers.xFloat,
+                    projectionNumbers.yFloat,
+                    projectionNumbers.xCenter.toFloat(),
+                    projectionNumbers.yCenter.toFloat(),
+                    projectionNumbers.oneDegreeScaleFactorFloat,
                     buffers.xList,
                     buffers.yList,
                     buffers.count,
@@ -247,20 +247,19 @@ open class ObjectOglBuffers() {
                 )
         }
 
-        // FIXME consolidate arguments below and above as buffers is used in 3 spots
         // WIND BARB CIRCLE
-        private fun redrawCircleWithColor(buffers: ObjectOglBuffers, pn: ProjectionNumbers) {
+        private fun redrawCircleWithColor(buffers: ObjectOglBuffers, projectionNumbers: ProjectionNumbers) {
             if (!MyApplication.radarUseJni)
-                UtilityWXOGLPerf.genCircleWithColor(buffers, pn, buffers.xList, buffers.yList)
+                UtilityWXOGLPerf.genCircleWithColor(buffers, projectionNumbers)
             else
                 Jni.genCircleWithColor(
                     buffers.floatBuffer,
                     buffers.indexBuffer,
-                    pn.xFloat,
-                    pn.yFloat,
-                    pn.xCenter.toFloat(),
-                    pn.yCenter.toFloat(),
-                    pn.oneDegreeScaleFactorFloat,
+                    projectionNumbers.xFloat,
+                    projectionNumbers.yFloat,
+                    projectionNumbers.xCenter.toFloat(),
+                    projectionNumbers.yCenter.toFloat(),
+                    projectionNumbers.oneDegreeScaleFactorFloat,
                     buffers.xList,
                     buffers.yList,
                     buffers.count,
