@@ -47,52 +47,42 @@ internal object UtilityNotificationWpc {
     fun sendMpdLocationNotifications(context: Context): String {
         val textMcd = MyApplication.mpdLatLon.value
         val textMcdNoList = MyApplication.mpdNoList.value
-        val x = mutableListOf<Double>()
-        val y = mutableListOf<Double>()
-        var locNum: String
-        var locXDbl: Double
-        var locYDbl: Double
         var notifUrls = ""
-        var i: Int
-        val tmpArr = MyApplication.colon.split(textMcd)
-        val mcdNoArr = MyApplication.colon.split(textMcdNoList)
-        var z = 0
-        var test: Array<String>
-        while (z < tmpArr.size) {
-            test = MyApplication.space.split(tmpArr[z])
-            x.clear()
-            y.clear()
-            i = 0
-            while (i < test.size) {
+        val items = MyApplication.colon.split(textMcd)
+        val mpdNumbers = MyApplication.colon.split(textMcdNoList)
+        items.indices.forEach { z ->
+            val list = MyApplication.space.split(items[z])
+            val x = mutableListOf<Double>()
+            val y = mutableListOf<Double>()
+            list.indices.forEach { i ->
                 if (i and 1 == 0) {
-                    x.add(test[i].toDoubleOrNull() ?: 0.0)
+                    x.add(list[i].toDoubleOrNull() ?: 0.0)
                 } else {
-                    y.add((test[i].toDoubleOrNull() ?: 0.0) * -1)
+                    y.add((list[i].toDoubleOrNull() ?: 0.0) * -1)
                 }
-                i += 1
             }
             if (y.size > 3 && x.size > 3 && x.size == y.size) {
                 val poly2 = ExternalPolygon.Builder()
-                for (j in x.indices) {
+                x.indices.forEach { j ->
                     poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
                 }
                 val polygon2 = poly2.build()
-                for (n in 1..Location.numLocations) {
-                    locNum = n.toString()
+                (1..Location.numLocations).forEach { n ->
+                    val locNum = n.toString()
                     if (MyApplication.locations[n - 1].notificationWpcMpd) {
                         // if location is watching for MCDs pull ib lat/lon and interate over polygons
                         // call secondary method to send notification if required
-                        locXDbl = MyApplication.locations[n - 1].x.toDoubleOrNull() ?: 0.0
-                        locYDbl = MyApplication.locations[n - 1].y.toDoubleOrNull() ?: 0.0
+                        val locXDbl = MyApplication.locations[n - 1].x.toDoubleOrNull() ?: 0.0
+                        val locYDbl = MyApplication.locations[n - 1].y.toDoubleOrNull() ?: 0.0
                         val contains =
                                 polygon2.contains(ExternalPoint(locXDbl.toFloat(), locYDbl.toFloat()))
                         if (contains) {
-                            notifUrls += sendMpdNotification(context, locNum, Utility.safeGet(mcdNoArr, z))
+                            notifUrls += sendMpdNotification(context, locNum, Utility.safeGet(mpdNumbers, z))
                         }
                     }
                 }
             }
-            z += 1
+            //z += 1
         }
         return notifUrls
     }
@@ -100,17 +90,13 @@ internal object UtilityNotificationWpc {
     private fun sendMpdNotification(context: Context, locNum: String, mdNo: String): String {
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
         var notifUrls = ""
-        val noMain: String
-        val noBody: String
-        val noSummary: String
-        val locLabelStr: String
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
-        locLabelStr = "(" + Location.getName(locNumInt) + ") "
+        val locLabelStr = "(" + Location.getName(locNumInt) + ") "
         var mcdPre = UtilityDownload.getTextProduct(context, "WPCMPD$mdNo")
-        noMain = "$locLabelStr WPC MPD #$mdNo"
+        val noMain = "$locLabelStr WPC MPD #$mdNo"
         mcdPre = mcdPre.replace("<.*?>".toRegex(), " ")
-        noBody = mcdPre
-        noSummary = mcdPre
+        val noBody = mcdPre
+        val noSummary = mcdPre
         val polygonType = MPD
         val objectPendingIntents = ObjectPendingIntents(
                 context,
@@ -120,11 +106,7 @@ internal object UtilityNotificationWpc {
                 arrayOf(mdNo, "sound", polygonType.toString())
         )
         val cancelStr = "wpcmpdloc$mdNo$locNum"
-        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(
-                        context,
-                        cancelStr
-                ))
-        ) {
+        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, cancelStr))) {
             val sound = MyApplication.locations[locNumInt].sound && !inBlackout
             val objectNotification = ObjectNotification(
                     context,
