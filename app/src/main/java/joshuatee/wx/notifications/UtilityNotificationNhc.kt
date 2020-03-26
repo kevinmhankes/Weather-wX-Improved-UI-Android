@@ -37,7 +37,7 @@ import joshuatee.wx.util.UtilityString
 object UtilityNotificationNhc {
 
     fun muteNotification(context: Context, title: String) {
-        var muteStr: String = Utility.readPref(context, "NOTIF_NHC_MUTE", "")
+        var muteStr = Utility.readPref(context, "NOTIF_NHC_MUTE", "")
         if (!muteStr.contains(title)) {
             muteStr += ":$title"
             Utility.writePref(context, "NOTIF_NHC_MUTE", muteStr)
@@ -132,29 +132,22 @@ object UtilityNotificationNhc {
             img1Url: String, img2Url: String, soundPref: Boolean, wallet: String
     ): String {
         var notifUrls = ""
-        val noMain: String = notifTitle
-        val noBody: String = mdNo
-        val noSummary: String = mdNo
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         val objPI = ObjectPendingIntents(
                 context, NhcStormActivity::class.java, NhcStormActivity.URL,
                 arrayOf(notifUrl, notifTitle, "nosound", img1Url, img2Url, wallet),
                 arrayOf(notifUrl, notifTitle, "sound", img1Url, img2Url, wallet)
         )
-        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(
-                        context,
-                        notifTitle
-                ))
-        ) {
+        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, notifTitle))) {
             val sound = soundPref && !inBlackout
             val objectNotification = ObjectNotification(
                     context,
                     sound,
-                    noMain,
-                    noBody,
+                    notifTitle,
+                    mdNo,
                     objPI.resultPendingIntent,
                     iconAlert,
-                    noSummary,
+                    mdNo,
                     NotificationCompat.PRIORITY_HIGH,
                     Color.YELLOW,
                     MyApplication.ICON_ACTION,

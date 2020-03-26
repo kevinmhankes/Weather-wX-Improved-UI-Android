@@ -74,15 +74,13 @@ internal object UtilityNotificationWpc {
                         // call secondary method to send notification if required
                         val locXDbl = MyApplication.locations[n - 1].x.toDoubleOrNull() ?: 0.0
                         val locYDbl = MyApplication.locations[n - 1].y.toDoubleOrNull() ?: 0.0
-                        val contains =
-                                polygon2.contains(ExternalPoint(locXDbl.toFloat(), locYDbl.toFloat()))
+                        val contains = polygon2.contains(ExternalPoint(locXDbl.toFloat(), locYDbl.toFloat()))
                         if (contains) {
                             notifUrls += sendMpdNotification(context, locNum, Utility.safeGet(mpdNumbers, z))
                         }
                     }
                 }
             }
-            //z += 1
         }
         return notifUrls
     }

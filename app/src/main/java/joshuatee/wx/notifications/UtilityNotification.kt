@@ -62,17 +62,17 @@ object UtilityNotification {
 
     // FIXME lots of variable naming improvement opportunities
 
-    private var notiChannelInitialized = false
+    private var notificationChannelInitialized = false
 
     internal fun send(context: Context, locNum: String, y: Int): String {
         val locNumInt = (locNum.toIntOrNull() ?: 1) - 1
         var notifUrls = ""
         val i = 0
         val oldNotifStr = Utility.readPref(context, "NOTIF_STR", "")
-        var noMain: String
+        //var noMain: String
         val noSummary = ""
-        var locLabelStr: String
-        val html: String
+        //var locLabelStr: String
+        //val html: String
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         val tornadoWarningString = "Tornado Warning"
         if (MyApplication.locations.size > locNumInt && MyApplication.locations[locNumInt].notification) {
@@ -83,7 +83,7 @@ object UtilityNotification {
                         Location.getX(locNumInt),
                         Location.getY(locNumInt)
                 )
-            locLabelStr = "(" + Location.getName(locNumInt) + ") "
+            var locLabelStr = "(" + Location.getName(locNumInt) + ") "
             var alertPresent = false
             if (Location.isUS(locNumInt)) {
                 val oldnotifUrls = notifUrls
@@ -97,11 +97,11 @@ object UtilityNotification {
                     alertPresent = true
                 }
             } else {
-                html = UtilityCanada.getLocationHtml(Location.getLatLon(locNumInt))
+                val html = UtilityCanada.getLocationHtml(Location.getLatLon(locNumInt))
                 val hazArr = UtilityCanada.getHazards(html)
                 val hazSum = Utility.fromHtml(hazArr[0])
                 val hazUrls = hazArr[1]
-                noMain = locLabelStr + hazSum
+                val noMain = locLabelStr + hazSum
                 if (hazSum != "" && !hazSum.contains("No watches or warnings in effect")) {
                     alertPresent = true
                     val objPI = ObjectPendingIntents(
@@ -168,7 +168,7 @@ object UtilityNotification {
                     )
                 }
                 locLabelStr = "(" + Location.getName(locNumInt) + ") " + Location.getRid(locNumInt) + " Radar"
-                noMain = locLabelStr
+                val noMain = locLabelStr
                 val notifier2 = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 val noti2: Notification
                 val resultIntent2: Intent
@@ -361,7 +361,7 @@ object UtilityNotification {
     // change NotificationManager.IMPORTANCE_DEFAULT and NotificationManager.IMPORTANCE_LOW to NotificationManager.IMPORTANCE_HIGH
     // in attempt to automatically have notifications in Android Q show up in status bar
     fun initChannels(context: Context) {
-        if (Build.VERSION.SDK_INT < 26 || notiChannelInitialized) {
+        if (Build.VERSION.SDK_INT < 26 || notificationChannelInitialized) {
             return
         }
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -381,19 +381,13 @@ object UtilityNotification {
         channelNoSound.description = "wX weather no sound"
         channelNoSound.setSound(null, null)
         notificationManager.createNotificationChannel(channelNoSound)
-        notiChannelInitialized = true
+        notificationChannelInitialized = true
     }
 
     private const val notiChannelStr = "default"
     const val notiChannelStrNoSound: String = "defaultNoSound2"
 
-    private fun createNotificationBigPicture(
-            context: Context,
-            noMain: String,
-            resultPendingIntent2: PendingIntent,
-            iconRadar: Int,
-            bitmap: Bitmap
-    ): Notification {
+    private fun createNotificationBigPicture(context: Context, noMain: String, resultPendingIntent2: PendingIntent, iconRadar: Int, bitmap: Bitmap): Notification {
         initChannels(context)
         val noti2: Notification = NotificationCompat.BigPictureStyle(
                 NotificationCompat.Builder(context, notiChannelStrNoSound)
@@ -513,8 +507,7 @@ object UtilityNotification {
                 PendingIntent.FLAG_UPDATE_CURRENT
         )
         val notifCurrent = "true"
-        val txt: String
-        txt = if (notifCurrent.startsWith("t")) {
+        val txt = if (notifCurrent.startsWith("t")) {
             val tabStr = UtilitySpc.checkSpc()
             "" + tabStr[0] + " " + tabStr[1].replace("MISC", "")
         } else {
@@ -579,10 +572,8 @@ object UtilityNotification {
             iconAlert: Bitmap, noSummary: String, prio: Int
     ): Notification {
         initChannels(context)
-        val height =
-                context.resources.getDimension(android.R.dimen.notification_large_icon_height).toInt()
-        val width =
-                context.resources.getDimension(android.R.dimen.notification_large_icon_width).toInt()
+        val height = context.resources.getDimension(android.R.dimen.notification_large_icon_height).toInt()
+        val width = context.resources.getDimension(android.R.dimen.notification_large_icon_width).toInt()
         val bitmap = Bitmap.createScaledBitmap(iconAlert, width, height, false)
         val noti: Notification
         if (sound) {
@@ -626,13 +617,11 @@ object UtilityNotification {
     }
 
     internal fun storeWatMcdLatLon(html: String): String {
-        val coords = html.parseColumn("([0-9]{8}).*?")
-        var retStr = ""
-        var xStrTmp: String
-        var yStrTmp: String
-        for (temp in coords) {
-            xStrTmp = temp.substring(0, 4)
-            yStrTmp = temp.substring(4, 8)
+        val coordinates = html.parseColumn("([0-9]{8}).*?")
+        var string = ""
+        coordinates.forEach { temp ->
+            var xStrTmp = temp.substring(0, 4)
+            var yStrTmp = temp.substring(4, 8)
             if (yStrTmp.matches("^0".toRegex())) {
                 yStrTmp = yStrTmp.replace("^0".toRegex(), "")
                 yStrTmp += "0"
@@ -648,10 +637,10 @@ object UtilityNotification {
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
             }
-            retStr = "$retStr$xStrTmp $yStrTmp "
+            string = "$string$xStrTmp $yStrTmp "
         }
-        retStr += ":"
-        retStr = retStr.replace(" :", ":")
-        return retStr
+        string += ":"
+        string = string.replace(" :", ":")
+        return string
     }
 }
