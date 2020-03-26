@@ -269,14 +269,14 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                     )
                     radarBuffers.extractL3Data(radarL3Object)
                 }
-                product.startsWith("TR") -> {
+                /*product.startsWith("TR") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
                             radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
-                }
+                }*/
                 product.startsWith("NC") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
@@ -285,38 +285,38 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                     )
                     radarBuffers.extractL3Data(radarL3Object)
                 }
-                product.startsWith("N1P") -> {
+                /*product.startsWith("N1P") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
                             radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
-                }
-                product.startsWith("NTP") -> {
+                }*/
+                /*product.startsWith("NTP") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
                             radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
-                }
-                product.contains("VIL") -> {
+                }*/
+                /*product.contains("VIL") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
                             radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
-                }
-                product.startsWith("ET") -> {
+                }*/
+                /*product.startsWith("ET") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
                             radarBuffers.fileName,
                             radarStatusStr
                     )
                     radarBuffers.extractL3Data(radarL3Object)
-                }
+                }*/
                 product.contains("N0S") -> {
                     radarL3Object.decodeAndPlotFourBit(
                             context,
