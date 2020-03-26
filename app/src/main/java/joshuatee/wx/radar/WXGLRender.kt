@@ -219,8 +219,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         radarBuffers.fileName = fileName
         totalBins = 0
         // added to allow animations to skip a frame and continue
-        // FIXME method for tdwr
-        if (product.startsWith("TV") || product == "TZL" || prod.startsWith("TZ")) {
+        if (WXGLNexrad.isProductTdwr(product)) {
             tdwr = true
             val oldRid = this.rid
             if (this.rid == "") {
