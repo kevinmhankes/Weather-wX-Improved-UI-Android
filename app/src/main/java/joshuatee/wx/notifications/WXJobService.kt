@@ -39,13 +39,11 @@ class WXJobService : JobService() {
         } catch (e: RejectedExecutionException) {
             UtilityLog.handleException(e)
         }
-
         Utility.writePref(
             this,
             "JOBSERVICE_TIME_LAST_RAN",
             UtilityTime.getCurrentLocalTimeAsString()
         )
-
         // below was commented out till 2018-06-02 and was causing wakelock issues
         if (android.os.Build.VERSION.SDK_INT > 20) {
             jobFinished(params, false)
