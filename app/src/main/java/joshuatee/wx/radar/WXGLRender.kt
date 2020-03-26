@@ -160,7 +160,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     private var useMercatorProjection = true
     private val wxglNexradLevel2 = WXGLNexradLevel2()
     val wxglNexradLevel3: WXGLNexradLevel3 = WXGLNexradLevel3()
-    val rdDownload: WXGLDownload = WXGLDownload()
+    val wxglDownload: WXGLDownload = WXGLDownload()
     private var projectionNumbers = ProjectionNumbers()
     var product: String
         get() = prod
@@ -233,7 +233,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         // if fn is empty string then we need to fetch the radar file
         // if set, its part of an anim sequence
         if (radarBuffers.fileName == "") {
-            ridPrefixGlobal = rdDownload.getRadarFile(context, urlStr, this.rid, prod, indexString, tdwr)
+            ridPrefixGlobal = wxglDownload.getRadarFile(context, urlStr, this.rid, prod, indexString, tdwr)
             radarBuffers.fileName = if (!product.contains("L2")) {
                 val l3BaseFn = "nids"
                 l3BaseFn + indexString

@@ -515,7 +515,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             frameCountGlobal = frameCount
             val animArray = Array(numPanes) { Array(frameCount) { "" } }
             numPanesArr.forEach { z ->
-                animArray[z] = oglrArr[z].rdDownload.getRadarFilesForAnimation(this@WXGLRadarActivityMultiPane, frameCount)
+                animArray[z] = oglrArr[z].wxglDownload.getRadarFilesForAnimation(this@WXGLRadarActivityMultiPane, frameCount)
                         .toTypedArray()
                 try {
                     (animArray[z].indices).forEach { r ->
@@ -539,7 +539,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 if (animTriggerDownloads) {
                     numPanesArr.forEach { z ->
                         animArray[z] =
-                                oglrArr[z].rdDownload.getRadarFilesForAnimation(
+                                oglrArr[z].wxglDownload.getRadarFilesForAnimation(
                                         this@WXGLRadarActivityMultiPane,
                                         frameCount
                                 )

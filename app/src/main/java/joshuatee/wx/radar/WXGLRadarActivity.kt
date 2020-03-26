@@ -516,7 +516,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         animRan = true
         withContext(Dispatchers.IO) {
             frameCountGlobal = frameCount
-            var animArray = oglr.rdDownload.getRadarFilesForAnimation(this@WXGLRadarActivity, frameCount)
+            var animArray = oglr.wxglDownload.getRadarFilesForAnimation(this@WXGLRadarActivity, frameCount)
             var file: File
             var timeMilli: Long
             var priorTime: Long
@@ -533,7 +533,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             var loopCnt = 0
             while (inOglAnim) {
                 if (animTriggerDownloads) {
-                    animArray = oglr.rdDownload.getRadarFilesForAnimation(this@WXGLRadarActivity, frameCount)
+                    animArray = oglr.wxglDownload.getRadarFilesForAnimation(this@WXGLRadarActivity, frameCount)
                     try {
                         animArray.indices.forEach {
                             file = File(this@WXGLRadarActivity.filesDir, animArray[it])
