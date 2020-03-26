@@ -460,7 +460,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             setSubTitle()
             animRan = false
             firstRun = false
-
             withContext(Dispatchers.IO) {
                 UtilityDownloadWarnings.get(this@WXGLRadarActivity)
             }
@@ -536,17 +535,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                         animArray.indices.forEach {
                             file = File(this@WXGLRadarActivity.filesDir, animArray[it])
                             this@WXGLRadarActivity.deleteFile("nexrad_anim$it")
-                            if (!file.renameTo(
-                                            File(
-                                                    this@WXGLRadarActivity.filesDir,
-                                                    "nexrad_anim$it"
-                                            )
-                                    )
-                            )
-                                UtilityLog.d(
-                                        "wx",
-                                        "Problem moving to nexrad_anim$it"
-                                )
+                            if (!file.renameTo(File(this@WXGLRadarActivity.filesDir, "nexrad_anim$it")))
+                                UtilityLog.d("wx", "Problem moving to nexrad_anim$it")
                         }
                     } catch (e: Exception) {
                         UtilityLog.handleException(e)
@@ -554,11 +544,13 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     animTriggerDownloads = false
                 }
                 for (r in animArray.indices) {
-                    while (inOglAnimPaused) SystemClock.sleep(delay.toLong())
+                    while (inOglAnimPaused)
+                        SystemClock.sleep(delay.toLong())
                     // formerly priorTime was set at the end but that is goofed up with pause
                     priorTime = UtilityTime.currentTimeMillis()
                     // added because if paused and then another icon life vel/ref it won't load correctly, likely timing issue
-                    if (!inOglAnim) break
+                    if (!inOglAnim)
+                        break
                     // if the first pass has completed, for L2 no longer uncompress, use the existing decomp files
                     if (loopCnt > 0)
                         oglr.constructPolygons("nexrad_anim$r", urlStr, false)
@@ -596,10 +588,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     private fun setSubTitle() {
         val info = WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"")
-        val tmpArr = info.split(" ")
-        if (tmpArr.size > 3) {
-            toolbar.subtitle = tmpArr[3]
-            if (UtilityTime.isRadarTimeOld(tmpArr[3])) {
+        val items = info.split(" ")
+        if (items.size > 3) {
+            toolbar.subtitle = items[3]
+            if (UtilityTime.isRadarTimeOld(items[3])) {
                 toolbar.setSubtitleTextColor(Color.RED)
             } else {
                 toolbar.setSubtitleTextColor(Color.LTGRAY)
@@ -616,7 +608,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         UtilityUI.immersiveMode(this)
-        // This code is mostly dupicated below in the keyboard shortcut area
+        // This code is mostly duplicated below in the keyboard shortcut area
         if (inOglAnim && (item.itemId != R.id.action_fav) && (item.itemId != R.id.action_share) && (item.itemId != R.id.action_tools)) {
             inOglAnim = false
             inOglAnimPaused = false
@@ -628,7 +620,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             animateButton.setIcon(MyApplication.ICON_PLAY)
             animateButton.title = animateButtonPlayString
             getContent()
-            if (item.itemId == R.id.action_a) return true
+            if (item.itemId == R.id.action_a)
+                return true
         }
         // TODO mark begin of menu stuff
         when (item.itemId) {
@@ -760,8 +753,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         getAnimate(frameCount)
     }
 
-    private fun changeProd(prodF: String, canTilt: Boolean) {
-        oglr.product = prodF
+    private fun changeProd(product: String, canTilt: Boolean) {
+        oglr.product = product
         adjustTiltMenu()
         tiltOption = canTilt
         getContent()
