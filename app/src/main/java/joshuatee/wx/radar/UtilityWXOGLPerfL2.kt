@@ -39,7 +39,7 @@ internal object UtilityWXOGLPerfL2 {
 
     fun writeDecodedFile(
             context: Context,
-            fn: String,
+            fileName: String,
             radialStart: ByteBuffer,
             binWord: ByteBuffer,
             days: ByteBuffer,
@@ -50,7 +50,7 @@ internal object UtilityWXOGLPerfL2 {
         days.position(0)
         milliSeconds.position(0)
         try {
-            val fos = context.openFileOutput(fn, Context.MODE_PRIVATE)
+            val fos = context.openFileOutput(fileName, Context.MODE_PRIVATE)
             val wChannel = fos.channel
             while (days.hasRemaining())
                 wChannel.write(days)
@@ -98,11 +98,11 @@ internal object UtilityWXOGLPerfL2 {
 
     fun level2Decompress(context: Context, srcPath: String, dstPath: String, productCode: Int) {
         try {
-            val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, srcPath))
-            dis.bigEndian = true
-            dis.seek(0)
-            val dis2 = uncompress(context, dis, dstPath, productCode)
-            dis.close()
+            val ucarRandomAccessFile = UCARRandomAccessFile(UtilityIO.getFilePath(context, srcPath))
+            ucarRandomAccessFile.bigEndian = true
+            ucarRandomAccessFile.seek(0)
+            val dis2 = uncompress(context, ucarRandomAccessFile, dstPath, productCode)
+            ucarRandomAccessFile.close()
             dis2.close()
         } catch (e: Exception) {
             UtilityLog.handleException(e)

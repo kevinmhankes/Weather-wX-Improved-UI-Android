@@ -64,8 +64,8 @@ internal object UtilityWXOGLPerf {
             dis.read(buf)
             dis.close()
             val decompressedStream = compression.decompress(ByteArrayInputStream(buf))
-            val dis2 = DataInputStream(BufferedInputStream(decompressedStream))
-            dis2.skipBytes(30)
+            val dataInputStream = DataInputStream(BufferedInputStream(decompressedStream))
+            dataInputStream.skipBytes(30)
             var numberOfRleHalfWords: Int
             radarBuffers.colormap.redValues.put(0, Color.red(radarBuffers.bgColor).toByte())
             radarBuffers.colormap.greenValues.put(0, Color.green(radarBuffers.bgColor).toByte())
@@ -88,15 +88,15 @@ internal object UtilityWXOGLPerf {
             var angleNext = 0f
             var angle0 = 0f
             val numberOfRadials = 360
-            (0 until numberOfRadials).forEach { radialNumber ->
-                numberOfRleHalfWords = dis2.readUnsignedShort()
-                angle = 450f - dis2.readUnsignedShort() / 10f
-                dis2.skipBytes(2)
+            for (radialNumber in 0 until numberOfRadials) {
+                numberOfRleHalfWords = dataInputStream.readUnsignedShort()
+                angle = 450f - dataInputStream.readUnsignedShort() / 10f
+                dataInputStream.skipBytes(2)
                 if (radialNumber < numberOfRadials - 1) {
-                    dis2.mark(100000)
-                    dis2.skipBytes(numberOfRleHalfWords + 2)
-                    angleNext = 450f - dis2.readUnsignedShort() / 10f
-                    dis2.reset()
+                    dataInputStream.mark(100000)
+                    dataInputStream.skipBytes(numberOfRleHalfWords + 2)
+                    angleNext = 450f - dataInputStream.readUnsignedShort() / 10f
+                    dataInputStream.reset()
                 }
                 level = 0.toByte()
                 levelCount = 0
@@ -112,7 +112,7 @@ internal object UtilityWXOGLPerf {
                 while (bin < numberOfRleHalfWords) {
                     try {
                         curLevel =
-                            (dis2.readUnsignedByte() and 0xFF).toByte() // was dis2!!.readUnsignedByte().toInt()
+                            (dataInputStream.readUnsignedByte() and 0xFF).toByte() // was dis2!!.readUnsignedByte().toInt()
                     } catch (e: Exception) {
                         UtilityLog.handleException(e)
                     }
@@ -142,7 +142,7 @@ internal object UtilityWXOGLPerf {
                         radialIndex += 4
                         radarBuffers.floatBuffer.putFloat(radialIndex, binStart * angleSin)
                         radialIndex += 4
-                        (0..3).forEach { _ ->
+                        for (notUsed in 0..3) {
                             radarBuffers.colorBuffer.put(colorIndex, radarBuffers.colormap.redValues.get(level.toInt() and 0xFF))
                             colorIndex += 1
                             radarBuffers.colorBuffer.put(colorIndex, radarBuffers.colormap.greenValues.get(level.toInt() and 0xFF))
@@ -158,7 +158,7 @@ internal object UtilityWXOGLPerf {
                     bin += 1
                 }
             }
-            dis2.close()
+            dataInputStream.close()
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         } catch (e: OutOfMemoryError) {
