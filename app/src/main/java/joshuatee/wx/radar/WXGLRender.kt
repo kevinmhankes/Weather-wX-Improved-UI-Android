@@ -158,8 +158,8 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     // and reconstruct all geometry and warning/watch lines using 4326 projection (set this variable to false to not use mercator transformation )
     // so far, only the base geometry ( state lines, county, etc ) respect this setting
     private var useMercatorProjection = true
-    private val rdL2 = WXGLNexradLevel2()
-    val radarL3Object: WXGLNexradLevel3 = WXGLNexradLevel3()
+    private val wxglNexradLevel2 = WXGLNexradLevel2()
+    val wxglNexradLevel3: WXGLNexradLevel3 = WXGLNexradLevel3()
     val rdDownload: WXGLDownload = WXGLDownload()
     private var projectionNumbers = ProjectionNumbers()
     var product: String
@@ -245,7 +245,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         try {
             when {
                 product.contains("L2") -> {
-                    rdL2.decodeAndPlot(
+                    wxglNexradLevel2.decodeAndPlot(
                             context,
                             radarBuffers.fileName,
                             prod,
@@ -253,24 +253,24 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                             indexString,
                             performDecomp
                     )
-                    radarBuffers.extractL2Data(rdL2)
+                    radarBuffers.extractL2Data(wxglNexradLevel2)
                 }
                 product.contains("NSW") || product.startsWith("NC") || product.matches(Regex("N[0-3]S")) -> {
-                    radarL3Object.decodeAndPlotFourBit(
+                    wxglNexradLevel3.decodeAndPlotFourBit(
                             context,
                             radarBuffers.fileName,
                             radarStatusStr
                     )
-                    radarBuffers.extractL3Data(radarL3Object)
+                    radarBuffers.extractL3Data(wxglNexradLevel3)
                 }
                 else -> {
-                    radarL3Object.decodeAndPlot(
+                    wxglNexradLevel3.decodeAndPlot(
                             context,
                             radarBuffers.fileName,
                             rid,
                             radarStatusStr
                     )
-                    radarBuffers.extractL3Data(radarL3Object)
+                    radarBuffers.extractL3Data(wxglNexradLevel3)
                 }
             }
         } catch (e: Exception) {
@@ -293,7 +293,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         val cB = objColPal.blueValues
         try {
             if (product.startsWith("NC") || radarBuffers.productCode.toInt() == 41 || radarBuffers.productCode.toInt() == 57) {
-                totalBins = UtilityWXOGLPerfRaster.generate(radarBuffers, radarL3Object.binWord)
+                totalBins = UtilityWXOGLPerfRaster.generate(radarBuffers, wxglNexradLevel3.binWord)
             } else if (!product.contains("L2")) {
                 totalBins = // FIXME
                         if (radarBuffers.productCode != 56.toShort()
@@ -311,10 +311,10 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                             else {
                                 Jni.decode8BitAndGenRadials(
                                         UtilityIO.getFilePath(context, radarBuffers.fileName),
-                                        radarL3Object.seekStart,
-                                        radarL3Object.compressedFileSize,
-                                        radarL3Object.iBuff,
-                                        radarL3Object.oBuff,
+                                        wxglNexradLevel3.seekStart,
+                                        wxglNexradLevel3.compressedFileSize,
+                                        wxglNexradLevel3.iBuff,
+                                        wxglNexradLevel3.oBuff,
                                         radarBuffers.floatBuffer,
                                         radarBuffers.colorBuffer,
                                         radarBuffers.binSize,
@@ -329,18 +329,18 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                         } else {
                             UtilityWXOGLPerf.genRadials(
                                     radarBuffers,
-                                    radarL3Object.binWord,
-                                    radarL3Object.radialStart
+                                    wxglNexradLevel3.binWord,
+                                    wxglNexradLevel3.radialStart
                             )
                         }
             } else {
-                rdL2.binWord.position(0)
+                wxglNexradLevel2.binWord.position(0)
                 totalBins = if (MyApplication.radarUseJni)
                     Jni.level2GenRadials(
                             radarBuffers.floatBuffer,
                             radarBuffers.colorBuffer,
-                            rdL2.binWord,
-                            rdL2.radialStartAngle,
+                            wxglNexradLevel2.binWord,
+                            wxglNexradLevel2.radialStartAngle,
                             radarBuffers.numberOfRadials,
                             radarBuffers.numRangeBins,
                             radarBuffers.binSize,
@@ -351,7 +351,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                             radarBuffers.productCode.toInt()
                     )
                 else
-                    UtilityWXOGLPerf.genRadials(radarBuffers, rdL2.binWord, rdL2.radialStartAngle)
+                    UtilityWXOGLPerf.genRadials(radarBuffers, wxglNexradLevel2.binWord, wxglNexradLevel2.radialStartAngle)
             } // level 2 , level 3 check
         } catch (e: Exception) {
             UtilityLog.handleException(e)

@@ -164,8 +164,8 @@ internal object UtilityRadarUI {
                         6
                 ) + " miles from " + wxglRender.rid
         )
-        val heightAgl = UtilityMath.getRadarBeamHeight(wxglRender.radarL3Object.degree, distRidKm)
-        val heightMsl = (wxglRender.radarL3Object.radarHeight + heightAgl)
+        val heightAgl = UtilityMath.getRadarBeamHeight(wxglRender.wxglNexradLevel3.degree, distRidKm)
+        val heightMsl = (wxglRender.wxglNexradLevel3.radarHeight + heightAgl)
         alertDialogRadarLongpressAl.add("Beam Height MSL: " + heightMsl.roundToInt().toString() + " ft, AGL: " + heightAgl.roundToInt().toString() + " ft")
         if (MyApplication.radarShowWpcFronts) {
             var wpcFrontsTimeStamp = Utility.readPref(context,"WPC_FRONTS_TIMESTAMP", "")

@@ -453,9 +453,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 updateLegend()
             }
             if (legendShown && (oglr.product == "DSA" || oglr.product == "DAA" || oglr.product == "N0U")) {
-                dspLegendMax = (255.0f / oglr.radarL3Object.halfword3132) * 0.01f
-                velMax = oglr.radarL3Object.halfword48
-                velMin = oglr.radarL3Object.halfword47
+                dspLegendMax = (255.0f / oglr.wxglNexradLevel3.halfword3132) * 0.01f
+                velMax = oglr.wxglNexradLevel3.halfword48
+                velMin = oglr.wxglNexradLevel3.halfword47
                 updateLegend()
             }
             oldProd = oglr.product
@@ -1015,9 +1015,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private fun showLegend() {
         if (!legendShown) {
             if (oglr.product == "DSA" || oglr.product == "DAA")
-                dspLegendMax = (255.0f / oglr.radarL3Object.halfword3132) * 0.01f
-            velMax = oglr.radarL3Object.halfword48
-            velMin = oglr.radarL3Object.halfword47
+                dspLegendMax = (255.0f / oglr.wxglNexradLevel3.halfword3132) * 0.01f
+            velMax = oglr.wxglNexradLevel3.halfword48
+            velMin = oglr.wxglNexradLevel3.halfword47
             legendShown = true
             val rLParams = RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.MATCH_PARENT,

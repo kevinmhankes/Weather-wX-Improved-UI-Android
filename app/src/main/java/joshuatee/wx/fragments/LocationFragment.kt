@@ -660,7 +660,7 @@ class LocationFragment : Fragment()  {
 
     private fun radarTimestamps(): List<String> {
         return (0 until glviewArr.size).mapTo(mutableListOf()) {
-            getRadarTimeStamp(oglrArr[it].radarL3Object.timestamp, it)
+            getRadarTimeStamp(oglrArr[it].wxglNexradLevel3.timestamp, it)
         }
     }
 
