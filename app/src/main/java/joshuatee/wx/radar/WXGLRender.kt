@@ -37,7 +37,6 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ProjectionType
-import joshuatee.wx.radarcolorpalettes.ObjectColorPalette
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.*
@@ -840,30 +839,30 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
 
     fun constructLocationDot(locXCurrent: String, locYCurrentF: String, archiveMode: Boolean) {
         var locYCurrent = locYCurrentF
-        var locmarkerAl = mutableListOf<Double>()
+        var locationMarkers = mutableListOf<Double>()
         locationDotBuffers.lenInit = MyApplication.radarLocdotSize.toFloat()
         locYCurrent = locYCurrent.replace("-", "")
         val x = locXCurrent.toDoubleOrNull() ?: 0.0
         val y = locYCurrent.toDoubleOrNull() ?: 0.0
         if (PolygonType.LOCDOT.pref) {
-            locmarkerAl = UtilityLocation.latLonAsDouble
+            locationMarkers = UtilityLocation.latLonAsDouble
         }
         if (MyApplication.locationDotFollowsGps || archiveMode) {
-            locmarkerAl.add(x)
-            locmarkerAl.add(y)
+            locationMarkers.add(x)
+            locationMarkers.add(y)
             gpsX = x
             gpsY = y
         }
-        locationDotBuffers.xList = DoubleArray(locmarkerAl.size)
-        locationDotBuffers.yList = DoubleArray(locmarkerAl.size)
+        locationDotBuffers.xList = DoubleArray(locationMarkers.size)
+        locationDotBuffers.yList = DoubleArray(locationMarkers.size)
         var xx = 0
         var yy = 0
-        locmarkerAl.indices.forEach {
+        locationMarkers.indices.forEach {
             if (it and 1 == 0) {
-                locationDotBuffers.xList[xx] = locmarkerAl[it]
+                locationDotBuffers.xList[xx] = locationMarkers[it]
                 xx += 1
             } else {
-                locationDotBuffers.yList[yy] = locmarkerAl[it]
+                locationDotBuffers.yList[yy] = locationMarkers[it]
                 yy += 1
             }
         }
@@ -891,9 +890,9 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         }
         if (MyApplication.locationDotFollowsGps) {
             locCircleBuffers.lenInit = locationDotBuffers.lenInit
-            val gpsCoords = UtilityCanvasProjection.computeMercatorNumbers(gpsX, gpsY, projectionNumbers)
-            gpsLatLonTransformed[0] = -gpsCoords[0].toFloat()
-            gpsLatLonTransformed[1] = gpsCoords[1].toFloat()
+            val gpsCoordinates = UtilityCanvasProjection.computeMercatorNumbers(gpsX, gpsY, projectionNumbers)
+            gpsLatLonTransformed[0] = -gpsCoordinates[0].toFloat()
+            gpsLatLonTransformed[1] = gpsCoordinates[1].toFloat()
             UtilityWXOGLPerf.genCircleLocdot(locCircleBuffers, projectionNumbers, gpsX, gpsY)
         }
         locationDotBuffers.isInitialized = true
