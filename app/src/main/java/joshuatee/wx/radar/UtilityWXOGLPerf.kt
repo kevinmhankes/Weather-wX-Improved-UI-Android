@@ -256,13 +256,12 @@ internal object UtilityWXOGLPerf {
         return totalBins
     }
 
-    // FIXME rename 2 char vars to something better
-    fun genMercator(inBuff: ByteBuffer, outBuff: ByteBuffer, pn: ProjectionNumbers, count: Int) {
-        val centerX = pn.xFloat
-        val centerY = pn.yFloat
-        val xImageCenterPixels = pn.xCenter.toFloat()
-        val yImageCenterPixels = pn.yCenter.toFloat()
-        val oneDegreeScaleFactor = pn.oneDegreeScaleFactorFloat
+    fun genMercator(inBuff: ByteBuffer, outBuff: ByteBuffer, projectionNumbers: ProjectionNumbers, count: Int) {
+        val centerX = projectionNumbers.xFloat
+        val centerY = projectionNumbers.yFloat
+        val xImageCenterPixels = projectionNumbers.xCenter.toFloat()
+        val yImageCenterPixels = projectionNumbers.yCenter.toFloat()
+        val oneDegreeScaleFactor = projectionNumbers.oneDegreeScaleFactorFloat
         var iCount = 0
         if (count * 4 <= outBuff.limit()) {
             while (iCount < count) {
@@ -347,11 +346,11 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun genIndexLine(indexBuff: ByteBuffer, len: Int, breakSizeF: Int) {
+    fun genIndexLine(indexBuff: ByteBuffer, length: Int, breakSizeF: Int) {
         var breakSize = breakSizeF
         val remainder: Int
         var chunkCount = 1
-        val totalBins = len / 4
+        val totalBins = length / 4
         var iCount = 0
         if (totalBins < breakSize) {
             breakSize = totalBins
@@ -584,11 +583,11 @@ internal object UtilityWXOGLPerf {
             ucarRandomAccessFile.read(buf)
             ucarRandomAccessFile.close()
             val decompStream = compression.decompress(ByteArrayInputStream(buf))
-            val dis2 = DataInputStream(BufferedInputStream(decompStream))
-            dis2.skipBytes(20)
-            numberOfRangeBins = dis2.readUnsignedShort()
-            dis2.skipBytes(6)
-            val numberOfRadials = dis2.readUnsignedShort()
+            val dataInputStream = DataInputStream(BufferedInputStream(decompStream))
+            dataInputStream.skipBytes(20)
+            numberOfRangeBins = dataInputStream.readUnsignedShort()
+            dataInputStream.skipBytes(6)
+            val numberOfRadials = dataInputStream.readUnsignedShort()
             var r = 0
             var numberOfRleHalfwords: Int
             binWord.position(0)
@@ -597,8 +596,8 @@ internal object UtilityWXOGLPerf {
             var tn: Int
             var s: Int
             while (r < numberOfRadials) {
-                numberOfRleHalfwords = dis2.readUnsignedShort()
-                tn = dis2.readUnsignedShort()
+                numberOfRleHalfwords = dataInputStream.readUnsignedShort()
+                tn = dataInputStream.readUnsignedShort()
                 // the code below must stay as drawing to canvas is not as precise as opengl directly for some reason
                 if (tn % 2 == 1)
                     tn += 1
@@ -608,15 +607,15 @@ internal object UtilityWXOGLPerf {
                 else if (tnMod10 > 6)
                     tn = tn - tnMod10 + 10
                 radialStartAngle.putFloat((450 - tn / 10).toFloat())
-                dis2.skipBytes(2)
+                dataInputStream.skipBytes(2)
                 s = 0
                 while (s < numberOfRleHalfwords) {
-                    binWord.put((dis2.readUnsignedByte() and 0xFF).toByte())
+                    binWord.put((dataInputStream.readUnsignedByte() and 0xFF).toByte())
                     s += 1
                 }
                 r += 1
             }
-            dis2.close()
+            dataInputStream.close()
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
