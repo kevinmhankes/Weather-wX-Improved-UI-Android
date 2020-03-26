@@ -407,18 +407,15 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     private fun getContent(glview: WXGLSurfaceView, oglr: WXGLRender, z: Int) =
             GlobalScope.launch(uiDispatcher) {
-                // FIXME Use matches
-                if ((oglrArr[z].product == "N0Q" || oglrArr[z].product == "N1Q" || oglrArr[z].product == "N2Q" || oglrArr[z].product == "N3Q" || oglrArr[z].product == "L2REF") && WXGLNexrad.isRidTdwr(
-                                oglrArr[z].rid
-                        )
-                ) oglrArr[z].product = "TZL"
+                if ((oglrArr[z].product.matches(Regex("N[0-3]Q")) || oglrArr[z].product == "L2REF") && WXGLNexrad.isRidTdwr(oglrArr[z].rid)) {
+                    oglrArr[z].product = "TZL"
+                }
                 if (oglrArr[z].product == "TZL" && !WXGLNexrad.isRidTdwr(oglrArr[z].rid)) {
                     oglrArr[z].product = "N0Q"
                 }
-                if ((oglrArr[z].product == "N0U" || oglrArr[z].product == "N1U" || oglrArr[z].product == "N2U" || oglrArr[z].product == "N3U" || oglrArr[z].product == "L2VEL") && WXGLNexrad.isRidTdwr(
-                                oglrArr[z].rid
-                        )
-                ) oglrArr[z].product = "TV0"
+                if ((oglrArr[z].product.matches(Regex("N[0-3]U")) || oglrArr[z].product == "L2VEL") && WXGLNexrad.isRidTdwr(oglrArr[z].rid)) {
+                    oglrArr[z].product = "TV0"
+                }
                 if (oglrArr[z].product == "TV0" && !WXGLNexrad.isRidTdwr(oglrArr[z].rid)) {
                     oglrArr[z].product = "N0U"
                 }
