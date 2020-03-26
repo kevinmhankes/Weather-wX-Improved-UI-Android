@@ -1085,10 +1085,11 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         diaTdwr.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = GlobalArrays.tdwrRadars[which]
             oglrArr[curRadar].rid = MyApplication.space.split(strName)[0]
-            if (oglrArr[curRadar].product == "N0Q")
+            if (oglrArr[curRadar].product.matches(Regex("N[0-3]Q"))) {
                 oglrArr[curRadar].product = "TZL"
-            else
+            } else {
                 oglrArr[curRadar].product = "TV0"
+            }
             ridMapSwitch(oglrArr[curRadar].rid)
             getContent(glviewArr[curRadar], oglrArr[curRadar], curRadar)
             dialog.dismiss()
