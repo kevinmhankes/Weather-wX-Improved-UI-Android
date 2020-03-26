@@ -783,7 +783,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             if (it == buffers.chunkCount - 1) {
                 buffers.breakSize = remainder
             }
-            (0 until buffers.breakSize).forEach { _ ->
+            for (notUsed in 0 until buffers.breakSize) {
                 buffers.putFloat(f[vList].toFloat())
                 buffers.putFloat(f[vList + 1].toFloat() * -1)
                 buffers.putFloat(f[vList + 2].toFloat())
@@ -1021,7 +1021,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             if (it == buffers.chunkCount - 1) {
                 buffers.breakSize = remainder
             }
-            (0 until buffers.breakSize).forEach { _ ->
+            for (notUsed in 0 until buffers.breakSize) {
                 if (fList.size > (vList + 3)) {
                     buffers.putFloat(fList[vList].toFloat())
                     buffers.putFloat(fList[vList + 1].toFloat() * -1.0f)
