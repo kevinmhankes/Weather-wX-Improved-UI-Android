@@ -380,9 +380,7 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun genTriangle(buffers: ObjectOglBuffers, pn: ProjectionNumbers) {
-        var pointX: Double
-        var pointY: Double
+    fun genTriangle(buffers: ObjectOglBuffers, projectionNumbers: ProjectionNumbers) {
         var pixYD: Float
         var pixXD: Float
         var ixCount = 0
@@ -390,12 +388,10 @@ internal object UtilityWXOGLPerf {
         var test2: Float
         buffers.setToPositionZero()
         (0 until buffers.count).forEach { index ->
-            pointX = buffers.xList[index]
-            pointY = buffers.yList[index]
-            test1 = M_180_div_PI * log(tan(M_PI_div_4 + pointX * M_PI_div_360), E).toFloat()
-            test2 = M_180_div_PI * log(tan(M_PI_div_4 + pn.xDbl * M_PI_div_360), E).toFloat()
-            pixYD = -((test1 - test2) * pn.oneDegreeScaleFactorFloat) + pn.yCenter.toFloat()
-            pixXD = (-((pointY - pn.yDbl) * pn.oneDegreeScaleFactor) + pn.xCenter).toFloat()
+            test1 = M_180_div_PI * log(tan(M_PI_div_4 + buffers.xList[index] * M_PI_div_360), E).toFloat()
+            test2 = M_180_div_PI * log(tan(M_PI_div_4 + projectionNumbers.xDbl * M_PI_div_360), E).toFloat()
+            pixYD = -((test1 - test2) * projectionNumbers.oneDegreeScaleFactorFloat) + projectionNumbers.yCenter.toFloat()
+            pixXD = (-((buffers.yList[index] - projectionNumbers.yDbl) * projectionNumbers.oneDegreeScaleFactor) + projectionNumbers.xCenter).toFloat()
             buffers.putFloat(pixXD)
             buffers.putFloat(-pixYD)
             buffers.putFloat(pixXD - buffers.lenInit)
@@ -414,9 +410,7 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun genTriangleUp(buffers: ObjectOglBuffers, pn: ProjectionNumbers) {
-        var pointX: Double
-        var pointY: Double
+    fun genTriangleUp(buffers: ObjectOglBuffers, projectionNumbers: ProjectionNumbers) {
         var pixYD: Float
         var pixXD: Float
         var ixCount = 0
@@ -424,12 +418,10 @@ internal object UtilityWXOGLPerf {
         var test2: Float
         buffers.setToPositionZero()
         (0 until buffers.count).forEach { index ->
-            pointX = buffers.xList[index]
-            pointY = buffers.yList[index]
-            test1 = M_180_div_PI * log(tan(M_PI_div_4 + pointX * M_PI_div_360), E).toFloat()
-            test2 = M_180_div_PI * log(tan(M_PI_div_4 + pn.xDbl * M_PI_div_360), E).toFloat()
-            pixYD = -((test1 - test2) * pn.oneDegreeScaleFactorFloat) + pn.yCenter.toFloat()
-            pixXD = (-((pointY - pn.yDbl) * pn.oneDegreeScaleFactor) + pn.xCenter).toFloat()
+            test1 = M_180_div_PI * log(tan(M_PI_div_4 + buffers.xList[index] * M_PI_div_360), E).toFloat()
+            test2 = M_180_div_PI * log(tan(M_PI_div_4 + projectionNumbers.xDbl * M_PI_div_360), E).toFloat()
+            pixYD = -((test1 - test2) * projectionNumbers.oneDegreeScaleFactorFloat) + projectionNumbers.yCenter.toFloat()
+            pixXD = (-((buffers.yList[index] - projectionNumbers.yDbl) * projectionNumbers.oneDegreeScaleFactor) + projectionNumbers.xCenter).toFloat()
             buffers.putFloat(pixXD)
             buffers.putFloat(-pixYD)
             buffers.putFloat(pixXD - buffers.lenInit)
@@ -448,9 +440,7 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun genCircle(buffers: ObjectOglBuffers, pn: ProjectionNumbers) {
-        var pointX: Double
-        var pointY: Double
+    fun genCircle(buffers: ObjectOglBuffers, projectionNumbers: ProjectionNumbers) {
         var pixYD: Float
         var pixXD: Float
         var ixCount = 0
@@ -462,12 +452,10 @@ internal object UtilityWXOGLPerf {
         var bufferIndex = 0
         buffers.setToPositionZero()
         (0 until buffers.count).forEach { index ->
-            pointX = buffers.xList[index]
-            pointY = buffers.yList[index]
-            test1 = M_180_div_PI * log(tan(M_PI_div_4 + pointX * M_PI_div_360), E).toFloat()
-            test2 = M_180_div_PI * log(tan(M_PI_div_4 + pn.xDbl * M_PI_div_360), E).toFloat()
-            pixYD = -((test1 - test2) * pn.oneDegreeScaleFactorFloat) + pn.yCenter.toFloat()
-            pixXD = (-((pointY - pn.yDbl) * pn.oneDegreeScaleFactor) + pn.xCenter).toFloat()
+            test1 = M_180_div_PI * log(tan(M_PI_div_4 + buffers.xList[index] * M_PI_div_360), E).toFloat()
+            test2 = M_180_div_PI * log(tan(M_PI_div_4 + projectionNumbers.xDbl * M_PI_div_360), E).toFloat()
+            pixYD = -((test1 - test2) * projectionNumbers.oneDegreeScaleFactorFloat) + projectionNumbers.yCenter.toFloat()
+            pixXD = (-((buffers.yList[index] - projectionNumbers.yDbl) * projectionNumbers.oneDegreeScaleFactor) + projectionNumbers.xCenter).toFloat()
             (0 until triangleAmount).forEach {
                 buffers.putFloat(bufferIndex, pixXD)
                 bufferIndex += 4
@@ -497,9 +485,7 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun genCircleWithColor(buffers: ObjectOglBuffers, pn: ProjectionNumbers) {
-        var pointX: Double
-        var pointY: Double
+    fun genCircleWithColor(buffers: ObjectOglBuffers, projectionNumbers: ProjectionNumbers) {
         var pixYD: Float
         var pixXD: Float
         var iCount: Int
@@ -519,12 +505,10 @@ internal object UtilityWXOGLPerf {
                 col[0] = Color.red(buffers.colorIntArray[iCount]).toByte()
                 col[1] = Color.green(buffers.colorIntArray[iCount]).toByte()
                 col[2] = Color.blue(buffers.colorIntArray[iCount]).toByte()
-                pointX = buffers.xList[iCount]
-                pointY = buffers.yList[iCount]
-                test1 = M_180_div_PI * log(tan(M_PI_div_4 + pointX * M_PI_div_360), E).toFloat()
-                test2 = M_180_div_PI * log(tan(M_PI_div_4 + pn.xDbl * M_PI_div_360), E).toFloat()
-                pixYD = -((test1 - test2) * pn.oneDegreeScaleFactorFloat) + pn.yCenter.toFloat()
-                pixXD = (-((pointY - pn.yDbl) * pn.oneDegreeScaleFactor) + pn.xCenter).toFloat()
+                test1 = M_180_div_PI * log(tan(M_PI_div_4 + buffers.xList[iCount] * M_PI_div_360), E).toFloat()
+                test2 = M_180_div_PI * log(tan(M_PI_div_4 + projectionNumbers.xDbl * M_PI_div_360), E).toFloat()
+                pixYD = -((test1 - test2) * projectionNumbers.oneDegreeScaleFactorFloat) + projectionNumbers.yCenter.toFloat()
+                pixXD = (-((buffers.yList[iCount] - projectionNumbers.yDbl) * projectionNumbers.oneDegreeScaleFactor) + projectionNumbers.xCenter).toFloat()
                 (0 until triangleAmount).forEach {
                     buffers.putFloat(bufferIndex, pixXD)
                     bufferIndex += 4
@@ -556,24 +540,24 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun genCircleLocdot(buffers: ObjectOglBuffers, pn: ProjectionNumbers, x: Double, y: Double) {
+    fun genCircleLocdot(buffers: ObjectOglBuffers, projectionNumbers: ProjectionNumbers, x: Double, y: Double) {
         buffers.setToPositionZero()
         val pixYD: Float
-        val pixXD = (-((y - pn.yDbl) * pn.oneDegreeScaleFactor) + pn.xCenter).toFloat()
-        var ixCount = 0
+        val pixXD = (-((y - projectionNumbers.yDbl) * projectionNumbers.oneDegreeScaleFactor) + projectionNumbers.xCenter).toFloat()
+        var indexCount = 0
         val test1 = M_180_div_PI * log(tan(M_PI_div_4 + x * M_PI_div_360), E).toFloat()
-        val test2 = M_180_div_PI * log(tan(M_PI_div_4 + pn.xDbl * M_PI_div_360), E).toFloat()
+        val test2 = M_180_div_PI * log(tan(M_PI_div_4 + projectionNumbers.xDbl * M_PI_div_360), E).toFloat()
         val len = buffers.lenInit * 2.0f
         val triangleAmount = buffers.triangleCount
-        pixYD = -((test1 - test2) * pn.oneDegreeScaleFactorFloat) + pn.yCenter.toFloat()
+        pixYD = -((test1 - test2) * projectionNumbers.oneDegreeScaleFactorFloat) + projectionNumbers.yCenter.toFloat()
         (0 until triangleAmount).forEach {
             buffers.putFloat(pixXD + len * cos((it * TWICE_PI / triangleAmount).toDouble()).toFloat())
             buffers.putFloat(-pixYD + len * sin((it * TWICE_PI / triangleAmount).toDouble()).toFloat())
             buffers.putFloat(pixXD + len * cos(((it + 1) * TWICE_PI / triangleAmount).toDouble()).toFloat())
             buffers.putFloat(-pixYD + len * sin(((it + 1) * TWICE_PI / triangleAmount).toDouble()).toFloat())
-            buffers.putIndex(ixCount.toShort())
-            buffers.putIndex((ixCount + 1).toShort())
-            ixCount += 2
+            buffers.putIndex(indexCount.toShort())
+            buffers.putIndex((indexCount + 1).toShort())
+            indexCount += 2
         }
     }
 
