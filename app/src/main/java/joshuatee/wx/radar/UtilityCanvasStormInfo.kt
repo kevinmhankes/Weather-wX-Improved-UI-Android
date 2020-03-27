@@ -44,27 +44,22 @@ import java.util.*
 object UtilityCanvasStormInfo {
 
     private const val stiBaseFn = "nids_sti_tab"
-
-    fun drawNexRadStormMotion(
-        context: Context,
-        provider: ProjectionType,
-        bitmap: Bitmap,
-        radarSite: String
-    ) {
+    // FIXME all util for canvas nexrad needs cleanup
+    fun drawNexRadStormMotion(context: Context, projectionType: ProjectionType, bitmap: Bitmap, radarSite: String) {
         val textSize = 22
         WXGLDownload.getNidsTab(context, "STI", radarSite.toLowerCase(Locale.US), stiBaseFn + "")
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.FILL
         paint.strokeWidth = 2f
-        if (provider === ProjectionType.WX_RENDER || provider === ProjectionType.WX_RENDER_48) {
+        if (projectionType === ProjectionType.WX_RENDER || projectionType === ProjectionType.WX_RENDER_48) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
-        if (provider.needsBlackPaint) {
+        if (projectionType.needsBlackPaint) {
             paint.color = Color.rgb(0, 0, 0)
         }
         paint.textSize = textSize.toFloat()
-        val pn = ProjectionNumbers(radarSite, provider)
+        val pn = ProjectionNumbers(radarSite, projectionType)
         var tmpCoords: DoubleArray
         var tmpCoords2: DoubleArray
         val stormList = mutableListOf<Double>()
@@ -235,7 +230,7 @@ object UtilityCanvasStormInfo {
         wallPath.reset()
         var i = 0
         while (i < stormListArr.size) {
-            if (provider.isMercator) {
+            if (projectionType.isMercator) {
                 tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(
                     stormListArr[i].toDouble(),
                     stormListArr[i + 1].toDouble(),

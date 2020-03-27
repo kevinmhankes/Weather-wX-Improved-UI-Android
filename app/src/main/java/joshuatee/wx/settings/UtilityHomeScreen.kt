@@ -187,10 +187,7 @@ internal object UtilityHomeScreen {
                 "HIWARN"
         ).forEach {
             MyApplication.HM_CLASS[it] = USWarningsWithRadarActivity::class.java
-            MyApplication.HM_CLASS_ARGS[it] = arrayOf(
-                    ".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?",
-                    "us"
-            )
+            MyApplication.HM_CLASS_ARGS[it] = arrayOf(".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?", "us")
             MyApplication.HM_CLASS_ID[it] = USWarningsWithRadarActivity.URL
         }
     }

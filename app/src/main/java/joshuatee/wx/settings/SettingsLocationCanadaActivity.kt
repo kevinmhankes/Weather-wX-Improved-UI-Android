@@ -66,13 +66,8 @@ class SettingsLocationCanadaActivity : BaseActivity() {
         title = "Canadian Locations"
         toolbar.subtitle = "Select a location and then use the back arrow to save."
         cityDisplay = false
-        recyclerView = ObjectRecyclerView(
-            this,
-            this,
-            R.id.card_list,
-            provArr.toMutableList(),
-            ::provClicked
-        )
+        // FIXME don't pass R.id in, assign to val and pass instead of kotlin synthetic
+        recyclerView = ObjectRecyclerView(this, this, R.id.card_list, provArr.toMutableList(), ::provClicked)
     }
 
     private fun provClicked(position: Int) {

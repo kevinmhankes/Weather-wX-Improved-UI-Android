@@ -222,15 +222,16 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
 
     private fun findPositionIMG2(key: String): String {
         for (l in UtilityHomeScreen.localChoicesImg) {
-            if (l.startsWith(key.replace("OGL-", ""))) return l
-            if (l.startsWith(key.replace("IMG-", ""))) return l
+            if (l.startsWith(key.replace("OGL-", "")))
+                return l
+            if (l.startsWith(key.replace("IMG-", "")))
+                return l
         }
         return ""
     }
 
     private fun findPositionTEXTLOCAL(key: String) =
-            UtilityHomeScreen.localChoicesText.firstOrNull { it.startsWith(key.replace("TXT-", "")) }
-                    ?: ""
+            UtilityHomeScreen.localChoicesText.firstOrNull { it.startsWith(key.replace("TXT-", "")) } ?: ""
 
     private fun findPositionAFD(key: String): String {
         (GlobalArrays.wfos.indices).forEach {

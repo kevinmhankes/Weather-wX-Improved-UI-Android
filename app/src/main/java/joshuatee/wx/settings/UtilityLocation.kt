@@ -77,9 +77,9 @@ object UtilityLocation {
     }
 
     fun getGps(context: Context): DoubleArray {
-        val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val providers = lm.getProviders(true)
-        var l: Location? = null
+        val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val providers = locationManager.getProviders(true)
+        var location: Location? = null
         if (ContextCompat.checkSelfPermission(
                 context,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -89,14 +89,15 @@ object UtilityLocation {
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             for (i in providers.indices.reversed()) {
-                l = lm.getLastKnownLocation(providers[i])
-                if (l != null) break
+                location = locationManager.getLastKnownLocation(providers[i])
+                if (location != null)
+                    break
             }
         } else {
             UtilityLog.d("wx", "WARNING: permission not granted for roaming location")
         }
         val gps = DoubleArray(2)
-        l?.let {
+        location?.let {
             gps[0] = it.latitude
             gps[1] = it.longitude
         }
@@ -199,8 +200,7 @@ object UtilityLocation {
 
     fun checkRoamingLocation(context: Context, locNum: String, xStr: String, yStr: String) {
         val currentXY = getGps(context)
-        val roamingLocationDistanceCheck =
-            Utility.readPref(context, "ROAMING_LOCATION_DISTANCE_CHECK", 5)
+        val roamingLocationDistanceCheck = Utility.readPref(context, "ROAMING_LOCATION_DISTANCE_CHECK", 5)
         val locX = xStr.toDoubleOrNull() ?: 0.0
         val locY = yStr.toDoubleOrNull() ?: 0.0
         val currentDistance = LatLon.distance(

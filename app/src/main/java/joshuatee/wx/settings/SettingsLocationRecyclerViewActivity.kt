@@ -46,7 +46,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private val locations = mutableListOf<String>()
     private lateinit var recyclerView: ObjectRecyclerViewGeneric
-    private lateinit var ca: SettingsLocationAdapterList
+    private lateinit var settingsLocationAdapterList: SettingsLocationAdapterList
     private var currentConditions = mutableListOf<ObjectForecastPackageCurrentConditions>()
 
     @SuppressLint("MissingSuperCall")
@@ -56,10 +56,10 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         toolbar.subtitle = "Tap location to edit, delete, or move."
         updateList()
         recyclerView = ObjectRecyclerViewGeneric(this, this, R.id.card_list)
-        ca = SettingsLocationAdapterList(locations)
-        recyclerView.recyclerView.adapter = ca
+        settingsLocationAdapterList = SettingsLocationAdapterList(locations)
+        recyclerView.recyclerView.adapter = settingsLocationAdapterList
         updateTitle()
-        ca.setListener(::itemSelected)
+        settingsLocationAdapterList.setListener(::itemSelected)
         getContent()
     }
 
@@ -72,7 +72,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
             }
         }
         updateListWithCurrentConditions()
-        ca.notifyDataSetChanged()
+        settingsLocationAdapterList.notifyDataSetChanged()
     }
 
     private fun updateList() {
@@ -80,8 +80,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         locations.clear()
         // FIXME this activity needs to be cleaned up
         (0 until locNumIntCurrent).forEach {
-            val btnStr = ""
-            locations.add(btnStr)
+            locations.add("")
             MyApplication.locations[it].updateObservation("")
         }
     }
@@ -97,8 +96,8 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
 
     override fun onRestart() {
         updateList()
-        ca = SettingsLocationAdapterList(locations)
-        recyclerView.recyclerView.adapter = ca
+        settingsLocationAdapterList = SettingsLocationAdapterList(locations)
+        recyclerView.recyclerView.adapter = settingsLocationAdapterList
         updateTitle()
         Location.refreshLocationData(this)
         getContent()
@@ -110,9 +109,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     }
 
     private fun itemSelected(position: Int) {
-        // FIXME
         val bottomSheetFragment = BottomSheetFragment(this, position, Location.getName(position), true)
-        //val bottomSheetFragment = BottomSheetFragment(this, position, ca.getItem(position), true)
         bottomSheetFragment.functions = listOf(::edit, ::delete, ::moveUp, ::moveDown)
         bottomSheetFragment.labelList = listOf("Edit Location", "Delete Location", "Move Up", "Move Down")
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
@@ -126,10 +123,10 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     }
 
     private fun delete(position: Int) {
-        if (ca.itemCount > 1) {
+        if (settingsLocationAdapterList.itemCount > 1) {
             Location.deleteLocation(this, (position + 1).toString())
-            ca.deleteItem(position)
-            ca.notifyDataSetChanged()
+            settingsLocationAdapterList.deleteItem(position)
+            settingsLocationAdapterList.notifyDataSetChanged()
             updateTitle()
             UtilityWXJobService.startService(this)
         } else {
@@ -149,7 +146,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
             locA.saveLocationToNewSlot(0)
             locB.saveLocationToNewSlot(Location.numLocations - 1)
         }
-        ca.notifyDataSetChanged()
+        settingsLocationAdapterList.notifyDataSetChanged()
     }
 
     private fun moveDown(position: Int) {
@@ -164,7 +161,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
             locA.saveLocationToNewSlot(0)
             locB.saveLocationToNewSlot(position)
         }
-        ca.notifyDataSetChanged()
+        settingsLocationAdapterList.notifyDataSetChanged()
     }
 
     private fun addItemFab() {

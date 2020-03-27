@@ -142,7 +142,7 @@ object UtilityUSImgNwsMosaic {
 
     internal fun getSectorLabelFromCode(code: String) = sectorToLabel[code] ?: ""
 
-    fun getSectorFromState(state: String): String = stateToSector[state] ?: ""
+    fun getSectorFromState(state: String) = stateToSector[state] ?: ""
 
     internal fun getAnimation(context: Context, sector: String, frameCount: Int, isInteractive: Boolean): AnimationDrawable {
         val urls: List<String>

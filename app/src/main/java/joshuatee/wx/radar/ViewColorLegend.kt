@@ -78,7 +78,6 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
         val startHeight = MyApplication.actionBarHeight.toFloat()
         val width = 50f
         val widthStarting = 0f
-        //val strokeWidth = 10
         val textFromLegend = 10f
         val heightFudge = 30f
         val screenHeight = MyApplication.dm.heightPixels.toFloat()

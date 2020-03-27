@@ -48,9 +48,10 @@ internal class TileObjectColorPalette(
     init {
         val oldMap: String
         val bitmap: Bitmap
-        var textColor = Color.WHITE
-        if (builtin) {
-            textColor = Color.YELLOW
+        val textColor = if (builtin) {
+            Color.YELLOW
+        } else {
+            Color.WHITE
         }
         if (UtilityFileManagement.internalFileExist(context, "colormap" + product + this.colorMapLabel)) {
             bitmapWithText = UtilityIO.bitmapFromInternalStorage(context, "colormap" + product + this.colorMapLabel)

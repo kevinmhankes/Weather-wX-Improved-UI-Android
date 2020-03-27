@@ -50,11 +50,7 @@ internal object UtilityRadarUI {
     private const val lastRadarTimePref = "NEXRADDOWNLOAD_TIME_LAST_RAN"
 
     fun updateLastRadarTime(context: Context) {
-        Utility.writePref(
-            context,
-            lastRadarTimePref,
-            UtilityTime.getCurrentLocalTimeAsString()
-        )
+        Utility.writePref(context, lastRadarTimePref, UtilityTime.getCurrentLocalTimeAsString())
     }
 
     fun getLastRadarTime(context: Context): String {
@@ -103,10 +99,7 @@ internal object UtilityRadarUI {
     private fun showNearestMeteogram(context: Context, wxglSurfaceView: WXGLSurfaceView) {
         // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php
         // http://www.nws.noaa.gov/mdl/gfslamp/meteo.php?BackHour=0&TempBox=Y&DewBox=Y&SkyBox=Y&WindSpdBox=Y&WindDirBox=Y&WindGustBox=Y&CigBox=Y&VisBox=Y&ObvBox=Y&PtypeBox=N&PopoBox=Y&LightningBox=Y&ConvBox=Y&sta=KTEW
-        val obsSite = UtilityMetar.findClosestObservation(
-                context,
-                wxglSurfaceView.latLon
-        )
+        val obsSite = UtilityMetar.findClosestObservation(context, wxglSurfaceView.latLon)
         ObjectIntent(
                 context,
                 ImageShowActivity::class.java,
@@ -116,10 +109,7 @@ internal object UtilityRadarUI {
     }
 
     private fun showNearestWarning(context: Context, wxglSurfaceView: WXGLSurfaceView) {
-        val polygonUrl = UtilityWXOGL.showTextProducts(
-                wxglSurfaceView.newY.toDouble(),
-                wxglSurfaceView.newX.toDouble() * -1.0
-        )
+        val polygonUrl = UtilityWXOGL.showTextProducts(wxglSurfaceView.newY.toDouble(), wxglSurfaceView.newX.toDouble() * -1.0)
         if (polygonUrl != "") ObjectIntent(
                 context,
                 USAlertsDetailActivity::class.java,
@@ -129,7 +119,7 @@ internal object UtilityRadarUI {
     }
 
     fun addItemsToLongPress(
-            alertDialogRadarLongpressAl: MutableList<String>,
+            alertDialogRadarLongPressList: MutableList<String>,
             lat: String,
             lon: String,
             context: Context,
@@ -137,7 +127,7 @@ internal object UtilityRadarUI {
             wxglRender: WXGLRender,
             alertDialogRadarLongPress: ObjectDialogue
     ) {
-        alertDialogRadarLongpressAl.clear()
+        alertDialogRadarLongPressList.clear()
         val locX = lat.toDoubleOrNull() ?: 0.0
         val locY = lon.toDoubleOrNull() ?: 0.0
         val pointX = wxglSurfaceView.newY.toDouble()
@@ -152,13 +142,13 @@ internal object UtilityRadarUI {
                 ", -" +
                 UtilityStringExternal.truncate(wxglSurfaceView.newX.toString(), 6)
         alertDialogRadarLongPress.setTitle(latLonTitle)
-        alertDialogRadarLongpressAl.add(
+        alertDialogRadarLongPressList.add(
                 UtilityStringExternal.truncate(
                         dist.toString(),
                         6
                 ) + " miles from location"
         )
-        alertDialogRadarLongpressAl.add(
+        alertDialogRadarLongPressList.add(
                 UtilityStringExternal.truncate(
                         distRid.toString(),
                         6
@@ -166,33 +156,33 @@ internal object UtilityRadarUI {
         )
         val heightAgl = UtilityMath.getRadarBeamHeight(wxglRender.wxglNexradLevel3.degree, distRidKm)
         val heightMsl = (wxglRender.wxglNexradLevel3.radarHeight + heightAgl)
-        alertDialogRadarLongpressAl.add("Beam Height MSL: " + heightMsl.roundToInt().toString() + " ft, AGL: " + heightAgl.roundToInt().toString() + " ft")
+        alertDialogRadarLongPressList.add("Beam Height MSL: " + heightMsl.roundToInt().toString() + " ft, AGL: " + heightAgl.roundToInt().toString() + " ft")
         if (MyApplication.radarShowWpcFronts) {
             var wpcFrontsTimeStamp = Utility.readPref(context,"WPC_FRONTS_TIMESTAMP", "")
             wpcFrontsTimeStamp = wpcFrontsTimeStamp.replace(UtilityTime.getYear().toString(), "")
             wpcFrontsTimeStamp = wpcFrontsTimeStamp.insert(4, " ")
-            alertDialogRadarLongpressAl.add(MyApplication.newline + "WPC Fronts: " + wpcFrontsTimeStamp)
+            alertDialogRadarLongPressList.add(MyApplication.newline + "WPC Fronts: " + wpcFrontsTimeStamp)
         }
-        wxglRender.ridNewList.mapTo(alertDialogRadarLongpressAl) {
+        wxglRender.ridNewList.mapTo(alertDialogRadarLongPressList) {
             "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name)
         }
         val obsSite = UtilityMetar.findClosestObservation(context, wxglSurfaceView.latLon)
         if (MyApplication.radarWarnings) {
-            alertDialogRadarLongpressAl.add("Show Warning text")
+            alertDialogRadarLongPressList.add("Show Warning text")
         }
         // Thanks to Ely
         if (MyApplication.radarWatMcd) {
-            alertDialogRadarLongpressAl.add("Show Watch text")
-            alertDialogRadarLongpressAl.add("Show MCD text")
+            alertDialogRadarLongPressList.add("Show Watch text")
+            alertDialogRadarLongPressList.add("Show MCD text")
         }
         if (MyApplication.radarMpd) {
-            alertDialogRadarLongpressAl.add("Show MPD text")
+            alertDialogRadarLongPressList.add("Show MPD text")
         }
         // end Thanks to Ely
-        alertDialogRadarLongpressAl.add("Show nearest observation: " + obsSite.name)
-        alertDialogRadarLongpressAl.add("Show nearest forecast: $latLonTitle")
-        alertDialogRadarLongpressAl.add("Show nearest meteogram: " + obsSite.name)
-        alertDialogRadarLongpressAl.add("Show radar status message: " + wxglRender.rid)
+        alertDialogRadarLongPressList.add("Show nearest observation: " + obsSite.name)
+        alertDialogRadarLongPressList.add("Show nearest forecast: $latLonTitle")
+        alertDialogRadarLongPressList.add("Show nearest meteogram: " + obsSite.name)
+        alertDialogRadarLongPressList.add("Show radar status message: " + wxglRender.rid)
         alertDialogRadarLongPress.show()
     }
 
@@ -356,7 +346,9 @@ internal object UtilityRadarUI {
             wxglRender.deconstructLocationDot()
         }
         if (imageMap != null && imageMap.map.visibility != View.VISIBLE) {
-            numPanesArr.forEach { glviewArr[it].visibility = View.VISIBLE }
+            numPanesArr.forEach {
+                glviewArr[it].visibility = View.VISIBLE
+            }
         }
     }
 
@@ -383,11 +375,7 @@ internal object UtilityRadarUI {
         }).start()
     }*/
 
-    fun plotWarningPolygons(
-            wxglSurfaceView: WXGLSurfaceView,
-            wxglRender: WXGLRender,
-            archiveMode: Boolean = false
-    ) {
+    fun plotWarningPolygons(wxglSurfaceView: WXGLSurfaceView, wxglRender: WXGLRender, archiveMode: Boolean = false) {
         Thread(Runnable {
             if (PolygonType.TST.pref && !archiveMode) {
                 wxglRender.constructWarningLines()
@@ -399,11 +387,7 @@ internal object UtilityRadarUI {
         }).start()
     }
 
-    fun plotMcdWatchPolygons(
-            wxglSurfaceView: WXGLSurfaceView,
-            wxglRender: WXGLRender,
-            archiveMode: Boolean = false
-    ) {
+    fun plotMcdWatchPolygons(wxglSurfaceView: WXGLSurfaceView, wxglRender: WXGLRender, archiveMode: Boolean = false) {
         Thread(Runnable {
             if (PolygonType.MCD.pref && !archiveMode) {
                 wxglRender.constructWatchMcdLines()
@@ -415,11 +399,7 @@ internal object UtilityRadarUI {
         }).start()
     }
 
-    fun plotMpdPolygons(
-            wxglSurfaceView: WXGLSurfaceView,
-            wxglRender: WXGLRender,
-            archiveMode: Boolean = false
-    ) {
+    fun plotMpdPolygons(wxglSurfaceView: WXGLSurfaceView, wxglRender: WXGLRender, archiveMode: Boolean = false) {
         Thread(Runnable {
             if (PolygonType.MPD.pref && !archiveMode) {
                 wxglRender.constructMpdLines()
@@ -431,11 +411,7 @@ internal object UtilityRadarUI {
         }).start()
     }
 
-    fun plotWpcFronts(
-            wxglSurfaceView: WXGLSurfaceView,
-            wxglRender: WXGLRender,
-            archiveMode: Boolean = false
-    ) {
+    fun plotWpcFronts(wxglSurfaceView: WXGLSurfaceView, wxglRender: WXGLRender, archiveMode: Boolean = false) {
         Thread(Runnable {
             if (MyApplication.radarShowWpcFronts && !archiveMode) {
                 wxglRender.constructWpcFronts()

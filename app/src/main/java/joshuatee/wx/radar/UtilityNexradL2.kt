@@ -58,7 +58,7 @@ import joshuatee.wx.util.UtilityMath
 internal object UtilityNexradL2 {
 
     private const val DECOMP_FN = "l2.decomp"
-
+    // FIXME needs refactor - all utilNexrad*
     fun decodeAndPlot(context: Context, bitmap: Bitmap, prod: String) {
         val canvas = Canvas(bitmap)
         var productCode = 153
@@ -67,8 +67,8 @@ internal object UtilityNexradL2 {
         val numberOfRangeBins = 916
         // 1832 vel 1192 vel
         var zeroColor = ContextCompat.getColor(context, R.color.black)
-        if (Utility.readPref(context, "NWS_RADAR_BG_BLACK", "") != "true") zeroColor =
-            ContextCompat.getColor(context, R.color.white)
+        if (Utility.readPref(context, "NWS_RADAR_BG_BLACK", "") != "true")
+            zeroColor = ContextCompat.getColor(context, R.color.white)
         val radialStartAngle = ByteBuffer.allocateDirect(720 * 4)
         radialStartAngle.order(ByteOrder.nativeOrder())
         radialStartAngle.position(0)
@@ -108,7 +108,6 @@ internal object UtilityNexradL2 {
             cR = MyApplication.colorMap[colorMapProductCode]!!.redValues
             cG = MyApplication.colorMap[colorMapProductCode]!!.greenValues
             cB = MyApplication.colorMap[colorMapProductCode]!!.blueValues
-
         } else {
             colorMapProductCode = 99
             cR = MyApplication.colorMap[colorMapProductCode]!!.redValues

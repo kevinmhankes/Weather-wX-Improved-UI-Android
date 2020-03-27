@@ -116,10 +116,10 @@ class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
         val map: ImageMap = findViewById(imgMap)
         map.visibility = View.VISIBLE
         map.setImageBitmap(bm)
-        val paramsIv = map.layoutParams
-        paramsIv.width = MyApplication.dm.widthPixels
-        paramsIv.height = MyApplication.dm.widthPixels * bm.height / bm.width
-        map.layoutParams = paramsIv
+        val layoutParams = map.layoutParams
+        layoutParams.width = MyApplication.dm.widthPixels
+        layoutParams.height = MyApplication.dm.widthPixels * bm.height / bm.width
+        map.layoutParams = layoutParams
         map.addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
             override fun onImageMapClicked(id: Int, im2: ImageMap) {
                 mapClicked(id)
@@ -134,11 +134,7 @@ class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
         val cityLoc = getCityFromXml(sector)
         Utility.writePref(this, "LOCATION_CANADA_PROV", url.toUpperCase(Locale.US))
         Utility.writePref(this, "LOCATION_CANADA_CITY", cityLoc)
-        Utility.writePref(
-                this,
-                "LOCATION_CANADA_ID",
-                sector.split("_".toRegex()).dropLastWhile { it.isEmpty() }[1]
-        )
+        Utility.writePref(this, "LOCATION_CANADA_ID", sector.split("_".toRegex()).dropLastWhile { it.isEmpty() }[1])
         toolbar.subtitle = url.toUpperCase(Locale.US) + ", " + cityLoc
         finish()
     }

@@ -49,13 +49,7 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
         val locationNameShortLength = 20
         val locationAl = (1 until numberOfLocations + 1).mapTo(mutableListOf()) {
             "$it: " + UtilityStringExternal.truncate(
-                    Utility.readPref(
-                            this,
-                            "LOC" + it + "_LABEL",
-                            ""
-                    ),
-                    locationNameShortLength
-            )
+                    Utility.readPref(this, "LOC" + it + "_LABEL", ""), locationNameShortLength)
         }
         linearLayout.addView(
                 ObjectSettingsCheckBox(

@@ -31,15 +31,11 @@ import joshuatee.wx.external.ExternalPolygon
 
 internal object UtilityWatch {
 
-    fun add(
-        provider: ProjectionType,
-        radarSite: String,
-        type: PolygonType
-    ): List<Double> {
-        var testArr: Array<String>
+    fun add(projectionType: ProjectionType, radarSite: String, polygonType: PolygonType): List<Double> {
+        //var testArr: Array<String>
         val warningList = mutableListOf<Double>()
         var prefToken = ""
-        when (type) {
+        when (polygonType) {
             PolygonType.MCD -> prefToken = MyApplication.mcdLatLon.value
             PolygonType.WATCH -> prefToken = MyApplication.watchLatLon.value
             PolygonType.WATCH_TORNADO -> prefToken = MyApplication.watchLatLonTor.value
@@ -47,40 +43,39 @@ internal object UtilityWatch {
             else -> {
             }
         }
-        val pn = ProjectionNumbers(radarSite, provider)
-        var j: Int
-        var pixXInit: Double
-        var pixYInit: Double
-        val textFfw = prefToken
-        if (textFfw != "") {
-            val tmpArr = MyApplication.colon.split(textFfw)
-            tmpArr.forEach { it ->
-                testArr = MyApplication.space.split(it)
-                val x = testArr.filterIndexed { idx: Int, _: String -> idx and 1 == 0 }.map {
+        val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
+        //var j: Int
+        //var pixXInit: Double
+        //var pixYInit: Double
+        //val textFfw = prefToken
+        if (prefToken != "") {
+            val items = MyApplication.colon.split(prefToken)
+            items.forEach { it ->
+                val list = MyApplication.space.split(it)
+                val x = list.filterIndexed { idx: Int, _: String -> idx and 1 == 0 }.map {
                     it.toDoubleOrNull() ?: 0.0
                 }
-                val y = testArr.filterIndexed { idx: Int, _: String -> idx and 1 != 0 }.map {
+                val y = list.filterIndexed { idx: Int, _: String -> idx and 1 != 0 }.map {
                     it.toDoubleOrNull() ?: 0.0
                 }
                 if (y.isNotEmpty() && x.isNotEmpty()) {
-                    var tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], pn)
-                    pixXInit = tmpCoords[0]
-                    pixYInit = tmpCoords[1]
-                    warningList.add(tmpCoords[0])
-                    warningList.add(tmpCoords[1])
+                    var coordinates = UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers)
+                    val startX = coordinates[0]
+                    val startY = coordinates[1]
+                    warningList.add(coordinates[0])
+                    warningList.add(coordinates[1])
                     if (x.size == y.size) {
-                        j = 1
-                        while (j < x.size) {
-                            tmpCoords =
-                                UtilityCanvasProjection.computeMercatorNumbers(x[j], y[j], pn)
-                            warningList.add(tmpCoords[0])
-                            warningList.add(tmpCoords[1])
-                            warningList.add(tmpCoords[0])
-                            warningList.add(tmpCoords[1])
-                            j += 1
+                        //var j = 1
+                        for  (j in 1 until x.size) {
+                            coordinates = UtilityCanvasProjection.computeMercatorNumbers(x[j], y[j], projectionNumbers)
+                            warningList.add(coordinates[0])
+                            warningList.add(coordinates[1])
+                            warningList.add(coordinates[0])
+                            warningList.add(coordinates[1])
+                            //j += 1
                         }
-                        warningList.add(pixXInit)
-                        warningList.add(pixYInit)
+                        warningList.add(startX)
+                        warningList.add(startY)
                     }
                 }
             }
@@ -116,28 +111,28 @@ internal object UtilityWatch {
             }
         }
         val latLonArr = MyApplication.colon.split(watchLatLon)
-        val x = mutableListOf<Double>()
-        val y = mutableListOf<Double>()
-        var i: Int
-        var testArr: List<String>
-        var z = 0
+        //var i: Int
+        //var testArr: List<String>
+        //var z = 0
         var notFound = true
-        while (z < latLonArr.size) {
-            testArr = latLonArr[z].split(" ")
-            x.clear()
-            y.clear()
-            i = 0
-            while (i < testArr.size) {
+        latLonArr.indices.forEach { z ->
+            val list = latLonArr[z].split(" ")
+            //x.clear()
+            //y.clear()
+            val x = mutableListOf<Double>()
+            val y = mutableListOf<Double>()
+            //i = 0
+            list.indices.forEach { i ->
                 if (i and 1 == 0) {
-                    x.add(testArr[i].toDoubleOrNull() ?: 0.0)
+                    x.add(list[i].toDoubleOrNull() ?: 0.0)
                 } else {
-                    y.add((testArr[i].toDoubleOrNull() ?: 0.0) * -1)
+                    y.add((list[i].toDoubleOrNull() ?: 0.0) * -1)
                 }
-                i += 1
+                //i += 1
             }
             if (y.size > 3 && x.size > 3 && x.size == y.size) {
                 val poly2 = ExternalPolygon.Builder()
-                for (j in x.indices) {
+                x.indices.forEach { j ->
                     poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
                 }
                 val polygon2 = poly2.build()
@@ -147,8 +142,7 @@ internal object UtilityWatch {
                     notFound = false
                 }
             }
-            z += 1
-
+            //z += 1
         }
         return text
     }

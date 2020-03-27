@@ -28,10 +28,10 @@ import joshuatee.wx.util.UtilityLog
 
 object UtilityLevel3TextProduct {
 
-    fun read(dis: UCARRandomAccessFile?): String {
-        val sb = StringBuilder(1500)
+    fun read(ucarRandomAccessFile: UCARRandomAccessFile?): String {
+        val stringBuilder = StringBuilder(1500)
         try {
-            dis?.let {
+            ucarRandomAccessFile?.let {
                 while (true) {
                     if (it.readShort().toInt() == -1) {
                         break
@@ -45,7 +45,7 @@ object UtilityLevel3TextProduct {
                 }
                 try {
                     while (!it.isAtEndOfFile) {
-                        sb.append(String(byteArrayOf(it.readByte()), charset("ISO-8859-1")))
+                        stringBuilder.append(String(byteArrayOf(it.readByte()), charset("ISO-8859-1")))
                     }
                 } catch (e: EOFException) {
                     UtilityLog.handleException(e)
@@ -62,6 +62,6 @@ object UtilityLevel3TextProduct {
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
-        return sb.toString()
+        return stringBuilder.toString()
     }
 }

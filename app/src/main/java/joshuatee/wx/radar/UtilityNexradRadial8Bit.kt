@@ -41,15 +41,10 @@ internal object UtilityNexradRadial8Bit {
 
     // ultimately the code below is used for nexrad widget and for notification that shows radar
 
-    fun decodeAndPlot(
-        context: Context,
-        bitmap: Bitmap,
-        fileName: String,
-        product: String
-    ) {
+    fun decodeAndPlot(context: Context, bitmap: Bitmap, fileName: String, product: String) {
         val binWord: ByteBuffer
         val radialStart: ByteBuffer
-        val rBuff: ByteBuffer = ByteBuffer.allocateDirect(32)
+        val rBuff = ByteBuffer.allocateDirect(32)
         UtilityCanvasMain.setImageOffset(context)
         val canvas = Canvas(bitmap)
         val zeroColor = MyApplication.nexradRadarBackgroundColor

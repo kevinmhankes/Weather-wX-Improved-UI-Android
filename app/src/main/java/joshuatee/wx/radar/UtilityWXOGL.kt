@@ -204,7 +204,6 @@ object UtilityWXOGL {
                     notFound = false
                 }
             }
-            //}
             q += 1
         }
         return retStr

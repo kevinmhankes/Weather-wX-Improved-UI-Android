@@ -101,24 +101,15 @@ class SettingsLocationGenericActivity : BaseActivity(),
         title = "Location $locNum"
         locXStr = Utility.readPref(this, "LOC" + locNum + "_X", "")
         locYStr = Utility.readPref(this, "LOC" + locNum + "_Y", "")
-        var alertNotificationCurrent: String =
-                Utility.readPref(this, "ALERT" + locNum + "_NOTIFICATION", "false")
-        var alertNotificationRadarCurrent: String =
-                Utility.readPref(this, "ALERT_NOTIFICATION_RADAR$locNum", "false")
-        var alertCcNotificationCurrent: String =
-                Utility.readPref(this, "ALERT_CC" + locNum + "_NOTIFICATION", "false")
-        var alert7Day1NotificationCurrent: String =
-                Utility.readPref(this, "ALERT_7DAY_" + locNum + "_NOTIFICATION", "false")
-        var alertNotificationSoundCurrent: String =
-                Utility.readPref(this, "ALERT_NOTIFICATION_SOUND$locNum", "false")
-        var alertNotificationMcdCurrent: String =
-                Utility.readPref(this, "ALERT_NOTIFICATION_MCD$locNum", "false")
-        var alertNotificationSwoCurrent: String =
-                Utility.readPref(this, "ALERT_NOTIFICATION_SWO$locNum", "false")
-        var alertNotificationSpcfwCurrent: String =
-                Utility.readPref(this, "ALERT_NOTIFICATION_SPCFW$locNum", "false")
-        var alertNotificationWpcmpdCurrent: String =
-                Utility.readPref(this, "ALERT_NOTIFICATION_WPCMPD$locNum", "false")
+        var alertNotificationCurrent: String = Utility.readPref(this, "ALERT" + locNum + "_NOTIFICATION", "false")
+        var alertNotificationRadarCurrent: String = Utility.readPref(this, "ALERT_NOTIFICATION_RADAR$locNum", "false")
+        var alertCcNotificationCurrent: String = Utility.readPref(this, "ALERT_CC" + locNum + "_NOTIFICATION", "false")
+        var alert7Day1NotificationCurrent: String = Utility.readPref(this, "ALERT_7DAY_" + locNum + "_NOTIFICATION", "false")
+        var alertNotificationSoundCurrent: String = Utility.readPref(this, "ALERT_NOTIFICATION_SOUND$locNum", "false")
+        var alertNotificationMcdCurrent: String = Utility.readPref(this, "ALERT_NOTIFICATION_MCD$locNum", "false")
+        var alertNotificationSwoCurrent: String = Utility.readPref(this, "ALERT_NOTIFICATION_SWO$locNum", "false")
+        var alertNotificationSpcfwCurrent: String = Utility.readPref(this, "ALERT_NOTIFICATION_SPCFW$locNum", "false")
+        var alertNotificationWpcmpdCurrent: String = Utility.readPref(this, "ALERT_NOTIFICATION_WPCMPD$locNum", "false")
         locLabelCurrent = Utility.readPref(this, "LOC" + locNum + "_LABEL", "")
         // If this this is a new location
         if (locNumInt == Location.numLocations + 1) {
@@ -260,24 +251,15 @@ class SettingsLocationGenericActivity : BaseActivity(),
     }
 
     private fun afterDelete() {
-        val alertNotificationCurrent =
-                Utility.readPref(this, "ALERT" + locNum + "_NOTIFICATION", "false")
-        val alertNotificationRadarCurrent =
-                Utility.readPref(this, "ALERT_NOTIFICATION_RADAR$locNum", "false")
-        val alertCcNotificationCurrent =
-                Utility.readPref(this, "ALERT_CC" + locNum + "_NOTIFICATION", "false")
-        val alert7Day1NotificationCurrent =
-                Utility.readPref(this, "ALERT_7DAY_" + locNum + "_NOTIFICATION", "false")
-        val alertNotificationSoundCurrent =
-                Utility.readPref(this, "ALERT_NOTIFICATION_SOUND$locNum", "false")
-        val alertNotificationMcdCurrent =
-                Utility.readPref(this, "ALERT_NOTIFICATION_MCD$locNum", "false")
-        val alertNotificationSwoCurrent =
-                Utility.readPref(this, "ALERT_NOTIFICATION_SWO$locNum", "false")
-        val alertNotificationSpcfwCurrent =
-                Utility.readPref(this, "ALERT_NOTIFICATION_SPCFW$locNum", "false")
-        val alertNotificationWpcmpdCurrent =
-                Utility.readPref(this, "ALERT_NOTIFICATION_WPCMPD$locNum", "false")
+        val alertNotificationCurrent = Utility.readPref(this, "ALERT" + locNum + "_NOTIFICATION", "false")
+        val alertNotificationRadarCurrent = Utility.readPref(this, "ALERT_NOTIFICATION_RADAR$locNum", "false")
+        val alertCcNotificationCurrent = Utility.readPref(this, "ALERT_CC" + locNum + "_NOTIFICATION", "false")
+        val alert7Day1NotificationCurrent = Utility.readPref(this, "ALERT_7DAY_" + locNum + "_NOTIFICATION", "false")
+        val alertNotificationSoundCurrent = Utility.readPref(this, "ALERT_NOTIFICATION_SOUND$locNum", "false")
+        val alertNotificationMcdCurrent = Utility.readPref(this, "ALERT_NOTIFICATION_MCD$locNum", "false")
+        val alertNotificationSwoCurrent = Utility.readPref(this, "ALERT_NOTIFICATION_SWO$locNum", "false")
+        val alertNotificationSpcfwCurrent = Utility.readPref(this, "ALERT_NOTIFICATION_SPCFW$locNum", "false")
+        val alertNotificationWpcmpdCurrent = Utility.readPref(this, "ALERT_NOTIFICATION_WPCMPD$locNum", "false")
         listOf(alertRadar1Sw,
                 alertSoundSw,
                 alert7Day1Sw,
@@ -290,6 +272,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         ).forEach{
             it.card.visibility = View.VISIBLE
         }
+        // FIXME fold into forEach above
         alertSw.isChecked(alertNotificationCurrent == "true")
         alertCcSw.isChecked(alertCcNotificationCurrent == "true")
         alert7Day1Sw.isChecked(alert7Day1NotificationCurrent == "true")
@@ -302,12 +285,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         hideNonUSNotifications()
     }
 
-    private fun saveLocation(
-            locNum: String,
-            xStr: String,
-            yStr: String,
-            labelStr: String
-    ) = GlobalScope.launch(uiDispatcher) {
+    private fun saveLocation(locNum: String, xStr: String, yStr: String, labelStr: String) = GlobalScope.launch(uiDispatcher) {
         var toastStr = ""
         var xLoc = ""
         withContext(Dispatchers.IO) {
@@ -376,28 +354,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 val yStr = locYEt.text.toString()
                 val labelStr = locLabelEt.text.toString()
                 saveLocation(locNum, xStr, yStr, labelStr)
-            } /*else {
-                k -= UtilityCitiesExtended.cityLabels.size
-                var prov = MyApplication.comma.split(cityArrayAdapter.getItem(position))[1]
-                //var prov = cityArrayAdapter.getItem(position)!!.split(",")[1]
-                prov = prov.replace(" ", "")
-                // X: CANADA:ON:46.5
-                // Y: CODE:-84.
-                searchView.setText(cityArrayAdapter.getItem(position)!!) // removed .toString() on this and below
-                locLabelEt.setText(cityArrayAdapter.getItem(position))
-                val latitudeLabel = "CANADA:" + prov + ":" + UtilityCitiesCanada.LAT_CA[k].toString()
-                val longitudeLabel = UtilityCitiesCanada.code[k] + ":-" + UtilityCitiesCanada.LON_CA[k].toString()
-                locXEt.setText(latitudeLabel)
-                locYEt.setText(longitudeLabel)
-                val searchViewLocal = menuLocal!!.findItem(R.id.ab_search).actionView as SearchView
-                searchViewLocal.onActionViewCollapsed()
-                searchViewLocal.isIconified = true
-                val xStr = locXEt.text.toString()
-                val yStr = locYEt.text.toString()
-                val labelStr = locLabelEt.text.toString()
-                showMessage("Saving location: $labelStr")
-                saveLocation(locNum, xStr, yStr, labelStr)
-            }*/
+            }
         })
 
         searchView.setOnQueryTextListener(object : OnQueryTextListener {
@@ -489,10 +446,10 @@ class SettingsLocationGenericActivity : BaseActivity(),
             R.id.action_sk -> openCanadaMap("sk")
             R.id.action_yt -> openCanadaMap("yt")
             R.id.action_vr -> {
-                val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US")
+                val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US")
                 try {
-                    startActivityForResult(i, requestOk)
+                    startActivityForResult(intent, requestOk)
                 } catch (e: Exception) {
                     Toast.makeText(
                             this,
@@ -552,11 +509,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
 
     private val myPermissionAccessFineLocation = 5001
 
-    override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<String>,
-            grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             myPermissionAccessFineLocation -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 val xy = UtilityLocation.getGps(this)
@@ -578,11 +531,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         }
     }
 
-    private fun addressSearchAndSave(
-            locNum: String,
-            address: String,
-            labelStr: String
-    ) = GlobalScope.launch(uiDispatcher) {
+    private fun addressSearchAndSave(locNum: String, address: String, labelStr: String) = GlobalScope.launch(uiDispatcher) {
         var xyStr = listOf<String>()
         var toastStr = ""
         var goodLocation = false

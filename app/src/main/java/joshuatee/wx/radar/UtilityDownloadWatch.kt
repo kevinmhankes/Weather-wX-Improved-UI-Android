@@ -43,7 +43,7 @@ internal object UtilityDownloadWatch {
     }
 
     fun getWatch(context: Context): WatchData {
-        val html =  "${MyApplication.nwsSPCwebsitePrefix}/products/watch/".getHtml()
+        val html = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/".getHtml()
         if (html != "" ) {
             MyApplication.severeDashboardWat.valueSet(context, html)
         }
