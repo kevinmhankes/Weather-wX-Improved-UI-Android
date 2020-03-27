@@ -60,8 +60,8 @@ class Location(val context: Context, locNumInt: Int) {
     private val alertNotificationSwoCurrent: String
     private val alertNotificationSpcfwCurrent: String
     private val alertNotificationWpcmpdCurrent: String
-    private val raw: String
-    private val dst: String
+    //private val raw: String
+    //private val dst: String
     val isUS: Boolean
     var observation = ""
     private val prefNumberString: String
@@ -86,8 +86,8 @@ class Location(val context: Context, locNumInt: Int) {
         alertNotificationSwoCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_SWO$jStr", "false")
         alertNotificationSpcfwCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_SPCFW$jStr", "false")
         alertNotificationWpcmpdCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_WPCMPD$jStr", "false")
-        raw = Utility.readPref(context, "LOC" + jStr + "_TIMERAW", "")
-        dst = Utility.readPref(context, "LOC" + jStr + "_TIMEDST", "")
+        //raw = Utility.readPref(context, "LOC" + jStr + "_TIMERAW", "")
+        //dst = Utility.readPref(context, "LOC" + jStr + "_TIMEDST", "")
         state = Utility.getWfoSiteName(wfo).split(",")[0]
         observation = Utility.readPref(context, "LOC" + jStr + "_OBSERVATION", "")
         isUS = us(x)
@@ -96,8 +96,8 @@ class Location(val context: Context, locNumInt: Int) {
 
     fun saveLocationToNewSlot(newLocNumInt: Int) {
         val iStr = (newLocNumInt + 1).toString()
-        Utility.writePref(context, "LOC" + iStr + "_TIMERAW", raw)
-        Utility.writePref(context, "LOC" + iStr + "_TIMEDST", dst)
+        //Utility.writePref(context, "LOC" + iStr + "_TIMERAW", raw)
+        //Utility.writePref(context, "LOC" + iStr + "_TIMEDST", dst)
         Utility.writePref(context, "ALERT" + iStr + "_NOTIFICATION", alertNotificationCurrent)
         Utility.writePref(context, "ALERT_CC" + iStr + "_NOTIFICATION", alertCcNotificationCurrent)
         Utility.writePref(context, "ALERT_7DAY_" + iStr + "_NOTIFICATION", alertSevenDayNotificationCurrent)
@@ -222,17 +222,13 @@ class Location(val context: Context, locNumInt: Int) {
 
         val locationIndex: Int get() = currentLocation
 
-        fun isUS(locationNumber: Int): Boolean =
-                MyApplication.locations.getOrNull(locationNumber)?.isUS
-                        ?: true
+        fun isUS(locationNumber: Int): Boolean = MyApplication.locations.getOrNull(locationNumber)?.isUS ?: true
 
-        fun isUS(locationNumberString: String): Boolean =
-                MyApplication.locations[locationNumberString.toInt() - 1].isUS
+        fun isUS(locationNumberString: String): Boolean = MyApplication.locations[locationNumberString.toInt() - 1].isUS
 
         val isUS: Boolean get() = MyApplication.locations.getOrNull(currentLocation)?.isUS ?: true
 
-        fun getRid(context: Context, locNum: String): String =
-                Utility.readPref(context, "RID$locNum", "")
+        fun getRid(context: Context, locNum: String): String = Utility.readPref(context, "RID$locNum", "")
 
         fun refreshLocationData(context: Context) {
             initNumLocations(context)
@@ -380,10 +376,10 @@ class Location(val context: Context, locNumInt: Int) {
                     val alertNotificationSwoCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_SWO$jStr", "false")
                     val alertNotificationSpcfwCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_SPCFW$jStr", "false")
                     val alertNotificationWpcmpdCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_WPCMPD$jStr", "false")
-                    val raw = Utility.readPref(context, "LOC" + jStr + "_TIMERAW", "")
-                    val dst = Utility.readPref(context, "LOC" + jStr + "_TIMEDST", "")
-                    Utility.writePref(context, "LOC" + iStr + "_TIMERAW", raw)
-                    Utility.writePref(context, "LOC" + iStr + "_TIMEDST", dst)
+                    //val raw = Utility.readPref(context, "LOC" + jStr + "_TIMERAW", "")
+                    //val dst = Utility.readPref(context, "LOC" + jStr + "_TIMEDST", "")
+                    //Utility.writePref(context, "LOC" + iStr + "_TIMERAW", raw)
+                    //Utility.writePref(context, "LOC" + iStr + "_TIMEDST", dst)
                     Utility.writePref(
                             context,
                             "ALERT" + iStr + "_NOTIFICATION",
