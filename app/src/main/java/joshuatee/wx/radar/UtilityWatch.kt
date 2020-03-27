@@ -32,7 +32,6 @@ import joshuatee.wx.external.ExternalPolygon
 internal object UtilityWatch {
 
     fun add(projectionType: ProjectionType, radarSite: String, polygonType: PolygonType): List<Double> {
-        //var testArr: Array<String>
         val warningList = mutableListOf<Double>()
         var prefToken = ""
         when (polygonType) {
@@ -44,10 +43,6 @@ internal object UtilityWatch {
             }
         }
         val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
-        //var j: Int
-        //var pixXInit: Double
-        //var pixYInit: Double
-        //val textFfw = prefToken
         if (prefToken != "") {
             val items = MyApplication.colon.split(prefToken)
             items.forEach { it ->
@@ -65,14 +60,12 @@ internal object UtilityWatch {
                     warningList.add(coordinates[0])
                     warningList.add(coordinates[1])
                     if (x.size == y.size) {
-                        //var j = 1
                         for  (j in 1 until x.size) {
                             coordinates = UtilityCanvasProjection.computeMercatorNumbers(x[j], y[j], projectionNumbers)
                             warningList.add(coordinates[0])
                             warningList.add(coordinates[1])
                             warningList.add(coordinates[0])
                             warningList.add(coordinates[1])
-                            //j += 1
                         }
                         warningList.add(startX)
                         warningList.add(startY)
@@ -111,24 +104,17 @@ internal object UtilityWatch {
             }
         }
         val latLonArr = MyApplication.colon.split(watchLatLon)
-        //var i: Int
-        //var testArr: List<String>
-        //var z = 0
         var notFound = true
         latLonArr.indices.forEach { z ->
             val list = latLonArr[z].split(" ")
-            //x.clear()
-            //y.clear()
             val x = mutableListOf<Double>()
             val y = mutableListOf<Double>()
-            //i = 0
             list.indices.forEach { i ->
                 if (i and 1 == 0) {
                     x.add(list[i].toDoubleOrNull() ?: 0.0)
                 } else {
                     y.add((list[i].toDoubleOrNull() ?: 0.0) * -1)
                 }
-                //i += 1
             }
             if (y.size > 3 && x.size > 3 && x.size == y.size) {
                 val poly2 = ExternalPolygon.Builder()
@@ -142,7 +128,6 @@ internal object UtilityWatch {
                     notFound = false
                 }
             }
-            //z += 1
         }
         return text
     }
