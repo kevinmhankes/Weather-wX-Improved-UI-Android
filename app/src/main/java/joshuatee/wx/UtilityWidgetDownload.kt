@@ -96,9 +96,9 @@ internal object UtilityWidgetDownload {
 
     // save image to 2 different files to workaround android widget update strangeness
     private fun saveImage(context: Context, bitmap: Bitmap, fileName: String) {
-        val fos = getFileOutputStream(context, fileName)
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
-        fos?.close()
+        val fileOutputStream = getFileOutputStream(context, fileName)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
+        fileOutputStream?.close()
         val fos2 = getFileOutputStream(context, MyApplication.WIDGET_FILE_BAK + fileName)
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos2)
         fos2?.close()
@@ -152,17 +152,17 @@ internal object UtilityWidgetDownload {
     }
 
     private fun getFileOutputStream(context: Context, fileName: String): FileOutputStream? {
-        var fos: FileOutputStream? = null
+        var fileOutputStream: FileOutputStream? = null
         try {
             val dir = File(context.filesDir.toString() + "/shared")
             if (!dir.mkdirs())
                 UtilityLog.d("wx", "failed to mkdir: " + context.filesDir + "/shared")
             val file = File(dir, fileName)
-            fos = FileOutputStream(file)
+            fileOutputStream = FileOutputStream(file)
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
-        return fos
+        return fileOutputStream
     }
 
     private fun wpcImage(context: Context, type: WidgetFile) {
