@@ -102,13 +102,8 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
                     textToSave
             )
             if (!MyApplication.radarColorPaletteList[type]!!.contains(palTitle.text.toString())) {
-                MyApplication.radarColorPaletteList[type] = MyApplication.radarColorPaletteList[type]!! +
-                        ":" + palTitle.text.toString()
-                Utility.writePref(
-                        context,
-                        "RADAR_COLOR_PALETTE_" + type + "_LIST",
-                        MyApplication.radarColorPaletteList[type]!!
-                )
+                MyApplication.radarColorPaletteList[type] = MyApplication.radarColorPaletteList[type]!! + ":" + palTitle.text.toString()
+                Utility.writePref(context, "RADAR_COLOR_PALETTE_" + type + "_LIST", MyApplication.radarColorPaletteList[type]!!)
             }
             toolbar.subtitle = "Last saved: $date"
         } else {
@@ -121,52 +116,42 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
     }
 
     private fun checkMapForErrors(): String {
-        var text = palContent.text.toString()
-        text = convertPalette(text)
+        val text = convertPalette(palContent.text.toString())
         palContent.setText(text)
         val lines = text.split("\n".toRegex()).dropLastWhile { it.isEmpty() }
-        var tmpArr: List<String>
         var errors = ""
         var priorVal = -200.0
         var lineCnt = 0
-        lines.forEach { s ->
-            if (s.contains("olor") && !s.contains("#")) {
-                tmpArr = if (s.contains(","))
-                    s.split(",")
+        lines.forEach { line ->
+            if (line.contains("olor") && !line.contains("#")) {
+                val list = if (line.contains(","))
+                    line.split(",")
                 else
-                    s.split(" ")
+                    line.split(" ")
                 lineCnt += 1
                 try {
-                    if (tmpArr.size > 4) {
-                        if (priorVal >= (tmpArr[1].toDoubleOrNull() ?: 0.0)) { // was toIntOrNull
-                            errors = errors +
-                                    "The following lines do not have dbz values in increasing order: " +
-                                    MyApplication.newline + priorVal + " " + tmpArr[1] +
+                    if (list.size > 4) {
+                        if (priorVal >= (list[1].toDoubleOrNull() ?: 0.0)) { // was toIntOrNull
+                            errors += "The following lines do not have dbz values in increasing order: " +
+                                    MyApplication.newline + priorVal + " " + list[1] +
                                     MyApplication.newline
                         }
-                        priorVal = tmpArr[1].toDoubleOrNull() ?: 0.0
-                        if ((tmpArr[2].toDoubleOrNull() ?: 0.0) > 255 || (tmpArr[2].toDoubleOrNull()
-                                        ?: 0.0) < 0
-                        ) {
+                        priorVal = list[1].toDoubleOrNull() ?: 0.0
+                        if ((list[2].toDoubleOrNull() ?: 0.0) > 255 || (list[2].toDoubleOrNull() ?: 0.0) < 0) {
                             errors = errors + "Red value must be between 0 and 255: " +
-                                    MyApplication.newline + s + MyApplication.newline
+                                    MyApplication.newline + line + MyApplication.newline
                         }
-                        if ((tmpArr[3].toDoubleOrNull() ?: 0.0) > 255 || (tmpArr[3].toDoubleOrNull()
-                                        ?: 0.0) < 0
-                        ) {
-                            errors = errors + "Green value must be between 0 and 255: " +
-                                    MyApplication.newline + s + MyApplication.newline
+                        if ((list[3].toDoubleOrNull() ?: 0.0) > 255 || (list[3].toDoubleOrNull() ?: 0.0) < 0) {
+                            errors += "Green value must be between 0 and 255: " +
+                                    MyApplication.newline + line + MyApplication.newline
                         }
-                        if ((tmpArr[4].toDoubleOrNull() ?: 0.0) > 255 || (tmpArr[4].toDoubleOrNull()
-                                        ?: 0.0) < 0
-                        ) {
-                            errors = errors + "Blue value must be between 0 and 255: " +
-                                    MyApplication.newline + s + MyApplication.newline
+                        if ((list[4].toDoubleOrNull() ?: 0.0) > 255 || (list[4].toDoubleOrNull() ?: 0.0) < 0) {
+                            errors += "Blue value must be between 0 and 255: " +
+                                    MyApplication.newline + line + MyApplication.newline
                         }
                     } else {
-                        errors = errors +
-                                "The following line does not have the correct number of command separated entries: " +
-                                MyApplication.newline + s + MyApplication.newline
+                        errors += "The following line does not have the correct number of command separated entries: " +
+                                MyApplication.newline + line + MyApplication.newline
                     }
                 } catch (e: Exception) {
                     errors += "Problem parsing number."
@@ -182,13 +167,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_reset -> palContent.setText(
-                    UtilityColorPalette.getColorMapStringFromDisk(
-                            this,
-                            type,
-                            activityArguments[1]
-                    )
-            )
+            R.id.action_reset -> palContent.setText(UtilityColorPalette.getColorMapStringFromDisk(this, type, activityArguments[1]))
             R.id.action_clear -> palContent.setText("")
             R.id.action_help -> ObjectDialogue(this,"Not implemented yet.")
             R.id.action_share -> UtilityShare.shareTextAsAttachment(
@@ -199,14 +178,8 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
                     "wX_colormap_" + palTitle.text.toString() + ".txt"
             )
             R.id.action_load -> loadSettings()
-            R.id.action_website -> ObjectIntent.showWeb(
-                    this,
-                    "http://almanydesigns.com/grx/reflectivity/"
-            )
-            R.id.action_website2 -> ObjectIntent.showWeb(
-                    this,
-                    "http://www.usawx.com/grradarexamples.htm"
-            )
+            R.id.action_website -> ObjectIntent.showWeb(this, "http://almanydesigns.com/grx/reflectivity/")
+            R.id.action_website2 -> ObjectIntent.showWeb(this, "http://www.usawx.com/grradarexamples.htm")
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -218,8 +191,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
     }
 
     private fun showLoadFromFileMenuItem() {
-        val menu = toolbarBottom.menu
-        val miLoadFromFile = menu.findItem(R.id.action_load)
+        val miLoadFromFile = toolbarBottom.menu.findItem(R.id.action_load)
         miLoadFromFile.isVisible = Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT
     }
 

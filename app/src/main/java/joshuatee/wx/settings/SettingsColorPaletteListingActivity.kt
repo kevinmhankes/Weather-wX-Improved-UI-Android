@@ -41,22 +41,16 @@ class SettingsColorPaletteListingActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
-        WXGLNexrad.colorPaletteProducts.forEach {
+        WXGLNexrad.colorPaletteProducts.forEach { productString ->
             val card = ObjectCardText(
                     this,
                     linearLayout,
-                    WXGLNexrad.productCodeStringToName[it] + ": " + MyApplication.radarColorPalette[it],
+                    WXGLNexrad.productCodeStringToName[productString] + ": " + MyApplication.radarColorPalette[productString],
                     MyApplication.textSizeNormal,
                     MyApplication.paddingSettings
             )
-            val product: String = it
             card.setOnClickListener(View.OnClickListener {
-                ObjectIntent(
-                        this,
-                        SettingsColorPaletteActivity::class.java,
-                        SettingsColorPaletteActivity.TYPE,
-                        arrayOf(product)
-                )
+                ObjectIntent(this, SettingsColorPaletteActivity::class.java, SettingsColorPaletteActivity.TYPE, arrayOf(productString))
             })
             cardColorPalettes.add(card)
         }
