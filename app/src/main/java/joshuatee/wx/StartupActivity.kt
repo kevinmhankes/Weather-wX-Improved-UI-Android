@@ -37,12 +37,7 @@ class StartupActivity : Activity() {
             val wfo = Location.wfo
             val state = Utility.getWfoSiteName(wfo).split(",")[0]
             val radarSite = Location.getRid(this, Location.currentLocationStr)
-            ObjectIntent(
-                this,
-                WXGLRadarActivity::class.java,
-                WXGLRadarActivity.RID,
-                arrayOf(radarSite, state)
-            )
+            ObjectIntent(this, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, arrayOf(radarSite, state))
         }
         finish()
     }

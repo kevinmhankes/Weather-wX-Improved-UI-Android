@@ -45,11 +45,7 @@ object UtilityWidget {
     private fun uriShareAndGenerate(context: Context, fileName: String): Uri {
         val dir = File(context.filesDir.toString() + "/shared")
         val file = File(dir, fileName)
-        val imgUri = FileProvider.getUriForFile(
-            context,
-            "${MyApplication.packageNameAsString}.fileprovider",
-            file
-        )
+        val imgUri = FileProvider.getUriForFile(context, "${MyApplication.packageNameAsString}.fileprovider", file)
         val localPackageManager = context.packageManager
         val intentHome = Intent("android.intent.action.MAIN")
         intentHome.addCategory("android.intent.category.HOME")
@@ -132,12 +128,7 @@ object UtilityWidget {
         }
     }
 
-    fun widgetDownloadData(
-        context: Context,
-        objCc: ObjectForecastPackageCurrentConditions,
-        objSevenDay: ObjectForecastPackage7Day,
-        objHazards: ObjectForecastPackageHazards
-    ) {
+    fun widgetDownloadData(context: Context, objCc: ObjectForecastPackageCurrentConditions, objSevenDay: ObjectForecastPackage7Day, objHazards: ObjectForecastPackageHazards) {
         val hazardRaw = objHazards.hazards
         Utility.writePref(context, "HAZARD_WIDGET", objHazards.getHazardsShort())
         Utility.writePref(context, "7DAY_WIDGET", objSevenDay.sevenDayShort)
@@ -246,21 +237,20 @@ object UtilityWidget {
     }
 
     internal fun updateSevenDay(context: Context) {
-        val r = context.contentResolver
-        r.delete(WeatherDataProvider.CONTENT_URI, null, null)
+        val contentResolver = context.contentResolver
+        contentResolver.delete(WeatherDataProvider.CONTENT_URI, null, null)
         val mgr = AppWidgetManager.getInstance(context)
         val cn = ComponentName(context, WeatherWidgetProvider::class.java)
         if (WeatherWidgetProvider.sWorkerQueue != null) {
             WeatherWidgetProvider.sDataObserver =
                 WeatherDataProviderObserver(mgr, cn, WeatherWidgetProvider.sWorkerQueue!!)
-            r.registerContentObserver(
+            contentResolver.registerContentObserver(
                 WeatherDataProvider.CONTENT_URI,
                 true,
                 WeatherWidgetProvider.sDataObserver!!
             )
         }
-        val preferences =
-            context.getSharedPreferences(context.packageName + "_preferences", Context.MODE_PRIVATE)
+        val preferences = context.getSharedPreferences(context.packageName + "_preferences", Context.MODE_PRIVATE)
         val sevenDay = preferences.getString("7DAY_EXT_WIDGET", "No data")!!
         val dayArr = sevenDay.split("\n\n").dropLastWhile { it.isEmpty() }.toMutableList()
         if (dayArr.isNotEmpty()) {
@@ -271,15 +261,14 @@ object UtilityWidget {
             val values = ContentValues()
             if (it < dayArr.size) {
                 values.put(WeatherDataProvider.Columns.DAY, dayArr[it])
-                r.update(uri, values, null, null)
+                contentResolver.update(uri, values, null, null)
             }
         }
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val thisWidget = ComponentName(context, WeatherWidgetProvider::class.java)
         val allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget)
         allWidgetIds.forEach {
-            val layout =
-                WeatherWidgetProvider.buildLayout(context, it, WeatherWidgetProvider.mIsLargeLayout)
+            val layout = WeatherWidgetProvider.buildLayout(context, it, WeatherWidgetProvider.mIsLargeLayout)
             appWidgetManager.updateAppWidget(it, layout)
         }
     }

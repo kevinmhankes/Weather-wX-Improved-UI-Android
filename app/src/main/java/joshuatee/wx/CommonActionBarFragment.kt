@@ -64,16 +64,6 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
         return true
     }
 
-    /*override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        val item = menu.findItem(R.id.action_alert)
-        if (Location.isUS) {
-            item.title = "US Alerts"
-        } else {
-            item.title = "Canadian Alerts"
-        }
-        return super.onPrepareOptionsMenu(menu)
-    }*/
-
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_alert -> {

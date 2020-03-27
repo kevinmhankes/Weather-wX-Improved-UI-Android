@@ -409,7 +409,6 @@ class MyApplication : Application() {
             spotterFav = getInitialPreferenceString("SPOTTER_FAV", "")
             homescreenFav = getInitialPreferenceString("HOMESCREEN_FAV", HOMESCREEN_FAV_DEFAULT)
             locDisplayImg = homescreenFav.contains("OGL-RADAR") || homescreenFav.contains("NXRD")
-
             alertNotificationSoundTornadoCurrent = getInitialPreference("ALERT_NOTIFICATION_SOUND_TORNADO", "false")
             alertNotificationSoundSpcmcd = getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCMCD", "false")
             alertNotificationSoundWpcmpd = getInitialPreference("ALERT_NOTIFICATION_SOUND_WPCMPD", "false")
@@ -417,20 +416,17 @@ class MyApplication : Application() {
             alertNotificationSoundNhcAtl = getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_ATL", "false")
             alertNotificationSoundSpcwat = getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCWAT", "false")
             alertNotificationSoundSpcswo = getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCSWO", "false")
-
             alertNotificationSoundTextProd = getInitialPreference("ALERT_NOTIFICATION_SOUND_TEXT_PROD", "false")
             notifSoundRepeat = getInitialPreference("NOTIF_SOUND_REPEAT", "false")
             notifTts = getInitialPreference("NOTIF_TTS", "false")
             alertBlackoutAmCurrent = getInitialPreference("ALERT_BLACKOUT_AM", -1)
             alertBlackoutPmCurrent = getInitialPreference("ALERT_BLACKOUT_PM", -1)
-
             alertTornadoNotification = getInitialPreference("ALERT_TORNADO_NOTIFICATION", "false")
             alertSpcMcdNotification = getInitialPreference("ALERT_SPCMCD_NOTIFICATION", "false")
             alertSpcWatchNotification = getInitialPreference("ALERT_SPCWAT_NOTIFICATION", "false")
             alertSpcSwoNotification = getInitialPreference("ALERT_SPCSWO_NOTIFICATION", "false")
             alertSpcSwoSlightNotification = getInitialPreference("ALERT_SPCSWO_SLIGHT_NOTIFICATION", "false")
             alertWpcMpdNotification = getInitialPreference("ALERT_WPCMPD_NOTIFICATION", "false")
-
             alertBlackoutTornado = getInitialPreference("ALERT_BLACKOUT_TORNADO", "false")
             alertNhcEpacNotification = getInitialPreference("ALERT_NHC_EPAC_NOTIFICATION", "false")
             alertNhcAtlNotification = getInitialPreference("ALERT_NHC_ATL_NOTIFICATION", "false")
@@ -664,19 +660,15 @@ class MyApplication : Application() {
             }
         }
 
-        private fun loadBuffer(
-                context: Context,
-                fileID: Int,
-                byteBuffer: ByteBuffer,
-                count: Int,
-                pref: Boolean
-        ) {
+        private fun loadBuffer(context: Context, fileID: Int, byteBuffer: ByteBuffer, count: Int, pref: Boolean) {
             if (pref) {
                 try {
                     val inputStream = context.resources.openRawResource(fileID)
-                    val dis = DataInputStream(BufferedInputStream(inputStream))
-                    (0 until count).forEach { _ -> byteBuffer.putFloat(dis.readFloat()) }
-                    dis.close()
+                    val dataInputStream = DataInputStream(BufferedInputStream(inputStream))
+                    (0 until count).forEach { _ ->
+                        byteBuffer.putFloat(dataInputStream.readFloat())
+                    }
+                    dataInputStream.close()
                     inputStream.close()
                 } catch (e: IOException) {
                     UtilityLog.handleException(e)
