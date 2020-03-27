@@ -43,12 +43,7 @@ import joshuatee.wx.ui.ObjectLinearLayout
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
 
-class ObjectSettingsCheckBox(
-    context: Context,
-    label: String,
-    pref: String,
-    strId: Int
-) {
+class ObjectSettingsCheckBox(context: Context, label: String, pref: String, strId: Int) {
 
     private val objectCard = ObjectCard(context)
     private val checkBox = CheckBox(context)
@@ -85,11 +80,7 @@ class ObjectSettingsCheckBox(
             "UI_MAIN_SCREEN_RADAR_FAB",
             "RADAR_TOOLBAR_TRANSPARENT"
         )
-        checkBox.isChecked = Utility.readPref(
-            context,
-            pref,
-            java.lang.Boolean.toString(truePrefs.contains(pref))
-        ) == "true"
+        checkBox.isChecked = Utility.readPref(context, pref, java.lang.Boolean.toString(truePrefs.contains(pref))) == "true"
         checkBox.setOnCheckedChangeListener { compoundButton, _ ->
             if (compoundButton.isChecked) {
                 if (pref == "MEDIA_CONTROL_NOTIF") {
@@ -109,63 +100,32 @@ class ObjectSettingsCheckBox(
                 Utility.writePref(context, pref, "false")
             }
             if (pref == "SIMPLE_MODE") {
-                if (MyApplication.simpleMode != Utility.readPref(
-                        context,
-                        "SIMPLE_MODE",
-                        "false"
-                    ).startsWith("t")
-                ) {
+                if (MyApplication.simpleMode != Utility.readPref(context, "SIMPLE_MODE", "false").startsWith("t")) {
                     Utility.commitPref(context)
                     UtilityAlertDialog.restart()
                 }
             }
             if (pref == "HIDE_TOP_TOOLBAR") {
-                if (UIPreferences.hideTopToolbar != Utility.readPref(
-                        context,
-                        "HIDE_TOP_TOOLBAR",
-                        "false"
-                    ).startsWith("t")
-                ) {
+                if (UIPreferences.hideTopToolbar != Utility.readPref(context, "HIDE_TOP_TOOLBAR", "false").startsWith("t")) {
                     Utility.commitPref(context)
                     UtilityAlertDialog.restart()
                 }
             }
             if (pref == "UI_MAIN_SCREEN_RADAR_FAB") {
-                if (UIPreferences.mainScreenRadarFab != Utility.readPref(
-                        context,
-                        "UI_MAIN_SCREEN_RADAR_FAB",
-                        "false"
-                    ).startsWith("t")
-                ) {
+                if (UIPreferences.mainScreenRadarFab != Utility.readPref(context, "UI_MAIN_SCREEN_RADAR_FAB", "false").startsWith("t")) {
                     Utility.commitPref(context)
                     UtilityAlertDialog.restart()
                 }
             }
             when (pref) {
-                "COD_WARNINGS_DEFAULT", "RADAR_SHOW_MPD", "RADAR_SHOW_WATCH" -> Utility.writePref(
-                    context,
-                    "RESTART_NOTIF",
-                    "true"
-                )
+                "COD_WARNINGS_DEFAULT", "RADAR_SHOW_MPD", "RADAR_SHOW_WATCH" -> Utility.writePref(context, "RESTART_NOTIF", "true")
                 "RADAR_STATE_HIRES", "RADAR_COUNTY_HIRES", "RADAR_HW_ENH_EXT", "RADAR_CAMX_BORDERS", "WXOGL_SPOTTERS", "WXOGL_SPOTTERS_LABEL" -> {
                     MyApplication.initPreferences(context)
                     when (pref) {
-                        "RADAR_STATE_HIRES" -> MyApplication.initRadarGeometryByType(
-                            context,
-                            GeographyType.STATE_LINES
-                        )
-                        "RADAR_COUNTY_HIRES" -> MyApplication.initRadarGeometryByType(
-                            context,
-                            GeographyType.COUNTY_LINES
-                        )
-                        "RADAR_HW_ENH_EXT" -> MyApplication.initRadarGeometryByType(
-                            context,
-                            GeographyType.HIGHWAYS_EXTENDED
-                        )
-                        "RADAR_CAMX_BORDERS" -> MyApplication.initRadarGeometryByType(
-                            context,
-                            GeographyType.STATE_LINES
-                        )
+                        "RADAR_STATE_HIRES" -> MyApplication.initRadarGeometryByType(context, GeographyType.STATE_LINES)
+                        "RADAR_COUNTY_HIRES" -> MyApplication.initRadarGeometryByType(context, GeographyType.COUNTY_LINES)
+                        "RADAR_HW_ENH_EXT" -> MyApplication.initRadarGeometryByType(context, GeographyType.HIGHWAYS_EXTENDED)
+                        "RADAR_CAMX_BORDERS" -> MyApplication.initRadarGeometryByType(context, GeographyType.STATE_LINES)
                     }
                     GeographyType.refresh()
                 }
