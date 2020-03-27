@@ -60,23 +60,13 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         faqButton.setTextColor(UIPreferences.textHighlightColor)
         faqButton.text = "View FAQ (Outage notifications listed at top if any current)"
         faqButton.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                    this,
-                    WebView::class.java,
-                    WebView.URL,
-                    arrayOf(faqUrl, "Frequently Asked Questions")
-            )
+            ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf(faqUrl, "Frequently Asked Questions"))
         })
         val releaseNotesButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         releaseNotesButton.setTextColor(UIPreferences.textHighlightColor)
         releaseNotesButton.text = "View release notes"
         releaseNotesButton.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                    this,
-                    WebView::class.java,
-                    WebView.URL,
-                    arrayOf(releaseNotesUrl, "Release Notes")
-            )
+            ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf(releaseNotesUrl, "Release Notes"))
         })
         val emailButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         emailButton.setTextColor(UIPreferences.textHighlightColor)
@@ -92,12 +82,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         iOSVersion.setTextColor(UIPreferences.textHighlightColor)
         iOSVersion.text = "iOS port of wX is called wXL23"
         iOSVersion.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                    this,
-                    WebView::class.java,
-                    WebView.URL,
-                    arrayOf(iOSUrl, "wXL23 for iOS")
-            )
+            ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf(iOSUrl, "wXL23 for iOS"))
         })
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         textCard.text = Utility.showVersion(this, this)
@@ -109,11 +94,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
             return true
         }
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(
-                this,
-                "About wX",
-                html
-            )
+            R.id.action_share -> UtilityShare.shareText(this, "About wX", html)
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -122,18 +103,10 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
         textCard.text = keyCode.toString() + " " + Utility.showVersion(this, this)
         return when (keyCode) {
-            KeyEvent.KEYCODE_DPAD_LEFT -> {
-                true
-            }
-            KeyEvent.KEYCODE_DPAD_RIGHT -> {
-                true
-            }
-            KeyEvent.KEYCODE_DPAD_UP -> {
-                true
-            }
-            KeyEvent.KEYCODE_DPAD_DOWN -> {
-                true
-            }
+            KeyEvent.KEYCODE_DPAD_LEFT -> true
+            KeyEvent.KEYCODE_DPAD_RIGHT -> true
+            KeyEvent.KEYCODE_DPAD_UP -> true
+            KeyEvent.KEYCODE_DPAD_DOWN -> true
             else -> super.onKeyUp(keyCode, event)
         }
     }

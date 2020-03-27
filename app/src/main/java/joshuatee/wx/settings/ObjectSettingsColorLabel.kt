@@ -35,11 +35,7 @@ import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectTextView
 import joshuatee.wx.util.Utility
 
-internal class ObjectSettingsColorLabel(
-        val context: Context,
-        label: String,
-        private val pref: String
-) {
+internal class ObjectSettingsColorLabel(val context: Context, label: String, private val pref: String) {
 
     private val objectCard = ObjectCard(context, R.color.black)
     private val objectTextView = ObjectTextView(context)

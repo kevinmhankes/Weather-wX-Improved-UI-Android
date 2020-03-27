@@ -40,14 +40,7 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
 
-class ObjectSettingsSpinner(
-    context: Context,
-    label: String,
-    pref: String,
-    prefInit: String,
-    strId: Int,
-    spinnerArr: List<String>
-) {
+class ObjectSettingsSpinner(context: Context, label: String, pref: String, prefInit: String, strId: Int, spinnerArr: List<String>) {
 
     private val objectCard = ObjectCard(context)
 
@@ -93,13 +86,7 @@ class ObjectSettingsSpinner(
         }
         var value = Utility.readPref(context, pref, prefInit)
         if (pref == "WIDGET_LOCATION") {
-            value += ": " + UtilityStringExternal.truncate(
-                Utility.readPref(
-                    context,
-                    "LOC" + value + "_LABEL",
-                    ""
-                ), 20
-            )
+            value += ": " + UtilityStringExternal.truncate(Utility.readPref(context, "LOC" + value + "_LABEL", ""), 20)
         }
         spinner.setSelection(dataAdapter.getPosition(value))
         objectLinearLayout.addView(spinner)

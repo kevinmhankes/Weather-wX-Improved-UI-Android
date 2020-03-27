@@ -70,24 +70,14 @@ class SettingsColorPaletteActivity : BaseActivity() {
         toolbar.subtitle = WXGLNexrad.productCodeStringToName[type]
         title = MyApplication.radarColorPalette[type]
         prefToken = "RADAR_COLOR_PALETTE_$type"
-        fab1 = ObjectFab(
-                this,
-                this,
-                R.id.fab1,
-                R.drawable.ic_reorder_24dp,
-                View.OnClickListener { addPalFab() })
-        fab2 = ObjectFab(
-                this,
-                this,
-                R.id.fab2,
-                MyApplication.ICON_DELETE,
-                View.OnClickListener { editPalFab() })
+        fab1 = ObjectFab(this, this, R.id.fab1, R.drawable.ic_reorder_24dp, View.OnClickListener { addPalFab() })
+        fab2 = ObjectFab(this, this, R.id.fab2, MyApplication.ICON_DELETE, View.OnClickListener { editPalFab() })
         rowListItem = allItemList
-        val lLayout = GridLayoutManager(this, UIPreferences.tilesPerRow)
-        card_list.setHasFixedSize(true)
-        card_list.layoutManager = lLayout
+        val gridLayoutManager = GridLayoutManager(this, UIPreferences.tilesPerRow)
+        cardList.setHasFixedSize(true)
+        cardList.layoutManager = gridLayoutManager
         rcAdapter = TileAdapterColorPalette(rowListItem, UIPreferences.tilesPerRow)
-        card_list.adapter = rcAdapter
+        cardList.adapter = rcAdapter
         rcAdapter.setListener(::itemClicked)
     }
 
@@ -168,7 +158,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
     override fun onRestart() {
         rowListItem = allItemList
         rcAdapter = TileAdapterColorPalette(rowListItem, UIPreferences.tilesPerRow)
-        card_list.adapter = rcAdapter
+        cardList.adapter = rcAdapter
         title = MyApplication.radarColorPalette[type]
         UtilityColorPaletteGeneric.loadColorMap(this, type)
         super.onRestart()
@@ -222,7 +212,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                 UtilityColorPaletteGeneric.loadColorMap(this, type)
                 rowListItem = allItemList
                 rcAdapter = TileAdapterColorPalette(rowListItem, UIPreferences.tilesPerRow)
-                card_list.adapter = rcAdapter
+                cardList.adapter = rcAdapter
             } else {
                 ObjectDialogue(this, builtInHelpMsg)
             }
