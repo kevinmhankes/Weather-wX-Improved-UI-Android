@@ -118,26 +118,17 @@ object UtilityColorPaletteGeneric {
                     line.split(" ")
                 if (items.size > 4) {
                     if (priorLineHas6) {
-                        dbzAl.add(
-                                ((items[1].toDoubleOrNull()
-                                        ?: 0.0) * prodScale + prodOffset - 1).toInt()
-                        )
+                        dbzAl.add(((items[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset - 1).toInt())
                         rAl.add(r.toIntOrNull() ?: 0)
                         gAl.add(g.toIntOrNull() ?: 0)
                         bAl.add(b.toIntOrNull() ?: 0)
-                        dbzAl.add(
-                                ((items[1].toDoubleOrNull()
-                                        ?: 0.0) * prodScale + prodOffset).toInt()
-                        )
+                        dbzAl.add(((items[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset).toInt())
                         rAl.add(items[2].toIntOrNull() ?: 0)
                         gAl.add(items[3].toIntOrNull() ?: 0)
                         bAl.add(items[4].toIntOrNull() ?: 0)
                         priorLineHas6 = false
                     } else {
-                        dbzAl.add(
-                                ((items[1].toDoubleOrNull()
-                                        ?: 0.0) * prodScale + prodOffset).toInt()
-                        )
+                        dbzAl.add(((items[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset).toInt())
                         rAl.add(items[2].toIntOrNull() ?: 0)
                         gAl.add(items[3].toIntOrNull() ?: 0)
                         bAl.add(items[4].toIntOrNull() ?: 0)
@@ -276,69 +267,37 @@ object UtilityColorPaletteGeneric {
                 "DKenh" -> generate(context, product, "DKenh")
                 "COD", "CODENH" -> generate(context, product, "CODENH")
                 "MENH" -> generate(context, product, "MENH")
-                else -> generate(
-                        context,
-                        product,
-                        MyApplication.radarColorPalette[product]!!
-                )
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
             "99" -> when (MyApplication.radarColorPalette[product]) {
                 "COD", "CODENH" -> generate(context, product, "CODENH")
                 "AF" -> generate(context, product, "AF")
                 "EAK" -> generate(context, product, "EAK")
-                else -> generate(
-                        context,
-                        product,
-                        MyApplication.radarColorPalette[product]!!
-                )
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
             "134" -> when (MyApplication.radarColorPalette[product]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(
-                        context,
-                        product,
-                        MyApplication.radarColorPalette[product]!!
-                )
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
             "135" -> when (MyApplication.radarColorPalette[product]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(
-                        context,
-                        product,
-                        MyApplication.radarColorPalette[product]!!
-                )
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
             "159" -> when (MyApplication.radarColorPalette[product]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(
-                        context,
-                        product,
-                        MyApplication.radarColorPalette[product]!!
-                )
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
             "161" -> when (MyApplication.radarColorPalette[product]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(
-                        context,
-                        product,
-                        MyApplication.radarColorPalette[product]!!
-                )
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
             "163" -> when (MyApplication.radarColorPalette[product]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(
-                        context,
-                        product,
-                        MyApplication.radarColorPalette[product]!!
-                )
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
             "172" -> when (MyApplication.radarColorPalette[product]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(
-                        context,
-                        product,
-                        MyApplication.radarColorPalette[product]!!
-                )
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
             else -> {
             }
