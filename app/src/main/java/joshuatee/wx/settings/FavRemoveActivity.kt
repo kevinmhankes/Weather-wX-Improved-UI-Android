@@ -64,12 +64,7 @@ class FavRemoveActivity : BaseActivity() {
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(
-                savedInstanceState,
-                R.layout.activity_recyclerview_toolbar,
-                null,
-                false
-        )
+        super.onCreate(savedInstanceState, R.layout.activity_recyclerview_toolbar, null, false)
         val activityArguments = intent.getStringArrayExtra(TYPE)
         type = activityArguments!![0]
         var verboseTitle = ""
@@ -241,18 +236,18 @@ class FavRemoveActivity : BaseActivity() {
 
     private fun findCanadaRadarSiteLabel(rid: String) =
             (GlobalArrays.canadaRadars.indices).firstOrNull {
-                        GlobalArrays.canadaRadars[it].contains(
-                                rid
-                        )
+                        GlobalArrays.canadaRadars[it].contains(rid)
                     }
                     ?.let { GlobalArrays.canadaRadars[it].replace(":", "") }
                     ?: rid
 
     private fun findSpcMesoLabel(rid: String): String {
         val index = UtilitySpcMeso.params.indexOf(rid)
-        if (index == -1)
-            return UtilitySpcMeso.labels[0]
-        return UtilitySpcMeso.labels[index]
+        return if (index == -1) {
+            UtilitySpcMeso.labels[0]
+        } else {
+            UtilitySpcMeso.labels[index]
+        }
     }
 
     private fun itemClicked(position: Int) {
