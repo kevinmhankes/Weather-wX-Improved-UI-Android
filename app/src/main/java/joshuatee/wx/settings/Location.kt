@@ -259,20 +259,13 @@ class Location(val context: Context, locNumInt: Int) {
             )
         }
 
-        fun locationSave(
-                context: Context,
-                locNum: String,
-                xStr: String,
-                yStr: String,
-                labelStr: String
-        ): String {
+        fun locationSave(context: Context, locNum: String, xStr: String, yStr: String, labelStr: String): String {
             if (xStr == "" || yStr == "" || labelStr == "") {
                 return "Location label, latitude, and longitude all must have valid values, please try again."
             }
-            val locNumToSave: Int
             val locNumInt = locNum.toIntOrNull() ?: 0
             val locNumIntCurrent = numLocations
-            locNumToSave = if (locNumInt == locNumIntCurrent + 1) {
+            val locNumToSave = if (locNumInt == locNumIntCurrent + 1) {
                 locNumInt
             } else {
                 locNumIntCurrent
@@ -322,11 +315,7 @@ class Location(val context: Context, locNumInt: Int) {
                     tmpLatLon.latStr = parseProv[2]
                     tmpLatLon.lonStr = parseId[1]
                 }
-                Utility.writePref(
-                        context,
-                        "LOC" + locNum + "_X",
-                        "CANADA" + ":" + prov + ":" + tmpLatLon.latStr
-                )
+                Utility.writePref(context, "LOC" + locNum + "_X", "CANADA" + ":" + prov + ":" + tmpLatLon.latStr)
                 Utility.writePref(context, "LOC" + locNum + "_Y", id + ":" + tmpLatLon.lonStr)
                 setNumLocations(context, locNumToSave)
                 radarSite = UtilityCanada.getRadarSite(xStr, yStr)
@@ -380,51 +369,15 @@ class Location(val context: Context, locNumInt: Int) {
                     //val dst = Utility.readPref(context, "LOC" + jStr + "_TIMEDST", "")
                     //Utility.writePref(context, "LOC" + iStr + "_TIMERAW", raw)
                     //Utility.writePref(context, "LOC" + iStr + "_TIMEDST", dst)
-                    Utility.writePref(
-                            context,
-                            "ALERT" + iStr + "_NOTIFICATION",
-                            alertNotificationCurrent
-                    )
-                    Utility.writePref(
-                            context,
-                            "ALERT_CC" + iStr + "_NOTIFICATION",
-                            alertCcNotificationCurrent
-                    )
-                    Utility.writePref(
-                            context,
-                            "ALERT_7DAY_" + iStr + "_NOTIFICATION",
-                            alert7Day1NotificationCurrent
-                    )
-                    Utility.writePref(
-                            context,
-                            "ALERT_NOTIFICATION_SOUND$iStr",
-                            alertNotificationSoundCurrent
-                    )
-                    Utility.writePref(
-                            context,
-                            "ALERT_NOTIFICATION_MCD$iStr",
-                            alertNotificationMcdCurrent
-                    )
-                    Utility.writePref(
-                            context,
-                            "ALERT_NOTIFICATION_SWO$iStr",
-                            alertNotificationSwoCurrent
-                    )
-                    Utility.writePref(
-                            context,
-                            "ALERT_NOTIFICATION_SPCFW$iStr",
-                            alertNotificationSpcfwCurrent
-                    )
-                    Utility.writePref(
-                            context,
-                            "ALERT_NOTIFICATION_WPCMPD$iStr",
-                            alertNotificationWpcmpdCurrent
-                    )
-                    Utility.writePref(
-                            context,
-                            "ALERT_NOTIFICATION_RADAR$iStr",
-                            alertNotificationRadarCurrent
-                    )
+                    Utility.writePref(context, "ALERT" + iStr + "_NOTIFICATION", alertNotificationCurrent)
+                    Utility.writePref(context, "ALERT_CC" + iStr + "_NOTIFICATION", alertCcNotificationCurrent)
+                    Utility.writePref(context, "ALERT_7DAY_" + iStr + "_NOTIFICATION", alert7Day1NotificationCurrent)
+                    Utility.writePref(context, "ALERT_NOTIFICATION_SOUND$iStr", alertNotificationSoundCurrent)
+                    Utility.writePref(context, "ALERT_NOTIFICATION_MCD$iStr", alertNotificationMcdCurrent)
+                    Utility.writePref(context, "ALERT_NOTIFICATION_SWO$iStr", alertNotificationSwoCurrent)
+                    Utility.writePref(context, "ALERT_NOTIFICATION_SPCFW$iStr", alertNotificationSpcfwCurrent)
+                    Utility.writePref(context, "ALERT_NOTIFICATION_WPCMPD$iStr", alertNotificationWpcmpdCurrent)
+                    Utility.writePref(context, "ALERT_NOTIFICATION_RADAR$iStr", alertNotificationRadarCurrent)
                     Utility.writePref(context, "LOC" + iStr + "_OBSERVATION", locObsCurrent)
                     Utility.writePref(context, "LOC" + iStr + "_X", locXCurrent)
                     Utility.writePref(context, "LOC" + iStr + "_Y", locYCurrent)
