@@ -51,9 +51,7 @@ object Utility {
         return diagnostics
     }
 
-    fun getRadarSiteName(radarSite: String): String {
-        return UtilityRadar.radarIdToName[radarSite] ?: ""
-    }
+    fun getRadarSiteName(radarSite: String)= UtilityRadar.radarIdToName[radarSite] ?: ""
 
     /* fun getRadarSiteLatLon(radarSite: String): LatLon {
          val lat = UtilityRadar.radarSiteToLat[radarSite] ?: ""
@@ -61,33 +59,19 @@ object Utility {
          return LatLon(lat, lon)
      }*/
 
-    fun getRadarSiteX(radarSite: String): String {
-        return UtilityRadar.radarSiteToLat[radarSite] ?: ""
-    }
+    fun getRadarSiteX(radarSite: String) = UtilityRadar.radarSiteToLat[radarSite] ?: ""
 
-    fun getRadarSiteY(radarSite: String): String {
-        return UtilityRadar.radarSiteToLon[radarSite] ?: ""
-    }
+    fun getRadarSiteY(radarSite: String) = UtilityRadar.radarSiteToLon[radarSite] ?: ""
 
-    fun getWfoSiteX(site: String): String {
-        return UtilityRadar.wfoSiteToLat[site] ?: ""
-    }
+    fun getWfoSiteX(site: String) = UtilityRadar.wfoSiteToLat[site] ?: ""
 
-    fun getWfoSiteY(site: String): String {
-        return UtilityRadar.wfoSiteToLon[site] ?: ""
-    }
+    fun getWfoSiteY(site: String) = UtilityRadar.wfoSiteToLon[site] ?: ""
 
-    fun getWfoSiteName(wfo: String): String {
-        return UtilityRadar.wfoIdToName[wfo] ?: ""
-    }
+    fun getWfoSiteName(wfo: String) = UtilityRadar.wfoIdToName[wfo] ?: ""
 
-    fun getSoundingSiteX(site: String): String {
-        return UtilityRadar.soundingSiteToLat[site] ?: ""
-    }
+    fun getSoundingSiteX(site: String) = UtilityRadar.soundingSiteToLat[site] ?: ""
 
-    fun getSoundingSiteY(site: String): String {
-        return UtilityRadar.soundingSiteToLon[site] ?: ""
-    }
+    fun getSoundingSiteY(site: String) = UtilityRadar.soundingSiteToLon[site] ?: ""
 
    /* fun getWfoSiteLatLon(wfo: String): LatLon {
         val lat = UtilityRadar.wfoSitetoLat[wfo] ?: ""
@@ -142,7 +126,6 @@ object Utility {
     }
 
     fun writePrefWithNull(context: Context, key: String, value: String?) {
-        //UtilityLog.d("WRITEPREF", key)
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = preferences.edit()
         editor.putString(key, value)
@@ -150,7 +133,6 @@ object Utility {
     }
 
     fun writePref(context: Context, key: String, value: Int) {
-        //UtilityLog.d("WRITEPREF INT", key + " " + value.toString())
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = preferences.edit()
         editor.putInt(key, value)
@@ -172,7 +154,6 @@ object Utility {
     }
 
     fun writePref(key: String, value: String) {
-        //UtilityLog.d("WRITEPREF", key)
         MyApplication.editor.putString(key, value)
         MyApplication.editor.apply()
     }
@@ -193,7 +174,6 @@ object Utility {
     //}
 
     fun readPref(context: Context, key: String, value: String): String {
-        //UtilityLog.d("READPREF", key)
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         return preferences.getString(key, value)!!
     }
@@ -224,9 +204,9 @@ object Utility {
     }
 
     // FIXME deprecate these
-    fun readPref(key: String, value: String): String = MyApplication.preferences.getString(key, value)!!
+    fun readPref(key: String, value: String) = MyApplication.preferences.getString(key, value)!!
 
-    fun theme(themeStr: String): Int = when {
+    fun theme(themeStr: String) = when {
         themeStr.startsWith("blue") -> R.style.MyCustomTheme_NOAB
         themeStr.startsWith("black") -> R.style.MyCustomTheme_Holo_Dark_NOAB
         themeStr.startsWith("green") -> R.style.MyCustomTheme_Green_NOAB
@@ -240,9 +220,9 @@ object Utility {
         else -> R.style.MyCustomTheme_NOAB
     }
 
-    fun getHazards(url: String): String = url.parse("<!-- AddThis Button END --> {3}<hr /><br />(.*?)</div>")
+    fun getHazards(url: String) = url.parse("<!-- AddThis Button END --> {3}<hr /><br />(.*?)</div>")
 
-    fun fromHtml(source: String): String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+    fun fromHtml(source: String) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY).toString()
     } else {
         Html.fromHtml(source).toString()
@@ -287,8 +267,7 @@ object Utility {
         return string
     }
 
-    fun showMainScreenShortCuts(): String {
-        return "Ctrl-r: Nexrad radar" + MyApplication.newline +
+    fun showMainScreenShortCuts() = "Ctrl-r: Nexrad radar" + MyApplication.newline +
                 "Ctrl-m: Show submenu" + MyApplication.newline +
                 "Ctrl-d: Severe Dashboard" + MyApplication.newline +
                 "Ctrl-c: Goes Viewer" + MyApplication.newline +
@@ -296,7 +275,6 @@ object Utility {
                 "Ctrl-s: Settings" + MyApplication.newline +
                 "Ctrl-2: Dual Pane Radar" + MyApplication.newline +
                 "Ctrl-4: Quad Pane Radar" + MyApplication.newline +
-                //"Ctrl-w: US Alerts" + MyApplication.newline +
                 "Ctrl-e: SPC Mesoanalysis" + MyApplication.newline +
                 "Ctrl-n: NCEP Models" + MyApplication.newline +
                 "Ctrl-h: Hourly" + MyApplication.newline +
@@ -306,10 +284,8 @@ object Utility {
                 "Ctrl-z: National text discussions" + MyApplication.newline +
                 "Ctrl-j: Previous tab" + MyApplication.newline +
                 "Ctrl-k: Next tab" + MyApplication.newline
-    }
 
-    fun showRadarShortCuts(): String {
-        return "Ctrl-l: Show map" + MyApplication.newline +
+    fun showRadarShortCuts() = "Ctrl-l: Show map" + MyApplication.newline +
                 "Ctrl-m: Show submenu" + MyApplication.newline +
                 "Ctrl-a: Animate / stop animate" + MyApplication.newline +
                 "Ctrl-r: Show reflectivity" + MyApplication.newline +
@@ -321,23 +297,19 @@ object Utility {
                 "Ctrl-DownArrow: Zoom in" + MyApplication.newline +
                 "Arrow keys: pan radar" + MyApplication.newline +
                 "Reload key: reload radar" + MyApplication.newline
-    }
 
-    fun showWfoTextShortCuts(): String {
-        return "Ctrl-l: Show map" + MyApplication.newline +
+    fun showWfoTextShortCuts() = "Ctrl-l: Show map" + MyApplication.newline +
                 "Ctrl-m: Show submenu" + MyApplication.newline +
                 "Ctrl-f: Toggle favorite" + MyApplication.newline +
                 "Ctrl-p: Play audio - TTS" + MyApplication.newline +
                 "Ctrl-s: Stop audio - TTS" + MyApplication.newline +
                 "Ctrl-d: Show navigation drawer" + MyApplication.newline
-    }
 
-    fun showLocationEditShortCuts(): String {
-        return "Ctrl-g: Use GPS to find location" + MyApplication.newline +
+
+    fun showLocationEditShortCuts() = "Ctrl-g: Use GPS to find location" + MyApplication.newline +
                 "Ctrl-m: Show submenu" + MyApplication.newline
-                //"Ctrl-a: Animate / stop animate" + MyApplication.newline +
 
-    }
+
 }
 
 

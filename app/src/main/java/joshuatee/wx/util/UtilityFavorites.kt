@@ -68,9 +68,8 @@ object UtilityFavorites {
         favorites[1] = ADD_STR
         favorites[2] = MODIFY_STR
         val returnList = MutableList(favorites.size) { "" }
-        var name: String
         favorites.indices.forEach { k ->
-            name = when (prefToken) {
+            val name = when (prefToken) {
                 "RID_FAV" -> Utility.getRadarSiteName(favorites[k])
                 "WFO_FAV" -> Utility.getWfoSiteName(favorites[k])
                 "SND_FAV" -> Utility.getSoundingSiteName(favorites[k])

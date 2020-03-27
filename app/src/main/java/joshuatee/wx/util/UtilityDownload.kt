@@ -56,7 +56,7 @@ object UtilityDownload {
     fun getRadarMosaic(context: Context): Bitmap {
         val location = Location.currentLocationStr
         val radarSite = Location.getRid(context, location)
-        var bitmap: Bitmap = UtilityImg.getBlankBitmap()
+        var bitmap = UtilityImg.getBlankBitmap()
         try {
             if (!UIPreferences.useAwcRadarMosaic) {
                 val ridLoc = Utility.getRadarSiteName(radarSite)

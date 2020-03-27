@@ -64,7 +64,7 @@ internal object WXGLPolygonWarnings {
                     val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers).toMutableList()
                     warningList += startCoordinates
                     if (x.size == y.size) {
-                        for (index in 1 until x.size) {
+                        (1 until x.size).forEach { index ->
                             val coordinates = UtilityCanvasProjection.computeMercatorNumbers(x[index], y[index], projectionNumbers).toMutableList()
                             warningList += coordinates
                             warningList += coordinates

@@ -44,14 +44,7 @@ class WXGLDownload {
     private var radarSite = ""
     private var product = ""
 
-    fun getRadarFile(
-            context: Context,
-            urlStr: String,
-            radarSite: String,
-            product: String,
-            idxStr: String,
-            tdwr: Boolean
-    ): String {
+    fun getRadarFile(context: Context, urlStr: String, radarSite: String, product: String, idxStr: String, tdwr: Boolean): String {
         val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, tdwr)
         this.radarSite = radarSite
         this.product = product
@@ -86,9 +79,8 @@ class WXGLDownload {
     // Download a list of files and return the list as a list of Strings
     // Determines of Level 2 or Level 3 and calls appropriate method
     fun getRadarFilesForAnimation(context: Context, frameCount: Int): List<String> {
-        val fileList: List<String>
         val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, product)
-        fileList = if (!product.contains("L2")) {
+        return if (!product.contains("L2")) {
             getLevel3FilesForAnimation(
                     context,
                     frameCount,
@@ -105,20 +97,13 @@ class WXGLDownload {
                     frameCount
             )
         }
-        return fileList
     }
 
     // getRadarFilesForAnimation  getLevel3FilesForAnimation  getLevel2FilesForAnimation
     // listOfFiles
     // Download a list of files and return the list as a list of Strings
     // Determines of Level 2 or Level 3 and calls appropriate method
-    private fun getLevel3FilesForAnimation(
-            context: Context,
-            frameCount: Int,
-            prod: String,
-            ridPrefix: String,
-            radarSite: String
-    ): List<String> {
+    private fun getLevel3FilesForAnimation(context: Context, frameCount: Int, prod: String, ridPrefix: String, radarSite: String): List<String> {
         val fileList = mutableListOf<String>()
         var htmlOut =
                 (MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/"
@@ -149,8 +134,9 @@ class WXGLDownload {
         }
         var mostRecentSn = ""
         val mostRecentTime = snDates.last()
-        (0 until snDates.lastIndex).filter { snDates[it] == mostRecentTime }
-                .forEach { mostRecentSn = snFiles[it] }
+        (0 until snDates.lastIndex).filter { snDates[it] == mostRecentTime }.forEach {
+            mostRecentSn = snFiles[it]
+        }
         try {
             val seq = mostRecentSn.replace("sn.", "").toIntOrNull() ?: 0
             var j = 0
@@ -181,11 +167,7 @@ class WXGLDownload {
     }
 
     // Level 2: Download a list of files and return the list as a list of Strings
-    private fun getLevel2FilesForAnimation(
-            context: Context,
-            baseUrl: String,
-            frameCount: Int
-    ): List<String> {
+    private fun getLevel2FilesForAnimation(context: Context, baseUrl: String, frameCount: Int): List<String> {
         val fileList = mutableListOf<String>()
         val tmpArr = (baseUrl + "dir.list").getHtmlSep().replace("<br>", " ").split(" ")
                 .dropLastWhile { it.isEmpty() }
@@ -211,23 +193,22 @@ class WXGLDownload {
 
     // TODO refactor variable names
     fun getLevel2Url(radarSite: String): String {
-        var fn: String
         val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, false).toUpperCase(Locale.US)
-        val baseUrl = nwsRadarLevel2Pub + ridPrefix + radarSite + "/"
+        val baseUrl = "$nwsRadarLevel2Pub$ridPrefix$radarSite/"
         val tmpArr = (baseUrl + "dir.list").getHtmlSep().replace("<br>", " ").split(" ")
                 .dropLastWhile { it.isEmpty() }
         if (tmpArr.size < 4) {
             return ""
         }
-        fn = tmpArr.last()
+        var fileName = tmpArr.last()
         val fnPrev = tmpArr[tmpArr.size - 3]
         val fnSize = tmpArr[tmpArr.size - 2].toIntOrNull() ?: 1
         val fnPrevSize = tmpArr[tmpArr.size - 4].toIntOrNull() ?: 1
         val ratio = fnSize.toFloat() / fnPrevSize.toFloat()
         if (ratio < 0.75) {
-            fn = fnPrev
+            fileName = fnPrev
         }
-        return baseUrl + fn
+        return baseUrl + fileName
     }
 
     private fun getInputStreamFromUrlL2(url: String, product: String): InputStream? {

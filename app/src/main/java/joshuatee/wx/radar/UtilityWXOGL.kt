@@ -169,7 +169,6 @@ object UtilityWXOGL {
         html = html.replace(" ", "")
         val polygons = html.parseColumn(RegExp.warningLatLonPattern)
         var retStr = ""
-        var testArr: List<String>
         var q = 0
         var notFound = true
         var polyCount = -1
@@ -178,12 +177,12 @@ object UtilityWXOGL {
             //if (vtecAl.size > polyCount && !vtecAl[polyCount].startsWith("0.EXP") && !vtecAl[polyCount].startsWith("0.CAN")) {
             //if (true) {
             val polyTmp = polys.replace("[", "").replace("]", "").replace(",", " ")
-            testArr = polyTmp.split(" ").dropLastWhile { it.isEmpty() }
-            val y = testArr.asSequence().filterIndexed { idx: Int, _: String -> idx and 1 == 0 }
+            val testArr = polyTmp.split(" ").dropLastWhile { it.isEmpty() }
+            val y = testArr.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }
                     .map {
                         it.toDoubleOrNull() ?: 0.0
                     }.toList()
-            val x = testArr.asSequence().filterIndexed { idx: Int, _: String -> idx and 1 != 0 }
+            val x = testArr.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }
                     .map {
                         it.toDoubleOrNull() ?: 0.0
                     }.toList()

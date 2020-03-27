@@ -142,8 +142,7 @@ class WXGLTextObject(
         }
     }
 
-    private fun getScale() =
-            8.1f * wxglRender.zoom / MyApplication.deviceScale * (glviewWidth / 800.0f * MyApplication.deviceScale) / textViewFudgeFactor
+    private fun getScale() = 8.1f * wxglRender.zoom / MyApplication.deviceScale * (glviewWidth / 800.0f * MyApplication.deviceScale) / textViewFudgeFactor
 
     private fun addTextLabelsCountyLabels() {
         if (MyApplication.radarCountyLabels && countyLabelsTvArrInit) {
@@ -223,43 +222,43 @@ class WXGLTextObject(
             text: String,
             color: Int
     ) {
-        val tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(lat, lon, projectionNumbers)
-        tmpCoords[0] = tmpCoords[0] + wxglRender.x / wxglRender.zoom
-        tmpCoords[1] = tmpCoords[1] - wxglRender.y / wxglRender.zoom
-        if (abs(tmpCoords[0] * scale) < glviewWidth && abs(tmpCoords[1] * scale) < glviewHeight) {
+        val coordinates = UtilityCanvasProjection.computeMercatorNumbers(lat, lon, projectionNumbers)
+        coordinates[0] = coordinates[0] + wxglRender.x / wxglRender.zoom
+        coordinates[1] = coordinates[1] - wxglRender.y / wxglRender.zoom
+        if (abs(coordinates[0] * scale) < glviewWidth && abs(coordinates[1] * scale) < glviewHeight) {
             tvList.add(TextView(context))
             ii = tvList.lastIndex
             tvList[ii].setTextColor(color)
             tvList[ii].setShadowLayer(1.5f, 2.0f, 2.0f, R.color.black)
             relativeLayout.addView(tvList[ii])
             tvList[ii].setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
-            if ((tmpCoords[1] * scale).toInt() < 0) {
-                if ((tmpCoords[0] * scale).toInt() < 0)
+            if ((coordinates[1] * scale).toInt() < 0) {
+                if ((coordinates[0] * scale).toInt() < 0)
                     tvList[ii].setPadding(
                             0,
                             0,
-                            (-(tmpCoords[0] * scale)).toInt(),
-                            (-(tmpCoords[1] * scale)).toInt()
+                            (-(coordinates[0] * scale)).toInt(),
+                            (-(coordinates[1] * scale)).toInt()
                     )
                 else
                     tvList[ii].setPadding(
-                            (tmpCoords[0] * scale).toInt(),
+                            (coordinates[0] * scale).toInt(),
                             0,
                             0,
-                            (-(tmpCoords[1] * scale)).toInt()
+                            (-(coordinates[1] * scale)).toInt()
                     )
             } else {
-                if ((tmpCoords[0] * scale).toInt() < 0)
+                if ((coordinates[0] * scale).toInt() < 0)
                     tvList[ii].setPadding(
                             0,
-                            (tmpCoords[1] * scale).toInt(),
-                            (-(tmpCoords[0] * scale)).toInt(),
+                            (coordinates[1] * scale).toInt(),
+                            (-(coordinates[0] * scale)).toInt(),
                             0
                     )
                 else
                     tvList[ii].setPadding(
-                            (tmpCoords[0] * scale).toInt(),
-                            (tmpCoords[1] * scale).toInt(),
+                            (coordinates[0] * scale).toInt(),
+                            (coordinates[1] * scale).toInt(),
                             0,
                             0
                     )
@@ -282,11 +281,11 @@ class WXGLTextObject(
             color: Int,
             textSizeTv: Float
     ): Boolean {
-        val tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(lat, lon, projectionNumbers)
-        tmpCoords[0] = tmpCoords[0] + wxglRender.x / wxglRender.zoom
-        tmpCoords[1] = tmpCoords[1] - wxglRender.y / wxglRender.zoom
+        val coordinates = UtilityCanvasProjection.computeMercatorNumbers(lat, lon, projectionNumbers)
+        coordinates[0] = coordinates[0] + wxglRender.x / wxglRender.zoom
+        coordinates[1] = coordinates[1] - wxglRender.y / wxglRender.zoom
         var drawText = false
-        if (abs(tmpCoords[0] * scale) < glviewWidth && abs(tmpCoords[1] * scale) < glviewHeight) {
+        if (abs(coordinates[0] * scale) < glviewWidth && abs(coordinates[1] * scale) < glviewHeight) {
             drawText = true
             tvList.add(TextView(context))
             ii = tvList.lastIndex
@@ -294,33 +293,33 @@ class WXGLTextObject(
             tvList[ii].setShadowLayer(1.5f, 2.0f, 2.0f, R.color.black)
             relativeLayout.addView(tvList[ii])
             tvList[ii].setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeTv)
-            if ((tmpCoords[1] * scale).toInt() < 0) {
-                if ((tmpCoords[0] * scale).toInt() < 0)
+            if ((coordinates[1] * scale).toInt() < 0) {
+                if ((coordinates[0] * scale).toInt() < 0)
                     tvList[ii].setPadding(
                             0,
                             0,
-                            (-(tmpCoords[0] * scale)).toInt(),
-                            (-(tmpCoords[1] * scale)).toInt()
+                            (-(coordinates[0] * scale)).toInt(),
+                            (-(coordinates[1] * scale)).toInt()
                     )
                 else
                     tvList[ii].setPadding(
-                            (tmpCoords[0] * scale).toInt(),
+                            (coordinates[0] * scale).toInt(),
                             0,
                             0,
-                            (-(tmpCoords[1] * scale)).toInt()
+                            (-(coordinates[1] * scale)).toInt()
                     )
             } else {
-                if ((tmpCoords[0] * scale).toInt() < 0)
+                if ((coordinates[0] * scale).toInt() < 0)
                     tvList[ii].setPadding(
                             0,
-                            (tmpCoords[1] * scale).toInt(),
-                            (-(tmpCoords[0] * scale)).toInt(),
+                            (coordinates[1] * scale).toInt(),
+                            (-(coordinates[0] * scale)).toInt(),
                             0
                     )
                 else
                     tvList[ii].setPadding(
-                            (tmpCoords[0] * scale).toInt(),
-                            (tmpCoords[1] * scale).toInt(),
+                            (coordinates[0] * scale).toInt(),
+                            (coordinates[1] * scale).toInt(),
                             0,
                             0
                     )

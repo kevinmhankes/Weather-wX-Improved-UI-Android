@@ -54,21 +54,15 @@ internal object UtilityWatch {
                     it.toDoubleOrNull() ?: 0.0
                 }
                 if (y.isNotEmpty() && x.isNotEmpty()) {
-                    var coordinates = UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers)
-                    val startX = coordinates[0]
-                    val startY = coordinates[1]
-                    warningList.add(coordinates[0])
-                    warningList.add(coordinates[1])
+                    val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers).toMutableList()
+                    warningList += startCoordinates
                     if (x.size == y.size) {
-                        for  (j in 1 until x.size) {
-                            coordinates = UtilityCanvasProjection.computeMercatorNumbers(x[j], y[j], projectionNumbers)
-                            warningList.add(coordinates[0])
-                            warningList.add(coordinates[1])
-                            warningList.add(coordinates[0])
-                            warningList.add(coordinates[1])
+                        (1 until x.size).forEach { j ->
+                            val coordinates = UtilityCanvasProjection.computeMercatorNumbers(x[j], y[j], projectionNumbers).toMutableList()
+                            warningList += coordinates
+                            warningList += coordinates
                         }
-                        warningList.add(startX)
-                        warningList.add(startY)
+                        warningList += startCoordinates
                     }
                 }
             }
@@ -78,28 +72,28 @@ internal object UtilityWatch {
 
     fun show(lat: Double, lon: Double, type: PolygonType): String {
         var text = ""
-        val textWatNoList: String
-        val mcdNoArr: Array<String>
+        val mcdNumberList: String
+        val mcdNumbers: Array<String>
         val watchLatLon: String
         when (type) {
             PolygonType.WATCH -> {
-                textWatNoList = MyApplication.watchNoList.value
-                mcdNoArr = MyApplication.colon.split(textWatNoList)
+                mcdNumberList = MyApplication.watchNoList.value
+                mcdNumbers = MyApplication.colon.split(mcdNumberList)
                 watchLatLon = MyApplication.watchLatLonList.value
             }
             PolygonType.MCD -> {
-                textWatNoList = MyApplication.mcdNoList.value
-                mcdNoArr = MyApplication.colon.split(textWatNoList)
+                mcdNumberList = MyApplication.mcdNoList.value
+                mcdNumbers = MyApplication.colon.split(mcdNumberList)
                 watchLatLon = MyApplication.mcdLatLon.value
             }
             PolygonType.MPD -> {
-                textWatNoList = MyApplication.mpdNoList.value
-                mcdNoArr = MyApplication.colon.split(textWatNoList)
+                mcdNumberList = MyApplication.mpdNoList.value
+                mcdNumbers = MyApplication.colon.split(mcdNumberList)
                 watchLatLon = MyApplication.mpdLatLon.value
             }
             else -> {
-                textWatNoList = MyApplication.watchNoList.value
-                mcdNoArr = MyApplication.colon.split(textWatNoList)
+                mcdNumberList = MyApplication.watchNoList.value
+                mcdNumbers = MyApplication.colon.split(mcdNumberList)
                 watchLatLon = MyApplication.watchLatLonList.value
             }
         }
@@ -124,7 +118,7 @@ internal object UtilityWatch {
                 val polygon2 = poly2.build()
                 val contains = polygon2.contains(ExternalPoint(lat.toFloat(), lon.toFloat()))
                 if (contains && notFound) {
-                    text = mcdNoArr[z]
+                    text = mcdNumbers[z]
                     notFound = false
                 }
             }
