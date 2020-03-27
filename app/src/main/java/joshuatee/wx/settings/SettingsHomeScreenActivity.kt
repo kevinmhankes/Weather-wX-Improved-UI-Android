@@ -58,57 +58,27 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         homeScreenFavOrig = favoriteString
         toolbar.subtitle = "Tap item to delete or move."
         UtilityToolbar.fullScreenMode(toolbar, false)
-        ObjectFab(
-                this,
-                this,
-                R.id.fab,
-                MyApplication.ICON_ADD,
-                View.OnClickListener { dialogueMain.show() }
-        )
+        ObjectFab(this, this, R.id.fab, MyApplication.ICON_ADD, View.OnClickListener { dialogueMain.show() })
         updateList(true)
         recyclerView = ObjectRecyclerView(this, this, R.id.card_list, labels, ::prodClicked)
-        dialogueMain = ObjectDialogue(
-                this,
-                "Select text products:",
-                UtilityHomeScreen.localChoicesText + UtilityWpcText.labels
-        )
+        dialogueMain = ObjectDialogue(this, "Select text products:", UtilityHomeScreen.localChoicesText + UtilityWpcText.labels)
         dialogueMain.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            alertDialogClicked(
-                    dialogueMain,
-                    "TXT-",
-                    which
-            )
+            alertDialogClicked(dialogueMain, "TXT-", which)
             dialog.dismiss()
         })
-        dialogueImages = ObjectDialogue(
-                this,
-                "Select image products:",
-                UtilityHomeScreen.localChoicesImg + GlobalArrays.nwsImageProducts
-        )
+        dialogueImages = ObjectDialogue(this, "Select image products:", UtilityHomeScreen.localChoicesImg + GlobalArrays.nwsImageProducts)
         dialogueImages.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            alertDialogClicked(
-                    dialogueImages,
-                    "",
-                    which
-            )
+            alertDialogClicked(dialogueImages, "", which)
             dialog.dismiss()
         })
         dialogueAfd = ObjectDialogue(this, "Select fixed location AFD products:", GlobalArrays.wfos)
         dialogueAfd.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            alertDialogClicked(
-                    dialogueAfd,
-                    "TXT-" + "AFD",
-                    which
-            )
+            alertDialogClicked(dialogueAfd, "TXT-" + "AFD", which)
             dialog.dismiss()
         })
         dialogueRadar = ObjectDialogue(this, "Select fixed location Nexrad products:", GlobalArrays.radars + GlobalArrays.tdwrRadarsForHomeScreen)
         dialogueRadar.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            alertDialogClicked(
-                    dialogueRadar,
-                    "NXRD-",
-                    which
-            )
+            alertDialogClicked(dialogueRadar, "NXRD-", which)
             dialog.dismiss()
         })
     }
