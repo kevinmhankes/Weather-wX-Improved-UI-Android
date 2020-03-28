@@ -67,12 +67,12 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
         this.tokens = tokens
     }
 
-    var url: String = ""
+    var url = ""
         get() = tokens[index]
 
-    fun getUrlCount(): Int = tokens.size
+    fun getUrlCount() = tokens.size
 
-    fun getLabel(position: Int): String = labels[position]
+    fun getLabel(position: Int) = labels[position]
 
     fun getLabel(): String {
         if (index >= labels.size) {
@@ -81,7 +81,7 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
         return labels[index]
     }
 
-    var token: String = ""
+    var token = ""
         get() {
             if (index >= tokens.size) {
                 index = tokens.size - 1

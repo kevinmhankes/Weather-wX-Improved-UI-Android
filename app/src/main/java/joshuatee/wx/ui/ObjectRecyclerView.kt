@@ -39,9 +39,9 @@ class ObjectRecyclerView(
 
     init {
         recyclerView.setHasFixedSize(true)
-        val llm = LinearLayoutManager(context)
-        llm.orientation = RecyclerView.VERTICAL
-        recyclerView.layoutManager = llm
+        val linearLayoutManager = LinearLayoutManager(context)
+        linearLayoutManager.orientation = RecyclerView.VERTICAL
+        recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = ca
         ca.setOnItemClickListener(object : SingleTextAdapterList.MyClickListener {
             override fun onItemClick(position: Int) {

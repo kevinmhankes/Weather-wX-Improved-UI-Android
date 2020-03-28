@@ -33,7 +33,7 @@ class ObjectImageSummary(context: Context, var linearLayout: LinearLayout, var b
         val imagesPerRow = 2
         linearLayout.removeAllViews()
         var numberOfImages = 0
-        val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
+        val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout>()
         bitmaps.forEach { bitmap ->
             val objectCardImage: ObjectCardImage
             if (numberOfImages % imagesPerRow == 0) {

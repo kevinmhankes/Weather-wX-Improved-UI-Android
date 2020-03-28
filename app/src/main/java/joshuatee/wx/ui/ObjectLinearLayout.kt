@@ -28,7 +28,7 @@ import android.widget.LinearLayout
 
 class ObjectLinearLayout(context: Context) {
 
-    val linearLayout: LinearLayout = LinearLayout(context)
+    val linearLayout = LinearLayout(context)
 
     constructor(context: Context, parentView: LinearLayout) : this(context) {
         linearLayout.orientation = LinearLayout.VERTICAL
@@ -80,13 +80,13 @@ class ObjectLinearLayout(context: Context) {
         )
     }
 
-    var visibility: Int
+    var visibility
         get() = linearLayout.visibility
         set(value) {
             linearLayout.visibility = value
         }
 
-    var orientation: Int
+    var orientation
         get() = linearLayout.orientation
         set(value) {
             linearLayout.orientation = value
@@ -94,7 +94,7 @@ class ObjectLinearLayout(context: Context) {
 
     private var gravityBacking = Gravity.START
 
-    var gravity: Int
+    var gravity
         get() = gravityBacking
         set(value) {
             linearLayout.gravity = value

@@ -66,13 +66,13 @@ class ObjectNavDrawerCombo(
         }
     }
 
-    fun getLabel(grp: Int, ch: Int): String = labels[grp][ch]
+    fun getLabel(grp: Int, ch: Int) = labels[grp][ch]
 
-    fun getToken(grp: Int, ch: Int): String = tokens[grp][ch]
+    fun getToken(grp: Int, ch: Int) = tokens[grp][ch]
 
-    fun getUrl(): String = getToken(imgGroupIdx, imgIdx)
+    fun getUrl() = getToken(imgGroupIdx, imgIdx)
 
-    fun getLabel(): String = getLabel(imgGroupIdx, imgIdx)
+    fun getLabel() = getLabel(imgGroupIdx, imgIdx)
 
     fun setListener(fn: () -> Unit) {
         listView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
