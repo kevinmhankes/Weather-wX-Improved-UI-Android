@@ -111,13 +111,9 @@ class LatLon() {
             y = newValue.toDoubleOrNull() ?: 0.0
         }
 
-    override fun toString(): String {
-        return "$latString:$lonString"
-    }
+    override fun toString() = "$latString:$lonString"
 
-    fun print(): String {
-        return latString + " " + lonString + " "
-    }
+    fun print()= "$latString $lonString "
 
     companion object {
 
