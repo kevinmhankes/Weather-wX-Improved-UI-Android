@@ -46,7 +46,7 @@ class ObjectCardStormReportItem(context: Context) {
         objectCard.addView(linearLayoutVertical)
     }
 
-    val card: CardView get() = objectCard.card
+    val card get() = objectCard.card
 
     fun setId(id: Int) {
         objectCard.card.id = id

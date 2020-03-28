@@ -74,13 +74,7 @@ open class ObjectCardImage {
         })
     }
 
-    constructor(
-        context: Context,
-        linearLayout: LinearLayout,
-        toolbar: Toolbar,
-        toolbarBottom: Toolbar,
-        bitmap: Bitmap
-    ) {
+    constructor(context: Context, linearLayout: LinearLayout, toolbar: Toolbar, toolbarBottom: Toolbar, bitmap: Bitmap) {
         this.context = context
         objectCard = ObjectCard(context)
         img = TouchImageView2(context)
@@ -117,9 +111,9 @@ open class ObjectCardImage {
         img.resetZoom()
     }
 
-    val card: CardView get() = objectCard.card
+    val card get() = objectCard.card
 
-    var visibility: Int
+    var visibility
         get() = objectCard.visibility
         set(newValue) {
             objectCard.visibility = newValue

@@ -164,10 +164,7 @@ class ObjectCardText(private val context: Context) {
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         tv.isFocusable = false
         setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                    context,
-                    clazz
-            )
+            ObjectIntent(context, clazz)
         })
     }
 
@@ -179,10 +176,7 @@ class ObjectCardText(private val context: Context) {
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         tv.isFocusable = false
         setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                    context,
-                    clazz
-            )
+            ObjectIntent(context, clazz)
         })
     }
 
@@ -197,21 +191,11 @@ class ObjectCardText(private val context: Context) {
         tv.isFocusable = false
         linearLayout.addView(card)
         setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                    context,
-                    clazz
-            )
+            ObjectIntent(context, clazz)
         })
     }
 
-    constructor(
-            context: Context,
-            linearLayout: LinearLayout,
-            text: String,
-            textSize: Float,
-            clazz: Class<*>,
-            padding: Int
-    ) : this(
+    constructor(context: Context, linearLayout: LinearLayout, text: String, textSize: Float, clazz: Class<*>, padding: Int) : this(
             context,
             text,
             textSize,
@@ -224,10 +208,7 @@ class ObjectCardText(private val context: Context) {
         tv.isFocusable = false
         linearLayout.addView(card)
         setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                    context,
-                    clazz
-            )
+            ObjectIntent(context, clazz)
         })
     }
 
@@ -245,7 +226,7 @@ class ObjectCardText(private val context: Context) {
         tv.text = localText
     }
 
-    var text: String
+    var text
         get() = tv.text.toString()
         set(newValue) {
             tv.text = newValue
@@ -275,9 +256,9 @@ class ObjectCardText(private val context: Context) {
         tv.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
     }
 
-    val card: CardView get() = objectCard.card
+    val card get() = objectCard.card
 
-    var visibility: Int
+    var visibility
         get() = objectCard.visibility
         set(newValue) {
             objectCard.visibility = newValue
