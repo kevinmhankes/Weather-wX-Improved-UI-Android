@@ -200,5 +200,5 @@ class ObjectAlertSummary(
         }
     }
 
-    fun getTitle(title: String): String = "(" + totalAlertsCnt + ") " + title.toUpperCase(Locale.US) + " Alerts"
+    fun getTitle(title: String) = "(" + totalAlertsCnt + ") " + title.toUpperCase(Locale.US) + " Alerts"
 }

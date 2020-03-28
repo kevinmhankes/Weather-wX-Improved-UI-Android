@@ -98,7 +98,7 @@ class ObjectCard7Day(context: Context, bitmap: Bitmap, isUS: Boolean, day: Int, 
         bottomLineText.refreshTextSize(TextSize.MEDIUM)
     }
 
-    val card: CardView get() = objectCard.card
+    val card get() = objectCard.card
 }
 
 
