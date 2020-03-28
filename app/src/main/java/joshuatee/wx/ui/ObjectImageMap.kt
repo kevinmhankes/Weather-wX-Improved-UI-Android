@@ -96,11 +96,7 @@ class ObjectImageMap(
         })
     }
 
-    private fun setupImageMap(
-        context: Context,
-        toolbar: Toolbar,
-        toolbarBottom: Toolbar
-    ) {
+    private fun setupImageMap(context: Context, toolbar: Toolbar, toolbarBottom: Toolbar) {
         val layoutParams = map.layoutParams
         layoutParams.height = MyApplication.dm.heightPixels - toolbar.height - toolbarBottom.height - UtilityUI.statusBarHeight(context)
         layoutParams.width = MyApplication.dm.widthPixels

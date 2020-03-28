@@ -44,13 +44,7 @@ class ObjectFab {
         setOnClickListener(fn)
     }
 
-    constructor(
-            activity: Activity,
-            context: Context,
-            resId: Int,
-            iconID: Int,
-            fn: View.OnClickListener
-    ) {
+    constructor(activity: Activity, context: Context, resId: Int, iconID: Int, fn: View.OnClickListener) {
         fab = activity.findViewById(resId)
         setupFab(context, iconID)
         setOnClickListener(fn)
@@ -60,7 +54,7 @@ class ObjectFab {
         fab.setOnClickListener(fn)
     }
 
-    var visibility: Int
+    var visibility
         get() = fab.visibility
         set(newValue) {
             when (newValue) {

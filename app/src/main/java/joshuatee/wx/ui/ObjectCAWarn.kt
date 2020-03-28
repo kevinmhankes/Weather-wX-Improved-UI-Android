@@ -54,7 +54,7 @@ class ObjectCAWarn(
     private var listLocWatch = mutableListOf<String>()
     private var listLocStatement = mutableListOf<String>()
     private var bitmap = UtilityImg.getBlankBitmap()
-    var prov: String = "ca"
+    var prov = "ca"
 
     fun getData() {
         listLocUrl.clear()
@@ -131,7 +131,7 @@ class ObjectCAWarn(
         ObjectCALegal(activity, linearLayout, MyApplication.canadaEcSitePrefix + "/warnings/index_e.html")
     }
 
-    val title: String get() = provinceToLabel[prov] + " (" + listLocUrl.size + ")"
+    val title get() = provinceToLabel[prov] + " (" + listLocUrl.size + ")"
 
     private fun getWarningDetail(url: String, location: String) =
             GlobalScope.launch(uiDispatcher) {

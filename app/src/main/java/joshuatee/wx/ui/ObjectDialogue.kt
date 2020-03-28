@@ -109,7 +109,7 @@ class ObjectDialogue {
         alertDialog.setTitle(title)
     }
 
-    fun getItem(index: Int): String = arrayAdapter.getItem(index) ?: ""
+    fun getItem(index: Int) = arrayAdapter.getItem(index) ?: ""
 }
 
 
