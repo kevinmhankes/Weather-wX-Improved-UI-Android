@@ -139,7 +139,7 @@ class ObjectSettingsCheckBox(context: Context, label: String, pref: String, strI
         checkBox.isChecked = value
     }
 
-    val card: CardView get() = objectCard.card
+    val card get() = objectCard.card
 
     internal fun setOnCheckedChangeListener(l: CompoundButton.OnCheckedChangeListener) {
         checkBox.setOnCheckedChangeListener(l)

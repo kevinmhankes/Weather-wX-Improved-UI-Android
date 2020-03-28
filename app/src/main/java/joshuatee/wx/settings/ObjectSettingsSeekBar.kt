@@ -43,7 +43,7 @@ internal class ObjectSettingsSeekBar(
 ) {
 
     private val objectCard = ObjectCard(context)
-    private val initValue: Int = when (pref) {
+    private val initValue = when (pref) {
         "RADAR_TEXT_SIZE" -> (Utility.readPref(context, pref, defValue.toFloat()) * 10).toInt()
         "UI_ANIM_ICON_FRAMES" -> (Utility.readPref(
                 context,
@@ -102,13 +102,9 @@ internal class ObjectSettingsSeekBar(
         })
     }
 
-    private fun convert(value: Int): Int {
-        return value - lowValue
-    }
+    private fun convert(value: Int) = value - lowValue
 
-    private fun convertForSave(value: Int): Int {
-        return value + lowValue
-    }
+    private fun convertForSave(value: Int) = value + lowValue
 
     fun updateLabel() {
         objectTextView.text = label + " (default is " +  defValue.toString() + "): " + convertForSave(seekBar.progress).toString()
