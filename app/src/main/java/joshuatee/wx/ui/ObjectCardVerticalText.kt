@@ -28,7 +28,6 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
-import androidx.cardview.widget.CardView
 import joshuatee.wx.MyApplication
 
 class ObjectCardVerticalText(context: Context, numColumns: Int) {
@@ -45,29 +44,24 @@ class ObjectCardVerticalText(context: Context, numColumns: Int) {
         objectLinearLayout.linearLayout.isBaselineAligned = false
         objectCard.addView(objectLinearLayout)
         (0 until numColumns).forEach {
-            val llv = LinearLayout(context)
-            llv.layoutParams = LinearLayout.LayoutParams(
+            val linearLayout = LinearLayout(context)
+            linearLayout.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 1.0f
             )
-            objectLinearLayout.linearLayout.addView(llv)
+            objectLinearLayout.linearLayout.addView(linearLayout)
             textViews.add(TextView(context))
             textViews[it].gravity = Gravity.START
             textViews[it].layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            llv.addView(textViews[it])
+            linearLayout.addView(textViews[it])
         }
     }
 
-    constructor(
-        context: Context,
-        numColumns: Int,
-        linearLayout: LinearLayout,
-        toolbar: Toolbar
-    ) : this(context, numColumns) {
+    constructor(context: Context, numColumns: Int, linearLayout: LinearLayout, toolbar: Toolbar) : this(context, numColumns) {
         linearLayout.addView(card)
         setOnClickListener(View.OnClickListener {
             UtilityToolbar.showHide(
@@ -87,7 +81,7 @@ class ObjectCardVerticalText(context: Context, numColumns: Int) {
         }
     }
 
-    val card: CardView get() = objectCard.card
+    val card get() = objectCard.card
 
     fun setOnClickListener(fn: View.OnClickListener) {
         objectCard.setOnClickListener(fn)
