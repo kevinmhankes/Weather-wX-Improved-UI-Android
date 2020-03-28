@@ -59,7 +59,7 @@ object UtilityLightning {
         "new_zealand_big"
     )
 
-    fun getTimePretty(period: String): String = when (period) {
+    fun getTimePretty(period: String) = when (period) {
         "0.25" -> "15 MIN"
         "2" -> "2 HR"
         "12" -> "12 HR"

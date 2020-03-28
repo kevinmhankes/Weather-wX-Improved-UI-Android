@@ -96,7 +96,7 @@ internal class AdapterSpotter(private val dataSet: MutableList<Spotter>) :
 
     override fun getItemCount() = dataSet.size
 
-    fun getItem(index: Int): Spotter = dataSet[index]
+    fun getItem(index: Int) = dataSet[index]
 
     interface MyClickListener {
         fun onItemClick(position: Int)

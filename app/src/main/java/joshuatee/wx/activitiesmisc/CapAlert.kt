@@ -27,23 +27,23 @@ import joshuatee.wx.UIPreferences
 
 class CapAlert {
 
-    var text: String = ""
+    var text = ""
         private set
-    var title: String = ""
+    var title = ""
         private set
-    var summary: String = ""
+    var summary = ""
         private set
-    var area: String = ""
+    var area = ""
         private set
-    var instructions: String = ""
+    var instructions = ""
         private set
-    var zones: String = ""
-    var vtec: String = ""
-    var url: String = ""
+    var zones = ""
+    var vtec = ""
+    var url = ""
         private set
-    var event: String = ""
-    var effective: String  = ""
-    var expires: String  = ""
+    var event = ""
+    var effective = ""
+    var expires = ""
 
     companion object {
 
