@@ -51,7 +51,7 @@ object Utility {
         return diagnostics
     }
 
-    fun getRadarSiteName(radarSite: String)= UtilityRadar.radarIdToName[radarSite] ?: ""
+    fun getRadarSiteName(radarSite: String) = UtilityRadar.radarIdToName[radarSite] ?: ""
 
     /* fun getRadarSiteLatLon(radarSite: String): LatLon {
          val lat = UtilityRadar.radarSiteToLat[radarSite] ?: ""
