@@ -45,17 +45,17 @@ object UtilityWidget {
     private fun uriShareAndGenerate(context: Context, fileName: String): Uri {
         val dir = File(context.filesDir.toString() + "/shared")
         val file = File(dir, fileName)
-        val imgUri = FileProvider.getUriForFile(context, "${MyApplication.packageNameAsString}.fileprovider", file)
+        val uri = FileProvider.getUriForFile(context, "${MyApplication.packageNameAsString}.fileprovider", file)
         val localPackageManager = context.packageManager
         val intentHome = Intent("android.intent.action.MAIN")
         intentHome.addCategory("android.intent.category.HOME")
         try {
-            val str = localPackageManager.resolveActivity(intentHome, PackageManager.MATCH_DEFAULT_ONLY)!!.activityInfo.packageName
-            context.grantUriPermission(str, imgUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            val string = localPackageManager.resolveActivity(intentHome, PackageManager.MATCH_DEFAULT_ONLY)!!.activityInfo.packageName
+            context.grantUriPermission(string, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
-        return imgUri
+        return uri
     }
 
     fun setImage(context: Context, remoteViews: RemoteViews, fileName: String) {
@@ -239,11 +239,11 @@ object UtilityWidget {
     internal fun updateSevenDay(context: Context) {
         val contentResolver = context.contentResolver
         contentResolver.delete(WeatherDataProvider.CONTENT_URI, null, null)
-        val mgr = AppWidgetManager.getInstance(context)
-        val cn = ComponentName(context, WeatherWidgetProvider::class.java)
+        val widgetManager = AppWidgetManager.getInstance(context)
+        val componentName = ComponentName(context, WeatherWidgetProvider::class.java)
         if (WeatherWidgetProvider.sWorkerQueue != null) {
             WeatherWidgetProvider.sDataObserver =
-                WeatherDataProviderObserver(mgr, cn, WeatherWidgetProvider.sWorkerQueue!!)
+                WeatherDataProviderObserver(widgetManager, componentName, WeatherWidgetProvider.sWorkerQueue!!)
             contentResolver.registerContentObserver(
                 WeatherDataProvider.CONTENT_URI,
                 true,

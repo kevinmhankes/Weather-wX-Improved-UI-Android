@@ -73,8 +73,8 @@ internal object UtilityWidgetDownload {
         }
     }
 
-    private fun generic(context: Context, type: WidgetFile, prod: String) {
-        val bitmap = UtilityDownload.getImageProduct(context, prod)
+    private fun generic(context: Context, type: WidgetFile, product: String) {
+        val bitmap = UtilityDownload.getImageProduct(context, product)
         saveImage(context, bitmap, type.fileName)
     }
 
@@ -166,8 +166,8 @@ internal object UtilityWidgetDownload {
     }
 
     private fun wpcImage(context: Context, type: WidgetFile) {
-        val imgUrl = Utility.readPref(context, "WPG_IMG_FAV_URL", UtilityWpcImages.urls[0])
-        val bitmap = imgUrl.getImage()
+        val url = Utility.readPref(context, "WPG_IMG_FAV_URL", UtilityWpcImages.urls[0])
+        val bitmap = url.getImage()
         saveImage(context, bitmap, type.fileName)
     }
 
