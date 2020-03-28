@@ -65,7 +65,7 @@ class ObjectForecastPackage7Day {
         sevenDayShort = get7DayShort(html)
     }
 
-    val forecastList: List<String>
+    val forecastList
         get() = detailedForecasts
 
     private fun convertExt7DayToList() {

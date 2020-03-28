@@ -147,9 +147,7 @@ object UtilityUI {
         }
     }
 
-    fun spToPx(sp: Int, context: Context): Float {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp.toFloat(), context.resources.displayMetrics)
-    }
+    fun spToPx(sp: Int, context: Context) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp.toFloat(), context.resources.displayMetrics)
 
     fun isTablet(): Boolean {
         val displayMetrics = MyApplication.dm
@@ -159,7 +157,5 @@ object UtilityUI {
         return screenDiagonal >= 7.0
     }
 
-    fun isLandScape(context: Context): Boolean {
-        return context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-    }
+    fun isLandScape(context: Context) = context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 }

@@ -70,7 +70,8 @@ object UtilityToolbar {
 
     // overload to simply set elevation
     fun fullScreenMode(toolbar: Toolbar, blank: Boolean) {
-        if (android.os.Build.VERSION.SDK_INT > 20) toolbar.elevation = MyApplication.elevationPref
+        if (android.os.Build.VERSION.SDK_INT > 20)
+            toolbar.elevation = MyApplication.elevationPref
     }
 
     fun showHide(toolbar: Toolbar, toolbarBottom: Toolbar) {

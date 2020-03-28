@@ -60,9 +60,9 @@ class SingleTextAdapterList(private val dataSet: MutableList<String>) :
         return "$string:"
     }
 
-    fun getItem(index: Int): String = dataSet[index]
+    fun getItem(index: Int) = dataSet[index]
 
-    override fun getItemCount(): Int = dataSet.size
+    override fun getItemCount() = dataSet.size
 
     interface MyClickListener {
         fun onItemClick(position: Int)

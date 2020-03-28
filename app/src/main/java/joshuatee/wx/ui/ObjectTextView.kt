@@ -42,7 +42,7 @@ class ObjectTextView(val context: Context) {
             tv.text = value
         }
 
-    var gravity: Int
+    var gravity
         get() = tv.gravity
         set(value) {
             tv.gravity = value
@@ -117,7 +117,7 @@ class ObjectTextView(val context: Context) {
         refreshTextSize(size)
     }
 
-    var color: Int
+    var color
         get() = tv.currentTextColor
         set(newValue) {
             tv.setTextColor(newValue)

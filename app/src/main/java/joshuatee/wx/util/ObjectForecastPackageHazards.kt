@@ -60,7 +60,7 @@ class ObjectForecastPackageHazards {
         titles = hazards.parseColumn("\"event\": \"(.*?)\"")
     }
 
-    fun getHazardsShort(): String = hazardsShort.replace("^<BR>".toRegex(), "")
+    fun getHazardsShort() = hazardsShort.replace("^<BR>".toRegex(), "")
 
     companion object {
         fun getHazardsHtml(latLon: LatLon): String {
