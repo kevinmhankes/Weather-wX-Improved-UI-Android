@@ -263,8 +263,7 @@ object UtilityCanada {
         return newName
     }
 
-    fun getProvidenceHtml(prov: String): String =
-        (MyApplication.canadaEcSitePrefix + "/forecast/canada/index_e.html?id=$prov").getHtmlSep()
+    fun getProvidenceHtml(prov: String) = (MyApplication.canadaEcSitePrefix + "/forecast/canada/index_e.html?id=$prov").getHtmlSep()
 
     fun getLocationHtml(location: LatLon): String {
         val prov = location.latString.split(":").dropLastWhile { it.isEmpty() }
@@ -284,7 +283,7 @@ object UtilityCanada {
         return MyApplication.canadaEcSitePrefix + "/city/pages/" + prov[1].toLowerCase(Locale.US) + "-" + id[0] + "_metric_e.html"
     }
 
-    fun getStatus(html: String): String = html.parse("<b>Observed at:</b>(.*?)<br/>")
+    fun getStatus(html: String) = html.parse("<b>Observed at:</b>(.*?)<br/>")
 
     fun getRadarSite(x: String, y: String): String {
         val url = (MyApplication.canadaEcSitePrefix + "/city/pages/"

@@ -39,9 +39,7 @@ object UtilityDownloadNws {
 
     var forecastZone = ""
 
-    fun getHazardData(url: String): String {
-        return getStringFromUrlJson(url)
-    }
+    fun getHazardData(url: String) = getStringFromUrlJson(url)
 
     fun getLatLonForZone(zone: String): List<String> {
         var html = (MyApplication.nwsApiUrl + "/zones/forecast/" + zone.toUpperCase(Locale.US)).getNwsHtml()
@@ -61,7 +59,7 @@ object UtilityDownloadNws {
         return listOf(lat, lon)
     }
 
-    fun getCap(sector: String): String = if (sector == "us") {
+    fun getCap(sector: String) = if (sector == "us") {
         getStringFromUrlXml(MyApplication.nwsApiUrl + "/alerts/active?region_type=land")
     } else {
         getStringFromUrlXml(MyApplication.nwsApiUrl + "/alerts/active/area/" + sector.toUpperCase(Locale.US))
