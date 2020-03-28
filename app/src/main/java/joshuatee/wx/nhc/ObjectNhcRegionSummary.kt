@@ -87,9 +87,7 @@ class ObjectNhcRegionSummary(region: NhcOceanEnum) {
         bitmaps = urls.map { it.getImage() }
     }
 
-    fun getTitle(index: Int): Array<String> {
-        return arrayOf(urls[index], titles[index])
-    }
+    fun getTitle(index: Int) = arrayOf(urls[index], titles[index])
 }
 
 

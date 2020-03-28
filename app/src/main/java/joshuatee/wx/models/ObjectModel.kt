@@ -32,41 +32,41 @@ import joshuatee.wx.ui.ObjectSpinner
 
 class ObjectModel(val context: Context, var prefModel: String, numPanesStr: String) {
 
-    var run: String = "00Z"
-    var time: String = "00"
-    var sector: String = ""
-    var currentParam: String = ""
-    var numPanes: Int = 1
-    var model: String = "WRF"
-    var sectorInt: Int = 0
-    var curImg: Int = 0
-    var modelType: ModelType = ModelType.NSSL
-    var startStep: Int = 0
-    var endStep: Int = 0
-    var stepAmount: Int = 1
-    var numberRuns: Int = 4
-    var timeTruncate: Int = 2
-    var format: String = "%03d"
-    var truncateTime: Boolean = true
-    var prefSector: String = "MODEL_" + prefModel + numPanesStr + "_SECTOR_LAST_USED"
-    var prefParam: String = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED"
-    var prefParamLabel: String = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED_LABEL"
-    var prefRunPosn: String = "MODEL_" + prefModel + numPanesStr + "_RUN_POSN"
-    var modelProvider: String = "MODEL_$prefModel$numPanesStr"
-    private var prefModelIndex: String = "MODEL_$prefModel${numPanesStr}_INDEX"
+    var run = "00Z"
+    var time = "00"
+    var sector = ""
+    var currentParam = ""
+    var numPanes = 1
+    var model = "WRF"
+    var sectorInt = 0
+    var curImg = 0
+    var modelType = ModelType.NSSL
+    var startStep = 0
+    var endStep = 0
+    var stepAmount = 1
+    var numberRuns = 4
+    var timeTruncate = 2
+    var format = "%03d"
+    var truncateTime = true
+    var prefSector = "MODEL_" + prefModel + numPanesStr + "_SECTOR_LAST_USED"
+    var prefParam = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED"
+    var prefParamLabel = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED_LABEL"
+    var prefRunPosn = "MODEL_" + prefModel + numPanesStr + "_RUN_POSN"
+    var modelProvider = "MODEL_$prefModel$numPanesStr"
+    private var prefModelIndex = "MODEL_$prefModel${numPanesStr}_INDEX"
     private var modelIndex = 0
-    var rtd: RunTimeData = RunTimeData()
+    var rtd = RunTimeData()
     lateinit var displayData: DisplayData
-    var sectors: List<String> = listOf("")
-    var labels: List<String> = listOf("")
-    var params: List<String> = listOf("")
-    var models: List<String> = listOf("")
-    private var defaultModel: String = ""
-    var spinnerTimeValue: Int = 0
+    var sectors = listOf("")
+    var labels = listOf("")
+    var params = listOf("")
+    var models = listOf("")
+    private var defaultModel = ""
+    var spinnerTimeValue = 0
     lateinit var spTime: ObjectSpinner
-    var animRan: Boolean = false
-    var firstRun: Boolean = false
-    var imageLoaded: Boolean = false
+    var animRan = false
+    var firstRun = false
+    var imageLoaded = false
     lateinit var miStatusParam1: MenuItem
     lateinit var miStatusParam2: MenuItem
     var fab1: ObjectFab? = null

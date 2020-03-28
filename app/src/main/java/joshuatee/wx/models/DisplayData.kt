@@ -31,18 +31,13 @@ import joshuatee.wx.ui.OnSwipeTouchListener
 import joshuatee.wx.ui.TouchImageView2
 import joshuatee.wx.util.UtilityImg
 
-class DisplayData(
-        context: Context,
-        activity: Activity,
-        numPanes: Int,
-        spTime: ObjectSpinner
-) {
+class DisplayData(context: Context, activity: Activity, numPanes: Int, spTime: ObjectSpinner) {
 
-    var animDrawable: MutableList<AnimationDrawable> = MutableList(numPanes) {AnimationDrawable()}
-    var param: MutableList<String> = MutableList(numPanes) {""}
-    var paramLabel: MutableList<String> = MutableList(numPanes) {""}
-    var img: MutableList<TouchImageView2> = MutableList(numPanes) {TouchImageView2(context)}
-    var bitmap: MutableList<Bitmap> = MutableList(numPanes) {UtilityImg.getBlankBitmap()}
+    var animDrawable = MutableList(numPanes) {AnimationDrawable()}
+    var param = MutableList(numPanes) {""}
+    var paramLabel = MutableList(numPanes) {""}
+    var img = MutableList(numPanes) {TouchImageView2(context)}
+    var bitmap = MutableList(numPanes) {UtilityImg.getBlankBitmap()}
 
     init {
         val resourceId = listOf(R.id.iv1, R.id.iv2)
