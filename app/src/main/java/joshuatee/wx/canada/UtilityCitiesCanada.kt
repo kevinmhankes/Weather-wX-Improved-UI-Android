@@ -23,13 +23,13 @@ package joshuatee.wx.canada
 
 object UtilityCitiesCanada {
 
-    private var initialized: Boolean = false
+    private var initialized = false
 
     private const val numberOfCities = 838
-    val cities: Array<String> = Array(numberOfCities) { "" }
-    val lat: DoubleArray = DoubleArray(numberOfCities)
-    val lon: DoubleArray = DoubleArray(numberOfCities)
-    val code: Array<String> = Array(numberOfCities) { "" }
+    val cities = Array(numberOfCities) { "" }
+    val lat = DoubleArray(numberOfCities)
+    val lon = DoubleArray(numberOfCities)
+    val code = Array(numberOfCities) { "" }
 
     fun initialize() {
         if (!initialized) {

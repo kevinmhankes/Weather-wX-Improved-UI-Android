@@ -84,9 +84,7 @@ object UtilityGoes {
         val html = url.getHtml().replace("\n", "").replace("\r", "")
         val imageHtml = html.parse("animationImages = \\[(.*?)\\];")
         val imageUrls = imageHtml.parseColumn("'(https.*?jpg)'")
-        val bitmaps = imageUrls.map {
-            it.getImage()
-        }
+        val bitmaps = imageUrls.map { it.getImage() }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(
                 context,
                 bitmaps,
@@ -94,7 +92,7 @@ object UtilityGoes {
         )
     }
 
-    val labels: List<String> = listOf(
+    val labels = listOf(
             "00 True color daytime, multispectral IR at night",
             "00.47 um (Band 1) Blue - Visible",
             "00.64 um (Band 2) Red - Visible",
@@ -116,7 +114,7 @@ object UtilityGoes {
             "Sandwich RGB - Bands 3 and 13 combo"
     )
 
-    val codes: List<String> = listOf(
+    val codes = listOf(
             "GEOCOLOR",
             "01",
             "02",
@@ -138,7 +136,7 @@ object UtilityGoes {
             "Sandwich"
     )
 
-    private val sectorsInGoes17: List<String> = listOf(
+    private val sectorsInGoes17 = listOf(
             "CONUS-G17",
             "FD-G17",
             "ak",
