@@ -36,7 +36,7 @@ class ObjectTextView(val context: Context) {
 
     var tv = AppCompatTextView(context)
 
-    var text: String
+    var text
         get() = tv.text.toString()
         set(value) {
             tv.text = value
