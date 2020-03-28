@@ -22,7 +22,9 @@
 package joshuatee.wx.ui
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.TypedValue
+import android.view.View
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import joshuatee.wx.MyApplication
@@ -32,7 +34,7 @@ import joshuatee.wx.util.Utility
 class ObjectCardHSText(context: Context, val product: String) {
 
     private val objectCard = ObjectCard(context)
-    val textView: TextView = TextView(context)
+    private val textView: TextView = TextView(context)
     private var textShort = ""
     private var textLong = ""
     private var textShownSmall = true
@@ -74,7 +76,19 @@ class ObjectCardHSText(context: Context, val product: String) {
         textShort = text
     }
 
-    val card: CardView get() = objectCard.card
+    fun setOnClickListener(fn: View.OnClickListener) {
+        textView.setOnClickListener(fn)
+    }
+
+    fun typefaceMono() {
+        textView.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
+    }
+
+    /*fun typefaceDefault() {
+        textView.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+    }*/
+
+    val card get() = objectCard.card
 }
 
 

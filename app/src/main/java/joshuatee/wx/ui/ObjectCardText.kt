@@ -186,13 +186,7 @@ class ObjectCardText(private val context: Context) {
         })
     }
 
-    constructor(
-            context: Context,
-            linearLayout: LinearLayout,
-            text: String,
-            textSize: Float,
-            clazz: Class<*>
-    ) : this(
+    constructor(context: Context, linearLayout: LinearLayout, text: String, textSize: Float, clazz: Class<*>) : this(
             context,
             text,
             textSize,

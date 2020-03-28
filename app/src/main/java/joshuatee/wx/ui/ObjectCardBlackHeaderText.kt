@@ -44,7 +44,7 @@ class ObjectCardBlackHeaderText(context: Context, val linearLayout: LinearLayout
         setTextHeader()
     }
 
-    val card: CardView get() = objectCard.card
+    val card get() = objectCard.card
 
     fun setListener(fn: View.OnClickListener) {
         objectCard.card.setOnClickListener(fn)

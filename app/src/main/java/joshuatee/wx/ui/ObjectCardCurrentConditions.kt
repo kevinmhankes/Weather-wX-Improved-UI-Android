@@ -25,7 +25,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.view.Gravity
 import android.widget.LinearLayout
-import androidx.cardview.widget.CardView
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.TextSize
@@ -64,7 +63,7 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
         objCard.addView(linearLayoutHorizontal)
     }
 
-    val card: CardView get() = objCard.card
+    val card get() = objCard.card
 
     fun refreshTextSize() {
         textViewTop.refreshTextSize(TextSize.MEDIUM)
@@ -103,13 +102,7 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
         }
     }
 
-    fun updateContent(
-            bitmap: Bitmap,
-            objCc: ObjectForecastPackageCurrentConditions,
-            isUS: Boolean,
-            ccTime: String,
-            radarTime: String
-    ) {
+    fun updateContent(bitmap: Bitmap, objCc: ObjectForecastPackageCurrentConditions, isUS: Boolean, time: String, radarTime: String) {
         objectImageView.setImage(bitmap)
         val sep = " - "
         val conditionTokens = objCc.data.split(sep).dropLastWhile { it.isEmpty() }
@@ -117,12 +110,12 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
             val items = conditionTokens[0].split("/").dropLastWhile { it.isEmpty() }
             setTopLine(conditionTokens[4].replace("^ ".toRegex(), "") + " " + items[0] + conditionTokens[2])
             setMiddleLine(items[1].replace("^ ".toRegex(), "") + sep + conditionTokens[1] + sep + conditionTokens[3])
-            setStatus(ccTime + radarTime)
+            setStatus(time + radarTime)
         } else {
             val items = conditionTokens[0].split("/").dropLastWhile { it.isEmpty() }
             setTopLine(conditionTokens[4] + "" + items[0] + conditionTokens[2])
             setMiddleLine(items[1].replace("^ ".toRegex(), "") + sep + conditionTokens[1] + sep + conditionTokens[3])
-            setStatus(ccTime.replace("^ ".toRegex(), "") + radarTime)
+            setStatus(time.replace("^ ".toRegex(), "") + radarTime)
         }
     }
 }

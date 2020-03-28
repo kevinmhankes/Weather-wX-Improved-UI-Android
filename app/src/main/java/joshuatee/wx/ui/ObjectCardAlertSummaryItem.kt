@@ -47,7 +47,7 @@ class ObjectCardAlertSummaryItem(context: Context) {
         objectCard.addView(objectLinearLayout)
     }
 
-    val card: CardView get() = objectCard.card
+    val card get() = objectCard.card
 
     fun setId(id: Int) {
         objectCard.card.id = id
