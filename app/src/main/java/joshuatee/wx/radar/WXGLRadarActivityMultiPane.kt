@@ -73,7 +73,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     // 4: coming from single pane
 
     companion object {
-        const val RID: String = ""
+        const val RID = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
