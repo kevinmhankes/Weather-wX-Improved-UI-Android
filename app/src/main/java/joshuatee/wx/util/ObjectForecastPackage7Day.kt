@@ -31,13 +31,13 @@ import joshuatee.wx.radar.LatLon
 class ObjectForecastPackage7Day {
 
     // separated by "!"
-    var iconsAsString: String = ""
+    var iconsAsString = ""
         private set
-    var sevenDayLong: String = ""
+    var sevenDayLong = ""
         private set
-    var sevenDayShort: String = ""
+    var sevenDayShort = ""
         private set
-    var icons: List<String> = listOf()
+    var icons = listOf<String>()
         private set
     private var detailedForecasts = mutableListOf<String>()
 

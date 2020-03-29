@@ -32,7 +32,7 @@ class ObjectForecastPackageHazards {
     private var hazardsShort = ""
     var urls = listOf<String>()
     var titles = listOf<String>()
-    var hazards: String = ""
+    var hazards = ""
         private set
 
     constructor()

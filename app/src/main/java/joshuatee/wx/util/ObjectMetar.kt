@@ -108,13 +108,11 @@ internal class ObjectMetar(context: Context, location: LatLon) {
         return newValue
     }
 
-    private fun changePressureUnits(value: String): String {
-        return if (!MyApplication.unitsM) {
+    private fun changePressureUnits(value: String) = if (!MyApplication.unitsM) {
             UtilityMath.pressureMBtoIn(value)
         } else {
             "$value mb"
         }
-    }
 
     private fun decodeIconFromMetar(condition: String, obs: RID): String {
         // https://api.weather.gov/icons/land/day/ovc?size=medium

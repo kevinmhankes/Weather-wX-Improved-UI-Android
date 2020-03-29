@@ -124,8 +124,7 @@ object UtilityTime {
         return cal.time
     }
 
-    fun getCurrentLocalTimeAsString(): String =
-        SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Date())
+    fun getCurrentLocalTimeAsString(): String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Date())
 
     fun year() = Calendar.getInstance().get(Calendar.YEAR)
 

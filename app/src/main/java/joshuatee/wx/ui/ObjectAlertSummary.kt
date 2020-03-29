@@ -50,9 +50,9 @@ class ObjectAlertSummary(
 ) {
 
     private var totalAlertsCnt = 0
-    var navList: List<String> = listOf()
+    var navList = listOf<String>()
         private set
-    var filterArray: List<String> = listOf()
+    var filterArray = listOf<String>()
         private set
     @SuppressLint("UseSparseArrays")
     val mapButtonZone: MutableMap<Int, String> = mutableMapOf()

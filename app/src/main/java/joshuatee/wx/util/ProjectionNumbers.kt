@@ -38,13 +38,7 @@ class ProjectionNumbers {
 
     constructor()
 
-    constructor(
-        scale: Double,
-        lat: String,
-        lon: String,
-        xImageCenterPixels: Double,
-        yImageCenterPixels: Double
-    ) {
+    constructor(scale: Double, lat: String, lon: String, xImageCenterPixels: Double, yImageCenterPixels: Double) {
         this.scale = scale
         scaleFloat = scale.toFloat()
         x = lat

@@ -777,8 +777,7 @@ object UtilityDownload {
         return out.toString().replace(breakStr, "<br>")
     }*/
 
-    fun getBitmapFromUrl(url: String): Bitmap {
-        return try {
+    fun getBitmapFromUrl(url: String): Bitmap = try {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             BitmapFactory.decodeStream(BufferedInputStream(response.body()!!.byteStream()))
@@ -787,10 +786,8 @@ object UtilityDownload {
         } catch (e: OutOfMemoryError) {
             UtilityImg.getBlankBitmap()
         }
-    }
 
-    fun getBitmapFromUrlUnsafe(url: String): Bitmap {
-        return try {
+    fun getBitmapFromUrlUnsafe(url: String): Bitmap = try {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClientUnsafe!!.newCall(request).execute()
             BitmapFactory.decodeStream(BufferedInputStream(response.body()!!.byteStream()))
@@ -799,10 +796,8 @@ object UtilityDownload {
         } catch (e: OutOfMemoryError) {
             UtilityImg.getBlankBitmap()
         }
-    }
 
-    fun getInputStreamFromUrl(url: String): InputStream? {
-        return try {
+    fun getInputStreamFromUrl(url: String): InputStream? = try {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             response.body()!!.byteStream()
@@ -810,7 +805,6 @@ object UtilityDownload {
             UtilityLog.handleException(e)
             null
         }
-    }
 
     /* fun getInputStreamFromUrlUnsafe(strURL: String): InputStream? {
         return try {

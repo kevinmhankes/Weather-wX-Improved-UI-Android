@@ -142,11 +142,7 @@ object UtilityString {
         number: Int
     ): MutableList<String> = parseMultipleFirst(url.getHtml(), match, number)
 
-    private fun parseMultipleFirst(
-        data: String,
-        match: String,
-        number: Int
-    ): MutableList<String> {
+    private fun parseMultipleFirst(data: String, match: String, number: Int): MutableList<String> {
         val result = MutableList(number) { "" }
         try {
             val pattern = Pattern.compile(match)

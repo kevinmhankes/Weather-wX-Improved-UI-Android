@@ -30,13 +30,13 @@ import joshuatee.wx.radar.LatLon
 
 class ObjectForecastPackageCurrentConditions {
 
-    var topLine: String = ""
-    var data: String = ""
+    var topLine = ""
+    var data = ""
         private set
-    var iconUrl: String = ""
+    var iconUrl = ""
         private set
     private var time = ""
-    var status: String = ""
+    var status = ""
         private set
 
     constructor()
