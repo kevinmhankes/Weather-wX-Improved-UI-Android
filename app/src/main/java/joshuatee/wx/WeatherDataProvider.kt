@@ -42,8 +42,7 @@ class WeatherDataProvider : ContentProvider() {
     }
 
     override fun onCreate(): Boolean {
-        val preferences =
-            context!!.getSharedPreferences(context!!.packageName + "_preferences", Context.MODE_PRIVATE)
+        val preferences = context!!.getSharedPreferences(context!!.packageName + "_preferences", Context.MODE_PRIVATE)
         val sevenDay = preferences.getString("7DAY_EXT_WIDGET", "No data")!!
         val dayArr = sevenDay.split("\n\n").dropLastWhile { it.isEmpty() }.toMutableList()
         if (dayArr.size > 1) {
@@ -72,8 +71,7 @@ class WeatherDataProvider : ContentProvider() {
         return c
     }
 
-    override fun getType(uri: Uri): String? =
-        "vnd.android.cursor.dir/vnd.weatherlistwidget.temperature"
+    override fun getType(uri: Uri): String? = "vnd.android.cursor.dir/vnd.weatherlistwidget.temperature"
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? = null
 
@@ -103,8 +101,7 @@ class WeatherDataProvider : ContentProvider() {
     }
 
     companion object {
-        val CONTENT_URI: Uri =
-            Uri.parse("content://${MyApplication.packageNameAsString}.weatherlistwidget.provider")
+        val CONTENT_URI: Uri = Uri.parse("content://${MyApplication.packageNameAsString}.weatherlistwidget.provider")
         /**
          * Generally, this data will be stored in an external and persistent location (ie. File,
          * Database, SharedPreferences) so that the data can persist if the process is ever killed.

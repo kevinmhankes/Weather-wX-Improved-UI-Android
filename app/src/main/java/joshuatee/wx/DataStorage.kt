@@ -29,7 +29,8 @@ class DataStorage(private var preference: String) {
 
     private var storedVal = ""
 
-    val value: String get() = storedVal
+    val value: String
+        get() = storedVal
 
     // update in memory value from what is on disk
     fun update(context: Context) {

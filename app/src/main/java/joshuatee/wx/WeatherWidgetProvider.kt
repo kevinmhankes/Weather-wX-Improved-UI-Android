@@ -98,13 +98,9 @@ class WeatherWidgetProvider : AppWidgetProvider() {
                 val c = r.query(WeatherDataProvider.CONTENT_URI, null, null, null, null)
                 val count = c!!.count
                 (0 until count).forEach {
-                    val uri =
-                        ContentUris.withAppendedId(WeatherDataProvider.CONTENT_URI, it.toLong())
+                    val uri = ContentUris.withAppendedId(WeatherDataProvider.CONTENT_URI, it.toLong())
                     val values = ContentValues()
-                    values.put(
-                        WeatherDataProvider.Columns.TEMPERATURE,
-                        Random().nextInt(sMaxDegrees)
-                    )
+                    values.put(WeatherDataProvider.Columns.TEMPERATURE, Random().nextInt(sMaxDegrees))
                     r.update(uri, values, null, null)
                 }
                 r.registerContentObserver(WeatherDataProvider.CONTENT_URI, true, sDataObserver!!)
@@ -120,13 +116,8 @@ class WeatherWidgetProvider : AppWidgetProvider() {
         super.onReceive(ctx, intent)
     }
 
-    override fun onUpdate(
-        context: Context,
-        appWidgetManager: AppWidgetManager,
-        appWidgetIds: IntArray
-    ) {
+    override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         // Update each of the widgets with the remote adapter
-
         UtilityWidget.updateSevenDay(context)
         super.onUpdate(context, appWidgetManager, appWidgetIds)
     }
@@ -144,12 +135,9 @@ class WeatherWidgetProvider : AppWidgetProvider() {
     }
 
     companion object {
-        const val CLICK_ACTION: String =
-            "${MyApplication.packageNameAsString}.weatherlistwidget.CLICK"
-        const val REFRESH_ACTION: String =
-            "${MyApplication.packageNameAsString}.weatherlistwidget.REFRESH"
-        const val EXTRA_DAY_ID: String =
-            "${MyApplication.packageNameAsString}.weatherlistwidget.day"
+        const val CLICK_ACTION = "${MyApplication.packageNameAsString}.weatherlistwidget.CLICK"
+        const val REFRESH_ACTION = "${MyApplication.packageNameAsString}.weatherlistwidget.REFRESH"
+        const val EXTRA_DAY_ID = "${MyApplication.packageNameAsString}.weatherlistwidget.day"
         var sWorkerThread: HandlerThread? = null
         var sWorkerQueue: Handler? = null
         var sDataObserver: WeatherDataProviderObserver? = null
@@ -170,8 +158,7 @@ class WeatherWidgetProvider : AppWidgetProvider() {
                 val requestID = UtilityTime.currentTimeMillis().toInt()
                 val intentWx = Intent(context, WX::class.java)
                 intentWx.action = "WX"
-                val pendingIntentWx =
-                    PendingIntent.getActivity(context, requestID, intentWx, 0) // was 0
+                val pendingIntentWx = PendingIntent.getActivity(context, requestID, intentWx, 0) // was 0
                 rv.setPendingIntentTemplate(R.id.weather_list, pendingIntentWx)
                 // Restore the minimal header
                 rv.setTextViewText(R.id.city_name, Location.getName(widgetLocNumInt))

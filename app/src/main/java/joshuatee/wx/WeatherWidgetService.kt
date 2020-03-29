@@ -52,13 +52,11 @@ internal class StackRemoteViewsFactory(private val context: Context) :
         mCursor?.close()
     }
 
-    override fun getCount(): Int {
-        return if (mCursor != null) {
+    override fun getCount() = if (mCursor != null) {
             mCursor!!.count
         } else {
             0
         }
-    }
 
     override fun getViewAt(position: Int): RemoteViews {
         var day = "Unknown Day"
