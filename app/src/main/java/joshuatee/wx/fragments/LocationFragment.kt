@@ -770,12 +770,7 @@ class LocationFragment : Fragment()  {
                 hazardsCards[z].setTextColor(UIPreferences.textHighlightColor)
                 hazardsCards[z].text = objHazards.titles[z].toUpperCase(Locale.US)
                 hazardsCards[z].setOnClickListener(OnClickListener {
-                    ObjectIntent(
-                            activityReference,
-                            USAlertsDetailActivity::class.java,
-                            USAlertsDetailActivity.URL,
-                            arrayOf(objHazards.urls[z])
-                    )
+                    ObjectIntent(activityReference, USAlertsDetailActivity::class.java, USAlertsDetailActivity.URL, arrayOf(objHazards.urls[z]))
                 })
                 linearLayoutHazards?.addView(hazardsCards[z].card)
             } else {
