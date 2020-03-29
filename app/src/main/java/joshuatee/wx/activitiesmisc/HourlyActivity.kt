@@ -52,7 +52,7 @@ class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     //
 
     companion object {
-        const val LOC_NUM: String = ""
+        const val LOC_NUM = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main

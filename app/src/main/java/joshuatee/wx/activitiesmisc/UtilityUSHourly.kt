@@ -53,16 +53,10 @@ object UtilityUSHourly {
             windDirData += windDirection + MyApplication.newline
             conditionData += shortenConditions(shortForecast) + MyApplication.newline
         }
-        return ObjectHourly(
-                timeData,
-                tempData,
-                windSpeedData,
-                windDirData,
-                conditionData
-        )
+        return ObjectHourly(timeData, tempData, windSpeedData, windDirData, conditionData)
     }
 
-    private fun shortenConditions(str: String) = str.replace("Showers And Thunderstorms", "Sh/Tst")
+    private fun shortenConditions(string: String) = string.replace("Showers And Thunderstorms", "Sh/Tst")
             .replace("Chance", "Chc")
             .replace("Slight", "Slt")
             .replace("Light", "Lgt")
@@ -74,8 +68,8 @@ object UtilityUSHourly {
             .replace("Freezing", "Frz")
             .replace("T-storms", "Tst")
 
-    fun getString(locNum: Int): List<String> {
-        val html = UtilityDownloadNws.getHourlyData(Location.getLatLon(locNum))
+    fun getString(locationNumber: Int): List<String> {
+        val html = UtilityDownloadNws.getHourlyData(Location.getLatLon(locationNumber))
         val header = String.format("%-7s", "Time") + " " + String.format(
                 "%-5s",
                 "Temp"

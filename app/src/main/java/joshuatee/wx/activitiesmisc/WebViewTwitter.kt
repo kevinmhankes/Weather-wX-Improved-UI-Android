@@ -126,11 +126,7 @@ class WebViewTwitter : BaseActivity(), OnItemSelectedListener {
                         stateTmp = stateTmp.replace("wx", "")
                     }
                 }
-                ObjectIntent(
-                    this,
-                    Intent.ACTION_VIEW,
-                    Uri.parse("http://twitter.com/hashtag/$stateTmp$tail")
-                )
+                ObjectIntent(this, Intent.ACTION_VIEW, Uri.parse("http://twitter.com/hashtag/$stateTmp$tail"))
                 true
             }
             else -> super.onOptionsItemSelected(item)

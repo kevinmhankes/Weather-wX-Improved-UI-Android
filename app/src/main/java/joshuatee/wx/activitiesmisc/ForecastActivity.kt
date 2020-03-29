@@ -53,7 +53,7 @@ class ForecastActivity : BaseActivity() {
     //
 
     companion object {
-        const val URL: String = ""
+        const val URL = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
@@ -96,7 +96,6 @@ class ForecastActivity : BaseActivity() {
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         var bitmapForCurrentCondition: Bitmap? = null
         val bitmaps = mutableListOf<Bitmap>()
-
         withContext(Dispatchers.IO) {
             //
             // Current conditions

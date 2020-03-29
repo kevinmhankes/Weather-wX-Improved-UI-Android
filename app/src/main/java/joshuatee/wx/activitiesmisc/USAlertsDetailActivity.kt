@@ -40,7 +40,7 @@ import kotlinx.android.synthetic.main.activity_usalertsdetail.*
 class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     companion object {
-        const val URL: String = ""
+        const val URL = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
@@ -84,11 +84,7 @@ class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
             return true
         }
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(
-                    this,
-                    capAlert.title + " " + capAlert.area,
-                    Utility.fromHtml(capAlert.text)
-            )
+            R.id.action_share -> UtilityShare.shareText(this, capAlert.title + " " + capAlert.area, Utility.fromHtml(capAlert.text))
             else -> return super.onOptionsItemSelected(item)
         }
         return true

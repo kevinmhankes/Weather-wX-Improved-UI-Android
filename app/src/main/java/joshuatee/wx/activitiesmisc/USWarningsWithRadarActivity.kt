@@ -60,7 +60,7 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
     //
 
     companion object {
-        const val URL: String = ""
+        const val URL = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
@@ -130,8 +130,8 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
     }
 
     private fun saveLocFromZone(id: Int) = GlobalScope.launch(uiDispatcher) {
-        var toastStr = ""
-        var coord = listOf<String>()
+        var message = ""
+        var coordinates = listOf<String>()
         withContext(Dispatchers.IO) {
             var locNumIntCurrent = Location.numLocations
             locNumIntCurrent += 1
@@ -140,18 +140,18 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
             var state = objectAlertSummary.mapButtonState[id]
             val county = objectAlertSummary.mapButtonCounty[id]
             if (zone!!.length > 3) {
-                coord = if (zone.matches("[A-Z][A-Z]C.*?".toRegex())) {
+                coordinates = if (zone.matches("[A-Z][A-Z]C.*?".toRegex())) {
                     UtilityLocation.getLatLonFromAddress(county + "," + zone.substring(0, 2))
                 } else {
                     UtilityDownloadNws.getLatLonForZone(zone)
                 }
                 state = zone.substring(0, 2)
             }
-            val x = coord[0]
-            val y = coord[1]
-            toastStr = Location.locationSave(this@USWarningsWithRadarActivity, locNumToSaveStr, x, y, state + "_" + county)
+            val x = coordinates[0]
+            val y = coordinates[1]
+            message = Location.locationSave(this@USWarningsWithRadarActivity, locNumToSaveStr, x, y, state + "_" + county)
         }
-        UtilityUI.makeSnackBar(linearLayout, toastStr)
+        UtilityUI.makeSnackBar(linearLayout, message)
     }
 
     override fun onRestart() {

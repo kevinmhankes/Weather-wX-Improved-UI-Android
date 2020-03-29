@@ -47,7 +47,7 @@ class WebView : BaseActivity() {
     //
 
     companion object {
-        const val URL: String = ""
+        const val URL = ""
     }
 
     private var url = ""

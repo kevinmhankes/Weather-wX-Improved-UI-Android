@@ -54,7 +54,7 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     private var provSelected = ""
     private lateinit var objectRecyclerView: ObjectRecyclerView
     private val titleString = "Observation sites"
-    val prefToken: String = "NWS_OBSSITE_LAST_USED"
+    val prefToken = "NWS_OBSSITE_LAST_USED"
     private lateinit var lastUsedMenuItem: MenuItem
 
     @SuppressLint("MissingSuperCall")

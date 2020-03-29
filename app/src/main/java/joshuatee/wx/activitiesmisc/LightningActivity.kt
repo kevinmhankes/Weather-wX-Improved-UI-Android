@@ -48,7 +48,7 @@ class LightningActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
     //
 
     companion object {
-        const val URL: String = ""
+        const val URL = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main

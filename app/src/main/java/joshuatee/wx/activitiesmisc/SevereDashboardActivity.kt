@@ -63,7 +63,7 @@ class SevereDashboardActivity : BaseActivity() {
     private var ffwCount = 0
     private var torCount = 0
     private var numberOfImages = 0
-    private var horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
+    private var horizontalLinearLayouts = mutableListOf<ObjectLinearLayout> ()
     private var imagesPerRow = 2
     private var listOfWfoForWarnings = mutableListOf<String>()
 

@@ -200,16 +200,8 @@ class SpottersActivity : BaseActivity() {
     }
 
     private fun showItemOnRadar(position: Int) {
-        val radarSite = UtilityLocation.getNearestOffice(
-                "RADAR",
-                LatLon(spotterList[position].lat, spotterList[position].lon)
-        )
-        ObjectIntent(
-                this,
-                WXGLRadarActivity::class.java,
-                WXGLRadarActivity.RID,
-                arrayOf(radarSite, "", "N0Q", "", spotterList[position].unique)
-        )
+        val radarSite = UtilityLocation.getNearestOffice("RADAR", LatLon(spotterList[position].lat, spotterList[position].lon))
+        ObjectIntent(this, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, arrayOf(radarSite, "", "N0Q", "", spotterList[position].unique))
     }
 
     private fun toggleFavorite(position: Int) {

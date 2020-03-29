@@ -45,7 +45,7 @@ class TextScreenActivity : AudioPlayActivity(), OnMenuItemClickListener {
     // arg2 if "sound" will play TTS on first load
 
     companion object {
-        const val URL: String = ""
+        const val URL = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
@@ -93,11 +93,7 @@ class TextScreenActivity : AudioPlayActivity(), OnMenuItemClickListener {
             return true
         }
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(
-                this,
-                activityArguments[1],
-                Utility.fromHtml(html)
-            )
+            R.id.action_share -> UtilityShare.shareText(this, activityArguments[1], Utility.fromHtml(html))
             else -> return super.onOptionsItemSelected(item)
         }
         return true
