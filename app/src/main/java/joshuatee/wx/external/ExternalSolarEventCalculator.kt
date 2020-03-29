@@ -23,13 +23,9 @@ import java.util.Calendar
 import java.util.TimeZone
 import kotlin.math.*
 
-//import com.luckycatlabs.sunrisesunset.Zenith;
-//import ExternalSunriseLocation;
-
 /**
  * Parent class of the Sunrise and Sunset calculator classes.
  */
-internal class ExternalSolarEventCalculator
 /**
  * Constructs a new `SolarEventCalculator` using the given parameters.
  *
@@ -37,8 +33,8 @@ internal class ExternalSolarEventCalculator
  * `Location` of the place where the solar event should be calculated from.
  * @param timeZone
  * timezone of the location parameter.
- */(private val location: ExternalSunriseLocation, private val timeZone: TimeZone) {
-
+ */
+internal class ExternalSolarEventCalculator(private val location: ExternalSunriseLocation, private val timeZone: TimeZone) {
     /**
      * Computes the base longitude hour, lngHour in the algorithm.
      *
@@ -86,7 +82,6 @@ internal class ExternalSolarEventCalculator
     fun computeSunriseCalendar(solarZenith: ExternalZenith, date: Calendar): Calendar? {
         return getLocalTimeAsCalendar(computeSolarEventTime(solarZenith, date, true), date)
     }
-
     /**
      * Computes the sunset time for the given zenith at the given date.
      *
@@ -114,26 +109,19 @@ internal class ExternalSolarEventCalculator
         return getLocalTimeAsCalendar(computeSolarEventTime(solarZenith, date, false), date)
     }
 
-    private fun computeSolarEventTime(
-        solarZenith: ExternalZenith,
-        date: Calendar,
-        isSunrise: Boolean
-    ): BigDecimal? {
+    private fun computeSolarEventTime(solarZenith: ExternalZenith, date: Calendar, isSunrise: Boolean): BigDecimal? {
         date.timeZone = this.timeZone
         val longitudeHour = getLongitudeHour(date, isSunrise)
-
         val meanAnomaly = getMeanAnomaly(longitudeHour)
         val sunTrueLong = getSunTrueLongitude(meanAnomaly)
         val cosineSunLocalHour = getCosineSunLocalHour(sunTrueLong, solarZenith)
         if (cosineSunLocalHour.toDouble() < -1.0 || cosineSunLocalHour.toDouble() > 1.0) {
             return null
         }
-
         val sunLocalHour = getSunLocalHour(cosineSunLocalHour, isSunrise)
         val localMeanTime = getLocalMeanTime(sunTrueLong, longitudeHour, sunLocalHour)
         return getLocalTime(localMeanTime, date)
     }
-
     /**
      * Computes the longitude time, t in the algorithm.
      *
@@ -149,18 +137,15 @@ internal class ExternalSolarEventCalculator
         val longHour = getDayOfYear(date).add(addend)
         return setScale(longHour)
     }
-
     /**
      * Computes the mean anomaly of the Sun, M in the algorithm.
      *
      * @return the suns mean anomaly, M, in `BigDecimal` form.
      */
     private fun getMeanAnomaly(longitudeHour: BigDecimal): BigDecimal {
-        val meanAnomaly =
-            multiplyBy(BigDecimal("0.9856"), longitudeHour).subtract(BigDecimal("3.289"))
+        val meanAnomaly = multiplyBy(BigDecimal("0.9856"), longitudeHour).subtract(BigDecimal("3.289"))
         return setScale(meanAnomaly)
     }
-
     /**
      * Computes the true longitude of the sun, L in the algorithm, at the given location, adjusted to fit in
      * the range [0-360].
@@ -183,7 +168,6 @@ internal class ExternalSolarEventCalculator
         }
         return setScale(trueLongitude)
     }
-
     /**
      * Computes the suns right ascension, RA in the algorithm, adjusting for the quadrant of L and turning it
      * into degree-hours. Will be in the range [0,360].
@@ -245,16 +229,11 @@ internal class ExternalSolarEventCalculator
         return divideBy(localHour, BigDecimal.valueOf(15))
     }
 
-    private fun getLocalMeanTime(
-        sunTrueLong: BigDecimal,
-        longitudeHour: BigDecimal,
-        sunLocalHour: BigDecimal
-    ): BigDecimal {
+    private fun getLocalMeanTime(sunTrueLong: BigDecimal, longitudeHour: BigDecimal, sunLocalHour: BigDecimal): BigDecimal {
         val rightAscension = this.getRightAscension(sunTrueLong)
         val innerParens = longitudeHour.multiply(BigDecimal("0.06571"))
         var localMeanTime = sunLocalHour.add(rightAscension).subtract(innerParens)
         localMeanTime = localMeanTime.subtract(BigDecimal("6.622"))
-
         if (localMeanTime.toDouble() < 0) {
             localMeanTime = localMeanTime.add(BigDecimal.valueOf(24))
         } else if (localMeanTime.toDouble() > 24) {
@@ -280,7 +259,6 @@ internal class ExternalSolarEventCalculator
         }
         return localTime
     }
-
     /**
      * Returns the local rise/set time in the form HH:MM.
      *
@@ -316,7 +294,6 @@ internal class ExternalSolarEventCalculator
           val hourString = if (hour < 10) "0" + hour.toString() else hour.toString()
           return "$hourString:$minuteString"
       }*/
-
     /**
      * Returns the local rise/set time in the form HH:MM.
      *
@@ -335,9 +312,7 @@ internal class ExternalSolarEventCalculator
             localTime = localTime.add(BigDecimal.valueOf(24.0))
             resultTime.add(Calendar.HOUR_OF_DAY, -24)
         }
-        val timeComponents =
-            localTime.toPlainString().split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
-                .toTypedArray()
+        val timeComponents = localTime.toPlainString().split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         var hour = timeComponents[0].toIntOrNull() ?: 0
         var minutes = BigDecimal("0." + timeComponents[1])
         minutes = minutes.multiply(BigDecimal.valueOf(60)).setScale(0, RoundingMode.HALF_EVEN)
@@ -359,9 +334,7 @@ internal class ExternalSolarEventCalculator
 
     /** ******* UTILITY METHODS (Should probably go somewhere else. *****************  */
 
-    private fun getDayOfYear(date: Calendar): BigDecimal {
-        return BigDecimal(date.get(Calendar.DAY_OF_YEAR))
-    }
+    private fun getDayOfYear(date: Calendar) = BigDecimal(date.get(Calendar.DAY_OF_YEAR))
 
     private fun getUTCOffSet(date: Calendar): BigDecimal {
         val offSetInMillis = BigDecimal(date.get(Calendar.ZONE_OFFSET))
@@ -373,23 +346,13 @@ internal class ExternalSolarEventCalculator
         return setScale(arcCosine)
     }
 
-    private fun convertRadiansToDegrees(radians: BigDecimal): BigDecimal {
-        return multiplyBy(radians, BigDecimal(180 / Math.PI))
-    }
+    private fun convertRadiansToDegrees(radians: BigDecimal): BigDecimal = multiplyBy(radians, BigDecimal(180 / Math.PI))
 
-    private fun convertDegreesToRadians(degrees: BigDecimal): BigDecimal {
-        return multiplyBy(degrees, BigDecimal.valueOf(Math.PI / 180.0))
-    }
+    private fun convertDegreesToRadians(degrees: BigDecimal): BigDecimal = multiplyBy(degrees, BigDecimal.valueOf(Math.PI / 180.0))
 
-    private fun multiplyBy(multiplicand: BigDecimal, multiplier: BigDecimal): BigDecimal {
-        return setScale(multiplicand.multiply(multiplier))
-    }
+    private fun multiplyBy(multiplicand: BigDecimal, multiplier: BigDecimal): BigDecimal = setScale(multiplicand.multiply(multiplier))
 
-    private fun divideBy(dividend: BigDecimal, divisor: BigDecimal): BigDecimal {
-        return dividend.divide(divisor, 4, RoundingMode.HALF_EVEN)
-    }
+    private fun divideBy(dividend: BigDecimal, divisor: BigDecimal): BigDecimal = dividend.divide(divisor, 4, RoundingMode.HALF_EVEN)
 
-    private fun setScale(number: BigDecimal): BigDecimal {
-        return number.setScale(4, RoundingMode.HALF_EVEN)
-    }
+    private fun setScale(number: BigDecimal): BigDecimal = number.setScale(4, RoundingMode.HALF_EVEN)
 }

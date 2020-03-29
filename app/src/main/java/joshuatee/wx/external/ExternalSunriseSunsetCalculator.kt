@@ -27,7 +27,25 @@ import java.util.TimeZone
 /**
  * Public interface for getting the various types of sunrise/sunset.
  */
-class ExternalSunriseSunsetCalculator
+
+
+/**
+ * Computes the sunrise for an arbitrary declination.
+ *
+ * Coordinates for the ExternalSunriseLocation to compute the sunrise/sunset for.
+ * @param timeZone
+ * timezone to compute the sunrise/sunset times in.
+ * `Calendar` object containing the date to compute the official sunset for.
+ * Angle under the horizon for which to compute sunrise. For example, "civil sunrise"
+ * corresponds to 6 degrees.
+ * @return the requested sunset time as a `Calendar` object.
+ */
+
+/* public static Calendar getSunrise(double latitude, double longitude, TimeZone timeZone, Calendar date, double degrees) {
+    ExternalSolarEventCalculator solarEventCalculator = new ExternalSolarEventCalculator(new ExternalSunriseLocation(latitude, longitude), timeZone);
+    return solarEventCalculator.computeSunriseCalendar(new ExternalZenith(90 - degrees), date);
+}*/
+
 /**
  * Constructs a new `SunriseSunsetCalculator` with the given `ExternalSunriseLocation`
  *
@@ -50,51 +68,33 @@ class ExternalSunriseSunsetCalculator
  * @param timeZone
  * timezone to compute the sunrise/sunset times in.
  */
-    (
-    /**
-     * Computes the sunrise for an arbitrary declination.
-     *
-     * Coordinates for the ExternalSunriseLocation to compute the sunrise/sunset for.
-     * @param timeZone
-     * timezone to compute the sunrise/sunset times in.
-     * `Calendar` object containing the date to compute the official sunset for.
-     * Angle under the horizon for which to compute sunrise. For example, "civil sunrise"
-     * corresponds to 6 degrees.
-     * @return the requested sunset time as a `Calendar` object.
-     */
 
-    /* public static Calendar getSunrise(double latitude, double longitude, TimeZone timeZone, Calendar date, double degrees) {
-    	ExternalSolarEventCalculator solarEventCalculator = new ExternalSolarEventCalculator(new ExternalSunriseLocation(latitude, longitude), timeZone);
-        return solarEventCalculator.computeSunriseCalendar(new ExternalZenith(90 - degrees), date);
-    }*/
+/**
+ * Computes the sunset for an arbitrary declination.
+ *
+ * Coordinates for the ExternalSunriseLocation to compute the sunrise/sunset for.
+ * @param timeZone
+ * timezone to compute the sunrise/sunset times in.
+ * `Calendar` object containing the date to compute the official sunset for.
+ * Angle under the horizon for which to compute sunrise. For example, "civil sunset"
+ * corresponds to 6 degrees.
+ * @return the requested sunset time as a `Calendar` object.
+ */
 
-    /**
-     * Computes the sunset for an arbitrary declination.
-     *
-     * Coordinates for the ExternalSunriseLocation to compute the sunrise/sunset for.
-     * @param timeZone
-     * timezone to compute the sunrise/sunset times in.
-     * `Calendar` object containing the date to compute the official sunset for.
-     * Angle under the horizon for which to compute sunrise. For example, "civil sunset"
-     * corresponds to 6 degrees.
-     * @return the requested sunset time as a `Calendar` object.
-     */
+/* public static Calendar getSunset(double latitude, double longitude, TimeZone timeZone, Calendar date, double degrees) {
+    ExternalSolarEventCalculator solarEventCalculator = new ExternalSolarEventCalculator(new ExternalSunriseLocation(latitude, longitude), timeZone);
+    return solarEventCalculator.computeSunsetCalendar(new ExternalZenith(90 - degrees), date);
+}*/
 
-    /* public static Calendar getSunset(double latitude, double longitude, TimeZone timeZone, Calendar date, double degrees) {
-    	ExternalSolarEventCalculator solarEventCalculator = new ExternalSolarEventCalculator(new ExternalSunriseLocation(latitude, longitude), timeZone);
-        return solarEventCalculator.computeSunsetCalendar(new ExternalZenith(90 - degrees), date);
-    }*/
+/**
+ * Returns the ExternalSunriseLocation where the sunrise/sunset is calculated for.
+ *
+ * @return `ExternalSunriseLocation` object representing the ExternalSunriseLocation of the computed sunrise/sunset.
+ */
 
-    /**
-     * Returns the ExternalSunriseLocation where the sunrise/sunset is calculated for.
-     *
-     * @return `ExternalSunriseLocation` object representing the ExternalSunriseLocation of the computed sunrise/sunset.
-     */
-    val location: ExternalSunriseLocation, timeZone: TimeZone
-) {
+class ExternalSunriseSunsetCalculator(val location: ExternalSunriseLocation, timeZone: TimeZone) {
 
-    private val calculator: ExternalSolarEventCalculator =
-        ExternalSolarEventCalculator(location, timeZone)
+    private val calculator = ExternalSolarEventCalculator(location, timeZone)
 
     /**
      * Returns the astronomical (108deg) sunrise for the given date.
@@ -233,9 +233,7 @@ class ExternalSunriseSunsetCalculator
      * `Calendar` object containing the date to compute the official sunrise for.
      * @return the official sunrise time as a Calendar
      */
-    fun getOfficialSunriseCalendarForDate(date: Calendar): Calendar {
-        return calculator.computeSunriseCalendar(ExternalZenith.OFFICIAL, date)!!
-    }
+    fun getOfficialSunriseCalendarForDate(date: Calendar): Calendar = calculator.computeSunriseCalendar(ExternalZenith.OFFICIAL, date)!!
 
     /**
      * Returns the official sunrise (90deg 50', 90.8333deg) for the given date.
@@ -254,7 +252,5 @@ class ExternalSunriseSunsetCalculator
      * `Calendar` object containing the date to compute the official sunset for.
      * @return the official sunset time as a Calendar
      */
-    fun getOfficialSunsetCalendarForDate(date: Calendar): Calendar {
-        return calculator.computeSunsetCalendar(ExternalZenith.OFFICIAL, date)!!
-    }
+    fun getOfficialSunsetCalendarForDate(date: Calendar): Calendar = calculator.computeSunsetCalendar(ExternalZenith.OFFICIAL, date)!!
 }

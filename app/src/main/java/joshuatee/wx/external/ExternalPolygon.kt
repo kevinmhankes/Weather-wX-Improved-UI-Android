@@ -29,10 +29,7 @@ import java.util.ArrayList
  *
  * @author Roman Kushnarenko (sromku@gmail.com)
  */
-class ExternalPolygon private constructor(
-    private val sides: List<ExternalLine>,
-    private val _boundingBox: BoundingBox
-) {
+class ExternalPolygon private constructor(private val sides: List<ExternalLine>, private val _boundingBox: BoundingBox) {
 
     /**
      * Get the builder of the polygon
@@ -53,10 +50,8 @@ class ExternalPolygon private constructor(
         private var _vertexes: MutableList<ExternalPoint> = ArrayList()
         private val _sides = ArrayList<ExternalLine>()
         private var _boundingBox: BoundingBox? = null
-
         private var _firstPoint = true
         private var _isClosed = false
-
         /**
          * Add vertex points of the polygon.<br></br>
          * It is very important to add the vertexes by order, like you were drawing them one by one.
@@ -71,19 +66,15 @@ class ExternalPolygon private constructor(
                 _vertexes = ArrayList()
                 _isClosed = false
             }
-
             updateBoundingBox(point)
             _vertexes.add(point)
-
             // add line (edge) to the polygon
             if (_vertexes.size > 1) {
                 val line = ExternalLine(_vertexes[_vertexes.size - 2], point)
                 _sides.add(line)
             }
-
             return this
         }
-
         /**
          * Close the polygon shape. This will create a new side (edge) from the **last** vertex point to the **first** vertex point.
          *
@@ -91,14 +82,11 @@ class ExternalPolygon private constructor(
          */
         fun close(): Builder {
             validate()
-
             // add last Line
             _sides.add(ExternalLine(_vertexes[_vertexes.size - 1], _vertexes[0]))
             _isClosed = true
-
             return this
         }
-
         /**
          * Build the instance of the polygon shape.
          *
@@ -106,16 +94,13 @@ class ExternalPolygon private constructor(
          */
         fun build(): ExternalPolygon {
             validate()
-
             // in case you forgot to close
             if (!_isClosed) {
                 // add last Line
                 _sides.add(ExternalLine(_vertexes[_vertexes.size - 1], _vertexes[0]))
             }
-
             return ExternalPolygon(_sides, _boundingBox!!)
         }
-
         /**
          * Update bounding box with a new point.<br></br>
          *
@@ -129,7 +114,6 @@ class ExternalPolygon private constructor(
                 _boundingBox!!.xMin = point.x
                 _boundingBox!!.yMax = point.y
                 _boundingBox!!.yMin = point.y
-
                 _firstPoint = false
             } else {
                 // set bounding box
@@ -152,7 +136,6 @@ class ExternalPolygon private constructor(
             }
         }
     }
-
     /**
      * Check if the the given point is inside of the polygon.<br></br>
      *
@@ -170,7 +153,6 @@ class ExternalPolygon private constructor(
                     intersection++
                 }
             }
-
             /*
 			 * If the number of intersections is odd, then the point is inside the polygon
 			 */
@@ -180,7 +162,6 @@ class ExternalPolygon private constructor(
         }
         return false
     }
-
     /**
      * By given ray and one side of the polygon, check if both lines intersect.
      *
@@ -190,14 +171,12 @@ class ExternalPolygon private constructor(
      */
     private fun intersect(ray: ExternalLine, side: ExternalLine): Boolean {
         val intersectPoint: ExternalPoint?
-
         // if both vectors aren't from the kind of x=1 lines then go into
         if (!ray.isVertical && !side.isVertical) {
             // check if both vectors are parallel. If they are parallel then no intersection point will exist
             if (ray.a - side.a == 0f) {
                 return false
             }
-
             val x = (side.b - ray.b) / (ray.a - side.a) // x = (b2-b1)/(a1-a2)
             val y = side.a * x + side.b // y = a2*x+b2
             intersectPoint = ExternalPoint(x, y)
@@ -212,13 +191,8 @@ class ExternalPolygon private constructor(
         } else {
             return false
         }
-
-        // System.out.println("Ray: " + ray.toString() + " ,Side: " + side);
-        // System.out.println("Intersect point: " + intersectPoint.toString());
-
         return side.isInside(intersectPoint) && ray.isInside(intersectPoint)
     }
-
     /**
      * Create a ray. The ray will be created by given point and on point outside of the polygon.<br></br>
      * The outside point is calculated automatically.
@@ -230,19 +204,16 @@ class ExternalPolygon private constructor(
         // create outside point
         val epsilon = (_boundingBox.xMax - _boundingBox.xMin) / 100f
         val outsidePoint = ExternalPoint(_boundingBox.xMin - epsilon, _boundingBox.yMin)
-
         return ExternalLine(outsidePoint, point)
     }
-
     /**
      * Check if the given point is in bounding box
      *
      * @param point
      * @return `True` if the point in bounding box, otherwise return `False`
      */
-    private fun inBoundingBox(point: ExternalPoint): Boolean {
-        return !(point.x < _boundingBox.xMin || point.x > _boundingBox.xMax || point.y < _boundingBox.yMin || point.y > _boundingBox.yMax)
-    }
+    private fun inBoundingBox(point: ExternalPoint) =
+         !(point.x < _boundingBox.xMin || point.x > _boundingBox.xMax || point.y < _boundingBox.yMin || point.y > _boundingBox.yMax)
 
     private class BoundingBox {
         var xMax = Float.NEGATIVE_INFINITY

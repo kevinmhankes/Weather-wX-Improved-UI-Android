@@ -21,7 +21,6 @@ import java.math.BigDecimal
 /**
  * Simple VO class to store latitude/longitude information.
  */
-class ExternalSunriseLocation
 /**
  * Creates a new instance of `Location` with the given parameters.
  *
@@ -30,7 +29,7 @@ class ExternalSunriseLocation
  * @param longitude
  * the longitude, in degrees of this location. East longitude is positive, west negative.
  */
-    (latitude: String, longitude: String) {
+class ExternalSunriseLocation(latitude: String, longitude: String) {
     /**
      * Creates a new instance of `Location` with the given parameters.
      *

@@ -29,7 +29,5 @@ import java.util.Locale
  */
 class ExternalPoint(val x: Float, val y: Float) {
 
-    override fun toString(): String {
-        return String.format(Locale.US, "(%.2f,%.2f)", x, y)
-    }
+    override fun toString() = String.format(Locale.US, "(%.2f,%.2f)", x, y)
 }
