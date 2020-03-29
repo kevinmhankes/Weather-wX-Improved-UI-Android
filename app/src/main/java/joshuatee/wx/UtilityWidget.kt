@@ -210,13 +210,7 @@ object UtilityWidget {
         remoteViews.setOnClickPendingIntent(layoutItem, pendingIntent)
     }
 
-    fun setupIntent(
-        context: Context,
-        remoteViews: RemoteViews,
-        activity: Class<*>,
-        layoutItem: Int,
-        actionString: String
-    ) {
+    fun setupIntent(context: Context, remoteViews: RemoteViews, activity: Class<*>, layoutItem: Int, actionString: String) {
         val requestID = UtilityTime.currentTimeMillis().toInt()
         val intent = Intent(context, activity)
         intent.action = actionString

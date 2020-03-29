@@ -29,37 +29,37 @@ import joshuatee.wx.util.Utility
 
 object UIPreferences {
 
-    var refreshLocMin: Int = 0
-    var translateText: Boolean = false
-    var nwsTextRemovelinebreaks: Boolean = false
-    var recordScreenShare: Boolean = false
-    var prefPreventAccidentalExit: Boolean = false
-    var fabInModels: Boolean = false
-    var backgroundColor: Int = Color.WHITE
-    var colorNotif: Int = 0
-    var colorBlack: Int = 0
-    var colorOffwhiteToolbar: Int = 0
-    var dualpaneRadarIcon: Boolean = false
-    var homescreenTextLength: Int = 0
-    var mediaControlNotif: Boolean = false
-    var radarToolbarTransparent: Boolean = true
-    var radarStatusBarTransparent: Boolean = false
-    var radarImmersiveMode: Boolean = false
-    var tilesPerRow: Int = 3
-    var tilesPerRowDefault: Int = 3
-    var themeStr: String = ""
-    var themeInt: Int = 0
-    var smallTextTheme: Int = 0
-    var textHighlightColor: Int = 0
-    var textSmallThemeColor: Int = 0
-    var themeIsWhite: Boolean = true
-    var hideTopToolbar: Boolean = false
-    var mainScreenRadarFab: Boolean = true
-    var locfragDontShowIcons: Boolean = false
-    var useAwcRadarMosaic: Boolean = false
+    var refreshLocMin = 0
+    var translateText = false
+    var nwsTextRemovelinebreaks = false
+    var recordScreenShare = false
+    var prefPreventAccidentalExit = false
+    var fabInModels = false
+    var backgroundColor = Color.WHITE
+    var colorNotif = 0
+    var colorBlack = 0
+    var colorOffwhiteToolbar = 0
+    var dualpaneRadarIcon = false
+    var homescreenTextLength = 0
+    var mediaControlNotif = false
+    var radarToolbarTransparent = true
+    var radarStatusBarTransparent = false
+    var radarImmersiveMode = false
+    var tilesPerRow = 3
+    var tilesPerRowDefault = 3
+    var themeStr = ""
+    var themeInt = 0
+    var smallTextTheme = 0
+    var textHighlightColor = 0
+    var textSmallThemeColor = 0
+    var themeIsWhite = true
+    var hideTopToolbar = false
+    var mainScreenRadarFab = true
+    var locfragDontShowIcons = false
+    var useAwcRadarMosaic = false
     var nwsIconSizeDefault = 20
     var normalTextSizeDefault = 16
-    var normalTextSize: Int = 16
+    var normalTextSize = 16
 
     fun initPreferences(context: Context) {
         if (UtilityUI.isTablet()) {
