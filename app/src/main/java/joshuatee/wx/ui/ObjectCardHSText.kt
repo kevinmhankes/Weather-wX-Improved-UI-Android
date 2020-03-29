@@ -26,7 +26,6 @@ import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.util.Utility

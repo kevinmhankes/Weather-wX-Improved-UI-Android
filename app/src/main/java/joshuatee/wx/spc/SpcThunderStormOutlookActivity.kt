@@ -27,7 +27,6 @@ import android.os.Bundle
 import android.graphics.Bitmap
 import android.view.MenuItem
 import android.view.View
-import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.Extensions.getImage
 

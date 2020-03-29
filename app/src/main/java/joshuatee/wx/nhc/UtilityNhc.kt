@@ -21,8 +21,6 @@
 
 package joshuatee.wx.nhc
 
-import android.graphics.Bitmap
-
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp

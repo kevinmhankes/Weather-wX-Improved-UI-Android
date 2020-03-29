@@ -26,14 +26,11 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.spc.SpcFireOutlookActivity
-import joshuatee.wx.spc.UtilitySpcFireOutlook
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.UtilityShare
 import kotlinx.coroutines.*

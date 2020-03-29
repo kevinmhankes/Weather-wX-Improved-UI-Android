@@ -22,7 +22,6 @@
 package joshuatee.wx.util
 
 import android.content.Context
-import android.graphics.Bitmap
 
 import joshuatee.wx.radar.UtilityUSImgWX
 

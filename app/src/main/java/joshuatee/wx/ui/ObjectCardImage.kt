@@ -27,7 +27,6 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TableLayout
 import androidx.appcompat.widget.Toolbar
-import androidx.cardview.widget.CardView
 
 import joshuatee.wx.util.UtilityImg
 

@@ -24,7 +24,6 @@ package joshuatee.wx.activitiesmisc
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.res.Configuration
-import android.graphics.Typeface
 import java.util.Locale
 
 import androidx.cardview.widget.CardView

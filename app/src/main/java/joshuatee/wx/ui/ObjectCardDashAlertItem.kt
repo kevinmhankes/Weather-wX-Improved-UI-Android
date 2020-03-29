@@ -21,7 +21,6 @@
 
 package joshuatee.wx.ui
 
-import android.R
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable

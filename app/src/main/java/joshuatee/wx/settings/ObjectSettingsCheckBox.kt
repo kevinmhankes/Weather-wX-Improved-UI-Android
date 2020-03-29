@@ -29,7 +29,6 @@ import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import joshuatee.wx.Extensions.setPadding
 
 import joshuatee.wx.MyApplication

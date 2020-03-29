@@ -25,7 +25,6 @@ import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
-import androidx.cardview.widget.CardView
 import joshuatee.wx.UIPreferences
 
 import joshuatee.wx.ui.ObjectCard

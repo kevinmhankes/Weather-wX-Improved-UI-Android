@@ -25,7 +25,6 @@ import android.content.*
 import java.util.Locale
 
 import android.graphics.Bitmap
-import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import android.util.TypedValue
