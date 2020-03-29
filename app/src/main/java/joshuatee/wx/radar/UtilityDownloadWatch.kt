@@ -84,7 +84,5 @@ internal object UtilityDownloadWatch {
         return list
     }
 
-    fun getLatLon(number: String): String {
-        return UtilityString.getHtmlAndParseLastMatch("${MyApplication.nwsSPCwebsitePrefix}/products/watch/wou$number.html", RegExp.pre2Pattern)
-    }
+    fun getLatLon(number: String) = UtilityString.getHtmlAndParseLastMatch("${MyApplication.nwsSPCwebsitePrefix}/products/watch/wou$number.html", RegExp.pre2Pattern)
 }

@@ -59,9 +59,7 @@ class Spotter internal constructor(
         lonD = -1.0 * (lon.toDoubleOrNull() ?: 0.0)
     }
 
-    override fun toString(): String {
-        return "$lastName, $firstName"
-    }
+    override fun toString() = "$lastName, $firstName"
 }
 
 

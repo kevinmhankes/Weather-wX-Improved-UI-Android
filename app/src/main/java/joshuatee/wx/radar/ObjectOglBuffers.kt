@@ -40,16 +40,16 @@ open class ObjectOglBuffers() {
     var indexBuffer: ByteBuffer = ByteBuffer.allocate(0)
         private set
     var colorBuffer: ByteBuffer = ByteBuffer.allocate(0)
-    var colorIntArray: List<Int> = listOf()
+    var colorIntArray = listOf<Int>()
     var solidColorRed: Byte = 0
         private set
     var solidColorGreen: Byte = 0
         private set
     var solidColorBlue: Byte = 0
         private set
-    var breakSize: Int = 30000
-    var chunkCount: Int = 0
-    var count: Int = 0
+    var breakSize = 30000
+    var chunkCount = 0
+    var count = 0
         set(count) {
             field = count
             chunkCount = 1
@@ -61,20 +61,20 @@ open class ObjectOglBuffers() {
                 chunkCount += 1
             }
         }
-    var isInitialized: Boolean = false
+    var isInitialized = false
         set(downloaded) {
             field = downloaded
             if (!isInitialized) {
                 chunkCount = 0
             }
         }
-    var lenInit: Float = 7.5f
-    var xList: DoubleArray = DoubleArray(1)
-    var yList: DoubleArray = DoubleArray(1)
-    var triangleCount: Int = 0
-    var scaleCutOff: Float = 0.0f
-    var type: PolygonType = PolygonType.NONE
-    var geotype: GeographyType = GeographyType.NONE
+    var lenInit = 7.5f
+    var xList = DoubleArray(1)
+    var yList = DoubleArray(1)
+    var triangleCount = 0
+    var scaleCutOff = 0.0f
+    var type = PolygonType.NONE
+    var geotype = GeographyType.NONE
     var warningType: ObjectPolygonWarning? = null
 
     constructor(type: PolygonType) : this() {

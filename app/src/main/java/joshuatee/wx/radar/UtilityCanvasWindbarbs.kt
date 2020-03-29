@@ -40,27 +40,20 @@ import joshuatee.wx.util.ProjectionNumbers
 
 object UtilityCanvasWindbarbs {
 
-    fun draw(
-        context: Context,
-        provider: ProjectionType,
-        bitmap: Bitmap,
-        radarSite: String,
-        isGust: Boolean,
-        index: Int
-    ) {
+    fun draw(context: Context, projectionType: ProjectionType, bitmap: Bitmap, radarSite: String, isGust: Boolean, index: Int) {
         val textSize = 22
         UtilityMetar.getStateMetarArrayForWXOGL(context, radarSite, 5)
         val wbCircleXArr = UtilityMetar.metarDataList[index].x
         val wbCircleYArr = UtilityMetar.metarDataList[index].y
         var mercator = false
-        if (provider !== ProjectionType.NWS_MOSAIC) {
+        if (projectionType !== ProjectionType.NWS_MOSAIC) {
             mercator = true
         }
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.FILL
         paint.strokeWidth = 2f
-        if (provider === ProjectionType.WX_RENDER || provider === ProjectionType.WX_RENDER_48) {
+        if (projectionType === ProjectionType.WX_RENDER || projectionType === ProjectionType.WX_RENDER_48) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
         if (isGust) {
@@ -69,7 +62,7 @@ object UtilityCanvasWindbarbs {
             paint.color = MyApplication.radarColorObsWindbarbs
         }
         paint.textSize = textSize.toFloat()
-        val pn = ProjectionNumbers(radarSite, provider)
+        val pn = ProjectionNumbers(radarSite, projectionType)
         var pixXInit: Double
         var pixYInit: Double
         var tmpCoords: DoubleArray

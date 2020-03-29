@@ -31,11 +31,11 @@ import joshuatee.wx.radarcolorpalettes.ObjectColorPalette
 
 class ObjectOglRadarBuffers(val context: Context, var bgColor: Int) : ObjectOglBuffers() {
 
-    var fileName: String = "nids"
-    var numberOfRadials: Int = 360
-    var binSize: Float = 0f
-    var numRangeBins: Int = 0
-    var productCode: Short = 94.toShort()
+    var fileName = "nids"
+    var numberOfRadials = 360
+    var binSize = 0f
+    var numRangeBins = 0
+    var productCode = 94.toShort()
 
     val colormap: ObjectColorPalette
         get() = MyApplication.colorMap[productCode.toInt()]!!

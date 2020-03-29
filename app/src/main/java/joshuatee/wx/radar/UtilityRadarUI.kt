@@ -53,9 +53,7 @@ internal object UtilityRadarUI {
         Utility.writePref(context, lastRadarTimePref, UtilityTime.getCurrentLocalTimeAsString())
     }
 
-    fun getLastRadarTime(context: Context): String {
-        return Utility.readPref(context, lastRadarTimePref, "")
-    }
+    fun getLastRadarTime(context: Context) = Utility.readPref(context, lastRadarTimePref, "")
 
     private fun getRadarStatus(
             activity: Activity,

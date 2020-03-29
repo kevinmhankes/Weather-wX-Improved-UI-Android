@@ -85,7 +85,5 @@ internal object UtilityDownloadWarnings {
         }
     }
 
-    fun getVtecByType(type: PolygonWarningType): String {
-        return UtilityDownloadNws.getStringFromUrlNoAcceptHeader(baseUrl + type.urlToken)
-    }
+    fun getVtecByType(type: PolygonWarningType) = UtilityDownloadNws.getStringFromUrlNoAcceptHeader(baseUrl + type.urlToken)
 }
