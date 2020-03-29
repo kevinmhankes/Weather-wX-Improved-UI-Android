@@ -36,8 +36,8 @@ import joshuatee.wx.util.Utility
 
 class SettingsPlaylistAutodownloadActivity : BaseActivity() {
 
-    private var currHr: Int = 0
-    private var currMin: Int = 0
+    private var currHr = 0
+    private var currMin = 0
     private var ridArr = mutableListOf<String>()
     private var ridFav = ""
     private val tokenSep = "T"

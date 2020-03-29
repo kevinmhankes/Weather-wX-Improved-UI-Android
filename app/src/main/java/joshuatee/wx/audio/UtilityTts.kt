@@ -49,7 +49,7 @@ object UtilityTts {
     private var mpInit = false
     private var fileCount = 0
     private var currentFile = 0
-    var ttsIsPaused: Boolean = false
+    var ttsIsPaused = false
     private var playlistTotal = 0
     private var playlistNumber = 0
     private var playlistArr = List(2) { "" }

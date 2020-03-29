@@ -174,11 +174,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
             }
         }
 
-    override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<String>,
-            grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             1 -> {
                 // If request is cancelled, the result arrays are empty.

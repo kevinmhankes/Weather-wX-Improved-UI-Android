@@ -78,27 +78,15 @@ object UtilityCanadaImg {
         return urlString
     }
 
-    internal fun getRadarAnimOptionsApplied(
-            context: Context,
-            radarSite: String,
-            frameCntStr: String
-    ): AnimationDrawable {
+    internal fun getRadarAnimOptionsApplied(context: Context, radarSite: String, frameCntStr: String): AnimationDrawable {
         val url = getRadarAnimStringArray(radarSite, frameCntStr)
         val urls = url.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
         val bitmaps = mutableListOf<Bitmap>()
         urls.reverse()
         urls.asSequence().filter { it != "" }.mapTo(bitmaps) {
-            getRadarBitmapOptionsApplied(
-                    context,
-                    radarSite,
-                    MyApplication.canadaEcSitePrefix + it.replace("detailed/", "")
-            )
+            getRadarBitmapOptionsApplied(context, radarSite, MyApplication.canadaEcSitePrefix + it.replace("detailed/", ""))
         }
-        return UtilityImgAnim.getAnimationDrawableFromBitmapList(
-                context,
-                bitmaps,
-                UtilityImg.animInterval(context)
-        )
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps, UtilityImg.animInterval(context))
     }
 
     fun getRadarBitmapOptionsApplied(context: Context, radarSite: String, url: String): Bitmap {
@@ -191,11 +179,7 @@ object UtilityCanadaImg {
         return UtilityImg.layerDrawableToBitmap(layers)
     }
 
-    internal fun getRadarMosaicAnimation(
-            context: Context,
-            sectorOriginal: String,
-            duration: String
-    ): AnimationDrawable {
+    internal fun getRadarMosaicAnimation(context: Context, sectorOriginal: String, duration: String): AnimationDrawable {
         var sector = sectorOriginal
         val url = if (sector == "CAN") {
             MyApplication.canadaEcSitePrefix + "/radar/index_e.html"
@@ -224,10 +208,6 @@ object UtilityCanadaImg {
         val urls = urlList.split(":").dropLastWhile { it.isEmpty() }
         val urlAl = urls.mapTo(mutableListOf()) { MyApplication.canadaEcSitePrefix + it.replace("detailed/", "") }
         urlAl.reverse()
-        return UtilityImgAnim.getAnimationDrawableFromUrlList(
-                context,
-                urlAl,
-                UtilityImg.animInterval(context)
-        )
+        return UtilityImgAnim.getAnimationDrawableFromUrlList(context, urlAl, UtilityImg.animInterval(context))
     }
 }

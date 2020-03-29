@@ -329,27 +329,21 @@ object UtilityCanada {
     }
 
     fun getHazards(html: String): List<String> {
-        val warning: String
-        val statement: String
-        val watch: String
-        val warningUrl: String
-        val statementUrl: String
-        val watchUrl: String
         val result = mutableListOf("", "")
         var urls = html.parseColumn("<div id=\"statement\" class=\"floatLeft\">.*?<a href=\"(.*?)\">.*?</a>.*?</div>")
         var titles = html.parseColumn("<div id=\"statement\" class=\"floatLeft\">.*?<a href=\".*?\">(.*?)</a>.*?</div>")
-        statementUrl = urls.joinToString("")
-        statement = titles.joinToString("<BR>")
+        val statementUrl = urls.joinToString("")
+        val statement = titles.joinToString("<BR>")
         var chunk = html.parse("<entry>(.*?)<category term=\"Warnings and Watches\"/>")
         urls = chunk.parseColumn("<title>.*?</title>.*?<link type=\"text/html\" href=\"(.*?)\"/>")
         titles = chunk.parseColumn("<title>(.*?)</title>.*?<link type=\"text/html\" href=\".*?\"/>")
-        warningUrl = urls.joinToString(",")
-        warning = titles.joinToString("<BR>")
+        val warningUrl = urls.joinToString(",")
+        val warning = titles.joinToString("<BR>")
         chunk = html.parse("<div id=\"watch\" class=\"floatLeft\">(.*?)</div>")
         urls = chunk.parseColumn("<a href=\"(.*?)\">.*?</a>")
         titles = chunk.parseColumn("<a href=\".*?\">(.*?)</a>")
-        watchUrl = urls.joinToString(",${MyApplication.canadaEcSitePrefix}")
-        watch = titles.joinToString("<BR>")
+        val watchUrl = urls.joinToString(",${MyApplication.canadaEcSitePrefix}")
+        val watch = titles.joinToString("<BR>")
         result[0] = warning + statement + watch
         result[1] = "$warningUrl,$statementUrl,$watchUrl"
         if (!result[0].contains("No watches or warnings in effect")) {
@@ -371,21 +365,15 @@ object UtilityCanada {
                 notFound = false
             }
         }
-        warningData = warningData.replace(
-            "<li><img src=./cacheable/images/img/feed-icon-14x14.png. alt=.ATOM feed.> <a href=./rss/battleboard/.*?.>ATOM</a></li>".toRegex(),
-            ""
-        )
+        warningData = warningData.replace("<li><img src=./cacheable/images/img/feed-icon-14x14.png. alt=.ATOM feed.> <a href=./rss/battleboard/.*?.>ATOM</a></li>".toRegex(), "")
         warningData = warningData.replace(" <div class=\"col-xs-12\">", "")
             .replace("<section class=\"followus hidden-print\"><h2>Follow:</h2>", "")
-        warningData = warningData.replace(
-            "<a href=\"/rss/battleboard/.*?.xml\"><img src=\"/cacheable/images/img/feed-icon-14x14.png\" alt=\"ATOM feed\" class=\"mrgn-rght-sm\">ATOM</a>",
-            ""
-        )
+        warningData = warningData.replace("<a href=\"/rss/battleboard/.*?.xml\"><img src=\"/cacheable/images/img/feed-icon-14x14.png\" alt=\"ATOM feed\" class=\"mrgn-rght-sm\">ATOM</a>", "")
         warningData = warningData.replace("<div class=\"row\">", "")
         return warningData
     }
 
-    fun getECSectorFromProv(prov: String): String = providenceToSector[prov] ?: ""
+    fun getECSectorFromProv(prov: String) = providenceToSector[prov] ?: ""
 
     fun isLabelPresent(label: String): Boolean {
         UtilityCitiesCanada.initialize()
