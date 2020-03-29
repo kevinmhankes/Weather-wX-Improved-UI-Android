@@ -21,7 +21,6 @@
 
 package joshuatee.wx.Extensions
 
-import android.graphics.Bitmap
 import android.os.Build
 import android.view.View
 import java.util.regex.Pattern
@@ -31,109 +30,57 @@ import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.external.UtilityStringExternal
 
-fun String.parse(match: String): String {
-    return UtilityString.parse(this, match)
-}
+fun String.parse(match: String) = UtilityString.parse(this, match)
 
-fun String.condenseSpace(): String {
-    return this.replace("\\s+".toRegex(), " ")
-}
+fun String.condenseSpace()= this.replace("\\s+".toRegex(), " ")
 
-/*fun String.removeSingleLineBreaks(): String {
-    return this.replace("\n\n", "ABZXCZ13").replace("\n", " ").replace("ABZXCZ13", "\n\n")
-}
+fun String.removeHtml() = this.replace(Regex("\\<[^>]*>"),"")
 
-fun String.removeBreaks(): String {
-    return this.replace(" <br>", " ")
-}*/
-
-fun String.removeHtml(): String {
-    return this.replace(Regex("\\<[^>]*>"),"")
-}
-
-fun String.removeLineBreaks(): String {
-        return this
+fun String.removeLineBreaks() = this
                 .replace("\n", "ABC123")
                 .replace("ABC123ABC123", "\n")
                 .replace("ABC123", " ")
                 .replace("  ", " ")
-}
 
-fun String.truncate(size: Int): String {
-    return UtilityStringExternal.truncate(this, size)
-}
+fun String.truncate(size: Int) = UtilityStringExternal.truncate(this, size)
 
-//fun String.removeHtml(): String {
-//    return UtilityString.removeHtml(this)
-//}
+fun String.insert(index: Int, string: String) = StringBuilder(this).insert(index, string).toString()
 
-fun String.insert(index: Int, string: String): String {
-    return StringBuilder(this).insert(index, string).toString()
-}
+fun String.parse(pattern: Pattern) = UtilityString.parse(this, pattern)
 
-fun String.parse(pattern: Pattern): String {
-    return UtilityString.parse(this, pattern)
-}
+fun String.parseFirst(pattern: String) = UtilityString.parse(this, pattern)
 
-fun String.parseFirst(pattern: String): String {
-    return UtilityString.parse(this, pattern)
-}
+fun String.parseColumn(match: String) = UtilityString.parseColumn(this, match)
 
-fun String.parseColumn(match: String): List<String> {
-    return UtilityString.parseColumn(this, match)
-}
+fun String.parseColumn(pattern: Pattern) = UtilityString.parseColumn(this, pattern)
 
-fun String.parseColumn(pattern: Pattern): List<String> {
-    return UtilityString.parseColumn(this, pattern)
-}
-
-fun String.getImage(): Bitmap {
-    return if (Build.VERSION.SDK_INT > 20) {
+fun String.getImage() = if (Build.VERSION.SDK_INT > 20) {
         UtilityDownload.getBitmapFromUrl(this)
     } else {
         UtilityDownload.getBitmapFromUrlUnsafe(this)
     }
-}
 
-fun String.getHtml(): String {
-    return if (Build.VERSION.SDK_INT > 20) {
+fun String.getHtml() = if (Build.VERSION.SDK_INT > 20) {
         UtilityDownload.getStringFromUrl(this)
     } else {
         UtilityDownload.getStringFromUrlUnsafe(this)
     }
-}
 
-fun String.getHtmlWithNewLine(): String {
-    return if (Build.VERSION.SDK_INT > 20) {
+fun String.getHtmlWithNewLine() = if (Build.VERSION.SDK_INT > 20) {
         UtilityDownload.getStringFromUrlWithNewLine(this)
     } else {
         UtilityDownload.getStringFromUrlUnsafe(this)
     }
-}
 
-//fun String.getHtmlUnsafe(): String {
-//    return UtilityDownload.getStringFromUrlUnsafe(this)
-//}
+fun String.getNwsHtml() = UtilityDownloadNws.getStringFromUrl(this)
 
-fun String.getNwsHtml(): String {
-    return UtilityDownloadNws.getStringFromUrl(this)
-}
+fun String.getHtmlSep() = UtilityDownload.getStringFromUrlWithSeparator(this)
 
-fun String.getHtmlSep(): String {
-    return UtilityDownload.getStringFromUrlWithSeparator(this)
-}
+fun String.parseColumnAll(pattern: Pattern) = UtilityString.parseColumnAll(this, pattern)
 
-fun String.parseColumnAll(pattern: Pattern): List<String> {
-    return UtilityString.parseColumnAll(this, pattern)
-}
+fun String.parseLastMatch(pattern: Pattern) = UtilityString.parseLastMatch(this, pattern)
 
-fun String.parseLastMatch(pattern: Pattern): String {
-    return UtilityString.parseLastMatch(this, pattern)
-}
-
-fun String.parseLastMatch(match: String): String {
-    return UtilityString.parseLastMatch(this, match)
-}
+fun String.parseLastMatch(match: String) = UtilityString.parseLastMatch(this, match)
 
 fun View.setPadding(padding: Int) {
     this.setPadding(padding, padding, padding, padding)

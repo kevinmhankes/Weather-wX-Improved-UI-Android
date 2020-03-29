@@ -44,7 +44,6 @@ class BottomSheetFragment(private val actContext: Context, val position: Int, pr
     lateinit var functions: List<(Int) -> Unit>
     lateinit var labelList: List<String>
     private var textViewList = mutableListOf<ObjectTextView>()
-
     private var fragmentView: View? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
