@@ -83,12 +83,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
             }
             R.id.action_observations -> {
                 if (Location.isUS) {
-                    ObjectIntent(
-                            this,
-                            ImageCollectionActivity::class.java,
-                            ImageCollectionActivity.TYPE,
-                            arrayOf("OBSERVATIONS")
-                    )
+                    ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("OBSERVATIONS"))
                 } else {
                     ObjectIntent(
                             this,

@@ -27,7 +27,7 @@ import joshuatee.wx.util.Utility
 
 class DataStorage(private var preference: String) {
 
-    private var storedVal: String = ""
+    private var storedVal = ""
 
     val value: String get() = storedVal
 

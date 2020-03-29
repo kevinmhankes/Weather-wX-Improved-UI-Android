@@ -23,7 +23,7 @@ package joshuatee.wx
 
 object GlobalArrays {
 
-    val nwsImageProducts: List<String> = listOf(
+    val nwsImageProducts = listOf(
             "RAD_2KM: Radar Mosaic",
             "GOES16: GOES16 product last viewed",
             "VIS_CONUS: Visible CONUS",
@@ -72,7 +72,7 @@ object GlobalArrays {
             "WPC_ANALYSIS: WPC Analysis, Radar, Warnings"
     )
 
-    val tdwrRadars: List<String> = listOf(
+    val tdwrRadars = listOf(
             "TPHX AZ, Phoenix",
             "TDEN CO, Denver",
             "TFLL FL, Fort Lauderdale",
@@ -121,7 +121,7 @@ object GlobalArrays {
             "TJBQ: PR2,"
     )
 
-    val soundingSites: List<String> = listOf(
+    val soundingSites = listOf(
             "ABR",
             "ALB",
             "ABQ",
@@ -194,7 +194,7 @@ object GlobalArrays {
             "76458"
     )
 
-    val wfos: List<String> = listOf(
+    val wfos = listOf(
             "AFC: AK, Anchorage",
             "AFG: AK, Fairbanks",
             "AJK: AK, Juneau",
@@ -319,7 +319,7 @@ object GlobalArrays {
             "RIW: WY, Riverton"
     )
 
-    val radars: List<String> = listOf(
+    val radars = listOf(
             "ABC: AK, Bethel",
             "APD: AK, Fairbanks/Pedro Dome",
             "AHG: AK, Kenai",
@@ -482,7 +482,7 @@ object GlobalArrays {
             "RIW: WY, Riverton"
     )
 
-    val tdwrRadarsForHomeScreen: List<String> = listOf(
+    val tdwrRadarsForHomeScreen = listOf(
             "TPHX: AZ, Phoenix",
             "TDEN: CO, Denver",
             "TFLL: FL, Fort Lauderdale",
@@ -529,7 +529,7 @@ object GlobalArrays {
             "TMKE: WI, Milwaukee"
     )
 
-    val canadaRadars: List<String> = listOf(
+    val canadaRadars = listOf(
             "WUJ: Aldergrove, BC (near Vancouver)",
             "XPG: Prince George, BC",
             "XSS: Silver Star Mountain, BC (near Vernon)",
@@ -569,7 +569,7 @@ object GlobalArrays {
             "ERN"
     )
 
-    val states: List<String> = listOf(
+    val states = listOf(
             "AL: Alabama",
             "AK: Alaska",
             "AZ: Arizona",
