@@ -64,12 +64,7 @@ object UtilityGoes {
 
     // https://www.star.nesdis.noaa.gov/GOES/sector_band.php?sat=G17&sector=ak&band=GEOCOLOR&length=12
     // https://www.star.nesdis.noaa.gov/GOES/sector_band.php?sat=G16&sector=cgl&band=GEOCOLOR&length=12
-    fun getAnimation(
-            context: Context,
-            product: String,
-            sector: String,
-            frameCount: Int
-    ): AnimationDrawable {
+    fun getAnimation(context: Context, product: String, sector: String, frameCount: Int): AnimationDrawable {
         val frameCountString = frameCount.toString()
         var satellite = "G16"
         if (sectorsInGoes17.contains(sector)) {
@@ -85,11 +80,7 @@ object UtilityGoes {
         val imageHtml = html.parse("animationImages = \\[(.*?)\\];")
         val imageUrls = imageHtml.parseColumn("'(https.*?jpg)'")
         val bitmaps = imageUrls.map { it.getImage() }
-        return UtilityImgAnim.getAnimationDrawableFromBitmapList(
-                context,
-                bitmaps,
-                UtilityImg.animInterval(context)
-        )
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps, UtilityImg.animInterval(context))
     }
 
     val labels = listOf(

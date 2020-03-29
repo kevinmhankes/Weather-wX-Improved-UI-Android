@@ -45,7 +45,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
         Toolbar.OnMenuItemClickListener {
 
     companion object {
-        const val URL: String = ""
+        const val URL = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main

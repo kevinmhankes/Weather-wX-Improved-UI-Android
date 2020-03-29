@@ -59,7 +59,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
     //
 
     companion object {
-        const val URL: String = ""
+        const val URL = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
