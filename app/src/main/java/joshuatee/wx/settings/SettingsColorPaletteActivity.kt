@@ -46,7 +46,7 @@ import kotlinx.android.synthetic.main.activity_recyclerview_toolbar_with_twofab.
 class SettingsColorPaletteActivity : BaseActivity() {
 
     companion object {
-        const val TYPE: String = ""
+        const val TYPE = ""
         private var prefToken = "RADAR_COLOR_PALETTE_94"
     }
 

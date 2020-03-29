@@ -43,7 +43,7 @@ class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
     //
 
     companion object {
-        const val URL: String = ""
+        const val URL = ""
     }
 
     private var url = ""

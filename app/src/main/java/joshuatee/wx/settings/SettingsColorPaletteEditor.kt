@@ -51,7 +51,7 @@ import kotlinx.android.synthetic.main.activity_settings_color_palette_editor.*
 class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
 
     companion object {
-        const val URL: String = ""
+        const val URL = ""
         private const val READ_REQUEST_CODE = 42
     }
 

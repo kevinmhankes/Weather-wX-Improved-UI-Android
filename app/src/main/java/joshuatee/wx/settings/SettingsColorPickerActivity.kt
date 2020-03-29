@@ -44,7 +44,7 @@ class SettingsColorPickerActivity : AppCompatActivity(), OnColorChangedListener 
     //
 
     companion object {
-        const val INFO: String = ""
+        const val INFO = ""
     }
 
     private var color = 0

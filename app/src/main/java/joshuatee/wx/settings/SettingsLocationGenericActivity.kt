@@ -63,7 +63,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
     // arg1 location number
 
     companion object {
-        const val LOC_NUM: String = ""
+        const val LOC_NUM = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
@@ -635,9 +635,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         )
     }
 
-    private fun showMessage(string: String) {
-        UtilityUI.makeSnackBar(rl, string)
-    }
+    private fun showMessage(string: String) = UtilityUI.makeSnackBar(rl, string)
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         when (keyCode) {
