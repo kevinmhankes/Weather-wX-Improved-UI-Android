@@ -642,41 +642,23 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         }
     }
 
-    fun constructStateLines() {
-        constructGenericGeographic(stateLineBuffers)
-    }
+    fun constructStateLines() = constructGenericGeographic(stateLineBuffers)
 
-    fun constructHWLines() {
-        constructGenericGeographic(hwBuffers)
-    }
+    fun constructHWLines() = constructGenericGeographic(hwBuffers)
 
-    fun deconstructHWLines() {
-        deconstructGenericGeographic(hwBuffers)
-    }
+    fun deconstructHWLines() = deconstructGenericGeographic(hwBuffers)
 
-    fun constructHWEXTLines() {
-        constructGenericGeographic(hwExtBuffers)
-    }
+    fun constructHWEXTLines() = constructGenericGeographic(hwExtBuffers)
 
-    fun deconstructHWEXTLines() {
-        deconstructGenericGeographic(hwExtBuffers)
-    }
+    fun deconstructHWEXTLines() = deconstructGenericGeographic(hwExtBuffers)
 
-    fun constructLakes() {
-        constructGenericGeographic(lakeBuffers)
-    }
+    fun constructLakes() = constructGenericGeographic(lakeBuffers)
 
-    fun deconstructLakes() {
-        deconstructGenericGeographic(lakeBuffers)
-    }
+    fun deconstructLakes() = deconstructGenericGeographic(lakeBuffers)
 
-    fun constructCounty() {
-        constructGenericGeographic(countyLineBuffers)
-    }
+    fun constructCounty() = constructGenericGeographic(countyLineBuffers)
 
-    fun deconstructCounty() {
-        deconstructGenericGeographic(countyLineBuffers)
-    }
+    fun deconstructCounty() = deconstructGenericGeographic(countyLineBuffers)
 
     // FIXME this check for 4326 will need to be done in other locations as well but for now just testing to see
     // if the rectangular projection is realized.
