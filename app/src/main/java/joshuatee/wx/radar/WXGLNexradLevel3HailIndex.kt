@@ -47,9 +47,10 @@ internal object WXGLNexradLevel3HailIndex {
         val hailPercent: List<String>
         val hailSize: List<String>
         try {
-            val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, hiBaseFn + fnSuffix))
-            dis.bigEndian = true
-            val data = UtilityLevel3TextProduct.read(dis)
+            // TODO make method for below 3 lines
+            val ucarRandomAccessFile = UCARRandomAccessFile(UtilityIO.getFilePath(context, hiBaseFn + fnSuffix))
+            ucarRandomAccessFile.bigEndian = true
+            val data = UtilityLevel3TextProduct.read(ucarRandomAccessFile)
             posn = data.parseColumn(RegExp.hiPattern1)
             hailPercent = data.parseColumn(RegExp.hiPattern2)
             hailSize = data.parseColumn(RegExp.hiPattern3)

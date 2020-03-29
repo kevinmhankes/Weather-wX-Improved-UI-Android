@@ -30,14 +30,9 @@ import joshuatee.wx.util.ProjectionNumbers
 
 internal object WXGLNexradLevel3WindBarbs {
 
-    fun decodeAndPlot(
-            radarSite: String,
-            projectionType: ProjectionType,
-            isGust: Boolean,
-            index: Int
-    ): List<Double> {
+    fun decodeAndPlot(radarSite: String, projectionType: ProjectionType, isGust: Boolean, index: Int): List<Double> {
         val stormList = mutableListOf<Double>()
-        val pn = ProjectionNumbers(radarSite, projectionType)
+        val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
         val arrWb = if (!isGust) {
             UtilityMetar.metarDataList[index].obsArrWb
         } else {
@@ -79,7 +74,7 @@ internal object WXGLNexradLevel3WindBarbs {
                     startLength,
                     bearing
                 )
-                stormList += UtilityCanvasProjection.computeMercatorNumbers(ec, pn).toList()
+                stormList += UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers).toList()
                 start = ExternalGlobalCoordinates(ec.latitude, ec.longitude)
                 ec = ecc.calculateEndingGlobalCoordinates(
                     ExternalEllipsoid.WGS84,
@@ -89,7 +84,7 @@ internal object WXGLNexradLevel3WindBarbs {
                     bearing
                 )
                 val end = ExternalGlobalCoordinates(ec.latitude, ec.longitude)
-                stormList += UtilityCanvasProjection.computeMercatorNumbers(ec, pn).toList()
+                stormList += UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers).toList()
                 var barbCount = length / 10
                 var halfBarb = false
                 var oneHalfBarb = false
@@ -120,7 +115,7 @@ internal object WXGLNexradLevel3WindBarbs {
                         stormList,
                         ec,
                         ecc,
-                        pn,
+                        projectionNumbers,
                         degree2 - arrowBend * 2.0,
                         startLength + arrowLength * nmScaleFactor,
                         bearing
@@ -137,7 +132,7 @@ internal object WXGLNexradLevel3WindBarbs {
                         stormList,
                         ec,
                         ecc,
-                        pn,
+                        projectionNumbers,
                         degree2 - 90.0,
                         startLength + 0.80 * arrowLength * nmScaleFactor,
                         bearing
@@ -154,7 +149,7 @@ internal object WXGLNexradLevel3WindBarbs {
                         stormList,
                         ec,
                         ecc,
-                        pn,
+                        projectionNumbers,
                         degree2 - 180.0,
                         startLength + 0.5 * arrowLength * nmScaleFactor,
                         bearing
@@ -173,7 +168,7 @@ internal object WXGLNexradLevel3WindBarbs {
                         stormList,
                         ec,
                         ecc,
-                        pn,
+                        projectionNumbers,
                         degree2 - arrowBend * 2.0,
                         startLength + arrowLength * nmScaleFactor,
                         bearing
@@ -196,7 +191,7 @@ internal object WXGLNexradLevel3WindBarbs {
                         stormList,
                         ec,
                         ecc,
-                        pn,
+                        projectionNumbers,
                         degree2 - arrowBend * 2.0,
                         startLength + arrowLength / 2.0 * nmScaleFactor,
                         bearing

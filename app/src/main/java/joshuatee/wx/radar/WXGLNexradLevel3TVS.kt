@@ -45,9 +45,9 @@ internal object WXGLNexradLevel3TVS {
         WXGLDownload.getNidsTab(context, "TVS", radarSite, tvsBaseFn + fnSuffix)
         val tvs: MutableList<String>
         try {
-            val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, tvsBaseFn + fnSuffix))
-            dis.bigEndian = true
-            val data = UtilityLevel3TextProduct.read(dis)
+            val ucarRandomAccessFile = UCARRandomAccessFile(UtilityIO.getFilePath(context, tvsBaseFn + fnSuffix))
+            ucarRandomAccessFile.bigEndian = true
+            val data = UtilityLevel3TextProduct.read(ucarRandomAccessFile)
             // P  TVS    R7   216/ 50    29    57    57/ 6.5    15.9    6.5/ 22.4    18/ 6.5    &#0;
             tvs = data.parseColumn(RegExp.tvsPattern1).toMutableList()
         } catch (e: Exception) {

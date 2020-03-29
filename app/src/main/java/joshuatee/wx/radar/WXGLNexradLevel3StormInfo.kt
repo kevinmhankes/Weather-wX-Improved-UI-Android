@@ -38,22 +38,17 @@ internal object WXGLNexradLevel3StormInfo {
 
     private const val stiBaseFn = "nids_sti_tab"
 
-    fun decodeAndPlot(
-            context: Context,
-            fnSuffix: String,
-            radarSite: String,
-            projectionType: ProjectionType
-    ): List<Double> {
+    fun decodeAndPlot(context: Context, fnSuffix: String, radarSite: String, projectionType: ProjectionType): List<Double> {
         val stormList = mutableListOf<Double>()
         val location = UtilityLocation.getSiteLocation(radarSite)
-        val pn = ProjectionNumbers(radarSite, projectionType)
-        WXGLDownload.getNidsTab(context, "STI", pn.radarSite.toLowerCase(Locale.US), stiBaseFn + fnSuffix)
+        val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
+        WXGLDownload.getNidsTab(context, "STI", projectionNumbers.radarSite.toLowerCase(Locale.US), stiBaseFn + fnSuffix)
         val posn: List<String>
         val motion: List<String>
         try {
-            val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, stiBaseFn + fnSuffix))
-            dis.bigEndian = true
-            val data = UtilityLevel3TextProduct.read(dis)
+            val ucarRandomAccessFile = UCARRandomAccessFile(UtilityIO.getFilePath(context, stiBaseFn + fnSuffix))
+            ucarRandomAccessFile.bigEndian = true
+            val data = UtilityLevel3TextProduct.read(ucarRandomAccessFile)
             posn = data.parseColumn(RegExp.stiPattern1)
             motion = data.parseColumn(RegExp.stiPattern2)
         } catch (e: Exception) {
@@ -95,7 +90,7 @@ internal object WXGLNexradLevel3StormInfo {
                     nm * 1852.0,
                     bearing
                 )
-                var tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(ec, pn)
+                var tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers)
                 stormList.add(tmpCoords[0])
                 stormList.add(tmpCoords[1])
                 start = ExternalGlobalCoordinates(ec)
@@ -107,7 +102,7 @@ internal object WXGLNexradLevel3StormInfo {
                     bearing
                 )
                 // mercator expects lat/lon to both be positive as many products have this
-                tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(ec, pn)
+                tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers)
                 ecArr.indices.forEach { z ->
                     ecArr[z] = ecc.calculateEndingGlobalCoordinates(
                         ExternalEllipsoid.WGS84,
@@ -116,7 +111,7 @@ internal object WXGLNexradLevel3StormInfo {
                         nm2 * 1852.0 * z.toDouble() * 0.25,
                         bearing
                     ) // was z+1, now z
-                    tmpCoordsArr[z] = LatLon(UtilityCanvasProjection.computeMercatorNumbers(ecArr[z], pn))
+                    tmpCoordsArr[z] = LatLon(UtilityCanvasProjection.computeMercatorNumbers(ecArr[z], projectionNumbers))
                 }
                 stormList.add(tmpCoords[0])
                 stormList.add(tmpCoords[1])
@@ -127,7 +122,7 @@ internal object WXGLNexradLevel3StormInfo {
                         stormList,
                         endPoint,
                         ecc,
-                        pn,
+                        projectionNumbers,
                         start,
                         degree2 + arrowBend,
                         arrowLength * 1852.0,
@@ -137,7 +132,7 @@ internal object WXGLNexradLevel3StormInfo {
                         stormList,
                         endPoint,
                         ecc,
-                        pn,
+                        projectionNumbers,
                         start,
                         degree2 - arrowBend,
                         arrowLength * 1852.0,
@@ -151,7 +146,7 @@ internal object WXGLNexradLevel3StormInfo {
                             stormList,
                             tmpCoordsArr[z],
                             ecc,
-                            pn,
+                            projectionNumbers,
                             ecArr[z],
                             degree2 - (90.0 + stormTrackTickMarkAngleOff90),
                             arrowLength * 1852.0 * sti15IncrLen,
@@ -161,7 +156,7 @@ internal object WXGLNexradLevel3StormInfo {
                             stormList,
                             tmpCoordsArr[z],
                             ecc,
-                            pn,
+                            projectionNumbers,
                             ecArr[z],
                             degree2 + (90.0 - stormTrackTickMarkAngleOff90),
                             arrowLength * 1852.0 * sti15IncrLen,
@@ -172,7 +167,7 @@ internal object WXGLNexradLevel3StormInfo {
                             stormList,
                             tmpCoordsArr[z],
                             ecc,
-                            pn,
+                            projectionNumbers,
                             ecArr[z],
                             degree2 - (90.0 - stormTrackTickMarkAngleOff90),
                             arrowLength * 1852.0 * sti15IncrLen,
@@ -182,7 +177,7 @@ internal object WXGLNexradLevel3StormInfo {
                             stormList,
                             tmpCoordsArr[z],
                             ecc,
-                            pn,
+                            projectionNumbers,
                             ecArr[z],
                             degree2 + (90.0 + stormTrackTickMarkAngleOff90),
                             arrowLength * 1852.0 * sti15IncrLen,
