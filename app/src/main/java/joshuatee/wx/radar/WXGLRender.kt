@@ -286,7 +286,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                     MyApplication.colorMap[94]!!
                 }
         try {
-            val fourBitProducts: List<Short> = listOf(56, 30, 181, 78, 80, 37, 38, 41, 57)
+            val fourBitProducts = listOf<Short>(56, 30, 181, 78, 80, 37, 38, 41, 57)
             if (product.startsWith("NC") || radarBuffers.productCode.toInt() == 41 || radarBuffers.productCode.toInt() == 57) {
                 totalBins = UtilityWXOGLPerfRaster.generate(radarBuffers, wxglNexradLevel3.binWord)
             } else if (!product.contains("L2")) {
