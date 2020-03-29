@@ -48,14 +48,14 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     // Java can also be used in set in settings->radar
 
     companion object {
-        var ridGlobal: String = ""
+        var ridGlobal = ""
             private set
-        var positionXGlobal: Float = 0f
+        var positionXGlobal = 0f
             private set
-        var positionYGlobal: Float = 0f
+        var positionYGlobal = 0f
             private set
-        const val ortIntGlobal: Int = 400
-        var oneDegreeScaleFactorGlobal: Float = 0.0f
+        const val ortIntGlobal = 400
+        var oneDegreeScaleFactorGlobal = 0.0f
             private set
     }
 
