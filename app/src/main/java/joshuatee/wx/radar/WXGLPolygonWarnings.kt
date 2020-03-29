@@ -51,12 +51,12 @@ internal object WXGLPolygonWarnings {
                             && !vtecs[polygonCount].startsWith("O.CAN"))
             ) {
                 val polyTmp = polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
-                val testArr = polyTmp.split(" ")
-                val y = testArr.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }
+                val list = polyTmp.split(" ")
+                val y = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }
                         .map {
                             it.toDoubleOrNull() ?: 0.0
                         }.toList()
-                val x = testArr.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }
+                val x = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }
                         .map {
                             it.toDoubleOrNull() ?: 0.0
                         }.toList()
@@ -98,12 +98,12 @@ internal object WXGLPolygonWarnings {
                     && UtilityTime.isVtecCurrent(vtecs[polygonCount])
             ) {
                 val polyTmp = polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
-                val testArr = polyTmp.split(" ")
-                val y = testArr.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }
+                val list = polyTmp.split(" ")
+                val y = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }
                         .map {
                             it.toDoubleOrNull() ?: 0.0
                         }.toList()
-                val x = testArr.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }
+                val x = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }
                         .map {
                             it.toDoubleOrNull() ?: 0.0
                         }.toList()
