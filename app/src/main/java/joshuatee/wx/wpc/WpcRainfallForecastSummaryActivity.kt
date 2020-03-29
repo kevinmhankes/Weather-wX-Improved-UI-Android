@@ -86,13 +86,7 @@ class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemCli
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(
-                    this,
-                    this,
-                    getString(UtilityWpcRainfallForecast.activityTitle),
-                    "",
-                    bitmaps
-            )
+            R.id.action_share -> UtilityShare.shareText(this, this, getString(UtilityWpcRainfallForecast.activityTitle), "", bitmaps)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

@@ -246,15 +246,15 @@ object UtilityWidget {
         }
         val preferences = context.getSharedPreferences(context.packageName + "_preferences", Context.MODE_PRIVATE)
         val sevenDay = preferences.getString("7DAY_EXT_WIDGET", "No data")!!
-        val dayArr = sevenDay.split("\n\n").dropLastWhile { it.isEmpty() }.toMutableList()
-        if (dayArr.isNotEmpty()) {
-            dayArr[0] = preferences.getString("CC_WIDGET", "No data")!!
+        val forecasts = sevenDay.split("\n\n").dropLastWhile { it.isEmpty() }.toMutableList()
+        if (forecasts.isNotEmpty()) {
+            forecasts[0] = preferences.getString("CC_WIDGET", "No data")!!
         }
-        (0 until dayArr.lastIndex).forEach {
+        forecasts.indices.forEach {
             val uri = ContentUris.withAppendedId(WeatherDataProvider.CONTENT_URI, it.toLong())
             val values = ContentValues()
-            if (it < dayArr.size) {
-                values.put(WeatherDataProvider.Columns.DAY, dayArr[it])
+            if (it < forecasts.size) {
+                values.put(WeatherDataProvider.Columns.DAY, forecasts[it])
                 contentResolver.update(uri, values, null, null)
             }
         }

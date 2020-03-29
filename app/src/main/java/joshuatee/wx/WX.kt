@@ -67,12 +67,7 @@ class WX : CommonActionBarFragment() {
         val menu = toolbarBottom.menu
         voiceRecognitionIcon = menu.findItem(R.id.action_vr)
         voiceRecognitionIcon.isVisible = MyApplication.vrButton
-        val fab = ObjectFab(
-                this,
-                this,
-                R.id.fab,
-                MyApplication.ICON_RADAR,
-                OnClickListener { openNexradRadar(this) })
+        val fab = ObjectFab(this, this, R.id.fab, MyApplication.ICON_RADAR, OnClickListener { openNexradRadar(this) })
         if (UIPreferences.mainScreenRadarFab) {
             val radarMi = menu.findItem(R.id.action_radar)
             radarMi.isVisible = false

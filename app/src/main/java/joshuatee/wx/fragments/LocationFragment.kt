@@ -108,7 +108,6 @@ class LocationFragment : Fragment()  {
     private var idxIntG = 0
     private var alertDialogRadarLongPress: ObjectDialogue? = null
     private val alertDialogRadarLongPressAl = mutableListOf<String>()
-    //private var objCc = ObjectForecastPackageCurrentConditions()
     private var objHazards = ObjectForecastPackageHazards()
     private var objSevenDay = ObjectForecastPackage7Day()
     private var locationChangedSevenDay = false
@@ -119,7 +118,6 @@ class LocationFragment : Fragment()  {
     private fun addDynamicCards() {
         var ccAdded = false
         var day7Added = false
-        //val homeScreenTokens = MyApplication.colon.split(homescreenFavLocal)
         val cardViews = mutableListOf<CardView>()
         val homeScreenTokens = homescreenFavLocal.split(":").dropLastWhile { it.isEmpty() }
         numRadars = homeScreenTokens.count { it == "OGL-RADAR" || it.contains("NXRD-") }
@@ -223,11 +221,7 @@ class LocationFragment : Fragment()  {
         numPanesArr = (0 until glviewArr.size).toList()
     }
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setupAlertDialogStatus()
         setupAlertDialogRadarLongPress()
         val view: View =
@@ -242,17 +236,14 @@ class LocationFragment : Fragment()  {
         ) {
             needForecastData = true
         }
-
         // The dialogue that opens when the user wants to change location
         locationDialogue = ObjectDialogue(activityReference, "Select location:", Location.listOf)
         locationDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, locationIndex ->
             changeLocation(locationIndex)
             dialog.dismiss()
         })
-
         // The main LL that holds all content
         linearLayout = view.findViewById(R.id.ll)
-
         // The button the user will tape so change location
         locationLabel = ObjectCardText(activityReference, linearLayout, Location.name, TextSize.MEDIUM)
         var locationLabelPadding = 20
@@ -264,7 +255,6 @@ class LocationFragment : Fragment()  {
         locationLabel.setOnClickListener(OnClickListener {
             locationDialogue.show()
         })
-
         if (homescreenFavLocal.contains("TXT-CC2")) {
             cardCC = ObjectCardCurrentConditions(activityReference, 2)
             cardCC?.setListener(
@@ -309,11 +299,7 @@ class LocationFragment : Fragment()  {
                 radarLocationChangedAl[oglrIdx] = false
             if (MyApplication.locDisplayImg && oglrIdx != -1) {
                 glviewArr[oglrIdx].scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
-                oglrArr[oglrIdx].setViewInitial(
-                        MyApplication.wxoglSize.toFloat() / 10.0f,
-                        0.0f,
-                        0.0f
-                )
+                oglrArr[oglrIdx].setViewInitial(MyApplication.wxoglSize.toFloat() / 10.0f, 0.0f, 0.0f)
             }
             hsImages.forEach {
                 it.resetZoom()
@@ -535,10 +521,7 @@ class LocationFragment : Fragment()  {
     private fun getImageProduct(productString: String) = GlobalScope.launch(uiDispatcher) {
         val productIndex = productString.toIntOrNull() ?: 0
         val bitmap = withContext(Dispatchers.IO) {
-            UtilityDownload.getImageProduct(
-                    MyApplication.appContext,
-                    hsImages[productIndex].product
-            )
+            UtilityDownload.getImageProduct(MyApplication.appContext, hsImages[productIndex].product)
         }
         hsImages[productIndex].setImage(bitmap)
     }
