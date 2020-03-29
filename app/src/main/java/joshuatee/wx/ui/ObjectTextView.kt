@@ -113,9 +113,7 @@ class ObjectTextView(val context: Context) {
         }
     }
 
-    fun setTextSize(size: TextSize) {
-        refreshTextSize(size)
-    }
+    fun setTextSize(size: TextSize) = refreshTextSize(size)
 
     var color
         get() = tv.currentTextColor
@@ -133,17 +131,11 @@ class ObjectTextView(val context: Context) {
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
     }
 
-    fun setOnClickListener(fn: View.OnClickListener) {
-        tv.setOnClickListener(fn)
-    }
+    fun setOnClickListener(fn: View.OnClickListener) = tv.setOnClickListener(fn)
 
-    fun setPadding(left: Int, top: Int, right: Int, bottom: Int) {
-        tv.setPadding(left, top, right, bottom)
-    }
+    fun setPadding(left: Int, top: Int, right: Int, bottom: Int) = tv.setPadding(left, top, right, bottom)
 
-    fun setPadding(padding: Int) {
-        tv.setPadding(padding)
-    }
+    fun setPadding(padding: Int) = tv.setPadding(padding)
 }
 
 

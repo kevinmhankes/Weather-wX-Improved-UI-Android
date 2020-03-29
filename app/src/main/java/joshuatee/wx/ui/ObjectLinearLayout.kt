@@ -43,25 +43,15 @@ class ObjectLinearLayout(context: Context) {
         this.gravity = gravity
     }
 
-    fun removeAllViewsInLayout() {
-        linearLayout.removeAllViewsInLayout()
-    }
+    fun removeAllViewsInLayout() = linearLayout.removeAllViewsInLayout()
 
-    fun addView(child: View) {
-        linearLayout.addView(child)
-    }
+    fun addView(child: View) = linearLayout.addView(child)
 
-    fun addView(objectTextView: ObjectTextView) {
-        linearLayout.addView(objectTextView.tv)
-    }
+    fun addView(objectTextView: ObjectTextView) = linearLayout.addView(objectTextView.tv)
 
-    fun addView(objectLinearLayout: ObjectLinearLayout) {
-        linearLayout.addView(objectLinearLayout.linearLayout)
-    }
+    fun addView(objectLinearLayout: ObjectLinearLayout) = linearLayout.addView(objectLinearLayout.linearLayout)
 
-    fun addView(objectImageView: ObjectImageView) {
-        linearLayout.addView(objectImageView.imageView)
-    }
+    fun addView(objectImageView: ObjectImageView) = linearLayout.addView(objectImageView.imageView)
 
     fun addViews(children: List<View>) {
         children.forEach { view ->
@@ -69,9 +59,7 @@ class ObjectLinearLayout(context: Context) {
         }
     }
 
-    fun removeAllViews() {
-        linearLayout.removeAllViews()
-    }
+    fun removeAllViews() = linearLayout.removeAllViews()
 
     fun matchParent() {
         linearLayout.layoutParams = LinearLayout.LayoutParams(

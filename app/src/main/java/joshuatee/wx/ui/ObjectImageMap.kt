@@ -78,9 +78,7 @@ class ObjectImageMap(
         map.visibility = View.VISIBLE
     }
 
-    private fun addOnImageMapClickedHandler(h: ImageMap.OnImageMapClickedHandler) {
-        map.addOnImageMapClickedHandler(h)
-    }
+    private fun addOnImageMapClickedHandler(h: ImageMap.OnImageMapClickedHandler) = map.addOnImageMapClickedHandler(h)
 
     fun addClickHandler(fn: (String) -> Unit, mapFn: (Int) -> String) {
         addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {

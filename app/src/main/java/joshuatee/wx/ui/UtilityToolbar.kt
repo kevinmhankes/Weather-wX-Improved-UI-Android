@@ -55,9 +55,7 @@ object UtilityToolbar {
         }
     }
 
-    fun fullScreenMode(activity: VideoRecordActivity) {
-        fullScreenMode(activity.toolbar, activity.toolbarBottom)
-    }
+    fun fullScreenMode(activity: VideoRecordActivity) = fullScreenMode(activity.toolbar, activity.toolbarBottom)
 
     fun fullScreenMode(toolbar: Toolbar) {
         if (android.os.Build.VERSION.SDK_INT > 20) {

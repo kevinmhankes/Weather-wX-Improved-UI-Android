@@ -50,9 +50,7 @@ class ObjectFab {
         setOnClickListener(fn)
     }
 
-    fun setOnClickListener(fn: View.OnClickListener) {
-        fab.setOnClickListener(fn)
-    }
+    fun setOnClickListener(fn: View.OnClickListener) = fab.setOnClickListener(fn)
 
     var visibility
         get() = fab.visibility

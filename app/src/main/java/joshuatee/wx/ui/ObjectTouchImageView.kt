@@ -40,21 +40,12 @@ class ObjectTouchImageView {
     private var prefTokenIdx = ""
     var drw: ObjectNavDrawer? = null
 
-    constructor(
-        activity: Activity,
-        context: Context,
-        resourceId: Int
-    ) {
+    constructor(activity: Activity, context: Context, resourceId: Int) {
         img = activity.findViewById(resourceId)
         this.context = context
     }
 
-    constructor(
-        activity: Activity,
-        context: Context,
-        toolbar: Toolbar,
-        resourceId: Int
-    ) : this(activity, context, resourceId) {
+    constructor(activity: Activity, context: Context, toolbar: Toolbar, resourceId: Int) : this(activity, context, resourceId) {
         setOnClickListener(View.OnClickListener {
             UtilityToolbar.showHide(toolbar)
         })
@@ -72,13 +63,7 @@ class ObjectTouchImageView {
         })
     }
 
-    constructor(
-        activity: Activity,
-        context: Context,
-        resourceId: Int,
-        drw: ObjectNavDrawer,
-        prefTokenIdx: String
-    ) {
+    constructor(activity: Activity, context: Context, resourceId: Int, drw: ObjectNavDrawer, prefTokenIdx: String) {
         img = activity.findViewById(resourceId)
         this.context = context
         this.drw = drw
@@ -95,10 +80,7 @@ class ObjectTouchImageView {
         prefTokenIdx: String
     ) : this(activity, context, resourceId, drw, prefTokenIdx) {
         setOnClickListener(View.OnClickListener {
-            UtilityToolbar.showHide(
-                toolbar,
-                toolbarBottom
-            )
+            UtilityToolbar.showHide(toolbar, toolbarBottom)
         })
     }
 
@@ -123,25 +105,17 @@ class ObjectTouchImageView {
         }
     }
 
-    fun setOnClickListener(listener: View.OnClickListener) {
-        img.setOnClickListener(listener)
-    }
+    fun setOnClickListener(listener: View.OnClickListener) = img.setOnClickListener(listener)
 
-    fun setImageDrawable(animDrawable: AnimationDrawable) {
-        img.setImageDrawable(animDrawable)
-    }
+    fun setImageDrawable(animDrawable: AnimationDrawable) = img.setImageDrawable(animDrawable)
 
-    fun resetZoom() {
-        img.resetZoom()
-    }
+    fun resetZoom() = img.resetZoom()
 
     fun setMaxZoom(zoom: Float) {
         img.maxZoom = zoom
     }
 
-    fun setZoom(zoom: Float) {
-        img.setZoom(zoom)
-    }
+    fun setZoom(zoom: Float) = img.setZoom(zoom)
 
     fun setListener(context: Context, drw: ObjectNavDrawer, fn: () -> Unit) {
         img.setOnTouchListener(object : OnSwipeTouchListener(context) {

@@ -106,12 +106,7 @@ object UtilityUI {
         return ridFav
     }
 
-    fun moveDown(
-        context: Context,
-        prefToken: String,
-        itemList: MutableList<String>,
-        position: Int
-    ): String {
+    fun moveDown(context: Context, prefToken: String, itemList: MutableList<String>, position: Int): String {
         if (position != itemList.lastIndex) {
             val tmp = itemList[position + 1]
             itemList[position + 1] = itemList[position]

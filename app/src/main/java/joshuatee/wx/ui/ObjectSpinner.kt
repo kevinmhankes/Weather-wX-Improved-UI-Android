@@ -96,12 +96,7 @@ class ObjectSpinner {
         setOnItemSelectedListener(fn)
     }
 
-    constructor(
-        activity: Activity,
-        context: Context,
-        fn: AdapterView.OnItemSelectedListener,
-        spinnerResourceId: Int
-    ) {
+    constructor(activity: Activity, context: Context, fn: AdapterView.OnItemSelectedListener, spinnerResourceId: Int) {
         list = mutableListOf()
         spinner = activity.findViewById(spinnerResourceId)
         setupSpinner()
@@ -128,12 +123,9 @@ class ObjectSpinner {
 
     private fun findPosition(key: String) = (0 until arrayAdapter.count).firstOrNull {
         arrayAdapter.getItem(it) != null && arrayAdapter.getItem(it)!!.contains(key)
-    }
-        ?: 0
+    } ?: 0
 
-    fun setSelection(idx: Int) {
-        spinner.setSelection(idx)
-    }
+    fun setSelection(idx: Int) = spinner.setSelection(idx)
 
     fun setSelection(key: String) {
         var index = arrayAdapter.getPosition(key)
@@ -160,17 +152,11 @@ class ObjectSpinner {
         arrayAdapter.addAll(tmpList)
     }
 
-    fun add(value: String) {
-        list.add(value)
-    }
+    fun add(value: String) = list.add(value)
 
-    fun notifyDataSetChanged() {
-        arrayAdapter.notifyDataSetChanged()
-    }
+    fun notifyDataSetChanged() = arrayAdapter.notifyDataSetChanged()
 
-    fun clear() {
-        arrayAdapter.clear()
-    }
+    fun clear() = arrayAdapter.clear()
 
     fun size() = arrayAdapter.count
 
