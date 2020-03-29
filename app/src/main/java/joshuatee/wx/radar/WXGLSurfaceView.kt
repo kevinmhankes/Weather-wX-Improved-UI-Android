@@ -49,22 +49,22 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
     // pinch zoom, drag, double/single tap, and long press are all handled here
 
     companion object {
-        var scaleFactorGlobal: Float = 1.0f
+        var scaleFactorGlobal = 1.0f
             private set
     }
 
-    var index: Int = 0
+    var index = 0
     private var listener: OnProgressChangeListener? = null
-    var fullScreen: Boolean = false
+    var fullScreen = false
     var toolbar: Toolbar? = null
     var toolbarBottom: Toolbar? = null
-    var archiveMode: Boolean = false
-    var toolbarsHidden: Boolean = false
+    var archiveMode = false
+    var toolbarsHidden = false
         private set
     private var mScaleFactor = 1.0f
-    var newX: Float = 0.0f
+    var newX = 0.0f
         private set
-    var newY: Float = 0.0f
+    var newY = 0.0f
         private set
     private var centerX = 0.0f
     private var centerY = 0.0f
@@ -79,17 +79,17 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
     private lateinit var oglrCurrent: WXGLRender
     private var density = 0.0f
     private var wxgl = mutableListOf<WXGLSurfaceView>()
-    var idxInt: Int = 0
+    var idxInt = 0
     private var widthDivider = 0
     private var heightDivider = 2
-    var cities: MutableList<TextView> = mutableListOf()
-    var countyLabels: MutableList<TextView> = mutableListOf()
-    var observations: MutableList<TextView> = mutableListOf()
-    var pressureCenterLabels: MutableList<TextView> = mutableListOf()
+    var cities = mutableListOf<TextView>()
+    var countyLabels= mutableListOf<TextView>()
+    var observations = mutableListOf<TextView>()
+    var pressureCenterLabels = mutableListOf<TextView>()
     var spotterLabels = mutableListOf<TextView>()
     var spotterTextView = mutableListOf<TextView>()
-    var wxglTextObjects: MutableList<WXGLTextObject> = mutableListOf()
-    var locationFragment: Boolean = false
+    var wxglTextObjects = mutableListOf<WXGLTextObject>()
+    var locationFragment = false
     private var activity: Activity? = null
 
     constructor(context: Context, widthDivider: Int, numPanes: Int, heightDivider: Int) : super(context) {

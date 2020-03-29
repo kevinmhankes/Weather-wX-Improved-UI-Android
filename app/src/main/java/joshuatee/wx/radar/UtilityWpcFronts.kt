@@ -71,6 +71,7 @@ import joshuatee.wx.objects.DownloadTimer
  */
 
 object UtilityWpcFronts {
+
     var pressureCenters = mutableListOf<PressureCenter>()
     var fronts = mutableListOf<Fronts>()
     private var timer = DownloadTimer("WPC FRONTS")
@@ -191,13 +192,13 @@ object UtilityWpcFronts {
         return if (string.length != 7) {
             listOf(0.0, 0.0)
         } else {
-            val lat = (string.substring(0, 2) + "." + string.substring(2, 3)).toDoubleOrNull() ?: 0.0
-            val lon: Double = if (string[3] == '0') {
+            val latitude = (string.substring(0, 2) + "." + string.substring(2, 3)).toDoubleOrNull() ?: 0.0
+            val longitude = if (string[3] == '0') {
                 (string.substring(4, 6) + "." + string.substring(6, 7)).toDoubleOrNull() ?: 0.0
             } else {
                 (string.substring(3, 6) + "." + string.substring(6, 7)).toDoubleOrNull() ?: 0.0
             }
-            listOf(lat, lon)
+            listOf(latitude, longitude)
         }
     }
 
@@ -211,13 +212,10 @@ object UtilityWpcFronts {
             html = html.replace(MyApplication.newline, MyApplication.sep)
             val timestamp = html.parseFirst("SURFACE PROG VALID ([0-9]{12}Z)")
             Utility.writePref("WPC_FRONTS_TIMESTAMP", timestamp)
-            html = html.parseFirst("SURFACE PROG VALID [0-9]{12}Z(.*?)" +
-                    MyApplication.sep +
-                    " " +
-                    MyApplication.sep)
+            html = html.parseFirst("SURFACE PROG VALID [0-9]{12}Z(.*?)" + MyApplication.sep + " " + MyApplication.sep)
             html = html.replace(MyApplication.sep, MyApplication.newline)
             val lines = html.split(MyApplication.newline).toMutableList()
-            for (index in lines.indices) {
+            lines.indices.forEach { index ->
                 if (index < lines.size - 1) {
                     // Handle lines that wrap around, check to see if lines don't start
                     // with a known character

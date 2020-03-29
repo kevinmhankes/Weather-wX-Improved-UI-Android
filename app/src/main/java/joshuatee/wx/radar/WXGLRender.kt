@@ -60,18 +60,18 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     }
 
     // this string is normally no string but for dual pane will be set to either 1 or 2 to differentiate timestamps
-    var radarStatusStr: String = ""
-    var indexString: String = "0"
+    var radarStatusStr = ""
+    var indexString = "0"
     private val matrixProjection = FloatArray(16)
     private val matrixView = FloatArray(16)
     private var matrixProjectionAndView = FloatArray(16)
-    var ridNewList: List<RID> = listOf()
+    var ridNewList = listOf<RID>()
     private var radarChunkCnt = 0
     private var lineCnt = 0
     private val breakSizeLine = 30000
     private val matrixProjectionAndViewOrig = FloatArray(16)
-    private var triangleIndexBuffer: ByteBuffer = ByteBuffer.allocate(0)
-    private var lineIndexBuffer: ByteBuffer = ByteBuffer.allocate(0)
+    private var triangleIndexBuffer = ByteBuffer.allocate(0)
+    private var lineIndexBuffer = ByteBuffer.allocate(0)
     private var gpsX = 0.toDouble()
     private var gpsY = 0.toDouble()
     private val zoomToHideMiscFeatures = 0.5f
@@ -111,8 +111,8 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     private var totalBins = 0
     private var totalBinsOgl = 0
     private var gpsLatLonTransformed = floatArrayOf(0.0f, 0.0f)
-    var displayHold: Boolean = false
-    var zoom: Float = 1.0f
+    var displayHold = false
+    var zoom = 1.0f
         set(scale) {
             field = scale
             listOf(locationDotBuffers, hiBuffers, spotterBuffers, tvsBuffers, wbCircleBuffers).forEach {
@@ -128,17 +128,17 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             }
         }
     private var surfaceRatio = 0f
-    var x: Float = 0f
+    var x = 0f
         set(x) {
             field = x
             positionXGlobal = x
         }
-    var y: Float = 0f
+    var y = 0f
         set(y) {
             field = y
             positionYGlobal = y
         }
-    var rid: String = ""
+    var rid = ""
         set(rid) {
             field = rid
             ridGlobal = rid
@@ -149,7 +149,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     private var bgColorFRed = 0.0f
     private var bgColorFGreen = 0.0f
     private var bgColorFBlue = 0.0f
-    val ortInt: Int = 400
+    val ortInt = 400
     var zoomScreenScaleFactor = 1.0
     private val provider = ProjectionType.WX_OGL
     // this controls if the projection is mercator (nexrad) or 4326 / rectangular
