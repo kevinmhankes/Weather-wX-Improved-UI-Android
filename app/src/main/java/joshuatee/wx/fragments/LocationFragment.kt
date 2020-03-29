@@ -461,7 +461,9 @@ class LocationFragment : Fragment()  {
         if (PolygonType.MCD.pref && activityReferenceWithNull != null) {
             withContext(Dispatchers.IO) {
                 UtilityDownloadMcd.get(activityReference)
-                UtilityDownloadWatch.get(activityReference)
+                if (activityReferenceWithNull != null) {
+                    UtilityDownloadWatch.get(activityReference)
+                }
             }
             if (!oglrArr[idx].product.startsWith("2")) {
                 UtilityRadarUI.plotMcdWatchPolygons(glviewArr[idx], oglrArr[idx], false)

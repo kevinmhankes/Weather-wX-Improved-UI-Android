@@ -1060,15 +1060,16 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     fun constructWpcFronts() {
         wpcFrontBuffersList = mutableListOf()
         wpcFrontPaints = mutableListOf()
-        var tmpCoords: DoubleArray
-        UtilityWpcFronts.fronts.forEach { _ ->
+        var coordinates: DoubleArray
+        val fronts = UtilityWpcFronts.fronts.toMutableList()
+        fronts.forEach { _ ->
             val buff = ObjectOglBuffers()
             buff.breakSize = 30000
             buff.chunkCount = 1
             wpcFrontBuffersList.add(buff)
         }
-        UtilityWpcFronts.fronts.indices.forEach { z ->
-            val front = UtilityWpcFronts.fronts[z]
+        fronts.indices.forEach { z ->
+            val front = fronts[z]
             //val totalBins = front.coordinates.size / 2
             wpcFrontBuffersList[z].count = front.coordinates.size * 2
             wpcFrontBuffersList[z].initialize(
@@ -1087,15 +1088,15 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             }
             for (j in 0 until front.coordinates.size step 2) {
                 if ( j < front.coordinates.size - 1) { // stationary front workaround
-                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(front.coordinates[j].lat, front.coordinates[j].lon, projectionNumbers)
-                    wpcFrontBuffersList[z].putFloat(tmpCoords[0].toFloat())
-                    wpcFrontBuffersList[z].putFloat((tmpCoords[1] * -1.0f).toFloat())
+                    coordinates = UtilityCanvasProjection.computeMercatorNumbers(front.coordinates[j].lat, front.coordinates[j].lon, projectionNumbers)
+                    wpcFrontBuffersList[z].putFloat(coordinates[0].toFloat())
+                    wpcFrontBuffersList[z].putFloat((coordinates[1] * -1.0f).toFloat())
                     wpcFrontBuffersList[z].putColor(Color.red(wpcFrontPaints[z]).toByte())
                     wpcFrontBuffersList[z].putColor(Color.green(wpcFrontPaints[z]).toByte())
                     wpcFrontBuffersList[z].putColor(Color.blue(wpcFrontPaints[z]).toByte())
-                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(front.coordinates[j + 1].lat, front.coordinates[j + 1].lon, projectionNumbers)
-                    wpcFrontBuffersList[z].putFloat(tmpCoords[0].toFloat())
-                    wpcFrontBuffersList[z].putFloat((tmpCoords[1] * -1.0f).toFloat())
+                    coordinates = UtilityCanvasProjection.computeMercatorNumbers(front.coordinates[j + 1].lat, front.coordinates[j + 1].lon, projectionNumbers)
+                    wpcFrontBuffersList[z].putFloat(coordinates[0].toFloat())
+                    wpcFrontBuffersList[z].putFloat((coordinates[1] * -1.0f).toFloat())
                     wpcFrontBuffersList[z].putColor(Color.red(wpcFrontPaints[z]).toByte())
                     wpcFrontBuffersList[z].putColor(Color.green(wpcFrontPaints[z]).toByte())
                     wpcFrontBuffersList[z].putColor(Color.blue(wpcFrontPaints[z]).toByte())
