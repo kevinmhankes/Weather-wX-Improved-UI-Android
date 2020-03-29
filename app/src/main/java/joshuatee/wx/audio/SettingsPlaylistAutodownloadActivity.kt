@@ -69,7 +69,7 @@ class SettingsPlaylistAutodownloadActivity : BaseActivity() {
         hour = calendar.get(Calendar.HOUR_OF_DAY)
         minute = calendar.get(Calendar.MINUTE)
         updateList()
-        recyclerView = ObjectRecyclerView(this, this, R.id.card_list, ridArr, ::pickItem)
+        recyclerView = ObjectRecyclerView(this, this, R.id.cardList, ridArr, ::pickItem)
     }
 
     private fun updateList() {
