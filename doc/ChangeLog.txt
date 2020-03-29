@@ -28,7 +28,7 @@
 // TODO [ADD] severedash long press to add location
 // TODO [ADD] severedash long press color is off
 // TODO [FIX] severedash -> long press -> go to dual pane ( does not use current location )
-// TODO [FIX] toolbar handling in WXGLSurfaceView
+// TODO [FIX] toolbar handling in WXGLSurfaceVieww
 
 55386 2020_03_29    [REF] misc for readability
                     [FIX] java.lang.IndexOutOfBoundsException: at joshuatee.wx.radar.WXGLRender.constructWpcFronts (WXGLRender.kt:1187)
