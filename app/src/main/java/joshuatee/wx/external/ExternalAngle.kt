@@ -23,19 +23,12 @@ internal object ExternalAngle {
      * @param degrees
      * @return
      */
-    fun toRadians(degrees: Double): Double {
-        return degrees * PiOver180
-    }
+    fun toRadians(degrees: Double) = degrees * PiOver180
 
     /**
      * Convert radians to degrees.
      * @param radians
      * @return
      */
-    fun toDegrees(radians: Double): Double {
-        return radians / PiOver180
-    }
+    fun toDegrees(radians: Double) = radians / PiOver180
 }
-/**
- * Disallow instantiation.
- */
