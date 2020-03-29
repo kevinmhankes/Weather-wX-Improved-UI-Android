@@ -42,7 +42,7 @@ class WXGLNexradLevel3 internal constructor() {
         private set
     var radialStart: ByteBuffer = ByteBuffer.allocate(0)
         private set
-    var halfword3132: Float = 0f
+    var halfword3132 = 0f
         private set
     var halfword47: Short = -120
         private set
@@ -52,13 +52,13 @@ class WXGLNexradLevel3 internal constructor() {
         private set
     var productCode: Short = 94
         private set
-    var binSize: Float = 0f
+    var binSize = 0f
         private set
     var numberOfRangeBins: Short = 0
         private set
     var seekStart: Long = 0
         private set
-    var compressedFileSize: Int = 0
+    var compressedFileSize = 0
         private set
     var iBuff: ByteBuffer = ByteBuffer.allocate(0)
     var oBuff: ByteBuffer = ByteBuffer.allocate(0)
@@ -307,8 +307,7 @@ class WXGLNexradLevel3 internal constructor() {
             latitudeOfRadar: Double,
             longitudeOfRadar: Double,
             vcp: Int
-    ): String {
-        return try {
+    ) = try {
             date.toString() + MyApplication.newline +
                     "Radar Mode: " + operationalMode + MyApplication.newline +
                     "VCP: " + vcp + MyApplication.newline +
@@ -319,7 +318,7 @@ class WXGLNexradLevel3 internal constructor() {
         } catch (e: AssertionError) {
             ""
         }
-    }
+
 }
 
 
