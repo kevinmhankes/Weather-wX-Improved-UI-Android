@@ -25,9 +25,9 @@ object UtilityCities {
 
     private const val numberOfCities = 345
     internal val list = arrayOfNulls<City>(numberOfCities)
-    val cities: Array<String> = Array(numberOfCities) { "" }
-    val lat: DoubleArray = DoubleArray(numberOfCities)
-    val lon: DoubleArray = DoubleArray(numberOfCities)
+    val cities = Array(numberOfCities) { "" }
+    val lat = DoubleArray(numberOfCities)
+    val lon = DoubleArray(numberOfCities)
 
     fun initialize() {
         load()

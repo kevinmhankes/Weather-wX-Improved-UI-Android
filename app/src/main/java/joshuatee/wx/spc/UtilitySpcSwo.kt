@@ -28,9 +28,7 @@ import joshuatee.wx.MyApplication
 
 internal object UtilitySpcSwo {
 
-    fun getSwoStateUrl(state: String, day: String): String {
-        return "${MyApplication.nwsSPCwebsitePrefix}/public/state/images/" + state + "_swody" + day + ".png"
-    }
+    fun getSwoStateUrl(state: String, day: String) = "${MyApplication.nwsSPCwebsitePrefix}/public/state/images/" + state + "_swody" + day + ".png"
 
     fun getImages(day: String, getAllImages: Boolean): List<Bitmap> {
         val imgUrls = mutableListOf<String>()

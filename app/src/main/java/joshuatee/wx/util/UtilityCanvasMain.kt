@@ -40,8 +40,8 @@ import java.nio.ByteOrder
 
 object UtilityCanvasMain {
 
-    var xOffset: Float = 0.0f
-    var yOffset: Float = 0.0f
+    var xOffset = 0.0f
+    var yOffset = 0.0f
 
     fun setImageOffset(context: Context) {
         when (Utility.readPref(context, "WIDGET_NEXRAD_CENTER", "Center")) {

@@ -62,13 +62,13 @@ object UtilityString {
         return String(chars)
     }
 
-    fun getHtmlAndParse(url: String, match: String): String = url.getHtml().parse(match)
+    fun getHtmlAndParse(url: String, match: String) = url.getHtml().parse(match)
 
-    fun getHtmlAndParse(url: String, pattern: Pattern): String = url.getHtml().parse(pattern)
+    fun getHtmlAndParse(url: String, pattern: Pattern) = url.getHtml().parse(pattern)
 
-    fun getHtmlAndParseLastMatch(url: String, match: String): String = url.getHtml().parseLastMatch(match)
+    fun getHtmlAndParseLastMatch(url: String, match: String) = url.getHtml().parseLastMatch(match)
 
-    fun getHtmlAndParseLastMatch(url: String, pattern: Pattern): String = url.getHtml().parseLastMatch(pattern)
+    fun getHtmlAndParseLastMatch(url: String, pattern: Pattern) = url.getHtml().parseLastMatch(pattern)
 
     fun parseLastMatch(str: String, pattern: Pattern): String {
         var content = ""
@@ -132,7 +132,7 @@ object UtilityString {
         return content
     }
 
-    fun getHtmlAndParseSep(url: String, match: String): String = url.getHtmlSep().parse(match)
+    fun getHtmlAndParseSep(url: String, match: String) = url.getHtmlSep().parse(match)
 
     internal fun getHtmlAndParseSep(url: String, pattern: Pattern) = url.getHtmlSep().parse(pattern)
 
@@ -286,13 +286,13 @@ object UtilityString {
         return i
     }
 
-    fun getNwsPre(url: String): String = url.getHtmlSep().parse(RegExp.pre2Pattern)
+    fun getNwsPre(url: String) = url.getHtmlSep().parse(RegExp.pre2Pattern)
 
-    fun getLastXChars(s: String, x: Int): String = when {
+    fun getLastXChars(s: String, x: Int) = when {
         s.length == x -> s
         s.length > x -> s.substring(s.length - x)
         else -> s
     }
 
-    fun addPeriodBeforeLastTwoChars(string: String): String = StringBuilder(string).insert(string.length - 2, ".").toString()
+    fun addPeriodBeforeLastTwoChars(string: String) = StringBuilder(string).insert(string.length - 2, ".").toString()
 }

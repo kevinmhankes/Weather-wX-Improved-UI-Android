@@ -194,9 +194,8 @@ object UtilityFavorites {
         return returnList.toList()
     }
 
-    fun findPositionNwsText(key: String): Int {
-        return UtilityWpcText.labels.indices.firstOrNull {
+    fun findPositionNwsText(key: String)= UtilityWpcText.labels.indices.firstOrNull {
             UtilityWpcText.labels[it].startsWith(key)
         } ?: -1
-    }
+
 }

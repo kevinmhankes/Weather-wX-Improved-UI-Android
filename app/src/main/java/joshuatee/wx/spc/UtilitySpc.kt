@@ -33,7 +33,7 @@ import joshuatee.wx.RegExp
 
 object UtilitySpc {
 
-    fun getStormReportsTodayUrl(): String = "${MyApplication.nwsSPCwebsitePrefix}/climo/reports/" + "today" + ".gif"
+    fun getStormReportsTodayUrl() = "${MyApplication.nwsSPCwebsitePrefix}/climo/reports/" + "today" + ".gif"
 
     internal val thunderStormOutlookImages: List<Bitmap>
         get() {

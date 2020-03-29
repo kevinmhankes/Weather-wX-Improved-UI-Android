@@ -29,9 +29,7 @@ import kotlin.math.*
 
 object UtilityMath {
 
-    fun distanceOfLine(x1: Double, y1: Double, x2: Double, y2: Double): Double {
-        return sqrt((x2 - x1).pow(2.0) + (y2 - y1).pow(2.0))
-    }
+    fun distanceOfLine(x1: Double, y1: Double, x2: Double, y2: Double) = sqrt((x2 - x1).pow(2.0) + (y2 - y1).pow(2.0))
 
     fun computeTipPoint(x0: Double, y0: Double, x1: Double, y1: Double, right: Boolean): List<Double> {
         val dx = x1 - x0
@@ -55,9 +53,7 @@ object UtilityMath {
         return listOf(rx, ry)
     }
 
-    fun computeMiddishPoint(x0: Double, y0: Double, x1: Double, y1: Double, fraction: Double): List<Double> {
-        return listOf(x0 + fraction * (x1 - x0) , y0 + fraction * (y1 - y0))
-    }
+    fun computeMiddishPoint(x0: Double, y0: Double, x1: Double, y1: Double, fraction: Double) = listOf(x0 + fraction * (x1 - x0) , y0 + fraction * (y1 - y0))
 
     // 42.98888 to 42.99
     fun latLonFix(x: String): String {
@@ -75,7 +71,7 @@ object UtilityMath {
     }
 
     // convert polar cords to rect
-    fun toRect(r: Float, t: Float): FloatArray = floatArrayOf(
+    fun toRect(r: Float, t: Float) = floatArrayOf(
             (r * cos(t / (180.00f / PI))).toFloat(),
             (r * sin(t / (180.00f / PI))).toFloat()
     )
@@ -171,9 +167,7 @@ object UtilityMath {
     }
 
     // https://training.weather.gov/wdtd/tools/misc/beamwidth/index.htm
-    fun getRadarBeamHeight(degree: Float, distance: Double): Double {
-        return 3.281 * (sin(Math.toRadians(degree.toDouble())) * distance + distance * distance / 15417.82) * 1000.0
-    }
+    fun getRadarBeamHeight(degree: Float, distance: Double) = 3.281 * (sin(Math.toRadians(degree.toDouble())) * distance + distance * distance / 15417.82) * 1000.0
 
     fun heatIndex(temp: String , rh: String ): String {
         val t = temp.toDoubleOrNull() ?: 0.0

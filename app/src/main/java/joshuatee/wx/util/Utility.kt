@@ -228,21 +228,17 @@ object Utility {
         Html.fromHtml(source).toString()
     }
 
-    fun safeGet(list: List<String>, index: Int): String {
-        return if (list.size <= index) {
+    fun safeGet(list: List<String>, index: Int) = if (list.size <= index) {
             ""
         } else {
             list[index]
         }
-    }
 
-    fun safeGet(list: Array<String>, index: Int): String {
-        return if (list.size <= index) {
+    fun safeGet(list: Array<String>, index: Int) = if (list.size <= index) {
             ""
         } else {
             list[index]
         }
-    }
 
     fun showVersion(context: Context, activity: Activity): String {
         var version = ""

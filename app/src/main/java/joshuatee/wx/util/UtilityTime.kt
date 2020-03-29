@@ -127,13 +127,13 @@ object UtilityTime {
     fun getCurrentLocalTimeAsString(): String =
         SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Date())
 
-    fun year(): Int = Calendar.getInstance().get(Calendar.YEAR)
+    fun year() = Calendar.getInstance().get(Calendar.YEAR)
 
-    fun getYear(): Int = Calendar.getInstance().get(Calendar.YEAR)
+    fun getYear() = Calendar.getInstance().get(Calendar.YEAR)
 
     //fun month(): Int = Calendar.getInstance().get(Calendar.MONTH) + 1
 
-    fun day(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+    fun day() = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
 
     val currentHourInUtc: Int
         get() = Calendar.getInstance(TimeZone.getTimeZone("GMT")).get(Calendar.HOUR_OF_DAY)
@@ -199,7 +199,5 @@ object UtilityTime {
         return dateFormatGmt.format(Date())
     }
 
-    fun currentTimeMillis(): Long {
-        return System.currentTimeMillis()
-    }
+    fun currentTimeMillis() = System.currentTimeMillis() // Long
 }

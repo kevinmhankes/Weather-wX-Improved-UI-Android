@@ -51,13 +51,9 @@ object UtilityIO {
         }
     }
 
-    fun getFilePath(context: Context, fileName: String): String =
-        context.getFileStreamPath(fileName).absolutePath
+    fun getFilePath(context: Context, fileName: String): String = context.getFileStreamPath(fileName).absolutePath
 
-    fun readTextFileFromRaw(resources: Resources, fileRaw: Int): String {
-        val inputStream = resources.openRawResource(fileRaw)
-        return readTextFile(inputStream)
-    }
+    fun readTextFileFromRaw(resources: Resources, fileRaw: Int) = readTextFile(resources.openRawResource(fileRaw))
 
     private fun readTextFile(inputStream: InputStream): String {
         val byteArrayOutputStream = ByteArrayOutputStream()

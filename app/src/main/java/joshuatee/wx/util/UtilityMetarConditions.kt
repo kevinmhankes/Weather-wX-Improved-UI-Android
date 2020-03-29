@@ -24,7 +24,7 @@ package joshuatee.wx.util
 object UtilityMetarConditions {
 
     // https://www.weather.gov/forecast-icons
-    val iconFromCondition: Map<String, String> = mapOf(
+    val iconFromCondition = mapOf(
             //"" to "skc",
             "Mostly Clear" to "few",
 

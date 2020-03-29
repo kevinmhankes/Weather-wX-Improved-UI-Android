@@ -43,10 +43,7 @@ object UtilityFileManagement {
         context.deleteFile(fileName)
     }
 
-    fun internalFileExist(context: Context, path: String): Boolean {
-        val file = context.getFileStreamPath(path)
-        return file.exists()
-    }
+    fun internalFileExist(context: Context, path: String) = context.getFileStreamPath(path).exists()
 
     fun moveFile(context: Context, src: String, target: String) {
         val file = File(context.filesDir, src)
