@@ -32,18 +32,18 @@ class Spotter internal constructor(
     unique: String
 ) {
 
-    var firstName: String = ""
-    var lastName: String = ""
+    var firstName = ""
+    var lastName = ""
     // FIXME use LatLon instead
-    var lat: String = ""
-    var lon: String = ""
-    var reportAt: String = ""
-    var email: String = ""
-    var phone: String = ""
-    var unique: String = ""
-    var latD: Double = 0.0
+    var lat = ""
+    var lon = ""
+    var reportAt = ""
+    var email = ""
+    var phone = ""
+    var unique = ""
+    var latD = 0.0
         private set
-    var lonD: Double = 0.0
+    var lonD = 0.0
         private set
 
     init {

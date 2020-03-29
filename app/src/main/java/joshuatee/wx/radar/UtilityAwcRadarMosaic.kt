@@ -33,7 +33,7 @@ object UtilityAwcRadarMosaic {
 
     private const val baseUrl = "https://www.aviationweather.gov/data/obs/"
 
-    val sectors: List<String> = listOf(
+    val sectors = listOf(
         "us",
         "alb",
         "bwi",

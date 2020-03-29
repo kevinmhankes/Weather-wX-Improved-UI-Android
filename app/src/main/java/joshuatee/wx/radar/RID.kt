@@ -26,7 +26,7 @@ import java.util.Comparator
 // FIXME rename RID
 class RID(val name: String, val location: LatLon) {
 
-    var distance: Int = 0
+    var distance = 0
 
     companion object {
         val DESCENDING_COMPARATOR: Comparator<RID> =
