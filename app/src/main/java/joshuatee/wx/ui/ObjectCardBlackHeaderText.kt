@@ -26,7 +26,6 @@ import android.graphics.Color
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
-import androidx.cardview.widget.CardView
 
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.TextSize
@@ -46,9 +45,7 @@ class ObjectCardBlackHeaderText(context: Context, val linearLayout: LinearLayout
 
     val card get() = objectCard.card
 
-    fun setListener(fn: View.OnClickListener) {
-        objectCard.card.setOnClickListener(fn)
-    }
+    fun setListener(fn: View.OnClickListener) = objectCard.card.setOnClickListener(fn)
 
     private fun setTextHeader() {
         objectTextView.text = text

@@ -107,9 +107,7 @@ open class ObjectCardImage {
         objectCard.addView(img)
     }
 
-    fun resetZoom() {
-        img.resetZoom()
-    }
+    fun resetZoom() = img.resetZoom()
 
     val card get() = objectCard.card
 
@@ -119,9 +117,7 @@ open class ObjectCardImage {
             objectCard.visibility = newValue
         }
 
-    fun setOnClickListener(fn: View.OnClickListener) {
-        img.setOnClickListener(fn)
-    }
+    fun setOnClickListener(fn: View.OnClickListener) = img.setOnClickListener(fn)
 }
 
 

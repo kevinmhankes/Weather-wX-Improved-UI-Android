@@ -89,9 +89,7 @@ class ObjectCard7Day(context: Context, bitmap: Bitmap, isUS: Boolean, day: Int, 
         bottomLineText.text = text
     }
 
-    fun setOnClickListener(fn: View.OnClickListener) {
-        objectCard.setOnClickListener(fn)
-    }
+    fun setOnClickListener(fn: View.OnClickListener) = objectCard.setOnClickListener(fn)
 
     fun refreshTextSize() {
         topLineText.refreshTextSize(TextSize.MEDIUM)

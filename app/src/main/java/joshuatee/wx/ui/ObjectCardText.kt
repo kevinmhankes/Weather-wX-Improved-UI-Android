@@ -55,45 +55,25 @@ class ObjectCardText(private val context: Context) {
         linearLayout.addView(card)
     }
 
-    constructor(
-            context: Context,
-            linearLayout: LinearLayout,
-            toolbar: Toolbar,
-            toolbarBottom: Toolbar
-    ) : this(context) {
+    constructor(context: Context, linearLayout: LinearLayout, toolbar: Toolbar, toolbarBottom: Toolbar) : this(context) {
         linearLayout.addView(card)
         setOnClickListener(View.OnClickListener {
-            UtilityToolbar.showHide(
-                    toolbar,
-                    toolbarBottom
-            )
+            UtilityToolbar.showHide(toolbar, toolbarBottom)
         })
     }
 
-    constructor(
-            context: Context,
-            linearLayout: LinearLayout,
-            toolbar: Toolbar,
-            toolbarBottom: Toolbar,
-            textValue: String
-    ) : this(context) {
+    constructor(context: Context, linearLayout: LinearLayout, toolbar: Toolbar, toolbarBottom: Toolbar, textValue: String) : this(context) {
         linearLayout.addView(card)
         setOnClickListener(View.OnClickListener {
-            UtilityToolbar.showHide(
-                    toolbar,
-                    toolbarBottom
-            )
+            UtilityToolbar.showHide(toolbar, toolbarBottom)
         })
-        //setText(text)
         text = textValue
     }
 
     constructor(context: Context, linearLayout: LinearLayout, toolbar: Toolbar) : this(context) {
         linearLayout.addView(card)
         setOnClickListener(View.OnClickListener {
-            UtilityToolbar.showHide(
-                    toolbar
-            )
+            UtilityToolbar.showHide(toolbar)
         })
     }
 
@@ -236,13 +216,9 @@ class ObjectCardText(private val context: Context) {
         tv.gravity = Gravity.CENTER
     }
 
-    fun setTextColor(color: Int) {
-        tv.setTextColor(color)
-    }
+    fun setTextColor(color: Int) = tv.setTextColor(color)
 
-    fun setTextSize(type: Int, size: Float) {
-        tv.setTextSize(type, size)
-    }
+    fun setTextSize(type: Int, size: Float) = tv.setTextSize(type, size)
 
     fun lightText() {
         tv.setTextAppearance(context, UIPreferences.smallTextTheme)
@@ -264,12 +240,9 @@ class ObjectCardText(private val context: Context) {
             objectCard.visibility = newValue
         }
 
-    fun setOnClickListener(fn: View.OnClickListener) {
-        tv.setOnClickListener(fn)
-    }
+    fun setOnClickListener(fn: View.OnClickListener) = tv.setOnClickListener(fn)
 
-    fun refreshTextSize(size: TextSize) {
-        when (size) {
+    fun refreshTextSize(size: TextSize) = when (size) {
             TextSize.SMALL -> tv.setTextSize(
                     TypedValue.COMPLEX_UNIT_PX,
                     MyApplication.textSizeSmall
@@ -283,7 +256,6 @@ class ObjectCardText(private val context: Context) {
                     MyApplication.textSizeLarge
             )
         }
-    }
 
     companion object {
         fun textViewSetup(textView: TextView) {

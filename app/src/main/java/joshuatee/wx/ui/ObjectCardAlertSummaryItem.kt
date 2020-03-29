@@ -53,9 +53,7 @@ class ObjectCardAlertSummaryItem(context: Context) {
         objectCard.card.id = id
     }
 
-    fun setListener(fn: View.OnClickListener) {
-        objectCard.card.setOnClickListener(fn)
-    }
+    fun setListener(fn: View.OnClickListener) = objectCard.card.setOnClickListener(fn)
 
     fun setTextFields(office: String, location: String, capAlert: CapAlert) {
         val title: String

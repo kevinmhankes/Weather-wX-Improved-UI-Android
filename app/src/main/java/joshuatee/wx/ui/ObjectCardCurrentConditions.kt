@@ -83,11 +83,7 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
         textViewMiddle.text = text
     }
 
-    fun setListener(
-            alertDialogStatus: ObjectDialogue?,
-            alertDialogStatusAl: MutableList<String>,
-            radarTimestamps: () -> List<String>
-    ) {
+    fun setListener(alertDialogStatus: ObjectDialogue?, alertDialogStatusAl: MutableList<String>, radarTimestamps: () -> List<String>) {
         objectImageView.imageView.setOnClickListener {
             alertDialogStatusAl.clear()
             alertDialogStatusAl.add("Edit Location...")

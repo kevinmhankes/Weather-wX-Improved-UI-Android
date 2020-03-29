@@ -52,9 +52,7 @@ class ObjectCardStormReportItem(context: Context) {
         objectCard.card.id = id
     }
 
-    fun setListener(fn: View.OnClickListener) {
-        objectCard.card.setOnClickListener(fn)
-    }
+    fun setListener(fn: View.OnClickListener) = objectCard.card.setOnClickListener(fn)
 
     fun setTextFields(stormReport: StormReport) {
         textViewTop.text = stormReport.state + ", " + stormReport.city + " " + stormReport.time

@@ -79,9 +79,7 @@ class ObjectCardDashAlertItem(
 
     val card get() = objectCard.card
 
-    fun setListener(fn: View.OnClickListener) {
-        objectCard.card.setOnClickListener(fn)
-    }
+    fun setListener(fn: View.OnClickListener) = objectCard.card.setOnClickListener(fn)
 
     private fun setTextFields() {
         textViewTop.text = senderName
