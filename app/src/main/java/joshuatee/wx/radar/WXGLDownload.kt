@@ -241,7 +241,7 @@ class WXGLDownload {
 
     companion object {
 
-        const val nwsRadarLevel2Pub: String = "https://nomads.ncep.noaa.gov/pub/data/nccf/radar/nexrad_level2/"
+        const val nwsRadarLevel2Pub = "https://nomads.ncep.noaa.gov/pub/data/nccf/radar/nexrad_level2/"
 
         fun getNidsTab(context: Context, product: String, radarSite: String, fileName: String) {
             val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, false)

@@ -43,9 +43,7 @@ import joshuatee.wx.RegExp
 
 object UtilityWXOGL {
 
-    fun getMeteogramUrl(obsSite: String): String {
-        return "https://www.nws.noaa.gov/mdl/gfslamp/meteo.php?BackHour=0&TempBox=Y&DewBox=Y&SkyBox=Y&WindSpdBox=Y&WindDirBox=Y&WindGustBox=Y&CigBox=Y&VisBox=Y&ObvBox=Y&PtypeBox=N&PopoBox=Y&LightningBox=Y&ConvBox=Y&sta=$obsSite"
-    }
+    fun getMeteogramUrl(obsSite: String) = "https://www.nws.noaa.gov/mdl/gfslamp/meteo.php?BackHour=0&TempBox=Y&DewBox=Y&SkyBox=Y&WindSpdBox=Y&WindDirBox=Y&WindGustBox=Y&CigBox=Y&VisBox=Y&ObvBox=Y&PtypeBox=N&PopoBox=Y&LightningBox=Y&ConvBox=Y&sta=$obsSite"
 
     fun getRidPrefix(radarSite: String, product: String): String {
         var ridPrefix = when (radarSite) {
@@ -177,12 +175,12 @@ object UtilityWXOGL {
             //if (vtecAl.size > polyCount && !vtecAl[polyCount].startsWith("0.EXP") && !vtecAl[polyCount].startsWith("0.CAN")) {
             //if (true) {
             val polyTmp = polys.replace("[", "").replace("]", "").replace(",", " ")
-            val testArr = polyTmp.split(" ").dropLastWhile { it.isEmpty() }
-            val y = testArr.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }
+            val list = polyTmp.split(" ").dropLastWhile { it.isEmpty() }
+            val y = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }
                     .map {
                         it.toDoubleOrNull() ?: 0.0
                     }.toList()
-            val x = testArr.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }
+            val x = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }
                     .map {
                         it.toDoubleOrNull() ?: 0.0
                     }.toList()

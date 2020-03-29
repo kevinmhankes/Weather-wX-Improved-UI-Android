@@ -34,15 +34,10 @@ internal object UtilityWXOGLPerfL3FourBit {
 
     // Used for Legacy 4bit radar - only SRM or spectrum width 30 or TDWR TR0
     // was decode4bit
-    fun decodeRadial(
-        context: Context,
-        fn: String,
-        radialStart: ByteBuffer,
-        binWord: ByteBuffer
-    ): Short {
+    fun decodeRadial(context: Context, fileName: String, radialStart: ByteBuffer, binWord: ByteBuffer): Short {
         var numberOfRangeBins = 0.toShort()
         try {
-            val fis = context.openFileInput(fn)
+            val fis = context.openFileInput(fileName)
             val dis = DataInputStream(BufferedInputStream(fis))
             dis.skipBytes(170)
             numberOfRangeBins = dis.readUnsignedShort().toShort()
@@ -77,36 +72,27 @@ internal object UtilityWXOGLPerfL3FourBit {
         return numberOfRangeBins
     }
 
-    fun decodeRaster(
-            context: Context,
-            fn: String,
-            binWord: ByteBuffer
-    ): Short {
+    fun decodeRaster(context: Context, fileName: String, binWord: ByteBuffer): Short {
         val numberOfRangeBins = 0.toShort()
         try {
-            val fis = context.openFileInput(fn)
-            val dis = DataInputStream(BufferedInputStream(fis))
-            dis.skipBytes(172)
-
+            val fis = context.openFileInput(fileName)
+            val dataInputStream = DataInputStream(BufferedInputStream(fis))
+            dataInputStream.skipBytes(172)
             /*val iCoordinateStart = dis.readUnsignedShort()
             val jCoordinateStart = dis.readUnsignedShort()
             val xScaleInt = dis.readUnsignedShort()
             val xScaleFractional = dis.readUnsignedShort()
             val yScaleInt = dis.readUnsignedShort()
             val yScaleFractional = dis.readUnsignedShort()*/
-
-            dis.readUnsignedShort()
-            dis.readUnsignedShort()
-            dis.readUnsignedShort()
-            dis.readUnsignedShort()
-            dis.readUnsignedShort()
-            dis.readUnsignedShort()
-
-            val numberOfRows = dis.readUnsignedShort()
-
+            dataInputStream.readUnsignedShort()
+            dataInputStream.readUnsignedShort()
+            dataInputStream.readUnsignedShort()
+            dataInputStream.readUnsignedShort()
+            dataInputStream.readUnsignedShort()
+            dataInputStream.readUnsignedShort()
+            val numberOfRows = dataInputStream.readUnsignedShort()
             //val packingDescriptor = dis.readUnsignedShort()
-            dis.readUnsignedShort()
-
+            dataInputStream.readUnsignedShort()
             // 464 rows in NCR
             // 232 rows in NCZ
             var s: Int
@@ -115,12 +101,12 @@ internal object UtilityWXOGLPerfL3FourBit {
             var u: Int
             var totalPerRow: Int
             (0 until numberOfRows).forEach { _ ->
-                val numberOfBytes = dis.readUnsignedShort()
+                val numberOfBytes = dataInputStream.readUnsignedShort()
                 totalPerRow = 0
                 s = 0
                 u = 0
                 while (s < numberOfBytes) {
-                    bin = dis.readUnsignedByte().toShort()
+                    bin = dataInputStream.readUnsignedByte().toShort()
                     numOfBins = bin.toInt() shr 4
                     u = 0
                     while (u < numOfBins) {
@@ -131,7 +117,7 @@ internal object UtilityWXOGLPerfL3FourBit {
                     s += 1
                 }
             }
-            dis.close()
+            dataInputStream.close()
         } catch (e: IOException) {
             UtilityLog.handleException(e)
         }

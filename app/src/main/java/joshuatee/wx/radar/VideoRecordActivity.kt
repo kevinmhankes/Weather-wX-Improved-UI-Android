@@ -51,17 +51,11 @@ abstract class VideoRecordActivity : AppCompatActivity() {
         private const val REQUEST_CODE_PERM = 999
     }
 
-    protected var showDistanceTool: String = "false"
+    protected var showDistanceTool = "false"
     lateinit var toolbar: Toolbar
     lateinit var toolbarBottom: Toolbar
 
-    protected fun onCreate(
-        savedInstanceState: Bundle?,
-        layoutResId: Int,
-        menuResId: Int?,
-        iconsEvenlySpaced: Boolean,
-        bottomToolbar: Boolean
-    ) {
+    protected fun onCreate(savedInstanceState: Bundle?, layoutResId: Int, menuResId: Int?, iconsEvenlySpaced: Boolean, bottomToolbar: Boolean) {
         setTheme(UIPreferences.themeInt)
         super.onCreate(savedInstanceState)
         setContentView(layoutResId)
@@ -160,11 +154,7 @@ abstract class VideoRecordActivity : AppCompatActivity() {
 
     // https://developer.android.com/training/permissions/requesting.html
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             1 -> {
                 // If request is cancelled, the result arrays are empty.
