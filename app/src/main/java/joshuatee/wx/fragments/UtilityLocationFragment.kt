@@ -101,7 +101,7 @@ object UtilityLocationFragment {
         }
     }
 
-    fun setNwsIconSize(): Int = (MyApplication.dm.widthPixels * (MyApplication.nwsIconSize / 100f)).toInt()
+    fun setNwsIconSize() = (MyApplication.dm.widthPixels * (MyApplication.nwsIconSize / 100f)).toInt()
 
     fun extractWindDirection(chunk: String): String {
         val windDir1 = chunk.parseLastMatch(RegExp.sevenDayWinddir1)
