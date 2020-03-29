@@ -45,7 +45,7 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     companion object {
         // Not used other then in homescreen activities
-        const val URL: String = ""
+        const val URL = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main

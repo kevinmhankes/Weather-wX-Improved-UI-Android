@@ -46,7 +46,7 @@ import kotlinx.coroutines.*
 class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, OnItemSelectedListener {
 
     companion object {
-        const val INFO: String = ""
+        const val INFO = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
@@ -167,8 +167,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-            objectNavDrawerCombo.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem) = objectNavDrawerCombo.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (objectNavDrawerCombo.actionBarDrawerToggle.onOptionsItemSelected(item))

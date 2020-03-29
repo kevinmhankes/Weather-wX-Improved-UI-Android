@@ -63,7 +63,7 @@ internal object UtilityModelNcepInputOutput {
     }
 
     fun getImage(om: ObjectModel, time: String): Bitmap {
-        val imgUrl: String = when (om.model) {
+        val imgUrl = when (om.model) {
             "GFS" -> "${MyApplication.nwsMagNcepWebsitePrefix}/data/" + om.model.toLowerCase(
                     Locale.US
             ) + "/" + om.run.replace(

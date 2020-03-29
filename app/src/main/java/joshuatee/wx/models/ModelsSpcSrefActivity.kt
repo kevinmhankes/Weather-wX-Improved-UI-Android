@@ -61,7 +61,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     // arg2 - pref model token and hash lookup
 
     companion object {
-        const val INFO: String = ""
+        const val INFO = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main

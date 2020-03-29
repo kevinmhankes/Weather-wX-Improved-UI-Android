@@ -42,12 +42,7 @@ import kotlinx.coroutines.*
 
 object UtilityModels {
 
-    fun getContent(
-            context: Context,
-            om: ObjectModel,
-            overlayImg: List<String>,
-            uiDispatcher: CoroutineDispatcher
-    ): Job =
+    fun getContent(context: Context, om: ObjectModel, overlayImg: List<String>, uiDispatcher: CoroutineDispatcher): Job =
             GlobalScope.launch(uiDispatcher) {
                 om.run = om.spRun.selectedItem.toString()
                 om.time = om.spTime.selectedItem.toString()
@@ -92,11 +87,7 @@ object UtilityModels {
                 om.imageLoaded = true
             }
 
-    fun getAnimate(
-            om: ObjectModel,
-            overlayImg: List<String>,
-            uiDispatcher: CoroutineDispatcher
-    ): Job =
+    fun getAnimate(om: ObjectModel, overlayImg: List<String>, uiDispatcher: CoroutineDispatcher): Job =
             GlobalScope.launch(uiDispatcher) {
                 withContext(Dispatchers.IO) {
                     (0 until om.numPanes).forEach {
@@ -131,11 +122,7 @@ object UtilityModels {
         Utility.writePref(context, om.prefSector, om.sector)
         (0 until om.numPanes).forEach {
             Utility.writePref(context, om.prefParam + it.toString(), om.displayData.param[it])
-            Utility.writePref(
-                    context,
-                    om.prefParamLabel + it.toString(),
-                    om.displayData.paramLabel[it]
-            )
+            Utility.writePref(context, om.prefParamLabel + it.toString(), om.displayData.paramLabel[it])
         }
     }
 
@@ -172,7 +159,7 @@ object UtilityModels {
     }
 
     // FIXME don't need this - to simple
-    fun parameterInList(list: List<String>, parameter: String): Boolean = list.contains(parameter)
+    fun parameterInList(list: List<String>, parameter: String) = list.contains(parameter)
 
     fun convertTimeRunToTimeString(runStr: String, timeStringOriginal: String, showDate: Boolean): String {
         var timeStr = timeStringOriginal
@@ -275,11 +262,7 @@ object UtilityModels {
         }
     }
 
-    fun setSubtitleRestoreIMGXYZOOM(
-            img: MutableList<TouchImageView2>,
-            toolbar: Toolbar,
-            string: String
-    ) {
+    fun setSubtitleRestoreIMGXYZOOM(img: MutableList<TouchImageView2>, toolbar: Toolbar, string: String) {
         val x = FloatArray(img.size)
         val y = FloatArray(img.size)
         val z = FloatArray(img.size)
