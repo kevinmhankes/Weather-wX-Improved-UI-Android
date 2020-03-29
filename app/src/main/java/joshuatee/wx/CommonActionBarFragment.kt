@@ -101,16 +101,10 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                     )
                 }
             }
-            R.id.action_playlist -> {
-                ObjectIntent(this, SettingsPlaylistActivity::class.java)
-            }
+            R.id.action_playlist -> ObjectIntent(this, SettingsPlaylistActivity::class.java)
             R.id.action_soundings -> {
-                if (Location.isUS) ObjectIntent(
-                        this,
-                        SpcSoundingsActivity::class.java,
-                        SpcSoundingsActivity.URL,
-                        arrayOf(Location.wfo, "")
-                )
+                if (Location.isUS)
+                    ObjectIntent(this, SpcSoundingsActivity::class.java, SpcSoundingsActivity.URL, arrayOf(Location.wfo, ""))
             }
             R.id.action_cloud -> openVis()
             R.id.action_radar -> openNexradRadar(this)
@@ -122,32 +116,13 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
             R.id.action_radar_mosaic -> {
                 if (Location.isUS) {
                     if (!UIPreferences.useAwcRadarMosaic) {
-                        ObjectIntent(
-                                this,
-                                USNwsMosaicActivity::class.java,
-                                USNwsMosaicActivity.URL,
-                                arrayOf("location")
-                        )
+                        ObjectIntent(this, USNwsMosaicActivity::class.java, USNwsMosaicActivity.URL, arrayOf("location"))
                     } else {
-                        ObjectIntent(
-                                this,
-                                AwcRadarMosaicActivity::class.java,
-                                AwcRadarMosaicActivity.URL,
-                                arrayOf("")
-                        )
+                        ObjectIntent(this, AwcRadarMosaicActivity::class.java, AwcRadarMosaicActivity.URL, arrayOf(""))
                     }
                 } else {
-                    val prov = Utility.readPref(
-                            this,
-                            "NWS" + Location.currentLocationStr + "_STATE",
-                            ""
-                    )
-                    ObjectIntent(
-                            this,
-                            CanadaRadarActivity::class.java,
-                            CanadaRadarActivity.RID,
-                            arrayOf(UtilityCanada.getECSectorFromProv(prov), "rad")
-                    )
+                    val prov = Utility.readPref(this, "NWS" + Location.currentLocationStr + "_STATE", "")
+                    ObjectIntent(this, CanadaRadarActivity::class.java, CanadaRadarActivity.RID, arrayOf(UtilityCanada.getECSectorFromProv(prov), "rad"))
                 }
             }
             R.id.action_vr -> {
@@ -155,16 +130,12 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                     UtilityTts.mediaPlayer!!.stop()
                     UtilityTts.ttsIsPaused = true
                 }
-                val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US")
+                val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US")
                 try {
-                    startActivityForResult(i, requestOk)
+                    startActivityForResult(intent, requestOk)
                 } catch (e: Exception) {
-                    Toast.makeText(
-                            this,
-                            "Error initializing speech to text engine.",
-                            Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(this, "Error initializing speech to text engine.", Toast.LENGTH_LONG).show()
                 }
             }
             else -> return super.onOptionsItemSelected(item)
@@ -178,71 +149,37 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
             val thingsYouSaid = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
             UtilityUI.makeSnackBar(view, thingsYouSaid!![0])
             val addrStrTmp = thingsYouSaid[0]
-            UtilityVoiceCommand.processCommand(
-                    this,
-                    view,
-                    addrStrTmp,
-                    Location.rid,
-                    Location.wfo,
-                    Location.state
-            )
+            UtilityVoiceCommand.processCommand(this, view, addrStrTmp, Location.rid, Location.wfo, Location.state)
         }
     }
 
     fun openNexradRadar(context: Context) {
         if (Location.isUS) {
             if (!UIPreferences.dualpaneRadarIcon) {
-                ObjectIntent(
-                        context,
-                        WXGLRadarActivity::class.java,
-                        WXGLRadarActivity.RID,
-                        arrayOf(Location.rid, "")
-                )
+                ObjectIntent(context, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, arrayOf(Location.rid, ""))
             } else {
-                ObjectIntent(
-                        context,
-                        WXGLRadarActivityMultiPane::class.java,
-                        WXGLRadarActivityMultiPane.RID,
-                        arrayOf(Location.rid, "", "2")
-                )
+                ObjectIntent(context, WXGLRadarActivityMultiPane::class.java, WXGLRadarActivityMultiPane.RID, arrayOf(Location.rid, "", "2"))
             }
         } else {
-            ObjectIntent(
-                    context,
-                    CanadaRadarActivity::class.java,
-                    CanadaRadarActivity.RID,
-                    arrayOf(Location.rid, "rad")
-            )
+            ObjectIntent(context, CanadaRadarActivity::class.java, CanadaRadarActivity.RID, arrayOf(Location.rid, "rad"))
         }
     }
 
     fun openAfd() {
         if (Location.isUS) {
-            ObjectIntent(
-                    this,
-                    AfdActivity::class.java,
-                    AfdActivity.URL,
-                    arrayOf(Location.wfo, "")
-            )
+            ObjectIntent(this, AfdActivity::class.java, AfdActivity.URL, arrayOf(Location.wfo, ""))
         } else {
             ObjectIntent(this, CanadaTextActivity::class.java)
         }
     }
 
-    fun openSettings() {
-        ObjectIntent(this, SettingsMainActivity::class.java)
-    }
+    fun openSettings() = ObjectIntent(this, SettingsMainActivity::class.java)
 
     fun openVis() {
         if (Location.isUS) {
             ObjectIntent(this, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
         } else {
-            ObjectIntent(
-                    this,
-                    CanadaRadarActivity::class.java,
-                    CanadaRadarActivity.RID,
-                    arrayOf(Location.rid, "vis")
-            )
+            ObjectIntent(this, CanadaRadarActivity::class.java, CanadaRadarActivity.RID, arrayOf(Location.rid, "vis"))
         }
     }
 
@@ -256,28 +193,13 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
 
     fun openHourly() {
         if (Location.isUS) {
-            ObjectIntent(
-                    this,
-                    HourlyActivity::class.java,
-                    HourlyActivity.LOC_NUM,
-                    Location.currentLocationStr
-            )
+            ObjectIntent(this, HourlyActivity::class.java, HourlyActivity.LOC_NUM, Location.currentLocationStr)
         } else {
-            ObjectIntent(
-                    this,
-                    CanadaHourlyActivity::class.java,
-                    CanadaHourlyActivity.LOC_NUM,
-                    Location.currentLocationStr
-            )
+            ObjectIntent(this, CanadaHourlyActivity::class.java, CanadaHourlyActivity.LOC_NUM, Location.currentLocationStr)
         }
     }
 
     fun openActivity(context: Context, activityName: String) {
-        ObjectIntent(
-                context,
-                MyApplication.HM_CLASS[activityName]!!,
-                MyApplication.HM_CLASS_ID[activityName]!!,
-                MyApplication.HM_CLASS_ARGS[activityName]!!
-        )
+        ObjectIntent(context, MyApplication.HM_CLASS[activityName]!!, MyApplication.HM_CLASS_ID[activityName]!!, MyApplication.HM_CLASS_ARGS[activityName]!!)
     }
 }
