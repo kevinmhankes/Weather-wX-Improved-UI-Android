@@ -83,9 +83,7 @@ class ObjectCardVerticalText(context: Context, numColumns: Int) {
 
     val card get() = objectCard.card
 
-    fun setOnClickListener(fn: View.OnClickListener) {
-        objectCard.setOnClickListener(fn)
-    }
+    fun setOnClickListener(fn: View.OnClickListener) = objectCard.setOnClickListener(fn)
 }
 
 

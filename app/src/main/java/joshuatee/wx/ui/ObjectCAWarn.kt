@@ -40,12 +40,7 @@ import kotlinx.coroutines.*
 
 // FIXME rename class
 
-class ObjectCAWarn(
-        private val context: Context,
-        private val activity: Activity,
-        private val linearLayout: LinearLayout,
-        private val toolbar: Toolbar
-) {
+class ObjectCAWarn(private val context: Context, private val activity: Activity, private val linearLayout: LinearLayout, private val toolbar: Toolbar) {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var listLocUrl = mutableListOf<String>()
