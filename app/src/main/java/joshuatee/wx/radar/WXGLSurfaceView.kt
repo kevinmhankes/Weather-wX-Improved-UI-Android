@@ -174,13 +174,9 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         }
     }
 
-    override fun onDown(event: MotionEvent): Boolean {
-        return true
-    }
+    override fun onDown(event: MotionEvent) = true
 
-    override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-        return true
-    }
+    override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float) = true
 
     override fun onLongPress(event: MotionEvent) {
         if (fullScreen) {
@@ -298,9 +294,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
 
     override fun onShowPress(event: MotionEvent) {}
 
-    override fun onSingleTapUp(event: MotionEvent): Boolean {
-        return true
-    }
+    override fun onSingleTapUp(event: MotionEvent) = true
 
     override fun onDoubleTap(event: MotionEvent): Boolean {
         density = (oglrCurrent.ortInt * 2).toFloat() / width
@@ -308,7 +302,6 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         yPos = event.y
         xMiddle = (width / 2).toFloat()
         yMiddle = (height / 2).toFloat()
-
         if (!MyApplication.wxoglCenterOnLocation) {
             if (MyApplication.dualpaneshareposn && !locationFragment) {
                 mScaleFactor *= 2.0f
@@ -334,21 +327,13 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             if (MyApplication.dualpaneshareposn && !locationFragment) {
                 mScaleFactor *= 2.0f
                 (0 until numPanes).forEach {
-                    oglr[it].setViewInitial(
-                            mScaleFactor,
-                            oglr[it].x * 2.0f,
-                            oglr[it].y * 2.0f
-                    )
+                    oglr[it].setViewInitial(mScaleFactor, oglr[it].x * 2.0f, oglr[it].y * 2.0f)
                     wxgl[it].mScaleFactor = mScaleFactor
                     wxgl[it].requestRender()
                 }
             } else {
                 mScaleFactor *= 2.0f
-                oglrCurrent.setViewInitial(
-                        mScaleFactor,
-                        oglrCurrent.x * 2.0f,
-                        oglrCurrent.y * 2.0f
-                )
+                oglrCurrent.setViewInitial(mScaleFactor, oglrCurrent.x * 2.0f, oglrCurrent.y * 2.0f)
                 requestRender()
             }
         }
