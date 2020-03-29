@@ -52,18 +52,8 @@ class SettingsPlaylistAutodownloadActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_recyclerview_toolbar_with_twofab, null, false)
         toolbar.subtitle = modifyModeString
-        ObjectFab(
-                this,
-                this,
-                R.id.fab1,
-                R.drawable.ic_alarm_add_24dp,
-                View.OnClickListener { pickTimeFAB() })
-        ObjectFab(
-                this,
-                this,
-                R.id.fab2,
-                MyApplication.ICON_DELETE,
-                View.OnClickListener { deleteFAB() })
+        ObjectFab(this, this, R.id.fab1, R.drawable.ic_alarm_add_24dp, View.OnClickListener { pickTimeFAB() })
+        ObjectFab(this, this, R.id.fab2, MyApplication.ICON_DELETE, View.OnClickListener { deleteFAB() })
         ridFav = Utility.readPref(this, prefToken, "")
         val calendar = Calendar.getInstance()
         hour = calendar.get(Calendar.HOUR_OF_DAY)
