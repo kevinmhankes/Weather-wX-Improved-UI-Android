@@ -87,12 +87,12 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     //
 
     companion object {
-        var RID: String = ""
-        var dspLegendMax: Float = 0.0f
+        var RID = ""
+        var dspLegendMax = 0.0f
         var velMax: Short = 120
         var velMin: Short = -120
-        var spotterId: String = ""
-        var spotterShowSelected: Boolean = false
+        var spotterId = ""
+        var spotterShowSelected = false
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
