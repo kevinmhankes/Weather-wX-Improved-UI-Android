@@ -37,9 +37,9 @@ class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
         isEnabled = Utility.readPref(context, prefTokenEnabled, "false").startsWith("t")
     }
 
-    val name: String get() = type.urlToken.replace("%20", " ")
-    val prefTokenEnabled: String get() = "RADAR_SHOW_" + type.productCode
-    val prefTokenColor: String get() = "RADAR_COLOR_" + type.productCode
-    private val prefTokenStorage: String get() = "SEVERE_DASHBOARD_" + type.productCode
+    val name get() = type.urlToken.replace("%20", " ")
+    val prefTokenEnabled get() = "RADAR_SHOW_" + type.productCode
+    val prefTokenColor get() = "RADAR_COLOR_" + type.productCode
+    private val prefTokenStorage get() = "SEVERE_DASHBOARD_" + type.productCode
 }
 

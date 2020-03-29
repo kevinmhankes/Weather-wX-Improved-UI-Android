@@ -27,8 +27,8 @@ package joshuatee.wx.objects
 
 class LatLonStr {
 
-    var latStr: String = ""
-    var lonStr: String = ""
+    var latStr = ""
+    var lonStr = ""
 
     constructor()
 

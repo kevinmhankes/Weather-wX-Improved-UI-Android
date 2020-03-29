@@ -40,7 +40,7 @@ import joshuatee.wx.wpc.UtilityWpcText
 class FavAddActivity : BaseActivity() {
 
     companion object {
-        const val TYPE: String = ""
+        const val TYPE = ""
     }
 
     private var prefToken = ""

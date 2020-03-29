@@ -92,11 +92,10 @@ enum class PolygonType constructor(
     SWO(MyApplication.radarColorHi, "SWO", MyApplication.radarSwo, MyApplication.radarSwoLineSize.toFloat()),
     NONE(0, "", false, 0.0f);
 
-    override fun toString(): String = typeAsString
+    override fun toString() = typeAsString
 
     companion object {
         fun refresh() {
-
             MCD.pref = MyApplication.radarWatMcd
             MPD.pref = MyApplication.radarMpd
             WATCH.pref = MyApplication.radarWatMcd
@@ -115,7 +114,6 @@ enum class PolygonType constructor(
             HI.pref = MyApplication.radarHi
             OBS.pref = MyApplication.radarObs
             SWO.pref = MyApplication.radarSwo
-
             MCD.color = MyApplication.radarColorMcd
             MPD.color = MyApplication.radarColorMpd
             WATCH.color = MyApplication.radarColorTstormWatch

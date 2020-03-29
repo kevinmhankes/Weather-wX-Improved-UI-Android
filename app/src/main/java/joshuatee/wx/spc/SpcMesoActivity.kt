@@ -60,7 +60,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     //
 
     companion object {
-        var INFO: String = ""
+        var INFO = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main

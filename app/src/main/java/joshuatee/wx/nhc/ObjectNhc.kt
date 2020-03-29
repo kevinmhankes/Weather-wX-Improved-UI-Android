@@ -38,11 +38,11 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
 
     private var notificationCard: ObjectCardText? = null
     private val cardNotificationHeaderText = "Currently blocked storm notifications, tap this text to clear all blocks "
-    var html: String = ""
+    var html = ""
     private var numberOfImages = 0
     private var imagesPerRow = 2
     private val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout>()
-    val regionMap: MutableMap<NhcOceanEnum, ObjectNhcRegionSummary> = mutableMapOf()
+    val regionMap = mutableMapOf<NhcOceanEnum, ObjectNhcRegionSummary>()
 
     init {
         if (UtilityUI.isLandScape(context)) {

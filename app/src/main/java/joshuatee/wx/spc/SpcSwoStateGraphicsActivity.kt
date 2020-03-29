@@ -50,7 +50,7 @@ class SpcSwoStateGraphicsActivity : VideoRecordActivity(), OnItemSelectedListene
     // 1: day
 
     companion object {
-        const val NO: String = ""
+        const val NO = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main

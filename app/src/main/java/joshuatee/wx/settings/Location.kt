@@ -137,11 +137,11 @@ class Location(val context: Context, locNumInt: Int) {
     val notificationWpcMpd get() = alertNotificationWpcmpdCurrent.startsWith("t")
 
     companion object {
-        var numLocations: Int = 1
-        var currentLocation: Int = 0
+        var numLocations = 1
+        var currentLocation = 0
             private set
 
-        val listOf: MutableList<String> = mutableListOf()
+        val listOf = mutableListOf<String> ()
 
         fun us(xStr: String) = if (xStr.isNotEmpty()) {
             Character.isDigit(xStr[0])

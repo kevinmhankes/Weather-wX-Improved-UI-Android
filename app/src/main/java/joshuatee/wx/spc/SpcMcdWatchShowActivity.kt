@@ -57,7 +57,7 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
     //
 
     companion object {
-        const val NUMBER: String = ""
+        const val NUMBER = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main

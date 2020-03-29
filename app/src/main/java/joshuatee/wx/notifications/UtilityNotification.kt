@@ -69,10 +69,7 @@ object UtilityNotification {
         var notifUrls = ""
         val i = 0
         val oldNotifStr = Utility.readPref(context, "NOTIF_STR", "")
-        //var noMain: String
         val noSummary = ""
-        //var locLabelStr: String
-        //val html: String
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         val tornadoWarningString = "Tornado Warning"
         if (MyApplication.locations.size > locNumInt && MyApplication.locations[locNumInt].notification) {
@@ -385,7 +382,7 @@ object UtilityNotification {
     }
 
     private const val notiChannelStr = "default"
-    const val notiChannelStrNoSound: String = "defaultNoSound2"
+    const val notiChannelStrNoSound = "defaultNoSound2"
 
     private fun createNotificationBigPicture(context: Context, noMain: String, resultPendingIntent2: PendingIntent, iconRadar: Int, bitmap: Bitmap): Notification {
         initChannels(context)

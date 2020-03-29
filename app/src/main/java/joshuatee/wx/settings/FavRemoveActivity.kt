@@ -47,7 +47,7 @@ class FavRemoveActivity : BaseActivity() {
     // FIXME this is nasty, works but has not been touched in years
 
     companion object {
-        const val TYPE: String = ""
+        const val TYPE = ""
     }
 
     private val ridArr = mutableListOf<String>()

@@ -74,12 +74,7 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun showTextProduct(prod: String) {
-        ObjectIntent(
-                this,
-                WpcTextProductsActivity::class.java,
-                WpcTextProductsActivity.URL,
-                arrayOf(prod.toLowerCase(Locale.US), "")
-        )
+        ObjectIntent(this, WpcTextProductsActivity::class.java, WpcTextProductsActivity.URL, arrayOf(prod.toLowerCase(Locale.US), ""))
     }
 
     private fun showImageProduct(imageUrl: String, title: String, needWhiteBackground: String) {

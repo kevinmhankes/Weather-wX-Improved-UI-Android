@@ -58,7 +58,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
     //
 
     companion object {
-        const val URL: String = ""
+        const val URL = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
