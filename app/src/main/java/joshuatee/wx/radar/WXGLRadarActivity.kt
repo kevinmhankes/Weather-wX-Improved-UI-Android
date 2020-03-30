@@ -118,7 +118,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private var tiltOption = true
     private lateinit var glview: WXGLSurfaceView
     private var tilt = "0"
-    private var ridArrLoc = listOf<String>()
+    private var radarSitesForFavorites = listOf<String>()
     private lateinit var imageMap: ObjectImageMap
     private var mapShown = false
     private lateinit var starButton: MenuItem
@@ -143,10 +143,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private val alertDialogStatusAl = mutableListOf<String>()
     private var legendShown = false
     private val numPanes = 1
-    private var numPanesArr = listOf<Int>()
-    private var wxgltextArr = mutableListOf<WXGLTextObject>()
-    // TODO rename this
-    private lateinit var sp: ObjectSpinner
+    private var paneList = listOf<Int>()
+    private var wxglTextObjects = mutableListOf<WXGLTextObject>()
+    private lateinit var objectSpinner: ObjectSpinner
     private var alertDialogRadarLongPress: ObjectDialogue? = null
     private var isGetContentInProgress = false
     private val animateButtonPlayString = "Animate Frames"
@@ -172,7 +171,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         locXCurrent = joshuatee.wx.settings.Location.x
         locYCurrent = joshuatee.wx.settings.Location.y
         val activityArguments = intent.getStringArrayExtra(RID)
-        numPanesArr = (0 until numPanes).toList()
+        paneList = (0 until numPanes).toList()
         UtilityFileManagement.deleteCacheFiles(this)
         // for L2 archive called from storm reports
         if (activityArguments != null) {
@@ -185,15 +184,18 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 spotterId = activityArguments[4]
                 spotterShowSelected = true
             }
-            if (activityArguments.size > 3)
+            if (activityArguments.size > 3) {
                 fixedSite = true
-            if (activityArguments.size < 7)
+            }
+            if (activityArguments.size < 7) {
                 archiveMode = false
+            }
         }
         setupAlertDialogRadarLongPress()
         UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
-        if (archiveMode && !spotterShowSelected)
+        if (archiveMode && !spotterShowSelected) {
             toolbarBottom.visibility = View.GONE
+        }
         val latLonArrD = UtilityLocation.getGps(this)
         latD = latLonArrD[0]
         lonD = latLonArrD[1]
@@ -206,18 +208,18 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         l2Menu = menu.findItem(R.id.action_l2)
         tdwrMenu = menu.findItem(R.id.action_tdwr)
         if (!UIPreferences.radarImmersiveMode) {
-            val blank = menu.findItem(R.id.action_blank)
-            blank.isVisible = false
+            menu.findItem(R.id.action_blank).isVisible = false
             menu.findItem(R.id.action_level3_blank).isVisible = false
             menu.findItem(R.id.action_level2_blank).isVisible = false
             menu.findItem(R.id.action_animate_blank).isVisible = false
             menu.findItem(R.id.action_tilt_blank).isVisible = false
             menu.findItem(R.id.action_tools_blank).isVisible = false
         }
-        if (Build.VERSION.SDK_INT > 20)
+        if (Build.VERSION.SDK_INT > 20) {
             menu.findItem(R.id.action_jellybean_drawtools).isVisible = false
-        else
+        } else {
             menu.findItem(R.id.action_share).title = "Share"
+        }
         delay = UtilityImg.animInterval(this)
         img = findViewById(R.id.iv)
         img.maxZoom = 6.0f
@@ -226,7 +228,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::mapToRid)
         rl = findViewById(R.id.rl)
         rl.addView(glview)
-        val rlArr = arrayOf(rl)
+        val relativeLayouts = arrayOf(rl)
         oglr = WXGLRender(this, 0)
         oglrArr.add(oglr)
         glviewArr.add(glview)
@@ -243,27 +245,31 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         )
         oglr.product = "N0Q"
         oglInView = true
-        if (activityArguments == null)
+        if (activityArguments == null) {
             oglr.rid = joshuatee.wx.settings.Location.rid
-        else
+        } else {
             oglr.rid = activityArguments[0]
+        }
         // hack, in rare cases a user will save a location that doesn't pick up RID
-        if (oglr.rid == "")
+        if (oglr.rid == "") {
             oglr.rid = "TLX"
+        }
         if (activityArguments != null && activityArguments.size > 2) {
             oglr.product = activityArguments[2]
             if (oglr.product == "N0R") {
                 oglr.product = "N0Q"
             }
         }
-        numPanesArr.forEach {
-            wxgltextArr.add(WXGLTextObject(this, rlArr[it], glviewArr[it], oglrArr[it], numPanes, it))
-            glviewArr[it].wxglTextObjects = wxgltextArr
-            wxgltextArr[it].initializeTextLabels(this)
+        paneList.forEach {
+            wxglTextObjects.add(WXGLTextObject(this, relativeLayouts[it], glviewArr[it], oglrArr[it], numPanes, it))
+            glviewArr[it].wxglTextObjects = wxglTextObjects
+            wxglTextObjects[it].initializeTextLabels(this)
         }
         if (MyApplication.wxoglRememberLocation && !archiveMode && !fixedSite) {
             glview.scaleFactor = MyApplication.wxoglZoom
-            if (MyApplication.wxoglRid != "") oglr.rid = MyApplication.wxoglRid
+            if (MyApplication.wxoglRid != "") {
+                oglr.rid = MyApplication.wxoglRid
+            }
             oglr.product = MyApplication.wxoglProd
             oglr.setViewInitial(MyApplication.wxoglZoom, MyApplication.wxoglX, MyApplication.wxoglY)
         }
@@ -271,13 +277,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             showLegend()
         }
         title = oglr.product
-        ridArrLoc = UtilityFavorites.setupMenu(
-                this,
-                MyApplication.ridFav,
-                oglr.rid,
-                prefToken
-        )
-        sp = ObjectSpinner(this, this, this, R.id.spinner1, ridArrLoc)
+        radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, oglr.rid, prefToken)
+        objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, radarSitesForFavorites)
         checkForAutoRefresh()
     }
 
@@ -311,10 +312,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         animateButton.title = animateButtonPlayString
         restarted = true
         restartedZoom = true
-        numPanesArr.forEach {
+        paneList.forEach {
             if (imageMap.map.visibility == View.GONE) {
-                wxgltextArr[it].initializeTextLabels(this)
-                wxgltextArr[it].addTextLabels()
+                wxglTextObjects[it].initializeTextLabels(this)
+                wxglTextObjects[it].addTextLabels()
             }
         }
         // if the top toolbar is not showing then neither are showing and the only restart
@@ -322,13 +323,13 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         if (glview.toolbarsHidden) {
             getContent()
         } else {
-            ridArrLoc = UtilityFavorites.setupMenu(
+            radarSitesForFavorites = UtilityFavorites.setupMenu(
                     this,
                     MyApplication.ridFav,
                     oglr.rid,
                     prefToken
             )
-            sp.refreshData(this, ridArrLoc)
+            objectSpinner.refreshData(this, radarSitesForFavorites)
         }
         checkForAutoRefresh()
         super.onRestart()
@@ -407,8 +408,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                         0,
                         oldRidArr,
                         oglrArr,
-                        wxgltextArr,
-                        numPanesArr,
+                        wxglTextObjects,
+                        paneList,
                         imageMap,
                         glviewArr,
                         ::getGPSFromDouble,
@@ -441,10 +442,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 ridChanged = false
             }
             if (PolygonType.SPOTTER_LABELS.pref && !archiveMode) {
-                UtilityWXGLTextObject.updateSpotterLabels(numPanes, wxgltextArr)
+                UtilityWXGLTextObject.updateSpotterLabels(numPanes, wxglTextObjects)
             }
             if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && !archiveMode) {
-                UtilityWXGLTextObject.updateObs(numPanes, wxgltextArr)
+                UtilityWXGLTextObject.updateObs(numPanes, wxglTextObjects)
             }
             glview.requestRender()
             if (legendShown && oglr.product != oldProd && oglr.product != "DSA" && oglr.product != "DAA") {
@@ -496,7 +497,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 if (!oglr.product.startsWith("2")) {
                     UtilityRadarUI.plotWpcFronts(glview, oglr, archiveMode)
                 }
-                UtilityWXGLTextObject.updateWpcFronts(numPanes, wxgltextArr)
+                UtilityWXGLTextObject.updateWpcFronts(numPanes, wxglTextObjects)
             }
             UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivity)
             isGetContentInProgress = false
@@ -778,20 +779,20 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private fun ridMapSwitch(radarSite: String) {
         oglr.rid = radarSite
         mapShown = false
-        ridArrLoc = UtilityFavorites.setupMenu(
+        radarSitesForFavorites = UtilityFavorites.setupMenu(
                 this,
                 MyApplication.ridFav,
                 oglr.rid,
                 prefToken
         )
         adjustTiltMenu()
-        sp.refreshData(this@WXGLRadarActivity, ridArrLoc)
+        objectSpinner.refreshData(this@WXGLRadarActivity, radarSitesForFavorites)
     }
 
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleString(this, oglr.rid, starButton, prefToken)
-        ridArrLoc = UtilityFavorites.setupMenu(this, ridFav, oglr.rid, prefToken)
-        sp.refreshData(this@WXGLRadarActivity, ridArrLoc)
+        radarSitesForFavorites = UtilityFavorites.setupMenu(this, ridFav, oglr.rid, prefToken)
+        objectSpinner.refreshData(this@WXGLRadarActivity, radarSitesForFavorites)
     }
 
     private fun showRadarScanInfo() {
@@ -799,7 +800,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        if (ridArrLoc.size > 2) {
+        if (radarSitesForFavorites.size > 2) {
             inOglAnim = false
             inOglAnimPaused = false
             animateButton.setIcon(MyApplication.ICON_PLAY)
@@ -818,10 +819,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                         arrayOf("RID")
                 )
                 else -> {
-                    if (ridArrLoc[pos] == " ") {
+                    if (radarSitesForFavorites[pos] == " ") {
                         oglr.rid = joshuatee.wx.settings.Location.rid
                     } else {
-                        oglr.rid = ridArrLoc[pos].split(" ").getOrNull(0) ?: ""
+                        oglr.rid = radarSitesForFavorites[pos].split(" ").getOrNull(0) ?: ""
                     }
                     if (!restarted && !(MyApplication.wxoglRememberLocation && firstRun)) {
                         img.resetZoom()
@@ -881,8 +882,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                         alertDialogRadarLongPress!!
                 )
             } else {
-                numPanesArr.forEach {
-                    wxgltextArr[it].addTextLabels()
+                paneList.forEach {
+                    wxglTextObjects[it].addTextLabels()
                 }
             }
         }
@@ -1123,9 +1124,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private fun showMap() {
         imageMap.toggleMap()
         if (imageMap.map.visibility != View.GONE) {
-            UtilityWXGLTextObject.hideTV(numPanes, wxgltextArr)
+            UtilityWXGLTextObject.hideTV(numPanes, wxglTextObjects)
         } else {
-            UtilityWXGLTextObject.showTV(numPanes, wxgltextArr)
+            UtilityWXGLTextObject.showTV(numPanes, wxglTextObjects)
         }
     }
 
