@@ -116,8 +116,8 @@ class LocationFragment : Fragment()  {
     private var cardSunrise: ObjectCardText? = null
 
     private fun addDynamicCards() {
-        var ccAdded = false
-        var day7Added = false
+        var currentConditionsAdded = false
+        var sevenDayAdded = false
         val cardViews = mutableListOf<CardView>()
         val homeScreenTokens = homescreenFavLocal.split(":").dropLastWhile { it.isEmpty() }
         numberOfRadars = homeScreenTokens.count { it == "OGL-RADAR" || it.contains("NXRD-") }
@@ -130,18 +130,18 @@ class LocationFragment : Fragment()  {
             val widthDivider = 1
             val numPanes = 1
             if (tok == "TXT-CC" || tok == "TXT-CC2") {
-                if (!ccAdded && cardCC != null) {
+                if (!currentConditionsAdded && cardCC != null) {
                     linearLayout.addView(cardCC!!.card)
-                    ccAdded = true
+                    currentConditionsAdded = true
                 }
             } else if (tok == "TXT-HAZ") {
                 linearLayoutHazards = LinearLayout(activityReference)
                 linearLayoutHazards?.orientation = LinearLayout.VERTICAL
                 linearLayout.addView(linearLayoutHazards)
             } else if (tok == "TXT-7DAY" || tok == "TXT-7DAY2") {
-                if (!day7Added) {
+                if (!sevenDayAdded) {
                     linearLayout.addView(linearLayoutForecast)
-                    day7Added = true
+                    sevenDayAdded = true
                 }
             } else if (tok == "OGL-RADAR") {
                 wxglRenders.add(WXGLRender(activityReference, 4))

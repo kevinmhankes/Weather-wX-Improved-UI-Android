@@ -92,7 +92,5 @@ object UtilityTimeSunMoon {
         }
     }
 
-    fun getForHomeScreen(context: Context) =
-        getSunriseSunset(context, Location.currentLocationStr, false) + MyApplication.newline + UtilityTime.gmtTime()
-
+    fun getForHomeScreen(context: Context) = getSunriseSunset(context, Location.currentLocationStr, false) + MyApplication.newline + UtilityTime.gmtTime()
 }
