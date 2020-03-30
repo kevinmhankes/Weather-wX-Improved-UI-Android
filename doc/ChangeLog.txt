@@ -30,7 +30,7 @@
 // TODO [FIX] severedash -> long press -> go to dual pane ( does not use current location )
 // TODO [FIX] toolbar handling in WXGLSurfaceViews
 
-55388 2020_03_30
+55388 2020_03_30    [REF] misc for readability
 55387 2020_03_29    [REF] misc for readability
 55386 2020_03_29    [REF] misc for readability
                     [FIX] java.lang.IndexOutOfBoundsException: at joshuatee.wx.radar.WXGLRender.constructWpcFronts (WXGLRender.kt:1187)

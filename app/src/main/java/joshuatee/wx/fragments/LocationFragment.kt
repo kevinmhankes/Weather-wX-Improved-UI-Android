@@ -84,13 +84,13 @@ class LocationFragment : Fragment()  {
     private lateinit var linearLayout: LinearLayout
     private var homescreenFavLocal = ""
     private var sevenDayCards = mutableListOf<ObjectCard7Day>()
-    private val hsTextAl = mutableListOf<ObjectCardHSText>()
-    private val hsImages = mutableListOf<ObjectCardHSImage>()
+    private val homeScreenTextCards = mutableListOf<ObjectCardHSText>()
+    private val homeScreenImageCards = mutableListOf<ObjectCardHSImage>()
     private var wxglRenders = mutableListOf<WXGLRender>()
     private var wxglSurfaceViews = mutableListOf<WXGLSurfaceView>()
     private var wxglTextObjects = mutableListOf<WXGLTextObject>()
-    private var numRadars = 0
-    private var oldRidArr = Array(2) { "" }
+    private var numberOfRadars = 0
+    private var oldRadarSites = Array(2) { "" }
     private val radarLocationChangedAl = mutableListOf<Boolean>()
     // used to track the wxogl # for the wxogl that is tied to current location
     private var oglrIdx = -1
@@ -120,8 +120,8 @@ class LocationFragment : Fragment()  {
         var day7Added = false
         val cardViews = mutableListOf<CardView>()
         val homeScreenTokens = homescreenFavLocal.split(":").dropLastWhile { it.isEmpty() }
-        numRadars = homeScreenTokens.count { it == "OGL-RADAR" || it.contains("NXRD-") }
-        oldRidArr = Array(numRadars) { "" }
+        numberOfRadars = homeScreenTokens.count { it == "OGL-RADAR" || it.contains("NXRD-") }
+        oldRadarSites = Array(numberOfRadars) { "" }
         val relativeLayouts = mutableListOf<RelativeLayout>()
         wxglSurfaceViews.clear()
         wxglTextObjects.clear()
@@ -150,7 +150,7 @@ class LocationFragment : Fragment()  {
                 cardViews.add(ObjectCard(activityReference).card)
                 wxglSurfaceViews.add(WXGLSurfaceView(activityReference, widthDivider, numPanes, 1))
                 wxglRenders[index].rid = ""
-                oldRidArr[index] = ""
+                oldRadarSites[index] = ""
                 radarLocationChangedAl.add(false)
                 wxglSurfaceViews[index].index = index
                 relativeLayouts.add(RelativeLayout(activityReference))
@@ -178,12 +178,12 @@ class LocationFragment : Fragment()  {
             } else if (tok.contains("TXT-")) {
                 val hsTextTmp = ObjectCardHSText(activityReference, tok.replace("TXT-", ""))
                 linearLayout.addView(hsTextTmp.card)
-                hsTextAl.add(hsTextTmp)
+                homeScreenTextCards.add(hsTextTmp)
                 hsTextTmp.setOnClickListener(OnClickListener { hsTextTmp.toggleText() })
             } else if (tok.contains("IMG-")) {
                 val hsImageTmp = ObjectCardHSImage(activityReference, tok.replace("IMG-", ""))
                 linearLayout.addView(hsImageTmp.card)
-                hsImages.add(hsImageTmp)
+                homeScreenImageCards.add(hsImageTmp)
                 setImageOnClick()
             } else if (tok.contains("NXRD-")) {
                 wxglRenders.add(WXGLRender(activityReference, 4))
@@ -192,7 +192,7 @@ class LocationFragment : Fragment()  {
                 wxglSurfaceViews.add(WXGLSurfaceView(activityReference, widthDivider, numPanes, 1))
                 wxglSurfaceViews[index].index = index
                 wxglRenders[index].rid = tok.replace("NXRD-", "")
-                oldRidArr[index] = ""
+                oldRadarSites[index] = ""
                 radarLocationChangedAl.add(false)
                 relativeLayouts.add(RelativeLayout(activityReference))
                 wxglTextObjects.add(
@@ -287,12 +287,12 @@ class LocationFragment : Fragment()  {
         return view
     }
 
-    private fun changeLocation(pos: Int) {
+    private fun changeLocation(position: Int) {
         locationChangedHazards = true
         locationChangedSevenDay = true
-        if (pos != Location.numLocations) {
-            Utility.writePref(activityReference, "CURRENT_LOC_FRAGMENT", (pos + 1).toString())
-            Location.currentLocationStr = (pos + 1).toString()
+        if (position != Location.numLocations) {
+            Utility.writePref(activityReference, "CURRENT_LOC_FRAGMENT", (position + 1).toString())
+            Location.currentLocationStr = (position + 1).toString()
             x = Location.x
             y = Location.y
             if (oglrIdx != -1)
@@ -301,7 +301,7 @@ class LocationFragment : Fragment()  {
                 wxglSurfaceViews[oglrIdx].scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
                 wxglRenders[oglrIdx].setViewInitial(MyApplication.wxoglSize.toFloat() / 10.0f, 0.0f, 0.0f)
             }
-            hsImages.forEach {
+            homeScreenImageCards.forEach {
                 it.resetZoom()
             }
             setImageOnClick()
@@ -311,9 +311,7 @@ class LocationFragment : Fragment()  {
                     activityReference,
                     SettingsLocationGenericActivity::class.java,
                     SettingsLocationGenericActivity.LOC_NUM,
-                    arrayOf((pos + 1).toString(),
-                            ""
-                    )
+                    arrayOf((position + 1).toString(), "")
             )
         }
         locationLabel.text = Location.name
@@ -325,10 +323,10 @@ class LocationFragment : Fragment()  {
         if (needForecastData) {
             getForecastData()
         }
-        hsTextAl.indices.forEach {
+        homeScreenTextCards.indices.forEach {
             getTextProduct(it.toString())
         }
-        hsImages.indices.forEach {
+        homeScreenImageCards.indices.forEach {
             getImageProduct(it.toString())
         }
         x = Location.x
@@ -351,9 +349,11 @@ class LocationFragment : Fragment()  {
         cardCC?.refreshTextSize()
         locationLabel.refreshTextSize(TextSize.MEDIUM)
         locationLabel.text = Location.name
-        sevenDayCards.forEach{ it.refreshTextSize() }
+        sevenDayCards.forEach{
+            it.refreshTextSize()
+        }
         cardSunrise?.refreshTextSize(TextSize.MEDIUM)
-        hsTextAl.forEach{
+        homeScreenTextCards.forEach{
             it.refreshTextSize()
         }
         hazardsCards.forEach{
@@ -404,7 +404,7 @@ class LocationFragment : Fragment()  {
                 wxglSurfaceViews[idx],
                 wxglRenders[idx],
                 idx,
-                oldRidArr,
+                oldRadarSites,
                 wxglRenders,
                 wxglTextObjects,
                 paneList,
@@ -442,7 +442,6 @@ class LocationFragment : Fragment()  {
                 UtilityRadarUI.plotWarningPolygons(wxglSurfaceViews[idx], wxglRenders[idx], false)
             }
         }
-
         if (PolygonType.MCD.pref && activityReferenceWithNull != null) {
             withContext(Dispatchers.IO) {
                 UtilityDownloadMcd.get(activityReference)
@@ -454,7 +453,6 @@ class LocationFragment : Fragment()  {
                 UtilityRadarUI.plotMcdWatchPolygons(wxglSurfaceViews[idx], wxglRenders[idx], false)
             }
         }
-
         if (PolygonType.MPD.pref && activityReferenceWithNull != null) {
             withContext(Dispatchers.IO) {
                 UtilityDownloadMpd.get(activityReference)
@@ -464,7 +462,6 @@ class LocationFragment : Fragment()  {
             }
         }
         // end recent adds Jan 2020
-
         // don't enable until more stable
         /*if (MyApplication.radarShowWpcFronts) {
             withContext(Dispatchers.IO) {
@@ -484,10 +481,10 @@ class LocationFragment : Fragment()  {
         // occurred since
         if (Location.isUS && idx == 0) {
             if (PolygonType.OBS.pref) {
-                UtilityWXGLTextObject.updateObs(numRadars, wxglTextObjects)
+                UtilityWXGLTextObject.updateObs(numberOfRadars, wxglTextObjects)
             }
             if (PolygonType.SPOTTER_LABELS.pref) {
-                UtilityWXGLTextObject.updateSpotterLabels(numRadars, wxglTextObjects)
+                UtilityWXGLTextObject.updateSpotterLabels(numberOfRadars, wxglTextObjects)
             }
             wxglSurfaceViews[idx].requestRender()
             if (idx == oglrIdx) {
@@ -502,28 +499,28 @@ class LocationFragment : Fragment()  {
         val longTextDownload = withContext(Dispatchers.IO) {
             UtilityDownload.getTextProduct(
                     MyApplication.appContext,
-                    hsTextAl[productIndex].product
+                    homeScreenTextCards[productIndex].product
             ).replace("<br>AREA FORECAST DISCUSSION", "AREA FORECAST DISCUSSION")
         }
         var longText = longTextDownload
-        if (hsTextAl[productIndex].product=="NFDOFFN31" || hsTextAl[productIndex].product=="NFDOFFN32") {
+        if (homeScreenTextCards[productIndex].product=="NFDOFFN31" || homeScreenTextCards[productIndex].product=="NFDOFFN32") {
             longText = Utility.fromHtml(longTextDownload)
         }
-        hsTextAl[productIndex].setTextLong(longText)
+        homeScreenTextCards[productIndex].setTextLong(longText)
         val shortText = UtilityStringExternal.truncate(longText, UIPreferences.homescreenTextLength)
-        hsTextAl[productIndex].setTextShort(shortText)
-        hsTextAl[productIndex].setText(shortText)
-        if (hsTextAl[productIndex].product == "HOURLY") {
-            hsTextAl[productIndex].typefaceMono()
+        homeScreenTextCards[productIndex].setTextShort(shortText)
+        homeScreenTextCards[productIndex].setText(shortText)
+        if (homeScreenTextCards[productIndex].product == "HOURLY") {
+            homeScreenTextCards[productIndex].typefaceMono()
         }
     }
 
     private fun getImageProduct(productString: String) = GlobalScope.launch(uiDispatcher) {
         val productIndex = productString.toIntOrNull() ?: 0
         val bitmap = withContext(Dispatchers.IO) {
-            UtilityDownload.getImageProduct(MyApplication.appContext, hsImages[productIndex].product)
+            UtilityDownload.getImageProduct(MyApplication.appContext, homeScreenImageCards[productIndex].product)
         }
-        hsImages[productIndex].setImage(bitmap)
+        homeScreenImageCards[productIndex].setImage(bitmap)
     }
 
     private val changeListener = object : WXGLSurfaceView.OnProgressChangeListener {
@@ -540,7 +537,7 @@ class LocationFragment : Fragment()  {
                         alertDialogRadarLongPress!!
                 )
             } else {
-                (0 until numRadars).forEach {
+                (0 until numberOfRadars).forEach {
                     wxglTextObjects[it].addTextLabels()
                 }
             }
@@ -548,13 +545,13 @@ class LocationFragment : Fragment()  {
     }
 
     private fun getRadarTimeStampForHomescreen(radarSite: String): String {
-        var ts = ""
+        var timestamp = ""
         val tokens = WXGLNexrad.getRadarInfo(radarSite).split(" ")
         if (tokens.size > 3) {
-            ts = tokens[3]
+            timestamp = tokens[3]
         }
         return if (oglrIdx != -1) {
-            " " + wxglRenders[idxIntG].rid + ": " + ts
+            " " + wxglRenders[idxIntG].rid + ": " + timestamp
         } else {
             ""
         }
@@ -584,11 +581,11 @@ class LocationFragment : Fragment()  {
     }
 
     private fun setImageOnClick() {
-        hsImages.indices.forEach { ii ->
-            val cl = MyApplication.HM_CLASS[hsImages[ii].product]
-            val id = MyApplication.HM_CLASS_ID[hsImages[ii].product]
-            val argsOrig = MyApplication.HM_CLASS_ARGS[hsImages[ii].product]
-            hsImages[ii].setOnClickListener(OnClickListener {
+        homeScreenImageCards.indices.forEach { ii ->
+            val cl = MyApplication.HM_CLASS[homeScreenImageCards[ii].product]
+            val id = MyApplication.HM_CLASS_ID[homeScreenImageCards[ii].product]
+            val argsOrig = MyApplication.HM_CLASS_ARGS[homeScreenImageCards[ii].product]
+            homeScreenImageCards[ii].setOnClickListener(OnClickListener {
                 if (argsOrig != null) {
                     val args = arrayOfNulls<String>(argsOrig.size)
                     System.arraycopy(argsOrig, 0, args, 0, argsOrig.size)
@@ -603,10 +600,6 @@ class LocationFragment : Fragment()  {
                             args[z] = Location.state
                         if (args[z] == "RID_FOR_CA")
                             args[z] = Location.rid
-                        //if (args[z] == "ONEK")
-                        //   args[z] = Utility.readPref(activityReference,"COD_1KM_" + Location.rid, "")
-                        //if (args[z] == "TWOK")
-                        //    args[z] = Utility.readPref("STATE_CODE_" + Location.state, "")
                     }
                     if (cl != null && id != null) {
                         intent = Intent(activityReference, cl)
@@ -614,12 +607,7 @@ class LocationFragment : Fragment()  {
                         startActivity(intent)
                     }
                 } else {
-                    ObjectIntent(
-                            activityReference,
-                            GoesActivity::class.java,
-                            GoesActivity.RID,
-                            arrayOf("")
-                    )
+                    ObjectIntent(activityReference, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
                 }
             })
         }
@@ -847,12 +835,7 @@ class LocationFragment : Fragment()  {
             try {
                 Utility.writePref(activityReference, "FCST", objSevenDay.sevenDayLong)
                 if (homescreenFavLocal.contains("TXT-7DAY")) {
-                    objSevenDay.icons.mapTo(bitmaps) {
-                        UtilityNws.getIcon(
-                                activityReference,
-                                it
-                        )
-                    }
+                    objSevenDay.icons.mapTo(bitmaps) { UtilityNws.getIcon(activityReference, it) }
                 }
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
@@ -864,43 +847,17 @@ class LocationFragment : Fragment()  {
                 sevenDayCards = mutableListOf()
                 val day7Arr = objSevenDay.forecastList
                 bitmaps.forEachIndexed { index, bitmap ->
-                    val c7day = ObjectCard7Day(activityReference, bitmap, Location.isUS, index, day7Arr)
-                    c7day.setOnClickListener(OnClickListener {
-                        scrollView.smoothScrollTo(
-                                0,
-                                0
-                        )
-                    })
-                    linearLayoutForecast?.addView(c7day.card)
-                    sevenDayCards.add(c7day)
+                    val objectCard7Day = ObjectCard7Day(activityReference, bitmap, Location.isUS, index, day7Arr)
+                    objectCard7Day.setOnClickListener(OnClickListener { scrollView.smoothScrollTo(0, 0) })
+                    linearLayoutForecast?.addView(objectCard7Day.card)
+                    sevenDayCards.add(objectCard7Day)
                 }
                 // sunrise card
                 cardSunrise = ObjectCardText(activityReference)
                 cardSunrise!!.center()
-                cardSunrise!!.setOnClickListener(OnClickListener {
-                    scrollView.smoothScrollTo(
-                            0,
-                            0
-                    )
-                })
+                cardSunrise!!.setOnClickListener(OnClickListener { scrollView.smoothScrollTo(0, 0) })
                 try {
-                    if (Location.isUS) {
-                        cardSunrise!!.text = (
-                                UtilityTimeSunMoon.getSunriseSunset(
-                                        activityReference,
-                                        Location.currentLocationStr,
-                                        false
-                                ) + MyApplication.newline + UtilityTime.gmtTime()
-                                )
-                    } else {
-                        cardSunrise!!.text = (
-                                UtilityTimeSunMoon.getSunriseSunset(
-                                        activityReference,
-                                        Location.currentLocationStr,
-                                        false
-                                ) + MyApplication.newline + UtilityTime.gmtTime()
-                                )
-                    }
+                    cardSunrise!!.text = UtilityTimeSunMoon.getForHomeScreen(activityReference)
                 } catch (e: Exception) {
                     UtilityLog.handleException(e)
                 }
@@ -911,11 +868,7 @@ class LocationFragment : Fragment()  {
             //
             if (!Location.isUS) {
                 if (homescreenFavLocal.contains("TXT-7DAY2")) {
-                    ObjectCALegal(
-                            activityReference,
-                            linearLayoutForecast!!,
-                            UtilityCanada.getLocationUrl(x, y)
-                    )
+                    ObjectCALegal(activityReference, linearLayoutForecast!!, UtilityCanada.getLocationUrl(x, y))
                 }
             }
         }
