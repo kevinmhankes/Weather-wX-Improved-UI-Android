@@ -126,24 +126,24 @@ class LocationFragment : Fragment()  {
         wxglSurfaceViews.clear()
         wxglTextObjects.clear()
         var index = 0
-        homeScreenTokens.forEach { tok ->
+        homeScreenTokens.forEach { token ->
             val widthDivider = 1
             val numPanes = 1
-            if (tok == "TXT-CC" || tok == "TXT-CC2") {
+            if (token == "TXT-CC" || token == "TXT-CC2") {
                 if (!currentConditionsAdded && cardCC != null) {
                     linearLayout.addView(cardCC!!.card)
                     currentConditionsAdded = true
                 }
-            } else if (tok == "TXT-HAZ") {
+            } else if (token == "TXT-HAZ") {
                 linearLayoutHazards = LinearLayout(activityReference)
                 linearLayoutHazards?.orientation = LinearLayout.VERTICAL
                 linearLayout.addView(linearLayoutHazards)
-            } else if (tok == "TXT-7DAY" || tok == "TXT-7DAY2") {
+            } else if (token == "TXT-7DAY" || token == "TXT-7DAY2") {
                 if (!sevenDayAdded) {
                     linearLayout.addView(linearLayoutForecast)
                     sevenDayAdded = true
                 }
-            } else if (tok == "OGL-RADAR") {
+            } else if (token == "OGL-RADAR") {
                 wxglRenders.add(WXGLRender(activityReference, 4))
                 oglrIdx = oglrCount
                 oglrCount += 1
@@ -175,23 +175,23 @@ class LocationFragment : Fragment()  {
                 )
                 linearLayout.addView(cardViews.last())
                 index += 1
-            } else if (tok.contains("TXT-")) {
-                val hsTextTmp = ObjectCardHSText(activityReference, tok.replace("TXT-", ""))
+            } else if (token.contains("TXT-")) {
+                val hsTextTmp = ObjectCardHSText(activityReference, token.replace("TXT-", ""))
                 linearLayout.addView(hsTextTmp.card)
                 homeScreenTextCards.add(hsTextTmp)
                 hsTextTmp.setOnClickListener(OnClickListener { hsTextTmp.toggleText() })
-            } else if (tok.contains("IMG-")) {
-                val hsImageTmp = ObjectCardHSImage(activityReference, tok.replace("IMG-", ""))
+            } else if (token.contains("IMG-")) {
+                val hsImageTmp = ObjectCardHSImage(activityReference, token.replace("IMG-", ""))
                 linearLayout.addView(hsImageTmp.card)
                 homeScreenImageCards.add(hsImageTmp)
                 setImageOnClick()
-            } else if (tok.contains("NXRD-")) {
+            } else if (token.contains("NXRD-")) {
                 wxglRenders.add(WXGLRender(activityReference, 4))
                 oglrCount += 1
                 cardViews.add(ObjectCard(activityReference).card)
                 wxglSurfaceViews.add(WXGLSurfaceView(activityReference, widthDivider, numPanes, 1))
                 wxglSurfaceViews[index].index = index
-                wxglRenders[index].rid = tok.replace("NXRD-", "")
+                wxglRenders[index].rid = token.replace("NXRD-", "")
                 oldRadarSites[index] = ""
                 radarLocationChangedAl.add(false)
                 relativeLayouts.add(RelativeLayout(activityReference))
