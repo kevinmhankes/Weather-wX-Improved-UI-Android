@@ -1106,10 +1106,11 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     private fun getContentIntelligent() {
         if (MyApplication.dualpaneshareposn) {
-            if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref)
+            if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) {
                 getContentSerial()
-            else
+            } else {
                 getContentParallel()
+            }
         } else {
             getContent(glviewArr[curRadar], oglrArr[curRadar], curRadar)
         }

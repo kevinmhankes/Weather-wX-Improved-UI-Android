@@ -122,7 +122,7 @@ class LocationFragment : Fragment()  {
         val homeScreenTokens = homescreenFavLocal.split(":").dropLastWhile { it.isEmpty() }
         numRadars = homeScreenTokens.count { it == "OGL-RADAR" || it.contains("NXRD-") }
         oldRidArr = Array(numRadars) { "" }
-        val rlArr = mutableListOf<RelativeLayout>()
+        val relativeLayouts = mutableListOf<RelativeLayout>()
         glviewArr.clear()
         wxglTextArr.clear()
         var index = 0
@@ -153,11 +153,11 @@ class LocationFragment : Fragment()  {
                 oldRidArr[index] = ""
                 radarLocationChangedAl.add(false)
                 glviewArr[index].index = index
-                rlArr.add(RelativeLayout(activityReference))
+                relativeLayouts.add(RelativeLayout(activityReference))
                 wxglTextArr.add(
                         WXGLTextObject(
                                 activityReference,
-                                rlArr[index],
+                                relativeLayouts[index],
                                 glviewArr[index],
                                 oglrArr[index],
                                 numPanes,
@@ -167,8 +167,8 @@ class LocationFragment : Fragment()  {
                 glviewArr[index].wxglTextObjects = wxglTextArr
                 glviewArr[index].locationFragment = true
                 wxglTextArr[index].initializeTextLabels(activityReference)
-                rlArr[index].addView(glviewArr[index])
-                cardViews.last().addView(rlArr[index])
+                relativeLayouts[index].addView(glviewArr[index])
+                cardViews.last().addView(relativeLayouts[index])
                 cardViews.last().layoutParams = RelativeLayout.LayoutParams(
                         MyApplication.dm.widthPixels - (MyApplication.lLpadding * 2).toInt(),
                         MyApplication.dm.widthPixels - (MyApplication.lLpadding * 2).toInt()
@@ -194,11 +194,11 @@ class LocationFragment : Fragment()  {
                 oglrArr[index].rid = tok.replace("NXRD-", "")
                 oldRidArr[index] = ""
                 radarLocationChangedAl.add(false)
-                rlArr.add(RelativeLayout(activityReference))
+                relativeLayouts.add(RelativeLayout(activityReference))
                 wxglTextArr.add(
                         WXGLTextObject(
                                 activityReference,
-                                rlArr[index],
+                                relativeLayouts[index],
                                 glviewArr[index],
                                 oglrArr[index],
                                 numPanes,
@@ -208,8 +208,8 @@ class LocationFragment : Fragment()  {
                 glviewArr[index].wxglTextObjects = wxglTextArr
                 glviewArr[index].locationFragment = true
                 wxglTextArr[index].initializeTextLabels(activityReference)
-                rlArr[index].addView(glviewArr[index])
-                cardViews.last().addView(rlArr[index])
+                relativeLayouts[index].addView(glviewArr[index])
+                cardViews.last().addView(relativeLayouts[index])
                 cardViews.last().layoutParams = RelativeLayout.LayoutParams(
                         MyApplication.dm.widthPixels - (MyApplication.lLpadding * 2).toInt(),
                         MyApplication.dm.widthPixels - (MyApplication.lLpadding * 2).toInt()
