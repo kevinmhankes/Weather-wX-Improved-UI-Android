@@ -33,7 +33,7 @@ import java.util.TimeZone
  * Computes the sunrise for an arbitrary declination.
  *
  * Coordinates for the ExternalSunriseLocation to compute the sunrise/sunset for.
- * @param timeZone
+ *   timeZone
  * timezone to compute the sunrise/sunset times in.
  * `Calendar` object containing the date to compute the official sunset for.
  * Angle under the horizon for which to compute sunrise. For example, "civil sunrise"
@@ -65,7 +65,7 @@ import java.util.TimeZone
  *
  * `ExternalSunriseLocation` object containing the Latitude/Longitude of the ExternalSunriseLocation to compute
  * the sunrise/sunset for.
- * @param timeZone
+ *  timeZone
  * timezone to compute the sunrise/sunset times in.
  */
 
@@ -73,7 +73,7 @@ import java.util.TimeZone
  * Computes the sunset for an arbitrary declination.
  *
  * Coordinates for the ExternalSunriseLocation to compute the sunrise/sunset for.
- * @param timeZone
+ *  timeZone
  * timezone to compute the sunrise/sunset times in.
  * `Calendar` object containing the date to compute the official sunset for.
  * Angle under the horizon for which to compute sunrise. For example, "civil sunset"

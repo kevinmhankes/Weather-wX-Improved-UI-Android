@@ -34,8 +34,8 @@ import kotlin.math.abs
 /**
  * Construct a new GlobalCoordinates. Angles will be canonicalized.
  *
- * @param mLatitude latitude in degrees
- * @param mLongitude longitude in degrees
+ * mLatitude latitude in degrees
+ * mLongitude longitude in degrees
  */
 /** Latitude in degrees. Negative latitude is southern hemisphere.  */
 /** Longitude in degrees. Negative longitude is western hemisphere.  */
