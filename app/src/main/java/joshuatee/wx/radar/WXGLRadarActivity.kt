@@ -323,12 +323,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         if (glview.toolbarsHidden) {
             getContent()
         } else {
-            radarSitesForFavorites = UtilityFavorites.setupMenu(
-                    this,
-                    MyApplication.ridFav,
-                    oglr.rid,
-                    prefToken
-            )
+            radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, oglr.rid, prefToken)
             objectSpinner.refreshData(this, radarSitesForFavorites)
         }
         checkForAutoRefresh()
@@ -378,7 +373,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 l2Menu.isVisible = true
                 tdwrMenu.isVisible = false
             }
-            // FIXME use matches
             if ((oglr.product.matches(Regex("N[0-3]Q")) || oglr.product == "L2REF") && ridIsTdwr) {
                 if (tilt == "3") {
                     tilt = "2"
@@ -427,7 +421,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                         true,
                         archiveMode
                 )
-                //glviewArr.forEach {it.requestRender()}
             }
             if (!oglInView) {
                 img.visibility = View.GONE
@@ -467,6 +460,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             if (!oglr.product.startsWith("2")) {
                 UtilityRadarUI.plotWarningPolygons(glview, oglr, archiveMode)
             }
+            // FIXME move to method
             val tstCount = UtilityVtec.getStormCount(MyApplication.severeDashboardTst.value)
             val torCount = UtilityVtec.getStormCount(MyApplication.severeDashboardTor.value)
             val ffwCount = UtilityVtec.getStormCount(MyApplication.severeDashboardFfw.value)
@@ -577,19 +571,19 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     private fun progressUpdate(vararg values: String) {
         if ((values[1].toIntOrNull() ?: 0) > 1) {
-            val tmpArrAnim = WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"").split(" ")
-            if (tmpArrAnim.size > 3)
-                toolbar.subtitle = tmpArrAnim[3] + " (" + values[0] + "/" + values[1] + ")"
-            else
+            val list = WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"").split(" ")
+            if (list.size > 3) {
+                toolbar.subtitle = list[3] + " (" + values[0] + "/" + values[1] + ")"
+            } else {
                 toolbar.subtitle = ""
+            }
         } else {
             toolbar.subtitle = "Problem downloading"
         }
     }
 
     private fun setSubTitle() {
-        val info = WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"")
-        val items = info.split(" ")
+        val items = WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"").split(" ")
         if (items.size > 3) {
             toolbar.subtitle = items[3]
             if (UtilityTime.isRadarTimeOld(items[3])) {
