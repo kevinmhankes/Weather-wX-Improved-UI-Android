@@ -168,7 +168,7 @@ internal object UtilityRadarUI {
     }
 
     fun doLongPressAction(
-            strName: String,
+            string: String,
             context: Context,
             activity: Activity,
             wxglSurfaceView: WXGLSurfaceView,
@@ -177,60 +177,60 @@ internal object UtilityRadarUI {
             function: (strName: String) -> Unit
     ) {
         when {
-            strName.contains("Show Warning text") -> {
+            string.contains("Show Warning text") -> {
                 showNearestWarning(context, wxglSurfaceView)
             }
-            strName.contains("Show Watch text") -> {
+            string.contains("Show Watch text") -> {
                 showNearestProduct(context, PolygonType.WATCH, wxglSurfaceView, uiDispatcher)
             }
-            strName.contains("Show MCD text") -> {
+            string.contains("Show MCD text") -> {
                 showNearestProduct(context, PolygonType.MCD, wxglSurfaceView, uiDispatcher)
             }
-            strName.contains("Show MPD text") -> {
+            string.contains("Show MPD text") -> {
                 showNearestProduct(context, PolygonType.MPD, wxglSurfaceView, uiDispatcher)
             }
-            strName.contains("Show nearest observation") -> {
+            string.contains("Show nearest observation") -> {
                 getMetar(wxglSurfaceView, activity, context, uiDispatcher)
             }
-            strName.contains("Show nearest meteogram") -> {
+            string.contains("Show nearest meteogram") -> {
                 showNearestMeteogram(context, wxglSurfaceView)
             }
-            strName.contains("Show radar status message") -> {
+            string.contains("Show radar status message") -> {
                 getRadarStatus(activity, context, uiDispatcher, wxglRender)
             }
-            strName.contains("Show nearest forecast") -> {
+            string.contains("Show nearest forecast") -> {
                 showNearestForecast(context, wxglSurfaceView)
             }
-            else -> function(strName)
+            else -> function(string)
         }
     }
 
     fun initGlviewFragment(
             wxglSurfaceView: WXGLSurfaceView,
-            z: Int,
-            oglrs: MutableList<WXGLRender>,
-            glviews: MutableList<WXGLSurfaceView>,
-            wxgltexts: MutableList<WXGLTextObject>,
+            index: Int,
+            wxglRenders: MutableList<WXGLRender>,
+            wxglSurfaceViews: MutableList<WXGLSurfaceView>,
+            wxglTextObjects: MutableList<WXGLTextObject>,
             changeListener: WXGLSurfaceView.OnProgressChangeListener
     ): Boolean {
         wxglSurfaceView.setEGLContextClientVersion(2)
-        wxgltexts[z].setWXGLRender(oglrs[z])
-        oglrs[z].indexString = z.toString()
-        wxglSurfaceView.setRenderer(oglrs[z])
-        wxglSurfaceView.setRenderVar(oglrs[z], oglrs, glviews)
+        wxglTextObjects[index].setWXGLRender(wxglRenders[index])
+        wxglRenders[index].indexString = index.toString()
+        wxglSurfaceView.setRenderer(wxglRenders[index])
+        wxglSurfaceView.setRenderVar(wxglRenders[index], wxglRenders, wxglSurfaceViews)
         wxglSurfaceView.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
         wxglSurfaceView.setOnProgressChangeListener(changeListener)
-        oglrs[z].zoom = MyApplication.wxoglSize.toFloat() / 10.0f
+        wxglRenders[index].zoom = MyApplication.wxoglSize.toFloat() / 10.0f
         wxglSurfaceView.scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
         return true
     }
 
     fun initGlView(
             wxglSurfaceView: WXGLSurfaceView,
-            glviewArr: MutableList<WXGLSurfaceView>,
+            wxglSurfaceViews: MutableList<WXGLSurfaceView>,
             wxglRender: WXGLRender,
-            oglrArr: MutableList<WXGLRender>,
-            act: Activity,
+            wxglRenders: MutableList<WXGLRender>,
+            activity: Activity,
             toolbar: Toolbar,
             toolbarBottom: Toolbar,
             changeListener: WXGLSurfaceView.OnProgressChangeListener,
@@ -238,7 +238,7 @@ internal object UtilityRadarUI {
     ) {
         wxglSurfaceView.setEGLContextClientVersion(2)
         wxglSurfaceView.setRenderer(wxglRender)
-        wxglSurfaceView.setRenderVar(wxglRender, oglrArr, glviewArr, act)
+        wxglSurfaceView.setRenderVar(wxglRender, wxglRenders, wxglSurfaceViews, activity)
         wxglSurfaceView.fullScreen = true
         wxglSurfaceView.setOnProgressChangeListener(changeListener)
         wxglSurfaceView.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
@@ -250,19 +250,19 @@ internal object UtilityRadarUI {
     fun initWxOglGeom(
             wxglSurfaceView: WXGLSurfaceView,
             wxglRender: WXGLRender,
-            z: Int,
-            oldRidArr: Array<String>,
-            oglrArr: MutableList<WXGLRender>,
-            wxgltextArr: MutableList<WXGLTextObject>,
-            numPanesArr: List<Int>,
+            index: Int,
+            oldRadarSites: Array<String>,
+            wxglRenders: MutableList<WXGLRender>,
+            wxglTextObjects: MutableList<WXGLTextObject>,
+            paneList: List<Int>,
             imageMap: ObjectImageMap?,
-            glviewArr: MutableList<WXGLSurfaceView>,
+            wxglSurfaceViews: MutableList<WXGLSurfaceView>,
             fnGps: () -> Unit,
             fnGetLatLon: () -> LatLon,
             archiveMode: Boolean = false
     ) {
         wxglRender.initializeGeometry()
-        if (oldRidArr[z] != oglrArr[z].rid) {
+        if (oldRadarSites[index] != wxglRenders[index].rid) {
             wxglRender.setChunkCount(0)
             wxglRender.setChunkCountSti(0)
             wxglRender.setHiInit(false)
@@ -298,8 +298,8 @@ internal object UtilityRadarUI {
                 } else
                     wxglRender.deconstructHWEXTLines()
             }).start()
-            wxgltextArr[z].addTextLabels()
-            oldRidArr[z] = oglrArr[z].rid
+            wxglTextObjects[index].addTextLabels()
+            oldRadarSites[index] = wxglRenders[index].rid
         }
         Thread(Runnable {
             if (PolygonType.TST.pref && !archiveMode)
@@ -327,34 +327,11 @@ internal object UtilityRadarUI {
             wxglRender.deconstructLocationDot()
         }
         if (imageMap != null && imageMap.map.visibility != View.VISIBLE) {
-            numPanesArr.forEach {
-                glviewArr[it].visibility = View.VISIBLE
+            paneList.forEach {
+                wxglSurfaceViews[it].visibility = View.VISIBLE
             }
         }
     }
-
-    /*fun plotPolygons(
-            glv: WXGLSurfaceView,
-            ogl: WXGLRender,
-            archiveMode: Boolean = false
-    ) {
-        Thread(Runnable {
-            if (PolygonType.TST.pref && !archiveMode)
-                ogl.constructWarningLines()
-            else
-                ogl.deconstructWarningLines()
-            if (PolygonType.MCD.pref && !archiveMode)
-                ogl.constructWatchMcdLines()
-            else
-                ogl.deconstructWatchMcdLines()
-            if (PolygonType.MPD.pref && !archiveMode)
-                ogl.constructMpdLines()
-            else
-                ogl.deconstructMpdLines()
-            ogl.constructGenericWarningLines()
-            glv.requestRender()
-        }).start()
-    }*/
 
     fun plotWarningPolygons(wxglSurfaceView: WXGLSurfaceView, wxglRender: WXGLRender, archiveMode: Boolean = false) {
         Thread(Runnable {
@@ -484,12 +461,7 @@ internal object UtilityRadarUI {
             UtilityWatch.show(wxglSurfaceView.newY.toDouble(), wxglSurfaceView.newX.toDouble() * -1.0, polygonType)
         }
         if (text != "") {
-            ObjectIntent(
-                    context,
-                    SpcMcdWatchShowActivity::class.java,
-                    SpcMcdWatchShowActivity.NUMBER,
-                    arrayOf(text, "", polygonType.toString())
-            )
+            ObjectIntent(context, SpcMcdWatchShowActivity::class.java, SpcMcdWatchShowActivity.NUMBER, arrayOf(text, "", polygonType.toString()))
         }
     }
 }
