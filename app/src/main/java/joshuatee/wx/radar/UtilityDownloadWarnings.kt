@@ -37,12 +37,11 @@ internal object UtilityDownloadWarnings {
     private const val tStormUrl = baseUrl + "Severe%20Thunderstorm%20Warning"
     private const val ffwUrl = baseUrl + "Flash%20Flood%20Warning"
     private const val tornadoUrl = baseUrl + "Tornado%20Warning"
-    // Below is for testing
+    // for testing
     //val ffwUrl = baseUrl + "Flood%20Warning"
 
     fun get(context: Context) {
         if (timer.isRefreshNeeded(context)) {
-            //UtilityLog.d("wx", "DOWNLOAD WARNINGS")
             if (PolygonType.TST.pref) {
                 getPolygonVtec(context)
             }
