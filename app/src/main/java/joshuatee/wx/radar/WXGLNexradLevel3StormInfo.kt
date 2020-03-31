@@ -71,12 +71,9 @@ internal object WXGLNexradLevel3StormInfo {
         val degreeShift = 180.00
         val arrowLength = 2.0
         val arrowBend = 20.0
-        val sti15IncrLen = 0.40
+        val sti15IncrementLength = 0.40
         if (posnNumbers.size == motNumbers.size && posnNumbers.size > 1) {
-            //var s = 0
-            //while (s < posnNumbers.size) {
             for (s in posnNumbers.indices step 2) {
-                val tmpCoordsArr = Array(4) { LatLon() }
                 val ecArr = Array(4) { ExternalGlobalCoordinates(0.0, 0.0) }
                 val ecc = ExternalGeodeticCalculator()
                 val degree = posnNumbers[s].toDouble()
@@ -103,6 +100,7 @@ internal object WXGLNexradLevel3StormInfo {
                 // mercator expects lat/lon to both be positive as many products have this
                 val coordinates = UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers)
                 stormList += coordinates.toMutableList()
+                val latLons = Array(4) { LatLon() }
                 ecArr.indices.forEach { z ->
                     ecArr[z] = ecc.calculateEndingGlobalCoordinates(
                         ExternalEllipsoid.WGS84,
@@ -111,7 +109,7 @@ internal object WXGLNexradLevel3StormInfo {
                         nm2 * 1852.0 * z.toDouble() * 0.25,
                         bearing
                     ) // was z+1, now z
-                    tmpCoordsArr[z] = LatLon(UtilityCanvasProjection.computeMercatorNumbers(ecArr[z], projectionNumbers))
+                    latLons[z] = LatLon(UtilityCanvasProjection.computeMercatorNumbers(ecArr[z], projectionNumbers))
                 }
                 if (nm2 > 0.01) {
                     start = ExternalGlobalCoordinates(ec)
@@ -129,7 +127,7 @@ internal object WXGLNexradLevel3StormInfo {
                     }
                     // 0,15,30,45 min ticks
                     val stormTrackTickMarkAngleOff90 = 45.0 // was 30.0
-                    tmpCoordsArr.indices.forEach { z ->
+                    latLons.indices.forEach { z ->
                         listOf(
                                 degree2 - (90.0 + stormTrackTickMarkAngleOff90),
                                 degree2 + (90.0 - stormTrackTickMarkAngleOff90),
@@ -138,12 +136,12 @@ internal object WXGLNexradLevel3StormInfo {
                         ).forEach {startBearing ->
                             WXGLNexradLevel3Common.drawTickMarks(
                                     stormList,
-                                    tmpCoordsArr[z],
+                                    latLons[z],
                                     ecc,
                                     projectionNumbers,
                                     ecArr[z],
                                     startBearing,
-                                    arrowLength * 1852.0 * sti15IncrLen,
+                                    arrowLength * 1852.0 * sti15IncrementLength,
                                     bearing
                             )
                         }
