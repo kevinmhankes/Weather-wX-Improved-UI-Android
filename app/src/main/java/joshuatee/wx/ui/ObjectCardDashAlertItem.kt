@@ -46,8 +46,8 @@ class ObjectCardDashAlertItem(
     private val textViewStart = ObjectTextView(context)
     private val textViewEnd = ObjectTextView(context)
     private val textViewBottom = ObjectTextView(context, backgroundText = true)
-    var radarButton: MaterialButton
-    var detailsButton: MaterialButton
+    var radarButton = ObjectButton(context,"Radar", MyApplication.ICON_RADAR)
+    var detailsButton = ObjectButton(context,"Details", MyApplication.ICON_CURRENT)
 
     init {
         val linearLayoutVertical = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
@@ -55,17 +55,18 @@ class ObjectCardDashAlertItem(
             linearLayoutVertical.addView(it)
         }
 
+        /*val padding = 15
         radarButton = MaterialButton(context)
         radarButton.text = "Radar"
         radarButton.setIconResource(MyApplication.ICON_RADAR)
         radarButton.setBackgroundColor(Color.TRANSPARENT)
-        radarButton.setPadding(15,15,15,15)
+        radarButton.setPadding(padding, padding, padding, padding)
 
         detailsButton = MaterialButton(context)
         detailsButton.text = "Details"
         detailsButton.setIconResource(MyApplication.ICON_CURRENT)
         detailsButton.setBackgroundColor(Color.TRANSPARENT)
-        detailsButton.setPadding(15,15,15,15)
+        detailsButton.setPadding(padding, padding, padding, padding)*/
 
         val layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -73,8 +74,8 @@ class ObjectCardDashAlertItem(
         )
         val linearLayoutHorizontal = LinearLayout(context)
         linearLayoutHorizontal.layoutParams = layoutParams
-        linearLayoutHorizontal.addView(radarButton)
-        linearLayoutHorizontal.addView(detailsButton)
+        linearLayoutHorizontal.addView(radarButton.card)
+        linearLayoutHorizontal.addView(detailsButton.card)
         linearLayoutVertical.addView(linearLayoutHorizontal)
 
         objectCard.addView(linearLayoutVertical)
