@@ -141,48 +141,23 @@ internal object WXGLNexradLevel3StormInfo {
                     // 0,15,30,45 min ticks
                     val stormTrackTickMarkAngleOff90 = 45.0 // was 30.0
                     tmpCoordsArr.indices.forEach { z ->
-                        // first line
-                        drawTickMarks(
-                            stormList,
-                            tmpCoordsArr[z],
-                            ecc,
-                            projectionNumbers,
-                            ecArr[z],
-                            degree2 - (90.0 + stormTrackTickMarkAngleOff90),
-                            arrowLength * 1852.0 * sti15IncrLen,
-                            bearing
-                        )
-                        drawTickMarks(
-                            stormList,
-                            tmpCoordsArr[z],
-                            ecc,
-                            projectionNumbers,
-                            ecArr[z],
-                            degree2 + (90.0 - stormTrackTickMarkAngleOff90),
-                            arrowLength * 1852.0 * sti15IncrLen,
-                            bearing
-                        )
-                        // 2nd line
-                        drawTickMarks(
-                            stormList,
-                            tmpCoordsArr[z],
-                            ecc,
-                            projectionNumbers,
-                            ecArr[z],
-                            degree2 - (90.0 - stormTrackTickMarkAngleOff90),
-                            arrowLength * 1852.0 * sti15IncrLen,
-                            bearing
-                        )
-                        drawTickMarks(
-                            stormList,
-                            tmpCoordsArr[z],
-                            ecc,
-                            projectionNumbers,
-                            ecArr[z],
-                            degree2 + (90.0 + stormTrackTickMarkAngleOff90),
-                            arrowLength * 1852.0 * sti15IncrLen,
-                            bearing
-                        )
+                        listOf(
+                                degree2 - (90.0 + stormTrackTickMarkAngleOff90),
+                                degree2 + (90.0 - stormTrackTickMarkAngleOff90),
+                                degree2 - (90.0 - stormTrackTickMarkAngleOff90),
+                                degree2 + (90.0 + stormTrackTickMarkAngleOff90)
+                        ).forEach {startBearing ->
+                            drawTickMarks(
+                                    stormList,
+                                    tmpCoordsArr[z],
+                                    ecc,
+                                    projectionNumbers,
+                                    ecArr[z],
+                                    startBearing,
+                                    arrowLength * 1852.0 * sti15IncrLen,
+                                    bearing
+                            )
+                        }
                     }
                 }
                 s += 2
