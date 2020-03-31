@@ -75,13 +75,13 @@ internal object WXGLNexradLevel3StormInfo {
         if (posnNumbers.size == motNumbers.size && posnNumbers.size > 1) {
             for (s in posnNumbers.indices step 2) {
                 val ecArr = Array(4) { ExternalGlobalCoordinates(0.0, 0.0) }
-                val ecc = ExternalGeodeticCalculator()
+                val externalGeodeticCalculator = ExternalGeodeticCalculator()
                 val degree = posnNumbers[s].toDouble()
                 val nm = posnNumbers[s + 1].toDouble()
                 val degree2 = motNumbers[s].toDouble()
                 val nm2 = motNumbers[s + 1].toDouble()
                 var start = ExternalGlobalCoordinates(location)
-                var ec = ecc.calculateEndingGlobalCoordinates(
+                var ec = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
                     ExternalEllipsoid.WGS84,
                     start,
                     degree,
@@ -90,7 +90,7 @@ internal object WXGLNexradLevel3StormInfo {
                 )
                 stormList += UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers).toMutableList()
                 start = ExternalGlobalCoordinates(ec)
-                ec = ecc.calculateEndingGlobalCoordinates(
+                ec = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
                     ExternalEllipsoid.WGS84,
                     start,
                     degree2 + degreeShift,
@@ -102,7 +102,7 @@ internal object WXGLNexradLevel3StormInfo {
                 stormList += coordinates.toMutableList()
                 val latLons = Array(4) { LatLon() }
                 ecArr.indices.forEach { z ->
-                    ecArr[z] = ecc.calculateEndingGlobalCoordinates(
+                    ecArr[z] = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
                         ExternalEllipsoid.WGS84,
                         start,
                         degree2 + degreeShift,
@@ -117,7 +117,7 @@ internal object WXGLNexradLevel3StormInfo {
                         WXGLNexradLevel3Common.drawLine(
                                 stormList,
                                 coordinates,
-                                ecc,
+                                externalGeodeticCalculator,
                                 projectionNumbers,
                                 start,
                                 startBearing,
@@ -137,7 +137,7 @@ internal object WXGLNexradLevel3StormInfo {
                             WXGLNexradLevel3Common.drawTickMarks(
                                     stormList,
                                     latLons[z],
-                                    ecc,
+                                    externalGeodeticCalculator,
                                     projectionNumbers,
                                     ecArr[z],
                                     startBearing,
