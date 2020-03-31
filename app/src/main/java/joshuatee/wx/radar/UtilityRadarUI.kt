@@ -112,15 +112,15 @@ internal object UtilityRadarUI {
     }
 
     fun addItemsToLongPress(
-            alertDialogRadarLongPressList: MutableList<String>,
+            longPressList: MutableList<String>,
             lat: String,
             lon: String,
             context: Context,
             wxglSurfaceView: WXGLSurfaceView,
             wxglRender: WXGLRender,
-            alertDialogRadarLongPress: ObjectDialogue
+            longPressDialogue: ObjectDialogue
     ) {
-        alertDialogRadarLongPressList.clear()
+        longPressList.clear()
         val locX = lat.toDoubleOrNull() ?: 0.0
         val locY = lon.toDoubleOrNull() ?: 0.0
         val pointX = wxglSurfaceView.newY.toDouble()
@@ -131,52 +131,40 @@ internal object UtilityRadarUI {
         val distRid = LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.MILE)
         val distRidKm = LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.KM)
         // FIXME look at iOS version and try to match in data provided and improve formatting
-        val latLonTitle = UtilityStringExternal.truncate(wxglSurfaceView.newY.toString(), 6) +
-                ", -" +
-                UtilityStringExternal.truncate(wxglSurfaceView.newX.toString(), 6)
-        alertDialogRadarLongPress.setTitle(latLonTitle)
-        alertDialogRadarLongPressList.add(
-                UtilityStringExternal.truncate(
-                        dist.toString(),
-                        6
-                ) + " miles from location"
-        )
-        alertDialogRadarLongPressList.add(
-                UtilityStringExternal.truncate(
-                        distRid.toString(),
-                        6
-                ) + " miles from " + wxglRender.rid
-        )
+        val latLonTitle = UtilityStringExternal.truncate(wxglSurfaceView.newY.toString(), 6) + ", -" + UtilityStringExternal.truncate(wxglSurfaceView.newX.toString(), 6)
+        longPressDialogue.setTitle(latLonTitle)
+        longPressList.add(UtilityStringExternal.truncate(dist.toString(), 6) + " miles from location")
+        longPressList.add(UtilityStringExternal.truncate(distRid.toString(), 6) + " miles from " + wxglRender.rid)
         val heightAgl = UtilityMath.getRadarBeamHeight(wxglRender.wxglNexradLevel3.degree, distRidKm)
         val heightMsl = (wxglRender.wxglNexradLevel3.radarHeight + heightAgl)
-        alertDialogRadarLongPressList.add("Beam Height MSL: " + heightMsl.roundToInt().toString() + " ft, AGL: " + heightAgl.roundToInt().toString() + " ft")
+        longPressList.add("Beam Height MSL: " + heightMsl.roundToInt().toString() + " ft, AGL: " + heightAgl.roundToInt().toString() + " ft")
         if (MyApplication.radarShowWpcFronts) {
             var wpcFrontsTimeStamp = Utility.readPref(context,"WPC_FRONTS_TIMESTAMP", "")
             wpcFrontsTimeStamp = wpcFrontsTimeStamp.replace(UtilityTime.getYear().toString(), "")
             wpcFrontsTimeStamp = wpcFrontsTimeStamp.insert(4, " ")
-            alertDialogRadarLongPressList.add(MyApplication.newline + "WPC Fronts: " + wpcFrontsTimeStamp)
+            longPressList.add(MyApplication.newline + "WPC Fronts: " + wpcFrontsTimeStamp)
         }
-        wxglRender.ridNewList.mapTo(alertDialogRadarLongPressList) {
+        wxglRender.ridNewList.mapTo(longPressList) {
             "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name)
         }
         val obsSite = UtilityMetar.findClosestObservation(context, wxglSurfaceView.latLon)
         if (MyApplication.radarWarnings) {
-            alertDialogRadarLongPressList.add("Show Warning text")
+            longPressList.add("Show Warning text")
         }
         // Thanks to Ely
         if (MyApplication.radarWatMcd) {
-            alertDialogRadarLongPressList.add("Show Watch text")
-            alertDialogRadarLongPressList.add("Show MCD text")
+            longPressList.add("Show Watch text")
+            longPressList.add("Show MCD text")
         }
         if (MyApplication.radarMpd) {
-            alertDialogRadarLongPressList.add("Show MPD text")
+            longPressList.add("Show MPD text")
         }
         // end Thanks to Ely
-        alertDialogRadarLongPressList.add("Show nearest observation: " + obsSite.name)
-        alertDialogRadarLongPressList.add("Show nearest forecast: $latLonTitle")
-        alertDialogRadarLongPressList.add("Show nearest meteogram: " + obsSite.name)
-        alertDialogRadarLongPressList.add("Show radar status message: " + wxglRender.rid)
-        alertDialogRadarLongPress.show()
+        longPressList.add("Show nearest observation: " + obsSite.name)
+        longPressList.add("Show nearest forecast: $latLonTitle")
+        longPressList.add("Show nearest meteogram: " + obsSite.name)
+        longPressList.add("Show radar status message: " + wxglRender.rid)
+        longPressDialogue.show()
     }
 
     fun doLongPressAction(
