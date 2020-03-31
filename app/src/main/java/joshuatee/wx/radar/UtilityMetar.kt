@@ -249,7 +249,6 @@ internal object UtilityMetar {
 
     @Synchronized private fun readMetarData(context: Context) {
         if (metarSites.isEmpty()) {
-            UtilityLog.d("wx", "CC init metar data")
             metarDataRaw = UtilityIO.readTextFileFromRaw(context.resources, R.raw.us_metar3)
             val metarDataAsList = metarDataRaw.split("\n").dropLastWhile { it.isEmpty() }
             metarDataAsList.indices.forEach {
