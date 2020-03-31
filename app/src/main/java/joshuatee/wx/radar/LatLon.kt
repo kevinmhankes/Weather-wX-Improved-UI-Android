@@ -120,10 +120,8 @@ class LatLon() {
     fun print()= "$latString $lonString "
 
     companion object {
-
         // 1.1515 is the number of statute miles in a nautical mile
         // 1.609344 is the number of kilometres in a mile
-
         fun distance(location1: LatLon, location2: LatLon, unit: DistanceUnit): Double {
             val theta = location1.lon - location2.lon
             var dist =
@@ -136,8 +134,7 @@ class LatLon() {
             when (unit) {
                 DistanceUnit.KM -> dist *= 1.609344
                 DistanceUnit.NAUTICAL_MILE -> dist *= 0.8684
-                else -> {
-                }
+                else -> {}
             }
             return dist
         }
