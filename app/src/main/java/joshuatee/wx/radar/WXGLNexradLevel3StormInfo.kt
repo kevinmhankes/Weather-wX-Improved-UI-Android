@@ -147,52 +147,8 @@ internal object WXGLNexradLevel3StormInfo {
                         }
                     }
                 }
-                //s += 2
             }
         }
         return stormList
     }
-
-  /*  private fun drawTickMarks(
-            list: MutableList<Double>,
-            startPoint: LatLon,
-            externalGeodeticCalculator: ExternalGeodeticCalculator,
-            projectionNumbers: ProjectionNumbers,
-            ecArr: ExternalGlobalCoordinates,
-            startBearing: Double,
-            distance: Double,
-            bearing: DoubleArray
-    ) {
-        list += startPoint.asList()
-        val start = ExternalGlobalCoordinates(ecArr)
-        val externalGlobalCoordinates = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
-            ExternalEllipsoid.WGS84,
-            start,
-            startBearing,
-            distance,
-            bearing
-        )
-        list += UtilityCanvasProjection.computeMercatorNumbers(externalGlobalCoordinates, projectionNumbers).toMutableList()
-    }
-
-    private fun drawLine(
-            list: MutableList<Double>,
-            startPoint: DoubleArray,
-            externalGeodeticCalculator: ExternalGeodeticCalculator,
-            projectionNumbers: ProjectionNumbers,
-            start: ExternalGlobalCoordinates,
-            startBearing: Double,
-            distance: Double,
-            bearing: DoubleArray
-    ) {
-        list += startPoint.toMutableList()
-        val externalGlobalCoordinates = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
-            ExternalEllipsoid.WGS84,
-            start,
-            startBearing,
-            distance,
-            bearing
-        )
-        list += UtilityCanvasProjection.computeMercatorNumbers(externalGlobalCoordinates, projectionNumbers).toMutableList()
-    }*/
 }
