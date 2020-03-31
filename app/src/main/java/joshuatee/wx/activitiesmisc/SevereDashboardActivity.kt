@@ -190,13 +190,20 @@ class SevereDashboardActivity : BaseActivity() {
                                 warn.areaDescList[index]
                         )
                         objectCardDashAlertItem.setListener(View.OnClickListener {
-                            val url = warn.idList[index]
-                            ObjectIntent(
+                            showWarningDetails(warn.idList[index])
+                            //val url = warn.idList[index]
+                            /*ObjectIntent(
                                     this@SevereDashboardActivity,
                                     USAlertsDetailActivity::class.java,
                                     USAlertsDetailActivity.URL,
                                     arrayOf("https://api.weather.gov/alerts/$url", "")
-                            )
+                            )*/
+                        })
+                        objectCardDashAlertItem.radarButton.setOnClickListener(View.OnClickListener {
+                            radarInterface(index)
+                        })
+                        objectCardDashAlertItem.detailsButton.setOnClickListener(View.OnClickListener {
+                            showWarningDetails(warn.idList[index])
                         })
                         listOfWfoForWarnings.add(warn.listOfWfo[index])
                         objectCardDashAlertItem.setId(numberOfWarnings)
@@ -275,13 +282,7 @@ class SevereDashboardActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(
-                    this,
-                    this,
-                    "Severe Dashboard",
-                    "",
-                    bitmaps
-            )
+            R.id.action_share -> UtilityShare.shareText(this, this, "Severe Dashboard", "", bitmaps)
             R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.SevereDashboard)
             else -> return super.onOptionsItemSelected(item)
         }
@@ -301,7 +302,6 @@ class SevereDashboardActivity : BaseActivity() {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when (item.title) {
             "Open radar interface" -> radarInterface(item.itemId)
-            //(item.title as String).contains("Add new location for this warning") -> locationAdd(item.itemId)
             else -> return false
         }
         return true
@@ -311,40 +311,15 @@ class SevereDashboardActivity : BaseActivity() {
         val radarSite = GlobalDictionaries.wfoToRadarSite[listOfWfoForWarnings[id]] ?: ""
         val radarLabel = Utility.getRadarSiteName(radarSite)
         val state = radarLabel.split(",")[0]
+        ObjectIntent(this@SevereDashboardActivity, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, arrayOf(radarSite, state, "N0Q", ""))
+    }
+
+    private fun showWarningDetails(url: String) {
         ObjectIntent(
                 this@SevereDashboardActivity,
-                WXGLRadarActivity::class.java,
-                WXGLRadarActivity.RID,
-                arrayOf(radarSite, state, "N0Q", "")
+                USAlertsDetailActivity::class.java,
+                USAlertsDetailActivity.URL,
+                arrayOf("https://api.weather.gov/alerts/$url", "")
         )
     }
-
-   /* private fun locationAdd(id: Int) {
-        saveLocFromZone(id)
-    }
-
-    private fun saveLocFromZone(id: Int) = GlobalScope.launch(uiDispatcher) {
-        var toastStr = ""
-        var coord = listOf<String>()
-        withContext(Dispatchers.IO) {
-            var locNumIntCurrent = Location.numLocations
-            locNumIntCurrent += 1
-            val locNumToSaveStr = locNumIntCurrent.toString()
-            val zone = objectAlertSummary.mapButtonZone[id]
-            var state = objectAlertSummary.mapButtonState[id]
-            val county = objectAlertSummary.mapButtonCounty[id]
-            if (zone!!.length > 3) {
-                coord = if (zone.matches("[A-Z][A-Z]C.*?".toRegex())) {
-                    UtilityLocation.getLatLonFromAddress(county + "," + zone.substring(0, 2))
-                } else {
-                    UtilityDownloadNws.getLatLonForZone(zone)
-                }
-                state = zone.substring(0, 2)
-            }
-            val x = coord[0]
-            val y = coord[1]
-            toastStr = Location.locationSave(this@USWarningsWithRadarActivity, locNumToSaveStr, x, y, state + "_" + county)
-        }
-        UtilityUI.makeSnackBar(linearLayout, toastStr)
-    }*/
 }

@@ -23,14 +23,9 @@ package joshuatee.wx.ui
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.os.Build
 import android.view.Gravity
 import android.view.View
-import android.widget.Button
 import android.widget.LinearLayout
-import androidx.cardview.widget.CardView
-import androidx.core.graphics.drawable.DrawableCompat
 import com.google.android.material.button.MaterialButton
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
@@ -51,6 +46,8 @@ class ObjectCardDashAlertItem(
     private val textViewStart = ObjectTextView(context)
     private val textViewEnd = ObjectTextView(context)
     private val textViewBottom = ObjectTextView(context, backgroundText = true)
+    var radarButton: MaterialButton
+    var detailsButton: MaterialButton
 
     init {
         val linearLayoutVertical = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
@@ -58,18 +55,27 @@ class ObjectCardDashAlertItem(
             linearLayoutVertical.addView(it)
         }
 
-        /*val button = MaterialButton(context)
-        button.text = "Radar"
-        button.setIconResource(MyApplication.ICON_RADAR)
-        button.setBackgroundColor(Color.TRANSPARENT);
+        radarButton = MaterialButton(context)
+        radarButton.text = "Radar"
+        radarButton.setIconResource(MyApplication.ICON_RADAR)
+        radarButton.setBackgroundColor(Color.TRANSPARENT)
+        radarButton.setPadding(15,15,15,15)
+
+        detailsButton = MaterialButton(context)
+        detailsButton.text = "Details"
+        detailsButton.setIconResource(MyApplication.ICON_CURRENT)
+        detailsButton.setBackgroundColor(Color.TRANSPARENT)
+        detailsButton.setPadding(15,15,15,15)
+
         val layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         )
         val linearLayoutHorizontal = LinearLayout(context)
         linearLayoutHorizontal.layoutParams = layoutParams
-        linearLayoutHorizontal.addView(button)
-        linearLayoutVertical.addView(linearLayoutHorizontal)*/
+        linearLayoutHorizontal.addView(radarButton)
+        linearLayoutHorizontal.addView(detailsButton)
+        linearLayoutVertical.addView(linearLayoutHorizontal)
 
         objectCard.addView(linearLayoutVertical)
         setTextFields()
