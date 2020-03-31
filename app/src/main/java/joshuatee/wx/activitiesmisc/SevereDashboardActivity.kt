@@ -289,6 +289,7 @@ class SevereDashboardActivity : BaseActivity() {
         return true
     }
 
+    // FIXME remove this after button code tested
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
         //val colorDrawable = ColorDrawable()

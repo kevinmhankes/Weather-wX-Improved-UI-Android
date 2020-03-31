@@ -26,16 +26,15 @@ import android.graphics.Color
 import android.view.View
 import com.google.android.material.button.MaterialButton
 
-class ObjectButton {
+class ObjectButton(context: Context, title: String, icon: Int) {
 
     companion object {
         private const val padding = 15
     }
 
-    val button: MaterialButton
+    val button = MaterialButton(context)
 
-    constructor(context: Context, title: String, icon: Int) {
-        button = MaterialButton(context)
+    init {
         button.text = title
         button.setIconResource(icon)
         button.setBackgroundColor(Color.TRANSPARENT)

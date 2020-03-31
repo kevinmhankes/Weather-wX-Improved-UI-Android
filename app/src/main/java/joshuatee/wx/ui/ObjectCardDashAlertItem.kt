@@ -54,20 +54,6 @@ class ObjectCardDashAlertItem(
         listOf(textViewTop, textViewTitle, textViewStart, textViewEnd, textViewBottom).forEach {
             linearLayoutVertical.addView(it)
         }
-
-        /*val padding = 15
-        radarButton = MaterialButton(context)
-        radarButton.text = "Radar"
-        radarButton.setIconResource(MyApplication.ICON_RADAR)
-        radarButton.setBackgroundColor(Color.TRANSPARENT)
-        radarButton.setPadding(padding, padding, padding, padding)
-
-        detailsButton = MaterialButton(context)
-        detailsButton.text = "Details"
-        detailsButton.setIconResource(MyApplication.ICON_CURRENT)
-        detailsButton.setBackgroundColor(Color.TRANSPARENT)
-        detailsButton.setPadding(padding, padding, padding, padding)*/
-
         val layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -77,7 +63,6 @@ class ObjectCardDashAlertItem(
         linearLayoutHorizontal.addView(radarButton.card)
         linearLayoutHorizontal.addView(detailsButton.card)
         linearLayoutVertical.addView(linearLayoutHorizontal)
-
         objectCard.addView(linearLayoutVertical)
         setTextFields()
         linearLayout.addView(objectCard.card)
