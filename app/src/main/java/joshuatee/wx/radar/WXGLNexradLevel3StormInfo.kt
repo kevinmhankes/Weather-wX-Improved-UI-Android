@@ -74,7 +74,6 @@ internal object WXGLNexradLevel3StormInfo {
         val sti15IncrementLength = 0.40
         if (posnNumbers.size == motNumbers.size && posnNumbers.size > 1) {
             for (s in posnNumbers.indices step 2) {
-                val ecArr = Array(4) { ExternalGlobalCoordinates(0.0, 0.0) }
                 val externalGeodeticCalculator = ExternalGeodeticCalculator()
                 val degree = posnNumbers[s].toDouble()
                 val nm = posnNumbers[s + 1].toDouble()
@@ -100,16 +99,18 @@ internal object WXGLNexradLevel3StormInfo {
                 // mercator expects lat/lon to both be positive as many products have this
                 val coordinates = UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers)
                 stormList += coordinates.toMutableList()
-                val latLons = Array(4) { LatLon() }
-                ecArr.indices.forEach { z ->
-                    ecArr[z] = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
-                        ExternalEllipsoid.WGS84,
-                        start,
-                        degree2 + degreeShift,
-                        nm2 * 1852.0 * z.toDouble() * 0.25,
-                        bearing
-                    ) // was z+1, now z
-                    latLons[z] = LatLon(UtilityCanvasProjection.computeMercatorNumbers(ecArr[z], projectionNumbers))
+                val ecArr = mutableListOf<ExternalGlobalCoordinates>()
+                val latLons = mutableListOf<LatLon>()
+                (0..3).forEach { z ->
+                    ecArr.add(externalGeodeticCalculator.calculateEndingGlobalCoordinates(
+                            ExternalEllipsoid.WGS84,
+                            start,
+                            degree2 + degreeShift,
+                            nm2 * 1852.0 * z.toDouble() * 0.25,
+                            bearing
+                        )
+                    )
+                    latLons.add(LatLon(UtilityCanvasProjection.computeMercatorNumbers(ecArr[z], projectionNumbers)))
                 }
                 if (nm2 > 0.01) {
                     start = ExternalGlobalCoordinates(ec)
