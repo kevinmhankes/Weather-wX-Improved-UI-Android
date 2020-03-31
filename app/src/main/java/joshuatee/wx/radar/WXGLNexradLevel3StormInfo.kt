@@ -156,51 +156,46 @@ internal object WXGLNexradLevel3StormInfo {
     }
 
     private fun drawTickMarks(
-        list: MutableList<Double>,
-        startPoint: LatLon,
-        ecc: ExternalGeodeticCalculator,
-        pn: ProjectionNumbers,
-        ecArr: ExternalGlobalCoordinates,
-        startBearing: Double,
-        distance: Double,
-        bearing: DoubleArray
+            list: MutableList<Double>,
+            startPoint: LatLon,
+            externalGeodeticCalculator: ExternalGeodeticCalculator,
+            projectionNumbers: ProjectionNumbers,
+            ecArr: ExternalGlobalCoordinates,
+            startBearing: Double,
+            distance: Double,
+            bearing: DoubleArray
     ) {
         list.add(startPoint.lat)
         list.add(startPoint.lon)
         val start = ExternalGlobalCoordinates(ecArr)
-        val ec = ecc.calculateEndingGlobalCoordinates(
+        val externalGlobalCoordinates = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
             ExternalEllipsoid.WGS84,
             start,
             startBearing,
             distance,
             bearing
         )
-        val items = UtilityCanvasProjection.computeMercatorNumbers(ec, pn)
-        list.add(items[0])
-        list.add(items[1])
+        list += UtilityCanvasProjection.computeMercatorNumbers(externalGlobalCoordinates, projectionNumbers).toMutableList()
     }
 
     private fun drawLine(
-        list: MutableList<Double>,
-        startPoint: DoubleArray,
-        ecc: ExternalGeodeticCalculator,
-        pn: ProjectionNumbers,
-        start: ExternalGlobalCoordinates,
-        startBearing: Double,
-        distance: Double,
-        bearing: DoubleArray
+            list: MutableList<Double>,
+            startPoint: DoubleArray,
+            externalGeodeticCalculator: ExternalGeodeticCalculator,
+            projectionNumbers: ProjectionNumbers,
+            start: ExternalGlobalCoordinates,
+            startBearing: Double,
+            distance: Double,
+            bearing: DoubleArray
     ) {
-        list.add(startPoint[0])
-        list.add(startPoint[1])
-        val ec = ecc.calculateEndingGlobalCoordinates(
+        list += startPoint.toMutableList()
+        val externalGlobalCoordinates = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
             ExternalEllipsoid.WGS84,
             start,
             startBearing,
             distance,
             bearing
         )
-        val items = UtilityCanvasProjection.computeMercatorNumbers(ec, pn)
-        list.add(items[0])
-        list.add(items[1])
+        list += UtilityCanvasProjection.computeMercatorNumbers(externalGlobalCoordinates, projectionNumbers).toMutableList()
     }
 }
