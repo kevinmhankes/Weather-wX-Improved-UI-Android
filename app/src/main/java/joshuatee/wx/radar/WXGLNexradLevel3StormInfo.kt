@@ -116,7 +116,7 @@ internal object WXGLNexradLevel3StormInfo {
                 if (nm2 > 0.01) {
                     start = ExternalGlobalCoordinates(ec)
                     listOf(degree2 + arrowBend, degree2 - arrowBend).forEach { startBearing ->
-                        drawLine(
+                        WXGLNexradLevel3Common.drawLine(
                                 stormList,
                                 coordinates,
                                 ecc,
@@ -136,7 +136,7 @@ internal object WXGLNexradLevel3StormInfo {
                                 degree2 - (90.0 - stormTrackTickMarkAngleOff90),
                                 degree2 + (90.0 + stormTrackTickMarkAngleOff90)
                         ).forEach {startBearing ->
-                            drawTickMarks(
+                            WXGLNexradLevel3Common.drawTickMarks(
                                     stormList,
                                     tmpCoordsArr[z],
                                     ecc,
@@ -155,7 +155,7 @@ internal object WXGLNexradLevel3StormInfo {
         return stormList
     }
 
-    private fun drawTickMarks(
+  /*  private fun drawTickMarks(
             list: MutableList<Double>,
             startPoint: LatLon,
             externalGeodeticCalculator: ExternalGeodeticCalculator,
@@ -196,5 +196,5 @@ internal object WXGLNexradLevel3StormInfo {
             bearing
         )
         list += UtilityCanvasProjection.computeMercatorNumbers(externalGlobalCoordinates, projectionNumbers).toMutableList()
-    }
+    }*/
 }
