@@ -940,12 +940,12 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     private fun constructGenericLines(buffers: ObjectOglBuffers) {
         var fList = listOf<Double>()
         when (buffers.type) {
-            PolygonType.MCD, PolygonType.MPD, PolygonType.WATCH, PolygonType.WATCH_TORNADO -> fList = UtilityWatch.add(projectionType, rid, buffers.type).toList()
-            PolygonType.TST, PolygonType.TOR, PolygonType.FFW -> fList = WXGLPolygonWarnings.add(projectionType, rid, buffers.type).toList()
+            PolygonType.MCD, PolygonType.MPD, PolygonType.WATCH, PolygonType.WATCH_TORNADO -> fList = UtilityWatch.add(projectionNumbers, buffers.type).toList()
+            PolygonType.TST, PolygonType.TOR, PolygonType.FFW -> fList = WXGLPolygonWarnings.add(projectionNumbers, buffers.type).toList()
             PolygonType.STI -> fList = WXGLNexradLevel3StormInfo.decodeAndPlot(context, indexString, projectionNumbers).toList()
             else -> {
                 if (buffers.warningType != null) {
-                    fList = WXGLPolygonWarnings.addGeneric(projectionType, rid, buffers.warningType!!).toList()
+                    fList = WXGLPolygonWarnings.addGeneric(projectionNumbers, buffers.warningType!!).toList()
                 }
             }
         }

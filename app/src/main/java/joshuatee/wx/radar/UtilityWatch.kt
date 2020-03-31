@@ -23,7 +23,6 @@ package joshuatee.wx.radar
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.PolygonType
-import joshuatee.wx.objects.ProjectionType
 import joshuatee.wx.util.UtilityCanvasProjection
 import joshuatee.wx.util.ProjectionNumbers
 import joshuatee.wx.external.ExternalPoint
@@ -31,34 +30,32 @@ import joshuatee.wx.external.ExternalPolygon
 
 internal object UtilityWatch {
 
-    fun add(projectionType: ProjectionType, radarSite: String, polygonType: PolygonType): List<Double> {
+    fun add(projectionNumbers: ProjectionNumbers, polygonType: PolygonType): List<Double> {
         val warningList = mutableListOf<Double>()
-        var prefToken = ""
-        when (polygonType) {
-            PolygonType.MCD -> prefToken = MyApplication.mcdLatLon.value
-            PolygonType.WATCH -> prefToken = MyApplication.watchLatLon.value
-            PolygonType.WATCH_TORNADO -> prefToken = MyApplication.watchLatLonTor.value
-            PolygonType.MPD -> prefToken = MyApplication.mpdLatLon.value
-            else -> {
-            }
+        val prefToken = when (polygonType) {
+            PolygonType.MCD -> MyApplication.mcdLatLon.value
+            PolygonType.WATCH -> MyApplication.watchLatLon.value
+            PolygonType.WATCH_TORNADO -> MyApplication.watchLatLonTor.value
+            PolygonType.MPD -> MyApplication.mpdLatLon.value
+            else -> ""
         }
-        val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
         if (prefToken != "") {
-            val items = MyApplication.colon.split(prefToken)
-            items.forEach { it ->
-                val list = MyApplication.space.split(it)
-                val x = list.filterIndexed { idx: Int, _: String -> idx and 1 == 0 }.map {
+            //val items = MyApplication.colon.split(prefToken)
+            val items = prefToken.split(":").dropLastWhile { it.isEmpty() }
+            items.forEach { item ->
+                val list = item.split(" ").dropLastWhile { it.isEmpty() } // MyApplication.space.split(item)
+                val x = list.filterIndexed { index: Int, _: String -> index and 1 == 0 }.map {
                     it.toDoubleOrNull() ?: 0.0
                 }
-                val y = list.filterIndexed { idx: Int, _: String -> idx and 1 != 0 }.map {
+                val y = list.filterIndexed { index: Int, _: String -> index and 1 != 0 }.map {
                     it.toDoubleOrNull() ?: 0.0
                 }
                 if (y.isNotEmpty() && x.isNotEmpty()) {
                     val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers).toMutableList()
                     warningList += startCoordinates
                     if (x.size == y.size) {
-                        (1 until x.size).forEach { j ->
-                            val coordinates = UtilityCanvasProjection.computeMercatorNumbers(x[j], y[j], projectionNumbers).toMutableList()
+                        (1 until x.size).forEach { index ->
+                            val coordinates = UtilityCanvasProjection.computeMercatorNumbers(x[index], y[index], projectionNumbers).toMutableList()
                             warningList += coordinates
                             warningList += coordinates
                         }

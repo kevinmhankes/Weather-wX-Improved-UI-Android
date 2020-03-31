@@ -65,15 +65,15 @@ internal object WXGLNexradLevel3TVS {
             val degree = items[0].replace(" ", "").toIntOrNull() ?: 0
             val nm = items[1].replace(" ", "").toIntOrNull() ?: 0
             val start = ExternalGlobalCoordinates(location)
-            val ec = ecc.calculateEndingGlobalCoordinates(
+            val externalGlobalCoordinates = ecc.calculateEndingGlobalCoordinates(
                 ExternalEllipsoid.WGS84,
                 start,
                 degree.toDouble(),
                 nm * 1852.0,
                 bearing
             )
-            stormList.add(ec.latitude)
-            stormList.add(ec.longitude * -1.0)
+            stormList.add(externalGlobalCoordinates.latitude)
+            stormList.add(externalGlobalCoordinates.longitude * -1.0)
         }
         return stormList
     }

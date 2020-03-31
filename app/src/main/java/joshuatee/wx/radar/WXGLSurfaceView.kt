@@ -131,8 +131,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
                     UtilityUI.immersiveMode(activity!!)
                 }
             }
-            MotionEvent.ACTION_MOVE -> {
-            }
+            MotionEvent.ACTION_MOVE -> { }
             MotionEvent.ACTION_UP -> {
                 listener?.onProgressChanged(50000, index, idxInt)
                 (0 until numPanes).forEach {
@@ -371,9 +370,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         }
     }
 
-    override fun onDoubleTapEvent(event: MotionEvent): Boolean {
-        return true
-    }
+    override fun onDoubleTapEvent(event: MotionEvent) = true
 
     override fun onSingleTapConfirmed(event: MotionEvent): Boolean {
         mScaleFactor /= 2.0f

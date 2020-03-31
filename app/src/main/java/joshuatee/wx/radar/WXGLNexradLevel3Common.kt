@@ -50,6 +50,7 @@ internal object WXGLNexradLevel3Common {
         list += UtilityCanvasProjection.computeMercatorNumbers(externalGlobalCoordinates, projectionNumbers).toMutableList()
     }
 
+    //storm tracks
     fun drawLine(
             list: MutableList<Double>,
             startPoint: DoubleArray,
@@ -69,5 +70,27 @@ internal object WXGLNexradLevel3Common {
             bearing
         )
         list += UtilityCanvasProjection.computeMercatorNumbers(externalGlobalCoordinates, projectionNumbers).toMutableList()
+    }
+
+    // wind barbs
+    fun drawLine(
+            list: MutableList<Double>,
+            startEc: ExternalGlobalCoordinates,
+            ecc: ExternalGeodeticCalculator,
+            pn: ProjectionNumbers,
+            startBearing: Double,
+            distance: Double,
+            bearing: DoubleArray
+    ) {
+        val startPoint = ExternalGlobalCoordinates(startEc)
+        list += UtilityCanvasProjection.computeMercatorNumbers(startEc, pn).toList()
+        val ec = ecc.calculateEndingGlobalCoordinates(
+                ExternalEllipsoid.WGS84,
+                startPoint,
+                startBearing,
+                distance,
+                bearing
+        )
+        list += UtilityCanvasProjection.computeMercatorNumbers(ec, pn).toList()
     }
 }

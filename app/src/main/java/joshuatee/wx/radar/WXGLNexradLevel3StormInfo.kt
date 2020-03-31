@@ -23,7 +23,6 @@ package joshuatee.wx.radar
 
 import android.content.Context
 
-import joshuatee.wx.objects.ProjectionType
 import joshuatee.wx.external.ExternalEllipsoid
 import joshuatee.wx.external.ExternalGeodeticCalculator
 import joshuatee.wx.external.ExternalGlobalCoordinates
