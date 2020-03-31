@@ -10,8 +10,7 @@ import android.widget.TextView
 
 import joshuatee.wx.R
 
-class MyExpandableListAdapter(act: Activity, private val groups: SparseArray<Group>) :
-    BaseExpandableListAdapter() {
+class MyExpandableListAdapter(act: Activity, private val groups: SparseArray<Group>) : BaseExpandableListAdapter() {
 
     private val inflater = act.layoutInflater
 
