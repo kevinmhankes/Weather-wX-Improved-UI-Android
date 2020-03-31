@@ -118,26 +118,18 @@ internal object WXGLNexradLevel3StormInfo {
                 val endPoint = tmpCoords
                 if (nm2 > 0.01) {
                     start = ExternalGlobalCoordinates(ec)
-                    drawLine(
-                        stormList,
-                        endPoint,
-                        ecc,
-                        projectionNumbers,
-                        start,
-                        degree2 + arrowBend,
-                        arrowLength * 1852.0,
-                        bearing
-                    )
-                    drawLine(
-                        stormList,
-                        endPoint,
-                        ecc,
-                        projectionNumbers,
-                        start,
-                        degree2 - arrowBend,
-                        arrowLength * 1852.0,
-                        bearing
-                    )
+                    listOf(degree2 + arrowBend, degree2 - arrowBend).forEach { startBearing ->
+                        drawLine(
+                                stormList,
+                                endPoint,
+                                ecc,
+                                projectionNumbers,
+                                start,
+                                startBearing,
+                                arrowLength * 1852.0,
+                                bearing
+                        )
+                    }
                     // 0,15,30,45 min ticks
                     val stormTrackTickMarkAngleOff90 = 45.0 // was 30.0
                     tmpCoordsArr.indices.forEach { z ->
