@@ -87,18 +87,20 @@ object UtilityCanvasMain {
     fun addCanvasItems(
             context: Context,
             bitmapCanvas: Bitmap,
-            scaleType: ProjectionType,
+            projectionType: ProjectionType,
             radarSite: String,
             hwLineWidth: Int,
             citySize: Int,
             isInteractive: Boolean
     ) {
-        val highwayProvider = scaleType.isCanvas
-        val stateLinesProvider = scaleType.isCanvas
-        val countyProvider = scaleType === ProjectionType.WX_RENDER_48 || scaleType === ProjectionType.WX_RENDER
+        // FIXME use this instead of radarSite and projectionType
+        val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
+        val highwayProvider = projectionType.isCanvas
+        val stateLinesProvider = projectionType.isCanvas
+        val countyProvider = projectionType === ProjectionType.WX_RENDER_48 || projectionType === ProjectionType.WX_RENDER
         val cityProvider = true
-        val windBarbProvider = scaleType.isMercator
-        val stormMotionProvider = scaleType.isMercator
+        val windBarbProvider = projectionType.isMercator
+        val stormMotionProvider = projectionType.isMercator
         // if a widget or notification load the GEOM data in real-time
         val geometryData = if (isInteractive) {
             GeometryData(
@@ -109,11 +111,11 @@ object UtilityCanvasMain {
             getLocalGeometryData(context)
         }
         if (PolygonType.TST.pref) {
-            UtilityCanvas.addWarnings(scaleType, bitmapCanvas, radarSite)
+            UtilityCanvas.addWarnings(projectionType, bitmapCanvas, projectionNumbers)
         }
         if (GeographyType.HIGHWAYS.pref && highwayProvider) {
             UtilityCanvasGeneric.draw(
-                    scaleType,
+                    projectionType,
                     bitmapCanvas,
                     radarSite,
                     hwLineWidth,
@@ -122,11 +124,11 @@ object UtilityCanvasMain {
             )
         }
         if (GeographyType.CITIES.pref && cityProvider) {
-            UtilityCanvas.drawCitiesUS(scaleType, bitmapCanvas, radarSite, citySize)
+            UtilityCanvas.drawCitiesUS(projectionType, bitmapCanvas, radarSite, citySize)
         }
         if (stateLinesProvider) {
             UtilityCanvasGeneric.draw(
-                    scaleType,
+                    projectionType,
                     bitmapCanvas,
                     radarSite,
                     1,
@@ -135,7 +137,7 @@ object UtilityCanvasMain {
             )
             if (GeographyType.LAKES.pref) {
                 UtilityCanvasGeneric.draw(
-                        scaleType,
+                        projectionType,
                         bitmapCanvas,
                         radarSite,
                         hwLineWidth,
@@ -147,7 +149,7 @@ object UtilityCanvasMain {
         if (countyProvider) {
             if (GeographyType.COUNTY_LINES.pref) {
                 UtilityCanvasGeneric.draw(
-                        scaleType,
+                        projectionType,
                         bitmapCanvas,
                         radarSite,
                         hwLineWidth,
@@ -157,24 +159,24 @@ object UtilityCanvasMain {
             }
         }
         if (PolygonType.LOCDOT.pref) {
-            UtilityCanvas.addLocationDotForCurrentLocation(scaleType, bitmapCanvas, radarSite)
+            UtilityCanvas.addLocationDotForCurrentLocation(projectionType, bitmapCanvas, radarSite)
         }
         if (PolygonType.WIND_BARB.pref && windBarbProvider) {
-            UtilityCanvasWindbarbs.draw(context, scaleType, bitmapCanvas, radarSite, true, 5)
-            UtilityCanvasWindbarbs.draw(context, scaleType, bitmapCanvas, radarSite, false, 5)
+            UtilityCanvasWindbarbs.draw(context, projectionType, bitmapCanvas, radarSite, true, 5)
+            UtilityCanvasWindbarbs.draw(context, projectionType, bitmapCanvas, radarSite, false, 5)
         }
         if (PolygonType.STI.pref && stormMotionProvider) {
-            UtilityCanvasStormInfo.drawNexRadStormMotion(context, scaleType, bitmapCanvas, radarSite)
+            UtilityCanvasStormInfo.drawNexRadStormMotion(context, projectionType, bitmapCanvas, radarSite)
         }
         if (PolygonType.MCD.pref) {
             arrayOf(
                     PolygonType.MCD,
                     PolygonType.WATCH,
                     PolygonType.WATCH_TORNADO
-            ).forEach { UtilityCanvas.addMcd(scaleType, bitmapCanvas, radarSite, it) }
+            ).forEach { UtilityCanvas.addMcd(projectionType, bitmapCanvas, radarSite, it) }
         }
         if (PolygonType.MPD.pref) {
-            UtilityCanvas.addMcd(scaleType, bitmapCanvas, radarSite, PolygonType.MPD)
+            UtilityCanvas.addMcd(projectionType, bitmapCanvas, radarSite, PolygonType.MPD)
         }
     }
 

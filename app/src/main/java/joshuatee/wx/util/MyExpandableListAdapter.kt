@@ -19,13 +19,7 @@ class MyExpandableListAdapter(act: Activity, private val groups: SparseArray<Gro
 
     override fun getChildId(groupPosition: Int, childPosition: Int): Long = 0
 
-    override fun getChildView(
-        groupPosition: Int,
-        childPosition: Int,
-        isLastChild: Boolean,
-        convertViewF: View?,
-        parent: ViewGroup
-    ): View {
+    override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, convertViewF: View?, parent: ViewGroup): View {
         var convertView = convertViewF
         val children = getChild(groupPosition, childPosition) as String
         val text: TextView
@@ -45,12 +39,7 @@ class MyExpandableListAdapter(act: Activity, private val groups: SparseArray<Gro
 
     override fun getGroupId(groupPosition: Int): Long = 0
 
-    override fun getGroupView(
-        groupPosition: Int,
-        isExpanded: Boolean,
-        convertViewF: View?,
-        parent: ViewGroup
-    ): View {
+    override fun getGroupView(groupPosition: Int, isExpanded: Boolean, convertViewF: View?, parent: ViewGroup): View {
         var convertView = convertViewF
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.listrow_group, null)

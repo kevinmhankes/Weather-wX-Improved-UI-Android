@@ -304,8 +304,6 @@ object Utility {
 
     fun showLocationEditShortCuts() = "Ctrl-g: Use GPS to find location" + MyApplication.newline +
                 "Ctrl-m: Show submenu" + MyApplication.newline
-
-
 }
 
 

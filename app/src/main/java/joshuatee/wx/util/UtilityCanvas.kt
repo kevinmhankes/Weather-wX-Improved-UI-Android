@@ -39,7 +39,7 @@ import joshuatee.wx.objects.GeographyType
 
 internal object UtilityCanvas {
 
-    fun addWarnings(projectionType: ProjectionType, bitmap: Bitmap, radarSite: String) {
+    fun addWarnings(projectionType: ProjectionType, bitmap: Bitmap, projectionNumbers: ProjectionNumbers) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.STROKE
@@ -50,8 +50,7 @@ internal object UtilityCanvas {
         if (projectionType.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
-        val pn = ProjectionNumbers(radarSite, projectionType)
-        paint.strokeWidth = pn.polygonWidth.toFloat()
+        paint.strokeWidth = projectionNumbers.polygonWidth.toFloat()
         warningDataList.forEachIndexed { index, it ->
             paint.color = paintList[index]
             var warningHTML = it.replace("\n", "")
@@ -67,7 +66,7 @@ internal object UtilityCanvas {
                     warnings.add(warningAl[i])
                 }
             }
-            canvasDrawWarnings(warnings, vtecs, canvas, wallPath, paint, projectionType.isMercator, pn)
+            canvasDrawWarnings(warnings, vtecs, canvas, wallPath, paint, projectionType.isMercator, projectionNumbers)
         }
     }
 
