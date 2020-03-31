@@ -39,8 +39,7 @@ import java.io.IOException
 
 internal object UtilityNexradRadial8Bit {
 
-    // ultimately the code below is used for nexrad widget and for notification that shows radar
-
+    // code below is used for nexrad widget and for notification that shows radar
     fun decodeAndPlot(context: Context, bitmap: Bitmap, fileName: String, product: String) {
         val binWord: ByteBuffer
         val radialStart: ByteBuffer

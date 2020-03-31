@@ -42,7 +42,6 @@ internal object UtilityMetar {
     // 4 is for the main screen
     // 5 is for canvas
     val metarDataList = List(6) { MetarData() }
-
     // A data structure (map) consisting of a Lat/Lon string array for each Obs site
     // A flag is used to track if it's been initialized
     private var initializedObsMap = false
