@@ -73,8 +73,9 @@ internal object WXGLNexradLevel3StormInfo {
         val arrowBend = 20.0
         val sti15IncrLen = 0.40
         if (posnNumbers.size == motNumbers.size && posnNumbers.size > 1) {
-            var s = 0
-            while (s < posnNumbers.size) {
+            //var s = 0
+            //while (s < posnNumbers.size) {
+            for (s in posnNumbers.indices step 2) {
                 val tmpCoordsArr = Array(4) { LatLon() }
                 val ecArr = Array(4) { ExternalGlobalCoordinates(0.0, 0.0) }
                 val ecc = ExternalGeodeticCalculator()
@@ -90,9 +91,7 @@ internal object WXGLNexradLevel3StormInfo {
                     nm * 1852.0,
                     bearing
                 )
-                var tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers)
-                stormList.add(tmpCoords[0])
-                stormList.add(tmpCoords[1])
+                stormList += UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers).toMutableList()
                 start = ExternalGlobalCoordinates(ec)
                 ec = ecc.calculateEndingGlobalCoordinates(
                     ExternalEllipsoid.WGS84,
@@ -102,7 +101,8 @@ internal object WXGLNexradLevel3StormInfo {
                     bearing
                 )
                 // mercator expects lat/lon to both be positive as many products have this
-                tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers)
+                val coordinates = UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers)
+                stormList += coordinates.toMutableList()
                 ecArr.indices.forEach { z ->
                     ecArr[z] = ecc.calculateEndingGlobalCoordinates(
                         ExternalEllipsoid.WGS84,
@@ -113,15 +113,12 @@ internal object WXGLNexradLevel3StormInfo {
                     ) // was z+1, now z
                     tmpCoordsArr[z] = LatLon(UtilityCanvasProjection.computeMercatorNumbers(ecArr[z], projectionNumbers))
                 }
-                stormList.add(tmpCoords[0])
-                stormList.add(tmpCoords[1])
-                val endPoint = tmpCoords
                 if (nm2 > 0.01) {
                     start = ExternalGlobalCoordinates(ec)
                     listOf(degree2 + arrowBend, degree2 - arrowBend).forEach { startBearing ->
                         drawLine(
                                 stormList,
-                                endPoint,
+                                coordinates,
                                 ecc,
                                 projectionNumbers,
                                 start,
@@ -152,7 +149,7 @@ internal object WXGLNexradLevel3StormInfo {
                         }
                     }
                 }
-                s += 2
+                //s += 2
             }
         }
         return stormList
