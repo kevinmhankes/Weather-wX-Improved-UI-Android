@@ -38,11 +38,9 @@ internal object WXGLNexradLevel3StormInfo {
 
     private const val stiBaseFn = "nids_sti_tab"
 
-    // FIXME iOS/swift does not use radarSite uses projectionNumbers.radarSite.toLowerCase(Locale.US)
-    fun decodeAndPlot(context: Context, fnSuffix: String, radarSite: String, projectionType: ProjectionType): List<Double> {
+    fun decodeAndPlot(context: Context, fnSuffix: String, projectionNumbers: ProjectionNumbers): List<Double> {
         val stormList = mutableListOf<Double>()
-        val location = UtilityLocation.getSiteLocation(radarSite)
-        val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
+        val location = UtilityLocation.getSiteLocation(projectionNumbers.radarSite)
         WXGLDownload.getNidsTab(context, "STI", projectionNumbers.radarSite.toLowerCase(Locale.US), stiBaseFn + fnSuffix)
         val posn: List<String>
         val motion: List<String>

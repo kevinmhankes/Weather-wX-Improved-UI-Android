@@ -151,7 +151,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     private var bgColorFBlue = 0.0f
     val ortInt = 400
     var zoomScreenScaleFactor = 1.0
-    private val provider = ProjectionType.WX_OGL
+    private val projectionType = ProjectionType.WX_OGL
     // this controls if the projection is mercator (nexrad) or 4326 / rectangular
     // after you zoom out past a certain point you need to hide the nexrad, show the mosaic
     // and reconstruct all geometry and warning/watch lines using 4326 projection (set this variable to false to not use mercator transformation )
@@ -209,7 +209,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 prod = "N0Q"
             }
         }
-        projectionNumbers = ProjectionNumbers(this.rid, provider)
+        projectionNumbers = ProjectionNumbers(this.rid, projectionType)
         oneDegreeScaleFactorGlobal = projectionNumbers.oneDegreeScaleFactorFloat
     }
 
@@ -768,7 +768,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     }
 
     fun constructStiLines() {
-        val fSti = WXGLNexradLevel3StormInfo.decodeAndPlot(context, indexString, rid, provider)
+        val fSti = WXGLNexradLevel3StormInfo.decodeAndPlot(context, indexString, projectionNumbers)
         constructGenericLinesShort(stiBuffers, fSti)
     }
 
@@ -940,12 +940,12 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     private fun constructGenericLines(buffers: ObjectOglBuffers) {
         var fList = listOf<Double>()
         when (buffers.type) {
-            PolygonType.MCD, PolygonType.MPD, PolygonType.WATCH, PolygonType.WATCH_TORNADO -> fList = UtilityWatch.add(provider, rid, buffers.type).toList()
-            PolygonType.TST, PolygonType.TOR, PolygonType.FFW -> fList = WXGLPolygonWarnings.add(provider, rid, buffers.type).toList()
-            PolygonType.STI -> fList = WXGLNexradLevel3StormInfo.decodeAndPlot(context, indexString, rid, provider).toList()
+            PolygonType.MCD, PolygonType.MPD, PolygonType.WATCH, PolygonType.WATCH_TORNADO -> fList = UtilityWatch.add(projectionType, rid, buffers.type).toList()
+            PolygonType.TST, PolygonType.TOR, PolygonType.FFW -> fList = WXGLPolygonWarnings.add(projectionType, rid, buffers.type).toList()
+            PolygonType.STI -> fList = WXGLNexradLevel3StormInfo.decodeAndPlot(context, indexString, projectionNumbers).toList()
             else -> {
                 if (buffers.warningType != null) {
-                    fList = WXGLPolygonWarnings.addGeneric(provider, rid, buffers.warningType!!).toList()
+                    fList = WXGLPolygonWarnings.addGeneric(projectionType, rid, buffers.warningType!!).toList()
                 }
             }
         }
@@ -1006,14 +1006,14 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     }
 
     fun constructWBLines() {
-        val fWb = WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, provider, false, paneNumber)
+        val fWb = WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, projectionType, false, paneNumber)
         constructGenericLinesShort(wbBuffers, fWb)
         constructWBLinesGusts()
         constructWBCircle()
     }
 
     private fun constructWBLinesGusts() {
-        val fWbGusts = WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, provider, true, paneNumber)
+        val fWbGusts = WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, projectionType, true, paneNumber)
         constructGenericLinesShort(wbGustsBuffers, fWbGusts)
     }
 
