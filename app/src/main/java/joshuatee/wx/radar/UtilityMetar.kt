@@ -119,18 +119,16 @@ internal object UtilityMetar {
                     } else {
                         ovcInt
                     }
-                    var aviationColor = Color.GREEN
-                    if (visInt > 5 && lowestCig > 3000) {
-                        aviationColor = Color.GREEN
-                    }
-                    if (visInt in 3..5 || lowestCig in 1000..3000) {
-                        aviationColor = Color.rgb(0, 100, 255)
-                    }
-                    if (visInt in 1..2 || lowestCig in 500..999) {
-                        aviationColor = Color.RED
-                    }
-                    if (visInt < 1 || lowestCig < 500) {
-                        aviationColor = Color.MAGENTA
+                    val aviationColor = if (visInt > 5 && lowestCig > 3000) {
+                        Color.GREEN
+                    } else if (visInt in 3..5 || lowestCig in 1000..3000) {
+                        Color.rgb(0, 100, 255)
+                    } else if (visInt in 1..2 || lowestCig in 500..999) {
+                        Color.RED
+                    } else if (visInt < 1 || lowestCig < 500) {
+                        Color.MAGENTA
+                    } else {
+                        Color.GREEN
                     }
                     //  green, blue, red, and purple
                     // VFR 	> 5 mi 	and > 3000 ft AGL
