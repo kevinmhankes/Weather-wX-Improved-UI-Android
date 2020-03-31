@@ -111,6 +111,10 @@ class LatLon() {
             y = newValue.toDoubleOrNull() ?: 0.0
         }
 
+    fun asList(): List<Double> {
+        return listOf(lat, lon)
+    }
+
     override fun toString() = "$latString:$lonString"
 
     fun print()= "$latString $lonString "

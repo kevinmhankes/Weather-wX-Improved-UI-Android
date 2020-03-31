@@ -165,8 +165,7 @@ internal object WXGLNexradLevel3StormInfo {
             distance: Double,
             bearing: DoubleArray
     ) {
-        list.add(startPoint.lat)
-        list.add(startPoint.lon)
+        list += startPoint.asList()
         val start = ExternalGlobalCoordinates(ecArr)
         val externalGlobalCoordinates = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
             ExternalEllipsoid.WGS84,
