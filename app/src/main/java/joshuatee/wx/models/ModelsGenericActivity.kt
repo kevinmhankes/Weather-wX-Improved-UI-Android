@@ -97,16 +97,8 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
         miStatusParam1 = menu.findItem(R.id.action_status_param1)
         miStatusParam2 = menu.findItem(R.id.action_status_param2)
         if (om.numPanes < 2) {
-            fab1 = ObjectFab(
-                    this,
-                    this,
-                    R.id.fab1,
-                    View.OnClickListener { UtilityModels.moveBack(om.spTime) })
-            fab2 = ObjectFab(
-                    this,
-                    this,
-                    R.id.fab2,
-                    View.OnClickListener { UtilityModels.moveForward(om.spTime) })
+            fab1 = ObjectFab(this, this, R.id.fab1, View.OnClickListener { UtilityModels.moveBack(om.spTime) })
+            fab2 = ObjectFab(this, this, R.id.fab2, View.OnClickListener { UtilityModels.moveForward(om.spTime) })
             menu.findItem(R.id.action_img1).isVisible = false
             menu.findItem(R.id.action_img2).isVisible = false
             if (UIPreferences.fabInModels) {
@@ -215,11 +207,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
     private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
         if (om.modelType == ModelType.NCEP) {
             om.rtd = withContext(Dispatchers.IO) {
-                UtilityModelNcepInputOutput.getRunTime(
-                        om.model,
-                        om.displayData.param[0],
-                        om.sectors[0]
-                )
+                UtilityModelNcepInputOutput.getRunTime(om.model, om.displayData.param[0], om.sectors[0])
             }
             om.time = om.rtd.mostRecentRun
             spRun.notifyDataSetChanged()
@@ -228,14 +216,10 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 UtilityModels.getContent(this@ModelsGenericActivity, om, listOf(""), uiDispatcher)
             }
             miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
-            var tmpStr: String
             (0 until om.spTime.size()).forEach {
-                tmpStr = MyApplication.space.split(om.spTime[it])[0]
-                om.spTime[it] = "$tmpStr " + UtilityModels.convertTimeRunToTimeString(
-                        om.rtd.mostRecentRun.replace(
-                                "Z",
-                                ""
-                        ), tmpStr, true
+                val items = MyApplication.space.split(om.spTime[it])[0]
+                om.spTime[it] = "$items " + UtilityModels.convertTimeRunToTimeString(
+                        om.rtd.mostRecentRun.replace("Z", ""), items, true
                 )
             }
             om.spTime.notifyDataSetChanged()
@@ -292,14 +276,9 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
     private fun setupModel() {
         (0 until om.numPanes).forEach {
             om.displayData.param[it] = om.params[0]
-            om.displayData.param[it] =
-                    Utility.readPref(this, om.prefParam + it.toString(), om.displayData.param[0])
+            om.displayData.param[it] = Utility.readPref(this, om.prefParam + it.toString(), om.displayData.param[0])
             om.displayData.paramLabel[it] = om.params[0]
-            om.displayData.paramLabel[it] = Utility.readPref(
-                    this,
-                    om.prefParamLabel + it.toString(),
-                    om.displayData.paramLabel[0]
-            )
+            om.displayData.paramLabel[it] = Utility.readPref(this, om.prefParamLabel + it.toString(), om.displayData.paramLabel[0])
         }
         if (!UtilityModels.parameterInList(om.params, om.displayData.param[0])) {
             om.displayData.param[0] = om.params[0]
@@ -315,9 +294,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
         drw.updateLists(this, om.labels, om.params)
         spRun.setSelection(0)
         when (om.modelType) {
-            ModelType.NCEP -> {
-                setupListRunZ(om.numberRuns)
-            }
+            ModelType.NCEP -> setupListRunZ(om.numberRuns)
             else -> {}
         }
         om.spTime.setSelection(0)
@@ -325,13 +302,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
         when (om.modelType) {
             ModelType.GLCFS -> {
                 (om.startStep..om.endStep step om.stepAmount).forEach {
-                    om.spTime.list.add(
-                            String.format(
-                                    Locale.US,
-                                    om.format,
-                                    it
-                            )
-                    )
+                    om.spTime.list.add(String.format(Locale.US, om.format, it))
                 }
                 (51..121 step 3).forEach {
                     om.spTime.list.add(
