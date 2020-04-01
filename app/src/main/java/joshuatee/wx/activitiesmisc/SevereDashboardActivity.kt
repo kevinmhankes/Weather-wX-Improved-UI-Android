@@ -111,7 +111,6 @@ class SevereDashboardActivity : BaseActivity() {
             UtilityDownloadMpd.get(this@SevereDashboardActivity)
             snMpd.getBitmaps(MyApplication.severeDashboardMpd.value)
         }
-
         val wTor = SevereWarning(PolygonType.TOR)
         val wTst = SevereWarning(PolygonType.TST)
         val wFfw = SevereWarning(PolygonType.FFW)
@@ -121,7 +120,6 @@ class SevereDashboardActivity : BaseActivity() {
             wTst.generateString(MyApplication.severeDashboardTst.value)
             wFfw.generateString(MyApplication.severeDashboardFfw.value)
         }
-
         linearLayout.removeAllViews()
         numberOfImages = 0
         listOf(0,1).forEach {
@@ -174,15 +172,6 @@ class SevereDashboardActivity : BaseActivity() {
         bitmaps.addAll(snMcd.bitmaps)
         bitmaps.addAll(snMpd.bitmaps)
         bitmaps.addAll(bitmaps)
-        /*val wTor = SevereWarning(PolygonType.TOR)
-        val wTst = SevereWarning(PolygonType.TST)
-        val wFfw = SevereWarning(PolygonType.FFW)
-        withContext(Dispatchers.IO) {
-            UtilityDownloadWarnings.getForSevereDashboard(this@SevereDashboardActivity)
-            wTor.generateString(MyApplication.severeDashboardTor.value)
-            wTst.generateString(MyApplication.severeDashboardTst.value)
-            wFfw.generateString(MyApplication.severeDashboardFfw.value)
-        }*/
         listOfWfoForWarnings = mutableListOf()
         var numberOfWarnings = 0
         listOf(wTor, wTst, wFfw).forEach { warn ->
@@ -202,13 +191,6 @@ class SevereDashboardActivity : BaseActivity() {
                         )
                         objectCardDashAlertItem.setListener(View.OnClickListener {
                             showWarningDetails(warn.idList[index])
-                            //val url = warn.idList[index]
-                            /*ObjectIntent(
-                                    this@SevereDashboardActivity,
-                                    USAlertsDetailActivity::class.java,
-                                    USAlertsDetailActivity.URL,
-                                    arrayOf("https://api.weather.gov/alerts/$url", "")
-                            )*/
                         })
                         objectCardDashAlertItem.radarButton.setOnClickListener(View.OnClickListener {
                             radarInterface(index)
