@@ -25,6 +25,7 @@ import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
+import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 
 import joshuatee.wx.activitiesmisc.CapAlert
@@ -39,10 +40,21 @@ class ObjectCardAlertSummaryItem(context: Context) {
     private val textViewStart = ObjectTextView(context, TextSize.SMALL)
     private val textViewEnd = ObjectTextView(context, TextSize.SMALL)
     private val textViewBottom = ObjectTextView(context, backgroundText = true)
+    var radarButton = ObjectButton(context,"Radar", MyApplication.ICON_RADAR)
+    var detailsButton = ObjectButton(context,"Details", MyApplication.ICON_CURRENT)
 
     init {
         val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
         objectLinearLayout.addViews(listOf(textViewTop.tv, textViewTitle.tv, textViewStart.tv, textViewEnd.tv, textViewBottom.tv))
+        val linearLayoutHorizontal = LinearLayout(context)
+        val layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        linearLayoutHorizontal.layoutParams = layoutParams
+        linearLayoutHorizontal.addView(radarButton.card)
+        linearLayoutHorizontal.addView(detailsButton.card)
+        objectLinearLayout.addView(linearLayoutHorizontal)
         objectCard.addView(objectLinearLayout)
     }
 

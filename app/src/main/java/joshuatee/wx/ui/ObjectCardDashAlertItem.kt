@@ -22,11 +22,9 @@
 package joshuatee.wx.ui
 
 import android.content.Context
-import android.graphics.Color
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
-import com.google.android.material.button.MaterialButton
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 

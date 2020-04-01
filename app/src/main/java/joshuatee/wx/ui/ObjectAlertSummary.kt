@@ -28,6 +28,7 @@ import android.graphics.Bitmap
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import joshuatee.wx.GlobalDictionaries
 
 import java.util.HashSet
 import java.util.Locale
@@ -38,6 +39,7 @@ import joshuatee.wx.activitiesmisc.CapAlert
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityString
@@ -155,12 +157,19 @@ class ObjectAlertSummary(
                     objectCardAlertSummaryItem.setTextFields(nwsOffice, nwsLoc, capAlert)
                     val url = capAlert.url
                     objectCardAlertSummaryItem.setListener(View.OnClickListener {
-                        ObjectIntent(
+                        /*ObjectIntent(
                                 context,
                                 USAlertsDetailActivity::class.java,
                                 USAlertsDetailActivity.URL,
                                 arrayOf(url, "")
-                        )
+                        )*/
+                        showWarningDetails(url)
+                    })
+                    objectCardAlertSummaryItem.radarButton.setOnClickListener(View.OnClickListener {
+                        radarInterface(nwsOffice)
+                    })
+                    objectCardAlertSummaryItem.detailsButton.setOnClickListener(View.OnClickListener {
+                        showWarningDetails(url)
                     })
                     linearLayout.addView(objectCardAlertSummaryItem.card)
                     i += 1
@@ -198,6 +207,22 @@ class ObjectAlertSummary(
             filterArray = filterArray1 + filterArray2
             navList = filterArray1Label + filterArray2Label
         }
+    }
+
+    private fun radarInterface(office: String) {
+        val radarSite = GlobalDictionaries.wfoToRadarSite[office] ?: ""
+        val radarLabel = Utility.getRadarSiteName(radarSite)
+        val state = radarLabel.split(",")[0]
+        ObjectIntent(context, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, arrayOf(radarSite, state, "N0Q", ""))
+    }
+
+    private fun showWarningDetails(url: String) {
+        ObjectIntent(
+                context,
+                USAlertsDetailActivity::class.java,
+                USAlertsDetailActivity.URL,
+                arrayOf(url, "")
+        )
     }
 
     fun getTitle(title: String) = "(" + totalAlertsCnt + ") " + title.toUpperCase(Locale.US) + " Alerts"
