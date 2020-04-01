@@ -305,46 +305,22 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
                     om.spTime.list.add(String.format(Locale.US, om.format, it))
                 }
                 (51..121 step 3).forEach {
-                    om.spTime.list.add(
-                            String.format(
-                                    Locale.US,
-                                    om.format,
-                                    it
-                            )
-                    )
+                    om.spTime.list.add(String.format(Locale.US, om.format, it))
                 }
             }
             ModelType.NCEP -> {
                 when (om.model) {
                     "HRRR" -> {
                         (om.startStep..om.endStep step om.stepAmount).forEach {
-                            om.spTime.add(
-                                    String.format(
-                                            Locale.US,
-                                            "%03d" + "00",
-                                            it
-                                    )
-                            )
+                            om.spTime.add(String.format(Locale.US, "%03d" + "00", it))
                         }
                     }
                     "GEFS-SPAG", "GEFS-MEAN-SPRD" -> {
                         (0..181 step 6).forEach {
-                            om.spTime.add(
-                                    String.format(
-                                            Locale.US,
-                                            "%03d",
-                                            it
-                                    )
-                            )
+                            om.spTime.add(String.format(Locale.US, "%03d", it))
                         }
                         (192..385 step 12).forEach {
-                            om.spTime.add(
-                                    String.format(
-                                            Locale.US,
-                                            "%03d",
-                                            it
-                                    )
-                            )
+                            om.spTime.add(String.format(Locale.US, "%03d", it))
                         }
                     }
                     "GFS" -> {
