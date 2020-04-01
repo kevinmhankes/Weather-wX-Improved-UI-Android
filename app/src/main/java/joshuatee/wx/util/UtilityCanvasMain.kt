@@ -124,7 +124,7 @@ object UtilityCanvasMain {
             )
         }
         if (GeographyType.CITIES.pref && cityProvider) {
-            UtilityCanvas.drawCitiesUS(projectionType, bitmapCanvas, radarSite, citySize)
+            UtilityCanvas.drawCitiesUS(projectionType, bitmapCanvas, projectionNumbers, citySize)
         }
         if (stateLinesProvider) {
             UtilityCanvasGeneric.draw(
@@ -159,7 +159,7 @@ object UtilityCanvasMain {
             }
         }
         if (PolygonType.LOCDOT.pref) {
-            UtilityCanvas.addLocationDotForCurrentLocation(projectionType, bitmapCanvas, radarSite)
+            UtilityCanvas.addLocationDotForCurrentLocation(projectionType, bitmapCanvas, projectionNumbers)
         }
         if (PolygonType.WIND_BARB.pref && windBarbProvider) {
             UtilityCanvasWindbarbs.draw(context, projectionType, bitmapCanvas, radarSite, true, 5)
@@ -173,10 +173,10 @@ object UtilityCanvasMain {
                     PolygonType.MCD,
                     PolygonType.WATCH,
                     PolygonType.WATCH_TORNADO
-            ).forEach { UtilityCanvas.addMcd(projectionType, bitmapCanvas, radarSite, it) }
+            ).forEach { UtilityCanvas.addMcd(projectionType, bitmapCanvas, projectionNumbers, it) }
         }
         if (PolygonType.MPD.pref) {
-            UtilityCanvas.addMcd(projectionType, bitmapCanvas, radarSite, PolygonType.MPD)
+            UtilityCanvas.addMcd(projectionType, bitmapCanvas, projectionNumbers, PolygonType.MPD)
         }
     }
 

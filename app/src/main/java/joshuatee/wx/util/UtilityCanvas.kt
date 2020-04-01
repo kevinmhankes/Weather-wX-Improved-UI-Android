@@ -70,7 +70,7 @@ internal object UtilityCanvas {
         }
     }
 
-    fun drawCitiesUS(projectionType: ProjectionType, bitmap: Bitmap, radarSite: String, textSize: Int) {
+    fun drawCitiesUS(projectionType: ProjectionType, bitmap: Bitmap, projectionNumbers: ProjectionNumbers, textSize: Int) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.FILL
@@ -83,7 +83,6 @@ internal object UtilityCanvas {
             paint.color = Color.rgb(0, 0, 0)
         }
         paint.textSize = textSize.toFloat()
-        val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
         UtilityCities.list.indices.forEach {
             val latLon = if (projectionType.isMercator) {
                 UtilityCanvasProjection.computeMercatorNumbers(
@@ -112,7 +111,7 @@ internal object UtilityCanvas {
         }
     }
 
-    fun addLocationDotForCurrentLocation(projectionType: ProjectionType, bitmap: Bitmap, radarSite: String) {
+    fun addLocationDotForCurrentLocation(projectionType: ProjectionType, bitmap: Bitmap, projectionNumbers: ProjectionNumbers) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.FILL
@@ -124,7 +123,6 @@ internal object UtilityCanvas {
         val locXCurrent = Location.x
         var locYCurrent = Location.y
         locYCurrent = locYCurrent.replace("-", "")
-        val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
         val x = locXCurrent.toDoubleOrNull() ?: 0.0
         val y = locYCurrent.toDoubleOrNull() ?: 0.0
         val latLon = if (projectionType.isMercator) {
@@ -136,7 +134,7 @@ internal object UtilityCanvas {
         canvas.drawCircle(latLon[0].toFloat(), latLon[1].toFloat(), 2f, paint)
     }
 
-    fun addMcd(projectionType: ProjectionType, bitmap: Bitmap, radarSite: String, polygonType: PolygonType) {
+    fun addMcd(projectionType: ProjectionType, bitmap: Bitmap, projectionNumbers: ProjectionNumbers, polygonType: PolygonType) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.STROKE
@@ -146,7 +144,6 @@ internal object UtilityCanvas {
         if (projectionType.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
-        val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
         paint.strokeWidth = projectionNumbers.polygonWidth.toFloat()
         paint.color = polygonType.color
         var prefToken = ""
