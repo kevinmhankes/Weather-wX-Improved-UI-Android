@@ -87,16 +87,8 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         miStatusParam1 = menu.findItem(R.id.action_status_param1)
         miStatusParam2 = menu.findItem(R.id.action_status_param2)
         if (om.numPanes < 2) {
-            fab1 = ObjectFab(
-                    this,
-                    this,
-                    R.id.fab1,
-                    View.OnClickListener { UtilityModels.moveBack(om.spTime) })
-            fab2 = ObjectFab(
-                    this,
-                    this,
-                    R.id.fab2,
-                    View.OnClickListener { UtilityModels.moveForward(om.spTime) })
+            fab1 = ObjectFab(this, this, R.id.fab1, View.OnClickListener { UtilityModels.moveBack(om.spTime) })
+            fab2 = ObjectFab(this, this, R.id.fab2, View.OnClickListener { UtilityModels.moveForward(om.spTime) })
             menu.findItem(R.id.action_img1).isVisible = false
             menu.findItem(R.id.action_img2).isVisible = false
             if (UIPreferences.fabInModels) {
@@ -115,14 +107,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         om.displayData = DisplayData(this, this, om.numPanes, om.spTime)
         spRun = ObjectSpinner(this, this, this, R.id.spinner_run)
         om.sector = Utility.readPref(this, om.prefSector, "S19")
-        spSector = ObjectSpinner(
-                this,
-                this,
-                this,
-                R.id.spinner_sector,
-                UtilityModelSpcHrefInterface.sectorsLong,
-                om.sector
-        )
+        spSector = ObjectSpinner(this, this, this, R.id.spinner_sector, UtilityModelSpcHrefInterface.sectorsLong, om.sector)
         UtilityModelSpcHrefInterface.createData()
         objectNavDrawerCombo = ObjectNavDrawerCombo(
                 this,
@@ -229,19 +214,10 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     private fun setupModel() {
         (0 until om.numPanes).forEach {
             om.displayData.param[it] = "500w_mean,500h_mean"
-            om.displayData.param[it] =
-                    Utility.readPref(this, om.prefParam + it.toString(), om.displayData.param[it])
+            om.displayData.param[it] = Utility.readPref(this, om.prefParam + it.toString(), om.displayData.param[it])
             om.displayData.paramLabel[it] = "500 mb Height/Wind"
-            om.displayData.paramLabel[it] = Utility.readPref(
-                    this,
-                    om.prefParamLabel + it.toString(),
-                    om.displayData.paramLabel[it]
-            )
-            if (!UtilityModels.parameterInList(
-                            UtilityModelSpcHrefInterface.params,
-                            om.displayData.param[it]
-                    )
-            ) {
+            om.displayData.paramLabel[it] = Utility.readPref(this, om.prefParamLabel + it.toString(), om.displayData.paramLabel[it])
+            if (!UtilityModels.parameterInList(UtilityModelSpcHrefInterface.params, om.displayData.param[it])) {
                 om.displayData.param[it] = "500w_mean,500h_mean"
                 om.displayData.paramLabel[it] = "500 mb Height/Wind"
             }
@@ -267,10 +243,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     override fun onStop() {
         if (om.imageLoaded) {
             (0 until om.numPanes).forEach {
-                UtilityImg.imgSavePosnZoom(
-                        this,
-                        om.displayData.img[it],
-                        om.modelProvider + om.numPanes.toString() + it.toString()
+                UtilityImg.imgSavePosnZoom(this, om.displayData.img[it], om.modelProvider + om.numPanes.toString() + it.toString()
                 )
             }
             Utility.writePref(this, om.prefRunPosn, om.spTime.selectedItemPosition)
