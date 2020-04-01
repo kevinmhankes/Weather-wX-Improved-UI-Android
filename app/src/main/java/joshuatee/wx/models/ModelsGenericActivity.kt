@@ -325,29 +325,15 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
                     }
                     "GFS" -> {
                         (0..241 step 3).forEach {
-                            om.spTime.add(
-                                    String.format(
-                                            Locale.US,
-                                            "%03d",
-                                            it
-                                    )
-                            )
+                            om.spTime.add(String.format(Locale.US, "%03d", it))
                         }
                         (252..385 step 12).forEach {
-                            om.spTime.add(
-                                    String.format(
-                                            Locale.US,
-                                            "%03d",
-                                            it
-                                    )
-                            )
+                            om.spTime.add(String.format(Locale.US, "%03d", it))
                         }
                     }
                     else -> {
                         (om.startStep..om.endStep step om.stepAmount).forEach {
-                            om.spTime.list.add(
-                                    String.format(Locale.US, om.format, it)
-                            )
+                            om.spTime.list.add(String.format(Locale.US, om.format, it))
                         }
                     }
                 }
