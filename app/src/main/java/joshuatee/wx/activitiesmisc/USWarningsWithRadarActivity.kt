@@ -81,7 +81,7 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
         val activityArguments = intent.getStringArrayExtra(URL)
         turlLocal[0] = activityArguments!![0]
         turlLocal[1] = activityArguments[1]
-        objectAlertSummary = ObjectAlertSummary(this, this, linearLayout, scrollView)
+        objectAlertSummary = ObjectAlertSummary(this, this, linearLayout, scrollView, uiDispatcher)
         objectNavDrawer = ObjectNavDrawer(this, objectAlertSummary.filterArray.toList())
         objectNavDrawer.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             objectNavDrawer.listView.setItemChecked(position, false)
@@ -106,6 +106,7 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
         menu.add(0, v.id, 0, "Add new location for this warning ($zone)")
     }
 
+    // FIXME get rid of this
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when {
             item.title == "Open radar interface" -> radarInterface(item.itemId)

@@ -40,15 +40,20 @@ import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.WXGLRadarActivity
+import joshuatee.wx.settings.Location
+import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityString
+import kotlinx.coroutines.*
 
 class ObjectAlertSummary(
         private val activity: Activity,
         private val context: Context,
         private val linearLayout: LinearLayout,
-        private val scrollView: ScrollView
+        private val scrollView: ScrollView,
+        private val uiDispatcher: CoroutineDispatcher
 ) {
 
     private var totalAlertsCnt = 0
@@ -171,6 +176,9 @@ class ObjectAlertSummary(
                     objectCardAlertSummaryItem.detailsButton.setOnClickListener(View.OnClickListener {
                         showWarningDetails(url)
                     })
+                    objectCardAlertSummaryItem.locationButton.setOnClickListener(View.OnClickListener {
+                        addLocation(firstZone, firstCounty)
+                    })
                     linearLayout.addView(objectCardAlertSummaryItem.card)
                     i += 1
                 }
@@ -223,6 +231,31 @@ class ObjectAlertSummary(
                 USAlertsDetailActivity.URL,
                 arrayOf(url, "")
         )
+    }
+
+    private fun addLocation(zone: String, county: String) = GlobalScope.launch(uiDispatcher) {
+        var message = ""
+        var coordinates = listOf<String>()
+        withContext(Dispatchers.IO) {
+            var locNumIntCurrent = Location.numLocations
+            locNumIntCurrent += 1
+            val locNumToSaveStr = locNumIntCurrent.toString()
+            //val zone = objectAlertSummary.mapButtonZone[id]
+            //var state = objectAlertSummary.mapButtonState[id]
+            //val county = objectAlertSummary.mapButtonCounty[id]
+            if (zone.length > 3) {
+                coordinates = if (zone.matches("[A-Z][A-Z]C.*?".toRegex())) {
+                    UtilityLocation.getLatLonFromAddress(county + "," + zone.substring(0, 2))
+                } else {
+                    UtilityDownloadNws.getLatLonForZone(zone)
+                }
+                //state = zone.substring(0, 2)
+            }
+            val x = coordinates[0]
+            val y = coordinates[1]
+            message = Location.locationSave(context, locNumToSaveStr, x, y, county)
+        }
+        UtilityUI.makeSnackBar(linearLayout, message)
     }
 
     fun getTitle(title: String) = "(" + totalAlertsCnt + ") " + title.toUpperCase(Locale.US) + " Alerts"
