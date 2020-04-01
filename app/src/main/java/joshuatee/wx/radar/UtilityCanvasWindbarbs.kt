@@ -62,10 +62,9 @@ object UtilityCanvasWindbarbs {
             paint.color = MyApplication.radarColorObsWindbarbs
         }
         paint.textSize = textSize.toFloat()
-        val pn = ProjectionNumbers(radarSite, projectionType)
+        val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
         var pixXInit: Double
         var pixYInit: Double
-        var tmpCoords: DoubleArray
         val stormList = mutableListOf<Double>()
         val stormListArr: FloatArray
         val arrWb = if (!isGust) {
@@ -74,22 +73,13 @@ object UtilityCanvasWindbarbs {
             UtilityMetar.metarDataList[index].obsArrWbGust
         }
         try {
-            var locXDbl = 0.0
-            var locYDbl = 0.0
-            var degree: Double
-            var nm: Double
-            var degree2: Double
             val bearing = DoubleArray(2)
-            var start: ExternalGlobalCoordinates
-            var end: ExternalGlobalCoordinates
-            var ec: ExternalGlobalCoordinates
             val degreeShift = 180.00
             val arrowLength = 2.5
             val arrowSpacing = 3.0
             val barbLengthScaleFactor = 0.4
             val arrowBend = 60.0
             val nmScaleFactor = -1852.0
-            var startLength: Double
             val barbLength = 15.0
             val barbOffset = 0.0
             arrWb.forEach { s ->
@@ -97,6 +87,8 @@ object UtilityCanvasWindbarbs {
                 val metarArr = s.split(":").dropLastWhile { it.isEmpty() }
                 var angle = 0
                 var length = 0
+                var locXDbl = 0.0
+                var locYDbl = 0.0
                 if (metarArr.size > 3) {
                     locXDbl = metarArr[0].toDoubleOrNull() ?: 0.0
                     locYDbl = metarArr[1].toDoubleOrNull() ?: 0.0
@@ -104,25 +96,21 @@ object UtilityCanvasWindbarbs {
                     length = metarArr[3].toIntOrNull() ?: 0
                 }
                 if (length > 4) {
-                    degree = 0.0
-                    nm = 0.0
-                    degree2 = angle.toDouble()
-                    startLength = nm * nmScaleFactor
-                    start = ExternalGlobalCoordinates(locXDbl, locYDbl)
-                    ec = ecc.calculateEndingGlobalCoordinates(
+                    val degree2 = angle.toDouble()
+                    val startLength = 0.0
+                    var start = ExternalGlobalCoordinates(locXDbl, locYDbl)
+                    var ec = ecc.calculateEndingGlobalCoordinates(
                         ExternalEllipsoid.WGS84,
                         start,
-                        degree,
+                        0.0,
                         startLength,
                         bearing
                     )
-                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(
+                    stormList += UtilityCanvasProjection.computeMercatorNumbers(
                         ec.latitude,
                         ec.longitude * -1,
-                        pn
-                    )
-                    stormList.add(tmpCoords[0])
-                    stormList.add(tmpCoords[1])
+                        projectionNumbers
+                    ).toList()
                     start = ExternalGlobalCoordinates(ec.latitude, ec.longitude)
                     ec = ecc.calculateEndingGlobalCoordinates(
                         ExternalEllipsoid.WGS84,
@@ -131,14 +119,12 @@ object UtilityCanvasWindbarbs {
                         barbLength * nmScaleFactor * barbLengthScaleFactor,
                         bearing
                     )
-                    end = ExternalGlobalCoordinates(ec.latitude, ec.longitude)
-                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(
+                    val end = ExternalGlobalCoordinates(ec.latitude, ec.longitude)
+                    stormList += UtilityCanvasProjection.computeMercatorNumbers(
                         ec.latitude,
                         ec.longitude * -1,
-                        pn
-                    )
-                    stormList.add(tmpCoords[0])
-                    stormList.add(tmpCoords[1])
+                        projectionNumbers
+                    ).toList()
                     val barbCount = length / 10
                     var halfBarb = false
                     var oneHalfBarb = false
@@ -148,23 +134,37 @@ object UtilityCanvasWindbarbs {
                     if (length in 5..9) {
                         oneHalfBarb = true
                     }
-                    var j = 0
-                    while (j < barbCount) {
+                    (0 until barbCount).forEach { j ->
+
                         ec = ecc.calculateEndingGlobalCoordinates(
+                                ExternalEllipsoid.WGS84,
+                                end,
+                                degree2,
+                                barbOffset + startLength + j.toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor,
+                                bearing
+                        )
+                        WXGLNexradLevel3Common.drawLine(
+                                stormList,
+                                ec,
+                                ecc,
+                                projectionNumbers,
+                                degree2 - arrowBend * 2.0,
+                                startLength + arrowLength * nmScaleFactor,
+                                bearing
+                        )
+
+                        /*ec = ecc.calculateEndingGlobalCoordinates(
                             ExternalEllipsoid.WGS84,
                             end,
                             degree2,
                             barbOffset + startLength + j.toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor,
                             bearing
                         )
-                        tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(
+                        stormList += UtilityCanvasProjection.computeMercatorNumbers(
                             ec.latitude,
                             ec.longitude * -1,
-                            pn
-                        )
-                        stormList.add(tmpCoords[0])
-                        stormList.add(tmpCoords[1])
-
+                            projectionNumbers
+                        ).toList()
                         start = ExternalGlobalCoordinates(ec.latitude, ec.longitude)
                         ec = ecc.calculateEndingGlobalCoordinates(
                             ExternalEllipsoid.WGS84,
@@ -173,35 +173,47 @@ object UtilityCanvasWindbarbs {
                             startLength + arrowLength * nmScaleFactor,
                             bearing
                         )
-                        tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(
+                        stormList += UtilityCanvasProjection.computeMercatorNumbers(
                             ec.latitude,
                             ec.longitude * -1,
-                            pn
-                        )
-                        stormList.add(tmpCoords[0])
-                        stormList.add(tmpCoords[1])
-                        j += 1
+                            projectionNumbers
+                        ).toList()*/
                     }
                     var halfBarbOffsetFudge = 0.0
                     if (oneHalfBarb) {
                         halfBarbOffsetFudge = nmScaleFactor * 1.0
                     }
                     if (halfBarb) {
+
                         ec = ecc.calculateEndingGlobalCoordinates(
+                                ExternalEllipsoid.WGS84,
+                                end,
+                                degree2,
+                                barbOffset + halfBarbOffsetFudge + startLength + (barbCount - 1).toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor,
+                                bearing
+                        )
+                        WXGLNexradLevel3Common.drawLine(
+                                stormList,
+                                ec,
+                                ecc,
+                                projectionNumbers,
+                                degree2 - arrowBend * 2.0,
+                                startLength + arrowLength / 2.0 * nmScaleFactor,
+                                bearing
+                        )
+
+                        /*ec = ecc.calculateEndingGlobalCoordinates(
                             ExternalEllipsoid.WGS84,
                             end,
                             degree2,
-                            barbOffset + halfBarbOffsetFudge + startLength + j.toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor,
+                            barbOffset + halfBarbOffsetFudge + startLength + (barbCount-1).toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor,
                             bearing
                         )
-                        tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(
+                        stormList += UtilityCanvasProjection.computeMercatorNumbers(
                             ec.latitude,
                             ec.longitude * -1,
-                            pn
-                        )
-                        stormList.add(tmpCoords[0])
-                        stormList.add(tmpCoords[1])
-
+                            projectionNumbers
+                        ).toList()
                         start = ExternalGlobalCoordinates(ec.latitude, ec.longitude)
                         ec = ecc.calculateEndingGlobalCoordinates(
                             ExternalEllipsoid.WGS84,
@@ -210,13 +222,11 @@ object UtilityCanvasWindbarbs {
                             startLength + arrowLength / 2.0 * nmScaleFactor,
                             bearing
                         )
-                        tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(
+                        stormList += UtilityCanvasProjection.computeMercatorNumbers(
                             ec.latitude,
                             ec.longitude * -1,
-                            pn
-                        )
-                        stormList.add(tmpCoords[0])
-                        stormList.add(tmpCoords[1])
+                            projectionNumbers
+                        ).toList()*/
                     }
                 } // if length greater then 4
             } // loop over wind barbs
@@ -224,28 +234,31 @@ object UtilityCanvasWindbarbs {
             UtilityLog.handleException(e)
         }
         stormListArr = FloatArray(stormList.size)
-        stormList.indices.forEach { stormListArr[it] = stormList[it].toFloat() }
+        stormList.indices.forEach {
+            stormListArr[it] = stormList[it].toFloat()
+        }
         canvas.drawLines(stormListArr, paint)
         // draw aviation circle on top
         wbCircleXArr.indices.forEach { k ->
             if (UtilityMetar.metarDataList[index].obsArrAviationColor.size > k) {
+                val list: List<Double>
                 if (mercator) {
                     paint.color = UtilityMetar.metarDataList[index].obsArrAviationColor[k]
-                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(
+                    list = UtilityCanvasProjection.computeMercatorNumbers(
                         wbCircleXArr[k],
                         wbCircleYArr[k],
-                        pn
-                    )
+                        projectionNumbers
+                    ).toList()
                 } else {
                     paint.color = UtilityMetar.metarDataList[index].obsArrAviationColor[k]
-                    tmpCoords = UtilityCanvasProjection.compute4326Numbers(
+                    list = UtilityCanvasProjection.compute4326Numbers(
                         wbCircleXArr[k],
                         wbCircleYArr[k],
-                        pn
-                    )
+                        projectionNumbers
+                    ).toList()
                 }
-                pixXInit = tmpCoords[0]
-                pixYInit = tmpCoords[1]
+                pixXInit = list[0]
+                pixYInit = list[1]
                 canvas.drawCircle(pixXInit.toFloat(), pixYInit.toFloat(), 5f, paint)
             }
         }

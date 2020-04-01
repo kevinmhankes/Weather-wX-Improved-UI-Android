@@ -35,16 +35,16 @@ import java.util.*
 
 internal object WXGLNexradLevel3StormInfo {
 
-    private const val stiBaseFn = "nids_sti_tab"
+    private const val stiBaseFileName = "nids_sti_tab"
 
-    fun decodeAndPlot(context: Context, fnSuffix: String, projectionNumbers: ProjectionNumbers): List<Double> {
+    fun decodeAndPlot(context: Context, fileNameSuffix: String, projectionNumbers: ProjectionNumbers): List<Double> {
         val stormList = mutableListOf<Double>()
         val location = UtilityLocation.getSiteLocation(projectionNumbers.radarSite)
-        WXGLDownload.getNidsTab(context, "STI", projectionNumbers.radarSite.toLowerCase(Locale.US), stiBaseFn + fnSuffix)
+        WXGLDownload.getNidsTab(context, "STI", projectionNumbers.radarSite.toLowerCase(Locale.US), stiBaseFileName + fileNameSuffix)
         val posn: List<String>
         val motion: List<String>
         try {
-            val ucarRandomAccessFile = UCARRandomAccessFile(UtilityIO.getFilePath(context, stiBaseFn + fnSuffix))
+            val ucarRandomAccessFile = UCARRandomAccessFile(UtilityIO.getFilePath(context, stiBaseFileName + fileNameSuffix))
             ucarRandomAccessFile.bigEndian = true
             val data = UtilityLevel3TextProduct.read(ucarRandomAccessFile)
             posn = data.parseColumn(RegExp.stiPattern1)
