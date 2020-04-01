@@ -240,11 +240,6 @@ object UtilityCanvasMain {
                         }
                     }
                     GeographyType.HIGHWAYS_EXTENDED -> {
-                        /*if (radarHwEnhExt) {
-                    hwExtRelativeBuffer = ByteBuffer.allocateDirect(4 * countHwExt)
-                    hwExtRelativeBuffer.order(ByteOrder.nativeOrder())
-                    hwExtRelativeBuffer.position(0)
-                }*/
                         for (s in intArrayOf(6)) {
                             loadBuffer(context.resources, fileIds[s], hwExtRelativeBuffer, countArr[s])
                         }

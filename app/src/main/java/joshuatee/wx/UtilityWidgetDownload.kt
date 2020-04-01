@@ -53,8 +53,7 @@ internal object UtilityWidgetDownload {
             TEXT_WPC -> textWpc(context)
             AFD -> afd(context)
             MOSAIC_RADAR -> radarMosaic(context)
-            else -> {
-            }
+            else -> {}
         }
     }
 

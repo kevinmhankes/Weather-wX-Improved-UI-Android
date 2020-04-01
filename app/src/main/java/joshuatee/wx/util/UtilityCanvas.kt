@@ -164,7 +164,7 @@ internal object UtilityCanvas {
             canvas: Canvas,
             path: Path,
             paint: Paint,
-            mercator: Boolean,
+            isMercator: Boolean,
             projectionNumbers: ProjectionNumbers
     ) {
         var firstX: Double
@@ -179,7 +179,7 @@ internal object UtilityCanvas {
             }
             path.reset()
             if (y.isNotEmpty() && x.isNotEmpty()) {
-                val latLon = if (mercator) {
+                val latLon = if (isMercator) {
                     UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers)
                 } else {
                     UtilityCanvasProjection.compute4326Numbers(x[0], y[0], projectionNumbers)
@@ -189,7 +189,7 @@ internal object UtilityCanvas {
                 path.moveTo(firstX.toFloat(), firstY.toFloat())
                 if (x.size == y.size) {
                     (1 until x.size).forEach {
-                        val coordinates = if (mercator) {
+                        val coordinates = if (isMercator) {
                             UtilityCanvasProjection.computeMercatorNumbers(x[it], y[it], projectionNumbers)
                         } else {
                             UtilityCanvasProjection.compute4326Numbers(x[it], y[it], projectionNumbers)
@@ -209,7 +209,7 @@ internal object UtilityCanvas {
             canvas: Canvas,
             path: Path,
             paint: Paint,
-            mercator: Boolean,
+            isMercator: Boolean,
             projectionNumbers: ProjectionNumbers
     ) {
         var firstX: Double
@@ -232,7 +232,7 @@ internal object UtilityCanvas {
                 }
                 path.reset()
                 if (y.isNotEmpty() && x.isNotEmpty()) {
-                    val coordinates = if (mercator) {
+                    val coordinates = if (isMercator) {
                         UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers)
                     } else {
                         UtilityCanvasProjection.compute4326Numbers(x[0], y[0], projectionNumbers)
@@ -242,7 +242,7 @@ internal object UtilityCanvas {
                     path.moveTo(firstX.toFloat(), firstY.toFloat())
                     if (x.size == y.size) {
                         (1 until x.size).forEach {
-                            val latLon = if (mercator) {
+                            val latLon = if (isMercator) {
                                 UtilityCanvasProjection.computeMercatorNumbers(x[it], y[it], projectionNumbers)
                             } else {
                                 UtilityCanvasProjection.compute4326Numbers(x[it], y[it], projectionNumbers)

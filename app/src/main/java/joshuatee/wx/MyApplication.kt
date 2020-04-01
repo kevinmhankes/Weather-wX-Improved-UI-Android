@@ -76,21 +76,9 @@ class MyApplication : Application() {
         val res = resources
         dm = res.displayMetrics
         deviceScale = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, dm)
-        padding = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                res.getDimension(R.dimen.padding_dynamic_tv),
-                dm
-        ).toInt()
-        paddingSettings = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                res.getDimension(R.dimen.padding_dynamic_tv_settings),
-                dm
-        ).toInt()
-        paddingSmall = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                res.getDimension(R.dimen.padding_dynamic_tv_small),
-                dm
-        ).toInt()
+        padding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, res.getDimension(R.dimen.padding_dynamic_tv), dm).toInt()
+        paddingSettings = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, res.getDimension(R.dimen.padding_dynamic_tv_settings), dm).toInt()
+        paddingSmall = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, res.getDimension(R.dimen.padding_dynamic_tv_small), dm).toInt()
         // FIXME needed? dup in UIpref
         val normalTextSize = getInitialPreference("TEXTVIEW_FONT_SIZE", 16) // 14 16 21
         textSizeSmall = UtilityUI.spToPx(normalTextSize - 2, this)
@@ -339,24 +327,10 @@ class MyApplication : Application() {
             initRadarPreferences()
             UIPreferences.initPreferences(context)
             radarGeometrySetColors()
-            listOf(
-                    94,
-                    99,
-                    134,
-                    135,
-                    159,
-                    161,
-                    163,
-                    165,
-                    172
-            ).forEach {
+            listOf(94, 99, 134, 135, 159, 161, 163, 165, 172).forEach {
                 radarColorPalette[it.toString()] = getInitialPreferenceString("RADAR_COLOR_PALETTE_$it", "CODENH")
             }
-            cardCorners = TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    preferences.getInt("CARD_CORNER_RADIUS", 0).toFloat(),
-                    dm
-            )
+            cardCorners = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, preferences.getInt("CARD_CORNER_RADIUS", 0).toFloat(), dm)
             telecineVideoSizePercentage = preferencesTelecine.getInt("video-size", 100)
             telecineSwitchShowCountdown = preferencesTelecine.getBoolean("show-countdown", false)
             telecineSwitchRecordingNotification = preferencesTelecine.getBoolean("recording-notification", false)
@@ -660,12 +634,12 @@ class MyApplication : Application() {
             }
         }
 
-        private fun loadBuffer(context: Context, fileID: Int, byteBuffer: ByteBuffer, count: Int, pref: Boolean) {
-            if (pref) {
+        private fun loadBuffer(context: Context, fileID: Int, byteBuffer: ByteBuffer, count: Int, isEnabled: Boolean) {
+            if (isEnabled) {
                 try {
                     val inputStream = context.resources.openRawResource(fileID)
                     val dataInputStream = DataInputStream(BufferedInputStream(inputStream))
-                    (0 until count).forEach { _ ->
+                    for (index in 0 until count) {
                         byteBuffer.putFloat(dataInputStream.readFloat())
                     }
                     dataInputStream.close()
