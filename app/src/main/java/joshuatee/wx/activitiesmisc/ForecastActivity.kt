@@ -162,12 +162,7 @@ class ForecastActivity : BaseActivity() {
             hazardCards[z].setTextColor(UIPreferences.textHighlightColor)
             hazardCards[z].text = (objHazards.titles[z].toUpperCase(Locale.US))
             hazardCards[z].setOnClickListener(View.OnClickListener {
-                ObjectIntent(
-                        this@ForecastActivity,
-                        USAlertsDetailActivity::class.java,
-                        USAlertsDetailActivity.URL,
-                        arrayOf(objHazards.urls[z])
-                )
+                ObjectIntent(this@ForecastActivity, USAlertsDetailActivity::class.java, USAlertsDetailActivity.URL, arrayOf(objHazards.urls[z]))
             })
             linearLayoutHazards.addView(hazardCards[z].card)
         }
@@ -175,9 +170,7 @@ class ForecastActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_save -> {
-                saveLocation()
-            }
+            R.id.action_save -> saveLocation()
             else -> return super.onOptionsItemSelected(item)
         }
         return true

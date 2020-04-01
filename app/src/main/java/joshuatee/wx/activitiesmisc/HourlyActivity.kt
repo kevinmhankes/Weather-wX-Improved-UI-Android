@@ -82,21 +82,11 @@ class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        htmlShare = withContext(Dispatchers.IO) {
-            UtilityUSHourly.getString(locationNumber)
-        }
-        hourlyData = withContext(Dispatchers.IO) {
-            UtilityUSHourly.getStringForActivity(htmlShare[1])
-        }
+        htmlShare = withContext(Dispatchers.IO) { UtilityUSHourly.getString(locationNumber) }
+        hourlyData = withContext(Dispatchers.IO) { UtilityUSHourly.getStringForActivity(htmlShare[1]) }
         graphCard.visibility = View.VISIBLE
         objectCardVerticalText.setText(
-            listOf(
-                hourlyData.time,
-                hourlyData.temp,
-                hourlyData.windSpeed,
-                hourlyData.windDir,
-                hourlyData.conditions
-            )
+            listOf(hourlyData.time, hourlyData.temp, hourlyData.windSpeed, hourlyData.windDir, hourlyData.conditions)
         )
         // For ChromeOS
         //objectCardVerticalText.card.requestFocus()

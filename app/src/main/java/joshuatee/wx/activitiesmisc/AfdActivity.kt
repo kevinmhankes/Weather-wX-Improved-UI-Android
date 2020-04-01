@@ -67,7 +67,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     //
 
     companion object {
-        const val URL: String = ""
+        const val URL = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
@@ -127,14 +127,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         oldWfo = ""
         locationList = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
         objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, locationList)
-        imageMap = ObjectImageMap(
-                this,
-                this,
-                R.id.map,
-                toolbar,
-                toolbarBottom,
-                listOf<View>(objectCardText.card, scrollView)
-        )
+        imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(objectCardText.card, scrollView))
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToWfo)
     }
 
@@ -156,12 +149,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
 
     override fun onRestart() {
         if (ridFavOld != MyApplication.wfoFav) {
-            locationList = UtilityFavorites.setupMenu(
-                    this,
-                    MyApplication.wfoFav,
-                    wfo,
-                    prefToken
-            )
+            locationList = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
             objectSpinner.refreshData(this, locationList)
         }
         super.onRestart()
@@ -184,12 +172,8 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         }
         html = withContext(Dispatchers.IO) {
             when {
-                product == "CLI" -> {
-                    UtilityDownload.getTextProduct(this@AfdActivity, product + wfo + originalWfo)
-                }
-                product.startsWith("RTP") && product.length == 5 -> {
-                    UtilityDownload.getTextProduct(this@AfdActivity, product)
-                }
+                product == "CLI" -> UtilityDownload.getTextProduct(this@AfdActivity, product + wfo + originalWfo)
+                product.startsWith("RTP") && product.length == 5 -> UtilityDownload.getTextProduct(this@AfdActivity, product)
                 else -> {
                     if (version == 1) {
                         UtilityDownload.getTextProduct(this@AfdActivity, product + wfo)
@@ -216,11 +200,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         if (html == "") {
             html = "None issued by this office recently."
         }
-        if (fixedWidthProducts.contains(product) || product.startsWith("RTP")) {
-            objectCardText.setTextAndTranslate(html)
-        } else {
-            objectCardText.setTextAndTranslate(html)
-        }
+        objectCardText.setTextAndTranslate(html)
         if (fixedWidthProducts.contains(product) || product.startsWith("RTP")) {
             objectCardText.typefaceMono()
         } else {
@@ -276,10 +256,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                     this,
                     ImageShowActivity::class.java,
                     ImageShowActivity.URL,
-                    arrayOf(
-                            "https://www.weather.gov/wwamap/png/" + wfo.toLowerCase(Locale.US) + ".png",
-                            "$wfo WWA Map"
-                    )
+                    arrayOf("https://www.weather.gov/wwamap/png/" + wfo.toLowerCase(Locale.US) + ".png", "$wfo WWA Map")
             )
             R.id.action_share -> UtilityShare.shareText(
                     this,
@@ -310,23 +287,13 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         objectSpinner.refreshData(this, locationList)
     }
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
         if (locationList.isNotEmpty()) {
-            when (pos) {
-                1 -> ObjectIntent(
-                        this,
-                        FavAddActivity::class.java,
-                        FavAddActivity.TYPE,
-                        arrayOf("WFO")
-                )
-                2 -> ObjectIntent(
-                        this,
-                        FavRemoveActivity::class.java,
-                        FavRemoveActivity.TYPE,
-                        arrayOf("WFO")
-                )
+            when (position) {
+                1 -> ObjectIntent(this, FavAddActivity::class.java, FavAddActivity.TYPE, arrayOf("WFO"))
+                2 -> ObjectIntent(this, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, arrayOf("WFO"))
                 else -> {
-                    wfo = locationList[pos].split(" ").getOrNull(0) ?: ""
+                    wfo = locationList[position].split(" ").getOrNull(0) ?: ""
                     originalWfo = wfo
                     if (product.startsWith("RTP") && product.length == 5) {
                         val state = Utility.getWfoSiteName(wfo).split(",")[0]

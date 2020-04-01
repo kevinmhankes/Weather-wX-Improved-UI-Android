@@ -73,8 +73,7 @@ internal class SevereWarning(private val type: PolygonType) {
             PolygonType.TOR -> label = "Tornado Warnings"
             PolygonType.TST -> label = "Severe Thunderstorm Warnings"
             PolygonType.FFW -> label = "Flash Flood Warnings"
-            else -> {
-            }
+            else -> {}
         }
         warnings = html.parseColumn(RegExp.warningVtecPattern)
         warnings.forEach {
