@@ -64,13 +64,7 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         title = titleString
         updateButton()
         siteDisplay = false
-        objectRecyclerView = ObjectRecyclerView(
-                this,
-                this,
-                R.id.card_list,
-                GlobalArrays.states.toMutableList(),
-                ::itemClicked
-        )
+        objectRecyclerView = ObjectRecyclerView(this, this, R.id.card_list, GlobalArrays.states.toMutableList(), ::itemClicked)
     }
 
     private fun updateButton() {
@@ -102,10 +96,7 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
                 this@NwsObsSitesActivity,
                 WebView::class.java,
                 WebView.URL,
-                arrayOf(
-                        "https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=$obsSite",
-                        obsSite
-                )
+                arrayOf("https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=$obsSite", obsSite)
         )
     }
 
@@ -116,15 +107,17 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     private fun getContent() {
         val text = UtilityIO.readTextFileFromRaw(resources, R.raw.stations_us4)
         val lines = text.split("\n")
-        listOf(listCity, listIds, listSort).forEach { it.clear() }
+        listOf(listCity, listIds, listSort).forEach {
+            it.clear()
+        }
         listCity.add("..Back to state list")
         listIds.add("..Back to state list")
         lines.filterTo(listSort) { it.startsWith(provSelected.toUpperCase(Locale.US)) }
         listSort.sort()
         listSort.forEach {
-            val tmpArr = it.split(",")
-            listCity.add(tmpArr[2] + ": " + tmpArr[1])
-            listIds.add(tmpArr[2])
+            val items = it.split(",")
+            listCity.add(items[2] + ": " + items[1])
+            listIds.add(items[2])
         }
         objectRecyclerView.refreshList(listCity)
         siteDisplay = true
@@ -135,12 +128,7 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
             R.id.action_lastused -> showObsSite(Utility.readPref(this, prefToken, ""))
             R.id.action_map -> {
                 val url = "https://www.wrh.noaa.gov/map/?obs=true&wfo=" + Location.wfo.toLowerCase(Locale.US)
-                ObjectIntent(
-                        this,
-                        WebView::class.java,
-                        WebView.URL,
-                        arrayOf(url, "Observations near " + Location.wfo)
-                )
+                ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf(url, "Observations near " + Location.wfo))
             }
             else -> return super.onOptionsItemSelected(item)
         }
