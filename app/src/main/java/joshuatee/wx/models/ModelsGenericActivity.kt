@@ -340,13 +340,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
             }
             else -> {
                 (om.startStep..om.endStep step om.stepAmount).forEach {
-                    om.spTime.list.add(
-                            String.format(
-                                    Locale.US,
-                                    om.format,
-                                    it
-                            )
-                    )
+                    om.spTime.list.add(String.format(Locale.US, om.format, it))
                 }
             }
         }
@@ -372,7 +366,9 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 spRun.add("15Z")
                 spRun.add("21Z")
             }
-            24 -> (0..23).forEach { spRun.add(String.format(Locale.US, "%02d", it) + "Z") }
+            24 -> (0..23).forEach {
+                spRun.add(String.format(Locale.US, "%02d", it) + "Z")
+            }
         }
         spRun.notifyDataSetChanged()
     }
