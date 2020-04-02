@@ -128,18 +128,9 @@ class SevereDashboardActivity : BaseActivity() {
                 val objectLinearLayout = ObjectLinearLayout(this@SevereDashboardActivity, linearLayout)
                 objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
                 horizontalLinearLayouts.add(objectLinearLayout)
-                card = ObjectCardImage(
-                        this@SevereDashboardActivity,
-                        objectLinearLayout.linearLayout,
-                        bitmaps[it],
-                        imagesPerRow
-                )
+                card = ObjectCardImage(this@SevereDashboardActivity, objectLinearLayout.linearLayout, bitmaps[it], imagesPerRow)
             } else {
-                card = ObjectCardImage(
-                        this@SevereDashboardActivity,
-                        horizontalLinearLayouts.last().linearLayout,
-                        bitmaps[it],
-                        imagesPerRow)
+                card = ObjectCardImage(this@SevereDashboardActivity, horizontalLinearLayouts.last().linearLayout, bitmaps[it], imagesPerRow)
             }
             if (it == 0) {
                 card.setOnClickListener(View.OnClickListener {
@@ -147,20 +138,12 @@ class SevereDashboardActivity : BaseActivity() {
                             this@SevereDashboardActivity,
                             USWarningsWithRadarActivity::class.java,
                             USWarningsWithRadarActivity.URL,
-                            arrayOf(
-                                    ".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?",
-                                    "us"
-                            )
+                            arrayOf(".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?", "us")
                     )
                 })
             } else {
                 card.setOnClickListener(View.OnClickListener {
-                    ObjectIntent(
-                            this@SevereDashboardActivity,
-                            SpcStormReportsActivity::class.java,
-                            SpcStormReportsActivity.NO,
-                            arrayOf("today")
-                    )
+                    ObjectIntent(this@SevereDashboardActivity, SpcStormReportsActivity::class.java, SpcStormReportsActivity.NO, arrayOf("today"))
                 })
             }
             numberOfImages += 1
@@ -174,31 +157,32 @@ class SevereDashboardActivity : BaseActivity() {
         bitmaps.addAll(bitmaps)
         listOfWfoForWarnings = mutableListOf()
         var numberOfWarnings = 0
-        listOf(wTor, wTst, wFfw).forEach { warn ->
-            if (warn.count > 0) {
-                ObjectCardBlackHeaderText(this@SevereDashboardActivity, linearLayout, "(" + warn.count + ") " + warn.getName())
-                warn.effectiveList.forEachIndexed { index, _ ->
-                    val data = warn.warnings[index]
+        listOf(wTor, wTst, wFfw).forEach { severeWarning ->
+            if (severeWarning.count > 0) {
+                ObjectCardBlackHeaderText(this@SevereDashboardActivity, linearLayout, "(" + severeWarning.count + ") " + severeWarning.getName())
+                severeWarning.effectiveList.forEachIndexed { index, _ ->
+                    val data = severeWarning.warnings[index]
                     if (!data.startsWith("O.EXP")) {
+                        // FIXME send object not items in object
                         val objectCardDashAlertItem = ObjectCardDashAlertItem(
                                 this@SevereDashboardActivity,
                                 linearLayout,
-                                warn.senderNameList[index],
-                                warn.eventList[index],
-                                warn.effectiveList[index],
-                                warn.expiresList[index],
-                                warn.areaDescList[index]
+                                severeWarning.senderNameList[index],
+                                severeWarning.eventList[index],
+                                severeWarning.effectiveList[index],
+                                severeWarning.expiresList[index],
+                                severeWarning.areaDescList[index]
                         )
                         objectCardDashAlertItem.setListener(View.OnClickListener {
-                            showWarningDetails(warn.idList[index])
+                            showWarningDetails(severeWarning.idList[index])
                         })
                         objectCardDashAlertItem.radarButton.setOnClickListener(View.OnClickListener {
                             radarInterface(index)
                         })
                         objectCardDashAlertItem.detailsButton.setOnClickListener(View.OnClickListener {
-                            showWarningDetails(warn.idList[index])
+                            showWarningDetails(severeWarning.idList[index])
                         })
-                        listOfWfoForWarnings.add(warn.listOfWfo[index])
+                        listOfWfoForWarnings.add(severeWarning.listOfWfo[index])
                         objectCardDashAlertItem.setId(numberOfWarnings)
                         numberOfWarnings += 1
                         registerForContextMenu(objectCardDashAlertItem.card)
@@ -244,28 +228,14 @@ class SevereDashboardActivity : BaseActivity() {
                             val objectLinearLayout = ObjectLinearLayout(this@SevereDashboardActivity, linearLayout)
                             objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
                             horizontalLinearLayouts.add(objectLinearLayout)
-                            card = ObjectCardImage(
-                                    this@SevereDashboardActivity,
-                                    objectLinearLayout.linearLayout,
-                                    severeNotice.bitmaps[j],
-                                    imagesPerRow
-                            )
+                            card = ObjectCardImage(this@SevereDashboardActivity, objectLinearLayout.linearLayout, severeNotice.bitmaps[j], imagesPerRow)
                         } else {
-                            card = ObjectCardImage(
-                                    this@SevereDashboardActivity,
-                                    horizontalLinearLayouts.last().linearLayout,
-                                    severeNotice.bitmaps[j],
-                                    imagesPerRow
+                            card = ObjectCardImage(this@SevereDashboardActivity, horizontalLinearLayouts.last().linearLayout, severeNotice.bitmaps[j], imagesPerRow
                             )
                         }
                         val number = severeNotice.numbers[j]
                         card.setOnClickListener(View.OnClickListener {
-                            ObjectIntent(
-                                    this@SevereDashboardActivity,
-                                    SpcMcdWatchShowActivity::class.java,
-                                    SpcMcdWatchShowActivity.NUMBER,
-                                    arrayOf(number, "", severeNotice.toString())
-                            )
+                            ObjectIntent(this@SevereDashboardActivity, SpcMcdWatchShowActivity::class.java, SpcMcdWatchShowActivity.NUMBER, arrayOf(number, "", severeNotice.toString()))
                         })
                         numberOfImages += 1
                     }
