@@ -43,11 +43,9 @@ import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.MyApplication
 import joshuatee.wx.external.UtilityStringExternal
-import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.radar.WXGLNexrad
 import joshuatee.wx.radar.LatLon
-import joshuatee.wx.activitiesmisc.WebView
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.settings.Location
@@ -319,21 +317,10 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             return true
         }
         when (item.itemId) {
-            R.id.action_share_all -> UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    "Storm Reports - $no",
-                    bitmap,
-                    out.toString()
-            )
+            R.id.action_share_all -> UtilityShare.shareBitmap(this, this, "Storm Reports - $no", bitmap, out.toString())
             R.id.action_share_text -> UtilityShare.shareText(this, "Storm Reports - $no", out.toString())
             R.id.action_share_image -> UtilityShare.shareBitmap(this, this, "Storm Reports - $no", bitmap)
-            R.id.action_lsrbywfo -> ObjectIntent(
-                    this,
-                    LsrByWfoActivity::class.java,
-                    LsrByWfoActivity.URL,
-                    arrayOf(Location.wfo, "LSR")
-            )
+            R.id.action_lsrbywfo -> ObjectIntent(this, LsrByWfoActivity::class.java, LsrByWfoActivity.URL, arrayOf(Location.wfo, "LSR"))
             else -> return super.onOptionsItemSelected(item)
         }
         return true
