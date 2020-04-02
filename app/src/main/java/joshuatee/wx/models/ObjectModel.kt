@@ -171,12 +171,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
             ModelType.NCEP -> UtilityModelNcepInputOutput.getImage(this, time)
             ModelType.SPCSREF -> UtilityModelSpcSrefInputOutput.getImage(context, this, time)
             ModelType.SPCHREF -> UtilityModelSpcHrefInputOutput.getImage(context, this, time)
-            ModelType.SPCHRRR -> UtilityModelSpcHrrrInputOutput.getImage(
-                    context,
-                    this,
-                    time,
-                    overlayImg
-            )
+            ModelType.SPCHRRR -> UtilityModelSpcHrrrInputOutput.getImage(context, this, time, overlayImg)
         }
     }
 
@@ -191,11 +186,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
             ModelType.NCEP -> UtilityModelNcepInputOutput.getAnimation(context, this)
             ModelType.SPCSREF -> UtilityModelSpcSrefInputOutput.getAnimation(context, this)
             ModelType.SPCHREF -> UtilityModelSpcHrefInputOutput.getAnimation(context, this)
-            ModelType.SPCHRRR -> UtilityModelSpcHrrrInputOutput.getAnimation(
-                    context,
-                    this,
-                    overlayImg
-            )
+            ModelType.SPCHRRR -> UtilityModelSpcHrrrInputOutput.getAnimation(context, this, overlayImg)
         }
     }
 
@@ -204,11 +195,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
             ModelType.WPCGEFS -> UtilityModelWpcGefsInputOutput.runTime
             ModelType.ESRL -> UtilityModelEsrlInputOutput.getRunTime(model, displayData.param[0])
             ModelType.NSSL -> UtilityModelNsslWrfInputOutput.runTime
-            ModelType.NCEP -> UtilityModelNcepInputOutput.getRunTime(
-                    model,
-                    displayData.param[0],
-                    sector
-            )
+            ModelType.NCEP -> UtilityModelNcepInputOutput.getRunTime(model, displayData.param[0], sector)
             ModelType.SPCSREF -> UtilityModelSpcSrefInputOutput.runTime
             ModelType.SPCHREF -> UtilityModelSpcHrefInputOutput.runTime
             ModelType.SPCHRRR -> UtilityModelSpcHrrrInputOutput.runTime
@@ -549,8 +536,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                     }
                 }
             }
-            else -> {
-            }
+            else -> {}
         }
     }
 }
