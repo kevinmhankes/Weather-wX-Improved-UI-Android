@@ -107,14 +107,14 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private var inOglAnim = false
     private var inOglAnimPaused = false
     private var oglInView = true
-    private var oglrArr = mutableListOf<WXGLRender>()
-    private var glviewArr = mutableListOf<WXGLSurfaceView>()
+    private var wxglRenders = mutableListOf<WXGLRender>()
+    private var wxglSurfaceViews = mutableListOf<WXGLSurfaceView>()
     private var restarted = false
     private var tiltOption = true
-    private lateinit var glview: WXGLSurfaceView
+    private lateinit var wxglSurfaceView: WXGLSurfaceView
     private var tilt = "0"
     private var radarSitesForFavorites = listOf<String>()
-    private lateinit var imageMap: ObjectImageMap
+    private lateinit var objectImageMap: ObjectImageMap
     private var mapShown = false
     private lateinit var starButton: MenuItem
     private lateinit var animateButton: MenuItem
@@ -135,7 +135,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private var lonD = 0.0
     private var locationManager: LocationManager? = null
     private var animTriggerDownloads = false
-    private val alertDialogStatusAl = mutableListOf<String>()
+    private val dialogStatusList = mutableListOf<String>()
     private var legendShown = false
     private val numberOfPanes = 1
     private var paneList = listOf<Int>()
@@ -218,20 +218,20 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         delay = UtilityImg.animInterval(this)
         img = findViewById(R.id.iv)
         img.maxZoom = 6.0f
-        glview = WXGLSurfaceView(this, 1, numberOfPanes, 1)
-        imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf(img, glview))
-        imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToRid)
+        wxglSurfaceView = WXGLSurfaceView(this, 1, numberOfPanes, 1)
+        objectImageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf(img, wxglSurfaceView))
+        objectImageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToRid)
         rl = findViewById(R.id.rl)
-        rl.addView(glview)
+        rl.addView(wxglSurfaceView)
         val relativeLayouts = arrayOf(rl)
         oglr = WXGLRender(this, 0)
-        oglrArr.add(oglr)
-        glviewArr.add(glview)
+        wxglRenders.add(oglr)
+        wxglSurfaceViews.add(wxglSurfaceView)
         UtilityRadarUI.initGlView(
-                glview,
-                glviewArr,
+                wxglSurfaceView,
+                wxglSurfaceViews,
                 oglr,
-                oglrArr,
+                wxglRenders,
                 this,
                 toolbar,
                 toolbarBottom,
@@ -256,12 +256,12 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             }
         }
         paneList.forEach {
-            wxglTextObjects.add(WXGLTextObject(this, relativeLayouts[it], glviewArr[it], oglrArr[it], numberOfPanes, it))
-            glviewArr[it].wxglTextObjects = wxglTextObjects
+            wxglTextObjects.add(WXGLTextObject(this, relativeLayouts[it], wxglSurfaceViews[it], wxglRenders[it], numberOfPanes, it))
+            wxglSurfaceViews[it].wxglTextObjects = wxglTextObjects
             wxglTextObjects[it].initializeTextLabels(this)
         }
         if (MyApplication.wxoglRememberLocation && !archiveMode && !fixedSite) {
-            glview.scaleFactor = MyApplication.wxoglZoom
+            wxglSurfaceView.scaleFactor = MyApplication.wxoglZoom
             if (MyApplication.wxoglRid != "") {
                 oglr.rid = MyApplication.wxoglRid
             }
@@ -308,14 +308,14 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         restarted = true
         restartedZoom = true
         paneList.forEach {
-            if (imageMap.map.visibility == View.GONE) {
+            if (objectImageMap.map.visibility == View.GONE) {
                 wxglTextObjects[it].initializeTextLabels(this)
                 wxglTextObjects[it].addTextLabels()
             }
         }
         // if the top toolbar is not showing then neither are showing and the only restart
         // is from an app switch or resume from sleep, therefore get content directly
-        if (glview.toolbarsHidden) {
+        if (wxglSurfaceView.toolbarsHidden) {
             getContent()
         } else {
             radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, oglr.rid, prefToken)
@@ -392,15 +392,15 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             toolbar.subtitle = ""
             if (!oglr.product.startsWith("2")) {
                 UtilityRadarUI.initWxOglGeom(
-                        glview,
+                        wxglSurfaceView,
                         oglr,
                         0,
                         oldRidArr,
-                        oglrArr,
+                        wxglRenders,
                         wxglTextObjects,
                         paneList,
-                        imageMap,
-                        glviewArr,
+                        objectImageMap,
+                        wxglSurfaceViews,
                         ::getGPSFromDouble,
                         ::getLatLon,
                         archiveMode
@@ -419,7 +419,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             }
             if (!oglInView) {
                 img.visibility = View.GONE
-                glview.visibility = View.VISIBLE
+                wxglSurfaceView.visibility = View.VISIBLE
                 oglInView = true
             }
             if (ridChanged && !restartedZoom) {
@@ -435,7 +435,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && !archiveMode) {
                 UtilityWXGLTextObject.updateObs(numberOfPanes, wxglTextObjects)
             }
-            glview.requestRender()
+            wxglSurfaceView.requestRender()
             if (legendShown && oglr.product != oldProd && oglr.product != "DSA" && oglr.product != "DAA") {
                 updateLegend()
             }
@@ -453,7 +453,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 UtilityDownloadWarnings.get(this@WXGLRadarActivity)
             }
             if (!oglr.product.startsWith("2")) {
-                UtilityRadarUI.plotWarningPolygons(glview, oglr, archiveMode)
+                UtilityRadarUI.plotWarningPolygons(wxglSurfaceView, oglr, archiveMode)
             }
             // FIXME move to method
             val tstCount = UtilityVtec.getStormCount(MyApplication.severeDashboardTst.value)
@@ -468,7 +468,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     UtilityDownloadWatch.get(this@WXGLRadarActivity)
                 }
                 if (!oglr.product.startsWith("2")) {
-                    UtilityRadarUI.plotMcdWatchPolygons(glview, oglr, archiveMode)
+                    UtilityRadarUI.plotMcdWatchPolygons(wxglSurfaceView, oglr, archiveMode)
                 }
             }
             if (PolygonType.MPD.pref && !archiveMode) {
@@ -476,7 +476,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     UtilityDownloadMpd.get(this@WXGLRadarActivity)
                 }
                 if (!oglr.product.startsWith("2")) {
-                    UtilityRadarUI.plotMpdPolygons(glview, oglr, archiveMode)
+                    UtilityRadarUI.plotMpdPolygons(wxglSurfaceView, oglr, archiveMode)
                 }
             }
             if (MyApplication.radarShowWpcFronts && !archiveMode) {
@@ -484,7 +484,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     UtilityWpcFronts.get(this@WXGLRadarActivity)
                 }
                 if (!oglr.product.startsWith("2")) {
-                    UtilityRadarUI.plotWpcFronts(glview, oglr, archiveMode)
+                    UtilityRadarUI.plotWpcFronts(wxglSurfaceView, oglr, archiveMode)
                 }
                 UtilityWXGLTextObject.updateWpcFronts(numberOfPanes, wxglTextObjects)
             }
@@ -496,7 +496,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
         if (!oglInView) {
             img.visibility = View.GONE
-            glview.visibility = View.VISIBLE
+            wxglSurfaceView.visibility = View.VISIBLE
             oglInView = true
         }
         inOglAnim = true
@@ -550,7 +550,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     launch(uiDispatcher) {
                         progressUpdate((r + 1).toString(), animArray.size.toString())
                     }
-                    glview.requestRender()
+                    wxglSurfaceView.requestRender()
                     timeMilli = UtilityTime.currentTimeMillis()
                     if ((timeMilli - priorTime) < delay)
                         SystemClock.sleep(delay - ((timeMilli - priorTime)))
@@ -779,7 +779,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                     if (!restarted && !(MyApplication.wxoglRememberLocation && firstRun)) {
                         img.resetZoom()
                         img.setZoom(1.0f)
-                        glview.scaleFactor = MyApplication.wxoglSize / 10.0f
+                        wxglSurfaceView.scaleFactor = MyApplication.wxoglSize / 10.0f
                         oglr.setViewInitial(MyApplication.wxoglSize / 10.0f, 0.0f, 0.0f)
                     }
                     restarted = false
@@ -825,11 +825,11 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         override fun onProgressChanged(progress: Int, idx: Int, idxInt: Int) {
             if (progress != 50000) {
                 UtilityRadarUI.addItemsToLongPress(
-                        alertDialogStatusAl,
+                        dialogStatusList,
                         locXCurrent,
                         locYCurrent,
                         this@WXGLRadarActivity,
-                        glview,
+                        wxglSurfaceView,
                         oglr,
                         alertDialogRadarLongPress!!
                 )
@@ -870,13 +870,13 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     override fun onPause() {
         mHandler?.let { stopRepeatingTask() }
-        glview.onPause()
+        wxglSurfaceView.onPause()
         super.onPause()
     }
 
     override fun onResume() {
         checkForAutoRefresh()
-        glview.onResume()
+        wxglSurfaceView.onResume()
         super.onResume()
     }
 
@@ -899,7 +899,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         lonD = location.longitude
         getGPSFromDouble()
         oglr.constructLocationDot(locXCurrent, locYCurrent, archiveMode)
-        glview.requestRender()
+        wxglSurfaceView.requestRender()
     }
 
     private fun getGPSFromDouble() {
@@ -910,18 +910,18 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private fun getLatLon() = LatLon(locXCurrent, locYCurrent)
 
     private fun setupAlertDialogRadarLongPress() {
-        alertDialogRadarLongPress = ObjectDialogue(this@WXGLRadarActivity, alertDialogStatusAl)
+        alertDialogRadarLongPress = ObjectDialogue(this@WXGLRadarActivity, dialogStatusList)
         alertDialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(this@WXGLRadarActivity)
         })
         alertDialogRadarLongPress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            val strName = alertDialogStatusAl[which]
+            val strName = dialogStatusList[which]
             UtilityRadarUI.doLongPressAction(
                     strName,
                     this@WXGLRadarActivity,
                     this@WXGLRadarActivity,
-                    glview,
+                    wxglSurfaceView,
                     oglr,
                     uiDispatcher,
                     ::longPressRadarSiteSwitch
@@ -1062,8 +1062,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun showMap() {
-        imageMap.toggleMap()
-        if (imageMap.map.visibility != View.GONE) {
+        objectImageMap.toggleMap()
+        if (objectImageMap.map.visibility != View.GONE) {
             UtilityWXGLTextObject.hideTV(numberOfPanes, wxglTextObjects)
         } else {
             UtilityWXGLTextObject.showTV(numberOfPanes, wxglTextObjects)
@@ -1153,26 +1153,26 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             }
             KeyEvent.KEYCODE_DPAD_UP -> {
                 if (event.isCtrlPressed) {
-                    glview.zoomOutByKey()
+                    wxglSurfaceView.zoomOutByKey()
                 } else {
-                    glview.onScrollByKeyboard(0.0f, -20.0f)
+                    wxglSurfaceView.onScrollByKeyboard(0.0f, -20.0f)
                 }
                 return true
             }
             KeyEvent.KEYCODE_DPAD_DOWN -> {
                 if (event.isCtrlPressed) {
-                    glview.zoomInByKey()
+                    wxglSurfaceView.zoomInByKey()
                 } else {
-                    glview.onScrollByKeyboard(0.0f, 20.0f)
+                    wxglSurfaceView.onScrollByKeyboard(0.0f, 20.0f)
                 }
                 return true
             }
             KeyEvent.KEYCODE_DPAD_LEFT -> {
-                glview.onScrollByKeyboard(-20.0f, 0.0f)
+                wxglSurfaceView.onScrollByKeyboard(-20.0f, 0.0f)
                 return true
             }
             KeyEvent.KEYCODE_DPAD_RIGHT -> {
-                glview.onScrollByKeyboard(20.0f, 0.0f)
+                wxglSurfaceView.onScrollByKeyboard(20.0f, 0.0f)
                 return true
             }
             else -> return super.onKeyUp(keyCode, event)
