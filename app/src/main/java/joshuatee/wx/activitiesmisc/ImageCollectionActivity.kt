@@ -66,15 +66,7 @@ class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLi
         actionAnimate.isVisible = false
         title = imageCollection.title
         drw = ObjectNavDrawer(this, imageCollection.labels, imageCollection.urls)
-        img = ObjectTouchImageView(
-                this,
-                this,
-                toolbar,
-                toolbarBottom,
-                R.id.iv,
-                drw,
-                imageCollection.prefTokenIdx
-        )
+        img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, drw, imageCollection.prefTokenIdx)
         img.setListener(this, drw, ::getContentFixThis)
         drw.index = Utility.readPref(this, imageCollection.prefTokenIdx, 0)
         drw.setListener(::getContentFixThis)

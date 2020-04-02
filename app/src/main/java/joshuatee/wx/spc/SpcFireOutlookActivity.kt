@@ -97,7 +97,7 @@ class SpcFireOutlookActivity : AudioPlayActivity(), OnMenuItemClickListener {
             objectCardImage.setImage(bitmap)
         }
         objectCardImage.setOnClickListener(View.OnClickListener {
-            ObjectIntent(this@SpcFireOutlookActivity, ImageShowActivity::class.java, ImageShowActivity.URL, arrayOf(imageUrl, textProduct, "true"))
+            ObjectIntent.showImage(this@SpcFireOutlookActivity, arrayOf(imageUrl, textProduct, "true"))
         })
         UtilityTts.conditionalPlay(activityArguments, 1, applicationContext, objectCardText.text, textProduct)
     }

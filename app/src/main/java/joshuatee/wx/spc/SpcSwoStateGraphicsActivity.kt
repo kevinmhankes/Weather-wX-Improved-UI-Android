@@ -88,12 +88,7 @@ class SpcSwoStateGraphicsActivity : VideoRecordActivity(), OnItemSelectedListene
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    "$state SWO D$day",
-                    bitmap
-            )
+            R.id.action_share -> UtilityShare.shareBitmap(this, this, "$state SWO D$day", bitmap)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

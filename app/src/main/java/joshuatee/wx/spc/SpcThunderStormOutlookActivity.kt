@@ -74,12 +74,7 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
         val objectImageSummary = ObjectImageSummary(this@SpcThunderStormOutlookActivity, linearLayout, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
             objectCardImage.setOnClickListener(View.OnClickListener {
-                ObjectIntent(
-                        this@SpcThunderStormOutlookActivity,
-                        ImageShowActivity::class.java,
-                        ImageShowActivity.URL,
-                        arrayOf(urls[index], "")
-                )
+                ObjectIntent.showImage(this@SpcThunderStormOutlookActivity, arrayOf(urls[index], ""))
             })
         }
     }

@@ -31,7 +31,6 @@ import android.view.ContextMenu.ContextMenuInfo
 import android.widget.LinearLayout
 
 import joshuatee.wx.R
-import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.objects.ObjectIntent
@@ -103,12 +102,7 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
             objectCardImage.setImage(objectWatchProduct.bitmap)
         }
         objectCardImage.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                    this@SpcMcdWatchShowActivity,
-                    ImageShowActivity::class.java,
-                    ImageShowActivity.URL,
-                    arrayOf(objectWatchProduct.imgUrl, objectWatchProduct.title, "true")
-            )
+            ObjectIntent.showImage(this@SpcMcdWatchShowActivity, arrayOf(objectWatchProduct.imgUrl, objectWatchProduct.title, "true"))
         })
         registerForContextMenu(objectCardImage.img)
         UtilityTts.conditionalPlay(activityArguments, 1, applicationContext, objectWatchProduct.text, objectWatchProduct.prod)
@@ -134,13 +128,7 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
             return true
         }
         when (item.itemId) {
-            R.id.action_share_all -> UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    objectWatchProduct.title,
-                    objectWatchProduct.bitmap,
-                    Utility.fromHtml(objectWatchProduct.text)
-            )
+            R.id.action_share_all -> UtilityShare.shareBitmap(this, this, objectWatchProduct.title, objectWatchProduct.bitmap, Utility.fromHtml(objectWatchProduct.text))
             R.id.action_share_text -> UtilityShare.shareText(this, objectWatchProduct.title, Utility.fromHtml(objectWatchProduct.text))
             R.id.action_share_url -> UtilityShare.shareText(this, objectWatchProduct.title, objectWatchProduct.textUrl)
             R.id.action_share_image -> UtilityShare.shareBitmap(this, this, objectWatchProduct.title, objectWatchProduct.bitmap)

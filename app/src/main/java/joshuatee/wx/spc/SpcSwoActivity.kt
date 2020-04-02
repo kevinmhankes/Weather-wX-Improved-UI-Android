@@ -40,7 +40,6 @@ import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityShare
 
 import joshuatee.wx.Extensions.*
-import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectLinearLayout
 import joshuatee.wx.ui.UtilityUI
@@ -79,7 +78,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
         toolbarBottom.setOnMenuItemClickListener(this)
         var numberOfImages = 0
-        val horizontalLinearLayouts: MutableList<ObjectLinearLayout> = mutableListOf()
+        val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout>()
         (0..4).forEach { _ ->
             if (numberOfImages % imagesPerRow == 0) {
                 val objectLinearLayout = ObjectLinearLayout(this, linearLayout)
@@ -140,7 +139,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         var textUrl = "SWODY$day"
-        var urls: List<String> = listOf("")
+        var urls = listOf("")
         if (day == "4-8") {
             textUrl = "SWOD48"
         }
@@ -178,12 +177,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun showImageProduct(imageUrl: String, title: String) {
-        ObjectIntent(
-                this,
-                ImageShowActivity::class.java,
-                ImageShowActivity.URL,
-                arrayOf(imageUrl, title)
-        )
+        ObjectIntent.showImage(this, arrayOf(imageUrl, title))
     }
 
     private fun setImageAndClickAction(index: Int, urls: List<String>, textUrl: String) {
@@ -272,12 +266,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     "Day " + "8" + " Convective Outlook - Image",
                     bitmaps[4]
             )
-            R.id.action_state_graphics -> ObjectIntent(
-                    this,
-                    SpcSwoStateGraphicsActivity::class.java,
-                    SpcSwoStateGraphicsActivity.NO,
-                    arrayOf(day, "")
-            )
+            R.id.action_state_graphics -> ObjectIntent(this, SpcSwoStateGraphicsActivity::class.java, SpcSwoStateGraphicsActivity.NO, arrayOf(day, ""))
             else -> return super.onOptionsItemSelected(item)
         }
         return true

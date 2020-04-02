@@ -79,12 +79,7 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
                 "4-8"
             }
             objectCardImage.setOnClickListener(View.OnClickListener {
-                ObjectIntent(
-                        this@SpcSwoSummaryActivity,
-                        SpcSwoActivity::class.java,
-                        SpcSwoActivity.NUMBER,
-                        arrayOf(day, "")
-                )
+                ObjectIntent(this@SpcSwoSummaryActivity, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf(day, ""))
             })
         }
     }

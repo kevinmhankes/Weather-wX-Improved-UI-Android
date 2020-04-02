@@ -92,12 +92,7 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     private fun showObsSite(obsSite: String) {
         Utility.writePref(prefToken, obsSite)
         updateButton()
-        ObjectIntent(
-                this@NwsObsSitesActivity,
-                WebView::class.java,
-                WebView.URL,
-                arrayOf("https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=$obsSite", obsSite)
-        )
+        ObjectIntent.showWebView(this@NwsObsSitesActivity, arrayOf("https://www.wrh.noaa.gov/mesowest/timeseries.php?sid=$obsSite", obsSite))
     }
 
     private fun stateSelected() {
@@ -128,7 +123,7 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
             R.id.action_lastused -> showObsSite(Utility.readPref(this, prefToken, ""))
             R.id.action_map -> {
                 val url = "https://www.wrh.noaa.gov/map/?obs=true&wfo=" + Location.wfo.toLowerCase(Locale.US)
-                ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf(url, "Observations near " + Location.wfo))
+                ObjectIntent.showWebView(this, arrayOf(url, "Observations near " + Location.wfo))
             }
             else -> return super.onOptionsItemSelected(item)
         }

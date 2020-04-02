@@ -24,6 +24,7 @@ package joshuatee.wx.objects
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.activitiesmisc.WebView
 import joshuatee.wx.radar.WXGLRadarActivity
 
@@ -72,6 +73,10 @@ class ObjectIntent() {
 
         fun showRadar(context: Context, array: Array<String>) {
             ObjectIntent(context, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, array)
+        }
+
+        fun showImage(context: Context, array: Array<String>) {
+            ObjectIntent(context, ImageShowActivity::class.java, ImageShowActivity.URL, array)
         }
     }
 }
