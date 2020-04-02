@@ -85,29 +85,13 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         }
         toolbarBottom.setOnMenuItemClickListener(this)
         title = activityArguments[2]
-        overlayImg.addAll(
-                listOf(*TextUtils.split(
-                                Utility.readPref(
-                                        this,
-                                        "SPCHRRR_OVERLAY",
-                                        ""
-                                ), ":"
-                        ))
-        )
+        overlayImg.addAll(listOf(*TextUtils.split(Utility.readPref(this, "SPCHRRR_OVERLAY", ""), ":")))
         val menu = toolbarBottom.menu
         miStatusParam1 = menu.findItem(R.id.action_status_param1)
         miStatusParam2 = menu.findItem(R.id.action_status_param2)
         if (om.numPanes < 2) {
-            fab1 = ObjectFab(
-                    this,
-                    this,
-                    R.id.fab1,
-                    View.OnClickListener { UtilityModels.moveBack(om.spTime) })
-            fab2 = ObjectFab(
-                    this,
-                    this,
-                    R.id.fab2,
-                    View.OnClickListener { UtilityModels.moveForward(om.spTime) })
+            fab1 = ObjectFab(this, this, R.id.fab1, View.OnClickListener { UtilityModels.moveBack(om.spTime) })
+            fab2 = ObjectFab(this, this, R.id.fab2, View.OnClickListener { UtilityModels.moveForward(om.spTime) })
             menu.findItem(R.id.action_img1).isVisible = false
             menu.findItem(R.id.action_img2).isVisible = false
             if (UIPreferences.fabInModels) {
@@ -125,20 +109,9 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         om.spTime = ObjectSpinner(this, this, this, R.id.spinner_time)
         om.displayData = DisplayData(this, this, om.numPanes, om.spTime)
         spRun = ObjectSpinner(this, this, this, R.id.spinner_run)
-        spSector = ObjectSpinner(
-                this,
-                this,
-                this,
-                R.id.spinner_sector,
-                UtilityModelSpcHrrrInterface.sectors,
-                om.sector
-        )
+        spSector = ObjectSpinner(this, this, this, R.id.spinner_sector, UtilityModelSpcHrrrInterface.sectors, om.sector)
         ObjectSpinner(this, this, this, R.id.spinner_model, om.models, om.model)
-        drw = ObjectNavDrawer(
-                this,
-                UtilityModelSpcHrrrInterface.labels,
-                UtilityModelSpcHrrrInterface.params
-        )
+        drw = ObjectNavDrawer(this, UtilityModelSpcHrrrInterface.labels, UtilityModelSpcHrrrInterface.params)
         om.setUIElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2, spRun, spSector)
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             drw.listView.setItemChecked(position, false)
@@ -209,12 +182,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
                 overlayImg.clear()
                 UtilityModels.getContent(this, om, overlayImg, uiDispatcher)
             }
-            R.id.action_multipane -> ObjectIntent(
-                    this,
-                    ModelsSpcHrrrActivity::class.java,
-                    INFO,
-                    arrayOf("2", activityArguments[1], activityArguments[2])
-            )
+            R.id.action_multipane -> ObjectIntent(this, ModelsSpcHrrrActivity::class.java, INFO, arrayOf("2", activityArguments[1], activityArguments[2]))
             R.id.action_back -> UtilityModels.moveBack(om.spTime)
             R.id.action_forward -> UtilityModels.moveForward(om.spTime)
             R.id.action_animate -> UtilityModels.getAnimate(om, overlayImg, uiDispatcher)
@@ -258,14 +226,9 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     private fun setupModel() {
         (0 until om.numPanes).forEach {
             om.displayData.param[it] = om.params[0]
-            om.displayData.param[it] =
-                    Utility.readPref(this, om.prefParam + it.toString(), om.displayData.param[it])
+            om.displayData.param[it] = Utility.readPref(this, om.prefParam + it.toString(), om.displayData.param[it])
             om.displayData.paramLabel[it] = om.labels[0]
-            om.displayData.paramLabel[it] = Utility.readPref(
-                    this,
-                    om.prefParamLabel + it.toString(),
-                    om.displayData.paramLabel[it]
-            )
+            om.displayData.paramLabel[it] = Utility.readPref(this, om.prefParamLabel + it.toString(), om.displayData.paramLabel[it])
             if (!UtilityModels.parameterInList(om.params, om.displayData.param[it])) {
                 om.displayData.param[it] = om.params[0]
                 om.displayData.paramLabel[it] = om.labels[0]
@@ -275,13 +238,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         om.spTime.setSelection(0)
         om.spTime.clear()
         (om.startStep until om.endStep).forEach {
-            om.spTime.add(
-                    String.format(
-                            Locale.US,
-                            "%02d",
-                            it
-                    )
-            )
+            om.spTime.add(String.format(Locale.US, "%02d", it))
         }
     }
 
@@ -299,11 +256,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         if (om.imageLoaded) {
             Utility.writePref(this, "SPCHRRR_OVERLAY", TextUtils.join(":", overlayImg))
             (0 until om.numPanes).forEach {
-                UtilityImg.imgSavePosnZoom(
-                        this,
-                        om.displayData.img[it],
-                        om.modelProvider + om.numPanes.toString() + it.toString()
-                )
+                UtilityImg.imgSavePosnZoom(this, om.displayData.img[it], om.modelProvider + om.numPanes.toString() + it.toString())
             }
             Utility.writePref(this, om.prefRunPosn, om.spTime.selectedItemPosition)
         }
