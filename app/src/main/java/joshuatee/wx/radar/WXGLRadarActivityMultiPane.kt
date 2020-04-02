@@ -51,7 +51,6 @@ import joshuatee.wx.settings.SettingsRadarActivity
 import joshuatee.wx.ui.ObjectImageMap
 
 import joshuatee.wx.Extensions.*
-import joshuatee.wx.activitiesmisc.WebView
 
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
@@ -457,9 +456,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 glview.requestRender()
                 setSubTitle()
                 animRan = false
-                withContext(Dispatchers.IO) {
-                    UtilityDownloadWarnings.get(this@WXGLRadarActivityMultiPane)
-                }
+                withContext(Dispatchers.IO) { UtilityDownloadWarnings.get(this@WXGLRadarActivityMultiPane) }
                 if (!oglr.product.startsWith("2")) {
                     UtilityRadarUI.plotWarningPolygons(glview, oglr, false)
                 }
@@ -473,17 +470,13 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     }
                 }
                 if (PolygonType.MPD.pref) {
-                    withContext(Dispatchers.IO) {
-                        UtilityDownloadMpd.get(this@WXGLRadarActivityMultiPane)
-                    }
+                    withContext(Dispatchers.IO) { UtilityDownloadMpd.get(this@WXGLRadarActivityMultiPane) }
                     if (!oglr.product.startsWith("2")) {
                         UtilityRadarUI.plotMpdPolygons(glview, oglr, false)
                     }
                 }
                 if (MyApplication.radarShowWpcFronts) {
-                    withContext(Dispatchers.IO) {
-                        UtilityWpcFronts.get(this@WXGLRadarActivityMultiPane)
-                    }
+                    withContext(Dispatchers.IO) { UtilityWpcFronts.get(this@WXGLRadarActivityMultiPane) }
                     if (!oglr.product.startsWith("2")) {
                         UtilityRadarUI.plotWpcFronts(glview, oglr, false)
                     }
@@ -506,19 +499,12 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             frameCountGlobal = frameCount
             val animArray = Array(numberOfPanes) { Array(frameCount) { "" } }
             panesList.forEach { z ->
-                animArray[z] = oglrArr[z].wxglDownload.getRadarFilesForAnimation(this@WXGLRadarActivityMultiPane, frameCount)
-                        .toTypedArray()
+                animArray[z] = oglrArr[z].wxglDownload.getRadarFilesForAnimation(this@WXGLRadarActivityMultiPane, frameCount).toTypedArray()
                 try {
                     (animArray[z].indices).forEach { r ->
                         file = File(this@WXGLRadarActivityMultiPane.filesDir, animArray[z][r])
                         this@WXGLRadarActivityMultiPane.deleteFile((z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())
-                        if (!file.renameTo(
-                                        File(
-                                                this@WXGLRadarActivityMultiPane.filesDir,
-                                                (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString()
-                                        )
-                                )
-                        )
+                        if (!file.renameTo(File(this@WXGLRadarActivityMultiPane.filesDir, (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())))
                             UtilityLog.d("wx", "Problem moving to " + (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())
                     }
                 } catch (e: Exception) {
@@ -530,22 +516,12 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 if (animTriggerDownloads) {
                     panesList.forEach { z ->
                         animArray[z] =
-                                oglrArr[z].wxglDownload.getRadarFilesForAnimation(
-                                        this@WXGLRadarActivityMultiPane,
-                                        frameCount
-                                )
-                                        .toTypedArray()
+                                oglrArr[z].wxglDownload.getRadarFilesForAnimation(this@WXGLRadarActivityMultiPane, frameCount).toTypedArray()
                         try {
                             (animArray[z].indices).forEach { r ->
                                 file = File(this@WXGLRadarActivityMultiPane.filesDir, animArray[z][r])
                                 this@WXGLRadarActivityMultiPane.deleteFile((z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())
-                                if (!file.renameTo(
-                                                File(
-                                                        this@WXGLRadarActivityMultiPane.filesDir,
-                                                        (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString()
-                                                )
-                                        )
-                                )
+                                if (!file.renameTo(File(this@WXGLRadarActivityMultiPane.filesDir, (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())))
                                     UtilityLog.d("wx", "Problem moving to " + (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString())
                             }
                         } catch (e: Exception) {
@@ -567,19 +543,11 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     }
                     if (loopCnt > 0) {
                         panesList.forEach { z ->
-                            oglrArr[z].constructPolygons(
-                                    (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString(),
-                                    "",
-                                    false
-                            )
+                            oglrArr[z].constructPolygons((z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString(), "", false)
                         }
                     } else {
                         panesList.forEach { z ->
-                            oglrArr[z].constructPolygons(
-                                    (z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString(),
-                                    "",
-                                    true
-                            )
+                            oglrArr[z].constructPolygons((z + 1).toString() + oglrArr[z].product + "nexrad_anim" + r.toString(), "", true)
                         }
                     }
                     launch(uiDispatcher) {
@@ -653,7 +621,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             } else {
                 getContentParallel()
             }
-            if (item.itemId == R.id.action_a) return true
+            if (item.itemId == R.id.action_a)
+                return true
         }
         when (item.itemId) {
             R.id.action_help -> ObjectDialogue(this,
@@ -1159,8 +1128,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         }
     }
 
-    private fun getContentSingleThreaded(glvg: WXGLSurfaceView, OGLRg: WXGLRender, curRadar: Int) {
-        getContent(glvg, OGLRg, curRadar)
+    private fun getContentSingleThreaded(wxglSurfaceView: WXGLSurfaceView, wxglRender: WXGLRender, currentRadarIndex: Int) {
+        getContent(wxglSurfaceView, wxglRender, currentRadarIndex)
     }
 }
 
