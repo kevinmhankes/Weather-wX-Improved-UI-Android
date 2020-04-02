@@ -103,16 +103,8 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         title = activityArguments[2]
         if (om.numPanes < 2) {
-            fab1 = ObjectFab(
-                    this,
-                    this,
-                    R.id.fab1,
-                    OnClickListener { UtilityModels.moveBack(om.spTime) })
-            fab2 = ObjectFab(
-                    this,
-                    this,
-                    R.id.fab2,
-                    OnClickListener { UtilityModels.moveForward(om.spTime) })
+            fab1 = ObjectFab(this, this, R.id.fab1, OnClickListener { UtilityModels.moveBack(om.spTime) })
+            fab2 = ObjectFab(this, this, R.id.fab2, OnClickListener { UtilityModels.moveForward(om.spTime) })
             menu.findItem(R.id.action_img1).isVisible = false
             menu.findItem(R.id.action_img2).isVisible = false
             if (UIPreferences.fabInModels) {
@@ -131,10 +123,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         om.displayData = DisplayData(this, this, om.numPanes, om.spTime)
         setupModel()
         spRun = ObjectSpinner(this, this, this, R.id.spinner_run)
-        favList = UtilityFavorites.setupMenuSpc(
-                MyApplication.srefFav,
-                om.displayData.param[om.curImg]
-        )
+        favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
         spFav = ObjectSpinner(this, this, this, R.id.spinner1, favList)
         UtilityModelSpcSrefInterface.createData()
         om.setUIElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2, spRun, spRun)
@@ -151,10 +140,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     }
 
     override fun onRestart() {
-        favList = UtilityFavorites.setupMenuSpc(
-                MyApplication.srefFav,
-                om.displayData.param[om.curImg]
-        )
+        favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
         spFav.refreshData(this, favList)
         super.onRestart()
     }
@@ -260,24 +246,14 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         )
     }
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
         if (spinnerRunRan && spinnerTimeRan) {
             if (parent.id == R.id.spinner1) {
-                when (pos) {
-                    1 -> ObjectIntent(
-                            this,
-                            FavAddActivity::class.java,
-                            FavAddActivity.TYPE,
-                            arrayOf("SREF")
-                    )
-                    2 -> ObjectIntent(
-                            this,
-                            FavRemoveActivity::class.java,
-                            FavRemoveActivity.TYPE,
-                            arrayOf("SREF")
-                    )
+                when (position) {
+                    1 -> ObjectIntent(this, FavAddActivity::class.java, FavAddActivity.TYPE, arrayOf("SREF"))
+                    2 -> ObjectIntent(this, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, arrayOf("SREF"))
                     else -> {
-                        om.displayData.param[om.curImg] = favList[pos]
+                        om.displayData.param[om.curImg] = favList[position]
                         if (initSpinnerSetup) {
                             updateStarIcon()
                             UtilityModels.getContent(this, om, listOf(""), uiDispatcher)
@@ -312,20 +288,14 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
 
     private fun toggleFavorite() {
         UtilityFavorites.toggle(this, om.displayData.param[om.curImg], star, "SREF_FAV")
-        favList = UtilityFavorites.setupMenuSpc(
-                MyApplication.srefFav,
-                om.displayData.param[om.curImg]
-        )
+        favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
         spFav.refreshData(this, favList)
     }
 
     private fun refreshSpinner() {
         om.displayData.param[om.curImg] = drw.getUrl()
         om.displayData.paramLabel[om.curImg] = drw.getLabel()
-        favList = UtilityFavorites.setupMenuSpc(
-                MyApplication.srefFav,
-                om.displayData.param[om.curImg]
-        )
+        favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
         spFav.refreshData(this, favList)
     }
 
@@ -345,23 +315,12 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
 
     private fun setupModel() {
         (om.startStep..om.endStep step om.stepAmount).forEach {
-            om.spTime.add(
-                    "f" + String.format(
-                            Locale.US,
-                            "%03d",
-                            it
-                    )
-            )
+            om.spTime.add("f" + String.format(Locale.US, "%03d", it))
         }
         om.spTime.notifyDataSetChanged()
         (0 until om.numPanes).forEach {
-            om.displayData.param[it] =
-                    Utility.readPref(this, om.prefParam + it.toString(), "SREF_H5__")
-            om.displayData.paramLabel[it] = Utility.readPref(
-                    this,
-                    om.prefParamLabel + it.toString(),
-                    "[MN]:500MB Height~Wind~Temp~Isotach"
-            )
+            om.displayData.param[it] = Utility.readPref(this, om.prefParam + it.toString(), "SREF_H5__")
+            om.displayData.paramLabel[it] = Utility.readPref(this, om.prefParamLabel + it.toString(), "[MN]:500MB Height~Wind~Temp~Isotach")
         }
     }
 
