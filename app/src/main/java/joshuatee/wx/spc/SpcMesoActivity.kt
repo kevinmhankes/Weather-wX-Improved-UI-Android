@@ -77,7 +77,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     private val menuRadarStr = "Radar"
     private val menuOutlookStr = "SPC Day 1 Outlook"
     private val menuWatwarnStr = "Watches/Warnings"
-    private val menuTopographyStr = "Topopgraphy"
+    private val menuTopographyStr = "Topography"
     private val on = "(on) "
     private var curImg = 0
     private var imageLoaded = false
@@ -183,14 +183,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])
         objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, favListLabel)
         UtilitySpcMeso.createData()
-        drw = ObjectNavDrawerCombo(
-                this,
-                UtilitySpcMeso.groups,
-                UtilitySpcMeso.longCodes,
-                UtilitySpcMeso.shortCodes,
-                this,
-                ""
-        )
+        drw = ObjectNavDrawerCombo(this, UtilitySpcMeso.groups, UtilitySpcMeso.longCodes, UtilitySpcMeso.shortCodes, this, "")
         drw.listView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
             drw.drawerLayout.closeDrawer(drw.listView)
             displayData.param[curImg] = drw.getToken(groupPosition, childPosition)
@@ -220,7 +213,6 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
             star.setIcon(MyApplication.STAR_ICON)
         else
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-
         withContext(Dispatchers.IO) {
             (0 until numPanes).forEach {
                 displayData.bitmap[it] = UtilitySpcMesoInputOutput.getImage(this@SpcMesoActivity, displayData.param[it], sector)
@@ -238,11 +230,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         if (!firstRun) {
             (0 until numPanes).forEach {
                 displayData.img[it].setZoom(
-                        Utility.readPref(
-                                this@SpcMesoActivity,
-                                prefModel + numPanes + it.toString() + "_ZOOM",
-                                1.0f
-                        ),
+                        Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_ZOOM", 1.0f),
                         Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_X", 0.5f),
                         Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_Y", 0.5f)
                 )
@@ -365,12 +353,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
             R.id.action_SW -> setAndLaunchSector("12")
             R.id.action_NW -> setAndLaunchSector("11")
             R.id.action_help -> getHelp()
-            R.id.action_multipane -> ObjectIntent(
-                    this,
-                    SpcMesoActivity::class.java,
-                    INFO,
-                    arrayOf("", "2", prefModel)
-            )
+            R.id.action_multipane -> ObjectIntent(this, SpcMesoActivity::class.java, INFO, arrayOf("", "2", prefModel))
             R.id.action_fav -> toggleFavorite()
             R.id.action_img1 -> setImage(0)
             R.id.action_img2 -> setImage(1)
@@ -464,31 +447,16 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     override fun onStop() {
         if (imageLoaded) {
             (0 until numPanes).forEach {
-                UtilityImg.imgSavePosnZoom(
-                        this,
-                        displayData.img[it],
-                        prefModel + numPanes.toString() + it.toString()
-                )
+                UtilityImg.imgSavePosnZoom(this, displayData.img[it], prefModel + numPanes.toString() + it.toString())
             }
         }
         super.onStop()
     }
 
     private fun toggleFavorite() {
-        UtilityFavorites.toggleSpcMeso(
-                this,
-                displayData.param[curImg],
-                displayData.paramLabel[curImg],
-                star
-        )
-        favListLabel = UtilityFavorites.setupMenuSpc(
-                MyApplication.spcmesoLabelFav,
-                displayData.paramLabel[curImg]
-        )
-        favListParm = UtilityFavorites.setupMenuSpc(
-                MyApplication.spcMesoFav,
-                displayData.param[curImg]
-        )
+        UtilityFavorites.toggleSpcMeso(this, displayData.param[curImg], displayData.paramLabel[curImg], star)
+        favListLabel = UtilityFavorites.setupMenuSpc(MyApplication.spcmesoLabelFav, displayData.paramLabel[curImg])
+        favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])
         objectSpinner.refreshData(this@SpcMesoActivity, favListLabel)
     }
 
@@ -496,28 +464,14 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         when (parent.id) {
             R.id.spinner1 -> {
                 when (position) {
-                    1 -> ObjectIntent(
-                            this,
-                            FavAddActivity::class.java,
-                            FavAddActivity.TYPE,
-                            arrayOf("SPCMESO")
-                    )
-                    2 -> ObjectIntent(
-                            this,
-                            FavRemoveActivity::class.java,
-                            FavRemoveActivity.TYPE,
-                            arrayOf("SPCMESO")
-                    )
+                    1 -> ObjectIntent(this, FavAddActivity::class.java, FavAddActivity.TYPE, arrayOf("SPCMESO"))
+                    2 -> ObjectIntent(this, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, arrayOf("SPCMESO"))
                     else -> {
                         if (favListParm.count() > position && favListLabel.count() > position) {
                             displayData.param[curImg] = favListParm[position]
                             displayData.paramLabel[curImg] = favListLabel[position]
                             Utility.writePref(this, prefParam + curImg, displayData.param[curImg])
-                            Utility.writePref(
-                                    this,
-                                    prefParamLabel + curImg,
-                                    displayData.paramLabel[curImg]
-                            )
+                            Utility.writePref(this, prefParamLabel + curImg, displayData.paramLabel[curImg])
                             getContent()
                         }
                     }
@@ -529,14 +483,8 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
     private fun refreshSpinner() {
-        favListLabel = UtilityFavorites.setupMenuSpc(
-                MyApplication.spcmesoLabelFav,
-                displayData.paramLabel[curImg]
-        )
-        favListParm = UtilityFavorites.setupMenuSpc(
-                MyApplication.spcMesoFav,
-                displayData.param[curImg]
-        )
+        favListLabel = UtilityFavorites.setupMenuSpc(MyApplication.spcmesoLabelFav, displayData.paramLabel[curImg])
+        favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])
         objectSpinner.refreshData(this@SpcMesoActivity, favListLabel)
     }
 }
