@@ -111,10 +111,10 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         this.wxglSurfaceViews = wxglSurfaceViews
     }
 
-    fun setRenderVar(oglrCurrent: WXGLRender, oglr: MutableList<WXGLRender>, wxgl: MutableList<WXGLSurfaceView>, activity: Activity) {
-        this.wxglRenders = oglr
-        this.wxglRender = oglrCurrent
-        this.wxglSurfaceViews = wxgl
+    fun setRenderVar(wxglRender: WXGLRender, wxglRenders: MutableList<WXGLRender>, wxglSurfaceViews: MutableList<WXGLSurfaceView>, activity: Activity) {
+        this.wxglRenders = wxglRenders
+        this.wxglRender = wxglRender
+        this.wxglSurfaceViews = wxglSurfaceViews
         this.activity = activity
     }
 
