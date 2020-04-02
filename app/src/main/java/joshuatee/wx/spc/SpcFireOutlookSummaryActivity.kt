@@ -84,13 +84,7 @@ class SpcFireOutlookSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickLis
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(
-                    this,
-                    this,
-                    getString(UtilitySpcFireOutlook.activityTitle),
-                    "",
-                    bitmaps
-            )
+            R.id.action_share -> UtilityShare.shareText(this, this, getString(UtilitySpcFireOutlook.activityTitle), "", bitmaps)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

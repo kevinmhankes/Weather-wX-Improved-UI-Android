@@ -24,6 +24,8 @@ package joshuatee.wx.objects
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import joshuatee.wx.activitiesmisc.WebView
+import joshuatee.wx.radar.WXGLRadarActivity
 
 //
 // Used to start another activity
@@ -31,24 +33,13 @@ import android.net.Uri
 
 class ObjectIntent() {
 
-    constructor(
-        context: Context,
-        clazz: Class<*>,
-        url: String,
-        stringArray: Array<String>
-    ) : this() {
+    constructor(context: Context, clazz: Class<*>, url: String, stringArray: Array<String>) : this() {
         val intent = Intent(context, clazz)
         intent.putExtra(url, stringArray)
         context.startActivity(intent)
     }
 
-    constructor(
-        context: Context,
-        clazz: Class<*>,
-        url: String,
-        stringArray: String,
-        dummyFlag: Boolean
-    ) : this() {
+    constructor(context: Context, clazz: Class<*>, url: String, stringArray: String, dummyFlag: Boolean) : this() {
         val intent = Intent(context, clazz)
         intent.putExtra(url, stringArray)
         context.startService(intent)
@@ -72,11 +63,15 @@ class ObjectIntent() {
 
     companion object {
         fun showWeb(context: Context, url: String) {
-            ObjectIntent(
-                context,
-                Intent.ACTION_VIEW,
-                Uri.parse(url)
-            )
+            ObjectIntent(context, Intent.ACTION_VIEW, Uri.parse(url))
+        }
+
+        fun showWebView(context: Context, array: Array<String>) {
+            ObjectIntent(context, WebView::class.java, WebView.URL, array)
+        }
+
+        fun showRadar(context: Context, array: Array<String>) {
+            ObjectIntent(context, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, array)
         }
     }
 }

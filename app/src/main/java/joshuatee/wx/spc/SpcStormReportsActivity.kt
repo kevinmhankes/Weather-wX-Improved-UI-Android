@@ -152,16 +152,9 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         linearLayout.removeAllViews()
         val objectCardImage = ObjectCardImage(this@SpcStormReportsActivity, linearLayout, bitmap)
         objectCardImage.setOnClickListener(View.OnClickListener {
-            val stDatePicker = DatePickerDialog(
-                    this,
-                    pDateSetListener,
-                    year, month, day
-            )
+            val stDatePicker = DatePickerDialog(this, pDateSetListener, year, month, day)
             val cal = Calendar.getInstance()
-            cal.set(
-                    Calendar.YEAR,
-                    2004
-            ) // 2011-05-27 was the earliest date for filtered, moved to non-filtered and can go back to 2004-03-23
+            cal.set(Calendar.YEAR, 2004) // 2011-05-27 was the earliest date for filtered, moved to non-filtered and can go back to 2004-03-23
             cal.set(Calendar.MONTH, 2)
             cal.set(Calendar.DAY_OF_MONTH, 23)
             stDatePicker.datePicker.minDate = cal.timeInMillis - 1000
@@ -196,20 +189,12 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 val xStr = stormReport.lat
                 val yStr = stormReport.lon
                 stormCard.setListener(View.OnClickListener {
-                    ObjectIntent(
-                            this@SpcStormReportsActivity,
-                            WebView::class.java,
-                            WebView.URL,
-                            arrayOf(UtilityMap.getMapUrl(xStr, yStr, "10"), "$xStr,$yStr")
-                    )
+                    ObjectIntent.showWebView(this@SpcStormReportsActivity, arrayOf(UtilityMap.getMapUrl(xStr, yStr, "10"), "$xStr,$yStr"))
                 })
                 if (!(stormReport.description.contains("(") && stormReport.description.contains(")"))) {
                     stormCard.setTextHeader(stormReport)
                     stormCard.setListener(View.OnClickListener {
-                        scrollView.smoothScrollTo(
-                                0,
-                                0
-                        )
+                        scrollView.smoothScrollTo(0, 0)
                     })
                 }
             }
@@ -239,8 +224,8 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private val pDateSetListener =
-            DatePickerDialog.OnDateSetListener { _, yearinDate, monthOfYear, dayOfMonth ->
-                year = yearinDate
+            DatePickerDialog.OnDateSetListener { _, yearInDate, monthOfYear, dayOfMonth ->
+                year = yearInDate
                 month = monthOfYear
                 day = dayOfMonth
                 updateDisplay()
@@ -312,12 +297,9 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             x = "0.0"
             y = "0.0"
         }
-        if (prod == "L2REF" || prod == "L2VEL") ObjectIntent(
-                this,
-                WXGLRadarActivity::class.java,
-                WXGLRadarActivity.RID,
-                arrayOf(radarSite, "", prod, "", patternL2, x, y)
-        )
+        if (prod == "L2REF" || prod == "L2VEL") {
+            ObjectIntent.showRadar(this, arrayOf(radarSite, "", prod, "", patternL2, x, y))
+        }
     }
 
     private fun updateIowaMesoData() {

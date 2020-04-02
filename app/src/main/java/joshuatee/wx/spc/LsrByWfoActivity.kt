@@ -111,11 +111,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
         when (item.itemId) {
             R.id.action_fav -> toggleFavorite()
             R.id.action_map -> imageMap.toggleMap()
-            R.id.action_share -> UtilityShare.shareText(
-                    this,
-                    prod + wfo,
-                    Utility.fromHtml(wfoProd.toString())
-            )
+            R.id.action_share -> UtilityShare.shareText(this, prod + wfo, Utility.fromHtml(wfoProd.toString()))
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -138,18 +134,8 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
         if (locations.isNotEmpty()) {
             when (position) {
-                1 -> ObjectIntent(
-                        this,
-                        FavAddActivity::class.java,
-                        FavAddActivity.TYPE,
-                        arrayOf("WFO")
-                )
-                2 -> ObjectIntent(
-                        this,
-                        FavRemoveActivity::class.java,
-                        FavRemoveActivity.TYPE,
-                        arrayOf("WFO")
-                )
+                1 -> ObjectIntent(this, FavAddActivity::class.java, FavAddActivity.TYPE, arrayOf("WFO"))
+                2 -> ObjectIntent(this, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, arrayOf("WFO"))
                 else -> {
                     wfo = locations[position].split(" ").getOrNull(0) ?: ""
                     getContent()

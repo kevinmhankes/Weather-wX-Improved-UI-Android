@@ -96,10 +96,7 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
     private fun getContentSPCPlot() = GlobalScope.launch(uiDispatcher) {
         imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/$upperAir"
         withContext(Dispatchers.IO) {
-            val date = UtilityString.getHtmlAndParse(
-                    "${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/",
-                    "/obswx/maps/" + upperAir + "_([0-9]{6}_[0-9]{2}).gif"
-            )
+            val date = UtilityString.getHtmlAndParse("${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/", "/obswx/maps/" + upperAir + "_([0-9]{6}_[0-9]{2}).gif")
             bitmap = UtilityImg.getBitmapAddWhiteBackground(this@SpcSoundingsActivity, imgUrl + "_" + date + ".gif")
         }
         img.img.visibility = View.VISIBLE
@@ -119,15 +116,7 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
             R.id.action_sfc -> setPlotAndGet("sfc")
             R.id.action_map -> imageMap.toggleMap()
             R.id.action_fav -> toggleFavorite()
-            R.id.action_spc_help -> ObjectIntent(
-                    this,
-                    WebView::class.java,
-                    WebView.URL,
-                    arrayOf(
-                            "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/help/begin.html",
-                            nwsOffice
-                    )
-            )
+            R.id.action_spc_help -> ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf("${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/help/begin.html", nwsOffice))
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -152,27 +141,17 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
         objectSpinner.refreshData(this, locations)
     }
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
         if (locations.isNotEmpty()) {
             if (firstTime) {
                 UtilityToolbar.fullScreenMode(toolbar, toolbarBottom)
                 firstTime = false
             }
-            when (pos) {
-                1 -> ObjectIntent(
-                        this,
-                        FavAddActivity::class.java,
-                        FavAddActivity.TYPE,
-                        arrayOf("SND")
-                )
-                2 -> ObjectIntent(
-                        this,
-                        FavRemoveActivity::class.java,
-                        FavRemoveActivity.TYPE,
-                        arrayOf("SND")
-                )
+            when (position) {
+                1 -> ObjectIntent(this, FavAddActivity::class.java, FavAddActivity.TYPE, arrayOf("SND"))
+                2 -> ObjectIntent(this, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, arrayOf("SND"))
                 else -> {
-                    nwsOffice = locations[pos].split(" ").getOrNull(0) ?: ""
+                    nwsOffice = locations[position].split(" ").getOrNull(0) ?: ""
                     getContent()
                 }
             }

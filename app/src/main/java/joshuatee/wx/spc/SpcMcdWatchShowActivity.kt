@@ -141,18 +141,9 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     objectWatchProduct.bitmap,
                     Utility.fromHtml(objectWatchProduct.text)
             )
-            R.id.action_share_text -> UtilityShare.shareText(
-                    this,
-                    objectWatchProduct.title,
-                    Utility.fromHtml(objectWatchProduct.text)
-            )
+            R.id.action_share_text -> UtilityShare.shareText(this, objectWatchProduct.title, Utility.fromHtml(objectWatchProduct.text))
             R.id.action_share_url -> UtilityShare.shareText(this, objectWatchProduct.title, objectWatchProduct.textUrl)
-            R.id.action_share_image -> UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    objectWatchProduct.title,
-                    objectWatchProduct.bitmap
-            )
+            R.id.action_share_image -> UtilityShare.shareBitmap(this, this, objectWatchProduct.title, objectWatchProduct.bitmap)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

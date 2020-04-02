@@ -171,11 +171,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
             miUrl.isVisible = true
             miImage.isVisible = true
         } else {
-            titleString =
-                    "$activityLabel " + mcdNumbers.toString().replace(
-                            "[{}]".toRegex(),
-                            ""
-                    ).replace("\\[|\\]".toRegex(), "").replace("w", "")
+            titleString = "$activityLabel " + mcdNumbers.toString().replace("[{}]".toRegex(), "").replace("\\[|\\]".toRegex(), "").replace("w", "")
             miAll.isVisible = true
             title = titleString
         }
@@ -209,11 +205,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
                 else if (bitmaps.size == 1)
                     UtilityShare.shareBitmap(this, this, titleString, bitmaps[0], Utility.fromHtml(text))
             }
-            R.id.action_share_text -> UtilityShare.shareText(
-                    this,
-                    titleString,
-                    Utility.fromHtml(text)
-            )
+            R.id.action_share_text -> UtilityShare.shareText(this, titleString, Utility.fromHtml(text))
             R.id.action_share_url -> UtilityShare.shareText(this, titleString, textUrl)
             R.id.action_share_image -> UtilityShare.shareBitmap(this,this, titleString, bitmaps[0])
             else -> return super.onOptionsItemSelected(item)
