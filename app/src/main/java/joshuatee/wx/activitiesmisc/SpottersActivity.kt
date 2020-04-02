@@ -36,7 +36,6 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.Spotter
 import joshuatee.wx.radar.UtilitySpotter
-import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.radar.LatLon
 import joshuatee.wx.settings.BottomSheetFragment
 import joshuatee.wx.settings.UtilityLocation

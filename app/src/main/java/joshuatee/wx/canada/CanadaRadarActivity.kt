@@ -42,13 +42,13 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelectedListener,
-        OnMenuItemClickListener {
+class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelectedListener, OnMenuItemClickListener {
 
     // Canada Radar
     //
     // arg1: radar site
     // arg2: image type
+    //
 
     companion object {
         const val RID = ""

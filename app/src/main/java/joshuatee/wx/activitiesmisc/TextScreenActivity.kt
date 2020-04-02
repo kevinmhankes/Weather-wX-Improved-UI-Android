@@ -40,9 +40,11 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class TextScreenActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
+    //
     // arg0  URL or text chunk depending on if start with "http"
     // arg1  Title
     // arg2 if "sound" will play TTS on first load
+    //
 
     companion object {
         const val URL = ""

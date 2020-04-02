@@ -30,7 +30,6 @@ import android.view.MenuItem
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
-import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.audio.AudioPlayActivity
@@ -61,14 +60,10 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         scrollView.smoothScrollTo(0, 0)
-        withContext(Dispatchers.IO) {
-            objNhc.getTextData()
-        }
+        withContext(Dispatchers.IO) { objNhc.getTextData() }
         objNhc.showTextData()
         NhcOceanEnum.values().forEach {
-            withContext(Dispatchers.IO) {
-                objNhc.regionMap[it]!!.getImages()
-            }
+            withContext(Dispatchers.IO) { objNhc.regionMap[it]!!.getImages() }
             objNhc.showImageData(it)
         }
     }

@@ -233,10 +233,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     }
 
     private fun showHelpTextDialog() {
-        UtilityAlertDialog.showHelpTextWeb(
-                "${MyApplication.nwsSPCwebsitePrefix}/exper/sref/about_sref.html",
-                this
-        )
+        UtilityAlertDialog.showHelpTextWeb("${MyApplication.nwsSPCwebsitePrefix}/exper/sref/about_sref.html", this)
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {

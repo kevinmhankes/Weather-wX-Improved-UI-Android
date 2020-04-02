@@ -80,10 +80,10 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         activityArguments = intent.getStringArrayExtra(URL)!!.toList()
         url = activityArguments[0]
         toolbarTitle = activityArguments[1]
-        val titleArr = toolbarTitle.split(" - ")
+        val titles = toolbarTitle.split(" - ")
         title = "NHC"
-        if (titleArr.size > 1) {
-            toolbar.subtitle = titleArr[1]
+        if (titles.size > 1) {
+            toolbar.subtitle = titles[1]
         }
         initializeEnvironment()
         getContent()
@@ -117,9 +117,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         bitmaps.clear()
         withContext(Dispatchers.IO) { topBitmap = (baseUrl + "_5day_cone_with_line_and_wind_sm2.png").getImage() }
         ObjectCardImage(this@NhcStormActivity, linearLayout, topBitmap)
-        withContext(Dispatchers.IO) {
-            url = UtilityDownload.getTextProduct(this@NhcStormActivity, product)
-        }
+        url = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@NhcStormActivity, product) }
         objectCardText = ObjectCardText(this@NhcStormActivity, linearLayout, toolbar, toolbarBottom)
         objectCardText.text = Utility.fromHtml(url)
         html = url

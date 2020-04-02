@@ -134,28 +134,10 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
             return true
         }
         when (item.itemId) {
-            R.id.action_warnmap -> ObjectIntent(
-                    this@USWarningsWithRadarActivity,
-                    ImageShowActivity::class.java,
-                    ImageShowActivity.URL,
-                    arrayOf("https://forecast.weather.gov/wwamap/png/US.png", "CONUS warning map")
-            )
-            R.id.action_warnmapAK -> ObjectIntent(
-                    this@USWarningsWithRadarActivity,
-                    ImageShowActivity::class.java,
-                    ImageShowActivity.URL,
-                    arrayOf("https://forecast.weather.gov/wwamap/png/ak.png", "AK warning map")
-            )
-            R.id.action_warnmapHI -> ObjectIntent(
-                    this@USWarningsWithRadarActivity,
-                    ImageShowActivity::class.java,
-                    ImageShowActivity.URL,
-                    arrayOf("https://forecast.weather.gov/wwamap/png/hi.png", "HI warning map")
-            )
-            R.id.action_impact_graphics -> ObjectIntent(
-                    this@USWarningsWithRadarActivity,
-                    USWarningsImpactActivity::class.java
-            )
+            R.id.action_warnmap -> ObjectIntent.showImage(this@USWarningsWithRadarActivity, arrayOf("https://forecast.weather.gov/wwamap/png/US.png", "CONUS warning map"))
+            R.id.action_warnmapAK -> ObjectIntent.showImage(this@USWarningsWithRadarActivity, arrayOf("https://forecast.weather.gov/wwamap/png/ak.png", "AK warning map"))
+            R.id.action_warnmapHI -> ObjectIntent.showImage(this@USWarningsWithRadarActivity, arrayOf("https://forecast.weather.gov/wwamap/png/hi.png", "HI warning map"))
+            R.id.action_impact_graphics -> ObjectIntent(this@USWarningsWithRadarActivity, USWarningsImpactActivity::class.java)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

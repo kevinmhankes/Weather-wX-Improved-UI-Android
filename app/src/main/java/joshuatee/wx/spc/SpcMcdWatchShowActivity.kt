@@ -85,8 +85,7 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
             "MCD" -> objectWatchProduct = ObjectWatchProduct(PolygonType.MCD, number)
             "WATCH" -> objectWatchProduct = ObjectWatchProduct(PolygonType.WATCH, number)
             "MPD" -> objectWatchProduct = ObjectWatchProduct(PolygonType.MPD, number)
-            else -> {
-            }
+            else -> {}
         }
         title = objectWatchProduct.title
         getContent()

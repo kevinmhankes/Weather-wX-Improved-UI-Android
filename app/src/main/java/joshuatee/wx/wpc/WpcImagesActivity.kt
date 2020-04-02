@@ -91,14 +91,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
         actionBack.isVisible = false
         actionForward.isVisible = false
         UtilityWpcImages.createData()
-        drw = ObjectNavDrawerCombo(
-                this,
-                UtilityWpcImages.groups,
-                UtilityWpcImages.longCodes,
-                UtilityWpcImages.shortCodes,
-                this,
-                "WPG_IMG"
-        )
+        drw = ObjectNavDrawerCombo(this, UtilityWpcImages.groups, UtilityWpcImages.longCodes, UtilityWpcImages.shortCodes, this, "WPG_IMG")
         drw.setListener(::getContentFixThis)
         toolbar.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
         toolbarBottom.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }

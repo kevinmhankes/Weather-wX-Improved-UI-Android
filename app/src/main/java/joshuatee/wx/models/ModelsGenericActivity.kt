@@ -206,9 +206,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
 
     private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
         if (om.modelType == ModelType.NCEP) {
-            om.rtd = withContext(Dispatchers.IO) {
-                UtilityModelNcepInputOutput.getRunTime(om.model, om.displayData.param[0], om.sectors[0])
-            }
+            om.rtd = withContext(Dispatchers.IO) { UtilityModelNcepInputOutput.getRunTime(om.model, om.displayData.param[0], om.sectors[0]) }
             om.time = om.rtd.mostRecentRun
             spRun.notifyDataSetChanged()
             spRun.setSelection(om.rtd.mostRecentRun)

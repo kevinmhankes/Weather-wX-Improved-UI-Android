@@ -28,7 +28,6 @@ import joshuatee.wx.R
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.UtilitySpotter
 import joshuatee.wx.radar.LatLon
-import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectRecyclerViewGeneric
