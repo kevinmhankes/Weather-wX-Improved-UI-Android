@@ -25,8 +25,12 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import joshuatee.wx.activitiesmisc.ImageShowActivity
+import joshuatee.wx.activitiesmisc.TextScreenActivity
 import joshuatee.wx.activitiesmisc.WebView
 import joshuatee.wx.radar.WXGLRadarActivity
+import joshuatee.wx.radar.WXGLRadarActivityMultiPane
+import joshuatee.wx.settings.FavAddActivity
+import joshuatee.wx.settings.FavRemoveActivity
 
 //
 // Used to start another activity
@@ -75,8 +79,24 @@ class ObjectIntent() {
             ObjectIntent(context, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, array)
         }
 
+        fun showRadarMultiPane(context: Context, array: Array<String>) {
+            ObjectIntent(context, WXGLRadarActivityMultiPane::class.java, WXGLRadarActivityMultiPane.RID, array)
+        }
+
         fun showImage(context: Context, array: Array<String>) {
             ObjectIntent(context, ImageShowActivity::class.java, ImageShowActivity.URL, array)
+        }
+
+        fun favoriteAdd(context: Context, array: Array<String>) {
+            ObjectIntent(context, FavAddActivity::class.java, FavAddActivity.TYPE, array)
+        }
+
+        fun favoriteRemove(context: Context, array: Array<String>) {
+            ObjectIntent(context, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, array)
+        }
+
+        fun showText(context: Context, array: Array<String>) {
+            ObjectIntent(context, TextScreenActivity::class.java, TextScreenActivity.URL, array)
         }
     }
 }

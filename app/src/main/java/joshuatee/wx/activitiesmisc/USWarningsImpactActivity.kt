@@ -59,12 +59,7 @@ class USWarningsImpactActivity : BaseActivity() {
         toolbar.subtitle = UtilityTime.gmtTime("HH:mm") + " UTC"
         adapterUSWarningsImpact.setOnItemClickListener(object: AdapterUSWarningsImpact.MyClickListener {
             override fun onItemClick(position: Int) {
-                ObjectIntent(
-                        this@USWarningsImpactActivity,
-                        ImageShowActivity::class.java,
-                        ImageShowActivity.URL,
-                        arrayOf(warningsListSorted[position].imageUrl, warningsListSorted[position].title)
-                )
+                ObjectIntent.showImage(this@USWarningsImpactActivity, arrayOf(warningsListSorted[position].imageUrl, warningsListSorted[position].title))
             }
         })
     }

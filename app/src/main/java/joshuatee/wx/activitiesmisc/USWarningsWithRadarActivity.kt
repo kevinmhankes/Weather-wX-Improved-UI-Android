@@ -24,25 +24,17 @@ package joshuatee.wx.activitiesmisc
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.View
 import android.widget.AdapterView
 import java.util.Locale
-import android.view.ContextMenu
 import android.view.MenuItem
-import android.view.ContextMenu.ContextMenuInfo
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.Extensions.getImage
-import joshuatee.wx.GlobalDictionaries
 
 import joshuatee.wx.R
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.radar.WXGLRadarActivity
-import joshuatee.wx.settings.Location
-import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectAlertSummary
 import joshuatee.wx.ui.ObjectNavDrawer
-import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.util.UtilityImg
 import kotlinx.coroutines.*
@@ -81,7 +73,7 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
         val activityArguments = intent.getStringArrayExtra(URL)
         turlLocal[0] = activityArguments!![0]
         turlLocal[1] = activityArguments[1]
-        objectAlertSummary = ObjectAlertSummary(this, this, linearLayout, scrollView, uiDispatcher)
+        objectAlertSummary = ObjectAlertSummary(this, linearLayout, scrollView, uiDispatcher)
         objectNavDrawer = ObjectNavDrawer(this, objectAlertSummary.filterArray.toList())
         objectNavDrawer.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             objectNavDrawer.listView.setItemChecked(position, false)
@@ -97,62 +89,6 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
         }
         toolbarBottom.setOnClickListener { objectNavDrawer.drawerLayout.openDrawer(objectNavDrawer.listView) }
         getContent()
-    }
-
-    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo?) {
-        super.onCreateContextMenu(menu, v, menuInfo)
-        val zone = objectAlertSummary.mapButtonZone[v.id]
-        menu.add(0, v.id, 0, "Open radar interface")
-        menu.add(0, v.id, 0, "Add new location for this warning ($zone)")
-    }
-
-    // FIXME get rid of this
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        when {
-            item.title == "Open radar interface" -> radarInterface(item.itemId)
-            item.title.contains("Add new location for this warning") -> locationAdd(item.itemId)
-            else -> return false
-        }
-        return true
-    }
-
-    private fun radarInterface(id: Int) {
-        val radarSite = GlobalDictionaries.wfoToRadarSite[objectAlertSummary.mapButtonNws[id]] ?: ""
-        ObjectIntent(
-                this@USWarningsWithRadarActivity,
-                WXGLRadarActivity::class.java,
-                WXGLRadarActivity.RID,
-                arrayOf(radarSite, objectAlertSummary.mapButtonState[id]!!, "N0Q", "")
-        )
-    }
-
-    private fun locationAdd(id: Int) {
-        saveLocFromZone(id)
-    }
-
-    private fun saveLocFromZone(id: Int) = GlobalScope.launch(uiDispatcher) {
-        var message = ""
-        var coordinates = listOf<String>()
-        withContext(Dispatchers.IO) {
-            var locNumIntCurrent = Location.numLocations
-            locNumIntCurrent += 1
-            val locNumToSaveStr = locNumIntCurrent.toString()
-            val zone = objectAlertSummary.mapButtonZone[id]
-            var state = objectAlertSummary.mapButtonState[id]
-            val county = objectAlertSummary.mapButtonCounty[id]
-            if (zone!!.length > 3) {
-                coordinates = if (zone.matches("[A-Z][A-Z]C.*?".toRegex())) {
-                    UtilityLocation.getLatLonFromAddress(county + "," + zone.substring(0, 2))
-                } else {
-                    UtilityDownloadNws.getLatLonForZone(zone)
-                }
-                state = zone.substring(0, 2)
-            }
-            val x = coordinates[0]
-            val y = coordinates[1]
-            message = Location.locationSave(this@USWarningsWithRadarActivity, locNumToSaveStr, x, y, state + "_" + county)
-        }
-        UtilityUI.makeSnackBar(linearLayout, message)
     }
 
     override fun onRestart() {

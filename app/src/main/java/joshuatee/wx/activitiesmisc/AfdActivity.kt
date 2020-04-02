@@ -42,8 +42,6 @@ import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.notifications.UtilityNotificationTextProduct
 import joshuatee.wx.MyApplication
 import joshuatee.wx.audio.AudioPlayActivity
-import joshuatee.wx.settings.FavAddActivity
-import joshuatee.wx.settings.FavRemoveActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.ui.*
@@ -246,23 +244,9 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             }
             R.id.action_map -> imageMap.toggleMap()
             R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.AFD)
-            R.id.action_website -> ObjectIntent(
-                    this,
-                    WebView::class.java,
-                    WebView.URL,
-                    arrayOf("https://www.weather.gov/" + wfo.toLowerCase(Locale.US), wfo, "extended")
-            )
-            R.id.action_hazards -> ObjectIntent(
-                    this,
-                    ImageShowActivity::class.java,
-                    ImageShowActivity.URL,
-                    arrayOf("https://www.weather.gov/wwamap/png/" + wfo.toLowerCase(Locale.US) + ".png", "$wfo WWA Map")
-            )
-            R.id.action_share -> UtilityShare.shareText(
-                    this,
-                    product + wfo,
-                    Utility.fromHtml(html)
-            )
+            R.id.action_website -> ObjectIntent.showWebView(this, arrayOf("https://www.weather.gov/" + wfo.toLowerCase(Locale.US), wfo, "extended"))
+            R.id.action_hazards -> ObjectIntent.showImage(this, arrayOf("https://www.weather.gov/wwamap/png/" + wfo.toLowerCase(Locale.US) + ".png", "$wfo WWA Map"))
+            R.id.action_share -> UtilityShare.shareText(this, product + wfo, Utility.fromHtml(html))
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -290,8 +274,8 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
         if (locationList.isNotEmpty()) {
             when (position) {
-                1 -> ObjectIntent(this, FavAddActivity::class.java, FavAddActivity.TYPE, arrayOf("WFO"))
-                2 -> ObjectIntent(this, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, arrayOf("WFO"))
+                1 -> ObjectIntent.favoriteAdd(this, arrayOf("WFO"))
+                2 -> ObjectIntent.favoriteRemove(this, arrayOf("WFO"))
                 else -> {
                     wfo = locationList[position].split(" ").getOrNull(0) ?: ""
                     originalWfo = wfo

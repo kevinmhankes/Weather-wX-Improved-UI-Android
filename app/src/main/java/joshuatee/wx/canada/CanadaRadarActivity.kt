@@ -34,8 +34,6 @@ import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
 import joshuatee.wx.external.UtilityStringExternal
-import joshuatee.wx.settings.FavAddActivity
-import joshuatee.wx.settings.FavRemoveActivity
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
@@ -149,22 +147,10 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
                 imageType = "rad"
                 getContent()
             }
-            R.id.action_vis_west -> getVisOrIr(
-                    "vis",
-                    "https://weather.gc.ca/data/satellite/goes_wcan_visible_100.jpg"
-            )
-            R.id.action_vis_east -> getVisOrIr(
-                    "vis",
-                    "https://weather.gc.ca/data/satellite/goes_ecan_visible_100.jpg"
-            )
-            R.id.action_ir_west -> getVisOrIr(
-                    "ir",
-                    "https://weather.gc.ca/data/satellite/goes_wcan_1070_100.jpg"
-            )
-            R.id.action_ir_east -> getVisOrIr(
-                    "ir",
-                    "https://weather.gc.ca/data/satellite/goes_ecan_1070_100.jpg"
-            )
+            R.id.action_vis_west -> getVisOrIr("vis", "https://weather.gc.ca/data/satellite/goes_wcan_visible_100.jpg")
+            R.id.action_vis_east -> getVisOrIr("vis", "https://weather.gc.ca/data/satellite/goes_ecan_visible_100.jpg")
+            R.id.action_ir_west -> getVisOrIr("ir", "https://weather.gc.ca/data/satellite/goes_wcan_1070_100.jpg")
+            R.id.action_ir_east -> getVisOrIr("ir", "https://weather.gc.ca/data/satellite/goes_ecan_1070_100.jpg")
             R.id.action_can -> getRadarMosaic("CAN")
             R.id.action_pac -> getRadarMosaic("PAC")
             R.id.action_wrn -> getRadarMosaic("WRN")
@@ -228,18 +214,8 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
             firstTime = false
         }
         when (position) {
-            1 -> ObjectIntent(
-                    this@CanadaRadarActivity,
-                    FavAddActivity::class.java,
-                    FavAddActivity.TYPE,
-                    arrayOf("RIDCA")
-            )
-            2 -> ObjectIntent(
-                    this@CanadaRadarActivity,
-                    FavRemoveActivity::class.java,
-                    FavRemoveActivity.TYPE,
-                    arrayOf("RIDCA")
-            )
+            1 -> ObjectIntent.favoriteAdd(this@CanadaRadarActivity, arrayOf("RIDCA"))
+            2 -> ObjectIntent.favoriteRemove(this@CanadaRadarActivity, arrayOf("RIDCA"))
             else -> {
                 if (ridArrLoc[position].length > 3) {
                     rad = UtilityStringExternal.truncate(ridArrLoc[position], 3)

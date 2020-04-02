@@ -145,11 +145,8 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     ObjectCardImage(this@NhcStormActivity, linearLayout, it)
                 }
         if (activityArguments.size > 2) {
-            if (activityArguments[2] == "sound") UtilityTts.synthesizeTextAndPlay(
-                    applicationContext,
-                    html,
-                    product
-            )
+            if (activityArguments[2] == "sound")
+                UtilityTts.synthesizeTextAndPlay(applicationContext, html, product)
         }
     }
 
@@ -174,21 +171,12 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
             return true
         }
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(
-                    this,
-                    this,
-                    activityArguments[1],
-                    Utility.fromHtml(url),
-                    bitmaps
-            )
+            R.id.action_share -> UtilityShare.shareText(this, this, activityArguments[1], Utility.fromHtml(url), bitmaps)
             R.id.action_MIATCPEP2 -> setProduct("MIATCP$stormId")
             R.id.action_MIATCMEP2 -> setProduct("MIATCM$stormId")
             R.id.action_MIATCDEP2 -> setProduct("MIATCD$stormId")
             R.id.action_MIAPWSEP2 -> setProduct("MIAPWS$stormId")
-            R.id.action_mute_notification -> UtilityNotificationNhc.muteNotification(
-                    this,
-                    toolbarTitle
-            )
+            R.id.action_mute_notification -> UtilityNotificationNhc.muteNotification(this, toolbarTitle)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

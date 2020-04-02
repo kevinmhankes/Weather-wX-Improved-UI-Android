@@ -36,8 +36,6 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.LinearLayout
 
 import joshuatee.wx.R
-import joshuatee.wx.settings.FavAddActivity
-import joshuatee.wx.settings.FavRemoveActivity
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
@@ -203,12 +201,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
                         "(" + (om.curImg + 1).toString() + ")" + om.displayData.param[0] + "/" + om.displayData.param[1]
                 )
             }
-            R.id.action_multipane -> ObjectIntent(
-                    this,
-                    ModelsSpcSrefActivity::class.java,
-                    INFO,
-                    arrayOf("2", activityArguments[1], activityArguments[2])
-            )
+            R.id.action_multipane -> ObjectIntent(this, ModelsSpcSrefActivity::class.java, INFO, arrayOf("2", activityArguments[1], activityArguments[2]))
             R.id.action_fav -> toggleFavorite()
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
@@ -250,8 +243,8 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         if (spinnerRunRan && spinnerTimeRan) {
             if (parent.id == R.id.spinner1) {
                 when (position) {
-                    1 -> ObjectIntent(this, FavAddActivity::class.java, FavAddActivity.TYPE, arrayOf("SREF"))
-                    2 -> ObjectIntent(this, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, arrayOf("SREF"))
+                    1 -> ObjectIntent.favoriteAdd(this, arrayOf("SREF"))
+                    2 -> ObjectIntent.favoriteRemove(this, arrayOf("SREF"))
                     else -> {
                         om.displayData.param[om.curImg] = favList[position]
                         if (initSpinnerSetup) {

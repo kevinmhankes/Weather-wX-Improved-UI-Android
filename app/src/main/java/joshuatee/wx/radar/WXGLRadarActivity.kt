@@ -49,13 +49,9 @@ import android.os.Handler
 import android.view.KeyEvent
 
 import joshuatee.wx.R
-import joshuatee.wx.activitiesmisc.ImageShowActivity
-import joshuatee.wx.activitiesmisc.TextScreenActivity
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.telecine.TelecineService
 import joshuatee.wx.MyApplication
-import joshuatee.wx.settings.FavAddActivity
-import joshuatee.wx.settings.FavRemoveActivity
 import joshuatee.wx.settings.SettingsRadarActivity
 import joshuatee.wx.ui.*
 
@@ -64,7 +60,6 @@ import joshuatee.wx.UIPreferences
 
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.activitiesmisc.SevereDashboardActivity
-import joshuatee.wx.activitiesmisc.WebView
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.util.*
@@ -671,26 +666,11 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 }
             }
             R.id.action_settings -> startActivity(Intent(this, SettingsRadarActivity::class.java))
-            R.id.action_radar_markers -> ObjectIntent(
-                    this,
-                    ImageShowActivity::class.java,
-                    ImageShowActivity.URL,
-                    arrayOf("raw:radar_legend", "Radar Markers", "false")
-            )
+            R.id.action_radar_markers -> ObjectIntent.showImage(this, arrayOf("raw:radar_legend", "Radar Markers", "false"))
             R.id.action_radar_2 -> showMultipaneRadar("2")
             R.id.action_radar_4 -> showMultipaneRadar("4")
-            R.id.action_radar_site_status_l3 -> ObjectIntent(
-                    this,
-                    WebView::class.java,
-                    WebView.URL,
-                    arrayOf("http://radar3pub.ncep.noaa.gov", resources.getString(R.string.action_radar_site_status_l3), "extended")
-            )
-            R.id.action_radar_site_status_l2 -> ObjectIntent(
-                    this,
-                    WebView::class.java,
-                    WebView.URL,
-                    arrayOf("http://radar2pub.ncep.noaa.gov", resources.getString(R.string.action_radar_site_status_l2), "extended")
-            )
+            R.id.action_radar_site_status_l3 -> ObjectIntent.showWebView(this, arrayOf("http://radar3pub.ncep.noaa.gov", resources.getString(R.string.action_radar_site_status_l3), "extended"))
+            R.id.action_radar_site_status_l2 -> ObjectIntent.showWebView(this, arrayOf("http://radar2pub.ncep.noaa.gov", resources.getString(R.string.action_radar_site_status_l2), "extended"))
             R.id.action_n0q, R.id.action_n0q_menu  -> getReflectivity()
             R.id.action_n0u, R.id.action_n0u_menu -> getVelocity()
             R.id.action_tz0 -> changeProd("TZ$tilt", true)
@@ -788,8 +768,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             animateButton.setIcon(MyApplication.ICON_PLAY)
             animateButton.title = animateButtonPlayString
             when (position) {
-                1 -> ObjectIntent(this, FavAddActivity::class.java, FavAddActivity.TYPE, arrayOf("RID"))
-                2 -> ObjectIntent(this, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, arrayOf("RID"))
+                1 -> ObjectIntent.favoriteAdd(this, arrayOf("RID"))
+                2 -> ObjectIntent.favoriteRemove(this, arrayOf("RID"))
                 else -> {
                     if (radarSitesForFavorites[position] == " ") {
                         oglr.rid = joshuatee.wx.settings.Location.rid
@@ -1030,12 +1010,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     private fun getContentVwp() = GlobalScope.launch(uiDispatcher) {
         val data = withContext(Dispatchers.IO) { UtilityWXOGL.getVwp(this@WXGLRadarActivity, oglr.rid) }
-        ObjectIntent(
-                this@WXGLRadarActivity,
-                TextScreenActivity::class.java,
-                TextScreenActivity.URL,
-                arrayOf(data, oglr.rid + " VAD Wind Profile")
-        )
+        ObjectIntent.showText(this@WXGLRadarActivity, arrayOf(data, oglr.rid + " VAD Wind Profile"))
     }
 
     private fun getReflectivity() {
@@ -1099,12 +1074,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         if (!archiveMode && !fixedSite) {
             WXGLNexrad.savePrefs(this, "WXOGL", oglr)
         }
-        ObjectIntent(
-                this,
-                WXGLRadarActivityMultiPane::class.java,
-                WXGLRadarActivityMultiPane.RID,
-                arrayOf(joshuatee.wx.settings.Location.rid, "", numberOfPanes, "true")
-        )
+        ObjectIntent.showRadarMultiPane(this, arrayOf(joshuatee.wx.settings.Location.rid, "", numberOfPanes, "true"))
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {

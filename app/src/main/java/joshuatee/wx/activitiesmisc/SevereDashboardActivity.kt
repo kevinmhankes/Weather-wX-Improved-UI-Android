@@ -24,7 +24,6 @@ package joshuatee.wx.activitiesmisc
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -185,7 +184,6 @@ class SevereDashboardActivity : BaseActivity() {
                         listOfWfoForWarnings.add(severeWarning.listOfWfo[index])
                         objectCardDashAlertItem.setId(numberOfWarnings)
                         numberOfWarnings += 1
-                        registerForContextMenu(objectCardDashAlertItem.card)
                     }
                 }
             }
@@ -252,38 +250,14 @@ class SevereDashboardActivity : BaseActivity() {
         return true
     }
 
-    // FIXME remove this after button code tested
-    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
-        super.onCreateContextMenu(menu, v, menuInfo)
-        //val colorDrawable = ColorDrawable()
-        //colorDrawable.color = ContextCompat.getColor(this, android.R.color.white)
-        //v.background = colorDrawable
-        //val zone = objectAlertSummary.mapButtonZone[v.id]
-        menu.add(0, v.id, 0, "Open radar interface")
-        //menu.add(0, v.id, 0, "Add new location for this warning ($zone)")
-    }
-
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        when (item.title) {
-            "Open radar interface" -> radarInterface(item.itemId)
-            else -> return false
-        }
-        return true
-    }
-
     private fun radarInterface(id: Int) {
         val radarSite = GlobalDictionaries.wfoToRadarSite[listOfWfoForWarnings[id]] ?: ""
         val radarLabel = Utility.getRadarSiteName(radarSite)
         val state = radarLabel.split(",")[0]
-        ObjectIntent(this@SevereDashboardActivity, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, arrayOf(radarSite, state, "N0Q", ""))
+        ObjectIntent.showRadar(this@SevereDashboardActivity, arrayOf(radarSite, state, "N0Q", ""))
     }
 
     private fun showWarningDetails(url: String) {
-        ObjectIntent(
-                this@SevereDashboardActivity,
-                USAlertsDetailActivity::class.java,
-                USAlertsDetailActivity.URL,
-                arrayOf("https://api.weather.gov/alerts/$url", "")
-        )
+        ObjectIntent(this@SevereDashboardActivity, USAlertsDetailActivity::class.java, USAlertsDetailActivity.URL, arrayOf("https://api.weather.gov/alerts/$url", ""))
     }
 }

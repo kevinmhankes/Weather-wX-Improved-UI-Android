@@ -97,20 +97,9 @@ class WpcRainfallForecastActivity : AudioPlayActivity(), OnMenuItemClickListener
             objectCardImage.setImage(bitmap)
         }
         objectCardImage.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                    this@WpcRainfallForecastActivity,
-                    ImageShowActivity::class.java,
-                    ImageShowActivity.URL,
-                    arrayOf(imageUrl, textProduct, "true")
-            )
+            ObjectIntent.showImage(this@WpcRainfallForecastActivity, arrayOf(imageUrl, textProduct, "true"))
         })
-        UtilityTts.conditionalPlay(
-                activityArguments,
-                1,
-                applicationContext,
-                objectCardText.text,
-                textProduct
-        )
+        UtilityTts.conditionalPlay(activityArguments, 1, applicationContext, objectCardText.text, textProduct)
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -118,25 +107,10 @@ class WpcRainfallForecastActivity : AudioPlayActivity(), OnMenuItemClickListener
             return true
         }
         when (item.itemId) {
-            R.id.action_share_all -> UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    textProduct,
-                    bitmap,
-                    objectCardText.text
-            )
-            R.id.action_share_text -> UtilityShare.shareText(
-                    this,
-                    textProduct,
-                    objectCardText.text
-            )
+            R.id.action_share_all -> UtilityShare.shareBitmap(this, this, textProduct, bitmap, objectCardText.text)
+            R.id.action_share_text -> UtilityShare.shareText(this, textProduct, objectCardText.text)
             R.id.action_share_url -> UtilityShare.shareText(this, textProduct, textProduct)
-            R.id.action_share_image -> UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    textProduct,
-                    bitmap
-            )
+            R.id.action_share_image -> UtilityShare.shareBitmap(this, this, textProduct, bitmap)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

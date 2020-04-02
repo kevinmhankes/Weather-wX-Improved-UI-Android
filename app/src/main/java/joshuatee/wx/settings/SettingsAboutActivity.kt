@@ -60,13 +60,13 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         faqButton.setTextColor(UIPreferences.textHighlightColor)
         faqButton.text = "View FAQ (Outage notifications listed at top if any current)"
         faqButton.setOnClickListener(View.OnClickListener {
-            ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf(faqUrl, "Frequently Asked Questions"))
+            ObjectIntent.showWebView(this, arrayOf(faqUrl, "Frequently Asked Questions"))
         })
         val releaseNotesButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         releaseNotesButton.setTextColor(UIPreferences.textHighlightColor)
         releaseNotesButton.text = "View release notes"
         releaseNotesButton.setOnClickListener(View.OnClickListener {
-            ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf(releaseNotesUrl, "Release Notes"))
+            ObjectIntent.showWebView(this, arrayOf(releaseNotesUrl, "Release Notes"))
         })
         val emailButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         emailButton.setTextColor(UIPreferences.textHighlightColor)
@@ -82,7 +82,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         iOSVersion.setTextColor(UIPreferences.textHighlightColor)
         iOSVersion.text = "iOS port of wX is called wXL23"
         iOSVersion.setOnClickListener(View.OnClickListener {
-            ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf(iOSUrl, "wXL23 for iOS"))
+            ObjectIntent.showWebView(this, arrayOf(iOSUrl, "wXL23 for iOS"))
         })
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         textCard.text = Utility.showVersion(this, this)

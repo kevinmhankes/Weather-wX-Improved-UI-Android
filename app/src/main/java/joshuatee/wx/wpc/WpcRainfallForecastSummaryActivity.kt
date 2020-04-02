@@ -74,12 +74,7 @@ class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemCli
                 val textProduct = UtilityWpcRainfallForecast.productCode[index]
                 val imageUrl = UtilityWpcRainfallForecast.imageUrls[index]
                 val day = (index + 1).toString()
-                ObjectIntent(
-                        this@WpcRainfallForecastSummaryActivity,
-                        WpcRainfallForecastActivity::class.java,
-                        WpcRainfallForecastActivity.NUMBER,
-                        arrayOf(textProduct, imageUrl, day)
-                )
+                ObjectIntent(this@WpcRainfallForecastSummaryActivity, WpcRainfallForecastActivity::class.java, WpcRainfallForecastActivity.NUMBER, arrayOf(textProduct, imageUrl, day))
             })
         }
     }

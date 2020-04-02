@@ -43,7 +43,6 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.os.Handler
 import joshuatee.wx.*
 
-import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.UtilityToolbar
@@ -702,19 +701,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 }
             }
             R.id.action_settings -> startActivity(Intent(this@WXGLRadarActivityMultiPane, SettingsRadarActivity::class.java))
-            R.id.action_radar_markers -> ObjectIntent(this, ImageShowActivity::class.java, ImageShowActivity.URL, arrayOf("raw:radar_legend", "Radar Markers", "false"))
-            R.id.action_radar_site_status_l3 -> ObjectIntent(
-                    this,
-                    WebView::class.java,
-                    WebView.URL,
-                    arrayOf("http://radar3pub.ncep.noaa.gov", resources.getString(R.string.action_radar_site_status_l3), "extended")
-            )
-            R.id.action_radar_site_status_l2 -> ObjectIntent(
-                    this,
-                    WebView::class.java,
-                    WebView.URL,
-                    arrayOf("http://radar2pub.ncep.noaa.gov", resources.getString(R.string.action_radar_site_status_l2), "extended")
-            )
+            R.id.action_radar_markers -> ObjectIntent.showImage(this, arrayOf("raw:radar_legend", "Radar Markers", "false"))
+            R.id.action_radar_site_status_l3 -> ObjectIntent.showWebView(this, arrayOf("http://radar3pub.ncep.noaa.gov", resources.getString(R.string.action_radar_site_status_l3), "extended"))
+            R.id.action_radar_site_status_l2 -> ObjectIntent.showWebView(this, arrayOf("http://radar2pub.ncep.noaa.gov", resources.getString(R.string.action_radar_site_status_l2), "extended"))
             R.id.action_radar1 -> switchRadar(0)
             R.id.action_radar2 -> switchRadar(1)
             R.id.action_radar3 -> switchRadar(2)
@@ -785,12 +774,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         WXGLNexrad.saveProductPrefs(this, prefPrefix, it + 1, oglrArr[it])
                     }
                 }
-                ObjectIntent(
-                        this,
-                        WXGLRadarActivityMultiPane::class.java,
-                        RID,
-                        arrayOf(joshuatee.wx.settings.Location.rid, "", "4", "true")
-                )
+                ObjectIntent.showRadarMultiPane(this, arrayOf(joshuatee.wx.settings.Location.rid, "", "4", "true"))
             }
             R.id.action_TDWR -> alertDialogTDWR()
             R.id.action_ridmap -> {

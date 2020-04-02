@@ -39,7 +39,6 @@ import joshuatee.wx.canada.*
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.AwcRadarMosaicActivity
 import joshuatee.wx.radar.USNwsMosaicActivity
-import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.radar.WXGLRadarActivityMultiPane
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.SettingsMainActivity
@@ -151,9 +150,9 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
     fun openNexradRadar(context: Context) {
         if (Location.isUS) {
             if (!UIPreferences.dualpaneRadarIcon) {
-                ObjectIntent(context, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, arrayOf(Location.rid, ""))
+                ObjectIntent.showRadar(context, arrayOf(Location.rid, ""))
             } else {
-                ObjectIntent(context, WXGLRadarActivityMultiPane::class.java, WXGLRadarActivityMultiPane.RID, arrayOf(Location.rid, "", "2"))
+                ObjectIntent.showRadarMultiPane(context, arrayOf(Location.rid, "", "2"))
             }
         } else {
             ObjectIntent(context, CanadaRadarActivity::class.java, CanadaRadarActivity.RID, arrayOf(Location.rid, "rad"))

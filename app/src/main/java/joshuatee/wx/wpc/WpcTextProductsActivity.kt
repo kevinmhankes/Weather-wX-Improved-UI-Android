@@ -146,18 +146,8 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
         when (position) {
-            1 -> ObjectIntent(
-                    this,
-                    FavAddActivity::class.java,
-                    FavAddActivity.TYPE,
-                    arrayOf("NWSTEXT")
-            )
-            2 -> ObjectIntent(
-                    this,
-                    FavRemoveActivity::class.java,
-                    FavRemoveActivity.TYPE,
-                    arrayOf("NWSTEXT")
-            )
+            1 -> ObjectIntent.favoriteAdd(this, arrayOf("NWSTEXT"))
+            2 -> ObjectIntent.favoriteRemove(this, arrayOf("NWSTEXT"))
             else -> {
                 product = products[position].split(":").getOrNull(0) ?: ""
                 getContent()
@@ -171,15 +161,11 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
             (UtilityWpcText.labels.indices).firstOrNull {
                 UtilityWpcText.labels[it].contains(
                         key
-                )
-            } ?: 0
+                ) } ?: 0
 
     override fun onRestart() {
         if (ridFavOld != MyApplication.nwsTextFav) {
-            products = UtilityFavorites.setupMenuNwsText(
-                    MyApplication.nwsTextFav,
-                    UtilityWpcText.labels[findPosition(product)]
-            )
+            products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, UtilityWpcText.labels[findPosition(product)])
             objectSpinner.refreshData(this, products)
         }
         super.onRestart()

@@ -66,8 +66,7 @@ class CanadaTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
         title = description
         scrollView.smoothScrollTo(0, 0)
         withContext(Dispatchers.IO) {
-            html =
-                    if (product != "https://weather.gc.ca/forecast/public_bulletins_e.html?Bulletin=fpcn48.cwao") {
+            html = if (product != "https://weather.gc.ca/forecast/public_bulletins_e.html?Bulletin=fpcn48.cwao") {
                         UtilityDownload.getTextProduct(this@CanadaTextActivity, product)
                     } else {
                         UtilityString.getHtmlAndParseSep(product, "<pre>(.*?)</pre>")
@@ -87,10 +86,7 @@ class CanadaTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 UtilityShare.shareText(this, description, Utility.fromHtml(html))
                 return true
             }
-            R.id.action_focn45 -> setProdAndDescription(
-                    "focn45",
-                    "Significant Weather Discussion, PASPC"
-            )
+            R.id.action_focn45 -> setProdAndDescription("focn45", "Significant Weather Discussion, PASPC")
             R.id.action_fxcn01_d13_west -> setProdAndDescription("fxcn01_d1-3_west", "FXCN01 D1-3 WEST")
             R.id.action_fxcn01_d47_west -> setProdAndDescription("fxcn01_d4-7_west", "FXCN01 D4-7 WEST")
             R.id.action_fxcn01_d13_east -> setProdAndDescription("fxcn01_d1-3_east", "FXCN01 D1-3 EAST")
