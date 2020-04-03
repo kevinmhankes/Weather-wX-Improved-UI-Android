@@ -36,13 +36,13 @@ object UtilityWXGLTextObject {
 
     fun updateSpotterLabels(numPanes: Int, textObjects: MutableList<WXGLTextObject>) {
         (0 until numPanes).forEach {
-            textObjects[it].addTextLabelsSpottersLabels()
+            textObjects[it].addSpottersLabels()
         }
     }
 
     fun updateObs(numPanes: Int, textObjects: MutableList<WXGLTextObject>) {
         (0 until numPanes).forEach {
-            textObjects[it].initializeTextLabelsObservations()
+            textObjects[it].initializeObservations()
             textObjects[it].addTextLabelsObservations()
         }
     }
