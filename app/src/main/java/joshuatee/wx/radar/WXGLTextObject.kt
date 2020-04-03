@@ -287,28 +287,27 @@ class WXGLTextObject(
             var report = false
             hideSpotter()
             wxglSurfaceView.spotterTextView = mutableListOf()
-            // FIXME var rename
-            var aa = 0
-            while (aa < UtilitySpotter.spotterList.size) {
-                if (UtilitySpotter.spotterList[aa].unique == WXGLRadarActivity.spotterId) {
+            var indexSpotter = 0
+            while (indexSpotter < UtilitySpotter.spotterList.size) {
+                if (UtilitySpotter.spotterList[indexSpotter].unique == WXGLRadarActivity.spotterId) {
                     break
                 }
-                aa += 1
+                indexSpotter += 1
             }
-            var bb = 0
-            while (bb < UtilitySpotter.spotterReports.size) {
-                if (UtilitySpotter.spotterReports[bb].uniq == WXGLRadarActivity.spotterId) {
+            var indexSpotterReport = 0
+            while (indexSpotterReport < UtilitySpotter.spotterReports.size) {
+                if (UtilitySpotter.spotterReports[indexSpotterReport].uniq == WXGLRadarActivity.spotterId) {
                     report = true
                     break
                 }
-                bb += 1
+                indexSpotterReport += 1
             }
             if (!report) {
-                spotterLat = UtilitySpotter.spotterList[aa].lat.toDoubleOrNull() ?: 0.0
-                spotterLon = UtilitySpotter.spotterList[aa].lon.toDoubleOrNull() ?: 0.0
+                spotterLat = UtilitySpotter.spotterList[indexSpotter].lat.toDoubleOrNull() ?: 0.0
+                spotterLon = UtilitySpotter.spotterList[indexSpotter].lon.toDoubleOrNull() ?: 0.0
             } else {
-                spotterLat = UtilitySpotter.spotterReports[bb].lat.toDoubleOrNull() ?: 0.0
-                spotterLon = UtilitySpotter.spotterReports[bb].lon.toDoubleOrNull() ?: 0.0
+                spotterLat = UtilitySpotter.spotterReports[indexSpotterReport].lat.toDoubleOrNull() ?: 0.0
+                spotterLon = UtilitySpotter.spotterReports[indexSpotterReport].lon.toDoubleOrNull() ?: 0.0
             }
             scale = getScale()
             oglrZoom = 1.0f
@@ -327,9 +326,9 @@ class WXGLTextObject(
                     if (drawText) {
                         if (!report) {
                             wxglSurfaceView.spotterTextView[c].text =
-                                    UtilitySpotter.spotterList[aa].lastName.replace("0FAV ", "")
+                                    UtilitySpotter.spotterList[indexSpotter].lastName.replace("0FAV ", "")
                         } else {
-                            wxglSurfaceView.spotterTextView[c].text = UtilitySpotter.spotterReports[bb].type
+                            wxglSurfaceView.spotterTextView[c].text = UtilitySpotter.spotterReports[indexSpotterReport].type
                         }
                     }
 
