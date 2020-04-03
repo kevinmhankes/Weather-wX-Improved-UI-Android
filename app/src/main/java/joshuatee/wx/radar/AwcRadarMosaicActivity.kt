@@ -96,9 +96,7 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
     }
 
     private fun getAnimate() = GlobalScope.launch(uiDispatcher) {
-        animDrawable = withContext(Dispatchers.IO) {
-            UtilityAwcRadarMosaic.getAnimation(this@AwcRadarMosaicActivity, objectNavDrawer.url, product)
-        }
+        animDrawable = withContext(Dispatchers.IO) { UtilityAwcRadarMosaic.getAnimation(this@AwcRadarMosaicActivity, objectNavDrawer.url, product) }
         animRan = UtilityImgAnim.startAnimation(animDrawable, img)
     }
 

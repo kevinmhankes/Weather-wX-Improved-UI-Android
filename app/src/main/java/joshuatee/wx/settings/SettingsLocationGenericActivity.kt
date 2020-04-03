@@ -385,52 +385,46 @@ class SettingsLocationGenericActivity : BaseActivity(),
         return true
     }
 
+    private fun delete() {
+        Location.deleteLocation(this, locNum)
+        afterDelete()
+        showMessage("Deleted location: $locNum ($locLabelCurrent)")
+        UtilityWXJobService.startService(this)
+        var locNumIntCurrent = Location.numLocations
+        locNumIntCurrent += 1
+        locNumToSaveStr = locNumIntCurrent.toString()
+        locNum = locNumToSaveStr
+        locLabelCurrent = "Location $locNumToSaveStr"
+        //
+        // needed to prevent old location(deleted) data from showing up when adding new
+        //
+        locXStr = ""
+        locYStr = ""
+        locXEt.setText(locXStr)
+        locYEt.setText(locYStr)
+        locLabelEt.setText(locLabelCurrent)
+        title = locLabelCurrent
+        afterDelete()
+        finish()
+    }
+
+    private fun showMap() {
+        val xStr = locXEt.text.toString()
+        val yStr = locYEt.text.toString()
+        if (xStr.isNotEmpty() && yStr.isNotEmpty()) {
+            if (Location.us(xStr)) {
+                ObjectIntent.showWebView(this, arrayOf(UtilityMap.getMapUrl(xStr, yStr, "9"), Location.name))
+            } else {
+                val addressForMap = locLabelEt.text.toString()
+                ObjectIntent.showWebView(this, arrayOf(UtilityMap.getMapUrlFromStreetAddress(addressForMap), Location.name))
+            }
+        }
+    }
+
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_delete -> {
-                Location.deleteLocation(this, locNum)
-                afterDelete()
-                showMessage("Deleted location: $locNum ($locLabelCurrent)")
-                UtilityWXJobService.startService(this)
-                var locNumIntCurrent = Location.numLocations
-                locNumIntCurrent++
-                locNumToSaveStr = locNumIntCurrent.toString()
-                locNum = locNumToSaveStr
-                locLabelCurrent = "Location $locNumToSaveStr"
-                //
-                // needed to prevent old location(deleted) data from showing up when adding new
-                //
-                locXStr = ""
-                locYStr = ""
-                locXEt.setText(locXStr)
-                locYEt.setText(locYStr)
-                locLabelEt.setText(locLabelCurrent)
-                title = locLabelCurrent
-                afterDelete()
-                finish()
-            }
-            R.id.action_map -> {
-                val xStr = locXEt.text.toString()
-                val yStr = locYEt.text.toString()
-                if (xStr.isNotEmpty() && yStr.isNotEmpty()) {
-                    if (Location.us(xStr)) {
-                        ObjectIntent(
-                                this,
-                                WebView::class.java,
-                                WebView.URL,
-                                arrayOf(UtilityMap.getMapUrl(xStr, yStr, "9"), "wX")
-                        )
-                    } else {
-                        val addressForMap = locLabelEt.text.toString()
-                        ObjectIntent(
-                                this,
-                                WebView::class.java,
-                                WebView.URL,
-                                arrayOf(UtilityMap.getMapUrlFromStreetAddress(addressForMap), "wX")
-                        )
-                    }
-                }
-            }
+            R.id.action_delete -> delete()
+            R.id.action_map -> showMap()
             R.id.action_ca -> ObjectIntent(this, SettingsLocationCanadaActivity::class.java)
             R.id.action_ab -> openCanadaMap("ab")
             R.id.action_bc -> openCanadaMap("bc")

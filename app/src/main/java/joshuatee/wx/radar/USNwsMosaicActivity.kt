@@ -116,9 +116,7 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         toolbar.subtitle = objectNavDrawer.getLabel()
-        bitmap = withContext(Dispatchers.IO) {
-            UtilityUSImgNwsMosaic.get(this@USNwsMosaicActivity, objectNavDrawer.url, true)
-        }
+        bitmap = withContext(Dispatchers.IO) { UtilityUSImgNwsMosaic.get(this@USNwsMosaicActivity, objectNavDrawer.url, true) }
         // FIXME bug in API 28 after changing
         if (!doNotSavePref) {
             Utility.writePref(this@USNwsMosaicActivity, "NWS_RADAR_MOSAIC_SECTOR_CURRENT", objectNavDrawer.getLabel())
@@ -129,9 +127,7 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
     }
 
     private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
-        animDrawable = withContext(Dispatchers.IO) {
-            UtilityUSImgNwsMosaic.getAnimation(this@USNwsMosaicActivity, objectNavDrawer.url, frameCount, true)
-        }
+        animDrawable = withContext(Dispatchers.IO) { UtilityUSImgNwsMosaic.getAnimation(this@USNwsMosaicActivity, objectNavDrawer.url, frameCount, true) }
         animRan = UtilityImgAnim.startAnimation(animDrawable, img)
     }
 
