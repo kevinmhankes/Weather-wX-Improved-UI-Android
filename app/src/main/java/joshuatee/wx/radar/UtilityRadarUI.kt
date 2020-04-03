@@ -298,7 +298,7 @@ internal object UtilityRadarUI {
                 } else
                     wxglRender.deconstructHWEXTLines()
             }).start()
-            wxglTextObjects[index].addTextLabels()
+            wxglTextObjects[index].addLabels()
             oldRadarSites[index] = wxglRenders[index].rid
         }
         Thread(Runnable {

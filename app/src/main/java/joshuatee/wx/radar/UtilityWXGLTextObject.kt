@@ -23,15 +23,14 @@ package joshuatee.wx.radar
 
 object UtilityWXGLTextObject {
 
-    // FIXME naming and use more
-    fun hideTV(numPanes: Int, textObjects: MutableList<WXGLTextObject>): Unit =
+    fun hideLabels(numPanes: Int, textObjects: MutableList<WXGLTextObject>): Unit =
         (0 until numPanes).forEach {
-            textObjects[it].hideTextLabels()
+            textObjects[it].hideLabels()
         }
 
-    fun showTV(numPanes: Int, textObjects: MutableList<WXGLTextObject>): Unit =
+    fun showLabels(numPanes: Int, textObjects: MutableList<WXGLTextObject>): Unit =
         (0 until numPanes).forEach {
-            textObjects[it].addTextLabels()
+            textObjects[it].addLabels()
         }
 
     fun updateSpotterLabels(numPanes: Int, textObjects: MutableList<WXGLTextObject>) {
@@ -40,10 +39,10 @@ object UtilityWXGLTextObject {
         }
     }
 
-    fun updateObs(numPanes: Int, textObjects: MutableList<WXGLTextObject>) {
+    fun updateObservations(numPanes: Int, textObjects: MutableList<WXGLTextObject>) {
         (0 until numPanes).forEach {
             textObjects[it].initializeObservations()
-            textObjects[it].addTextLabelsObservations()
+            textObjects[it].addObservations()
         }
     }
 

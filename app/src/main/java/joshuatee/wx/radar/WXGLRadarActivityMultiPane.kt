@@ -333,7 +333,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         panesList.forEach {
             wxglTextObjects.add(WXGLTextObject(this, relativeLayouts[it], wxglSurfaceViews[it], wxglRenders[it], numberOfPanes, it))
             wxglSurfaceViews[it].wxglTextObjects = wxglTextObjects
-            wxglTextObjects[it].initializeTextLabels(this)
+            wxglTextObjects[it].initializeLabels(this)
         }
         if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) {
             getContentSerial()
@@ -381,8 +381,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         restartedZoom = true
         panesList.forEach {
             if (objectImageMap.map.visibility == View.GONE) {
-                wxglTextObjects[it].initializeTextLabels(this)
-                wxglTextObjects[it].addTextLabels()
+                wxglTextObjects[it].initializeLabels(this)
+                wxglTextObjects[it].addLabels()
             }
         }
         // spotter code is serialized for now
@@ -451,7 +451,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         wxglTextObjects
                 )
                 if (PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) {
-                    UtilityWXGLTextObject.updateObs(numberOfPanes, wxglTextObjects)
+                    UtilityWXGLTextObject.updateObservations(numberOfPanes, wxglTextObjects)
                 }
                 glview.requestRender()
                 setSubTitle()
@@ -749,10 +749,10 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             R.id.action_ridmap -> {
                 objectImageMap.toggleMap()
                 oglInView = if (objectImageMap.map.visibility != View.GONE) {
-                    UtilityWXGLTextObject.hideTV(numberOfPanes, wxglTextObjects)
+                    UtilityWXGLTextObject.hideLabels(numberOfPanes, wxglTextObjects)
                     false
                 } else {
-                    UtilityWXGLTextObject.showTV(numberOfPanes, wxglTextObjects)
+                    UtilityWXGLTextObject.showLabels(numberOfPanes, wxglTextObjects)
                     true
                 }
             }
@@ -790,7 +790,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     private fun ridMapSwitch(r: String) {
         mapShown = false
-        UtilityWXGLTextObject.showTV(numberOfPanes, wxglTextObjects)
+        UtilityWXGLTextObject.showLabels(numberOfPanes, wxglTextObjects)
         if (inOglAnim) {
             inOglAnim = false
             inOglAnimPaused = false
@@ -878,7 +878,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 )
             } else {
                 panesList.forEach {
-                    wxglTextObjects[it].addTextLabels()
+                    wxglTextObjects[it].addLabels()
                 }
             }
         }

@@ -166,7 +166,7 @@ class LocationFragment : Fragment()  {
                 )
                 wxglSurfaceViews[index].wxglTextObjects = wxglTextObjects
                 wxglSurfaceViews[index].locationFragment = true
-                wxglTextObjects[index].initializeTextLabels(activityReference)
+                wxglTextObjects[index].initializeLabels(activityReference)
                 relativeLayouts[index].addView(wxglSurfaceViews[index])
                 cardViews.last().addView(relativeLayouts[index])
                 cardViews.last().layoutParams = RelativeLayout.LayoutParams(
@@ -207,7 +207,7 @@ class LocationFragment : Fragment()  {
                 )
                 wxglSurfaceViews[index].wxglTextObjects = wxglTextObjects
                 wxglSurfaceViews[index].locationFragment = true
-                wxglTextObjects[index].initializeTextLabels(activityReference)
+                wxglTextObjects[index].initializeLabels(activityReference)
                 relativeLayouts[index].addView(wxglSurfaceViews[index])
                 cardViews.last().addView(relativeLayouts[index])
                 cardViews.last().layoutParams = RelativeLayout.LayoutParams(
@@ -481,7 +481,7 @@ class LocationFragment : Fragment()  {
         // occurred since
         if (Location.isUS && idx == 0) {
             if (PolygonType.OBS.pref) {
-                UtilityWXGLTextObject.updateObs(numberOfRadars, wxglTextObjects)
+                UtilityWXGLTextObject.updateObservations(numberOfRadars, wxglTextObjects)
             }
             if (PolygonType.SPOTTER_LABELS.pref) {
                 UtilityWXGLTextObject.updateSpotterLabels(numberOfRadars, wxglTextObjects)
@@ -538,7 +538,7 @@ class LocationFragment : Fragment()  {
                 )
             } else {
                 (0 until numberOfRadars).forEach {
-                    wxglTextObjects[it].addTextLabels()
+                    wxglTextObjects[it].addLabels()
                 }
             }
         }
@@ -626,7 +626,7 @@ class LocationFragment : Fragment()  {
     private fun resetAllGlview() {
         wxglSurfaceViews.indices.forEach {
             UtilityRadarUI.resetGlview(wxglSurfaceViews[it], wxglRenders[it])
-            wxglTextObjects[it].addTextLabels()
+            wxglTextObjects[it].addLabels()
         }
     }
 

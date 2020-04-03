@@ -346,15 +346,15 @@ class WXGLTextObject(
         }
     }
 
-    fun initializeTextLabels(context: Context) {
+    fun initializeLabels(context: Context) {
         initializeCities(context)
         initializeCountyLabels(context)
     }
 
-    fun addTextLabels() {
+    fun addLabels() {
         addCities()
         addCountyLabels()
-        addTextLabelsObservations()
+        addObservations()
         addSpottersLabels()
         if (numberOfPanes == 1 && WXGLRadarActivity.spotterShowSelected) {
             addSpotter()
@@ -362,7 +362,7 @@ class WXGLTextObject(
         addWpcPressureCenters()
     }
 
-    fun hideTextLabels() {
+    fun hideLabels() {
         hideCities()
         hideCountyLabels()
         hideObservations()
@@ -412,7 +412,7 @@ class WXGLTextObject(
         }
     }
 
-    fun addTextLabelsObservations() {
+    fun addObservations() {
         if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && observationsInitialized) {
             val obsExtZoom = MyApplication.radarObsExtZoom.toDouble()
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)

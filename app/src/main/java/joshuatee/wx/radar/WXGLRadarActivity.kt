@@ -258,7 +258,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         paneList.forEach {
             wxglTextObjects.add(WXGLTextObject(this, relativeLayouts[it], wxglSurfaceViews[it], wxglRenders[it], numberOfPanes, it))
             wxglSurfaceViews[it].wxglTextObjects = wxglTextObjects
-            wxglTextObjects[it].initializeTextLabels(this)
+            wxglTextObjects[it].initializeLabels(this)
         }
         if (MyApplication.wxoglRememberLocation && !archiveMode && !fixedSite) {
             wxglSurfaceView.scaleFactor = MyApplication.wxoglZoom
@@ -309,8 +309,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         restartedZoom = true
         paneList.forEach {
             if (objectImageMap.map.visibility == View.GONE) {
-                wxglTextObjects[it].initializeTextLabels(this)
-                wxglTextObjects[it].addTextLabels()
+                wxglTextObjects[it].initializeLabels(this)
+                wxglTextObjects[it].addLabels()
             }
         }
         // if the top toolbar is not showing then neither are showing and the only restart
@@ -433,7 +433,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 UtilityWXGLTextObject.updateSpotterLabels(numberOfPanes, wxglTextObjects)
             }
             if ((PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) && !archiveMode) {
-                UtilityWXGLTextObject.updateObs(numberOfPanes, wxglTextObjects)
+                UtilityWXGLTextObject.updateObservations(numberOfPanes, wxglTextObjects)
             }
             wxglSurfaceView.requestRender()
             if (legendShown && wxglRender.product != oldProd && wxglRender.product != "DSA" && wxglRender.product != "DAA") {
@@ -835,7 +835,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 )
             } else {
                 paneList.forEach {
-                    wxglTextObjects[it].addTextLabels()
+                    wxglTextObjects[it].addLabels()
                 }
             }
         }
@@ -1064,9 +1064,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private fun showMap() {
         objectImageMap.toggleMap()
         if (objectImageMap.map.visibility != View.GONE) {
-            UtilityWXGLTextObject.hideTV(numberOfPanes, wxglTextObjects)
+            UtilityWXGLTextObject.hideLabels(numberOfPanes, wxglTextObjects)
         } else {
-            UtilityWXGLTextObject.showTV(numberOfPanes, wxglTextObjects)
+            UtilityWXGLTextObject.showLabels(numberOfPanes, wxglTextObjects)
         }
     }
 
