@@ -38,8 +38,6 @@ import joshuatee.wx.util.UtilityCanvasProjection
 
 import kotlin.math.*
 
-// TODO camelcase methods
-
 class WXGLTextObject(
         private val context: Context,
         private val relativeLayout: RelativeLayout,
