@@ -613,6 +613,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         }
     }
 
+    // FIXME variable naming throughout
     private fun fabSaveLocation() {
         val xStr = locXEt.text.toString()
         val yStr = locYEt.text.toString()
