@@ -29,7 +29,7 @@
 // TODO [ADD] severedash long press color is off
 // TODO [FIX] severedash -> long press -> go to dual pane ( does not use current location )
 // TODO [FIX] toolbar handling in WXGLSurfaceViews
-// TODO [ADD] storm track line size
+// TODO [ADD] storm track line sizes
 
 55389 2020_04_03    [REF] misc for readability
 55388 2020_04_01    [REF] misc for readability
