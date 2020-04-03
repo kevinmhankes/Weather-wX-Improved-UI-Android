@@ -27,7 +27,6 @@ import android.graphics.Color
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.util.UtilityIO
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityMath
 import joshuatee.wx.settings.UtilityLocation
 

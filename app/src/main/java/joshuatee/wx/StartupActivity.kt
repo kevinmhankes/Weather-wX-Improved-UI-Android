@@ -6,7 +6,6 @@ import android.app.Activity
 import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.notifications.UtilityWXJobService
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityStorePreferences
 import joshuatee.wx.util.Utility

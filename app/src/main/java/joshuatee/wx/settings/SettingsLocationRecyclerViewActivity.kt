@@ -23,13 +23,13 @@ package joshuatee.wx.settings
 
 import android.annotation.SuppressLint
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
 import joshuatee.wx.notifications.UtilityWXJobService
+import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.ui.ObjectRecyclerViewGeneric
@@ -52,7 +52,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_settings_location_recyclerview, null, false)
-        ObjectFab(this, this, R.id.fab_add, View.OnClickListener { addItemFab() })
+        ObjectFab(this, this, R.id.fab_add, View.OnClickListener { addLocation() })
         toolbar.subtitle = "Tap location to edit, delete, or move."
         updateList()
         recyclerView = ObjectRecyclerViewGeneric(this, this, R.id.card_list)
@@ -66,9 +66,10 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         currentConditions.clear()
         withContext(Dispatchers.IO) {
-            for (index in MyApplication.locations.indices) {
-                currentConditions.add(ObjectForecastPackageCurrentConditions(this@SettingsLocationRecyclerViewActivity, index))
-                currentConditions[index].format()
+            MyApplication.locations.indices.forEach { index ->
+                val objectForecastPackageCurrentConditions = ObjectForecastPackageCurrentConditions(this@SettingsLocationRecyclerViewActivity, index)
+                currentConditions.add(objectForecastPackageCurrentConditions)
+                objectForecastPackageCurrentConditions.format()
             }
         }
         updateListWithCurrentConditions()
@@ -78,7 +79,6 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     private fun updateList() {
         val locNumIntCurrent = Location.numLocations
         locations.clear()
-        // FIXME this activity needs to be cleaned up
         (0 until locNumIntCurrent).forEach {
             locations.add("")
             MyApplication.locations[it].updateObservation("")
@@ -117,9 +117,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
 
     private fun edit(position: Int) {
         val locStrPass = (position + 1).toString()
-        val intent = Intent(this, SettingsLocationGenericActivity::class.java)
-        intent.putExtra(SettingsLocationGenericActivity.LOC_NUM, arrayOf(locStrPass, ""))
-        startActivity(intent)
+        ObjectIntent.showLocationEdit(this, arrayOf(locStrPass, ""))
     }
 
     private fun delete(position: Int) {
@@ -164,10 +162,8 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         settingsLocationAdapterList.notifyDataSetChanged()
     }
 
-    private fun addItemFab() {
+    private fun addLocation() {
         val locationStringToPass = (locations.size + 1).toString()
-        val intent = Intent(this, SettingsLocationGenericActivity::class.java)
-        intent.putExtra(SettingsLocationGenericActivity.LOC_NUM, arrayOf(locationStringToPass, ""))
-        startActivity(intent)
+        ObjectIntent.showLocationEdit(this, arrayOf(locationStringToPass, ""))
     }
 } 

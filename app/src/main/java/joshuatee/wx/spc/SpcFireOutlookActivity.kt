@@ -30,7 +30,6 @@ import android.widget.LinearLayout
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
-import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.objects.ObjectIntent

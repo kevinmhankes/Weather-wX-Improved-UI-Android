@@ -45,7 +45,6 @@ import joshuatee.wx.R
 import joshuatee.wx.canada.UtilityCitiesCanada
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.activitiesmisc.WebView
 import joshuatee.wx.notifications.UtilityWXJobService
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.UtilityCitiesExtended

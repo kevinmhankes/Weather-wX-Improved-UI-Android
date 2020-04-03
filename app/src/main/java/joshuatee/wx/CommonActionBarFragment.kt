@@ -39,7 +39,6 @@ import joshuatee.wx.canada.*
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.AwcRadarMosaicActivity
 import joshuatee.wx.radar.USNwsMosaicActivity
-import joshuatee.wx.radar.WXGLRadarActivityMultiPane
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.SettingsMainActivity
 import joshuatee.wx.spc.SpcSoundingsActivity

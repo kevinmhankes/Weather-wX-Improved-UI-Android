@@ -35,8 +35,6 @@ import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.notifications.UtilityNotificationTextProduct
-import joshuatee.wx.settings.FavAddActivity
-import joshuatee.wx.settings.FavRemoveActivity
 import joshuatee.wx.MyApplication
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.ui.ObjectSpinner

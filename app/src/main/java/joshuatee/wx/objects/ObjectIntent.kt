@@ -31,6 +31,7 @@ import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.radar.WXGLRadarActivityMultiPane
 import joshuatee.wx.settings.FavAddActivity
 import joshuatee.wx.settings.FavRemoveActivity
+import joshuatee.wx.settings.SettingsLocationGenericActivity
 
 //
 // Used to start another activity
@@ -97,6 +98,10 @@ class ObjectIntent() {
 
         fun showText(context: Context, array: Array<String>) {
             ObjectIntent(context, TextScreenActivity::class.java, TextScreenActivity.URL, array)
+        }
+
+        fun showLocationEdit(context: Context, array: Array<String>) {
+            ObjectIntent(context, SettingsLocationGenericActivity::class.java, SettingsLocationGenericActivity.LOC_NUM, array)
         }
     }
 }

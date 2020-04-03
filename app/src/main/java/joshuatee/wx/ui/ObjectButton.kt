@@ -32,7 +32,7 @@ class ObjectButton(context: Context, title: String, icon: Int) {
         private const val padding = 15
     }
 
-    val button = MaterialButton(context)
+    private val button = MaterialButton(context)
 
     init {
         button.text = title

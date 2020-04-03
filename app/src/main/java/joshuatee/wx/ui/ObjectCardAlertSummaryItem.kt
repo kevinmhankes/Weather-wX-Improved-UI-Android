@@ -31,8 +31,6 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.CapAlert
 import joshuatee.wx.objects.TextSize
 import joshuatee.wx.util.UtilityString
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 
 class ObjectCardAlertSummaryItem(context: Context) {
 
