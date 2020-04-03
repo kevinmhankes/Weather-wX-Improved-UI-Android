@@ -55,8 +55,6 @@ class WXGLTextObject(
     private var spotterLat = 0.toDouble()
     private var spotterLon = 0.toDouble()
     private var maxCitiesPerGlview = 16
-    // TODO variable naming
-    //private var ii = 0
     private val glviewWidth: Int
     private val glviewHeight: Int
     private var scale = 0.toFloat()
@@ -79,10 +77,7 @@ class WXGLTextObject(
         else
             this.glviewHeight = MyApplication.dm.heightPixels
         projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
-        layoutParams = RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        )
+        layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
         layoutParams.addRule(RelativeLayout.CENTER_VERTICAL)
     }
@@ -429,8 +424,6 @@ class WXGLTextObject(
             val fontScaleFactorObs = 0.65f
             hideObservations()
             wxglSurfaceView.observations = mutableListOf()
-            var tmpArrObs: Array<String>
-            var tmpArrObsExt: Array<String>
             scale = getScale()
             oglrZoom = 1.0f
             if (wxglRender.zoom < 1.0f) {
@@ -442,11 +435,11 @@ class WXGLTextObject(
             if (wxglRender.zoom > 0.5) {
                 obsArr.indices.forEach {
                     if (it < obsArr.size && it < obsArrExt.size) {
-                        tmpArrObs = MyApplication.colon.split(obsArr[it])
-                        tmpArrObsExt = MyApplication.colon.split(obsArrExt[it])
-                        if (tmpArrObs.size > 1) {
-                            spotterLat = tmpArrObs[0].toDoubleOrNull() ?: 0.0
-                            spotterLon = tmpArrObs[1].toDoubleOrNull() ?: 0.0
+                        val observations = MyApplication.colon.split(obsArr[it])
+                        val observationsExtended = MyApplication.colon.split(obsArrExt[it])
+                        if (observations.size > 1) {
+                            spotterLat = observations[0].toDoubleOrNull() ?: 0.0
+                            spotterLon = observations[1].toDoubleOrNull() ?: 0.0
                         }
                         val drawText = checkButDoNotDrawText(
                                 wxglSurfaceView.observations,
@@ -457,9 +450,9 @@ class WXGLTextObject(
                         )
                         if (drawText) {
                             if (wxglRender.zoom > obsExtZoom) {
-                                wxglSurfaceView.observations.last().text = tmpArrObsExt[2]
+                                wxglSurfaceView.observations.last().text = observationsExtended[2]
                             } else if (PolygonType.OBS.pref) {
-                                wxglSurfaceView.observations.last().text = tmpArrObs[2]
+                                wxglSurfaceView.observations.last().text = observations[2]
                             }
                         }
                     }
