@@ -31,6 +31,7 @@
 // TODO [FIX] toolbar handling in WXGLSurfaceViews
 // TODO [ADD] storm track line sizes
 
+55390 2020_04_03    [REF] misc for readability
 55389 2020_04_03    [REF] misc for readability
 55388 2020_04_01    [REF] misc for readability
                     [ADD] severedashboard and uswarning - add radar/details button in warning cards
