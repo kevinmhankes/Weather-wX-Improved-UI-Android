@@ -50,6 +50,7 @@ internal class SevereWarning(private val type: PolygonType) {
     var warnings = listOf<String>()
     var listOfWfo = mutableListOf<String>()
 
+    // FIXME return directly in when
     fun getName(): String {
         var name = ""
         when (type) {

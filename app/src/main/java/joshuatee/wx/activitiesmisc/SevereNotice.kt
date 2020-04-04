@@ -51,13 +51,11 @@ internal class SevereNotice(val type: PolygonType) {
     }
 
     fun getBitmaps(html: String) {
-        var zeroString = ""
-        var url = ""
-        when (type) {
-            PolygonType.MCD -> zeroString = "<center>No Mesoscale Discussions are currently in effect."
-            PolygonType.WATCH -> zeroString = "<center><strong>No watches are currently valid"
-            PolygonType.MPD -> zeroString = "No MPDs are currently in effect."
-            else -> {}
+        val zeroString = when (type) {
+            PolygonType.MCD -> "<center>No Mesoscale Discussions are currently in effect."
+            PolygonType.WATCH -> "<center><strong>No watches are currently valid"
+            PolygonType.MPD -> "No MPDs are currently in effect."
+            else -> ""
         }
         if (!html.contains(zeroString)) {
             when (type) {
@@ -69,14 +67,14 @@ internal class SevereNotice(val type: PolygonType) {
             numbers = UtilityString.parseColumnAl(html, pattern)
         }
         numbers.indices.forEach { count ->
-            when (type) {
-                PolygonType.MCD -> url = "${MyApplication.nwsSPCwebsitePrefix}/products/md/mcd" + numbers[count] + ".gif"
-                PolygonType.WATCH -> {
-                    numbers[count] = String.format("%4s", numbers[count]).replace(' ', '0')
-                    url = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/ww" + numbers[count] + "_radar.gif"
-                }
-                PolygonType.MPD -> url = "${MyApplication.nwsWPCwebsitePrefix}/metwatch/images/mcd" + numbers[count] + ".gif"
-                else -> {}
+            if ( type == PolygonType.WATCH) {
+                numbers[count] = String.format("%4s", numbers[count]).replace(' ', '0')
+            }
+            val url = when (type) {
+                PolygonType.MCD -> "${MyApplication.nwsSPCwebsitePrefix}/products/md/mcd" + numbers[count] + ".gif"
+                PolygonType.WATCH -> "${MyApplication.nwsSPCwebsitePrefix}/products/watch/ww" + numbers[count] + "_radar.gif"
+                PolygonType.MPD -> "${MyApplication.nwsWPCwebsitePrefix}/metwatch/images/mcd" + numbers[count] + ".gif"
+                else -> ""
             }
             bitmaps.add(url.getImage())
         }
