@@ -38,8 +38,11 @@ class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
     }
 
     val name get() = type.urlToken.replace("%20", " ")
+
     val prefTokenEnabled get() = "RADAR_SHOW_" + type.productCode
+
     val prefTokenColor get() = "RADAR_COLOR_" + type.productCode
+
     private val prefTokenStorage get() = "SEVERE_DASHBOARD_" + type.productCode
 }
 

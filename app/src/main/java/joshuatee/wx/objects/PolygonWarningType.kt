@@ -25,31 +25,12 @@ import android.graphics.Color
 
 // NWS default colors: https://www.weather.gov/help-map
 
-enum class PolygonWarningType constructor(
-        var productCode: String,
-        var urlToken: String,
-        var initialColor: Int
-) {
-    SpecialMarineWarning(
-            "SMW",
-            "Special%20Marine%20Warning",
-            Color.rgb(255, 165, 0)
-    ),
-    SnowSquallWarning(
-            "SQW",
-            "Snow%20Squall%20Warning",
-            Color.rgb(199, 21, 133)
-    ),
-    DustStormWarning(
-            "DSW",
-            "Dust%20Storm%20Warning",
-            Color.rgb(255, 228, 196)
-    ),
-    SpecialWeatherStatement(
-            "SPS",
-            "Special%20Weather%20Statement",
-            Color.rgb(255, 228, 181)
-    );
+enum class PolygonWarningType constructor(var productCode: String, var urlToken: String, var initialColor: Int) {
+
+    SpecialMarineWarning("SMW", "Special%20Marine%20Warning", Color.rgb(255, 165, 0)),
+    SnowSquallWarning("SQW", "Snow%20Squall%20Warning", Color.rgb(199, 21, 133)),
+    DustStormWarning("DSW", "Dust%20Storm%20Warning", Color.rgb(255, 228, 196)),
+    SpecialWeatherStatement("SPS", "Special%20Weather%20Statement", Color.rgb(255, 228, 181));
 }
 
 

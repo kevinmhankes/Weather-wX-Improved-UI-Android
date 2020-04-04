@@ -23,12 +23,8 @@ package joshuatee.wx.objects
 
 import joshuatee.wx.*
 
-enum class WidgetFile constructor(
-    val fileName: String,
-    val prefString: String,
-    val action: String,
-    val clazz: Class<*>
-) {
+enum class WidgetFile constructor(val fileName: String, val prefString: String, val action: String, val clazz: Class<*>) {
+
     NEXRAD_RADAR("nexrad.png", "DOWNLOAD_LOC1_RADAR", "ACTION_WX_NEXRAD", WidgetNexrad::class.java),
     MOSAIC_RADAR(
         "rad_1km.png",
