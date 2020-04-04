@@ -39,15 +39,11 @@ internal class SevereNotice(val type: PolygonType) {
     val bitmaps = mutableListOf<Bitmap>()
     var numbers = mutableListOf<String>()
     var pattern: Pattern = Pattern.compile("")
-    private var typeAsString = ""
-
-    init {
-        when (type) {
-            PolygonType.MCD -> typeAsString = "MCD"
-            PolygonType.WATCH -> typeAsString = "WATCH"
-            PolygonType.MPD -> typeAsString = "MPD"
-            else -> {}
-        }
+    private var typeAsString = when (type) {
+        PolygonType.MCD -> "MCD"
+        PolygonType.WATCH -> "WATCH"
+        PolygonType.MPD -> "MPD"
+        else -> ""
     }
 
     fun getBitmaps(html: String) {
