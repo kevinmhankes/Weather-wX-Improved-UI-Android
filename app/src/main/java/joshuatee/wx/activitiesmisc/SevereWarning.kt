@@ -50,16 +50,13 @@ internal class SevereWarning(private val type: PolygonType) {
     var warnings = listOf<String>()
     var listOfWfo = mutableListOf<String>()
 
-    // FIXME return directly in when
     fun getName(): String {
-        var name = ""
-        when (type) {
-            PolygonType.TOR -> name = "Tornado Warning"
-            PolygonType.TST -> name = "Severe Thunderstorm Warning"
-            PolygonType.FFW -> name = "Flash Flood Warning"
-            else -> {}
+        return when (type) {
+            PolygonType.TOR -> "Tornado Warning"
+            PolygonType.TST -> "Severe Thunderstorm Warning"
+            PolygonType.FFW -> "Flash Flood Warning"
+            else -> ""
         }
-        return name
     }
 
     fun generateString(html: String) {
