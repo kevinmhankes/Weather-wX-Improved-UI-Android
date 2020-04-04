@@ -66,12 +66,11 @@ internal class SevereWarning(private val type: PolygonType) {
         expiresList = html.parseColumn("\"expires\": \"(.*?)\"")
         eventList = html.parseColumn("\"event\": \"(.*?)\"")
         senderNameList = html.parseColumn("\"senderName\": \"(.*?)\"")
-        var label = ""
-        when (type) {
-            PolygonType.TOR -> label = "Tornado Warnings"
-            PolygonType.TST -> label = "Severe Thunderstorm Warnings"
-            PolygonType.FFW -> label = "Flash Flood Warnings"
-            else -> {}
+        val label = when (type) {
+            PolygonType.TOR -> "Tornado Warnings"
+            PolygonType.TST -> "Severe Thunderstorm Warnings"
+            PolygonType.FFW -> "Flash Flood Warnings"
+            else -> ""
         }
         warnings = html.parseColumn(RegExp.warningVtecPattern)
         warnings.forEach {
