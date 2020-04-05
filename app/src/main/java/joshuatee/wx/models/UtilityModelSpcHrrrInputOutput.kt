@@ -63,10 +63,8 @@ internal object UtilityModelSpcHrrrInputOutput {
             imgUrl = layerUrl + getSectorCode(om.sector).toLowerCase(Locale.US) + "/" + it + "/" + it + ".gif"
             bitmaps.add(UtilityImg.eraseBackground(imgUrl.getImage(), -1))
         }
-        imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/hrrr/data/hrrr3/" +
-                getSectorCode(om.sector).toLowerCase(Locale.US) + "/R" +
-                om.run.replace("Z", "") + "_F" +
-                formatTime(time) + "_V" + getValidTime(om.run, time, om.rtd.validTime) +
+        imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/hrrr/data/hrrr3/" + getSectorCode(om.sector).toLowerCase(Locale.US) + "/R" +
+                om.run.replace("Z", "") + "_F" + formatTime(time) + "_V" + getValidTime(om.run, time, om.rtd.validTime) +
                 "_" + getSectorCode(om.sector) + "_" + om.currentParam + ".gif"
         bitmaps.add(UtilityImg.eraseBackground(imgUrl.getImage(), -1))
         layers.add(ColorDrawable(Color.WHITE))
@@ -79,13 +77,7 @@ internal object UtilityModelSpcHrrrInputOutput {
             return AnimationDrawable()
         }
         val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) { k ->
-            getImage(
-                context,
-                om,
-                om.spTime.list[k].split(" ").dropLastWhile { it.isEmpty() }.getOrNull(0)
-                    ?: "",
-                overlayImg
-            )
+            getImage(context, om, om.spTime.list[k].split(" ").dropLastWhile { it.isEmpty() }.getOrNull(0) ?: "", overlayImg)
         }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
