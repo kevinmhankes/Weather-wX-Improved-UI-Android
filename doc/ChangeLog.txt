@@ -31,6 +31,7 @@
 // TODO [FIX] toolbar handling in WXGLSurfaceViews
 // TODO [ADD] storm track line sizes
 
+55391 2020_04_05
 55390 2020_04_05    [REF] misc for readability
                     [ADD] nexrad radar - line size for wind barbs, storm tracks, and convective outlines now configurable
 55389 2020_04_03    [REF] misc for readability
