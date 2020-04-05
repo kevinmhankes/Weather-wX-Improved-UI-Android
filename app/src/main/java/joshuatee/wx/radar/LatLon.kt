@@ -76,36 +76,28 @@ class LatLon() {
     }
 
     var lat: Double
-        get() {
-            return x
-        }
+        get() { return x }
         set(newValue) {
             x = newValue
             xStr = x.toString()
         }
 
     var lon: Double
-        get() {
-            return y
-        }
+        get() { return y }
         set(newValue) {
             y = newValue
             yStr = y.toString()
         }
 
     var latString: String
-        get() {
-            return xStr
-        }
+        get() { return xStr }
         set(newValue) {
             xStr = newValue
             x = newValue.toDoubleOrNull() ?: 0.0
         }
 
     var lonString: String
-        get() {
-            return yStr
-        }
+        get() { return yStr }
         set(newValue) {
             yStr = newValue
             y = newValue.toDoubleOrNull() ?: 0.0
