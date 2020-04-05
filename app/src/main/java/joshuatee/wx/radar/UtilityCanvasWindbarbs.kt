@@ -135,7 +135,6 @@ object UtilityCanvasWindbarbs {
                         oneHalfBarb = true
                     }
                     (0 until barbCount).forEach { j ->
-
                         ec = ecc.calculateEndingGlobalCoordinates(
                                 ExternalEllipsoid.WGS84,
                                 end,
@@ -152,39 +151,12 @@ object UtilityCanvasWindbarbs {
                                 startLength + arrowLength * nmScaleFactor,
                                 bearing
                         )
-
-                        /*ec = ecc.calculateEndingGlobalCoordinates(
-                            ExternalEllipsoid.WGS84,
-                            end,
-                            degree2,
-                            barbOffset + startLength + j.toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor,
-                            bearing
-                        )
-                        stormList += UtilityCanvasProjection.computeMercatorNumbers(
-                            ec.latitude,
-                            ec.longitude * -1,
-                            projectionNumbers
-                        ).toList()
-                        start = ExternalGlobalCoordinates(ec.latitude, ec.longitude)
-                        ec = ecc.calculateEndingGlobalCoordinates(
-                            ExternalEllipsoid.WGS84,
-                            start,
-                            degree2 - arrowBend * 2.0,
-                            startLength + arrowLength * nmScaleFactor,
-                            bearing
-                        )
-                        stormList += UtilityCanvasProjection.computeMercatorNumbers(
-                            ec.latitude,
-                            ec.longitude * -1,
-                            projectionNumbers
-                        ).toList()*/
                     }
                     var halfBarbOffsetFudge = 0.0
                     if (oneHalfBarb) {
                         halfBarbOffsetFudge = nmScaleFactor * 1.0
                     }
                     if (halfBarb) {
-
                         ec = ecc.calculateEndingGlobalCoordinates(
                                 ExternalEllipsoid.WGS84,
                                 end,
@@ -201,32 +173,6 @@ object UtilityCanvasWindbarbs {
                                 startLength + arrowLength / 2.0 * nmScaleFactor,
                                 bearing
                         )
-
-                        /*ec = ecc.calculateEndingGlobalCoordinates(
-                            ExternalEllipsoid.WGS84,
-                            end,
-                            degree2,
-                            barbOffset + halfBarbOffsetFudge + startLength + (barbCount-1).toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor,
-                            bearing
-                        )
-                        stormList += UtilityCanvasProjection.computeMercatorNumbers(
-                            ec.latitude,
-                            ec.longitude * -1,
-                            projectionNumbers
-                        ).toList()
-                        start = ExternalGlobalCoordinates(ec.latitude, ec.longitude)
-                        ec = ecc.calculateEndingGlobalCoordinates(
-                            ExternalEllipsoid.WGS84,
-                            start,
-                            degree2 - arrowBend * 2.0,
-                            startLength + arrowLength / 2.0 * nmScaleFactor,
-                            bearing
-                        )
-                        stormList += UtilityCanvasProjection.computeMercatorNumbers(
-                            ec.latitude,
-                            ec.longitude * -1,
-                            projectionNumbers
-                        ).toList()*/
                     }
                 } // if length greater then 4
             } // loop over wind barbs
@@ -244,18 +190,10 @@ object UtilityCanvasWindbarbs {
                 val list: List<Double>
                 if (mercator) {
                     paint.color = UtilityMetar.metarDataList[index].obsArrAviationColor[k]
-                    list = UtilityCanvasProjection.computeMercatorNumbers(
-                        wbCircleXArr[k],
-                        wbCircleYArr[k],
-                        projectionNumbers
-                    ).toList()
+                    list = UtilityCanvasProjection.computeMercatorNumbers(wbCircleXArr[k], wbCircleYArr[k], projectionNumbers).toList()
                 } else {
                     paint.color = UtilityMetar.metarDataList[index].obsArrAviationColor[k]
-                    list = UtilityCanvasProjection.compute4326Numbers(
-                        wbCircleXArr[k],
-                        wbCircleYArr[k],
-                        projectionNumbers
-                    ).toList()
+                    list = UtilityCanvasProjection.compute4326Numbers(wbCircleXArr[k], wbCircleYArr[k], projectionNumbers).toList()
                 }
                 pixXInit = list[0]
                 pixYInit = list[1]
