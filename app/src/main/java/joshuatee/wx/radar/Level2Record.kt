@@ -42,7 +42,7 @@ import java.nio.ByteBuffer
 import joshuatee.wx.util.UCARRandomAccessFile
 
 internal class Level2Record @Throws(IOException::class)
-private constructor(ucarRandomAccessFile: UCARRandomAccessFile, record: Int, message_offset31: Long) {
+private constructor(ucarRandomAccessFile: UCARRandomAccessFile, record: Int, messageOffset31: Long) {
 
     private val messageOffset: Long // offset of start of message
     var hasHighResREFData = false
@@ -66,7 +66,7 @@ private constructor(ucarRandomAccessFile: UCARRandomAccessFile, record: Int, mes
     private var velocityHROffset: Short = 0
 
     init {
-        messageOffset = (record * RADAR_DATA_SIZE).toLong() + FILE_HEADER_SIZE.toLong() + message_offset31
+        messageOffset = (record * RADAR_DATA_SIZE).toLong() + FILE_HEADER_SIZE.toLong() + messageOffset31
         ucarRandomAccessFile.seek(messageOffset)
         ucarRandomAccessFile.skipBytes(CTM_HEADER_SIZE)
         messageSize = ucarRandomAccessFile.readShort() // size in "halfwords" = 2 bytes
@@ -172,8 +172,8 @@ private constructor(ucarRandomAccessFile: UCARRandomAccessFile, record: Int, mes
         }
     }
 
-    private fun getDataOffset(datatype: Int): Short {
-        when (datatype) {
+    private fun getDataOffset(dataType: Int): Short {
+        when (dataType) {
             REFLECTIVITY_HIGH -> return reflectHROffset
             VELOCITY_HIGH -> return velocityHROffset
         }
@@ -189,12 +189,7 @@ private constructor(ucarRandomAccessFile: UCARRandomAccessFile, record: Int, mes
     }
 
     @Throws(IOException::class)
-    private fun getDataBlockStringValue(
-            ucarRandomAccessFile: UCARRandomAccessFile,
-            offset: Short,
-            skip: Int,
-            size: Int
-    ): String {
+    private fun getDataBlockStringValue(ucarRandomAccessFile: UCARRandomAccessFile, offset: Short, skip: Int, size: Int): String {
         val off = offset.toLong() + messageOffset + MESSAGE_HEADER_SIZE.toLong()
         ucarRandomAccessFile.seek(off)
         ucarRandomAccessFile.skipBytes(skip)
@@ -206,10 +201,10 @@ private constructor(ucarRandomAccessFile: UCARRandomAccessFile, record: Int, mes
     }
 
     @Throws(IOException::class)
-    fun readData(ucarRandomAccessFile: UCARRandomAccessFile, datatype: Int, binWord: ByteBuffer) {
+    fun readData(ucarRandomAccessFile: UCARRandomAccessFile, dataType: Int, binWord: ByteBuffer) {
         var offset = messageOffset
         offset += MESSAGE_HEADER_SIZE.toLong() // offset is from "start of digital radar data message header"
-        offset += getDataOffset(datatype).toLong()
+        offset += getDataOffset(dataType).toLong()
         ucarRandomAccessFile.seek(offset)
         for (i in 0..915) {
             binWord.put(ucarRandomAccessFile.readUnsignedByte().toByte())
