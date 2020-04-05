@@ -64,8 +64,7 @@ internal object UtilityModelWpcGefsInputOutput {
         } else {
             "_ak"
         }
-        val imgUrl = "${MyApplication.nwsWPCwebsitePrefix}/exper/gefs/" + om.run + "/GEFS_" +
-                        om.currentParam + "_" + om.run + "Z_f" + time + sectorAdd + ".gif"
+        val imgUrl = "${MyApplication.nwsWPCwebsitePrefix}/exper/gefs/" + om.run + "/GEFS_" + om.currentParam + "_" + om.run + "Z_f" + time + sectorAdd + ".gif"
         return imgUrl.getImage()
     }
 
