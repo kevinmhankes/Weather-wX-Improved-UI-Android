@@ -73,17 +73,11 @@ internal object UtilityModelNsslWrfInputOutput {
             val month = om.run.substring(4, 6)
             val day = om.run.substring(6, 8)
             val hour = om.run.substring(8, 10)
-            val url =
-                baseUrl + "/graphics/models/" + model + modelPostfix + "/" + year + "/" + month + "/" +
-                        day + "/" + hour + "00/f" + time + "00/" + om.currentParam + ".spc_" +
-                        sector.toLowerCase(Locale.US) + ".f" + time + "00.png"
+            val url = baseUrl + "/graphics/models/" + model + modelPostfix + "/" + year + "/" + month + "/" + day + "/" + hour + "00/f" +
+                    time + "00/" + om.currentParam + ".spc_" + sector.toLowerCase(Locale.US) + ".f" + time + "00.png"
             val baseLayerImage = baseLayerUrl.getImage()
             val productLayerImage = url.getImage()
-            return UtilityImg.addColorBackground(
-                context,
-                UtilityImg.mergeImages(context, productLayerImage, baseLayerImage),
-                Color.WHITE
-            )
+            return UtilityImg.addColorBackground(context, UtilityImg.mergeImages(context, productLayerImage, baseLayerImage), Color.WHITE)
         } else {
             return UtilityImg.getBlankBitmap()
         }

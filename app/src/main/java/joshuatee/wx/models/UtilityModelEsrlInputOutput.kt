@@ -38,16 +38,13 @@ internal object UtilityModelEsrlInputOutput {
 
     fun getRunTime(model: String, param: String): RunTimeData {
         val runData = RunTimeData()
-        val htmlRunStatus: String = when (model) {
-            "HRRR_AK" -> ("$urlBase/alaska/").getHtml()
+        val htmlRunStatus = when (model) {
+            "HRRR_AK" -> "$urlBase/alaska/".getHtml()
             // https://rapidrefresh.noaa.gov/RAP/Welcome.cgi?dsKey=rap_jet&domain=full&run_time=23+Nov+2018+-+08Z
-            "RAP_NCEP" -> ("$urlBase/RAP/Welcome.cgi?dsKey=" + model.toLowerCase(Locale.US)
-                    + "_jet&domain=full").getHtml()
-            "RAP" -> ("$urlBase/RAP/").getHtml()
-            "HRRR_NCEP" -> ("$urlBase/hrrr/HRRR/Welcome.cgi?dsKey=" + model.toLowerCase(Locale.US)
-                    + "_jet&domain=full").getHtml()
-            else -> ("$urlBase/" + model.toLowerCase(Locale.US) + "/" + model + "/Welcome.cgi?dsKey="
-                    + model.toLowerCase(Locale.US) + "_jet&domain=full").getHtml()
+            "RAP_NCEP" -> ("$urlBase/RAP/Welcome.cgi?dsKey=" + model.toLowerCase(Locale.US) + "_jet&domain=full").getHtml()
+            "RAP" -> "$urlBase/RAP/".getHtml()
+            "HRRR_NCEP" -> ("$urlBase/hrrr/HRRR/Welcome.cgi?dsKey=" + model.toLowerCase(Locale.US) + "_jet&domain=full").getHtml()
+            else -> ("$urlBase/" + model.toLowerCase(Locale.US) + "/" + model + "/Welcome.cgi?dsKey=" + model.toLowerCase(Locale.US) + "_jet&domain=full").getHtml()
         }
         var html = htmlRunStatus.parse(RegExp.eslHrrrPattern1)
         val oldRunTimes = htmlRunStatus.parseColumn(RegExp.eslHrrrPattern2)
@@ -120,8 +117,7 @@ internal object UtilityModelEsrlInputOutput {
                     paramTmp = paramTmp.replace("_", "_$sector")
                 }
             }
-            "HRRR_AK" -> {
-            }
+            "HRRR_AK" -> {}
             "RAP", "RAP_NCEP" ->
                 when (om.sectorInt) {
                     9 -> {
@@ -146,8 +142,7 @@ internal object UtilityModelEsrlInputOutput {
         when (om.model) {
             "RAP_NCEP" -> parentModel = "RAP"
             "HRRR_NCEP" -> parentModel = "HRRR"
-            else -> {
-            }
+            else -> {}
         }
         val onDemandUrl: String
         if (parentModel.contains("RAP")) {
