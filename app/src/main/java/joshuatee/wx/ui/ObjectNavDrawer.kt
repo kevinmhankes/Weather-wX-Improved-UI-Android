@@ -60,10 +60,7 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
         labels = items
     }
 
-    constructor(activity: Activity, items: List<String>, tokens: List<String>) : this(
-        activity,
-        items
-    ) {
+    constructor(activity: Activity, items: List<String>, tokens: List<String>) : this(activity, items) {
         this.tokens = tokens
     }
 

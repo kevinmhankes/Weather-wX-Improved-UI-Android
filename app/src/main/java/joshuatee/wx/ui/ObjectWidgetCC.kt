@@ -66,10 +66,7 @@ class ObjectWidgetCC(context: Context) {
             )
             remoteViews.setTextColor(R.id.location, MyApplication.widgetTextColor)
         }
-        if (currentConditionsList.size > 4
-                && !currentConditionsList[0].contains("NA")
-                && Location.isUS(widgetLocationNumberAsInteger)
-        ) {
+        if (currentConditionsList.size > 4 && !currentConditionsList[0].contains("NA") && Location.isUS(widgetLocationNumberAsInteger)) {
             val temperatureList = currentConditionsList[0].split("/").dropLastWhile { it.isEmpty() }
             remoteViews.setTextViewText(R.id.wind, currentConditionsList[2])
             val ccArr = updateTime.split(" ")
@@ -121,12 +118,7 @@ class ObjectWidgetCC(context: Context) {
             val matrix = Matrix()
             matrix.postRotate(windBardRotate, 100f, 100f)
             var rotatedWb = Bitmap.createBitmap(wbIcon, 0, 0, wbIcon.width, wbIcon.height, matrix, true)
-            rotatedWb = Bitmap.createScaledBitmap(
-                    rotatedWb,
-                    (wbIcon.width * scaleFactor).toInt(),
-                    (wbIcon.height * scaleFactor).toInt(),
-                    false
-            )
+            rotatedWb = Bitmap.createScaledBitmap(rotatedWb, (wbIcon.width * scaleFactor).toInt(), (wbIcon.height * scaleFactor).toInt(), false)
             remoteViews.setImageViewUri(R.id.wind_barb, Uri.parse(""))
             if (windBardRotate < 500) {
                 remoteViews.setImageViewBitmap(R.id.wind_barb, rotatedWb)

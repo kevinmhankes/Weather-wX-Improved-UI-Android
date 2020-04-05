@@ -30,7 +30,7 @@ import joshuatee.wx.RegExp
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityTime
 
-internal class SevereWarning(private val type: PolygonType) {
+class SevereWarning(private val type: PolygonType) {
 
     //
     // encapsulates VTEC data and count for tst,tor, or ffw

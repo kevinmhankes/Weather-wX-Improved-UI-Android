@@ -162,16 +162,13 @@ class SevereDashboardActivity : BaseActivity() {
                 severeWarning.effectiveList.forEachIndexed { index, _ ->
                     val data = severeWarning.warnings[index]
                     if (!data.startsWith("O.EXP")) {
-                        // FIXME send object not items in object
-                        val objectCardDashAlertItem = ObjectCardDashAlertItem(
-                                this@SevereDashboardActivity,
-                                linearLayout,
-                                severeWarning.senderNameList[index],
-                                severeWarning.eventList[index],
-                                severeWarning.effectiveList[index],
-                                severeWarning.expiresList[index],
-                                severeWarning.areaDescList[index]
-                        )
+                        val objectCardDashAlertItem = ObjectCardDashAlertItem(this@SevereDashboardActivity, linearLayout, severeWarning, index)
+                                //severeWarning.senderNameList[index],
+                                //severeWarning.eventList[index],
+                                //severeWarning.effectiveList[index],
+                                //severeWarning.expiresList[index],
+                                //severeWarning.areaDescList[index]
+                        //)
                         objectCardDashAlertItem.setListener(View.OnClickListener {
                             showWarningDetails(severeWarning.idList[index])
                         })

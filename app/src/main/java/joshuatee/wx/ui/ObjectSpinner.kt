@@ -41,14 +41,7 @@ class ObjectSpinner {
     val list: MutableList<String>
 
     // FIXME the below can inherit code, isolate and test
-    constructor(
-        activity: Activity,
-        context: Context,
-        fn: AdapterView.OnItemSelectedListener,
-        spinnerResourceId: Int,
-        dataArray: List<String>,
-        initialValue: String
-    ) {
+    constructor(activity: Activity, context: Context, fn: AdapterView.OnItemSelectedListener, spinnerResourceId: Int, dataArray: List<String>, initialValue: String) {
         list = dataArray.toMutableList()
         spinner = activity.findViewById(spinnerResourceId)
         setupSpinner()
@@ -60,14 +53,7 @@ class ObjectSpinner {
         setOnItemSelectedListener(fn)
     }
 
-    constructor(
-        activity: Activity,
-        context: Context,
-        fn: AdapterView.OnItemSelectedListener,
-        spinnerResourceId: Int,
-        dataArray: List<String>,
-        initialPosition: Int
-    ) {
+    constructor(activity: Activity, context: Context, fn: AdapterView.OnItemSelectedListener, spinnerResourceId: Int, dataArray: List<String>, initialPosition: Int) {
         list = dataArray.toMutableList()
         spinner = activity.findViewById(spinnerResourceId)
         setupSpinner()
@@ -79,13 +65,7 @@ class ObjectSpinner {
         setOnItemSelectedListener(fn)
     }
 
-    constructor(
-        activity: Activity,
-        context: Context,
-        fn: AdapterView.OnItemSelectedListener,
-        spinnerResourceId: Int,
-        dataArray: List<String>
-    ) {
+    constructor(activity: Activity, context: Context, fn: AdapterView.OnItemSelectedListener, spinnerResourceId: Int, dataArray: List<String>) {
         list = dataArray.toMutableList()
         spinner = activity.findViewById(spinnerResourceId)
         setupSpinner()
