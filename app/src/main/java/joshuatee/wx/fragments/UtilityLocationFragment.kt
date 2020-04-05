@@ -27,10 +27,8 @@ import joshuatee.wx.util.UtilityString
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.radar.WXGLRender
 import joshuatee.wx.settings.Location
-import joshuatee.wx.settings.SettingsLocationGenericActivity
 import joshuatee.wx.util.Utility
 import java.util.*
 
@@ -279,14 +277,7 @@ object UtilityLocationFragment {
         }
     }
 
-    fun handleIconTap(
-            stringName: String,
-            wxglRender: WXGLRender?,
-            activityReference: Context,
-            fnRefresh: () -> Unit,
-            fnResetRadarView: () -> Unit,
-            fnGetRadars: () -> Unit
-    ) {
+    fun handleIconTap(stringName: String, wxglRender: WXGLRender?, activityReference: Context, fnRefresh: () -> Unit, fnResetRadarView: () -> Unit, fnGetRadars: () -> Unit) {
         when {
             stringName.contains("Edit Location..") -> ObjectIntent.showLocationEdit(activityReference, arrayOf(Location.currentLocationStr, ""))
             stringName.contains("Force Data Refresh") -> fnRefresh()
