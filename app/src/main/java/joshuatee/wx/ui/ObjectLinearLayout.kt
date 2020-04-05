@@ -62,23 +62,16 @@ class ObjectLinearLayout(context: Context) {
     fun removeAllViews() = linearLayout.removeAllViews()
 
     fun matchParent() {
-        linearLayout.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        )
+        linearLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
     }
 
     var visibility
         get() = linearLayout.visibility
-        set(value) {
-            linearLayout.visibility = value
-        }
+        set(value) { linearLayout.visibility = value }
 
     var orientation
         get() = linearLayout.orientation
-        set(value) {
-            linearLayout.orientation = value
-        }
+        set(value) { linearLayout.orientation = value }
 
     private var gravityBacking = Gravity.START
 

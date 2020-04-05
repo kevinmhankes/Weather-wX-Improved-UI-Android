@@ -40,19 +40,9 @@ class ObjectImageSummary(context: Context, var linearLayout: LinearLayout, var b
                 val objectLinearLayout = ObjectLinearLayout(context, linearLayout)
                 objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
                 horizontalLinearLayouts.add(objectLinearLayout)
-                objectCardImage = ObjectCardImage(
-                        context,
-                        objectLinearLayout.linearLayout,
-                        bitmap,
-                        imagesPerRow
-                )
+                objectCardImage = ObjectCardImage(context, objectLinearLayout.linearLayout, bitmap, imagesPerRow)
             } else {
-                objectCardImage = ObjectCardImage(
-                        context,
-                        horizontalLinearLayouts.last().linearLayout,
-                        bitmap,
-                        imagesPerRow
-                )
+                objectCardImage = ObjectCardImage(context, horizontalLinearLayouts.last().linearLayout, bitmap, imagesPerRow)
             }
             objectCardImages.add(objectCardImage)
             numberOfImages += 1
