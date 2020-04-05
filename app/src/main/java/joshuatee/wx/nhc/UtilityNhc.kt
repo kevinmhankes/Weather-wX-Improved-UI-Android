@@ -37,7 +37,6 @@ object UtilityNhc {
         var img1 = ""
         var img2 = ""
         var wallet = ""
-        val urlList: List<String>
         val html = rssUrl.getHtml()
         if (!html.contains("No current storm in")) {
             title = html.parse(RegExp.utilNhcPattern1)
@@ -45,7 +44,7 @@ object UtilityNhc {
             url = html.parse(RegExp.utilNhcPattern3)
             summary = summary.replace("</.*?>".toRegex(), "<br>")
             wallet = html.parse(RegExp.utilNhcPattern4)
-            urlList = html.parseColumn(RegExp.utilNhcPattern5)
+            val urlList = html.parseColumn(RegExp.utilNhcPattern5)
             if (urlList.size > 1) {
                 img1 = urlList[0]
                 img2 = urlList[1]

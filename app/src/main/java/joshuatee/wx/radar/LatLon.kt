@@ -111,9 +111,7 @@ class LatLon() {
             y = newValue.toDoubleOrNull() ?: 0.0
         }
 
-    fun asList(): List<Double> {
-        return listOf(lat, lon)
-    }
+    fun asList() = listOf(lat, lon)
 
     override fun toString() = "$latString:$lonString"
 
@@ -124,10 +122,8 @@ class LatLon() {
         // 1.609344 is the number of kilometres in a mile
         fun distance(location1: LatLon, location2: LatLon, unit: DistanceUnit): Double {
             val theta = location1.lon - location2.lon
-            var dist =
-                sin(UtilityMath.deg2rad(location1.lat)) * sin(UtilityMath.deg2rad(location2.lat)) + cos(
-                    UtilityMath.deg2rad(location1.lat)
-                ) * cos(UtilityMath.deg2rad(location2.lat)) * cos(UtilityMath.deg2rad(theta))
+            var dist = sin(UtilityMath.deg2rad(location1.lat)) * sin(UtilityMath.deg2rad(location2.lat)) + cos(UtilityMath.deg2rad(location1.lat)) *
+                    cos(UtilityMath.deg2rad(location2.lat)) * cos(UtilityMath.deg2rad(theta))
             dist = acos(dist)
             dist = UtilityMath.rad2deg(dist)
             dist *= 60.0 * 1.1515
