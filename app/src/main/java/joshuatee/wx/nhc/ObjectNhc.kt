@@ -104,12 +104,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
                     val title = it.title
                     val wallet = it.wallet
                     cAtlData.setListener(View.OnClickListener {
-                        ObjectIntent(
-                                context,
-                                NhcStormActivity::class.java,
-                                NhcStormActivity.URL,
-                                arrayOf(url, title, "nosound", imgUrl1, imgUrl2, wallet)
-                        )
+                        ObjectIntent(context, NhcStormActivity::class.java, NhcStormActivity.URL, arrayOf(url, title, "nosound", imgUrl1, imgUrl2, wallet))
                     })
                 }
             }
@@ -130,12 +125,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
                     val title = it.title
                     val wallet = it.wallet
                     cPacData.setListener(View.OnClickListener {
-                        ObjectIntent(
-                                context,
-                                NhcStormActivity::class.java,
-                                NhcStormActivity.URL,
-                                arrayOf(url, title, "nosound", imgUrl1, imgUrl2, wallet)
-                        )
+                        ObjectIntent(context, NhcStormActivity::class.java, NhcStormActivity.URL, arrayOf(url, title, "nosound", imgUrl1, imgUrl2, wallet))
                     })
                 }
             }
@@ -155,12 +145,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
             }
             numberOfImages += 1
             objectCardImage.setOnClickListener(View.OnClickListener {
-                ObjectIntent(
-                        context,
-                        ImageShowActivity::class.java,
-                        ImageShowActivity.URL,
-                        regionMap[region]!!.getTitle(index)
-                )
+                ObjectIntent.showImage(context, regionMap[region]!!.getTitle(index))
             })
         }
     }
