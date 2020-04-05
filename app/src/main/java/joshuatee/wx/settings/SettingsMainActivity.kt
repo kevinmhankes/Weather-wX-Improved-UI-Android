@@ -107,12 +107,7 @@ class SettingsMainActivity : BaseActivity() {
         val cardCtoF = ObjectCardText(this, "Celsius to fahrenheit table", MyApplication.textSizeNormal, MyApplication.paddingSettings)
         val cardDeleteFiles = ObjectCardText(this, "Delete old radar files", MyApplication.textSizeNormal, MyApplication.paddingSettings)
         cardCtoF.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                    this,
-                    TextScreenActivity::class.java,
-                    TextScreenActivity.URL,
-                    arrayOf(UtilityMath.celsiusToFahrenheitTable(), "Celsius to Fahrenheit table")
-            )
+            ObjectIntent.showText(this, arrayOf(UtilityMath.celsiusToFahrenheitTable(), "Celsius to Fahrenheit table"))
         })
         cardDeleteFiles.setOnClickListener(View.OnClickListener {
             UtilityUI.makeSnackBar(linearLayout, "Deleted old radar files: " + UtilityFileManagement.deleteCacheFiles(this))

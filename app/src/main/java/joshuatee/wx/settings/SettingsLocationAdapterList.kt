@@ -69,20 +69,11 @@ internal class SettingsLocationAdapterList(private val dataSet: MutableList<Stri
             holder.text1.color = UIPreferences.backgroundColor
         }
         holder.currentConditions.text = Location.getObservation(position)
-        if (nonUs)
-            holder.text2.text =
-                """${UtilityStringExternal.truncate(lat, 6)} , ${UtilityStringExternal.truncate(
-                    lon,
-                    6
-                )}"""
-        else
-            holder.text2.text = "${UtilityStringExternal.truncate(
-                Location.getX(position),
-                6
-            )} , ${UtilityStringExternal.truncate(Location.getY(position), 6)}"
         if (nonUs) {
+            holder.text2.text = "${UtilityStringExternal.truncate(lat, 6)} , ${UtilityStringExternal.truncate(lon, 6)}"
             holder.text3.text = "RID: ${Location.getRid(position)} ${UtilityLocation.hasAlerts(position)}"
         } else {
+            holder.text2.text = "${UtilityStringExternal.truncate(Location.getX(position), 6)} , ${UtilityStringExternal.truncate(Location.getY(position), 6)}"
             holder.text3.text = "WFO: ${Location.getWfo(position)}  RID: ${Location.getRid(position)}"
         }
     }

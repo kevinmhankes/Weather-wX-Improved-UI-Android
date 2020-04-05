@@ -112,15 +112,15 @@ class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
             }
         }
         hideAllMaps()
-        val bm = UtilityImg.loadBitmap(this, imgRes, false)
-        val map: ImageMap = findViewById(imgMap)
-        map.visibility = View.VISIBLE
-        map.setImageBitmap(bm)
-        val layoutParams = map.layoutParams
+        val bitmap = UtilityImg.loadBitmap(this, imgRes, false)
+        val imageMap: ImageMap = findViewById(imgMap)
+        imageMap.visibility = View.VISIBLE
+        imageMap.setImageBitmap(bitmap)
+        val layoutParams = imageMap.layoutParams
         layoutParams.width = MyApplication.dm.widthPixels
-        layoutParams.height = MyApplication.dm.widthPixels * bm.height / bm.width
-        map.layoutParams = layoutParams
-        map.addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
+        layoutParams.height = MyApplication.dm.widthPixels * bitmap.height / bitmap.width
+        imageMap.layoutParams = layoutParams
+        imageMap.addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
             override fun onImageMapClicked(id: Int, im2: ImageMap) {
                 mapClicked(id)
             }
