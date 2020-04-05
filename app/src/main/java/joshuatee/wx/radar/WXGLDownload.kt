@@ -135,19 +135,18 @@ class WXGLDownload {
     // Level 2: Download a list of files and return the list as a list of Strings
     private fun getLevel2FilesForAnimation(context: Context, baseUrl: String, frameCount: Int): List<String> {
         val fileList = mutableListOf<String>()
-        val tmpArr = (baseUrl + "dir.list").getHtmlSep().replace("<br>", " ").split(" ")
-                .dropLastWhile { it.isEmpty() }
-        if (tmpArr.isEmpty()) {
+        val list = (baseUrl + "dir.list").getHtmlSep().replace("<br>", " ").split(" ").dropLastWhile { it.isEmpty() }
+        if (list.isEmpty()) {
             return listOf("")
         }
-        val arrLength = tmpArr.size
+        val arrLength = list.size
         var additionalAdd = 0
-        val fnSize = tmpArr[tmpArr.size - 2].toIntOrNull() ?: 1
-        val fnPrevSize = tmpArr[tmpArr.size - 4].toIntOrNull() ?: 1
+        val fnSize = list[list.size - 2].toIntOrNull() ?: 1
+        val fnPrevSize = list[list.size - 4].toIntOrNull() ?: 1
         val ratio = fnSize.toFloat() / fnPrevSize.toFloat()
         if (ratio < 0.75) additionalAdd = 1
         (0 until frameCount).forEach { count ->
-            val token = tmpArr.getOrNull(arrLength - (frameCount - count + additionalAdd) * 2 + 1)
+            val token = list.getOrNull(arrLength - (frameCount - count + additionalAdd) * 2 + 1)
             if (token != null) {
                 fileList.add(token)
                 val inputStream = UtilityDownload.getInputStreamFromUrl(baseUrl + token)
@@ -161,15 +160,14 @@ class WXGLDownload {
     fun getLevel2Url(radarSite: String): String {
         val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, false).toUpperCase(Locale.US)
         val baseUrl = "$nwsRadarLevel2Pub$ridPrefix$radarSite/"
-        val tmpArr = (baseUrl + "dir.list").getHtmlSep().replace("<br>", " ").split(" ")
-                .dropLastWhile { it.isEmpty() }
-        if (tmpArr.size < 4) {
+        val list = (baseUrl + "dir.list").getHtmlSep().replace("<br>", " ").split(" ").dropLastWhile { it.isEmpty() }
+        if (list.size < 4) {
             return ""
         }
-        var fileName = tmpArr.last()
-        val fnPrev = tmpArr[tmpArr.size - 3]
-        val fnSize = tmpArr[tmpArr.size - 2].toIntOrNull() ?: 1
-        val fnPrevSize = tmpArr[tmpArr.size - 4].toIntOrNull() ?: 1
+        var fileName = list.last()
+        val fnPrev = list[list.size - 3]
+        val fnSize = list[list.size - 2].toIntOrNull() ?: 1
+        val fnPrevSize = list[list.size - 4].toIntOrNull() ?: 1
         val ratio = fnSize.toFloat() / fnPrevSize.toFloat()
         if (ratio < 0.75) {
             fileName = fnPrev
