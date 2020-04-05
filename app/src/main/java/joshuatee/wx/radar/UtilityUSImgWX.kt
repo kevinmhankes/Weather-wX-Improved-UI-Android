@@ -62,12 +62,14 @@ object UtilityUSImgWX {
             radarSite = ridTdwr
             scaleType = ProjectionType.WX_RENDER_48
         }
-        val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, tdwr)
+        //val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, tdwr)
         val inputStream: InputStream?
         if (!product.contains("L2")) {
-            inputStream = UtilityDownload.getInputStreamFromUrl(MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
-                            + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/sn.last"
-            )
+            //inputStream = UtilityDownload.getInputStreamFromUrl(MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
+            //                + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/sn.last"
+            //)
+            val url = WXGLDownload.getRadarFileUrl(radarSite, product, tdwr)
+            inputStream = UtilityDownload.getInputStreamFromUrl(url)
             inputStream?.let { UtilityIO.saveInputStream(context, it, "nids") }
         } else {
             val wxglDownload = WXGLDownload()
