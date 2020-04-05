@@ -53,11 +53,7 @@ class ObjectSettingsCheckBox(context: Context, label: String, pref: String, strI
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         textView.setTextColor(UIPreferences.backgroundColor)
         textView.setPadding(MyApplication.paddingSettings)
-        textView.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1.0f
-        )
+        textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f)
         textView.text = label
         textView.gravity = Gravity.CENTER_VERTICAL
         val strInner = context.resources.getString(strId)

@@ -59,11 +59,7 @@ internal class ObjectSettingsSeekBar(
 
     init {
         objectTextView.setPadding(MyApplication.padding)
-        objectTextView.tv.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1.0f
-        )
+        objectTextView.tv.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f)
         objectTextView.gravity = Gravity.TOP
         objectTextView.tv.setOnClickListener { ObjectDialogue(context, context.resources.getString(strId)) }
         val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)

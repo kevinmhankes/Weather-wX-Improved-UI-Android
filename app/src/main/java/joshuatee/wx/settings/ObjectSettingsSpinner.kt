@@ -46,11 +46,7 @@ class ObjectSettingsSpinner(context: Context, label: String, pref: String, prefI
     init {
         val objectTextView = ObjectTextView(context)
         objectTextView.setPadding(MyApplication.paddingSettings)
-        objectTextView.tv.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1.0f
-        )
+        objectTextView.tv.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f)
         objectTextView.text = label
         objectTextView.gravity = Gravity.CENTER_VERTICAL
         objectTextView.tv.setOnClickListener { ObjectDialogue(context, context.resources.getString(strId)) }

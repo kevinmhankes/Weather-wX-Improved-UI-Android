@@ -43,11 +43,7 @@ internal class ObjectSettingsColorLabel(val context: Context, label: String, pri
     init {
         refreshColor()
         objectTextView.setPadding(MyApplication.paddingSettings)
-        objectTextView.tv.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1.0f
-        )
+        objectTextView.tv.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f)
         objectTextView.text = label
         objectTextView.tv.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
         objectCard.card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.black))
@@ -55,12 +51,7 @@ internal class ObjectSettingsColorLabel(val context: Context, label: String, pri
         objectCard.addView(objectTextView.tv)
         val prefInner = pref
         objectCard.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                    context,
-                    SettingsColorPickerActivity::class.java,
-                    SettingsColorPickerActivity.INFO,
-                    arrayOf(prefInner, label)
-            )
+            ObjectIntent(context, SettingsColorPickerActivity::class.java, SettingsColorPickerActivity.INFO, arrayOf(prefInner, label))
         })
     }
 
