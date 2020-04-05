@@ -69,8 +69,7 @@ class ObjectForecastPackage7Day {
         get() = detailedForecasts
 
     private fun convertExt7DayToList() {
-        detailedForecasts = sevenDayLong.split(MyApplication.newline + MyApplication.newline)
-                .dropLastWhile { it.isEmpty() }.toMutableList()
+        detailedForecasts = sevenDayLong.split(MyApplication.newline + MyApplication.newline).dropLastWhile { it.isEmpty() }.toMutableList()
     }
 
     private fun getIcons7Day(html: String): String {
@@ -89,12 +88,7 @@ class ObjectForecastPackage7Day {
         val detailedForecasts = html.parseColumn("\"detailedForecast\": \"(.*?)\"")
         if ((names.size == temperatures.size) && (temperatures.size == shortForecasts.size) && (shortForecasts.size == detailedForecasts.size)) {
             val objectForecasts = (names.indices).mapTo(mutableListOf()) {
-                ObjectForecast(
-                        names[it],
-                        temperatures[it],
-                        shortForecasts[it],
-                        detailedForecasts[it]
-                )
+                ObjectForecast(names[it], temperatures[it], shortForecasts[it], detailedForecasts[it])
             }
             var forecasts = MyApplication.newline + MyApplication.newline
             objectForecasts.forEach {
@@ -116,12 +110,7 @@ class ObjectForecastPackage7Day {
         val detailedForecastsLocal = html.parseColumn("\"detailedForecast\": \"(.*?)\"")
         if (names.size == temperatures.size && temperatures.size == shortForecasts.size && shortForecasts.size == detailedForecastsLocal.size) {
             (names.indices).mapTo(forecasts) {
-                ObjectForecast(
-                        names[it],
-                        temperatures[it],
-                        shortForecasts[it],
-                        detailedForecastsLocal[it]
-                )
+                ObjectForecast(names[it], temperatures[it], shortForecasts[it], detailedForecastsLocal[it])
             }
         }
         var forecast = MyApplication.newline + MyApplication.newline

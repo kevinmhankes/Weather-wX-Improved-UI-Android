@@ -71,18 +71,11 @@ object UtilityDownload {
                     if (k == "usa") {
                         UtilityUSImgNwsMosaic.get(context, "latest", false)
                     } else {
-                        UtilityUSImgNwsMosaic.get(
-                                context,
-                                UtilityUSImgNwsMosaic.getSectorFromState(state),
-                                false
-                        )
+                        UtilityUSImgNwsMosaic.get(context, UtilityUSImgNwsMosaic.getSectorFromState(state), false)
                     }
                 } else {
                     val prov = Utility.readPref(context, "NWS" + location + "_STATE", "")
-                    UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(
-                            context,
-                            UtilityCanada.getECSectorFromProv(prov)
-                    )
+                    UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, UtilityCanada.getECSectorFromProv(prov))
                 }
             } else {
                 var product = "rad_rala"
@@ -107,10 +100,7 @@ object UtilityDownload {
             "GOES16" -> {
                 needsBitmap = false
                 val index = Utility.readPref(context, "GOES16_IMG_FAV_IDX", 0)
-                bitmap = UtilityGoes.getImage(
-                        UtilityGoes.codes[index],
-                        Utility.readPref(context, "GOES16_SECTOR", "cgl")
-                )
+                bitmap = UtilityGoes.getImage(UtilityGoes.codes[index], Utility.readPref(context, "GOES16_SECTOR", "cgl"))
             }
             "VIS_1KM", "VIS_MAIN" -> {
                 needsBitmap = false
@@ -131,7 +121,6 @@ object UtilityDownload {
             }
             "IR_2KM", "WV_2KM", "VIS_2KM" -> {
                 needsBitmap = false
-                //bitmap = get2KmUrl()
             }
             "VIS_CONUS" -> {
                 needsBitmap = false
@@ -205,11 +194,7 @@ object UtilityDownload {
                 bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
                         param,
-                        Utility.readPref(
-                                context,
-                                "SPCMESO" + 1 + "_SECTOR_LAST_USED",
-                                UtilitySpcMeso.defaultSector
-                        )
+                        Utility.readPref(context, "SPCMESO" + 1 + "_SECTOR_LAST_USED", UtilitySpcMeso.defaultSector)
                 )
             }
             "SPCMESO2" -> {
@@ -222,11 +207,7 @@ object UtilityDownload {
                 bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
                         param,
-                        Utility.readPref(
-                                context,
-                                "SPCMESO" + 1 + "_SECTOR_LAST_USED",
-                                UtilitySpcMeso.defaultSector
-                        )
+                        Utility.readPref(context, "SPCMESO" + 1 + "_SECTOR_LAST_USED", UtilitySpcMeso.defaultSector)
                 )
             }
             "SPCMESO3" -> {
@@ -239,11 +220,7 @@ object UtilityDownload {
                 bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
                         param,
-                        Utility.readPref(
-                                context,
-                                "SPCMESO" + 1 + "_SECTOR_LAST_USED",
-                                UtilitySpcMeso.defaultSector
-                        )
+                        Utility.readPref(context, "SPCMESO" + 1 + "_SECTOR_LAST_USED", UtilitySpcMeso.defaultSector)
                 )
             }
             "SPCMESO4" -> {
@@ -256,11 +233,7 @@ object UtilityDownload {
                 bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
                         param,
-                        Utility.readPref(
-                                context,
-                                "SPCMESO" + 1 + "_SECTOR_LAST_USED",
-                                UtilitySpcMeso.defaultSector
-                        )
+                        Utility.readPref(context, "SPCMESO" + 1 + "_SECTOR_LAST_USED", UtilitySpcMeso.defaultSector)
                 )
             }
             "SPCMESO5" -> {
@@ -273,11 +246,7 @@ object UtilityDownload {
                 bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
                         param,
-                        Utility.readPref(
-                                context,
-                                "SPCMESO" + 1 + "_SECTOR_LAST_USED",
-                                UtilitySpcMeso.defaultSector
-                        )
+                        Utility.readPref(context, "SPCMESO" + 1 + "_SECTOR_LAST_USED", UtilitySpcMeso.defaultSector)
                 )
             }
             "SPCMESO6" -> {
@@ -290,11 +259,7 @@ object UtilityDownload {
                 bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
                         param,
-                        Utility.readPref(
-                                context,
-                                "SPCMESO" + 1 + "_SECTOR_LAST_USED",
-                                UtilitySpcMeso.defaultSector
-                        )
+                        Utility.readPref(context, "SPCMESO" + 1 + "_SECTOR_LAST_USED", UtilitySpcMeso.defaultSector)
                 )
             }
             "CONUSWV" -> {
@@ -304,11 +269,7 @@ object UtilityDownload {
             "LTG" -> {
                 needsBitmap = false
                 bitmap = UtilityLightning.getImage(
-                        Utility.readPref(
-                                context,
-                                "LIGHTNING_SECTOR",
-                                "usa_big"
-                        ), Utility.readPref(context, "LIGHTNING_PERIOD", "0.25")
+                        Utility.readPref(context, "LIGHTNING_SECTOR", "usa_big"), Utility.readPref(context, "LIGHTNING_PERIOD", "0.25")
                 )
             }
             "SND" -> {

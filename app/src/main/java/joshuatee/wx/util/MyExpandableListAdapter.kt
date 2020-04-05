@@ -14,8 +14,7 @@ class MyExpandableListAdapter(act: Activity, private val groups: SparseArray<Gro
 
     private val inflater = act.layoutInflater
 
-    override fun getChild(groupPosition: Int, childPosition: Int): Any =
-        groups.get(groupPosition).children[childPosition]
+    override fun getChild(groupPosition: Int, childPosition: Int): Any = groups.get(groupPosition).children[childPosition]
 
     override fun getChildId(groupPosition: Int, childPosition: Int): Long = 0
 
