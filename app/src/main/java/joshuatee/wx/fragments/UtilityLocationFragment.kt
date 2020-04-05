@@ -288,12 +288,7 @@ object UtilityLocationFragment {
             fnGetRadars: () -> Unit
     ) {
         when {
-            stringName.contains("Edit Location..") -> ObjectIntent(
-                    activityReference,
-                    SettingsLocationGenericActivity::class.java,
-                    SettingsLocationGenericActivity.LOC_NUM,
-                    arrayOf(Location.currentLocationStr, "")
-            )
+            stringName.contains("Edit Location..") -> ObjectIntent.showLocationEdit(activityReference, arrayOf(Location.currentLocationStr, ""))
             stringName.contains("Force Data Refresh") -> fnRefresh()
             stringName.contains("Radar type: Reflectivity") -> {
                 wxglRender?.product = "N0Q"
@@ -306,14 +301,8 @@ object UtilityLocationFragment {
             stringName.contains("Reset zoom and center") -> fnResetRadarView()
             else -> {
                 val ridContext = stringName.split(":")[0]
-                var stateContext = Utility.getRadarSiteName(ridContext)
-                stateContext = stateContext.split(",")[0]
-                ObjectIntent(
-                        activityReference,
-                        WXGLRadarActivity::class.java,
-                        WXGLRadarActivity.RID,
-                        arrayOf(ridContext, stateContext, wxglRender!!.product, "")
-                )
+                val stateContext = Utility.getRadarSiteName(ridContext).split(",")[0]
+                ObjectIntent.showRadar(activityReference, arrayOf(ridContext, stateContext, wxglRender!!.product, ""))
             }
         }
     }
