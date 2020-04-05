@@ -30,7 +30,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.MyApplication
 
-class ObjectCardVerticalText(context: Context, numColumns: Int) {
+class ObjectCardVerticalText(context: Context, numberOfColumns: Int) {
 
     private val objectCard = ObjectCard(context)
     private var textViews = mutableListOf<TextView>()
@@ -40,18 +40,19 @@ class ObjectCardVerticalText(context: Context, numColumns: Int) {
         objectLinearLayout.linearLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
         objectLinearLayout.linearLayout.isBaselineAligned = false
         objectCard.addView(objectLinearLayout)
-        (0 until numColumns).forEach {
+        (0 until numberOfColumns).forEach {_ ->
             val linearLayout = LinearLayout(context)
             linearLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f)
             objectLinearLayout.linearLayout.addView(linearLayout)
-            textViews.add(TextView(context))
-            textViews[it].gravity = Gravity.START
-            textViews[it].layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            linearLayout.addView(textViews[it])
+            val textView = TextView(context)
+            textViews.add(textView)
+            textView.gravity = Gravity.START
+            textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            linearLayout.addView(textView)
         }
     }
 
-    constructor(context: Context, numColumns: Int, linearLayout: LinearLayout, toolbar: Toolbar) : this(context, numColumns) {
+    constructor(context: Context, numberOfColumns: Int, linearLayout: LinearLayout, toolbar: Toolbar) : this(context, numberOfColumns) {
         linearLayout.addView(card)
         setOnClickListener(View.OnClickListener { UtilityToolbar.showHide(toolbar) })
     }
