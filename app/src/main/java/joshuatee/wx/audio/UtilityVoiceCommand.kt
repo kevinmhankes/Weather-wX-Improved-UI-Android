@@ -28,13 +28,11 @@ import android.view.View
 
 import joshuatee.wx.activitiesmisc.AfdActivity
 import joshuatee.wx.radar.USNwsMosaicActivity
-import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.spc.SpcMesoActivity
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.settings.SettingsLocationGenericActivity
 import joshuatee.wx.spc.SpcSwoActivity
 import joshuatee.wx.util.Utility
 import joshuatee.wx.vis.GoesActivity
@@ -124,23 +122,13 @@ object UtilityVoiceCommand {
                     }
                 }
             }
-            ObjectIntent(
-                    context,
-                    SpcMesoActivity::class.java,
-                    SpcMesoActivity.INFO,
-                    arrayOf("", "1", "SPCMESO")
-            )
+            ObjectIntent(context, SpcMesoActivity::class.java, SpcMesoActivity.INFO, arrayOf("", "1", "SPCMESO"))
         } else if (vrString.contains("forecast")) {
             val forecast = Utility.readPref(context, "FCST", "")
             UtilityTts.synthesizeTextAndPlay(context, forecast, "7day")
         } else if (vrString.contains("download playlist")) {
             UtilityUI.makeSnackBar(view, "Download initiated")
-            ObjectIntent(
-                    context,
-                    DownloadPlaylistService::class.java,
-                    DownloadPlaylistService.URL,
-                    "true"
-            )
+            ObjectIntent(context, DownloadPlaylistService::class.java, DownloadPlaylistService.URL, "true")
         } else if (vrString.contains("playlist")) {
             UtilityTts.synthesizeTextAndPlayPlaylist(context, 1)
         } else {
