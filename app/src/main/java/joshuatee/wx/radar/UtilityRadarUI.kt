@@ -55,12 +55,7 @@ internal object UtilityRadarUI {
 
     fun getLastRadarTime(context: Context) = Utility.readPref(context, lastRadarTimePref, "")
 
-    private fun getRadarStatus(
-            activity: Activity,
-            context: Context,
-            uiDispatcher: CoroutineDispatcher,
-            wxglRender: WXGLRender
-    ) = GlobalScope.launch(uiDispatcher) {
+    private fun getRadarStatus(activity: Activity, context: Context, uiDispatcher: CoroutineDispatcher, wxglRender: WXGLRender) = GlobalScope.launch(uiDispatcher) {
         var radarStatus = withContext(Dispatchers.IO) {
             UtilityDownload.getRadarStatusMessage(context, wxglRender.rid)
         }
@@ -70,45 +65,26 @@ internal object UtilityRadarUI {
         ObjectDialogue(activity, Utility.fromHtml(radarStatus))
     }
 
-    private fun getMetar(
-            wxglSurfaceView: WXGLSurfaceView,
-            activity: Activity,
-            context: Context,
-            uiDispatcher: CoroutineDispatcher
-    ) = GlobalScope.launch(uiDispatcher) {
+    private fun getMetar(wxglSurfaceView: WXGLSurfaceView, activity: Activity, context: Context, uiDispatcher: CoroutineDispatcher) = GlobalScope.launch(uiDispatcher) {
         val string = withContext(Dispatchers.IO) { UtilityMetar.findClosestMetar(context, wxglSurfaceView.latLon) }
         ObjectDialogue(activity, string)
     }
 
     private fun showNearestForecast(context: Context, wxglSurfaceView: WXGLSurfaceView) {
-        ObjectIntent(
-                context,
-                ForecastActivity::class.java,
-                ForecastActivity.URL,
-                arrayOf(wxglSurfaceView.newY.toString(), "-" + wxglSurfaceView.newX.toString())
-        )
+        ObjectIntent(context, ForecastActivity::class.java, ForecastActivity.URL, arrayOf(wxglSurfaceView.newY.toString(), "-" + wxglSurfaceView.newX.toString()))
     }
 
     private fun showNearestMeteogram(context: Context, wxglSurfaceView: WXGLSurfaceView) {
         // http://www.nws.noaa.gov/mdl/gfslamp/meteoform.php
         // http://www.nws.noaa.gov/mdl/gfslamp/meteo.php?BackHour=0&TempBox=Y&DewBox=Y&SkyBox=Y&WindSpdBox=Y&WindDirBox=Y&WindGustBox=Y&CigBox=Y&VisBox=Y&ObvBox=Y&PtypeBox=N&PopoBox=Y&LightningBox=Y&ConvBox=Y&sta=KTEW
         val obsSite = UtilityMetar.findClosestObservation(context, wxglSurfaceView.latLon)
-        ObjectIntent(
-                context,
-                ImageShowActivity::class.java,
-                ImageShowActivity.URL,
-                arrayOf(UtilityWXOGL.getMeteogramUrl(obsSite.name), obsSite.name + " Meteogram")
-        )
+        ObjectIntent.showImage(context, arrayOf(UtilityWXOGL.getMeteogramUrl(obsSite.name), obsSite.name + " Meteogram"))
     }
 
     private fun showNearestWarning(context: Context, wxglSurfaceView: WXGLSurfaceView) {
         val polygonUrl = UtilityWXOGL.showTextProducts(wxglSurfaceView.newY.toDouble(), wxglSurfaceView.newX.toDouble() * -1.0)
-        if (polygonUrl != "") ObjectIntent(
-                context,
-                USAlertsDetailActivity::class.java,
-                USAlertsDetailActivity.URL,
-                arrayOf(polygonUrl, "")
-        )
+        if (polygonUrl != "")
+            ObjectIntent(context, USAlertsDetailActivity::class.java, USAlertsDetailActivity.URL, arrayOf(polygonUrl, ""))
     }
 
     fun addItemsToLongPress(
@@ -144,9 +120,7 @@ internal object UtilityRadarUI {
             wpcFrontsTimeStamp = wpcFrontsTimeStamp.insert(4, " ")
             longPressList.add(MyApplication.newline + "WPC Fronts: " + wpcFrontsTimeStamp)
         }
-        wxglRender.ridNewList.mapTo(longPressList) {
-            "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name)
-        }
+        wxglRender.ridNewList.mapTo(longPressList) { "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name) }
         val obsSite = UtilityMetar.findClosestObservation(context, wxglSurfaceView.latLon)
         if (MyApplication.radarWarnings) {
             longPressList.add("Show Warning text")
@@ -451,15 +425,8 @@ internal object UtilityRadarUI {
         wxglSurfaceView.requestRender()
     }
 
-    private fun showNearestProduct(
-            context: Context,
-            polygonType: PolygonType,
-            wxglSurfaceView: WXGLSurfaceView,
-            uiDispatcher: CoroutineDispatcher
-    ) = GlobalScope.launch(uiDispatcher) {
-        val text = withContext(Dispatchers.IO) {
-            UtilityWatch.show(wxglSurfaceView.newY.toDouble(), wxglSurfaceView.newX.toDouble() * -1.0, polygonType)
-        }
+    private fun showNearestProduct(context: Context, polygonType: PolygonType, wxglSurfaceView: WXGLSurfaceView, uiDispatcher: CoroutineDispatcher) = GlobalScope.launch(uiDispatcher) {
+        val text = withContext(Dispatchers.IO) { UtilityWatch.show(wxglSurfaceView.newY.toDouble(), wxglSurfaceView.newX.toDouble() * -1.0, polygonType) }
         if (text != "") {
             ObjectIntent(context, SpcMcdWatchShowActivity::class.java, SpcMcdWatchShowActivity.NUMBER, arrayOf(text, "", polygonType.toString()))
         }
