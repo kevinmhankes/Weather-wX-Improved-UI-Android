@@ -84,6 +84,8 @@ fun String.parseLastMatch(pattern: Pattern) = UtilityString.parseLastMatch(this,
 
 fun String.parseLastMatch(match: String) = UtilityString.parseLastMatch(this, match)
 
+fun String.getInputStream() = UtilityDownload.getInputStreamFromUrl(this)
+
 fun View.setPadding(padding: Int) {
     this.setPadding(padding, padding, padding, padding)
 }

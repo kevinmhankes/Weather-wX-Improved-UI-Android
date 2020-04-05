@@ -121,9 +121,11 @@ class WXGLDownload {
             }
             j = 0
             while (j < fileList.size) {
-                val inputStream = UtilityDownload.getInputStreamFromUrl(MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
-                                + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/" + fileList[j]
-                )
+                val url = getRadarDirectoryUrl(radarSite, product, ridPrefix) + fileList[j]
+                val inputStream = url.getInputStream()
+                //val inputStream = UtilityDownload.getInputStreamFromUrl(MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
+                //                + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/" + fileList[j]
+                //)
                 inputStream?.let { UtilityIO.saveInputStream(context, inputStream, fileList[j]) }
                 j += 1
             }
