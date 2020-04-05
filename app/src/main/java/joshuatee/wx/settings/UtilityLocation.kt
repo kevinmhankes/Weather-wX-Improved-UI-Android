@@ -223,12 +223,7 @@ object UtilityLocation {
         }
     }
 
-    fun saveLocationForMcd(
-        nwsOffice: String,
-        context: Context,
-        linearLayout: LinearLayout,
-        uiDispatcher: CoroutineDispatcher
-    ) = GlobalScope.launch(uiDispatcher) {
+    fun saveLocationForMcd(nwsOffice: String, context: Context, linearLayout: LinearLayout, uiDispatcher: CoroutineDispatcher) = GlobalScope.launch(uiDispatcher) {
         var toastString = ""
         withContext(Dispatchers.IO) {
             val locNumIntCurrent = joshuatee.wx.settings.Location.numLocations + 1
