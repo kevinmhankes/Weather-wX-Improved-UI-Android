@@ -50,8 +50,7 @@ object UtilityCanada {
 
     fun getIcons7Day(html: String): String {
         var iconList = ""
-        val days = html.split((MyApplication.newline + MyApplication.newline))
-            .dropLastWhile { it.isEmpty() }
+        val days = html.split((MyApplication.newline + MyApplication.newline)).dropLastWhile { it.isEmpty() }
         days.forEach {
             iconList += translateIconName(it) + "!"
         }
@@ -59,8 +58,7 @@ object UtilityCanada {
     }
 
     fun getIcons7DayAsList(html: String): List<String> {
-        val dayAr = html.split((MyApplication.newline + MyApplication.newline))
-            .dropLastWhile { it.isEmpty() }
+        val dayAr = html.split((MyApplication.newline + MyApplication.newline)).dropLastWhile { it.isEmpty() }
         return dayAr.mapTo(mutableListOf()) { translateIconName(it) }
     }
 
@@ -290,22 +288,17 @@ object UtilityCanada {
                 + x.split(":").dropLastWhile { it.isEmpty() }[1].toLowerCase(Locale.US) + "-"
                 + y.split(":").dropLastWhile { it.isEmpty() }[0] + "_metric_e.html")
         val html = url.getHtmlSep()
-        return html.parse("<a href=./radar/index_e.html.id=([a-z]{3})..*?>Weather Radar</a>")
-            .toUpperCase(Locale.US)
+        return html.parse("<a href=./radar/index_e.html.id=([a-z]{3})..*?>Weather Radar</a>").toUpperCase(Locale.US)
     }
 
     fun getConditions(html: String): String {
         val sum = html.parse("<b>Condition:</b> (.*?) <br/>.*?<b>Pressure.*?:</b> .*? kPa.*?<br/>")
         val pressure = html.parse("<b>Condition:</b> .*? <br/>.*?<b>Pressure.*?:</b> (.*?) kPa.*?<br/>")
-        var vis = html.parse("<b>Visibility:</b> (.*?)<br/>")
-        vis = vis.replace("<.*?>".toRegex(), "")
-        vis = vis.replace("\\s+".toRegex(), "")
+        val vis = html.parse("<b>Visibility:</b> (.*?)<br/>").replace("<.*?>".toRegex(), "").replace("\\s+".toRegex(), "").replace(" miles", "mi")
         val temp = html.parse("<b>Temperature:</b> (.*?)&deg;C <br/>.*?<b>Humidity:</b> .*? %<br/>.*?<b>Dewpoint:</b> .*?&deg;C <br/>")
         val rh = html.parse("<b>Temperature:</b> .*?&deg;C <br/>.*?<b>Humidity:</b> (.*?) %<br/>.*?<b>Dewpoint:</b> .*?&deg;C <br/>")
         val dew = html.parse("<b>Temperature:</b> .*?&deg;C <br/>.*?<b>Humidity:</b> .*? %<br/>.*?<b>Dewpoint:</b> (.*?)&deg;C <br/>")
-        var wind = Utility.fromHtml(html.parse("<b>Wind:</b> (.*?)<br/>"))
-        wind = wind.replace(MyApplication.newline, "")
-        vis = vis.replace(" miles", "mi")
+        val wind = Utility.fromHtml(html.parse("<b>Wind:</b> (.*?)<br/>")).replace(MyApplication.newline, "")
         return temp + MyApplication.DEGREE_SYMBOL + " / " + dew + MyApplication.DEGREE_SYMBOL + " (" + rh + "%) - " + pressure + "kPa - " + wind + " - " + vis + " - " + sum + " "
     }
 
