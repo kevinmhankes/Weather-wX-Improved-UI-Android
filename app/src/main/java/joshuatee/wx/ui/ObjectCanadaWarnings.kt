@@ -29,7 +29,6 @@ import android.widget.LinearLayout
 
 import java.util.Locale
 
-import joshuatee.wx.activitiesmisc.TextScreenActivity
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.util.*
 
@@ -38,9 +37,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.ObjectIntent
 import kotlinx.coroutines.*
 
-// FIXME rename class
-
-class ObjectCAWarn(private val context: Context, private val activity: Activity, private val linearLayout: LinearLayout, private val toolbar: Toolbar) {
+class ObjectCanadaWarnings(private val context: Context, private val activity: Activity, private val linearLayout: LinearLayout, private val toolbar: Toolbar) {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var listLocUrl = mutableListOf<String>()
@@ -49,7 +46,7 @@ class ObjectCAWarn(private val context: Context, private val activity: Activity,
     private var listLocWatch = mutableListOf<String>()
     private var listLocStatement = mutableListOf<String>()
     private var bitmap = UtilityImg.getBlankBitmap()
-    var prov = "ca"
+    var province = "ca"
 
     fun getData() {
         listLocUrl.clear()
@@ -57,15 +54,15 @@ class ObjectCAWarn(private val context: Context, private val activity: Activity,
         listLocWarning.clear()
         listLocWatch.clear()
         listLocStatement.clear()
-        bitmap = if (prov == "ca") {
+        bitmap = if (province == "ca") {
             (MyApplication.canadaEcSitePrefix + "/data/warningmap/canada_e.png").getImage()
         } else {
-            (MyApplication.canadaEcSitePrefix + "/data/warningmap/" + prov + "_e.png").getImage()
+            (MyApplication.canadaEcSitePrefix + "/data/warningmap/" + province + "_e.png").getImage()
         }
-        val html = if (prov == "ca") {
+        val html = if (province == "ca") {
             (MyApplication.canadaEcSitePrefix + "/warnings/index_e.html").getHtml()
         } else {
-            (MyApplication.canadaEcSitePrefix + "/warnings/index_e.html?prov=$prov").getHtml()
+            (MyApplication.canadaEcSitePrefix + "/warnings/index_e.html?prov=$province").getHtml()
         }
         listLocUrl = html.parseColumnMutable("<tr><td><a href=\"(.*?)\">.*?</a></td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<tr>")
         listLocName = html.parseColumnMutable("<tr><td><a href=\".*?\">(.*?)</a></td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<tr>")
@@ -80,10 +77,10 @@ class ObjectCAWarn(private val context: Context, private val activity: Activity,
         var locWarning: String
         var locWatch: String
         var locStatement: String
-        listLocUrl.indices.forEach {
-            locWarning = listLocWarning[it]
-            locWatch = listLocWatch[it]
-            locStatement = listLocStatement[it]
+        listLocUrl.indices.forEach { index ->
+            locWarning = listLocWarning[index]
+            locWatch = listLocWatch[index]
+            locStatement = listLocStatement[index]
             if (locWarning.contains("href")) {
                 locWarning = locWarning.parse("class=.wb-inv.>(.*?)</span>")
                 locWarning = locWarning.replace("</.*?>".toRegex(), "")
@@ -99,31 +96,22 @@ class ObjectCAWarn(private val context: Context, private val activity: Activity,
                 locStatement = locStatement.replace("</.*?>".toRegex(), "")
                 locStatement = locStatement.replace("<.*?>".toRegex(), "")
             }
-            val province = listLocUrl[it].parse("report_e.html.([a-z]{2}).*?")
+            val province = listLocUrl[index].parse("report_e.html.([a-z]{2}).*?")
             val objectCardText = ObjectCardText(context, linearLayout)
-            objectCardText.text = (Utility.fromHtml(
-                    province.toUpperCase(Locale.US) + ": " + locWarning + " " + locWatch + " " + locStatement
-            ))
-            val urlStr = MyApplication.canadaEcSitePrefix + listLocUrl[it]
-            val location = listLocName[it]
-            objectCardText.setOnClickListener(View.OnClickListener { getWarningDetail(urlStr, location) })
+            objectCardText.text = Utility.fromHtml(province.toUpperCase(Locale.US) + ": " + locWarning + " " + locWatch + " " + locStatement)
+            val url = MyApplication.canadaEcSitePrefix + listLocUrl[index]
+            val location = listLocName[index]
+            objectCardText.setOnClickListener(View.OnClickListener { getWarningDetail(url, location) })
         }
         ObjectCALegal(activity, linearLayout, MyApplication.canadaEcSitePrefix + "/warnings/index_e.html")
     }
 
-    val title get() = provinceToLabel[prov] + " (" + listLocUrl.size + ")"
+    val title get() = provinceToLabel[province] + " (" + listLocUrl.size + ")"
 
     private fun getWarningDetail(url: String, location: String) =
             GlobalScope.launch(uiDispatcher) {
-                val data = withContext(Dispatchers.IO) {
-                    UtilityCanada.getHazardsFromUrl(url)
-                }
-                ObjectIntent(
-                        context,
-                        TextScreenActivity::class.java,
-                        TextScreenActivity.URL,
-                        arrayOf(data, location)
-                )
+                val data = withContext(Dispatchers.IO) { UtilityCanada.getHazardsFromUrl(url) }
+                ObjectIntent.showText(context, arrayOf(data, location))
             }
 
     companion object {
