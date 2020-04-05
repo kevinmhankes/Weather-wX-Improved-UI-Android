@@ -146,12 +146,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
     }
 
     private fun addPalFab() {
-        ObjectIntent(
-                this@SettingsColorPaletteActivity,
-                SettingsColorPaletteEditor::class.java,
-                SettingsColorPaletteEditor.URL,
-                arrayOf(type, MyApplication.radarColorPalette[type]!!, builtinStr)
-        )
+        ObjectIntent(this@SettingsColorPaletteActivity, SettingsColorPaletteEditor::class.java, SettingsColorPaletteEditor.URL, arrayOf(type, MyApplication.radarColorPalette[type]!!, builtinStr))
     }
 
     @SuppressLint("ApplySharedPref")
