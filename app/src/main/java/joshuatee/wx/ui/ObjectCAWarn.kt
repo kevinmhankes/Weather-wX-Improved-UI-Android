@@ -62,31 +62,16 @@ class ObjectCAWarn(private val context: Context, private val activity: Activity,
         } else {
             (MyApplication.canadaEcSitePrefix + "/data/warningmap/" + prov + "_e.png").getImage()
         }
-        val dataAsString = if (prov == "ca") {
+        val html = if (prov == "ca") {
             (MyApplication.canadaEcSitePrefix + "/warnings/index_e.html").getHtml()
         } else {
             (MyApplication.canadaEcSitePrefix + "/warnings/index_e.html?prov=$prov").getHtml()
         }
-        listLocUrl = UtilityString.parseColumnMutable(
-                dataAsString,
-                "<tr><td><a href=\"(.*?)\">.*?</a></td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<tr>"
-        )
-        listLocName = UtilityString.parseColumnMutable(
-                dataAsString,
-                "<tr><td><a href=\".*?\">(.*?)</a></td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<tr>"
-        )
-        listLocWarning = UtilityString.parseColumnMutable(
-                dataAsString,
-                "<tr><td><a href=\".*?\">.*?</a></td>.*?<td>(.*?)</td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<tr>"
-        )
-        listLocWatch = UtilityString.parseColumnMutable(
-                dataAsString,
-                "<tr><td><a href=\".*?\">.*?</a></td>.*?<td>.*?</td>.*?<td>(.*?)</td>.*?<td>.*?</td>.*?<tr>"
-        )
-        listLocStatement = UtilityString.parseColumnMutable(
-                dataAsString,
-                "<tr><td><a href=\".*?\">.*?</a></td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<td>(.*?)</td>.*?<tr>"
-        )
+        listLocUrl = html.parseColumnMutable("<tr><td><a href=\"(.*?)\">.*?</a></td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<tr>")
+        listLocName = html.parseColumnMutable("<tr><td><a href=\".*?\">(.*?)</a></td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<tr>")
+        listLocWarning = html.parseColumnMutable("<tr><td><a href=\".*?\">.*?</a></td>.*?<td>(.*?)</td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<tr>")
+        listLocWatch = html.parseColumnMutable("<tr><td><a href=\".*?\">.*?</a></td>.*?<td>.*?</td>.*?<td>(.*?)</td>.*?<td>.*?</td>.*?<tr>")
+        listLocStatement = html.parseColumnMutable("<tr><td><a href=\".*?\">.*?</a></td>.*?<td>.*?</td>.*?<td>.*?</td>.*?<td>(.*?)</td>.*?<tr>")
     }
 
     fun showData() {

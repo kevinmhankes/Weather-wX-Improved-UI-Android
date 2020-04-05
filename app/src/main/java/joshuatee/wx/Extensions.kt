@@ -54,6 +54,8 @@ fun String.parseColumn(match: String) = UtilityString.parseColumn(this, match)
 
 fun String.parseColumn(pattern: Pattern) = UtilityString.parseColumn(this, pattern)
 
+fun String.parseColumnMutable(match: String) = UtilityString.parseColumnMutable(this, match)
+
 fun String.getImage() = if (Build.VERSION.SDK_INT > 20) {
         UtilityDownload.getBitmapFromUrl(this)
     } else {
