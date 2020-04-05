@@ -314,8 +314,8 @@ object UtilityCanada {
             if (!resultListDay[i].contains(":")) {
                 continue
             }
-            val tmpStr = resultListDay[i].split(":")[0] + ": " + stringList[j]
-            sevenDayForecast += tmpStr + MyApplication.newline + MyApplication.newline
+            val string = resultListDay[i].split(":")[0] + ": " + stringList[j]
+            sevenDayForecast += string + MyApplication.newline + MyApplication.newline
             j += 1
         }
         return sevenDayForecast
@@ -359,8 +359,7 @@ object UtilityCanada {
             }
         }
         warningData = warningData.replace("<li><img src=./cacheable/images/img/feed-icon-14x14.png. alt=.ATOM feed.> <a href=./rss/battleboard/.*?.>ATOM</a></li>".toRegex(), "")
-        warningData = warningData.replace(" <div class=\"col-xs-12\">", "")
-            .replace("<section class=\"followus hidden-print\"><h2>Follow:</h2>", "")
+        warningData = warningData.replace(" <div class=\"col-xs-12\">", "").replace("<section class=\"followus hidden-print\"><h2>Follow:</h2>", "")
         warningData = warningData.replace("<a href=\"/rss/battleboard/.*?.xml\"><img src=\"/cacheable/images/img/feed-icon-14x14.png\" alt=\"ATOM feed\" class=\"mrgn-rght-sm\">ATOM</a>", "")
         warningData = warningData.replace("<div class=\"row\">", "")
         return warningData

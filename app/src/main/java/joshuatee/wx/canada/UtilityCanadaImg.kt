@@ -109,13 +109,11 @@ object UtilityCanadaImg {
         val layers = mutableListOf<Drawable>()
         bitmaps.add(urlImg.getImage())
         if (GeographyType.CITIES.pref) {
-            val cityUrl = MyApplication.canadaEcSitePrefix + "/cacheable/images/radar/layers_detailed/default_cities/" + radarSite.toLowerCase(
-                            Locale.US
-                    ) + "_towns.gif"
-            val bmTmp = cityUrl.getImage()
-            val bigBitmap = Bitmap.createBitmap(bmTmp.width, bmTmp.height, Bitmap.Config.ARGB_8888)
+            val cityUrl = MyApplication.canadaEcSitePrefix + "/cacheable/images/radar/layers_detailed/default_cities/" + radarSite.toLowerCase(Locale.US) + "_towns.gif"
+            val bitmapTemp = cityUrl.getImage()
+            val bigBitmap = Bitmap.createBitmap(bitmapTemp.width, bitmapTemp.height, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bigBitmap)
-            canvas.drawBitmap(bmTmp, 0f, 0f, Paint(Paint.FILTER_BITMAP_FLAG))
+            canvas.drawBitmap(bitmapTemp, 0f, 0f, Paint(Paint.FILTER_BITMAP_FLAG))
             bitmaps.add(bigBitmap)
         }
         (0 until layerCnt).forEach {
@@ -136,8 +134,7 @@ object UtilityCanadaImg {
         }
         val radHtml = url.getHtmlSep()
         val matchStr = "(/data/radar/.*?GIF)\""
-        var summary = radHtml.parse(matchStr)
-        summary = summary.replace("detailed/", "")
+        val summary = radHtml.parse(matchStr).replace("detailed/", "")
         val layerCnt = if (GeographyType.CITIES.pref) {
             2
         } else {
