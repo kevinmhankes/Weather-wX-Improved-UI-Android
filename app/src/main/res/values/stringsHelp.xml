@@ -526,7 +526,15 @@ Thickness of lines for rivers and lakes. Smaller number is thinner.
  <string name="gpscircle_linesize_np">
 Thickness of lines for the GPS location circle. Smaller number is thinner.
 </string>
-
+    <string name="sti_linesize_np">
+Thickness of lines for storm tracks. Smaller number is thinner.
+</string>
+    <string name="swo_linesize_np">
+Thickness of lines for the SPC Convective Outlooks. Smaller number is thinner.
+</string>
+    <string name="wb_linesize_np">
+Thickness of lines for wind barbs. Smaller number is thinner.
+</string>
     <string name="locdot_size_np">
 Allows one to change the size of the location marker.</string>
 
