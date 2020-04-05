@@ -22,7 +22,6 @@
 package joshuatee.wx.radar
 
 import java.io.InputStream
-import java.util.Locale
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -42,7 +41,6 @@ import joshuatee.wx.util.UtilityIO
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityLog
 
-import joshuatee.wx.GlobalDictionaries
 import joshuatee.wx.R
 
 object UtilityUSImgWX {
@@ -62,12 +60,8 @@ object UtilityUSImgWX {
             radarSite = ridTdwr
             scaleType = ProjectionType.WX_RENDER_48
         }
-        //val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, tdwr)
         val inputStream: InputStream?
         if (!product.contains("L2")) {
-            //inputStream = UtilityDownload.getInputStreamFromUrl(MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
-            //                + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/sn.last"
-            //)
             val url = WXGLDownload.getRadarFileUrl(radarSite, product, tdwr)
             inputStream = UtilityDownload.getInputStreamFromUrl(url)
             inputStream?.let { UtilityIO.saveInputStream(context, it, "nids") }

@@ -26,7 +26,6 @@ import android.content.Context
 import java.io.EOFException
 import java.io.File
 import java.io.IOException
-import java.util.Locale
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.external.ExternalPoint
@@ -74,11 +73,7 @@ object UtilityWXOGL {
         val product = "VWP"
         val l3BaseFn = "nidsVWP"
         val indexString = "0"
-        //val ridPrefix = getRidPrefix(radarSite, product)
         val file: File
-        //val inputStream = UtilityDownload.getInputStreamFromUrl(MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
-        //                + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/sn.last"
-        //)
         val url = WXGLDownload.getRadarFileUrl(radarSite, product, false)
         val inputStream = UtilityDownload.getInputStreamFromUrl(url)
         if (inputStream != null) {
