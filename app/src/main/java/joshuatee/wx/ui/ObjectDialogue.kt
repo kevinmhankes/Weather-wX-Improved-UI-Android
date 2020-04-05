@@ -50,9 +50,7 @@ class ObjectDialogue {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
                 val textView = view.findViewById(android.R.id.text1) as TextView
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-                textView.setTextColor(Color.WHITE)
-                textView.setPadding(20,10,20,10)
+                setupTextView(textView)
                 return view
             }
         }
@@ -68,9 +66,7 @@ class ObjectDialogue {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
                 val textView = view.findViewById(android.R.id.text1) as TextView
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-                textView.setTextColor(Color.WHITE)
-                textView.setPadding(20,10,20,10)
+                setupTextView(textView)
                 return view
             }
         }
@@ -78,6 +74,12 @@ class ObjectDialogue {
         alertDialog.setNegativeButton("Done") { dialog, _ ->
             dialog.dismiss()
         }
+    }
+
+    fun setupTextView(textView: TextView) {
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
+        textView.setTextColor(Color.WHITE)
+        textView.setPadding(20,10,20,10)
     }
 
     constructor(context: Context, text: String) {
