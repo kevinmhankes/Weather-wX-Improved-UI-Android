@@ -71,10 +71,7 @@ object UtilityMath {
     }
 
     // convert polar cords to rect
-    fun toRect(r: Float, t: Float) = floatArrayOf(
-            (r * cos(t / (180.00f / PI))).toFloat(),
-            (r * sin(t / (180.00f / PI))).toFloat()
-    )
+    fun toRect(r: Float, t: Float) = floatArrayOf((r * cos(t / (180.00f / PI))).toFloat(), (r * sin(t / (180.00f / PI))).toFloat())
 
     fun unitsPressure(valueF: String): String {
         var value = valueF

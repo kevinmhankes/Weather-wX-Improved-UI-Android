@@ -91,8 +91,9 @@ object UtilityFavorites {
         favorites[2] = MODIFY_STR
         val returnList = MutableList(favorites.size) { "" }
         favorites.indices.forEach { k ->
-            GlobalArrays.canadaRadars.indices.filter { GlobalArrays.canadaRadars[it].contains(favorites[k]) }
-                .forEach { returnList[k] = GlobalArrays.canadaRadars[it].replace(":", "") }
+            GlobalArrays.canadaRadars.indices.filter { GlobalArrays.canadaRadars[it].contains(favorites[k]) }.forEach {
+                    returnList[k] = GlobalArrays.canadaRadars[it].replace(":", "")
+                }
             if (k == 1 || k == 2) {
                 returnList[k] = favorites[k]
             }

@@ -134,11 +134,7 @@ object UtilityString {
 
     internal fun getHtmlAndParseSep(url: String, pattern: Pattern) = url.getHtmlSep().parse(pattern)
 
-    fun getHtmlAndParseMultipleFirstMatch(
-        url: String,
-        match: String,
-        number: Int
-    ): MutableList<String> = parseMultipleFirst(url.getHtml(), match, number)
+    fun getHtmlAndParseMultipleFirstMatch(url: String, match: String, number: Int) = parseMultipleFirst(url.getHtml(), match, number)
 
     private fun parseMultipleFirst(data: String, match: String, number: Int): MutableList<String> {
         val result = MutableList(number) { "" }

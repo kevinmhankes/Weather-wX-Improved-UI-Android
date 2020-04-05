@@ -130,14 +130,12 @@ object UtilityImg {
                     MyApplication.wpcgefsX = x
                     MyApplication.wpcgefsY = y
                 }
-                else -> {
-                }
+                else -> {}
             }
         }
     }
 
     fun loadBitmap(context: Context, resourceId: Int, resize: Boolean): Bitmap {
-        val bitmap: Bitmap
         val inputStream = context.resources.openRawResource(resourceId)
         var options: BitmapFactory.Options? = null
         if (resize) {
@@ -145,7 +143,7 @@ object UtilityImg {
             options.inPreferredConfig = Config.RGB_565
             options.inSampleSize = 2
         }
-        bitmap = try {
+        return try {
             if (!resize)
                 BitmapFactory.decodeStream(inputStream)
             else
@@ -160,7 +158,6 @@ object UtilityImg {
                 UtilityLog.handleException(e)
             }
         }
-        return bitmap
     }
 
     fun animInterval(context: Context) = 50 * Utility.readPref(context, "ANIM_INTERVAL", MyApplication.animationIntervalDefault)

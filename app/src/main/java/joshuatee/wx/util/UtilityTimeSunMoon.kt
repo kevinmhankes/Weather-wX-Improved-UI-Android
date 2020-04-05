@@ -69,20 +69,14 @@ object UtilityTimeSunMoon {
         if (!DateFormat.is24HourFormat(context)) {
             amStr = "am"
             pmStr = "pm"
-            srTime = (officialSunriseCal.get(Calendar.HOUR)).toString() + ":" +
-                    String.format("%2s", (officialSunriseCal.get(Calendar.MINUTE))).replace(
-                            ' ',
-                            '0'
-                    )
-            ssTime = (officialSunsetCal.get(Calendar.HOUR)).toString() + ":" +
+            srTime = officialSunriseCal.get(Calendar.HOUR).toString() + ":" +
+                    String.format("%2s", (officialSunriseCal.get(Calendar.MINUTE))).replace(' ', '0')
+            ssTime = officialSunsetCal.get(Calendar.HOUR).toString() + ":" +
                     String.format("%2s", (officialSunsetCal.get(Calendar.MINUTE))).replace(' ', '0')
         } else {
-            srTime = (officialSunriseCal.get(Calendar.HOUR_OF_DAY)).toString() + ":" +
-                    String.format("%2s", (officialSunriseCal.get(Calendar.MINUTE))).replace(
-                            ' ',
-                            '0'
-                    )
-            ssTime = (officialSunsetCal.get(Calendar.HOUR_OF_DAY)).toString() + ":" +
+            srTime = officialSunriseCal.get(Calendar.HOUR_OF_DAY).toString() + ":" +
+                    String.format("%2s", (officialSunriseCal.get(Calendar.MINUTE))).replace(' ', '0')
+            ssTime = officialSunsetCal.get(Calendar.HOUR_OF_DAY).toString() + ":" +
                     String.format("%2s", (officialSunsetCal.get(Calendar.MINUTE))).replace(' ', '0')
         }
         return if (shortFormat) {

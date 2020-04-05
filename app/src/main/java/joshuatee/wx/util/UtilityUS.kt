@@ -80,24 +80,11 @@ object UtilityUS {
                     val noMain = locationLabelString + title
                     val noBody = title + " " + ca.area + " " + ca.summary
                     val noSummary = title + ": " + ca.area + " " + ca.summary
-                    val objectPendingIntents = ObjectPendingIntents(
-                            context,
-                            USAlertsDetailActivity::class.java,
-                            USAlertsDetailActivity.URL,
-                            arrayOf(url, ""),
-                            arrayOf(url, "sound")
-                    )
+                    val objectPendingIntents = ObjectPendingIntents(context, USAlertsDetailActivity::class.java, USAlertsDetailActivity.URL, arrayOf(url, ""), arrayOf(url, "sound"))
                     val tornadoWarningPresent = title.contains(tornadoWarningString)
-                    if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(
-                                    context,
-                                    url
-                            ))
-                    ) {
-                        val sound = MyApplication.locations[currentLoc].sound
-                                && !inBlackout
-                                || MyApplication.locations[currentLoc].sound
-                                && tornadoWarningPresent
-                                && MyApplication.alertBlackoutTornado
+                    if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, url))) {
+                        val sound = MyApplication.locations[currentLoc].sound && !inBlackout || MyApplication.locations[currentLoc].sound
+                                && tornadoWarningPresent && MyApplication.alertBlackoutTornado
                         val objectNotification = ObjectNotification(
                                 context,
                                 sound,
