@@ -49,7 +49,7 @@ class WXGLDownload {
         this.radarSite = radarSite
         this.product = product
         if (!product.contains("L2")) {
-            val inputStream = UtilityDownload.getInputStreamFromUrl(getRadarFileUrl(radarSite, product, tdwr))
+            val inputStream = getRadarFileUrl(radarSite, product, tdwr).getInputStream()
             val l3BaseFn = "nids"
             inputStream?.let {
                 UtilityIO.saveInputStream(context, inputStream, l3BaseFn + idxStr + "_d")
@@ -123,9 +123,6 @@ class WXGLDownload {
             while (j < fileList.size) {
                 val url = getRadarDirectoryUrl(radarSite, product, ridPrefix) + fileList[j]
                 val inputStream = url.getInputStream()
-                //val inputStream = UtilityDownload.getInputStreamFromUrl(MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
-                //                + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/" + fileList[j]
-                //)
                 inputStream?.let { UtilityIO.saveInputStream(context, inputStream, fileList[j]) }
                 j += 1
             }
@@ -214,7 +211,7 @@ class WXGLDownload {
 
         fun getNidsTab(context: Context, product: String, radarSite: String, fileName: String) {
             val url = getRadarFileUrl(radarSite, product, false)
-            val inputStream = UtilityDownload.getInputStreamFromUrl(url)
+            val inputStream = url.getInputStream()
             inputStream?.let { UtilityIO.saveInputStream(context, it, fileName) }
         }
 
