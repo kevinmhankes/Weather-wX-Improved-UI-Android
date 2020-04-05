@@ -444,6 +444,41 @@ class SettingsRadarActivity : BaseActivity() {
                         10
                 ).card
         )
+
+        linearLayout.addView(
+                ObjectSettingsSeekBar(
+                        this,
+                        "Storm tracks line size",
+                        "RADAR_STI_LINESIZE",
+                        R.string.gpscircle_linesize_np,
+                        3,
+                        1,
+                        10
+                ).card
+        )
+        linearLayout.addView(
+                ObjectSettingsSeekBar(
+                        this,
+                        "Wind barbs line size",
+                        "RADAR_WB_LINESIZE",
+                        R.string.gpscircle_linesize_np,
+                        3,
+                        1,
+                        10
+                ).card
+        )
+        linearLayout.addView(
+                ObjectSettingsSeekBar(
+                        this,
+                        "Convective outlook line size",
+                        "RADAR_SWO_LINESIZE",
+                        R.string.gpscircle_linesize_np,
+                        3,
+                        1,
+                        10
+                ).card
+        )
+
         linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,

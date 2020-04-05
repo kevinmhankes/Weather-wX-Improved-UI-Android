@@ -460,6 +460,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             GLES20.glLineWidth(3.0f)
             listOf(stiBuffers, wbGustsBuffers, wbBuffers).forEach {
                 if (zoom > it.scaleCutOff) {
+                    GLES20.glLineWidth(it.geotype.lineWidth.toFloat())
                     drawPolygons(it, 16)
                 }
             }
@@ -477,10 +478,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         }
         GLES20.glLineWidth(MyApplication.radarWarnLineSize)
         listOf(warningTstBuffers, warningFfwBuffers, warningTorBuffers).forEach {
-            drawPolygons(
-                    it,
-                    8
-            )
+            drawPolygons(it, 8)
         }
         genericWarningBuffers.forEach {
             if (it.warningType!!.isEnabled) {
