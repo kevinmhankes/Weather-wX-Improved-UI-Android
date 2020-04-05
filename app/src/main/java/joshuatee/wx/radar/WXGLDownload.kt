@@ -95,21 +95,15 @@ class WXGLDownload {
     // Determines of Level 2 or Level 3 and calls appropriate method
     private fun getLevel3FilesForAnimation(context: Context, frameCount: Int, product: String, ridPrefix: String, radarSite: String): List<String> {
         val fileList = mutableListOf<String>()
-        //var htmlOut = (MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product] + "/SI."
-        //                + ridPrefix + radarSite.toLowerCase(Locale.US) + "/").getHtml()
         var htmlOut = getRadarDirectoryUrl(radarSite, product, ridPrefix).getHtml()
         var snFiles = htmlOut.parseColumn(RegExp.utilnxanimPattern1)
         var snDates = htmlOut.parseColumn(RegExp.utilnxanimPattern2)
         if (snDates.isEmpty()) {
-            //htmlOut = (MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
-            //                + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/").getHtml()
             htmlOut = getRadarDirectoryUrl(radarSite, product, ridPrefix).getHtml()
             snFiles = htmlOut.parseColumn(RegExp.utilnxanimPattern1)
             snDates = htmlOut.parseColumn(RegExp.utilnxanimPattern2)
         }
         if (snDates.isEmpty()) {
-            //htmlOut = (MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
-            //                + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/").getHtml()
             htmlOut = getRadarDirectoryUrl(radarSite, product, ridPrefix).getHtml()
             snFiles = htmlOut.parseColumn(RegExp.utilnxanimPattern1)
             snDates = htmlOut.parseColumn(RegExp.utilnxanimPattern2)
