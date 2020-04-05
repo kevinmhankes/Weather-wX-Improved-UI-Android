@@ -98,18 +98,9 @@ class ObjectTextView(val context: Context) {
 
     fun refreshTextSize(size: TextSize) {
         when (size) {
-            TextSize.SMALL -> tv.setTextSize(
-                    TypedValue.COMPLEX_UNIT_PX,
-                    MyApplication.textSizeSmall
-            )
-            TextSize.MEDIUM -> tv.setTextSize(
-                    TypedValue.COMPLEX_UNIT_PX,
-                    MyApplication.textSizeNormal
-            )
-            TextSize.LARGE -> tv.setTextSize(
-                    TypedValue.COMPLEX_UNIT_PX,
-                    MyApplication.textSizeLarge
-            )
+            TextSize.SMALL -> tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
+            TextSize.MEDIUM -> tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
+            TextSize.LARGE -> tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeLarge)
         }
     }
 

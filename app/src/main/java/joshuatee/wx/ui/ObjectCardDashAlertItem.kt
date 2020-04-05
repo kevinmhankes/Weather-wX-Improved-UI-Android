@@ -52,10 +52,7 @@ class ObjectCardDashAlertItem(
         listOf(textViewTop, textViewTitle, textViewStart, textViewEnd, textViewBottom).forEach {
             linearLayoutVertical.addView(it)
         }
-        val layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        )
+        val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         val linearLayoutHorizontal = LinearLayout(context)
         linearLayoutHorizontal.layoutParams = layoutParams
         linearLayoutHorizontal.addView(radarButton.card)
