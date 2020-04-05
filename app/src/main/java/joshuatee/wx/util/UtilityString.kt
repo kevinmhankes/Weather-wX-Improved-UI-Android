@@ -64,8 +64,6 @@ object UtilityString {
 
     fun getHtmlAndParse(url: String, match: String) = url.getHtml().parse(match)
 
-    fun getHtmlAndParse(url: String, pattern: Pattern) = url.getHtml().parse(pattern)
-
     fun getHtmlAndParseLastMatch(url: String, match: String) = url.getHtml().parseLastMatch(match)
 
     fun getHtmlAndParseLastMatch(url: String, pattern: Pattern) = url.getHtml().parseLastMatch(pattern)

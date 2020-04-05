@@ -46,8 +46,7 @@ object UtilityNws {
             .replace("http://nids-wapiapp.bldr.ncep.noaa.gov:9000/icons/land/", "")
             .replace("day/", "")
         if (fn.contains("night")) {
-            fn = fn.replace("night/", "n")
-                .replace("/", "/n")
+            fn = fn.replace("night/", "n").replace("/", "/n")
         }
         val fileId = UtilityNwsIcon.iconMap["$fn.png"]
         return if (fileId == null || fn.contains(",")) {
