@@ -42,15 +42,7 @@ class ObjectWidgetHwo(context: Context) {
         remoteViews.setTextViewText(R.id.text1, Utility.fromHtml(hwo))
         remoteViews.setTextViewTextSize(R.id.text1, TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
         if (!MyApplication.widgetPreventTap) {
-            UtilityWidget.setupIntent(
-                    context,
-                    remoteViews,
-                    AfdActivity::class.java,
-                    R.id.text1,
-                    AfdActivity.URL,
-                    arrayOf(wfo, "HWO"),
-                    WidgetFile.HWO.action
-            )
+            UtilityWidget.setupIntent(context, remoteViews, AfdActivity::class.java, R.id.text1, AfdActivity.URL, arrayOf(wfo, "HWO"), WidgetFile.HWO.action)
         }
     }
 }

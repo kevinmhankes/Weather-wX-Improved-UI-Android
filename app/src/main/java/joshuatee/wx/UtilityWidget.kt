@@ -70,7 +70,8 @@ object UtilityWidget {
         val uri = uriShareAndGenerate(context, fileName)
         val uriBAK = uriShareAndGenerate(context, MyApplication.WIDGET_FILE_BAK + fileName)
         remoteViews.setImageViewUri(res, null)
-        remoteViews.setImageViewUri(R.id.iv, uriBAK)
+        //remoteViews.setImageViewUri(R.id.iv, uriBAK)
+        remoteViews.setImageViewUri(res, uriBAK)
         remoteViews.setImageViewUri(res, uri)
     }
 
@@ -137,15 +138,7 @@ object UtilityWidget {
         }
     }
 
-    fun setupIntent(
-        context: Context,
-        remoteViews: RemoteViews,
-        activity: Class<*>,
-        layoutItem: Int,
-        activityFlag: String,
-        activityStringArr: Array<String>,
-        actionString: String
-    ) {
+    fun setupIntent(context: Context, remoteViews: RemoteViews, activity: Class<*>, layoutItem: Int, activityFlag: String, activityStringArr: Array<String>, actionString: String) {
         val requestID = UtilityTime.currentTimeMillis().toInt()
         val intent = Intent(context, activity)
         intent.putExtra(activityFlag, activityStringArr)
@@ -157,15 +150,7 @@ object UtilityWidget {
         remoteViews.setOnClickPendingIntent(layoutItem, pendingIntent)
     }
 
-    fun setupIntent(
-        context: Context,
-        remoteViews: RemoteViews,
-        activity: Class<*>,
-        layoutItem: Int,
-        activityFlag: String,
-        activityString: String,
-        actionString: String
-    ) {
+    fun setupIntent(context: Context, remoteViews: RemoteViews, activity: Class<*>, layoutItem: Int, activityFlag: String, activityString: String, actionString: String) {
         val requestID = UtilityTime.currentTimeMillis().toInt()
         val intent = Intent(context, activity)
         intent.putExtra(activityFlag, activityString)

@@ -40,15 +40,7 @@ class ObjectWidgetTextWpc(context: Context) {
         remoteViews.setTextViewText(R.id.text1, Utility.fromHtml(text))
         remoteViews.setTextViewTextSize(R.id.text1, TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
         if (!MyApplication.widgetPreventTap) {
-            UtilityWidget.setupIntent(
-                context,
-                remoteViews,
-                WpcTextProductsActivity::class.java,
-                R.id.text1,
-                WpcTextProductsActivity.URL,
-                arrayOf("pmdspd", "Short Range Forecast Discussion"),
-                TEXT_WPC.action
-            )
+            UtilityWidget.setupIntent(context, remoteViews, WpcTextProductsActivity::class.java, R.id.text1, WpcTextProductsActivity.URL, arrayOf("pmdspd", "Short Range Forecast Discussion"), TEXT_WPC.action)
         }
     }
 }

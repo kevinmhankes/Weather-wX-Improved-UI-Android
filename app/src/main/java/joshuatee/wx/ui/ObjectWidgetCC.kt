@@ -90,11 +90,7 @@ class ObjectWidgetCC(context: Context) {
             remoteViews.setTextColor(R.id.text4, MyApplication.widgetTextColor)
         }
         if (android.os.Build.VERSION.SDK_INT > 20) {
-            val wbIcon = UtilityImg.vectorDrawableToBitmap(
-                    context,
-                    R.drawable.ic_navigation_white_24dp,
-                    MyApplication.widgetHighlightTextColor
-            )
+            val wbIcon = UtilityImg.vectorDrawableToBitmap(context, R.drawable.ic_navigation_white_24dp, MyApplication.widgetHighlightTextColor)
             var windBardRotate = 0.0f
             if (currentConditionsList.size > 2) {
                 val tmpWindArr = MyApplication.space.split(currentConditionsList[2])
