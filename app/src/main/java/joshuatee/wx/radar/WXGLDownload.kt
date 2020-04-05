@@ -44,23 +44,25 @@ class WXGLDownload {
     private var radarSite = ""
     private var product = ""
 
+    private fun getRadarFileUrl(radarSite: String, product: String, tdwr: Boolean): String {
+        val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, tdwr)
+        val url = MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product] + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/sn.last"
+        return url
+    }
+
+    private fun getRadarDirectoryUrl(radarSite: String, product: String, ridPrefix: String): String {
+        return MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product] + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/"
+    }
+
     fun getRadarFile(context: Context, urlStr: String, radarSite: String, product: String, idxStr: String, tdwr: Boolean): String {
         val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, tdwr)
         this.radarSite = radarSite
         this.product = product
         if (!product.contains("L2")) {
-            val inputStream = UtilityDownload.getInputStreamFromUrl(
-                    MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" +
-                            GlobalDictionaries.NEXRAD_PRODUCT_STRING[product] + "/SI."
-                            + ridPrefix + radarSite.toLowerCase(Locale.US) + "/sn.last"
-            )
+            val inputStream = UtilityDownload.getInputStreamFromUrl(getRadarFileUrl(radarSite, product, tdwr))
             val l3BaseFn = "nids"
             inputStream?.let {
-                UtilityIO.saveInputStream(
-                        context,
-                        inputStream,
-                        l3BaseFn + idxStr + "_d"
-                )
+                UtilityIO.saveInputStream(context, inputStream, l3BaseFn + idxStr + "_d")
             }
             UtilityFileManagement.moveFile(context, l3BaseFn + idxStr + "_d", l3BaseFn + idxStr)
         } else {
@@ -81,21 +83,9 @@ class WXGLDownload {
     fun getRadarFilesForAnimation(context: Context, frameCount: Int): List<String> {
         val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, product)
         return if (!product.contains("L2")) {
-            getLevel3FilesForAnimation(
-                    context,
-                    frameCount,
-                    product,
-                    ridPrefix,
-                    radarSite.toLowerCase(Locale.US)
-            )
+            getLevel3FilesForAnimation(context, frameCount, product, ridPrefix, radarSite.toLowerCase(Locale.US))
         } else {
-            getLevel2FilesForAnimation(
-                    context,
-                    nwsRadarLevel2Pub + ridPrefix.toUpperCase(Locale.US) + radarSite.toUpperCase(
-                            Locale.US
-                    ) + "/",
-                    frameCount
-            )
+            getLevel2FilesForAnimation(context, nwsRadarLevel2Pub + ridPrefix.toUpperCase(Locale.US) + radarSite.toUpperCase(Locale.US) + "/", frameCount)
         }
     }
 
@@ -103,29 +93,24 @@ class WXGLDownload {
     // listOfFiles
     // Download a list of files and return the list as a list of Strings
     // Determines of Level 2 or Level 3 and calls appropriate method
-    private fun getLevel3FilesForAnimation(context: Context, frameCount: Int, prod: String, ridPrefix: String, radarSite: String): List<String> {
+    private fun getLevel3FilesForAnimation(context: Context, frameCount: Int, product: String, ridPrefix: String, radarSite: String): List<String> {
         val fileList = mutableListOf<String>()
-        var htmlOut =
-                (MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/"
-                        + GlobalDictionaries.NEXRAD_PRODUCT_STRING[prod] + "/SI."
-                        + ridPrefix + radarSite.toLowerCase(Locale.US) + "/").getHtml()
+        //var htmlOut = (MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product] + "/SI."
+        //                + ridPrefix + radarSite.toLowerCase(Locale.US) + "/").getHtml()
+        var htmlOut = getRadarDirectoryUrl(radarSite, product, ridPrefix).getHtml()
         var snFiles = htmlOut.parseColumn(RegExp.utilnxanimPattern1)
         var snDates = htmlOut.parseColumn(RegExp.utilnxanimPattern2)
         if (snDates.isEmpty()) {
-            htmlOut =
-                    (MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/"
-                            + GlobalDictionaries.NEXRAD_PRODUCT_STRING[prod]
-                            + "/SI." + ridPrefix + radarSite.toLowerCase(
-                            Locale.US
-                    ) + "/").getHtml()
+            //htmlOut = (MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
+            //                + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/").getHtml()
+            htmlOut = getRadarDirectoryUrl(radarSite, product, ridPrefix).getHtml()
             snFiles = htmlOut.parseColumn(RegExp.utilnxanimPattern1)
             snDates = htmlOut.parseColumn(RegExp.utilnxanimPattern2)
         }
         if (snDates.isEmpty()) {
-            htmlOut =
-                    (MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/"
-                            + GlobalDictionaries.NEXRAD_PRODUCT_STRING[prod]
-                            + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/").getHtml()
+            //htmlOut = (MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
+            //                + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/").getHtml()
+            htmlOut = getRadarDirectoryUrl(radarSite, product, ridPrefix).getHtml()
             snFiles = htmlOut.parseColumn(RegExp.utilnxanimPattern1)
             snDates = htmlOut.parseColumn(RegExp.utilnxanimPattern2)
         }
@@ -152,9 +137,7 @@ class WXGLDownload {
             }
             j = 0
             while (j < fileList.size) {
-                val inputStream = UtilityDownload.getInputStreamFromUrl(
-                        MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" +
-                                GlobalDictionaries.NEXRAD_PRODUCT_STRING[prod]
+                val inputStream = UtilityDownload.getInputStreamFromUrl(MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
                                 + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/" + fileList[j]
                 )
                 inputStream?.let { UtilityIO.saveInputStream(context, inputStream, fileList[j]) }
