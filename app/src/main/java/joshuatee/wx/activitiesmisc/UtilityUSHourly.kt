@@ -70,13 +70,7 @@ object UtilityUSHourly {
 
     fun getString(locationNumber: Int): List<String> {
         val html = UtilityDownloadNws.getHourlyData(Location.getLatLon(locationNumber))
-        val header = String.format("%-7s", "Time") + " " + String.format(
-                "%-5s",
-                "Temp"
-        ) + String.format("%-9s", "WindSpd") + String.format(
-                "%-8s",
-                "WindDir"
-        ) + MyApplication.newline
+        val header = String.format("%-7s", "Time") + " " + String.format("%-5s", "Temp") + String.format("%-9s", "WindSpd") + String.format("%-8s", "WindDir") + MyApplication.newline
         return listOf(header + parse(html), html)
     }
 
@@ -126,7 +120,7 @@ object UtilityUSHourly {
             5 -> "Sun"
             else -> ""
         }
-        return ("$dayOfTheWeek $hourString")
+        return "$dayOfTheWeek $hourString"
     }
 }
 
