@@ -80,50 +80,17 @@ object UtilityWidget {
         val allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget)
         allWidgetIds.forEach { widgetId ->
             when (widgetType) {
-                MOSAIC_RADAR -> {
-                    val obj = ObjectWidgetMosaicRadar(context)
-                    appWidgetManager.updateAppWidget(widgetId, obj.remoteViews)
-                }
-                VIS -> {
-                    val obj = ObjectWidgetVis(context)
-                    appWidgetManager.updateAppWidget(widgetId, obj.remoteViews)
-                }
-                NEXRAD_RADAR -> {
-                    val obj = ObjectWidgetNexradRadar(context)
-                    appWidgetManager.updateAppWidget(widgetId, obj.remoteViews)
-                }
-                SPCMESO, CONUSWV, STRPT, WPCIMG -> {
-                    val obj = ObjectWidgetGeneric(context, widgetType)
-                    appWidgetManager.updateAppWidget(widgetId, obj.remoteViews)
-                }
-                SPCSWO -> {
-                    val obj = ObjectWidgetSpcSwo(context)
-                    appWidgetManager.updateAppWidget(widgetId, obj.remoteViews)
-                }
-                NHC -> {
-                    val obj = ObjectWidgetNhc(context)
-                    appWidgetManager.updateAppWidget(widgetId, obj.remoteViews)
-                }
-                AFD -> {
-                    val obj = ObjectWidgetAfd(context)
-                    appWidgetManager.updateAppWidget(widgetId, obj.remoteViews)
-                }
-                HWO -> {
-                    val obj = ObjectWidgetHwo(context)
-                    appWidgetManager.updateAppWidget(widgetId, obj.remoteViews)
-                }
-                TEXT_WPC -> {
-                    val obj = ObjectWidgetTextWpc(context)
-                    appWidgetManager.updateAppWidget(widgetId, obj.remoteViews)
-                }
-                CC -> {
-                    val obj = ObjectWidgetCC(context)
-                    appWidgetManager.updateAppWidget(widgetId, obj.remoteViews)
-                }
-                CCLegacy -> {
-                    val obj = ObjectWidgetCCLegacy(context, allWidgetIds)
-                    appWidgetManager.updateAppWidget(widgetId, obj.remoteViews)
-                }
+                MOSAIC_RADAR -> appWidgetManager.updateAppWidget(widgetId, ObjectWidgetMosaicRadar(context).remoteViews)
+                VIS -> appWidgetManager.updateAppWidget(widgetId, ObjectWidgetVis(context).remoteViews)
+                NEXRAD_RADAR -> appWidgetManager.updateAppWidget(widgetId, ObjectWidgetNexradRadar(context).remoteViews)
+                SPCMESO, CONUSWV, STRPT, WPCIMG -> appWidgetManager.updateAppWidget(widgetId, ObjectWidgetGeneric(context, widgetType).remoteViews)
+                SPCSWO -> appWidgetManager.updateAppWidget(widgetId, ObjectWidgetSpcSwo(context).remoteViews)
+                NHC -> appWidgetManager.updateAppWidget(widgetId, ObjectWidgetNhc(context).remoteViews)
+                AFD -> appWidgetManager.updateAppWidget(widgetId, ObjectWidgetAfd(context).remoteViews)
+                HWO -> appWidgetManager.updateAppWidget(widgetId, ObjectWidgetHwo(context).remoteViews)
+                TEXT_WPC -> appWidgetManager.updateAppWidget(widgetId, ObjectWidgetTextWpc(context).remoteViews)
+                CC -> appWidgetManager.updateAppWidget(widgetId, ObjectWidgetCC(context).remoteViews)
+                CCLegacy -> appWidgetManager.updateAppWidget(widgetId, ObjectWidgetCCLegacy(context, allWidgetIds).remoteViews)
             }
         }
     }
