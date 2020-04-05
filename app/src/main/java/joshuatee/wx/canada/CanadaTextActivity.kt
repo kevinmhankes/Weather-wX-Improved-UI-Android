@@ -25,6 +25,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
+import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
@@ -51,7 +52,7 @@ class CanadaTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.canada_text)
         toolbarBottom.setOnMenuItemClickListener(this)
         objectCardText = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
-        ObjectCALegal(this, linearLayout, "")
+        ObjectCALegal(this, linearLayout, MyApplication.canadaEcSitePrefix)
         product = Utility.readPref(this, "CA_TEXT_LASTUSED", product)
         description = Utility.readPref(this, "CA_TEXT_LASTUSED_TITLE", description)
         getContent()
