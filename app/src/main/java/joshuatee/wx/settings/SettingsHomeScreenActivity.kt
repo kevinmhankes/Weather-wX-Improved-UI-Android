@@ -205,20 +205,12 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
 
     private fun findPositionTEXT(key: String) = (UtilityWpcText.labels.indices)
             .firstOrNull {
-                UtilityWpcText.labels[it].startsWith(
-                        key.toLowerCase(Locale.US).replace(
-                                "txt-",
-                                ""
-                        )
-                )
-            }
-            ?.let { UtilityWpcText.labels[it] }
-            ?: ""
+                UtilityWpcText.labels[it].startsWith(key.toLowerCase(Locale.US).replace("txt-", ""))
+            } ?.let { UtilityWpcText.labels[it] } ?: ""
 
     private fun findPositionIMG(key: String) = (GlobalArrays.nwsImageProducts.indices)
             .firstOrNull { GlobalArrays.nwsImageProducts[it].startsWith(key.replace("IMG-", "")) }
-            ?.let { GlobalArrays.nwsImageProducts[it] }
-            ?: ""
+            ?.let { GlobalArrays.nwsImageProducts[it] } ?: ""
 
     private fun findPositionIMG2(key: String): String {
         for (l in UtilityHomeScreen.localChoicesImg) {
@@ -230,8 +222,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         return ""
     }
 
-    private fun findPositionTEXTLOCAL(key: String) =
-            UtilityHomeScreen.localChoicesText.firstOrNull { it.startsWith(key.replace("TXT-", "")) } ?: ""
+    private fun findPositionTEXTLOCAL(key: String) = UtilityHomeScreen.localChoicesText.firstOrNull { it.startsWith(key.replace("TXT-", "")) } ?: ""
 
     private fun findPositionAFD(key: String): String {
         (GlobalArrays.wfos.indices).forEach {
@@ -247,14 +238,14 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
 
     private fun findPositionRadarNexrad(key: String): String {
         val allRadars = GlobalArrays.radars
-        return (allRadars.indices)
+        return allRadars.indices
                 .firstOrNull { allRadars[it].startsWith(key.replace("NXRD-", "")) }
                 ?.let { allRadars[it] + " (NEXRAD)" } ?: ""
     }
 
     private fun findPositionRadarTdwr(key: String): String {
         val allRadars = GlobalArrays.tdwrRadarsForHomeScreen
-        return (allRadars.indices)
+        return allRadars.indices
                 .firstOrNull { allRadars[it].startsWith(key.replace("NXRD-", "")) }
                 ?.let { allRadars[it] + " (TDWR)" } ?: ""
     }

@@ -72,8 +72,7 @@ class SettingsColorsActivity : BaseActivity() {
             mapColorToPref[it.name + " color"] = it.prefTokenColor
         }
 
-        mapColorToPref.keys.asSequence().sorted()
-            .mapTo(colorObjects) { ObjectSettingsColorLabel(this, it, mapColorToPref[it]!!) }
+        mapColorToPref.keys.asSequence().sorted().mapTo(colorObjects) { ObjectSettingsColorLabel(this, it, mapColorToPref[it]!!) }
         colorObjects.forEach {
             linearLayout.addView(it.card)
         }
