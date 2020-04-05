@@ -65,13 +65,8 @@ object UtilityUSImgWX {
         val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, tdwr)
         val inputStream: InputStream?
         if (!product.contains("L2")) {
-            inputStream = UtilityDownload.getInputStreamFromUrl(
-                    MyApplication.NWS_RADAR_PUB
-                            + "SL.us008001/DF.of/DC.radar/"
-                            + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
-                            + "/SI." + ridPrefix + radarSite.toLowerCase(
-                            Locale.US
-                    ) + "/sn.last"
+            inputStream = UtilityDownload.getInputStreamFromUrl(MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
+                            + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/sn.last"
             )
             inputStream?.let { UtilityIO.saveInputStream(context, it, "nids") }
         } else {
@@ -235,12 +230,7 @@ object UtilityUSImgWX {
         }
         try {
             val bitmapCanvas = Bitmap.createBitmap(CANVAS_X, CANVAS_Y, Config.ARGB_8888)
-            UtilityNexradRadial8Bit.decodeAndPlot(
-                    context,
-                    bitmapCanvas,
-                    fileName,
-                    WXGLNexrad.productCodeStringToCode[product] ?: "N0Q"
-            )
+            UtilityNexradRadial8Bit.decodeAndPlot(context, bitmapCanvas, fileName, WXGLNexrad.productCodeStringToCode[product] ?: "N0Q")
             layers.add(colorDrawable)
             layers.add(BitmapDrawable(context.resources, bitmapCanvas))
         } catch (e: Exception) {

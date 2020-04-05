@@ -40,7 +40,6 @@ internal object UtilityWatch {
             else -> ""
         }
         if (prefToken != "") {
-            //val items = MyApplication.colon.split(prefToken)
             val items = prefToken.split(":").dropLastWhile { it.isEmpty() }
             items.forEach { item ->
                 val list = item.split(" ").dropLastWhile { it.isEmpty() } // MyApplication.space.split(item)

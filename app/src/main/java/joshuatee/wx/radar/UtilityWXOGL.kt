@@ -76,9 +76,7 @@ object UtilityWXOGL {
         val indexString = "0"
         val ridPrefix = getRidPrefix(radarSite, product)
         val file: File
-        val inputStream = UtilityDownload.getInputStreamFromUrl(
-                MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/"
-                        + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
+        val inputStream = UtilityDownload.getInputStreamFromUrl(MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product]
                         + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/sn.last"
         )
         if (inputStream != null) {
@@ -115,10 +113,8 @@ object UtilityWXOGL {
                         if (byte.toChar() == 'V') {
                             vSpotted = true
                         }
-                        if (Character.isAlphabetic(byte.toInt()) || Character.isWhitespace(byte.toInt()) || Character.isDigit(
-                                        byte.toInt()
-                                ) || Character.isISOControl(byte.toInt()) || Character.isDefined(byte.toInt())
-                        ) {
+                        if (Character.isAlphabetic(byte.toInt()) || Character.isWhitespace(byte.toInt())
+                                || Character.isDigit(byte.toInt()) || Character.isISOControl(byte.toInt()) || Character.isDefined(byte.toInt())) {
                             if (vSpotted) {
                                 output += if (byte == 0.toByte()) {
                                     "<br>"

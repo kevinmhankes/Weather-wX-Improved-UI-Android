@@ -167,11 +167,7 @@ object UtilityUSImgNwsMosaic {
         if (sectorUrl == "alaska") {
             sPattern = "href=.(" + "NATAK" + "_[0-9]{8}_[0-9]{4}.gif)"
         }
-        urls = UtilityImgAnim.getUrlArray(
-                "${MyApplication.nwsRadarWebsitePrefix}/ridge/Conus/RadarImg/",
-                sPattern,
-                frameCount
-        )
+        urls = UtilityImgAnim.getUrlArray("${MyApplication.nwsRadarWebsitePrefix}/ridge/Conus/RadarImg/", sPattern, frameCount)
         urls.forEach {
             if (MyApplication.blackBg && sector != "alaska") {
                 bitmaps.add(UtilityImg.getBitmapRemoveBackground(baseUrl + it, -1))

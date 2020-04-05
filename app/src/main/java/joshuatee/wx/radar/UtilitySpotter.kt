@@ -81,7 +81,7 @@ object UtilitySpotter {
                 y = DoubleArray(lats.size)
                 lats.indices.forEach {
                     x[it] = lats[it].toDoubleOrNull() ?: 0.0
-                    y[it] = -1.0 * (lons[it].toDoubleOrNull() ?: 0.0)
+                    y[it] = (lons[it].toDoubleOrNull() ?: 0.0) * -1.0
                 }
             } else {
                 x = DoubleArray(1)
@@ -94,8 +94,8 @@ object UtilitySpotter {
     }
 
     // need to return an array of x ( lat ) and an array of y ( lon ) where long is positive
-    private fun process(txt: String) {
-        val lines = txt.split("<br>").dropLastWhile { it.isEmpty() }
+    private fun process(text: String) {
+        val lines = text.split("<br>").dropLastWhile { it.isEmpty() }
         lines.forEach { line ->
             val items = line.split(";;").dropLastWhile { it.isEmpty() }
             if (items.size > 10 && !items[0].startsWith("#")) {

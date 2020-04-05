@@ -162,18 +162,11 @@ object UtilityWpcFronts {
     }
 
     private fun addFrontDataTrof(front: Fronts, tokens: List<String>) {
-        val fraction = 0.8
         for (index in 0 until tokens.size - 1 step 1) {
             val coordinates = parseLatLon(tokens[index])
             front.coordinates.add(LatLon(coordinates[0], coordinates[1]))
             val oldCoordinates = parseLatLon(tokens[index + 1])
-            val coord = UtilityMath.computeMiddishPoint(
-                    coordinates[0],
-                    coordinates[1],
-                    oldCoordinates[0],
-                    oldCoordinates[1],
-                    fraction
-            )
+            val coord = UtilityMath.computeMiddishPoint(coordinates[0], coordinates[1], oldCoordinates[0], oldCoordinates[1], 0.8)
             front.coordinates.add(LatLon(coord[0], coord[1]))
         }
     }
@@ -294,8 +287,7 @@ object UtilityWpcFronts {
                             addWarmFrontSemicircles(front, tokens)
                             fronts.add(front)
                         }
-                        else -> {
-                        }
+                        else -> {}
                     }
                 }
             }
