@@ -155,11 +155,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
-    private fun findPosition(key: String) =
-            (UtilityWpcText.labels.indices).firstOrNull {
-                UtilityWpcText.labels[it].contains(
-                        key
-                ) } ?: 0
+    private fun findPosition(key: String) = UtilityWpcText.labels.indices.firstOrNull { UtilityWpcText.labels[it].contains(key) } ?: 0
 
     override fun onRestart() {
         if (ridFavOld != MyApplication.nwsTextFav) {

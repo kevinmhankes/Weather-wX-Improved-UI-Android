@@ -53,8 +53,7 @@ internal object UtilitySpcSwo {
                 imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day3otlk_$time.gif")
                 imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day3prob_$time.gif")
             }
-            else -> {
-            }
+            else -> {}
         }
         if (getAllImages) {
             imgUrls.mapTo(bitmaps) { it.getImage() }
@@ -85,8 +84,7 @@ internal object UtilitySpcSwo {
                 imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day3otlk_$time.gif")
                 imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day3prob_$time.gif")
             }
-            else -> {
-            }
+            else -> {}
         }
         return imgUrls
     }

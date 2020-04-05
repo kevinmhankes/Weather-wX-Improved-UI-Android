@@ -60,12 +60,7 @@ object UtilitySpcMesoInputOutput {
         var bitmap = imgUrl.getImage()
         drawables.add(ColorDrawable(Color.WHITE))
         if (showTopography) {
-            drawables.add(
-                BitmapDrawable(
-                    context.resources,
-                    UtilityImg.eraseBackground(topographyImgUrl.getImage(), -1)
-                )
-            )
+            drawables.add(BitmapDrawable(context.resources, UtilityImg.eraseBackground(topographyImgUrl.getImage(), -1)))
         }
         if (showRadar) {
             val bitmapRadar = radImgUrl.getImage()
@@ -74,36 +69,21 @@ object UtilitySpcMesoInputOutput {
         }
         drawables.add(BitmapDrawable(context.resources, bitmap))
         if (showOutlook) {
-            drawables.add(
-                BitmapDrawable(
-                    context.resources,
-                    UtilityImg.eraseBackground(outlookImgUrl.getImage(), -1)
-                )
-            )
+            drawables.add(BitmapDrawable(context.resources, UtilityImg.eraseBackground(outlookImgUrl.getImage(), -1)))
         }
         if (showWatchWarn) {
-            drawables.add(
-                BitmapDrawable(
-                    context.resources,
-                    UtilityImg.eraseBackground(watchWarningImgUrl.getImage(), -1)
-                )
-            )
+            drawables.add(BitmapDrawable(context.resources, UtilityImg.eraseBackground(watchWarningImgUrl.getImage(), -1)))
         }
         return UtilityImg.layerDrawableToBitmap(drawables)
     }
 
     fun getAnimation(context: Context, sector: String, param: String, frameCnt: Int): AnimationDrawable {
         val urls = mutableListOf<String>()
-        val timeList =
-            ("${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/new/archiveviewer.php?sector=19&parm=pmsl").getHtml()
+        val timeList = "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/new/archiveviewer.php?sector=19&parm=pmsl".getHtml()
                 .parseColumn("dattim\\[[0-9]{1,2}\\].*?=.*?([0-9]{8})")
         val delay = UtilityImg.animInterval(context)
         if (timeList.size > frameCnt) {
-            stride(
-                frameCnt - 1,
-                -1,
-                -1
-            ).mapTo(urls) { "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/s" + sector + "/" + param + "/" + param + "_" + timeList[it] + ".gif" }
+            stride(frameCnt - 1, -1, -1).mapTo(urls) { "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/s" + sector + "/" + param + "/" + param + "_" + timeList[it] + ".gif" }
         }
         return UtilityImgAnim.getAnimationDrawableFromUrlListWhiteBackground(context, urls, delay)
     }

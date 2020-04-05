@@ -63,7 +63,7 @@ class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemCli
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmaps = mutableListOf()
         withContext(Dispatchers.IO) {
-            UtilityWpcRainfallForecast.imageUrls.forEach {
+            UtilityWpcRainfallForecast.urls.forEach {
                 bitmaps.add(it.getImage())
             }
         }
@@ -72,7 +72,7 @@ class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemCli
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
             objectCardImage.setOnClickListener(View.OnClickListener {
                 val textProduct = UtilityWpcRainfallForecast.productCode[index]
-                val imageUrl = UtilityWpcRainfallForecast.imageUrls[index]
+                val imageUrl = UtilityWpcRainfallForecast.urls[index]
                 val day = (index + 1).toString()
                 ObjectIntent(this@WpcRainfallForecastSummaryActivity, WpcRainfallForecastActivity::class.java, WpcRainfallForecastActivity.NUMBER, arrayOf(textProduct, imageUrl, day))
             })

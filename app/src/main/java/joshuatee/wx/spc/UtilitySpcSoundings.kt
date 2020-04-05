@@ -28,9 +28,7 @@ import joshuatee.wx.util.UtilityImg
 object UtilitySpcSoundings {
 
     fun getImage(context: Context, office: String) = UtilityImg.getBitmapAddWhiteBackground(
-            context,
-            "${MyApplication.nwsSPCwebsitePrefix}/exper/soundings/LATEST/$office.gif"
-        )
+            context, "${MyApplication.nwsSPCwebsitePrefix}/exper/soundings/LATEST/$office.gif")
 }
 
 
