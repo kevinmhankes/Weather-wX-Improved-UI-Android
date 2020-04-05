@@ -44,16 +44,6 @@ class WXGLDownload {
     private var radarSite = ""
     private var product = ""
 
-    private fun getRadarFileUrl(radarSite: String, product: String, tdwr: Boolean): String {
-        val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, tdwr)
-        val url = MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product] + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/sn.last"
-        return url
-    }
-
-    private fun getRadarDirectoryUrl(radarSite: String, product: String, ridPrefix: String): String {
-        return MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product] + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/"
-    }
-
     fun getRadarFile(context: Context, urlStr: String, radarSite: String, product: String, idxStr: String, tdwr: Boolean): String {
         val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, tdwr)
         this.radarSite = radarSite
@@ -221,12 +211,18 @@ class WXGLDownload {
         const val nwsRadarLevel2Pub = "https://nomads.ncep.noaa.gov/pub/data/nccf/radar/nexrad_level2/"
 
         fun getNidsTab(context: Context, product: String, radarSite: String, fileName: String) {
-            val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, false)
-            val url = MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" +
-                    (GlobalDictionaries.NEXRAD_PRODUCT_STRING[product] ?: "") + "/SI." +
-                    ridPrefix + radarSite.toLowerCase(Locale.US) + "/sn.last"
+            val url = getRadarFileUrl(radarSite, product, false)
             val inputStream = UtilityDownload.getInputStreamFromUrl(url)
             inputStream?.let { UtilityIO.saveInputStream(context, it, fileName) }
+        }
+
+        private fun getRadarFileUrl(radarSite: String, product: String, tdwr: Boolean): String {
+            val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, tdwr)
+            return MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product] + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/sn.last"
+        }
+
+        private fun getRadarDirectoryUrl(radarSite: String, product: String, ridPrefix: String): String {
+            return MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product] + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/"
         }
     }
 }
