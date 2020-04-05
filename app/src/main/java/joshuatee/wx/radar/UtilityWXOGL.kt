@@ -37,7 +37,6 @@ import joshuatee.wx.util.UtilityLog
 
 import joshuatee.wx.Extensions.*
 
-import joshuatee.wx.GlobalDictionaries
 import joshuatee.wx.RegExp
 
 object UtilityWXOGL {
