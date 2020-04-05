@@ -38,6 +38,10 @@ class ObjectCard {
 
     constructor(context: Context) {
         card = CardView(context)
+        setupCard()
+    }
+
+    private fun setupCard() {
         card.setCardBackgroundColor(UtilityTheme.primaryColorFromSelectedTheme)
         card.cardElevation = MyApplication.cardElevation
         card.setContentPadding(padding, padding, padding, padding)
@@ -52,12 +56,7 @@ class ObjectCard {
 
     constructor(itemView: View, resId: Int) {
         card = itemView.findViewById(resId)
-        card.setCardBackgroundColor(UtilityTheme.primaryColorFromSelectedTheme)
-        card.cardElevation = MyApplication.cardElevation
-        card.setContentPadding(padding, padding, padding, padding)
-        card.radius = MyApplication.cardCorners
-        card.useCompatPadding = true
-        card.preventCornerOverlap = true
+        setupCard()
     }
 
     constructor(itemView: View, color: Int, resId: Int) : this(itemView, resId) {
@@ -66,12 +65,7 @@ class ObjectCard {
 
     constructor(activity: Activity, resId: Int) {
         card = activity.findViewById(resId)
-        card.setCardBackgroundColor(UtilityTheme.primaryColorFromSelectedTheme)
-        card.cardElevation = MyApplication.cardElevation
-        card.setContentPadding(padding, padding, padding, padding)
-        card.radius = MyApplication.cardCorners
-        card.useCompatPadding = true
-        card.preventCornerOverlap = true
+        setupCard()
     }
 
     constructor(activity: Activity, color: Int, resId: Int) : this(activity, resId) {
