@@ -48,9 +48,7 @@ class WidgetNexrad : AppWidgetProvider() {
     }
 
     private fun getContent(context: Context) = GlobalScope.launch(uiDispatcher) {
-        withContext(Dispatchers.IO) {
-            UtilityWidgetDownload.download(context, type)
-        }
+        withContext(Dispatchers.IO) { UtilityWidgetDownload.download(context, type) }
         UtilityWidget.update(context, type)
     }
 } 
