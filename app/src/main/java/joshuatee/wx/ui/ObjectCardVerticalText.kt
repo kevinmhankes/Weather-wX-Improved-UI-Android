@@ -37,45 +37,29 @@ class ObjectCardVerticalText(context: Context, numColumns: Int) {
 
     init {
         val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.HORIZONTAL, Gravity.CENTER)
-        objectLinearLayout.linearLayout.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT
-        )
+        objectLinearLayout.linearLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
         objectLinearLayout.linearLayout.isBaselineAligned = false
         objectCard.addView(objectLinearLayout)
         (0 until numColumns).forEach {
             val linearLayout = LinearLayout(context)
-            linearLayout.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1.0f
-            )
+            linearLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f)
             objectLinearLayout.linearLayout.addView(linearLayout)
             textViews.add(TextView(context))
             textViews[it].gravity = Gravity.START
-            textViews[it].layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
+            textViews[it].layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             linearLayout.addView(textViews[it])
         }
     }
 
     constructor(context: Context, numColumns: Int, linearLayout: LinearLayout, toolbar: Toolbar) : this(context, numColumns) {
         linearLayout.addView(card)
-        setOnClickListener(View.OnClickListener {
-            UtilityToolbar.showHide(
-                toolbar
-            )
-        })
+        setOnClickListener(View.OnClickListener { UtilityToolbar.showHide(toolbar) })
     }
 
     fun setText(list: List<String>) {
         if (list.size == textViews.size) {
-            (list.indices).forEach {
+            list.indices.forEach {
                 textViews[it].text = list[it]
-            }
-            (list.indices).forEach {
                 textViews[it].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
             }
         }
