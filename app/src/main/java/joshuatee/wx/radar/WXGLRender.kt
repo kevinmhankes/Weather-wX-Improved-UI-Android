@@ -1034,7 +1034,6 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         }
         fronts.indices.forEach { z ->
             val front = fronts[z]
-            //val totalBins = front.coordinates.size / 2
             wpcFrontBuffersList[z].count = front.coordinates.size * 2
             wpcFrontBuffersList[z].initialize(
                     4 * wpcFrontBuffersList[z].count,
@@ -1130,18 +1129,10 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                     swoBuffers.putColor(Color.red(colorSwo[it]).toByte())
                     swoBuffers.putColor(Color.green(colorSwo[it]).toByte())
                     swoBuffers.putColor(Color.blue(colorSwo[it]).toByte())
-                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(
-                            hashSwo[it]!![j],
-                            (hashSwo[it]!![j + 1] * -1.0f),
-                            projectionNumbers
-                    )
+                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(hashSwo[it]!![j], (hashSwo[it]!![j + 1] * -1.0f), projectionNumbers)
                     swoBuffers.putFloat(tmpCoords[0].toFloat())
                     swoBuffers.putFloat(tmpCoords[1].toFloat() * -1.0f)
-                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(
-                            hashSwo[it]!![j + 2],
-                            (hashSwo[it]!![j + 3] * -1.0f),
-                            projectionNumbers
-                    )
+                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(hashSwo[it]!![j + 2], (hashSwo[it]!![j + 3] * -1.0f), projectionNumbers)
                     swoBuffers.putFloat(tmpCoords[0].toFloat())
                     swoBuffers.putFloat(tmpCoords[1].toFloat() * -1.0f)
                     j += 4

@@ -82,21 +82,12 @@ internal object WXGLNexradLevel3HailIndex {
             var s = 0
             while (s < posnNumbers.size) {
                 val hailSizeDbl = hailSizeNumbers[k].toDoubleOrNull() ?: 0.0
-                if (hailSizeDbl > 0.49 && ((hailPercentNumbers[s].toIntOrNull()
-                        ?: 0) > 60 || (hailPercentNumbers[s + 1].toDoubleOrNull()
-                        ?: 0.0) > 60)
-                ) {
+                if (hailSizeDbl > 0.49 && ((hailPercentNumbers[s].toIntOrNull() ?: 0) > 60 || (hailPercentNumbers[s + 1].toDoubleOrNull() ?: 0.0) > 60)) {
                     val ecc = ExternalGeodeticCalculator()
                     val degree = posnNumbers[s].toDoubleOrNull() ?: 0.0
                     val nm = posnNumbers[s + 1].toDoubleOrNull() ?: 0.0
                     val start = ExternalGlobalCoordinates(location)
-                    val ec = ecc.calculateEndingGlobalCoordinates(
-                        ExternalEllipsoid.WGS84,
-                        start,
-                        degree,
-                        nm * 1852.0,
-                        bearing
-                    )
+                    val ec = ecc.calculateEndingGlobalCoordinates(ExternalEllipsoid.WGS84, start, degree, nm * 1852.0, bearing)
                     stormList.add(ec.latitude)
                     stormList.add(ec.longitude * -1.0)
                     if (hailSizeDbl > 0.99) {

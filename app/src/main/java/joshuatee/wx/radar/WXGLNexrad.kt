@@ -70,12 +70,6 @@ object WXGLNexrad {
             "172" to "DSP"
     )
 
-    /*val radarModelShortToDescription: Map<Short, String> = mapOf(
-            0.toShort() to "Maintenance",
-            1.toShort() to "Clean Air",
-            2.toShort() to "Precipitation/Severe Weather"
-    )*/
-
     val productCodeStringToResourceFile = mapOf(
             "94" to R.raw.dvn94,
             "99" to R.raw.dvn99,
@@ -230,5 +224,4 @@ object WXGLNexrad {
     }
 
     fun readRadarTimeForWidget(context: Context) = Utility.readPref(context, "WX_RADAR_CURRENT_INFO_WIDGET_TIME", "")
-
 }

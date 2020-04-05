@@ -78,22 +78,10 @@ internal object WXGLNexradLevel3StormInfo {
                 val degree2 = motNumbers[s].toDouble()
                 val nm2 = motNumbers[s + 1].toDouble()
                 var start = ExternalGlobalCoordinates(location)
-                var ec = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
-                    ExternalEllipsoid.WGS84,
-                    start,
-                    degree,
-                    nm * 1852.0,
-                    bearing
-                )
+                var ec = externalGeodeticCalculator.calculateEndingGlobalCoordinates(ExternalEllipsoid.WGS84, start, degree, nm * 1852.0, bearing)
                 stormList += UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers).toMutableList()
                 start = ExternalGlobalCoordinates(ec)
-                ec = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
-                    ExternalEllipsoid.WGS84,
-                    start,
-                    degree2 + degreeShift,
-                    nm2 * 1852.0,
-                    bearing
-                )
+                ec = externalGeodeticCalculator.calculateEndingGlobalCoordinates(ExternalEllipsoid.WGS84, start, degree2 + degreeShift, nm2 * 1852.0, bearing)
                 // mercator expects lat/lon to both be positive as many products have this
                 val coordinates = UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers)
                 stormList += coordinates.toMutableList()

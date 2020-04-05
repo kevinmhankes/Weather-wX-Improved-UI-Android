@@ -318,7 +318,6 @@ class WXGLNexradLevel3 internal constructor() {
         } catch (e: AssertionError) {
             ""
         }
-
 }
 
 

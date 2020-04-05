@@ -51,14 +51,7 @@ class WXGLNexradLevel2 {
     }
 
     // last argument is true/false on whether or not the DECOMP stage needs to happen
-    fun decodeAndPlot(
-        context: Context,
-        fileName: String,
-        prod: String,
-        radarStatusStr: String,
-        idxStr: String,
-        performDecompression: Boolean
-    ) {
+    fun decodeAndPlot(context: Context, fileName: String, prod: String, radarStatusStr: String, idxStr: String, performDecompression: Boolean) {
         val decompFileName = "$fileName.decomp$idxStr"
         var productCode: Short = 153
         if (prod == "L2VEL") {
@@ -88,12 +81,7 @@ class WXGLNexradLevel2 {
                     )
                     dis.bigEndian = true
                     dis.close()
-                    UtilityWXOGLPerfL2.level2Decompress(
-                        context,
-                        fileName,
-                        decompFileName,
-                        productCode.toInt()
-                    )
+                    UtilityWXOGLPerfL2.level2Decompress(context, fileName, decompFileName, productCode.toInt())
                 } catch (e: Exception) {
                     UtilityLog.handleException(e)
                 } catch (e: OutOfMemoryError) {

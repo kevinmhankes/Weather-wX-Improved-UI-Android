@@ -37,7 +37,6 @@ internal object WXGLPolygonWarnings {
     fun addGeneric(projectionNumbers: ProjectionNumbers, objectPolygonWarning: ObjectPolygonWarning): List<Double> {
         val warningList = mutableListOf<Double>()
         val prefToken = objectPolygonWarning.storage.value
-        //val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
         val html = prefToken.replace("\n", "").replace(" ", "")
         val polygons = html.parseColumn(RegExp.warningLatLonPattern)
         val vtecs = html.parseColumn(RegExp.warningVtecPattern)
@@ -83,7 +82,6 @@ internal object WXGLPolygonWarnings {
             PolygonType.TST -> MyApplication.severeDashboardTst.value
             else -> MyApplication.severeDashboardFfw.value
         }
-        //val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
         val html = prefToken.replace("\n", "").replace(" ", "")
         val polygons = html.parseColumn(RegExp.warningLatLonPattern)
         val vtecs = html.parseColumn(RegExp.warningVtecPattern)
