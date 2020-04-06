@@ -59,33 +59,20 @@ internal object UtilityNexradRadial8Bit {
             // index 4 is radar height
             // index 0,1 is lat as Int
             // index 2,3 is long as Int
-
             //val latitudeOfRadar = dis.readInt() / 1000.0
             //val longitudeOfRadar = dis.readInt() / 1000.0
             //val heightOfRadar = dis.readUnsignedShort().toShort()
-
             dis.readInt() / 1000.0
             dis.readInt() / 1000.0
             dis.readUnsignedShort().toShort()
-
             val productCode = dis.readUnsignedShort().toShort()
-
             //val operationalMode = dis.readUnsignedShort().toShort()
             dis.readUnsignedShort().toShort()
-
             dis.skipBytes(6)
             val volumeScanDate = dis.readUnsignedShort().toShort()
             val volumeScanTime = dis.readInt()
             val d = UtilityTime.radarTime(volumeScanDate, volumeScanTime)
             try {
-                /*val radarInfo = d.toString() + MyApplication.newline +
-                        "Radar Mode: " + operationalMode.toInt().toString() + MyApplication.newline +
-                        "Product Code: " + productCode.toInt().toString() + MyApplication.newline +
-                        "Radar height: " + heightOfRadar.toInt().toString() + MyApplication.newline +
-                        "Radar Lat: " + latitudeOfRadar.toString() + MyApplication.newline +
-                        "Radar Lon: " + longitudeOfRadar.toString() + MyApplication.newline*/
-                // Jan 2020 - comment out line below as nothing else in the program is using this
-                //Utility.writePref(context, "WX_RADAR_CURRENT_INFO_WIDGET", radarInfo)
                 WXGLNexrad.writeRadarTimeForWidget(context, d.toString())
             } catch (e: Exception) {
                 WXGLNexrad.writeRadarTimeForWidget(context, "")
@@ -108,16 +95,14 @@ internal object UtilityNexradRadial8Bit {
             val binSize = WXGLNexrad.getBinSize(productCode.toInt()) * 0.2f * MyApplication.widgetNexradSize.toFloat()
             val centerX = 500 + UtilityCanvasMain.xOffset.toInt()
             val centerY = 500 + UtilityCanvasMain.yOffset.toInt()
-            val wallpaint = Paint()
-            wallpaint.style = Style.FILL
-            val wallpath = Path()
-            var g = 0
+            val paint = Paint()
+            paint.style = Style.FILL
+            val path = Path()
             var angle: Float
             val angleV = 1.0f
             var level: Int
             var levelCount: Int
             var binStart: Float
-            var bin: Int
             var tmpVal: Int
             var x1: Float
             var y1: Float
@@ -155,15 +140,14 @@ internal object UtilityNexradRadial8Bit {
             bufR = MyApplication.colorMap[colorMapProductCode]!!.redValues
             bufG = MyApplication.colorMap[colorMapProductCode]!!.greenValues
             bufB = MyApplication.colorMap[colorMapProductCode]!!.blueValues
-            while (g < numberOfRadials) {
+            for (g in 0 until numberOfRadials) {
                 angle = radialStart.float
                 binWord.mark()
                 level = binWord.get().toInt() and 0xFF
                 binWord.reset()
                 levelCount = 0
                 binStart = binSize
-                bin = 0
-                while (bin < numberOfRangeBins) {
+                for (bin in 0 until numberOfRangeBins) {
                     tmpVal = binWord.get().toInt() and 0xFF
                     if (tmpVal == level) {
                         levelCount += 1
@@ -179,7 +163,7 @@ internal object UtilityNexradRadial8Bit {
                             centerY
                         )
                         if (level == 0)
-                            wallpaint.color = zeroColor
+                            paint.color = zeroColor
                         else {
                             b = bufR.get(level)
                             red = b.toInt() and 0xFF
@@ -188,28 +172,26 @@ internal object UtilityNexradRadial8Bit {
                             b = bufB.get(level)
                             blue = b.toInt() and 0xFF
                             colRgb = Color.rgb(red, green, blue)
-                            wallpaint.color = colRgb
+                            paint.color = colRgb
                         }
-                        wallpath.rewind() // only needed when reusing this path for a new build
+                        path.rewind() // only needed when reusing this path for a new build
                         rBuff.position(0)
                         x1 = rBuff.float
                         y1 = rBuff.float
-                        wallpath.moveTo(x1, y1)
-                        wallpath.lineTo(rBuff.float, rBuff.float)
-                        wallpath.lineTo(rBuff.float, rBuff.float)
-                        wallpath.lineTo(rBuff.float, rBuff.float)
-                        wallpath.lineTo(x1, y1)
-                        canvas.drawPath(wallpath, wallpaint)
+                        path.moveTo(x1, y1)
+                        path.lineTo(rBuff.float, rBuff.float)
+                        path.lineTo(rBuff.float, rBuff.float)
+                        path.lineTo(rBuff.float, rBuff.float)
+                        path.lineTo(x1, y1)
+                        canvas.drawPath(path, paint)
                         level = tmpVal
                         binStart = bin * binSize
                         levelCount = 1
                     }
-                    bin += 1
                 }
                 if (numberOfRangeBins % 2 != 0) {
                     binWord.position(binWord.position() + 4)
                 }
-                g += 1
             }
         } catch (e: IOException) {
             UtilityLog.handleException(e)
