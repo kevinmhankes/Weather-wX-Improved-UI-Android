@@ -37,14 +37,7 @@ internal object UtilityWXOGLPerfL2 {
      */
     private const val FILE_HEADER_SIZE = 24
 
-    fun writeDecodedFile(
-            context: Context,
-            fileName: String,
-            radialStart: ByteBuffer,
-            binWord: ByteBuffer,
-            days: ByteBuffer,
-            milliSeconds: ByteBuffer
-    ) {
+    fun writeDecodedFile(context: Context, fileName: String, radialStart: ByteBuffer, binWord: ByteBuffer, days: ByteBuffer, milliSeconds: ByteBuffer) {
         radialStart.position(0)
         binWord.position(0)
         days.position(0)
@@ -67,14 +60,7 @@ internal object UtilityWXOGLPerfL2 {
         }
     }
 
-    fun readDecodedFile(
-            context: Context,
-            fileName: String,
-            radialStart: ByteBuffer,
-            binWord: ByteBuffer,
-            days: ByteBuffer,
-            milliSeconds: ByteBuffer
-    ) {
+    fun readDecodedFile(context: Context, fileName: String, radialStart: ByteBuffer, binWord: ByteBuffer, days: ByteBuffer, milliSeconds: ByteBuffer) {
         radialStart.position(0)
         binWord.position(0)
         days.position(0)
@@ -138,10 +124,7 @@ internal object UtilityWXOGLPerfL2 {
             val header = ByteArray(FILE_HEADER_SIZE)
             val bytesRead = inputRaf.read(header)
             if (bytesRead != header.size) {
-                throw IOException(
-                    "Error reading NEXRAD2 header -- got " +
-                            bytesRead + " rather than" + header.size
-                )
+                throw IOException("Error reading NEXRAD2 header -- got " + bytesRead + " rather than" + header.size)
             }
             outputRaf.write(header)
             var eof = false
@@ -187,12 +170,15 @@ internal object UtilityWXOGLPerfL2 {
                         total += nread
                         nread = cbzip2.read(ubuff)
                     }
-                    if (obuff.size >= 0) outputRaf.write(obuff, 0, total)
+                    if (obuff.size >= 0)
+                        outputRaf.write(obuff, 0, total)
                 } catch (e: Exception) {
                     UtilityLog.handleException(e)
                 }
-                if (total == refDecompSize || total == velDecompSize) loopCnt += 1
-                if (loopCnt > loopCntBreak) break
+                if (total == refDecompSize || total == velDecompSize)
+                    loopCnt += 1
+                if (loopCnt > loopCntBreak)
+                    break
                 cbzip2.close()
             }
             bis?.close()
