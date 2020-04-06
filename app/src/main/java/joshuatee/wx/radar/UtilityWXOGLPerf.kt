@@ -77,7 +77,6 @@ internal object UtilityWXOGLPerf {
             var level: Byte
             var levelCount: Int
             var binStart: Float
-            var bin: Int
             var colorIndex = 0
             var radialIndex = 0
             var curLevel = 0.toByte()
@@ -108,11 +107,9 @@ internal object UtilityWXOGLPerf {
                     angleNext
                 else
                     angle0
-                bin = 0
-                while (bin < numberOfRleHalfWords) {
+                for (bin in 0 until numberOfRleHalfWords) {
                     try {
-                        curLevel =
-                            (dataInputStream.readUnsignedByte() and 0xFF).toByte() // was dis2!!.readUnsignedByte().toInt()
+                        curLevel = (dataInputStream.readUnsignedByte() and 0xFF).toByte() // was dis2!!.readUnsignedByte().toInt()
                     } catch (e: Exception) {
                         UtilityLog.handleException(e)
                     }
@@ -155,7 +152,6 @@ internal object UtilityWXOGLPerf {
                         binStart = bin * radarBuffers.binSize
                         levelCount = 1
                     }
-                    bin += 1
                 }
             }
             dataInputStream.close()
@@ -177,8 +173,7 @@ internal object UtilityWXOGLPerf {
         var level: Int
         var levelCount: Int
         var binStart: Float
-        var bin: Int
-        var bI = 0
+        var binIndex = 0
         var colorIndex = 0
         var radialIndex = 0
         var curLevel: Int
@@ -188,9 +183,7 @@ internal object UtilityWXOGLPerf {
         var angleVCos: Float
         val radarBlackHole: Float
         val radarBlackHoleAdd: Float
-        if (radarBuffers.productCode == 56.toShort()
-                || radarBuffers.productCode == 30.toShort()
-                || radarBuffers.productCode == 78.toShort()
+        if (radarBuffers.productCode == 56.toShort() || radarBuffers.productCode == 30.toShort() || radarBuffers.productCode == 78.toShort()
                 || radarBuffers.productCode == 80.toShort()
                 || radarBuffers.productCode == 181.toShort()
         ) {
@@ -202,7 +195,7 @@ internal object UtilityWXOGLPerf {
         }
         for (radialNumber in 0 until radarBuffers.numberOfRadials) {
             angle = radialStart.getFloat(radialNumber * 4)
-            level = binBuff.get(bI).toInt()
+            level = binBuff.get(binIndex).toInt()
             levelCount = 0
             binStart = radarBlackHole
             angleV = if (radialNumber < radarBuffers.numberOfRadials - 1) {
@@ -210,10 +203,9 @@ internal object UtilityWXOGLPerf {
             } else {
                 radialStart.getFloat(0)
             }
-            bin = 0
-            while (bin < radarBuffers.numRangeBins) {
-                curLevel = binBuff.get(bI).toInt()
-                bI += 1
+            for (bin in 0 until radarBuffers.numRangeBins) {
+                curLevel = binBuff.get(binIndex).toInt()
+                binIndex += 1
                 if (curLevel == level) {
                     levelCount += 1
                 } else {
@@ -250,7 +242,6 @@ internal object UtilityWXOGLPerf {
                     binStart = bin * radarBuffers.binSize + radarBlackHoleAdd
                     levelCount = 1
                 }
-                bin += 1
             }
         }
         return totalBins
@@ -275,10 +266,7 @@ internal object UtilityWXOGLPerf {
                         E
                     ).toFloat()) * oneDegreeScaleFactor) + yImageCenterPixels)
                 )
-                outBuff.putFloat(
-                    iCount * 4,
-                    -((inBuff.getFloat(iCount * 4 + 4) - centerY) * oneDegreeScaleFactor) + xImageCenterPixels
-                )
+                outBuff.putFloat(iCount * 4, -((inBuff.getFloat(iCount * 4 + 4) - centerY) * oneDegreeScaleFactor) + xImageCenterPixels)
                 iCount += 2
             }
         }
@@ -293,14 +281,8 @@ internal object UtilityWXOGLPerf {
         var iCount = 0
         if (count * 4 <= outBuff.limit()) {
             while (iCount < count) {
-                outBuff.putFloat(
-                    iCount * 4,
-                    (-((inBuff.getFloat(iCount * 4 + 4) - pnYFloat) * pnScaleFloat) + pnXCenter.toFloat())
-                )
-                outBuff.putFloat(
-                    iCount * 4 + 4,
-                    -(-((inBuff.getFloat(iCount * 4) - pnXFloat) * pnScaleFloat) + pnYCenter.toFloat())
-                )
+                outBuff.putFloat(iCount * 4, (-((inBuff.getFloat(iCount * 4 + 4) - pnYFloat) * pnScaleFloat) + pnXCenter.toFloat()))
+                outBuff.putFloat(iCount * 4 + 4, -(-((inBuff.getFloat(iCount * 4) - pnXFloat) * pnScaleFloat) + pnYCenter.toFloat()))
                 iCount += 2
             }
         }
