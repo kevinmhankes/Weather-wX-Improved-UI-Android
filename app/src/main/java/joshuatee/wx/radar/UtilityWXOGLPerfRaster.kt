@@ -41,16 +41,14 @@ internal object UtilityWXOGLPerfRaster {
             numberOfRows = 232
             binsPerRow = 232
             scaleFactor = 8.0f
-        }
-        if (radarBuffers.productCode.toInt() == 41 || radarBuffers.productCode.toInt() == 57) {
+        } else if (radarBuffers.productCode.toInt() == 41 || radarBuffers.productCode.toInt() == 57) {
             numberOfRows = 116
             binsPerRow = 116
             scaleFactor = 8.0f
         }
         val halfPoint = numberOfRows / 2
-        (0 until numberOfRows).forEach {rowNumber ->
-            var bin = 0
-            while (bin < binsPerRow) {
+        for (rowNumber in 0 until numberOfRows) {
+            for (bin in 0 until binsPerRow) {
                 val curLevel = binBuff.get(rowNumber * numberOfRows + bin).toInt()
                 radarBuffers.floatBuffer.putFloat( (bin - halfPoint).toFloat() * scaleFactor)
                 radarBuffers.floatBuffer.putFloat( (rowNumber - halfPoint).toFloat() * scaleFactor * -1.0f)
@@ -69,7 +67,6 @@ internal object UtilityWXOGLPerfRaster {
                     radarBuffers.colorBuffer.put(radarBuffers.colormap.blueValues.get(curLevel and 0xFF))
                 }
                 totalBins += 1
-                bin += 1
             }
         }
         return totalBins
