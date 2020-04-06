@@ -94,6 +94,8 @@ enum class PolygonType constructor(
             OBS.color = MyApplication.radarColorObs
             SWO.color = MyApplication.radarColorHi
             SWO.size = MyApplication.radarSwoLineSize.toFloat()
+
+            // FIXME set more line size on refresh
         }
     }
 }

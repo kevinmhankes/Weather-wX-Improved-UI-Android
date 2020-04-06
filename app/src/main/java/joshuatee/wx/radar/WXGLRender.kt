@@ -493,6 +493,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 watchTornadoBuffers,
                 swoBuffers
         ).forEach {
+            // FIXME set line size
             drawPolygons(it, 8)
         }
         if (zoom < (0.50 / zoomScreenScaleFactor)) {
