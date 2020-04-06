@@ -29,7 +29,6 @@ import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityString
 
-import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectLinearLayout
 import joshuatee.wx.ui.UtilityUI

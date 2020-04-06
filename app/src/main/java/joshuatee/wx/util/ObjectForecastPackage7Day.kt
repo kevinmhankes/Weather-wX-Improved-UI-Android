@@ -86,7 +86,7 @@ class ObjectForecastPackage7Day {
         val temperatures = html.parseColumn("\"temperature\": (.*?),")
         val shortForecasts = html.parseColumn("\"shortForecast\": \"(.*?)\",")
         val detailedForecasts = html.parseColumn("\"detailedForecast\": \"(.*?)\"")
-        if ((names.size == temperatures.size) && (temperatures.size == shortForecasts.size) && (shortForecasts.size == detailedForecasts.size)) {
+        return if ((names.size == temperatures.size) && (temperatures.size == shortForecasts.size) && (shortForecasts.size == detailedForecasts.size)) {
             val objectForecasts = (names.indices).mapTo(mutableListOf()) {
                 ObjectForecast(names[it], temperatures[it], shortForecasts[it], detailedForecasts[it])
             }
@@ -95,9 +95,9 @@ class ObjectForecastPackage7Day {
                 forecasts += it.name + "(" + it.temperature + "): " + it.shortForecast
                 forecasts += MyApplication.newline + MyApplication.newline
             }
-            return forecasts
+            forecasts
         } else {
-            return ""
+            ""
         }
     }
 

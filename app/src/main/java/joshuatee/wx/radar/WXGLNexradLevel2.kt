@@ -74,11 +74,7 @@ class WXGLNexradLevel2 {
         } else {
             if (performDecompression) {
                 try {
-                    val dis = UCARRandomAccessFile(
-                        UtilityIO.getFilePath(context, fileName),
-                        "r",
-                        1024 * 256 * 10
-                    )
+                    val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, fileName), "r", 1024 * 256 * 10)
                     dis.bigEndian = true
                     dis.close()
                     UtilityWXOGLPerfL2.level2Decompress(context, fileName, decompFileName, productCode.toInt())

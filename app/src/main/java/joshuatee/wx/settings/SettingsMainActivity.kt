@@ -28,7 +28,6 @@ import android.view.View
 import joshuatee.wx.R
 import joshuatee.wx.audio.SettingsPlaylistActivity
 import joshuatee.wx.MyApplication
-import joshuatee.wx.activitiesmisc.TextScreenActivity
 import joshuatee.wx.notifications.UtilityWXJobService
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.BaseActivity

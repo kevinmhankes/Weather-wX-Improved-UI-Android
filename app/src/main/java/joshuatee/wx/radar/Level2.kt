@@ -58,22 +58,10 @@ internal object Level2 {
     private var first: Level2Record? = null
     private var vcp = 0
 
-    fun decode(
-        context: Context,
-        fileName: String,
-        binWord: ByteBuffer,
-        radialStartAngle: ByteBuffer,
-        prod: Int,
-        days: ByteBuffer,
-        milliSeconds: ByteBuffer
-    ) {
+    fun decode(context: Context, fileName: String, binWord: ByteBuffer, radialStartAngle: ByteBuffer, prod: Int, days: ByteBuffer, milliSeconds: ByteBuffer) {
         val velocityProd = prod == 154
         try {
-            val ucarRandomAccessFile = UCARRandomAccessFile(
-                UtilityIO.getFilePath(context, fileName),
-                "r",
-                1024 * 256 * 10
-            )
+            val ucarRandomAccessFile = UCARRandomAccessFile(UtilityIO.getFilePath(context, fileName), "r", 1024 * 256 * 10)
             ucarRandomAccessFile.bigEndian = true
             ucarRandomAccessFile.let {
                 it.setBufferSize(2621440) // 1024*256*10
@@ -110,28 +98,23 @@ internal object Level2 {
                 }
             }
             val numberOfRadials = 720
-            var r = 1
             days.position(0)
-            days.putShort(highReflectivity[r].dataJulianDate)
+            days.putShort(highReflectivity[1].dataJulianDate)
             milliSeconds.position(0)
-            milliSeconds.putInt(highReflectivity[r].dataMsecs)
+            milliSeconds.putInt(highReflectivity[1].dataMsecs)
             if (!velocityProd) {
-                r = 0
-                while (r < numberOfRadials) {
+                for (r in 0 until numberOfRadials) {
                     if (highReflectivity[r].elevationNum.toInt() == 1) {
                         radialStartAngle.putFloat(450.0f - highReflectivity[r].azimuth)
                         highReflectivity[r].readData(ucarRandomAccessFile, REFLECTIVITY_HIGH, binWord)
                     }
-                    r += 1
                 }
             } else {
-                r = 0
-                while (r < numberOfRadials) {
+                for (r in 0 until numberOfRadials) {
                     if (highVelocity[r].elevationNum.toInt() == 2) {
                         radialStartAngle.putFloat(450.0f - highVelocity[r].azimuth)
                         highVelocity[r].readData(ucarRandomAccessFile, VELOCITY_HIGH, binWord)
                     }
-                    r += 1
                 }
             }
             ucarRandomAccessFile.close()

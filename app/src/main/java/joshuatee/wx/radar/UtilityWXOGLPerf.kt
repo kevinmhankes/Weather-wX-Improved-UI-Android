@@ -348,14 +348,12 @@ internal object UtilityWXOGLPerf {
             if (it == chunkCount - 1) {
                 breakSize = remainder
             }
-            var j = 0
-            while (j < breakSize) {
+            for (j in 0 until breakSize) {
                 indexBuff.putShort(iCount, incr.toShort())
                 iCount += 2
                 indexBuff.putShort(iCount, (1 + incr).toShort())
                 iCount += 2
                 incr += 2
-                j += 1
             }
         }
     }
@@ -623,7 +621,7 @@ internal object UtilityWXOGLPerf {
 
     fun colorGen(colorBuff: ByteBuffer, length: Int, colors: ByteArray) {
         if (length * 3 <= colorBuff.limit()) {
-            (0 until length).forEach { _ ->
+            for (notUsed in 0 until length) {
                 if (colorBuff.hasRemaining())
                     colorBuff.put(colors[0])
                 if (colorBuff.hasRemaining())

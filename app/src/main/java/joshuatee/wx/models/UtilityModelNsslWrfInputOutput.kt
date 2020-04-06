@@ -68,7 +68,7 @@ internal object UtilityModelNsslWrfInputOutput {
             model = "wrf_nssl_3km"
             modelPostfix = ""
         }
-        if (om.run.length > 8) {
+        return if (om.run.length > 8) {
             val year = om.run.substring(0, 4)
             val month = om.run.substring(4, 6)
             val day = om.run.substring(6, 8)
@@ -77,9 +77,9 @@ internal object UtilityModelNsslWrfInputOutput {
                     time + "00/" + om.currentParam + ".spc_" + sector.toLowerCase(Locale.US) + ".f" + time + "00.png"
             val baseLayerImage = baseLayerUrl.getImage()
             val productLayerImage = url.getImage()
-            return UtilityImg.addColorBackground(context, UtilityImg.mergeImages(context, productLayerImage, baseLayerImage), Color.WHITE)
+            UtilityImg.addColorBackground(context, UtilityImg.mergeImages(context, productLayerImage, baseLayerImage), Color.WHITE)
         } else {
-            return UtilityImg.getBlankBitmap()
+            UtilityImg.getBlankBitmap()
         }
     }
 

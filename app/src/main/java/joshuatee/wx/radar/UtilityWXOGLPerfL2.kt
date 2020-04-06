@@ -123,12 +123,7 @@ internal object UtilityWXOGLPerfL2 {
      * @throws IOException on read error
      */
     @Throws(IOException::class)
-    private fun uncompress(
-        context: Context,
-        inputRaf: UCARRandomAccessFile,
-        ufilename: String,
-        productCode: Int
-    ): UCARRandomAccessFile {
+    private fun uncompress(context: Context, inputRaf: UCARRandomAccessFile, ufilename: String, productCode: Int): UCARRandomAccessFile {
         val outputRaf = UCARRandomAccessFile(File(context.filesDir, ufilename).absolutePath, "rw")
         outputRaf.bigEndian = true
         val loopCntBreak = if (productCode == 153)
