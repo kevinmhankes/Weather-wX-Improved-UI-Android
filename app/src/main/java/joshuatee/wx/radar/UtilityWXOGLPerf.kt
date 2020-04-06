@@ -540,14 +540,13 @@ internal object UtilityWXOGLPerf {
 
     fun genCircleLocdot(buffers: ObjectOglBuffers, projectionNumbers: ProjectionNumbers, x: Double, y: Double) {
         buffers.setToPositionZero()
-        val pixYD: Float
-        val pixXD = (-((y - projectionNumbers.yDbl) * projectionNumbers.oneDegreeScaleFactor) + projectionNumbers.xCenter).toFloat()
-        var indexCount = 0
         val test1 = M_180_div_PI * log(tan(M_PI_div_4 + x * M_PI_div_360), E).toFloat()
         val test2 = M_180_div_PI * log(tan(M_PI_div_4 + projectionNumbers.xDbl * M_PI_div_360), E).toFloat()
         val length = buffers.lenInit * 2.0f
         val triangleAmount = buffers.triangleCount
-        pixYD = -((test1 - test2) * projectionNumbers.oneDegreeScaleFactorFloat) + projectionNumbers.yCenter.toFloat()
+        var indexCount = 0
+        val pixXD = (-((y - projectionNumbers.yDbl) * projectionNumbers.oneDegreeScaleFactor) + projectionNumbers.xCenter).toFloat()
+        val pixYD = -((test1 - test2) * projectionNumbers.oneDegreeScaleFactorFloat) + projectionNumbers.yCenter.toFloat()
         (0 until triangleAmount).forEach {
             buffers.putFloat(pixXD + length * cos((it * TWICE_PI / triangleAmount).toDouble()).toFloat())
             buffers.putFloat(-pixYD + length * sin((it * TWICE_PI / triangleAmount).toDouble()).toFloat())
@@ -588,14 +587,12 @@ internal object UtilityWXOGLPerf {
             numberOfRangeBins = dataInputStream.readUnsignedShort()
             dataInputStream.skipBytes(6)
             val numberOfRadials = dataInputStream.readUnsignedShort()
-            var r = 0
             var numberOfRleHalfwords: Int
             binWord.position(0)
             radialStartAngle.position(0)
             var tnMod10: Int
             var tn: Int
-            var s: Int
-            while (r < numberOfRadials) {
+            for (r in 0 until numberOfRadials) {
                 numberOfRleHalfwords = dataInputStream.readUnsignedShort()
                 tn = dataInputStream.readUnsignedShort()
                 // the code below must stay as drawing to canvas is not as precise as opengl directly for some reason
@@ -608,12 +605,9 @@ internal object UtilityWXOGLPerf {
                     tn = tn - tnMod10 + 10
                 radialStartAngle.putFloat((450 - tn / 10).toFloat())
                 dataInputStream.skipBytes(2)
-                s = 0
-                while (s < numberOfRleHalfwords) {
+                for (s in 0 until numberOfRleHalfwords) {
                     binWord.put((dataInputStream.readUnsignedByte() and 0xFF).toByte())
-                    s += 1
                 }
-                r += 1
             }
             dataInputStream.close()
         } catch (e: Exception) {
