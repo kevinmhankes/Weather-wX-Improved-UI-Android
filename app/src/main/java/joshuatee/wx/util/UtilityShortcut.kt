@@ -96,12 +96,7 @@ object UtilityShortcut {
                     .setShortLabel(shortcutId)
                     .setLongLabel(shortcutId)
                     .setIcon(Icon.createWithResource(context, imageId))
-                    .setIntents(
-                            arrayOf(
-                                    Intent(Intent.ACTION_MAIN, Uri.EMPTY, context, joshuatee.wx.WX::class.java).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK),
-                                    intent
-                            )
-                    )
+                    .setIntents(arrayOf(Intent(Intent.ACTION_MAIN, Uri.EMPTY, context, joshuatee.wx.WX::class.java).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK), intent))
                     .build()
             val pinnedShortcutCallbackIntent = shortcutManager!!.createShortcutResultIntent(shortcut)
             val successCallback = PendingIntent.getBroadcast(context, 0, pinnedShortcutCallbackIntent, 0)
