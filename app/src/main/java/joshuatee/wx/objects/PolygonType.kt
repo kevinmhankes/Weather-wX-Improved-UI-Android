@@ -65,7 +65,9 @@ enum class PolygonType constructor(
             SPOTTER.pref = MyApplication.radarSpotters
             SPOTTER_LABELS.pref = MyApplication.radarSpottersLabel
             WIND_BARB_GUSTS.pref = MyApplication.radarObsWindbarbs
+            WIND_BARB_GUSTS.size = MyApplication.radarWbLineSize.toFloat()
             WIND_BARB.pref = MyApplication.radarObsWindbarbs
+            WIND_BARB.size = MyApplication.radarWbLineSize.toFloat()
             WIND_BARB_CIRCLE.pref = MyApplication.radarObsWindbarbs
             LOCDOT.pref = MyApplication.radarLocDot
             STI.pref = MyApplication.radarSti
@@ -86,10 +88,12 @@ enum class PolygonType constructor(
             WIND_BARB_CIRCLE.color = MyApplication.radarColorObsWindbarbs
             LOCDOT.color = MyApplication.radarColorLocdot
             STI.color = MyApplication.radarColorSti
+            STI.size = MyApplication.radarStiLineSize.toFloat()
             TVS.color = MyApplication.radarColorTor
             HI.color = MyApplication.radarColorHi
             OBS.color = MyApplication.radarColorObs
             SWO.color = MyApplication.radarColorHi
+            SWO.size = MyApplication.radarSwoLineSize.toFloat()
         }
     }
 }
