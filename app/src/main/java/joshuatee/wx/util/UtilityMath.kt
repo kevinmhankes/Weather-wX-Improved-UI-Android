@@ -141,7 +141,7 @@ object UtilityMath {
     fun rad2deg(rad: Double) = rad * 180.0 / PI
 
     fun convertWindDir(direction: Double): String {
-        var dirStr = ""
+        val dirStr: String
         if (direction > 337.5 || direction <= 22.5)
             dirStr = "N"
         else if (direction > 22.5 && direction <= 67.5)
