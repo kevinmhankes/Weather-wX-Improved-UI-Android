@@ -598,16 +598,7 @@ internal object UtilityWXOGLPerf {
         return numberOfRangeBins.toShort()
     }
 
-    fun rect8bitwx(
-        rBuff: ByteBuffer,
-        binStart: Float,
-        binSize: Float,
-        levelCount: Int,
-        angle: Float,
-        angleV: Float,
-        centerX: Int,
-        centerY: Int
-    ) {
+    fun rect8bitwx(rBuff: ByteBuffer, binStart: Float, binSize: Float, levelCount: Int, angle: Float, angleV: Float, centerX: Int, centerY: Int) {
         rBuff.position(0)
         rBuff.putFloat(binStart * cos((angle / M_180_div_PI).toDouble()).toFloat() + centerX)
         rBuff.putFloat((binStart * sin((angle / M_180_div_PI).toDouble()).toFloat() - centerY) * -1)
