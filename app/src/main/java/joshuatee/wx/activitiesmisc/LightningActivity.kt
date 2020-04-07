@@ -113,12 +113,7 @@ class LightningActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityShare.shareBitmap(
-                            this,
-                            this,
-                            "Lightning Strikes " + objectNavDrawer.getLabel() + " $periodPretty",
-                            bitmap
-                    )
+                    UtilityShare.shareBitmap(this, this, "Lightning Strikes " + objectNavDrawer.getLabel() + " $periodPretty", bitmap)
                 }
             }
             R.id.action_15min -> setPeriodGetContent("0.25", "15 MIN")

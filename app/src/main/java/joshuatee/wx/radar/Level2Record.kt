@@ -172,13 +172,11 @@ private constructor(ucarRandomAccessFile: UCARRandomAccessFile, record: Int, mes
         }
     }
 
-    private fun getDataOffset(dataType: Int): Short {
-        when (dataType) {
-            REFLECTIVITY_HIGH -> return reflectHROffset
-            VELOCITY_HIGH -> return velocityHROffset
+    private fun getDataOffset(dataType: Int) = when (dataType) {
+            REFLECTIVITY_HIGH -> reflectHROffset
+            VELOCITY_HIGH -> velocityHROffset
+            else -> Short.MIN_VALUE
         }
-        return Short.MIN_VALUE
-    }
 
     @Throws(IOException::class)
     private fun getDataBlockValue(ucarRandomAccessFile: UCARRandomAccessFile, offset: Short, skip: Int): Short {
@@ -202,9 +200,8 @@ private constructor(ucarRandomAccessFile: UCARRandomAccessFile, record: Int, mes
 
     @Throws(IOException::class)
     fun readData(ucarRandomAccessFile: UCARRandomAccessFile, dataType: Int, binWord: ByteBuffer) {
-        var offset = messageOffset
-        offset += MESSAGE_HEADER_SIZE.toLong() // offset is from "start of digital radar data message header"
-        offset += getDataOffset(dataType).toLong()
+        // offset is from "start of digital radar data message header"
+        val offset = messageOffset + MESSAGE_HEADER_SIZE.toLong() + getDataOffset(dataType).toLong()
         ucarRandomAccessFile.seek(offset)
         for (i in 0..915) {
             binWord.put(ucarRandomAccessFile.readUnsignedByte().toByte())

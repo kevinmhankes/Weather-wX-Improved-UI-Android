@@ -160,11 +160,9 @@ open class ObjectOglBuffers() {
     fun setXYList(combinedLatLonList: List<Double>) {
         xList = DoubleArray(combinedLatLonList.size / 2)
         yList = DoubleArray(combinedLatLonList.size / 2)
-        var j = 0
-        while (j < combinedLatLonList.size) {
+        for (j in combinedLatLonList.indices step 2) {
             xList[j / 2] = combinedLatLonList[j]
             yList[j / 2] = combinedLatLonList[j + 1]
-            j += 2
         }
     }
 
