@@ -40,17 +40,15 @@ internal object WXGLNexradLevel3HailIndex {
     private const val markerSize = 0.015
 
     fun decodeAndPlot(context: Context, radarSite: String, fnSuffix: String): List<Double> {
+        val fileName = hiBaseFn + fnSuffix
         val stormList = mutableListOf<Double>()
         val location = UtilityLocation.getSiteLocation(radarSite)
-        WXGLDownload.getNidsTab(context, "HI", radarSite, hiBaseFn + fnSuffix)
+        WXGLDownload.getNidsTab(context, "HI", radarSite, fileName)
         val posn: List<String>
         val hailPercent: List<String>
         val hailSize: List<String>
         try {
-            // TODO make method for below 3 lines
-            val ucarRandomAccessFile = UCARRandomAccessFile(UtilityIO.getFilePath(context, hiBaseFn + fnSuffix))
-            ucarRandomAccessFile.bigEndian = true
-            val data = UtilityLevel3TextProduct.read(ucarRandomAccessFile)
+            val data = UtilityLevel3TextProduct.readFile(context, fileName)
             posn = data.parseColumn(RegExp.hiPattern1)
             hailPercent = data.parseColumn(RegExp.hiPattern2)
             hailSize = data.parseColumn(RegExp.hiPattern3)
@@ -59,15 +57,15 @@ internal object WXGLNexradLevel3HailIndex {
             return listOf()
         }
         var posnStr = ""
-        var hailPercentStr = ""
-        var hailSizeStr = ""
         posn.forEach {
             posnStr += it.replace("/", " ")
         }
+        var hailPercentStr = ""
         hailPercent.forEach {
             hailPercentStr += it.replace("/", " ")
         }
         hailPercentStr = hailPercentStr.replace("UNKNOWN", " 0 0 ")
+        var hailSizeStr = ""
         hailSize.forEach {
             hailSizeStr += it.replace("/", " ")
         }

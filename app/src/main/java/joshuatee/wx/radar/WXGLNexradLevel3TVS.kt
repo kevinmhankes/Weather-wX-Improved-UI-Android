@@ -40,14 +40,13 @@ internal object WXGLNexradLevel3TVS {
     private const val tvsBaseFn = "nids_tvs_tab"
 
     fun decodeAndPlot(context: Context, radarSite: String, fnSuffix: String): List<Double> {
+        val fileName = tvsBaseFn + fnSuffix
         val stormList = mutableListOf<Double>()
         val location = UtilityLocation.getSiteLocation(radarSite)
-        WXGLDownload.getNidsTab(context, "TVS", radarSite, tvsBaseFn + fnSuffix)
+        WXGLDownload.getNidsTab(context, "TVS", radarSite, fileName)
         val tvs: MutableList<String>
         try {
-            val ucarRandomAccessFile = UCARRandomAccessFile(UtilityIO.getFilePath(context, tvsBaseFn + fnSuffix))
-            ucarRandomAccessFile.bigEndian = true
-            val data = UtilityLevel3TextProduct.read(ucarRandomAccessFile)
+            val data = UtilityLevel3TextProduct.readFile(context, fileName)
             // P  TVS    R7   216/ 50    29    57    57/ 6.5    15.9    6.5/ 22.4    18/ 6.5    &#0;
             tvs = data.parseColumn(RegExp.tvsPattern1).toMutableList()
         } catch (e: Exception) {

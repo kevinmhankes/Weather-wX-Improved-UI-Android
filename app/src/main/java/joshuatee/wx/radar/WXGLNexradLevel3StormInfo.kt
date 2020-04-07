@@ -38,15 +38,14 @@ internal object WXGLNexradLevel3StormInfo {
     private const val stiBaseFileName = "nids_sti_tab"
 
     fun decodeAndPlot(context: Context, fileNameSuffix: String, projectionNumbers: ProjectionNumbers): List<Double> {
+        val fileName = stiBaseFileName + fileNameSuffix
         val stormList = mutableListOf<Double>()
         val location = UtilityLocation.getSiteLocation(projectionNumbers.radarSite)
-        WXGLDownload.getNidsTab(context, "STI", projectionNumbers.radarSite.toLowerCase(Locale.US), stiBaseFileName + fileNameSuffix)
+        WXGLDownload.getNidsTab(context, "STI", projectionNumbers.radarSite.toLowerCase(Locale.US), fileName)
         val posn: List<String>
         val motion: List<String>
         try {
-            val ucarRandomAccessFile = UCARRandomAccessFile(UtilityIO.getFilePath(context, stiBaseFileName + fileNameSuffix))
-            ucarRandomAccessFile.bigEndian = true
-            val data = UtilityLevel3TextProduct.read(ucarRandomAccessFile)
+            val data = UtilityLevel3TextProduct.readFile(context, fileName)
             posn = data.parseColumn(RegExp.stiPattern1)
             motion = data.parseColumn(RegExp.stiPattern2)
         } catch (e: Exception) {
@@ -54,11 +53,11 @@ internal object WXGLNexradLevel3StormInfo {
             return listOf()
         }
         var posnStr = ""
-        var motionStr = ""
         posn.map { it.replace("NEW", "0/ 0").replace("/ ", "/").replace("\\s+".toRegex(), " ") }
             .forEach {
                 posnStr += it.replace("/", " ")
             }
+        var motionStr = ""
         motion.map { it.replace("NEW", "0/ 0").replace("/ ", "/").replace("\\s+".toRegex(), " ") }
             .forEach {
                 motionStr += it.replace("/", " ")

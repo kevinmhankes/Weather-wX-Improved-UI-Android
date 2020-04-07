@@ -21,12 +21,20 @@
 
 package joshuatee.wx.radar
 
+import android.content.Context
 import java.io.EOFException
 import java.io.IOException
 import joshuatee.wx.util.UCARRandomAccessFile
+import joshuatee.wx.util.UtilityIO
 import joshuatee.wx.util.UtilityLog
 
 object UtilityLevel3TextProduct {
+
+    fun readFile(context: Context, fileName: String): String {
+        val ucarRandomAccessFile = UCARRandomAccessFile(UtilityIO.getFilePath(context, fileName))
+        ucarRandomAccessFile.bigEndian = true
+        return read(ucarRandomAccessFile)
+    }
 
     fun read(ucarRandomAccessFile: UCARRandomAccessFile?): String {
         val stringBuilder = StringBuilder(1500)
