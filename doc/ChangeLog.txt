@@ -28,7 +28,7 @@
 // TODO [ADD] severedash long press to add location
 // TODO [ADD] severedash long press color is off
 // TODO [FIX] severedash -> long press -> go to dual pane ( does not use current location )
-// TODO [FIX] toolbar handling in WXGLSurfaceViews
+// TODO [FIX] toolbar handling in WXGLSurfaceView
 
 55392 2020_04_07    [REF] misc for readability
 55391 2020_04_06    [FIX] remove line breaks in WPC Excessive rainfall text products
