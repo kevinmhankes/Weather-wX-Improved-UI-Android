@@ -41,14 +41,9 @@ class AlertService : IntentService("AlertService") {
         val alertNotificationIntervalCurrent = Utility.readPref(this, "ALERT_NOTIFICATION_INTERVAL", -1)
         val service = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val cal = Calendar.getInstance()
-        val intent = Intent(this, AlertReceiver::class.java)
-        val pending = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
-        service.setInexactRepeating(
-            AlarmManager.RTC_WAKEUP,
-            cal.timeInMillis,
-            (alertNotificationIntervalCurrent * 1000 * 60).toLong(),
-            pending
-        )
+        val intentLocal = Intent(this, AlertReceiver::class.java)
+        val pending = PendingIntent.getBroadcast(this, 0, intentLocal, PendingIntent.FLAG_CANCEL_CURRENT)
+        service.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.timeInMillis, (alertNotificationIntervalCurrent * 1000 * 60).toLong(), pending)
         UtilityPlayListAutoDownload.setAllAlarms(this)
     }
 } 
