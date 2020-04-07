@@ -222,13 +222,8 @@ internal object UtilityNotificationSpc {
                 for (n in 1..Location.numLocations) {
                     val locNum = n.toString()
                     if (MyApplication.locations[n - 1].notificationMcd) {
-                        // if location is watching for MCDs pull ib lat/lon and interate over polygons
+                        // if location is watching for MCDs pull ib lat/lon and iterate over polygons
                         // call secondary method to send notif if required
-                        //val locXStr = MyApplication.locations[n - 1].x
-                        //val locYStr = MyApplication.locations[n - 1].y
-                        //val locXDbl = locXStr.toDoubleOrNull() ?: 0.0
-                        //val locYDbl = locYStr.toDoubleOrNull() ?: 0.0
-                        //val contains = polygon2.contains(Location.getLatLon(n - 1).asPoint())
                         if (polygonShape.contains(Location.getLatLon(n - 1).asPoint())) {
                             notifUrls += sendMcdNotification(context, locNum, mcdNumbers[z])
                         }
@@ -388,22 +383,17 @@ internal object UtilityNotificationSpc {
                     // 21,-130                21,-62
                     //
                     if (y.size >= 3 && x.size >= 3 && x.size == y.size) {
-                        val poly2 = ExternalPolygon.Builder()
+                        val polygonFrame = ExternalPolygon.Builder()
                         x.indices.forEach { j ->
-                            poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
+                            polygonFrame.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
                         }
-                        val polygon2 = poly2.build()
+                        val polygonShape = polygonFrame.build()
                         (1..Location.numLocations).forEach { n ->
                             val locNum = n.toString()
                             if (MyApplication.locations[n - 1].notificationSwo) {
-                                // if location is watching for MCDs pull ib lat/lon and interate over polygons
+                                // if location is watching for MCDs pull ib lat/lon and iterate over polygons
                                 // call secondary method to send notif if required
-                                val locXStr = MyApplication.locations[n - 1].x
-                                val locYStr = MyApplication.locations[n - 1].y
-                                val locXDbl = locXStr.toDoubleOrNull() ?: 0.0
-                                val locYDbl = locYStr.toDoubleOrNull() ?: 0.0
-                                val contains = polygon2.contains(ExternalPoint(locXDbl.toFloat(), locYDbl.toFloat()))
-                                if (contains) {
+                                if (polygonShape.contains(Location.getLatLon(n - 1).asPoint())) {
                                     if (!notifUrls.contains("spcswoloc$day$locNum")) {
                                         notifUrls += sendSwoNotification(context, locNum, day, it, validTime)
                                     }
