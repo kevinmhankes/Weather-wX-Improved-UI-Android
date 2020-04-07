@@ -247,27 +247,18 @@ internal object UtilityWXOGLPerf {
         return totalBins
     }
 
-    fun genMercator(inBuff: ByteBuffer, outBuff: ByteBuffer, projectionNumbers: ProjectionNumbers, count: Int) {
-        val centerX = projectionNumbers.xFloat
-        val centerY = projectionNumbers.yFloat
-        val xImageCenterPixels = projectionNumbers.xCenter.toFloat()
-        val yImageCenterPixels = projectionNumbers.yCenter.toFloat()
-        val oneDegreeScaleFactor = projectionNumbers.oneDegreeScaleFactorFloat
-        var iCount = 0
+    fun genMercator(inBuff: ByteBuffer, outBuff: ByteBuffer, pn: ProjectionNumbers, count: Int) {
+        val pnXFloat = pn.xFloat
+        val pnYFloat = pn.yFloat
+        val pnXCenter = pn.xCenter.toFloat()
+        val pnYCenter = pn.yCenter.toFloat()
+        val oneDegreeScaleFactor = pn.oneDegreeScaleFactorFloat
         if (count * 4 <= outBuff.limit()) {
-            while (iCount < count) {
-                outBuff.putFloat(
-                    iCount * 4 + 4,
-                    -1.0f * (-((M_180_div_PI * log(
-                        tan((M_PI_div_4 + inBuff.getFloat(iCount * 4) * M_PI_div_360).toDouble()),
-                        E
-                    ).toFloat() - M_180_div_PI * log(
-                        tan((M_PI_div_4 + centerX * M_PI_div_360).toDouble()),
-                        E
-                    ).toFloat()) * oneDegreeScaleFactor) + yImageCenterPixels)
-                )
-                outBuff.putFloat(iCount * 4, -((inBuff.getFloat(iCount * 4 + 4) - centerY) * oneDegreeScaleFactor) + xImageCenterPixels)
-                iCount += 2
+            for (iCount in 0 until count step 2) {
+                outBuff.putFloat(iCount * 4 + 4,
+                        -1.0f * (-((M_180_div_PI * log(tan((M_PI_div_4 + inBuff.getFloat(iCount * 4) * M_PI_div_360).toDouble()), E).toFloat() - M_180_div_PI * log(
+                        tan((M_PI_div_4 + pnXFloat * M_PI_div_360).toDouble()), E).toFloat()) * oneDegreeScaleFactor) + pnYCenter))
+                outBuff.putFloat(iCount * 4, -((inBuff.getFloat(iCount * 4 + 4) - pnYFloat) * oneDegreeScaleFactor) + pnXCenter)
             }
         }
     }
@@ -278,12 +269,10 @@ internal object UtilityWXOGLPerf {
         val pnXCenter = pn.xCenter
         val pnYCenter = pn.yCenter
         val pnScaleFloat = pn.scaleFloat
-        var iCount = 0
         if (count * 4 <= outBuff.limit()) {
-            while (iCount < count) {
+            for (iCount in 0 until count step 2) {
                 outBuff.putFloat(iCount * 4, (-((inBuff.getFloat(iCount * 4 + 4) - pnYFloat) * pnScaleFloat) + pnXCenter.toFloat()))
                 outBuff.putFloat(iCount * 4 + 4, -(-((inBuff.getFloat(iCount * 4) - pnXFloat) * pnScaleFloat) + pnYCenter.toFloat()))
-                iCount += 2
             }
         }
     }
