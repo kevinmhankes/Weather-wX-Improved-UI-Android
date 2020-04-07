@@ -51,15 +51,12 @@ object UtilityWXJobService {
                 .setRequiresDeviceIdle(false)
                 .setRequiresCharging(false)
                 .setPersisted(true)
-                .setPeriodic(
-                    (alertNotificationIntervalCurrent * 1000 * 60).toLong(),
-                    60000
-                ) // final arg is one minute
+                .setPeriodic((alertNotificationIntervalCurrent * 1000 * 60).toLong(), 60000) // final arg is one minute
                 .build()
             val scheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
             val result = scheduler.schedule(jobInfo)
             if (result == JobScheduler.RESULT_SUCCESS) {
-                UtilityLog.d("wx", "Job scheduled successfully! jobService")
+                UtilityLog.d("wx", "Job scheduled successfully - jobService")
             }
         }
     }
