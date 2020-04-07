@@ -91,7 +91,7 @@ class BackgroundFetch(val context: Context) {
                         val noMain = "SPC MCD #$mcdNumber"
                         val mcdPreModified = mcdData.htmlList[index].replace("<.*?>".toRegex(), " ")
                         val polygonType = MCD
-                        val objPI = ObjectPendingIntents(
+                        val objectPendingIntents = ObjectPendingIntents(
                                 context,
                                 SpcMcdWatchShowActivity::class.java,
                                 SpcMcdWatchShowActivity.NUMBER,
@@ -106,13 +106,13 @@ class BackgroundFetch(val context: Context) {
                                     sound,
                                     noMain,
                                     mcdPreModified,
-                                    objPI.resultPendingIntent,
+                                    objectPendingIntents.resultPendingIntent,
                                     MyApplication.ICON_MCD,
                                     mcdPreModified,
                                     NotificationCompat.PRIORITY_HIGH,
                                     Color.YELLOW,
                                     MyApplication.ICON_ACTION,
-                                    objPI.resultPendingIntent2,
+                                    objectPendingIntents.resultPendingIntent2,
                                     context.resources.getString(R.string.read_aloud)
                             )
                             val notification = UtilityNotification.createNotificationBigTextWithAction(notificationObj)
@@ -136,7 +136,7 @@ class BackgroundFetch(val context: Context) {
                         val noMain = "WPC MPD #$mpdNumber"
                         val mcdPreModified = mpdData.htmlList[index].replace("<.*?>".toRegex(), " ")
                         val polygonType = MPD
-                        val objPI = ObjectPendingIntents(
+                        val objectPendingIntents = ObjectPendingIntents(
                                 context,
                                 SpcMcdWatchShowActivity::class.java,
                                 SpcMcdWatchShowActivity.NUMBER,
@@ -151,13 +151,13 @@ class BackgroundFetch(val context: Context) {
                                     sound,
                                     noMain,
                                     mcdPreModified,
-                                    objPI.resultPendingIntent,
+                                    objectPendingIntents.resultPendingIntent,
                                     MyApplication.ICON_MPD,
                                     mcdPreModified,
                                     NotificationCompat.PRIORITY_HIGH,
                                     Color.GREEN,
                                     MyApplication.ICON_ACTION,
-                                    objPI.resultPendingIntent2,
+                                    objectPendingIntents.resultPendingIntent2,
                                     context.resources.getString(R.string.read_aloud)
                             )
                             val notification = UtilityNotification.createNotificationBigTextWithAction(notificationObj)
@@ -182,7 +182,7 @@ class BackgroundFetch(val context: Context) {
                         val noMain = "SPC Watch #$watchNumber"
                         val mcdPreModified = watchData.htmlList[index].replace("<.*?>".toRegex(), " ")
                         val polygonType = WATCH
-                        val objPI = ObjectPendingIntents(
+                        val objectPendingIntents = ObjectPendingIntents(
                                 context,
                                 SpcMcdWatchShowActivity::class.java,
                                 SpcMcdWatchShowActivity.NUMBER,
@@ -197,13 +197,13 @@ class BackgroundFetch(val context: Context) {
                                     sound,
                                     noMain,
                                     mcdPreModified,
-                                    objPI.resultPendingIntent,
+                                    objectPendingIntents.resultPendingIntent,
                                     MyApplication.ICON_ALERT_2,
                                     mcdPreModified,
                                     NotificationCompat.PRIORITY_HIGH,
                                     Color.YELLOW,
                                     MyApplication.ICON_ACTION,
-                                    objPI.resultPendingIntent2,
+                                    objectPendingIntents.resultPendingIntent2,
                                     context.resources.getString(R.string.read_aloud)
                             )
                             val notification = UtilityNotification.createNotificationBigTextWithAction(notificationObj)
@@ -224,7 +224,6 @@ class BackgroundFetch(val context: Context) {
         if (MyApplication.alertNhcEpacNotification || MyApplication.alertNhcAtlNotification) {
             notificationUrls += UtilityNotificationNhc.send(context, MyApplication.alertNhcEpacNotification, MyApplication.alertNhcAtlNotification)
         }
-
         // send 7day and current conditions notifications for locations
         (1..Location.numLocations).forEach {
             val requestID = UtilityTime.currentTimeMillis().toInt()
