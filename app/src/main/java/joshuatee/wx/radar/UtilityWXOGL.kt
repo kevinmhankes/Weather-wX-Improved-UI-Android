@@ -144,13 +144,11 @@ object UtilityWXOGL {
                 html += it.storage.value
             }
         }
-        // val warningLatLonPattern: Pattern = Pattern.compile("\"coordinates\":\\[\\[(.*?)\\]\\]\\}")
         // discard  "id": "https://api.weather.gov/alerts/NWS-IDP-PROD-3771044",            "type": "Feature",            "geometry": null,
         // Special Weather Statements can either have a polygon or maybe not, need to strip out those w/o polygon
         val urlList = html.parseColumn("\"id\"\\: .(https://api.weather.gov/alerts/NWS-IDP-.*?)\"").toMutableList()
         val urlListCopy = urlList.toMutableList()
         urlListCopy.forEach {
-            //if (html.contains(Regex("\"id\"\\: ." + it + "\",            \"type\": \"Feature\",            \"geometry\": null"))) {
             if (html.contains(Regex("\"id\"\\: ." + it + "\",\\s*\"type\": \"Feature\",\\s*\"geometry\": null"))) {
                 urlList.remove(it)
             }
@@ -158,43 +156,28 @@ object UtilityWXOGL {
         html = html.replace("\n", "")
         html = html.replace(" ", "")
         val polygons = html.parseColumn(RegExp.warningLatLonPattern)
-        var retStr = ""
-        var q = 0
+        var string = ""
         var notFound = true
         var polyCount = -1
-        polygons.forEach { polys ->
+        polygons.forEachIndexed { urlIndex, polygon ->
             polyCount += 1
-            //if (vtecAl.size > polyCount && !vtecAl[polyCount].startsWith("0.EXP") && !vtecAl[polyCount].startsWith("0.CAN")) {
-            //if (true) {
-            val polyTmp = polys.replace("[", "").replace("]", "").replace(",", " ")
+            val polyTmp = polygon.replace("[", "").replace("]", "").replace(",", " ")
             val list = polyTmp.split(" ").dropLastWhile { it.isEmpty() }
-            val y = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }
-                    .map {
-                        it.toDoubleOrNull() ?: 0.0
-                    }.toList()
-            val x = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }
-                    .map {
-                        it.toDoubleOrNull() ?: 0.0
-                    }.toList()
+            val y = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
+            val x = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
             if (y.size > 3 && x.size > 3 && x.size == y.size) {
                 val poly2 = ExternalPolygon.Builder()
                 x.indices.forEach { j ->
-                    poly2.addVertex(
-                            ExternalPoint(
-                                    x[j].toFloat(),
-                                    y[j].toFloat()
-                            )
-                    )
+                    poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
                 }
                 val polygon2 = poly2.build()
                 val contains = polygon2.contains(ExternalPoint(lat.toFloat(), lon.toFloat()))
                 if (contains && notFound) {
-                    retStr = urlList[q]
+                    string = urlList[urlIndex]
                     notFound = false
                 }
             }
-            q += 1
         }
-        return retStr
+        return string
     }
 }

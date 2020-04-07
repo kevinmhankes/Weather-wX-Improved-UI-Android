@@ -43,12 +43,8 @@ internal object UtilityWatch {
             val items = prefToken.split(":").dropLastWhile { it.isEmpty() }
             items.forEach { item ->
                 val list = item.split(" ").dropLastWhile { it.isEmpty() } // MyApplication.space.split(item)
-                val x = list.filterIndexed { index: Int, _: String -> index and 1 == 0 }.map {
-                    it.toDoubleOrNull() ?: 0.0
-                }
-                val y = list.filterIndexed { index: Int, _: String -> index and 1 != 0 }.map {
-                    it.toDoubleOrNull() ?: 0.0
-                }
+                val x = list.filterIndexed { index: Int, _: String -> index and 1 == 0 }.map { it.toDoubleOrNull() ?: 0.0 }
+                val y = list.filterIndexed { index: Int, _: String -> index and 1 != 0 }.map { it.toDoubleOrNull() ?: 0.0 }
                 if (y.isNotEmpty() && x.isNotEmpty()) {
                     val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers).toMutableList()
                     warningList += startCoordinates
@@ -68,28 +64,27 @@ internal object UtilityWatch {
 
     fun show(lat: Double, lon: Double, type: PolygonType): String {
         var text = ""
-        val mcdNumberList: String
-        val mcdNumbers: Array<String>
+        val numberList: List<String>
         val watchLatLon: String
         when (type) {
             PolygonType.WATCH -> {
-                mcdNumberList = MyApplication.watchNoList.value
-                mcdNumbers = MyApplication.colon.split(mcdNumberList)
+                //mcdNumberList = MyApplication.watchNoList.value
+                numberList = MyApplication.watchNoList.value.split(":").dropLastWhile { it.isEmpty() }
                 watchLatLon = MyApplication.watchLatLonList.value
             }
             PolygonType.MCD -> {
-                mcdNumberList = MyApplication.mcdNoList.value
-                mcdNumbers = MyApplication.colon.split(mcdNumberList)
+                //mcdNumberList = MyApplication.mcdNoList.value
+                numberList = MyApplication.mcdNoList.value.split(":").dropLastWhile { it.isEmpty() }
                 watchLatLon = MyApplication.mcdLatLon.value
             }
             PolygonType.MPD -> {
-                mcdNumberList = MyApplication.mpdNoList.value
-                mcdNumbers = MyApplication.colon.split(mcdNumberList)
+                //mcdNumberList = MyApplication.mpdNoList.value
+                numberList = MyApplication.mpdNoList.value.split(":").dropLastWhile { it.isEmpty() }
                 watchLatLon = MyApplication.mpdLatLon.value
             }
             else -> {
-                mcdNumberList = MyApplication.watchNoList.value
-                mcdNumbers = MyApplication.colon.split(mcdNumberList)
+                //mcdNumberList = MyApplication.watchNoList.value
+                numberList = MyApplication.watchNoList.value.split(":").dropLastWhile { it.isEmpty() }
                 watchLatLon = MyApplication.watchLatLonList.value
             }
         }
@@ -114,7 +109,7 @@ internal object UtilityWatch {
                 val polygon2 = poly2.build()
                 val contains = polygon2.contains(ExternalPoint(lat.toFloat(), lon.toFloat()))
                 if (contains && notFound) {
-                    text = mcdNumbers[z]
+                    text = numberList[z]
                     notFound = false
                 }
             }

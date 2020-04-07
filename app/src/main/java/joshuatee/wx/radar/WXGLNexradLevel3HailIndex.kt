@@ -79,8 +79,7 @@ internal object WXGLNexradLevel3HailIndex {
         if (posnNumbers.size == hailPercentNumbers.size && posnNumbers.size > 1 && hailSizeNumbers.isNotEmpty()) {
             val bearing = DoubleArray(2)
             var k = 0 // k is used to track hail size which is /2 of other 2 arrays
-            var s = 0
-            while (s < posnNumbers.size) {
+            for (s in posnNumbers.indices step 2) {
                 val hailSizeDbl = hailSizeNumbers[k].toDoubleOrNull() ?: 0.0
                 if (hailSizeDbl > 0.49 && ((hailPercentNumbers[s].toIntOrNull() ?: 0) > 60 || (hailPercentNumbers[s + 1].toDoubleOrNull() ?: 0.0) > 60)) {
                     val ecc = ExternalGeodeticCalculator()
@@ -104,7 +103,6 @@ internal object WXGLNexradLevel3HailIndex {
                     }
                 }
                 k += 1
-                s += 2
             }
         }
         return stormList
