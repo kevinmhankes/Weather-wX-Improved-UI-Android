@@ -87,14 +87,11 @@ internal object UtilityNotificationWpc {
 
     private fun sendMpdNotification(context: Context, locNum: String, mdNo: String): String {
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
-        var notifUrls = ""
+        //var notifUrls = ""
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         val locLabelStr = "(" + Location.getName(locNumInt) + ") "
-        var mcdPre = UtilityDownload.getTextProduct(context, "WPCMPD$mdNo")
+        val mcdPre = UtilityDownload.getTextProduct(context, "WPCMPD$mdNo").replace("<.*?>".toRegex(), " ")
         val noMain = "$locLabelStr WPC MPD #$mdNo"
-        mcdPre = mcdPre.replace("<.*?>".toRegex(), " ")
-        val noBody = mcdPre
-        val noSummary = mcdPre
         val polygonType = MPD
         val objectPendingIntents = ObjectPendingIntents(
                 context,
@@ -110,10 +107,10 @@ internal object UtilityNotificationWpc {
                     context,
                     sound,
                     noMain,
-                    noBody,
+                    mcdPre,
                     objectPendingIntents.resultPendingIntent,
                     MyApplication.ICON_ALERT,
-                    noSummary,
+                    mcdPre,
                     NotificationCompat.PRIORITY_HIGH, // was Notification.PRIORITY_DEFAULT
                     Color.YELLOW,
                     MyApplication.ICON_ACTION,
@@ -123,8 +120,9 @@ internal object UtilityNotificationWpc {
             val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
             objectNotification.sendNotification(context, cancelStr, 1, notification)
         }
-        notifUrls += cancelStr + MyApplication.notificationStrSep
-        return notifUrls
+        //notifUrls += cancelStr + MyApplication.notificationStrSep
+        //return notifUrls
+        return cancelStr + MyApplication.notificationStrSep
     }
 }
 

@@ -45,7 +45,7 @@ internal object UtilityNotificationSpcFireWeather {
     }
 
     private fun sendSpcFireWeatherNotification(context: Context, locNum: String, day: Int, threatLevel: String, validTime: String): String {
-        var notifUrls = ""
+        //var notifUrls = ""
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         val locLabelStr = "(" + Location.getName(locNumInt) + ") "
@@ -75,8 +75,9 @@ internal object UtilityNotificationSpcFireWeather {
             val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
             objectNotification.sendNotification(context, cancelStr, 1, notification)
         }
-        notifUrls += cancelStr + MyApplication.notificationStrSep
-        return notifUrls
+        //notifUrls += cancelStr + MyApplication.notificationStrSep
+        //return notifUrls
+        return cancelStr + MyApplication.notificationStrSep
     }
 
     fun sendSpcFireWeatherD12LocationNotifications(context: Context): String {
@@ -154,13 +155,7 @@ internal object UtilityNotificationSpcFireWeather {
                                 val contains = polygon2.contains(ExternalPoint(locXDbl.toFloat(), locYDbl.toFloat()))
                                 if (contains) {
                                     if (!notifUrls.contains("spcfwloc$day$locNum"))
-                                        notifUrls += sendSpcFireWeatherNotification(
-                                                context,
-                                                locNum,
-                                                day,
-                                                threatLevelCode,
-                                                validTime
-                                        )
+                                        notifUrls += sendSpcFireWeatherNotification(context, locNum, day, threatLevelCode, validTime)
                                 }
                             }
                         }
