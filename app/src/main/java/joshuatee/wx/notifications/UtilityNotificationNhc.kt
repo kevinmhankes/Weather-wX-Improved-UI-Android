@@ -131,7 +131,7 @@ object UtilityNotificationNhc {
             context: Context, notifUrl: String, mdNo: String, notifTitle: String, iconAlert: Int,
             img1Url: String, img2Url: String, soundPref: Boolean, wallet: String
     ): String {
-        var notifUrls = ""
+        //var notifUrls = ""
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         val objPI = ObjectPendingIntents(
                 context, NhcStormActivity::class.java, NhcStormActivity.URL,
@@ -157,8 +157,9 @@ object UtilityNotificationNhc {
             val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
             objectNotification.sendNotification(context, notifTitle, 1, notification)
         }
-        notifUrls += notifTitle + MyApplication.notificationStrSep
-        return notifUrls
+        //notifUrls += notifTitle + MyApplication.notificationStrSep
+        //return notifUrls
+        return notifTitle + MyApplication.notificationStrSep
     }
 }
 

@@ -38,11 +38,9 @@ import joshuatee.wx.util.Utility
 
 internal object UtilityNotificationWpc {
 
-    fun locationNeedsMpd(): Boolean {
-        return (0 until Location.numLocations).any {
+    fun locationNeedsMpd() = (0 until Location.numLocations).any {
             MyApplication.locations.getOrNull(it)?.notificationWpcMpd ?: false
         }
-    }
 
     fun sendMpdLocationNotifications(context: Context): String {
         val textMcd = MyApplication.mpdLatLon.value
@@ -87,7 +85,6 @@ internal object UtilityNotificationWpc {
 
     private fun sendMpdNotification(context: Context, locNum: String, mdNo: String): String {
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
-        //var notifUrls = ""
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         val locLabelStr = "(" + Location.getName(locNumInt) + ") "
         val mcdPre = UtilityDownload.getTextProduct(context, "WPCMPD$mdNo").replace("<.*?>".toRegex(), " ")
@@ -120,8 +117,6 @@ internal object UtilityNotificationWpc {
             val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
             objectNotification.sendNotification(context, cancelStr, 1, notification)
         }
-        //notifUrls += cancelStr + MyApplication.notificationStrSep
-        //return notifUrls
         return cancelStr + MyApplication.notificationStrSep
     }
 }

@@ -38,14 +38,11 @@ import joshuatee.wx.Extensions.*
 
 internal object UtilityNotificationSpcFireWeather {
 
-    fun locationNeedsSpcFireWeather(): Boolean {
-        return (0 until Location.numLocations).any {
+    fun locationNeedsSpcFireWeather() = (0 until Location.numLocations).any {
             MyApplication.locations.getOrNull(it)?.notificationSpcFw ?: false
         }
-    }
 
     private fun sendSpcFireWeatherNotification(context: Context, locNum: String, day: Int, threatLevel: String, validTime: String): String {
-        //var notifUrls = ""
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         val locLabelStr = "(" + Location.getName(locNumInt) + ") "
@@ -75,8 +72,6 @@ internal object UtilityNotificationSpcFireWeather {
             val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
             objectNotification.sendNotification(context, cancelStr, 1, notification)
         }
-        //notifUrls += cancelStr + MyApplication.notificationStrSep
-        //return notifUrls
         return cancelStr + MyApplication.notificationStrSep
     }
 

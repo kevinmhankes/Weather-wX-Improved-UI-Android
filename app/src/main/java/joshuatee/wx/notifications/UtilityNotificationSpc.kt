@@ -50,7 +50,6 @@ internal object UtilityNotificationSpc {
         var notifUrls = ""
         if (MyApplication.alertSpcSwoNotification) {
             val urls = arrayOf("SWODY1", "SWODY2", "SWODY3")
-            //var test: Boolean
             urls.indices.forEach {
                 val threatLevel = UtilitySpc.checkSpcDayX(context, urls[it])
                 val test = if (MyApplication.alertSpcSwoSlightNotification) {
@@ -104,7 +103,7 @@ internal object UtilityNotificationSpc {
     fun locationNeedsSwo() = (0 until Location.numLocations).any {
             MyApplication.locations.getOrNull(it)?.notificationSwo ?: false
         }
-    
+
     /*	... CATEGORICAL ...
 
 		SLGT   26488256 27058145 27138124 27337986
@@ -246,7 +245,6 @@ internal object UtilityNotificationSpc {
 
     private fun sendMcdNotification(context: Context, locNum: String, mdNo: String): String {
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
-        //var notifUrls = ""
         val sep = ","
         val locLabel = Utility.readPref(context, "LOC" + locNum + "_LABEL", "")
         val requestID = UtilityTime.currentTimeMillis().toInt()
@@ -290,14 +288,11 @@ internal object UtilityNotificationSpc {
             val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
             objectNotification.sendNotification(context, cancelStr, 1, notification)
         }
-        //notifUrls += cancelStr + sep
-        //return notifUrls
         return cancelStr + sep
     }
 
     private fun sendSwoNotification(context: Context, locNum: String, day: Int, threatLevel: String, validTime: String): String {
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
-        //var notifUrls = ""
         val sep = ","
         val locLabel = Utility.readPref(context, "LOC" + locNum + "_LABEL", "")
         val requestID = UtilityTime.currentTimeMillis().toInt()
@@ -341,8 +336,6 @@ internal object UtilityNotificationSpc {
             val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
             objectNotification.sendNotification(context, cancelStr, 1, notification)
         }
-        //notifUrls += cancelStr + sep
-        //return notifUrls
         return cancelStr + sep
     }
 
