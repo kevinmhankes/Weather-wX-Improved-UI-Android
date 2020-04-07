@@ -509,6 +509,7 @@ object UtilityNotification {
         return noti
     }
 
+    // Add methods in LatLon
     internal fun storeWatMcdLatLon(html: String): String {
         val coordinates = html.parseColumn("([0-9]{8}).*?")
         var string = ""
