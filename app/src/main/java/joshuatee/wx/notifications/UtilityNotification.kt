@@ -74,22 +74,12 @@ object UtilityNotification {
         val tornadoWarningString = "Tornado Warning"
         if (MyApplication.locations.size > locNumInt && MyApplication.locations[locNumInt].notification) {
             if (Location.getName(locNumInt).contains("ROAMING"))
-                UtilityLocation.checkRoamingLocation(
-                        context,
-                        locNum,
-                        Location.getX(locNumInt),
-                        Location.getY(locNumInt)
-                )
+                UtilityLocation.checkRoamingLocation(context, locNum, Location.getX(locNumInt), Location.getY(locNumInt))
             var locLabelStr = "(" + Location.getName(locNumInt) + ") "
             var alertPresent = false
             if (Location.isUS(locNumInt)) {
                 val oldnotifUrls = notifUrls
-                notifUrls += UtilityUS.checkForNotifications(
-                        context,
-                        locNumInt,
-                        inBlackout,
-                        tornadoWarningString
-                )
+                notifUrls += UtilityUS.checkForNotifications(context, locNumInt, inBlackout, tornadoWarningString)
                 if (oldnotifUrls != notifUrls) {
                     alertPresent = true
                 }
@@ -106,20 +96,9 @@ object UtilityNotification {
                             arrayOf(hazUrls, hazSum),
                             arrayOf(hazUrls, hazSum, "sound")
                     )
-                    val cancelStr =
-                            Location.getY(locNumInt) + hazUrls.parse("(</h2> <p>.*?</strong> </p>)").replace(
-                                    ",".toRegex(),
-                                    ""
-                            ).replace(" ".toRegex(), "")
-                    if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(
-                                    context,
-                                    cancelStr
-                            ))
-                    ) {
-                        val sound = MyApplication.locations[locNumInt].sound
-                                && !inBlackout
-                                || MyApplication.locations[locNumInt].sound
-                                && MyApplication.alertBlackoutTornado
+                    val cancelStr = Location.getY(locNumInt) + hazUrls.parse("(</h2> <p>.*?</strong> </p>)").replace(",".toRegex(), "").replace(" ".toRegex(), "")
+                    if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, cancelStr))) {
+                        val sound = MyApplication.locations[locNumInt].sound && !inBlackout || MyApplication.locations[locNumInt].sound && MyApplication.alertBlackoutTornado
                         val notifObj = ObjectNotification(
                                 context,
                                 sound,
@@ -151,18 +130,10 @@ object UtilityNotification {
                 val bitmap: Bitmap
                 if (Location.isUS(locNumInt)) {
                     url2 = Location.getRid(locNumInt) + "US"
-                    bitmap = UtilityUSImg.getPreferredLayeredImg(
-                            context,
-                            Location.getRid(locNumInt),
-                            false
-                    )
+                    bitmap = UtilityUSImg.getPreferredLayeredImg(context, Location.getRid(locNumInt), false)
                 } else {
                     url2 = Location.getRid(locNumInt) + "CA"
-                    bitmap = UtilityCanadaImg.getRadarBitmapOptionsApplied(
-                            context,
-                            Location.getRid(locNumInt),
-                            ""
-                    )
+                    bitmap = UtilityCanadaImg.getRadarBitmapOptionsApplied(context, Location.getRid(locNumInt), "")
                 }
                 locLabelStr = "(" + Location.getName(locNumInt) + ") " + Location.getRid(locNumInt) + " Radar"
                 val noMain = locLabelStr
@@ -171,16 +142,10 @@ object UtilityNotification {
                 val resultIntent2: Intent
                 if (Location.isUS(locNumInt)) {
                     resultIntent2 = Intent(context, WXGLRadarActivity::class.java)
-                    resultIntent2.putExtra(
-                            WXGLRadarActivity.RID,
-                            arrayOf(Location.getRid(locNumInt), nws1StateCurrent)
-                    )
+                    resultIntent2.putExtra(WXGLRadarActivity.RID, arrayOf(Location.getRid(locNumInt), nws1StateCurrent))
                 } else {
                     resultIntent2 = Intent(context, CanadaRadarActivity::class.java)
-                    resultIntent2.putExtra(
-                            CanadaRadarActivity.RID,
-                            arrayOf(Location.getRid(locNumInt), "rad")
-                    )
+                    resultIntent2.putExtra(CanadaRadarActivity.RID, arrayOf(Location.getRid(locNumInt), "rad"))
                 }
                 val stackBuilder2 = TaskStackBuilder.create(context)
                 if (Location.isUS(locNumInt)) {
@@ -189,10 +154,7 @@ object UtilityNotification {
                     stackBuilder2.addParentStack(CanadaRadarActivity::class.java)
                 }
                 stackBuilder2.addNextIntent(resultIntent2)
-                val resultPendingIntent2 = stackBuilder2.getPendingIntent(
-                        i + y,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                )
+                val resultPendingIntent2 = stackBuilder2.getPendingIntent(i + y, PendingIntent.FLAG_UPDATE_CURRENT)
                 if (!(MyApplication.alertOnlyOnce && oldNotifStr.contains(url2 + "radar"))) {
                     noti2 = createNotificationBigPicture(
                             context,
@@ -222,14 +184,14 @@ object UtilityNotification {
         var noBody: String
         var noSummary: String
         var locLabelStr: String
-        val i: Int
+        //val i: Int
         if (MyApplication.locations.size > locNumInt && (MyApplication.locations[locNumInt].ccNotification
                         || MyApplication.locations[locNumInt].sevenDayNotification
                         || widgetLocNum == locNum && widgetsEnabled)
         ) {
             locLabel = " current conditions"
             locLabelStr = "(" + Location.getName(locNumInt) + ")" + locLabel
-            i = 0
+            //i = 0
             //val url = UtilityDownloadNws.get7DayUrl(Location.getLatLon(locNumInt))
             val url = Location.getIdentifier(locNumInt)
             // url above is used as the token for notifications and currenlty looks like
@@ -256,8 +218,7 @@ object UtilityNotification {
                     noMain = locLabelStr
                     noBody = objCc.data + MyApplication.newline + objCc.status
                     noSummary = objCc.data + MyApplication.newline + objCc.status
-                    val notifier =
-                            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                    val notifier = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                     val resultIntent: Intent
                     if (Location.isUS(locNumInt)) {
                         resultIntent = Intent(context, HourlyActivity::class.java)
@@ -272,12 +233,8 @@ object UtilityNotification {
                     else
                         stackBuilder.addParentStack(CanadaHourlyActivity::class.java)
                     stackBuilder.addNextIntent(resultIntent)
-                    val resultPendingIntent = stackBuilder.getPendingIntent(
-                            i + x,
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                    )
-                    val tmpArr = noBody.split(MyApplication.DEGREE_SYMBOL.toRegex())
-                            .dropLastWhile { it.isEmpty() }
+                    val resultPendingIntent = stackBuilder.getPendingIntent(x, PendingIntent.FLAG_UPDATE_CURRENT)
+                    val tmpArr = noBody.split(MyApplication.DEGREE_SYMBOL.toRegex()).dropLastWhile { it.isEmpty() }
                     var smalliconRes = R.drawable.temp_0
                     if (tmpArr.isNotEmpty()) {
                         smalliconRes = if (Location.isUS(locNumInt)) {
@@ -291,13 +248,7 @@ object UtilityNotification {
                     val bmc = if (Location.isUS(locNumInt)) {
                         UtilityNws.getIcon(context, objCc.iconUrl)
                     } else {
-                        UtilityNws.getIcon(
-                                context,
-                                UtilityCanada.translateIconNameCurrentConditions(
-                                        objCc.data,
-                                        objCc.status
-                                )
-                        )
+                        UtilityNws.getIcon(context, UtilityCanada.translateIconNameCurrentConditions(objCc.data, objCc.status))
                     }
                     val noti = createNotificationBigTextBigIcon(
                             context,
@@ -323,7 +274,7 @@ object UtilityNotification {
                     val stackBuilder2 = TaskStackBuilder.create(context)
                     stackBuilder2.addParentStack(TextScreenActivity::class.java)
                     stackBuilder2.addNextIntent(resultIntent2)
-                    val resultPendingIntent2 = stackBuilder2.getPendingIntent(i + y, PendingIntent.FLAG_UPDATE_CURRENT)
+                    val resultPendingIntent2 = stackBuilder2.getPendingIntent(y, PendingIntent.FLAG_UPDATE_CURRENT)
                     val objPI = ObjectPendingIntents(
                             context,
                             TextScreenActivity::class.java,
@@ -483,26 +434,10 @@ object UtilityNotification {
         stackBuilder.addParentStack(WX::class.java)
         stackBuilder.addNextIntent(resultIntent)
         val requestID = UtilityTime.currentTimeMillis().toInt()
-        val resultPendingIntent =
-                stackBuilder.getPendingIntent(requestID, PendingIntent.FLAG_UPDATE_CURRENT)
-        val resultPendingIntent2 = PendingIntent.getService(
-                context,
-                requestID + 1,
-                resultIntent2,
-                PendingIntent.FLAG_UPDATE_CURRENT
-        )
-        val resultPendingIntentBack = PendingIntent.getService(
-                context,
-                requestID + 4,
-                resultIntentBack,
-                PendingIntent.FLAG_UPDATE_CURRENT
-        )
-        val resultPendingIntentForward = PendingIntent.getService(
-                context,
-                requestID + 5,
-                resultIntentForward,
-                PendingIntent.FLAG_UPDATE_CURRENT
-        )
+        val resultPendingIntent = stackBuilder.getPendingIntent(requestID, PendingIntent.FLAG_UPDATE_CURRENT)
+        val resultPendingIntent2 = PendingIntent.getService(context, requestID + 1, resultIntent2, PendingIntent.FLAG_UPDATE_CURRENT)
+        val resultPendingIntentBack = PendingIntent.getService(context, requestID + 4, resultIntentBack, PendingIntent.FLAG_UPDATE_CURRENT)
+        val resultPendingIntentForward = PendingIntent.getService(context, requestID + 5, resultIntentForward, PendingIntent.FLAG_UPDATE_CURRENT)
         val notifCurrent = "true"
         val txt = if (notifCurrent.startsWith("t")) {
             val tabStr = UtilitySpc.checkSpc()
@@ -511,18 +446,9 @@ object UtilityNotification {
             ""
         }
         if (Build.VERSION.SDK_INT > 20) {
-            val actionBack = NotificationCompat.Action.Builder(
-                    MyApplication.ICON_SKIP_BACK,
-                    "",
-                    resultPendingIntentBack
-            ).build()
-            val actionPlay =
-                    NotificationCompat.Action.Builder(pauseIcon, "", resultPendingIntent2).build()
-            val actionForward = NotificationCompat.Action.Builder(
-                    MyApplication.ICON_SKIP_FORWARD,
-                    "",
-                    resultPendingIntentForward
-            ).build()
+            val actionBack = NotificationCompat.Action.Builder(MyApplication.ICON_SKIP_BACK, "", resultPendingIntentBack).build()
+            val actionPlay = NotificationCompat.Action.Builder(pauseIcon, "", resultPendingIntent2).build()
+            val actionForward = NotificationCompat.Action.Builder(MyApplication.ICON_SKIP_FORWARD, "", resultPendingIntentForward).build()
             val style = MediaStyle().setShowActionsInCompactView(0, 1, 2)
             noti = NotificationCompat.Builder(context, notiChannelStrNoSound)
                     .setContentTitle("wX $title")
