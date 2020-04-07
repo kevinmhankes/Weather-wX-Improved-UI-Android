@@ -43,12 +43,7 @@ class ObjectPendingIntents {
         stackBuilder.addNextIntent(resultIntent)
         val requestID = UtilityTime.currentTimeMillis().toInt()
         resultPendingIntent = stackBuilder.getPendingIntent(requestID, PendingIntent.FLAG_UPDATE_CURRENT)
-        resultPendingIntent2 = PendingIntent.getActivity(
-            context,
-            requestID + 1,
-            resultIntent2,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
+        resultPendingIntent2 = PendingIntent.getActivity(context, requestID + 1, resultIntent2, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     internal constructor(context: Context, cl: Class<*>) {
@@ -59,12 +54,7 @@ class ObjectPendingIntents {
         stackBuilder.addNextIntent(resultIntent)
         val requestID = UtilityTime.currentTimeMillis().toInt()
         resultPendingIntent = stackBuilder.getPendingIntent(requestID, PendingIntent.FLAG_UPDATE_CURRENT)
-        resultPendingIntent2 = PendingIntent.getActivity(
-            context,
-            requestID + 1,
-            resultIntent2,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
+        resultPendingIntent2 = PendingIntent.getActivity(context, requestID + 1, resultIntent2, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 }
 
