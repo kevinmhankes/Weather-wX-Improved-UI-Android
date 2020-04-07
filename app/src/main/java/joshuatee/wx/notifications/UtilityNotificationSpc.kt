@@ -64,7 +64,7 @@ internal object UtilityNotificationSpc {
                     var detailRaw = threatLevel[1].replace("<.*?>".toRegex(), " ")
                     detailRaw = detailRaw.replace("&nbsp".toRegex(), " ")
                     val noBody = detailRaw
-                    val objPI = ObjectPendingIntents(
+                    val objectPendingIntents = ObjectPendingIntents(
                             context, SpcSwoActivity::class.java,
                             SpcSwoActivity.NUMBER,
                             arrayOf((it + 1).toString(), ""), arrayOf((it + 1).toString(), "sound")
@@ -77,13 +77,13 @@ internal object UtilityNotificationSpc {
                                 sound,
                                 noMain,
                                 noBody,
-                                objPI.resultPendingIntent,
+                                objectPendingIntents.resultPendingIntent,
                                 MyApplication.ICON_MAP,
                                 noBody,
                                 NotificationCompat.PRIORITY_HIGH,
                                 Color.YELLOW, // was Notification.PRIORITY_DEFAULT
                                 MyApplication.ICON_ACTION,
-                                objPI.resultPendingIntent2,
+                                objectPendingIntents.resultPendingIntent2,
                                 context.resources.getString(R.string.read_aloud)
                         )
                         val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
@@ -259,10 +259,7 @@ internal object UtilityNotificationSpc {
         val resultIntent2 = Intent(context, SpcMcdWatchShowActivity::class.java)
         val polygonType = PolygonType.MCD
         resultIntent.putExtra(SpcMcdWatchShowActivity.NUMBER, arrayOf(mdNo, "", polygonType.toString()))
-        resultIntent2.putExtra(
-                SpcMcdWatchShowActivity.NUMBER,
-                arrayOf(mdNo, "sound", polygonType.toString())
-        )
+        resultIntent2.putExtra(SpcMcdWatchShowActivity.NUMBER, arrayOf(mdNo, "sound", polygonType.toString()))
         val stackBuilder = TaskStackBuilder.create(context)
         stackBuilder.addParentStack(SpcMcdWatchShowActivity::class.java)
         stackBuilder.addNextIntent(resultIntent)
