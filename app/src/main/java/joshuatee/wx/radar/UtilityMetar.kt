@@ -104,7 +104,6 @@ internal object UtilityMetar {
                     var bknStr = conditionsBlob.parse("BKN([0-9]{3})")
                     var ovcInt = 100000
                     var bknInt = 100000
-                    val lowestCig: Int
                     if (ovcStr != "") {
                         ovcStr += "00"
                         ovcInt = ovcStr.toIntOrNull() ?: 0
@@ -113,7 +112,7 @@ internal object UtilityMetar {
                         bknStr += "00"
                         bknInt = bknStr.toIntOrNull() ?: 0
                     }
-                    lowestCig = if (bknInt < ovcInt) {
+                    val lowestCig = if (bknInt < ovcInt) {
                         bknInt
                     } else {
                         ovcInt
@@ -226,8 +225,7 @@ internal object UtilityMetar {
         return if (bestRid == -1) {
             "Please select a location in the United States."
         } else {
-            (MyApplication.NWS_RADAR_PUB + "data/observations/metar/decoded/" + metarSites[bestRid].name + ".TXT").getHtmlSep()
-                .replace("<br>", MyApplication.newline)
+            (MyApplication.NWS_RADAR_PUB + "data/observations/metar/decoded/" + metarSites[bestRid].name + ".TXT").getHtmlSep().replace("<br>", MyApplication.newline)
         }
     }
 
