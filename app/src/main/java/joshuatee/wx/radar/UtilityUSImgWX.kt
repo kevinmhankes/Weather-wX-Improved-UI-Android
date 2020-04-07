@@ -93,15 +93,7 @@ object UtilityUSImgWX {
                 radarSite = ridTdwr
             }
             val citySize = 18
-            UtilityCanvasMain.addCanvasItems(
-                    context,
-                    bitmapCanvas,
-                    scaleType,
-                    radarSite,
-                    hwLineWidth,
-                    citySize,
-                    isInteractive
-            )
+            UtilityCanvasMain.addCanvasItems(context, bitmapCanvas, scaleType, radarSite, hwLineWidth, citySize, isInteractive)
             bitmapCanvas = UtilityImg.drawTextToBitmapForNexrad(context, bitmapCanvas)
             layers.add(colorDrawable)
             layers.add(BitmapDrawable(context.resources, bitmapCanvas))
@@ -141,37 +133,29 @@ object UtilityUSImgWX {
             radarSite = ridTdwr
         }
         val citySize = 18
-        UtilityCanvasMain.addCanvasItems(
-                context,
-                bitmapCanvas,
-                scaleType,
-                radarSite,
-                hwLineWidth,
-                citySize,
-                isInteractive
-        )
+        UtilityCanvasMain.addCanvasItems(context, bitmapCanvas, scaleType, radarSite, hwLineWidth, citySize, isInteractive)
         bitmapCanvas = UtilityImg.drawTextToBitmapForNexrad(context, bitmapCanvas)
         layers.add(colorDrawable)
         layers.add(BitmapDrawable(context.resources, bitmapCanvas))
         return UtilityImg.layerDrawableToBitmap(layers)
     }
 
-    fun animationFromFiles(context: Context, rid1F: String, product: String, frameCount: Int, idxStr: String, isInteractive: Boolean): AnimationDrawable {
-        var rid1 = rid1F
+    fun animationFromFiles(context: Context, radarSiteOriginal: String, product: String, frameCount: Int, idxStr: String, isInteractive: Boolean): AnimationDrawable {
+        var radarSite = radarSiteOriginal
         val layerCnt = 3
         var scaleType = ProjectionType.WX_RENDER
         val ridTdwr: String
         if (WXGLNexrad.isProductTdwr(product)) {
-            ridTdwr = WXGLNexrad.getTdwrFromRid(rid1)
-            rid1 = ridTdwr
+            ridTdwr = WXGLNexrad.getTdwrFromRid(radarSite)
+            radarSite = ridTdwr
             scaleType = ProjectionType.WX_RENDER_48
         }
-        val nidsArr = Array(frameCount) { "" }
+        val fileList = Array(frameCount) { "" }
         (0 until frameCount).forEach {
             if (idxStr == "") {
-                nidsArr[it] = "nexrad_anim$it"
+                fileList[it] = "nexrad_anim$it"
             } else {
-                nidsArr[it] = idxStr + product + "nexrad_anim" + it.toString()
+                fileList[it] = idxStr + product + "nexrad_anim" + it.toString()
             }
         }
         val hwLineWidth = 1
@@ -186,21 +170,13 @@ object UtilityUSImgWX {
         (0 until frameCount).forEach {
             bitmaps[it] = Bitmap.createBitmap(CANVAS_X, CANVAS_Y, Config.ARGB_8888)
             if (product.contains("N0R") || product.contains("N0S") || product.contains("N0V") || product.startsWith("TV")) {
-                UtilityNexradRadial4Bit.decodeAndPlot(context, bitmaps[it], nidsArr[it], product)
+                UtilityNexradRadial4Bit.decodeAndPlot(context, bitmaps[it], fileList[it], product)
             } else {
-                UtilityNexradRadial8Bit.decodeAndPlot(context, bitmaps[it], nidsArr[it], product)
+                UtilityNexradRadial8Bit.decodeAndPlot(context, bitmaps[it], fileList[it], product)
             }
         }
         val citySize = 20
-        UtilityCanvasMain.addCanvasItems(
-                context,
-                bitmapCanvas,
-                scaleType,
-                rid1,
-                hwLineWidth,
-                citySize,
-                isInteractive
-        )
+        UtilityCanvasMain.addCanvasItems(context, bitmapCanvas, scaleType, radarSite, hwLineWidth, citySize, isInteractive)
         val delay = UtilityImg.animInterval(context)
         val layers = arrayOfNulls<Drawable>(layerCnt)
         (0 until frameCount).forEach {
@@ -210,7 +186,7 @@ object UtilityUSImgWX {
             animDrawable.addFrame(LayerDrawable(layers), delay)
         }
         (0 until frameCount).forEach {
-            context.deleteFile(nidsArr[it])
+            context.deleteFile(fileList[it])
         }
         return animDrawable
     }
