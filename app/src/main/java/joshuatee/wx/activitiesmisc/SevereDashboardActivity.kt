@@ -163,25 +163,18 @@ class SevereDashboardActivity : BaseActivity() {
                     val data = severeWarning.warnings[index]
                     if (!data.startsWith("O.EXP")) {
                         val objectCardDashAlertItem = ObjectCardDashAlertItem(this@SevereDashboardActivity, linearLayout, severeWarning, index)
-                                //severeWarning.senderNameList[index],
-                                //severeWarning.eventList[index],
-                                //severeWarning.effectiveList[index],
-                                //severeWarning.expiresList[index],
-                                //severeWarning.areaDescList[index]
-                        //)
                         objectCardDashAlertItem.setListener(View.OnClickListener {
                             showWarningDetails(severeWarning.idList[index])
                         })
+                        val id = numberOfWarnings
                         objectCardDashAlertItem.radarButton.setOnClickListener(View.OnClickListener {
-                            radarInterface(index)
+                            radarInterface(id)
                         })
                         objectCardDashAlertItem.detailsButton.setOnClickListener(View.OnClickListener {
                             showWarningDetails(severeWarning.idList[index])
                         })
                         listOfWfoForWarnings.add(severeWarning.listOfWfo[index])
-                        UtilityLog.d("wx", "DEBUG: " + listOfWfoForWarnings.toString())
                         objectCardDashAlertItem.setId(numberOfWarnings)
-                        UtilityLog.d("wx", "DEBUG: " + numberOfWarnings.toString())
                         numberOfWarnings += 1
                     }
                 }
@@ -250,10 +243,8 @@ class SevereDashboardActivity : BaseActivity() {
     }
 
     private fun radarInterface(id: Int) {
-        UtilityLog.d("wx", "DEBUG: ID " + id.toString())
         val radarSite = GlobalDictionaries.wfoToRadarSite[listOfWfoForWarnings[id]] ?: ""
         val radarLabel = Utility.getRadarSiteName(radarSite)
-        UtilityLog.d("wx", "DEBUG: " + radarLabel)
         val state = radarLabel.split(",")[0]
         ObjectIntent.showRadar(this@SevereDashboardActivity, arrayOf(radarSite, state, "N0Q", ""))
     }

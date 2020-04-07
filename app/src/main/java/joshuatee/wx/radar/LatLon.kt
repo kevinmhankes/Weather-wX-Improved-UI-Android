@@ -21,6 +21,7 @@
 
 package joshuatee.wx.radar
 
+import joshuatee.wx.external.ExternalPoint
 import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.util.UtilityMath
 import joshuatee.wx.util.UtilityString
@@ -104,6 +105,8 @@ class LatLon() {
         }
 
     fun asList() = listOf(lat, lon)
+
+    fun asPoint() = ExternalPoint(lat.toFloat(), lon.toFloat())
 
     override fun toString() = "$latString:$lonString"
 

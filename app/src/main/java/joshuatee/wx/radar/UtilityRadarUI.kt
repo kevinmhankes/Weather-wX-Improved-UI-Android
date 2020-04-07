@@ -81,7 +81,7 @@ internal object UtilityRadarUI {
     }
 
     private fun showNearestWarning(context: Context, wxglSurfaceView: WXGLSurfaceView) {
-        val polygonUrl = UtilityWXOGL.showTextProducts(wxglSurfaceView.newY.toDouble(), wxglSurfaceView.newX.toDouble() * -1.0)
+        val polygonUrl = UtilityWXOGL.showTextProducts(wxglSurfaceView.latLon)
         if (polygonUrl != "")
             ObjectIntent(context, USAlertsDetailActivity::class.java, USAlertsDetailActivity.URL, arrayOf(polygonUrl, ""))
     }
@@ -425,7 +425,7 @@ internal object UtilityRadarUI {
     }
 
     private fun showNearestProduct(context: Context, polygonType: PolygonType, wxglSurfaceView: WXGLSurfaceView, uiDispatcher: CoroutineDispatcher) = GlobalScope.launch(uiDispatcher) {
-        val text = withContext(Dispatchers.IO) { UtilityWatch.show(wxglSurfaceView.newY.toDouble(), wxglSurfaceView.newX.toDouble() * -1.0, polygonType) }
+        val text = withContext(Dispatchers.IO) { UtilityWatch.show(wxglSurfaceView.latLon, polygonType) }
         if (text != "") {
             ObjectIntent(context, SpcMcdWatchShowActivity::class.java, SpcMcdWatchShowActivity.NUMBER, arrayOf(text, "", polygonType.toString()))
         }

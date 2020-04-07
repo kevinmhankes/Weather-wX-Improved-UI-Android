@@ -137,7 +137,7 @@ object UtilityWXOGL {
         return output
     }
 
-    fun showTextProducts(lat: Double, lon: Double): String {
+    fun showTextProducts(latLon: LatLon): String {
         var html = MyApplication.severeDashboardTor.value + MyApplication.severeDashboardTst.value + MyApplication.severeDashboardFfw.value
         MyApplication.radarWarningPolygons.forEach {
             if (it.isEnabled) {
@@ -153,25 +153,24 @@ object UtilityWXOGL {
                 urlList.remove(it)
             }
         }
-        html = html.replace("\n", "")
-        html = html.replace(" ", "")
+        html = html.replace("\n", "").replace(" ", "")
         val polygons = html.parseColumn(RegExp.warningLatLonPattern)
         var string = ""
         var notFound = true
-        var polyCount = -1
+        var polygonCount = -1
         polygons.forEachIndexed { urlIndex, polygon ->
-            polyCount += 1
-            val polyTmp = polygon.replace("[", "").replace("]", "").replace(",", " ")
-            val list = polyTmp.split(" ").dropLastWhile { it.isEmpty() }
+            polygonCount += 1
+            val polygonTmp = polygon.replace("[", "").replace("]", "").replace(",", " ")
+            val list = polygonTmp.split(" ").dropLastWhile { it.isEmpty() }
             val y = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
             val x = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
             if (y.size > 3 && x.size > 3 && x.size == y.size) {
-                val poly2 = ExternalPolygon.Builder()
+                val polygonFrame = ExternalPolygon.Builder()
                 x.indices.forEach { j ->
-                    poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
+                    polygonFrame.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
                 }
-                val polygon2 = poly2.build()
-                val contains = polygon2.contains(ExternalPoint(lat.toFloat(), lon.toFloat()))
+                val polygonShape = polygonFrame.build()
+                val contains = polygonShape.contains(latLon.asPoint())
                 if (contains && notFound) {
                     string = urlList[urlIndex]
                     notFound = false

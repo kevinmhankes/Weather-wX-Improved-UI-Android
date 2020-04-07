@@ -172,6 +172,7 @@ internal object UtilityNotificationSpc {
                     // 21,-130                21,-62
                     //
                     if (y.size >= 3 && x.size >= 3 && x.size == y.size) {
+                        // FIXME rename polygonFrame and PolygonShape
                         val poly2 = ExternalPolygon.Builder()
                         x.indices.forEach { j ->
                             poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
@@ -182,11 +183,13 @@ internal object UtilityNotificationSpc {
                             if (MyApplication.locations[n - 1].notificationSwo) {
                                 // if location is watching for MCDs pull ib lat/lon and interate over polygons
                                 // call secondary method to send notif if required
-                                val locXStr = MyApplication.locations[n - 1].x
-                                val locYStr = MyApplication.locations[n - 1].y
-                                val locXDbl = locXStr.toDoubleOrNull() ?: 0.0
-                                val locYDbl = locYStr.toDoubleOrNull() ?: 0.0
-                                val contains = polygon2.contains(ExternalPoint(locXDbl.toFloat(), locYDbl.toFloat()))
+                                // FIXME use LatLon asPoint()
+                                //val locXStr = MyApplication.locations[n - 1].x
+                                //val locYStr = MyApplication.locations[n - 1].y
+                                //val locXDbl = locXStr.toDoubleOrNull() ?: 0.0
+                                //val locYDbl = locYStr.toDoubleOrNull() ?: 0.0
+                                //val contains = polygon2.contains(ExternalPoint(locXDbl.toFloat(), locYDbl.toFloat()))
+                                val contains = polygon2.contains(Location.getLatLon(n - 1).asPoint())
                                 if (contains) {
                                     if (!notifUrls.contains("spcswoloc$day$locNum"))
                                         notifUrls += sendSwoNotification(context, locNum, day, threat, validTime)

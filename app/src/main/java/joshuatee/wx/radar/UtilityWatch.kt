@@ -62,28 +62,24 @@ internal object UtilityWatch {
         return warningList
     }
 
-    fun show(lat: Double, lon: Double, type: PolygonType): String {
+    fun show(latLon: LatLon, type: PolygonType): String {
         var text = ""
         val numberList: List<String>
         val watchLatLon: String
         when (type) {
             PolygonType.WATCH -> {
-                //mcdNumberList = MyApplication.watchNoList.value
                 numberList = MyApplication.watchNoList.value.split(":").dropLastWhile { it.isEmpty() }
                 watchLatLon = MyApplication.watchLatLonList.value
             }
             PolygonType.MCD -> {
-                //mcdNumberList = MyApplication.mcdNoList.value
                 numberList = MyApplication.mcdNoList.value.split(":").dropLastWhile { it.isEmpty() }
                 watchLatLon = MyApplication.mcdLatLon.value
             }
             PolygonType.MPD -> {
-                //mcdNumberList = MyApplication.mpdNoList.value
                 numberList = MyApplication.mpdNoList.value.split(":").dropLastWhile { it.isEmpty() }
                 watchLatLon = MyApplication.mpdLatLon.value
             }
             else -> {
-                //mcdNumberList = MyApplication.watchNoList.value
                 numberList = MyApplication.watchNoList.value.split(":").dropLastWhile { it.isEmpty() }
                 watchLatLon = MyApplication.watchLatLonList.value
             }
@@ -102,12 +98,12 @@ internal object UtilityWatch {
                 }
             }
             if (y.size > 3 && x.size > 3 && x.size == y.size) {
-                val poly2 = ExternalPolygon.Builder()
+                val polygonFrame = ExternalPolygon.Builder()
                 x.indices.forEach { j ->
-                    poly2.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
+                    polygonFrame.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
                 }
-                val polygon2 = poly2.build()
-                val contains = polygon2.contains(ExternalPoint(lat.toFloat(), lon.toFloat()))
+                val polygonShape = polygonFrame.build()
+                val contains = polygonShape.contains(latLon.asPoint())
                 if (contains && notFound) {
                     text = numberList[z]
                     notFound = false
