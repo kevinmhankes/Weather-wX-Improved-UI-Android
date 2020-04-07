@@ -184,8 +184,8 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         lineIndexBuffer.order(ByteOrder.nativeOrder())
         lineIndexBuffer.position(0)
         if (!MyApplication.radarUseJni) {
-            UtilityWXOGLPerf.genIndex(triangleIndexBuffer, breakSize15, breakSize15)
-            UtilityWXOGLPerf.genIndexLine(lineIndexBuffer, breakSizeLine * 4, breakSizeLine * 2)
+            UtilityWXOGLPerf.generateIndex(triangleIndexBuffer, breakSize15, breakSize15)
+            UtilityWXOGLPerf.generateIndexLine(lineIndexBuffer, breakSizeLine * 4, breakSizeLine * 2)
         } else {
             Jni.genIndex(triangleIndexBuffer, breakSize15, breakSize15)
             Jni.genIndexLine(lineIndexBuffer, breakSizeLine * 4, breakSizeLine * 2)

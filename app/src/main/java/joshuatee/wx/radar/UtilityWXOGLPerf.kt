@@ -277,7 +277,7 @@ internal object UtilityWXOGLPerf {
         }
     }
 
-    fun genIndex(indexBuff: ByteBuffer, length: Int, breakSizeF: Int) {
+    fun generateIndex(indexBuff: ByteBuffer, length: Int, breakSizeF: Int) {
         var breakSize = breakSizeF
         val remainder: Int
         var chunkCount = 1
@@ -290,14 +290,12 @@ internal object UtilityWXOGLPerf {
             remainder = length - breakSize * chunkCount
             chunkCount += 1
         }
-        var chunkIndex = 0
-        while (chunkIndex < chunkCount) {
+        for (chunkIndex in 0 until chunkCount) {
             var indexCount = 0
             if (chunkIndex == chunkCount - 1) {
                 breakSize = remainder
             }
-            var j = 0
-            while (j < breakSize) {
+            for (j in 0 until breakSize) {
                 indexBuff.putShort(indexForIndex, indexCount.toShort())
                 indexForIndex += 2
                 indexBuff.putShort(indexForIndex, (1 + indexCount).toShort())
@@ -311,13 +309,11 @@ internal object UtilityWXOGLPerf {
                 indexBuff.putShort(indexForIndex, (3 + indexCount).toShort())
                 indexForIndex += 2
                 indexCount += 4
-                j += 1
             }
-            chunkIndex += 1
         }
     }
 
-    fun genIndexLine(indexBuff: ByteBuffer, length: Int, breakSizeF: Int) {
+    fun generateIndexLine(indexBuff: ByteBuffer, length: Int, breakSizeF: Int) {
         var breakSize = breakSizeF
         val remainder: Int
         var chunkCount = 1
