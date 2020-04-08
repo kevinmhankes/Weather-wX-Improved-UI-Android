@@ -104,26 +104,28 @@ class FavAddActivity : BaseActivity() {
     private fun itemClicked(position: Int) {
         val item = data[position]
         var ridFav = Utility.readPref(this, prefToken, UtilityFavorites.initialValue)
-        var ridFavLabel = ""
-        val tmpArr: List<String>
-        when (type) {
+        var ridFavLabel = if (type == "SPCMESO") {
+            Utility.readPref(this, prefTokenLabel, UtilityFavorites.initialValue)
+        } else {
+            ""
+        }
+        val tmpArr = when (type) {
             "SPCMESO" -> {
-                ridFavLabel = Utility.readPref(this, prefTokenLabel, UtilityFavorites.initialValue)
-                tmpArr = if (dataTokens[position].contains(":")) {
+                if (dataTokens[position].contains(":")) {
                     dataTokens[position].split(":").dropLastWhile { it.isEmpty() }
                 } else {
                     dataTokens[position].split(" ").dropLastWhile { it.isEmpty() }
                 }
             }
             "SND" -> {
-                tmpArr = if (GlobalArrays.soundingSites[position].contains(":")) {
+                if (GlobalArrays.soundingSites[position].contains(":")) {
                     GlobalArrays.soundingSites[position].split(":").dropLastWhile { it.isEmpty() }
                 } else {
                     GlobalArrays.soundingSites[position].split(" ").dropLastWhile { it.isEmpty() }
                 }
             }
             else -> {
-                tmpArr = if (data[position].contains(":")) {
+                if (data[position].contains(":")) {
                     data[position].split(":").dropLastWhile { it.isEmpty() }
                 } else {
                     data[position].split(" ").dropLastWhile { it.isEmpty() }
