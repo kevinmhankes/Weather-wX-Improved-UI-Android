@@ -122,46 +122,43 @@ object UtilityCanadaImg {
     }
 
     fun getRadarMosaicBitmapOptionsApplied(context: Context, sector: String): Bitmap {
-        var url = MyApplication.canadaEcSitePrefix + "/radar/index_e.html?id=$sector"
-        if (sector == "CAN") {
-            url = MyApplication.canadaEcSitePrefix + "/radar/index_e.html"
+        val url = if (sector == "CAN") {
+            MyApplication.canadaEcSitePrefix + "/radar/index_e.html"
+        } else {
+            MyApplication.canadaEcSitePrefix + "/radar/index_e.html?id=$sector"
         }
         val radHtml = url.getHtmlSep()
-        val matchStr = "(/data/radar/.*?GIF)\""
-        val summary = radHtml.parse(matchStr).replace("detailed/", "")
-        val layerCnt = if (GeographyType.CITIES.pref) {
+        val matchString = "(/data/radar/.*?GIF)\""
+        val summary = radHtml.parse(matchString).replace("detailed/", "")
+        val layerCount = if (GeographyType.CITIES.pref) {
             2
         } else {
             1
         }
-        val bitmaps = mutableListOf<Bitmap>()
+        val bitmaps = mutableListOf((MyApplication.canadaEcSitePrefix + "/$summary").getImage())
         val layers = mutableListOf<Drawable>()
-        bitmaps.add((MyApplication.canadaEcSitePrefix + "/$summary").getImage())
         var sectorMap = sector.toLowerCase(Locale.US)
         var offset = 100
-        if (sector == "CAN") {
-            offset = 0
-            sectorMap = "nat"
-        }
         when (sector) {
             "WRN" -> sectorMap = "pnr"
             "PAC" -> sectorMap = "pyr"
             "ERN" -> sectorMap = "atl"
+            "CAN" -> {
+                offset = 0
+                sectorMap = "nat"
+            }
         }
         if (GeographyType.CITIES.pref) {
             val cityUrl = MyApplication.canadaEcSitePrefix + "/cacheable/images/radar/layers/composite_cities/" + sectorMap + "_composite.gif"
-            val bmTmp = cityUrl.getImage()
-            val bigBitmap = Bitmap.createBitmap(bmTmp.width + offset, bmTmp.height, Bitmap.Config.ARGB_8888)
+            val bitmapTmp = cityUrl.getImage()
+            val bigBitmap = Bitmap.createBitmap(bitmapTmp.width + offset, bitmapTmp.height, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bigBitmap)
-            canvas.drawBitmap(bmTmp, 0f, 0f, Paint(Paint.FILTER_BITMAP_FLAG))
+            canvas.drawBitmap(bitmapTmp, 0f, 0f, Paint(Paint.FILTER_BITMAP_FLAG))
             bitmaps.add(bigBitmap)
         }
-        (0 until layerCnt).forEach { j ->
+        (0 until layerCount).forEach { j ->
             val drawable = if (j == 1) {
-                BitmapDrawable(
-                        context.resources,
-                        UtilityImg.eraseBackground(bitmaps[j], -1)
-                ) // was -16777216
+                BitmapDrawable(context.resources, UtilityImg.eraseBackground(bitmaps[j], -1)) // was -16777216
             } else {
                 BitmapDrawable(context.resources, bitmaps[j])
             }
@@ -187,8 +184,8 @@ object UtilityCanadaImg {
             "<p>Short .1hr.:</p>(.*?)</div>"
         }
         val radarHtml1Hr = radHtml.parse(durationPatMatch)
-        var urlList = ""
         val list = radarHtml1Hr.parseColumn("display='(.*?)'&amp;")
+        var urlList = ""
         list.forEach {
             urlList += ":/data/radar/detailed/temp_image/COMPOSITE_$sector/$it.GIF"
         }
