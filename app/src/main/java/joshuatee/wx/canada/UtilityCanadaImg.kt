@@ -47,9 +47,9 @@ object UtilityCanadaImg {
         val times = html.parseColumn(">([0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}h[0-9]{2}m)</option>")
         val frameCnt = 10
         val delay = UtilityImg.animInterval(context)
-        val urls = mutableListOf<String>()
+        var urls = listOf<String>()
         if (times.size > frameCnt)
-            (times.size - frameCnt until times.size).mapTo(urls) {
+            urls = (times.size - frameCnt until times.size).map {
                 "https://weather.gc.ca/data/satellite/goes_" + region + "_" + imgType + "_m_" + times[it].replace(" ", "_").replace("/", "@") + ".jpg"
             }
         return UtilityImgAnim.getAnimationDrawableFromUrlList(context, urls, delay)
@@ -79,21 +79,20 @@ object UtilityCanadaImg {
         val url = getRadarAnimStringArray(radarSite, frameCntStr)
         val urls = url.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
         urls.reverse()
-        val bitmaps = urls.asSequence().filter { it != "" }.mapTo(mutableListOf()) {
+        val bitmaps = urls.asSequence().filter { it != "" }.map {
             getRadarBitmapOptionsApplied(context, radarSite, MyApplication.canadaEcSitePrefix + it.replace("detailed/", ""))
         }
-        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps, UtilityImg.animInterval(context))
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps.toList(), UtilityImg.animInterval(context))
     }
 
     fun getRadarBitmapOptionsApplied(context: Context, radarSite: String, url: String): Bitmap {
-        val urlImg: String
-        if (url == "") {
+        val urlImg = if (url == "") {
             val radHtml = (MyApplication.canadaEcSitePrefix + "/radar/index_e.html?id=$radarSite").getHtml()
             val matchStr = "(/data/radar/.*?GIF)\""
             val summary = radHtml.parse(matchStr).replace("detailed/", "")
-            urlImg = MyApplication.canadaEcSitePrefix + "/$summary"
+            MyApplication.canadaEcSitePrefix + "/$summary"
         } else {
-            urlImg = url
+            url
         }
         val layerCount = if (GeographyType.CITIES.pref) {
             2

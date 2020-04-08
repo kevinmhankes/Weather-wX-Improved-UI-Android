@@ -631,7 +631,7 @@ class LocationFragment : Fragment()  {
     }
 
     private fun radarTimestamps(): List<String> {
-        return (0 until wxglSurfaceViews.size).mapTo(mutableListOf()) {
+        return (0 until wxglSurfaceViews.size).map {
             getRadarTimeStamp(wxglRenders[it].wxglNexradLevel3.timestamp, it)
         }
     }

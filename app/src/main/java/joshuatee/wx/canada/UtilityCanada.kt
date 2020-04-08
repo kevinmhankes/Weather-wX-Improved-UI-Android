@@ -58,7 +58,7 @@ object UtilityCanada {
 
     fun getIcons7DayAsList(html: String): List<String> {
         val days = html.split((MyApplication.newline + MyApplication.newline)).dropLastWhile { it.isEmpty() }
-        return days.mapTo(mutableListOf()) { translateIconName(it) }
+        return days.map { translateIconName(it) }
     }
 
     private fun translateIconName(condition: String): String {

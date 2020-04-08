@@ -32,12 +32,12 @@ internal object UtilitySpcSwo {
 
     fun getImages(day: String, getAllImages: Boolean): List<Bitmap> {
         val imgUrls = mutableListOf<String>()
-        val bitmaps = mutableListOf<Bitmap>()
+        val bitmaps: List<Bitmap>
         if (day == "4-8" || day == "48" || day == "4") {
             (4..8).forEach {
                 imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/exper/day4-8/day" + it.toString() + "prob.gif")
             }
-            imgUrls.mapTo(bitmaps) { it.getImage() }
+            bitmaps = imgUrls.map { it.getImage() }
             return bitmaps
         }
         val html = ("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day" + day + "otlk.html").getHtml()
@@ -56,9 +56,9 @@ internal object UtilitySpcSwo {
             else -> {}
         }
         if (getAllImages) {
-            imgUrls.mapTo(bitmaps) { it.getImage() }
+            bitmaps = imgUrls.map { it.getImage() }
         } else {
-            bitmaps.add(imgUrls[0].getImage())
+            bitmaps= listOf(imgUrls[0].getImage())
         }
         return bitmaps
     }

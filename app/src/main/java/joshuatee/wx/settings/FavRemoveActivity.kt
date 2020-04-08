@@ -50,7 +50,7 @@ class FavRemoveActivity : BaseActivity() {
         const val TYPE = ""
     }
 
-    private val favorites = mutableListOf<String>()
+    private var favorites = mutableListOf<String>()
     private var favoriteString = ""
     private var favoriteLabel = ""
     private var prefToken = ""
@@ -112,7 +112,7 @@ class FavRemoveActivity : BaseActivity() {
     private fun updateList() {
         val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
         favorites.clear()
-        (startIndex until tempList.size).mapTo(favorites) { tempList[it] }
+        favorites = (startIndex until tempList.size).map{ tempList[it] }.toMutableList()
         labels = mutableListOf()
         favorites.forEach {
             when (type) {
@@ -130,7 +130,7 @@ class FavRemoveActivity : BaseActivity() {
         favoriteString = Utility.readPref(this, prefToken, "")
         val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
         favorites.clear()
-        (startIndex until tempList.size).mapTo(favorites) { tempList[it] }
+        favorites = (startIndex until tempList.size).map { tempList[it] }.toMutableList()
         if (position != 0) {
             val tmp = favorites[position - 1]
             val tmp2 = favorites[position]

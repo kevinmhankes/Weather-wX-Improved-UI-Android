@@ -78,12 +78,11 @@ object UtilitySpcMesoInputOutput {
     }
 
     fun getAnimation(context: Context, sector: String, param: String, frameCnt: Int): AnimationDrawable {
-        val urls = mutableListOf<String>()
-        val timeList = "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/new/archiveviewer.php?sector=19&parm=pmsl".getHtml()
-                .parseColumn("dattim\\[[0-9]{1,2}\\].*?=.*?([0-9]{8})")
+        var urls = listOf<String>()
+        val timeList = "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/new/archiveviewer.php?sector=19&parm=pmsl".getHtml().parseColumn("dattim\\[[0-9]{1,2}\\].*?=.*?([0-9]{8})")
         val delay = UtilityImg.animInterval(context)
         if (timeList.size > frameCnt) {
-            stride(frameCnt - 1, -1, -1).mapTo(urls) { "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/s" + sector + "/" + param + "/" + param + "_" + timeList[it] + ".gif" }
+            urls = stride(frameCnt - 1, -1, -1).map { "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/s" + sector + "/" + param + "/" + param + "_" + timeList[it] + ".gif" }
         }
         return UtilityImgAnim.getAnimationDrawableFromUrlListWhiteBackground(context, urls, delay)
     }

@@ -72,7 +72,7 @@ internal object UtilityModelWpcGefsInputOutput {
         if (om.spinnerTimeValue == -1) {
             return AnimationDrawable()
         }
-        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) {
+        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).map {
             getImage(om, om.spTime.list[it].split(" ").getOrNull(0) ?: "")
         }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)

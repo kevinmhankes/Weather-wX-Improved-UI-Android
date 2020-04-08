@@ -49,7 +49,7 @@ import joshuatee.wx.wpc.WpcTextProductsActivity
 class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private val playListItems = mutableListOf<String>()
+    private var playListItems = mutableListOf<String>()
     private var ridFav = ""
     private val prefToken = "PLAYLIST"
     private lateinit var ca: PlayListAdapter
@@ -124,7 +124,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         MyApplication.playlistStr = ridFav
         val tempList = ridFav.split(":")
         playListItems.clear()
-        (1 until tempList.size).mapTo(playListItems) { getLongString(tempList[it]) }
+        playListItems = (1 until tempList.size).map { getLongString(tempList[it]) }.toMutableList()
     }
 
     private fun updateListNoInit() {

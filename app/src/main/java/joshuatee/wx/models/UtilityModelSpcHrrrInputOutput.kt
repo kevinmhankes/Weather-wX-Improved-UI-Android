@@ -76,7 +76,7 @@ internal object UtilityModelSpcHrrrInputOutput {
         if (om.spinnerTimeValue == -1) {
             return AnimationDrawable()
         }
-        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).mapTo(mutableListOf()) { k ->
+        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).map { k ->
             getImage(context, om, om.spTime.list[k].split(" ").dropLastWhile { it.isEmpty() }.getOrNull(0) ?: "", overlayImg)
         }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)

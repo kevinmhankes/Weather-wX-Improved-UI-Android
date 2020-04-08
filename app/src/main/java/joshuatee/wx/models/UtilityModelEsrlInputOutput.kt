@@ -178,7 +178,7 @@ internal object UtilityModelEsrlInputOutput {
             return AnimationDrawable()
         }
         val timeList = om.spTime.list.toMutableList()
-        val bitmaps = (om.spinnerTimeValue until timeList.size).mapTo(mutableListOf()) {
+        val bitmaps = (om.spinnerTimeValue until timeList.size).map {
             getImage(om, timeList[it].split(" ").getOrNull(0) ?: "")
         }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)

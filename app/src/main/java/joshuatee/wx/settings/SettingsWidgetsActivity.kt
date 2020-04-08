@@ -46,9 +46,7 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
         super.onCreate(savedInstanceState, R.layout.activity_settings_widgets, null, false)
         toolbar.subtitle = "Please tap on text for additional help."
         val locationNameShortLength = 20
-        val locationAl = (1 until Location.numLocations + 1).mapTo(mutableListOf()) {
-            "$it: " + UtilityStringExternal.truncate(Utility.readPref(this, "LOC" + it + "_LABEL", ""), locationNameShortLength)
-        }
+        val locations = (1 until Location.numLocations + 1).map { "$it: " + UtilityStringExternal.truncate(Utility.readPref(this, "LOC" + it + "_LABEL", ""), locationNameShortLength) }
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
@@ -122,7 +120,7 @@ class SettingsWidgetsActivity : BaseActivity(), CompoundButton.OnCheckedChangeLi
                         "WIDGET_LOCATION",
                         "",
                         R.string.spinner_location_label,
-                        locationAl
+                        locations
                 ).card
         )
         linearLayout.addView(

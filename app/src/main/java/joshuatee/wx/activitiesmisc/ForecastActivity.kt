@@ -95,7 +95,7 @@ class ForecastActivity : BaseActivity() {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         var bitmapForCurrentCondition: Bitmap? = null
-        val bitmaps = mutableListOf<Bitmap>()
+        var bitmaps = listOf<Bitmap>()
         withContext(Dispatchers.IO) {
             //
             // Current conditions
@@ -107,7 +107,7 @@ class ForecastActivity : BaseActivity() {
             //
             // 7day
             //
-            objSevenDay.icons.mapTo(bitmaps) { UtilityNws.getIcon(this@ForecastActivity, it) }
+            bitmaps = objSevenDay.icons.map { UtilityNws.getIcon(this@ForecastActivity, it) }
         }
         //
         // CC
@@ -124,18 +124,14 @@ class ForecastActivity : BaseActivity() {
         linearLayoutForecast.removeAllViewsInLayout()
         bitmaps.forEachIndexed { index, bitmap ->
             val objectCard7Day = ObjectCard7Day(this@ForecastActivity, bitmap, true, index, objSevenDay.forecastList)
-            objectCard7Day.setOnClickListener(View.OnClickListener {
-                scrollView.smoothScrollTo(0, 0)
-            })
+            objectCard7Day.setOnClickListener(View.OnClickListener { scrollView.smoothScrollTo(0, 0) })
             linearLayoutForecast.addView(objectCard7Day.card)
         }
         // sunrise card
         val objectCardText = ObjectCardText(this@ForecastActivity)
         objectCardText.center()
         try {
-            objectCardText.text = (
-                    UtilityTimeSunMoon.getSunriseSunset(this@ForecastActivity, Location.currentLocationStr, false) + MyApplication.newline + UtilityTime.gmtTime()
-                    )
+            objectCardText.text = (UtilityTimeSunMoon.getSunriseSunset(this@ForecastActivity, Location.currentLocationStr, false) + MyApplication.newline + UtilityTime.gmtTime())
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
