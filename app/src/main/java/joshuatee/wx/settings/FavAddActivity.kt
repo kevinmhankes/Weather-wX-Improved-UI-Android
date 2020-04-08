@@ -103,8 +103,8 @@ class FavAddActivity : BaseActivity() {
 
     private fun itemClicked(position: Int) {
         val item = data[position]
-        var ridFav = Utility.readPref(this, prefToken, UtilityFavorites.initialValue)
-        var ridFavLabel = if (type == "SPCMESO") {
+        var favoriteString = Utility.readPref(this, prefToken, UtilityFavorites.initialValue)
+        var favoriteLabel = if (type == "SPCMESO") {
             Utility.readPref(this, prefTokenLabel, UtilityFavorites.initialValue)
         } else {
             ""
@@ -132,17 +132,17 @@ class FavAddActivity : BaseActivity() {
                 }
             }
         }
-        if (!ridFav.contains(tmpArr[0])) {
+        if (!favoriteString.contains(tmpArr[0])) {
             when (type) {
                 "SPCMESO" -> {
-                    ridFav += UtilitySpcMeso.params[position] + ":"
-                    ridFavLabel += UtilitySpcMeso.labels[position] + ":"
-                    Utility.writePref(this, prefTokenLabel, ridFavLabel)
+                    favoriteString += UtilitySpcMeso.params[position] + ":"
+                    favoriteLabel += UtilitySpcMeso.labels[position] + ":"
+                    Utility.writePref(this, prefTokenLabel, favoriteLabel)
                 }
-                else -> ridFav += tmpArr[0] + ":"
+                else -> favoriteString += tmpArr[0] + ":"
             }
-            Utility.writePref(this, prefToken, ridFav)
-            saveMyApp(ridFav, ridFavLabel)
+            Utility.writePref(this, prefToken, favoriteString)
+            saveMyApp(favoriteString, favoriteLabel)
             toolbar.subtitle = "Last added: $item"
         } else {
             toolbar.subtitle = "Already added: $item"
