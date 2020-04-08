@@ -31,10 +31,10 @@ internal object UtilityWarningsImpact {
 
     val data: List<ObjectImpactGraphic>
         get() {
-            val objectImpactGraphics = mutableListOf<ObjectImpactGraphic>()
             val html = url.getHtmlSep()
             val outerChunk = html.parse("\\[(.*?)\\]")
             val warnings = outerChunk.parseColumn("\\{(.*?)\\}")
+            val objectImpactGraphics = mutableListOf<ObjectImpactGraphic>()
             warnings.forEach { warning ->
                 val title = warning.parse("msg.:.(.*?)\"").replace(Regex("including .*until"),"until").replace(Regex("continues for .*until"),"until")
                 val cities = warning.parse("city_list.:.(.*?).,").replace("including ", "")
