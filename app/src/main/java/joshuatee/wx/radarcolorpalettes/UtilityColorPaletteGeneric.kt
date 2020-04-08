@@ -24,8 +24,6 @@ package joshuatee.wx.radarcolorpalettes
 import android.content.Context
 import android.graphics.Color
 
-import java.nio.ByteBuffer
-
 import joshuatee.wx.MyApplication
 
 object UtilityColorPaletteGeneric {
@@ -33,9 +31,9 @@ object UtilityColorPaletteGeneric {
     private fun generate(context: Context, product: String, code: String) {
         // prod will be a string such as "94" for refl
         // -32 to 95
-        var colorMapR: ByteBuffer
-        var colorMapG: ByteBuffer
-        var colorMapB: ByteBuffer
+        //var colorMapR: ByteBuffer
+        //var colorMapG: ByteBuffer
+        //var colorMapB: ByteBuffer
         // add 32 and double to get 255 ( prod 94 )
         // def 2 and -32
         val scale: Int
@@ -44,9 +42,9 @@ object UtilityColorPaletteGeneric {
         var prodScale = 1.0
         var colorMapProductCode = product.toIntOrNull() ?: 0
         val objColormap = MyApplication.colorMap[colorMapProductCode]!!
-        colorMapR = objColormap.redValues
-        colorMapG = objColormap.greenValues
-        colorMapB = objColormap.blueValues
+        var colorMapR = objColormap.redValues
+        var colorMapG = objColormap.greenValues
+        var colorMapB = objColormap.blueValues
         when (product) {
             "94" -> {
                 scale = 2
@@ -198,11 +196,7 @@ object UtilityColorPaletteGeneric {
                 }
                 (1 until diff).forEach { j ->
                     if (scale == 1) {
-                        val colorInt = UtilityNexradColors.interpolateColor(
-                                lowColor,
-                                highColor,
-                                j.toDouble() / (diff * scale).toDouble()
-                        )
+                        val colorInt = UtilityNexradColors.interpolateColor(lowColor, highColor, j.toDouble() / (diff * scale).toDouble())
                         if (colorMapR.hasRemaining()) {
                             colorMapR.put(Color.red(colorInt).toByte())
                         }
@@ -213,15 +207,9 @@ object UtilityColorPaletteGeneric {
                             colorMapB.put(Color.blue(colorInt).toByte())
                         }
                     } else if (scale == 2) {
-                        val colorInt = UtilityNexradColors.interpolateColor(
-                                lowColor,
-                                highColor,
-                                (j * scale - 1).toDouble() / (diff * scale).toDouble()
+                        val colorInt = UtilityNexradColors.interpolateColor(lowColor, highColor, (j * scale - 1).toDouble() / (diff * scale).toDouble()
                         )
-                        val colorInt2 = UtilityNexradColors.interpolateColor(
-                                lowColor,
-                                highColor,
-                                (j * scale).toDouble() / (diff * scale).toDouble()
+                        val colorInt2 = UtilityNexradColors.interpolateColor(lowColor, highColor, (j * scale).toDouble() / (diff * scale).toDouble()
                         )
                         if (colorMapR.hasRemaining())
                             colorMapR.put(Color.red(colorInt).toByte())
@@ -229,7 +217,6 @@ object UtilityColorPaletteGeneric {
                             colorMapG.put(Color.green(colorInt).toByte())
                         if (colorMapB.hasRemaining())
                             colorMapB.put(Color.blue(colorInt).toByte())
-
                         if (colorMapR.hasRemaining())
                             colorMapR.put(Color.red(colorInt2).toByte())
                         if (colorMapG.hasRemaining())
