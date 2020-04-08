@@ -167,7 +167,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
                 getContent()
             }
             R.id.action_back -> {
-                timePeriod--
+                timePeriod -= 1
                 getContent()
             }
             R.id.action_share -> {

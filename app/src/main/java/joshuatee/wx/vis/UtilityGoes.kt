@@ -40,9 +40,10 @@ object UtilityGoes {
     }
 
     fun getImage(product: String, sector: String): Bitmap {
-        var sectorLocal = "SECTOR/$sector"
-        if (sector == "FD" || sector == "CONUS" || sector == "CONUS-G17") {
-            sectorLocal = sector
+        var sectorLocal = if (sector == "FD" || sector == "CONUS" || sector == "CONUS-G17") {
+            sector
+        } else {
+            "SECTOR/$sector"
         }
         var satellite = "GOES16"
         if (sectorsInGoes17.contains(sector)) {
@@ -66,9 +67,10 @@ object UtilityGoes {
     // https://www.star.nesdis.noaa.gov/GOES/sector_band.php?sat=G16&sector=cgl&band=GEOCOLOR&length=12
     fun getAnimation(context: Context, product: String, sector: String, frameCount: Int): AnimationDrawable {
         val frameCountString = frameCount.toString()
-        var satellite = "G16"
-        if (sectorsInGoes17.contains(sector)) {
-            satellite = "G17"
+        val satellite = if (sectorsInGoes17.contains(sector)) {
+            "G17"
+        } else {
+            "G16"
         }
         val url = when (sector) {
             // https://www.star.nesdis.noaa.gov/GOES/fulldisk_band.php?sat=G17&band=GEOCOLOR&length=12
