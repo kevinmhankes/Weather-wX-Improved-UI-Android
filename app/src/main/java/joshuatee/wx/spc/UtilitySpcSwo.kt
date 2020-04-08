@@ -32,35 +32,34 @@ internal object UtilitySpcSwo {
 
     fun getImages(day: String, getAllImages: Boolean): List<Bitmap> {
         val imgUrls = mutableListOf<String>()
-        val bitmaps: List<Bitmap>
         if (day == "4-8" || day == "48" || day == "4") {
             (4..8).forEach {
                 imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/exper/day4-8/day" + it.toString() + "prob.gif")
             }
-            bitmaps = imgUrls.map { it.getImage() }
-            return bitmaps
-        }
-        val html = ("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day" + day + "otlk.html").getHtml()
-        val time = html.parse("show_tab\\(.otlk_([0-9]{4}).\\)")
-        when (day) {
-            "1", "2" -> {
-                imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}otlk_$time.gif")
-                imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}probotlk_" + time + "_torn.gif")
-                imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}probotlk_" + time + "_hail.gif")
-                imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}probotlk_" + time + "_wind.gif")
-            }
-            "3" -> {
-                imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day3otlk_$time.gif")
-                imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day3prob_$time.gif")
-            }
-            else -> {}
-        }
-        if (getAllImages) {
-            bitmaps = imgUrls.map { it.getImage() }
+            return imgUrls.map { it.getImage() }
         } else {
-            bitmaps= listOf(imgUrls[0].getImage())
+            val html = ("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day" + day + "otlk.html").getHtml()
+            val time = html.parse("show_tab\\(.otlk_([0-9]{4}).\\)")
+            when (day) {
+                "1", "2" -> {
+                    imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}otlk_$time.gif")
+                    imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}probotlk_" + time + "_torn.gif")
+                    imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}probotlk_" + time + "_hail.gif")
+                    imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}probotlk_" + time + "_wind.gif")
+                }
+                "3" -> {
+                    imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day3otlk_$time.gif")
+                    imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day3prob_$time.gif")
+                }
+                else -> {
+                }
+            }
+            return if (getAllImages) {
+                imgUrls.map { it.getImage() }
+            } else {
+                listOf(imgUrls[0].getImage())
+            }
         }
-        return bitmaps
     }
 
     fun getUrls(day: String): List<String> {
