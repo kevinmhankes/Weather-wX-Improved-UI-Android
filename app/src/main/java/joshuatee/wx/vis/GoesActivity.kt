@@ -186,9 +186,7 @@ class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
     }
 
     private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
-        animDrawable = withContext(Dispatchers.IO) {
-            UtilityGoes.getAnimation(this@GoesActivity, drw.url, sector, frameCount)
-        }
+        animDrawable = withContext(Dispatchers.IO) { UtilityGoes.getAnimation(this@GoesActivity, drw.url, sector, frameCount) }
         UtilityImgAnim.startAnimation(animDrawable, img)
     }
 }
