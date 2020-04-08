@@ -69,23 +69,25 @@ internal object UtilitySpcSwo {
                 imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/exper/day4-8/day" + it.toString() + "prob.gif")
             }
             return imgUrls
-        }
-        val html = ("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day" + day + "otlk.html").getHtml()
-        val time = html.parse("show_tab\\(.otlk_([0-9]{4}).\\)")
-        when (day) {
-            "1", "2" -> {
-                imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}otlk_$time.gif")
-                imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}probotlk_" + time + "_torn.gif")
-                imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}probotlk_" + time + "_hail.gif")
-                imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}probotlk_" + time + "_wind.gif")
+        } else {
+            val html = ("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day" + day + "otlk.html").getHtml()
+            val time = html.parse("show_tab\\(.otlk_([0-9]{4}).\\)")
+            when (day) {
+                "1", "2" -> {
+                    imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}otlk_$time.gif")
+                    imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}probotlk_" + time + "_torn.gif")
+                    imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}probotlk_" + time + "_hail.gif")
+                    imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day${day}probotlk_" + time + "_wind.gif")
+                }
+                "3" -> {
+                    imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day3otlk_$time.gif")
+                    imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day3prob_$time.gif")
+                }
+                else -> {
+                }
             }
-            "3" -> {
-                imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day3otlk_$time.gif")
-                imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day3prob_$time.gif")
-            }
-            else -> {}
+            return imgUrls
         }
-        return imgUrls
     }
 }
 
