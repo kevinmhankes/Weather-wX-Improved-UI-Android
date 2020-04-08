@@ -128,17 +128,9 @@ internal object UtilityWidgetDownload {
             wfo = Utility.readPref(context, "WFO_LAST_USED", wfo).toUpperCase(Locale.US)
         }
         if (Utility.readPref(context, "WFO_TEXT_FAV", "").startsWith("VFD")) {
-            Utility.writePref(
-                    context,
-                    "AFD_WIDGET",
-                    UtilityDownload.getTextProduct(context, "VFD$wfo")
-            )
+            Utility.writePref(context, "AFD_WIDGET", UtilityDownload.getTextProduct(context, "VFD$wfo"))
         } else {
-            Utility.writePref(
-                    context,
-                    "AFD_WIDGET",
-                    UtilityDownload.getTextProduct(context, "AFD$wfo")
-            )
+            Utility.writePref(context, "AFD_WIDGET", UtilityDownload.getTextProduct(context, "AFD$wfo"))
         }
     }
 

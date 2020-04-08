@@ -582,13 +582,7 @@ class MyApplication : Application() {
                     stateRelativeBuffer.order(ByteOrder.nativeOrder())
                     stateRelativeBuffer.position(0)
                     listOf(3, 4, 5).forEach {
-                        loadBuffer(
-                                context,
-                                fileIds[it],
-                                stateRelativeBuffer,
-                                countArr[it],
-                                prefArr[it]
-                        )
+                        loadBuffer(context, fileIds[it], stateRelativeBuffer, countArr[it], prefArr[it])
                     }
                 }
                 GeographyType.HIGHWAYS -> {
@@ -606,13 +600,7 @@ class MyApplication : Application() {
                         hwExtRelativeBuffer.position(0)
                     }
                     for (s in intArrayOf(6)) {
-                        loadBuffer(
-                                context,
-                                fileIds[s],
-                                hwExtRelativeBuffer,
-                                countArr[s],
-                                prefArr[s]
-                        )
+                        loadBuffer(context, fileIds[s], hwExtRelativeBuffer, countArr[s], prefArr[s])
                     }
                 }
                 GeographyType.LAKES -> {
@@ -629,8 +617,7 @@ class MyApplication : Application() {
                     val s = 2
                     loadBuffer(context, fileIds[s], countyRelativeBuffer, countArr[s], prefArr[s])
                 }
-                else -> {
-                }
+                else -> {}
             }
         }
 

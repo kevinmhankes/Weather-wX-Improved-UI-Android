@@ -66,14 +66,8 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
         when (item.itemId) {
             R.id.action_alert -> {
                 if (Location.isUS) {
-                    ObjectIntent(
-                            this,
-                            USWarningsWithRadarActivity::class.java,
-                            USWarningsWithRadarActivity.URL,
-                            arrayOf(
-                                    ".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?",
-                                    "us"
-                            )
+                    ObjectIntent(this, USWarningsWithRadarActivity::class.java, USWarningsWithRadarActivity.URL,
+                            arrayOf(".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?", "us")
                     )
                 } else {
                     ObjectIntent(this, CanadaAlertsActivity::class.java)
@@ -83,15 +77,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                 if (Location.isUS) {
                     ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("OBSERVATIONS"))
                 } else {
-                    ObjectIntent(
-                            this,
-                            ImageShowActivity::class.java,
-                            ImageShowActivity.URL,
-                            arrayOf(
-                                    "http://weather.gc.ca/data/wxoimages/wocanmap0_e.jpg",
-                                    "Observations"
-                            )
-                    )
+                    ObjectIntent.showImage(this, arrayOf("http://weather.gc.ca/data/wxoimages/wocanmap0_e.jpg", "Observations"))
                 }
             }
             R.id.action_playlist -> ObjectIntent(this, SettingsPlaylistActivity::class.java)

@@ -36,11 +36,9 @@ fun String.condenseSpace()= this.replace("\\s+".toRegex(), " ")
 
 fun String.removeHtml() = this.replace(Regex("\\<[^>]*>"),"")
 
-fun String.removeLineBreaks() = this
-                .replace("\n", "ABC123")
-                .replace("ABC123ABC123", "\n")
-                .replace("ABC123", " ")
-                .replace("  ", " ")
+fun String.removeLineBreaks() = this.replace("\n", "ABC123").replace("ABC123ABC123", "\n")
+        .replace("ABC123", " ")
+        .replace("  ", " ")
 
 fun String.truncate(size: Int) = UtilityStringExternal.truncate(this, size)
 

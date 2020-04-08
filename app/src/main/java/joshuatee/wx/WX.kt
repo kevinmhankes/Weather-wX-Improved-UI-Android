@@ -85,12 +85,7 @@ class WX : CommonActionBarFragment() {
         if (MyApplication.simpleMode || UIPreferences.hideTopToolbar) {
             slidingTabLayout.visibility = View.GONE
         }
-        slidingTabLayout.setSelectedTabIndicatorColor(
-                UtilityTheme.getPrimaryColorFromSelectedTheme(
-                        this,
-                        0
-                )
-        )
+        slidingTabLayout.setSelectedTabIndicatorColor(UtilityTheme.getPrimaryColorFromSelectedTheme(this, 0))
         // material 1.1.0, since we are using .Bridge theme the below is not needed
         // but left for reference
         //slidingTabLayout.setTabTextColors(-1711276033, Color.WHITE)
