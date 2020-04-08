@@ -255,9 +255,11 @@ object UtilityCanada {
     fun getLocationUrl(x: String, y: String): String {
         val prov = x.split(":").dropLastWhile { it.isEmpty() }
         val id = y.split(":").dropLastWhile { it.isEmpty() }
-        if (prov.count() < 2 || id.count() < 1)
-            return ""
-        return MyApplication.canadaEcSitePrefix + "/city/pages/" + prov[1].toLowerCase(Locale.US) + "-" + id[0] + "_metric_e.html"
+        return if (prov.count() < 2 || id.count() < 1) {
+            ""
+        } else {
+            MyApplication.canadaEcSitePrefix + "/city/pages/" + prov[1].toLowerCase(Locale.US) + "-" + id[0] + "_metric_e.html"
+        }
     }
 
     fun getStatus(html: String) = html.parse("<b>Observed at:</b>(.*?)<br/>")
