@@ -87,9 +87,7 @@ class ObjectForecastPackage7Day {
         val shortForecasts = html.parseColumn("\"shortForecast\": \"(.*?)\",")
         val detailedForecasts = html.parseColumn("\"detailedForecast\": \"(.*?)\"")
         return if ((names.size == temperatures.size) && (temperatures.size == shortForecasts.size) && (shortForecasts.size == detailedForecasts.size)) {
-            val objectForecasts = (names.indices).mapTo(mutableListOf()) {
-                ObjectForecast(names[it], temperatures[it], shortForecasts[it], detailedForecasts[it])
-            }
+            val objectForecasts = (names.indices).map { ObjectForecast(names[it], temperatures[it], shortForecasts[it], detailedForecasts[it]) }
             var forecasts = MyApplication.newline + MyApplication.newline
             objectForecasts.forEach {
                 forecasts += it.name + "(" + it.temperature + "): " + it.shortForecast
@@ -102,22 +100,19 @@ class ObjectForecastPackage7Day {
     }
 
     private fun get7DayExtended(html: String): String {
-        val forecasts = mutableListOf<ObjectForecast>()
         val names = html.parseColumn("\"name\": \"(.*?)\",")
         val temperatures = html.parseColumn("\"temperature\": (.*?),")
         this.icons = html.parseColumn("\"icon\": \"(.*?)\",")
         val shortForecasts = html.parseColumn("\"shortForecast\": \"(.*?)\",")
         val detailedForecastsLocal = html.parseColumn("\"detailedForecast\": \"(.*?)\"")
-        if (names.size == temperatures.size && temperatures.size == shortForecasts.size && shortForecasts.size == detailedForecastsLocal.size) {
-            (names.indices).mapTo(forecasts) {
-                ObjectForecast(names[it], temperatures[it], shortForecasts[it], detailedForecastsLocal[it])
-            }
-        }
         var forecast = MyApplication.newline + MyApplication.newline
-        forecasts.forEach {
-            forecast += it.name + ": " + it.detailedForecast
-            forecast += MyApplication.newline + MyApplication.newline
-            detailedForecasts.add(it.name + ": " + it.detailedForecast)
+        if (names.size == temperatures.size && temperatures.size == shortForecasts.size && shortForecasts.size == detailedForecastsLocal.size) {
+            val forecasts = (names.indices).map { ObjectForecast(names[it], temperatures[it], shortForecasts[it], detailedForecastsLocal[it]) }
+            forecasts.forEach {
+                forecast += it.name + ": " + it.detailedForecast
+                forecast += MyApplication.newline + MyApplication.newline
+                detailedForecasts.add(it.name + ": " + it.detailedForecast)
+            }
         }
         return forecast
     }

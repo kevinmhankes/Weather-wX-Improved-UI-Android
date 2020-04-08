@@ -160,16 +160,16 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         return true
     }
 
-    private fun moveUp(pos: Int) {
+    private fun moveUp(position: Int) {
         favoriteString = MyApplication.homescreenFav
         favoriteList = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
-        if (pos != 0) {
-            val tmp = favoriteList[pos - 1]
-            favoriteList[pos - 1] = favoriteList[pos]
-            favoriteList[pos] = tmp
+        if (position != 0) {
+            val tmp = favoriteList[position - 1]
+            favoriteList[position - 1] = favoriteList[position]
+            favoriteList[position] = tmp
         } else {
             val tmp = favoriteList.last()
-            favoriteList[favoriteList.lastIndex] = favoriteList[pos]
+            favoriteList[favoriteList.lastIndex] = favoriteList[position]
             favoriteList[0] = tmp
         }
         favoriteString = ""
@@ -179,16 +179,16 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         updateList()
     }
 
-    private fun moveDown(pos: Int) {
+    private fun moveDown(position: Int) {
         favoriteString = MyApplication.homescreenFav
         favoriteList = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
-        if (pos != favoriteList.lastIndex) {
-            val tmp = favoriteList[pos + 1]
-            favoriteList[pos + 1] = favoriteList[pos]
-            favoriteList[pos] = tmp
+        if (position != favoriteList.lastIndex) {
+            val tmp = favoriteList[position + 1]
+            favoriteList[position + 1] = favoriteList[position]
+            favoriteList[position] = tmp
         } else {
             val tmp = favoriteList[0]
-            favoriteList[0] = favoriteList[pos]
+            favoriteList[0] = favoriteList[position]
             favoriteList[favoriteList.lastIndex] = tmp
         }
         favoriteString = ""

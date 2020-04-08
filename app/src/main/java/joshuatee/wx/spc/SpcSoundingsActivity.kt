@@ -49,7 +49,7 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
     private var imgUrl = ""
     private lateinit var img: ObjectTouchImageView
     private lateinit var imageMap: ObjectImageMap
-    private var nwsOffice = ""
+    private var office = ""
     private var mapShown = false
     private var firstTime = true
     private lateinit var star: MenuItem
@@ -65,32 +65,30 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
         toolbarBottom.setOnMenuItemClickListener(this)
         star = toolbarBottom.menu.findItem(R.id.action_fav)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv)
-        nwsOffice = UtilityLocation.getNearestSoundingSite(Location.latLon)
-        locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, nwsOffice, prefToken)
+        office = UtilityLocation.getNearestSoundingSite(Location.latLon)
+        locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
         objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, locations)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToSnd)
     }
 
     override fun onRestart() {
-        locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, nwsOffice, prefToken)
+        locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
         objectSpinner.refreshData(this, locations)
         super.onRestart()
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        if (MyApplication.sndFav.contains(":$nwsOffice:"))
+        if (MyApplication.sndFav.contains(":$office:"))
             star.setIcon(MyApplication.STAR_ICON)
         else
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        withContext(Dispatchers.IO) {
-            bitmap = UtilitySpcSoundings.getImage(this@SpcSoundingsActivity, nwsOffice)
-        }
+        bitmap = withContext(Dispatchers.IO) { UtilitySpcSoundings.getImage(this@SpcSoundingsActivity, office) }
         img.img.visibility = View.VISIBLE
         img.setBitmap(bitmap)
         img.setMaxZoom(4f)
         img.firstRunSetZoomPosn("SOUNDING")
-        Utility.writePref(this@SpcSoundingsActivity, "SOUNDING_SECTOR", nwsOffice)
+        Utility.writePref(this@SpcSoundingsActivity, "SOUNDING_SECTOR", office)
     }
 
     private fun getContentSPCPlot() = GlobalScope.launch(uiDispatcher) {
@@ -106,7 +104,7 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareBitmap(this, this, "$nwsOffice sounding", bitmap)
+            R.id.action_share -> UtilityShare.shareBitmap(this, this, "$office sounding", bitmap)
             R.id.action_250mb -> setPlotAndGet("250")
             R.id.action_300mb -> setPlotAndGet("300")
             R.id.action_500mb -> setPlotAndGet("500")
@@ -116,7 +114,7 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
             R.id.action_sfc -> setPlotAndGet("sfc")
             R.id.action_map -> imageMap.toggleMap()
             R.id.action_fav -> toggleFavorite()
-            R.id.action_spc_help -> ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf("${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/help/begin.html", nwsOffice))
+            R.id.action_spc_help -> ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf("${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/help/begin.html", office))
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -128,16 +126,16 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
     }
 
     private fun mapSwitch(loc: String) {
-        nwsOffice = loc
+        office = loc
         mapShown = false
-        locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, nwsOffice, prefToken)
+        locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
         objectSpinner.refreshData(this, locations)
         img.resetZoom()
     }
 
     private fun toggleFavorite() {
-        val ridFav = UtilityFavorites.toggleString(this, nwsOffice, star, prefToken)
-        locations = UtilityFavorites.setupMenu(this, ridFav, nwsOffice, prefToken)
+        val ridFav = UtilityFavorites.toggleString(this, office, star, prefToken)
+        locations = UtilityFavorites.setupMenu(this, ridFav, office, prefToken)
         objectSpinner.refreshData(this, locations)
     }
 
@@ -151,7 +149,7 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
                 1 -> ObjectIntent(this, FavAddActivity::class.java, FavAddActivity.TYPE, arrayOf("SND"))
                 2 -> ObjectIntent(this, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, arrayOf("SND"))
                 else -> {
-                    nwsOffice = locations[position].split(" ").getOrNull(0) ?: ""
+                    office = locations[position].split(" ").getOrNull(0) ?: ""
                     getContent()
                 }
             }

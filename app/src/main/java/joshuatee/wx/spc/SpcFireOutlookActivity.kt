@@ -87,9 +87,7 @@ class SpcFireOutlookActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmap = withContext(Dispatchers.IO) { imageUrl.getImage() }
-        objectCardText.text = withContext(Dispatchers.IO) {
-            UtilityDownload.getTextProduct(this@SpcFireOutlookActivity, textProduct)
-        }
+        objectCardText.text = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@SpcFireOutlookActivity, textProduct) }
         if (tabletInLandscape) {
             objectCardImage.setImage(bitmap, 2)
         } else {

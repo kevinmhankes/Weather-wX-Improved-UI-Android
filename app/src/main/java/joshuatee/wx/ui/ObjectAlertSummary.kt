@@ -107,9 +107,8 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
                     ""
                 }
                 totalAlertsCnt += 1
-                val tmpStateList = zones.asSequence().filter { it.length > 1 }
-                        .mapTo(mutableListOf()) { it.substring(0, 2) }
-                val uniqueStates = HashSet(tmpStateList)
+                val tmpStateList = zones.asSequence().filter { it.length > 1 }.map { it.substring(0, 2) }
+                val uniqueStates = HashSet(tmpStateList.toMutableList())
                 uniqueStates.forEach {
                     val frequency = mapState[it]
                     mapState[it] = if (frequency == null) {
@@ -134,9 +133,8 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
                         nwsOffice = ""
                         nwsLoc = ""
                     }
-                    val tmp2StateList = zones.asSequence().filter { it.length > 1 }
-                            .mapTo(mutableListOf()) { it.substring(0, 2) }
-                    val unique2States = HashSet(tmp2StateList)
+                    val tmp2StateList = zones.asSequence().filter { it.length > 1 }.map { it.substring(0, 2) }
+                    val unique2States = HashSet(tmp2StateList.toMutableList())
                     unique2States.forEach { state ->
                         val frequencyLocal = map[state]
                         map[state] = if (frequencyLocal == null) {

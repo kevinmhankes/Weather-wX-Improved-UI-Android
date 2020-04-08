@@ -44,7 +44,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     //
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private val locations = mutableListOf<String>()
+    private var locations = mutableListOf<String>()
     private lateinit var recyclerView: ObjectRecyclerViewGeneric
     private lateinit var settingsLocationAdapterList: SettingsLocationAdapterList
     private var currentConditions = mutableListOf<ObjectForecastPackageCurrentConditions>()
@@ -77,20 +77,17 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     }
 
     private fun updateList() {
-        val locNumIntCurrent = Location.numLocations
-        locations.clear()
-        (0 until locNumIntCurrent).forEach {
-            locations.add("")
-            MyApplication.locations[it].updateObservation("")
+        locations = MutableList(Location.numLocations) { "" }
+        MyApplication.locations.forEach {
+            it.updateObservation("")
         }
     }
 
     private fun updateListWithCurrentConditions() {
-        val locNumIntCurrent = Location.numLocations
         locations.clear()
-        (0 until locNumIntCurrent).forEach {
-            MyApplication.locations[it].updateObservation(currentConditions[it].topLine)
-            locations.add(currentConditions[it].topLine)
+        MyApplication.locations.forEachIndexed { index, location ->
+            location.updateObservation(currentConditions[index].topLine)
+            locations.add(currentConditions[index].topLine)
         }
     }
 
@@ -116,8 +113,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     }
 
     private fun edit(position: Int) {
-        val locStrPass = (position + 1).toString()
-        ObjectIntent.showLocationEdit(this, arrayOf(locStrPass, ""))
+        ObjectIntent.showLocationEdit(this, arrayOf((position + 1).toString(), ""))
     }
 
     private fun delete(position: Int) {
@@ -163,7 +159,6 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     }
 
     private fun addLocation() {
-        val locationStringToPass = (locations.size + 1).toString()
-        ObjectIntent.showLocationEdit(this, arrayOf(locationStringToPass, ""))
+        ObjectIntent.showLocationEdit(this, arrayOf((locations.size + 1).toString(), ""))
     }
 } 

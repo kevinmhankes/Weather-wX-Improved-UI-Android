@@ -87,7 +87,7 @@ internal class SettingsLocationAdapterList(private val dataSet: MutableList<Stri
 
     override fun getItemCount() = dataSet.size
 
-    fun getItem(index: Int): String = dataSet[index]
+    fun getItem(index: Int) = dataSet[index]
 
     interface MyClickListener {
         fun onItemClick(position: Int)

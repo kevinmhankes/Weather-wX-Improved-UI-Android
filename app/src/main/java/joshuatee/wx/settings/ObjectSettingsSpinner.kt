@@ -93,9 +93,10 @@ class ObjectSettingsSpinner(context: Context, label: String, pref: String, prefI
     companion object {
 
         fun setupSpinner(spinner: Spinner, light: Boolean) {
-            var tint = ColorStateList.valueOf(UIPreferences.colorBlack)
-            if (light) {
-                tint = ColorStateList.valueOf(UIPreferences.colorOffwhiteToolbar)
+            val tint = if (light) {
+                ColorStateList.valueOf(UIPreferences.colorOffwhiteToolbar)
+            } else {
+                ColorStateList.valueOf(UIPreferences.colorBlack)
             }
             if (Build.VERSION.SDK_INT > 20) {
                 spinner.backgroundTintList = tint

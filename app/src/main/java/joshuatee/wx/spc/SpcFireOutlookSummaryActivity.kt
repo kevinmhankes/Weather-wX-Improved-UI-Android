@@ -44,7 +44,7 @@ class SpcFireOutlookSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickLis
     //
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private var bitmaps = mutableListOf<Bitmap>()
+    private var bitmaps = listOf<Bitmap>()
     private var imagesPerRow = 2
 
     @SuppressLint("MissingSuperCall")
@@ -65,21 +65,15 @@ class SpcFireOutlookSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickLis
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        bitmaps = mutableListOf()
-        withContext(Dispatchers.IO) { UtilitySpcFireOutlook.imageUrls.mapTo(bitmaps) { it.getImage() } }
+        bitmaps = withContext(Dispatchers.IO) { UtilitySpcFireOutlook.imageUrls.map { it.getImage() } }
         linearLayout.removeAllViews()
         val objectImageSummary = ObjectImageSummary(this@SpcFireOutlookSummaryActivity, linearLayout, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
             objectCardImage.setOnClickListener(View.OnClickListener {
-                ObjectIntent(
-                        this@SpcFireOutlookSummaryActivity,
-                        SpcFireOutlookActivity::class.java,
-                        SpcFireOutlookActivity.NUMBER,
-                        arrayOf(UtilitySpcFireOutlook.textProducts[index], UtilitySpcFireOutlook.imageUrls[index])
-                )
+                ObjectIntent(this@SpcFireOutlookSummaryActivity, SpcFireOutlookActivity::class.java, SpcFireOutlookActivity.NUMBER,
+                        arrayOf(UtilitySpcFireOutlook.textProducts[index], UtilitySpcFireOutlook.imageUrls[index]))
             })
         }
-
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {

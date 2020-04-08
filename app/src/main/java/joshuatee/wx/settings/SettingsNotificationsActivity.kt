@@ -335,10 +335,7 @@ class SettingsNotificationsActivity : BaseActivity() {
         }
         val dialog = AlertDialog.Builder(this)
                 .setTitle("Choose which Local NWS Alerts to not show:")
-                .setMultiChoiceItems(
-                        items.toTypedArray(),
-                        checkedItems
-                ) { _, indexSelected, isChecked ->
+                .setMultiChoiceItems(items.toTypedArray(), checkedItems) { _, indexSelected, isChecked ->
                     if (isChecked) {
                         selectedItems.add(indexSelected)
                     } else if (selectedItems.contains(indexSelected)) {
@@ -355,22 +352,10 @@ class SettingsNotificationsActivity : BaseActivity() {
 
     private fun showFileWritePermsDialogue() {
         if (Build.VERSION.SDK_INT >= 23) {
-            if (ContextCompat.checkSelfPermission(
-                            this,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_GRANTED
-            ) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             } else {
-                if (ContextCompat.checkSelfPermission(
-                                this,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    ActivityCompat.requestPermissions(
-                            this,
-                            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                            fileWritePerm
-                    )
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), fileWritePerm)
                 }
             }
         }
@@ -378,11 +363,7 @@ class SettingsNotificationsActivity : BaseActivity() {
 
     private val fileWritePerm = 5002
 
-    override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<String>,
-            grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             fileWritePerm -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             } else {

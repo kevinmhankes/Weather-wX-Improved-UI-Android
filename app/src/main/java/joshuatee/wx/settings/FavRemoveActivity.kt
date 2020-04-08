@@ -125,6 +125,7 @@ class FavRemoveActivity : BaseActivity() {
         }
     }
 
+    // FIXME this needs to be redone with consolidation of homescreen, settings-location activity as well
     private fun moveUp(position: Int) {
         favoriteString = Utility.readPref(this, prefToken, "")
         val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }

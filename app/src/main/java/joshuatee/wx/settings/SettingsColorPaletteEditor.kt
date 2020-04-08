@@ -116,21 +116,21 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         palContent.setText(text)
         val lines = text.split("\n".toRegex()).dropLastWhile { it.isEmpty() }
         var errors = ""
-        var priorVal = -200.0
-        var lineCnt = 0
+        var priorValue = -200.0
+        var lineCount = 0
         lines.forEach { line ->
             if (line.contains("olor") && !line.contains("#")) {
                 val list = if (line.contains(","))
                     line.split(",")
                 else
                     line.split(" ")
-                lineCnt += 1
+                lineCount += 1
                 try {
                     if (list.size > 4) {
-                        if (priorVal >= (list[1].toDoubleOrNull() ?: 0.0)) { // was toIntOrNull
-                            errors += "The following lines do not have dbz values in increasing order: " + MyApplication.newline + priorVal + " " + list[1] + MyApplication.newline
+                        if (priorValue >= (list[1].toDoubleOrNull() ?: 0.0)) {
+                            errors += "The following lines do not have dbz values in increasing order: " + MyApplication.newline + priorValue + " " + list[1] + MyApplication.newline
                         }
-                        priorVal = list[1].toDoubleOrNull() ?: 0.0
+                        priorValue = list[1].toDoubleOrNull() ?: 0.0
                         if ((list[2].toDoubleOrNull() ?: 0.0) > 255 || (list[2].toDoubleOrNull() ?: 0.0) < 0) {
                             errors = errors + "Red value must be between 0 and 255: " + MyApplication.newline + line + MyApplication.newline
                         }
@@ -149,7 +149,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
                 }
             }
         }
-        if (lineCnt < 2) {
+        if (lineCount < 2) {
             errors += "Not enough lines present."
         }
         return errors

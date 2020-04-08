@@ -196,14 +196,8 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     override fun onRestart() {
-        favListLabel = UtilityFavorites.setupMenuSpc(
-                MyApplication.spcmesoLabelFav,
-                displayData.paramLabel[curImg]
-        )
-        favListParm = UtilityFavorites.setupMenuSpc(
-                MyApplication.spcMesoFav,
-                displayData.param[curImg]
-        )
+        favListLabel = UtilityFavorites.setupMenuSpc(MyApplication.spcmesoLabelFav, displayData.paramLabel[curImg])
+        favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])
         objectSpinner.refreshData(this@SpcMesoActivity, favListLabel)
         super.onRestart()
     }
@@ -246,12 +240,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     private fun getAnimate(frames: Int) = GlobalScope.launch(uiDispatcher) {
         withContext(Dispatchers.IO) {
             (0 until numPanes).forEach {
-                displayData.animDrawable[it] = UtilitySpcMesoInputOutput.getAnimation(
-                        this@SpcMesoActivity,
-                        sector,
-                        displayData.param[it],
-                        frames
-                )
+                displayData.animDrawable[it] = UtilitySpcMesoInputOutput.getAnimation(this@SpcMesoActivity, sector, displayData.param[it], frames)
             }
         }
         (0 until numPanes).forEach {
@@ -368,11 +357,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     private fun setTitle() {
-        UtilityModels.setSubtitleRestoreIMGXYZOOM(
-                displayData.img,
-                toolbar,
-                "(" + (curImg + 1) + ")" + displayData.paramLabel[0] + "/" + displayData.paramLabel[1]
-        )
+        UtilityModels.setSubtitleRestoreIMGXYZOOM(displayData.img, toolbar, "(" + (curImg + 1) + ")" + displayData.paramLabel[0] + "/" + displayData.paramLabel[1])
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

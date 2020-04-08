@@ -473,11 +473,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
             locXEt.setText(xy[0].toString())
             locYEt.setText(xy[1].toString())
         } else {
-            if (ContextCompat.checkSelfPermission(
-                            this,
-                            Manifest.permission.ACCESS_FINE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED
-            ) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 val xy = UtilityLocation.getGps(this)
                 locXEt.setText(xy[0].toString())
                 locYEt.setText(xy[1].toString())
@@ -485,16 +481,8 @@ class SettingsLocationGenericActivity : BaseActivity(),
             } else {
                 // The ACCESS_FINE_LOCATION is denied, then I request it and manage the result in
                 // onRequestPermissionsResult() using the constant myPermissionAccessFineLocation
-                if (ContextCompat.checkSelfPermission(
-                                this,
-                                Manifest.permission.ACCESS_FINE_LOCATION
-                        ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    ActivityCompat.requestPermissions(
-                            this,
-                            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                            myPermissionAccessFineLocation
-                    )
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), myPermissionAccessFineLocation)
                 }
             }
         }
@@ -590,11 +578,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
     }
 
     private fun updateSubTitle() {
-        val subTitleString = "WFO: " + Utility.readPref(this, "NWS$locNum", "") + " - Nexrad: " + Utility.readPref(
-                this,
-                "RID$locNum",
-                ""
-        )
+        val subTitleString = "WFO: " + Utility.readPref(this, "NWS$locNum", "") + " - Nexrad: " + Utility.readPref(this, "RID$locNum", "")
         if (subTitleString != "WFO:  - Nexrad: " && updateTitle) {
             toolbar.subtitle = subTitleString
         }
@@ -621,12 +605,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
     }
 
     private fun openCanadaMap(s: String) {
-        ObjectIntent(
-                this,
-                SettingsLocationCanadaMapActivity::class.java,
-                SettingsLocationCanadaMapActivity.URL,
-                arrayOf(s)
-        )
+        ObjectIntent(this, SettingsLocationCanadaMapActivity::class.java, SettingsLocationCanadaMapActivity.URL, arrayOf(s))
     }
 
     private fun showMessage(string: String) = UtilityUI.makeSnackBar(rl, string)

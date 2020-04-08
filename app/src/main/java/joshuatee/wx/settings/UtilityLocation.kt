@@ -48,24 +48,28 @@ object UtilityLocation {
     val latLonAsDouble: MutableList<Double>
         get() {
             val latLon = mutableListOf<Double>()
-            var tmpX = ""
-            var tmpY = ""
             (0 until joshuatee.wx.settings.Location.numLocations).forEach {
+                val lat: String
+                val lon: String
                 if (!joshuatee.wx.settings.Location.getX(it).contains(":")) {
-                    tmpX = joshuatee.wx.settings.Location.getX(it)
-                    tmpY = joshuatee.wx.settings.Location.getY(it).replace("-", "")
+                    lat = joshuatee.wx.settings.Location.getX(it)
+                    lon = joshuatee.wx.settings.Location.getY(it).replace("-", "")
                 } else {
                     val tmpXArr = joshuatee.wx.settings.Location.getX(it).split(":")
-                    if (tmpXArr.size > 2) {
-                        tmpX = tmpXArr[2]
+                    lat = if (tmpXArr.size > 2) {
+                        tmpXArr[2]
+                    } else {
+                        ""
                     }
                     val tmpYArr = joshuatee.wx.settings.Location.getY(it).replace("-", "").split(":")
-                    if (tmpYArr.size > 1) {
-                        tmpY = tmpYArr[1]
+                    lon = if (tmpYArr.size > 1) {
+                        tmpYArr[1]
+                    } else {
+                        ""
                     }
                 }
-                latLon.add(tmpX.toDoubleOrNull() ?: 0.0)
-                latLon.add(tmpY.toDoubleOrNull() ?: 0.0)
+                latLon.add(lat.toDoubleOrNull() ?: 0.0)
+                latLon.add(lon.toDoubleOrNull() ?: 0.0)
             }
             return latLon
         }
@@ -80,14 +84,8 @@ object UtilityLocation {
         val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val providers = locationManager.getProviders(true)
         var location: Location? = null
-        if (ContextCompat.checkSelfPermission(
-                context,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
-                context,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             for (i in providers.indices.reversed()) {
                 location = locationManager.getLastKnownLocation(providers[i])
                 if (location != null)
@@ -203,23 +201,10 @@ object UtilityLocation {
         val roamingLocationDistanceCheck = Utility.readPref(context, "ROAMING_LOCATION_DISTANCE_CHECK", 5)
         val locX = xStr.toDoubleOrNull() ?: 0.0
         val locY = yStr.toDoubleOrNull() ?: 0.0
-        val currentDistance = LatLon.distance(
-            LatLon(currentXY[0], currentXY[1]),
-            LatLon(locX, locY),
-            DistanceUnit.NAUTICAL_MILE
-        )
-        if (currentDistance > roamingLocationDistanceCheck &&
-            (currentXY[0] > 1.0 || currentXY[0] < -1.0) &&
-            (currentXY[1] > 1.0 || currentXY[1] < -1.0)
-        ) {
+        val currentDistance = LatLon.distance(LatLon(currentXY[0], currentXY[1]), LatLon(locX, locY), DistanceUnit.NAUTICAL_MILE)
+        if (currentDistance > roamingLocationDistanceCheck && (currentXY[0] > 1.0 || currentXY[0] < -1.0) && (currentXY[1] > 1.0 || currentXY[1] < -1.0)) {
             val date = UtilityTime.getDateAsString("MM-dd-yy HH:mm:SS Z")
-            joshuatee.wx.settings.Location.locationSave(
-                context,
-                locNum,
-                currentXY[0].toString(),
-                currentXY[1].toString(),
-                "ROAMING $date"
-            )
+            joshuatee.wx.settings.Location.locationSave(context, locNum, currentXY[0].toString(), currentXY[1].toString(), "ROAMING $date")
         }
     }
 
@@ -231,13 +216,7 @@ object UtilityLocation {
             val loc = Utility.getWfoSiteName(nwsOffice)
             val addressToSend = loc.replace(" ", "+")
             val xyStr = getLatLonFromAddress(addressToSend)
-            toastString = joshuatee.wx.settings.Location.locationSave(
-                context,
-                locNumToSaveStr,
-                xyStr[0],
-                xyStr[1],
-                loc
-            )
+            toastString = joshuatee.wx.settings.Location.locationSave(context, locNumToSaveStr, xyStr[0], xyStr[1], loc)
         }
         UtilityUI.makeSnackBar(linearLayout, toastString)
     }

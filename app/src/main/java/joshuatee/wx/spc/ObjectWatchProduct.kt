@@ -69,8 +69,7 @@ internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
                 title = "MPD $productNumber"
                 prod = "WPCMPD$productNumber"
             }
-            else -> {
-            }
+            else -> {}
         }
     }
 

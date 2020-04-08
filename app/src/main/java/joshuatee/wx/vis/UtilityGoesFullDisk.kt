@@ -63,7 +63,7 @@ internal object UtilityGoesFullDisk {
     fun getAnimation(context: Context, urlOriginal: String): AnimationDrawable {
         val url = urlOriginal.replace("10.gif", "")
         val count = 10
-        val urls = (1 until count + 1).mapTo(mutableListOf()) { "$url$it.gif" }
+        val urls = (1 until count + 1).map { "$url$it.gif" }
         return UtilityImgAnim.getAnimationDrawableFromUrlList(context, urls, UtilityImg.animInterval(context))
     }
 }

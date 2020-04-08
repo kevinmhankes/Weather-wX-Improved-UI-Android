@@ -87,8 +87,7 @@ class ObjectSettingsCheckBox(context: Context, label: String, pref: String, strI
             } else {
                 if (pref == "MEDIA_CONTROL_NOTIF") {
                     if (Utility.readPref(context, "MEDIA_CONTROL_NOTIF", "").startsWith("t")) {
-                        val notifier =
-                            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                        val notifier = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                         notifier.cancel("wx_media", 1)
                     }
                 }

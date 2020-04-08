@@ -182,11 +182,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun setImageAndClickAction(index: Int, urls: List<String>, textUrl: String) {
         objectCardImageList[index].setImage(bitmaps[index], imagesPerRow)
-        objectCardImageList[index].setOnClickListener(
-                View.OnClickListener {
-                    showImageProduct(urls[index], textUrl)
-                }
-        )
+        objectCardImageList[index].setOnClickListener(View.OnClickListener { showImageProduct(urls[index], textUrl) })
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -194,78 +190,18 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
             return true
         }
         when (item.itemId) {
-            R.id.action_share_all -> UtilityShare.shareText(
-                    this,
-                    this,
-                    "Day $day Convective Outlook",
-                    Utility.fromHtml(html),
-                    bitmaps
-            )
-            R.id.action_share_text -> UtilityShare.shareText(
-                    this,
-                    "Day $day Convective Outlook - Text",
-                    Utility.fromHtml(html)
-            )
-            R.id.action_share_tornado -> if (bitmaps.size > 1) UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    "Day $day Convective Outlook - Tornado",
-                    bitmaps[1]
-            )
-            R.id.action_share_hail -> if (bitmaps.size > 2) UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    "Day $day Convective Outlook - Hail",
-                    bitmaps[2]
-            )
-            R.id.action_share_wind -> if (bitmaps.size > 3) UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    "Day $day Convective Outlook - Wind",
-                    bitmaps[3]
-            )
-            R.id.action_share_categorical -> if (bitmaps.isNotEmpty()) UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    "Day $day Convective Outlook - Categorical",
-                    bitmaps[0]
-            )
-            R.id.action_share_probabilistic -> if (bitmaps.size > 1) UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    "Day $day Convective Outlook - Probabilistic",
-                    bitmaps[1]
-            )
-            R.id.action_share_d4 -> if (bitmaps.isNotEmpty()) UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    "Day " + "4" + " Convective Outlook - Image",
-                    bitmaps[0]
-            )
-            R.id.action_share_d5 -> if (bitmaps.size > 1) UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    "Day " + "5" + " Convective Outlook - Image",
-                    bitmaps[1]
-            )
-            R.id.action_share_d6 -> if (bitmaps.size > 2) UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    "Day " + "6" + " Convective Outlook - Image",
-                    bitmaps[2]
-            )
-            R.id.action_share_d7 -> if (bitmaps.size > 3) UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    "Day " + "7" + " Convective Outlook - Image",
-                    bitmaps[3]
-            )
-            R.id.action_share_d8 -> if (bitmaps.size > 4) UtilityShare.shareBitmap(
-                    this,
-                    this,
-                    "Day " + "8" + " Convective Outlook - Image",
-                    bitmaps[4]
-            )
+            R.id.action_share_all -> UtilityShare.shareText(this, this, "Day $day Convective Outlook", Utility.fromHtml(html), bitmaps)
+            R.id.action_share_text -> UtilityShare.shareText(this, "Day $day Convective Outlook - Text", Utility.fromHtml(html))
+            R.id.action_share_tornado -> if (bitmaps.size > 1) UtilityShare.shareBitmap(this, this, "Day $day Convective Outlook - Tornado", bitmaps[1])
+            R.id.action_share_hail -> if (bitmaps.size > 2) UtilityShare.shareBitmap(this, this, "Day $day Convective Outlook - Hail", bitmaps[2])
+            R.id.action_share_wind -> if (bitmaps.size > 3) UtilityShare.shareBitmap(this, this, "Day $day Convective Outlook - Wind", bitmaps[3])
+            R.id.action_share_categorical -> if (bitmaps.isNotEmpty()) UtilityShare.shareBitmap(this, this, "Day $day Convective Outlook - Categorical", bitmaps[0])
+            R.id.action_share_probabilistic -> if (bitmaps.size > 1) UtilityShare.shareBitmap(this, this, "Day $day Convective Outlook - Probabilistic", bitmaps[1])
+            R.id.action_share_d4 -> if (bitmaps.isNotEmpty()) UtilityShare.shareBitmap(this, this, "Day " + "4" + " Convective Outlook - Image", bitmaps[0])
+            R.id.action_share_d5 -> if (bitmaps.size > 1) UtilityShare.shareBitmap(this, this, "Day " + "5" + " Convective Outlook - Image", bitmaps[1])
+            R.id.action_share_d6 -> if (bitmaps.size > 2) UtilityShare.shareBitmap(this, this, "Day " + "6" + " Convective Outlook - Image", bitmaps[2])
+            R.id.action_share_d7 -> if (bitmaps.size > 3) UtilityShare.shareBitmap(this, this, "Day " + "7" + " Convective Outlook - Image", bitmaps[3])
+            R.id.action_share_d8 -> if (bitmaps.size > 4) UtilityShare.shareBitmap(this, this, "Day " + "8" + " Convective Outlook - Image", bitmaps[4])
             R.id.action_state_graphics -> ObjectIntent(this, SpcSwoStateGraphicsActivity::class.java, SpcSwoStateGraphicsActivity.NO, arrayOf(day, ""))
             else -> return super.onOptionsItemSelected(item)
         }

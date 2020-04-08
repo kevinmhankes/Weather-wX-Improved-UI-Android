@@ -66,7 +66,7 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmaps = mutableListOf()
         withContext(Dispatchers.IO) {
-            arrayOf("1", "2", "3", "4-8").forEach {
+            listOf("1", "2", "3", "4-8").forEach {
                 bitmaps.addAll(UtilitySpcSwo.getImages(it, false))
             }
         }
