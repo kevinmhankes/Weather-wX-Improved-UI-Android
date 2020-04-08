@@ -47,7 +47,7 @@ class WeatherDataProvider : ContentProvider() {
         val dayArr = sevenDay.split("\n\n").dropLastWhile { it.isEmpty() }.toMutableList()
         if (dayArr.size > 1) {
             dayArr[0] = preferences.getString("CC_WIDGET", "No data")!!
-            (0 until dayArr.lastIndex).mapTo(sData) { WeatherDataPoint(dayArr[it] + "\n", 0) }
+            sData = (0 until dayArr.lastIndex).map{ WeatherDataPoint(dayArr[it] + "\n", 0) }
         }
         return true
     }
@@ -107,6 +107,6 @@ class WeatherDataProvider : ContentProvider() {
          * Database, SharedPreferences) so that the data can persist if the process is ever killed.
          * For simplicity, in this sample the data will only be stored in memory.
          */
-        private val sData = mutableListOf<WeatherDataPoint>()
+        private var sData = listOf<WeatherDataPoint>()
     }
 }

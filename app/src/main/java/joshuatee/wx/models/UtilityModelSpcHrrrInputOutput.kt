@@ -68,7 +68,7 @@ internal object UtilityModelSpcHrrrInputOutput {
                 "_" + getSectorCode(om.sector) + "_" + om.currentParam + ".gif"
         bitmaps.add(UtilityImg.eraseBackground(imgUrl.getImage(), -1))
         layers.add(ColorDrawable(Color.WHITE))
-        bitmaps.mapTo(layers) { BitmapDrawable(context.resources, it) }
+        layers += bitmaps.map { BitmapDrawable(context.resources, it) }
         return UtilityImg.layerDrawableToBitmap(layers)
     }
 

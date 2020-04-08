@@ -162,19 +162,19 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
 
     private val lsrFromWfo: List<String>
         get() {
-            val localStormReports = mutableListOf<String>()
+            val localStormReports: List<String>
             val numberLSR = UtilityString.getHtmlAndParseLastMatch(
                     "https://forecast.weather.gov/product.php?site=$wfo&issuedby=$wfo&product=LSR&format=txt&version=1&glossary=0",
                     "product=LSR&format=TXT&version=(.*?)&glossary"
             )
             if (numberLSR == "") {
-                localStormReports.add("None issued by this office recently.")
+                localStormReports = listOf("None issued by this office recently.")
             } else {
                 var maxVersions = numberLSR.toIntOrNull() ?: 0
                 if (maxVersions > 30) {
                     maxVersions = 30
                 }
-                (1..maxVersions + 1 step 2).mapTo(localStormReports) {
+                localStormReports = (1..maxVersions + 1 step 2).map {
                     UtilityDownload.getTextProduct("LSR$wfo", it)
                 }
             }

@@ -81,7 +81,7 @@ object UtilityTts {
 
     private fun splitInChunks(s: String, chunkSize: Int): List<String> {
         val length = s.length
-        return (0..length step chunkSize).mapTo(mutableListOf()) {
+        return (0..length step chunkSize).map {
             s.substring(it, min(length, it + chunkSize))
         }
     }

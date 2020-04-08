@@ -34,7 +34,7 @@ import kotlinx.android.synthetic.main.activity_linear_layout.*
 
 class SettingsColorsActivity : BaseActivity() {
 
-    private val colorObjects = mutableListOf<ObjectSettingsColorLabel>()
+    private var objectSettingsColorLabels = listOf<ObjectSettingsColorLabel>()
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,13 +67,11 @@ class SettingsColorsActivity : BaseActivity() {
             "NWS Forecast Icon Bottom color" to "NWS_ICON_BOTTOM_COLOR",
             "Nexrad Radar Background color" to "NEXRAD_RADAR_BACKGROUND_COLOR"
         )
-
         MyApplication.radarWarningPolygons.forEach {
             mapColorToPref[it.name + " color"] = it.prefTokenColor
         }
-
-        mapColorToPref.keys.asSequence().sorted().mapTo(colorObjects) { ObjectSettingsColorLabel(this, it, mapColorToPref[it]!!) }
-        colorObjects.forEach {
+        objectSettingsColorLabels = mapColorToPref.keys.sorted().map { ObjectSettingsColorLabel(this, it, mapColorToPref[it]!!) }
+        objectSettingsColorLabels.forEach {
             linearLayout.addView(it.card)
         }
     }
@@ -91,7 +89,7 @@ class SettingsColorsActivity : BaseActivity() {
 
     private fun setColorOnButtons() {
         MyApplication.initPreferences(this)
-        colorObjects.forEach {
+        objectSettingsColorLabels.forEach {
             it.refreshColor()
         }
     }

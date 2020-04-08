@@ -171,7 +171,7 @@ class FavRemoveActivity : BaseActivity() {
         favoriteString = Utility.readPref(this, prefToken, "")
         val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
         favorites.clear()
-        (startIndex until tempList.size).mapTo(favorites) { tempList[it] }
+        favorites = (startIndex until tempList.size).map { tempList[it] }.toMutableList()
         if (pos != favorites.lastIndex) {
             val tmp = favorites[pos + 1]
             val tmp2 = favorites[pos]

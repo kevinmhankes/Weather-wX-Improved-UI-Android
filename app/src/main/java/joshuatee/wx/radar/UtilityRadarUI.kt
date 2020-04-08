@@ -119,7 +119,7 @@ internal object UtilityRadarUI {
             wpcFrontsTimeStamp = wpcFrontsTimeStamp.insert(4, " ")
             longPressList.add(MyApplication.newline + "WPC Fronts: " + wpcFrontsTimeStamp)
         }
-        wxglRender.ridNewList.mapTo(longPressList) { "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name) }
+        longPressList += wxglRender.ridNewList.map { "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name) }
         val obsSite = UtilityMetar.findClosestObservation(context, wxglSurfaceView.latLon)
         if (MyApplication.radarWarnings) {
             longPressList.add("Show Warning text")

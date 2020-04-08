@@ -193,7 +193,7 @@ object UtilityCanadaImg {
             urlList += ":$it"
         }
         val urls = urlList.split(":").dropLastWhile { it.isEmpty() }
-        val urlAl = urls.mapTo(mutableListOf()) { MyApplication.canadaEcSitePrefix + it.replace("detailed/", "") }
+        val urlAl = urls.map { MyApplication.canadaEcSitePrefix + it.replace("detailed/", "") }.toMutableList()
         urlAl.reverse()
         return UtilityImgAnim.getAnimationDrawableFromUrlList(context, urlAl, UtilityImg.animInterval(context))
     }

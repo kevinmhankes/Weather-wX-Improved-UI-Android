@@ -820,7 +820,7 @@ class LocationFragment : Fragment()  {
     }
 
     private fun getLocationForecastSevenDay() = GlobalScope.launch(uiDispatcher) {
-        val bitmaps = mutableListOf<Bitmap>()
+        var bitmaps = listOf<Bitmap>()
         if (locationChangedSevenDay) {
             linearLayoutForecast?.removeAllViewsInLayout()
             locationChangedSevenDay = false
@@ -835,7 +835,7 @@ class LocationFragment : Fragment()  {
             try {
                 Utility.writePref(activityReference, "FCST", objSevenDay.sevenDayLong)
                 if (homescreenFavLocal.contains("TXT-7DAY")) {
-                    objSevenDay.icons.mapTo(bitmaps) { UtilityNws.getIcon(activityReference, it) }
+                    bitmaps = objSevenDay.icons.map { UtilityNws.getIcon(activityReference, it) }
                 }
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
