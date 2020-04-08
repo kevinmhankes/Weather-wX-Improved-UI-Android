@@ -40,7 +40,7 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private var bitmaps = mutableListOf<Bitmap>()
+    private var bitmaps = listOf<Bitmap>()
     private var imagesPerRow = 2
 
     @SuppressLint("MissingSuperCall")
@@ -61,12 +61,7 @@ class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemCli
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        bitmaps = mutableListOf()
-        withContext(Dispatchers.IO) {
-            UtilityWpcRainfallForecast.urls.forEach {
-                bitmaps.add(it.getImage())
-            }
-        }
+        bitmaps = withContext(Dispatchers.IO) { UtilityWpcRainfallForecast.urls.map { it.getImage() } }
         linearLayout.removeAllViews()
         val objectImageSummary = ObjectImageSummary(this@WpcRainfallForecastSummaryActivity, linearLayout, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->

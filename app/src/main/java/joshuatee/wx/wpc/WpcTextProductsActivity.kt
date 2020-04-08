@@ -90,14 +90,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
         products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
         objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, products)
         UtilityWpcText.createData()
-        drw = ObjectNavDrawerCombo(
-                this,
-                UtilityWpcText.groups,
-                UtilityWpcText.longCodes,
-                UtilityWpcText.shortCodes,
-                this,
-                ""
-        )
+        drw = ObjectNavDrawerCombo(this, UtilityWpcText.groups, UtilityWpcText.longCodes, UtilityWpcText.shortCodes, this, "")
         drw.setListener(::changeProduct)
     }
 
