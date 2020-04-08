@@ -24,9 +24,9 @@ package joshuatee.wx.activitiesmisc
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
@@ -44,7 +44,7 @@ import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.GraphView
 import kotlinx.coroutines.*
 
-class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
+class HourlyActivity : BaseActivity() {
 
     //
     // This activity is accessible from the action bar and provides hourly forecast for the current location
@@ -62,10 +62,14 @@ class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     private var hourlyData = ObjectHourly()
     private var locationNumber = 0
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.hourly_top, menu)
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_hourly, R.menu.shared_multigraphics, true)
-        toolbarBottom.setOnMenuItemClickListener(this)
+        super.onCreate(savedInstanceState, R.layout.activity_hourly, R.menu.shared_multigraphics, false)
         locationNumber = (intent.getStringExtra(LOC_NUM)!!.toIntOrNull() ?: 0) - 1
         objectCard = ObjectCard(this, R.color.black, R.id.graphCard)
         graphCard.visibility = View.GONE
@@ -93,7 +97,7 @@ class HourlyActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         plotData()
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> if (htmlShare.size > 1) {
                 UtilityShare.shareText(this, "Hourly", htmlShare[1])
