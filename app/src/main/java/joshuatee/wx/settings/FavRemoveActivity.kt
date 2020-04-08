@@ -125,23 +125,23 @@ class FavRemoveActivity : BaseActivity() {
         }
     }
 
-    private fun moveUp(pos: Int) {
+    private fun moveUp(position: Int) {
         favoriteString = Utility.readPref(this, prefToken, "")
         val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
         favorites.clear()
         (startIndex until tempList.size).mapTo(favorites) { tempList[it] }
-        if (pos != 0) {
-            val tmp = favorites[pos - 1]
-            val tmp2 = favorites[pos]
-            favorites[pos - 1] = tmp2
-            objectRecyclerView.setItem(pos - 1, objectRecyclerView.getItem(pos))
-            favorites[pos] = tmp
-            objectRecyclerView.setItem(pos, getFullString(tmp))
+        if (position != 0) {
+            val tmp = favorites[position - 1]
+            val tmp2 = favorites[position]
+            favorites[position - 1] = tmp2
+            objectRecyclerView.setItem(position - 1, objectRecyclerView.getItem(position))
+            favorites[position] = tmp
+            objectRecyclerView.setItem(position, getFullString(tmp))
         } else {
             val tmp = favorites.last()
-            val tmp2 = favorites[pos]
+            val tmp2 = favorites[position]
             favorites[favorites.lastIndex] = tmp2
-            objectRecyclerView.setItem(favorites.lastIndex, objectRecyclerView.getItem(pos))
+            objectRecyclerView.setItem(favorites.lastIndex, objectRecyclerView.getItem(position))
             favorites[0] = tmp
             objectRecyclerView.setItem(0, getFullString(tmp))
         }
