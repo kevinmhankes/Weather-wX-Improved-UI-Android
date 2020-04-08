@@ -24,7 +24,6 @@ package joshuatee.wx.canada
 import java.util.Locale
 
 import joshuatee.wx.MyApplication
-import joshuatee.wx.objects.LatLonStr
 import joshuatee.wx.util.Utility
 
 import joshuatee.wx.Extensions.*
@@ -372,21 +371,17 @@ object UtilityCanada {
         return UtilityCitiesCanada.cities.any { it.contains(label) }
     }
 
-    // FIXME use indexOf and check for -1
-    // FIXME use LatLon and decom LatLonStr
-    fun getLatLonFromLabel(label: String): LatLonStr {
+    fun getLatLonFromLabel(label: String): LatLon {
         val latLon = DoubleArray(2)
-        var i = 0
         UtilityCitiesCanada.initialize()
-        for (l in UtilityCitiesCanada.cities) {
-            if (l == label) {
+        for (i in UtilityCitiesCanada.cities.indices) {
+            if (UtilityCitiesCanada.cities[i] == label) {
                 latLon[0] = UtilityCitiesCanada.lat[i]
                 latLon[1] = UtilityCitiesCanada.lon[i]
                 break
             }
-            i += 1
         }
-        return LatLonStr(latLon[0].toString(), latLon[1].toString())
+        return LatLon(latLon[0].toString(), latLon[1].toString())
     }
 }
 

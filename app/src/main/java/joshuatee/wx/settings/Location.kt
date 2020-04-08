@@ -24,7 +24,6 @@ package joshuatee.wx.settings
 import android.content.Context
 import joshuatee.wx.MyApplication
 import joshuatee.wx.canada.UtilityCanada
-import joshuatee.wx.objects.LatLonStr
 import joshuatee.wx.radar.LatLon
 import joshuatee.wx.util.Utility
 import java.util.*
@@ -288,7 +287,7 @@ class Location(val context: Context, locNumInt: Int) {
                 Utility.writePref(context, "NWS$locNum", wfo.toUpperCase(Locale.US)
                 )
             } else if (xStr.contains("CANADA")) {
-                var tmpLatLon = LatLonStr()
+                var tmpLatLon = LatLon()
                 if (xStr.length < 12) {
                     // if we are here then the user used the submenu
                     // need to calculate lat/lon first as get rid is now coded to parse on ":" for both x/y
@@ -306,11 +305,12 @@ class Location(val context: Context, locNumInt: Int) {
                     id = parseId[0]
                 }
                 if (xStr.length > 12) {
-                    tmpLatLon.latStr = parseProv[2]
-                    tmpLatLon.lonStr = parseId[1]
+                    //tmpLatLon.latStr = parseProv[2]
+                    //tmpLatLon.lonStr = parseId[1]
+                    tmpLatLon = LatLon(parseProv[2], parseId[1])
                 }
-                Utility.writePref(context, "LOC" + locNum + "_X", "CANADA" + ":" + prov + ":" + tmpLatLon.latStr)
-                Utility.writePref(context, "LOC" + locNum + "_Y", id + ":" + tmpLatLon.lonStr)
+                Utility.writePref(context, "LOC" + locNum + "_X", "CANADA" + ":" + prov + ":" + tmpLatLon.latString)
+                Utility.writePref(context, "LOC" + locNum + "_Y", id + ":" + tmpLatLon.lonString)
                 setNumLocations(context, locNumToSave)
                 radarSite = UtilityCanada.getRadarSite(xStr, yStr)
                 Utility.writePref(context, "RID$locNum", radarSite.toUpperCase(Locale.US))

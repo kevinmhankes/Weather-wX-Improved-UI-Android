@@ -33,8 +33,9 @@
 // TODO [REF] convert stuff like this MyApplication.locations[n - 1].x to Location.get*
 // TODO [REF] add shortcut for this: (1..Location.numLocations)
 
-55393 2020_04_07    [REF] misc for readability
+55393 2020_04_08    [REF] misc for readability
                     [FIX] crash and off by one issue in radar icon in severe dashboard
+                    [REF] remove LatLonStr
 55392 2020_04_07    [REF] misc for readability
 55391 2020_04_06    [FIX] remove line breaks in WPC Excessive rainfall text products
 55390 2020_04_05    [REF] misc for readability
