@@ -50,10 +50,7 @@ object UtilityCanadaImg {
         val urls = mutableListOf<String>()
         if (times.size > frameCnt)
             (times.size - frameCnt until times.size).mapTo(urls) {
-                "https://weather.gc.ca/data/satellite/goes_" + region + "_" + imgType + "_m_" + times[it].replace(
-                        " ",
-                        "_"
-                ).replace("/", "@") + ".jpg"
+                "https://weather.gc.ca/data/satellite/goes_" + region + "_" + imgType + "_m_" + times[it].replace(" ", "_").replace("/", "@") + ".jpg"
             }
         return UtilityImgAnim.getAnimationDrawableFromUrlList(context, urls, delay)
     }
@@ -65,9 +62,9 @@ object UtilityCanadaImg {
             durationPattern = "<p>Long .3hr.:</p>(.*?)</div>"
         }
         val radarHtml1Hr = radHtml.parse(durationPattern)
-        var urlString = ""
         var timeStamps = radarHtml1Hr.parseColumn("display='(.*?)'&amp;")
         val radarSiteCode = (timeStamps.first()).split("_")[0]
+        var urlString = ""
         timeStamps.forEach {
             urlString += ":/data/radar/detailed/temp_image/$radarSiteCode/$it.GIF"
         }
@@ -81,9 +78,8 @@ object UtilityCanadaImg {
     internal fun getRadarAnimOptionsApplied(context: Context, radarSite: String, frameCntStr: String): AnimationDrawable {
         val url = getRadarAnimStringArray(radarSite, frameCntStr)
         val urls = url.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
-        val bitmaps = mutableListOf<Bitmap>()
         urls.reverse()
-        urls.asSequence().filter { it != "" }.mapTo(bitmaps) {
+        val bitmaps = urls.asSequence().filter { it != "" }.mapTo(mutableListOf()) {
             getRadarBitmapOptionsApplied(context, radarSite, MyApplication.canadaEcSitePrefix + it.replace("detailed/", ""))
         }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps, UtilityImg.animInterval(context))
@@ -94,20 +90,18 @@ object UtilityCanadaImg {
         if (url == "") {
             val radHtml = (MyApplication.canadaEcSitePrefix + "/radar/index_e.html?id=$radarSite").getHtml()
             val matchStr = "(/data/radar/.*?GIF)\""
-            var summary = radHtml.parse(matchStr)
-            summary = summary.replace("detailed/", "")
+            val summary = radHtml.parse(matchStr).replace("detailed/", "")
             urlImg = MyApplication.canadaEcSitePrefix + "/$summary"
         } else {
             urlImg = url
         }
-        val layerCnt = if (GeographyType.CITIES.pref) {
+        val layerCount = if (GeographyType.CITIES.pref) {
             2
         } else {
             1
         }
-        val bitmaps = mutableListOf<Bitmap>()
+        val bitmaps = mutableListOf(urlImg.getImage())
         val layers = mutableListOf<Drawable>()
-        bitmaps.add(urlImg.getImage())
         if (GeographyType.CITIES.pref) {
             val cityUrl = MyApplication.canadaEcSitePrefix + "/cacheable/images/radar/layers_detailed/default_cities/" + radarSite.toLowerCase(Locale.US) + "_towns.gif"
             val bitmapTemp = cityUrl.getImage()
@@ -116,7 +110,7 @@ object UtilityCanadaImg {
             canvas.drawBitmap(bitmapTemp, 0f, 0f, Paint(Paint.FILTER_BITMAP_FLAG))
             bitmaps.add(bigBitmap)
         }
-        (0 until layerCnt).forEach {
+        (0 until layerCount).forEach {
             val drawable = if (it == 1) {
                 BitmapDrawable(context.resources, UtilityImg.eraseBackground(bitmaps[it], -1))
             } else {

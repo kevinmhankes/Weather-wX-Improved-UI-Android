@@ -177,6 +177,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
     private fun getRadarMosaic(sector: String) {
         this.mosaicShown = true
         this.imageType = "rad"
+        img.resetZoom()
         getMosaic(sector)
     }
 
