@@ -54,7 +54,9 @@ class SingleTextAdapterList(private val dataSet: MutableList<String>) : Recycler
     // used in FavRemoveActivity for SPCMeso
     override fun toString(): String {
         var string = ""
-        dataSet.forEach { string += ":$it" }
+        dataSet.forEach {
+            string += ":$it"
+        }
         return "$string:"
     }
 

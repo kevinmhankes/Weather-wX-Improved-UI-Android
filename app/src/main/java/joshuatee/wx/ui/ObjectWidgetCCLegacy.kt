@@ -91,12 +91,7 @@ class ObjectWidgetCCLegacy(context: Context, allWidgetIds: IntArray) {
                     R.id.b_dash
             )
             icons.indices.forEach {
-                UtilityUI.setResDrawable(
-                        context,
-                        remoteViews,
-                        buttons[it],
-                        icons[it]
-                )
+                UtilityUI.setResDrawable(context, remoteViews, buttons[it], icons[it])
             }
         }
         remoteViews.setTextViewText(R.id.cc, cc)
@@ -139,10 +134,7 @@ class ObjectWidgetCCLegacy(context: Context, allWidgetIds: IntArray) {
                     USWarningsWithRadarActivity::class.java,
                     R.id.b_alert,
                     USWarningsWithRadarActivity.URL,
-                    arrayOf(
-                            ".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?",
-                            "us"
-                    ),
+                    arrayOf(".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?", "us"),
                     actionAlert
             )
         } else {

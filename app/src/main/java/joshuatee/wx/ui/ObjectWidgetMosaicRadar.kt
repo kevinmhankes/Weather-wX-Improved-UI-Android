@@ -39,13 +39,13 @@ class ObjectWidgetMosaicRadar(context: Context) {
 
     init {
         val widgetLocationNumber = Utility.readPref(context, "WIDGET_LOCATION", "1")
-        val prov = Utility.readPref(context, "NWS" + widgetLocationNumber + "_STATE", "")
+        val province = Utility.readPref(context, "NWS" + widgetLocationNumber + "_STATE", "")
         UtilityWidget.setImage(context, remoteViews, MOSAIC_RADAR.fileName)
         if (!MyApplication.widgetPreventTap) {
             if (Location.isUS(widgetLocationNumber)) {
                 UtilityWidget.setupIntent(context, remoteViews, USNwsMosaicActivity::class.java, R.id.iv, USNwsMosaicActivity.URL, arrayOf("widget"), MOSAIC_RADAR.action)
             } else {
-                UtilityWidget.setupIntent(context, remoteViews, CanadaRadarActivity::class.java, R.id.iv, CanadaRadarActivity.RID, arrayOf(UtilityCanada.getECSectorFromProv(prov), "rad"), MOSAIC_RADAR.action)
+                UtilityWidget.setupIntent(context, remoteViews, CanadaRadarActivity::class.java, R.id.iv, CanadaRadarActivity.RID, arrayOf(UtilityCanada.getECSectorFromProv(province), "rad"), MOSAIC_RADAR.action)
             }
         }
     }
