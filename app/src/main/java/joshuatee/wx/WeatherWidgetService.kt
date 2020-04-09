@@ -41,7 +41,7 @@ class WeatherWidgetService : RemoteViewsService() {
 
 internal class StackRemoteViewsFactory(private val context: Context) :
     RemoteViewsService.RemoteViewsFactory {
-    private var mCursor: Cursor? = null
+    private var cursor: Cursor? = null
 
     override fun onCreate() {
         // Since we reload the cursor in onDataSetChanged() which gets called immediately after
@@ -49,11 +49,11 @@ internal class StackRemoteViewsFactory(private val context: Context) :
     }
 
     override fun onDestroy() {
-        mCursor?.close()
+        cursor?.close()
     }
 
-    override fun getCount() = if (mCursor != null) {
-            mCursor!!.count
+    override fun getCount() = if (cursor != null) {
+            cursor!!.count
         } else {
             0
         }
@@ -61,23 +61,20 @@ internal class StackRemoteViewsFactory(private val context: Context) :
     override fun getViewAt(position: Int): RemoteViews {
         var day = "Unknown Day"
         var temp = 0
-        if (mCursor!!.moveToPosition(position)) {
-            val dayColIndex = mCursor!!.getColumnIndex(WeatherDataProvider.Columns.DAY)
-            val tempColIndex = mCursor!!.getColumnIndex(
+        if (cursor!!.moveToPosition(position)) {
+            val dayColIndex = cursor!!.getColumnIndex(WeatherDataProvider.Columns.DAY)
+            val tempColIndex = cursor!!.getColumnIndex(
                 WeatherDataProvider.Columns.TEMPERATURE
             )
-            day = mCursor!!.getString(dayColIndex)
-            temp = mCursor!!.getInt(tempColIndex)
+            day = cursor!!.getString(dayColIndex)
+            temp = cursor!!.getInt(tempColIndex)
         }
         var t1 = ""
         var t2 = ""
         val formatStr = context.resources.getString(R.string.item_format_string)
         val itemId = R.layout.widget_item
-        val rv = RemoteViews(context.packageName, itemId)
-        val preferences = context.getSharedPreferences(
-            context.packageName + "_preferences",
-            Context.MODE_PRIVATE
-        )
+        val remoteViews = RemoteViews(context.packageName, itemId)
+        val preferences = context.getSharedPreferences(context.packageName + "_preferences", Context.MODE_PRIVATE)
         if (position != 0) {
             val tempStrArr = MyApplication.colonSpace.split(day)
             if (tempStrArr.size > 1) {
@@ -99,23 +96,23 @@ internal class StackRemoteViewsFactory(private val context: Context) :
             }
             t2 += MyApplication.newline + preferences.getString("UPDTIME_WIDGET", "No data")
         }
-        rv.setTextViewText(R.id.widget_tv1, String.format(formatStr, temp, t1))
-        rv.setTextViewText(R.id.widget_tv2, String.format(formatStr, temp, t2))
+        remoteViews.setTextViewText(R.id.widget_tv1, String.format(formatStr, temp, t1))
+        remoteViews.setTextViewText(R.id.widget_tv2, String.format(formatStr, temp, t2))
         var iconStr = preferences.getString("7DAY_ICONS_WIDGET", "NoData")
         iconStr = preferences.getString("CC_WIDGET_ICON_URL", "NULL")!! + "!" + iconStr
         val iconArr = iconStr.split("!")
         if (position < iconArr.size) {
-            rv.setImageViewUri(R.id.iv, Uri.parse(""))
-            rv.setImageViewBitmap(R.id.iv, UtilityNws.getIcon(context, iconArr[position]))
+            remoteViews.setImageViewUri(R.id.iv, Uri.parse(""))
+            remoteViews.setImageViewBitmap(R.id.iv, UtilityNws.getIcon(context, iconArr[position]))
         }
         val fillInIntent = Intent()
         val extras = Bundle()
         extras.putString(WeatherWidgetProvider.EXTRA_DAY_ID, day)
         fillInIntent.putExtras(extras)
-        rv.setOnClickFillInIntent(R.id.widget_tv1, fillInIntent)
-        rv.setOnClickFillInIntent(R.id.widget_tv2, fillInIntent)
-        rv.setOnClickFillInIntent(R.id.iv, fillInIntent)
-        return rv
+        remoteViews.setOnClickFillInIntent(R.id.widget_tv1, fillInIntent)
+        remoteViews.setOnClickFillInIntent(R.id.widget_tv2, fillInIntent)
+        remoteViews.setOnClickFillInIntent(R.id.iv, fillInIntent)
+        return remoteViews
     }
 
     override fun getLoadingView(): RemoteViews? = null
@@ -127,13 +124,7 @@ internal class StackRemoteViewsFactory(private val context: Context) :
     override fun hasStableIds() = true
 
     override fun onDataSetChanged() {
-        mCursor?.close()
-        mCursor = context.contentResolver.query(
-            WeatherDataProvider.CONTENT_URI,
-            null,
-            null,
-            null,
-            null
-        )
+        cursor?.close()
+        cursor = context.contentResolver.query(WeatherDataProvider.CONTENT_URI, null, null, null, null)
     }
 }

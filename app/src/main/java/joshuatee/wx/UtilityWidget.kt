@@ -187,13 +187,13 @@ object UtilityWidget {
         contentResolver.delete(WeatherDataProvider.CONTENT_URI, null, null)
         val widgetManager = AppWidgetManager.getInstance(context)
         val componentName = ComponentName(context, WeatherWidgetProvider::class.java)
-        if (WeatherWidgetProvider.sWorkerQueue != null) {
-            WeatherWidgetProvider.sDataObserver =
-                WeatherDataProviderObserver(widgetManager, componentName, WeatherWidgetProvider.sWorkerQueue!!)
+        if (WeatherWidgetProvider.workerQueue != null) {
+            WeatherWidgetProvider.weatherDataProviderObserver =
+                WeatherDataProviderObserver(widgetManager, componentName, WeatherWidgetProvider.workerQueue!!)
             contentResolver.registerContentObserver(
                 WeatherDataProvider.CONTENT_URI,
                 true,
-                WeatherWidgetProvider.sDataObserver!!
+                WeatherWidgetProvider.weatherDataProviderObserver!!
             )
         }
         val preferences = context.getSharedPreferences(context.packageName + "_preferences", Context.MODE_PRIVATE)
@@ -214,7 +214,7 @@ object UtilityWidget {
         val thisWidget = ComponentName(context, WeatherWidgetProvider::class.java)
         val allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget)
         allWidgetIds.forEach {
-            val layout = WeatherWidgetProvider.buildLayout(context, it, WeatherWidgetProvider.mIsLargeLayout)
+            val layout = WeatherWidgetProvider.buildLayout(context, it, WeatherWidgetProvider.isLargeLayout)
             appWidgetManager.updateAppWidget(it, layout)
         }
     }
