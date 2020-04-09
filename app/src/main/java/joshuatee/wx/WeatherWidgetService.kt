@@ -31,16 +31,14 @@ import joshuatee.wx.fragments.UtilityNws
  * This is the service that provides the factory to be bound to the collection service.
  */
 class WeatherWidgetService : RemoteViewsService() {
-    override fun onGetViewFactory(intent: Intent): RemoteViewsFactory =
-        StackRemoteViewsFactory(this.applicationContext)
+    override fun onGetViewFactory(intent: Intent): RemoteViewsFactory = StackRemoteViewsFactory(this.applicationContext)
 }
 
 /**
  * This is the factory that will provide data to the collection widget.
  */
 
-internal class StackRemoteViewsFactory(private val context: Context) :
-    RemoteViewsService.RemoteViewsFactory {
+internal class StackRemoteViewsFactory(private val context: Context) : RemoteViewsService.RemoteViewsFactory {
     private var cursor: Cursor? = null
 
     override fun onCreate() {
@@ -63,9 +61,7 @@ internal class StackRemoteViewsFactory(private val context: Context) :
         var temp = 0
         if (cursor!!.moveToPosition(position)) {
             val dayColIndex = cursor!!.getColumnIndex(WeatherDataProvider.Columns.DAY)
-            val tempColIndex = cursor!!.getColumnIndex(
-                WeatherDataProvider.Columns.TEMPERATURE
-            )
+            val tempColIndex = cursor!!.getColumnIndex(WeatherDataProvider.Columns.TEMPERATURE)
             day = cursor!!.getString(dayColIndex)
             temp = cursor!!.getInt(tempColIndex)
         }
@@ -87,12 +83,11 @@ internal class StackRemoteViewsFactory(private val context: Context) :
             }
         } else {
             val sep = " - "
-            val tmpArrCc = day.split(sep).dropLastWhile { it.isEmpty() }
-            val tempArr: List<String>
-            if (tmpArrCc.size > 4) {
-                tempArr = tmpArrCc[0].split("/").dropLastWhile { it.isEmpty() }
-                t1 = tmpArrCc[4].replace("^ ", "") + " " + tempArr[0] + tmpArrCc[2]
-                t2 = tempArr[1].replace("^ ", "") + sep + tmpArrCc[1] + sep + tmpArrCc[3]
+            val items = day.split(sep).dropLastWhile { it.isEmpty() }
+            if (items.size > 4) {
+                val list = items[0].split("/").dropLastWhile { it.isEmpty() }
+                t1 = items[4].replace("^ ", "") + " " + list[0] + items[2]
+                t2 = list[1].replace("^ ", "") + sep + items[1] + sep + items[3]
             }
             t2 += MyApplication.newline + preferences.getString("UPDTIME_WIDGET", "No data")
         }
@@ -100,10 +95,10 @@ internal class StackRemoteViewsFactory(private val context: Context) :
         remoteViews.setTextViewText(R.id.widget_tv2, String.format(formatStr, temp, t2))
         var iconStr = preferences.getString("7DAY_ICONS_WIDGET", "NoData")
         iconStr = preferences.getString("CC_WIDGET_ICON_URL", "NULL")!! + "!" + iconStr
-        val iconArr = iconStr.split("!")
-        if (position < iconArr.size) {
+        val icons = iconStr.split("!")
+        if (position < icons.size) {
             remoteViews.setImageViewUri(R.id.iv, Uri.parse(""))
-            remoteViews.setImageViewBitmap(R.id.iv, UtilityNws.getIcon(context, iconArr[position]))
+            remoteViews.setImageViewBitmap(R.id.iv, UtilityNws.getIcon(context, icons[position]))
         }
         val fillInIntent = Intent()
         val extras = Bundle()
