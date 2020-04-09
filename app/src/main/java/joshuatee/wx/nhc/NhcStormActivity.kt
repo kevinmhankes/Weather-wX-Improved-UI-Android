@@ -47,7 +47,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     //
     // Arguments
     //
-    //  1: URL
+    //  1: URL ( FIXME for what? )
     //  2: Title
     //  3: IMG URL
     //  4: IMG URL
@@ -60,6 +60,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var activityArguments: List<String>
+    // FIXME analyze usage of url, probably not needed here
     private var url = ""
     private var html = ""
     private var product = ""
@@ -115,12 +116,11 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmaps.clear()
-        withContext(Dispatchers.IO) { topBitmap = (baseUrl + "_5day_cone_with_line_and_wind_sm2.png").getImage() }
+        topBitmap = withContext(Dispatchers.IO) { (baseUrl + "_5day_cone_with_line_and_wind_sm2.png").getImage() }
         ObjectCardImage(this@NhcStormActivity, linearLayout, topBitmap)
-        url = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@NhcStormActivity, product) }
+        html = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@NhcStormActivity, product) }
         objectCardText = ObjectCardText(this@NhcStormActivity, linearLayout, toolbar, toolbarBottom)
-        objectCardText.text = Utility.fromHtml(url)
-        html = url
+        objectCardText.text = Utility.fromHtml(html)
         withContext(Dispatchers.IO) {
             listOf(
                     "_key_messages.png",
@@ -149,13 +149,12 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun getText() = GlobalScope.launch(uiDispatcher) {
-        url = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@NhcStormActivity, product) }
-        if (url.contains("<")) {
-            objectCardText.text = Utility.fromHtml(url)
+        html = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@NhcStormActivity, product) }
+        if (html.contains("<")) {
+            objectCardText.text = Utility.fromHtml(html)
         } else {
-            objectCardText.text = url
+            objectCardText.text = html
         }
-        html = url
         scrollView.smoothScrollTo(0, 0)
     }
 

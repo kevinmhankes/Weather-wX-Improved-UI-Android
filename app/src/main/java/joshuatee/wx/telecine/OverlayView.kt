@@ -119,16 +119,14 @@ internal class OverlayView private constructor(
             )
         }
         if (getLayoutDirectionFromLocale(Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL) {
-            animationWidth =
-                -animationWidth // Account for animating in from the other side of screen.
+            animationWidth = -animationWidth // Account for animating in from the other side of screen.
         }
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         translationX = animationWidth.toFloat()
-        animate().translationX(0f).setDuration(DURATION_ENTER_EXIT.toLong()).interpolator =
-            DecelerateInterpolator()
+        animate().translationX(0f).setDuration(DURATION_ENTER_EXIT.toLong()).interpolator = DecelerateInterpolator()
     }
 
     override fun onClick(view: View) {
@@ -184,8 +182,7 @@ internal class OverlayView private constructor(
     }
 
     private fun countdownComplete() {
-        recordingView.animate().alpha(0f).setDuration(COUNTDOWN_DELAY.toLong())
-            .withEndAction { startRecording() }
+        recordingView.animate().alpha(0f).setDuration(COUNTDOWN_DELAY.toLong()).withEndAction { startRecording() }
     }
 
     private fun countdown(countdownArr: Array<String>, index: Int) {
@@ -238,7 +235,10 @@ internal class OverlayView private constructor(
 
         private fun gravityEndLocaleHack(): Int {
             val direction = getLayoutDirectionFromLocale(Locale.getDefault())
-            return if (direction == View.LAYOUT_DIRECTION_RTL) Gravity.START else Gravity.END
+            return if (direction == View.LAYOUT_DIRECTION_RTL)
+                Gravity.START
+            else
+                Gravity.END
         }
     }
 }

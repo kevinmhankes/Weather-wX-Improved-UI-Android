@@ -59,11 +59,7 @@ object UtilityModels {
                 }
                 (0 until om.numPanes).forEach {
                     if (om.numPanes > 1) {
-                        UtilityImg.resizeViewAndSetImage(
-                                context,
-                                om.displayData.bitmap[it],
-                                om.displayData.img[it]
-                        )
+                        UtilityImg.resizeViewAndSetImage(context, om.displayData.bitmap[it], om.displayData.img[it])
                     } else {
                         om.displayData.img[it].setImageBitmap(om.displayData.bitmap[it])
                     }
@@ -95,10 +91,7 @@ object UtilityModels {
                     }
                 }
                 (0 until om.numPanes).forEach {
-                    UtilityImgAnim.startAnimation(
-                            om.displayData.animDrawable[it],
-                            om.displayData.img[it]
-                    )
+                    UtilityImgAnim.startAnimation(om.displayData.animDrawable[it], om.displayData.img[it])
                 }
                 om.animRan = true
             }
@@ -200,10 +193,7 @@ object UtilityModels {
         val hourOfDayLocal = calendar.get(Calendar.HOUR_OF_DAY)
         val calendar2 = Calendar.getInstance()
         calendar2.set(Calendar.HOUR_OF_DAY, runInt)
-        calendar2.add(
-                Calendar.HOUR_OF_DAY,
-                timeInt + offsetFromUtc / 60 / 60
-        ) // was 2*offsetFromUtc/60/60
+        calendar2.add(Calendar.HOUR_OF_DAY, timeInt + offsetFromUtc / 60 / 60) // was 2*offsetFromUtc/60/60
         val dayOfMonth = calendar2.get(Calendar.DAY_OF_MONTH)
         val month = 1 + calendar2.get(Calendar.MONTH)
         if (runInt >= 0 && runInt < -offsetFromUtc / 60 / 60 && hourOfDayLocal - offsetFromUtc / 60 / 60 >= 24) {
@@ -218,8 +208,7 @@ object UtilityModels {
             Calendar.THURSDAY -> futureDay = "Thu"
             Calendar.FRIDAY -> futureDay = "Fri"
             0 -> futureDay = "Sat"
-            else -> {
-            }
+            else -> {}
         }
         return if (showDate) {
             "$futureDay  $hourOfDay$amPm ($month/$dayOfMonth)"
@@ -279,9 +268,9 @@ object UtilityModels {
                 y[it] = point[it].y
             }
             toolbar.subtitle = string
-            (0 until img.size)
-                    .filter { !x[it].isNaN() && !y[it].isNaN() }
-                    .forEach { img[it].setZoom(z[it], x[it], y[it]) }
+            (0 until img.size).filter { !x[it].isNaN() && !y[it].isNaN() }.forEach {
+                img[it].setZoom(z[it], x[it], y[it])
+            }
         }
     }
 }

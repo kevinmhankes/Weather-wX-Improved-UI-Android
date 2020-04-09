@@ -82,14 +82,8 @@ internal class RecordingSession(
     private val mainThread = Handler(Looper.getMainLooper())
     private val picturesDir: File? = context.getExternalFilesDir(DIRECTORY_DCIM)
     private val moviesDir: File? = context.getExternalFilesDir(DIRECTORY_MOVIES)
-    private val videoFileFormat = SimpleDateFormat(
-        "'${MyApplication.packageNameFileNameAsString}'yyyyMMddHHmmss'.mp4'",
-        Locale.US
-    )
-    private val audioFileFormat = SimpleDateFormat(
-        "'${MyApplication.packageNameFileNameAsString}'yyyyMMddHHmmss'.jpeg'",
-        Locale.US
-    )
+    private val videoFileFormat = SimpleDateFormat("'${MyApplication.packageNameFileNameAsString}'yyyyMMddHHmmss'.mp4'", Locale.US)
+    private val audioFileFormat = SimpleDateFormat("'${MyApplication.packageNameFileNameAsString}'yyyyMMddHHmmss'.jpeg'", Locale.US)
     private val notificationManager: NotificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
     private val windowManager: WindowManager = context.getSystemService(WINDOW_SERVICE) as WindowManager
     private var projectionManager: MediaProjectionManager? = null
@@ -180,8 +174,7 @@ internal class RecordingSession(
                 addDistanceTool()
             }
         }
-        overlayView =
-            OverlayView.create(context, overlayListener, showDistanceTool, showRecordingTools)
+        overlayView = OverlayView.create(context, overlayListener, showDistanceTool, showRecordingTools)
         windowManager.addView(overlayView, OverlayView.createLayoutParams(context))
     }
 
@@ -207,11 +200,7 @@ internal class RecordingSession(
 
     private fun startRecording() {
         if (!moviesDir!!.exists() && !moviesDir.mkdirs()) {
-            Toast.makeText(
-                context,
-                "Unable to create output directory.\nCannot record screen.",
-                LENGTH_SHORT
-            ).show()
+            Toast.makeText(context, "Unable to create output directory.\nCannot record screen.", LENGTH_SHORT).show()
             return
         }
         val recordingInfo = recordingInfo
@@ -282,13 +271,8 @@ internal class RecordingSession(
             if (recorder != null) recorder!!.release()
             display!!.release()
         }
-        val uri = FileProvider.getUriForFile(
-                context,
-                "${MyApplication.packageNameAsString}.fileprovider",
-                File(outputFile!!)
-        )
+        val uri = FileProvider.getUriForFile(context, "${MyApplication.packageNameAsString}.fileprovider", File(outputFile!!))
         mainThread.post {showNotification(uri, null)}
-
     }
 
     private fun addDrawTool() {
@@ -353,12 +337,7 @@ internal class RecordingSession(
         val outputName = audioFileFormat.format(Date())
         outputFile = File(picturesDir, outputName).absolutePath
         projection = projectionManager!!.getMediaProjection(resultCode, data)
-        imageReader = ImageReader.newInstance(
-            recordingInfo.width,
-            recordingInfo.height,
-            PixelFormat.RGBA_8888,
-            2
-        )
+        imageReader = ImageReader.newInstance(recordingInfo.width, recordingInfo.height, PixelFormat.RGBA_8888, 2)
         val surface = imageReader!!.surface
         display = projection!!.createVirtualDisplay(
             DISPLAY_NAME,
@@ -394,32 +373,17 @@ internal class RecordingSession(
                     val rowStride = planes[0].rowStride
                     val rowPadding = rowStride - pixelStride * recordingInfo.width
                     // create bitmap
-                    bitmap = Bitmap.createBitmap(
-                        recordingInfo.width + rowPadding / pixelStride,
-                        recordingInfo.height,
-                        Bitmap.Config.ARGB_8888
-                    )
+                    bitmap = Bitmap.createBitmap(recordingInfo.width + rowPadding / pixelStride, recordingInfo.height, Bitmap.Config.ARGB_8888)
                     bitmap!!.copyPixelsFromBuffer(buffer)
                     //Trimming the bitmap to the w/h of the screen. For some reason, image reader adds more pixels to width.
-                    croppedBitmap = Bitmap.createBitmap(
-                        bitmap,
-                        0,
-                        0,
-                        recordingInfo.width,
-                        recordingInfo.height
-                    )
+                    croppedBitmap = Bitmap.createBitmap(bitmap, 0, 0, recordingInfo.width, recordingInfo.height)
                     bitmap.recycle()
                     bitmap = null
                     // write bitmap to a file
                     fos = FileOutputStream(outputFile!!)
                     croppedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, fos)
                     UtilityLog.d("wx", outputFile.toString())
-                    val uri = FileProvider.getUriForFile(
-                            context,
-                            "${MyApplication.packageNameAsString}.fileprovider",
-                            File(outputFile!!)
-                    )
-
+                    val uri = FileProvider.getUriForFile(context, "${MyApplication.packageNameAsString}.fileprovider", File(outputFile!!))
                     showScreenshotNotification(uri, null)
                 }
             } catch (e: Exception) {
@@ -460,11 +424,7 @@ internal class RecordingSession(
         val share = context.getText(R.string.notification_captured_share)
         var builder: NotificationCompat.Builder? = null
         if (Build.VERSION.SDK_INT > 20) {
-            val actionShare = NotificationCompat.Action.Builder(
-                R.drawable.ic_share_24dp,
-                share,
-                pendingShareIntent
-            ).build()
+            val actionShare = NotificationCompat.Action.Builder(R.drawable.ic_share_24dp, share, pendingShareIntent).build()
             builder = NotificationCompat.Builder(context, UtilityNotification.notiChannelStrNoSound)
                 .setContentTitle(title)
                 .setContentText(subtitle)
@@ -619,23 +579,13 @@ internal class RecordingSession(
             val displayHeightLocal = displayHeight * sizePercentage / 100
             if (cameraWidth == -1 && cameraHeight == -1) {
                 // No cameras. Fall back to the display size.
-                return RecordingInfo(
-                    displayWidthLocal,
-                    displayHeightLocal,
-                    cameraFrameRate,
-                    displayDensity
-                )
+                return RecordingInfo(displayWidthLocal, displayHeightLocal, cameraFrameRate, displayDensity)
             }
             var frameWidth = if (isLandscapeDevice) cameraWidth else cameraHeight
             var frameHeight = if (isLandscapeDevice) cameraHeight else cameraWidth
             if (frameWidth >= displayWidthLocal && frameHeight >= displayHeightLocal) {
                 // Frame can hold the entire display. Use exact values.
-                return RecordingInfo(
-                    displayWidthLocal,
-                    displayHeightLocal,
-                    cameraFrameRate,
-                    displayDensity
-                )
+                return RecordingInfo(displayWidthLocal, displayHeightLocal, cameraFrameRate, displayDensity)
             }
             // Calculate new width or height to preserve aspect ratio.
             if (isLandscapeDevice) {

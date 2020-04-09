@@ -24,8 +24,7 @@ import android.view.WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 import android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
 import android.os.Build
 
-internal class FlashView private constructor(context: Context, private val listener: Listener) :
-    FrameLayout(context) {
+internal class FlashView private constructor(context: Context, private val listener: Listener) : FrameLayout(context) {
 
     init {
         inflate(context, R.layout.telecine_flash_view, this)
@@ -50,13 +49,11 @@ internal class FlashView private constructor(context: Context, private val liste
         }
 
         fun createLayoutParams(): WindowManager.LayoutParams {
-
             val layoutFlag: Int = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
             } else {
                 WindowManager.LayoutParams.TYPE_SYSTEM_ERROR
             }
-
             return WindowManager.LayoutParams(
                 MATCH_PARENT, MATCH_PARENT, layoutFlag, FLAG_NOT_FOCUSABLE
                         or FLAG_NOT_TOUCH_MODAL

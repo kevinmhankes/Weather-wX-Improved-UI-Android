@@ -132,6 +132,7 @@ object UtilityLocationFragment {
     }
 
     fun extractTemperature(blob: String): String {
+        // FIXME create list with RegExp and then use for loop
         var temp = blob.parse(RegExp.nws7DayTemp1)
         if (temp != "") {
             return temp

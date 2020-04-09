@@ -46,12 +46,12 @@ object UtilityUI {
 
     fun setResDrawable(context: Context, fab: RemoteViews, ib: Int, resourceDrawable: Int) {
         val wrappedContext = ContextWrapper(context)
-        val d = ContextCompat.getDrawable(wrappedContext, resourceDrawable)!!
-        val b = Bitmap.createBitmap(d.intrinsicWidth, d.intrinsicHeight, Bitmap.Config.ARGB_8888)
-        val c = Canvas(b)
-        d.setBounds(0, 0, c.width, c.height)
-        d.draw(c)
-        fab.setImageViewBitmap(ib, b)
+        val drawable = ContextCompat.getDrawable(wrappedContext, resourceDrawable)!!
+        val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        drawable.setBounds(0, 0, canvas.width, canvas.height)
+        drawable.draw(canvas)
+        fab.setImageViewBitmap(ib, bitmap)
     }
 
     fun makeToastLegacy(context: Context, message: String) {
@@ -70,11 +70,11 @@ object UtilityUI {
         snack.setActionTextColor(Color.YELLOW)
         snack.setAction("DISMISS") { snack.dismiss() }
         val viewSnack = snack.view
-        val tv = viewSnack.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+        val textView = viewSnack.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
         val fgColor = Color.WHITE
         val bgColor = Color.BLACK
-        tv.setTextColor(fgColor)
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
+        textView.setTextColor(fgColor)
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         viewSnack.setBackgroundColor(bgColor)
         snack.show()
     }
@@ -116,12 +116,12 @@ object UtilityUI {
             itemList[0] = itemList[position]
             itemList[itemList.lastIndex] = tmp
         }
-        var ridFav = ""
+        var value = ""
         itemList.indices.forEach {
-            ridFav = ridFav + ":" + MyApplication.semicolon.split(itemList[it])[0]
+            value = value + ":" + MyApplication.semicolon.split(itemList[it])[0]
         }
-        Utility.writePref(context, prefToken, ridFav)
-        return ridFav
+        Utility.writePref(context, prefToken, value)
+        return value
     }
 
     fun statusBarHeight(context: Context): Int {

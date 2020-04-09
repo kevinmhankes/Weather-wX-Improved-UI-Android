@@ -23,7 +23,6 @@ package joshuatee.wx.radar
 
 import android.content.Context
 
-import joshuatee.wx.util.UCARRandomAccessFile
 import joshuatee.wx.external.ExternalEllipsoid
 import joshuatee.wx.external.ExternalGeodeticCalculator
 import joshuatee.wx.external.ExternalGlobalCoordinates
@@ -31,7 +30,6 @@ import joshuatee.wx.external.ExternalGlobalCoordinates
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
 import joshuatee.wx.settings.UtilityLocation
-import joshuatee.wx.util.UtilityIO
 import joshuatee.wx.util.UtilityLog
 
 internal object WXGLNexradLevel3HailIndex {
