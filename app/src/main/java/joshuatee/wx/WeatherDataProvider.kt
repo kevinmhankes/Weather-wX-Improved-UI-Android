@@ -47,51 +47,40 @@ class WeatherDataProvider : ContentProvider() {
         val dayArr = sevenDay.split("\n\n").dropLastWhile { it.isEmpty() }.toMutableList()
         if (dayArr.size > 1) {
             dayArr[0] = preferences.getString("CC_WIDGET", "No data")!!
-            sData = (0 until dayArr.lastIndex).map{ WeatherDataPoint(dayArr[it] + "\n", 0) }
+            weatherDataPoints = (0 until dayArr.lastIndex).map{ WeatherDataPoint(dayArr[it] + "\n", 0) }
         }
         return true
     }
 
     @Synchronized
-    override fun query(
-        uri: Uri,
-        projection: Array<String>?,
-        selection: String?,
-        selectionArgs: Array<String>?,
-        sortOrder: String?
-    ): Cursor? {
+    override fun query(uri: Uri, projection: Array<String>?, selection: String?, selectionArgs: Array<String>?, sortOrder: String?): Cursor? {
         assert(uri.pathSegments.isEmpty())
         // In this sample, we only query without any parameters, so we can just return a cursor to
         // all the weather data.
-        val c = MatrixCursor(arrayOf(Columns.ID, Columns.DAY, Columns.TEMPERATURE))
-        sData.indices.forEach {
-            val data = sData[it]
-            c.addRow(arrayOf(it, data.day, data.degrees))
+        val matrixCursor = MatrixCursor(arrayOf(Columns.ID, Columns.DAY, Columns.TEMPERATURE))
+        weatherDataPoints.indices.forEach {
+            val data = weatherDataPoints[it]
+            matrixCursor.addRow(arrayOf(it, data.day, data.degrees))
         }
-        return c
+        return matrixCursor
     }
 
     override fun getType(uri: Uri): String? = "vnd.android.cursor.dir/vnd.weatherlistwidget.temperature"
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? = null
 
-    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int = 0
+    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?) = 0
 
     @Synchronized
-    override fun update(
-        uri: Uri,
-        values: ContentValues?,
-        selection: String?,
-        selectionArgs: Array<String>?
-    ): Int {
+    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<String>?): Int {
         assert(uri.pathSegments.size == 1)
         // In this sample, we only update the content provider individually for each row with new
         // temperature values.
         val index = uri.pathSegments[0].toIntOrNull() ?: 0
         //val c = MatrixCursor(arrayOf(Columns.ID, Columns.DAY, Columns.TEMPERATURE))
         //assert(0 <= index && index < sData.size)
-        if (sData.size > index) {
-            val data = sData[index]
+        if (weatherDataPoints.size > index) {
+            val data = weatherDataPoints[index]
             data.day = values!!.getAsString(Columns.DAY)
         }
         // Notify any listeners that the data backing the content provider has changed, and return
@@ -107,6 +96,6 @@ class WeatherDataProvider : ContentProvider() {
          * Database, SharedPreferences) so that the data can persist if the process is ever killed.
          * For simplicity, in this sample the data will only be stored in memory.
          */
-        private var sData = listOf<WeatherDataPoint>()
+        private var weatherDataPoints = listOf<WeatherDataPoint>()
     }
 }
