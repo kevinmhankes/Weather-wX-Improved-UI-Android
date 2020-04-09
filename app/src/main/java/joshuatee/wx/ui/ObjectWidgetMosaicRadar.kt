@@ -45,7 +45,7 @@ class ObjectWidgetMosaicRadar(context: Context) {
             if (Location.isUS(widgetLocationNumber)) {
                 UtilityWidget.setupIntent(context, remoteViews, USNwsMosaicActivity::class.java, R.id.iv, USNwsMosaicActivity.URL, arrayOf("widget"), MOSAIC_RADAR.action)
             } else {
-                UtilityWidget.setupIntent(context, remoteViews, CanadaRadarActivity::class.java, R.id.iv, CanadaRadarActivity.RID, arrayOf(UtilityCanada.getECSectorFromProv(province), "rad"), MOSAIC_RADAR.action)
+                UtilityWidget.setupIntent(context, remoteViews, CanadaRadarActivity::class.java, R.id.iv, CanadaRadarActivity.RID, arrayOf(UtilityCanada.getSectorFromProvince(province), "rad"), MOSAIC_RADAR.action)
             }
         }
     }

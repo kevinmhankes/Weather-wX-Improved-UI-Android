@@ -34,8 +34,7 @@ import joshuatee.wx.radar.SpotterReports
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectTextView
 
-internal class AdapterSpotterReports(private val dataSet: List<SpotterReports>) :
-    RecyclerView.Adapter<AdapterSpotterReports.DataObjectHolder>() {
+internal class AdapterSpotterReports(private val dataSet: List<SpotterReports>) : RecyclerView.Adapter<AdapterSpotterReports.DataObjectHolder>() {
 
     internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 

@@ -101,7 +101,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                     }
                 } else {
                     val prov = Utility.readPref(this, "NWS" + Location.currentLocationStr + "_STATE", "")
-                    ObjectIntent(this, CanadaRadarActivity::class.java, CanadaRadarActivity.RID, arrayOf(UtilityCanada.getECSectorFromProv(prov), "rad"))
+                    ObjectIntent(this, CanadaRadarActivity::class.java, CanadaRadarActivity.RID, arrayOf(UtilityCanada.getSectorFromProvince(prov), "rad"))
                 }
             }
             R.id.action_vr -> {

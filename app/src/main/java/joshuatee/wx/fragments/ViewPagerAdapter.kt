@@ -32,7 +32,7 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_
         return tabTitles[position]
     }
 
-    fun setTabTitles(idx: Int, title: String) {
-        tabTitles[idx] = title
+    fun setTabTitles(index: Int, title: String) {
+        tabTitles[index] = title
     }
 }

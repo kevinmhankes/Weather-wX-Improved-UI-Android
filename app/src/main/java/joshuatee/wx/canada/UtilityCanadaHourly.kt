@@ -43,7 +43,6 @@ internal object UtilityCanadaHourly {
             Locale.US) + "-" + (Location.getY(locNumInt).split(":"))[0] + "_metric_e.html"
 
     private fun parse(htmlFullPage: String): String {
-        var string = ""
         val html = htmlFullPage.parse("<tbody>(.*?)</tbody>")
         val times = html.parseColumn("<td headers=.header1. class=.text-center.>([0-9]{2}:[0-9]{2})</td>")
         val temperatures = html.parseColumn("<td headers=.header2. class=.text-center.>(.*?)</td>")
@@ -51,11 +50,12 @@ internal object UtilityCanadaHourly {
         val precipChances = html.parseColumn("<td headers=.header4. class=.text-center.>(.*?)</td>")
         val winds = html.parseColumn("<abbr title=(.*?.>.*?<.abbr>..[0-9]{2})<br>").toMutableList()
         //let feelsLikeTemps = html.parseColumn("<td headers=.header7. class=.text-center.>(.*?)</td>")
-        val space = "   "
         winds.indices.forEach {
             val cleanString = removeSpecialCharsFromString(winds[it])
             winds[it] = cleanString.parse(">(.*?)<") + " " + cleanString.parse(".*?([0-9]{1,3})")
         }
+        var string = ""
+        val space = "   "
         times.indices.forEach {
             string += MyApplication.newline + times[it] + space +
                     Utility.safeGet(temperatures, it).padEnd(3, ' ')  + space +

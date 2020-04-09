@@ -31,7 +31,7 @@ import joshuatee.wx.radar.LatLon
 
 object UtilityCanada {
 
-    private val providenceToSector = mapOf(
+    private val provinceToSector = mapOf(
         "AB" to "PAC",
         "BC" to "PAC",
         "MB" to "PAC",
@@ -303,7 +303,6 @@ object UtilityCanada {
     }
 
     fun getHazards(html: String): List<String> {
-        val result = mutableListOf("", "")
         var urls = html.parseColumn("<div id=\"statement\" class=\"floatLeft\">.*?<a href=\"(.*?)\">.*?</a>.*?</div>")
         var titles = html.parseColumn("<div id=\"statement\" class=\"floatLeft\">.*?<a href=\".*?\">(.*?)</a>.*?</div>")
         val statementUrl = urls.joinToString("")
@@ -318,8 +317,7 @@ object UtilityCanada {
         titles = chunk.parseColumn("<a href=\".*?\">(.*?)</a>")
         val watchUrl = urls.joinToString(",${MyApplication.canadaEcSitePrefix}")
         val watch = titles.joinToString("<BR>")
-        result[0] = warning + statement + watch
-        result[1] = "$warningUrl,$statementUrl,$watchUrl"
+        val result = mutableListOf(warning + statement + watch, "$warningUrl,$statementUrl,$watchUrl")
         if (!result[0].contains("No watches or warnings in effect")) {
             result[1] = getHazardsFromUrl(warningUrl)
         } else {
@@ -330,9 +328,9 @@ object UtilityCanada {
     }
 
     fun getHazardsFromUrl(url: String): String {
-        var warningData = ""
         val urls = url.split(",").dropLastWhile { it.isEmpty() }
         var notFound = true
+        var warningData = ""
         urls.forEach {
             if (it != "" && notFound) {
                 warningData += it.getHtml().parse("<main.*?container.>(.*?)</div>")
@@ -346,7 +344,7 @@ object UtilityCanada {
         return warningData
     }
 
-    fun getECSectorFromProv(prov: String) = providenceToSector[prov] ?: ""
+    fun getSectorFromProvince(prov: String) = provinceToSector[prov] ?: ""
 
     fun isLabelPresent(label: String): Boolean {
         UtilityCitiesCanada.initialize()
@@ -356,10 +354,10 @@ object UtilityCanada {
     fun getLatLonFromLabel(label: String): LatLon {
         val latLon = DoubleArray(2)
         UtilityCitiesCanada.initialize()
-        for (i in UtilityCitiesCanada.cities.indices) {
-            if (UtilityCitiesCanada.cities[i] == label) {
-                latLon[0] = UtilityCitiesCanada.lat[i]
-                latLon[1] = UtilityCitiesCanada.lon[i]
+        for (index in UtilityCitiesCanada.cities.indices) {
+            if (UtilityCitiesCanada.cities[index] == label) {
+                latLon[0] = UtilityCitiesCanada.lat[index]
+                latLon[1] = UtilityCitiesCanada.lon[index]
                 break
             }
         }

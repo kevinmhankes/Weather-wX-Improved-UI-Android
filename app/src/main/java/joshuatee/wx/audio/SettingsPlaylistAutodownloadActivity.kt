@@ -81,12 +81,7 @@ class SettingsPlaylistAutodownloadActivity : BaseActivity() {
         mTimePicker = TimePickerDialog(
                 this@SettingsPlaylistAutodownloadActivity,
                 TimePickerDialog.OnTimeSetListener { _, selectedHour, selectedMinute ->
-                    if (!ridFav.contains(
-                                    "$selectedHour:" + String.format(
-                                            "%2s",
-                                            selectedMinute.toString()
-                                    ).replace(' ', '0')
-                            )
+                    if (!ridFav.contains("$selectedHour:" + String.format("%2s", selectedMinute.toString()).replace(' ', '0'))
                     ) {
                         ridFav = ridFav + selectedHour.toString() + ":" +
                                 String.format("%2s", selectedMinute.toString()).replace(' ', '0') +
@@ -94,12 +89,7 @@ class SettingsPlaylistAutodownloadActivity : BaseActivity() {
                         Utility.writePref(this, prefToken, ridFav)
                         updateList()
                         recyclerView.refreshList(ridArr)
-                        UtilityPlayListAutoDownload.setAlarm(
-                                this@SettingsPlaylistAutodownloadActivity,
-                                ridArr.lastIndex,
-                                selectedHour,
-                                selectedMinute
-                        )
+                        UtilityPlayListAutoDownload.setAlarm(this@SettingsPlaylistAutodownloadActivity, ridArr.lastIndex, selectedHour, selectedMinute)
                     }
                 },
                 hour,

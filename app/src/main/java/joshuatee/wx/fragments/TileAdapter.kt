@@ -32,12 +32,12 @@ internal class TileAdapter(
         } else {
             UtilityImg.loadBitmap(context, itemList[position].photo, true)
         }
-        val layoutParams = holder.iv.layoutParams
+        val layoutParams = holder.imageView.layoutParams
         layoutParams.width = MyApplication.dm.widthPixels / tilesPerRow
         layoutParams.height = layoutParams.width * bitmap.height / bitmap.width
-        holder.iv.layoutParams = layoutParams
-        holder.iv.setImageBitmap(bitmap)
-        holder.iv.contentDescription = itemList[position].description
+        holder.imageView.layoutParams = layoutParams
+        holder.imageView.setImageBitmap(bitmap)
+        holder.imageView.contentDescription = itemList[position].description
     }
 
     override fun getItemCount() = this.itemList.size

@@ -108,9 +108,9 @@ object UtilityUSHourly {
         val day = originalTimeComponents[2].toIntOrNull() ?: 0
         val hour = originalTimeComponents[3].replace(":00:00", "").toIntOrNull() ?: 0
         val hourString = hour.toString()
-        val c = Calendar.getInstance()
-        c.set(year - 1900, month - 1, day, 0, 0)
-        val dayOfTheWeek = when (c.get(Calendar.DAY_OF_WEEK)) {
+        val calendar = Calendar.getInstance()
+        calendar.set(year - 1900, month - 1, day, 0, 0)
+        val dayOfTheWeek = when (calendar.get(Calendar.DAY_OF_WEEK)) {
             6 -> "Mon"
             7 -> "Tue"
             1 -> "Wed"

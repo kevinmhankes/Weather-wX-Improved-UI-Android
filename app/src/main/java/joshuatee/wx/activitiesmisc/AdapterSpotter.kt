@@ -134,14 +134,12 @@ internal class AdapterSpotter(private val dataSet: MutableList<Spotter>) :
     }
 
     private fun applyAndAnimateAdditions(newModels: List<Spotter>) {
-        var i = 0
         val count = newModels.size
-        while (i < count) {
+        for (i in 0 until count) {
             val model = newModels[i]
             if (!dataSet.contains(model)) {
                 addItem(i, model)
             }
-            i += 1
         }
     }
 

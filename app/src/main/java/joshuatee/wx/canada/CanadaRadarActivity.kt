@@ -126,10 +126,8 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
     }
 
     private fun getMosaic(sector: String) = GlobalScope.launch(uiDispatcher) {
-        withContext(Dispatchers.IO) {
-            mosaicShownId = sector
-            bitmap = UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(this@CanadaRadarActivity, sector)
-        }
+        mosaicShownId = sector
+        bitmap = withContext(Dispatchers.IO) { UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(this@CanadaRadarActivity, sector) }
         img.setBitmap(bitmap)
         animRan = false
     }

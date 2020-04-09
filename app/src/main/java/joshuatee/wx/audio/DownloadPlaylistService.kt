@@ -62,7 +62,6 @@ class DownloadPlaylistService : IntentService("DownloadPlaylistService") {
             val notification = UtilityNotification.createNotificationBigTextWithAction(notificationObj)
             notificationObj.sendNotification(this, url, 1, notification)
         }
-        //LocalBroadcastManager.getInstance(this).sendBroadcast(Intent("playlistdownloaded"))
     }
 } 
 

@@ -31,8 +31,7 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectTextView
 
-internal class AdapterUSWarningsImpact(private val dataSet: List<ObjectImpactGraphic>) :
-    RecyclerView.Adapter<AdapterUSWarningsImpact.DataObjectHolder>() {
+internal class AdapterUSWarningsImpact(private val dataSet: List<ObjectImpactGraphic>) : RecyclerView.Adapter<AdapterUSWarningsImpact.DataObjectHolder>() {
 
     internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 

@@ -123,7 +123,6 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
     private fun updateList() {
         MyApplication.playlistStr = ridFav
         val tempList = ridFav.split(":")
-        playListItems.clear()
         playListItems = (1 until tempList.size).map { getLongString(tempList[it]) }.toMutableList()
     }
 
@@ -162,11 +161,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
                 if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     true
                 } else {
-                    ActivityCompat.requestPermissions(
-                            this,
-                            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                            1
-                    )
+                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
                     false
                 }
             } else {
@@ -239,12 +234,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
     }
 
     private fun viewItem(position: Int) {
-        ObjectIntent(
-                this,
-                WpcTextProductsActivity::class.java,
-                WpcTextProductsActivity.URL,
-                arrayOf(playListItems[position].split(";")[0].toLowerCase(Locale.US))
-        )
+        ObjectIntent(this, WpcTextProductsActivity::class.java, WpcTextProductsActivity.URL, arrayOf(playListItems[position].split(";")[0].toLowerCase(Locale.US)))
     }
 
     private fun playItem(position: Int) {

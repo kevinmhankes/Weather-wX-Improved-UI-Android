@@ -110,11 +110,9 @@ class HourlyActivity : BaseActivity() {
     private fun plotData() {
         val linesOfData = hourlyData.temp.split(MyApplication.newline).dropLastWhile { it.isEmpty() }
         val dataPoints = mutableListOf<DataPoint>()
-        var time = 0
         (1 until linesOfData.lastIndex).forEach {
             val temp = linesOfData[it].toIntOrNull() ?: 0
-            time += 1
-            dataPoints.add(DataPoint(time.toDouble(), temp.toDouble()))
+            dataPoints.add(DataPoint(it.toDouble(), temp.toDouble()))
         }
         val series = LineGraphSeries(dataPoints.toTypedArray())
         series.color = Color.BLACK

@@ -148,9 +148,7 @@ class SpottersActivity : BaseActivity() {
     }
 
     private fun markFavorites() {
-        spotterList
-                .filter { MyApplication.spotterFav.contains(it.unique + ":") && !it.lastName.contains("0FAV ") }
-                .forEach {
+        spotterList.filter { MyApplication.spotterFav.contains(it.unique + ":") && !it.lastName.contains("0FAV ") }.forEach {
                     it.lastName = "0FAV " + it.lastName
                 }
         sortSpotters()

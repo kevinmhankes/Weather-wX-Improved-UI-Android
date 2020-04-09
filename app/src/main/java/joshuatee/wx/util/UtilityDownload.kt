@@ -75,7 +75,7 @@ object UtilityDownload {
                     }
                 } else {
                     val prov = Utility.readPref(context, "NWS" + location + "_STATE", "")
-                    UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, UtilityCanada.getECSectorFromProv(prov))
+                    UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, UtilityCanada.getSectorFromProvince(prov))
                 }
             } else {
                 var product = "rad_rala"

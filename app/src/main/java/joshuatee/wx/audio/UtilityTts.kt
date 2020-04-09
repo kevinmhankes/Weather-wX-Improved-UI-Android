@@ -59,7 +59,6 @@ object UtilityTts {
         try {
             ttobjGlobal = TextToSpeech(context, TextToSpeech.OnInitListener { status ->
                 if (status != TextToSpeech.ERROR) {
-                    //ttobjGlobal!!.language = Locale.US
                     ttobjGlobal?.language = Locale.US
                 }
             })
@@ -155,11 +154,7 @@ object UtilityTts {
                 initMediaPlayer(context)
             }
             if (mediaPlayer!!.isPlaying) mediaPlayer!!.stop()
-            synthesizeText(
-                    context,
-                    Utility.readPref(context, "PLAYLIST_" + playlistArr[playlistNumber], ""),
-                    prodg
-            )
+            synthesizeText(context, Utility.readPref(context, "PLAYLIST_" + playlistArr[playlistNumber], ""), prodg)
             ttobjGlobal!!.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                 override fun onDone(utteranceId: String) {
                     if (currentFile == 0 && utteranceId.contains(prodg)) {
@@ -192,11 +187,7 @@ object UtilityTts {
             initMediaPlayer(context)
         }
         if (mediaPlayer!!.isPlaying) mediaPlayer!!.stop()
-        synthesizeText(
-                context,
-                Utility.readPref(context, "PLAYLIST_" + playlistArr[playlistNumber], ""),
-                prodg
-        )
+        synthesizeText(context, Utility.readPref(context, "PLAYLIST_" + playlistArr[playlistNumber], ""), prodg)
         ttobjGlobal!!.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onDone(utteranceId: String) {
                 if (currentFile == 0 && utteranceId.contains(prodg)) {
