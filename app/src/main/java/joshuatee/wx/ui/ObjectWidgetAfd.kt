@@ -41,12 +41,12 @@ class ObjectWidgetAfd(context: Context) {
         val afd = Utility.readPref(context, "AFD_WIDGET", "")
         remoteViews.setTextViewText(R.id.text1, Utility.fromHtml(afd))
         remoteViews.setTextViewTextSize(R.id.text1, TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-        var prodToGoTo = "AFD"
+        var product = "AFD"
         if (Utility.readPref(context, "WFO_TEXT_FAV", "").startsWith("VFD")) {
-            prodToGoTo = "VFD"
+            product = "VFD"
         }
         if (!MyApplication.widgetPreventTap) {
-            UtilityWidget.setupIntent(context, remoteViews, AfdActivity::class.java, R.id.text1, AfdActivity.URL, arrayOf(wfo, prodToGoTo), WidgetFile.AFD.action)
+            UtilityWidget.setupIntent(context, remoteViews, AfdActivity::class.java, R.id.text1, AfdActivity.URL, arrayOf(wfo, product), WidgetFile.AFD.action)
         }
     }
 }
