@@ -117,26 +117,14 @@ object UtilityNws {
         }
         val paintStripe = ObjectPaintStripe()
         if (num1 != "") {
-            canvas.drawRect(
-                0f,
-                (dimens - numHeight).toFloat(),
-                41f,
-                dimens.toFloat(),
-                paintStripe.paint
-            )
+            canvas.drawRect(0f, (dimens - numHeight).toFloat(), 41f, dimens.toFloat(), paintStripe.paint)
             canvas.drawText("$num1%", xTextLeft.toFloat(), yText.toFloat(), paint.paint)
         }
         val bm2Tmp = UtilityImg.loadBitmap(context, fnResId2, false)
         val bm2 = Bitmap.createBitmap(bm2Tmp, leftCropB, 0, 41, dimens) // was 42 change to 40
         canvas.drawBitmap(bm2, 45f, 0f, Paint(Paint.FILTER_BITMAP_FLAG)) // was 42 change to 44
         if (num2 != "") {
-            canvas.drawRect(
-                45f,
-                (dimens - numHeight).toFloat(),
-                dimens.toFloat(),
-                dimens.toFloat(),
-                paintStripe.paint
-            )
+            canvas.drawRect(45f, (dimens - numHeight).toFloat(), dimens.toFloat(), dimens.toFloat(), paintStripe.paint)
             canvas.drawText("$num2%", xText.toFloat(), yText.toFloat(), paint.paint)
         }
         return bitmap
@@ -170,13 +158,7 @@ object UtilityNws {
         }
         val paintStripe = ObjectPaintStripe()
         if (num1 != "") {
-            canvas.drawRect(
-                0f,
-                (dimens - numHeight).toFloat(),
-                dimens.toFloat(),
-                dimens.toFloat(),
-                paintStripe.paint
-            )
+            canvas.drawRect(0f, (dimens - numHeight).toFloat(), dimens.toFloat(), dimens.toFloat(), paintStripe.paint)
             canvas.drawText("$num1%", xText.toFloat(), yText.toFloat(), paint.paint)
         }
         return bitmap
