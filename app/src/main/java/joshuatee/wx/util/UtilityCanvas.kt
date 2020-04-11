@@ -44,28 +44,27 @@ internal object UtilityCanvas {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.STROKE
-        val wallPath = Path()
-        wallPath.reset()
+        val path = Path()
+        path.reset()
         val paintList = listOf(MyApplication.radarColorFfw, MyApplication.radarColorTstorm, MyApplication.radarColorTor)
-        val warningDataList = listOf(MyApplication.severeDashboardFfw.value, MyApplication.severeDashboardTst.value, MyApplication.severeDashboardTor.value)
+        val dataList = listOf(MyApplication.severeDashboardFfw.value, MyApplication.severeDashboardTst.value, MyApplication.severeDashboardTor.value)
         if (projectionType.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
         paint.strokeWidth = projectionNumbers.polygonWidth.toFloat()
-        warningDataList.forEachIndexed { index, it ->
+        dataList.forEachIndexed { index, it ->
             paint.color = paintList[index]
-            var warningHTML = it.replace("\n", "")
-            warningHTML = warningHTML.replace(" ", "")
-            val warningAl = UtilityString.parseColumnMutable(warningHTML, RegExp.warningLatLonPattern)
-            val warnings = mutableListOf<String>()
-            val vtecs = warningHTML.parseColumn(RegExp.warningVtecPattern)
-            warningAl.forEachIndexed { i, warn ->
-                warningAl[i] = warn.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
+            val data = it.replace("\n", "").replace(" ", "")
+            val warnings = UtilityString.parseColumnMutable(data, RegExp.warningLatLonPattern)
+            val warningsFiltered = mutableListOf<String>()
+            val vtecs = data.parseColumn(RegExp.warningVtecPattern)
+            warnings.forEachIndexed { i, _ ->
+                warnings[i] = warnings[i].replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
                 if (!(vtecs[i].startsWith("O.EXP") || vtecs[i].startsWith("O.CAN"))) {
-                    warnings.add(warningAl[i])
+                    warningsFiltered.add(warnings[i])
                 }
             }
-            canvasDrawWarnings(warnings, vtecs, canvas, wallPath, paint, projectionType.isMercator, projectionNumbers)
+            canvasDrawWarnings(warningsFiltered, vtecs, canvas, path, paint, projectionType.isMercator, projectionNumbers)
         }
     }
 
@@ -120,8 +119,7 @@ internal object UtilityCanvas {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
         val locXCurrent = Location.x
-        var locYCurrent = Location.y
-        locYCurrent = locYCurrent.replace("-", "")
+        val locYCurrent = Location.y.replace("-", "")
         val x = locXCurrent.toDoubleOrNull() ?: 0.0
         val y = locYCurrent.toDoubleOrNull() ?: 0.0
         val latLon = if (projectionType.isMercator) {
@@ -138,8 +136,8 @@ internal object UtilityCanvas {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.STROKE
         paint.color = Color.rgb(255, 0, 0)
-        val wallPath = Path()
-        wallPath.reset()
+        val path = Path()
+        path.reset()
         if (projectionType.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
@@ -151,11 +149,10 @@ internal object UtilityCanvas {
             PolygonType.MPD -> prefToken = MyApplication.mpdLatLon.value
             PolygonType.WATCH -> prefToken = MyApplication.watchLatLon.value
             PolygonType.WATCH_TORNADO -> prefToken = MyApplication.watchLatLonTor.value
-            else -> {
-            }
+            else -> {}
         }
         val list = prefToken.split(":").dropLastWhile { it.isEmpty() }
-        canvasDrawWatchMcdMpd(list, canvas, wallPath, paint, projectionType.isMercator, projectionNumbers)
+        canvasDrawWatchMcdMpd(list, canvas, path, paint, projectionType.isMercator, projectionNumbers)
     }
 
     private fun canvasDrawWatchMcdMpd(
