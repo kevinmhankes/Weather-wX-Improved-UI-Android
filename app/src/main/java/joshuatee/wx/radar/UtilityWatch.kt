@@ -27,8 +27,6 @@ import joshuatee.wx.util.UtilityCanvasProjection
 import joshuatee.wx.util.ProjectionNumbers
 import joshuatee.wx.external.ExternalPoint
 import joshuatee.wx.external.ExternalPolygon
-import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityLog
 
 internal object UtilityWatch {
 
@@ -42,15 +40,13 @@ internal object UtilityWatch {
             else -> ""
         }
         if (prefToken != "") {
-            val items = prefToken.split(":").dropLastWhile { it.isEmpty() }
-            items.forEach { item ->
+            val polygons = prefToken.split(":").dropLastWhile { it.isEmpty() }
+            polygons.forEach { polygon ->
                 //val list = item.split(" ").dropLastWhile { it.isEmpty() } // MyApplication.space.split(item)
                // val x = list.filterIndexed { index: Int, _: String -> index and 1 == 0 }.map { it.toDoubleOrNull() ?: 0.0 }
                 //val y = list.filterIndexed { index: Int, _: String -> index and 1 != 0 }.map { it.toDoubleOrNull() ?: 0.0 }
 
-                val latLons = LatLon.parseStringToLatLons(item,1.0, false)
-
-
+                val latLons = LatLon.parseStringToLatLons(polygon, 1.0, false)
                 //if (y.isNotEmpty() && x.isNotEmpty()) {
                 if (latLons.isNotEmpty()) {
                     val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers).toMutableList()

@@ -108,7 +108,7 @@ class LatLon() {
 
     fun asList() = listOf(lat, lon)
 
-    fun asPoint() = ExternalPoint(lat.toFloat(), lon.toFloat())
+    fun asPoint() = ExternalPoint(lat, lon)
 
     override fun toString() = "$latString:$lonString"
 
