@@ -34,46 +34,45 @@ import java.nio.ByteBuffer
 internal object UtilityCanvasGeneric {
 
     fun draw(
-        provider: ProjectionType,
-        bitmap: Bitmap,
-        radarSite: String,
-        lineWidth: Int,
-        type: GeographyType,
-        genericByteBuffer: ByteBuffer
+            projectionType: ProjectionType,
+            bitmap: Bitmap,
+            radarSite: String,
+            lineWidth: Int,
+            geographyType: GeographyType,
+            genericByteBuffer: ByteBuffer
     ) {
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.STROKE
         paint.strokeWidth = lineWidth.toFloat()
-        if (provider.needsCanvasShift) {
+        paint.color = geographyType.color
+        if (projectionType.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
-        paint.color = type.color
-        val wallPath = Path()
-        wallPath.reset()
-        val pn = ProjectionNumbers(radarSite, provider)
+        val path = Path()
+        val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
         genericByteBuffer.position(0)
         try {
             val tmpBuffer = ByteBuffer.allocateDirect(genericByteBuffer.capacity())
-            if (provider.isMercator) {
+            if (projectionType.isMercator) {
                 UtilityCanvasProjection.computeMercatorFloatToBuffer(
                     genericByteBuffer,
                     tmpBuffer,
-                    pn
+                    projectionNumbers
                 )
             } else {
                 UtilityCanvasProjection.compute4326NumbersFloatToBuffer(
                     genericByteBuffer,
                     tmpBuffer,
-                    pn
+                    projectionNumbers
                 )
             }
             tmpBuffer.position(0)
             while (tmpBuffer.position() < tmpBuffer.capacity()) {
-                wallPath.moveTo(tmpBuffer.float, tmpBuffer.float)
-                wallPath.lineTo(tmpBuffer.float, tmpBuffer.float)
+                path.moveTo(tmpBuffer.float, tmpBuffer.float)
+                path.lineTo(tmpBuffer.float, tmpBuffer.float)
             }
-            canvas.drawPath(wallPath, paint)
+            canvas.drawPath(path, paint)
         } catch (e: OutOfMemoryError) {
             UtilityLog.handleException(e)
         }
