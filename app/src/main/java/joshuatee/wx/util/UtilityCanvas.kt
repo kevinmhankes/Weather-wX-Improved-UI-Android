@@ -36,6 +36,7 @@ import joshuatee.wx.settings.Location
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
 import joshuatee.wx.objects.GeographyType
+import joshuatee.wx.radar.LatLon
 
 internal object UtilityCanvas {
 
@@ -60,9 +61,7 @@ internal object UtilityCanvas {
             val vtecs = warningHTML.parseColumn(RegExp.warningVtecPattern)
             warningAl.forEachIndexed { i, warn ->
                 warningAl[i] = warn.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
-                if (vtecs[i].startsWith("O.EXP") || vtecs[i].startsWith("O.CAN")) {
-                    //warningAl.removeAt(i)
-                } else {
+                if (!(vtecs[i].startsWith("O.EXP") || vtecs[i].startsWith("O.CAN"))) {
                     warnings.add(warningAl[i])
                 }
             }
@@ -167,10 +166,31 @@ internal object UtilityCanvas {
             isMercator: Boolean,
             projectionNumbers: ProjectionNumbers
     ) {
-        var firstX: Double
-        var firstY: Double
         warnings.forEach { warning ->
-            val list = warning.split(" ").dropLastWhile { it.isEmpty() }
+            val latLons = LatLon.parseStringToLatLons(warning, 1.0, false)
+            path.reset()
+            if (latLons.isNotEmpty()) {
+                val coordinates = if (isMercator) {
+                    UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers)
+                } else {
+                    UtilityCanvasProjection.compute4326Numbers(latLons[0], projectionNumbers)
+                }
+                val firstX = coordinates[0]
+                val firstY = coordinates[1]
+                path.moveTo(firstX.toFloat(), firstY.toFloat())
+                (1 until latLons.size).forEach { index ->
+                    val latLon = if (isMercator) {
+                        UtilityCanvasProjection.computeMercatorNumbers(latLons[index], projectionNumbers)
+                    } else {
+                        UtilityCanvasProjection.compute4326Numbers(latLons[index], projectionNumbers)
+                    }
+                    path.lineTo(latLon[0].toFloat(), latLon[1].toFloat())
+                }
+                path.lineTo(firstX.toFloat(), firstY.toFloat())
+                canvas.drawPath(path, paint)
+            }
+
+            /*val list = warning.split(" ").dropLastWhile { it.isEmpty() }
             val x = list.filterIndexed { index: Int, _: String -> index and 1 == 0 }.map {
                 it.toDoubleOrNull() ?: 0.0
             }
@@ -199,7 +219,8 @@ internal object UtilityCanvas {
                     path.lineTo(firstX.toFloat(), firstY.toFloat())
                     canvas.drawPath(path, paint)
                 }
-            }
+            }*/
+
         }
     }
 
@@ -217,13 +238,31 @@ internal object UtilityCanvas {
         var polygonCount = -1
         warnings.forEach { warning ->
             polygonCount += 1
-            if (
-                    vtecs.isNotEmpty() &&
-                    vtecs.size > polygonCount &&
-                    !vtecs[polygonCount].startsWith("0.EXP") &&
-                    !vtecs[polygonCount].startsWith("0.CAN")
-            ) {
-                val list = warning.split(" ").dropLastWhile { it.isEmpty() }
+            if (vtecs.isNotEmpty() && vtecs.size > polygonCount && !vtecs[polygonCount].startsWith("0.EXP") && !vtecs[polygonCount].startsWith("0.CAN")) {
+                val latLons = LatLon.parseStringToLatLons(warning)
+                path.reset()
+                if (latLons.isNotEmpty()) {
+                    val coordinates = if (isMercator) {
+                        UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers)
+                    } else {
+                        UtilityCanvasProjection.compute4326Numbers(latLons[0], projectionNumbers)
+                    }
+                    firstX = coordinates[0]
+                    firstY = coordinates[1]
+                    path.moveTo(firstX.toFloat(), firstY.toFloat())
+                    (1 until latLons.size).forEach { index ->
+                        val latLon = if (isMercator) {
+                            UtilityCanvasProjection.computeMercatorNumbers(latLons[index], projectionNumbers)
+                        } else {
+                            UtilityCanvasProjection.compute4326Numbers(latLons[index], projectionNumbers)
+                        }
+                        path.lineTo(latLon[0].toFloat(), latLon[1].toFloat())
+                    }
+                    path.lineTo(firstX.toFloat(), firstY.toFloat())
+                    canvas.drawPath(path, paint)
+                }
+
+                /*val list = warning.split(" ").dropLastWhile { it.isEmpty() }
                 val y = list.filterIndexed { index: Int, _: String -> index and 1 == 0 }.map {
                     it.toDoubleOrNull() ?: 0.0
                 }
@@ -252,7 +291,8 @@ internal object UtilityCanvas {
                         path.lineTo(firstX.toFloat(), firstY.toFloat())
                         canvas.drawPath(path, paint)
                     }
-                }
+                }*/
+
             }
         }
     }

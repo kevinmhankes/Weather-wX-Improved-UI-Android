@@ -36,6 +36,8 @@ object UtilityCanvasProjection {
             (-((x - pn.xDbl) * pn.scale) + pn.yCenter)
         )
 
+    fun compute4326Numbers(latLon: LatLon, projectionNumbers: ProjectionNumbers) = compute4326Numbers(latLon.lat, latLon.lon, projectionNumbers)
+
     fun compute4326NumbersFloatToBuffer(numBuffer: ByteBuffer, tmpBuffer: ByteBuffer, projectionNumbers: ProjectionNumbers) {
         numBuffer.position(0)
         tmpBuffer.position(0)
