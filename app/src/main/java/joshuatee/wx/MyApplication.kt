@@ -66,6 +66,7 @@ import java.nio.ByteOrder
 
 class MyApplication : Application() {
 
+    // FIXME numerous camelCase opportunities below
     override fun onCreate() {
         super.onCreate()
         appContext = applicationContext

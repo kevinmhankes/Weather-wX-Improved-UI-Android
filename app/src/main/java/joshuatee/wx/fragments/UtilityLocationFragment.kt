@@ -132,9 +132,7 @@ object UtilityLocationFragment {
     }
 
     fun extractTemperature(blob: String): String {
-        // FIXME create list with RegExp and then use for loop
-
-        val regExps = listOf(
+        val list = listOf(
                 RegExp.nws7DayTemp1,
                 RegExp.nws7DayTemp2,
                 RegExp.nws7DayTemp3,
@@ -147,15 +145,15 @@ object UtilityLocationFragment {
                 RegExp.nws7DayTemp10,
                 RegExp.nws7DayTemp11
         )
-        /*regExps.forEach {
+        list.forEach {
             val temp = blob.parse(it)
             if (temp != "") {
                 return temp
             }
         }
-        return ""*/
+        return ""
 
-        var temp = blob.parse(RegExp.nws7DayTemp1)
+       /* var temp = blob.parse(RegExp.nws7DayTemp1)
         if (temp != "") {
             return temp
         }
@@ -198,8 +196,8 @@ object UtilityLocationFragment {
         temp = blob.parse(RegExp.nws7DayTemp11)
         if (temp != "") {
             return temp
-        }
-        return temp
+        }*/
+        //return temp
     }
 
     fun extractCanadaTemperature(blob: String): String {
