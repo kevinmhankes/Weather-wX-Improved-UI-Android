@@ -24,6 +24,7 @@ package joshuatee.wx.util
 import java.nio.ByteBuffer
 
 import joshuatee.wx.external.ExternalGlobalCoordinates
+import joshuatee.wx.radar.LatLon
 
 import kotlin.math.*
 
@@ -90,6 +91,8 @@ object UtilityCanvasProjection {
             tmpBuffer.putFloat(y)
         }
     }
+
+    fun computeMercatorNumbers(latLon: LatLon, projectionNumbers: ProjectionNumbers) = computeMercatorNumbers(latLon.lat, latLon.lon, projectionNumbers)
 
     fun computeMercatorNumbers(ec: ExternalGlobalCoordinates, pn: ProjectionNumbers) = computeMercatorNumbers(ec.latitude, ec.longitude * -1.0, pn)
 

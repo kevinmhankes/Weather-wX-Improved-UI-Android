@@ -44,20 +44,25 @@ internal object UtilityWatch {
         if (prefToken != "") {
             val items = prefToken.split(":").dropLastWhile { it.isEmpty() }
             items.forEach { item ->
-                val list = item.split(" ").dropLastWhile { it.isEmpty() } // MyApplication.space.split(item)
-                val x = list.filterIndexed { index: Int, _: String -> index and 1 == 0 }.map { it.toDoubleOrNull() ?: 0.0 }
-                val y = list.filterIndexed { index: Int, _: String -> index and 1 != 0 }.map { it.toDoubleOrNull() ?: 0.0 }
-                if (y.isNotEmpty() && x.isNotEmpty()) {
-                    val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers).toMutableList()
+                //val list = item.split(" ").dropLastWhile { it.isEmpty() } // MyApplication.space.split(item)
+               // val x = list.filterIndexed { index: Int, _: String -> index and 1 == 0 }.map { it.toDoubleOrNull() ?: 0.0 }
+                //val y = list.filterIndexed { index: Int, _: String -> index and 1 != 0 }.map { it.toDoubleOrNull() ?: 0.0 }
+
+                val latLons = LatLon.parseStringToLatLons(item,1.0, false)
+
+
+                //if (y.isNotEmpty() && x.isNotEmpty()) {
+                if (latLons.isNotEmpty()) {
+                    val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers).toMutableList()
                     warningList += startCoordinates
-                    if (x.size == y.size) {
-                        (1 until x.size).forEach { index ->
-                            val coordinates = UtilityCanvasProjection.computeMercatorNumbers(x[index], y[index], projectionNumbers).toMutableList()
+                    //if (x.size == y.size) {
+                        (1 until latLons.size).forEach { index ->
+                            val coordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[index], projectionNumbers).toMutableList()
                             warningList += coordinates
                             warningList += coordinates
                         }
                         warningList += startCoordinates
-                    }
+                    //}
                 }
             }
         }
