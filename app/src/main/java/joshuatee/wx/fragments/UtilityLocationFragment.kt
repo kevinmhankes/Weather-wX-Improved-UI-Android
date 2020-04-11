@@ -312,9 +312,9 @@ object UtilityLocationFragment {
             }
             stringName.contains("Reset zoom and center") -> fnResetRadarView()
             else -> {
-                val ridContext = stringName.split(":")[0]
-                val stateContext = Utility.getRadarSiteName(ridContext).split(",")[0]
-                ObjectIntent.showRadar(activityReference, arrayOf(ridContext, stateContext, wxglRender!!.product, ""))
+                val radarSite = stringName.split(":")[0]
+                val state = Utility.getRadarSiteName(radarSite).split(",")[0]
+                ObjectIntent.showRadar(activityReference, arrayOf(radarSite, state, wxglRender!!.product, ""))
             }
         }
     }
