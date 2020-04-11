@@ -142,7 +142,7 @@ internal class ObjectMetar(context: Context, location: LatLon) {
         //val observationData = url.getNwsHtml()
         //icon = observationData.parse("\"icon\": \"(.*?)\",")
         //condition = observationData.parse("\"textDescription\": \"(.*?)\",")
-        val urlMetar = "${MyApplication.NWS_RADAR_PUB}/data/observations/metar/decoded/" + obsClosest.name + ".TXT"
+        val urlMetar = "${MyApplication.nwsRadarPub}/data/observations/metar/decoded/" + obsClosest.name + ".TXT"
         val metarData = urlMetar.getHtmlSep().replace("<br>", MyApplication.newline)
         temperature = metarData.parse("Temperature: (.*?) F")
         dewPoint = metarData.parse("Dew Point: (.*?) F")

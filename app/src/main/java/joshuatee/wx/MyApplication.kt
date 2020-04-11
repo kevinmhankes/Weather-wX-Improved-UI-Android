@@ -640,7 +640,7 @@ class MyApplication : Application() {
         //
         // Radar Preferences
         //
-        const val NWS_RADAR_PUB = "https://tgftp.nws.noaa.gov/"
+        const val nwsRadarPub = "https://tgftp.nws.noaa.gov/"
         var radarWarnings = false
         var locationDotFollowsGps = false
         var dualpaneshareposn = false

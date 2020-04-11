@@ -225,7 +225,7 @@ internal object UtilityMetar {
         return if (bestRid == -1) {
             "Please select a location in the United States."
         } else {
-            (MyApplication.NWS_RADAR_PUB + "data/observations/metar/decoded/" + metarSites[bestRid].name + ".TXT").getHtmlSep().replace("<br>", MyApplication.newline)
+            (MyApplication.nwsRadarPub + "data/observations/metar/decoded/" + metarSites[bestRid].name + ".TXT").getHtmlSep().replace("<br>", MyApplication.newline)
         }
     }
 

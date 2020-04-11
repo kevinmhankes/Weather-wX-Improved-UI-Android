@@ -215,11 +215,11 @@ class WXGLDownload {
 
         fun getRadarFileUrl(radarSite: String, product: String, tdwr: Boolean): String {
             val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, tdwr)
-            return MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product] + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/sn.last"
+            return MyApplication.nwsRadarPub + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.nexradProductString[product] + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/sn.last"
         }
 
         private fun getRadarDirectoryUrl(radarSite: String, product: String, ridPrefix: String): String {
-            return MyApplication.NWS_RADAR_PUB + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.NEXRAD_PRODUCT_STRING[product] + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/"
+            return MyApplication.nwsRadarPub + "SL.us008001/DF.of/DC.radar/" + GlobalDictionaries.nexradProductString[product] + "/SI." + ridPrefix + radarSite.toLowerCase(Locale.US) + "/"
         }
     }
 }

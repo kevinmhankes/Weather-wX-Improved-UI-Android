@@ -390,10 +390,10 @@ object UtilityDownload {
                 text = getTextProduct(context, "$prod%")
             }
             prod.contains("FOCN45") -> {
-                text = "${MyApplication.NWS_RADAR_PUB}/data/raw/fo/focn45.cwwg..txt".getHtmlWithNewLine().removeLineBreaks()
+                text = "${MyApplication.nwsRadarPub}/data/raw/fo/focn45.cwwg..txt".getHtmlWithNewLine().removeLineBreaks()
             }
             prod.startsWith("AWCN") -> {
-                text = ("${MyApplication.NWS_RADAR_PUB}/data/raw/aw/" + prod.toLowerCase(Locale.US) + ".cwwg..txt").getHtmlWithNewLine().removeLineBreaks()
+                text = ("${MyApplication.nwsRadarPub}/data/raw/aw/" + prod.toLowerCase(Locale.US) + ".cwwg..txt").getHtmlWithNewLine().removeLineBreaks()
             }
             prod.contains("NFD") -> {
                 text = (MyApplication.nwsOpcWebsitePrefix + "/mobile/mobile_product.php?id=" + prod.toUpperCase(Locale.US)).getHtml()
@@ -449,7 +449,7 @@ object UtilityDownload {
                 text = text.replace(Regex("<br>\\s+<br>\\s+"), MyApplication.newline).removeHtml()
             }
             prod.contains("FPCN48") -> {
-                text = "${MyApplication.NWS_RADAR_PUB}/data/raw/fp/fpcn48.cwao..txt".getHtmlSep()
+                text = "${MyApplication.nwsRadarPub}/data/raw/fp/fpcn48.cwao..txt".getHtmlSep()
             }
             prod.contains("QPFPFD") -> {
                 val textUrl =
@@ -623,10 +623,6 @@ object UtilityDownload {
         text = text.replace("^<br>".toRegex(), "")
         text = text.replace("<br><br>", MyApplication.newline)
         text = text.replace("<br>", " ")
-        //if (UIPreferences.nwsTextRemovelinebreaks && t1 != "RTP") {
-        //text = text.replace("<br><br>", "<BR><BR>")
-        //text = text.replace("<br>", " ")
-        //}
         return text
     }
 
