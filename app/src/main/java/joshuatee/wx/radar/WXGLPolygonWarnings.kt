@@ -40,9 +40,9 @@ internal object WXGLPolygonWarnings {
         val html = prefToken.replace("\n", "").replace(" ", "")
         val polygons = html.parseColumn(RegExp.warningLatLonPattern)
         val vtecs = html.parseColumn(RegExp.warningVtecPattern)
-        var polygonCount = -1
-        polygons.forEach { polygon ->
-            polygonCount += 1
+        //var polygonCount = -1
+        polygons.forEachIndexed { polygonCount, polygon ->
+            //polygonCount += 1
             if (objectPolygonWarning.type == PolygonWarningType.SpecialWeatherStatement || (vtecs.size > polygonCount && !vtecs[polygonCount].startsWith("O.EXP") && !vtecs[polygonCount].startsWith("O.CAN"))) {
                 val polygonTmp = polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
 
@@ -88,9 +88,9 @@ internal object WXGLPolygonWarnings {
         val html = prefToken.replace("\n", "").replace(" ", "")
         val polygons = html.parseColumn(RegExp.warningLatLonPattern)
         val vtecs = html.parseColumn(RegExp.warningVtecPattern)
-        var polygonCount = -1
-        polygons.forEach { polygon ->
-            polygonCount += 1
+        //var polygonCount = -1
+        polygons.forEachIndexed { polygonCount, polygon ->
+            //polygonCount += 1
             if (vtecs.size > polygonCount && !vtecs[polygonCount].startsWith("O.EXP") && !vtecs[polygonCount].startsWith("O.CAN") && UtilityTime.isVtecCurrent(vtecs[polygonCount])) {
                 val polygonTmp = polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
                 //val list = polyTmp.split(" ")
