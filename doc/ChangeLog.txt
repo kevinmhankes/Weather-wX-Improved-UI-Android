@@ -33,8 +33,6 @@
 // TODO [REF] convert stuff like this MyApplication.locations[n - 1].x to Location.get*
 // TODO [REF] code cleanup in external code
 // TODO [REF] TouchImageView kotlin?
-// TODO [REF] have ExternalPoint accept Double
-// TODO [REF] sync up const names with wxl23
 
 55393 2020_04_11    [REF] misc for readability
                     [FIX] crash and off by one issue in radar icon in severe dashboard

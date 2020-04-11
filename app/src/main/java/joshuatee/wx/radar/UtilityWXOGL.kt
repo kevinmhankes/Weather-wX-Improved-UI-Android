@@ -167,7 +167,7 @@ object UtilityWXOGL {
             if (y.size > 3 && x.size > 3 && x.size == y.size) {
                 val polygonFrame = ExternalPolygon.Builder()
                 x.indices.forEach { j ->
-                    polygonFrame.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
+                    polygonFrame.addVertex(ExternalPoint(x[j], y[j]))
                 }
                 val polygonShape = polygonFrame.build()
                 val contains = polygonShape.contains(latLon.asPoint())
