@@ -28,6 +28,8 @@ import joshuatee.wx.util.UtilityString
 import kotlin.math.acos
 import kotlin.math.cos
 import kotlin.math.sin
+import joshuatee.wx.Extensions.*
+
 
 class LatLon() {
 
@@ -140,13 +142,13 @@ class LatLon() {
             val y = mutableListOf<Double>()
             list.indices.forEach { i ->
                 if (isWarning) {
-                    if (i and 1 == 0) {
+                    if (i.isEven()) {
                         y.add((list[i].toDoubleOrNull() ?: 0.0) * multiplier)
                     } else {
                         x.add(list[i].toDoubleOrNull() ?: 0.0)
                     }
                 } else {
-                    if (i and 1 == 0) {
+                    if (i.isEven()) {
                         x.add(list[i].toDoubleOrNull() ?: 0.0)
                     } else {
                         y.add((list[i].toDoubleOrNull() ?: 0.0) * multiplier)

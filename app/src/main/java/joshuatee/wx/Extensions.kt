@@ -88,6 +88,8 @@ fun View.setPadding(padding: Int) {
     this.setPadding(padding, padding, padding, padding)
 }
 
+fun Int.isEven() = this and 1 == 0
+
 
 
 
