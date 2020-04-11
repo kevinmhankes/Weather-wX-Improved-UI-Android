@@ -129,6 +129,38 @@ class LatLon() {
             }
             return dist
         }
+
+        // take a space separated list of numbers and return a list of LatLon, list is of the format
+        // lon0 lat0 lon1 lat1 for watch
+        // for UtilityWatch need to multiply Y by -1.0
+        fun parseStringToLatLons(stringOfNumbers: String, multiplier: Double = 1.0, isWarning: Boolean = true): List<LatLon> {
+            val list = stringOfNumbers.split(" ").dropLastWhile { it.isEmpty() }
+            // FIXME move to list of LatLon
+            val x = mutableListOf<Double>()
+            val y = mutableListOf<Double>()
+            list.indices.forEach { i ->
+                if (isWarning) {
+                    if (i and 1 == 0) {
+                        y.add((list[i].toDoubleOrNull() ?: 0.0) * multiplier)
+                    } else {
+                        x.add(list[i].toDoubleOrNull() ?: 0.0)
+                    }
+                } else {
+                    if (i and 1 == 0) {
+                        x.add(list[i].toDoubleOrNull() ?: 0.0)
+                    } else {
+                        y.add((list[i].toDoubleOrNull() ?: 0.0) * multiplier)
+                    }
+                }
+            }
+            val latLons = mutableListOf<LatLon>()
+            if (y.size > 3 && x.size > 3 && x.size == y.size) {
+                x.forEachIndexed { index, _ ->
+                    latLons.add(LatLon(x[index], y[index]))
+                }
+            }
+            return latLons
+        }
     }
 }
 

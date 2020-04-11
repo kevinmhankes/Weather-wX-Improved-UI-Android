@@ -27,6 +27,8 @@ import joshuatee.wx.util.UtilityCanvasProjection
 import joshuatee.wx.util.ProjectionNumbers
 import joshuatee.wx.external.ExternalPoint
 import joshuatee.wx.external.ExternalPolygon
+import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityLog
 
 internal object UtilityWatch {
 
@@ -87,21 +89,23 @@ internal object UtilityWatch {
         val latLonArr = MyApplication.colon.split(watchLatLon)
         var notFound = true
         latLonArr.indices.forEach { z ->
-            val list = latLonArr[z].split(" ")
-            // FIXME move to list of LatLon
+            /*val list = latLonArr[z].split(" ")
             val x = mutableListOf<Double>()
             val y = mutableListOf<Double>()
+            UtilityLog.d("wx", "DEBUG: " + list.toString())
             list.indices.forEach { i ->
                 if (i and 1 == 0) {
                     x.add(list[i].toDoubleOrNull() ?: 0.0)
                 } else {
                     y.add((list[i].toDoubleOrNull() ?: 0.0) * -1)
                 }
-            }
-            if (y.size > 3 && x.size > 3 && x.size == y.size) {
+            }*/
+            val latLons = LatLon.parseStringToLatLons(latLonArr[z],-1.0, false)
+            //if (y.size > 3 && x.size > 3 && x.size == y.size) {
+            if (latLons.size > 3) {
                 val polygonFrame = ExternalPolygon.Builder()
-                x.indices.forEach { j ->
-                    polygonFrame.addVertex(ExternalPoint(x[j], y[j]))
+                latLons.forEach {
+                    polygonFrame.addVertex(ExternalPoint(it))
                 }
                 val polygonShape = polygonFrame.build()
                 val contains = polygonShape.contains(latLon.asPoint())
