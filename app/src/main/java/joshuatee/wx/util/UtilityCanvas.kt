@@ -45,7 +45,6 @@ internal object UtilityCanvas {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Style.STROKE
         val path = Path()
-        //path.reset()
         val paintList = listOf(MyApplication.radarColorFfw, MyApplication.radarColorTstorm, MyApplication.radarColorTor)
         val dataList = listOf(MyApplication.severeDashboardFfw.value, MyApplication.severeDashboardTst.value, MyApplication.severeDashboardTor.value)
         if (projectionType.needsCanvasShift) {
