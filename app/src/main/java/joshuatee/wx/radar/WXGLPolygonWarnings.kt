@@ -81,6 +81,7 @@ internal object WXGLPolygonWarnings {
             if (vtecs.size > polygonCount && !vtecs[polygonCount].startsWith("O.EXP") && !vtecs[polygonCount].startsWith("O.CAN") && UtilityTime.isVtecCurrent(vtecs[polygonCount])) {
                 val polyTmp = polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
                 val list = polyTmp.split(" ")
+                // FIXME move to list of LatLon, static method in LatLon should return List<LatLon> from string of x y
                 val y = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
                 val x = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
                 if (y.isNotEmpty() && x.isNotEmpty()) {

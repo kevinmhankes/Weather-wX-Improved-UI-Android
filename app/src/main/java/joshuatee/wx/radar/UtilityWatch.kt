@@ -88,6 +88,7 @@ internal object UtilityWatch {
         var notFound = true
         latLonArr.indices.forEach { z ->
             val list = latLonArr[z].split(" ")
+            // FIXME move to list of LatLon
             val x = mutableListOf<Double>()
             val y = mutableListOf<Double>()
             list.indices.forEach { i ->
