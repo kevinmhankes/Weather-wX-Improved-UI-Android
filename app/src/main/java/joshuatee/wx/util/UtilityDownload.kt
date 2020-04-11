@@ -340,12 +340,7 @@ object UtilityDownload {
             prod == "SWPC3DAYGEO" -> {
                 text = (MyApplication.nwsSwpcWebSitePrefix + "/text/3-day-geomag-forecast.txt").getHtmlWithNewLine()
             }
-            prod.contains("MIATCP")
-                    || prod.contains("MIATCM")
-                    || prod.contains("MIATCD")
-                    || prod.contains("MIAPWS")
-                    || prod.contains("MIAHS")
-            -> {
+            prod.contains("MIATCP") || prod.contains("MIATCM") || prod.contains("MIATCD") || prod.contains("MIAPWS") || prod.contains("MIAHS") -> {
                 val url = "${MyApplication.nwsNhcWebsitePrefix}/text/$prod.shtml"
                 text = url.getHtmlWithNewLine()
                 text = UtilityString.extractPre(text).removeHtml()
@@ -626,10 +621,12 @@ object UtilityDownload {
         text = text.substring(text.indexOf('>') + 1)
         text = text.substring(text.indexOf('>') + 1)
         text = text.replace("^<br>".toRegex(), "")
-        if (UIPreferences.nwsTextRemovelinebreaks && t1 != "RTP") {
-            text = text.replace("<br><br>", "<BR><BR>")
-            text = text.replace("<br>", " ")
-        }
+        text = text.replace("<br><br>", MyApplication.newline)
+        text = text.replace("<br>", " ")
+        //if (UIPreferences.nwsTextRemovelinebreaks && t1 != "RTP") {
+        //text = text.replace("<br><br>", "<BR><BR>")
+        //text = text.replace("<br>", " ")
+        //}
         return text
     }
 

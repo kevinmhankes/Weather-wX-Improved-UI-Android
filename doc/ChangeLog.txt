@@ -33,12 +33,15 @@
 // TODO [REF] convert stuff like this MyApplication.locations[n - 1].x to Location.get*
 // TODO [REF] code cleanup in external code
 // TODO [REF] TouchImageView kotlin?
+// TODO [REF] have ExternalPoint accept Double
+// TODO [REF] sync up const names with wxl23
 
-55393 2020_04_09    [REF] misc for readability
+55393 2020_04_11    [REF] misc for readability
                     [FIX] crash and off by one issue in radar icon in severe dashboard
                     [REF] remove LatLonStr
                     [FIX] Canada radar - if zoomed in on local site and then choose mosaic, reset zoom/position
                     [ADD] hourly - remove bottom toolbar, move share icon to top
+                    [FIX] AFD - prior text products not formatting well
 55392 2020_04_07    [REF] misc for readability
 55391 2020_04_06    [FIX] remove line breaks in WPC Excessive rainfall text products
 55390 2020_04_05    [REF] misc for readability
