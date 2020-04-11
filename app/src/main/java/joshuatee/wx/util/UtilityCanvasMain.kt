@@ -169,11 +169,9 @@ object UtilityCanvasMain {
             UtilityCanvasStormInfo.drawNexRadStormMotion(context, projectionType, bitmapCanvas, radarSite)
         }
         if (PolygonType.MCD.pref) {
-            arrayOf(
-                    PolygonType.MCD,
-                    PolygonType.WATCH,
-                    PolygonType.WATCH_TORNADO
-            ).forEach { UtilityCanvas.addMcd(projectionType, bitmapCanvas, projectionNumbers, it) }
+            arrayOf(PolygonType.MCD, PolygonType.WATCH, PolygonType.WATCH_TORNADO).forEach {
+                UtilityCanvas.addMcd(projectionType, bitmapCanvas, projectionNumbers, it)
+            }
         }
         if (PolygonType.MPD.pref) {
             UtilityCanvas.addMcd(projectionType, bitmapCanvas, projectionNumbers, PolygonType.MPD)
@@ -258,19 +256,13 @@ object UtilityCanvasMain {
                         val s = 2
                         loadBuffer(context.resources, fileIds[s], countyRelativeBuffer, countArr[s])
                     }
-                    else -> {
-                    }
+                    else -> {}
                 }
             }
         } catch (e: OutOfMemoryError) {
             UtilityLog.handleException(e)
         }
-        return GeometryData(
-                hwRelativeBuffer,
-                countyRelativeBuffer,
-                stateRelativeBuffer,
-                lakesRelativeBuffer
-        )
+        return GeometryData(hwRelativeBuffer, countyRelativeBuffer, stateRelativeBuffer, lakesRelativeBuffer)
     }
 
     private fun loadBuffer(resources: Resources, fileId: Int, byteBuffer: ByteBuffer, count: Int) {

@@ -82,7 +82,7 @@ internal object UtilityCanvas {
         }
         paint.textSize = textSize.toFloat()
         UtilityCities.list.indices.forEach {
-            val latLon = if (projectionType.isMercator) {
+            val coordinates = if (projectionType.isMercator) {
                 UtilityCanvasProjection.computeMercatorNumbers(
                         UtilityCities.list[it]!!.x,
                         UtilityCities.list[it]!!.y,
@@ -98,13 +98,13 @@ internal object UtilityCanvas {
             if (textSize > 0) {
                 canvas.drawText(
                         MyApplication.comma.split(UtilityCities.list[it]!!.city)[0],
-                        latLon[0].toFloat() + 4,
-                        latLon[1].toFloat() - 4,
+                        coordinates[0].toFloat() + 4,
+                        coordinates[1].toFloat() - 4,
                         paint
                 )
-                canvas.drawCircle(latLon[0].toFloat(), latLon[1].toFloat(), 2f, paint)
+                canvas.drawCircle(coordinates[0].toFloat(), coordinates[1].toFloat(), 2f, paint)
             } else {
-                canvas.drawCircle(latLon[0].toFloat(), latLon[1].toFloat(), 1f, paint)
+                canvas.drawCircle(coordinates[0].toFloat(), coordinates[1].toFloat(), 1f, paint)
             }
         }
     }
@@ -118,17 +118,15 @@ internal object UtilityCanvas {
         if (projectionType.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
-        val locXCurrent = Location.x
-        val locYCurrent = Location.y.replace("-", "")
-        val x = locXCurrent.toDoubleOrNull() ?: 0.0
-        val y = locYCurrent.toDoubleOrNull() ?: 0.0
-        val latLon = if (projectionType.isMercator) {
+        val x = Location.x.toDoubleOrNull() ?: 0.0
+        val y = Location.y.replace("-", "").toDoubleOrNull() ?: 0.0
+        val coordinates = if (projectionType.isMercator) {
             UtilityCanvasProjection.computeMercatorNumbers(x, y, projectionNumbers)
         } else {
             UtilityCanvasProjection.compute4326Numbers(x, y, projectionNumbers)
         }
         paint.color = MyApplication.radarColorLocdot
-        canvas.drawCircle(latLon[0].toFloat(), latLon[1].toFloat(), 2f, paint)
+        canvas.drawCircle(coordinates[0].toFloat(), coordinates[1].toFloat(), 2f, paint)
     }
 
     fun addMcd(projectionType: ProjectionType, bitmap: Bitmap, projectionNumbers: ProjectionNumbers, polygonType: PolygonType) {
@@ -167,57 +165,25 @@ internal object UtilityCanvas {
             val latLons = LatLon.parseStringToLatLons(warning, 1.0, false)
             path.reset()
             if (latLons.isNotEmpty()) {
-                val coordinates = if (isMercator) {
+                val startCoordinates = if (isMercator) {
                     UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers)
                 } else {
                     UtilityCanvasProjection.compute4326Numbers(latLons[0], projectionNumbers)
                 }
-                val firstX = coordinates[0]
-                val firstY = coordinates[1]
+                val firstX = startCoordinates[0]
+                val firstY = startCoordinates[1]
                 path.moveTo(firstX.toFloat(), firstY.toFloat())
                 (1 until latLons.size).forEach { index ->
-                    val latLon = if (isMercator) {
+                    val coordinates = if (isMercator) {
                         UtilityCanvasProjection.computeMercatorNumbers(latLons[index], projectionNumbers)
                     } else {
                         UtilityCanvasProjection.compute4326Numbers(latLons[index], projectionNumbers)
                     }
-                    path.lineTo(latLon[0].toFloat(), latLon[1].toFloat())
+                    path.lineTo(coordinates[0].toFloat(), coordinates[1].toFloat())
                 }
                 path.lineTo(firstX.toFloat(), firstY.toFloat())
                 canvas.drawPath(path, paint)
             }
-
-            /*val list = warning.split(" ").dropLastWhile { it.isEmpty() }
-            val x = list.filterIndexed { index: Int, _: String -> index and 1 == 0 }.map {
-                it.toDoubleOrNull() ?: 0.0
-            }
-            val y = list.filterIndexed { index: Int, _: String -> index and 1 != 0 }.map {
-                it.toDoubleOrNull() ?: 0.0
-            }
-            path.reset()
-            if (y.isNotEmpty() && x.isNotEmpty()) {
-                val latLon = if (isMercator) {
-                    UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers)
-                } else {
-                    UtilityCanvasProjection.compute4326Numbers(x[0], y[0], projectionNumbers)
-                }
-                firstX = latLon[0]
-                firstY = latLon[1]
-                path.moveTo(firstX.toFloat(), firstY.toFloat())
-                if (x.size == y.size) {
-                    (1 until x.size).forEach {
-                        val coordinates = if (isMercator) {
-                            UtilityCanvasProjection.computeMercatorNumbers(x[it], y[it], projectionNumbers)
-                        } else {
-                            UtilityCanvasProjection.compute4326Numbers(x[it], y[it], projectionNumbers)
-                        }
-                        path.lineTo(coordinates[0].toFloat(), coordinates[1].toFloat())
-                    }
-                    path.lineTo(firstX.toFloat(), firstY.toFloat())
-                    canvas.drawPath(path, paint)
-                }
-            }*/
-
         }
     }
 
@@ -239,57 +205,25 @@ internal object UtilityCanvas {
                 val latLons = LatLon.parseStringToLatLons(warning)
                 path.reset()
                 if (latLons.isNotEmpty()) {
-                    val coordinates = if (isMercator) {
+                    val startCoordinates = if (isMercator) {
                         UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers)
                     } else {
                         UtilityCanvasProjection.compute4326Numbers(latLons[0], projectionNumbers)
                     }
-                    firstX = coordinates[0]
-                    firstY = coordinates[1]
+                    firstX = startCoordinates[0]
+                    firstY = startCoordinates[1]
                     path.moveTo(firstX.toFloat(), firstY.toFloat())
                     (1 until latLons.size).forEach { index ->
-                        val latLon = if (isMercator) {
+                        val coordinates = if (isMercator) {
                             UtilityCanvasProjection.computeMercatorNumbers(latLons[index], projectionNumbers)
                         } else {
                             UtilityCanvasProjection.compute4326Numbers(latLons[index], projectionNumbers)
                         }
-                        path.lineTo(latLon[0].toFloat(), latLon[1].toFloat())
+                        path.lineTo(coordinates[0].toFloat(), coordinates[1].toFloat())
                     }
                     path.lineTo(firstX.toFloat(), firstY.toFloat())
                     canvas.drawPath(path, paint)
                 }
-
-                /*val list = warning.split(" ").dropLastWhile { it.isEmpty() }
-                val y = list.filterIndexed { index: Int, _: String -> index and 1 == 0 }.map {
-                    it.toDoubleOrNull() ?: 0.0
-                }
-                val x = list.filterIndexed { index: Int, _: String -> index and 1 != 0 }.map {
-                    it.toDoubleOrNull() ?: 0.0
-                }
-                path.reset()
-                if (y.isNotEmpty() && x.isNotEmpty()) {
-                    val coordinates = if (isMercator) {
-                        UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers)
-                    } else {
-                        UtilityCanvasProjection.compute4326Numbers(x[0], y[0], projectionNumbers)
-                    }
-                    firstX = coordinates[0]
-                    firstY = coordinates[1]
-                    path.moveTo(firstX.toFloat(), firstY.toFloat())
-                    if (x.size == y.size) {
-                        (1 until x.size).forEach {
-                            val latLon = if (isMercator) {
-                                UtilityCanvasProjection.computeMercatorNumbers(x[it], y[it], projectionNumbers)
-                            } else {
-                                UtilityCanvasProjection.compute4326Numbers(x[it], y[it], projectionNumbers)
-                            }
-                            path.lineTo(latLon[0].toFloat(), latLon[1].toFloat())
-                        }
-                        path.lineTo(firstX.toFloat(), firstY.toFloat())
-                        canvas.drawPath(path, paint)
-                    }
-                }*/
-
             }
         }
     }
