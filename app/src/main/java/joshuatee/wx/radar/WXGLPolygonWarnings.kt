@@ -30,7 +30,6 @@ import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
 import joshuatee.wx.objects.ObjectPolygonWarning
 import joshuatee.wx.objects.PolygonWarningType
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityTime
 
 internal object WXGLPolygonWarnings {
@@ -45,8 +44,21 @@ internal object WXGLPolygonWarnings {
         polygons.forEach { polygon ->
             polygonCount += 1
             if (objectPolygonWarning.type == PolygonWarningType.SpecialWeatherStatement || (vtecs.size > polygonCount && !vtecs[polygonCount].startsWith("O.EXP") && !vtecs[polygonCount].startsWith("O.CAN"))) {
-                val polyTmp = polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
-                val list = polyTmp.split(" ")
+                val polygonTmp = polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
+
+                val latLons = LatLon.parseStringToLatLons(polygonTmp)
+                if (latLons.isNotEmpty()) {
+                    val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers).toMutableList()
+                    warningList += startCoordinates
+                    (1 until latLons.size).forEach { index ->
+                        val coordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[index], projectionNumbers).toMutableList()
+                        warningList += coordinates
+                        warningList += coordinates
+                    }
+                    warningList += startCoordinates
+                }
+
+                /*val list = polyTmp.split(" ")
                 val y = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
                 val x = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
                 if (y.isNotEmpty() && x.isNotEmpty()) {
@@ -60,7 +72,7 @@ internal object WXGLPolygonWarnings {
                         }
                         warningList += startCoordinates
                     }
-                }
+                }*/
             }
         }
         return warningList
@@ -80,12 +92,24 @@ internal object WXGLPolygonWarnings {
         polygons.forEach { polygon ->
             polygonCount += 1
             if (vtecs.size > polygonCount && !vtecs[polygonCount].startsWith("O.EXP") && !vtecs[polygonCount].startsWith("O.CAN") && UtilityTime.isVtecCurrent(vtecs[polygonCount])) {
-                val polyTmp = polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
-                val list = polyTmp.split(" ")
-                // FIXME move to list of LatLon, static method in LatLon should return List<LatLon> from string of x y
-                val y = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
-                val x = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
-                if (y.isNotEmpty() && x.isNotEmpty()) {
+                val polygonTmp = polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
+                //val list = polyTmp.split(" ")
+                //val y = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
+                //val x = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
+
+                val latLons = LatLon.parseStringToLatLons(polygonTmp)
+                if (latLons.isNotEmpty()) {
+                    val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers).toMutableList()
+                    warningList += startCoordinates
+                    (1 until latLons.size).forEach { index ->
+                        val coordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[index], projectionNumbers).toMutableList()
+                        warningList += coordinates
+                        warningList += coordinates
+                    }
+                    warningList += startCoordinates
+                }
+
+                /*if (y.isNotEmpty() && x.isNotEmpty()) {
                     val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers).toMutableList()
                     warningList += startCoordinates
                     if (x.size == y.size) {
@@ -96,7 +120,11 @@ internal object WXGLPolygonWarnings {
                         }
                         warningList += startCoordinates
                     }
-                }
+                }*/
+
+
+
+
             }
         }
         return warningList
