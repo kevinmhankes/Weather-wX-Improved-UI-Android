@@ -33,6 +33,7 @@
 // TODO [REF] code cleanup in external code
 // TODO [REF] TouchImageView kotlin?
 
+55394 2020_04_12    [REF] misc for readability
 55393 2020_04_12    [REF] misc for readability
                     [FIX] crash and off by one issue in radar icon in severe dashboard
                     [REF] remove LatLonStr
