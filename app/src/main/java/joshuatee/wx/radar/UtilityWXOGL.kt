@@ -157,9 +157,7 @@ object UtilityWXOGL {
         val polygons = html.parseColumn(RegExp.warningLatLonPattern)
         var string = ""
         var notFound = true
-        var polygonCount = -1
         polygons.forEachIndexed { urlIndex, polygon ->
-            polygonCount += 1
             val polygonTmp = polygon.replace("[", "").replace("]", "").replace(",", " ")
             val latLons = LatLon.parseStringToLatLons(polygonTmp)
             if (latLons.isNotEmpty()) {
