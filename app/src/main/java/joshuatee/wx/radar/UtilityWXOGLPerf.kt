@@ -295,7 +295,7 @@ internal object UtilityWXOGLPerf {
             if (chunkIndex == chunkCount - 1) {
                 breakSize = remainder
             }
-            for (j in 0 until breakSize) {
+            for (notUsed in 0 until breakSize) {
                 indexBuff.putShort(indexForIndex, indexCount.toShort())
                 indexForIndex += 2
                 indexBuff.putShort(indexForIndex, (1 + indexCount).toShort())
@@ -318,7 +318,7 @@ internal object UtilityWXOGLPerf {
         val remainder: Int
         var chunkCount = 1
         val totalBins = length / 4
-        var iCount = 0
+        var indexForIndex = 0
         if (totalBins < breakSize) {
             breakSize = totalBins
             remainder = breakSize
@@ -329,16 +329,16 @@ internal object UtilityWXOGLPerf {
         }
         indexBuff.position(0)
         (0 until chunkCount).forEach {
-            var incr = 0
+            var indexCount = 0
             if (it == chunkCount - 1) {
                 breakSize = remainder
             }
-            for (j in 0 until breakSize) {
-                indexBuff.putShort(iCount, incr.toShort())
-                iCount += 2
-                indexBuff.putShort(iCount, (1 + incr).toShort())
-                iCount += 2
-                incr += 2
+            for (notUsed in 0 until breakSize) {
+                indexBuff.putShort(indexForIndex, indexCount.toShort())
+                indexForIndex += 2
+                indexBuff.putShort(indexForIndex, (1 + indexCount).toShort())
+                indexForIndex += 2
+                indexCount += 2
             }
         }
     }
