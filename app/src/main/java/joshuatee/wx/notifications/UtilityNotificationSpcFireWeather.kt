@@ -35,6 +35,7 @@ import android.graphics.Color
 import androidx.core.app.NotificationCompat
 
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.radar.LatLon
 
 internal object UtilityNotificationSpcFireWeather {
 
@@ -117,8 +118,10 @@ internal object UtilityNotificationSpcFireWeather {
                     string = string.replace(" 99.99 99.99 ", " ") // need for the way SPC ConvO seperates on 8 's
                 } // end looping over polygons of one threat level
                 val items = MyApplication.colon.split(string)
-                items.indices.forEach { z ->
-                    val list = MyApplication.space.split(items[z])
+                items.forEach {
+
+
+                    /*val list = MyApplication.space.split(items[z])
                     val x = mutableListOf<Double>()
                     val y = mutableListOf<Double>()
                     list.indices.forEach { i ->
@@ -127,17 +130,25 @@ internal object UtilityNotificationSpcFireWeather {
                         } else {
                             y.add((list[i].toDoubleOrNull() ?: 0.0) * -1)
                         }
-                    }
+                    }*/
+
+                    val latLons = LatLon.parseStringToLatLons(it, -1.0, false)
+
+
+
+
                     // inject bounding box coords if first doesn't equal last
                     // focus on east coast for now
                     //
                     // 52,-130               52,-62
                     // 21,-130                21,-62
                     //
-                    if (y.size >= 3 && x.size >= 3 && x.size == y.size) {
+
+                    //if (y.size >= 3 && x.size >= 3 && x.size == y.size) {
+                    if (latLons.isNotEmpty()) {
                         val polygonFrame = ExternalPolygon.Builder()
-                        x.indices.forEach { j ->
-                            polygonFrame.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
+                        latLons.forEach { latLon ->
+                            polygonFrame.addVertex(ExternalPoint(latLon))
                         }
                         val polygonShape = polygonFrame.build()
                         (1..Location.numLocations).forEach { n ->
