@@ -230,10 +230,7 @@ class LocationFragment : Fragment()  {
                 else
                     inflater.inflate(R.layout.fragment_location, container, false)
         homescreenFavLocal = MyApplication.homescreenFav
-        if (homescreenFavLocal.contains("TXT-CC")
-                || homescreenFavLocal.contains("TXT-HAZ")
-                || homescreenFavLocal.contains("TXT-7DAY")
-        ) {
+        if (homescreenFavLocal.contains("TXT-CC") || homescreenFavLocal.contains("TXT-HAZ") || homescreenFavLocal.contains("TXT-7DAY")) {
             needForecastData = true
         }
         // The dialogue that opens when the user wants to change location
@@ -246,9 +243,10 @@ class LocationFragment : Fragment()  {
         linearLayout = view.findViewById(R.id.ll)
         // The button the user will tape so change location
         locationLabel = ObjectCardText(activityReference, linearLayout, Location.name, TextSize.MEDIUM)
-        var locationLabelPadding = 20
-        if (UtilityUI.isTablet()) {
-            locationLabelPadding = 10
+        val locationLabelPadding = if (UtilityUI.isTablet()) {
+            10
+        } else {
+            20
         }
         locationLabel.tv.setPadding(locationLabelPadding)
         locationLabel.setTextColor(UIPreferences.textHighlightColor)
