@@ -250,16 +250,10 @@ class LocationFragment : Fragment()  {
         }
         locationLabel.tv.setPadding(locationLabelPadding)
         locationLabel.setTextColor(UIPreferences.textHighlightColor)
-        locationLabel.setOnClickListener(OnClickListener {
-            locationDialogue.show()
-        })
+        locationLabel.setOnClickListener(OnClickListener { locationDialogue.show() })
         if (homescreenFavLocal.contains("TXT-CC2")) {
             cardCC = ObjectCardCurrentConditions(activityReference, 2)
-            cardCC?.setListener(
-                    alertDialogStatus,
-                    alertDialogStatusList,
-                    ::radarTimestamps
-            )
+            cardCC?.setListener(alertDialogStatus, alertDialogStatusList, ::radarTimestamps)
         } else {
             cardCC = ObjectCardCurrentConditions(activityReference, 1)
         }
@@ -564,8 +558,7 @@ class LocationFragment : Fragment()  {
         return wxglRenders[j].rid + ": " + timestamp + " (" + Utility.getRadarSiteName(wxglRenders[j].rid) + ")"
     }
 
-    private fun getGPSFromDouble() {
-    }
+    private fun getGPSFromDouble() {}
 
     private fun getLatLon() = LatLon(Location.x, Location.y)
 
