@@ -23,7 +23,6 @@ package joshuatee.wx.radar
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.PolygonType
-import joshuatee.wx.util.UtilityCanvasProjection
 import joshuatee.wx.util.ProjectionNumbers
 
 import joshuatee.wx.Extensions.*

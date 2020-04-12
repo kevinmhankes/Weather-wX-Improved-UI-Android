@@ -24,7 +24,6 @@ package joshuatee.wx.radar
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.util.ProjectionNumbers
-import joshuatee.wx.external.ExternalPoint
 import joshuatee.wx.external.ExternalPolygon
 
 internal object UtilityWatch {

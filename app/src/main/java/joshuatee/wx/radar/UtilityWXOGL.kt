@@ -28,7 +28,6 @@ import java.io.File
 import java.io.IOException
 
 import joshuatee.wx.MyApplication
-import joshuatee.wx.external.ExternalPoint
 import joshuatee.wx.external.ExternalPolygon
 import joshuatee.wx.util.UCARRandomAccessFile
 import joshuatee.wx.util.UtilityDownload
