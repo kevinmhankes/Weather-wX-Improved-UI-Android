@@ -60,11 +60,9 @@ internal object UtilityNotificationWpc {
                 (1..Location.numLocations).forEach { n ->
                     val locNum = n.toString()
                     if (MyApplication.locations[n - 1].notificationWpcMpd) {
-                        // if location is watching for MCDs pull ib lat/lon and interate over polygons
+                        // if location is watching for MCDs pull ib lat/lon and iterate over polygons
                         // call secondary method to send notification if required
-                        val locXDbl = MyApplication.locations[n - 1].x.toDoubleOrNull() ?: 0.0
-                        val locYDbl = MyApplication.locations[n - 1].y.toDoubleOrNull() ?: 0.0
-                        val contains = polygon2.contains(ExternalPoint(locXDbl.toFloat(), locYDbl.toFloat()))
+                        val contains = polygon2.contains(Location.getLatLon(n - 1).asPoint())
                         if (contains) {
                             notifUrls += sendMpdNotification(context, locNum, Utility.safeGet(mpdNumbers, z))
                         }

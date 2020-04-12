@@ -42,23 +42,16 @@ internal object UtilityWatch {
         if (prefToken != "") {
             val polygons = prefToken.split(":").dropLastWhile { it.isEmpty() }
             polygons.forEach { polygon ->
-                //val list = item.split(" ").dropLastWhile { it.isEmpty() } // MyApplication.space.split(item)
-               // val x = list.filterIndexed { index: Int, _: String -> index and 1 == 0 }.map { it.toDoubleOrNull() ?: 0.0 }
-                //val y = list.filterIndexed { index: Int, _: String -> index and 1 != 0 }.map { it.toDoubleOrNull() ?: 0.0 }
-
                 val latLons = LatLon.parseStringToLatLons(polygon, 1.0, false)
-                //if (y.isNotEmpty() && x.isNotEmpty()) {
                 if (latLons.isNotEmpty()) {
                     val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers).toMutableList()
                     warningList += startCoordinates
-                    //if (x.size == y.size) {
-                        (1 until latLons.size).forEach { index ->
-                            val coordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[index], projectionNumbers).toMutableList()
-                            warningList += coordinates
-                            warningList += coordinates
-                        }
-                        warningList += startCoordinates
-                    //}
+                    (1 until latLons.size).forEach { index ->
+                        val coordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[index], projectionNumbers).toMutableList()
+                        warningList += coordinates
+                        warningList += coordinates
+                    }
+                    warningList += startCoordinates
                 }
             }
         }
@@ -87,23 +80,11 @@ internal object UtilityWatch {
                 watchLatLon = MyApplication.watchLatLonList.value
             }
         }
-        val latLonArr = MyApplication.colon.split(watchLatLon)
+        val polygons = watchLatLon.split(":").dropLastWhile { it.isEmpty() }
         var notFound = true
-        latLonArr.indices.forEach { z ->
-            /*val list = latLonArr[z].split(" ")
-            val x = mutableListOf<Double>()
-            val y = mutableListOf<Double>()
-            UtilityLog.d("wx", "DEBUG: " + list.toString())
-            list.indices.forEach { i ->
-                if (i and 1 == 0) {
-                    x.add(list[i].toDoubleOrNull() ?: 0.0)
-                } else {
-                    y.add((list[i].toDoubleOrNull() ?: 0.0) * -1)
-                }
-            }*/
-            val latLons = LatLon.parseStringToLatLons(latLonArr[z],-1.0, false)
-            //if (y.size > 3 && x.size > 3 && x.size == y.size) {
-            if (latLons.size > 3) {
+        polygons.indices.forEach { z ->
+            val latLons = LatLon.parseStringToLatLons(polygons[z],-1.0, false)
+            if (latLons.isNotEmpty()) {
                 val polygonFrame = ExternalPolygon.Builder()
                 latLons.forEach {
                     polygonFrame.addVertex(ExternalPoint(it))

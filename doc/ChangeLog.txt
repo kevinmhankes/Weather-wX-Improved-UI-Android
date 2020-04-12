@@ -34,7 +34,7 @@
 // TODO [REF] code cleanup in external code
 // TODO [REF] TouchImageView kotlin?
 
-55393 2020_04_11    [REF] misc for readability
+55393 2020_04_12    [REF] misc for readability
                     [FIX] crash and off by one issue in radar icon in severe dashboard
                     [REF] remove LatLonStr
                     [FIX] Canada radar - if zoomed in on local site and then choose mosaic, reset zoom/position
