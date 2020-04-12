@@ -350,12 +350,10 @@ internal object UtilityNotificationSpc {
                 val items = string.split(":")
                 items.indices.forEach { z ->
                     val latLons = LatLon.parseStringToLatLons(items[z], -1.0, false)
-                    //  inject bounding box coordinates if first doesn't equal last
+                    // inject bounding box coordinates if first doesn't equal last
                     // focus on east coast for now
-                    //
                     // 52,-130               52,-62
                     // 21,-130                21,-62
-                    //
                     if (latLons.isNotEmpty()) {
                         val polygonFrame = ExternalPolygon.Builder()
                         latLons.forEach { latLon ->
