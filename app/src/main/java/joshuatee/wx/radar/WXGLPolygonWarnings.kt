@@ -40,12 +40,9 @@ internal object WXGLPolygonWarnings {
         val html = prefToken.replace("\n", "").replace(" ", "")
         val polygons = html.parseColumn(RegExp.warningLatLonPattern)
         val vtecs = html.parseColumn(RegExp.warningVtecPattern)
-        //var polygonCount = -1
         polygons.forEachIndexed { polygonCount, polygon ->
-            //polygonCount += 1
             if (objectPolygonWarning.type == PolygonWarningType.SpecialWeatherStatement || (vtecs.size > polygonCount && !vtecs[polygonCount].startsWith("O.EXP") && !vtecs[polygonCount].startsWith("O.CAN"))) {
                 val polygonTmp = polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
-
                 val latLons = LatLon.parseStringToLatLons(polygonTmp)
                 if (latLons.isNotEmpty()) {
                     val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers).toMutableList()
@@ -57,22 +54,6 @@ internal object WXGLPolygonWarnings {
                     }
                     warningList += startCoordinates
                 }
-
-                /*val list = polyTmp.split(" ")
-                val y = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
-                val x = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
-                if (y.isNotEmpty() && x.isNotEmpty()) {
-                    val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers).toMutableList()
-                    warningList += startCoordinates
-                    if (x.size == y.size) {
-                        (1 until x.size).forEach { index ->
-                            val coordinates = UtilityCanvasProjection.computeMercatorNumbers(x[index], y[index], projectionNumbers).toMutableList()
-                            warningList += coordinates
-                            warningList += coordinates
-                        }
-                        warningList += startCoordinates
-                    }
-                }*/
             }
         }
         return warningList
@@ -88,15 +69,9 @@ internal object WXGLPolygonWarnings {
         val html = prefToken.replace("\n", "").replace(" ", "")
         val polygons = html.parseColumn(RegExp.warningLatLonPattern)
         val vtecs = html.parseColumn(RegExp.warningVtecPattern)
-        //var polygonCount = -1
         polygons.forEachIndexed { polygonCount, polygon ->
-            //polygonCount += 1
             if (vtecs.size > polygonCount && !vtecs[polygonCount].startsWith("O.EXP") && !vtecs[polygonCount].startsWith("O.CAN") && UtilityTime.isVtecCurrent(vtecs[polygonCount])) {
                 val polygonTmp = polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
-                //val list = polyTmp.split(" ")
-                //val y = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
-                //val x = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
-
                 val latLons = LatLon.parseStringToLatLons(polygonTmp)
                 if (latLons.isNotEmpty()) {
                     val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers).toMutableList()
@@ -108,23 +83,6 @@ internal object WXGLPolygonWarnings {
                     }
                     warningList += startCoordinates
                 }
-
-                /*if (y.isNotEmpty() && x.isNotEmpty()) {
-                    val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(x[0], y[0], projectionNumbers).toMutableList()
-                    warningList += startCoordinates
-                    if (x.size == y.size) {
-                        (1 until x.size).forEach { index ->
-                            val coordinates = UtilityCanvasProjection.computeMercatorNumbers(x[index], y[index], projectionNumbers).toMutableList()
-                            warningList += coordinates
-                            warningList += coordinates
-                        }
-                        warningList += startCoordinates
-                    }
-                }*/
-
-
-
-
             }
         }
         return warningList
