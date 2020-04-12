@@ -133,26 +133,7 @@ internal object UtilityNotificationSpc {
                 var string = ""
                 val htmlList = htmlBlob.parseColumn(threat.substring(1) + "(.*?)[A-Z&]")
                 htmlList.forEach {
-                    // FIXME
-                    val coordinates = it.parseColumn("([0-9]{8}).*?")
-                    coordinates.forEach { temp ->
-                        var xStrTmp = temp.substring(0, 4)
-                        var yStrTmp = temp.substring(4, 8)
-                        if (yStrTmp.matches("^0".toRegex())) {
-                            yStrTmp = yStrTmp.replace("^0".toRegex(), "")
-                            yStrTmp += "0"
-                        }
-                        xStrTmp = UtilityString.addPeriodBeforeLastTwoChars(xStrTmp)
-                        yStrTmp = UtilityString.addPeriodBeforeLastTwoChars(yStrTmp)
-                        var tmpDbl = yStrTmp.toDoubleOrNull() ?: 0.0
-                        if (tmpDbl < 40.00) {
-                            tmpDbl += 100
-                            yStrTmp = tmpDbl.toString()
-                        }
-                        string = "$string$xStrTmp $yStrTmp "
-                    }
-                    string += ":"
-                    string = string.replace(" :", ":")
+                    string += UtilityNotification.storeWatMcdLatLon(it)
                     string = string.replace(" 99.99 99.99 ", " ") // need for the way SPC ConvO seperates on 8 's
                 } // end looping over polygons of one threat level
                 val items = MyApplication.colon.split(string)
@@ -317,34 +298,14 @@ internal object UtilityNotificationSpc {
         urlBlob = "${MyApplication.nwsSPCwebsitePrefix}$urlBlob"
         var html = urlBlob.getHtmlSep()
         val validTime = html.parse("VALID TIME ([0-9]{6}Z - [0-9]{6}Z)")
-        html = html.replace("<br>", " ")
-        html = html.replace("0.30", "SPC30percent")
-        html = html.replace("0.15", "SPC15percent")
+        html = html.replace("<br>", " ").replace("0.30", "SPC30percent").replace("0.15", "SPC15percent")
         (4..8).forEach { day ->
             val htmlBlob = html.parse("SEVERE WEATHER OUTLOOK POINTS DAY $day(.*?&)&") // was (.*?)&&
-            threatList.forEach {
+            threatList.forEach { threat ->
                 var string = ""
-                val htmlList = htmlBlob.parseColumn(it.substring(1) + "(.*?)[A-Z&]")
-                htmlList.indices.forEach { h ->
-                    val coordinates = htmlList[h].parseColumn("([0-9]{8}).*?")
-                    coordinates.forEach { temp ->
-                        var xStrTmp = temp.substring(0, 4)
-                        var yStrTmp = temp.substring(4, 8)
-                        if (yStrTmp.matches("^0".toRegex())) {
-                            yStrTmp = yStrTmp.replace("^0".toRegex(), "")
-                            yStrTmp += "0"
-                        }
-                        xStrTmp = UtilityString.addPeriodBeforeLastTwoChars(xStrTmp)
-                        yStrTmp = UtilityString.addPeriodBeforeLastTwoChars(yStrTmp)
-                        var tmpDbl = yStrTmp.toDoubleOrNull() ?: 0.0
-                        if (tmpDbl < 40.00) {
-                            tmpDbl += 100
-                            yStrTmp = tmpDbl.toString()
-                        }
-                        string = "$string$xStrTmp $yStrTmp "
-                    }
-                    string += ":"
-                    string = string.replace(" :", ":")
+                val htmlList = htmlBlob.parseColumn(threat.substring(1) + "(.*?)[A-Z&]")
+                htmlList.forEach {
+                    string += UtilityNotification.storeWatMcdLatLon(it)
                     string = string.replace(" 99.99 99.99 ", " ") // need for the way SPC ConvO seperates on 8 's
                 } // end looping over polygons of one threat level
                 val items = string.split(":")
@@ -367,7 +328,7 @@ internal object UtilityNotificationSpc {
                                 // call secondary method to send notif if required
                                 if (polygonShape.contains(Location.getLatLon(n - 1).asPoint())) {
                                     if (!notifUrls.contains("spcswoloc$day$locNum")) {
-                                        notifUrls += sendSwoNotification(context, locNum, day, it, validTime)
+                                        notifUrls += sendSwoNotification(context, locNum, day, threat, validTime)
                                     }
                                 }
                             }

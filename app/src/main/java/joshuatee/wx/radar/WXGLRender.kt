@@ -476,7 +476,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             locCircleBuffers.chunkCount = 1
             drawPolygons(locCircleBuffers, 16)
         }
-        GLES20.glLineWidth(MyApplication.radarWarnLineSize)
+        GLES20.glLineWidth(PolygonType.TOR.size)
         listOf(warningTstBuffers, warningFfwBuffers, warningTorBuffers).forEach {
             drawPolygons(it, 8)
         }
@@ -485,17 +485,21 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 drawPolygons(it, 8)
             }
         }
-        GLES20.glLineWidth(MyApplication.radarWatchMcdLineSize)
+        GLES20.glLineWidth(PolygonType.WATCH_TORNADO.size)
         listOf(
                 mpdBuffers,
                 mcdBuffers,
                 watchBuffers,
-                watchTornadoBuffers,
-                swoBuffers
+                watchTornadoBuffers
         ).forEach {
-            // FIXME set line size
             drawPolygons(it, 8)
         }
+
+        GLES20.glLineWidth(PolygonType.SWO.size)
+        listOf(swoBuffers).forEach {
+            drawPolygons(it, 8)
+        }
+
         if (zoom < (0.50 / zoomScreenScaleFactor)) {
             GLES20.glLineWidth(MyApplication.radarWatchMcdLineSize)
             wpcFrontBuffersList.forEach {

@@ -31,13 +31,13 @@ enum class PolygonType constructor(
         var size: Float
 ) {
 
-    MCD(MyApplication.radarColorMcd, "MCD", MyApplication.radarWatMcd, 0.0f),
-    MPD(MyApplication.radarColorMpd, "MPD", MyApplication.radarMpd, 0.0f),
-    WATCH(MyApplication.radarColorTstormWatch, "WATCH", MyApplication.radarWatMcd, 0.0f),
-    WATCH_TORNADO(MyApplication.radarColorTorWatch, "WATCH_TORNADO", MyApplication.radarWatMcd, 0.0f),
-    TST(MyApplication.radarColorTstorm, "TST", MyApplication.radarWarnings, 0.0f),
-    TOR(MyApplication.radarColorTor, "TOR", MyApplication.radarWarnings, 0.0f),
-    FFW(MyApplication.radarColorFfw, "FFW", MyApplication.radarWarnings, 0.0f),
+    MCD(MyApplication.radarColorMcd, "MCD", MyApplication.radarWatMcd, MyApplication.radarWatchMcdLineSize),
+    MPD(MyApplication.radarColorMpd, "MPD", MyApplication.radarMpd, MyApplication.radarWatchMcdLineSize),
+    WATCH(MyApplication.radarColorTstormWatch, "WATCH", MyApplication.radarWatMcd, MyApplication.radarWatchMcdLineSize),
+    WATCH_TORNADO(MyApplication.radarColorTorWatch, "WATCH_TORNADO", MyApplication.radarWatMcd, MyApplication.radarWatchMcdLineSize),
+    TST(MyApplication.radarColorTstorm, "TST", MyApplication.radarWarnings, MyApplication.radarWarnLineSize),
+    TOR(MyApplication.radarColorTor, "TOR", MyApplication.radarWarnings, MyApplication.radarWarnLineSize),
+    FFW(MyApplication.radarColorFfw, "FFW", MyApplication.radarWarnings, MyApplication.radarWarnLineSize),
     SPOTTER(MyApplication.radarColorSpotter, "SPOTTER", MyApplication.radarSpotters, MyApplication.radarSpotterSize.toFloat()),
     SPOTTER_LABELS(MyApplication.radarColorSpotter, "SPOTTER_LABELS", MyApplication.radarSpottersLabel, 0.0f),
     WIND_BARB_GUSTS(Color.RED, "WIND_BARB_GUSTS", MyApplication.radarObsWindbarbs, MyApplication.radarWbLineSize.toFloat()),
@@ -94,8 +94,13 @@ enum class PolygonType constructor(
             OBS.color = MyApplication.radarColorObs
             SWO.color = MyApplication.radarColorHi
             SWO.size = MyApplication.radarSwoLineSize.toFloat()
-
-            // FIXME set more line size on refresh
+            MCD.size = MyApplication.radarWatchMcdLineSize
+            MPD.size = MyApplication.radarWatchMcdLineSize
+            WATCH.size = MyApplication.radarWatchMcdLineSize
+            WATCH_TORNADO.size = MyApplication.radarWatchMcdLineSize
+            TST.size = MyApplication.radarWarnLineSize
+            TOR.size = MyApplication.radarWarnLineSize
+            FFW.size = MyApplication.radarWarnLineSize
         }
     }
 }

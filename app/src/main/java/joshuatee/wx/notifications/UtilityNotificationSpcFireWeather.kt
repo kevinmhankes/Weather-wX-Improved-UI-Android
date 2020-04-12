@@ -24,7 +24,6 @@ package joshuatee.wx.notifications
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.settings.Location
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.external.ExternalPoint
 import joshuatee.wx.external.ExternalPolygon
 import joshuatee.wx.spc.SpcFireOutlookSummaryActivity
@@ -87,35 +86,11 @@ internal object UtilityNotificationSpcFireWeather {
             val validTime = html.parse("VALID TIME ([0-9]{6}Z - [0-9]{6}Z)")
             html = html.replace("<br>", " ")
             val htmlBlob = html.parse("FIRE WEATHER OUTLOOK POINTS DAY $day(.*?&)&") // was (.*?)&&
-            threatList.indices.forEach { m ->
+            threatList.forEach { threat ->
                 var string = ""
-                val threatLevelCode = threatList[m]
-                val htmlList = htmlBlob.parseColumn(threatLevelCode.substring(1) + "(.*?)[A-Z&]")
-                htmlList.indices.forEach { h ->
-                    val coordinates = htmlList[h].parseColumn("([0-9]{8}).*?")
-                    coordinates.forEach { temp ->
-                        // FIXME  latlon method
-                        var xStrTmp = temp.substring(0, 4)
-                        var yStrTmp = temp.substring(4, 8)
-                        if (yStrTmp.matches("^0".toRegex())) {
-                            yStrTmp = yStrTmp.replace("^0".toRegex(), "")
-                            yStrTmp += "0"
-                        }
-                        xStrTmp = UtilityString.addPeriodBeforeLastTwoChars(xStrTmp)
-                        yStrTmp = UtilityString.addPeriodBeforeLastTwoChars(yStrTmp)
-                        try {
-                            var tmpDbl = yStrTmp.toDoubleOrNull() ?: 0.0
-                            if (tmpDbl < 40.00) {
-                                tmpDbl += 100
-                                yStrTmp = tmpDbl.toString()
-                            }
-                        } catch (e: Exception) {
-                            UtilityLog.handleException(e)
-                        }
-                        string = "$string$xStrTmp $yStrTmp "
-                    }
-                    string += ":"
-                    string = string.replace(" :", ":")
+                val htmlList = htmlBlob.parseColumn(threat.substring(1) + "(.*?)[A-Z&]")
+                htmlList.forEach {
+                    string += UtilityNotification.storeWatMcdLatLon(it)
                     string = string.replace(" 99.99 99.99 ", " ") // need for the way SPC ConvO seperates on 8 's
                 } // end looping over polygons of one threat level
                 val items = MyApplication.colon.split(string)
@@ -140,7 +115,7 @@ internal object UtilityNotificationSpcFireWeather {
                                 // call secondary method to send notif if required
                                 if (polygonShape.contains(Location.getLatLon(n - 1).asPoint())) {
                                     if (!notifUrls.contains("spcfwloc$day$locNum"))
-                                        notifUrls += sendSpcFireWeatherNotification(context, locNum, day, threatLevelCode, validTime)
+                                        notifUrls += sendSpcFireWeatherNotification(context, locNum, day, threat, validTime)
                                 }
                             }
                         }
