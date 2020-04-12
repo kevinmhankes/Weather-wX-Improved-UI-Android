@@ -94,6 +94,7 @@ internal object UtilityNotificationSpcFireWeather {
                 htmlList.indices.forEach { h ->
                     val coordinates = htmlList[h].parseColumn("([0-9]{8}).*?")
                     coordinates.forEach { temp ->
+                        // FIXME  latlon method
                         var xStrTmp = temp.substring(0, 4)
                         var yStrTmp = temp.substring(4, 8)
                         if (yStrTmp.matches("^0".toRegex())) {
@@ -119,32 +120,13 @@ internal object UtilityNotificationSpcFireWeather {
                 } // end looping over polygons of one threat level
                 val items = MyApplication.colon.split(string)
                 items.forEach {
-
-
-                    /*val list = MyApplication.space.split(items[z])
-                    val x = mutableListOf<Double>()
-                    val y = mutableListOf<Double>()
-                    list.indices.forEach { i ->
-                        if (i and 1 == 0) {
-                            x.add(list[i].toDoubleOrNull() ?: 0.0)
-                        } else {
-                            y.add((list[i].toDoubleOrNull() ?: 0.0) * -1)
-                        }
-                    }*/
-
                     val latLons = LatLon.parseStringToLatLons(it, -1.0, false)
-
-
-
-
                     // inject bounding box coords if first doesn't equal last
                     // focus on east coast for now
                     //
                     // 52,-130               52,-62
                     // 21,-130                21,-62
                     //
-
-                    //if (y.size >= 3 && x.size >= 3 && x.size == y.size) {
                     if (latLons.isNotEmpty()) {
                         val polygonFrame = ExternalPolygon.Builder()
                         latLons.forEach { latLon ->
@@ -156,7 +138,6 @@ internal object UtilityNotificationSpcFireWeather {
                             if (MyApplication.locations.getOrNull(n - 1)?.notificationSpcFw == true) {
                                 // if location is watching for MCDs pull ib lat/lon and iterate over polygons
                                 // call secondary method to send notif if required
-                                //val contains = polygon2.contains(Location.getLatLon(n - 1).asPoint())
                                 if (polygonShape.contains(Location.getLatLon(n - 1).asPoint())) {
                                     if (!notifUrls.contains("spcfwloc$day$locNum"))
                                         notifUrls += sendSpcFireWeatherNotification(context, locNum, day, threatLevelCode, validTime)

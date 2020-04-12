@@ -50,18 +50,6 @@ internal object UtilityNotificationWpc {
         val items = MyApplication.colon.split(textMcd)
         val mpdNumbers = MyApplication.colon.split(textMcdNoList)
         items.indices.forEach { z ->
-
-            /*val list = MyApplication.space.split(items[z])
-            val x = mutableListOf<Double>()
-            val y = mutableListOf<Double>()
-            list.indices.forEach { i ->
-                if (i and 1 == 0) {
-                    x.add(list[i].toDoubleOrNull() ?: 0.0)
-                } else {
-                    y.add((list[i].toDoubleOrNull() ?: 0.0) * -1)
-                }
-            }*/
-
             val latLons = LatLon.parseStringToLatLons(items[z], -1.0, false)
             if (latLons.isNotEmpty()) {
                 val poly2 = ExternalPolygon.Builder()

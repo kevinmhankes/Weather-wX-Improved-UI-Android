@@ -156,21 +156,7 @@ internal object UtilityNotificationSpc {
                 } // end looping over polygons of one threat level
                 val items = MyApplication.colon.split(string)
                 items.forEach {
-
-
-                    /*val list = MyApplication.space.split(it)
-                    val x = mutableListOf<Double>()
-                    val y = mutableListOf<Double>()
-                    list.indices.forEach { i ->
-                        if (i and 1 == 0) {
-                            x.add(list[i].toDoubleOrNull() ?: 0.0)
-                        } else {
-                            y.add((list[i].toDoubleOrNull() ?: 0.0) * -1)
-                        }
-                    }*/
-
                     val latLons = LatLon.parseStringToLatLons(it, -1.0, false)
-
                     // inject bounding box coords if first doesn't equal last
                     // focus on east coast for now
                     //
@@ -178,7 +164,6 @@ internal object UtilityNotificationSpc {
                     // 21,-130                21,-62
                     //
                     if (latLons.isNotEmpty()) {
-                        // FIXME rename polygonFrame and PolygonShape
                         val polygonFrame = ExternalPolygon.Builder()
                         latLons.forEach {latLon ->
                             polygonFrame.addVertex(ExternalPoint(latLon))
@@ -209,7 +194,10 @@ internal object UtilityNotificationSpc {
         val items = MyApplication.colon.split(textMcd)
         val mcdNumbers = MyApplication.colon.split(textMcdNoList)
         items.indices.forEach { z ->
-            val list = items[z].split(" ")
+
+            val latLons = LatLon.parseStringToLatLons(items[z], -1.0, false)
+
+            /*val list = items[z].split(" ")
             val x = mutableListOf<Double>()
             val y = mutableListOf<Double>()
             list.indices.forEach { i ->
@@ -218,11 +206,12 @@ internal object UtilityNotificationSpc {
                 } else {
                     y.add((list[i].toDoubleOrNull() ?: 0.0) * -1)
                 }
-            }
-            if (y.size > 3 && x.size > 3 && x.size == y.size) {
+            }*/
+
+            if (latLons.isNotEmpty()) {
                 val polygonFrame = ExternalPolygon.Builder()
-                x.indices.forEach { j ->
-                    polygonFrame.addVertex(ExternalPoint(x[j].toFloat(), y[j].toFloat()))
+                latLons.forEach { latLon ->
+                    polygonFrame.addVertex(ExternalPoint(latLon))
                 }
                 val polygonShape = polygonFrame.build()
                 for (n in 1..Location.numLocations) {
