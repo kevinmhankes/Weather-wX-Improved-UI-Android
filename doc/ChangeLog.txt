@@ -29,8 +29,6 @@
 // TODO [ADD] severedash long press color is off
 // TODO [FIX] severedash -> long press -> go to dual pane ( does not use current location )
 // TODO [FIX] toolbar handling in WXGLSurfaceView
-// TODO [REF] convert stuff like this MyApplication.locations[n - 1].x to Location.get*
-// TODO [REF] code cleanup in external code
 // TODO [REF] TouchImageView kotlin?
 
 55394 2020_04_12    [REF] misc for readability
