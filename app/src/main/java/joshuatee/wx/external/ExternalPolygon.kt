@@ -150,8 +150,7 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
             var intersection = 0
             for (side in sides) {
                 if (intersect(ray, side)) {
-                    // System.out.println("intersection++");
-                    intersection++
+                    intersection += 1
                 }
             }
             /*
@@ -213,8 +212,7 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
      * @param point
      * @return `True` if the point in bounding box, otherwise return `False`
      */
-    private fun inBoundingBox(point: ExternalPoint) =
-         !(point.x < _boundingBox.xMin || point.x > _boundingBox.xMax || point.y < _boundingBox.yMin || point.y > _boundingBox.yMax)
+    private fun inBoundingBox(point: ExternalPoint) = !(point.x < _boundingBox.xMin || point.x > _boundingBox.xMax || point.y < _boundingBox.yMin || point.y > _boundingBox.yMax)
 
     private class BoundingBox {
         var xMax = Float.NEGATIVE_INFINITY

@@ -30,8 +30,6 @@ import java.util.Locale
  */
 class ExternalPoint(val x: Float, val y: Float) {
 
-    constructor(x: Double, y: Double): this(x.toFloat(), y.toFloat())
-
     constructor(latLon: LatLon): this(latLon.lat.toFloat(), latLon.lon.toFloat())
 
     override fun toString() = String.format(Locale.US, "(%.2f,%.2f)", x, y)

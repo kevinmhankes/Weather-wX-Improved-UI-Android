@@ -47,12 +47,12 @@ class ExternalSunriseLocation(latitude: String, longitude: String) {
      * @return the latitude
      */
     //val latitude: BigDecimal = BigDecimal(latitude)
-    val latitude: BigDecimal = latitude.toBigDecimalOrNull() ?: BigDecimal("0.0")
+    val latitude = latitude.toBigDecimalOrNull() ?: BigDecimal("0.0")
     /**
      * @return the longitude
      */
     //val longitude: BigDecimal = BigDecimal(longitude)
-    val longitude: BigDecimal = longitude.toBigDecimalOrNull() ?: BigDecimal("0.0")
+    val longitude = longitude.toBigDecimalOrNull() ?: BigDecimal("0.0")
 
     /**
      * Sets the coordinates of the location object.

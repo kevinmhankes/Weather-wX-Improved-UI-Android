@@ -86,7 +86,8 @@ open class ExternalGlobalCoordinates (private var mLatitude: Double, private var
      */
     private fun canonicalize() {
         mLatitude = (mLatitude + 180) % 360
-        if (mLatitude < 0) mLatitude += 360.0
+        if (mLatitude < 0)
+            mLatitude += 360.0
         mLatitude -= 180.0
         if (mLatitude > 90) {
             mLatitude = 180 - mLatitude
@@ -96,7 +97,8 @@ open class ExternalGlobalCoordinates (private var mLatitude: Double, private var
             mLongitude += 180.0
         }
         mLongitude = (mLongitude + 180) % 360
-        if (mLongitude <= 0) mLongitude += 360.0
+        if (mLongitude <= 0)
+            mLongitude += 360.0
         mLongitude -= 180.0
     }
 

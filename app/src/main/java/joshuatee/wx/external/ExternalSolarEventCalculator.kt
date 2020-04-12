@@ -79,9 +79,8 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
      * `Calendar` object representing the date to compute the sunrise for.
      * @return the sunrise time as a calendar or null for no sunrise
      */
-    fun computeSunriseCalendar(solarZenith: ExternalZenith, date: Calendar): Calendar? {
-        return getLocalTimeAsCalendar(computeSolarEventTime(solarZenith, date, true), date)
-    }
+    fun computeSunriseCalendar(solarZenith: ExternalZenith, date: Calendar): Calendar? = getLocalTimeAsCalendar(computeSolarEventTime(solarZenith, date, true), date)
+
     /**
      * Computes the sunset time for the given zenith at the given date.
      *
@@ -105,9 +104,8 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
      * `Calendar` object representing the date to compute the sunset for.
      * @return the sunset time as a Calendar or null for no sunset.
      */
-    fun computeSunsetCalendar(solarZenith: ExternalZenith, date: Calendar): Calendar? {
-        return getLocalTimeAsCalendar(computeSolarEventTime(solarZenith, date, false), date)
-    }
+    fun computeSunsetCalendar(solarZenith: ExternalZenith, date: Calendar): Calendar? = getLocalTimeAsCalendar(computeSolarEventTime(solarZenith, date, false), date)
+
 
     private fun computeSolarEventTime(solarZenith: ExternalZenith, date: Calendar, isSunrise: Boolean): BigDecimal? {
         date.timeZone = this.timeZone
@@ -156,10 +154,7 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
      */
     private fun getSunTrueLongitude(meanAnomaly: BigDecimal): BigDecimal {
         val sinMeanAnomaly = BigDecimal(sin(convertDegreesToRadians(meanAnomaly).toDouble()))
-        val sinDoubleMeanAnomaly = BigDecimal(
-            sin(multiplyBy(convertDegreesToRadians(meanAnomaly), BigDecimal.valueOf(2))
-                    .toDouble())
-        )
+        val sinDoubleMeanAnomaly = BigDecimal(sin(multiplyBy(convertDegreesToRadians(meanAnomaly), BigDecimal.valueOf(2)).toDouble()))
         val firstPart = meanAnomaly.add(multiplyBy(sinMeanAnomaly, BigDecimal("1.916")))
         val secondPart = multiplyBy(sinDoubleMeanAnomaly, BigDecimal("0.020")).add(BigDecimal("282.634"))
         var trueLongitude = firstPart.add(secondPart)
