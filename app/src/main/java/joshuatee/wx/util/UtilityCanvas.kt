@@ -134,7 +134,6 @@ internal object UtilityCanvas {
         paint.style = Style.STROKE
         paint.color = Color.rgb(255, 0, 0)
         val path = Path()
-        //path.reset()
         if (projectionType.needsCanvasShift) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
@@ -197,9 +196,7 @@ internal object UtilityCanvas {
     ) {
         var firstX: Double
         var firstY: Double
-        //var polygonCount = -1
         warnings.forEachIndexed { polygonCount, warning ->
-            //polygonCount += 1
             if (vtecs.isNotEmpty() && vtecs.size > polygonCount && !vtecs[polygonCount].startsWith("0.EXP") && !vtecs[polygonCount].startsWith("0.CAN")) {
                 val latLons = LatLon.parseStringToLatLons(warning)
                 path.reset()

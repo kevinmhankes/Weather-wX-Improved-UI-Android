@@ -55,17 +55,9 @@ internal object UtilityCanvasGeneric {
         try {
             val tmpBuffer = ByteBuffer.allocateDirect(genericByteBuffer.capacity())
             if (projectionType.isMercator) {
-                UtilityCanvasProjection.computeMercatorFloatToBuffer(
-                    genericByteBuffer,
-                    tmpBuffer,
-                    projectionNumbers
-                )
+                UtilityCanvasProjection.computeMercatorFloatToBuffer(genericByteBuffer, tmpBuffer, projectionNumbers)
             } else {
-                UtilityCanvasProjection.compute4326NumbersFloatToBuffer(
-                    genericByteBuffer,
-                    tmpBuffer,
-                    projectionNumbers
-                )
+                UtilityCanvasProjection.compute4326NumbersFloatToBuffer(genericByteBuffer, tmpBuffer, projectionNumbers)
             }
             tmpBuffer.position(0)
             while (tmpBuffer.position() < tmpBuffer.capacity()) {
