@@ -23,7 +23,6 @@ package joshuatee.wx.radar
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.PolygonType
-import joshuatee.wx.util.UtilityCanvasProjection
 import joshuatee.wx.util.ProjectionNumbers
 import joshuatee.wx.external.ExternalPoint
 import joshuatee.wx.external.ExternalPolygon
@@ -44,23 +43,12 @@ internal object UtilityWatch {
             polygons.forEach { polygon ->
                 val latLons = LatLon.parseStringToLatLons(polygon, 1.0, false)
                 warningList += LatLon.latLonListToListOfDoubles(latLons, projectionNumbers)
-                /*if (latLons.isNotEmpty()) {
-                    val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers).toMutableList()
-                    warningList += startCoordinates
-                    (1 until latLons.size).forEach { index ->
-                        val coordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[index], projectionNumbers).toMutableList()
-                        warningList += coordinates
-                        warningList += coordinates
-                    }
-                    warningList += startCoordinates
-                }*/
             }
         }
         return warningList
     }
 
     fun show(latLon: LatLon, type: PolygonType): String {
-        var text = ""
         val numberList: List<String>
         val watchLatLon: String
         when (type) {
@@ -83,6 +71,7 @@ internal object UtilityWatch {
         }
         val polygons = watchLatLon.split(":").dropLastWhile { it.isEmpty() }
         var notFound = true
+        var text = ""
         polygons.indices.forEach { z ->
             val latLons = LatLon.parseStringToLatLons(polygons[z],-1.0, false)
             if (latLons.isNotEmpty()) {
