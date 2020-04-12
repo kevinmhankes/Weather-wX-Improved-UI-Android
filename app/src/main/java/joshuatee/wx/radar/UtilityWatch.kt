@@ -75,12 +75,7 @@ internal object UtilityWatch {
         polygons.indices.forEach { z ->
             val latLons = LatLon.parseStringToLatLons(polygons[z],-1.0, false)
             if (latLons.isNotEmpty()) {
-                val polygonFrame = ExternalPolygon.Builder()
-                latLons.forEach {
-                    polygonFrame.addVertex(ExternalPoint(it))
-                }
-                val polygonShape = polygonFrame.build()
-                val contains = polygonShape.contains(latLon.asPoint())
+                val contains = ExternalPolygon.polygonContainsPoint(latLon, latLons)
                 if (contains && notFound) {
                     text = numberList[z]
                     notFound = false

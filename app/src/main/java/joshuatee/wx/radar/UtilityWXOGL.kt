@@ -163,12 +163,7 @@ object UtilityWXOGL {
             val polygonTmp = polygon.replace("[", "").replace("]", "").replace(",", " ")
             val latLons = LatLon.parseStringToLatLons(polygonTmp)
             if (latLons.isNotEmpty()) {
-                val polygonFrame = ExternalPolygon.Builder()
-                latLons.forEach {
-                    polygonFrame.addVertex(ExternalPoint(it))
-                }
-                val polygonShape = polygonFrame.build()
-                val contains = polygonShape.contains(latLon.asPoint())
+                val contains = ExternalPolygon.polygonContainsPoint(latLon, latLons)
                 if (contains && notFound) {
                     string = urlList[urlIndex]
                     notFound = false

@@ -20,6 +20,7 @@ https://github.com/sromku/polygon-contains-point
 
  */
 
+import joshuatee.wx.radar.LatLon
 import java.util.ArrayList
 
 /**
@@ -220,5 +221,18 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
         var xMin = Float.NEGATIVE_INFINITY
         var yMax = Float.NEGATIVE_INFINITY
         var yMin = Float.NEGATIVE_INFINITY
+    }
+
+
+    companion object {
+
+        fun polygonContainsPoint(latLon: LatLon, latLons: List<LatLon>): Boolean {
+            val polygonFrame = ExternalPolygon.Builder()
+            latLons.forEach {
+                polygonFrame.addVertex(ExternalPoint(it))
+            }
+            val polygonShape = polygonFrame.build()
+            return polygonShape.contains(latLon.asPoint())
+        }
     }
 }
