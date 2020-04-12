@@ -43,7 +43,8 @@ internal object UtilityWatch {
             val polygons = prefToken.split(":").dropLastWhile { it.isEmpty() }
             polygons.forEach { polygon ->
                 val latLons = LatLon.parseStringToLatLons(polygon, 1.0, false)
-                if (latLons.isNotEmpty()) {
+                warningList += LatLon.latLonListToListOfDoubles(latLons, projectionNumbers)
+                /*if (latLons.isNotEmpty()) {
                     val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers).toMutableList()
                     warningList += startCoordinates
                     (1 until latLons.size).forEach { index ->
@@ -52,7 +53,7 @@ internal object UtilityWatch {
                         warningList += coordinates
                     }
                     warningList += startCoordinates
-                }
+                }*/
             }
         }
         return warningList

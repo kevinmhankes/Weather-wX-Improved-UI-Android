@@ -44,16 +44,7 @@ internal object WXGLPolygonWarnings {
             if (objectPolygonWarning.type == PolygonWarningType.SpecialWeatherStatement || (vtecs.size > polygonCount && !vtecs[polygonCount].startsWith("O.EXP") && !vtecs[polygonCount].startsWith("O.CAN"))) {
                 val polygonTmp = polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
                 val latLons = LatLon.parseStringToLatLons(polygonTmp)
-                if (latLons.isNotEmpty()) {
-                    val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers).toMutableList()
-                    warningList += startCoordinates
-                    (1 until latLons.size).forEach { index ->
-                        val coordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[index], projectionNumbers).toMutableList()
-                        warningList += coordinates
-                        warningList += coordinates
-                    }
-                    warningList += startCoordinates
-                }
+                warningList += LatLon.latLonListToListOfDoubles(latLons, projectionNumbers)
             }
         }
         return warningList
@@ -73,16 +64,7 @@ internal object WXGLPolygonWarnings {
             if (vtecs.size > polygonCount && !vtecs[polygonCount].startsWith("O.EXP") && !vtecs[polygonCount].startsWith("O.CAN") && UtilityTime.isVtecCurrent(vtecs[polygonCount])) {
                 val polygonTmp = polygon.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
                 val latLons = LatLon.parseStringToLatLons(polygonTmp)
-                if (latLons.isNotEmpty()) {
-                    val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers).toMutableList()
-                    warningList += startCoordinates
-                    (1 until latLons.size).forEach { index ->
-                        val coordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[index], projectionNumbers).toMutableList()
-                        warningList += coordinates
-                        warningList += coordinates
-                    }
-                    warningList += startCoordinates
-                }
+                warningList += LatLon.latLonListToListOfDoubles(latLons, projectionNumbers)
             }
         }
         return warningList

@@ -161,13 +161,7 @@ object UtilityWXOGL {
         polygons.forEachIndexed { urlIndex, polygon ->
             polygonCount += 1
             val polygonTmp = polygon.replace("[", "").replace("]", "").replace(",", " ")
-            /*val list = polygonTmp.split(" ").dropLastWhile { it.isEmpty() }
-            UtilityLog.d("wx", "DEBUG: " + list.toString())
-            val y = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 == 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()
-            val x = list.asSequence().filterIndexed { index: Int, _: String -> index and 1 != 0 }.map { it.toDoubleOrNull() ?: 0.0 }.toList()*/
-
             val latLons = LatLon.parseStringToLatLons(polygonTmp)
-
             if (latLons.isNotEmpty()) {
                 val polygonFrame = ExternalPolygon.Builder()
                 latLons.forEach {
@@ -180,19 +174,6 @@ object UtilityWXOGL {
                     notFound = false
                 }
             }
-
-            /*if (y.size > 3 && x.size > 3 && x.size == y.size) {
-                val polygonFrame = ExternalPolygon.Builder()
-                x.indices.forEach { j ->
-                    polygonFrame.addVertex(ExternalPoint(x[j], y[j]))
-                }
-                val polygonShape = polygonFrame.build()
-                val contains = polygonShape.contains(latLon.asPoint())
-                if (contains && notFound) {
-                    string = urlList[urlIndex]
-                    notFound = false
-                }
-            }*/
         }
         return string
     }

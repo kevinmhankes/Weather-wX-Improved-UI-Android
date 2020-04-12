@@ -29,6 +29,8 @@ import kotlin.math.acos
 import kotlin.math.cos
 import kotlin.math.sin
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.util.ProjectionNumbers
+import joshuatee.wx.util.UtilityCanvasProjection
 
 
 class LatLon() {
@@ -162,6 +164,21 @@ class LatLon() {
                 }
             }
             return latLons
+        }
+
+        fun latLonListToListOfDoubles(latLons: List<LatLon>, projectionNumbers: ProjectionNumbers): List<Double> {
+            val warningList = mutableListOf<Double>()
+            if (latLons.isNotEmpty()) {
+                val startCoordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[0], projectionNumbers).toMutableList()
+                warningList += startCoordinates
+                (1 until latLons.size).forEach { index ->
+                    val coordinates = UtilityCanvasProjection.computeMercatorNumbers(latLons[index], projectionNumbers).toMutableList()
+                    warningList += coordinates
+                    warningList += coordinates
+                }
+                warningList += startCoordinates
+            }
+            return warningList
         }
     }
 }
