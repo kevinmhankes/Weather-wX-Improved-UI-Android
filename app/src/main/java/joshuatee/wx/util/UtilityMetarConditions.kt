@@ -284,14 +284,12 @@ object UtilityMetarConditions {
 
             "Thunder In The Vicinity And Heavy Rain and Mist" to "tsra",
 
-
             "Freezing With Thunder Rain And Mist" to "tsra",
             "Heavy Rain With Thunder" to "tsra",
             "Heavy Rain With Thunder In The Vicinity" to "tsra",
             "Light Rain With Thunder" to "tsra",
             "Light Rain With Thunder In The Vicinity" to "tsra",
-            
-            //"Thunderstorm in Vicinity" to "scttsra",
+            "Rain With Thunder In The Vicinity" to "tsra",
 
             "Thunderstorm in Vicinity" to "hi_tsra",
             "Thunder In The Vicinity" to "hi_tsra",
