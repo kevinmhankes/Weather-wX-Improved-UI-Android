@@ -44,7 +44,7 @@ import kotlinx.coroutines.*
 class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
 
     companion object {
-        const val TYPE: String = ""
+        const val TYPE = ""
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main

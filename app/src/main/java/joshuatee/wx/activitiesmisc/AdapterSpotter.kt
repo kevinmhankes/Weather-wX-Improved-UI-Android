@@ -38,11 +38,9 @@ import joshuatee.wx.radar.Spotter
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectTextView
 
-internal class AdapterSpotter(private val dataSet: MutableList<Spotter>) :
-    RecyclerView.Adapter<AdapterSpotter.DataObjectHolder>() {
+internal class AdapterSpotter(private val dataSet: MutableList<Spotter>) : RecyclerView.Adapter<AdapterSpotter.DataObjectHolder>() {
 
-    internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+    internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         val name = ObjectTextView(itemView, R.id.name, UIPreferences.textHighlightColor, TextSize.MEDIUM)
         val email = ObjectTextView(itemView, R.id.email, backgroundText = true)

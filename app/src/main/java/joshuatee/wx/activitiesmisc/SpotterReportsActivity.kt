@@ -47,7 +47,7 @@ class SpotterReportsActivity : BaseActivity() {
         val objectRecyclerViewGeneric = ObjectRecyclerViewGeneric(this, this, R.id.card_list)
         val adapterSpotterReports = AdapterSpotterReports(UtilitySpotter.spotterReports)
         objectRecyclerViewGeneric.recyclerView.adapter = adapterSpotterReports
-        title = UtilitySpotter.spotterReports.size.toString() + " Spotter reports " + UtilityTime.gmtTime("HH:mm")
+        title = UtilitySpotter.spotterReports.size.toString() + " Spotter reports " + UtilityTime.gmtTime("HH:mm") + " UTC"
         adapterSpotterReports.setOnItemClickListener(object : AdapterSpotterReports.MyClickListener {
             override fun onItemClick(position: Int) {
                 itemSelected(position)
