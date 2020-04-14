@@ -44,10 +44,10 @@ class WeatherDataProvider : ContentProvider() {
     override fun onCreate(): Boolean {
         val preferences = context!!.getSharedPreferences(context!!.packageName + "_preferences", Context.MODE_PRIVATE)
         val sevenDay = preferences.getString("7DAY_EXT_WIDGET", "No data")!!
-        val dayArr = sevenDay.split("\n\n").dropLastWhile { it.isEmpty() }.toMutableList()
-        if (dayArr.size > 1) {
-            dayArr[0] = preferences.getString("CC_WIDGET", "No data")!!
-            weatherDataPoints = (0 until dayArr.lastIndex).map{ WeatherDataPoint(dayArr[it] + "\n", 0) }
+        val days = sevenDay.split("\n\n").dropLastWhile { it.isEmpty() }.toMutableList()
+        if (days.size > 1) {
+            days[0] = preferences.getString("CC_WIDGET", "No data")!!
+            weatherDataPoints = (0 until days.lastIndex).map{ WeatherDataPoint(days[it] + "\n", 0) }
         }
         return true
     }

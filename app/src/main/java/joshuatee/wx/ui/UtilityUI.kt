@@ -100,7 +100,7 @@ object UtilityUI {
         }
         var ridFav = ""
         itemList.indices.forEach {
-            ridFav = ridFav + ":" + MyApplication.semicolon.split(itemList[it])[0]
+            ridFav = ridFav + ":" + itemList[it].split(";").dropLastWhile { it.isEmpty() }[0]
         }
         Utility.writePref(context, prefToken, ridFav)
         return ridFav
@@ -118,7 +118,7 @@ object UtilityUI {
         }
         var value = ""
         itemList.indices.forEach {
-            value = value + ":" + MyApplication.semicolon.split(itemList[it])[0]
+            value = value + ":" + itemList[it].split(";").dropLastWhile { it.isEmpty() }[0]
         }
         Utility.writePref(context, prefToken, value)
         return value

@@ -30,7 +30,7 @@
 // TODO [REF] TouchImageView kotlin?
 // TODO [FIX] Android toggle cities on off main screen not working
 
-55395 2020_04_13
+55395 2020_04_14    [REF] misc for readability
 55394 2020_04_13    [REF] misc for readability
 55393 2020_04_12    [REF] misc for readability
                     [FIX] crash and off by one issue in radar icon in severe dashboard

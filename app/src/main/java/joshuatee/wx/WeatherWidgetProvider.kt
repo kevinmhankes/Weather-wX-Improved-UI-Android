@@ -133,7 +133,7 @@ class WeatherWidgetProvider : AppWidgetProvider() {
         var workerQueue: Handler? = null
         var weatherDataProviderObserver: WeatherDataProviderObserver? = null
         private const val maxDegrees = 96
-        var isLargeLayout: Boolean = true
+        var isLargeLayout = true
 
         fun buildLayout(context: Context, appWidgetId: Int, largeLayout: Boolean): RemoteViews {
             val remoteViews: RemoteViews
@@ -147,10 +147,10 @@ class WeatherWidgetProvider : AppWidgetProvider() {
                 intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
                 remoteViews = RemoteViews(context.packageName, R.layout.widget_7day_layout)
                 remoteViews.setRemoteAdapter(R.id.weather_list, intent)
-                val requestID = UtilityTime.currentTimeMillis().toInt()
+                val requestId = UtilityTime.currentTimeMillis().toInt()
                 val intentWx = Intent(context, WX::class.java)
                 intentWx.action = "WX"
-                val pendingIntentWx = PendingIntent.getActivity(context, requestID, intentWx, 0) // was 0
+                val pendingIntentWx = PendingIntent.getActivity(context, requestId, intentWx, 0) // was 0
                 remoteViews.setPendingIntentTemplate(R.id.weather_list, pendingIntentWx)
                 remoteViews.setTextViewText(R.id.city_name, Location.getName(widgetLocNumInt))
             } else {

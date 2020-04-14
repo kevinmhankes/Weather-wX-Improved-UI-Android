@@ -67,19 +67,19 @@ internal class StackRemoteViewsFactory(private val context: Context) : RemoteVie
         }
         var t1 = ""
         var t2 = ""
-        val formatStr = context.resources.getString(R.string.item_format_string)
+        val formatString = context.resources.getString(R.string.item_format_string)
         val itemId = R.layout.widget_item
         val remoteViews = RemoteViews(context.packageName, itemId)
         val preferences = context.getSharedPreferences(context.packageName + "_preferences", Context.MODE_PRIVATE)
         if (position != 0) {
-            val tempStrArr = MyApplication.colonSpace.split(day)
-            if (tempStrArr.size > 1) {
-                t1 = tempStrArr[0].replace(":", " ") + " (" +
-                        UtilityLocationFragment.extractTemperature(tempStrArr[1]) +
+            val list = day.split(": ").dropLastWhile { it.isEmpty() }
+            if (list.size > 1) {
+                t1 = list[0].replace(":", " ") + " (" +
+                        UtilityLocationFragment.extractTemperature(list[1]) +
                         MyApplication.DEGREE_SYMBOL +
-                        UtilityLocationFragment.extractWindDirection(tempStrArr[1].substring(1)) +
-                        UtilityLocationFragment.extract7DayMetrics(tempStrArr[1].substring(1)) + ")"
-                t2 = tempStrArr[1]
+                        UtilityLocationFragment.extractWindDirection(list[1].substring(1)) +
+                        UtilityLocationFragment.extract7DayMetrics(list[1].substring(1)) + ")"
+                t2 = list[1]
             }
         } else {
             val sep = " - "
@@ -91,11 +91,11 @@ internal class StackRemoteViewsFactory(private val context: Context) : RemoteVie
             }
             t2 += MyApplication.newline + preferences.getString("UPDTIME_WIDGET", "No data")
         }
-        remoteViews.setTextViewText(R.id.widget_tv1, String.format(formatStr, temp, t1))
-        remoteViews.setTextViewText(R.id.widget_tv2, String.format(formatStr, temp, t2))
-        var iconStr = preferences.getString("7DAY_ICONS_WIDGET", "NoData")
-        iconStr = preferences.getString("CC_WIDGET_ICON_URL", "NULL")!! + "!" + iconStr
-        val icons = iconStr.split("!")
+        remoteViews.setTextViewText(R.id.widget_tv1, String.format(formatString, temp, t1))
+        remoteViews.setTextViewText(R.id.widget_tv2, String.format(formatString, temp, t2))
+        var iconString = preferences.getString("7DAY_ICONS_WIDGET", "NoData")
+        iconString = preferences.getString("CC_WIDGET_ICON_URL", "NULL")!! + "!" + iconString
+        val icons = iconString.split("!")
         if (position < icons.size) {
             remoteViews.setImageViewUri(R.id.iv, Uri.parse(""))
             remoteViews.setImageViewBitmap(R.id.iv, UtilityNws.getIcon(context, icons[position]))

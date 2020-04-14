@@ -216,9 +216,9 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
     private fun deleteItem(position: Int) {
         ridFav = Utility.readPref(this, prefToken, "")
-        ridFav = ridFav.replace(":" + MyApplication.semicolon.split(playListItems[position])[0], "")
+        ridFav = ridFav.replace(":" + playListItems[position].split(";").dropLastWhile { it.isEmpty() }[0], "")
         Utility.writePref(this, prefToken, ridFav)
-        Utility.removePref(this, "PLAYLIST_" + MyApplication.semicolon.split(playListItems[position])[0])
+        Utility.removePref(this, "PLAYLIST_" + playListItems[position].split(";").dropLastWhile { it.isEmpty() }[0])
         ca.deleteItem(position)
         MyApplication.playlistStr = ridFav
     }
