@@ -101,8 +101,7 @@ internal object WXGLNexradLevel3WindBarbs {
                         barbOffset + startLength + index.toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor
                     )
                     // FIXME create class to handle items that don't change much
-                    WXGLNexradLevel3Common.drawLine(
-                        stormList,
+                    stormList += WXGLNexradLevel3Common.drawLine(
                         ec,
                         ecc,
                         projectionNumbers,
@@ -115,8 +114,7 @@ internal object WXGLNexradLevel3WindBarbs {
                         degree2,
                         barbOffset + startLength + -1.0 * arrowSpacing * nmScaleFactor * barbLengthScaleFactor
                     )
-                    WXGLNexradLevel3Common.drawLine(
-                        stormList,
+                    stormList += WXGLNexradLevel3Common.drawLine(
                         ec,
                         ecc,
                         projectionNumbers,
@@ -129,8 +127,7 @@ internal object WXGLNexradLevel3WindBarbs {
                         degree2,
                         barbOffset + startLength + index.toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor
                     )
-                    WXGLNexradLevel3Common.drawLine(
-                        stormList,
+                    stormList += WXGLNexradLevel3Common.drawLine(
                         ec,
                         ecc,
                         projectionNumbers,
@@ -146,8 +143,7 @@ internal object WXGLNexradLevel3WindBarbs {
                         degree2,
                         barbOffset + startLength + index.toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor
                     )
-                    WXGLNexradLevel3Common.drawLine(
-                        stormList,
+                    stormList += WXGLNexradLevel3Common.drawLine(
                         ec,
                         ecc,
                         projectionNumbers,
@@ -166,8 +162,7 @@ internal object WXGLNexradLevel3WindBarbs {
                         degree2,
                         barbOffset + halfBarbOffsetFudge + startLength + index.toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor
                     )
-                    WXGLNexradLevel3Common.drawLine(
-                        stormList,
+                    stormList += WXGLNexradLevel3Common.drawLine(
                         ec,
                         ecc,
                         projectionNumbers,

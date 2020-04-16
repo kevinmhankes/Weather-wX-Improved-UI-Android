@@ -28,59 +28,53 @@ import joshuatee.wx.util.*
 internal object WXGLNexradLevel3Common {
 
     fun drawTickMarks(
-            list: MutableList<Double>,
             startPoint: LatLon,
             externalGeodeticCalculator: ExternalGeodeticCalculator,
             projectionNumbers: ProjectionNumbers,
             ecArr: ExternalGlobalCoordinates,
             startBearing: Double,
             distance: Double
-    ) {
-        list += startPoint.asList()
+    ): List<Double> {
         val start = ExternalGlobalCoordinates(ecArr)
         val externalGlobalCoordinates = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
             start,
             startBearing,
             distance
         )
-        list += UtilityCanvasProjection.computeMercatorNumbers(externalGlobalCoordinates, projectionNumbers).toMutableList()
+        return startPoint.asList() + UtilityCanvasProjection.computeMercatorNumbers(externalGlobalCoordinates, projectionNumbers).toList()
     }
 
     //storm tracks
     fun drawLine(
-            list: MutableList<Double>,
             startPoint: DoubleArray,
             externalGeodeticCalculator: ExternalGeodeticCalculator,
             projectionNumbers: ProjectionNumbers,
             start: ExternalGlobalCoordinates,
             startBearing: Double,
             distance: Double
-    ) {
-        list += startPoint.toMutableList()
+    ): List<Double> {
         val externalGlobalCoordinates = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
             start,
             startBearing,
             distance
         )
-        list += UtilityCanvasProjection.computeMercatorNumbers(externalGlobalCoordinates, projectionNumbers).toMutableList()
+        return startPoint.toList() + UtilityCanvasProjection.computeMercatorNumbers(externalGlobalCoordinates, projectionNumbers).toList()
     }
 
     // wind barbs
     fun drawLine(
-            list: MutableList<Double>,
             startEc: ExternalGlobalCoordinates,
             ecc: ExternalGeodeticCalculator,
             pn: ProjectionNumbers,
             startBearing: Double,
             distance: Double
-    ) {
+    ): List<Double>  {
         val startPoint = ExternalGlobalCoordinates(startEc)
-        list += UtilityCanvasProjection.computeMercatorNumbers(startEc, pn).toList()
         val ec = ecc.calculateEndingGlobalCoordinates(
                 startPoint,
                 startBearing,
                 distance
         )
-        list += UtilityCanvasProjection.computeMercatorNumbers(ec, pn).toList()
+        return UtilityCanvasProjection.computeMercatorNumbers(startEc, pn).toList() + UtilityCanvasProjection.computeMercatorNumbers(ec, pn).toList()
     }
 }

@@ -96,8 +96,7 @@ internal object WXGLNexradLevel3StormInfo {
                 if (nm2 > 0.01) {
                     start = ExternalGlobalCoordinates(ec)
                     listOf(degree2 + arrowBend, degree2 - arrowBend).forEach { startBearing ->
-                        WXGLNexradLevel3Common.drawLine(
-                                stormList,
+                        stormList += WXGLNexradLevel3Common.drawLine(
                                 coordinates,
                                 externalGeodeticCalculator,
                                 projectionNumbers,
@@ -115,8 +114,7 @@ internal object WXGLNexradLevel3StormInfo {
                                 degree2 - (90.0 - stormTrackTickMarkAngleOff90),
                                 degree2 + (90.0 + stormTrackTickMarkAngleOff90)
                         ).forEach {startBearing ->
-                            WXGLNexradLevel3Common.drawTickMarks(
-                                    stormList,
+                            stormList += WXGLNexradLevel3Common.drawTickMarks(
                                     latLons[z],
                                     externalGeodeticCalculator,
                                     projectionNumbers,

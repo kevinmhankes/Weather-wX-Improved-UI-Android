@@ -134,8 +134,7 @@ object UtilityCanvasWindbarbs {
                                 degree2,
                                 barbOffset + startLength + j.toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor
                         )
-                        WXGLNexradLevel3Common.drawLine(
-                                stormList,
+                        stormList += WXGLNexradLevel3Common.drawLine(
                                 ec,
                                 ecc,
                                 projectionNumbers,
@@ -153,8 +152,7 @@ object UtilityCanvasWindbarbs {
                                 degree2,
                                 barbOffset + halfBarbOffsetFudge + startLength + (barbCount - 1).toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor
                         )
-                        WXGLNexradLevel3Common.drawLine(
-                                stormList,
+                        stormList += WXGLNexradLevel3Common.drawLine(
                                 ec,
                                 ecc,
                                 projectionNumbers,
