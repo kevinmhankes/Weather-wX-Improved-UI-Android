@@ -30,7 +30,7 @@
 // TODO [REF] TouchImageView kotlin?
 // TODO [FIX] Android toggle cities on off main screen not working
 
-55396 2020_04_16
+55396 2020_04_16    [REF] misc
 55395 2020_04_16    [REF] misc for readability
                     [FIX] WIP TTS speech speed was not working (requires app restart after change)
                     [ADD] kotlin plugin 1.3.71 -> 1.3.72
