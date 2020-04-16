@@ -202,7 +202,7 @@ class SettingsMainActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
-                        "Text to speech speed",
+                        "Text to speech speed, requires app restart",
                         "TTS_SPEED_PREF",
                         R.string.tts_speed_np_label,
                         10,

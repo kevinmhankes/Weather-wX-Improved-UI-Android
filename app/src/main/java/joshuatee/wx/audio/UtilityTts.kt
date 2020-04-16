@@ -63,6 +63,7 @@ object UtilityTts {
                 }
             })
             ttsInit = true
+            ttobjGlobal!!.setSpeechRate(Utility.readPref(context, "TTS_SPEED_PREF", 10) / 10f)
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
