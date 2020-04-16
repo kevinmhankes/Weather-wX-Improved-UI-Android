@@ -7,169 +7,165 @@
  *
  * BitCoin tips graciously accepted at 1FB63FYQMy7hpC2ANVhZ5mSgAZEtY1aVLf
  */
-package joshuatee.wx.external;
+package joshuatee.wx.external
+
+import joshuatee.wx.external.ExternalAngle.toDegrees
+import joshuatee.wx.external.ExternalAngle.toRadians
 
 /**
- * <p>
+ *
+ *
  * Implementation of Thaddeus Vincenty's algorithms to solve the direct and
  * inverse geodetic problems. For more information, see Vincent's original
  * publication on the NOAA website:
- * </p>
+ *
  * See http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf
- * 
+ *
  * @author Mike Gavaghan
  */
-public class ExternalGeodeticCalculator
-{
-   //private final double TwoPi = 2.0 * Math.PI;
+class ExternalGeodeticCalculator {
 
-   /**
-    * Calculate the destination and final bearing after traveling a specified
-    * distance, and a specified starting bearing, for an initial location. This
-    * is the solution to the direct geodetic problem.
-    * 
-    * @param ellipsoid reference ellipsoid to use
-    * @param start starting location
-    * @param startBearing starting bearing (degrees)
-    * @param distance distance to travel (meters)
-    * @param endBearing bearing at destination (degrees) element at index 0 will
-    *            be populated with the result
-    * return
-    */
-   public ExternalGlobalCoordinates calculateEndingGlobalCoordinates(ExternalEllipsoid ellipsoid, ExternalGlobalCoordinates start, double startBearing, double distance,
-         double[] endBearing)
-   {
-      double a = ellipsoid.getSemiMajorAxis();
-      double b = ellipsoid.getSemiMinorAxis();
-      double aSquared = a * a;
-      double bSquared = b * b;
-      double f = ellipsoid.getFlattening();
-      double phi1 = ExternalAngle.INSTANCE.toRadians(start.getLatitude());
-      double alpha1 = ExternalAngle.INSTANCE.toRadians(startBearing);
-      double cosAlpha1 = Math.cos(alpha1);
-      double sinAlpha1 = Math.sin(alpha1);
-      double tanU1 = (1.0 - f) * Math.tan(phi1);
-      double cosU1 = 1.0 / Math.sqrt(1.0 + tanU1 * tanU1);
-      double sinU1 = tanU1 * cosU1;
+    //private final double TwoPi = 2.0 * Math.PI;
+    /**
+     * Calculate the destination and final bearing after traveling a specified
+     * distance, and a specified starting bearing, for an initial location. This
+     * is the solution to the direct geodetic problem.
+     *
+     * @param ellipsoid reference ellipsoid to use
+     * @param start starting location
+     * @param startBearing starting bearing (degrees)
+     * @param distance distance to travel (meters)
+     * @param endBearing bearing at destination (degrees) element at index 0 will
+     * be populated with the result
+     * return
+     */
 
-      // eq. 1
-      double sigma1 = Math.atan2(tanU1, cosAlpha1);
+    fun calculateEndingGlobalCoordinates(start: ExternalGlobalCoordinates, startBearing: Double, distance: Double): ExternalGlobalCoordinates {
+        return calculateEndingGlobalCoordinatesLocal(ExternalEllipsoid.WGS84, start, startBearing, distance, DoubleArray(2))
+    }
 
-      // eq. 2
-      double sinAlpha = cosU1 * sinAlpha1;
+    private fun calculateEndingGlobalCoordinatesLocal(ellipsoid: ExternalEllipsoid, start: ExternalGlobalCoordinates, startBearing: Double, distance: Double,
+                                                      endBearing: DoubleArray?): ExternalGlobalCoordinates {
+        val a = ellipsoid.semiMajorAxis
+        val b = ellipsoid.semiMinorAxis
+        val aSquared = a * a
+        val bSquared = b * b
+        val f = ellipsoid.flattening
+        val phi1 = toRadians(start.latitude)
+        val alpha1 = toRadians(startBearing)
+        val cosAlpha1 = Math.cos(alpha1)
+        val sinAlpha1 = Math.sin(alpha1)
+        val tanU1 = (1.0 - f) * Math.tan(phi1)
+        val cosU1 = 1.0 / Math.sqrt(1.0 + tanU1 * tanU1)
+        val sinU1 = tanU1 * cosU1
 
-      double sin2Alpha = sinAlpha * sinAlpha;
-      double cos2Alpha = 1 - sin2Alpha;
-      double uSquared = cos2Alpha * (aSquared - bSquared) / bSquared;
+        // eq. 1
+        val sigma1 = Math.atan2(tanU1, cosAlpha1)
 
-      // eq. 3
-      double A = 1 + (uSquared / 16384) * (4096 + uSquared * (-768 + uSquared * (320 - 175 * uSquared)));
+        // eq. 2
+        val sinAlpha = cosU1 * sinAlpha1
+        val sin2Alpha = sinAlpha * sinAlpha
+        val cos2Alpha = 1 - sin2Alpha
+        val uSquared = cos2Alpha * (aSquared - bSquared) / bSquared
 
-      // eq. 4
-      double B = (uSquared / 1024) * (256 + uSquared * (-128 + uSquared * (74 - 47 * uSquared)));
+        // eq. 3
+        val A = 1 + uSquared / 16384 * (4096 + uSquared * (-768 + uSquared * (320 - 175 * uSquared)))
 
-      // iterate until there is a negligible change in sigma
-      double deltaSigma;
-      double sOverbA = distance / (b * A);
-      double sigma = sOverbA;
-      double sinSigma;
-      double prevSigma = sOverbA;
-      double sigmaM2;
-      double cosSigmaM2;
-      double cos2SigmaM2;
+        // eq. 4
+        val B = uSquared / 1024 * (256 + uSquared * (-128 + uSquared * (74 - 47 * uSquared)))
 
-      for (;;)
-      {
-         // eq. 5
-         sigmaM2 = 2.0 * sigma1 + sigma;
-         cosSigmaM2 = Math.cos(sigmaM2);
-         cos2SigmaM2 = cosSigmaM2 * cosSigmaM2;
-         sinSigma = Math.sin(sigma);
-         double cosSignma = Math.cos(sigma);
+        // iterate until there is a negligible change in sigma
+        var deltaSigma: Double
+        val sOverbA = distance / (b * A)
+        var sigma = sOverbA
+        var sinSigma: Double
+        var prevSigma = sOverbA
+        var sigmaM2: Double
+        var cosSigmaM2: Double
+        var cos2SigmaM2: Double
+        while (true) {
 
-         // eq. 6
-         deltaSigma = B
-               * sinSigma
-               * (cosSigmaM2 + (B / 4.0)
-                     * (cosSignma * (-1 + 2 * cos2SigmaM2) - (B / 6.0) * cosSigmaM2 * (-3 + 4 * sinSigma * sinSigma) * (-3 + 4 * cos2SigmaM2)));
+            // eq. 5
+            sigmaM2 = 2.0 * sigma1 + sigma
+            cosSigmaM2 = Math.cos(sigmaM2)
+            cos2SigmaM2 = cosSigmaM2 * cosSigmaM2
+            sinSigma = Math.sin(sigma)
+            val cosSignma = Math.cos(sigma)
 
-         // eq. 7
-         sigma = sOverbA + deltaSigma;
+            // eq. 6
+            deltaSigma = (B
+                    * sinSigma
+                    * (cosSigmaM2 + B / 4.0
+                    * (cosSignma * (-1 + 2 * cos2SigmaM2) - B / 6.0 * cosSigmaM2 * (-3 + 4 * sinSigma * sinSigma) * (-3 + 4 * cos2SigmaM2))))
 
-         // break after converging to tolerance
-         if (Math.abs(sigma - prevSigma) < 0.0000000000001) break;
+            // eq. 7
+            sigma = sOverbA + deltaSigma
 
-         prevSigma = sigma;
-      }
+            // break after converging to tolerance
+            if (Math.abs(sigma - prevSigma) < 0.0000000000001) break
+            prevSigma = sigma
+        }
+        sigmaM2 = 2.0 * sigma1 + sigma
+        cosSigmaM2 = Math.cos(sigmaM2)
+        cos2SigmaM2 = cosSigmaM2 * cosSigmaM2
+        val cosSigma = Math.cos(sigma)
+        sinSigma = Math.sin(sigma)
 
-      sigmaM2 = 2.0 * sigma1 + sigma;
-      cosSigmaM2 = Math.cos(sigmaM2);
-      cos2SigmaM2 = cosSigmaM2 * cosSigmaM2;
+        // eq. 8
+        val phi2 = Math.atan2(sinU1 * cosSigma + cosU1 * sinSigma * cosAlpha1, (1.0 - f)
+                * Math.sqrt(sin2Alpha + Math.pow(sinU1 * sinSigma - cosU1 * cosSigma * cosAlpha1, 2.0)))
 
-      double cosSigma = Math.cos(sigma);
-      sinSigma = Math.sin(sigma);
+        // eq. 9
+        // This fixes the pole crossing defect spotted by Matt Feemster. When a
+        // path passes a pole and essentially crosses a line of latitude twice -
+        // once in each direction - the longitude calculation got messed up. Using
+        // atan2 instead of atan fixes the defect. The change is in the next 3
+        // lines.
+        // double tanLambda = sinSigma * sinAlpha1 / (cosU1 * cosSigma - sinU1 * sinSigma * cosAlpha1);
+        // double lambda = Math.atan(tanLambda);
+        val lambda = Math.atan2(sinSigma * sinAlpha1, cosU1 * cosSigma - sinU1 * sinSigma * cosAlpha1)
 
-      // eq. 8
-      double phi2 = Math.atan2(sinU1 * cosSigma + cosU1 * sinSigma * cosAlpha1, (1.0 - f)
-            * Math.sqrt(sin2Alpha + Math.pow(sinU1 * sinSigma - cosU1 * cosSigma * cosAlpha1, 2.0)));
+        // eq. 10
+        val C = f / 16 * cos2Alpha * (4 + f * (4 - 3 * cos2Alpha))
 
-      // eq. 9
-      // This fixes the pole crossing defect spotted by Matt Feemster. When a
-      // path passes a pole and essentially crosses a line of latitude twice -
-      // once in each direction - the longitude calculation got messed up. Using
-      // atan2 instead of atan fixes the defect. The change is in the next 3
-      // lines.
-      // double tanLambda = sinSigma * sinAlpha1 / (cosU1 * cosSigma - sinU1 * sinSigma * cosAlpha1);
-      // double lambda = Math.atan(tanLambda);
-      double lambda = Math.atan2(sinSigma * sinAlpha1, (cosU1 * cosSigma - sinU1 * sinSigma * cosAlpha1));
+        // eq. 11
+        val L = lambda - (1 - C) * f * sinAlpha * (sigma + C * sinSigma * (cosSigmaM2 + C * cosSigma * (-1 + 2 * cos2SigmaM2)))
 
-      // eq. 10
-      double C = (f / 16) * cos2Alpha * (4 + f * (4 - 3 * cos2Alpha));
+        // eq. 12
+        val alpha2 = Math.atan2(sinAlpha, -sinU1 * sinSigma + cosU1 * cosSigma * cosAlpha1)
 
-      // eq. 11
-      double L = lambda - (1 - C) * f * sinAlpha * (sigma + C * sinSigma * (cosSigmaM2 + C * cosSigma * (-1 + 2 * cos2SigmaM2)));
-
-      // eq. 12
-      double alpha2 = Math.atan2(sinAlpha, -sinU1 * sinSigma + cosU1 * cosSigma * cosAlpha1);
-
-      // build result
-      double latitude = ExternalAngle.INSTANCE.toDegrees(phi2);
-      double longitude = start.getLongitude() + ExternalAngle.INSTANCE.toDegrees(L);
-
-      if ((endBearing != null) && (endBearing.length > 0))
-      {
-         endBearing[0] = ExternalAngle.INSTANCE.toDegrees(alpha2);
-      }
-
-      return new ExternalGlobalCoordinates(latitude, longitude);
-   }
-
-   /*
+        // build result
+        val latitude = toDegrees(phi2)
+        val longitude = start.longitude + toDegrees(L)
+        if (endBearing != null && endBearing.size > 0) {
+            endBearing[0] = toDegrees(alpha2)
+        }
+        return ExternalGlobalCoordinates(latitude, longitude)
+    } /*
     * Calculate the destination after traveling a specified distance, and a
     * specified starting bearing, for an initial location. This is the solution
     * to the direct geodetic problem.
-    * 
+    *
     * @param ellipsoid reference ellipsoid to use
     * @param start starting location
     * @param startBearing starting bearing (degrees)
     * @param distance distance to travel (meters)
     * return
     */
-   /*public ExternalGlobalCoordinates calculateEndingGlobalCoordinates(ExternalEllipsoid ellipsoid, ExternalGlobalCoordinates start, double startBearing, double distance)
+    /*public ExternalGlobalCoordinates calculateEndingGlobalCoordinates(ExternalEllipsoid ellipsoid, ExternalGlobalCoordinates start, double startBearing, double distance)
    {
       return calculateEndingGlobalCoordinates(ellipsoid, start, startBearing, distance, null);
    }*/
-
-   /*
+    /*
     * Calculate the geodetic curve between two points on a specified reference
     * ellipsoid. This is the solution to the inverse geodetic problem.
-    * 
+    *
     * @param ellipsoid reference ellipsoid to use
     * @param start starting coordinates
     * @param end ending coordinates
     * return
     */
-   /*private ExternalGeodeticCurve calculateGeodeticCurve(ExternalEllipsoid ellipsoid, ExternalGlobalCoordinates start, ExternalGlobalCoordinates end)
+    /*private ExternalGeodeticCurve calculateGeodeticCurve(ExternalEllipsoid ellipsoid, ExternalGlobalCoordinates start, ExternalGlobalCoordinates end)
    {
       //
       // All equation numbers refer back to Vincenty's publication:
@@ -323,8 +319,7 @@ public class ExternalGeodeticCalculator
          alpha2 -= 360.0;
       return new ExternalGeodeticCurve(s, alpha1, alpha2);
    }*/
-
-   /*
+    /*
     * <p>
     * Calculate the three dimensional geodetic measurement between two positions
     * measured in reference to a specified ellipsoid.
@@ -338,13 +333,13 @@ public class ExternalGeodeticCalculator
     * length of one side is the ellipsoidal distance and the other is the
     * difference in elevation.
     * </p>
-    * 
+    *
     * @param refEllipsoid reference ellipsoid to use
     * @param start starting position
     * @param end ending position
     * return
     */
-  /* public ExternalGeodeticMeasurement calculateGeodeticMeasurement(ExternalEllipsoid refEllipsoid, ExternalGlobalPosition start, ExternalGlobalPosition end)
+    /* public ExternalGeodeticMeasurement calculateGeodeticMeasurement(ExternalEllipsoid refEllipsoid, ExternalGlobalPosition start, ExternalGlobalPosition end)
    {
       // calculate elevation differences
       double elev1 = start.getElevation();

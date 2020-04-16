@@ -29,7 +29,6 @@ import android.graphics.Paint
 import android.graphics.Paint.Style
 import joshuatee.wx.MyApplication
 
-import joshuatee.wx.external.ExternalEllipsoid
 import joshuatee.wx.external.ExternalGeodeticCalculator
 import joshuatee.wx.external.ExternalGlobalCoordinates
 import joshuatee.wx.objects.ProjectionType
@@ -73,7 +72,6 @@ object UtilityCanvasWindbarbs {
             UtilityMetar.metarDataList[index].obsArrWbGust
         }
         try {
-            val bearing = DoubleArray(2)
             val degreeShift = 180.00
             val arrowLength = 2.5
             val arrowSpacing = 3.0
@@ -100,11 +98,9 @@ object UtilityCanvasWindbarbs {
                     val startLength = 0.0
                     var start = ExternalGlobalCoordinates(locXDbl, locYDbl)
                     var ec = ecc.calculateEndingGlobalCoordinates(
-                        ExternalEllipsoid.WGS84,
                         start,
                         0.0,
-                        startLength,
-                        bearing
+                        startLength
                     )
                     stormList += UtilityCanvasProjection.computeMercatorNumbers(
                         ec.latitude,
@@ -113,11 +109,9 @@ object UtilityCanvasWindbarbs {
                     ).toList()
                     start = ExternalGlobalCoordinates(ec.latitude, ec.longitude)
                     ec = ecc.calculateEndingGlobalCoordinates(
-                        ExternalEllipsoid.WGS84,
                         start,
                         degree2 + degreeShift,
-                        barbLength * nmScaleFactor * barbLengthScaleFactor,
-                        bearing
+                        barbLength * nmScaleFactor * barbLengthScaleFactor
                     )
                     val end = ExternalGlobalCoordinates(ec.latitude, ec.longitude)
                     stormList += UtilityCanvasProjection.computeMercatorNumbers(
@@ -136,11 +130,9 @@ object UtilityCanvasWindbarbs {
                     }
                     (0 until barbCount).forEach { j ->
                         ec = ecc.calculateEndingGlobalCoordinates(
-                                ExternalEllipsoid.WGS84,
                                 end,
                                 degree2,
-                                barbOffset + startLength + j.toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor,
-                                bearing
+                                barbOffset + startLength + j.toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor
                         )
                         WXGLNexradLevel3Common.drawLine(
                                 stormList,
@@ -148,8 +140,7 @@ object UtilityCanvasWindbarbs {
                                 ecc,
                                 projectionNumbers,
                                 degree2 - arrowBend * 2.0,
-                                startLength + arrowLength * nmScaleFactor,
-                                bearing
+                                startLength + arrowLength * nmScaleFactor
                         )
                     }
                     var halfBarbOffsetFudge = 0.0
@@ -158,11 +149,9 @@ object UtilityCanvasWindbarbs {
                     }
                     if (halfBarb) {
                         ec = ecc.calculateEndingGlobalCoordinates(
-                                ExternalEllipsoid.WGS84,
                                 end,
                                 degree2,
-                                barbOffset + halfBarbOffsetFudge + startLength + (barbCount - 1).toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor,
-                                bearing
+                                barbOffset + halfBarbOffsetFudge + startLength + (barbCount - 1).toDouble() * arrowSpacing * nmScaleFactor * barbLengthScaleFactor
                         )
                         WXGLNexradLevel3Common.drawLine(
                                 stormList,
@@ -170,8 +159,7 @@ object UtilityCanvasWindbarbs {
                                 ecc,
                                 projectionNumbers,
                                 degree2 - arrowBend * 2.0,
-                                startLength + arrowLength / 2.0 * nmScaleFactor,
-                                bearing
+                                startLength + arrowLength / 2.0 * nmScaleFactor
                         )
                     }
                 } // if length greater then 4

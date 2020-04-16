@@ -23,7 +23,6 @@ package joshuatee.wx.radar
 
 import android.content.Context
 
-import joshuatee.wx.external.ExternalEllipsoid
 import joshuatee.wx.external.ExternalGeodeticCalculator
 import joshuatee.wx.external.ExternalGlobalCoordinates
 
@@ -73,7 +72,6 @@ internal object WXGLNexradLevel3HailIndex {
         val hailPercentNumbers = hailPercentStr.parseColumnAll(RegExp.stiPattern3)
         val hailSizeNumbers = hailSizeStr.parseColumnAll(RegExp.hiPattern4)
         if (posnNumbers.size == hailPercentNumbers.size && posnNumbers.size > 1 && hailSizeNumbers.isNotEmpty()) {
-            val bearing = DoubleArray(2)
             var k = 0 // k is used to track hail size which is /2 of other 2 arrays
             for (s in posnNumbers.indices step 2) {
                 val hailSizeDbl = hailSizeNumbers[k].toDoubleOrNull() ?: 0.0
@@ -82,7 +80,7 @@ internal object WXGLNexradLevel3HailIndex {
                     val degree = posnNumbers[s].toDoubleOrNull() ?: 0.0
                     val nm = posnNumbers[s + 1].toDoubleOrNull() ?: 0.0
                     val start = ExternalGlobalCoordinates(location)
-                    val ec = ecc.calculateEndingGlobalCoordinates(ExternalEllipsoid.WGS84, start, degree, nm * 1852.0, bearing)
+                    val ec = ecc.calculateEndingGlobalCoordinates(start, degree, nm * 1852.0)
                     stormList.add(ec.latitude)
                     stormList.add(ec.longitude * -1.0)
                     if (hailSizeDbl > 0.99) {

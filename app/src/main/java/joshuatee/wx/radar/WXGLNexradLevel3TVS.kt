@@ -25,7 +25,6 @@ import android.content.Context
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.UtilityLog
-import joshuatee.wx.external.ExternalEllipsoid
 import joshuatee.wx.external.ExternalGeodeticCalculator
 import joshuatee.wx.external.ExternalGlobalCoordinates
 
@@ -54,7 +53,6 @@ internal object WXGLNexradLevel3TVS {
             UtilityLog.handleException(e)
             return listOf()
         }
-        val bearing = DoubleArray(2)
         tvs.forEach {
             val ecc = ExternalGeodeticCalculator()
             val string = it.parse(RegExp.tvsPattern2)
@@ -62,7 +60,7 @@ internal object WXGLNexradLevel3TVS {
             val degree = items[0].replace(" ", "").toIntOrNull() ?: 0
             val nm = items[1].replace(" ", "").toIntOrNull() ?: 0
             val start = ExternalGlobalCoordinates(location)
-            val externalGlobalCoordinates = ecc.calculateEndingGlobalCoordinates(ExternalEllipsoid.WGS84, start, degree.toDouble(), nm * 1852.0, bearing)
+            val externalGlobalCoordinates = ecc.calculateEndingGlobalCoordinates(start, degree.toDouble(), nm * 1852.0)
             stormList.add(externalGlobalCoordinates.latitude)
             stormList.add(externalGlobalCoordinates.longitude * -1.0)
         }

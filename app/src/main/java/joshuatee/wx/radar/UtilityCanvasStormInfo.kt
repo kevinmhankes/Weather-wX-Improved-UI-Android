@@ -29,7 +29,6 @@ import android.graphics.Paint
 import android.graphics.Paint.Style
 import android.graphics.Path
 
-import joshuatee.wx.external.ExternalEllipsoid
 import joshuatee.wx.external.ExternalGeodeticCalculator
 import joshuatee.wx.external.ExternalGlobalCoordinates
 import joshuatee.wx.objects.ProjectionType
@@ -81,7 +80,6 @@ object UtilityCanvasStormInfo {
                 }
             val posnNumbers = posnStr.parseColumnAll(RegExp.stiPattern3)
             val motNumbers = motionStr.parseColumnAll(RegExp.stiPattern3)
-            val bearing = DoubleArray(2)
             var endPoint: DoubleArray
             val degreeShift = 180.00
             val arrowLength = 2.0
@@ -96,20 +94,16 @@ object UtilityCanvasStormInfo {
                     val nm2 = motNumbers[s + 1].toDouble()
                     var start = ExternalGlobalCoordinates(location)
                     var ec = ecc.calculateEndingGlobalCoordinates(
-                        ExternalEllipsoid.WGS84,
                         start,
                         degree,
-                        nm * 1852.0,
-                        bearing
+                        nm * 1852.0
                     )
                     stormList += UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers).toList()
                     start = ExternalGlobalCoordinates(ec)
                     ec = ecc.calculateEndingGlobalCoordinates(
-                        ExternalEllipsoid.WGS84,
                         start,
                         degree2 + degreeShift,
-                        nm2 * 1852.0,
-                        bearing
+                        nm2 * 1852.0
                     )
                     // mercator expects lat/lon to both be positive as many products have this
                     val list = UtilityCanvasProjection.computeMercatorNumbers(
@@ -121,11 +115,9 @@ object UtilityCanvasStormInfo {
                     val latLons = mutableListOf<LatLon>()
                     (0..3).forEach { z ->
                         ecList.add(ecc.calculateEndingGlobalCoordinates(
-                            ExternalEllipsoid.WGS84,
                             start,
                             degree2 + degreeShift,
-                            nm2 * 1852.0 * z.toDouble() * 0.25,
-                            bearing
+                            nm2 * 1852.0 * z.toDouble() * 0.25
                         ))
                         latLons.add(LatLon(
                             UtilityCanvasProjection.computeMercatorNumbers(
@@ -145,8 +137,7 @@ object UtilityCanvasStormInfo {
                             projectionNumbers,
                             start,
                             degree2 + arrowBend,
-                            arrowLength * 1852.0,
-                            bearing
+                            arrowLength * 1852.0
                         )
                         drawLine(
                             stormList,
@@ -155,8 +146,7 @@ object UtilityCanvasStormInfo {
                             projectionNumbers,
                             start,
                             degree2 - arrowBend,
-                            arrowLength * 1852.0,
-                            bearing
+                            arrowLength * 1852.0
                         )
                         // 15,30,45 min ticks
                         val stormTrackTickMarkAngleOff90 = 45.0
@@ -169,8 +159,7 @@ object UtilityCanvasStormInfo {
                                 projectionNumbers,
                                 ecList[z],
                                 degree2 - (90.0 + stormTrackTickMarkAngleOff90),
-                                arrowLength * 1852.0 * sti15IncrementLength,
-                                bearing
+                                arrowLength * 1852.0 * sti15IncrementLength
                             )
                             drawTickMarks(
                                 stormList,
@@ -179,8 +168,7 @@ object UtilityCanvasStormInfo {
                                 projectionNumbers,
                                 ecList[z],
                                 degree2 + (90.0 - stormTrackTickMarkAngleOff90),
-                                arrowLength * 1852.0 * sti15IncrementLength,
-                                bearing
+                                arrowLength * 1852.0 * sti15IncrementLength
                             )
                             // 2nd line
                             drawTickMarks(
@@ -190,8 +178,7 @@ object UtilityCanvasStormInfo {
                                 projectionNumbers,
                                 ecList[z],
                                 degree2 - (90.0 - stormTrackTickMarkAngleOff90),
-                                arrowLength * 1852.0 * sti15IncrementLength,
-                                bearing
+                                arrowLength * 1852.0 * sti15IncrementLength
                             )
                             drawTickMarks(
                                 stormList,
@@ -200,8 +187,7 @@ object UtilityCanvasStormInfo {
                                 projectionNumbers,
                                 ecList[z],
                                 degree2 + (90.0 + stormTrackTickMarkAngleOff90),
-                                arrowLength * 1852.0 * sti15IncrementLength,
-                                bearing
+                                arrowLength * 1852.0 * sti15IncrementLength
                             )
                         }
                     }
@@ -259,18 +245,15 @@ object UtilityCanvasStormInfo {
         pn: ProjectionNumbers,
         ecArr: ExternalGlobalCoordinates,
         startBearing: Double,
-        distance: Double,
-        bearing: DoubleArray
+        distance: Double
     ) {
         list.add(startPoint.lat)
         list.add(startPoint.lon)
         val start = ExternalGlobalCoordinates(ecArr)
         val ec = ecc.calculateEndingGlobalCoordinates(
-            ExternalEllipsoid.WGS84,
             start,
             startBearing,
-            distance,
-            bearing
+            distance
         )
         list += UtilityCanvasProjection.computeMercatorNumbers(ec, pn).toList()
     }
@@ -282,17 +265,14 @@ object UtilityCanvasStormInfo {
         pn: ProjectionNumbers,
         start: ExternalGlobalCoordinates,
         startBearing: Double,
-        distance: Double,
-        bearing: DoubleArray
+        distance: Double
     ) {
         list.add(startPoint[0])
         list.add(startPoint[1])
         val ec = ecc.calculateEndingGlobalCoordinates(
-            ExternalEllipsoid.WGS84,
             start,
             startBearing,
-            distance,
-            bearing
+            distance
         )
         list += UtilityCanvasProjection.computeMercatorNumbers(ec.latitude, ec.longitude * -1, pn).toList()
     }

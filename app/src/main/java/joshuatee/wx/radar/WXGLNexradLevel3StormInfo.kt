@@ -23,7 +23,6 @@ package joshuatee.wx.radar
 
 import android.content.Context
 
-import joshuatee.wx.external.ExternalEllipsoid
 import joshuatee.wx.external.ExternalGeodeticCalculator
 import joshuatee.wx.external.ExternalGlobalCoordinates
 import joshuatee.wx.util.*
@@ -64,7 +63,6 @@ internal object WXGLNexradLevel3StormInfo {
             }
         val posnNumbers = posnStr.parseColumnAll(RegExp.stiPattern3)
         val motNumbers = motionStr.parseColumnAll(RegExp.stiPattern3)
-        val bearing = DoubleArray(2)
         val degreeShift = 180.00
         val arrowLength = 2.0
         val arrowBend = 20.0
@@ -77,10 +75,10 @@ internal object WXGLNexradLevel3StormInfo {
                 val degree2 = motNumbers[s].toDouble()
                 val nm2 = motNumbers[s + 1].toDouble()
                 var start = ExternalGlobalCoordinates(location)
-                var ec = externalGeodeticCalculator.calculateEndingGlobalCoordinates(ExternalEllipsoid.WGS84, start, degree, nm * 1852.0, bearing)
+                var ec = externalGeodeticCalculator.calculateEndingGlobalCoordinates(start, degree, nm * 1852.0)
                 stormList += UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers).toMutableList()
                 start = ExternalGlobalCoordinates(ec)
-                ec = externalGeodeticCalculator.calculateEndingGlobalCoordinates(ExternalEllipsoid.WGS84, start, degree2 + degreeShift, nm2 * 1852.0, bearing)
+                ec = externalGeodeticCalculator.calculateEndingGlobalCoordinates(start, degree2 + degreeShift, nm2 * 1852.0)
                 // mercator expects lat/lon to both be positive as many products have this
                 val coordinates = UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers)
                 stormList += coordinates.toMutableList()
@@ -88,11 +86,9 @@ internal object WXGLNexradLevel3StormInfo {
                 val latLons = mutableListOf<LatLon>()
                 (0..3).forEach { z ->
                     ecArr.add(externalGeodeticCalculator.calculateEndingGlobalCoordinates(
-                            ExternalEllipsoid.WGS84,
                             start,
                             degree2 + degreeShift,
-                            nm2 * 1852.0 * z.toDouble() * 0.25,
-                            bearing
+                            nm2 * 1852.0 * z.toDouble() * 0.25
                         )
                     )
                     latLons.add(LatLon(UtilityCanvasProjection.computeMercatorNumbers(ecArr[z], projectionNumbers)))
@@ -107,8 +103,7 @@ internal object WXGLNexradLevel3StormInfo {
                                 projectionNumbers,
                                 start,
                                 startBearing,
-                                arrowLength * 1852.0,
-                                bearing
+                                arrowLength * 1852.0
                         )
                     }
                     // 0,15,30,45 min ticks
@@ -127,8 +122,7 @@ internal object WXGLNexradLevel3StormInfo {
                                     projectionNumbers,
                                     ecArr[z],
                                     startBearing,
-                                    arrowLength * 1852.0 * sti15IncrementLength,
-                                    bearing
+                                    arrowLength * 1852.0 * sti15IncrementLength
                             )
                         }
                     }

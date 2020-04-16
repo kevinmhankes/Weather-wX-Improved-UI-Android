@@ -21,7 +21,6 @@
 
 package joshuatee.wx.radar
 
-import joshuatee.wx.external.ExternalEllipsoid
 import joshuatee.wx.external.ExternalGeodeticCalculator
 import joshuatee.wx.external.ExternalGlobalCoordinates
 import joshuatee.wx.util.*
@@ -35,17 +34,14 @@ internal object WXGLNexradLevel3Common {
             projectionNumbers: ProjectionNumbers,
             ecArr: ExternalGlobalCoordinates,
             startBearing: Double,
-            distance: Double,
-            bearing: DoubleArray
+            distance: Double
     ) {
         list += startPoint.asList()
         val start = ExternalGlobalCoordinates(ecArr)
         val externalGlobalCoordinates = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
-            ExternalEllipsoid.WGS84,
             start,
             startBearing,
-            distance,
-            bearing
+            distance
         )
         list += UtilityCanvasProjection.computeMercatorNumbers(externalGlobalCoordinates, projectionNumbers).toMutableList()
     }
@@ -58,16 +54,13 @@ internal object WXGLNexradLevel3Common {
             projectionNumbers: ProjectionNumbers,
             start: ExternalGlobalCoordinates,
             startBearing: Double,
-            distance: Double,
-            bearing: DoubleArray
+            distance: Double
     ) {
         list += startPoint.toMutableList()
         val externalGlobalCoordinates = externalGeodeticCalculator.calculateEndingGlobalCoordinates(
-            ExternalEllipsoid.WGS84,
             start,
             startBearing,
-            distance,
-            bearing
+            distance
         )
         list += UtilityCanvasProjection.computeMercatorNumbers(externalGlobalCoordinates, projectionNumbers).toMutableList()
     }
@@ -79,17 +72,14 @@ internal object WXGLNexradLevel3Common {
             ecc: ExternalGeodeticCalculator,
             pn: ProjectionNumbers,
             startBearing: Double,
-            distance: Double,
-            bearing: DoubleArray
+            distance: Double
     ) {
         val startPoint = ExternalGlobalCoordinates(startEc)
         list += UtilityCanvasProjection.computeMercatorNumbers(startEc, pn).toList()
         val ec = ecc.calculateEndingGlobalCoordinates(
-                ExternalEllipsoid.WGS84,
                 startPoint,
                 startBearing,
-                distance,
-                bearing
+                distance
         )
         list += UtilityCanvasProjection.computeMercatorNumbers(ec, pn).toList()
     }
