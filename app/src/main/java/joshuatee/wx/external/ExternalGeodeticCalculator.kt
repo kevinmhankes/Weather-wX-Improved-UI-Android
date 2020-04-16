@@ -12,6 +12,8 @@ package joshuatee.wx.external
 import joshuatee.wx.external.ExternalAngle.toDegrees
 import joshuatee.wx.external.ExternalAngle.toRadians
 
+import kotlin.math.*
+
 /**
  *
  *
@@ -31,11 +33,11 @@ class ExternalGeodeticCalculator {
      * distance, and a specified starting bearing, for an initial location. This
      * is the solution to the direct geodetic problem.
      *
-     * @param ellipsoid reference ellipsoid to use
-     * @param start starting location
-     * @param startBearing starting bearing (degrees)
-     * @param distance distance to travel (meters)
-     * @param endBearing bearing at destination (degrees) element at index 0 will
+     *  ellipsoid reference ellipsoid to use
+     *  start starting location
+     *  startBearing starting bearing (degrees)
+     *  distance distance to travel (meters)
+     *  endBearing bearing at destination (degrees) element at index 0 will
      * be populated with the result
      * return
      */
@@ -53,27 +55,22 @@ class ExternalGeodeticCalculator {
         val f = ellipsoid.flattening
         val phi1 = toRadians(start.latitude)
         val alpha1 = toRadians(startBearing)
-        val cosAlpha1 = Math.cos(alpha1)
-        val sinAlpha1 = Math.sin(alpha1)
-        val tanU1 = (1.0 - f) * Math.tan(phi1)
-        val cosU1 = 1.0 / Math.sqrt(1.0 + tanU1 * tanU1)
+        val cosAlpha1 = cos(alpha1)
+        val sinAlpha1 = sin(alpha1)
+        val tanU1 = (1.0 - f) * tan(phi1)
+        val cosU1 = 1.0 / sqrt(1.0 + tanU1 * tanU1)
         val sinU1 = tanU1 * cosU1
-
         // eq. 1
-        val sigma1 = Math.atan2(tanU1, cosAlpha1)
-
+        val sigma1 = atan2(tanU1, cosAlpha1)
         // eq. 2
         val sinAlpha = cosU1 * sinAlpha1
         val sin2Alpha = sinAlpha * sinAlpha
         val cos2Alpha = 1 - sin2Alpha
         val uSquared = cos2Alpha * (aSquared - bSquared) / bSquared
-
         // eq. 3
         val A = 1 + uSquared / 16384 * (4096 + uSquared * (-768 + uSquared * (320 - 175 * uSquared)))
-
         // eq. 4
         val B = uSquared / 1024 * (256 + uSquared * (-128 + uSquared * (74 - 47 * uSquared)))
-
         // iterate until there is a negligible change in sigma
         var deltaSigma: Double
         val sOverbA = distance / (b * A)
@@ -84,37 +81,31 @@ class ExternalGeodeticCalculator {
         var cosSigmaM2: Double
         var cos2SigmaM2: Double
         while (true) {
-
             // eq. 5
             sigmaM2 = 2.0 * sigma1 + sigma
-            cosSigmaM2 = Math.cos(sigmaM2)
+            cosSigmaM2 = cos(sigmaM2)
             cos2SigmaM2 = cosSigmaM2 * cosSigmaM2
-            sinSigma = Math.sin(sigma)
-            val cosSignma = Math.cos(sigma)
-
+            sinSigma = sin(sigma)
+            val cosSignma = cos(sigma)
             // eq. 6
             deltaSigma = (B
                     * sinSigma
                     * (cosSigmaM2 + B / 4.0
                     * (cosSignma * (-1 + 2 * cos2SigmaM2) - B / 6.0 * cosSigmaM2 * (-3 + 4 * sinSigma * sinSigma) * (-3 + 4 * cos2SigmaM2))))
-
             // eq. 7
             sigma = sOverbA + deltaSigma
-
             // break after converging to tolerance
-            if (Math.abs(sigma - prevSigma) < 0.0000000000001) break
+            if (abs(sigma - prevSigma) < 0.0000000000001) break
             prevSigma = sigma
         }
         sigmaM2 = 2.0 * sigma1 + sigma
-        cosSigmaM2 = Math.cos(sigmaM2)
+        cosSigmaM2 = cos(sigmaM2)
         cos2SigmaM2 = cosSigmaM2 * cosSigmaM2
-        val cosSigma = Math.cos(sigma)
-        sinSigma = Math.sin(sigma)
-
+        val cosSigma = cos(sigma)
+        sinSigma = sin(sigma)
         // eq. 8
-        val phi2 = Math.atan2(sinU1 * cosSigma + cosU1 * sinSigma * cosAlpha1, (1.0 - f)
-                * Math.sqrt(sin2Alpha + Math.pow(sinU1 * sinSigma - cosU1 * cosSigma * cosAlpha1, 2.0)))
-
+        val phi2 = atan2(sinU1 * cosSigma + cosU1 * sinSigma * cosAlpha1, (1.0 - f)
+                * sqrt(sin2Alpha + (sinU1 * sinSigma - cosU1 * cosSigma * cosAlpha1).pow(2.0)))
         // eq. 9
         // This fixes the pole crossing defect spotted by Matt Feemster. When a
         // path passes a pole and essentially crosses a line of latitude twice -
@@ -123,21 +114,17 @@ class ExternalGeodeticCalculator {
         // lines.
         // double tanLambda = sinSigma * sinAlpha1 / (cosU1 * cosSigma - sinU1 * sinSigma * cosAlpha1);
         // double lambda = Math.atan(tanLambda);
-        val lambda = Math.atan2(sinSigma * sinAlpha1, cosU1 * cosSigma - sinU1 * sinSigma * cosAlpha1)
-
+        val lambda = atan2(sinSigma * sinAlpha1, cosU1 * cosSigma - sinU1 * sinSigma * cosAlpha1)
         // eq. 10
         val C = f / 16 * cos2Alpha * (4 + f * (4 - 3 * cos2Alpha))
-
         // eq. 11
         val L = lambda - (1 - C) * f * sinAlpha * (sigma + C * sinSigma * (cosSigmaM2 + C * cosSigma * (-1 + 2 * cos2SigmaM2)))
-
         // eq. 12
-        val alpha2 = Math.atan2(sinAlpha, -sinU1 * sinSigma + cosU1 * cosSigma * cosAlpha1)
-
+        val alpha2 = atan2(sinAlpha, -sinU1 * sinSigma + cosU1 * cosSigma * cosAlpha1)
         // build result
         val latitude = toDegrees(phi2)
         val longitude = start.longitude + toDegrees(L)
-        if (endBearing != null && endBearing.size > 0) {
+        if (endBearing != null && endBearing.isNotEmpty()) {
             endBearing[0] = toDegrees(alpha2)
         }
         return ExternalGlobalCoordinates(latitude, longitude)
