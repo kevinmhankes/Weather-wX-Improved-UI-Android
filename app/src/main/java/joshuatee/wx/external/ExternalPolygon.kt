@@ -225,7 +225,7 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
     companion object {
 
         fun polygonContainsPoint(latLon: LatLon, latLons: List<LatLon>): Boolean {
-            val polygonFrame = ExternalPolygon.Builder()
+            val polygonFrame = Builder()
             latLons.forEach {
                 polygonFrame.addVertex(ExternalPoint(it))
             }

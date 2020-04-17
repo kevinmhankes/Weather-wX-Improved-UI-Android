@@ -99,8 +99,8 @@ object UtilityUI {
             itemList[0] = tmp
         }
         var ridFav = ""
-        itemList.indices.forEach {
-            ridFav = ridFav + ":" + itemList[it].split(";").dropLastWhile { it.isEmpty() }[0]
+        itemList.indices.forEach { item ->
+            ridFav = ridFav + ":" + itemList[item].split(";").dropLastWhile { it.isEmpty() }[0]
         }
         Utility.writePref(context, prefToken, ridFav)
         return ridFav
@@ -117,8 +117,8 @@ object UtilityUI {
             itemList[itemList.lastIndex] = tmp
         }
         var value = ""
-        itemList.indices.forEach {
-            value = value + ":" + itemList[it].split(";").dropLastWhile { it.isEmpty() }[0]
+        itemList.indices.forEach { item ->
+            value = value + ":" + itemList[item].split(";").dropLastWhile { it.isEmpty() }[0]
         }
         Utility.writePref(context, prefToken, value)
         return value
