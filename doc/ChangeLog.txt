@@ -30,6 +30,7 @@
 // TODO [REF] TouchImageView kotlin?
 // TODO [FIX] Android toggle cities on off main screen not working
 
+55397 2020_04_17
 55396 2020_04_17    [REF] translate ExternalGeodeticCalculator to kotlin
 55395 2020_04_16    [REF] misc for readability
                     [FIX] WIP TTS speech speed was not working (requires app restart after change)
