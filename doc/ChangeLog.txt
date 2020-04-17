@@ -24,10 +24,7 @@
 // TODO [FIX] hitting this? https://stackoverflow.com/questions/54120745/android-9-0-notificationmanager-notify-throwing-java-lang-securityexception
 // TODO [FIX] chromeOS - multipane radar toolbar is not fully transparent
 // TODO [FIX] change animation interval to animation speed
-// TODO [FIX] update PlayList to be more like iOS
-// TODO [FIX] severedash -> long press -> go to dual pane ( does not use current location )
 // TODO [FIX] toolbar handling in WXGLSurfaceView
-// TODO [REF] TouchImageView kotlin?
 // TODO [FIX] Android toggle cities on off main screen not working
 
 55397 2020_04_17

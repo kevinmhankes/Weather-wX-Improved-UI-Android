@@ -348,7 +348,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
-                        "Animation interval",
+                        "Animation speed",
                         "ANIM_INTERVAL",
                         R.string.animation_interval_np_label,
                         MyApplication.animationIntervalDefault,
