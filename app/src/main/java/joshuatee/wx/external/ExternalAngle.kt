@@ -19,7 +19,7 @@ import kotlin.math.*
 internal object ExternalAngle {
 
     private const val PiOver180 = PI / 180.0
-    
+
     fun toRadians(degrees: Double) = degrees * PiOver180
 
     fun toDegrees(radians: Double) = radians / PiOver180

@@ -338,9 +338,9 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
         return setScale(arcCosine)
     }
 
-    private fun convertRadiansToDegrees(radians: BigDecimal): BigDecimal = multiplyBy(radians, BigDecimal(180 / Math.PI))
+    private fun convertRadiansToDegrees(radians: BigDecimal): BigDecimal = multiplyBy(radians, BigDecimal(180 / PI))
 
-    private fun convertDegreesToRadians(degrees: BigDecimal): BigDecimal = multiplyBy(degrees, BigDecimal.valueOf(Math.PI / 180.0))
+    private fun convertDegreesToRadians(degrees: BigDecimal): BigDecimal = multiplyBy(degrees, BigDecimal.valueOf(PI / 180.0))
 
     private fun multiplyBy(multiplicand: BigDecimal, multiplier: BigDecimal): BigDecimal = setScale(multiplicand.multiply(multiplier))
 

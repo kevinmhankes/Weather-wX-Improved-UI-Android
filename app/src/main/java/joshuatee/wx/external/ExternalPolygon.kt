@@ -202,7 +202,7 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
      */
     private fun createRay(point: ExternalPoint): ExternalLine {
         // create outside point
-        val epsilon = (boundingBox.xMax - boundingBox.xMin) / 100f
+        val epsilon = (boundingBox.xMax - boundingBox.xMin) / 100.0f
         val outsidePoint = ExternalPoint(boundingBox.xMin - epsilon, boundingBox.yMin)
         return ExternalLine(outsidePoint, point)
     }
