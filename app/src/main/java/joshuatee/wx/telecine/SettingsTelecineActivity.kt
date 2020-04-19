@@ -9,7 +9,6 @@ joshua.tee@gmail.com
 package joshuatee.wx.telecine
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
@@ -26,7 +25,7 @@ class SettingsTelecineActivity : BaseActivity() {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
         val vidSize = listOf("100", "75", "50")
         val vidSpinner = ObjectSettingsSpinner(
-            this as Context,
+            this,
             "Video Size",
             "video-size",
             "100",
