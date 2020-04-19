@@ -30,10 +30,6 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.ForecastActivity
 import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.external.UtilityStringExternal
-import joshuatee.wx.objects.DistanceUnit
-import joshuatee.wx.objects.GeographyType
-import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.spc.SpcMcdWatchShowActivity
 import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.ObjectImageMap
@@ -42,6 +38,8 @@ import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 import kotlin.math.roundToInt
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.activitiesmisc.SevereWarning
+import joshuatee.wx.objects.*
 
 internal object UtilityRadarUI {
 
@@ -121,15 +119,21 @@ internal object UtilityRadarUI {
         }
         longPressList += wxglRender.ridNewList.map { "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name) }
         val obsSite = UtilityMetar.findClosestObservation(context, wxglSurfaceView.latLon)
-        if (MyApplication.radarWarnings) {
+        
+        UtilityLog.d("Wx", MyApplication.watchLatLonList.value)
+        UtilityLog.d("Wx", ObjectPolygonWarning.areAnyEnabled().toString())
+
+        if (MyApplication.radarWarnings || ObjectPolygonWarning.areAnyEnabled()) {
             longPressList.add("Show Warning text")
         }
         // Thanks to Ely
-        if (MyApplication.radarWatMcd) {
+        if (MyApplication.radarWatMcd && MyApplication.watchLatLonList.value != "") {
             longPressList.add("Show Watch text")
+        }
+        if (MyApplication.radarWatMcd && MyApplication.mcdLatLon.value != "") {
             longPressList.add("Show MCD text")
         }
-        if (MyApplication.radarMpd) {
+        if (MyApplication.radarMpd && MyApplication.mpdLatLon.value != "") {
             longPressList.add("Show MPD text")
         }
         // end Thanks to Ely

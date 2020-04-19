@@ -540,6 +540,8 @@ class MyApplication : Application() {
         }
 
         fun initGenericRadarWarnings(context: Context) {
+            // FIXME don't need both, prefer top one shared with iOS
+            ObjectPolygonWarning.load(context)
             radarWarningPolygons.clear()
             PolygonWarningType.values().forEach {
                 radarWarningPolygons.add(ObjectPolygonWarning(context, it))

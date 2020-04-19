@@ -44,5 +44,32 @@ class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
     val prefTokenColor get() = "RADAR_COLOR_" + type.productCode
 
     private val prefTokenStorage get() = "SEVERE_DASHBOARD_" + type.productCode
+
+    companion object {
+        var polygonDataByType = mutableMapOf<PolygonWarningType, ObjectPolygonWarning>()
+
+        private val polygonList = listOf(
+                PolygonWarningType.SpecialMarineWarning,
+                PolygonWarningType.SnowSquallWarning,
+                PolygonWarningType.DustStormWarning,
+                PolygonWarningType.SpecialWeatherStatement
+        )
+
+        fun areAnyEnabled(): Boolean {
+            var anyEnabled = false
+            polygonList.forEach {
+                if (polygonDataByType[it]!!.isEnabled) {
+                    anyEnabled = true
+                }
+            }
+            return anyEnabled
+        }
+
+        fun load(context: Context) {
+            polygonList.forEach {
+                polygonDataByType[it] = ObjectPolygonWarning(context, it)
+            }
+        }
+    }
 }
 
