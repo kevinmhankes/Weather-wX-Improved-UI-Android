@@ -119,10 +119,6 @@ internal object UtilityRadarUI {
         }
         longPressList += wxglRender.ridNewList.map { "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name) }
         val obsSite = UtilityMetar.findClosestObservation(context, wxglSurfaceView.latLon)
-        
-        UtilityLog.d("Wx", MyApplication.watchLatLonList.value)
-        UtilityLog.d("Wx", ObjectPolygonWarning.areAnyEnabled().toString())
-
         if (MyApplication.radarWarnings || ObjectPolygonWarning.areAnyEnabled()) {
             longPressList.add("Show Warning text")
         }
