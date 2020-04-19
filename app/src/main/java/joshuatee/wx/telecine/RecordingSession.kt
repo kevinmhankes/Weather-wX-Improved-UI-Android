@@ -268,7 +268,8 @@ internal class RecordingSession(
             }
         }
         if (Build.VERSION.SDK_INT > 20) {
-            if (recorder != null) recorder!!.release()
+            if (recorder != null)
+                recorder!!.release()
             display!!.release()
         }
         val uri = FileProvider.getUriForFile(context, "${MyApplication.packageNameAsString}.fileprovider", File(outputFile!!))
@@ -382,7 +383,7 @@ internal class RecordingSession(
                     // write bitmap to a file
                     fos = FileOutputStream(outputFile!!)
                     croppedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, fos)
-                    UtilityLog.d("wx", outputFile.toString())
+                    //UtilityLog.d("wx", outputFile.toString())
                     val uri = FileProvider.getUriForFile(context, "${MyApplication.packageNameAsString}.fileprovider", File(outputFile!!))
                     showScreenshotNotification(uri, null)
                 }
