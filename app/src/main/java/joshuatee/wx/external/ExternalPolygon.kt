@@ -30,7 +30,7 @@ import java.util.ArrayList
  *
  * @author Roman Kushnarenko (sromku@gmail.com)
  */
-class ExternalPolygon private constructor(private val sides: List<ExternalLine>, private val _boundingBox: BoundingBox) {
+class ExternalPolygon private constructor(private val sides: List<ExternalLine>, private val boundingBox: BoundingBox) {
 
     /**
      * Get the builder of the polygon
@@ -48,11 +48,11 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
      * @author Roman Kushnarenko (sromku@gmail.com)
      */
     class Builder {
-        private var _vertexes: MutableList<ExternalPoint> = ArrayList()
-        private val _sides = ArrayList<ExternalLine>()
-        private var _boundingBox: BoundingBox? = null
-        private var _firstPoint = true
-        private var _isClosed = false
+        private var vertexes: MutableList<ExternalPoint> = ArrayList()
+        private val sides = ArrayList<ExternalLine>()
+        private var boundingBox: BoundingBox? = null
+        private var firstPoint = true
+        private var isClosed = false
         /**
          * Add vertex points of the polygon.<br></br>
          * It is very important to add the vertexes by order, like you were drawing them one by one.
@@ -62,17 +62,17 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
          * @return The builder
          */
         fun addVertex(point: ExternalPoint): Builder {
-            if (_isClosed) {
+            if (isClosed) {
                 // each hole we start with the new array of vertex points
-                _vertexes = ArrayList()
-                _isClosed = false
+                vertexes = ArrayList()
+                isClosed = false
             }
             updateBoundingBox(point)
-            _vertexes.add(point)
+            vertexes.add(point)
             // add line (edge) to the polygon
-            if (_vertexes.size > 1) {
-                val line = ExternalLine(_vertexes[_vertexes.size - 2], point)
-                _sides.add(line)
+            if (vertexes.size > 1) {
+                val line = ExternalLine(vertexes[vertexes.size - 2], point)
+                sides.add(line)
             }
             return this
         }
@@ -84,8 +84,8 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
         fun close(): Builder {
             validate()
             // add last Line
-            _sides.add(ExternalLine(_vertexes[_vertexes.size - 1], _vertexes[0]))
-            _isClosed = true
+            sides.add(ExternalLine(vertexes[vertexes.size - 1], vertexes[0]))
+            isClosed = true
             return this
         }
         /**
@@ -96,11 +96,11 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
         fun build(): ExternalPolygon {
             validate()
             // in case you forgot to close
-            if (!_isClosed) {
+            if (!isClosed) {
                 // add last Line
-                _sides.add(ExternalLine(_vertexes[_vertexes.size - 1], _vertexes[0]))
+                sides.add(ExternalLine(vertexes[vertexes.size - 1], vertexes[0]))
             }
-            return ExternalPolygon(_sides, _boundingBox!!)
+            return ExternalPolygon(sides, boundingBox!!)
         }
         /**
          * Update bounding box with a new point.<br></br>
@@ -109,30 +109,30 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
          * New point
          */
         private fun updateBoundingBox(point: ExternalPoint) {
-            if (_firstPoint) {
-                _boundingBox = BoundingBox()
-                _boundingBox!!.xMax = point.x
-                _boundingBox!!.xMin = point.x
-                _boundingBox!!.yMax = point.y
-                _boundingBox!!.yMin = point.y
-                _firstPoint = false
+            if (firstPoint) {
+                boundingBox = BoundingBox()
+                boundingBox!!.xMax = point.x
+                boundingBox!!.xMin = point.x
+                boundingBox!!.yMax = point.y
+                boundingBox!!.yMin = point.y
+                firstPoint = false
             } else {
                 // set bounding box
-                if (point.x > _boundingBox!!.xMax) {
-                    _boundingBox!!.xMax = point.x
-                } else if (point.x < _boundingBox!!.xMin) {
-                    _boundingBox!!.xMin = point.x
+                if (point.x > boundingBox!!.xMax) {
+                    boundingBox!!.xMax = point.x
+                } else if (point.x < boundingBox!!.xMin) {
+                    boundingBox!!.xMin = point.x
                 }
-                if (point.y > _boundingBox!!.yMax) {
-                    _boundingBox!!.yMax = point.y
-                } else if (point.y < _boundingBox!!.yMin) {
-                    _boundingBox!!.yMin = point.y
+                if (point.y > boundingBox!!.yMax) {
+                    boundingBox!!.yMax = point.y
+                } else if (point.y < boundingBox!!.yMin) {
+                    boundingBox!!.yMin = point.y
                 }
             }
         }
 
         private fun validate() {
-            if (_vertexes.size < 3) {
+            if (vertexes.size < 3) {
                 throw RuntimeException("Polygon must have at least 3 points")
             }
         }
@@ -202,8 +202,8 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
      */
     private fun createRay(point: ExternalPoint): ExternalLine {
         // create outside point
-        val epsilon = (_boundingBox.xMax - _boundingBox.xMin) / 100f
-        val outsidePoint = ExternalPoint(_boundingBox.xMin - epsilon, _boundingBox.yMin)
+        val epsilon = (boundingBox.xMax - boundingBox.xMin) / 100f
+        val outsidePoint = ExternalPoint(boundingBox.xMin - epsilon, boundingBox.yMin)
         return ExternalLine(outsidePoint, point)
     }
     /**
@@ -212,7 +212,7 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
      * @param point
      * @return `True` if the point in bounding box, otherwise return `False`
      */
-    private fun inBoundingBox(point: ExternalPoint) = !(point.x < _boundingBox.xMin || point.x > _boundingBox.xMax || point.y < _boundingBox.yMin || point.y > _boundingBox.yMax)
+    private fun inBoundingBox(point: ExternalPoint) = !(point.x < boundingBox.xMin || point.x > boundingBox.xMax || point.y < boundingBox.yMin || point.y > boundingBox.yMax)
 
     private class BoundingBox {
         var xMax = Float.NEGATIVE_INFINITY
@@ -220,7 +220,6 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
         var yMax = Float.NEGATIVE_INFINITY
         var yMin = Float.NEGATIVE_INFINITY
     }
-
 
     companion object {
 

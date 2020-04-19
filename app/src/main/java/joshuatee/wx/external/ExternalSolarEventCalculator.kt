@@ -106,7 +106,6 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
      */
     fun computeSunsetCalendar(solarZenith: ExternalZenith, date: Calendar): Calendar? = getLocalTimeAsCalendar(computeSolarEventTime(solarZenith, date, false), date)
 
-
     private fun computeSolarEventTime(solarZenith: ExternalZenith, date: Calendar, isSunrise: Boolean): BigDecimal? {
         date.timeZone = this.timeZone
         val longitudeHour = getLongitudeHour(date, isSunrise)
@@ -326,8 +325,6 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
         resultTime.timeZone = date.timeZone
         return resultTime
     }
-
-    /** ******* UTILITY METHODS (Should probably go somewhere else. *****************  */
 
     private fun getDayOfYear(date: Calendar) = BigDecimal(date.get(Calendar.DAY_OF_YEAR))
 
