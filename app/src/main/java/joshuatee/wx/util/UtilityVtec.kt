@@ -29,11 +29,10 @@ import joshuatee.wx.Extensions.*
 
 object UtilityVtec {
 
-    fun getStormCount(text: String): Int {
+    fun getStormCount(data: String): Int {
         var dashboardString = ""
         val vtecPattern = "([A-Z0]{1}\\.[A-Z]{3}\\.[A-Z]{4}\\.[A-Z]{2}\\.[A-Z]\\.[0-9]{4}\\.[0-9]{6}T[0-9]{4}Z\\-[0-9]{6}T[0-9]{4}Z)"
-        val stormList = text.parseColumn(vtecPattern)
-        stormList.forEach {
+        data.parseColumn(vtecPattern).forEach {
             val vtecIsCurrent = UtilityTime.isVtecCurrent(it)
             if (!it.startsWith("O.EXP") && vtecIsCurrent) {
                 dashboardString += it
