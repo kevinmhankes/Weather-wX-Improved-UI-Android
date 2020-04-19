@@ -45,32 +45,6 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
         get() = divideBy(location.longitude, BigDecimal.valueOf(15))
 
     /**
-     * Constructs a new `SolarEventCalculator` using the given parameters.
-     *
-     * @param location
-     * `Location` of the place where the solar event should be calculated from.
-     * timeZoneIdentifier
-     * time zone identifier of the timezone of the location parameter. For example,
-     * "America/New_York".
-     */
-    /*constructor(location: ExternalSunriseLocation, timeZoneIdentifier: String) {
-        this.location = location
-        this.timeZone = TimeZone.getTimeZone(timeZoneIdentifier)
-    }*/
-
-    /**
-     * Computes the sunrise time for the given zenith at the given date.
-     *
-     * `Zenith` enum corresponding to the type of sunrise to compute.
-     * `Calendar` object representing the date to compute the sunrise for.
-     * @return the sunrise time, in HH:MM format (24-hour clock), 00:00 if the sun does not rise on the given
-     * date.
-     */
-    //fun computeSunriseTime(solarZenith: ExternalZenith, date: Calendar): String {
-    //    return getLocalTimeAsString(computeSolarEventTime(solarZenith, date, true))
-    //}
-
-    /**
      * Computes the sunrise time for the given zenith at the given date.
      *
      * @param solarZenith
@@ -80,20 +54,6 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
      * @return the sunrise time as a calendar or null for no sunrise
      */
     fun computeSunriseCalendar(solarZenith: ExternalZenith, date: Calendar): Calendar? = getLocalTimeAsCalendar(computeSolarEventTime(solarZenith, date, true), date)
-
-    /**
-     * Computes the sunset time for the given zenith at the given date.
-     *
-     * solarZenith
-     * `Zenith` enum corresponding to the type of sunset to compute.
-     * date
-     * `Calendar` object representing the date to compute the sunset for.
-     * @return the sunset time, in HH:MM format (24-hour clock), 00:00 if the sun does not set on the given
-     * date.
-     */
-    /*fun computeSunsetTime(solarZenith: ExternalZenith, date: Calendar): String {
-        return getLocalTimeAsString(computeSolarEventTime(solarZenith, date, false))
-    }*/
 
     /**
      * Computes the sunset time for the given zenith at the given date.
@@ -253,41 +213,6 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
         }
         return localTime
     }
-    /**
-     * Returns the local rise/set time in the form HH:MM.
-     *
-     * `BigDecimal` representation of the local rise/set time.
-     * @return `String` representation of the local rise/set time in HH:MM format.
-     */
-    /*  private fun getLocalTimeAsString(localTimeParam: BigDecimal?): String {
-          if (localTimeParam == null) {
-              return "99:99"
-          }
-
-          var localTime: BigDecimal = localTimeParam
-          if (localTime.compareTo(BigDecimal.ZERO) == -1) {
-              localTime = localTime.add(BigDecimal.valueOf(24.0))
-          }
-          val timeComponents =
-              localTime.toPlainString().split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
-                  .toTypedArray()
-          var hour = timeComponents[0].toIntOrNull() ?: 0
-
-          var minutes = BigDecimal("0." + timeComponents[1])
-          minutes = minutes.multiply(BigDecimal.valueOf(60)).setScale(0, RoundingMode.HALF_EVEN)
-          if (minutes.toInt() == 60) {
-              minutes = BigDecimal.ZERO
-              hour += 1
-          }
-          if (hour == 24) {
-              hour = 0
-          }
-
-          val minuteString =
-              if (minutes.toInt() < 10) "0" + minutes.toPlainString() else minutes.toPlainString()
-          val hourString = if (hour < 10) "0" + hour.toString() else hour.toString()
-          return "$hourString:$minuteString"
-      }*/
     /**
      * Returns the local rise/set time in the form HH:MM.
      *

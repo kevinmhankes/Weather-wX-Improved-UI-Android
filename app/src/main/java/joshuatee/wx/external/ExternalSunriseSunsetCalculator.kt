@@ -33,7 +33,7 @@ class ExternalSunriseSunsetCalculator(val location: ExternalSunriseLocation, tim
      * @return the official sunrise time as a Calendar
      */
     fun getOfficialSunriseCalendarForDate(date: Calendar): Calendar = calculator.computeSunriseCalendar(ExternalZenith.OFFICIAL, date)!!
-    
+
     /**
      * Returns the official sunrise (90deg 50', 90.8333deg) for the given date.
      *
