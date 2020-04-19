@@ -193,7 +193,7 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
     private fun getCosineSunLocalHour(sunTrueLong: BigDecimal, zenith: ExternalZenith): BigDecimal {
         val sinSunDeclination = getSinOfSunDeclination(sunTrueLong)
         val cosineSunDeclination = getCosineOfSunDeclination(sinSunDeclination)
-        val zenithInRads = convertDegreesToRadians(zenith.degrees())
+        val zenithInRads = convertDegreesToRadians(zenith.degrees)
         val cosineZenith = BigDecimal.valueOf(cos(zenithInRads.toDouble()))
         val sinLatitude = BigDecimal.valueOf(sin(convertDegreesToRadians(location.latitude).toDouble()))
         val cosLatitude = BigDecimal.valueOf(cos(convertDegreesToRadians(location.latitude).toDouble()))

@@ -75,7 +75,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show warnings (TST/TOR/FFW)",
+                        "Warnings (TST/TOR/FFW)",
                         "COD_WARNINGS_DEFAULT",
                         R.string.cod_warnings_default_label
                 ).card
@@ -84,7 +84,7 @@ class SettingsRadarActivity : BaseActivity() {
             linearLayout.addView(
                     ObjectSettingsCheckBox(
                             this,
-                            "Show " + it.name,
+                            it.name,
                             it.prefTokenEnabled,
                             R.string.cod_warnings_default_label
                     ).card
@@ -93,7 +93,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show SPC MCD/Watches",
+                        "SPC MCD/Watches",
                         "RADAR_SHOW_WATCH",
                         R.string.radar_show_watch_default_label
                 ).card
@@ -101,7 +101,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show WPC MPDs",
+                        "WPC MPDs",
                         "RADAR_SHOW_MPD",
                         R.string.radar_show_mpd_default_label
                 ).card
@@ -109,7 +109,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show cities",
+                        "Cities",
                         "COD_CITIES_DEFAULT",
                         R.string.cod_cities_default_label
                 ).card
@@ -117,7 +117,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show highways",
+                        "Highways",
                         "COD_HW_DEFAULT",
                         R.string.cod_hw_default_label
                 ).card
@@ -125,7 +125,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show secondary roads",
+                        "Secondary roads",
                         "RADAR_HW_ENH_EXT",
                         R.string.hw_enh_ext_label
                 ).card
@@ -133,7 +133,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show CA/MX borders",
+                        "Canadian and Mexican borders",
                         "RADAR_CAMX_BORDERS",
                         R.string.camx_borders_label
                 ).card
@@ -141,7 +141,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show lakes and rivers",
+                        "Lakes and rivers",
                         "COD_LAKES_DEFAULT",
                         R.string.cod_lakes_default_label
                 ).card
@@ -149,7 +149,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show spotters",
+                        "Spotters",
                         "WXOGL_SPOTTERS",
                         R.string.spotters_label
                 ).card
@@ -157,7 +157,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show spotter labels",
+                        "Spotter labels",
                         "WXOGL_SPOTTERS_LABEL",
                         R.string.spotters_label_label
                 ).card
@@ -165,7 +165,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show observations",
+                        "Observations",
                         "WXOGL_OBS",
                         R.string.obs_label
                 ).card
@@ -173,7 +173,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show wind barbs",
+                        "Wind barbs",
                         "WXOGL_OBS_WINDBARBS",
                         R.string.obs_windbarbs_label
                 ).card
@@ -181,7 +181,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show location marker",
+                        "Location marker",
                         "COD_LOCDOT_DEFAULT",
                         R.string.cod_locdot_default_label
                 ).card
@@ -228,7 +228,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show counties",
+                        "Counties",
                         "RADAR_SHOW_COUNTY",
                         R.string.show_county_label
                 ).card
@@ -236,7 +236,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show county labels",
+                        "County labels",
                         "RADAR_COUNTY_LABELS",
                         R.string.show_county_labels_label
                 ).card
@@ -244,7 +244,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Counties: use hires data",
+                        "Counties use high resolution data",
                         "RADAR_COUNTY_HIRES",
                         R.string.county_hires_label
                 ).card
@@ -252,7 +252,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "States: use hires data",
+                        "States use high resolution data",
                         "RADAR_STATE_HIRES",
                         R.string.state_hires_label
                 ).card
@@ -260,7 +260,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show storm tracks",
+                        "Storm tracks",
                         "RADAR_SHOW_STI",
                         R.string.show_sti_label
                 ).card
@@ -268,7 +268,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show Hail index",
+                        "Hail index",
                         "RADAR_SHOW_HI",
                         R.string.show_hi_label
                 ).card
@@ -276,7 +276,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show TVS",
+                        "Tornado Vortex Signature",
                         "RADAR_SHOW_TVS",
                         R.string.show_tvs_label
                 ).card
@@ -284,7 +284,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show Day 1 Convective Outlook",
+                        "Convective Outlook Day One",
                         "RADAR_SHOW_SWO",
                         R.string.show_swo_label
                 ).card
@@ -292,7 +292,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Screen on and auto refresh",
+                        "Screen stays on and auto refresh radar",
                         "RADAR_AUTOREFRESH",
                         R.string.autorefresh_label
                 ).card
@@ -340,7 +340,7 @@ class SettingsRadarActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Show WPC Fronts and pressure highs and lows",
+                        "WPC Fronts and pressure highs and lows",
                         "RADAR_SHOW_WPC_FRONTS",
                         R.string.radar_show_wpc_fronts_label
                 ).card
