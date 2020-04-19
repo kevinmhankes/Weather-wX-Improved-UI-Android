@@ -81,8 +81,7 @@ class SevereWarning(private val type: PolygonType) {
                 count += 1
                 val vtecComponents = it.split(".")
                 if (vtecComponents.size > 1) {
-                    var wfo = vtecComponents[2]
-                    wfo = wfo.replace("^[KP]".toRegex(), "")
+                    val wfo = vtecComponents[2].replace("^[KP]".toRegex(), "")
                     listOfWfo.add(wfo)
                     wfoLocation = Utility.getWfoSiteName(wfo)
                 } else {

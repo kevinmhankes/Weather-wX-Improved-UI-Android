@@ -32,20 +32,19 @@ object UtilityVtec {
     fun getStormCount(data: String): Int {
         var dashboardString = ""
         val vtecPattern = "([A-Z0]{1}\\.[A-Z]{3}\\.[A-Z]{4}\\.[A-Z]{2}\\.[A-Z]\\.[0-9]{4}\\.[0-9]{6}T[0-9]{4}Z\\-[0-9]{6}T[0-9]{4}Z)"
-        data.parseColumn(vtecPattern).forEach {
-            val vtecIsCurrent = UtilityTime.isVtecCurrent(it)
-            if (!it.startsWith("O.EXP") && vtecIsCurrent) {
-                dashboardString += it
-                val offices = it.split(".")
-                val nwsLoc: String
+        data.parseColumn(vtecPattern).forEach { vtec ->
+            val vtecIsCurrent = UtilityTime.isVtecCurrent(vtec)
+            if (!vtec.startsWith("O.EXP") && vtecIsCurrent) {
+                dashboardString += vtec
+                val offices = vtec.split(".")
+                val officeLabel: String
                 if (offices.size > 1) {
-                    var wfo = offices[2]
-                    wfo = wfo.replace("^[KP]".toRegex(), "")
-                    nwsLoc = Utility.getWfoSiteName(wfo)
+                    val wfo = offices[2].replace("^[KP]".toRegex(), "")
+                    officeLabel = Utility.getWfoSiteName(wfo)
                 } else {
-                    nwsLoc = ""
+                    officeLabel = ""
                 }
-                dashboardString += "  " + nwsLoc + MyApplication.newline
+                dashboardString += "  " + officeLabel + MyApplication.newline
             }
         }
         dashboardString = ExternalDuplicateRemover().stripDuplicates(dashboardString)
