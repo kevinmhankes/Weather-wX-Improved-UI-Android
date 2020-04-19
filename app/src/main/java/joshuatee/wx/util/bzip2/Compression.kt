@@ -33,7 +33,7 @@ private constructor(private val name: String) {
      *
      * @return  string representation
      */
-    override fun toString(): String = name
+    override fun toString() = name
 
     companion object {
 
