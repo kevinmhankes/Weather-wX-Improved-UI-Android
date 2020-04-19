@@ -166,11 +166,11 @@ internal class RecordingSession(
                 overlayView!!.animate().alpha(0f).setDuration(0).withEndAction { takeScreenshot() }
             }
 
-            override fun onDrawtool() {
+            override fun onDrawTool() {
                 addDrawTool()
             }
 
-            override fun onDistancetool() {
+            override fun onDistanceTool() {
                 addDistanceTool()
             }
         }
