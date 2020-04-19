@@ -38,7 +38,6 @@ import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 import kotlin.math.roundToInt
 import joshuatee.wx.Extensions.*
-import joshuatee.wx.activitiesmisc.SevereWarning
 import joshuatee.wx.objects.*
 
 internal object UtilityRadarUI {

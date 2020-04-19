@@ -68,12 +68,12 @@ class ExternalGeodeticCalculator {
         val cos2Alpha = 1 - sin2Alpha
         val uSquared = cos2Alpha * (aSquared - bSquared) / bSquared
         // eq. 3
-        val A = 1 + uSquared / 16384 * (4096 + uSquared * (-768 + uSquared * (320 - 175 * uSquared)))
+        val bigA = 1 + uSquared / 16384 * (4096 + uSquared * (-768 + uSquared * (320 - 175 * uSquared)))
         // eq. 4
-        val B = uSquared / 1024 * (256 + uSquared * (-128 + uSquared * (74 - 47 * uSquared)))
+        val bigB = uSquared / 1024 * (256 + uSquared * (-128 + uSquared * (74 - 47 * uSquared)))
         // iterate until there is a negligible change in sigma
         var deltaSigma: Double
-        val sOverbA = distance / (b * A)
+        val sOverbA = distance / (b * bigA)
         var sigma = sOverbA
         var sinSigma: Double
         var prevSigma = sOverbA
@@ -88,10 +88,10 @@ class ExternalGeodeticCalculator {
             sinSigma = sin(sigma)
             val cosSignma = cos(sigma)
             // eq. 6
-            deltaSigma = (B
+            deltaSigma = (bigB
                     * sinSigma
-                    * (cosSigmaM2 + B / 4.0
-                    * (cosSignma * (-1 + 2 * cos2SigmaM2) - B / 6.0 * cosSigmaM2 * (-3 + 4 * sinSigma * sinSigma) * (-3 + 4 * cos2SigmaM2))))
+                    * (cosSigmaM2 + bigB / 4.0
+                    * (cosSignma * (-1 + 2 * cos2SigmaM2) - bigB / 6.0 * cosSigmaM2 * (-3 + 4 * sinSigma * sinSigma) * (-3 + 4 * cos2SigmaM2))))
             // eq. 7
             sigma = sOverbA + deltaSigma
             // break after converging to tolerance
@@ -116,14 +116,14 @@ class ExternalGeodeticCalculator {
         // double lambda = Math.atan(tanLambda);
         val lambda = atan2(sinSigma * sinAlpha1, cosU1 * cosSigma - sinU1 * sinSigma * cosAlpha1)
         // eq. 10
-        val C = f / 16 * cos2Alpha * (4 + f * (4 - 3 * cos2Alpha))
+        val bigC = f / 16 * cos2Alpha * (4 + f * (4 - 3 * cos2Alpha))
         // eq. 11
-        val L = lambda - (1 - C) * f * sinAlpha * (sigma + C * sinSigma * (cosSigmaM2 + C * cosSigma * (-1 + 2 * cos2SigmaM2)))
+        val bigL = lambda - (1 - bigC) * f * sinAlpha * (sigma + bigC * sinSigma * (cosSigmaM2 + bigC * cosSigma * (-1 + 2 * cos2SigmaM2)))
         // eq. 12
         val alpha2 = atan2(sinAlpha, -sinU1 * sinSigma + cosU1 * cosSigma * cosAlpha1)
         // build result
         val latitude = toDegrees(phi2)
-        val longitude = start.longitude + toDegrees(L)
+        val longitude = start.longitude + toDegrees(bigL)
         if (endBearing != null && endBearing.isNotEmpty()) {
             endBearing[0] = toDegrees(alpha2)
         }

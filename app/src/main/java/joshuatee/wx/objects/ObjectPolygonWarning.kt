@@ -46,7 +46,7 @@ class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
     private val prefTokenStorage get() = "SEVERE_DASHBOARD_" + type.productCode
 
     companion object {
-        var polygonDataByType = mutableMapOf<PolygonWarningType, ObjectPolygonWarning>()
+        private var polygonDataByType = mutableMapOf<PolygonWarningType, ObjectPolygonWarning>()
 
         private val polygonList = listOf(
                 PolygonWarningType.SpecialMarineWarning,
