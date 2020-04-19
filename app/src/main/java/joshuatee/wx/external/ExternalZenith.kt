@@ -26,14 +26,6 @@ class ExternalZenith private constructor(degrees: Double) {
     val degrees: BigDecimal = BigDecimal.valueOf(degrees)
 
     companion object {
-        /** Astronomical sunrise/set is when the sun is 18 degrees below the horizon.  */
-        //val ASTRONOMICAL: ExternalZenith = ExternalZenith(108.0)
-
-        /** Nautical sunrise/set is when the sun is 12 degrees below the horizon.  */
-        //val NAUTICAL: ExternalZenith = ExternalZenith(102.0)
-
-        /** Civil sunrise/set (dawn/dusk) is when the sun is 6 degrees below the horizon.  */
-        //val CIVIL: ExternalZenith = ExternalZenith(96.0)
 
         /** Official sunrise/set is when the sun is 50' below the horizon.  */
         val OFFICIAL = ExternalZenith(90.8333)
