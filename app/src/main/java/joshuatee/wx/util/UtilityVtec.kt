@@ -37,12 +37,11 @@ object UtilityVtec {
             if (!vtec.startsWith("O.EXP") && vtecIsCurrent) {
                 dashboardString += vtec
                 val offices = vtec.split(".")
-                val officeLabel: String
-                if (offices.size > 1) {
+                val officeLabel = if (offices.size > 1) {
                     val wfo = offices[2].replace("^[KP]".toRegex(), "")
-                    officeLabel = Utility.getWfoSiteName(wfo)
+                    Utility.getWfoSiteName(wfo)
                 } else {
-                    officeLabel = ""
+                    ""
                 }
                 dashboardString += "  " + officeLabel + MyApplication.newline
             }
