@@ -27,6 +27,7 @@
 // TODO [FIX] toolbar handling in WXGLSurfaceView
 // TODO [FIX] Android toggle cities on off main screen not working
 // TODO [REF] make WXGLDownload all static
+// TODO [REF] NCEP MAG WW3 changes
 
 55398 2020_04_21    [REF] misc
 55397 2020_04_19    [ADD] Android Studio/gradle update
