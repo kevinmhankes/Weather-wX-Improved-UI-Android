@@ -69,9 +69,7 @@ class ImageShowActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         url = activityArguments[0]
         title = activityArguments[1]
         shareTitle = activityArguments[1]
-        if (activityArguments.size > 2) {
-            needsWhiteBackground = activityArguments[2] == "true"
-        }
+        if (activityArguments.size > 2) needsWhiteBackground = activityArguments[2] == "true"
         when {
             url.contains("file:") -> {
                 urls = url.split(":")
@@ -97,9 +95,7 @@ class ImageShowActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmap = withContext(Dispatchers.IO) { url.getImage() }
-        if (needsWhiteBackground) {
-            bitmap = UtilityImg.addColorBackground(this@ImageShowActivity, bitmap, Color.WHITE)
-        }
+        if (needsWhiteBackground) bitmap = UtilityImg.addColorBackground(this@ImageShowActivity, bitmap, Color.WHITE)
         img.setBitmap(bitmap)
     }
 

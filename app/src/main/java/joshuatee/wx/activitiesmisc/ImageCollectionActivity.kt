@@ -86,15 +86,9 @@ class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLi
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         toolbar.subtitle = drw.getLabel()
-        if (drw.url.contains("jma") && imageCollection.title == "GOESFD") {
-            actionAnimate.isVisible = true
-        }
+        if (drw.url.contains("jma") && imageCollection.title == "GOESFD") actionAnimate.isVisible = true
         bitmap = withContext(Dispatchers.IO) { drw.url.getImage() }
-        if (drw.url.contains("large_latestsfc.gif")) {
-            img.setMaxZoom(16f)
-        } else {
-            img.setMaxZoom(4f)
-        }
+        if (drw.url.contains("large_latestsfc.gif")) img.setMaxZoom(16f) else img.setMaxZoom(4f)
         img.setBitmap(bitmap)
         img.firstRunSetZoomPosn(imageCollection.prefImagePosition)
     }
@@ -110,9 +104,7 @@ class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLi
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true
-        }
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_animate -> getAnimate()
             R.id.action_share -> {

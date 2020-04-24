@@ -28,8 +28,11 @@
 // TODO [FIX] Android toggle cities on off main screen not working
 // TODO [REF] make WXGLDownload all static
 // TODO [REF] NCEP MAG WW3 changes
+// TODO [REF] remove roaming location feature
+// TODO [FIX] Android share text does not preserve line breaks
+// TODO [FIX] nexrad cities performance
 
-55398 2020_04_21    [REF] misc
+55398 2020_04_24    [REF] misc
 55397 2020_04_19    [ADD] Android Studio/gradle update
 		            [ADD] long press radar - only show selections if count is active ( like flutter )
 		            [ADD] simplify settings radar verbiages

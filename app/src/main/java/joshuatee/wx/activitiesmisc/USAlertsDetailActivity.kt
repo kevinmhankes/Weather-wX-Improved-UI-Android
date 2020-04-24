@@ -74,9 +74,7 @@ class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, capAlert.text, "alert", "alert")) {
-            return true
-        }
+        if (audioPlayMenu(item.itemId, capAlert.text, "alert", "alert")) return true
         when (item.itemId) {
             R.id.action_share -> UtilityShare.shareText(this, capAlert.title + " " + capAlert.area, Utility.fromHtml(capAlert.text))
             else -> return super.onOptionsItemSelected(item)

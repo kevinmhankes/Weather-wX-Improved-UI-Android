@@ -114,9 +114,7 @@ class ForecastActivity : BaseActivity() {
         //
         cardCC.let {
             ccTime = objCc.status
-            if (bitmapForCurrentCondition != null) {
-                it.updateContent(bitmapForCurrentCondition!!, objCc, true, ccTime, radarTime)
-            }
+            if (bitmapForCurrentCondition != null) it.updateContent(bitmapForCurrentCondition!!, objCc, true, ccTime, radarTime)
         }
         //
         // 7day

@@ -66,11 +66,7 @@ class TextScreenActivity : AudioPlayActivity(), OnMenuItemClickListener {
         title = activityArguments[1]
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         if (!url.startsWith("http")) {
-            if (url.contains("<")) {
-                textCard.text = Utility.fromHtml(url)
-            } else {
-                textCard.text = url
-            }
+            if (url.contains("<")) textCard.text = Utility.fromHtml(url) else textCard.text = url
             html = url
         } else {
             getContent()
@@ -78,9 +74,7 @@ class TextScreenActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onRestart() {
-        if (url.startsWith("http")) {
-            getContent()
-        }
+        if (url.startsWith("http")) getContent()
         super.onRestart()
     }
 
@@ -91,9 +85,7 @@ class TextScreenActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, html, "txt", "txt")) {
-            return true
-        }
+        if (audioPlayMenu(item.itemId, html, "txt", "txt")) return true
         when (item.itemId) {
             R.id.action_share -> UtilityShare.shareText(this, activityArguments[1], Utility.fromHtml(html))
             else -> return super.onOptionsItemSelected(item)

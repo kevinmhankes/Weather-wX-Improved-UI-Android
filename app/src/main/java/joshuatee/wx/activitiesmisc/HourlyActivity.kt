@@ -99,9 +99,7 @@ class HourlyActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_share -> if (htmlShare.size > 1) {
-                UtilityShare.shareText(this, "Hourly", htmlShare[1])
-            }
+            R.id.action_share -> if (htmlShare.size > 1) UtilityShare.shareText(this, "Hourly", htmlShare[1])
             else -> return super.onOptionsItemSelected(item)
         }
         return true

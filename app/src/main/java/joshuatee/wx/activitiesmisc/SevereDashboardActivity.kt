@@ -75,9 +75,7 @@ class SevereDashboardActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
-        if (UtilityUI.isLandScape(this)) {
-            imagesPerRow = 3
-        }
+        if (UtilityUI.isLandScape(this)) imagesPerRow = 3
         getContent()
     }
 
@@ -191,18 +189,10 @@ class SevereDashboardActivity : BaseActivity() {
 
     private fun getSubTitle(): String {
         var subTitle = ""
-        if (watchCount > 0) {
-            subTitle += "W($watchCount) "
-        }
-        if (mcdCount > 0) {
-            subTitle += "M($mcdCount) "
-        }
-        if (mpdCount > 0) {
-            subTitle += "P($mpdCount) "
-        }
-        if (torCount > 0 || tstCount > 0 || ffwCount > 0) {
-            subTitle += " ($tstCount,$torCount,$ffwCount)"
-        }
+        if (watchCount > 0) subTitle += "W($watchCount) "
+        if (mcdCount > 0) subTitle += "M($mcdCount) "
+        if (mpdCount > 0) subTitle += "P($mpdCount) "
+        if (torCount > 0 || tstCount > 0 || ffwCount > 0) subTitle += " ($tstCount,$torCount,$ffwCount)"
         return subTitle
     }
 

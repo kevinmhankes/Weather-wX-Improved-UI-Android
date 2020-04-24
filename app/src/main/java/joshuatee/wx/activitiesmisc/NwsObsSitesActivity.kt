@@ -102,9 +102,7 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     private fun getContent() {
         val text = UtilityIO.readTextFileFromRaw(resources, R.raw.stations_us4)
         val lines = text.split("\n")
-        listOf(listCity, listIds, listSort).forEach {
-            it.clear()
-        }
+        listOf(listCity, listIds, listSort).forEach { it.clear() }
         listCity.add("..Back to state list")
         listIds.add("..Back to state list")
         lines.filterTo(listSort) { it.startsWith(provSelected.toUpperCase(Locale.US)) }

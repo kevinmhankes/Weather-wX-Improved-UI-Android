@@ -81,9 +81,7 @@ class SpottersActivity : BaseActivity() {
                 return true
             }
         })
-        if (UIPreferences.themeIsWhite) {
-            changeSearchViewTextColor(searchView)
-        }
+        if (UIPreferences.themeIsWhite) changeSearchViewTextColor(searchView)
         return true
     }
 
@@ -115,9 +113,7 @@ class SpottersActivity : BaseActivity() {
             if (view is TextView) {
                 view.setTextColor(Color.WHITE)
             } else if (view is ViewGroup) {
-                (0 until view.childCount).forEach {
-                    changeSearchViewTextColor(view.getChildAt(it))
-                }
+                (0 until view.childCount).forEach { changeSearchViewTextColor(view.getChildAt(it)) }
             }
         }
     }
@@ -127,9 +123,7 @@ class SpottersActivity : BaseActivity() {
         val filteredModelList = mutableListOf<Spotter>()
         models.forEach {
             val text = it.lastName.toLowerCase(Locale.US)
-            if (text.contains(queryLocal)) {
-                filteredModelList.add(it)
-            }
+            if (text.contains(queryLocal)) filteredModelList.add(it)
         }
         return filteredModelList
     }

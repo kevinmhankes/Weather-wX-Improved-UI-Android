@@ -162,12 +162,8 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         }
         scrollView.smoothScrollTo(0, 0)
         ridFavOld = MyApplication.wfoFav
-        if (product != oldProduct) {
-            version = 1
-        }
-        if (wfo != oldWfo) {
-            version = 1
-        }
+        if (product != oldProduct) version = 1
+        if (wfo != oldWfo) version = 1
         html = withContext(Dispatchers.IO) {
             when {
                 product == "CLI" -> UtilityDownload.getTextProduct(this@AfdActivity, product + wfo + originalWfo)
@@ -186,18 +182,12 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             else -> product + wfo
         }
         // restore the WFO as CLI modifies to a sub-region
-        if (product == "CLI") {
-            wfo = originalWfo
-        }
+        if (product == "CLI") wfo = originalWfo
         toolbar.subtitle = UtilityWfoText.codeToName[product]
-        cardList.forEach {
-            linearLayout.removeView(it)
-        }
+        cardList.forEach { linearLayout.removeView(it) }
         objectCardText.visibility = View.VISIBLE
         scrollView.visibility = View.VISIBLE
-        if (html == "") {
-            html = "None issued by this office recently."
-        }
+        if (html == "") html = "None issued by this office recently."
         objectCardText.setTextAndTranslate(html)
         if (fixedWidthProducts.contains(product) || product.startsWith("RTP")) {
             objectCardText.typefaceMono()
@@ -219,9 +209,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, html, product, product + wfo)) {
-            return true
-        }
+        if (audioPlayMenu(item.itemId, html, product, product + wfo)) return true
         when (item.itemId) {
             R.id.action_back -> {
                 version += 2
@@ -283,11 +271,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                         val state = Utility.getWfoSiteName(wfo).split(",")[0]
                         product = "RTP$state"
                     }
-                    if (product == "CLI") {
-                        checkForCliSite()
-                    } else {
-                        getContent()
-                    }
+                    if (product == "CLI") checkForCliSite() else getContent()
                 }
             }
             if (firstTime) {
@@ -323,12 +307,8 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         val wfoProd = mutableListOf<String>()
         scrollView.smoothScrollTo(0, 0)
         ridFavOld = MyApplication.wfoFav
-        if (product != oldProduct) {
-            version = 1
-        }
-        if (wfo != oldWfo) {
-            version = 1
-        }
+        if (product != oldProduct) version = 1
+        if (wfo != oldWfo) version = 1
         title = product
         withContext(Dispatchers.IO) {
             html = ""
@@ -386,45 +366,31 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {
             KeyEvent.KEYCODE_M -> {
-                if (event.isCtrlPressed) {
-                    toolbarBottom.showOverflowMenu()
-                }
+                if (event.isCtrlPressed) toolbarBottom.showOverflowMenu()
                 return true
             }
             KeyEvent.KEYCODE_D -> {
-                if (event.isCtrlPressed) {
-                    drw.drawerLayout.openDrawer(GravityCompat.START)
-                }
+                if (event.isCtrlPressed) drw.drawerLayout.openDrawer(GravityCompat.START)
                 true
             }
             KeyEvent.KEYCODE_F -> {
-                if (event.isCtrlPressed) {
-                    toggleFavorite()
-                }
+                if (event.isCtrlPressed) toggleFavorite()
                 return true
             }
             KeyEvent.KEYCODE_P -> {
-                if (event.isCtrlPressed) {
-                    audioPlayMenu(R.id.action_read_aloud, html, product, product + wfo)
-                }
+                if (event.isCtrlPressed) audioPlayMenu(R.id.action_read_aloud, html, product, product + wfo)
                 return true
             }
             KeyEvent.KEYCODE_S -> {
-                if (event.isCtrlPressed) {
-                    audioPlayMenu(R.id.action_stop, html, product, product + wfo)
-                }
+                if (event.isCtrlPressed) audioPlayMenu(R.id.action_stop, html, product, product + wfo)
                 return true
             }
             KeyEvent.KEYCODE_L -> {
-                if (event.isCtrlPressed) {
-                    imageMap.toggleMap()
-                }
+                if (event.isCtrlPressed) imageMap.toggleMap()
                 return true
             }
             KeyEvent.KEYCODE_SLASH -> {
-                if (event.isAltPressed) {
-                    ObjectDialogue(this, Utility.showWfoTextShortCuts())
-                }
+                if (event.isAltPressed) ObjectDialogue(this, Utility.showWfoTextShortCuts())
                 return true
             }
             else -> super.onKeyUp(keyCode, event)
