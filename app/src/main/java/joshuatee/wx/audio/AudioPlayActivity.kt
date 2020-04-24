@@ -98,8 +98,7 @@ abstract class AudioPlayActivity : AppCompatActivity() {
                 }
             }
             R.id.action_stop -> {
-                if (UtilityTts.mediaPlayer != null)
-                    UtilityTts.playMediaPlayer(1)
+                if (UtilityTts.mediaPlayer != null) UtilityTts.playMediaPlayer(1)
                 if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying)
                     pause.setIcon(MyApplication.ICON_PAUSE_PRESSED)
                 else
@@ -143,9 +142,7 @@ abstract class AudioPlayActivity : AppCompatActivity() {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     UtilityTts.synthesizeTextAndPlay(applicationContext, ttsTxt, ttsProd)
                     pause.setIcon(MyApplication.ICON_PAUSE)
-                    if (UIPreferences.mediaControlNotif)
-                        UtilityNotification.createMediaControlNotification(applicationContext, "")
-
+                    if (UIPreferences.mediaControlNotif) UtilityNotification.createMediaControlNotification(applicationContext, "")
                 }
             }
         }
