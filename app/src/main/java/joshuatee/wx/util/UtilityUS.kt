@@ -43,9 +43,7 @@ object UtilityUS {
         var locationName: String? = OBS_CODE_TO_LOCATION[obsClosestClass]
         if (locationName == null) {
             locationName = findObsName(context, obsClosestClass)
-            if (locationName != "" && obsClosestClass != "") {
-                OBS_CODE_TO_LOCATION[obsClosestClass] = locationName
-            }
+            if (locationName != "" && obsClosestClass != "") OBS_CODE_TO_LOCATION[obsClosestClass] = locationName
         }
         return conditionsTimeStr + " " + UtilityString.capitalizeString(locationName).trim { it <= ' ' } + " (" + obsClosestClass + ") "
     }
@@ -55,11 +53,7 @@ object UtilityUS {
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }
         val list = lines.lastOrNull { it.contains(",$obsShortCode") } ?: ""
         val items = list.split(",")
-        return if (items.size > 2) {
-            items[0] + ", " + items[1]
-        } else {
-            ""
-        }
+        return if (items.size > 2) items[0] + ", " + items[1] else ""
     }
 
     fun checkForNotifications(context: Context, currentLoc: Int, inBlackout: Boolean, tornadoWarningString: String): String {

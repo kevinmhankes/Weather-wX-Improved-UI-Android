@@ -38,8 +38,7 @@ object UtilityShare {
 
     fun shareTextAsAttachment(activity: Activity, context: Context, subject: String, text: String, filename: String) {
         val dir = File(context.filesDir.toString() + "/shared")
-        if (!dir.mkdirs())
-            UtilityLog.d("wx", "failed to mkdir: " + context.filesDir + "/shared")
+        if (!dir.mkdirs()) UtilityLog.d("wx", "failed to mkdir: " + context.filesDir + "/shared")
         val file = File(dir, filename)
         val imgUri = FileProvider.getUriForFile(context, "${MyApplication.packageNameAsString}.fileprovider", file)
         var fos: FileOutputStream? = null
@@ -86,8 +85,7 @@ object UtilityShare {
 
     fun shareBitmap(activity: Activity, context: Context, subject: String, bitmap: Bitmap, text: String = "") {
         val dir = File(context.filesDir.toString() + "/shared")
-        if (!dir.mkdirs())
-            UtilityLog.d("wx", "failed to mkdir: " + context.filesDir + "/shared")
+        if (!dir.mkdirs()) UtilityLog.d("wx", "failed to mkdir: " + context.filesDir + "/shared")
         val file = File(dir, "img1.png")
         val imgUri = FileProvider.getUriForFile(context, "${MyApplication.packageNameAsString}.fileprovider", file)
         try {

@@ -87,10 +87,8 @@ object UtilityMath {
 
     fun celsiusToFahrenheit(valueF: String): String {
         var value = valueF
-        var tmpNum: Double
         if (MyApplication.unitsF) {
-            tmpNum = value.toDoubleOrNull() ?: 0.0
-            tmpNum = tmpNum * 9 / 5 + 32
+            val tmpNum = (value.toDoubleOrNull() ?: 0.0) * 9 / 5 + 32
             value = round(tmpNum).toInt().toString()
         }
         return value
@@ -123,11 +121,9 @@ object UtilityMath {
 
     internal fun roundToString(valueD: Double) = round(valueD.toFloat()).toInt().toString()
 
-    internal fun pressureMBtoIn(valueF: String): String {
-        var value = valueF
-        var tmpNum = value.toDoubleOrNull() ?: 0.0
-        tmpNum /= 33.8637526
-        value = String.format(Locale.US, "%.2f", tmpNum)
+    internal fun pressureMBtoIn(valueOriginal: String): String {
+        val tmpNum = (valueOriginal.toDoubleOrNull() ?: 0.0) / 33.8637526
+        val value = String.format(Locale.US, "%.2f", tmpNum)
         return "$value in"
     }
 
@@ -191,5 +187,4 @@ object UtilityMath {
 		double windChillD = 35.74 + 0.6215 * tempD - 35.75 * Math.pow(mphD,0.16) + 0.4275*tempD * Math.pow(mphD,0.16);
 		return "(" + UtilityMath.unitsTemp(Integer.toString((int)(Math.round(windChillD)))) + MyApplication.DEGREE_SYMBOL + ")";
 	}*/
-
 }
