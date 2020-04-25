@@ -116,7 +116,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         ObjectCardImage(this@NhcStormActivity, linearLayout, topBitmap)
         html = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@NhcStormActivity, product) }
         objectCardText = ObjectCardText(this@NhcStormActivity, linearLayout, toolbar, toolbarBottom)
-        objectCardText.text = Utility.fromHtml(html)
+        if (html.contains("<")) objectCardText.text = Utility.fromHtml(html) else objectCardText.text = html
         withContext(Dispatchers.IO) {
             listOf(
                     "_key_messages.png",

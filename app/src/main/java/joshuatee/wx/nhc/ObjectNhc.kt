@@ -108,7 +108,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
             ObjectCardText(context, linearLayout, noPac)
             html += noPac
         } else {
-            regionMap[NhcOceanEnum.ATL]!!.storms.forEach {
+            regionMap[NhcOceanEnum.EPAC]!!.storms.forEach {
                 if (it.image1 != "") {
                     val objStormData = ObjectNhcStormDetails(it.summary)
                     val cPacData = ObjectCardNhcStormReportItem(context, linearLayout, objStormData)
