@@ -113,9 +113,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        withContext(Dispatchers.IO) {
-            UtilityPlayList.downloadAll(this@SettingsPlaylistActivity)
-        }
+        withContext(Dispatchers.IO) { UtilityPlayList.downloadAll(this@SettingsPlaylistActivity) }
         updateListNoInit()
         ca.notifyDataSetChanged()
     }
@@ -129,9 +127,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
     private fun updateListNoInit() {
         MyApplication.playlistStr = ridFav
         val tempList = ridFav.split(":")
-        (1 until tempList.size).forEach {
-            playListItems[it - 1] = getLongString(tempList[it])
-        }
+        (1 until tempList.size).forEach { playListItems[it - 1] = getLongString(tempList[it]) }
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -180,9 +176,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
     }
 
     private fun playItemFAB() {
-        if (UtilityTts.mediaPlayer != null) {
-            UtilityTts.playMediaPlayer(1)
-        }
+        if (UtilityTts.mediaPlayer != null) UtilityTts.playMediaPlayer(1)
         if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying) {
             fabPause.fabSetResDrawable(this, MyApplication.ICON_PAUSE_PRESSED)
         } else {
@@ -197,9 +191,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
     private fun playAll() {
         fabPause.fabSetResDrawable(this, MyApplication.ICON_PAUSE)
-        if (isStoragePermissionGranted) {
-            UtilityTts.synthesizeTextAndPlayPlaylist(this, 1)
-        }
+        if (isStoragePermissionGranted) UtilityTts.synthesizeTextAndPlayPlaylist(this, 1)
         if (UtilityTts.mediaPlayer != null && UtilityTts.mediaPlayer!!.isPlaying) {
             if (UIPreferences.mediaControlNotif) {
                 UtilityNotification.createMediaControlNotification(applicationContext, "")

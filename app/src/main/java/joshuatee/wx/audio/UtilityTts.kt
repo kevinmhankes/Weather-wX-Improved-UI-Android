@@ -70,9 +70,7 @@ object UtilityTts {
     }
 
     internal fun playAgainTts(context: Context) {
-        if (!ttsInit) {
-            initTts(context)
-        }
+        if (!ttsInit) initTts(context)
         ttobjGlobal!!.setSpeechRate(Utility.readPref(context, "TTS_SPEED_PREF", 10) / 10f)
         splitInChunks(Utility.fromHtml(TEXT_OLD), 1000).forEach {
             ttobjGlobal!!.speak(it, TextToSpeech.QUEUE_ADD, null)
@@ -81,9 +79,7 @@ object UtilityTts {
 
     private fun splitInChunks(s: String, chunkSize: Int): List<String> {
         val length = s.length
-        return (0..length step chunkSize).map {
-            s.substring(it, min(length, it + chunkSize))
-        }
+        return (0..length step chunkSize).map { s.substring(it, min(length, it + chunkSize)) }
     }
 
     private fun initMediaPlayer(context: Context) {
@@ -105,9 +101,7 @@ object UtilityTts {
         playlistNumber = index
         // perform check to see if idx is correct in array
         // got one bug for index being greater
-        if (index >= playlistArr.size) {
-            return
-        }
+        if (index >= playlistArr.size) return
         val prodg = playlistArr[index]
         playlistTotal = playlistArr.size
         currentFile = 0
@@ -115,14 +109,8 @@ object UtilityTts {
         if (!ttsInit) initTts(context)
         // clear the queue of any pending objects
         ttobjGlobal!!.stop()
-        if (!mpInit) {
-            initMediaPlayer(context)
-        }
-        synthesizeText(
-                context,
-                Utility.readPref(context, "PLAYLIST_" + playlistArr[index], ""),
-                prodg
-        )
+        if (!mpInit) initMediaPlayer(context)
+        synthesizeText(context, Utility.readPref(context, "PLAYLIST_" + playlistArr[index], ""), prodg)
         ttobjGlobal!!.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onDone(utteranceId: String) {
                 if (currentFile == 0 && utteranceId.contains(prodg)) {
@@ -140,20 +128,16 @@ object UtilityTts {
     internal fun synthesizeTextAndPlayNext(context: Context) {
         playlistArr = MyApplication.playlistStr.split(":")
         playlistNumber += 1
-        if (playlistNumber >= playlistArr.size)
-            playlistNumber = 1
+        if (playlistNumber >= playlistArr.size) playlistNumber = 1
         if (playlistNumber < playlistArr.size) {
             val prodg = playlistArr[playlistNumber]
             playlistTotal = playlistArr.size
             currentFile = 0
             ttsIsPaused = false
-            if (!ttsInit)
-                initTts(context)
+            if (!ttsInit) initTts(context)
             // clear the queue of any pending objects
             ttobjGlobal!!.stop()
-            if (!mpInit) {
-                initMediaPlayer(context)
-            }
+            if (!mpInit) initMediaPlayer(context)
             if (mediaPlayer!!.isPlaying) mediaPlayer!!.stop()
             synthesizeText(context, Utility.readPref(context, "PLAYLIST_" + playlistArr[playlistNumber], ""), prodg)
             ttobjGlobal!!.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
@@ -174,9 +158,7 @@ object UtilityTts {
     private fun synthesizeTextAndPlayPrevious(context: Context) {
         playlistArr = MyApplication.playlistStr.split(":")
         playlistNumber -= 1
-        if (playlistNumber == -1) {
-            playlistNumber = playlistArr.lastIndex
-        }
+        if (playlistNumber == -1) playlistNumber = playlistArr.lastIndex
         val prodg = playlistArr[playlistNumber]
         playlistTotal = playlistArr.size
         currentFile = 0
@@ -184,9 +166,7 @@ object UtilityTts {
         if (!ttsInit) initTts(context)
         // clear the queue of any pending objects
         ttobjGlobal!!.stop()
-        if (!mpInit) {
-            initMediaPlayer(context)
-        }
+        if (!mpInit) initMediaPlayer(context)
         if (mediaPlayer!!.isPlaying) mediaPlayer!!.stop()
         synthesizeText(context, Utility.readPref(context, "PLAYLIST_" + playlistArr[playlistNumber], ""), prodg)
         ttobjGlobal!!.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
@@ -210,9 +190,7 @@ object UtilityTts {
         if (!ttsInit) initTts(context)
         // clear the queue of any pending objects
         ttobjGlobal!!.stop()
-        if (!mpInit) {
-            initMediaPlayer(context)
-        }
+        if (!mpInit) initMediaPlayer(context)
         synthesizeText(context, txt, prod)
         ttobjGlobal!!.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onDone(utteranceId: String) {
@@ -230,34 +208,25 @@ object UtilityTts {
 
     private fun synthesizeText(context: Context, txtF: String, prod: String) {
         var txt = txtF
-        if (mediaPlayer != null && mediaPlayer!!.isPlaying) {
-            mediaPlayer!!.stop()
-        }
+        if (mediaPlayer != null && mediaPlayer!!.isPlaying) mediaPlayer!!.stop()
         txt = UtilityTtsTranslations.translateAbbreviation(txt)
         val myHashRender = HashMap<String, String>()
         val musicDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
         val wxDir = File(musicDir, MyApplication.packageNameAsString)
-        if (!wxDir.exists() && !wxDir.mkdirs()) {
-            return
-        }
-        var fileName: String
+        if (!wxDir.exists() && !wxDir.mkdirs()) return
         val chunkAl = splitInChunks(Utility.fromHtml(txt), 250)
         fileCount = chunkAl.size
         (0 until fileCount).forEach {
             myHashRender.clear()
             myHashRender[TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID] = it.toString() + prod
-            fileName = File(wxDir, FILENAME + it.toString()).absolutePath
+            val fileName = File(wxDir, FILENAME + it.toString()).absolutePath
             ttobjGlobal!!.synthesizeToFile(chunkAl[it], myHashRender, fileName)
         }
-        if (UIPreferences.mediaControlNotif) {
-            UtilityNotification.createMediaControlNotification(context, prod)
-        }
+        if (UIPreferences.mediaControlNotif) UtilityNotification.createMediaControlNotification(context, prod)
     }
 
     internal fun playMediaPlayer(status: Int) {
-        if (status == 0) {
-            mediaPlayer!!.start()
-        }
+        if (status == 0) mediaPlayer!!.start()
         if (status == 1) {
             ttsIsPaused = if (!ttsIsPaused) {
                 mediaPlayer!!.pause()
@@ -291,9 +260,7 @@ object UtilityTts {
     private fun playMediaPlayerFile(context: Context, fileNum: Int) {
         val musicDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
         val wxDir = File(musicDir, MyApplication.packageNameAsString)
-        if (!wxDir.exists() && !wxDir.mkdirs()) {
-            return
-        }
+        if (!wxDir.exists() && !wxDir.mkdirs()) return
         mediaPlayer?.reset()
         val fileName = File(wxDir, FILENAME + fileNum.toString()).absolutePath
         val uri = Uri.parse("file://$fileName")
@@ -311,9 +278,7 @@ object UtilityTts {
 
     fun conditionalPlay(activityArguments: Array<String>, index: Int, context: Context, html: String, label: String) {
         if (activityArguments.size > index) {
-            if (activityArguments[index] == "sound") {
-                synthesizeTextAndPlay(context, html, label)
-            }
+            if (activityArguments[index] == "sound") synthesizeTextAndPlay(context, html, label)
         }
     }
 }
