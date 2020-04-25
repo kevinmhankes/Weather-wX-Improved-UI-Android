@@ -89,39 +89,21 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
         val tempList = favoriteString.split(":").dropLastWhile { it.isEmpty() }
         if (favoriteString != "") {
             favoriteList.clear()
-            tempList.forEach {
-                favoriteList.add(it)
-            }
-            if (firstTime) {
-                labels = mutableListOf()
-            }
+            tempList.forEach { favoriteList.add(it) }
+            if (firstTime) labels = mutableListOf()
             favoriteList.indices.forEach { k ->
                 if (!firstTime) {
                     labels[k] = findPositionAFD(favoriteList[k])
                 } else {
                     labels.add(findPositionAFD(favoriteList[k]))
                 }
-                if (labels[k] == "") {
-                    labels[k] = findPositionTEXT(favoriteList[k])
-                }
-                if (labels[k] == "") {
-                    labels[k] = findPositionIMG(favoriteList[k])
-                }
-                if (labels[k] == "") {
-                    labels[k] = findPositionTEXTLOCAL(favoriteList[k])
-                }
-                if (labels[k] == "") {
-                    labels[k] = findPositionIMG2(favoriteList[k])
-                }
-                if (labels[k] == "") {
-                    labels[k] = findPositionRadarNexrad(favoriteList[k])
-                }
-                if (labels[k] == "") {
-                    labels[k] = findPositionRadarTdwr(favoriteList[k])
-                }
-                if (labels[k] == "") {
-                    labels[k] = favoriteList[k]
-                }
+                if (labels[k] == "") labels[k] = findPositionTEXT(favoriteList[k])
+                if (labels[k] == "") labels[k] = findPositionIMG(favoriteList[k])
+                if (labels[k] == "") labels[k] = findPositionTEXTLOCAL(favoriteList[k])
+                if (labels[k] == "") labels[k] = findPositionIMG2(favoriteList[k])
+                if (labels[k] == "") labels[k] = findPositionRadarNexrad(favoriteList[k])
+                if (labels[k] == "") labels[k] = findPositionRadarTdwr(favoriteList[k])
+                if (labels[k] == "") labels[k] = favoriteList[k]
             }
         } else {
             if (!firstTime) {
@@ -132,9 +114,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
                 favoriteList = mutableListOf()
             }
         }
-        if (!firstTime) {
-            recyclerView.notifyDataSetChanged()
-        }
+        if (!firstTime) recyclerView.notifyDataSetChanged()
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -173,9 +153,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
             favoriteList[0] = tmp
         }
         favoriteString = ""
-        favoriteList.forEach {
-            favoriteString += ":$it"
-        }
+        favoriteList.forEach { favoriteString += ":$it" }
         updateList()
     }
 
@@ -192,9 +170,7 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
             favoriteList[favoriteList.lastIndex] = tmp
         }
         favoriteString = ""
-        favoriteList.forEach {
-            favoriteString += ":$it"
-        }
+        favoriteList.forEach { favoriteString += ":$it" }
         updateList()
     }
 
@@ -214,10 +190,8 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
 
     private fun findPositionIMG2(key: String): String {
         for (l in UtilityHomeScreen.localChoicesImg) {
-            if (l.startsWith(key.replace("OGL-", "")))
-                return l
-            if (l.startsWith(key.replace("IMG-", "")))
-                return l
+            if (l.startsWith(key.replace("OGL-", ""))) return l
+            if (l.startsWith(key.replace("IMG-", ""))) return l
         }
         return ""
     }
@@ -226,12 +200,8 @@ class SettingsHomeScreenActivity : BaseActivity(), Toolbar.OnMenuItemClickListen
 
     private fun findPositionAFD(key: String): String {
         (GlobalArrays.wfos.indices).forEach {
-            if (GlobalArrays.wfos[it].startsWith(key.replace("TXT-AFD", ""))) {
-                return "AFD " + GlobalArrays.wfos[it]
-            }
-            if (GlobalArrays.wfos[it].startsWith(key.replace("IMG-", ""))) {
-                return "VIS " + GlobalArrays.wfos[it]
-            }
+            if (GlobalArrays.wfos[it].startsWith(key.replace("TXT-AFD", ""))) return "AFD " + GlobalArrays.wfos[it]
+            if (GlobalArrays.wfos[it].startsWith(key.replace("IMG-", ""))) return "VIS " + GlobalArrays.wfos[it]
         }
         return ""
     }

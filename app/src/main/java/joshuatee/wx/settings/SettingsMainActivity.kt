@@ -111,9 +111,7 @@ class SettingsMainActivity : BaseActivity() {
         cardDeleteFiles.setOnClickListener(View.OnClickListener {
             UtilityUI.makeSnackBar(linearLayout, "Deleted old radar files: " + UtilityFileManagement.deleteCacheFiles(this))
         })
-        cardAbout.setOnClickListener(View.OnClickListener {
-            ObjectIntent(this, SettingsAboutActivity::class.java)
-        })
+        cardAbout.setOnClickListener(View.OnClickListener { ObjectIntent(this, SettingsAboutActivity::class.java) })
         listOf(
                 cardAbout.card,
                 cardLocations.card,

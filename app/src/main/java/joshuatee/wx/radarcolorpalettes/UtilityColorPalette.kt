@@ -79,9 +79,7 @@ object UtilityColorPalette {
                 else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + product + "_" + code, "")
             }
         }
-        if (text == "null") {
-            text = UtilityIO.readTextFileFromRaw(context.resources, fileId)
-        }
+        if (text == "null") text = UtilityIO.readTextFileFromRaw(context.resources, fileId)
         return text
     }
 }

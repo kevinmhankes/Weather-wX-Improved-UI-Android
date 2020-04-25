@@ -34,25 +34,14 @@ import joshuatee.wx.util.UtilityIO
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityLog
 
-internal class TileObjectColorPalette(
-    val colorMapLabel: String,
-    val toolbar: Toolbar,
-    val prefToken: String,
-    context: Context,
-    product: String,
-    val builtin: Boolean
-) {
+internal class TileObjectColorPalette(val colorMapLabel: String, val toolbar: Toolbar, val prefToken: String, context: Context, product: String, val builtin: Boolean) {
 
     val bitmapWithText: Bitmap
 
     init {
         val oldMap: String
         val bitmap: Bitmap
-        val textColor = if (builtin) {
-            Color.YELLOW
-        } else {
-            Color.WHITE
-        }
+        val textColor = if (builtin) Color.YELLOW else Color.WHITE
         if (UtilityFileManagement.internalFileExist(context, "colormap" + product + this.colorMapLabel)) {
             bitmapWithText = UtilityIO.bitmapFromInternalStorage(context, "colormap" + product + this.colorMapLabel)
         } else {

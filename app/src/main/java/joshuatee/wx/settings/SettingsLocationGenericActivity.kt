@@ -358,9 +358,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
 
         searchView.setOnQueryTextListener(object : OnQueryTextListener {
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                return false
-            }
+            override fun onQueryTextChange(newText: String) = false
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 locLabelEt.setText(query)
@@ -372,9 +370,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
             }
         })
         menuLocal = menu
-        if (UIPreferences.themeIsWhite){
-            changeSearchViewTextColor(searchView)
-        }
+        if (UIPreferences.themeIsWhite) changeSearchViewTextColor(searchView)
         // the SearchView's AutoCompleteTextView drop down. For some reason this wasn't working in styles.xml
         val autoCompleteTextView: SearchView.SearchAutoComplete = searchView.findViewById(R.id.search_src_text)
         if (UIPreferences.themeIsWhite)
@@ -444,11 +440,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 try {
                     startActivityForResult(intent, requestOk)
                 } catch (e: Exception) {
-                    Toast.makeText(
-                            this,
-                            "Error initializing speech to text engine.",
-                            Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(this, "Error initializing speech to text engine.", Toast.LENGTH_LONG).show()
                 }
             }
             R.id.action_help -> ObjectDialogue(this, resources.getString(R.string.activity_settings_generic_help))
@@ -558,9 +550,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
 
     private fun notificationsCanada(hide: Boolean) {
         var visibility = View.VISIBLE
-        if (hide) {
-            visibility = View.GONE
-        }
+        if (hide) visibility = View.GONE
         listOf(alertMcdSw,
                 alertSwoSw,
                 alertSpcfwSw,
@@ -572,16 +562,12 @@ class SettingsLocationGenericActivity : BaseActivity(),
 
     private fun hideNonUSNotifications() {
         val label = locXEt.text.toString()
-        if (label.contains("CANADA")) {
-            notificationsCanada(true)
-        }
+        if (label.contains("CANADA")) notificationsCanada(true)
     }
 
     private fun updateSubTitle() {
         val subTitleString = "WFO: " + Utility.readPref(this, "NWS$locNum", "") + " - Nexrad: " + Utility.readPref(this, "RID$locNum", "")
-        if (subTitleString != "WFO:  - Nexrad: " && updateTitle) {
-            toolbar.subtitle = subTitleString
-        }
+        if (subTitleString != "WFO:  - Nexrad: " && updateTitle) toolbar.subtitle = subTitleString
     }
 
     private fun changeSearchViewTextColor(view: View?) {
@@ -613,21 +599,15 @@ class SettingsLocationGenericActivity : BaseActivity(),
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         when (keyCode) {
             KeyEvent.KEYCODE_G -> {
-                if (event.isCtrlPressed) {
-                    actionGps()
-                }
+                if (event.isCtrlPressed) actionGps()
                 return true
             }
             KeyEvent.KEYCODE_M -> {
-                if (event.isCtrlPressed) {
-                    toolbarBottom.showOverflowMenu()
-                }
+                if (event.isCtrlPressed) toolbarBottom.showOverflowMenu()
                 return true
             }
             KeyEvent.KEYCODE_SLASH -> {
-                if (event.isAltPressed) {
-                    ObjectDialogue(this, Utility.showLocationEditShortCuts())
-                }
+                if (event.isAltPressed) ObjectDialogue(this, Utility.showLocationEditShortCuts())
                 return true
             }
             else -> return super.onKeyUp(keyCode, event)

@@ -58,9 +58,7 @@ class SettingsUIActivity : BaseActivity() {
         ObjectCard(this, R.id.cv_tab_labels)
         tilesPerRowStart = UIPreferences.tilesPerRow
         setupEditText()
-        (0 until 20).forEach {
-            textSizeArr.add(((it + 1) * 50).toString())
-        }
+        (0 until 20).forEach { textSizeArr.add(((it + 1) * 50).toString()) }
         linearLayout.addView(
                 ObjectSettingsSpinner(
                         this,
@@ -334,9 +332,6 @@ class SettingsUIActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if (UIPreferences.tilesPerRow != tilesPerRowStart)
-            UtilityAlertDialog.restart()
-        else
-            super.onBackPressed()
+        if (UIPreferences.tilesPerRow != tilesPerRowStart) UtilityAlertDialog.restart() else super.onBackPressed()
     }
 }

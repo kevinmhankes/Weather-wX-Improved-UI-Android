@@ -276,12 +276,7 @@ class SettingsNotificationsActivity : BaseActivity() {
 
     override fun onStop() {
         super.onStop()
-        if (MyApplication.notifTts != Utility.readPref(
-                        this,
-                        "NOTIF_TTS",
-                        "false"
-                ).startsWith("t")
-        ) {
+        if (MyApplication.notifTts != Utility.readPref(this, "NOTIF_TTS", "false").startsWith("t")) {
             showFileWritePermsDialogue()
         }
         MyApplication.initPreferences(this)
@@ -295,9 +290,7 @@ class SettingsNotificationsActivity : BaseActivity() {
 
     private fun notifSoundPicker() {
         var uri: Uri? = null
-        if (MyApplication.notifSoundUri != "") {
-            uri = Uri.parse(MyApplication.notifSoundUri)
-        }
+        if (MyApplication.notifSoundUri != "") uri = Uri.parse(MyApplication.notifSoundUri)
         val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Tone")

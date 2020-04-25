@@ -121,9 +121,7 @@ class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
         layoutParams.height = MyApplication.dm.widthPixels * bitmap.height / bitmap.width
         imageMap.layoutParams = layoutParams
         imageMap.addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
-            override fun onImageMapClicked(id: Int, im2: ImageMap) {
-                mapClicked(id)
-            }
+            override fun onImageMapClicked(id: Int, im2: ImageMap) { mapClicked(id) }
 
             override fun onBubbleClicked(id: Int) {}
         })
@@ -169,9 +167,7 @@ class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
         val data = UtilityIO.readTextFileFromRaw(this@SettingsLocationCanadaMapActivity.resources, R.raw.maps)
         val lines = data.split(MyApplication.newline)
         lines.forEach {
-            if (it.contains(token)) {
-                return it.parse("title=\"(.*?)\"")
-            }
+            if (it.contains(token)) return it.parse("title=\"(.*?)\"")
         }
         return ""
     }

@@ -30,16 +30,12 @@ internal class SettingsLocationAdapterList(private val dataSet: MutableList<Stri
             itemView.setOnClickListener(this)
         }
 
-        override fun onClick(v: View) {
-            myClickListener!!.onItemClick(adapterPosition)
-        }
+        override fun onClick(v: View) { myClickListener!!.onItemClick(adapterPosition) }
     }
 
     fun setListener(fn: (Int) -> Unit) {
         myClickListener = object : MyClickListener {
-            override fun onItemClick(position: Int) {
-                fn(position)
-            }
+            override fun onItemClick(position: Int) { fn(position) }
         }
     }
 
@@ -89,7 +85,5 @@ internal class SettingsLocationAdapterList(private val dataSet: MutableList<Stri
 
     fun getItem(index: Int) = dataSet[index]
 
-    interface MyClickListener {
-        fun onItemClick(position: Int)
-    }
+    interface MyClickListener { fun onItemClick(position: Int) }
 }

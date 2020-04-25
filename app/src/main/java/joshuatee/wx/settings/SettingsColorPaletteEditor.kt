@@ -106,9 +106,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
             ObjectDialogue(this, errorCheck)
         }
         val fileName = "colormap" + type + palTitle.text.toString()
-        if (UtilityFileManagement.internalFileExist(context, fileName)) {
-            UtilityFileManagement.deleteFile(context, fileName)
-        }
+        if (UtilityFileManagement.internalFileExist(context, fileName)) UtilityFileManagement.deleteFile(context, fileName)
     }
 
     private fun checkMapForErrors(): String {
@@ -120,10 +118,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         var lineCount = 0
         lines.forEach { line ->
             if (line.contains("olor") && !line.contains("#")) {
-                val list = if (line.contains(","))
-                    line.split(",")
-                else
-                    line.split(" ")
+                val list = if (line.contains(",")) line.split(",") else line.split(" ")
                 lineCount += 1
                 try {
                     if (list.size > 4) {
@@ -149,9 +144,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
                 }
             }
         }
-        if (lineCount < 2) {
-            errors += "Not enough lines present."
-        }
+        if (lineCount < 2) errors += "Not enough lines present."
         return errors
     }
 
@@ -178,13 +171,9 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         toolbarBottom.menu.findItem(R.id.action_load).isVisible = Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT
     }
 
-    private fun loadSettings() {
-        performFileSearch()
-    }
+    private fun loadSettings() { performFileSearch() }
 
-    private fun displaySettings(txt: String) {
-        palContent.setText(txt)
-    }
+    private fun displaySettings(txt: String) { palContent.setText(txt) }
 
     private fun convertPalette(txt: String): String {
         var txtLocal = Utility.fromHtml(txt)
@@ -197,9 +186,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         txtLocal = txtLocal.trim { it <= ' ' }.replace(" ".toRegex(), ",")
         txtLocal = txtLocal.replace("\\s".toRegex(), "")
         val lines = txtLocal.split(MyApplication.newline.toRegex()).dropLastWhile { it.isEmpty() }
-        if (lines.size < 3) {
-            txtLocal = txtLocal.replace("Color", MyApplication.newline + "Color")
-        }
+        if (lines.size < 3) txtLocal = txtLocal.replace("Color", MyApplication.newline + "Color")
         txtLocal = txtLocal.replace("Step", MyApplication.newline + "#Step")
         txtLocal = txtLocal.replace("Units", MyApplication.newline + "#Units")
         txtLocal = txtLocal.replace("ND", MyApplication.newline + "#ND")
@@ -249,9 +236,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         val content = UtilityIO.readTextFromUri(this, uri)
         val uriArr = uri.lastPathSegment!!.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         var fileName = "map"
-        if (uriArr.isNotEmpty()) {
-            fileName = uriArr.last()
-        }
+        if (uriArr.isNotEmpty()) fileName = uriArr.last()
         fileName = fileName.replace(".txt", "").replace(".pal", "")
         name = fileName + "_" + formattedDate
         palTitle.setText(name)

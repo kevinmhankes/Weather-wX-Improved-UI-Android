@@ -34,7 +34,7 @@ internal object UtilityColorPalette4bitGeneric {
         MyApplication.colorMap[radarColorPaletteCode]!!.redValues.position(0)
         MyApplication.colorMap[radarColorPaletteCode]!!.greenValues.position(0)
         MyApplication.colorMap[radarColorPaletteCode]!!.blueValues.position(0)
-        val cmFileInt: Int = when (product) {
+        val cmFileInt = when (product) {
             "19" -> R.raw.colormap19
             "30" -> R.raw.colormap30
             "56" -> R.raw.colormap56
@@ -42,7 +42,7 @@ internal object UtilityColorPalette4bitGeneric {
         }
         val text = UtilityIO.readTextFileFromRaw(context.resources, cmFileInt)
         val lines = text.split("\n")
-        lines.forEach {line ->
+        lines.forEach { line ->
             if (line.contains(",")) {
                 val colors = line.split(",")
                 val red = colors[0].toInt().toByte()

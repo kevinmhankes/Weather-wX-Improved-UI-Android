@@ -56,17 +56,9 @@ object UtilityLocation {
                     lon = joshuatee.wx.settings.Location.getY(it).replace("-", "")
                 } else {
                     val tmpXArr = joshuatee.wx.settings.Location.getX(it).split(":")
-                    lat = if (tmpXArr.size > 2) {
-                        tmpXArr[2]
-                    } else {
-                        ""
-                    }
+                    lat = if (tmpXArr.size > 2) tmpXArr[2] else ""
                     val tmpYArr = joshuatee.wx.settings.Location.getY(it).replace("-", "").split(":")
-                    lon = if (tmpYArr.size > 1) {
-                        tmpYArr[1]
-                    } else {
-                        ""
-                    }
+                    lon = if (tmpYArr.size > 1) tmpYArr[1] else ""
                 }
                 latLon.add(lat.toDoubleOrNull() ?: 0.0)
                 latLon.add(lon.toDoubleOrNull() ?: 0.0)
@@ -88,8 +80,7 @@ object UtilityLocation {
                 || ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             for (i in providers.indices.reversed()) {
                 location = locationManager.getLastKnownLocation(providers[i])
-                if (location != null)
-                    break
+                if (location != null) break
             }
         } else {
             UtilityLog.d("wx", "WARNING: permission not granted for roaming location")
@@ -158,21 +149,15 @@ object UtilityLocation {
                 bestRid = it
             }
         }
-        if (bestRid == -1) {
-            return "BLAH"
-        }
-        if (sites[bestRid].name == "MFX") {
-            return "MFL"
-        }
+        if (bestRid == -1) return "BLAH"
+        if (sites[bestRid].name == "MFX") return "MFL"
         return sites[bestRid].name
     }
 
     fun getSiteLocation(site: String, officeType: String = "RID"): LatLon {
         // SND, NWS, or RID
         var addChar = "-"
-        if (officeType == "NWS") {
-            addChar = ""
-        } // WFO
+        if (officeType == "NWS") addChar = "" // WFO
         val x: String
         val y: String
         when (officeType) {

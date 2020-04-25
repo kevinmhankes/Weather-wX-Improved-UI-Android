@@ -110,10 +110,7 @@ object UtilityColorPaletteGeneric {
         var priorLineHas6 = false
         lines.forEach { line ->
             if (line.contains("olor") && !line.contains("#")) {
-                val items = if (line.contains(","))
-                    line.split(",")
-                else
-                    line.split(" ")
+                val items = if (line.contains(",")) line.split(",") else line.split(" ")
                 if (items.size > 4) {
                     if (priorLineHas6) {
                         dbzAl.add(((items[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset - 1).toInt())
@@ -180,65 +177,41 @@ object UtilityColorPaletteGeneric {
                 val high = dbzAl[index + 1]
                 val highColor = Color.rgb(rAl[index + 1], gAl[index + 1], bAl[index + 1])
                 val diff = high - low
-                if (colorMapR.hasRemaining())
-                    colorMapR.put(rAl[index].toByte())
-                if (colorMapG.hasRemaining())
-                    colorMapG.put(gAl[index].toByte())
-                if (colorMapB.hasRemaining())
-                    colorMapB.put(bAl[index].toByte())
+                if (colorMapR.hasRemaining()) colorMapR.put(rAl[index].toByte())
+                if (colorMapG.hasRemaining()) colorMapG.put(gAl[index].toByte())
+                if (colorMapB.hasRemaining()) colorMapB.put(bAl[index].toByte())
                 if (scale == 2) {
-                    if (colorMapR.hasRemaining())
-                        colorMapR.put(rAl[index].toByte())
-                    if (colorMapG.hasRemaining())
-                        colorMapG.put(gAl[index].toByte())
-                    if (colorMapB.hasRemaining())
-                        colorMapB.put(bAl[index].toByte())
+                    if (colorMapR.hasRemaining()) colorMapR.put(rAl[index].toByte())
+                    if (colorMapG.hasRemaining()) colorMapG.put(gAl[index].toByte())
+                    if (colorMapB.hasRemaining()) colorMapB.put(bAl[index].toByte())
                 }
                 (1 until diff).forEach { j ->
                     if (scale == 1) {
                         val colorInt = UtilityNexradColors.interpolateColor(lowColor, highColor, j.toDouble() / (diff * scale).toDouble())
-                        if (colorMapR.hasRemaining()) {
-                            colorMapR.put(Color.red(colorInt).toByte())
-                        }
-                        if (colorMapG.hasRemaining()) {
-                            colorMapG.put(Color.green(colorInt).toByte())
-                        }
-                        if (colorMapB.hasRemaining()) {
-                            colorMapB.put(Color.blue(colorInt).toByte())
-                        }
+                        if (colorMapR.hasRemaining()) colorMapR.put(Color.red(colorInt).toByte())
+                        if (colorMapG.hasRemaining()) colorMapG.put(Color.green(colorInt).toByte())
+                        if (colorMapB.hasRemaining()) colorMapB.put(Color.blue(colorInt).toByte())
                     } else if (scale == 2) {
                         val colorInt = UtilityNexradColors.interpolateColor(lowColor, highColor, (j * scale - 1).toDouble() / (diff * scale).toDouble()
                         )
                         val colorInt2 = UtilityNexradColors.interpolateColor(lowColor, highColor, (j * scale).toDouble() / (diff * scale).toDouble()
                         )
-                        if (colorMapR.hasRemaining())
-                            colorMapR.put(Color.red(colorInt).toByte())
-                        if (colorMapG.hasRemaining())
-                            colorMapG.put(Color.green(colorInt).toByte())
-                        if (colorMapB.hasRemaining())
-                            colorMapB.put(Color.blue(colorInt).toByte())
-                        if (colorMapR.hasRemaining())
-                            colorMapR.put(Color.red(colorInt2).toByte())
-                        if (colorMapG.hasRemaining())
-                            colorMapG.put(Color.green(colorInt2).toByte())
-                        if (colorMapB.hasRemaining())
-                            colorMapB.put(Color.blue(colorInt2).toByte())
+                        if (colorMapR.hasRemaining()) colorMapR.put(Color.red(colorInt).toByte())
+                        if (colorMapG.hasRemaining()) colorMapG.put(Color.green(colorInt).toByte())
+                        if (colorMapB.hasRemaining()) colorMapB.put(Color.blue(colorInt).toByte())
+                        if (colorMapR.hasRemaining()) colorMapR.put(Color.red(colorInt2).toByte())
+                        if (colorMapG.hasRemaining()) colorMapG.put(Color.green(colorInt2).toByte())
+                        if (colorMapB.hasRemaining()) colorMapB.put(Color.blue(colorInt2).toByte())
                     }
                 }
             } else {
-                if (colorMapR.hasRemaining())
-                    colorMapR.put(rAl[index].toByte())
-                if (colorMapG.hasRemaining())
-                    colorMapG.put(gAl[index].toByte())
-                if (colorMapB.hasRemaining())
-                    colorMapB.put(bAl[index].toByte())
+                if (colorMapR.hasRemaining()) colorMapR.put(rAl[index].toByte())
+                if (colorMapG.hasRemaining()) colorMapG.put(gAl[index].toByte())
+                if (colorMapB.hasRemaining()) colorMapB.put(bAl[index].toByte())
                 if (scale == 2) {
-                    if (colorMapR.hasRemaining())
-                        colorMapR.put(rAl[index].toByte())
-                    if (colorMapG.hasRemaining())
-                        colorMapG.put(gAl[index].toByte())
-                    if (colorMapB.hasRemaining())
-                        colorMapB.put(bAl[index].toByte())
+                    if (colorMapR.hasRemaining()) colorMapR.put(rAl[index].toByte())
+                    if (colorMapG.hasRemaining()) colorMapG.put(gAl[index].toByte())
+                    if (colorMapB.hasRemaining()) colorMapB.put(bAl[index].toByte())
                 }
             }
         }

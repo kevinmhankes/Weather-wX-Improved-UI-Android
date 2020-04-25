@@ -129,15 +129,11 @@ class ObjectSettingsCheckBox(context: Context, label: String, pref: String, strI
         objectCard.addView(objectLinearLayout.linearLayout)
     }
 
-    fun isChecked(value: Boolean) {
-        checkBox.isChecked = value
-    }
+    fun isChecked(value: Boolean) { checkBox.isChecked = value }
 
     val card get() = objectCard.card
 
-    internal fun setOnCheckedChangeListener(l: CompoundButton.OnCheckedChangeListener) {
-        checkBox.setOnCheckedChangeListener(l)
-    }
+    internal fun setOnCheckedChangeListener(listener: CompoundButton.OnCheckedChangeListener) { checkBox.setOnCheckedChangeListener(listener) }
 }
 
 

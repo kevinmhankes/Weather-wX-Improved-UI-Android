@@ -28,15 +28,9 @@ import joshuatee.wx.MyApplication
 internal object UtilityColor {
 
     fun setColor(prefVal: String) = when (prefVal) {
-        "RADAR_COLOR_HW" -> if (MyApplication.blackBg)
-            Color.rgb(135, 135, 135)
-        else
-            Color.rgb(220, 220, 220)
+        "RADAR_COLOR_HW" -> if (MyApplication.blackBg) Color.rgb(135, 135, 135) else Color.rgb(220, 220, 220)
         "DRAW_TOOL_COLOR" -> Color.rgb(255, 0, 0)
-        "RADAR_COLOR_HW_EXT" -> if (MyApplication.blackBg)
-            Color.rgb(91, 91, 91)
-        else
-            Color.rgb(230, 230, 230)
+        "RADAR_COLOR_HW_EXT" -> if (MyApplication.blackBg) Color.rgb(91, 91, 91) else Color.rgb(230, 230, 230)
         "RADAR_COLOR_STATE" -> Color.rgb(255, 255, 255)
         "RADAR_COLOR_TSTORM" -> Color.rgb(255, 255, 0)
         "RADAR_COLOR_TSTORM_WATCH" -> Color.rgb(255, 187, 0)
@@ -63,11 +57,7 @@ internal object UtilityColor {
         "NEXRAD_RADAR_BACKGROUND_COLOR" -> Color.BLACK
         else -> {
             var color = Color.BLACK
-            MyApplication.radarWarningPolygons.forEach {
-                if (it.prefTokenColor == prefVal) {
-                    color = it.color
-                }
-            }
+            MyApplication.radarWarningPolygons.forEach { if (it.prefTokenColor == prefVal) color = it.color }
             color
         }
     }

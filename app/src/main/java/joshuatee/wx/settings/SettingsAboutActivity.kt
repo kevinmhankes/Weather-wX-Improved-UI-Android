@@ -58,15 +58,11 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         val faqButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         faqButton.setTextColor(UIPreferences.textHighlightColor)
         faqButton.text = "View FAQ (Outage notifications listed at top if any current)"
-        faqButton.setOnClickListener(View.OnClickListener {
-            ObjectIntent.showWebView(this, arrayOf(faqUrl, "Frequently Asked Questions"))
-        })
+        faqButton.setOnClickListener(View.OnClickListener { ObjectIntent.showWebView(this, arrayOf(faqUrl, "Frequently Asked Questions")) })
         val releaseNotesButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         releaseNotesButton.setTextColor(UIPreferences.textHighlightColor)
         releaseNotesButton.text = "View release notes"
-        releaseNotesButton.setOnClickListener(View.OnClickListener {
-            ObjectIntent.showWebView(this, arrayOf(releaseNotesUrl, "Release Notes"))
-        })
+        releaseNotesButton.setOnClickListener(View.OnClickListener { ObjectIntent.showWebView(this, arrayOf(releaseNotesUrl, "Release Notes")) })
         val emailButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         emailButton.setTextColor(UIPreferences.textHighlightColor)
         emailButton.text = "Email developer"
@@ -80,18 +76,14 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         val iOSVersion = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         iOSVersion.setTextColor(UIPreferences.textHighlightColor)
         iOSVersion.text = "iOS port of wX is called wXL23"
-        iOSVersion.setOnClickListener(View.OnClickListener {
-            ObjectIntent.showWebView(this, arrayOf(iOSUrl, "wXL23 for iOS"))
-        })
+        iOSVersion.setOnClickListener(View.OnClickListener { ObjectIntent.showWebView(this, arrayOf(iOSUrl, "wXL23 for iOS")) })
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         textCard.text = Utility.showVersion(this, this)
         html = Utility.showVersion(this, this)
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, html, "txt", "txt")) {
-            return true
-        }
+        if (audioPlayMenu(item.itemId, html, "txt", "txt")) return true
         when (item.itemId) {
             R.id.action_share -> UtilityShare.shareText(this, "About wX", html)
             else -> return super.onOptionsItemSelected(item)

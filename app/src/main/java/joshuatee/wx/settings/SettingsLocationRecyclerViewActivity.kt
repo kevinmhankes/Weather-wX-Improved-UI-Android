@@ -78,9 +78,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
 
     private fun updateList() {
         locations = MutableList(Location.numLocations) { "" }
-        MyApplication.locations.forEach {
-            it.updateObservation("")
-        }
+        MyApplication.locations.forEach { it.updateObservation("") }
     }
 
     private fun updateListWithCurrentConditions() {
@@ -101,9 +99,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         super.onRestart()
     }
 
-    private fun updateTitle() {
-        title = "Locations"
-    }
+    private fun updateTitle() { title = "Locations" }
 
     private fun itemSelected(position: Int) {
         val bottomSheetFragment = BottomSheetFragment(this, position, Location.getName(position), true)
@@ -112,9 +108,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
     }
 
-    private fun edit(position: Int) {
-        ObjectIntent.showLocationEdit(this, arrayOf((position + 1).toString(), ""))
-    }
+    private fun edit(position: Int) { ObjectIntent.showLocationEdit(this, arrayOf((position + 1).toString(), "")) }
 
     private fun delete(position: Int) {
         if (settingsLocationAdapterList.itemCount > 1) {
@@ -158,7 +152,5 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         settingsLocationAdapterList.notifyDataSetChanged()
     }
 
-    private fun addLocation() {
-        ObjectIntent.showLocationEdit(this, arrayOf((locations.size + 1).toString(), ""))
-    }
+    private fun addLocation() { ObjectIntent.showLocationEdit(this, arrayOf((locations.size + 1).toString(), "")) }
 } 

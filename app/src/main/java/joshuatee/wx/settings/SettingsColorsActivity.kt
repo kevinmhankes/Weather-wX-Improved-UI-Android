@@ -67,13 +67,9 @@ class SettingsColorsActivity : BaseActivity() {
             "NWS Forecast Icon Bottom color" to "NWS_ICON_BOTTOM_COLOR",
             "Nexrad Radar Background color" to "NEXRAD_RADAR_BACKGROUND_COLOR"
         )
-        MyApplication.radarWarningPolygons.forEach {
-            mapColorToPref[it.name + " color"] = it.prefTokenColor
-        }
+        MyApplication.radarWarningPolygons.forEach { mapColorToPref[it.name + " color"] = it.prefTokenColor }
         objectSettingsColorLabels = mapColorToPref.keys.sorted().map { ObjectSettingsColorLabel(this, it, mapColorToPref[it]!!) }
-        objectSettingsColorLabels.forEach {
-            linearLayout.addView(it.card)
-        }
+        objectSettingsColorLabels.forEach { linearLayout.addView(it.card) }
     }
 
     override fun onRestart() {
@@ -89,9 +85,7 @@ class SettingsColorsActivity : BaseActivity() {
 
     private fun setColorOnButtons() {
         MyApplication.initPreferences(this)
-        objectSettingsColorLabels.forEach {
-            it.refreshColor()
-        }
+        objectSettingsColorLabels.forEach { it.refreshColor() }
     }
 }
 

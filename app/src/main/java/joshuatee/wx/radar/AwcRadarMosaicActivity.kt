@@ -75,9 +75,7 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
         getContent(product)
     }
 
-    private fun getContentFixThis() {
-        getContent(product)
-    }
+    private fun getContentFixThis() { getContent(product) }
 
     override fun onRestart() {
         getContent(product)
@@ -111,9 +109,7 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true
-        }
+        if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.RADAR_MOSAIC)
             R.id.action_animate -> getAnimate()
