@@ -31,9 +31,7 @@ object UtilityCities {
 
     fun initialize() {
         load()
-        list.indices.forEach {
-            list[it] = City(cities[it], lat[it], lon[it])
-        }
+        list.indices.forEach { list[it] = City(cities[it], lat[it], lon[it]) }
     }
 
     private fun load() {

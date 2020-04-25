@@ -47,9 +47,7 @@ internal object UtilityCanvas {
         val path = Path()
         val paintList = listOf(MyApplication.radarColorFfw, MyApplication.radarColorTstorm, MyApplication.radarColorTor)
         val dataList = listOf(MyApplication.severeDashboardFfw.value, MyApplication.severeDashboardTst.value, MyApplication.severeDashboardTor.value)
-        if (projectionType.needsCanvasShift) {
-            canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
-        }
+        if (projectionType.needsCanvasShift) canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         paint.strokeWidth = projectionNumbers.polygonWidth.toFloat()
         dataList.forEachIndexed { index, it ->
             paint.color = paintList[index]
@@ -73,26 +71,14 @@ internal object UtilityCanvas {
         paint.style = Style.FILL
         paint.strokeWidth = 1.0f
         paint.color = GeographyType.CITIES.color
-        if (projectionType.needsCanvasShift) {
-            canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
-        }
-        if (projectionType.needsBlackPaint) {
-            paint.color = Color.rgb(0, 0, 0)
-        }
+        if (projectionType.needsCanvasShift) canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
+        if (projectionType.needsBlackPaint) paint.color = Color.rgb(0, 0, 0)
         paint.textSize = textSize.toFloat()
         UtilityCities.list.indices.forEach {
             val coordinates = if (projectionType.isMercator) {
-                UtilityCanvasProjection.computeMercatorNumbers(
-                        UtilityCities.list[it]!!.x,
-                        UtilityCities.list[it]!!.y,
-                        projectionNumbers
-                )
+                UtilityCanvasProjection.computeMercatorNumbers(UtilityCities.list[it]!!.x, UtilityCities.list[it]!!.y, projectionNumbers)
             } else {
-                UtilityCanvasProjection.compute4326Numbers(
-                        UtilityCities.list[it]!!.x,
-                        UtilityCities.list[it]!!.y,
-                        projectionNumbers
-                )
+                UtilityCanvasProjection.compute4326Numbers(UtilityCities.list[it]!!.x, UtilityCities.list[it]!!.y, projectionNumbers)
             }
             if (textSize > 0) {
                 canvas.drawText(
@@ -114,9 +100,7 @@ internal object UtilityCanvas {
         paint.style = Style.FILL
         paint.strokeWidth = 1.0f
         paint.color = MyApplication.radarColorLocdot
-        if (projectionType.needsCanvasShift) {
-            canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
-        }
+        if (projectionType.needsCanvasShift) canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         val x = Location.x.toDoubleOrNull() ?: 0.0
         val y = Location.y.replace("-", "").toDoubleOrNull() ?: 0.0
         val coordinates = if (projectionType.isMercator) {
@@ -134,9 +118,7 @@ internal object UtilityCanvas {
         paint.style = Style.STROKE
         paint.color = Color.rgb(255, 0, 0)
         val path = Path()
-        if (projectionType.needsCanvasShift) {
-            canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
-        }
+        if (projectionType.needsCanvasShift) canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         paint.strokeWidth = projectionNumbers.polygonWidth.toFloat()
         paint.color = polygonType.color
         var prefToken = ""
@@ -185,15 +167,7 @@ internal object UtilityCanvas {
         }
     }
 
-    private fun canvasDrawWarnings(
-            warnings: List<String>,
-            vtecs: List<String>,
-            canvas: Canvas,
-            path: Path,
-            paint: Paint,
-            isMercator: Boolean,
-            projectionNumbers: ProjectionNumbers
-    ) {
+    private fun canvasDrawWarnings(warnings: List<String>, vtecs: List<String>, canvas: Canvas, path: Path, paint: Paint, isMercator: Boolean, projectionNumbers: ProjectionNumbers) {
         var firstX: Double
         var firstY: Double
         warnings.forEachIndexed { polygonCount, warning ->

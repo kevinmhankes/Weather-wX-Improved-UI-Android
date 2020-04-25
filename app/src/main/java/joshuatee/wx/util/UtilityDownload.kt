@@ -102,9 +102,7 @@ object UtilityDownload {
                 val index = Utility.readPref(context, "GOES16_IMG_FAV_IDX", 0)
                 bitmap = UtilityGoes.getImage(UtilityGoes.codes[index], Utility.readPref(context, "GOES16_SECTOR", "cgl"))
             }
-            "VIS_1KM", "VIS_MAIN" -> {
-                needsBitmap = false
-            }
+            "VIS_1KM", "VIS_MAIN" -> needsBitmap = false
             "CARAIN" -> if (Location.x.contains("CANADA")) {
                 needsBitmap = false
                 var rid = Location.rid

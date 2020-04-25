@@ -123,9 +123,7 @@ object UtilityCanvasMain {
                     geometryData.highways
             )
         }
-        if (GeographyType.CITIES.pref && cityProvider) {
-            UtilityCanvas.drawCitiesUS(projectionType, bitmapCanvas, projectionNumbers, citySize)
-        }
+        if (GeographyType.CITIES.pref && cityProvider) UtilityCanvas.drawCitiesUS(projectionType, bitmapCanvas, projectionNumbers, citySize)
         if (stateLinesProvider) {
             UtilityCanvasGeneric.draw(
                     projectionType,
@@ -158,24 +156,18 @@ object UtilityCanvasMain {
                 )
             }
         }
-        if (PolygonType.LOCDOT.pref) {
-            UtilityCanvas.addLocationDotForCurrentLocation(projectionType, bitmapCanvas, projectionNumbers)
-        }
+        if (PolygonType.LOCDOT.pref) UtilityCanvas.addLocationDotForCurrentLocation(projectionType, bitmapCanvas, projectionNumbers)
         if (PolygonType.WIND_BARB.pref && windBarbProvider) {
             UtilityCanvasWindbarbs.draw(context, projectionType, bitmapCanvas, radarSite, true, 5)
             UtilityCanvasWindbarbs.draw(context, projectionType, bitmapCanvas, radarSite, false, 5)
         }
-        if (PolygonType.STI.pref && stormMotionProvider) {
-            UtilityCanvasStormInfo.drawNexRadStormMotion(context, projectionType, bitmapCanvas, radarSite)
-        }
+        if (PolygonType.STI.pref && stormMotionProvider) UtilityCanvasStormInfo.drawNexRadStormMotion(context, projectionType, bitmapCanvas, radarSite)
         if (PolygonType.MCD.pref) {
             arrayOf(PolygonType.MCD, PolygonType.WATCH, PolygonType.WATCH_TORNADO).forEach {
                 UtilityCanvas.addMcd(projectionType, bitmapCanvas, projectionNumbers, it)
             }
         }
-        if (PolygonType.MPD.pref) {
-            UtilityCanvas.addMcd(projectionType, bitmapCanvas, projectionNumbers, PolygonType.MPD)
-        }
+        if (PolygonType.MPD.pref) UtilityCanvas.addMcd(projectionType, bitmapCanvas, projectionNumbers, PolygonType.MPD)
     }
 
     private fun getLocalGeometryData(context: Context): GeometryData {
@@ -221,12 +213,7 @@ object UtilityCanvasMain {
                         stateRelativeBuffer.order(ByteOrder.nativeOrder())
                         stateRelativeBuffer.position(0)
                         listOf(3).forEach {
-                            loadBuffer(
-                                    context.resources,
-                                    fileIds[it],
-                                    stateRelativeBuffer,
-                                    countArr[it]
-                            )
+                            loadBuffer(context.resources, fileIds[it], stateRelativeBuffer, countArr[it])
                         }
                     }
                     GeographyType.HIGHWAYS -> {
@@ -269,9 +256,7 @@ object UtilityCanvasMain {
         try {
             val inputStream = resources.openRawResource(fileId)
             val dataInputStream = DataInputStream(BufferedInputStream(inputStream))
-            (0 until count).forEach { _ ->
-                byteBuffer.putFloat(dataInputStream.readFloat())
-            }
+            (0 until count).forEach { _ -> byteBuffer.putFloat(dataInputStream.readFloat()) }
             dataInputStream.close()
             inputStream.close()
         } catch (e: IOException) {
