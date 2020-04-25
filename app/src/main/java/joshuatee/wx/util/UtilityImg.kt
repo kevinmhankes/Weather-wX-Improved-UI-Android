@@ -201,9 +201,7 @@ object UtilityImg {
             val size = width * height
             val pixels = IntArray(size)
             src.getPixels(pixels, 0, width, 0, 0, width, height)
-            (0 until size).filter { pixels[it] == color }.forEach {
-                pixels[it] = 0
-            }
+            (0 until size).filter { pixels[it] == color }.forEach { pixels[it] = 0 }
             b.setPixels(pixels, 0, width, 0, 0, width, height)
             b
         } catch (e: OutOfMemoryError) {
@@ -220,11 +218,7 @@ object UtilityImg {
     }
 
     fun resizeViewAndSetImage(context: Context, bitmap: Bitmap, imageView: ImageView) {
-        if (UtilityUI.isLandScape(context)) {
-            resizeViewSetImgByWidth(bitmap, imageView)
-        } else {
-            resizeViewSetImgByHeight(bitmap, imageView)
-        }
+        if (UtilityUI.isLandScape(context)) resizeViewSetImgByWidth(bitmap, imageView) else resizeViewSetImgByHeight(bitmap, imageView)
     }
 
     private fun resizeViewSetImgByHeight(bitmap: Bitmap, imageView: ImageView) {
@@ -309,13 +303,9 @@ object UtilityImg {
         var height = 0
         images.forEach {
             height += it.height
-            if (it.width > width) {
-                width = it.width
-            }
+            if (it.width > width) { width = it.width }
         }
-        if ( width == 0 || height == 0 ) {
-            return getBlankBitmap()
-        }
+        if ( width == 0 || height == 0 ) return getBlankBitmap()
         combinedImage = Bitmap.createBitmap(width, height, Config.ARGB_8888)
         val comboImage = Canvas(combinedImage!!)
         var workingHeight = 0f
