@@ -78,9 +78,7 @@ class ObjectCardDashAlertItem(
         textViewBottom.text = severeWarning.areaDescList[index]
     }
 
-    fun setId(id: Int) {
-        objectCard.card.id = id
-    }
+    fun setId(id: Int) { objectCard.card.id = id }
 }
 
 

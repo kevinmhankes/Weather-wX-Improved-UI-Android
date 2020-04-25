@@ -65,23 +65,13 @@ class ObjectCardHSText(context: Context, val product: String) {
 
     fun refreshTextSize() = textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
 
-    fun setTextLong(text: String) {
-        textLong = text
-    }
+    fun setTextLong(text: String) { textLong = text }
 
-    fun setTextShort(text: String) {
-        textShort = text
-    }
+    fun setTextShort(text: String) { textShort = text }
 
     fun setOnClickListener(fn: View.OnClickListener) = textView.setOnClickListener(fn)
 
-    fun typefaceMono() {
-        textView.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
-    }
-
-    /*fun typefaceDefault() {
-        textView.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
-    }*/
+    fun typefaceMono() { textView.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL) }
 
     val card get() = objectCard.card
 }

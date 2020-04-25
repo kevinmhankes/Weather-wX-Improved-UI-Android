@@ -48,10 +48,7 @@ class ObjectCardAlertSummaryItem(context: Context) {
         val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
         objectLinearLayout.addViews(listOf(textViewTop.tv, textViewTitle.tv, textViewStart.tv, textViewEnd.tv, textViewBottom.tv))
         val linearLayoutHorizontal = LinearLayout(context)
-        val layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        )
+        val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         linearLayoutHorizontal.layoutParams = layoutParams
         linearLayoutHorizontal.addView(radarButton.card)
         linearLayoutHorizontal.addView(detailsButton.card)
@@ -62,9 +59,7 @@ class ObjectCardAlertSummaryItem(context: Context) {
 
     val card get() = objectCard.card
 
-    fun setId(id: Int) {
-        objectCard.card.id = id
-    }
+    fun setId(id: Int) { objectCard.card.id = id }
 
     fun setListener(fn: View.OnClickListener) = objectCard.card.setOnClickListener(fn)
 
@@ -84,17 +79,11 @@ class ObjectCardAlertSummaryItem(context: Context) {
             endTime = ""
         }
         textViewTop.text = "$office ($location)"
-        if (office == "") {
-            textViewTop.tv.visibility = View.GONE
-        }
+        if (office == "") textViewTop.tv.visibility = View.GONE
         textViewBottom.text = capAlert.area
         textViewTitle.text = title
         textViewStart.text = "Start: $startTime"
-        if (endTime != "") {
-            textViewEnd.text = "End: $endTime"
-        } else {
-            textViewEnd.tv.visibility = View.GONE
-        }
+        if (endTime != "") textViewEnd.text = "End: $endTime" else textViewEnd.tv.visibility = View.GONE
     }
 }
 

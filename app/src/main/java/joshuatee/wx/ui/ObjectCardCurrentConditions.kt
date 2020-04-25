@@ -71,17 +71,11 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
         textViewBottom.refreshTextSize(TextSize.SMALL)
     }
 
-    fun setStatus(text: String) {
-        textViewBottom.text = text
-    }
+    fun setStatus(text: String) { textViewBottom.text = text }
 
-    fun setTopLine(text: String) {
-        textViewTop.text = text
-    }
+    fun setTopLine(text: String) { textViewTop.text = text }
 
-    private fun setMiddleLine(text: String) {
-        textViewMiddle.text = text
-    }
+    private fun setMiddleLine(text: String) { textViewMiddle.text = text }
 
     fun setListener(alertDialogStatus: ObjectDialogue?, alertDialogStatusAl: MutableList<String>, radarTimestamps: () -> List<String>) {
         objectImageView.imageView.setOnClickListener {

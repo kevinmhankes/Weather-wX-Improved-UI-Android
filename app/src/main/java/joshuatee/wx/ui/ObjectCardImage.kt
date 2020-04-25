@@ -65,9 +65,7 @@ open class ObjectCardImage {
         UtilityImg.resizeViewSetImgInCard(bitmap, img)
         objectCard.addView(img)
         linearLayout.addView(card)
-        setOnClickListener(View.OnClickListener {
-            UtilityToolbar.showHide(toolbar)
-        })
+        setOnClickListener(View.OnClickListener { UtilityToolbar.showHide(toolbar) })
     }
 
     constructor(context: Context, linearLayout: LinearLayout, toolbar: Toolbar, toolbarBottom: Toolbar, bitmap: Bitmap) {
@@ -78,9 +76,7 @@ open class ObjectCardImage {
         UtilityImg.resizeViewSetImgInCard(bitmap, img)
         objectCard.addView(img)
         linearLayout.addView(card)
-        setOnClickListener(View.OnClickListener {
-            UtilityToolbar.showHide(toolbar, toolbarBottom)
-        })
+        setOnClickListener(View.OnClickListener { UtilityToolbar.showHide(toolbar, toolbarBottom) })
     }
 
     constructor(context: Context) {
@@ -109,9 +105,7 @@ open class ObjectCardImage {
 
     var visibility
         get() = objectCard.visibility
-        set(newValue) {
-            objectCard.visibility = newValue
-        }
+        set(newValue) { objectCard.visibility = newValue }
 
     fun setOnClickListener(fn: View.OnClickListener) = img.setOnClickListener(fn)
 }
