@@ -78,18 +78,14 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         activityArguments = intent.getStringArrayExtra(INFO)
-        if (activityArguments == null) {
-            activityArguments = arrayOf("1", "NCEP", "NCEP")
-        }
+        if (activityArguments == null) activityArguments = arrayOf("1", "NCEP", "NCEP")
         om = ObjectModel(this, activityArguments!![1], activityArguments!![0])
         if (om.numPanes == 1) {
             super.onCreate(savedInstanceState, R.layout.activity_models_generic, R.menu.models_generic, iconsEvenlySpaced = false, bottomToolbar = true)
         } else {
             super.onCreate(savedInstanceState, R.layout.activity_models_generic_multipane, R.menu.models_generic, iconsEvenlySpaced = false, bottomToolbar = true)
             val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
-            if (UtilityUI.isLandScape(this)) {
-                linearLayout.orientation = LinearLayout.HORIZONTAL
-            }
+            if (UtilityUI.isLandScape(this)) linearLayout.orientation = LinearLayout.HORIZONTAL
         }
         toolbarBottom.setOnMenuItemClickListener(this)
         title = activityArguments!![2]
@@ -135,12 +131,9 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         when (parent.id) {
-            R.id.spinner_run -> if (!spinnerRunRan)
-                spinnerRunRan = true
-            R.id.spinner_time -> if (!spinnerTimeRan)
-                spinnerTimeRan = true
-            R.id.spinner_sector -> if (!spinnerSectorRan)
-                spinnerSectorRan = true
+            R.id.spinner_run -> if (!spinnerRunRan) spinnerRunRan = true
+            R.id.spinner_time -> if (!spinnerTimeRan) spinnerTimeRan = true
+            R.id.spinner_sector -> if (!spinnerSectorRan) spinnerSectorRan = true
         }
         if (parent.id == R.id.spinner_model) {
             spinnerRunRan = false
@@ -163,9 +156,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
     override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true
-        }
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_back -> UtilityModels.moveBack(om.spTime)
             R.id.action_forward -> UtilityModels.moveForward(om.spTime)
@@ -210,15 +201,11 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
             om.time = om.rtd.mostRecentRun
             spRun.notifyDataSetChanged()
             spRun.setSelection(om.rtd.mostRecentRun)
-            if (om.model == "CFS" && 0 == spRun.selectedItemPosition) {
-                UtilityModels.getContent(this@ModelsGenericActivity, om, listOf(""), uiDispatcher)
-            }
+            if (om.model == "CFS" && 0 == spRun.selectedItemPosition) UtilityModels.getContent(this@ModelsGenericActivity, om, listOf(""), uiDispatcher)
             miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
             (0 until om.spTime.size()).forEach {
                 val items = MyApplication.space.split(om.spTime[it])[0]
-                om.spTime[it] = "$items " + UtilityModels.convertTimeRunToTimeString(
-                        om.rtd.mostRecentRun.replace("Z", ""), items, true
-                )
+                om.spTime[it] = "$items " + UtilityModels.convertTimeRunToTimeString(om.rtd.mostRecentRun.replace("Z", ""), items, true)
             }
             om.spTime.notifyDataSetChanged()
             if (!firstRunTimeSet) {
@@ -260,11 +247,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
     override fun onStop() {
         if (om.imageLoaded) {
             (0 until om.numPanes).forEach {
-                UtilityImg.imgSavePosnZoom(
-                        this,
-                        om.displayData.img[it],
-                        om.modelProvider + om.numPanes.toString() + it.toString()
-                )
+                UtilityImg.imgSavePosnZoom(this, om.displayData.img[it], om.modelProvider + om.numPanes.toString() + it.toString())
             }
             Utility.writePref(this, om.prefRunPosn, om.spTime.selectedItemPosition)
         }
@@ -299,48 +282,26 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
         om.spTime.list.clear()
         when (om.modelType) {
             ModelType.GLCFS -> {
-                (om.startStep..om.endStep step om.stepAmount).forEach {
-                    om.spTime.list.add(String.format(Locale.US, om.format, it))
-                }
-                (51..121 step 3).forEach {
-                    om.spTime.list.add(String.format(Locale.US, om.format, it))
-                }
+                (om.startStep..om.endStep step om.stepAmount).forEach { om.spTime.list.add(String.format(Locale.US, om.format, it)) }
+                (51..121 step 3).forEach { om.spTime.list.add(String.format(Locale.US, om.format, it)) }
             }
             ModelType.NCEP -> {
                 when (om.model) {
                     "HRRR" -> {
-                        (om.startStep..om.endStep step om.stepAmount).forEach {
-                            om.spTime.add(String.format(Locale.US, "%03d" + "00", it))
-                        }
+                        (om.startStep..om.endStep step om.stepAmount).forEach { om.spTime.add(String.format(Locale.US, "%03d" + "00", it)) }
                     }
                     "GEFS-SPAG", "GEFS-MEAN-SPRD" -> {
-                        (0..181 step 6).forEach {
-                            om.spTime.add(String.format(Locale.US, "%03d", it))
-                        }
-                        (192..385 step 12).forEach {
-                            om.spTime.add(String.format(Locale.US, "%03d", it))
-                        }
+                        (0..181 step 6).forEach { om.spTime.add(String.format(Locale.US, "%03d", it)) }
+                        (192..385 step 12).forEach { om.spTime.add(String.format(Locale.US, "%03d", it)) }
                     }
                     "GFS" -> {
-                        (0..241 step 3).forEach {
-                            om.spTime.add(String.format(Locale.US, "%03d", it))
-                        }
-                        (252..385 step 12).forEach {
-                            om.spTime.add(String.format(Locale.US, "%03d", it))
-                        }
+                        (0..241 step 3).forEach { om.spTime.add(String.format(Locale.US, "%03d", it)) }
+                        (252..385 step 12).forEach { om.spTime.add(String.format(Locale.US, "%03d", it)) }
                     }
-                    else -> {
-                        (om.startStep..om.endStep step om.stepAmount).forEach {
-                            om.spTime.list.add(String.format(Locale.US, om.format, it))
-                        }
-                    }
+                    else -> (om.startStep..om.endStep step om.stepAmount).forEach { om.spTime.list.add(String.format(Locale.US, om.format, it)) }
                 }
             }
-            else -> {
-                (om.startStep..om.endStep step om.stepAmount).forEach {
-                    om.spTime.list.add(String.format(Locale.US, om.format, it))
-                }
-            }
+            else -> (om.startStep..om.endStep step om.stepAmount).forEach { om.spTime.list.add(String.format(Locale.US, om.format, it)) }
         }
     }
 
@@ -364,9 +325,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 spRun.add("15Z")
                 spRun.add("21Z")
             }
-            24 -> (0..23).forEach {
-                spRun.add(String.format(Locale.US, "%02d", it) + "Z")
-            }
+            24 -> (0..23).forEach { spRun.add(String.format(Locale.US, "%02d", it) + "Z") }
         }
         spRun.notifyDataSetChanged()
     }
@@ -374,21 +333,15 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {
             KeyEvent.KEYCODE_J -> {
-                if (event.isCtrlPressed) {
-                    UtilityModels.moveBack(om.spTime)
-                }
+                if (event.isCtrlPressed) UtilityModels.moveBack(om.spTime)
                 true
             }
             KeyEvent.KEYCODE_K -> {
-                if (event.isCtrlPressed) {
-                    UtilityModels.moveForward(om.spTime)
-                }
+                if (event.isCtrlPressed) UtilityModels.moveForward(om.spTime)
                 true
             }
             KeyEvent.KEYCODE_D -> {
-                if (event.isCtrlPressed) {
-                    drw.drawerLayout.openDrawer(GravityCompat.START)
-                }
+                if (event.isCtrlPressed) drw.drawerLayout.openDrawer(GravityCompat.START)
                 true
             }
             else -> super.onKeyUp(keyCode, event)

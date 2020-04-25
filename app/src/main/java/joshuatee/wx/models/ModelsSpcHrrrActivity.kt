@@ -79,9 +79,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         } else {
             super.onCreate(savedInstanceState, R.layout.activity_models_generic_multipane, R.menu.models_spchrrr, iconsEvenlySpaced = false, bottomToolbar = true)
             val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
-            if (UtilityUI.isLandScape(this)) {
-                linearLayout.orientation = LinearLayout.HORIZONTAL
-            }
+            if (UtilityUI.isLandScape(this)) linearLayout.orientation = LinearLayout.HORIZONTAL
         }
         toolbarBottom.setOnMenuItemClickListener(this)
         title = activityArguments[2]
@@ -129,12 +127,9 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
             UtilityModels.getContent(this, om, overlayImg, uiDispatcher)
         } else {
             when (parent.id) {
-                R.id.spinner_run -> if (!spinnerRunRan)
-                    spinnerRunRan = true
-                R.id.spinner_time -> if (!spinnerTimeRan)
-                    spinnerTimeRan = true
-                R.id.spinner_sector -> if (!spinnerSectorRan)
-                    spinnerSectorRan = true
+                R.id.spinner_run -> if (!spinnerRunRan) spinnerRunRan = true
+                R.id.spinner_time -> if (!spinnerTimeRan) spinnerTimeRan = true
+                R.id.spinner_sector -> if (!spinnerSectorRan) spinnerSectorRan = true
             }
         }
         if (parent.id == R.id.spinner_run) {
@@ -150,8 +145,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item))
-            return true
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_img1 -> {
                 om.curImg = 0
@@ -199,11 +193,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     }
 
     private fun overlaySelected(overlay: String) {
-        if (overlayImg.contains(overlay)) {
-            overlayImg.remove(overlay)
-        } else {
-            overlayImg.add(overlay)
-        }
+        if (overlayImg.contains(overlay)) overlayImg.remove(overlay) else overlayImg.add(overlay)
         UtilityModels.getContent(this@ModelsSpcHrrrActivity, om, overlayImg, uiDispatcher)
     }
 
@@ -237,9 +227,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         spRun.setSelection(0)
         om.spTime.setSelection(0)
         om.spTime.clear()
-        (om.startStep until om.endStep).forEach {
-            om.spTime.add(String.format(Locale.US, "%02d", it))
-        }
+        (om.startStep until om.endStep).forEach { om.spTime.add(String.format(Locale.US, "%02d", it)) }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -255,9 +243,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     override fun onStop() {
         if (om.imageLoaded) {
             Utility.writePref(this, "SPCHRRR_OVERLAY", TextUtils.join(":", overlayImg))
-            (0 until om.numPanes).forEach {
-                UtilityImg.imgSavePosnZoom(this, om.displayData.img[it], om.modelProvider + om.numPanes.toString() + it.toString())
-            }
+            (0 until om.numPanes).forEach { UtilityImg.imgSavePosnZoom(this, om.displayData.img[it], om.modelProvider + om.numPanes.toString() + it.toString()) }
             Utility.writePref(this, om.prefRunPosn, om.spTime.selectedItemPosition)
         }
         super.onStop()
@@ -266,15 +252,11 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {
             KeyEvent.KEYCODE_J -> {
-                if (event.isCtrlPressed) {
-                    UtilityModels.moveBack(om.spTime)
-                }
+                if (event.isCtrlPressed) UtilityModels.moveBack(om.spTime)
                 true
             }
             KeyEvent.KEYCODE_K -> {
-                if (event.isCtrlPressed) {
-                    UtilityModels.moveForward(om.spTime)
-                }
+                if (event.isCtrlPressed) UtilityModels.moveForward(om.spTime)
                 true
             }
             else -> super.onKeyUp(keyCode, event)

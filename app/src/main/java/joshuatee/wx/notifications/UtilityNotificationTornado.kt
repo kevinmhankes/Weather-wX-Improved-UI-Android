@@ -64,8 +64,8 @@ internal object UtilityNotificationTornado {
                 val capAlert = CapAlert.createFromUrl(url)
                 if (UtilityNotificationTools.nwsLocalAlertNotFiltered(context, title)) { // placeholder for WFO filter check
                     html = "$html<b>$title</b><br>"
-                    html = html + "<b>Counties: " + capAlert.area + "</b><br>"
-                    html = html + capAlert.summary + "<br><br><br>"
+                    html += "<b>Counties: " + capAlert.area + "</b><br>"
+                    html += capAlert.summary + "<br><br><br>"
                     val noMain = locLabelStr + title
                     val noBody = title + " " + capAlert.area + " " + capAlert.summary
                     val noSummary = title + ": " + capAlert.area + " " + capAlert.summary

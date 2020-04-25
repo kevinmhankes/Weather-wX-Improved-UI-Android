@@ -68,18 +68,14 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         activityArguments = intent.getStringArrayExtra(INFO)
-        if (activityArguments == null) {
-            activityArguments = arrayOf("1", "SPCHREF", "SPC HREF")
-        }
+        if (activityArguments == null) activityArguments = arrayOf("1", "SPCHREF", "SPC HREF")
         om = ObjectModel(this, activityArguments!![1], activityArguments!![0])
         if (om.numPanes == 1) {
             super.onCreate(savedInstanceState, R.layout.activity_models_spchref, R.menu.models_spchref, iconsEvenlySpaced = false, bottomToolbar = true)
         } else {
             super.onCreate(savedInstanceState, R.layout.activity_models_spchrefmultipane, R.menu.models_spchref, iconsEvenlySpaced = false, bottomToolbar = true)
             val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
-            if (UtilityUI.isLandScape(this)) {
-                linearLayout.orientation = LinearLayout.HORIZONTAL
-            }
+            if (UtilityUI.isLandScape(this)) linearLayout.orientation = LinearLayout.HORIZONTAL
         }
         toolbarBottom.setOnMenuItemClickListener(this)
         title = activityArguments!![2]
@@ -134,12 +130,9 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
             UtilityModels.getContent(this, om, listOf(""), uiDispatcher)
         } else {
             when (parent.id) {
-                R.id.spinner_run -> if (!spinnerRunRan)
-                    spinnerRunRan = true
-                R.id.spinner_time -> if (!spinnerTimeRan)
-                    spinnerTimeRan = true
-                R.id.spinner_sector -> if (!spinnerSectorRan)
-                    spinnerSectorRan = true
+                R.id.spinner_run -> if (!spinnerRunRan) spinnerRunRan = true
+                R.id.spinner_time -> if (!spinnerTimeRan) spinnerTimeRan = true
+                R.id.spinner_sector -> if (!spinnerSectorRan) spinnerSectorRan = true
             }
         }
         if (parent.id == R.id.spinner_run) {
@@ -155,8 +148,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     override fun onOptionsItemSelected(item: MenuItem) = objectNavDrawerCombo.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (objectNavDrawerCombo.actionBarDrawerToggle.onOptionsItemSelected(item))
-            return true
+        if (objectNavDrawerCombo.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_back -> UtilityModels.moveBack(om.spTime)
             R.id.action_forward -> UtilityModels.moveForward(om.spTime)
@@ -177,12 +169,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
                 )
             }
             R.id.action_animate -> UtilityModels.getAnimate(om, listOf(""), uiDispatcher)
-            R.id.action_multipane -> ObjectIntent(
-                    this,
-                    ModelsSpcHrefActivity::class.java,
-                    INFO,
-                    arrayOf("2", activityArguments!![1], activityArguments!![2])
-            )
+            R.id.action_multipane -> ObjectIntent(this, ModelsSpcHrefActivity::class.java, INFO, arrayOf("2", activityArguments!![1], activityArguments!![2]))
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
@@ -225,9 +212,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         spRun.setSelection(0)
         om.spTime.setSelection(0)
         om.spTime.clear()
-        (om.startStep until om.endStep).forEach {
-            om.spTime.add(String.format(Locale.US, "%02d", it))
-        }
+        (om.startStep until om.endStep).forEach { om.spTime.add(String.format(Locale.US, "%02d", it)) }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -242,10 +227,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
 
     override fun onStop() {
         if (om.imageLoaded) {
-            (0 until om.numPanes).forEach {
-                UtilityImg.imgSavePosnZoom(this, om.displayData.img[it], om.modelProvider + om.numPanes.toString() + it.toString()
-                )
-            }
+            (0 until om.numPanes).forEach { UtilityImg.imgSavePosnZoom(this, om.displayData.img[it], om.modelProvider + om.numPanes.toString() + it.toString()) }
             Utility.writePref(this, om.prefRunPosn, om.spTime.selectedItemPosition)
         }
         super.onStop()
@@ -254,15 +236,11 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {
             KeyEvent.KEYCODE_J -> {
-                if (event.isCtrlPressed) {
-                    UtilityModels.moveBack(om.spTime)
-                }
+                if (event.isCtrlPressed) UtilityModels.moveBack(om.spTime)
                 true
             }
             KeyEvent.KEYCODE_K -> {
-                if (event.isCtrlPressed) {
-                    UtilityModels.moveForward(om.spTime)
-                }
+                if (event.isCtrlPressed) UtilityModels.moveForward(om.spTime)
                 true
             }
             else -> super.onKeyUp(keyCode, event)

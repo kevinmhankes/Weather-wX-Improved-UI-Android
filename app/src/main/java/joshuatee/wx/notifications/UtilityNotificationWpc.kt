@@ -39,9 +39,7 @@ import joshuatee.wx.util.Utility
 
 internal object UtilityNotificationWpc {
 
-    fun locationNeedsMpd() = (0 until Location.numLocations).any {
-            MyApplication.locations.getOrNull(it)?.notificationWpcMpd ?: false
-        }
+    fun locationNeedsMpd() = (0 until Location.numLocations).any { MyApplication.locations.getOrNull(it)?.notificationWpcMpd ?: false }
 
     fun sendMpdLocationNotifications(context: Context): String {
         val textMcd = MyApplication.mpdLatLon.value
@@ -53,9 +51,7 @@ internal object UtilityNotificationWpc {
             val latLons = LatLon.parseStringToLatLons(items[z], -1.0, false)
             if (latLons.isNotEmpty()) {
                 val poly2 = ExternalPolygon.Builder()
-                latLons.forEach { latLon ->
-                    poly2.addVertex(ExternalPoint(latLon))
-                }
+                latLons.forEach { latLon -> poly2.addVertex(ExternalPoint(latLon)) }
                 val polygon2 = poly2.build()
                 (1..Location.numLocations).forEach { n ->
                     val locNum = n.toString()
@@ -63,9 +59,7 @@ internal object UtilityNotificationWpc {
                         // if location is watching for MCDs pull ib lat/lon and iterate over polygons
                         // call secondary method to send notification if required
                         val contains = polygon2.contains(Location.getLatLon(n - 1).asPoint())
-                        if (contains) {
-                            notifUrls += sendMpdNotification(context, locNum, Utility.safeGet(mpdNumbers, z))
-                        }
+                        if (contains) notifUrls += sendMpdNotification(context, locNum, Utility.safeGet(mpdNumbers, z))
                     }
                 }
             }

@@ -40,26 +40,16 @@ class DisplayData(context: Context, activity: Activity, numPanes: Int, spTime: O
 
     init {
         val resourceId = listOf(R.id.iv1, R.id.iv2)
-        (0 until numPanes).forEach {index ->
-            img[index] = activity.findViewById(resourceId[index])
-        }
+        (0 until numPanes).forEach {index -> img[index] = activity.findViewById(resourceId[index]) }
         if (numPanes > 1) {
             img[0].setOnTouchImageViewListener { img[1].setZoom(img[0]) }
             img[1].setOnTouchImageViewListener { img[0].setZoom(img[1]) }
         }
         (0 until numPanes).forEach {
             img[it].setOnTouchListener(object : OnSwipeTouchListener(context) {
-                override fun onSwipeLeft() {
-                    if (img[0].currentZoom < 1.01f) {
-                        UtilityModels.moveForward(spTime)
-                    }
-                }
+                override fun onSwipeLeft() { if (img[0].currentZoom < 1.01f) UtilityModels.moveForward(spTime) }
 
-                override fun onSwipeRight() {
-                    if (img[0].currentZoom < 1.01f) {
-                        UtilityModels.moveBack(spTime)
-                    }
-                }
+                override fun onSwipeRight() { if (img[0].currentZoom < 1.01f) UtilityModels.moveBack(spTime) }
             })
         }
     }

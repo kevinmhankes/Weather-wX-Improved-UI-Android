@@ -97,13 +97,9 @@ internal object UtilityNotificationSpc {
         return notifUrls
     }
 
-    fun locationNeedsMcd() = (0 until Location.numLocations).any {
-            MyApplication.locations.getOrNull(it)?.notificationMcd ?: false
-        }
+    fun locationNeedsMcd() = (0 until Location.numLocations).any { MyApplication.locations.getOrNull(it)?.notificationMcd ?: false }
 
-    fun locationNeedsSwo() = (0 until Location.numLocations).any {
-            MyApplication.locations.getOrNull(it)?.notificationSwo ?: false
-        }
+    fun locationNeedsSwo() = (0 until Location.numLocations).any { MyApplication.locations.getOrNull(it)?.notificationSwo ?: false }
 
     /*	... CATEGORICAL ...
 
@@ -147,9 +143,7 @@ internal object UtilityNotificationSpc {
                     //
                     if (latLons.isNotEmpty()) {
                         val polygonFrame = ExternalPolygon.Builder()
-                        latLons.forEach {latLon ->
-                            polygonFrame.addVertex(ExternalPoint(latLon))
-                        }
+                        latLons.forEach {latLon -> polygonFrame.addVertex(ExternalPoint(latLon)) }
                         val polygonShape = polygonFrame.build()
                         (1..Location.numLocations).forEach { n ->
                             val locNum = n.toString()
@@ -157,8 +151,7 @@ internal object UtilityNotificationSpc {
                                 // if location is watching for MCDs pull ib lat/lon and iterate over polygons
                                 // call secondary method to send notif if required
                                 if (polygonShape.contains(Location.getLatLon(n - 1).asPoint())) {
-                                    if (!notifUrls.contains("spcswoloc$day$locNum"))
-                                        notifUrls += sendSwoNotification(context, locNum, day, threat, validTime)
+                                    if (!notifUrls.contains("spcswoloc$day$locNum")) notifUrls += sendSwoNotification(context, locNum, day, threat, validTime)
                                 }
                             }
                         }
@@ -179,18 +172,14 @@ internal object UtilityNotificationSpc {
             val latLons = LatLon.parseStringToLatLons(items[z], -1.0, false)
             if (latLons.isNotEmpty()) {
                 val polygonFrame = ExternalPolygon.Builder()
-                latLons.forEach { latLon ->
-                    polygonFrame.addVertex(ExternalPoint(latLon))
-                }
+                latLons.forEach { latLon -> polygonFrame.addVertex(ExternalPoint(latLon)) }
                 val polygonShape = polygonFrame.build()
                 for (n in 1..Location.numLocations) {
                     val locNum = n.toString()
                     if (MyApplication.locations[n - 1].notificationMcd) {
                         // if location is watching for MCDs pull ib lat/lon and iterate over polygons
                         // call secondary method to send notif if required
-                        if (polygonShape.contains(Location.getLatLon(n - 1).asPoint())) {
-                            notifUrls += sendMcdNotification(context, locNum, mcdNumbers[z])
-                        }
+                        if (polygonShape.contains(Location.getLatLon(n - 1).asPoint())) notifUrls += sendMcdNotification(context, locNum, mcdNumbers[z])
                     }
                 }
             }
@@ -205,11 +194,8 @@ internal object UtilityNotificationSpc {
         val requestID = UtilityTime.currentTimeMillis().toInt()
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         val locLabelStr = "($locLabel) "
-        var mcdPre = UtilityDownload.getTextProduct(context, "SPCMCD$mdNo")
+        val mcdPre = UtilityDownload.getTextProduct(context, "SPCMCD$mdNo").replace("<.*?>".toRegex(), " ")
         val noMain = "$locLabelStr SPC MCD #$mdNo"
-        mcdPre = mcdPre.replace("<.*?>".toRegex(), " ")
-        val noBody = mcdPre
-        val noSummary = mcdPre
         val resultIntent = Intent(context, SpcMcdWatchShowActivity::class.java)
         val resultIntent2 = Intent(context, SpcMcdWatchShowActivity::class.java)
         val polygonType = PolygonType.MCD
@@ -227,10 +213,10 @@ internal object UtilityNotificationSpc {
                     context,
                     sound,
                     noMain,
-                    noBody,
+                    mcdPre,
                     resultPendingIntent,
                     MyApplication.ICON_ALERT,
-                    noSummary,
+                    mcdPre,
                     NotificationCompat.PRIORITY_HIGH,
                     Color.YELLOW,
                     MyApplication.ICON_ACTION,
@@ -252,15 +238,11 @@ internal object UtilityNotificationSpc {
         val locLabelStr = "($locLabel) "
         val dayStr = "SWODY$day"
         val noMain = "$locLabelStr$dayStr $threatLevel"
-        var detailRaw = threatLevel.replace("<.*?>".toRegex(), " ")
-        detailRaw = detailRaw.replace("&nbsp".toRegex(), " ")
-        val noBody = detailRaw
+        val detailRaw = threatLevel.replace("<.*?>".toRegex(), " ").replace("&nbsp".toRegex(), " ")
         val resultIntent = Intent(context, SpcSwoActivity::class.java)
         val resultIntent2 = Intent(context, SpcSwoActivity::class.java)
         var dayStrArg = day.toString()
-        if (day > 3) {
-            dayStrArg = "4-8"
-        }
+        if (day > 3) dayStrArg = "4-8"
         resultIntent.putExtra(SpcSwoActivity.NUMBER, arrayOf(dayStrArg, ""))
         resultIntent2.putExtra(SpcSwoActivity.NUMBER, arrayOf(dayStrArg, "sound"))
         val stackBuilder = TaskStackBuilder.create(context)
@@ -275,10 +257,10 @@ internal object UtilityNotificationSpc {
                     context,
                     sound,
                     noMain,
-                    noBody,
+                    detailRaw,
                     resultPendingIntent,
                     MyApplication.ICON_ALERT,
-                    noBody,
+                    detailRaw,
                     NotificationCompat.PRIORITY_HIGH,
                     Color.YELLOW,
                     MyApplication.ICON_ACTION,
@@ -317,9 +299,7 @@ internal object UtilityNotificationSpc {
                     // 21,-130                21,-62
                     if (latLons.isNotEmpty()) {
                         val polygonFrame = ExternalPolygon.Builder()
-                        latLons.forEach { latLon ->
-                            polygonFrame.addVertex(ExternalPoint(latLon))
-                        }
+                        latLons.forEach { latLon -> polygonFrame.addVertex(ExternalPoint(latLon)) }
                         val polygonShape = polygonFrame.build()
                         (1..Location.numLocations).forEach { n ->
                             val locNum = n.toString()
@@ -327,9 +307,7 @@ internal object UtilityNotificationSpc {
                                 // if location is watching for MCDs pull ib lat/lon and iterate over polygons
                                 // call secondary method to send notif if required
                                 if (polygonShape.contains(Location.getLatLon(n - 1).asPoint())) {
-                                    if (!notifUrls.contains("spcswoloc$day$locNum")) {
-                                        notifUrls += sendSwoNotification(context, locNum, day, threat, validTime)
-                                    }
+                                    if (!notifUrls.contains("spcswoloc$day$locNum")) notifUrls += sendSwoNotification(context, locNum, day, threat, validTime)
                                 }
                             }
                         }

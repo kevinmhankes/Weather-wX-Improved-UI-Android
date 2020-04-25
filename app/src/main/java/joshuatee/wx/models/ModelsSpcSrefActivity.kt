@@ -89,9 +89,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         } else {
             super.onCreate(savedInstanceState, R.layout.activity_models_spcsrefmultipane, R.menu.models_spcsref, iconsEvenlySpaced = false, bottomToolbar = true)
             val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
-            if (UtilityUI.isLandScape(this)) {
-                linearLayout.orientation = LinearLayout.HORIZONTAL
-            }
+            if (UtilityUI.isLandScape(this)) linearLayout.orientation = LinearLayout.HORIZONTAL
         }
         toolbarBottom.setOnMenuItemClickListener(this)
         val menu = toolbarBottom.menu
@@ -179,9 +177,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true
-        }
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_back -> UtilityModels.moveBack(om.spTime)
             R.id.action_forward -> UtilityModels.moveForward(om.spTime)
@@ -256,10 +252,8 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
             }
         } else {
             when (parent.id) {
-                R.id.spinner_run -> if (!spinnerRunRan)
-                    spinnerRunRan = true
-                R.id.spinner_time -> if (!spinnerTimeRan)
-                    spinnerTimeRan = true
+                R.id.spinner_run -> if (!spinnerRunRan) spinnerRunRan = true
+                R.id.spinner_time -> if (!spinnerTimeRan) spinnerTimeRan = true
             }
         }
         if (parent.id == R.id.spinner_run) {
@@ -292,11 +286,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     override fun onStop() {
         if (om.imageLoaded) {
             (0 until om.numPanes).forEach {
-                UtilityImg.imgSavePosnZoom(
-                        this,
-                        om.displayData.img[it],
-                        om.modelProvider + om.numPanes.toString() + it.toString()
-                )
+                UtilityImg.imgSavePosnZoom(this, om.displayData.img[it], om.modelProvider + om.numPanes.toString() + it.toString())
             }
             Utility.writePref(this, om.prefRunPosn, om.spTime.selectedItemPosition)
         }
@@ -304,9 +294,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     }
 
     private fun setupModel() {
-        (om.startStep..om.endStep step om.stepAmount).forEach {
-            om.spTime.add("f" + String.format(Locale.US, "%03d", it))
-        }
+        (om.startStep..om.endStep step om.stepAmount).forEach { om.spTime.add("f" + String.format(Locale.US, "%03d", it)) }
         om.spTime.notifyDataSetChanged()
         (0 until om.numPanes).forEach {
             om.displayData.param[it] = Utility.readPref(this, om.prefParam + it.toString(), "SREF_H5__")
@@ -317,15 +305,11 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {
             KeyEvent.KEYCODE_J -> {
-                if (event.isCtrlPressed) {
-                    UtilityModels.moveBack(om.spTime)
-                }
+                if (event.isCtrlPressed) UtilityModels.moveBack(om.spTime)
                 true
             }
             KeyEvent.KEYCODE_K -> {
-                if (event.isCtrlPressed) {
-                    UtilityModels.moveForward(om.spTime)
-                }
+                if (event.isCtrlPressed) UtilityModels.moveForward(om.spTime)
                 true
             }
             else -> super.onKeyUp(keyCode, event)
