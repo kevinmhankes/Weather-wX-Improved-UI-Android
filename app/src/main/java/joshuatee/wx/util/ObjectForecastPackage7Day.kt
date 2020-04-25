@@ -75,9 +75,7 @@ class ObjectForecastPackage7Day {
     private fun getIcons7Day(html: String): String {
         val icons = html.parseColumn("\"icon\": \"(.*?)\",")
         var iconList = ""
-        icons.forEach {
-            iconList += "$it!"
-        }
+        icons.forEach { iconList += "$it!" }
         return iconList
     }
 
@@ -119,8 +117,6 @@ class ObjectForecastPackage7Day {
 }
 
 /*
- 
- 
  {
  "number": 14,
  "name": "Tuesday Night",
@@ -154,8 +150,6 @@ Tuesday Night: A slight chance of rain before 8pm, then a chance of thunderstorm
     Wednesday: A chance of thunderstorms and a chance of rain before 2pm. Partly sunny, with a high near 75.
 
     Wednesday Night: Partly cloudy, with a low around 56.
-
-
 
  */
 

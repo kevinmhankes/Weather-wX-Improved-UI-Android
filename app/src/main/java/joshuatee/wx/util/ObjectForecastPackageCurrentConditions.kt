@@ -84,9 +84,7 @@ class ObjectForecastPackageCurrentConditions {
         }
         string += " / $dewPoint($relativeHumidity) - "
         string += "$seaLevelPressure - $windDirection $windSpeed"
-        if (windGust != "") {
-            string += " G "
-        }
+        if (windGust != "") string += " G "
         string += "$windGust mph - $visibility mi - $condition"
         return listOf(string, objectMetar.icon)
         // "NA° / 22°(NA%) - 1016 mb - W 13 mph - 10 mi - Mostly Cloudy"

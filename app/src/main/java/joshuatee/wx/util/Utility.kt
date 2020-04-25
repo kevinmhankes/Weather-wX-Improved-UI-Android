@@ -44,9 +44,7 @@ object Utility {
         diagnostics += MyApplication.dm.heightPixels.toString() + " Screen height" + MyApplication.newline
         diagnostics += UtilityUI.statusBarHeight(context).toString() + " Status bar height" + MyApplication.newline
         var landScape = false
-        if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            landScape = true
-        }
+        if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) landScape = true
         diagnostics += landScape.toString() + " Landscape" + MyApplication.newline
         return diagnostics
     }
@@ -87,9 +85,7 @@ object Utility {
 
      fun getSoundingSiteName(wfo: String): String {
           var site = UtilityRadar.wfoIdToName[wfo] ?: ""
-          if (site == "") {
-              site = UtilityRadar.soundingIdToName[wfo] ?: ""
-          }
+          if (site == "") site = UtilityRadar.soundingIdToName[wfo] ?: ""
           return site
       }
 
@@ -228,17 +224,9 @@ object Utility {
         Html.fromHtml(source).toString()
     }
 
-    fun safeGet(list: List<String>, index: Int) = if (list.size <= index) {
-            ""
-        } else {
-            list[index]
-        }
+    fun safeGet(list: List<String>, index: Int) = if (list.size <= index) "" else list[index]
 
-    fun safeGet(list: Array<String>, index: Int) = if (list.size <= index) {
-            ""
-        } else {
-            list[index]
-        }
+    fun safeGet(list: Array<String>, index: Int) = if (list.size <= index) "" else list[index]
 
     fun showVersion(context: Context, activity: Activity): String {
         var version = ""
@@ -251,11 +239,7 @@ object Utility {
                 MyApplication.newline + version + MyApplication.newline + MyApplication.newline +
                 "Use alt-? on the main screen and in nexrad radar to show keyboard shortcuts"
         string += MyApplication.newline + MyApplication.newline + "Diagnostics information:" + MyApplication.newline
-        string += readPref(
-                context,
-                "JOBSERVICE_TIME_LAST_RAN",
-                ""
-        ) + "  Last background update" + MyApplication.newline
+        string += readPref(context, "JOBSERVICE_TIME_LAST_RAN", "") + "  Last background update" + MyApplication.newline
         string += UtilityRadarUI.getLastRadarTime(context) + "  Last radar update" + MyApplication.newline
         string += showDiagnostics(context)
         string += "Tablet: " + UtilityUI.isTablet().toString() + MyApplication.newline
@@ -301,9 +285,7 @@ object Utility {
                 "Ctrl-s: Stop audio - TTS" + MyApplication.newline +
                 "Ctrl-d: Show navigation drawer" + MyApplication.newline
 
-
-    fun showLocationEditShortCuts() = "Ctrl-g: Use GPS to find location" + MyApplication.newline +
-                "Ctrl-m: Show submenu" + MyApplication.newline
+    fun showLocationEditShortCuts() = "Ctrl-g: Use GPS to find location" + MyApplication.newline + "Ctrl-m: Show submenu" + MyApplication.newline
 }
 
 
