@@ -97,15 +97,11 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
         // FIXME how to handle this on sector change img.setZoom(1.0f)
     }
 
-    private fun getContentFixThis() {
-        getContent()
-    }
+    private fun getContentFixThis() { getContent() }
 
     private fun findPosition(keyF: String): Int {
         var key = keyF
-        if (key == "latest") {
-            key = "CONUS"
-        }
+        if (key == "latest") key = "CONUS"
         return UtilityUSImgNwsMosaic.labels.indices.firstOrNull { key == UtilityUSImgNwsMosaic.labels[it] } ?: 0
     }
 
@@ -118,9 +114,7 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
         toolbar.subtitle = objectNavDrawer.getLabel()
         bitmap = withContext(Dispatchers.IO) { UtilityUSImgNwsMosaic.get(this@USNwsMosaicActivity, objectNavDrawer.url, true) }
         // FIXME bug in API 28 after changing
-        if (!doNotSavePref) {
-            Utility.writePref(this@USNwsMosaicActivity, "NWS_RADAR_MOSAIC_SECTOR_CURRENT", objectNavDrawer.getLabel())
-        }
+        if (!doNotSavePref) Utility.writePref(this@USNwsMosaicActivity, "NWS_RADAR_MOSAIC_SECTOR_CURRENT", objectNavDrawer.getLabel())
         img.setBitmap(bitmap)
         animRan = false
         img.firstRunSetZoomPosn(prefImagePosition)
@@ -142,9 +136,7 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true
-        }
+        if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.RADAR_MOSAIC)
             R.id.action_a12 -> getAnimate(12)

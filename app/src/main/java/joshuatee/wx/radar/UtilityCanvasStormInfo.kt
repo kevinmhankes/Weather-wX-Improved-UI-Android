@@ -54,9 +54,7 @@ object UtilityCanvasStormInfo {
         if (projectionType === ProjectionType.WX_RENDER || projectionType === ProjectionType.WX_RENDER_48) {
             canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         }
-        if (projectionType.needsBlackPaint) {
-            paint.color = Color.rgb(0, 0, 0)
-        }
+        if (projectionType.needsBlackPaint) paint.color = Color.rgb(0, 0, 0)
         paint.textSize = textSize.toFloat()
         val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
         val stormList = mutableListOf<Double>()
@@ -93,102 +91,33 @@ object UtilityCanvasStormInfo {
                     val degree2 = motNumbers[s].toDouble()
                     val nm2 = motNumbers[s + 1].toDouble()
                     var start = ExternalGlobalCoordinates(location)
-                    var ec = ecc.calculateEndingGlobalCoordinates(
-                        start,
-                        degree,
-                        nm * 1852.0
-                    )
+                    var ec = ecc.calculateEndingGlobalCoordinates(start, degree, nm * 1852.0)
                     stormList += UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers).toList()
                     start = ExternalGlobalCoordinates(ec)
-                    ec = ecc.calculateEndingGlobalCoordinates(
-                        start,
-                        degree2 + degreeShift,
-                        nm2 * 1852.0
-                    )
+                    ec = ecc.calculateEndingGlobalCoordinates(start, degree2 + degreeShift, nm2 * 1852.0)
                     // mercator expects lat/lon to both be positive as many products have this
-                    val list = UtilityCanvasProjection.computeMercatorNumbers(
-                        ec.latitude,
-                        ec.longitude * -1,
-                        projectionNumbers
-                    ).toList()
+                    val list = UtilityCanvasProjection.computeMercatorNumbers(ec.latitude, ec.longitude * -1, projectionNumbers).toList()
                     val ecList = mutableListOf<ExternalGlobalCoordinates>()
                     val latLons = mutableListOf<LatLon>()
                     (0..3).forEach { z ->
-                        ecList.add(ecc.calculateEndingGlobalCoordinates(
-                            start,
-                            degree2 + degreeShift,
-                            nm2 * 1852.0 * z.toDouble() * 0.25
-                        ))
-                        latLons.add(LatLon(
-                            UtilityCanvasProjection.computeMercatorNumbers(
-                                ecList[z],
-                                projectionNumbers
-                            )
-                        ))
+                        ecList.add(ecc.calculateEndingGlobalCoordinates(start, degree2 + degreeShift, nm2 * 1852.0 * z.toDouble() * 0.25))
+                        latLons.add(LatLon(UtilityCanvasProjection.computeMercatorNumbers(ecList[z], projectionNumbers)))
                     }
                     stormList += list
                     endPoint = list.toDoubleArray()
                     if (nm2 > 0.01) {
                         start = ExternalGlobalCoordinates(ec)
-                        drawLine(
-                            stormList,
-                            endPoint,
-                            ecc,
-                            projectionNumbers,
-                            start,
-                            degree2 + arrowBend,
-                            arrowLength * 1852.0
-                        )
-                        drawLine(
-                            stormList,
-                            endPoint,
-                            ecc,
-                            projectionNumbers,
-                            start,
-                            degree2 - arrowBend,
-                            arrowLength * 1852.0
-                        )
+                        drawLine(stormList, endPoint, ecc, projectionNumbers, start, degree2 + arrowBend, arrowLength * 1852.0)
+                        drawLine(stormList, endPoint, ecc, projectionNumbers, start, degree2 - arrowBend, arrowLength * 1852.0)
                         // 15,30,45 min ticks
                         val stormTrackTickMarkAngleOff90 = 45.0
                         latLons.indices.forEach { z ->
                             // first line
-                            drawTickMarks(
-                                stormList,
-                                latLons[z],
-                                ecc,
-                                projectionNumbers,
-                                ecList[z],
-                                degree2 - (90.0 + stormTrackTickMarkAngleOff90),
-                                arrowLength * 1852.0 * sti15IncrementLength
-                            )
-                            drawTickMarks(
-                                stormList,
-                                latLons[z],
-                                ecc,
-                                projectionNumbers,
-                                ecList[z],
-                                degree2 + (90.0 - stormTrackTickMarkAngleOff90),
-                                arrowLength * 1852.0 * sti15IncrementLength
-                            )
+                            drawTickMarks(stormList, latLons[z], ecc, projectionNumbers, ecList[z], degree2 - (90.0 + stormTrackTickMarkAngleOff90), arrowLength * 1852.0 * sti15IncrementLength)
+                            drawTickMarks(stormList, latLons[z], ecc, projectionNumbers, ecList[z], degree2 + (90.0 - stormTrackTickMarkAngleOff90), arrowLength * 1852.0 * sti15IncrementLength)
                             // 2nd line
-                            drawTickMarks(
-                                stormList,
-                                latLons[z],
-                                ecc,
-                                projectionNumbers,
-                                ecList[z],
-                                degree2 - (90.0 - stormTrackTickMarkAngleOff90),
-                                arrowLength * 1852.0 * sti15IncrementLength
-                            )
-                            drawTickMarks(
-                                stormList,
-                                latLons[z],
-                                ecc,
-                                projectionNumbers,
-                                ecList[z],
-                                degree2 + (90.0 + stormTrackTickMarkAngleOff90),
-                                arrowLength * 1852.0 * sti15IncrementLength
-                            )
+                            drawTickMarks(stormList, latLons[z], ecc, projectionNumbers, ecList[z], degree2 - (90.0 - stormTrackTickMarkAngleOff90), arrowLength * 1852.0 * sti15IncrementLength)
+                            drawTickMarks(stormList, latLons[z], ecc, projectionNumbers, ecList[z], degree2 + (90.0 + stormTrackTickMarkAngleOff90), arrowLength * 1852.0 * sti15IncrementLength)
                         }
                     }
                 }
@@ -197,9 +126,7 @@ object UtilityCanvasStormInfo {
             UtilityLog.handleException(e)
         }
         stormLists = FloatArray(stormList.size)
-        stormList.indices.forEach {
-            stormLists[it] = stormList[it].toFloat()
-        }
+        stormList.indices.forEach { stormLists[it] = stormList[it].toFloat() }
         paint.color = MyApplication.radarColorSti
         canvas.drawLines(stormLists, paint)
         val wallPath = Path()
@@ -208,27 +135,11 @@ object UtilityCanvasStormInfo {
             val list: List<Double>
             val list2: List<Double>
             if (projectionType.isMercator) {
-                list = UtilityCanvasProjection.computeMercatorNumbers(
-                    stormLists[i].toDouble(),
-                    stormLists[i + 1].toDouble(),
-                    projectionNumbers
-                ).toList()
-                list2 = UtilityCanvasProjection.computeMercatorNumbers(
-                    stormLists[i + 2].toDouble(),
-                    stormLists[i + 3].toDouble(),
-                    projectionNumbers
-                ).toList()
+                list = UtilityCanvasProjection.computeMercatorNumbers(stormLists[i].toDouble(), stormLists[i + 1].toDouble(), projectionNumbers).toList()
+                list2 = UtilityCanvasProjection.computeMercatorNumbers(stormLists[i + 2].toDouble(), stormLists[i + 3].toDouble(), projectionNumbers).toList()
             } else {
-                list = UtilityCanvasProjection.computeMercatorNumbers(
-                    stormLists[i].toDouble(),
-                    stormLists[i + 1].toDouble(),
-                    projectionNumbers
-                ).toList()
-                list2 = UtilityCanvasProjection.computeMercatorNumbers(
-                    stormLists[i + 2].toDouble(),
-                    stormLists[i + 3].toDouble(),
-                    projectionNumbers
-                ).toList()
+                list = UtilityCanvasProjection.computeMercatorNumbers(stormLists[i].toDouble(), stormLists[i + 1].toDouble(), projectionNumbers).toList()
+                list2 = UtilityCanvasProjection.computeMercatorNumbers(stormLists[i + 2].toDouble(), stormLists[i + 3].toDouble(), projectionNumbers).toList()
             }
             wallPath.reset()
             wallPath.moveTo(list[0].toFloat(), list[1].toFloat())
@@ -250,11 +161,7 @@ object UtilityCanvasStormInfo {
         list.add(startPoint.lat)
         list.add(startPoint.lon)
         val start = ExternalGlobalCoordinates(ecArr)
-        val ec = ecc.calculateEndingGlobalCoordinates(
-            start,
-            startBearing,
-            distance
-        )
+        val ec = ecc.calculateEndingGlobalCoordinates(start, startBearing, distance)
         list += UtilityCanvasProjection.computeMercatorNumbers(ec, pn).toList()
     }
 
@@ -269,11 +176,7 @@ object UtilityCanvasStormInfo {
     ) {
         list.add(startPoint[0])
         list.add(startPoint[1])
-        val ec = ecc.calculateEndingGlobalCoordinates(
-            start,
-            startBearing,
-            distance
-        )
+        val ec = ecc.calculateEndingGlobalCoordinates(start, startBearing, distance)
         list += UtilityCanvasProjection.computeMercatorNumbers(ec.latitude, ec.longitude * -1, pn).toList()
     }
 }

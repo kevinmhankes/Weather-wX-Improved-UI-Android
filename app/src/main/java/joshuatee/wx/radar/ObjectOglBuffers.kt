@@ -64,9 +64,7 @@ open class ObjectOglBuffers() {
     var isInitialized = false
         set(downloaded) {
             field = downloaded
-            if (!isInitialized) {
-                chunkCount = 0
-            }
+            if (!isInitialized) chunkCount = 0
         }
     var lenInit = 7.5f
     var xList = DoubleArray(1)
@@ -77,13 +75,9 @@ open class ObjectOglBuffers() {
     var geotype = GeographyType.NONE
     var warningType: ObjectPolygonWarning? = null
 
-    constructor(type: PolygonType) : this() {
-        this.type = type
-    }
+    constructor(type: PolygonType) : this() { this.type = type }
 
-    constructor(warningType: ObjectPolygonWarning) : this() {
-        this.warningType = warningType
-    }
+    constructor(warningType: ObjectPolygonWarning) : this() { this.warningType = warningType }
 
     constructor(geotype: PolygonType, scaleCutOff: Float) : this() {
         this.type = geotype
@@ -130,17 +124,11 @@ open class ObjectOglBuffers() {
         }
     }
 
-    fun putFloat(index: Int, newValue: Float) {
-        floatBuffer.putFloat(index, newValue)
-    }
+    fun putFloat(index: Int, newValue: Float) { floatBuffer.putFloat(index, newValue) }
 
-    fun putIndex(newValue: Short) {
-        indexBuffer.putShort(newValue)
-    }
+    fun putIndex(newValue: Short) { indexBuffer.putShort(newValue) }
 
-    fun putIndex(index: Int, newValue: Short) {
-        indexBuffer.putShort(index, newValue)
-    }
+    fun putIndex(index: Int, newValue: Short) { indexBuffer.putShort(index, newValue) }
 
     fun putColor(b: Byte) {
         if (colorBuffer.position() < colorBuffer.capacity()) {
