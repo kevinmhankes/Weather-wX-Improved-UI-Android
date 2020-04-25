@@ -144,35 +144,24 @@ internal class RecordingSession(
     }
 
     init {
-        if (showRecordingTools)
-            projectionManager = context.getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
+        if (showRecordingTools) projectionManager = context.getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
     }
 
     fun showOverlay() {
         val overlayListener = object : OverlayView.Listener {
-            override fun onCancel() {
-                cancelOverlay()
-            }
+            override fun onCancel() { cancelOverlay() }
 
-            override fun onStart() {
-                startRecording()
-            }
+            override fun onStart() { startRecording() }
 
             override fun onStop() {
                 stopRecording()
             }
 
-            override fun onScreenshot() {
-                overlayView!!.animate().alpha(0f).setDuration(0).withEndAction { takeScreenshot() }
-            }
+            override fun onScreenshot() { overlayView!!.animate().alpha(0f).setDuration(0).withEndAction { takeScreenshot() } }
 
-            override fun onDrawTool() {
-                addDrawTool()
-            }
+            override fun onDrawTool() { addDrawTool() }
 
-            override fun onDistanceTool() {
-                addDistanceTool()
-            }
+            override fun onDistanceTool() { addDistanceTool() }
         }
         overlayView = OverlayView.create(context, overlayListener, showDistanceTool, showRecordingTools)
         windowManager.addView(overlayView, OverlayView.createLayoutParams(context))
@@ -535,25 +524,18 @@ internal class RecordingSession(
         internal val density: Int
     )
 
-    fun destroy() {
-        if (running) {
-            stopRecording()
-        }
-    }
+    fun destroy() { if (running) stopRecording() }
 
     class DeleteRecordingBroadcastReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
             val uriData = intent.dataString
-            UtilityLog.d("wx", "cancel" + uriData!!)
-            val notificationManager =
-                context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            //UtilityLog.d("wx", "cancel" + uriData!!)
+            val notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.cancel(uriData, NOTIFICATION_ID)
             notificationManager.cancel(uriData, NOTIFICATION_ID_SCREENSHOT)
             object : AsyncTask<Void, Void, Void>() {
-                override fun doInBackground(vararg none: Void): Void? {
-                    return null
-                }
+                override fun doInBackground(vararg none: Void): Void? { return null }
             }.execute()
         }
     }

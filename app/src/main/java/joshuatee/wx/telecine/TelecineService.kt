@@ -35,12 +35,8 @@ class TelecineService : Service() {
 
     private val listener = object : RecordingSession.Listener {
         override fun onStart() {
-            if (MyApplication.telecineSwitchShowTouches) {
-                Settings.System.putInt(MyApplication.contentResolverLocal, SHOW_TOUCHES, 1)
-            }
-            if (!MyApplication.telecineSwitchRecordingNotification) {
-                return
-            }
+            if (MyApplication.telecineSwitchShowTouches) Settings.System.putInt(MyApplication.contentResolverLocal, SHOW_TOUCHES, 1)
+            if (!MyApplication.telecineSwitchRecordingNotification) return
             val context = applicationContext
             val title = context.getString(R.string.notification_recording_title)
             val subtitle = context.getString(R.string.notification_recording_subtitle)
@@ -58,14 +54,10 @@ class TelecineService : Service() {
         }
 
         override fun onStop() {
-            if (MyApplication.telecineSwitchShowTouches) {
-                Settings.System.putInt(MyApplication.contentResolverLocal, SHOW_TOUCHES, 0)
-            }
+            if (MyApplication.telecineSwitchShowTouches) Settings.System.putInt(MyApplication.contentResolverLocal, SHOW_TOUCHES, 0)
         }
 
-        override fun onEnd() {
-            stopSelf()
-        }
+        override fun onEnd() { stopSelf() }
     }
 
     override fun onCreate() {
@@ -78,15 +70,11 @@ class TelecineService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        if (running) {
-            return START_NOT_STICKY
-        }
+        if (running) return START_NOT_STICKY
         running = true
         val resultCode = intent.getIntExtra(EXTRA_RESULT_CODE, 0)
         val data = intent.getParcelableExtra<Intent>(EXTRA_DATA)
-        if (resultCode == 0 || data == null) {
-            throw IllegalStateException("Result code or data missing.")
-        }
+        if (resultCode == 0 || data == null) throw IllegalStateException("Result code or data missing.")
         val showDistanceTool = intent.getStringExtra("show_distance_tool")
         val showRecordingTools = intent.getStringExtra("show_recording_tools")
         recordingSession = RecordingSession(this, listener, resultCode, data, showDistanceTool == "true", showRecordingTools == "true")
@@ -99,9 +87,7 @@ class TelecineService : Service() {
         super.onDestroy()
     }
 
-    override fun onBind(intent: Intent): IBinder? {
-        throw AssertionError("Not supported.")
-    }
+    override fun onBind(intent: Intent): IBinder? { throw AssertionError("Not supported.") }
 
     private fun send() {
         val label = "ScreenRecorderService"

@@ -90,17 +90,13 @@ internal class OverlayView private constructor(
         stopView = findViewById(R.id.record_overlay_stop)
         val screenshotView: View = findViewById(R.id.record_overlay_screenshot)
         recordingView = findViewById(R.id.record_overlay_recording)
-        animationWidth = if (showRecordingTools)
-            R.dimen.overlay_width
-        else
-            R.dimen.overlay_jellybean_width
+        animationWidth = if (showRecordingTools) R.dimen.overlay_width else R.dimen.overlay_jellybean_width
         distanceToolView.setOnClickListener(this)
         drawToolView.setOnClickListener(this)
         screenshotView.setOnClickListener(this)
         cancelView.setOnClickListener(this)
         startView.setOnClickListener(this)
-        if (!showDistanceTool)
-            distanceToolView.visibility = View.GONE
+        if (!showDistanceTool) distanceToolView.visibility = View.GONE
         if (!showRecordingTools) {
             screenshotView.visibility = View.GONE
             startView.visibility = View.GONE
@@ -137,19 +133,11 @@ internal class OverlayView private constructor(
                 val centerY = (startView.y + startView.height / 2).toInt()
                 val reveal = createCircularReveal(recordingView, centerX, centerY, 0f, width / 2f)
                 reveal.addListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        buttonsView.visibility = View.GONE
-                    }
+                    override fun onAnimationEnd(animation: Animator) { buttonsView.visibility = View.GONE }
                 })
                 reveal.start()
                 postDelayed(
-                    {
-                        if (MyApplication.telecineSwitchShowCountdown) {
-                            showCountDown()
-                        } else {
-                            countdownComplete()
-                        }
-                    },
+                    { if (MyApplication.telecineSwitchShowCountdown) showCountDown() else countdownComplete() },
                     (if (MyApplication.telecineSwitchShowCountdown) COUNTDOWN_DELAY else NON_COUNTDOWN_DELAY).toLong()
                 )
             }
@@ -188,11 +176,7 @@ internal class OverlayView private constructor(
     private fun countdown(countdownArr: Array<String>, index: Int) {
         postDelayed({
             recordingView.text = countdownArr[index]
-            if (index < countdownArr.lastIndex) {
-                countdown(countdownArr, index + 1)
-            } else {
-                countdownComplete()
-            }
+            if (index < countdownArr.lastIndex) countdown(countdownArr, index + 1) else countdownComplete()
         }, COUNTDOWN_DELAY.toLong())
     }
 
@@ -214,9 +198,7 @@ internal class OverlayView private constructor(
             val width = res.getDimensionPixelSize(R.dimen.overlay_width)
             var height = res.getDimensionPixelSize(R.dimen.overlay_height)
             // TODO Remove explicit "M" comparison when M is released.
-            if (Build.VERSION.SDK_INT > LOLLIPOP_MR1 || "M" == Build.VERSION.RELEASE) {
-                height = res.getDimensionPixelSize(R.dimen.overlay_height_m)
-            }
+            if (Build.VERSION.SDK_INT > LOLLIPOP_MR1 || "M" == Build.VERSION.RELEASE) height = res.getDimensionPixelSize(R.dimen.overlay_height_m)
             val layoutFlag: Int = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
             } else {
@@ -235,10 +217,7 @@ internal class OverlayView private constructor(
 
         private fun gravityEndLocaleHack(): Int {
             val direction = getLayoutDirectionFromLocale(Locale.getDefault())
-            return if (direction == View.LAYOUT_DIRECTION_RTL)
-                Gravity.START
-            else
-                Gravity.END
+            return if (direction == View.LAYOUT_DIRECTION_RTL) Gravity.START else Gravity.END
         }
     }
 }

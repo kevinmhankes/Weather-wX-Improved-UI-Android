@@ -26,15 +26,11 @@ import android.os.Build
 
 internal class FlashView private constructor(context: Context, private val listener: Listener) : FrameLayout(context) {
 
-    init {
-        inflate(context, R.layout.telecine_flash_view, this)
-    }
+    init { inflate(context, R.layout.telecine_flash_view, this) }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        animate().alpha(100f)
-            .setDuration(200)
-            .withEndAction { listener.onFlashComplete() }.interpolator = DecelerateInterpolator()
+        animate().alpha(100f).setDuration(200).withEndAction { listener.onFlashComplete() }.interpolator = DecelerateInterpolator()
     }
 
     internal interface Listener {
@@ -44,9 +40,7 @@ internal class FlashView private constructor(context: Context, private val liste
 
     companion object {
 
-        fun create(context: Context, listener: Listener): FlashView {
-            return FlashView(context, listener)
-        }
+        fun create(context: Context, listener: Listener) = FlashView(context, listener)
 
         fun createLayoutParams(): WindowManager.LayoutParams {
             val layoutFlag: Int = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
