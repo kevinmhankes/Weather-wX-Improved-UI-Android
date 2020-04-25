@@ -58,18 +58,13 @@ object UtilityToolbar {
     fun fullScreenMode(activity: VideoRecordActivity) = fullScreenMode(activity.toolbar, activity.toolbarBottom)
 
     fun fullScreenMode(toolbar: Toolbar) {
-        if (android.os.Build.VERSION.SDK_INT > 20) {
-            toolbar.elevation = MyApplication.elevationPref
-        }
-        if (MyApplication.fullscreenMode) {
-            toolbar.visibility = View.GONE
-        }
+        if (android.os.Build.VERSION.SDK_INT > 20) toolbar.elevation = MyApplication.elevationPref
+        if (MyApplication.fullscreenMode) toolbar.visibility = View.GONE
     }
 
     // overload to simply set elevation
     fun fullScreenMode(toolbar: Toolbar, blank: Boolean) {
-        if (android.os.Build.VERSION.SDK_INT > 20)
-            toolbar.elevation = MyApplication.elevationPref
+        if (android.os.Build.VERSION.SDK_INT > 20) toolbar.elevation = MyApplication.elevationPref
     }
 
     fun showHide(toolbar: Toolbar, toolbarBottom: Toolbar) {
@@ -86,10 +81,7 @@ object UtilityToolbar {
 
     fun showHide(toolbar: Toolbar) {
         if (!MyApplication.lockToolbars) {
-            if (toolbar.isShown)
-                toolbar.visibility = View.GONE
-            else
-                toolbar.visibility = View.VISIBLE
+            if (toolbar.isShown) toolbar.visibility = View.GONE else toolbar.visibility = View.VISIBLE
         }
     }
 

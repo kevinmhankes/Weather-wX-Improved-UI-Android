@@ -126,20 +126,12 @@ object UtilityUI {
 
     fun statusBarHeight(context: Context): Int {
         val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
-        return if (resourceId > 0) {
-            context.resources.getDimensionPixelSize(resourceId)
-        } else {
-            0
-        }
+        return if (resourceId > 0) context.resources.getDimensionPixelSize(resourceId) else 0
     }
 
     fun navigationBarHeight(context: Context): Int {
         val resourceId = context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
-        return if (resourceId > 0) {
-            context.resources.getDimensionPixelSize(resourceId)
-        } else {
-            0
-        }
+        return if (resourceId > 0) context.resources.getDimensionPixelSize(resourceId) else 0
     }
 
     fun spToPx(sp: Int, context: Context) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp.toFloat(), context.resources.displayMetrics)

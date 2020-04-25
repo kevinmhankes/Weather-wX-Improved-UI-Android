@@ -21,23 +21,17 @@ class SingleTextAdapterList(private val dataSet: MutableList<String>) : Recycler
             label.setPadding(MyApplication.paddingSettings)
         }
 
-        override fun onClick(v: View) {
-            myClickListener!!.onItemClick(adapterPosition)
-        }
+        override fun onClick(v: View) { myClickListener!!.onItemClick(adapterPosition) }
     }
 
-    fun setOnItemClickListener(myClickListenerloc: MyClickListener) {
-        myClickListener = myClickListenerloc
-    }
+    fun setOnItemClickListener(myClickListenerloc: MyClickListener) { myClickListener = myClickListenerloc }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataObjectHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.textview, parent, false)
         return DataObjectHolder(view)
     }
 
-    override fun onBindViewHolder(holder: DataObjectHolder, position: Int) {
-        holder.label.text = dataSet[position]
-    }
+    override fun onBindViewHolder(holder: DataObjectHolder, position: Int) { holder.label.text = dataSet[position] }
 
     fun deleteItem(index: Int) {
         dataSet.removeAt(index)
@@ -45,18 +39,14 @@ class SingleTextAdapterList(private val dataSet: MutableList<String>) : Recycler
     }
 
     fun setItem(index: Int, str: String) {
-        if (index < dataSet.size) {
-            dataSet[index] = str
-        }
+        if (index < dataSet.size) dataSet[index] = str
         notifyDataSetChanged()
     }
 
     // used in FavRemoveActivity for SPCMeso
     override fun toString(): String {
         var string = ""
-        dataSet.forEach {
-            string += ":$it"
-        }
+        dataSet.forEach { string += ":$it" }
         return "$string:"
     }
 
@@ -64,9 +54,7 @@ class SingleTextAdapterList(private val dataSet: MutableList<String>) : Recycler
 
     override fun getItemCount() = dataSet.size
 
-    interface MyClickListener {
-        fun onItemClick(position: Int)
-    }
+    interface MyClickListener { fun onItemClick(position: Int) }
 
     companion object {
         private var myClickListener: MyClickListener? = null
