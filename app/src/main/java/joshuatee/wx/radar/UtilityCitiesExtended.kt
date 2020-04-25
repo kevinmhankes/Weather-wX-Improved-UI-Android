@@ -48,11 +48,9 @@ internal object UtilityCitiesExtended {
                 latitude = tokens[2].toDoubleOrNull() ?: 0.0
                 longitude = (tokens[3].replace("-", "")).toDoubleOrNull() ?: 0.0
                 if (tokens.size > 4) {
-                    cities.add(CityExt(tokens[0], tokens[1], latitude, longitude)
-                    )
+                    cities.add(CityExt(tokens[0], tokens[1], latitude, longitude))
                 } else {
-                    cities.add(CityExt(tokens[0], tokens[1], latitude, longitude)
-                    )
+                    cities.add(CityExt(tokens[0], tokens[1], latitude, longitude))
                 }
                 cityLabels.add(tokens[1].trim() + ", " + tokens[0])
                 cityLat.add(latitude)

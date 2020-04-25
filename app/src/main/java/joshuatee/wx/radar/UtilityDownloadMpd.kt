@@ -38,16 +38,12 @@ internal object UtilityDownloadMpd {
     var timer = DownloadTimer(type)
 
     fun get(context: Context) {
-        if (timer.isRefreshNeeded(context)) {
-            getMpd(context)
-        }
+        if (timer.isRefreshNeeded(context)) getMpd(context)
     }
 
     fun getMpd(context: Context): WatchData {
         val html = "${MyApplication.nwsWPCwebsitePrefix}/metwatch/metwatch_mpd.php".getHtml()
-        if (html != "") {
-            MyApplication.severeDashboardMpd.valueSet(context, html)
-        }
+        if (html != "") MyApplication.severeDashboardMpd.valueSet(context, html)
         val numberList = getListOfNumbers(context)
         val htmlList = mutableListOf<String>()
         var latLonString = ""
@@ -57,22 +53,16 @@ internal object UtilityDownloadMpd {
             latLonString += mcdData[1]
         }
         val locationNeedsMpd = UtilityNotificationWpc.locationNeedsMpd()
-        if (PolygonType.MPD.pref || locationNeedsMpd) {
-            MyApplication.mpdLatLon.valueSet(context, latLonString)
-        }
+        if (PolygonType.MPD.pref || locationNeedsMpd) MyApplication.mpdLatLon.valueSet(context, latLonString)
         return WatchData(numberList, htmlList)
     }
 
     private fun getListOfNumbers(context: Context): List<String> {
         val list = UtilityString.parseColumn(MyApplication.severeDashboardMpd.value, RegExp.mpdPattern)
         var mpdNoList = ""
-        list.forEach {
-            mpdNoList = "$mpdNoList$it:"
-        }
+        list.forEach { mpdNoList = "$mpdNoList$it:" }
         val locationNeedsMpd = UtilityNotificationWpc.locationNeedsMpd()
-        if (PolygonType.MPD.pref || locationNeedsMpd) {
-            MyApplication.mpdNoList.valueSet(context, mpdNoList)
-        }
+        if (PolygonType.MPD.pref || locationNeedsMpd) MyApplication.mpdNoList.valueSet(context, mpdNoList)
         return list
     }
 

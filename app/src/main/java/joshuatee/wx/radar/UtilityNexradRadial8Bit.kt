@@ -131,12 +131,6 @@ internal object UtilityNexradRadial8Bit {
                 "DSA" -> colorMapProductCode = 172
                 else -> colorMapProductCode = 94
             }
-           /* when (product) {
-                153 -> colorMapProductCode = 94
-                154 -> colorMapProductCode = 99
-                else -> colorMapProductCode = product
-            }*/
-
             bufR = MyApplication.colorMap[colorMapProductCode]!!.redValues
             bufG = MyApplication.colorMap[colorMapProductCode]!!.greenValues
             bufB = MyApplication.colorMap[colorMapProductCode]!!.blueValues
@@ -189,9 +183,7 @@ internal object UtilityNexradRadial8Bit {
                         levelCount = 1
                     }
                 }
-                if (numberOfRangeBins % 2 != 0) {
-                    binWord.position(binWord.position() + 4)
-                }
+                if (numberOfRangeBins % 2 != 0) binWord.position(binWord.position() + 4)
             }
         } catch (e: IOException) {
             UtilityLog.handleException(e)

@@ -148,25 +148,13 @@ object UtilityUSImgNwsMosaic {
         val urls: List<String>
         val bitmaps = mutableListOf<Bitmap>()
         var scaleType = ProjectionType.NWS_MOSAIC_SECTOR
-        val sectorUrl = if (sector == "latest") {
-            "Conus"
-        } else {
-            sector
-        }
-        val colorDrawable = if (MyApplication.blackBg) {
-            ColorDrawable(Color.BLACK)
-        } else {
-            ColorDrawable(Color.WHITE)
-        }
+        val sectorUrl = if (sector == "latest") "Conus" else sector
+        val colorDrawable = if (MyApplication.blackBg) ColorDrawable(Color.BLACK) else ColorDrawable(Color.WHITE)
         var bitmapCanvas = UtilityImg.getBlankBitmap()
         val baseUrl = "${MyApplication.nwsRadarWebsitePrefix}/ridge/Conus/RadarImg/"
-        if (sector == "latest") {
-            scaleType = ProjectionType.NWS_MOSAIC
-        }
+        if (sector == "latest") scaleType = ProjectionType.NWS_MOSAIC
         var sPattern = "href=.(" + sectorUrl + "_[0-9]{8}_[0-9]{4}_N0Ronly.gif)"
-        if (sectorUrl == "alaska") {
-            sPattern = "href=.(" + "NATAK" + "_[0-9]{8}_[0-9]{4}.gif)"
-        }
+        if (sectorUrl == "alaska") sPattern = "href=.(" + "NATAK" + "_[0-9]{8}_[0-9]{4}.gif)"
         urls = UtilityImgAnim.getUrlArray("${MyApplication.nwsRadarWebsitePrefix}/ridge/Conus/RadarImg/", sPattern, frameCount)
         urls.forEach {
             if (MyApplication.blackBg && sector != "alaska") {
@@ -178,64 +166,29 @@ object UtilityUSImgNwsMosaic {
         try {
             if (bitmaps.size > 1 && bitmaps[0].height > 10) {
                 bitmapCanvas = Bitmap.createBitmap(bitmaps[0].width, bitmaps[0].height, Config.ARGB_8888)
-                UtilityCanvasMain.addCanvasItems(
-                        context,
-                        bitmapCanvas,
-                        scaleType,
-                        sector,
-                        1,
-                        13,
-                        isInteractive
-                )
+                UtilityCanvasMain.addCanvasItems(context, bitmapCanvas, scaleType, sector, 1, 13, isInteractive)
             }
         } catch (e: OutOfMemoryError) {
             bitmapCanvas = UtilityImg.getBlankBitmap()
         }
         val delay = UtilityImg.animInterval(context)
-        return UtilityImgAnim.getAnimationDrawableFromBitmapListWithCanvas(
-                context,
-                bitmaps,
-                delay,
-                colorDrawable,
-                bitmapCanvas
-        )
+        return UtilityImgAnim.getAnimationDrawableFromBitmapListWithCanvas(context, bitmaps, delay, colorDrawable, bitmapCanvas)
     }
 
     fun get(context: Context, sector: String, isInteractive: Boolean): Bitmap {
         val imgUrl = "${MyApplication.nwsRadarWebsitePrefix}/Conus/RadarImg/" + sector + "_radaronly.gif"
-        if (sector == "alaska") {
-            return "${MyApplication.nwsRadarWebsitePrefix}/ridge/Conus/RadarImg/alaska.gif".getImage()
-        }
-        val layers = mutableListOf<Drawable>()
-        val colorDrawable = if (MyApplication.blackBg) {
-            ColorDrawable(Color.BLACK)
-        } else {
-            ColorDrawable(Color.WHITE)
-        }
+        if (sector == "alaska") return "${MyApplication.nwsRadarWebsitePrefix}/ridge/Conus/RadarImg/alaska.gif".getImage()
+        val colorDrawable = if (MyApplication.blackBg) ColorDrawable(Color.BLACK) else ColorDrawable(Color.WHITE)
         var scaleType = ProjectionType.NWS_MOSAIC_SECTOR
-        if (sector == "latest") {
-            scaleType = ProjectionType.NWS_MOSAIC
-        }
+        if (sector == "latest") scaleType = ProjectionType.NWS_MOSAIC
         var bitmap = imgUrl.getImage()
         var bitmapCanvas = UtilityImg.getBlankBitmap()
-        if (MyApplication.blackBg) {
-            bitmap = UtilityImg.eraseBackground(bitmap, -1)
-        }
+        if (MyApplication.blackBg) bitmap = UtilityImg.eraseBackground(bitmap, -1)
         if (bitmap.height > 10) {
             bitmapCanvas = Bitmap.createBitmap(bitmap.width, bitmap.height, Config.ARGB_8888)
-            UtilityCanvasMain.addCanvasItems(
-                    context,
-                    bitmapCanvas,
-                    scaleType,
-                    sector,
-                    1,
-                    13,
-                    isInteractive
-            )
+            UtilityCanvasMain.addCanvasItems(context, bitmapCanvas, scaleType, sector, 1, 13, isInteractive)
         }
-        layers.add(colorDrawable)
-        layers.add(BitmapDrawable(context.resources, bitmap))
-        layers.add(BitmapDrawable(context.resources, bitmapCanvas))
+        val layers = listOf(colorDrawable, BitmapDrawable(context.resources, bitmap), BitmapDrawable(context.resources, bitmapCanvas))
         return UtilityImg.layerDrawableToBitmap(layers)
     }
 }

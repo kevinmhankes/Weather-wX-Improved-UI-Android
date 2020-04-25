@@ -80,14 +80,10 @@ internal object UtilityMetar {
                     val tmpBlob = z.parse(RegExp.patternMetarWxogl1) // ".*? (M{0,1}../M{0,1}..) .*?"
                     val tdArr = MyApplication.slash.split(tmpBlob)
                     var timeBlob = ""
-                    if (tmpArr2.size > 1) {
-                        timeBlob = tmpArr2[1]
-                    }
+                    if (tmpArr2.size > 1) timeBlob = tmpArr2[1]
                     var pressureBlob = z.parse(RegExp.patternMetarWxogl2) // ".*? A([0-9]{4})"
                     var windBlob = z.parse(RegExp.patternMetarWxogl3) // "AUTO ([0-9].*?KT) .*?"
-                    if (windBlob == "") {
-                        windBlob = z.parse(RegExp.patternMetarWxogl4)
-                    }
+                    if (windBlob == "") windBlob = z.parse(RegExp.patternMetarWxogl4)
                     val conditionsBlob = z.parse(RegExp.patternMetarWxogl5) // "SM (.*?) M{0,1}[0-9]{2}/"
                     var visBlob = z.parse(" ([0-9].*?SM) ")
                     val visBlobArr = MyApplication.space.split(visBlob)
@@ -112,11 +108,7 @@ internal object UtilityMetar {
                         bknStr += "00"
                         bknInt = bknStr.toIntOrNull() ?: 0
                     }
-                    val lowestCig = if (bknInt < ovcInt) {
-                        bknInt
-                    } else {
-                        ovcInt
-                    }
+                    val lowestCig = if (bknInt < ovcInt) bknInt else ovcInt
                     val aviationColor = if (visInt > 5 && lowestCig > 3000) {
                         Color.GREEN
                     } else if (visInt in 3..5 || lowestCig in 1000..3000) {
@@ -192,13 +184,9 @@ internal object UtilityMetar {
             metarDataList[paneNumber].obsArrExt = obsAlExt.toList()
             metarDataList[paneNumber].obsArrWb = obsAlWb.toList()
             metarDataList[paneNumber].x = DoubleArray(obsAlX.size)
-            obsAlX.indices.forEach {
-                metarDataList[paneNumber].x[it] = obsAlX[it]
-            }
+            obsAlX.indices.forEach { metarDataList[paneNumber].x[it] = obsAlX[it] }
             metarDataList[paneNumber].y = DoubleArray(obsAlY.size)
-            obsAlY.indices.forEach {
-                metarDataList[paneNumber].y[it] = obsAlY[it]
-            }
+            obsAlY.indices.forEach { metarDataList[paneNumber].y[it] = obsAlY[it] }
             metarDataList[paneNumber].obsArrWbGust = obsAlWbGust.toList()
             metarDataList[paneNumber].obsArrAviationColor = obsAlAviationColor.toList()
         }
@@ -268,11 +256,7 @@ internal object UtilityMetar {
             }
         }
         // In the unlikely event no closest site is found just return the first one
-        return if (bestRid == -1) {
-            metarSites[0]
-        } else {
-            metarSites[bestRid]
-        }
+        return if (bestRid == -1) metarSites[0] else metarSites[bestRid]
     }
 
     //

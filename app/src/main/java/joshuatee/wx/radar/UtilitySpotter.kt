@@ -60,18 +60,7 @@ object UtilitySpotter {
             lines.forEach { line ->
                 val items = line.split(";;").dropLastWhile { it.isEmpty() }
                 if (items.size > 15) {
-                    spotterList.add(
-                            Spotter(
-                                    items[14],
-                                    items[15],
-                                    items[4],
-                                    items[5],
-                                    items[3],
-                                    items[11],
-                                    items[10],
-                                    items[0]
-                            )
-                    )
+                    spotterList.add(Spotter(items[14], items[15], items[4], items[5], items[3], items[11], items[10], items[0]))
                     lats.add(items[4])
                     lons.add(items[5])
                 }
@@ -99,19 +88,7 @@ object UtilitySpotter {
         lines.forEach { line ->
             val items = line.split(";;").dropLastWhile { it.isEmpty() }
             if (items.size > 10 && !items[0].startsWith("#")) {
-                reportsList.add(
-                        SpotterReports(
-                                items[9],
-                                items[10],
-                                items[5],
-                                items[6],
-                                items[8],
-                                items[0],
-                                items[3],
-                                items[2],
-                                items[7]
-                        )
-                )
+                reportsList.add(SpotterReports(items[9], items[10], items[5], items[6], items[8], items[0], items[3], items[2], items[7]))
             }
         }
     }

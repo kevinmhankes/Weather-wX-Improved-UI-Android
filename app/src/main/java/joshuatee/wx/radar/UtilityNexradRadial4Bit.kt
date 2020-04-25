@@ -46,9 +46,7 @@ internal object UtilityNexradRadial4Bit {
         val canvas = Canvas(bitmap)
         val nwsRadarBgBlack = Utility.readPref(context, "NWS_RADAR_BG_BLACK", "")
         var zeroColor = ContextCompat.getColor(context, R.color.black)
-        if (nwsRadarBgBlack != "true") {
-            zeroColor = ContextCompat.getColor(context, R.color.white)
-        }
+        if (nwsRadarBgBlack != "true") zeroColor = ContextCompat.getColor(context, R.color.white)
         var isVelocity = false
         if (product.contains("S") || product.contains("V") || product.contains("U")) {
             isVelocity = true
@@ -96,9 +94,7 @@ internal object UtilityNexradRadial4Bit {
                 while (r < numberOfRadials) {
                     numberOfRleHalfwords[r] = dis.readUnsignedShort()
                     var tn = dis.readUnsignedShort()
-                    if (tn % 2 == 1) {
-                        tn += 1
-                    }
+                    if (tn % 2 == 1) tn += 1
                     tnMod10 = tn % 10
                     if (tnMod10 in 1..4) {
                         tn -= tnMod10
