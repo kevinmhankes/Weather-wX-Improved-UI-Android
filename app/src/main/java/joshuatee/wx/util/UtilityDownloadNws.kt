@@ -78,10 +78,10 @@ object UtilityDownloadNws {
         val out = StringBuilder(5000)
         try {
             val request = Request.Builder()
-                .url(url)
-                .header("User-Agent", USER_AGENT_STR)
-                .addHeader("Accept", header)
-                .build()
+                    .url(url)
+                    .header("User-Agent", USER_AGENT_STR)
+                    .addHeader("Accept", header)
+                    .build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body()!!.byteStream())
             val bufferedReader = BufferedReader(InputStreamReader(inputStream))
@@ -124,10 +124,10 @@ object UtilityDownloadNws {
         val out = StringBuilder(5000)
         try {
             val request = Request.Builder()
-                .url(strURL)
-                .header("User-Agent", USER_AGENT_STR)
-                .addHeader("Accept", "application/vnd.noaa.dwml+xml;version=1")
-                .build()
+                    .url(strURL)
+                    .header("User-Agent", USER_AGENT_STR)
+                    .addHeader("Accept", "application/vnd.noaa.dwml+xml;version=1")
+                    .build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body()!!.byteStream())
             val bufferedReader = BufferedReader(InputStreamReader(inputStream))
@@ -160,8 +160,5 @@ object UtilityDownloadNws {
         return forecastUrl.getNwsHtml()
     }
 
-    private fun getLocationPointData(latLon: LatLon): String {
-        val url = MyApplication.nwsApiUrl + "/points/" + latLon.latString + "," + latLon.lonString
-        return url.getNwsHtml()
-    }
+    private fun getLocationPointData(latLon: LatLon) = (MyApplication.nwsApiUrl + "/points/" + latLon.latString + "," + latLon.lonString).getNwsHtml()
 }

@@ -117,9 +117,7 @@ object UtilityDownload {
                 needsBitmap = false
                 bitmap = getRadarMosaic(context)
             }
-            "IR_2KM", "WV_2KM", "VIS_2KM" -> {
-                needsBitmap = false
-            }
+            "IR_2KM", "WV_2KM", "VIS_2KM" -> needsBitmap = false
             "VIS_CONUS" -> {
                 needsBitmap = false
                 bitmap = UtilityGoes.getImage("02", "CONUS")
@@ -185,9 +183,7 @@ object UtilityDownload {
             "SPCMESO1" -> {
                 var param = "500mb"
                 val items = MyApplication.spcMesoFav.split(":").dropLastWhile { it.isEmpty() }
-                if (items.size > 3) {
-                    param = items[3]
-                }
+                if (items.size > 3) param = items[3]
                 needsBitmap = false
                 bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
@@ -198,9 +194,7 @@ object UtilityDownload {
             "SPCMESO2" -> {
                 var param = "pmsl"
                 val items = MyApplication.spcMesoFav.split(":")
-                if (items.size > 4) {
-                    param = items[4]
-                }
+                if (items.size > 4) param = items[4]
                 needsBitmap = false
                 bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
@@ -211,9 +205,7 @@ object UtilityDownload {
             "SPCMESO3" -> {
                 var param = "ttd"
                 val items = MyApplication.spcMesoFav.split(":")
-                if (items.size > 5) {
-                    param = items[5]
-                }
+                if (items.size > 5) param = items[5]
                 needsBitmap = false
                 bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
@@ -224,9 +216,7 @@ object UtilityDownload {
             "SPCMESO4" -> {
                 var param = "rgnlrad"
                 val items = MyApplication.spcMesoFav.split(":")
-                if (items.size > 6) {
-                    param = items[6]
-                }
+                if (items.size > 6) param = items[6]
                 needsBitmap = false
                 bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
@@ -237,9 +227,7 @@ object UtilityDownload {
             "SPCMESO5" -> {
                 var param = "lllr"
                 val items = MyApplication.spcMesoFav.split(":")
-                if (items.size > 7) {
-                    param = items[7]
-                }
+                if (items.size > 7) param = items[7]
                 needsBitmap = false
                 bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
@@ -250,9 +238,7 @@ object UtilityDownload {
             "SPCMESO6" -> {
                 var param = "laps"
                 val items = MyApplication.spcMesoFav.split(":")
-                if (items.size > 8) {
-                    param = items[8]
-                }
+                if (items.size > 8) param = items[8]
                 needsBitmap = false
                 bitmap = UtilitySpcMesoInputOutput.getImage(
                         context,
@@ -275,13 +261,9 @@ object UtilityDownload {
                 bitmap = UtilitySpcSoundings.getImage(context, UtilityLocation.getNearestSoundingSite(Location.latLon))
             }
             "STRPT" -> url = UtilitySpc.getStormReportsTodayUrl()
-            else -> {
-                needsBitmap = false
-            }
+            else -> needsBitmap = false
         }
-        if (needsBitmap) {
-            bitmap = url.getImage()
-        }
+        if (needsBitmap) bitmap = url.getImage()
         return bitmap
     }
 
@@ -289,22 +271,11 @@ object UtilityDownload {
         var text: String
         val prod = prodF.toUpperCase(Locale.US)
         when {
-            prod == "AFDLOC" -> {
-                text = getTextProduct(context, "afd" + Location.wfo.toLowerCase(Locale.US))
-            }
-            prod == "HWOLOC" -> {
-                text = getTextProduct(context, "hwo" + Location.wfo.toLowerCase(Locale.US))
-            }
-            prod == "VFDLOC" -> {
-                text = getTextProduct(context, "vfd" + Location.wfo.toLowerCase(Locale.US))
-            }
-            prod == "SUNMOON" -> {
-                text = "Sun/Moon data: Content is no longer available from upstream provider."
-            }
-            prod == "HOURLY" -> {
-                val textArr = UtilityUSHourly.getString(Location.currentLocation)
-                text = textArr[0]
-            }
+            prod == "AFDLOC" -> text = getTextProduct(context, "afd" + Location.wfo.toLowerCase(Locale.US))
+            prod == "HWOLOC" -> text = getTextProduct(context, "hwo" + Location.wfo.toLowerCase(Locale.US))
+            prod == "VFDLOC" -> text = getTextProduct(context, "vfd" + Location.wfo.toLowerCase(Locale.US))
+            prod == "SUNMOON" -> text = "Sun/Moon data: Content is no longer available from upstream provider."
+            prod == "HOURLY" -> text = UtilityUSHourly.getString(Location.currentLocation)[0]
             prod == "QPF94E" -> {
                 val textUrl = "https://www.wpc.ncep.noaa.gov/qpf/ero.php?opt=curr&day=" + "1"
                 val html = textUrl.getHtmlWithNewLine()
@@ -320,33 +291,18 @@ object UtilityDownload {
                 val html = textUrl.getHtmlWithNewLine()
                 text = UtilityString.extractPre(html).removeLineBreaks().removeHtml()
             }
-            prod == "SWPC3DAY" -> {
-                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/3-day-forecast.txt").getHtmlWithNewLine()
-            }
-            prod == "SWPC27DAY" -> {
-                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/27-day-outlook.txt").getHtmlWithNewLine()
-            }
-            prod == "SWPCWWA" -> {
-                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/advisory-outlook.txt").getHtmlWithNewLine()
-            }
-            prod == "SWPCHIGH" -> {
-                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/weekly.txt").getHtmlWithNewLine().removeLineBreaks()
-            }
-            prod == "SWPCDISC" -> {
-                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/discussion.txt").getHtmlWithNewLine().removeLineBreaks()
-            }
-            prod == "SWPC3DAYGEO" -> {
-                text = (MyApplication.nwsSwpcWebSitePrefix + "/text/3-day-geomag-forecast.txt").getHtmlWithNewLine()
-            }
+            prod == "SWPC3DAY" -> text = (MyApplication.nwsSwpcWebSitePrefix + "/text/3-day-forecast.txt").getHtmlWithNewLine()
+            prod == "SWPC27DAY" -> text = (MyApplication.nwsSwpcWebSitePrefix + "/text/27-day-outlook.txt").getHtmlWithNewLine()
+            prod == "SWPCWWA" -> text = (MyApplication.nwsSwpcWebSitePrefix + "/text/advisory-outlook.txt").getHtmlWithNewLine()
+            prod == "SWPCHIGH" -> text = (MyApplication.nwsSwpcWebSitePrefix + "/text/weekly.txt").getHtmlWithNewLine().removeLineBreaks()
+            prod == "SWPCDISC" -> text = (MyApplication.nwsSwpcWebSitePrefix + "/text/discussion.txt").getHtmlWithNewLine().removeLineBreaks()
+            prod == "SWPC3DAYGEO" -> text = (MyApplication.nwsSwpcWebSitePrefix + "/text/3-day-geomag-forecast.txt").getHtmlWithNewLine()
             prod.contains("MIATCP") || prod.contains("MIATCM") || prod.contains("MIATCD") || prod.contains("MIAPWS") || prod.contains("MIAHS") -> {
                 val url = "${MyApplication.nwsNhcWebsitePrefix}/text/$prod.shtml"
                 text = url.getHtmlWithNewLine()
                 text = UtilityString.extractPre(text).removeHtml()
             }
-            prod.contains("MIAT") || prod == "HFOTWOCP" -> {
-                val url = "${MyApplication.nwsNhcWebsitePrefix}/ftp/pub/forecasts/discussion/$prod"
-                text = url.getHtmlWithNewLine().removeLineBreaks()
-            }
+            prod.contains("MIAT") || prod == "HFOTWOCP" -> text = "${MyApplication.nwsNhcWebsitePrefix}/ftp/pub/forecasts/discussion/$prod".getHtmlWithNewLine().removeLineBreaks()
             prod.startsWith("SCCNS") -> {
                 val url = "${MyApplication.nwsWPCwebsitePrefix}/discussions/nfd" + prod.toLowerCase(Locale.US).replace("ns", "") + ".html"
                 text = url.getHtmlWithNewLine()
@@ -384,15 +340,9 @@ object UtilityDownload {
                     text = text.replace("<br>", " ")
                 }
             }
-            (prod.startsWith("GLF") && !prod.contains("%")) -> {
-                text = getTextProduct(context, "$prod%")
-            }
-            prod.contains("FOCN45") -> {
-                text = "${MyApplication.nwsRadarPub}/data/raw/fo/focn45.cwwg..txt".getHtmlWithNewLine().removeLineBreaks()
-            }
-            prod.startsWith("AWCN") -> {
-                text = ("${MyApplication.nwsRadarPub}/data/raw/aw/" + prod.toLowerCase(Locale.US) + ".cwwg..txt").getHtmlWithNewLine().removeLineBreaks()
-            }
+            prod.startsWith("GLF") && !prod.contains("%") -> text = getTextProduct(context, "$prod%")
+            prod.contains("FOCN45") -> text = "${MyApplication.nwsRadarPub}/data/raw/fo/focn45.cwwg..txt".getHtmlWithNewLine().removeLineBreaks()
+            prod.startsWith("AWCN") -> text = ("${MyApplication.nwsRadarPub}/data/raw/aw/" + prod.toLowerCase(Locale.US) + ".cwwg..txt").getHtmlWithNewLine().removeLineBreaks()
             prod.contains("NFD") -> {
                 text = (MyApplication.nwsOpcWebsitePrefix + "/mobile/mobile_product.php?id=" + prod.toUpperCase(Locale.US)).getHtml()
                 text = Utility.fromHtml(text)
@@ -446,12 +396,9 @@ object UtilityDownload {
                 text = text.parse("<!-- raw data starts -->(.*?)<!-- raw data ends -->")
                 text = text.replace(Regex("<br>\\s+<br>\\s+"), MyApplication.newline).removeHtml()
             }
-            prod.contains("FPCN48") -> {
-                text = "${MyApplication.nwsRadarPub}/data/raw/fp/fpcn48.cwao..txt".getHtmlSep()
-            }
+            prod.contains("FPCN48") -> text = "${MyApplication.nwsRadarPub}/data/raw/fp/fpcn48.cwao..txt".getHtmlSep()
             prod.contains("QPFPFD") -> {
-                val textUrl =
-                        MyApplication.nwsWPCwebsitePrefix + "/discussions/hpcdiscussions.php?disc=qpfpfd"
+                val textUrl = MyApplication.nwsWPCwebsitePrefix + "/discussions/hpcdiscussions.php?disc=qpfpfd"
                 text = textUrl.getHtmlSep()
                 text = text.parse(RegExp.pre2Pattern)
             }
@@ -496,8 +443,7 @@ object UtilityDownload {
                 text = UtilityString.extractPreLsr(text)
                 text = text.replace("<br>", "\n")
             }
-            prod.startsWith("NSH")
-                    || (prod.startsWith("RTP") && prod.length == 6) -> {
+            prod.startsWith("NSH") || (prod.startsWith("RTP") && prod.length == 6) -> {
                 val product = prod.substring(0, 3)
                 val location = prod.substring(3).replace("%", "")
                 val url = "https://forecast.weather.gov/product.php?site=$location&issuedby=$location&product=$product"
@@ -525,16 +471,13 @@ object UtilityDownload {
                 text = UtilityString.extractPreLsr(text)
                 text = text.replace("<br>", "\n")
             }
-            prod.contains("CTOF") -> {
-                text = "Celsius to Fahrenheit table" + MyApplication.newline + UtilityMath.celsiusToFahrenheitTable()
-            }
+            prod.contains("CTOF") -> text = "Celsius to Fahrenheit table" + MyApplication.newline + UtilityMath.celsiusToFahrenheitTable()
             else -> {
                 // Feb 8 2020 Sat
                 // The NWS API for text products has been unstable Since Wed Feb 5
                 // resorting to alternatives
                 val t1 = prod.substring(0, 3)
-                var t2 = prod.substring(3)
-                t2 = t2.replace("%", "")
+                val t2 = prod.substring(3).replace("%", "")
                 if (useNwsApi) {
                     val url = MyApplication.nwsApiUrl + "/products/types/$t1/locations/$t2"
                     val html = url.getNwsHtml()
@@ -630,13 +573,13 @@ object UtilityDownload {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body()!!.byteStream())
-            val br = BufferedReader(InputStreamReader(inputStream))
-            var line: String? = br.readLine()
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            var line: String? = bufferedReader.readLine()
             while (line != null) {
                 out.append(line)
-                line = br.readLine()
+                line = bufferedReader.readLine()
             }
-            br.close()
+            bufferedReader.close()
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         } catch (e: OutOfMemoryError) {
@@ -651,13 +594,13 @@ object UtilityDownload {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body()!!.byteStream())
-            val br = BufferedReader(InputStreamReader(inputStream))
-            var line: String? = br.readLine()
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            var line: String? = bufferedReader.readLine()
             while (line != null) {
                 out.append(line + MyApplication.newline)
-                line = br.readLine()
+                line = bufferedReader.readLine()
             }
-            br.close()
+            bufferedReader.close()
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         } catch (e: OutOfMemoryError) {
@@ -672,13 +615,13 @@ object UtilityDownload {
             val request = Request.Builder().url(strURL).build()
             val response = MyApplication.httpClientUnsafe!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body()!!.byteStream())
-            val br = BufferedReader(InputStreamReader(inputStream))
-            var line: String? = br.readLine()
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            var line: String? = bufferedReader.readLine()
             while (line != null) {
                 out.append(line)
-                line = br.readLine()
+                line = bufferedReader.readLine()
             }
-            br.close()
+            bufferedReader.close()
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         } catch (e: OutOfMemoryError) {
@@ -693,15 +636,14 @@ object UtilityDownload {
         try {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
-            val br =
-                    BufferedReader(InputStreamReader(BufferedInputStream(response.body()!!.byteStream())))
-            var line: String? = br.readLine()
+            val bufferedReader = BufferedReader(InputStreamReader(BufferedInputStream(response.body()!!.byteStream())))
+            var line: String? = bufferedReader.readLine()
             while (line != null) {
                 out.append(line)
                 out.append(breakStr)
-                line = br.readLine()
+                line = bufferedReader.readLine()
             }
-            br.close()
+            bufferedReader.close()
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
@@ -770,11 +712,7 @@ object UtilityDownload {
     }*/
 
     fun getRadarStatusMessage(context: Context, radarSite: String): String {
-        val ridSmall = if (radarSite.length == 4) {
-            radarSite.replace("^T".toRegex(), "")
-        } else {
-            radarSite
-        }
+        val ridSmall = if (radarSite.length == 4) radarSite.replace("^T".toRegex(), "") else radarSite
         return getTextProduct(context, "FTM" + ridSmall.toUpperCase(Locale.US))
     }
 }
