@@ -50,45 +50,31 @@ class ObjectCard {
         card.preventCornerOverlap = true
     }
 
-    constructor(context: Context, color: Int) : this(context) {
-        card.setCardBackgroundColor(color)
-    }
+    constructor(context: Context, color: Int) : this(context) { card.setCardBackgroundColor(color) }
 
     constructor(itemView: View, resId: Int) {
         card = itemView.findViewById(resId)
         setupCard()
     }
 
-    constructor(itemView: View, color: Int, resId: Int) : this(itemView, resId) {
-        card.setCardBackgroundColor(color)
-    }
+    constructor(itemView: View, color: Int, resId: Int) : this(itemView, resId) { card.setCardBackgroundColor(color) }
 
     constructor(activity: Activity, resId: Int) {
         card = activity.findViewById(resId)
         setupCard()
     }
 
-    constructor(activity: Activity, color: Int, resId: Int) : this(activity, resId) {
-        card.setCardBackgroundColor(color)
-    }
+    constructor(activity: Activity, color: Int, resId: Int) : this(activity, resId) { card.setCardBackgroundColor(color) }
 
     var visibility: Int
         get() = card.visibility
-        set(newValue) {
-            card.visibility = newValue
-        }
+        set(newValue) { card.visibility = newValue }
 
-    fun addView(view: View) {
-        card.addView(view)
-    }
+    fun addView(view: View) { card.addView(view) }
 
-    fun addView(objectLinearLayout: ObjectLinearLayout) {
-        card.addView(objectLinearLayout.linearLayout)
-    }
+    fun addView(objectLinearLayout: ObjectLinearLayout) { card.addView(objectLinearLayout.linearLayout) }
 
-    fun setOnClickListener(fn: View.OnClickListener) {
-        card.setOnClickListener(fn)
-    }
+    fun setOnClickListener(fn: View.OnClickListener) { card.setOnClickListener(fn) }
 }
 
 

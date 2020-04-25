@@ -37,9 +37,7 @@ class ObjectCALegal(context: Context, linearLayout: LinearLayout, url: String) {
     init {
         objectCardText.lightText()
         objectCardText.center()
-        objectCardText.setOnClickListener(View.OnClickListener {
-            ObjectIntent(context, Intent.ACTION_VIEW, Uri.parse(url))
-        })
+        objectCardText.setOnClickListener(View.OnClickListener { ObjectIntent(context, Intent.ACTION_VIEW, Uri.parse(url)) })
         objectCardText.text = context.resources.getText(R.string.main_screen_ca_disclaimor).toString()
         linearLayout.addView(objectCardText.card)
     }

@@ -90,39 +90,21 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
         try {
             val capAlerts = mutableListOf<CapAlert>()
             val alerts = UtilityString.parseColumnMutable(data, "<entry>(.*?)</entry>")
-            alerts.forEach { alert ->
-                capAlerts.add(CapAlert.initializeFromCap(alert))
-            }
+            alerts.forEach { alert -> capAlerts.add(CapAlert.initializeFromCap(alert)) }
             capAlerts.forEach { capAlert ->
                 val counties = capAlert.area.split(";")
-                val firstCounty = if (counties.isNotEmpty()) {
-                    counties[0]
-                } else {
-                    ""
-                }
+                val firstCounty = if (counties.isNotEmpty()) counties[0] else ""
                 val zones = capAlert.zones.split(" ")
-                val firstZone = if (zones.isNotEmpty()) {
-                    zones[0]
-                } else {
-                    ""
-                }
+                val firstZone = if (zones.isNotEmpty()) zones[0] else ""
                 totalAlertsCnt += 1
                 val tmpStateList = zones.asSequence().filter { it.length > 1 }.map { it.substring(0, 2) }
                 val uniqueStates = HashSet(tmpStateList.toMutableList())
                 uniqueStates.forEach {
                     val frequency = mapState[it]
-                    mapState[it] = if (frequency == null) {
-                        1
-                    } else {
-                        frequency + 1
-                    }
+                    mapState[it] = if (frequency == null) 1 else frequency + 1
                 }
                 val frequency = mapEvent[capAlert.event]
-                mapEvent[capAlert.event] = if (frequency == null) {
-                    1
-                } else {
-                    frequency + 1
-                }
+                mapEvent[capAlert.event] = if (frequency == null) 1 else frequency + 1
                 if (capAlert.event.matches(filterOriginal.toRegex())) {
                     val nwsOffice: String
                     val nwsLoc: String
@@ -137,11 +119,7 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
                     val unique2States = HashSet(tmp2StateList.toMutableList())
                     unique2States.forEach { state ->
                         val frequencyLocal = map[state]
-                        map[state] = if (frequencyLocal == null) {
-                            1
-                        } else {
-                            frequencyLocal + 1
-                        }
+                        map[state] = if (frequencyLocal == null) 1 else frequencyLocal + 1
                         mapButtonState[i] = state
                     }
                     val objectCardAlertSummaryItem = ObjectCardAlertSummaryItem(context)
@@ -151,18 +129,10 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
                     mapButtonZone[i] = firstZone
                     objectCardAlertSummaryItem.setTextFields(nwsOffice, nwsLoc, capAlert)
                     val url = capAlert.url
-                    objectCardAlertSummaryItem.setListener(View.OnClickListener {
-                        showWarningDetails(url)
-                    })
-                    objectCardAlertSummaryItem.radarButton.setOnClickListener(View.OnClickListener {
-                        radarInterface(nwsOffice)
-                    })
-                    objectCardAlertSummaryItem.detailsButton.setOnClickListener(View.OnClickListener {
-                        showWarningDetails(url)
-                    })
-                    objectCardAlertSummaryItem.locationButton.setOnClickListener(View.OnClickListener {
-                        addLocation(firstZone, firstCounty)
-                    })
+                    objectCardAlertSummaryItem.setListener(View.OnClickListener { showWarningDetails(url) })
+                    objectCardAlertSummaryItem.radarButton.setOnClickListener(View.OnClickListener { radarInterface(nwsOffice) })
+                    objectCardAlertSummaryItem.detailsButton.setOnClickListener(View.OnClickListener { showWarningDetails(url) })
+                    objectCardAlertSummaryItem.locationButton.setOnClickListener(View.OnClickListener { addLocation(firstZone, firstCounty) })
                     linearLayout.addView(objectCardAlertSummaryItem.card)
                     i += 1
                 }
@@ -188,14 +158,10 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
         if (firstRun) {
             val filterArray1 = mapEvent.keys.toList()
             val filterArray1Label = mutableListOf<String>()
-            filterArray1.indices.forEach {
-                filterArray1Label.add(filterArray1[it] + ": " + mapEvent[filterArray1[it]])
-            }
+            filterArray1.indices.forEach { filterArray1Label.add(filterArray1[it] + ": " + mapEvent[filterArray1[it]]) }
             val filterArray2 = mapState.keys.toList()
             val filterArray2Label = mutableListOf<String>()
-            filterArray2.indices.forEach {
-                filterArray2Label.add(filterArray2[it] + ": " + mapState[filterArray2[it]])
-            }
+            filterArray2.indices.forEach { filterArray2Label.add(filterArray2[it] + ": " + mapState[filterArray2[it]]) }
             filterArray = filterArray1 + filterArray2
             navList = filterArray1Label + filterArray2Label
         }

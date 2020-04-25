@@ -41,9 +41,7 @@ class ObjectButton(context: Context, title: String, icon: Int) {
         button.setPadding(padding, padding, padding, padding)
     }
 
-    fun setOnClickListener(fn: View.OnClickListener) {
-        button.setOnClickListener(fn)
-    }
+    fun setOnClickListener(fn: View.OnClickListener) { button.setOnClickListener(fn) }
 
     val card get() = button
 }

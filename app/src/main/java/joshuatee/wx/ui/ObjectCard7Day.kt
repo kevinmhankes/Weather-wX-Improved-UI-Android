@@ -44,9 +44,7 @@ class ObjectCard7Day(context: Context, bitmap: Bitmap, isUS: Boolean, day: Int, 
         topLineText.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, 0)
         bottomLineText.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, 0)
         verticalContainer.addViews(listOf(topLineText.tv, bottomLineText.tv))
-        if (!UIPreferences.locfragDontShowIcons) {
-            horizontalContainer.addView(objectImageView)
-        }
+        if (!UIPreferences.locfragDontShowIcons) horizontalContainer.addView(objectImageView)
         horizontalContainer.addView(verticalContainer)
         objectCard.addView(horizontalContainer)
         val items = if (forecasts.size > day) {
