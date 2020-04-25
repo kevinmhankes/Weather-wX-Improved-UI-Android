@@ -47,9 +47,7 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.spc_swo_summary, true)
-        if (UtilityUI.isLandScape(this)) {
-            imagesPerRow = 3
-        }
+        if (UtilityUI.isLandScape(this)) imagesPerRow = 3
         toolbarBottom.setOnMenuItemClickListener(this)
         val menu = toolbarBottom.menu
         UtilityShortcut.hidePinIfNeeded(menu)
@@ -66,18 +64,12 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmaps = mutableListOf()
         withContext(Dispatchers.IO) {
-            listOf("1", "2", "3", "4-8").forEach {
-                bitmaps.addAll(UtilitySpcSwo.getImages(it, false))
-            }
+            listOf("1", "2", "3", "4-8").forEach { bitmaps.addAll(UtilitySpcSwo.getImages(it, false)) }
         }
         linearLayout.removeAllViews()
         val objectImageSummary = ObjectImageSummary(this@SpcSwoSummaryActivity, linearLayout, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
-            val day = if (index < 3) {
-                (index + 1).toString()
-            } else {
-                "4-8"
-            }
+            val day = if (index < 3) (index + 1).toString() else "4-8"
             objectCardImage.setOnClickListener(View.OnClickListener {
                 ObjectIntent(this@SpcSwoSummaryActivity, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf(day, ""))
             })

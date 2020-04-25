@@ -88,11 +88,7 @@ class SpcFireOutlookActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmap = withContext(Dispatchers.IO) { imageUrl.getImage() }
         objectCardText.text = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@SpcFireOutlookActivity, textProduct) }
-        if (tabletInLandscape) {
-            objectCardImage.setImage(bitmap, 2)
-        } else {
-            objectCardImage.setImage(bitmap)
-        }
+        if (tabletInLandscape) objectCardImage.setImage(bitmap, 2) else objectCardImage.setImage(bitmap)
         objectCardImage.setOnClickListener(View.OnClickListener {
             ObjectIntent.showImage(this@SpcFireOutlookActivity, arrayOf(imageUrl, textProduct, "true"))
         })
@@ -100,9 +96,7 @@ class SpcFireOutlookActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, objectCardText.text, textProduct, textProduct)) {
-            return true
-        }
+        if (audioPlayMenu(item.itemId, objectCardText.text, textProduct, textProduct)) return true
         when (item.itemId) {
             R.id.action_share_all -> UtilityShare.shareBitmap(this, this, textProduct, bitmap, objectCardText.text)
             R.id.action_share_text -> UtilityShare.shareText(this, textProduct, objectCardText.text)

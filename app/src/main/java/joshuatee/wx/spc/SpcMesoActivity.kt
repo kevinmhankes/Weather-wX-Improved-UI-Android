@@ -102,9 +102,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         var activityArguments = intent.getStringArrayExtra(INFO)
-        if (activityArguments == null) {
-            activityArguments = arrayOf("", "1", "SPCMESO")
-        }
+        if (activityArguments == null) activityArguments = arrayOf("", "1", "SPCMESO")
         val numPanesAsString = activityArguments[1]
         numPanes = numPanesAsString.toIntOrNull() ?: 0
         if (numPanes == 1) {
@@ -112,9 +110,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         } else {
             super.onCreate(savedInstanceState, R.layout.activity_spcmeso_multipane, R.menu.spcmesomultipane, iconsEvenlySpaced = false, bottomToolbar = true)
             val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
-            if (UtilityUI.isLandScape(this)) {
-                linearLayout.orientation = LinearLayout.HORIZONTAL
-            }
+            if (UtilityUI.isLandScape(this)) linearLayout.orientation = LinearLayout.HORIZONTAL
         }
         toolbarBottom.setOnMenuItemClickListener(this)
         prefModel = activityArguments[2]
@@ -167,15 +163,11 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         if (numPanes == 1) {
             displayData.img[0].setOnTouchListener(object : OnSwipeTouchListener(this) {
                 override fun onSwipeLeft() {
-                    if (displayData.img[curImg].currentZoom < 1.01f) {
-                        UtilitySpcMeso.moveForward(objectSpinner)
-                    }
+                    if (displayData.img[curImg].currentZoom < 1.01f) UtilitySpcMeso.moveForward(objectSpinner)
                 }
 
                 override fun onSwipeRight() {
-                    if (displayData.img[curImg].currentZoom < 1.01f) {
-                        UtilitySpcMeso.moveBack(objectSpinner)
-                    }
+                    if (displayData.img[curImg].currentZoom < 1.01f) UtilitySpcMeso.moveBack(objectSpinner)
                 }
             })
         }
@@ -208,9 +200,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         else
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         withContext(Dispatchers.IO) {
-            (0 until numPanes).forEach {
-                displayData.bitmap[it] = UtilitySpcMesoInputOutput.getImage(this@SpcMesoActivity, displayData.param[it], sector)
-            }
+            (0 until numPanes).forEach { displayData.bitmap[it] = UtilitySpcMesoInputOutput.getImage(this@SpcMesoActivity, displayData.param[it], sector) }
         }
         (0 until numPanes).forEach {
             if (numPanes > 1) {
@@ -232,9 +222,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
             firstRun = true
         }
         imageLoaded = true
-        if (numPanes > 1) {
-            setTitle()
-        }
+        if (numPanes > 1) setTitle()
     }
 
     private fun getAnimate(frames: Int) = GlobalScope.launch(uiDispatcher) {
@@ -252,9 +240,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true
-        }
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_toggleRadar -> {
                 if (showRadar) {
@@ -361,9 +347,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true
-        }
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_a6 -> getAnimate(6)
             R.id.action_a12 -> getAnimate(12)
@@ -404,9 +388,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         var helpText = withContext(Dispatchers.IO) {
             ("${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/help/help_" + displayData.param[curImg] + ".html").getHtml()
         }
-        if (helpText.contains("Page Not Found")) {
-            helpText = "Help is not available for this parameter."
-        }
+        if (helpText.contains("Page Not Found")) helpText = "Help is not available for this parameter."
         ObjectDialogue(this@SpcMesoActivity, Utility.fromHtml(helpText))
     }
 
@@ -421,9 +403,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
 
     private fun setAndLaunchSector(sectorNo: String) {
         displayData.img[0].resetZoom()
-        if (numPanes > 1) {
-            displayData.img[1].resetZoom()
-        }
+        if (numPanes > 1) displayData.img[1].resetZoom()
         sector = sectorNo
         Utility.writePref(this, prefSector, sector)
         getContent()
@@ -431,9 +411,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
 
     override fun onStop() {
         if (imageLoaded) {
-            (0 until numPanes).forEach {
-                UtilityImg.imgSavePosnZoom(this, displayData.img[it], prefModel + numPanes.toString() + it.toString())
-            }
+            (0 until numPanes).forEach { UtilityImg.imgSavePosnZoom(this, displayData.img[it], prefModel + numPanes.toString() + it.toString()) }
         }
         super.onStop()
     }

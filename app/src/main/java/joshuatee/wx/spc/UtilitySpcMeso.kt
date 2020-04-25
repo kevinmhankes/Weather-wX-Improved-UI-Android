@@ -50,23 +50,15 @@ object UtilitySpcMeso {
     internal fun moveForward(spinner: ObjectSpinner) {
         val originalValue = spinner[swipePosition]
         if (spinner.size() > 3) {
-            swipePosition += if (swipePosition == 0) {
-                3
-            } else {
-                1
-            }
-            if (swipePosition >= spinner.size()) {
-                swipePosition = 0
-            }
+            swipePosition += if (swipePosition == 0) 3 else 1
+            if (swipePosition >= spinner.size()) swipePosition = 0
             spinner.setSelection(swipePosition)
         }
         val newValue = spinner[swipePosition]
         if (newValue == originalValue) {
             if (spinner.size() > 3) {
                 swipePosition += 1
-                if (swipePosition >= spinner.size()) {
-                    swipePosition = 0
-                }
+                if (swipePosition >= spinner.size()) swipePosition = 0
                 spinner.setSelection(swipePosition)
             }
         }
@@ -74,17 +66,9 @@ object UtilitySpcMeso {
 
     internal fun moveBack(spinner: ObjectSpinner) {
         if (spinner.size() > 3) {
-            if (swipePosition >= spinner.size()) {
-                swipePosition = spinner.size() - 1
-            }
-            if (swipePosition == 3) {
-                swipePosition = 0
-            } else {
-                swipePosition -= 1
-            }
-            if (swipePosition == -1) {
-                swipePosition = spinner.size() - 1
-            }
+            if (swipePosition >= spinner.size()) swipePosition = spinner.size() - 1
+            if (swipePosition == 3) swipePosition = 0 else swipePosition -= 1
+            if (swipePosition == -1) swipePosition = spinner.size() - 1
             spinner.setSelection(swipePosition)
         }
     }

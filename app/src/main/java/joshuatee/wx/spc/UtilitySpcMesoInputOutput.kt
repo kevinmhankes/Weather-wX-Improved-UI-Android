@@ -47,11 +47,7 @@ object UtilitySpcMesoInputOutput {
         val showWatchWarn = Utility.readPref(context, prefModel + "_SHOW_WATWARN", "false").startsWith("t")
         val showTopography = Utility.readPref(context, prefModel + "_SHOW_TOPO", "false").startsWith("t")
         val drawables = mutableListOf<Drawable>()
-        val gifUrl = if (UtilitySpcMeso.imgSf.contains(param) && !showRadar) {
-            "_sf.gif"
-        } else {
-            ".gif"
-        }
+        val gifUrl = if (UtilitySpcMeso.imgSf.contains(param) && !showRadar) "_sf.gif" else ".gif"
         val imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/s$sector/$param/$param$gifUrl"
         val radImgUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/s$sector/rgnlrad/rgnlrad.gif"
         val outlookImgUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/s$sector/otlk/otlk.gif"
@@ -59,21 +55,15 @@ object UtilitySpcMesoInputOutput {
         val topographyImgUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/s$sector/topo/topo.gif"
         var bitmap = imgUrl.getImage()
         drawables.add(ColorDrawable(Color.WHITE))
-        if (showTopography) {
-            drawables.add(BitmapDrawable(context.resources, UtilityImg.eraseBackground(topographyImgUrl.getImage(), -1)))
-        }
+        if (showTopography) drawables.add(BitmapDrawable(context.resources, UtilityImg.eraseBackground(topographyImgUrl.getImage(), -1)))
         if (showRadar) {
             val bitmapRadar = radImgUrl.getImage()
             bitmap = UtilityImg.eraseBackground(bitmap, -1)
             drawables.add(BitmapDrawable(context.resources, bitmapRadar))
         }
         drawables.add(BitmapDrawable(context.resources, bitmap))
-        if (showOutlook) {
-            drawables.add(BitmapDrawable(context.resources, UtilityImg.eraseBackground(outlookImgUrl.getImage(), -1)))
-        }
-        if (showWatchWarn) {
-            drawables.add(BitmapDrawable(context.resources, UtilityImg.eraseBackground(watchWarningImgUrl.getImage(), -1)))
-        }
+        if (showOutlook) drawables.add(BitmapDrawable(context.resources, UtilityImg.eraseBackground(outlookImgUrl.getImage(), -1)))
+        if (showWatchWarn) drawables.add(BitmapDrawable(context.resources, UtilityImg.eraseBackground(watchWarningImgUrl.getImage(), -1)))
         return UtilityImg.layerDrawableToBitmap(drawables)
     }
 

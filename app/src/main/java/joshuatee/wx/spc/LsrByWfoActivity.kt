@@ -81,14 +81,8 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
         star = toolbarBottom.menu.findItem(R.id.action_fav)
         val activityArguments = intent.getStringArrayExtra(URL)
         wfo = activityArguments!![0]
-        if (wfo == "") {
-            wfo = "OUN"
-        }
-        prod = if (activityArguments[1] == "") {
-            MyApplication.wfoTextFav
-        } else {
-            activityArguments[1]
-        }
+        if (wfo == "") wfo = "OUN"
+        prod = if (activityArguments[1] == "") MyApplication.wfoTextFav else activityArguments[1]
         toolbar.title = prod
         locations = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
         objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, locations)
@@ -105,9 +99,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, wfoProd.toString(), prod, prod + wfo)) {
-            return true
-        }
+        if (audioPlayMenu(item.itemId, wfoProd.toString(), prod, prod + wfo)) return true
         when (item.itemId) {
             R.id.action_fav -> toggleFavorite()
             R.id.action_map -> imageMap.toggleMap()
@@ -155,9 +147,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
         ridFavOld = MyApplication.wfoFav
         wfoProd = withContext(Dispatchers.IO) { lsrFromWfo }
         linearLayout.removeAllViewsInLayout()
-        wfoProd.forEach {
-            ObjectCardText(this@LsrByWfoActivity, linearLayout, Utility.fromHtml(it))
-        }
+        wfoProd.forEach { ObjectCardText(this@LsrByWfoActivity, linearLayout, Utility.fromHtml(it)) }
     }
 
     private val lsrFromWfo: List<String>
@@ -171,12 +161,8 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
                 localStormReports = listOf("None issued by this office recently.")
             } else {
                 var maxVersions = numberLSR.toIntOrNull() ?: 0
-                if (maxVersions > 30) {
-                    maxVersions = 30
-                }
-                localStormReports = (1..maxVersions + 1 step 2).map {
-                    UtilityDownload.getTextProduct("LSR$wfo", it)
-                }
+                if (maxVersions > 30) maxVersions = 30
+                localStormReports = (1..maxVersions + 1 step 2).map { UtilityDownload.getTextProduct("LSR$wfo", it) }
             }
             return localStormReports
         }

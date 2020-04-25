@@ -59,21 +59,11 @@ object UtilitySpc {
         val marginalStr = "THERE IS A MARGINAL RISK OF"
         var returnStr = ""
         var html = UtilityDownload.getTextProduct(context, prod)
-        if (html.contains(marginalStr)) {
-            returnStr = "marginal"
-        }
-        if (html.contains(slightStr)) {
-            returnStr = "slight"
-        }
-        if (html.contains(enhStr)) {
-            returnStr = "enh"
-        }
-        if (html.contains(moderateStr)) {
-            returnStr = "modt"
-        }
-        if (html.contains(highStr)) {
-            returnStr = "high"
-        }
+        if (html.contains(marginalStr)) returnStr = "marginal"
+        if (html.contains(slightStr)) returnStr = "slight"
+        if (html.contains(enhStr)) returnStr = "enh"
+        if (html.contains(moderateStr)) returnStr = "modt"
+        if (html.contains(highStr)) returnStr = "high"
         html = html.replace("ACUS[0-9]{2} KWNS [0-9]{6}".toRegex(), "")
                 .replace("SWOD[Y4][1-3]".toRegex(), "")
                 .replace("SPC AC [0-9]{6}".toRegex(), "")
@@ -100,17 +90,13 @@ object UtilitySpc {
                 mdPresent = true
                 val items = MyApplication.severeDashboardMcd.value.parseColumn(RegExp.mcdPatternUtilspc)
                 mdCount = items.size
-                items.forEach {
-                    dashboardStrMcd += ":$it"
-                }
+                items.forEach { dashboardStrMcd += ":$it" }
             }
             if (!MyApplication.severeDashboardWat.value.contains(watchNothingString)) {
                 watchPresent = true
                 val items = MyApplication.severeDashboardWat.value.parseColumn(RegExp.watchPattern)
                 watchCount = items.size
-                items.forEach {
-                    dashboardStrWat += ":$it"
-                }
+                items.forEach { dashboardStrWat += ":$it" }
             }
         }
         if (MyApplication.checkwpc) {
@@ -118,23 +104,15 @@ object UtilitySpc {
                 mpdPresent = true
                 val items = MyApplication.severeDashboardMpd.value.parseColumn(RegExp.mpdPattern)
                 mpdCount = items.size
-                items.forEach {
-                    dashboardStrMpd += ":$it"
-                }
+                items.forEach { dashboardStrMpd += ":$it" }
             }
         }
         var label = MyApplication.tabHeaders[1]
         val tabStrSpc: String
         if (watchPresent || mdPresent || mpdPresent) {
-            if (watchPresent) {
-                label += " W($watchCount)"
-            }
-            if (mdPresent) {
-                label += " M($mdCount)"
-            }
-            if (mpdPresent) {
-                label += " P($mpdCount)"
-            }
+            if (watchPresent) label += " W($watchCount)"
+            if (mdPresent) label += " M($mdCount)"
+            if (mpdPresent) label += " P($mpdCount)"
             tabStrSpc = label
         } else {
             tabStrSpc = MyApplication.tabHeaders[1]
@@ -148,9 +126,7 @@ object UtilitySpc {
             tStormCount = UtilityVtec.getStormCount(MyApplication.severeDashboardTst.value)
             torCount = UtilityVtec.getStormCount(MyApplication.severeDashboardTor.value)
             floodCount = UtilityVtec.getStormCount(MyApplication.severeDashboardFfw.value)
-            if (tStormCount > 0 || torCount > 0 || floodCount > 0) {
-                usWarnPresent = true
-            }
+            if (tStormCount > 0 || torCount > 0 || floodCount > 0) usWarnPresent = true
         }
         val tabStr = if (usWarnPresent) {
             MyApplication.tabHeaders[2] + " W(" + tStormCount + "," + torCount + "," + floodCount + ")"

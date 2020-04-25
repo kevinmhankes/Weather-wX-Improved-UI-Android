@@ -109,10 +109,7 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
-        objectWatchProduct.wfos.forEach {
-            menu.add(0, v.id, 0, "Add location: $it - " + Utility.getWfoSiteName(it)
-            )
-        }
+        objectWatchProduct.wfos.forEach { menu.add(0, v.id, 0, "Add location: $it - " + Utility.getWfoSiteName(it)) }
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
@@ -123,9 +120,7 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, objectWatchProduct.text, number, objectWatchProduct.prod)) {
-            return true
-        }
+        if (audioPlayMenu(item.itemId, objectWatchProduct.text, number, objectWatchProduct.prod)) return true
         when (item.itemId) {
             R.id.action_share_all -> UtilityShare.shareBitmap(this, this, objectWatchProduct.title, objectWatchProduct.bitmap, Utility.fromHtml(objectWatchProduct.text))
             R.id.action_share_text -> UtilityShare.shareText(this, objectWatchProduct.title, Utility.fromHtml(objectWatchProduct.text))

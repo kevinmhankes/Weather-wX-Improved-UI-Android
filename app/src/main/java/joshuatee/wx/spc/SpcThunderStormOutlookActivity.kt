@@ -52,9 +52,7 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.shared_multigraphics, true)
-        if (UtilityUI.isLandScape(this)) {
-            imagesPerRow = 3
-        }
+        if (UtilityUI.isLandScape(this)) imagesPerRow = 3
         toolbarBottom.setOnMenuItemClickListener(this)
         toolbar.subtitle = "SPC"
         title = "Thunderstorm Outlooks"

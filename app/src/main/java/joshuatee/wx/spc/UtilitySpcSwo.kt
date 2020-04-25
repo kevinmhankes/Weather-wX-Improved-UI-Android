@@ -33,9 +33,7 @@ internal object UtilitySpcSwo {
     fun getImages(day: String, getAllImages: Boolean): List<Bitmap> {
         val imgUrls = mutableListOf<String>()
         if (day == "4-8" || day == "48" || day == "4") {
-            (4..8).forEach {
-                imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/exper/day4-8/day" + it.toString() + "prob.gif")
-            }
+            (4..8).forEach { imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/exper/day4-8/day" + it.toString() + "prob.gif") }
             return imgUrls.map { it.getImage() }
         } else {
             val html = ("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day" + day + "otlk.html").getHtml()
@@ -54,20 +52,14 @@ internal object UtilitySpcSwo {
                 else -> {
                 }
             }
-            return if (getAllImages) {
-                imgUrls.map { it.getImage() }
-            } else {
-                listOf(imgUrls[0].getImage())
-            }
+            return if (getAllImages) imgUrls.map { it.getImage() } else listOf(imgUrls[0].getImage())
         }
     }
 
     fun getUrls(day: String): List<String> {
         val imgUrls = mutableListOf<String>()
         if (day == "4-8" || day == "48" || day == "4") {
-            (4..8).forEach {
-                imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/exper/day4-8/day" + it.toString() + "prob.gif")
-            }
+            (4..8).forEach { imgUrls.add("${MyApplication.nwsSPCwebsitePrefix}/products/exper/day4-8/day" + it.toString() + "prob.gif") }
             return imgUrls
         } else {
             val html = ("${MyApplication.nwsSPCwebsitePrefix}/products/outlook/day" + day + "otlk.html").getHtml()

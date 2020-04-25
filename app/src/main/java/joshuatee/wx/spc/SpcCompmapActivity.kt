@@ -76,9 +76,7 @@ class SpcCompmapActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     private fun setupInitLayerString() {
         val items = layerStr.split(":").dropLastWhile { it.isEmpty() }
-        items.forEach {
-            selectItemNoGet(it.replace("a", "").toIntOrNull() ?: 0)
-        }
+        items.forEach { selectItemNoGet(it.replace("a", "").toIntOrNull() ?: 0) }
     }
 
     private fun selectItemNoGet(positionF: Int) {
@@ -91,9 +89,7 @@ class SpcCompmapActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         }
         drw.listView.setItemChecked(position, false)
         drw.drawerLayout.closeDrawer(drw.listView)
-        if (!paramList[position].contains("(on)")) {
-            paramList[position] = "(on) " + paramList[position]
-        }
+        if (!paramList[position].contains("(on)")) paramList[position] = "(on) " + paramList[position]
     }
 
     override fun onRestart() {
@@ -121,9 +117,7 @@ class SpcCompmapActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true
-        }
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_share -> UtilityShare.shareBitmap(this, this, "SPC Compmap", bitmap)
             else -> return super.onOptionsItemSelected(item)

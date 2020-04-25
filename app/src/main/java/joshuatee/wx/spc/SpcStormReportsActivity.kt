@@ -104,9 +104,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         year = cal.get(Calendar.YEAR)
         month = cal.get(Calendar.MONTH)
         day = cal.get(Calendar.DAY_OF_MONTH)
-        if (no == "yesterday") {
-            day -= 1
-        }
+        if (no == "yesterday") day -= 1
         previousYear = year
         previousMonth = month
         previousDay = day
@@ -181,9 +179,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 stormCard.setId(k)
                 linearLayout.addView(stormCard.card)
                 stormCard.setTextFields(stormReport)
-                if (!isHeader) {
-                    registerForContextMenu(stormCard.card)
-                }
+                if (!isHeader) registerForContextMenu(stormCard.card)
                 val xStr = stormReport.lat
                 val yStr = stormReport.lon
                 stormCard.setListener(View.OnClickListener {
@@ -191,9 +187,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 })
                 if (!(stormReport.description.contains("(") && stormReport.description.contains(")"))) {
                     stormCard.setTextHeader(stormReport)
-                    stormCard.setListener(View.OnClickListener {
-                        scrollView.smoothScrollTo(0, 0)
-                    })
+                    stormCard.setListener(View.OnClickListener { scrollView.smoothScrollTo(0, 0) })
                 }
             }
         }
@@ -204,21 +198,13 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         if (firstRun) {
             stateArray = mapState.keys.toList()
             val stateArrayLabel = mutableListOf<String>()
-            stateArray.indices.forEach {
-                stateArrayLabel.add(stateArray[it] + ": " + mapState[stateArray[it]])
-            }
-            if (stateArrayLabel.size > 0) {
-                objectNavDrawer.updateLists(this@SpcStormReportsActivity, stateArrayLabel)
-            }
+            stateArray.indices.forEach { stateArrayLabel.add(stateArray[it] + ": " + mapState[stateArray[it]]) }
+            if (stateArrayLabel.size > 0) objectNavDrawer.updateLists(this@SpcStormReportsActivity, stateArrayLabel)
             firstRun = false
         }
         title = "($stormCnt) Storm Reports"
         toolbar.subtitle = no
-        if (stormCnt > 0) {
-            objectCardText.visibility = View.VISIBLE
-        } else {
-            objectCardText.visibility = View.GONE
-        }
+        if (stormCnt > 0) objectCardText.visibility = View.VISIBLE else objectCardText.visibility = View.GONE
     }
 
     private val pDateSetListener =
@@ -279,9 +265,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         var time = stormReports[id].time
         var radarSite = UtilityLocation.getNearestOffice("RADAR", LatLon(x, y))
         time = UtilityStringExternal.truncate(time, 3)
-        if (prod == "TR0" || prod == "TV0") {
-            radarSite = WXGLNexrad.getTdwrFromRid(radarSite)
-        }
+        if (prod == "TR0" || prod == "TV0") radarSite = WXGLNexrad.getTdwrFromRid(radarSite)
         if ((stormReports[id].time.toIntOrNull() ?: 0) < 1000) {
             monthStr = String.format(Locale.US, "%02d", month + 1)
             dayStr = String.format(Locale.US, "%02d", day + 1)
@@ -295,9 +279,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             x = "0.0"
             y = "0.0"
         }
-        if (prod == "L2REF" || prod == "L2VEL") {
-            ObjectIntent.showRadar(this, arrayOf(radarSite, "", prod, "", patternL2, x, y))
-        }
+        if (prod == "L2REF" || prod == "L2VEL") ObjectIntent.showRadar(this, arrayOf(radarSite, "", prod, "", patternL2, x, y))
     }
 
     private fun updateIowaMesoData() {
@@ -310,12 +292,8 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true
-        }
-        if (audioPlayMenu(item.itemId, out.toString(), "spcstreports", "spcstreports")) {
-            return true
-        }
+        if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
+        if (audioPlayMenu(item.itemId, out.toString(), "spcstreports", "spcstreports")) return true
         when (item.itemId) {
             R.id.action_share_all -> UtilityShare.shareBitmap(this, this, "Storm Reports - $no", bitmap, out.toString())
             R.id.action_share_text -> UtilityShare.shareText(this, "Storm Reports - $no", out.toString())
@@ -327,9 +305,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)){
-            return true
-        }
+        if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         return super.onOptionsItemSelected(item)
     }
 }
