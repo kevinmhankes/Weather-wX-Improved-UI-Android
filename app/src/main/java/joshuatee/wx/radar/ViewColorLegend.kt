@@ -72,9 +72,7 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
         paintText.strokeWidth = 1f
         paintText.textSize = 30f
         paintText.color = Color.rgb(255, 255, 255)
-        if (!MyApplication.blackBg) {
-            paintText.color = Color.BLACK
-        }
+        if (!MyApplication.blackBg) paintText.color = Color.BLACK
         val startHeight = MyApplication.actionBarHeight.toFloat()
         val width = 50f
         val widthStarting = 0f

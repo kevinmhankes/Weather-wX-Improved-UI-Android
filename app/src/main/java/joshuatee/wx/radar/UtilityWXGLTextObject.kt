@@ -24,19 +24,13 @@ package joshuatee.wx.radar
 object UtilityWXGLTextObject {
 
     fun hideLabels(numPanes: Int, textObjects: MutableList<WXGLTextObject>): Unit =
-        (0 until numPanes).forEach {
-            textObjects[it].hideLabels()
-        }
+        (0 until numPanes).forEach { textObjects[it].hideLabels() }
 
     fun showLabels(numPanes: Int, textObjects: MutableList<WXGLTextObject>): Unit =
-        (0 until numPanes).forEach {
-            textObjects[it].addLabels()
-        }
+        (0 until numPanes).forEach { textObjects[it].addLabels() }
 
     fun updateSpotterLabels(numPanes: Int, textObjects: MutableList<WXGLTextObject>) {
-        (0 until numPanes).forEach {
-            textObjects[it].addSpottersLabels()
-        }
+        (0 until numPanes).forEach { textObjects[it].addSpottersLabels() }
     }
 
     fun updateObservations(numPanes: Int, textObjects: MutableList<WXGLTextObject>) {
@@ -47,8 +41,6 @@ object UtilityWXGLTextObject {
     }
 
     fun updateWpcFronts(numPanes: Int, textObjects: MutableList<WXGLTextObject>) {
-        (0 until numPanes).forEach {
-            textObjects[it].addWpcPressureCenters()
-        }
+        (0 until numPanes).forEach { textObjects[it].addWpcPressureCenters() }
     }
 }

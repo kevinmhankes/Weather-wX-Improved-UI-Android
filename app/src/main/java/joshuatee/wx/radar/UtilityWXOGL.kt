@@ -48,9 +48,7 @@ object UtilityWXOGL {
             "HKI", "HMO", "HKM", "HWA", "APD", "ACG", "AIH", "AHG", "AKC", "ABC", "AEC", "GUA" -> "p"
             else -> "k"
         }
-        if (WXGLNexrad.isProductTdwr(product)) {
-            ridPrefix = ""
-        }
+        if (WXGLNexrad.isProductTdwr(product)) ridPrefix = ""
         return ridPrefix
     }
 
@@ -60,9 +58,7 @@ object UtilityWXOGL {
             "HKI", "HMO", "HKM", "HWA", "APD", "ACG", "AIH", "AHG", "AKC", "ABC", "AEC", "GUA" -> "p"
             else -> "k"
         }
-        if (tdwr) {
-            ridPrefix = ""
-        }
+        if (tdwr) ridPrefix = ""
         return ridPrefix
     }
 
@@ -87,17 +83,9 @@ object UtilityWXOGL {
             val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, l3BaseFn + indexString))
             dis.bigEndian = true
             // ADVANCE PAST WMO HEADER
-            while (true) {
-                if (dis.readShort().toInt() == -1) {
-                    break
-                }
-            }
+            while (true) if (dis.readShort().toInt() == -1) break
             dis.skipBytes(26) // 3 int (12) + 7*2 (14)
-            while (true) {
-                if (dis.readShort().toInt() == -1) {
-                    break
-                }
-            }
+            while (true) if (dis.readShort().toInt() == -1) break
             var byte: Byte?
             var vSpotted = false
             output += "<font face=monospace><small>"
@@ -105,9 +93,7 @@ object UtilityWXOGL {
                 while (!dis.isAtEndOfFile) {
                     byte = dis.readByte()
                     if (android.os.Build.VERSION.SDK_INT >= 19) {
-                        if (byte.toChar() == 'V') {
-                            vSpotted = true
-                        }
+                        if (byte.toChar() == 'V') vSpotted = true
                         if (Character.isAlphabetic(byte.toInt()) || Character.isWhitespace(byte.toInt())
                                 || Character.isDigit(byte.toInt()) || Character.isISOControl(byte.toInt()) || Character.isDefined(byte.toInt())) {
                             if (vSpotted) {
@@ -138,11 +124,7 @@ object UtilityWXOGL {
 
     fun showTextProducts(latLon: LatLon): String {
         var html = MyApplication.severeDashboardTor.value + MyApplication.severeDashboardTst.value + MyApplication.severeDashboardFfw.value
-        MyApplication.radarWarningPolygons.forEach {
-            if (it.isEnabled) {
-                html += it.storage.value
-            }
-        }
+        MyApplication.radarWarningPolygons.forEach { if (it.isEnabled) html += it.storage.value }
         // discard  "id": "https://api.weather.gov/alerts/NWS-IDP-PROD-3771044",            "type": "Feature",            "geometry": null,
         // Special Weather Statements can either have a polygon or maybe not, need to strip out those w/o polygon
         val urlList = html.parseColumn("\"id\"\\: .(https://api.weather.gov/alerts/NWS-IDP-.*?)\"").toMutableList()

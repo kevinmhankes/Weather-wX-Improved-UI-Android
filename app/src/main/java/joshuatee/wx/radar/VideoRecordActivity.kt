@@ -62,11 +62,7 @@ abstract class VideoRecordActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar_top)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        toolbarBottom = if (bottomToolbar) {
-            findViewById(R.id.toolbar_bottom)
-        } else {
-            Toolbar(this as Context)
-        }
+        toolbarBottom = if (bottomToolbar) findViewById(R.id.toolbar_bottom) else Toolbar(this as Context)
         // for model activities need to force false regardless of user setting
         if (menuResId != null && bottomToolbar) {
             if (MyApplication.iconsEvenSpaced && iconsEvenlySpaced) {
@@ -82,10 +78,7 @@ abstract class VideoRecordActivity : AppCompatActivity() {
 
     protected fun checkOverlayPerms() {
         if (isStoragePermissionGranted) {
-            if (Build.VERSION.SDK_INT > 22)
-                checkDrawOverlayPermission()
-            else
-                fireScreenCaptureIntent()
+            if (Build.VERSION.SDK_INT > 22) checkDrawOverlayPermission() else fireScreenCaptureIntent()
         }
     }
 
@@ -100,17 +93,14 @@ abstract class VideoRecordActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE_PERM) {
             if (Build.VERSION.SDK_INT >= 23) {
-                if (Settings.canDrawOverlays(this)) {
-                    // continue here - permission was granted
-                    fireScreenCaptureIntent()
-                }
+                if (Settings.canDrawOverlays(this)) fireScreenCaptureIntent()
             }
         }
         if (requestCode == CREATE_SCREEN_CAPTURE && resultCode == Activity.RESULT_OK) {
-            val ti = TelecineService.newIntent(applicationContext, resultCode, data)
-            ti.putExtra("show_distance_tool", showDistanceTool)
-            ti.putExtra("show_recording_tools", "true")
-            startService(ti)
+            val intent = TelecineService.newIntent(applicationContext, resultCode, data)
+            intent.putExtra("show_distance_tool", showDistanceTool)
+            intent.putExtra("show_recording_tools", "true")
+            startService(intent)
         }
     }
 
@@ -119,14 +109,9 @@ abstract class VideoRecordActivity : AppCompatActivity() {
             /** check if we already  have permission to draw over other apps  */
             if (!Settings.canDrawOverlays(this)) {
                 /** if not construct intent to request permission  */
-                val intent = Intent(
-                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:$packageName")
-                )
+                val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName"))
                 /** request permission via start activity for result  */
                 startActivityForResult(intent, REQUEST_CODE_PERM)
-                //fireScreenCaptureIntent()
-
             } else {
                 fireScreenCaptureIntent()
             }
@@ -140,11 +125,7 @@ abstract class VideoRecordActivity : AppCompatActivity() {
                 if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     true
                 } else {
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                        1
-                    )
+                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
                     false
                 }
             } else {

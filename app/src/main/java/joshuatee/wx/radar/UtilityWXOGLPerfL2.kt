@@ -45,14 +45,10 @@ internal object UtilityWXOGLPerfL2 {
         try {
             val fos = context.openFileOutput(fileName, Context.MODE_PRIVATE)
             val wChannel = fos.channel
-            while (days.hasRemaining())
-                wChannel.write(days)
-            while (milliSeconds.hasRemaining())
-                wChannel.write(milliSeconds)
-            while (radialStart.hasRemaining())
-                wChannel.write(radialStart)
-            while (binWord.hasRemaining())
-                wChannel.write(binWord)
+            while (days.hasRemaining()) wChannel.write(days)
+            while (milliSeconds.hasRemaining()) wChannel.write(milliSeconds)
+            while (radialStart.hasRemaining()) wChannel.write(radialStart)
+            while (binWord.hasRemaining()) wChannel.write(binWord)
             wChannel.close()
             fos.close()
         } catch (e: Exception) {
@@ -68,14 +64,10 @@ internal object UtilityWXOGLPerfL2 {
         try {
             val file = File(context.filesDir, fileName)
             val rChannel = FileInputStream(file).channel
-            while (days.hasRemaining())
-                rChannel.read(days)
-            while (milliSeconds.hasRemaining())
-                rChannel.read(milliSeconds)
-            while (radialStart.hasRemaining())
-                rChannel.read(radialStart)
-            while (binWord.hasRemaining())
-                rChannel.read(binWord)
+            while (days.hasRemaining()) rChannel.read(days)
+            while (milliSeconds.hasRemaining()) rChannel.read(milliSeconds)
+            while (radialStart.hasRemaining()) rChannel.read(radialStart)
+            while (binWord.hasRemaining()) rChannel.read(binWord)
             rChannel.close()
         } catch (e: Exception) {
             UtilityLog.handleException(e)
@@ -112,10 +104,7 @@ internal object UtilityWXOGLPerfL2 {
     private fun uncompress(context: Context, inputRaf: UCARRandomAccessFile, ufilename: String, productCode: Int): UCARRandomAccessFile {
         val outputRaf = UCARRandomAccessFile(File(context.filesDir, ufilename).absolutePath, "rw")
         outputRaf.bigEndian = true
-        val loopCntBreak = if (productCode == 153)
-            5
-        else
-            11
+        val loopCntBreak = if (productCode == 153) 5 else 11
         val refDecompSize = 827040
         val velDecompSize = 460800
         var loopCnt = 0
@@ -123,9 +112,7 @@ internal object UtilityWXOGLPerfL2 {
             inputRaf.seek(0)
             val header = ByteArray(FILE_HEADER_SIZE)
             val bytesRead = inputRaf.read(header)
-            if (bytesRead != header.size) {
-                throw IOException("Error reading NEXRAD2 header -- got " + bytesRead + " rather than" + header.size)
-            }
+            if (bytesRead != header.size) throw IOException("Error reading NEXRAD2 header -- got " + bytesRead + " rather than" + header.size)
             outputRaf.write(header)
             var eof = false
             var numCompBytes: Int
@@ -135,9 +122,7 @@ internal object UtilityWXOGLPerfL2 {
             while (!eof) {
                 try {
                     numCompBytes = inputRaf.readInt()
-                    if (numCompBytes == -1) {
-                        break
-                    }
+                    if (numCompBytes == -1) break
                 } catch (ee: EOFException) {
                     Log.i("wx", "got EOFException")
                     break // assume this is ok
@@ -170,15 +155,12 @@ internal object UtilityWXOGLPerfL2 {
                         total += nread
                         nread = cbzip2.read(ubuff)
                     }
-                    if (obuff.size >= 0)
-                        outputRaf.write(obuff, 0, total)
+                    if (obuff.size >= 0) outputRaf.write(obuff, 0, total)
                 } catch (e: Exception) {
                     UtilityLog.handleException(e)
                 }
-                if (total == refDecompSize || total == velDecompSize)
-                    loopCnt += 1
-                if (loopCnt > loopCntBreak)
-                    break
+                if (total == refDecompSize || total == velDecompSize) loopCnt += 1
+                if (loopCnt > loopCntBreak) break
                 cbzip2.close()
             }
             bis?.close()

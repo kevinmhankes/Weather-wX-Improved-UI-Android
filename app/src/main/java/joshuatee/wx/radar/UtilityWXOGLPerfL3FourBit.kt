@@ -54,9 +54,7 @@ internal object UtilityWXOGLPerfL3FourBit {
                 for (s in 0 until numberOfRleHalfWords[r] * 2) {
                     bin = dataInputStream.readUnsignedByte().toShort()
                     numOfBins = bin.toInt() shr 4
-                    for (u in 0 until numOfBins) {
-                        binWord.put((bin % 16).toByte())
-                    }
+                    for (u in 0 until numOfBins) { binWord.put((bin % 16).toByte()) }
                 }
             }
             dataInputStream.close()

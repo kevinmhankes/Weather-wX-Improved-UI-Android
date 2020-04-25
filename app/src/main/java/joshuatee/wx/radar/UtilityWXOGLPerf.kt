@@ -100,22 +100,15 @@ internal object UtilityWXOGLPerf {
                 level = 0.toByte()
                 levelCount = 0
                 binStart = radarBuffers.binSize
-                if (radialNumber == 0) {
-                    angle0 = angle
-                }
-                angleV = if (radialNumber < numberOfRadials - 1)
-                    angleNext
-                else
-                    angle0
+                if (radialNumber == 0) angle0 = angle
+                angleV = if (radialNumber < numberOfRadials - 1) angleNext else angle0
                 for (bin in 0 until numberOfRleHalfWords) {
                     try {
                         curLevel = (dataInputStream.readUnsignedByte() and 0xFF).toByte() // was dis2!!.readUnsignedByte().toInt()
                     } catch (e: Exception) {
                         UtilityLog.handleException(e)
                     }
-                    if (bin == 0) {
-                        level = curLevel
-                    }
+                    if (bin == 0) level = curLevel
                     if (curLevel == level) {
                         levelCount += 1
                     } else {
@@ -292,9 +285,7 @@ internal object UtilityWXOGLPerf {
         }
         for (chunkIndex in 0 until chunkCount) {
             var indexCount = 0
-            if (chunkIndex == chunkCount - 1) {
-                breakSize = remainder
-            }
+            if (chunkIndex == chunkCount - 1) breakSize = remainder
             for (notUsed in 0 until breakSize) {
                 indexBuff.putShort(indexForIndex, indexCount.toShort())
                 indexForIndex += 2
@@ -330,9 +321,7 @@ internal object UtilityWXOGLPerf {
         indexBuff.position(0)
         (0 until chunkCount).forEach {
             var indexCount = 0
-            if (it == chunkCount - 1) {
-                breakSize = remainder
-            }
+            if (it == chunkCount - 1) breakSize = remainder
             for (notUsed in 0 until breakSize) {
                 indexBuff.putShort(indexForIndex, indexCount.toShort())
                 indexForIndex += 2
@@ -561,8 +550,7 @@ internal object UtilityWXOGLPerf {
                 numberOfRleHalfwords = dataInputStream.readUnsignedShort()
                 tn = dataInputStream.readUnsignedShort()
                 // the code below must stay as drawing to canvas is not as precise as opengl directly for some reason
-                if (tn % 2 == 1)
-                    tn += 1
+                if (tn % 2 == 1) tn += 1
                 tnMod10 = tn % 10
                 if (tnMod10 in 1..4)
                     tn -= tnMod10
@@ -570,9 +558,7 @@ internal object UtilityWXOGLPerf {
                     tn = tn - tnMod10 + 10
                 radialStartAngle.putFloat((450 - tn / 10).toFloat())
                 dataInputStream.skipBytes(2)
-                for (s in 0 until numberOfRleHalfwords) {
-                    binWord.put((dataInputStream.readUnsignedByte() and 0xFF).toByte())
-                }
+                for (s in 0 until numberOfRleHalfwords) { binWord.put((dataInputStream.readUnsignedByte() and 0xFF).toByte()) }
             }
             dataInputStream.close()
         } catch (e: Exception) {
@@ -598,12 +584,9 @@ internal object UtilityWXOGLPerf {
     fun colorGen(colorBuff: ByteBuffer, length: Int, colors: ByteArray) {
         if (length * 3 <= colorBuff.limit()) {
             for (notUsed in 0 until length) {
-                if (colorBuff.hasRemaining())
-                    colorBuff.put(colors[0])
-                if (colorBuff.hasRemaining())
-                    colorBuff.put(colors[1])
-                if (colorBuff.hasRemaining())
-                    colorBuff.put(colors[2])
+                if (colorBuff.hasRemaining()) colorBuff.put(colors[0])
+                if (colorBuff.hasRemaining()) colorBuff.put(colors[1])
+                if (colorBuff.hasRemaining()) colorBuff.put(colors[2])
             }
         }
     }
