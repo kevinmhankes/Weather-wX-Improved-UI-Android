@@ -33,6 +33,7 @@
 // TODO [FIX] nexrad cities performance
 
 55400 2020_04_25    [REF] misc
+                    [FIX] NCEP MAG HRRR animation was not working
 55399 2020_04_25    [REF] misc
 55398 2020_04_25    [REF] misc
 55397 2020_04_19    [ADD] Android Studio/gradle update

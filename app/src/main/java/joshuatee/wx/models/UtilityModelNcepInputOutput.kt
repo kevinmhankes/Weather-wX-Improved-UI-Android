@@ -33,6 +33,7 @@ import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp
 import joshuatee.wx.util.UtilityImgAnim
+import joshuatee.wx.util.UtilityLog
 
 internal object UtilityModelNcepInputOutput {
 
@@ -54,12 +55,13 @@ internal object UtilityModelNcepInputOutput {
     }
 
     fun getImage(om: ObjectModel, time: String): Bitmap {
+        val modifiedTime = if (om.model == "HRRR" && time.length ==  3) time + "00" else time
         val imgUrl = when (om.model) {
             "GFS" -> "${MyApplication.nwsMagNcepWebsitePrefix}/data/" + om.model.toLowerCase(Locale.US) + "/" + om.run.replace("Z", "") +
                     "/" + om.sector.toLowerCase(Locale.US) + "/" + om.currentParam + "/" + om.model.toLowerCase(Locale.US) + "_" +
                     om.sector.toLowerCase(Locale.US) + "_" + time + "_" + om.currentParam + ".gif"
             "HRRR" -> "${MyApplication.nwsMagNcepWebsitePrefix}/data/" + om.model.toLowerCase(Locale.US) + "/" + om.run.replace("Z", "") +
-                    "/" + om.model.toLowerCase(Locale.US) + "_" + om.sector.toLowerCase(Locale.US) + "_" + time + "00_" + om.currentParam + ".gif"
+                    "/" + om.model.toLowerCase(Locale.US) + "_" + om.sector.toLowerCase(Locale.US) + "_" + modifiedTime + "_" + om.currentParam + ".gif"
             else -> "${MyApplication.nwsMagNcepWebsitePrefix}/data/" + om.model.toLowerCase(Locale.US) + "/" + om.run.replace("Z", "") +
                     "/" + om.model.toLowerCase(Locale.US) + "_" + om.sector.toLowerCase(Locale.US) + "_" + time + "_" + om.currentParam + ".gif"
         }
