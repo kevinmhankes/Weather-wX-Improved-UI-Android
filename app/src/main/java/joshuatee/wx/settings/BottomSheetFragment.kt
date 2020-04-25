@@ -68,9 +68,7 @@ class BottomSheetFragment(private val actContext: Context, val position: Int, pr
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (usedForLocation && Location.numLocations == 1) {
-            textViewList[1].tv.visibility = View.INVISIBLE
-            textViewList[2].tv.visibility = View.INVISIBLE
-            textViewList[3].tv.visibility = View.INVISIBLE
+            listOf(1,2,3).forEach{ textViewList[it].tv.visibility = View.INVISIBLE }
         }
         initView()
     }
