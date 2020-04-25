@@ -124,9 +124,7 @@ class ExternalGeodeticCalculator {
         // build result
         val latitude = toDegrees(phi2)
         val longitude = start.longitude + toDegrees(bigL)
-        if (endBearing != null && endBearing.isNotEmpty()) {
-            endBearing[0] = toDegrees(alpha2)
-        }
+        if (endBearing != null && endBearing.isNotEmpty()) endBearing[0] = toDegrees(alpha2)
         return ExternalGlobalCoordinates(latitude, longitude)
     }
 }

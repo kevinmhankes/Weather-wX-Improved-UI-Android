@@ -95,9 +95,7 @@ class DrawLineView : View {
         paint.strokeWidth = MyApplication.drawToolSize.toFloat()
         paint.textSize = textSize
         paintText.color = Color.WHITE
-        if (!MyApplication.blackBg) {
-            paintText.color = Color.BLACK
-        }
+        if (!MyApplication.blackBg) paintText.color = Color.BLACK
         paintText.isAntiAlias = true
         paintText.strokeWidth = 4.5f
         paintText.textSize = textSize

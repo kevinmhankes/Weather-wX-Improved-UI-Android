@@ -132,9 +132,7 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
         }
 
         private fun validate() {
-            if (vertexes.size < 3) {
-                throw RuntimeException("Polygon must have at least 3 points")
-            }
+            if (vertexes.size < 3) throw RuntimeException("Polygon must have at least 3 points")
         }
     }
     /**
@@ -149,16 +147,12 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
             val ray = createRay(point)
             var intersection = 0
             for (side in sides) {
-                if (intersect(ray, side)) {
-                    intersection += 1
-                }
+                if (intersect(ray, side)) intersection += 1
             }
             /*
 			 * If the number of intersections is odd, then the point is inside the polygon
 			 */
-            if (intersection % 2 == 1) {
-                return true
-            }
+            if (intersection % 2 == 1) return true
         }
         return false
     }
@@ -225,9 +219,7 @@ class ExternalPolygon private constructor(private val sides: List<ExternalLine>,
 
         fun polygonContainsPoint(latLon: LatLon, latLons: List<LatLon>): Boolean {
             val polygonFrame = Builder()
-            latLons.forEach {
-                polygonFrame.addVertex(ExternalPoint(it))
-            }
+            latLons.forEach { polygonFrame.addVertex(ExternalPoint(it)) }
             val polygonShape = polygonFrame.build()
             return polygonShape.contains(latLon.asPoint())
         }

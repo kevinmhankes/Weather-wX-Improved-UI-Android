@@ -37,9 +37,7 @@ object UtilityStringExternal {
      */
     fun truncate(value: String, length: Int): String {
         var valueLocal = value
-        if (valueLocal.length > length) {
-            valueLocal = valueLocal.substring(0, length)
-        }
+        if (valueLocal.length > length) valueLocal = valueLocal.substring(0, length)
         return valueLocal
     }
 }

@@ -243,11 +243,7 @@ class LocationFragment : Fragment()  {
         linearLayout = view.findViewById(R.id.ll)
         // The button the user will tape so change location
         locationLabel = ObjectCardText(activityReference, linearLayout, Location.name, TextSize.MEDIUM)
-        val locationLabelPadding = if (UtilityUI.isTablet()) {
-            10
-        } else {
-            20
-        }
+        val locationLabelPadding = if (UtilityUI.isTablet()) 10 else 20
         locationLabel.tv.setPadding(locationLabelPadding)
         locationLabel.setTextColor(UIPreferences.textHighlightColor)
         locationLabel.setOnClickListener(OnClickListener { locationDialogue.show() })
@@ -287,15 +283,12 @@ class LocationFragment : Fragment()  {
             Location.currentLocationStr = (position + 1).toString()
             x = Location.x
             y = Location.y
-            if (oglrIdx != -1)
-                radarLocationChangedAl[oglrIdx] = false
+            if (oglrIdx != -1) radarLocationChangedAl[oglrIdx] = false
             if (MyApplication.locDisplayImg && oglrIdx != -1) {
                 wxglSurfaceViews[oglrIdx].scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
                 wxglRenders[oglrIdx].setViewInitial(MyApplication.wxoglSize.toFloat() / 10.0f, 0.0f, 0.0f)
             }
-            homeScreenImageCards.forEach {
-                it.resetZoom()
-            }
+            homeScreenImageCards.forEach { it.resetZoom() }
             setImageOnClick()
             getContent()
         } else {
@@ -312,20 +305,12 @@ class LocationFragment : Fragment()  {
     fun getContent() {
         locationLabel.text = Location.name
         sevenDayExtShown = false
-        if (needForecastData) {
-            getForecastData()
-        }
-        homeScreenTextCards.indices.forEach {
-            getTextProduct(it.toString())
-        }
-        homeScreenImageCards.indices.forEach {
-            getImageProduct(it.toString())
-        }
+        if (needForecastData) getForecastData()
+        homeScreenTextCards.indices.forEach { getTextProduct(it.toString()) }
+        homeScreenImageCards.indices.forEach { getImageProduct(it.toString()) }
         x = Location.x
         y = Location.y
-        if (MyApplication.locDisplayImg) {
-            getAllRadars()
-        }
+        if (MyApplication.locDisplayImg) getAllRadars()
         val currentTime = UtilityTime.currentTimeMillis()
         lastRefresh = currentTime / 1000
         Utility.writePref(activityReference, "LOC_LAST_UPDATE", lastRefresh)
@@ -334,23 +319,15 @@ class LocationFragment : Fragment()  {
     override fun onResume() {
         super.onResume()
         if (glviewInitialized) {
-            wxglSurfaceViews.forEach {
-                it.onResume()
-            }
+            wxglSurfaceViews.forEach { it.onResume() }
         }
         cardCC?.refreshTextSize()
         locationLabel.refreshTextSize(TextSize.MEDIUM)
         locationLabel.text = Location.name
-        sevenDayCards.forEach{
-            it.refreshTextSize()
-        }
+        sevenDayCards.forEach{ it.refreshTextSize() }
         cardSunrise?.refreshTextSize(TextSize.MEDIUM)
-        homeScreenTextCards.forEach{
-            it.refreshTextSize()
-        }
-        hazardsCards.forEach{
-            it.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-        }
+        homeScreenTextCards.forEach{ it.refreshTextSize() }
+        hazardsCards.forEach{ it.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal) }
         // TODO use a Timer class to handle the data refresh stuff
         val currentTime = UtilityTime.currentTimeMillis()
         val currentTimeSec = currentTime / 1000
@@ -382,16 +359,11 @@ class LocationFragment : Fragment()  {
     private fun getRadar(idx: Int) = GlobalScope.launch(uiDispatcher) {
         var radarTimeStampLocal = ""
         if (oglrIdx != -1)
-            if (!radarLocationChangedAl[oglrIdx])
-                wxglRenders[oglrIdx].rid = Location.rid
-        if (wxglRenders[idx].product == "N0Q" && WXGLNexrad.isRidTdwr(wxglRenders[idx].rid))
-            wxglRenders[idx].product = "TZL"
-        if (wxglRenders[idx].product == "TZL" && !WXGLNexrad.isRidTdwr(wxglRenders[idx].rid))
-            wxglRenders[idx].product = "N0Q"
-        if (wxglRenders[idx].product == "N0U" && WXGLNexrad.isRidTdwr(wxglRenders[idx].rid))
-            wxglRenders[idx].product = "TV0"
-        if (wxglRenders[idx].product == "TV0" && !WXGLNexrad.isRidTdwr(wxglRenders[idx].rid))
-            wxglRenders[idx].product = "N0U"
+            if (!radarLocationChangedAl[oglrIdx]) wxglRenders[oglrIdx].rid = Location.rid
+        if (wxglRenders[idx].product == "N0Q" && WXGLNexrad.isRidTdwr(wxglRenders[idx].rid)) wxglRenders[idx].product = "TZL"
+        if (wxglRenders[idx].product == "TZL" && !WXGLNexrad.isRidTdwr(wxglRenders[idx].rid)) wxglRenders[idx].product = "N0Q"
+        if (wxglRenders[idx].product == "N0U" && WXGLNexrad.isRidTdwr(wxglRenders[idx].rid)) wxglRenders[idx].product = "TV0"
+        if (wxglRenders[idx].product == "TV0" && !WXGLNexrad.isRidTdwr(wxglRenders[idx].rid)) wxglRenders[idx].product = "N0U"
         UtilityRadarUI.initWxOglGeom(
                 wxglSurfaceViews[idx],
                 wxglRenders[idx],
@@ -421,15 +393,11 @@ class LocationFragment : Fragment()  {
                         false
                 )
             }
-            if (idx == oglrIdx) {
-                radarTimeStampLocal = getRadarTimeStampForHomescreen(wxglRenders[oglrIdx].rid)
-            }
+            if (idx == oglrIdx) radarTimeStampLocal = getRadarTimeStampForHomescreen(wxglRenders[oglrIdx].rid)
         }
         // recent adds Jan 2020
         if (MyApplication.radarWarnings && activityReferenceWithNull != null) {
-            withContext(Dispatchers.IO) {
-                UtilityDownloadWarnings.get(activityReference)
-            }
+            withContext(Dispatchers.IO) { UtilityDownloadWarnings.get(activityReference) }
             if (!wxglRenders[idx].product.startsWith("2")) {
                 UtilityRadarUI.plotWarningPolygons(wxglSurfaceViews[idx], wxglRenders[idx], false)
             }

@@ -36,18 +36,14 @@ object UtilityNws {
     // FIXME better var naming in this class
 
     fun getIcon(context: Context, url: String): Bitmap {
-        if (url == "NULL") {
-            return Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888)
-        }
+        if (url == "NULL") return Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888)
         var fn = url.replace("?size=medium", "")
             .replace("?size=small", "")
             .replace("https://api.weather.gov/icons/land/", "")
             .replace("http://api.weather.gov/icons/land/", "")
             .replace("http://nids-wapiapp.bldr.ncep.noaa.gov:9000/icons/land/", "")
             .replace("day/", "")
-        if (fn.contains("night")) {
-            fn = fn.replace("night/", "n").replace("/", "/n")
-        }
+        if (fn.contains("night")) fn = fn.replace("night/", "n").replace("/", "/n")
         val fileId = UtilityNwsIcon.iconMap["$fn.png"]
         return if (fileId == null || fn.contains(",")) {
             parseBitmap(context, fn)
@@ -77,12 +73,8 @@ object UtilityNws {
         var num2 = ""
         val aSplit = a.split(",").dropLastWhile { it.isEmpty() }
         val bSplit = b.split(",").dropLastWhile { it.isEmpty() }
-        if (aSplit.size > 1) {
-            num1 = aSplit[1]
-        }
-        if (bSplit.size > 1) {
-            num2 = bSplit[1]
-        }
+        if (aSplit.size > 1) num1 = aSplit[1]
+        if (bSplit.size > 1) num2 = bSplit[1]
         if (aSplit.isNotEmpty() && bSplit.isNotEmpty()) {
             a = aSplit[0]
             b = bSplit[0]
@@ -91,20 +83,14 @@ object UtilityNws {
         val numHeight = 15
         var leftCropA = 4
         var leftCropB = 4
-        if (a.contains("fg")) {
-            leftCropA = 45
-        }
-        if (b.contains("fg")) {
-            leftCropB = 45
-        }
+        if (a.contains("fg")) leftCropA = 45
+        if (b.contains("fg")) leftCropB = 45
         val bitmap = Bitmap.createBitmap(dimens, dimens, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         canvas.drawColor(UtilityTheme.primaryColorFromSelectedTheme)
         val fnResId1 = UtilityNwsIcon.iconMap["$a.png"]
         val fnResId2 = UtilityNwsIcon.iconMap["$b.png"]
-        if (fnResId1 == null || fnResId2 == null) {
-            return bitmap
-        }
+        if (fnResId1 == null || fnResId2 == null) return bitmap
         val bm1Tmp = UtilityImg.loadBitmap(context, fnResId1, false)
         val bm1 = Bitmap.createBitmap(bm1Tmp, leftCropA, 0, 41, dimens)
         canvas.drawBitmap(bm1, 0f, 0f, Paint(Paint.FILTER_BITMAP_FLAG))
@@ -112,9 +98,7 @@ object UtilityNws {
         var xText = 58
         val yText = 84
         val xTextLeft = 2
-        if (num2 == "100") {
-            xText = 50
-        }
+        if (num2 == "100") xText = 50
         val paintStripe = ObjectPaintStripe()
         if (num1 != "") {
             canvas.drawRect(0f, (dimens - numHeight).toFloat(), 41f, dimens.toFloat(), paintStripe.paint)
@@ -135,12 +119,8 @@ object UtilityNws {
         var a = aF
         var num1 = ""
         val aSplit = a.split(",").dropLastWhile { it.isEmpty() }
-        if (aSplit.size > 1) {
-            num1 = aSplit[1]
-        }
-        if (aSplit.isNotEmpty()) {
-            a = aSplit[0]
-        }
+        if (aSplit.size > 1) num1 = aSplit[1]
+        if (aSplit.isNotEmpty()) a = aSplit[0]
         val dimens = 86
         val numHeight = 15
         val bitmap = Bitmap.createBitmap(dimens, dimens, Bitmap.Config.ARGB_8888)
@@ -153,9 +133,7 @@ object UtilityNws {
         val paint = ObjectPaint()
         var xText = 58
         val yText = 84
-        if (num1 == "100") {
-            xText = 50
-        }
+        if (num1 == "100") xText = 50
         val paintStripe = ObjectPaintStripe()
         if (num1 != "") {
             canvas.drawRect(0f, (dimens - numHeight).toFloat(), dimens.toFloat(), dimens.toFloat(), paintStripe.paint)

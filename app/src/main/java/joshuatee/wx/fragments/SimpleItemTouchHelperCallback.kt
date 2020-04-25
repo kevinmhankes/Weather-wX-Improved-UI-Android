@@ -52,9 +52,7 @@ internal class SimpleItemTouchHelperCallback(private val mAdapter: ItemTouchHelp
     }
 
     override fun onMove(recyclerView: RecyclerView, source: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-        if (source.itemViewType != target.itemViewType) {
-            return false
-        }
+        if (source.itemViewType != target.itemViewType) return false
         // Notify the adapter of the move
         mAdapter.onItemMove(source.adapterPosition, target.adapterPosition)
         return true

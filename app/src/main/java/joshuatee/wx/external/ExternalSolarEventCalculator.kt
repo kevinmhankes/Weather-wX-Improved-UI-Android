@@ -72,9 +72,7 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
         val meanAnomaly = getMeanAnomaly(longitudeHour)
         val sunTrueLong = getSunTrueLongitude(meanAnomaly)
         val cosineSunLocalHour = getCosineSunLocalHour(sunTrueLong, solarZenith)
-        if (cosineSunLocalHour.toDouble() < -1.0 || cosineSunLocalHour.toDouble() > 1.0) {
-            return null
-        }
+        if (cosineSunLocalHour.toDouble() < -1.0 || cosineSunLocalHour.toDouble() > 1.0) return null
         val sunLocalHour = getSunLocalHour(cosineSunLocalHour, isSunrise)
         val localMeanTime = getLocalMeanTime(sunTrueLong, longitudeHour, sunLocalHour)
         return getLocalTime(localMeanTime, date)
@@ -86,9 +84,7 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
      */
     private fun getLongitudeHour(date: Calendar, isSunrise: Boolean?): BigDecimal {
         var offset = 18
-        if (isSunrise!!) {
-            offset = 6
-        }
+        if (isSunrise!!) offset = 6
         val dividend = BigDecimal.valueOf(offset.toLong()).subtract(baseLongitudeHour)
         val addend = divideBy(dividend, BigDecimal.valueOf(24))
         val longHour = getDayOfYear(date).add(addend)
@@ -117,9 +113,7 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
         val firstPart = meanAnomaly.add(multiplyBy(sinMeanAnomaly, BigDecimal("1.916")))
         val secondPart = multiplyBy(sinDoubleMeanAnomaly, BigDecimal("0.020")).add(BigDecimal("282.634"))
         var trueLongitude = firstPart.add(secondPart)
-        if (trueLongitude.toDouble() > 360) {
-            trueLongitude = trueLongitude.subtract(BigDecimal.valueOf(360))
-        }
+        if (trueLongitude.toDouble() > 360) trueLongitude = trueLongitude.subtract(BigDecimal.valueOf(360))
         return setScale(trueLongitude)
     }
     /**
@@ -177,9 +171,7 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
     private fun getSunLocalHour(cosineSunLocalHour: BigDecimal, isSunrise: Boolean?): BigDecimal {
         val arcCosineOfCosineHourAngle = getArcCosineFor(cosineSunLocalHour)
         var localHour = convertRadiansToDegrees(arcCosineOfCosineHourAngle)
-        if (isSunrise!!) {
-            localHour = BigDecimal.valueOf(360).subtract(localHour)
-        }
+        if (isSunrise!!) localHour = BigDecimal.valueOf(360).subtract(localHour)
         return divideBy(localHour, BigDecimal.valueOf(15))
     }
 
@@ -205,12 +197,8 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
 
     private fun adjustForDST(localMeanTime: BigDecimal, date: Calendar): BigDecimal {
         var localTime = localMeanTime
-        if (timeZone.inDaylightTime(date.time)) {
-            localTime = localTime.add(BigDecimal.ONE)
-        }
-        if (localTime.toDouble() > 24.0) {
-            localTime = localTime.subtract(BigDecimal.valueOf(24))
-        }
+        if (timeZone.inDaylightTime(date.time)) localTime = localTime.add(BigDecimal.ONE)
+        if (localTime.toDouble() > 24.0) localTime = localTime.subtract(BigDecimal.valueOf(24))
         return localTime
     }
     /**
@@ -221,9 +209,7 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
      * @return `Calendar` representation of the local time as a calendar, or null for none.
      */
     private fun getLocalTimeAsCalendar(localTimeParam: BigDecimal?, date: Calendar): Calendar? {
-        if (localTimeParam == null) {
-            return null
-        }
+        if (localTimeParam == null) return null
         // Create a clone of the input calendar so we get locale/timezone information.
         val resultTime = date.clone() as Calendar
         var localTime: BigDecimal = localTimeParam
@@ -239,9 +225,7 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
             minutes = BigDecimal.ZERO
             hour += 1
         }
-        if (hour == 24) {
-            hour = 0
-        }
+        if (hour == 24) hour = 0
         // Set the local time
         resultTime.set(Calendar.HOUR_OF_DAY, hour)
         resultTime.set(Calendar.MINUTE, minutes.toInt())

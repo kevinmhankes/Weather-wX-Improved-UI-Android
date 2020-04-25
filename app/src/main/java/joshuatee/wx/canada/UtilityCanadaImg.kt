@@ -160,9 +160,7 @@ object UtilityCanadaImg {
             MyApplication.canadaEcSitePrefix + "/radar/index_e.html?id=$sector"
         }
         val radHtml = url.getHtmlSep()
-        if (sector == "CAN") {
-            sector = "NAT"
-        }
+        if (sector == "CAN") sector = "NAT"
         val durationPatMatch = if (duration == "long") {
             "<p>Long .3hr.:</p>(.*?)</div>"
         } else {
@@ -171,13 +169,9 @@ object UtilityCanadaImg {
         val radarHtml1Hr = radHtml.parse(durationPatMatch)
         val list = radarHtml1Hr.parseColumn("display='(.*?)'&amp;")
         var urlList = ""
-        list.forEach {
-            urlList += ":/data/radar/detailed/temp_image/COMPOSITE_$sector/$it.GIF"
-        }
+        list.forEach { urlList += ":/data/radar/detailed/temp_image/COMPOSITE_$sector/$it.GIF" }
         val tmpAl = radHtml.parseColumn("src=.(/data/radar/.*?GIF)\"")
-        tmpAl.forEach {
-            urlList += ":$it"
-        }
+        tmpAl.forEach { urlList += ":$it" }
         val urls = urlList.split(":").dropLastWhile { it.isEmpty() }
         val urlAl = urls.map { MyApplication.canadaEcSitePrefix + it.replace("detailed/", "") }.toMutableList()
         urlAl.reverse()
