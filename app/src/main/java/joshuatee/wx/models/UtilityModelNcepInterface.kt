@@ -41,9 +41,9 @@ internal object UtilityModelNcepInterface {
             "POLAR",
             "RAP",
             "SREF",
-            "WW3",
-            "WW3-ENP",
-            "WW3-WNA"
+            "WW3"
+            //"WW3-ENP",
+            //"WW3-WNA"
     )
 
     val sectorsGfs = listOf(
@@ -190,17 +190,17 @@ internal object UtilityModelNcepInterface {
             "ATL-PAC",
             "NORTH-PAC",
             "EAST-PAC",
-            "WN-ATL"
+            "WEST-ATL"
     )
 
-    val sectorsWw3Enp = listOf(
+   /* val sectorsWw3Enp = listOf(
             "NORTH-PAC",
             "EAST-PAC"
     )
 
     val sectorsWw3Wna = listOf(
             "WN-ATL"
-    )
+    )*/
 
     val sectorsEstofs = listOf(
             "WEST-GOA",
@@ -851,7 +851,7 @@ internal object UtilityModelNcepInterface {
             "Wind Wave Direction and Period (sec)"
     )
 
-    val paramsWw3Enp = listOf(
+    /*val paramsWw3Enp = listOf(
             "regional_pk_dir_per",
             "regional_wv_dir_per",
             "regional_wv_ht"
@@ -873,7 +873,7 @@ internal object UtilityModelNcepInterface {
             "Regional WW3 Model Peak Wave Direction and Period",
             "Regional WW3 Model Wind Wave Direction and Period",
             "Regional WW3 Model Sig Wave Height and Wind"
-    )
+    )*/
 
     val paramsEstofs = listOf(
             "storm_surge",

@@ -45,28 +45,18 @@ internal object UtilityModelWpcGefsInputOutput {
             if (currentHour >= 18) runData.mostRecentRun = "12"
             if (currentHour < 6) runData.mostRecentRun = "18"
             listOf("00", "06", "12", "18").forEach { runData.listRunAdd(it) }
-            //runData.listRunAdd("00")
-            //runData.listRunAdd("06")
-            //runData.listRunAdd("12")
-            //runData.listRunAdd("18")
             runData.timeStrConv = runData.mostRecentRun
             return runData
         }
 
     fun getImage(om: ObjectModel, time: String): Bitmap {
-        val sectorAdd = if (om.sector == "AK") {
-            "_ak"
-        } else {
-            "_ak"
-        }
+        val sectorAdd = if (om.sector == "AK") "_ak" else "_ak"
         val imgUrl = "${MyApplication.nwsWPCwebsitePrefix}/exper/gefs/" + om.run + "/GEFS_" + om.currentParam + "_" + om.run + "Z_f" + time + sectorAdd + ".gif"
         return imgUrl.getImage()
     }
 
     fun getAnimation(context: Context, om: ObjectModel): AnimationDrawable {
-        if (om.spinnerTimeValue == -1) {
-            return AnimationDrawable()
-        }
+        if (om.spinnerTimeValue == -1) return AnimationDrawable()
         val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).map {
             getImage(om, om.spTime.list[it].split(" ").getOrNull(0) ?: "")
         }

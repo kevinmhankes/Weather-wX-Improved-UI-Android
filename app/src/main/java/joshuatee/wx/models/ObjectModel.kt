@@ -352,7 +352,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                         stepAmount = 6
                         numberRuns = 4
                     }
-                    18 -> {
+                    /*18 -> {
                         model = "WW3-ENP"
                         params = UtilityModelNcepInterface.paramsWw3Enp
                         labels = UtilityModelNcepInterface.labelsWw3Enp
@@ -371,7 +371,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                         endStep = 127
                         stepAmount = 6
                         numberRuns = 4
-                    }
+                    }*/
                     0 -> {
                         model = "ESTOFS"
                         params = UtilityModelNcepInterface.paramsEstofs

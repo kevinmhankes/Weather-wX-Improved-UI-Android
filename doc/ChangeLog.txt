@@ -34,6 +34,7 @@
 
 55400 2020_04_25    [REF] misc
                     [FIX] NCEP MAG HRRR animation was not working
+                    [FIX] NCEP MAG - remove WW3-ENP WW3-WNA
 55399 2020_04_25    [REF] misc
 55398 2020_04_25    [REF] misc
 55397 2020_04_19    [ADD] Android Studio/gradle update
