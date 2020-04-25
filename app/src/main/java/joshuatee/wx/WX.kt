@@ -54,9 +54,7 @@ class WX : CommonActionBarFragment() {
         UtilityTheme.setPrimaryColor(this)
         val toolbarBottom: Toolbar = findViewById(R.id.toolbar_bottom)
         view = findViewById(android.R.id.content)
-        if (android.os.Build.VERSION.SDK_INT > 20) {
-            toolbarBottom.elevation = MyApplication.elevationPref
-        }
+        if (android.os.Build.VERSION.SDK_INT > 20) toolbarBottom.elevation = MyApplication.elevationPref
         if (MyApplication.iconsEvenSpaced) {
             UtilityToolbar.setupEvenlyDistributedToolbar(this, toolbarBottom, R.menu.cab)
         } else {
@@ -79,12 +77,8 @@ class WX : CommonActionBarFragment() {
         viewPager.adapter = vpa
         slidingTabLayout.tabGravity = TabLayout.GRAVITY_FILL
         slidingTabLayout.setupWithViewPager(viewPager)
-        if (android.os.Build.VERSION.SDK_INT > 20) {
-            slidingTabLayout.elevation = MyApplication.elevationPref
-        }
-        if (MyApplication.simpleMode || UIPreferences.hideTopToolbar) {
-            slidingTabLayout.visibility = View.GONE
-        }
+        if (android.os.Build.VERSION.SDK_INT > 20) slidingTabLayout.elevation = MyApplication.elevationPref
+        if (MyApplication.simpleMode || UIPreferences.hideTopToolbar) slidingTabLayout.visibility = View.GONE
         slidingTabLayout.setSelectedTabIndicatorColor(UtilityTheme.getPrimaryColorFromSelectedTheme(this, 0))
         // material 1.1.0, since we are using .Bridge theme the below is not needed
         // but left for reference
@@ -92,9 +86,7 @@ class WX : CommonActionBarFragment() {
         //val a = slidingTabLayout.tabTextColors
         //UtilityLog.d("wx COLOR", a.toString()) // -13746343
         refreshDynamicContent()
-        if (android.os.Build.VERSION.SDK_INT < 21) {
-            toolbarBottom.bringToFront()
-        }
+        if (android.os.Build.VERSION.SDK_INT < 21) toolbarBottom.bringToFront()
     }
 
     override fun onBackPressed() {
@@ -134,9 +126,7 @@ class WX : CommonActionBarFragment() {
     }
 
     private val onBroadcast = object : BroadcastReceiver() {
-        override fun onReceive(ctxt: Context, i: Intent) {
-            refreshDynamicContent()
-        }
+        override fun onReceive(ctxt: Context, i: Intent) { refreshDynamicContent() }
     }
 
     override fun onRestart() {
@@ -149,76 +139,51 @@ class WX : CommonActionBarFragment() {
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         when (keyCode) {
             KeyEvent.KEYCODE_R -> {
-                if (event.isCtrlPressed) {
-                    openNexradRadar(this)
-                }
+                if (event.isCtrlPressed) openNexradRadar(this)
                 return true
             }
             KeyEvent.KEYCODE_A -> {
-                if (event.isCtrlPressed) {
-                    openAfd()
-                }
+                if (event.isCtrlPressed) openAfd()
                 return true
             }
             KeyEvent.KEYCODE_S -> {
-                if (event.isCtrlPressed) {
-                    openSettings()
-                }
+                if (event.isCtrlPressed) openSettings()
                 return true
             }
             KeyEvent.KEYCODE_C -> {
-                if (event.isCtrlPressed) {
-                    openVis()
-                }
+                if (event.isCtrlPressed) openVis()
                 return true
             }
             KeyEvent.KEYCODE_D -> {
-                if (event.isCtrlPressed) {
-                    openDashboard()
-                }
+                if (event.isCtrlPressed) openDashboard()
                 return true
             }
             KeyEvent.KEYCODE_2 -> {
-                if (event.isCtrlPressed) {
-                    openActivity(this, "RADAR_DUAL_PANE")
-                }
+                if (event.isCtrlPressed) openActivity(this, "RADAR_DUAL_PANE")
                 return true
             }
             KeyEvent.KEYCODE_4 -> {
-                if (event.isCtrlPressed) {
-                    openActivity(this, "RADAR_QUAD_PANE")
-                }
+                if (event.isCtrlPressed) openActivity(this, "RADAR_QUAD_PANE")
                 return true
             }
             KeyEvent.KEYCODE_E -> {
-                if (event.isCtrlPressed) {
-                    openActivity(this, "SPCMESO1")
-                }
+                if (event.isCtrlPressed) openActivity(this, "SPCMESO1")
                 return true
             }
             KeyEvent.KEYCODE_N -> {
-                if (event.isCtrlPressed) {
-                    openActivity(this, "MODEL_NCEP")
-                }
+                if (event.isCtrlPressed) openActivity(this, "MODEL_NCEP")
                 return true
             }
             KeyEvent.KEYCODE_M -> {
-                if (event.isCtrlPressed) {
-                    val toolbarBottom: Toolbar = findViewById(R.id.toolbar_bottom)
-                    toolbarBottom.showOverflowMenu()
-                }
+                if (event.isCtrlPressed) findViewById<Toolbar>(R.id.toolbar_bottom).showOverflowMenu()
                 return true
             }
             KeyEvent.KEYCODE_H -> {
-                if (event.isCtrlPressed) {
-                    openHourly()
-                }
+                if (event.isCtrlPressed) openHourly()
                 return true
             }
             KeyEvent.KEYCODE_O -> {
-                if (event.isCtrlPressed) {
-                    openActivity(this, "NHC")
-                }
+                if (event.isCtrlPressed) openActivity(this, "NHC")
                 return true
             }
             KeyEvent.KEYCODE_L -> {
@@ -229,29 +194,21 @@ class WX : CommonActionBarFragment() {
                 return true
             }
             KeyEvent.KEYCODE_I -> {
-                if (event.isCtrlPressed) {
-                    openActivity(this, "WPCIMG")
-                }
+                if (event.isCtrlPressed) openActivity(this, "WPCIMG")
                 return true
             }
             KeyEvent.KEYCODE_Z -> {
-                if (event.isCtrlPressed) {
-                    openActivity(this, "WPCTEXT")
-                }
+                if (event.isCtrlPressed) openActivity(this, "WPCTEXT")
                 return true
             }
             KeyEvent.KEYCODE_SLASH -> {
-                if (event.isAltPressed) {
-                    ObjectDialogue(this, Utility.showMainScreenShortCuts())
-                }
+                if (event.isAltPressed) ObjectDialogue(this, Utility.showMainScreenShortCuts())
                 return true
             }
             KeyEvent.KEYCODE_J -> {
                 if (event.isCtrlPressed) {
                     tabIndex += -1
-                    if (tabIndex < 0) {
-                        tabIndex = 2
-                    }
+                    if (tabIndex < 0) tabIndex = 2
                     viewPager.currentItem = tabIndex
                 }
                 return true
@@ -259,9 +216,7 @@ class WX : CommonActionBarFragment() {
             KeyEvent.KEYCODE_K -> {
                 if (event.isCtrlPressed) {
                     tabIndex += 1
-                    if (tabIndex > 2) {
-                        tabIndex = 0
-                    }
+                    if (tabIndex > 2) tabIndex = 0
                     viewPager.currentItem = tabIndex
                 }
                 return true

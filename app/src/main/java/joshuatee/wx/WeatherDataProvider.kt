@@ -36,9 +36,9 @@ internal class WeatherDataPoint(var day: String, var degrees: Int)
  */
 class WeatherDataProvider : ContentProvider() {
     object Columns {
-        const val ID: String = "_id"
-        const val DAY: String = "day"
-        const val TEMPERATURE: String = "temperature"
+        const val ID = "_id"
+        const val DAY = "day"
+        const val TEMPERATURE = "temperature"
     }
 
     override fun onCreate(): Boolean {

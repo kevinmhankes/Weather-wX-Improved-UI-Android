@@ -146,8 +146,7 @@ internal object UtilityWidgetDownload {
         var fileOutputStream: FileOutputStream? = null
         try {
             val dir = File(context.filesDir.toString() + "/shared")
-            if (!dir.mkdirs())
-                UtilityLog.d("wx", "failed to mkdir: " + context.filesDir + "/shared")
+            if (!dir.mkdirs()) UtilityLog.d("wx", "failed to mkdir: " + context.filesDir + "/shared")
             val file = File(dir, fileName)
             fileOutputStream = FileOutputStream(file)
         } catch (e: Exception) {
