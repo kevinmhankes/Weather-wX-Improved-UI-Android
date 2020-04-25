@@ -44,20 +44,15 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     val regionMap = mutableMapOf<NhcOceanEnum, ObjectNhcRegionSummary>()
 
     init {
-        if (UtilityUI.isLandScape(context)) {
-            imagesPerRow = 3
-        }
-        NhcOceanEnum.values().forEach {
-            regionMap[it] = ObjectNhcRegionSummary(it)
-        }
+        if (UtilityUI.isLandScape(context)) imagesPerRow = 3
+        NhcOceanEnum.values().forEach { regionMap[it] = ObjectNhcRegionSummary(it) }
     }
 
     fun getTextData() {
         NhcOceanEnum.values().forEach { type ->
             if (type != NhcOceanEnum.CPAC) {
-                var stormInfo: ObjectNhcStormInfo
                 (1 until 6).forEach {
-                    stormInfo = UtilityNhc.getHurricaneInfo(regionMap[type]!!.baseUrl + it.toString() + ".xml")
+                    val stormInfo = UtilityNhc.getHurricaneInfo(regionMap[type]!!.baseUrl + it.toString() + ".xml")
                     if (stormInfo.title != "") {
                         regionMap[type]!!.storms.add(
                                 ObjectNhcStormInfo(
@@ -151,9 +146,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
 
     private fun clearNhcNotificationBlock() {
         Utility.writePref(context, "NOTIF_NHC_MUTE", "")
-        if (notificationCard != null) {
-            notificationCard!!.visibility = View.GONE
-        }
+        if (notificationCard != null) notificationCard!!.visibility = View.GONE
     }
 
     fun handleRestartForNotification() {

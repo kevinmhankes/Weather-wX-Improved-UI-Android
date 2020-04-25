@@ -77,9 +77,7 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, objNhc.html, "", "")) {
-            return true
-        }
+        if (audioPlayMenu(item.itemId, objNhc.html, "", "")) return true
         when (item.itemId) {
             R.id.action_atl_two -> showTextProduct("MIATWOAT")
             R.id.action_atl_twd -> showTextProduct("MIATWDAT")

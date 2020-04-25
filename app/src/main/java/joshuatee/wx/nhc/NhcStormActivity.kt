@@ -83,9 +83,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         toolbarTitle = activityArguments[1]
         val titles = toolbarTitle.split(" - ")
         title = "NHC"
-        if (titles.size > 1) {
-            toolbar.subtitle = titles[1]
-        }
+        if (titles.size > 1) toolbar.subtitle = titles[1]
         initializeEnvironment()
         getContent()
     }
@@ -105,9 +103,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         goesSector = goesSector.replace("A", "L")  // value is either E or L
         stormId = stormId.replace("AL", "AT")
         goesId = stormId.replace("EP", "").replace("AT", "")
-        if (goesId.length < 2) {
-            goesId = "0$goesId"
-        }
+        if (goesId.length < 2) goesId = "0$goesId"
         product = "MIATCP$stormId"
         baseUrlShort = baseUrl.replace(yearInStringFull, "") + yearInStringShort
     }
@@ -132,29 +128,17 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
                     "_wind_probs_64_F120_sm2.png"
             ).forEach {
                 var url = baseUrl
-                if (it == "WPCQPF_sm2.gif"){
-                    url = baseUrlShort
-                }
+                if (it == "WPCQPF_sm2.gif") url = baseUrlShort
                 bitmaps.add((url + it).getImage())
             }
         }
-        bitmaps.filter { it.width > 100 }
-                .forEach {
-                    ObjectCardImage(this@NhcStormActivity, linearLayout, it)
-                }
-        if (activityArguments.size > 2) {
-            if (activityArguments[2] == "sound")
-                UtilityTts.synthesizeTextAndPlay(applicationContext, html, product)
-        }
+        bitmaps.filter { it.width > 100 }.forEach { ObjectCardImage(this@NhcStormActivity, linearLayout, it) }
+        if (activityArguments.size > 2 && activityArguments[2] == "sound") UtilityTts.synthesizeTextAndPlay(applicationContext, html, product)
     }
 
     private fun getText() = GlobalScope.launch(uiDispatcher) {
         html = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@NhcStormActivity, product) }
-        if (html.contains("<")) {
-            objectCardText.text = Utility.fromHtml(html)
-        } else {
-            objectCardText.text = html
-        }
+        if (html.contains("<")) objectCardText.text = Utility.fromHtml(html) else objectCardText.text = html
         scrollView.smoothScrollTo(0, 0)
     }
 
@@ -164,9 +148,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, html, product, product)) {
-            return true
-        }
+        if (audioPlayMenu(item.itemId, html, product, product)) return true
         when (item.itemId) {
             R.id.action_share -> UtilityShare.shareText(this, this, activityArguments[1], Utility.fromHtml(url), bitmaps)
             R.id.action_MIATCPEP2 -> setProduct("MIATCP$stormId")

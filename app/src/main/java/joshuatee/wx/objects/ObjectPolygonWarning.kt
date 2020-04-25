@@ -57,18 +57,12 @@ class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
 
         fun areAnyEnabled(): Boolean {
             var anyEnabled = false
-            polygonList.forEach {
-                if (polygonDataByType[it]!!.isEnabled) {
-                    anyEnabled = true
-                }
-            }
+            polygonList.forEach { if (polygonDataByType[it]!!.isEnabled) anyEnabled = true }
             return anyEnabled
         }
 
         fun load(context: Context) {
-            polygonList.forEach {
-                polygonDataByType[it] = ObjectPolygonWarning(context, it)
-            }
+            polygonList.forEach { polygonDataByType[it] = ObjectPolygonWarning(context, it) }
         }
     }
 }

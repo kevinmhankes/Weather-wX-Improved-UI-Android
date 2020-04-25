@@ -68,41 +68,23 @@ class ObjectIntent() {
     }
 
     companion object {
-        fun showWeb(context: Context, url: String) {
-            ObjectIntent(context, Intent.ACTION_VIEW, Uri.parse(url))
-        }
+        fun showWeb(context: Context, url: String) { ObjectIntent(context, Intent.ACTION_VIEW, Uri.parse(url)) }
 
-        fun showWebView(context: Context, array: Array<String>) {
-            ObjectIntent(context, WebView::class.java, WebView.URL, array)
-        }
+        fun showWebView(context: Context, array: Array<String>) { ObjectIntent(context, WebView::class.java, WebView.URL, array) }
 
-        fun showRadar(context: Context, array: Array<String>) {
-            ObjectIntent(context, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, array)
-        }
+        fun showRadar(context: Context, array: Array<String>) { ObjectIntent(context, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, array) }
 
-        fun showRadarMultiPane(context: Context, array: Array<String>) {
-            ObjectIntent(context, WXGLRadarActivityMultiPane::class.java, WXGLRadarActivityMultiPane.RID, array)
-        }
+        fun showRadarMultiPane(context: Context, array: Array<String>) { ObjectIntent(context, WXGLRadarActivityMultiPane::class.java, WXGLRadarActivityMultiPane.RID, array) }
 
-        fun showImage(context: Context, array: Array<String>) {
-            ObjectIntent(context, ImageShowActivity::class.java, ImageShowActivity.URL, array)
-        }
+        fun showImage(context: Context, array: Array<String>) { ObjectIntent(context, ImageShowActivity::class.java, ImageShowActivity.URL, array) }
 
-        fun favoriteAdd(context: Context, array: Array<String>) {
-            ObjectIntent(context, FavAddActivity::class.java, FavAddActivity.TYPE, array)
-        }
+        fun favoriteAdd(context: Context, array: Array<String>) { ObjectIntent(context, FavAddActivity::class.java, FavAddActivity.TYPE, array) }
 
-        fun favoriteRemove(context: Context, array: Array<String>) {
-            ObjectIntent(context, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, array)
-        }
+        fun favoriteRemove(context: Context, array: Array<String>) { ObjectIntent(context, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, array) }
 
-        fun showText(context: Context, array: Array<String>) {
-            ObjectIntent(context, TextScreenActivity::class.java, TextScreenActivity.URL, array)
-        }
+        fun showText(context: Context, array: Array<String>) { ObjectIntent(context, TextScreenActivity::class.java, TextScreenActivity.URL, array) }
 
-        fun showLocationEdit(context: Context, array: Array<String>) {
-            ObjectIntent(context, SettingsLocationGenericActivity::class.java, SettingsLocationGenericActivity.LOC_NUM, array)
-        }
+        fun showLocationEdit(context: Context, array: Array<String>) { ObjectIntent(context, SettingsLocationGenericActivity::class.java, SettingsLocationGenericActivity.LOC_NUM, array) }
     }
 }
 
