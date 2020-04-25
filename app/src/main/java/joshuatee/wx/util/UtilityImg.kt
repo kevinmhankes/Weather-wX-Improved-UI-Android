@@ -49,31 +49,23 @@ object UtilityImg {
 
     fun showNextImg(drw: ObjectNavDrawer, fn: () -> Unit) {
         drw.index += 1
-        if (drw.index == drw.getUrlCount()) {
-            drw.index = 0
-        }
+        if (drw.index == drw.getUrlCount()) drw.index = 0
         fn()
     }
 
     fun showPrevImg(drw: ObjectNavDrawer, fn: () -> Unit) {
         drw.index -= 1
-        if (drw.index == -1) {
-            drw.index = drw.getUrlCount() - 1
-        }
+        if (drw.index == -1) drw.index = drw.getUrlCount() - 1
         fn()
     }
 
     fun mergeImages(context: Context, imageA: Bitmap, imageB: Bitmap): Bitmap {
-        val layers = mutableListOf<Drawable>()
-        layers.add(BitmapDrawable(context.resources, imageA))
-        layers.add(BitmapDrawable(context.resources, imageB))
+        val layers = listOf(BitmapDrawable(context.resources, imageA), BitmapDrawable(context.resources, imageB))
         return layerDrawableToBitmap(layers)
     }
 
-    fun addColorBackground(context: Context, image: Bitmap, color: Int): Bitmap {
-        val layers = mutableListOf<Drawable>()
-        layers.add(ColorDrawable(color))
-        layers.add(BitmapDrawable(context.resources, image))
+    fun addColorBackground(context: Context, bitmap: Bitmap, color: Int): Bitmap {
+        val layers = listOf(ColorDrawable(color), BitmapDrawable(context.resources, bitmap))
         return layerDrawableToBitmap(layers)
     }
 
@@ -82,10 +74,8 @@ object UtilityImg {
     fun getBitmapRemoveBackground(imgUrl: String, color: Int) = eraseBackground(imgUrl.getImage(), color)
 
     fun getBitmapAddWhiteBackground(context: Context, imgUrl: String): Bitmap {
-        val layers = mutableListOf<Drawable>()
         val bitmap = imgUrl.getImage()
-        layers.add(ColorDrawable(Color.WHITE))
-        layers.add(BitmapDrawable(context.resources, bitmap))
+        val layers = listOf(ColorDrawable(Color.WHITE), BitmapDrawable(context.resources, bitmap))
         return layerDrawableToBitmap(layers)
     }
 
@@ -164,7 +154,7 @@ object UtilityImg {
 
     fun bitmapToLayerDrawable(context: Context, bitmap: Bitmap) = LayerDrawable(arrayOf(BitmapDrawable(context.resources, bitmap)))
 
-    fun layerDrawableToBitmap(layers: MutableList<Drawable>): Bitmap {
+    fun layerDrawableToBitmap(layers: List<Drawable>): Bitmap {
         val drawable = LayerDrawable(layers.toTypedArray())
         val bitmap: Bitmap
         val width = drawable.intrinsicWidth

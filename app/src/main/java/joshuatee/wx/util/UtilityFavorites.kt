@@ -61,9 +61,7 @@ object UtilityFavorites {
     fun setupMenu(context: Context, favoriteString: String, value: String, prefToken: String): List<String> {
         checkAndCorrect(context, favoriteString, prefToken)
         var favorites = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
-        if (favorites.size < 3) {
-            favorites = MutableList(3) { "" }
-        }
+        if (favorites.size < 3) favorites = MutableList(3) { "" }
         favorites[0] = value
         favorites[1] = ADD_STR
         favorites[2] = MODIFY_STR
@@ -75,11 +73,7 @@ object UtilityFavorites {
                 "SND_FAV" -> Utility.getSoundingSiteName(favorites[k])
                 else -> "FIXME"
             }
-            if (k == 1 || k == 2) {
-                returnList[k] = favorites[k]
-            } else {
-                returnList[k] = favorites[k] + DELIM_TOKEN + name
-            }
+            if (k == 1 || k == 2) returnList[k] = favorites[k] else returnList[k] = favorites[k] + DELIM_TOKEN + name
         }
         return returnList.toList()
     }
@@ -94,9 +88,7 @@ object UtilityFavorites {
             GlobalArrays.canadaRadars.indices.filter { GlobalArrays.canadaRadars[it].contains(favorites[k]) }.forEach {
                     returnList[k] = GlobalArrays.canadaRadars[it].replace(":", "")
                 }
-            if (k == 1 || k == 2) {
-                returnList[k] = favorites[k]
-            }
+            if (k == 1 || k == 2) returnList[k] = favorites[k]
         }
         return returnList.toList()
     }
@@ -165,9 +157,7 @@ object UtilityFavorites {
     // If somehow the input colon separated string is to small correct it in this method
     fun setupMenuSpc(favoriteString: String, value: String): List<String> {
         var favorites = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
-        if (favorites.size < 3) {
-            favorites = MutableList(3) { "" }
-        }
+        if (favorites.size < 3) favorites = MutableList(3) { "" }
         favorites[0] = value
         favorites[1] = ADD_STR
         favorites[2] = MODIFY_STR
