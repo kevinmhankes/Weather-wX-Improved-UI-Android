@@ -55,9 +55,7 @@ class ObjectDialogue {
             }
         }
         arrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
-        alertDialog.setNegativeButton("Done") { dialog, _ ->
-            dialog.dismiss()
-        }
+        alertDialog.setNegativeButton("Done") { dialog, _ -> dialog.dismiss() }
     }
 
     constructor(context: Context, list: List<String>) {
@@ -71,9 +69,7 @@ class ObjectDialogue {
             }
         }
         arrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
-        alertDialog.setNegativeButton("Done") { dialog, _ ->
-            dialog.dismiss()
-        }
+        alertDialog.setNegativeButton("Done") { dialog, _ -> dialog.dismiss() }
     }
 
     fun setupTextView(textView: TextView) {
@@ -87,29 +83,19 @@ class ObjectDialogue {
         alertDialog = AlertDialog.Builder(context)
         alertDialog.setMessage(text)
         alertDialog.setCancelable(false)
-        alertDialog.setNegativeButton("Done") { dialog, _ ->
-            dialog.dismiss()
-        }
+        alertDialog.setNegativeButton("Done") { dialog, _ -> dialog.dismiss() }
         val ad = alertDialog.create()
         ad.setCanceledOnTouchOutside(true)
         ad.show()
     }
 
-    fun show() {
-        alertDialog.show()
-    }
+    fun show() { alertDialog.show() }
 
-    fun setSingleChoiceItems(l: DialogInterface.OnClickListener) {
-        alertDialog.setSingleChoiceItems(arrayAdapter, checkedItem, l)
-    }
+    fun setSingleChoiceItems(listener: DialogInterface.OnClickListener) { alertDialog.setSingleChoiceItems(arrayAdapter, checkedItem, listener) }
 
-    fun setNegativeButton(l: DialogInterface.OnClickListener) {
-        alertDialog.setNegativeButton("Cancel", l)
-    }
+    fun setNegativeButton(listener: DialogInterface.OnClickListener) { alertDialog.setNegativeButton("Cancel", listener) }
 
-    fun setTitle(title: String) {
-        alertDialog.setTitle(title)
-    }
+    fun setTitle(title: String) { alertDialog.setTitle(title) }
 
     fun getItem(index: Int) = arrayAdapter.getItem(index) ?: ""
 }

@@ -109,15 +109,11 @@ class ObjectSpinner {
 
     fun setSelection(key: String) {
         var index = arrayAdapter.getPosition(key)
-        if (index == -1) {
-            index = 0
-        }
+        if (index == -1) index = 0
         spinner.setSelection(index)
     }
 
-    private fun setOnItemSelectedListener(l: AdapterView.OnItemSelectedListener) {
-        spinner.onItemSelectedListener = l
-    }
+    private fun setOnItemSelectedListener(listener: AdapterView.OnItemSelectedListener) { spinner.onItemSelectedListener = listener }
 
     val selectedItemPosition get() = spinner.selectedItemPosition
 
@@ -142,15 +138,11 @@ class ObjectSpinner {
 
     operator fun get(index: Int) = list[index]
 
-    operator fun set(index: Int, value: String) {
-        list[index] = value
-    }
+    operator fun set(index: Int, value: String) { list[index] = value }
 
     private fun setupSpinner() {
         val tint = ColorStateList.valueOf(UIPreferences.colorOffwhiteToolbar)
-        if (android.os.Build.VERSION.SDK_INT > 20) {
-            spinner.backgroundTintList = tint
-        }
+        if (android.os.Build.VERSION.SDK_INT > 20) spinner.backgroundTintList = tint
     }
 }
 

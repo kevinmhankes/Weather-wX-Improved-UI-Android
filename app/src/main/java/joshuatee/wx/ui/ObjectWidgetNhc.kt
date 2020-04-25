@@ -35,9 +35,7 @@ class ObjectWidgetNhc(context: Context) {
 
     init {
         UtilityWidget.setImage(context, remoteViews, NHC.fileName + "0")
-        if (!MyApplication.widgetPreventTap) {
-            UtilityWidget.setupIntent(context, remoteViews, NhcActivity::class.java, R.id.iv, NHC.action + "0")
-        }
+        if (!MyApplication.widgetPreventTap) UtilityWidget.setupIntent(context, remoteViews, NhcActivity::class.java, R.id.iv, NHC.action + "0")
     }
 }
 

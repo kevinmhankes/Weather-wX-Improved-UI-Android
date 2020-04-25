@@ -38,9 +38,7 @@ class ObjectRecyclerView(context: Context, activity: Activity, resourceId: Int, 
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = ca
         ca.setOnItemClickListener(object : SingleTextAdapterList.MyClickListener {
-            override fun onItemClick(position: Int) {
-                fn(position)
-            }
+            override fun onItemClick(position: Int) { fn(position) }
         })
     }
 

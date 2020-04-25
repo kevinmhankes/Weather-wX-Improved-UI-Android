@@ -50,30 +50,22 @@ class ObjectCardText(private val context: Context) {
         objectCard.addView(tv)
     }
 
-    constructor(context: Context, linearLayout: LinearLayout) : this(context) {
-        linearLayout.addView(card)
-    }
+    constructor(context: Context, linearLayout: LinearLayout) : this(context) { linearLayout.addView(card) }
 
     constructor(context: Context, linearLayout: LinearLayout, toolbar: Toolbar, toolbarBottom: Toolbar) : this(context) {
         linearLayout.addView(card)
-        setOnClickListener(View.OnClickListener {
-            UtilityToolbar.showHide(toolbar, toolbarBottom)
-        })
+        setOnClickListener(View.OnClickListener { UtilityToolbar.showHide(toolbar, toolbarBottom) })
     }
 
     constructor(context: Context, linearLayout: LinearLayout, toolbar: Toolbar, toolbarBottom: Toolbar, textValue: String) : this(context) {
         linearLayout.addView(card)
-        setOnClickListener(View.OnClickListener {
-            UtilityToolbar.showHide(toolbar, toolbarBottom)
-        })
+        setOnClickListener(View.OnClickListener { UtilityToolbar.showHide(toolbar, toolbarBottom) })
         text = textValue
     }
 
     constructor(context: Context, linearLayout: LinearLayout, toolbar: Toolbar) : this(context) {
         linearLayout.addView(card)
-        setOnClickListener(View.OnClickListener {
-            UtilityToolbar.showHide(toolbar)
-        })
+        setOnClickListener(View.OnClickListener { UtilityToolbar.showHide(toolbar) })
     }
 
     constructor(context: Context, text: String) : this(context) {
@@ -142,9 +134,7 @@ class ObjectCardText(private val context: Context) {
         tv.text = text
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         tv.isFocusable = false
-        setOnClickListener(View.OnClickListener {
-            ObjectIntent(context, clazz)
-        })
+        setOnClickListener(View.OnClickListener { ObjectIntent(context, clazz) })
     }
 
     constructor(context: Context, text: String, textSize: Float, clazz: Class<*>) : this(
@@ -154,9 +144,7 @@ class ObjectCardText(private val context: Context) {
         tv.text = text
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         tv.isFocusable = false
-        setOnClickListener(View.OnClickListener {
-            ObjectIntent(context, clazz)
-        })
+        setOnClickListener(View.OnClickListener { ObjectIntent(context, clazz) })
     }
 
     constructor(context: Context, linearLayout: LinearLayout, text: String, textSize: Float, clazz: Class<*>) : this(
@@ -169,9 +157,7 @@ class ObjectCardText(private val context: Context) {
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         tv.isFocusable = false
         linearLayout.addView(card)
-        setOnClickListener(View.OnClickListener {
-            ObjectIntent(context, clazz)
-        })
+        setOnClickListener(View.OnClickListener { ObjectIntent(context, clazz) })
     }
 
     constructor(context: Context, linearLayout: LinearLayout, text: String, textSize: Float, clazz: Class<*>, padding: Int) : this(
@@ -186,9 +172,7 @@ class ObjectCardText(private val context: Context) {
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         tv.isFocusable = false
         linearLayout.addView(card)
-        setOnClickListener(View.OnClickListener {
-            ObjectIntent(context, clazz)
-        })
+        setOnClickListener(View.OnClickListener { ObjectIntent(context, clazz) })
     }
 
     fun setPaddingAmount(padding: Int) {
@@ -197,63 +181,38 @@ class ObjectCardText(private val context: Context) {
     }
 
     fun setTextAndTranslate(text: String) {
-        val localText = if (UIPreferences.translateText) {
-            UtilityTtsTranslations.translateAbbreviationsForVisual(text)
-        } else {
-            text
-        }
+        val localText = if (UIPreferences.translateText) UtilityTtsTranslations.translateAbbreviationsForVisual(text) else text
         tv.text = localText
     }
 
     var text
         get() = tv.text.toString()
-        set(newValue) {
-            tv.text = newValue
-        }
+        set(newValue) { tv.text = newValue }
 
-    fun center() {
-        tv.gravity = Gravity.CENTER
-    }
+    fun center() { tv.gravity = Gravity.CENTER }
 
     fun setTextColor(color: Int) = tv.setTextColor(color)
 
     fun setTextSize(type: Int, size: Float) = tv.setTextSize(type, size)
 
-    fun lightText() {
-        tv.setTextAppearance(context, UIPreferences.smallTextTheme)
-    }
+    fun lightText() { tv.setTextAppearance(context, UIPreferences.smallTextTheme) }
 
-    fun typefaceMono() {
-        tv.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
-    }
+    fun typefaceMono() { tv.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL) }
 
-    fun typefaceDefault() {
-        tv.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
-    }
+    fun typefaceDefault() { tv.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL) }
 
     val card get() = objectCard.card
 
     var visibility
         get() = objectCard.visibility
-        set(newValue) {
-            objectCard.visibility = newValue
-        }
+        set(newValue) { objectCard.visibility = newValue }
 
     fun setOnClickListener(fn: View.OnClickListener) = tv.setOnClickListener(fn)
 
     fun refreshTextSize(size: TextSize) = when (size) {
-            TextSize.SMALL -> tv.setTextSize(
-                    TypedValue.COMPLEX_UNIT_PX,
-                    MyApplication.textSizeSmall
-            )
-            TextSize.MEDIUM -> tv.setTextSize(
-                    TypedValue.COMPLEX_UNIT_PX,
-                    MyApplication.textSizeNormal
-            )
-            TextSize.LARGE -> tv.setTextSize(
-                    TypedValue.COMPLEX_UNIT_PX,
-                    MyApplication.textSizeLarge
-            )
+            TextSize.SMALL -> tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
+            TextSize.MEDIUM -> tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
+            TextSize.LARGE -> tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeLarge)
         }
 
     companion object {

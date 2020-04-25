@@ -41,18 +41,12 @@ class ObjectImageMap(
     var map: ImageMap = activity.findViewById(resId)
     var isRadarWithTransparent = false
 
-    init {
-        map.visibility = View.GONE
-    }
+    init { map.visibility = View.GONE }
 
     fun toggleMap() {
         var toolbarAlpha = 255
-        if (Build.VERSION.SDK_INT > 20) {
-            toolbarAlpha = toolbar.background.alpha
-        }
-        if (toolbarAlpha == 0) {
-            isRadarWithTransparent = true
-        }
+        if (Build.VERSION.SDK_INT > 20) toolbarAlpha = toolbar.background.alpha
+        if (toolbarAlpha == 0) isRadarWithTransparent = true
         if (map.visibility == View.GONE) {
             setupMap()
             if (isRadarWithTransparent) {
@@ -61,19 +55,13 @@ class ObjectImageMap(
             }
         } else {
             map.visibility = View.GONE
-            views.forEach {
-                it.visibility = View.VISIBLE
-            }
-            if (isRadarWithTransparent) {
-                UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
-            }
+            views.forEach { it.visibility = View.VISIBLE }
+            if (isRadarWithTransparent) UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
         }
     }
 
     private fun setupMap() {
-        views.forEach {
-            it.visibility = View.GONE
-        }
+        views.forEach { it.visibility = View.GONE }
         setupImageMap(context, toolbar, toolbarBottom)
         map.visibility = View.VISIBLE
     }
@@ -84,9 +72,7 @@ class ObjectImageMap(
         addOnImageMapClickedHandler(object : ImageMap.OnImageMapClickedHandler {
             override fun onImageMapClicked(id: Int, im2: ImageMap) {
                 im2.visibility = View.GONE
-                if (isRadarWithTransparent) {
-                    UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
-                }
+                if (isRadarWithTransparent) UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
                 fn(mapFn(id))
             }
 

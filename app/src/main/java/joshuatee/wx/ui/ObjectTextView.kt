@@ -38,15 +38,11 @@ class ObjectTextView(val context: Context) {
 
     var text
         get() = tv.text.toString()
-        set(value) {
-            tv.text = value
-        }
+        set(value) { tv.text = value }
 
     var gravity
         get() = tv.gravity
-        set(value) {
-            tv.gravity = value
-        }
+        set(value) { tv.gravity = value }
 
     init {
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
@@ -54,47 +50,31 @@ class ObjectTextView(val context: Context) {
         tv.gravity = Gravity.START
     }
 
-    constructor(context: Context, text: String) : this(context) {
-        tv.text = text
-    }
+    constructor(context: Context, text: String) : this(context) { tv.text = text }
 
-    constructor(context: Context, color: Int) : this(context) {
-        this.color = color
-    }
+    constructor(context: Context, color: Int) : this(context) { this.color = color }
 
     constructor(context: Context, backgroundText: Boolean) : this(context) {
-        if (backgroundText) {
-            setAsBackgroundText()
-        }
+        if (backgroundText) setAsBackgroundText()
     }
 
-    constructor(view: View, resourceId: Int) : this(view.context) {
-        tv = view.findViewById(resourceId)
-    }
+    constructor(view: View, resourceId: Int) : this(view.context) { tv = view.findViewById(resourceId) }
 
     constructor(view: View, resourceId: Int, backgroundText: Boolean) : this(view, resourceId) {
         tv = view.findViewById(resourceId)
-        if (backgroundText) {
-            setAsBackgroundText()
-        }
+        if (backgroundText) setAsBackgroundText()
     }
 
-    constructor(view: View, resourceId: Int, color: Int) : this(view, resourceId) {
-        this.color = color
-    }
+    constructor(view: View, resourceId: Int, color: Int) : this(view, resourceId) { this.color = color }
 
     constructor(view: View, resourceId: Int, size: TextSize) : this(view.context, size) {
         tv = view.findViewById(resourceId)
         refreshTextSize(size)
     }
 
-    constructor(view: View, resourceId: Int, color: Int, size: TextSize) : this(view, resourceId, size) {
-        this.color = color
-    }
+    constructor(view: View, resourceId: Int, color: Int, size: TextSize) : this(view, resourceId, size) { this.color = color }
 
-    constructor(context: Context, size: TextSize) : this(context) {
-        refreshTextSize(size)
-    }
+    constructor(context: Context, size: TextSize) : this(context) { refreshTextSize(size) }
 
     fun refreshTextSize(size: TextSize) {
         when (size) {
@@ -108,9 +88,7 @@ class ObjectTextView(val context: Context) {
 
     var color
         get() = tv.currentTextColor
-        set(newValue) {
-            tv.setTextColor(newValue)
-        }
+        set(newValue) { tv.setTextColor(newValue) }
 
     private fun setAsBackgroundText() {
         setAsSmallText()

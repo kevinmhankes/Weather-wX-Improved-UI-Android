@@ -42,9 +42,7 @@ class ObjectWidgetAfd(context: Context) {
         remoteViews.setTextViewText(R.id.text1, Utility.fromHtml(afd))
         remoteViews.setTextViewTextSize(R.id.text1, TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
         var product = "AFD"
-        if (Utility.readPref(context, "WFO_TEXT_FAV", "").startsWith("VFD")) {
-            product = "VFD"
-        }
+        if (Utility.readPref(context, "WFO_TEXT_FAV", "").startsWith("VFD")) product = "VFD"
         if (!MyApplication.widgetPreventTap) {
             UtilityWidget.setupIntent(context, remoteViews, AfdActivity::class.java, R.id.text1, AfdActivity.URL, arrayOf(wfo, product), WidgetFile.AFD.action)
         }

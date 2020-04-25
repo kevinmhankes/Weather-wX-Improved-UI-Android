@@ -64,39 +64,20 @@ class ObjectTouchImageView {
         this.prefTokenIdx = prefTokenIdx
     }
 
-    constructor(
-        activity: Activity,
-        context: Context,
-        toolbar: Toolbar,
-        toolbarBottom: Toolbar,
-        resourceId: Int,
-        drw: ObjectNavDrawer,
-        prefTokenIdx: String
+    constructor(activity: Activity, context: Context, toolbar: Toolbar, toolbarBottom: Toolbar, resourceId: Int, drw: ObjectNavDrawer, prefTokenIdx: String
     ) : this(activity, context, resourceId, drw, prefTokenIdx) {
-        setOnClickListener(View.OnClickListener {
-            UtilityToolbar.showHide(toolbar, toolbarBottom)
-        })
+        setOnClickListener(View.OnClickListener { UtilityToolbar.showHide(toolbar, toolbarBottom) })
     }
 
-    constructor(
-        activity: Activity,
-        context: Context,
-        toolbar: Toolbar,
-        resourceId: Int,
-        drw: ObjectNavDrawer,
-        prefTokenIdx: String
+    constructor(activity: Activity, context: Context, toolbar: Toolbar, resourceId: Int, drw: ObjectNavDrawer, prefTokenIdx: String
     ) : this(activity, context, resourceId, drw, prefTokenIdx) {
-        setOnClickListener(View.OnClickListener {
-            UtilityToolbar.showHide(toolbar)
-        })
+        setOnClickListener(View.OnClickListener { UtilityToolbar.showHide(toolbar) })
     }
 
     fun setBitmap(bitmap: Bitmap) {
         img.setImageBitmap(bitmap)
         imageLoaded = true
-        if (prefTokenIdx != "" && drw != null) {
-            Utility.writePref(context, prefTokenIdx, drw!!.index)
-        }
+        if (prefTokenIdx != "" && drw != null) Utility.writePref(context, prefTokenIdx, drw!!.index)
     }
 
     fun setOnClickListener(listener: View.OnClickListener) = img.setOnClickListener(listener)
@@ -105,9 +86,7 @@ class ObjectTouchImageView {
 
     fun resetZoom() = img.resetZoom()
 
-    fun setMaxZoom(zoom: Float) {
-        img.maxZoom = zoom
-    }
+    fun setMaxZoom(zoom: Float) { img.maxZoom = zoom }
 
     fun setZoom(zoom: Float) = img.setZoom(zoom)
 

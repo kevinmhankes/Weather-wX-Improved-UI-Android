@@ -47,9 +47,7 @@ class ObjectCardStormReportItem(context: Context) {
 
     val card get() = objectCard.card
 
-    fun setId(id: Int) {
-        objectCard.card.id = id
-    }
+    fun setId(id: Int) { objectCard.card.id = id }
 
     fun setListener(fn: View.OnClickListener) = objectCard.card.setOnClickListener(fn)
 

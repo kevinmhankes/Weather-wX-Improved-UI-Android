@@ -35,13 +35,9 @@ class ObjectLinearLayout(context: Context) {
         parentView.addView(linearLayout)
     }
 
-    constructor(context: Context, orientation: Int) : this(context) {
-        this.orientation = orientation
-    }
+    constructor(context: Context, orientation: Int) : this(context) { this.orientation = orientation }
 
-    constructor(context: Context, orientation: Int, gravity: Int) : this(context, orientation) {
-        this.gravity = gravity
-    }
+    constructor(context: Context, orientation: Int, gravity: Int) : this(context, orientation) { this.gravity = gravity }
 
     fun removeAllViewsInLayout() = linearLayout.removeAllViewsInLayout()
 
@@ -53,11 +49,7 @@ class ObjectLinearLayout(context: Context) {
 
     fun addView(objectImageView: ObjectImageView) = linearLayout.addView(objectImageView.imageView)
 
-    fun addViews(children: List<View>) {
-        children.forEach { view ->
-            linearLayout.addView(view)
-        }
-    }
+    fun addViews(children: List<View>) { children.forEach { view -> linearLayout.addView(view) } }
 
     fun removeAllViews() = linearLayout.removeAllViews()
 

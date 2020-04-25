@@ -90,9 +90,7 @@ class ObjectWidgetCCLegacy(context: Context, allWidgetIds: IntArray) {
                     R.id.b_alert,
                     R.id.b_dash
             )
-            icons.indices.forEach {
-                UtilityUI.setResDrawable(context, remoteViews, buttons[it], icons[it])
-            }
+            icons.indices.forEach { UtilityUI.setResDrawable(context, remoteViews, buttons[it], icons[it]) }
         }
         remoteViews.setTextViewText(R.id.cc, cc)
         remoteViews.setTextViewText(R.id.updtime, updateTime)
@@ -101,17 +99,12 @@ class ObjectWidgetCCLegacy(context: Context, allWidgetIds: IntArray) {
         try {
             val p = Pattern.compile("<h3>(.*?)</h3>")
             val m = p.matcher(hazardRaw)
-            while (m.find()) {
-                hazardSum += MyApplication.newline + m.group(1)
-            }
+            while (m.find()) hazardSum += MyApplication.newline + m.group(1)
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
         hazardSum = hazardSum.replace(("^" + MyApplication.newline).toRegex(), "")
-        if (hazardSum != "")
-            remoteViews.setViewVisibility(R.id.hazard, View.VISIBLE)
-        else
-            remoteViews.setViewVisibility(R.id.hazard, View.GONE)
+        if (hazardSum != "") remoteViews.setViewVisibility(R.id.hazard, View.VISIBLE) else remoteViews.setViewVisibility(R.id.hazard, View.GONE)
         remoteViews.setTextViewText(R.id.hazard, hazardSum)
         remoteViews.setTextViewText(R.id.forecast, sd)
         remoteViews.setTextViewText(R.id.widget_time, "Updated: " + UtilityTime.getDateAsString("h:mm a")) // "%k:%M:%S"

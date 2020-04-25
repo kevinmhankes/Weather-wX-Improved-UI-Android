@@ -39,7 +39,7 @@ class OpacityBar : View {
     /**
      * The thickness of the bar.
      */
-    private var mBarThickness: Int = 0
+    private var mBarThickness = 0
 
     /**
      * The length of the bar.
