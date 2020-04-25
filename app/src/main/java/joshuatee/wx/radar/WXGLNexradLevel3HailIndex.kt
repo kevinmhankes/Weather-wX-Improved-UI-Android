@@ -54,18 +54,12 @@ internal object WXGLNexradLevel3HailIndex {
             return listOf()
         }
         var posnStr = ""
-        posn.forEach {
-            posnStr += it.replace("/", " ")
-        }
+        posn.forEach { posnStr += it.replace("/", " ") }
         var hailPercentStr = ""
-        hailPercent.forEach {
-            hailPercentStr += it.replace("/", " ")
-        }
+        hailPercent.forEach { hailPercentStr += it.replace("/", " ") }
         hailPercentStr = hailPercentStr.replace("UNKNOWN", " 0 0 ")
         var hailSizeStr = ""
-        hailSize.forEach {
-            hailSizeStr += it.replace("/", " ")
-        }
+        hailSize.forEach { hailSizeStr += it.replace("/", " ") }
         hailSizeStr = hailSizeStr.replace("UNKNOWN", " 0.00 ")
         hailSizeStr = hailSizeStr.replace("<0.50", " 0.49 ")
         val posnNumbers = posnStr.parseColumnAll(RegExp.stiPattern3)

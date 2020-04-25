@@ -32,11 +32,7 @@ internal object WXGLNexradLevel3WindBarbs {
     fun decodeAndPlot(radarSite: String, projectionType: ProjectionType, isGust: Boolean, dataSetIndex: Int): List<Double> {
         val stormList = mutableListOf<Double>()
         val projectionNumbers = ProjectionNumbers(radarSite, projectionType)
-        val arrWb = if (!isGust) {
-            UtilityMetar.metarDataList[dataSetIndex].obsArrWb
-        } else {
-            UtilityMetar.metarDataList[dataSetIndex].obsArrWbGust
-        }
+        val arrWb = if (!isGust) UtilityMetar.metarDataList[dataSetIndex].obsArrWb else UtilityMetar.metarDataList[dataSetIndex].obsArrWbGust
         val degreeShift = 180.00
         val arrowLength = 2.5
         val arrowSpacing = 3.0
@@ -62,11 +58,7 @@ internal object WXGLNexradLevel3WindBarbs {
                 val degree2 = angle.toDouble()
                 val startLength = 0.0
                 var start = ExternalGlobalCoordinates(locXDbl, locYDbl)
-                var ec = ecc.calculateEndingGlobalCoordinates(
-                    start,
-                    0.0,
-                    startLength
-                )
+                var ec = ecc.calculateEndingGlobalCoordinates(start, 0.0, startLength)
                 stormList += UtilityCanvasProjection.computeMercatorNumbers(ec, projectionNumbers).toList()
                 start = ExternalGlobalCoordinates(ec.latitude, ec.longitude)
                 ec = ecc.calculateEndingGlobalCoordinates(
@@ -79,12 +71,8 @@ internal object WXGLNexradLevel3WindBarbs {
                 var barbCount = length / 10
                 var halfBarb = false
                 var oneHalfBarb = false
-                if (length - barbCount * 10 > 4 && length > 10 || length in 5..9) {
-                    halfBarb = true
-                }
-                if (length in 5..9) {
-                    oneHalfBarb = true
-                }
+                if (length - barbCount * 10 > 4 && length > 10 || length in 5..9) halfBarb = true
+                if (length in 5..9) oneHalfBarb = true
                 val above50: Boolean
                 if (length > 49) {
                     above50 = true
@@ -136,7 +124,6 @@ internal object WXGLNexradLevel3WindBarbs {
                     )
                     index += 1
                 }
-                //j = 0
                 (index until barbCount).forEach { _ ->
                     ec = ecc.calculateEndingGlobalCoordinates(
                         end,
@@ -153,9 +140,7 @@ internal object WXGLNexradLevel3WindBarbs {
                     index += 1
                 }
                 var halfBarbOffsetFudge = 0.0
-                if (oneHalfBarb) {
-                    halfBarbOffsetFudge = nmScaleFactor * 1.0
-                }
+                if (oneHalfBarb) halfBarbOffsetFudge = nmScaleFactor * 1.0
                 if (halfBarb) {
                     ec = ecc.calculateEndingGlobalCoordinates(
                         end,

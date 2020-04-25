@@ -53,14 +53,10 @@ internal object WXGLNexradLevel3StormInfo {
         }
         var posnStr = ""
         posn.map { it.replace("NEW", "0/ 0").replace("/ ", "/").replace("\\s+".toRegex(), " ") }
-            .forEach {
-                posnStr += it.replace("/", " ")
-            }
+            .forEach { posnStr += it.replace("/", " ") }
         var motionStr = ""
         motion.map { it.replace("NEW", "0/ 0").replace("/ ", "/").replace("\\s+".toRegex(), " ") }
-            .forEach {
-                motionStr += it.replace("/", " ")
-            }
+            .forEach { motionStr += it.replace("/", " ") }
         val posnNumbers = posnStr.parseColumnAll(RegExp.stiPattern3)
         val motNumbers = motionStr.parseColumnAll(RegExp.stiPattern3)
         val degreeShift = 180.00

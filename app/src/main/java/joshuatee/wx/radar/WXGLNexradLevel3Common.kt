@@ -62,19 +62,9 @@ internal object WXGLNexradLevel3Common {
     }
 
     // wind barbs
-    fun drawLine(
-            startEc: ExternalGlobalCoordinates,
-            ecc: ExternalGeodeticCalculator,
-            pn: ProjectionNumbers,
-            startBearing: Double,
-            distance: Double
-    ): List<Double>  {
+    fun drawLine(startEc: ExternalGlobalCoordinates, ecc: ExternalGeodeticCalculator, pn: ProjectionNumbers, startBearing: Double, distance: Double): List<Double>  {
         val startPoint = ExternalGlobalCoordinates(startEc)
-        val ec = ecc.calculateEndingGlobalCoordinates(
-                startPoint,
-                startBearing,
-                distance
-        )
+        val ec = ecc.calculateEndingGlobalCoordinates(startPoint, startBearing, distance)
         return UtilityCanvasProjection.computeMercatorNumbers(startEc, pn).toList() + UtilityCanvasProjection.computeMercatorNumbers(ec, pn).toList()
     }
 }
