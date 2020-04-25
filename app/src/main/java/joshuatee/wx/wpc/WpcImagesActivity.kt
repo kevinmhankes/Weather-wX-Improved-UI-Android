@@ -67,15 +67,11 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
         img.setOnClickListener(this)
         img.setOnTouchListener(object : OnSwipeTouchListener(this) {
             override fun onSwipeLeft() {
-                if (img.currentZoom < 1.01f) {
-                    showNextImg()
-                }
+                if (img.currentZoom < 1.01f) showNextImg()
             }
 
             override fun onSwipeRight() {
-                if (img.currentZoom < 1.01f) {
-                    showPrevImg()
-                }
+                if (img.currentZoom < 1.01f) showPrevImg()
             }
         })
         activityArguments = intent.getStringArrayExtra(URL)!!
@@ -158,9 +154,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true
-        }
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_forward -> {
                 timePeriod += 1
@@ -190,17 +184,13 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
     }
 
     override fun onStop() {
-        if (imageLoaded && activityArguments.size < 2) {
-            UtilityImg.imgSavePosnZoom(this, img, "WPCIMG")
-        }
+        if (imageLoaded && activityArguments.size < 2) UtilityImg.imgSavePosnZoom(this, img, "WPCIMG")
         super.onStop()
     }
 
     private fun showNextImg() {
         drw.imgIdx += 1
-        if (UtilityWpcImages.shortCodes[drw.imgGroupIdx][drw.imgIdx] == "") {
-            drw.imgIdx = 0
-        }
+        if (UtilityWpcImages.shortCodes[drw.imgGroupIdx][drw.imgIdx] == "") drw.imgIdx = 0
         getContent()
     }
 

@@ -118,9 +118,7 @@ class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true
-        }
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.GOES16)
             R.id.action_a12 -> getAnimate(12)

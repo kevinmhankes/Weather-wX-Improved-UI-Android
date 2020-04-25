@@ -18,14 +18,11 @@ class MyExpandableListAdapter(act: Activity, private val groups: SparseArray<Gro
 
     override fun getChildId(groupPosition: Int, childPosition: Int): Long = 0
 
-    override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, convertViewF: View?, parent: ViewGroup): View {
-        var convertView = convertViewF
+    override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, view: View?, parent: ViewGroup): View {
+        var convertView = view
         val children = getChild(groupPosition, childPosition) as String
-        val text: TextView
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.listrow_details, null)
-        }
-        text = convertView!!.findViewById(R.id.textView1)
+        if (convertView == null) convertView = inflater.inflate(R.layout.listrow_details, null)
+        val text: TextView = convertView!!.findViewById(R.id.textView1)
         text.text = children
         return convertView
     }
@@ -38,11 +35,9 @@ class MyExpandableListAdapter(act: Activity, private val groups: SparseArray<Gro
 
     override fun getGroupId(groupPosition: Int): Long = 0
 
-    override fun getGroupView(groupPosition: Int, isExpanded: Boolean, convertViewF: View?, parent: ViewGroup): View {
-        var convertView = convertViewF
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.listrow_group, null)
-        }
+    override fun getGroupView(groupPosition: Int, isExpanded: Boolean, view: View?, parent: ViewGroup): View {
+        var convertView = view
+        if (convertView == null) convertView = inflater.inflate(R.layout.listrow_group, null)
         val group = getGroup(groupPosition) as Group
         (convertView as CheckedTextView).text = group.string
         convertView.isChecked = isExpanded

@@ -48,12 +48,8 @@ object UtilityGoes {
         var satellite = "GOES16"
         if (sectorsInGoes17.contains(sector)) {
             satellite = "GOES17"
-            if (sector == "CONUS-G17") {
-                sectorLocal = "CONUS"
-            }
-            if (sector == "FD-G17") {
-                sectorLocal = "FD"
-            }
+            if (sector == "CONUS-G17") sectorLocal = "CONUS"
+            if (sector == "FD-G17") sectorLocal = "FD"
         }
         // https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/cgl/03/
         // https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/cgl/12/latest.jpg
@@ -67,11 +63,7 @@ object UtilityGoes {
     // https://www.star.nesdis.noaa.gov/GOES/sector_band.php?sat=G16&sector=cgl&band=GEOCOLOR&length=12
     fun getAnimation(context: Context, product: String, sector: String, frameCount: Int): AnimationDrawable {
         val frameCountString = frameCount.toString()
-        val satellite = if (sectorsInGoes17.contains(sector)) {
-            "G17"
-        } else {
-            "G16"
-        }
+        val satellite = if (sectorsInGoes17.contains(sector)) "G17" else "G16"
         val url = when (sector) {
             // https://www.star.nesdis.noaa.gov/GOES/fulldisk_band.php?sat=G17&band=GEOCOLOR&length=12
             "FD", "FD-G17" -> MyApplication.goes16AnimUrl + "/GOES/fulldisk_band.php?sat=$satellite&band=$product&length=$frameCountString"

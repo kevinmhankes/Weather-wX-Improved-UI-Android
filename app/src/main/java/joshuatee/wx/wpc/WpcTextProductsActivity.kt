@@ -120,9 +120,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
     override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, html, product, product)) {
-            return true
-        }
+        if (audioPlayMenu(item.itemId, html, product, product)) return true
         when (item.itemId) {
             R.id.action_fav -> toggleFavorite()
             R.id.action_notif_text_prod -> {
