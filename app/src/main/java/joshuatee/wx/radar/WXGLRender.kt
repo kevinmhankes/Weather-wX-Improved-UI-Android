@@ -536,38 +536,19 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         if (!buffers.isInitialized) {
             buffers.count = buffers.geotype.count
             buffers.breakSize = 30000
-            buffers.initialize(
-                    4 * buffers.count,
-                    0,
-                    3 * buffers.breakSize * 2,
-                    buffers.geotype.color
-            )
+            buffers.initialize(4 * buffers.count, 0, 3 * buffers.breakSize * 2, buffers.geotype.color)
             if (MyApplication.radarUseJni) {
                 Jni.colorGen(buffers.colorBuffer, buffers.breakSize * 2, buffers.colorArray)
             } else {
-                UtilityWXOGLPerf.colorGen(
-                        buffers.colorBuffer,
-                        buffers.breakSize * 2,
-                        buffers.colorArray
-                )
+                UtilityWXOGLPerf.colorGen(buffers.colorBuffer, buffers.breakSize * 2, buffers.colorArray)
             }
             buffers.isInitialized = true
         }
         if (!MyApplication.radarUseJni) {
             if (useMercatorProjection) {
-                UtilityWXOGLPerf.genMercator(
-                        buffers.geotype.relativeBuffer,
-                        buffers.floatBuffer,
-                        projectionNumbers,
-                        buffers.count
-                )
+                UtilityWXOGLPerf.genMercator(buffers.geotype.relativeBuffer, buffers.floatBuffer, projectionNumbers, buffers.count)
             } else {
-                UtilityWXOGLPerf.generate4326Projection(
-                        buffers.geotype.relativeBuffer,
-                        buffers.floatBuffer,
-                        projectionNumbers,
-                        buffers.count
-                )
+                UtilityWXOGLPerf.generate4326Projection(buffers.geotype.relativeBuffer, buffers.floatBuffer, projectionNumbers, buffers.count)
             }
         } else {
             if (useMercatorProjection) {
@@ -623,9 +604,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         }
         var vList = 0
         (0 until buffers.chunkCount).forEach {
-            if (it == buffers.chunkCount - 1) {
-                buffers.breakSize = remainder
-            }
+            if (it == buffers.chunkCount - 1) buffers.breakSize = remainder
             for (notUsed in 0 until buffers.breakSize) {
                 buffers.putFloat(f[vList].toFloat())
                 buffers.putFloat(f[vList + 1].toFloat() * -1)
@@ -672,11 +651,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
 
     fun constructGenericWarningLines() {
         genericWarningBuffers.forEach {
-            if (it.warningType!!.isEnabled) {
-                constructGenericLines(it)
-            } else {
-                deconstructGenericLines(it)
-            }
+            if (it.warningType!!.isEnabled) constructGenericLines(it) else deconstructGenericLines(it)
         }
     }
 
@@ -687,9 +662,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         locYCurrent = locYCurrent.replace("-", "")
         val x = locXCurrent.toDoubleOrNull() ?: 0.0
         val y = locYCurrent.toDoubleOrNull() ?: 0.0
-        if (PolygonType.LOCDOT.pref) {
-            locationMarkers = UtilityLocation.latLonAsDouble
-        }
+        if (PolygonType.LOCDOT.pref) locationMarkers = UtilityLocation.latLonAsDouble
         if (MyApplication.locationDotFollowsGps || archiveMode) {
             locationMarkers.add(x)
             locationMarkers.add(y)
@@ -719,17 +692,9 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 MyApplication.radarColorLocdot
         )
         if (MyApplication.radarUseJni) {
-            Jni.colorGen(
-                    locCircleBuffers.colorBuffer,
-                    2 * locCircleBuffers.triangleCount,
-                    locCircleBuffers.colorArray
-            )
+            Jni.colorGen(locCircleBuffers.colorBuffer, 2 * locCircleBuffers.triangleCount, locCircleBuffers.colorArray)
         } else {
-            UtilityWXOGLPerf.colorGen(
-                    locCircleBuffers.colorBuffer,
-                    2 * locCircleBuffers.triangleCount,
-                    locCircleBuffers.colorArray
-            )
+            UtilityWXOGLPerf.colorGen(locCircleBuffers.colorBuffer, 2 * locCircleBuffers.triangleCount, locCircleBuffers.colorArray)
         }
         if (MyApplication.locationDotFollowsGps) {
             locCircleBuffers.lenInit = locationDotBuffers.lenInit
@@ -776,12 +741,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                     9 * buffers.count * buffers.triangleCount,
                     buffers.type.color
             )
-            else -> buffers.initialize(
-                    4 * 6 * buffers.count,
-                    4 * 3 * buffers.count,
-                    9 * buffers.count,
-                    buffers.type.color
-            )
+            else -> buffers.initialize(4 * 6 * buffers.count, 4 * 3 * buffers.count, 9 * buffers.count, buffers.type.color)
         }
         buffers.lenInit = scaleLength(buffers.lenInit)
         buffers.draw(projectionNumbers)
@@ -814,9 +774,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             PolygonType.TST, PolygonType.TOR, PolygonType.FFW -> fList = WXGLPolygonWarnings.add(projectionNumbers, buffers.type).toList()
             PolygonType.STI -> fList = WXGLNexradLevel3StormInfo.decodeAndPlot(context, indexString, projectionNumbers).toList()
             else -> {
-                if (buffers.warningType != null) {
-                    fList = WXGLPolygonWarnings.addGeneric(projectionNumbers, buffers.warningType!!).toList()
-                }
+                if (buffers.warningType != null) fList = WXGLPolygonWarnings.addGeneric(projectionNumbers, buffers.warningType!!).toList()
             }
         }
         buffers.breakSize = 15000
@@ -833,19 +791,9 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         }
         // FIXME need a better solution then this hack
         if (buffers.warningType == null) {
-            buffers.initialize(
-                    4 * 4 * totalBinsGeneric,
-                    0,
-                    3 * 4 * totalBinsGeneric,
-                    buffers.type.color
-            )
+            buffers.initialize(4 * 4 * totalBinsGeneric, 0, 3 * 4 * totalBinsGeneric, buffers.type.color)
         } else {
-            buffers.initialize(
-                    4 * 4 * totalBinsGeneric,
-                    0,
-                    3 * 4 * totalBinsGeneric,
-                    buffers.warningType!!.color
-            )
+            buffers.initialize(4 * 4 * totalBinsGeneric, 0, 3 * 4 * totalBinsGeneric, buffers.warningType!!.color)
         }
         if (MyApplication.radarUseJni) {
             Jni.colorGen(buffers.colorBuffer, 4 * totalBinsGeneric, buffers.colorArray)
@@ -854,9 +802,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         }
         var vList = 0
         (0 until buffers.chunkCount).forEach {
-            if (it == buffers.chunkCount - 1) {
-                buffers.breakSize = remainder
-            }
+            if (it == buffers.chunkCount - 1) buffers.breakSize = remainder
             for (notUsed in 0 until buffers.breakSize) {
                 if (fList.size > (vList + 3)) {
                     buffers.putFloat(fList[vList].toFloat())
@@ -907,11 +853,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         fronts.indices.forEach { z ->
             val front = fronts[z]
             wpcFrontBuffersList[z].count = front.coordinates.size * 2
-            wpcFrontBuffersList[z].initialize(
-                    4 * wpcFrontBuffersList[z].count,
-                    0,
-                    3 * wpcFrontBuffersList[z].count
-            )
+            wpcFrontBuffersList[z].initialize(4 * wpcFrontBuffersList[z].count, 0, 3 * wpcFrontBuffersList[z].count)
             wpcFrontBuffersList[z].isInitialized = true
             when (front.type) {
                 FrontTypeEnum.COLD -> wpcFrontPaints.add(Color.rgb(0, 127, 255))
@@ -977,9 +919,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         colorSwo[3] = Color.YELLOW
         colorSwo[4] = Color.rgb(0, 100, 0)
         var tmpCoords: DoubleArray
-        val fSize = (0..4).filter { hashSwo[it] != null }.sumBy {
-            hashSwo[it]!!.size
-        }
+        val fSize = (0..4).filter { hashSwo[it] != null }.sumBy { hashSwo[it]!!.size }
         swoBuffers.breakSize = 15000
         swoBuffers.chunkCount = 1
         val totalBinsSwo = fSize / 4
