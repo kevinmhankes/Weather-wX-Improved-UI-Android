@@ -352,26 +352,6 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                         stepAmount = 6
                         numberRuns = 4
                     }
-                    /*18 -> {
-                        model = "WW3-ENP"
-                        params = UtilityModelNcepInterface.paramsWw3Enp
-                        labels = UtilityModelNcepInterface.labelsWw3Enp
-                        sectors = UtilityModelNcepInterface.sectorsWw3Enp
-                        startStep = 0
-                        endStep = 127
-                        stepAmount = 6
-                        numberRuns = 4
-                    }
-                    19 -> {
-                        model = "WW3-WNA"
-                        params = UtilityModelNcepInterface.paramsWw3Wna
-                        labels = UtilityModelNcepInterface.labelsWw3Wna
-                        sectors = UtilityModelNcepInterface.sectorsWw3Wna
-                        startStep = 0
-                        endStep = 127
-                        stepAmount = 6
-                        numberRuns = 4
-                    }*/
                     0 -> {
                         model = "ESTOFS"
                         params = UtilityModelNcepInterface.paramsEstofs

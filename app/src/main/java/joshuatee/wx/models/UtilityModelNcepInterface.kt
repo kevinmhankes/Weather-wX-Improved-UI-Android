@@ -42,8 +42,6 @@ internal object UtilityModelNcepInterface {
             "RAP",
             "SREF",
             "WW3"
-            //"WW3-ENP",
-            //"WW3-WNA"
     )
 
     val sectorsGfs = listOf(
@@ -850,30 +848,6 @@ internal object UtilityModelNcepInterface {
             "Significant Wave Height and Wind",
             "Wind Wave Direction and Period (sec)"
     )
-
-    /*val paramsWw3Enp = listOf(
-            "regional_pk_dir_per",
-            "regional_wv_dir_per",
-            "regional_wv_ht"
-    )
-
-    val labelsWw3Enp = listOf(
-            "Regional WW3 Model Peak Wave Direction and Period",
-            "Regional WW3 Model Wind Wave Direction and Period",
-            "Regional WW3 Model Sig Wave Height and Wind"
-    )
-
-    val paramsWw3Wna = listOf(
-            "regional_pk_dir_per",
-            "regional_wv_dir_per",
-            "regional_wv_ht"
-    )
-
-    val labelsWw3Wna = listOf(
-            "Regional WW3 Model Peak Wave Direction and Period",
-            "Regional WW3 Model Wind Wave Direction and Period",
-            "Regional WW3 Model Sig Wave Height and Wind"
-    )*/
 
     val paramsEstofs = listOf(
             "storm_surge",
