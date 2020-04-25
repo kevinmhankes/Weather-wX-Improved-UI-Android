@@ -41,6 +41,7 @@ import joshuatee.wx.RegExp
 
 class WXGLDownload {
 
+    // FIXME remove these
     private var radarSite = ""
     private var product = ""
 
@@ -51,9 +52,7 @@ class WXGLDownload {
         if (!product.contains("L2")) {
             val inputStream = getRadarFileUrl(radarSite, product, tdwr).getInputStream()
             val l3BaseFn = "nids"
-            inputStream?.let {
-                UtilityIO.saveInputStream(context, inputStream, l3BaseFn + idxStr + "_d")
-            }
+            inputStream?.let { UtilityIO.saveInputStream(context, inputStream, l3BaseFn + idxStr + "_d") }
             UtilityFileManagement.moveFile(context, l3BaseFn + idxStr + "_d", l3BaseFn + idxStr)
         } else {
             if (urlStr == "") {
@@ -103,9 +102,7 @@ class WXGLDownload {
         }
         var mostRecentSn = ""
         val mostRecentTime = snDates.last()
-        (0 until snDates.lastIndex).filter { snDates[it] == mostRecentTime }.forEach {
-            mostRecentSn = snFiles[it]
-        }
+        (0 until snDates.lastIndex).filter { snDates[it] == mostRecentTime }.forEach { mostRecentSn = snFiles[it] }
         try {
             val seq = mostRecentSn.replace("sn.", "").toIntOrNull() ?: 0
             var j = 0
@@ -113,8 +110,7 @@ class WXGLDownload {
             while (j < frameCount) {
                 // files range from 0000 to 0250, if num is negative add 251
                 var tmpK = k
-                if (tmpK < 0)
-                    tmpK += 251
+                if (tmpK < 0) tmpK += 251
                 fileList.add("sn." + String.format("%4s", tmpK.toString()).replace(' ', '0'))
                 k += 1
                 j += 1
@@ -136,9 +132,7 @@ class WXGLDownload {
     private fun getLevel2FilesForAnimation(context: Context, baseUrl: String, frameCount: Int): List<String> {
         val fileList = mutableListOf<String>()
         val list = (baseUrl + "dir.list").getHtmlSep().replace("<br>", " ").split(" ").dropLastWhile { it.isEmpty() }
-        if (list.isEmpty()) {
-            return listOf("")
-        }
+        if (list.isEmpty()) return listOf("")
         val arrLength = list.size
         var additionalAdd = 0
         val fnSize = list[list.size - 2].toIntOrNull() ?: 1
@@ -161,17 +155,13 @@ class WXGLDownload {
         val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, false).toUpperCase(Locale.US)
         val baseUrl = "$nwsRadarLevel2Pub$ridPrefix$radarSite/"
         val list = (baseUrl + "dir.list").getHtmlSep().replace("<br>", " ").split(" ").dropLastWhile { it.isEmpty() }
-        if (list.size < 4) {
-            return ""
-        }
+        if (list.size < 4) return ""
         var fileName = list.last()
         val fnPrev = list[list.size - 3]
         val fnSize = list[list.size - 2].toIntOrNull() ?: 1
         val fnPrevSize = list[list.size - 4].toIntOrNull() ?: 1
         val ratio = fnSize.toFloat() / fnPrevSize.toFloat()
-        if (ratio < 0.75) {
-            fileName = fnPrev
-        }
+        if (ratio < 0.75) fileName = fnPrev
         return baseUrl + fileName
     }
 
@@ -180,12 +170,9 @@ class WXGLDownload {
         // experimentation has shown that L2REF and L2VEL lowest tiles are at the start of the
         // file so "Range" HTTP header is used to download just what is needed based on prod
         // requested
-        if (url == "") {
-            return null
-        }
+        if (url == "") return null
         var byteEnd = "2450000"
-        if (product == "L2VEL")
-            byteEnd = "3000000"
+        if (product == "L2VEL") byteEnd = "3000000"
         return try {
             val request = Request.Builder().url(url).header("Range", "bytes=0-$byteEnd").build()
             val response = MyApplication.httpClient!!.newCall(request).execute() // was client

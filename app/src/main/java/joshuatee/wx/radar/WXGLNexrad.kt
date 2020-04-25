@@ -206,9 +206,7 @@ object WXGLNexrad {
         Utility.writePref(context, prefPrefix + "_PROD" + idx.toString(), wxglRender.product)
     }
 
-    fun getRadarInfo(context: Context, pane: String): String {
-        return Utility.readPref(context, "WX_RADAR_CURRENT_INFO$pane", "")
-    }
+    fun getRadarInfo(context: Context, pane: String) = Utility.readPref(context, "WX_RADAR_CURRENT_INFO$pane", "")
 
     // for Location Fragment as there seem to be quite a few
     // at joshuatee.wx.fragments.LocationFragment.getActivityReference (LocationFragment.kt:833)

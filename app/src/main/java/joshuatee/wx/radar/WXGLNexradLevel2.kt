@@ -54,9 +54,7 @@ class WXGLNexradLevel2 {
     fun decodeAndPlot(context: Context, fileName: String, prod: String, radarStatusStr: String, idxStr: String, performDecompression: Boolean) {
         val decompFileName = "$fileName.decomp$idxStr"
         var productCode: Short = 153
-        if (prod == "L2VEL") {
-            productCode = 154
-        }
+        if (prod == "L2VEL") productCode = 154
         if (MyApplication.radarUseJni) {
             ibuff.position(0)
             obuff.position(0)
