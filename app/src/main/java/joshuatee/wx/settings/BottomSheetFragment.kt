@@ -79,7 +79,5 @@ class BottomSheetFragment(private val actContext: Context, val position: Int, pr
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun initView() {
-        label.text = topLabel
-    }
+    private fun initView() { label.text = topLabel }
 }

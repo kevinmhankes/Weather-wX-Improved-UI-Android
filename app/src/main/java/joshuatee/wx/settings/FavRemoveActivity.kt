@@ -149,9 +149,7 @@ class FavRemoveActivity : BaseActivity() {
         when (type) {
             "SPCMESO" -> {
                 favoriteString = initialValue
-                favorites.forEach {
-                    favoriteString += ":$it"
-                }
+                favorites.forEach { favoriteString += ":$it" }
                 Utility.writePref(this, prefToken, "$favoriteString:")
                 favoriteLabel = initialValue
                 favoriteLabel += objectRecyclerView.toString()
@@ -159,9 +157,7 @@ class FavRemoveActivity : BaseActivity() {
             }
             else -> {
                 favoriteString = initialValue
-                favorites.forEach {
-                    favoriteString += ":$it"
-                }
+                favorites.forEach { favoriteString += ":$it" }
                 Utility.writePref(this, prefToken, "$favoriteString:")
             }
         }
@@ -187,9 +183,7 @@ class FavRemoveActivity : BaseActivity() {
             objectRecyclerView.setItem(favorites.lastIndex, getFullString(tmp))
         }
         favoriteString = initialValue
-        favorites.forEach {
-            favoriteString += ":$it"
-        }
+        favorites.forEach { favoriteString += ":$it" }
         Utility.writePref(this, prefToken, "$favoriteString:")
         when (type) {
             "SPCMESO" -> {
@@ -208,11 +202,7 @@ class FavRemoveActivity : BaseActivity() {
             "RID" -> fullName = shortCode + ": " + Utility.getRadarSiteName(shortCode)
             "NWSTEXT" -> {
                 val index = UtilityFavorites.findPositionNwsText(shortCode)
-                fullName = if (index != -1) {
-                    UtilityWpcText.labels[index]
-                } else {
-                    shortCode
-                }
+                fullName = if (index != -1) UtilityWpcText.labels[index] else shortCode
             }
             "SREF" -> fullName = shortCode
             "RIDCA" -> fullName = findCanadaRadarSiteLabel(shortCode)
@@ -243,11 +233,7 @@ class FavRemoveActivity : BaseActivity() {
 
     private fun findSpcMesoLabel(rid: String): String {
         val index = UtilitySpcMeso.params.indexOf(rid)
-        return if (index == -1) {
-            UtilitySpcMeso.labels[0]
-        } else {
-            UtilitySpcMeso.labels[index]
-        }
+        return if (index == -1) UtilitySpcMeso.labels[0] else UtilitySpcMeso.labels[index]
     }
 
     private fun itemClicked(position: Int) {

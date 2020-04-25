@@ -142,15 +142,9 @@ class Location(val context: Context, locNumInt: Int) {
 
         val listOf = mutableListOf<String> ()
 
-        fun us(xStr: String) = if (xStr.isNotEmpty()) {
-            Character.isDigit(xStr[0])
-        } else {
-            true
-        }
+        fun us(xStr: String) = if (xStr.isNotEmpty()) Character.isDigit(xStr[0]) else true
 
-        fun addToListOfNames(name: String) {
-            listOf.add(name)
-        }
+        fun addToListOfNames(name: String) { listOf.add(name) }
 
         fun checkCurrentLocationValidity() {
             if (currentLocation >= MyApplication.locations.size) {
@@ -159,9 +153,7 @@ class Location(val context: Context, locNumInt: Int) {
             }
         }
 
-        private fun clearListOfNames() {
-            listOf.clear()
-        }
+        private fun clearListOfNames() { listOf.clear() }
 
         private fun initNumLocations(context: Context) {
             val numberOfLocations = Utility.readPref(context, "LOC_NUM_INT", 1)
@@ -175,9 +167,7 @@ class Location(val context: Context, locNumInt: Int) {
 
         var currentLocationStr: String
             get() = (currentLocation + 1).toString()
-            set(currentLocationStr) {
-                currentLocation = (currentLocationStr.toIntOrNull() ?: 0) - 1
-            }
+            set(currentLocationStr) { currentLocation = (currentLocationStr.toIntOrNull() ?: 0) - 1 }
 
         val state get() = MyApplication.locations.getOrNull(currentLocation)?.state ?: "MI"
 
@@ -242,27 +232,14 @@ class Location(val context: Context, locNumInt: Int) {
             return listOf(wfo, radarStation)
         }
 
-        fun locationSave(context: Context, latLon: LatLon): String {
-            return locationSave(
-                    context,
-                    (numLocations + 1).toString(),
-                    latLon.latString,
-                    latLon.lonString,
-                    latLon.toString()
-            )
-        }
+        fun locationSave(context: Context, latLon: LatLon) =
+                locationSave(context, (numLocations + 1).toString(), latLon.latString, latLon.lonString, latLon.toString())
 
         fun locationSave(context: Context, locNum: String, xStr: String, yStr: String, labelStr: String): String {
-            if (xStr == "" || yStr == "" || labelStr == "") {
-                return "Location label, latitude, and longitude all must have valid values, please try again."
-            }
+            if (xStr == "" || yStr == "" || labelStr == "") return "Location label, latitude, and longitude all must have valid values, please try again."
             val locNumInt = locNum.toIntOrNull() ?: 0
             val locNumIntCurrent = numLocations
-            val locNumToSave = if (locNumInt == locNumIntCurrent + 1) {
-                locNumInt
-            } else {
-                locNumIntCurrent
-            }
+            val locNumToSave = if (locNumInt == locNumIntCurrent + 1) locNumInt else locNumIntCurrent
             Utility.writePref(context, "LOC" + locNum + "_X", xStr)
             Utility.writePref(context, "LOC" + locNum + "_Y", yStr)
             Utility.writePref(context, "LOC" + locNum + "_LABEL", labelStr)
@@ -273,16 +250,10 @@ class Location(val context: Context, locNumInt: Int) {
                 val wfoAndRadar =  getWfoRadarSiteFromPoint(LatLon(xStr, yStr))
                 wfo = wfoAndRadar[0]
                 radarSite = wfoAndRadar[1]
-                if (wfo == "") {
-                    wfo = UtilityLocation.getNearestOffice( "WFO", LatLon(xStr, yStr)).toLowerCase(Locale.US)
-                }
-                if (radarSite == "") {
-                    radarSite = UtilityLocation.getNearestOffice( "RADAR", LatLon(xStr, yStr))
-                }
+                if (wfo == "") wfo = UtilityLocation.getNearestOffice( "WFO", LatLon(xStr, yStr)).toLowerCase(Locale.US)
+                if (radarSite == "") radarSite = UtilityLocation.getNearestOffice( "RADAR", LatLon(xStr, yStr))
                 // CT shows mosaic not nexrad so the old way is needed
-                if (radarSite == "") {
-                    radarSite = GlobalDictionaries.wfoToRadarSite[wfo.toUpperCase(Locale.US)] ?: ""
-                }
+                if (radarSite == "") radarSite = GlobalDictionaries.wfoToRadarSite[wfo.toUpperCase(Locale.US)] ?: ""
                 Utility.writePref(context, "RID$locNum", radarSite.toUpperCase(Locale.US))
                 Utility.writePref(context, "NWS$locNum", wfo.toUpperCase(Locale.US)
                 )
@@ -292,23 +263,15 @@ class Location(val context: Context, locNumInt: Int) {
                     // if we are here then the user used the submenu
                     // need to calculate lat/lon first as get rid is now coded to parse on ":" for both x/y
                     // first check if the label is present in the database
-                    if (UtilityCanada.isLabelPresent(labelStr)) {
-                        tmpLatLon = UtilityCanada.getLatLonFromLabel(labelStr)
-                    }
+                    if (UtilityCanada.isLabelPresent(labelStr)) tmpLatLon = UtilityCanada.getLatLonFromLabel(labelStr)
                 }
                 var prov = ""
                 val parseProv = xStr.split(":").dropLastWhile { it.isEmpty() }
                 if (parseProv.isNotEmpty()) prov = parseProv[1]
                 var id = ""
                 val parseId = yStr.split(":").dropLastWhile { it.isEmpty() }
-                if (parseId.isNotEmpty()) {
-                    id = parseId[0]
-                }
-                if (xStr.length > 12) {
-                    //tmpLatLon.latStr = parseProv[2]
-                    //tmpLatLon.lonStr = parseId[1]
-                    tmpLatLon = LatLon(parseProv[2], parseId[1])
-                }
+                if (parseId.isNotEmpty()) id = parseId[0]
+                if (xStr.length > 12) tmpLatLon = LatLon(parseProv[2], parseId[1])
                 Utility.writePref(context, "LOC" + locNum + "_X", "CANADA" + ":" + prov + ":" + tmpLatLon.latString)
                 Utility.writePref(context, "LOC" + locNum + "_Y", id + ":" + tmpLatLon.lonString)
                 setNumLocations(context, locNumToSave)
@@ -321,9 +284,7 @@ class Location(val context: Context, locNumInt: Int) {
             }
             refreshLocationData(context)
             setCurrentLocationStr(context, locNum)
-            return "Saving location $locNum as $labelStr ($xStr,$yStr) " + wfo.toUpperCase(
-                    Locale.US
-            ) + "(" + radarSite.toUpperCase(Locale.US) + ")"
+            return "Saving location $locNum as $labelStr ($xStr,$yStr) " + wfo.toUpperCase(Locale.US) + "(" + radarSite.toUpperCase(Locale.US) + ")"
         }
 
         private fun setCurrentLocationStr(context: Context, locNum: String) {

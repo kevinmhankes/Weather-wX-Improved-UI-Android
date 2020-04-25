@@ -58,9 +58,7 @@ class FavAddActivity : BaseActivity() {
             "SND" -> {
                 prefToken = "SND_FAV"
                 val list = mutableListOf<String>()
-                GlobalArrays.soundingSites.forEach {
-                    list.add("$it " + Utility.getSoundingSiteName(it))
-                }
+                GlobalArrays.soundingSites.forEach { list.add("$it " + Utility.getSoundingSiteName(it)) }
                 data = list.toList()
                 verboseTitle = "sounding site"
             }
