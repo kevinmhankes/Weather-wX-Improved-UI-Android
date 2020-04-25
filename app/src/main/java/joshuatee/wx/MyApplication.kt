@@ -96,11 +96,7 @@ class MyApplication : Application() {
         Location.refreshLocationData(this)
         System.setProperty("http.keepAlive", "false")
         newline = System.getProperty("line.separator") ?: "\n"
-        spinnerLayout = if (UIPreferences.themeIsWhite) {
-            R.layout.spinner_row_white
-        } else {
-            R.layout.spinner_row_blue
-        }
+        spinnerLayout = if (UIPreferences.themeIsWhite) R.layout.spinner_row_white else R.layout.spinner_row_blue
         //
         // Most HTTP downloads will use the structures setup below
         //
@@ -121,9 +117,7 @@ class MyApplication : Application() {
                 .build()
         UtilityTts.initTts(applicationContext)
         UtilityCities.initialize()
-        if (!loadedBuffers) {
-            initBuffers(this)
-        }
+        if (!loadedBuffers) initBuffers(this)
         httpClientUnsafe = UtilityHttp.getUnsafeOkHttpClient()
         imageCollectionMap = ObjectImagesCollection.initialize()
     }
@@ -342,9 +336,7 @@ class MyApplication : Application() {
             checkspc = getInitialPreference("CHECKSPC", "false")
             checkwpc = getInitialPreference("CHECKWPC", "false")
             checktor = getInitialPreference("CHECKTOR", "false")
-            if (UtilityUI.isTablet()) {
-                UIPreferences.nwsIconSizeDefault = 6
-            }
+            if (UtilityUI.isTablet()) UIPreferences.nwsIconSizeDefault = 6
             nwsIconSize = preferences.getInt("NWS_ICON_SIZE_PREF", UIPreferences.nwsIconSizeDefault)
             uiAnimIconFrames = getInitialPreferenceString("UI_ANIM_ICON_FRAMES", "10")
             blackBg = getInitialPreference("NWS_RADAR_BG_BLACK", "")
@@ -362,9 +354,7 @@ class MyApplication : Application() {
             nwsIconTextColor = getInitialPreference("NWS_ICON_TEXT_COLOR", Color.rgb(38, 97, 139))
             nwsIconBottomColor = getInitialPreference("NWS_ICON_BOTTOM_COLOR", Color.rgb(255, 255, 255))
             nexradRadarBackgroundColor = getInitialPreference("NEXRAD_RADAR_BACKGROUND_COLOR", Color.rgb(0, 0, 0))
-            if (UtilityUI.isTablet()) {
-                wxoglSizeDefault = 8
-            }
+            if (UtilityUI.isTablet()) wxoglSizeDefault = 8
             wxoglSize = getInitialPreference("WXOGL_SIZE", wxoglSizeDefault)
             wxoglRememberLocation = getInitialPreference("WXOGL_REMEMBER_LOCATION", "false")
             wxoglRadarAutoRefresh = getInitialPreference("RADAR_AUTOREFRESH", "false")
@@ -376,9 +366,7 @@ class MyApplication : Application() {
             spcmesoLabelFav = getInitialPreferenceString("SPCMESO_LABEL_FAV", prefSeparator)
             nwsTextFav = getInitialPreferenceString("NWS_TEXT_FAV", prefSeparator)
             notifSoundUri = getInitialPreferenceString("NOTIF_SOUND_URI", "")
-            if (notifSoundUri == "") {
-                notifSoundUri = Settings.System.DEFAULT_NOTIFICATION_URI.toString()
-            }
+            if (notifSoundUri == "") notifSoundUri = Settings.System.DEFAULT_NOTIFICATION_URI.toString()
             spotterFav = getInitialPreferenceString("SPOTTER_FAV", "")
             homescreenFav = getInitialPreferenceString("HOMESCREEN_FAV", HOMESCREEN_FAV_DEFAULT)
             locDisplayImg = homescreenFav.contains("OGL-RADAR") || homescreenFav.contains("NXRD")
@@ -534,18 +522,14 @@ class MyApplication : Application() {
 
         private fun initRadarGeometryAll(context: Context) {
             initGenericRadarWarnings(context)
-            GeographyType.values().forEach {
-                initRadarGeometryByType(context, it)
-            }
+            GeographyType.values().forEach { initRadarGeometryByType(context, it) }
         }
 
         fun initGenericRadarWarnings(context: Context) {
             // FIXME don't need both, prefer top one shared with iOS
             ObjectPolygonWarning.load(context)
             radarWarningPolygons.clear()
-            PolygonWarningType.values().forEach {
-                radarWarningPolygons.add(ObjectPolygonWarning(context, it))
-            }
+            PolygonWarningType.values().forEach { radarWarningPolygons.add(ObjectPolygonWarning(context, it)) }
         }
 
         fun initRadarGeometryByType(context: Context, type: GeographyType) {
@@ -559,9 +543,7 @@ class MyApplication : Application() {
                 stateLinesFileResId = R.raw.statev3
                 countState = 1166552
             }
-            if (radarCamxBorders) {
-                countState += caCnt + mxCnt
-            }
+            if (radarCamxBorders) countState += caCnt + mxCnt
             if (radarCountyHires) {
                 countyFileResId = R.raw.countyv2
                 countCounty = 820852
@@ -582,17 +564,13 @@ class MyApplication : Application() {
                     stateRelativeBuffer = ByteBuffer.allocateDirect(4 * countState)
                     stateRelativeBuffer.order(ByteOrder.nativeOrder())
                     stateRelativeBuffer.position(0)
-                    listOf(3, 4, 5).forEach {
-                        loadBuffer(context, fileIds[it], stateRelativeBuffer, countArr[it], prefArr[it])
-                    }
+                    listOf(3, 4, 5).forEach { loadBuffer(context, fileIds[it], stateRelativeBuffer, countArr[it], prefArr[it]) }
                 }
                 GeographyType.HIGHWAYS -> {
                     hwRelativeBuffer = ByteBuffer.allocateDirect(4 * countHw)
                     hwRelativeBuffer.order(ByteOrder.nativeOrder())
                     hwRelativeBuffer.position(0)
-                    for (s in intArrayOf(1)) {
-                        loadBuffer(context, fileIds[s], hwRelativeBuffer, countArr[s], prefArr[s])
-                    }
+                    for (s in intArrayOf(1)) { loadBuffer(context, fileIds[s], hwRelativeBuffer, countArr[s], prefArr[s]) }
                 }
                 GeographyType.HIGHWAYS_EXTENDED -> {
                     if (radarHwEnhExt) {
@@ -600,9 +578,7 @@ class MyApplication : Application() {
                         hwExtRelativeBuffer.order(ByteOrder.nativeOrder())
                         hwExtRelativeBuffer.position(0)
                     }
-                    for (s in intArrayOf(6)) {
-                        loadBuffer(context, fileIds[s], hwExtRelativeBuffer, countArr[s], prefArr[s])
-                    }
+                    for (s in intArrayOf(6)) { loadBuffer(context, fileIds[s], hwExtRelativeBuffer, countArr[s], prefArr[s]) }
                 }
                 GeographyType.LAKES -> {
                     lakesRelativeBuffer = ByteBuffer.allocateDirect(4 * countLakes)
@@ -627,9 +603,7 @@ class MyApplication : Application() {
                 try {
                     val inputStream = context.resources.openRawResource(fileID)
                     val dataInputStream = DataInputStream(BufferedInputStream(inputStream))
-                    for (index in 0 until count) {
-                        byteBuffer.putFloat(dataInputStream.readFloat())
-                    }
+                    for (index in 0 until count) { byteBuffer.putFloat(dataInputStream.readFloat()) }
                     dataInputStream.close()
                     inputStream.close()
                 } catch (e: IOException) {
