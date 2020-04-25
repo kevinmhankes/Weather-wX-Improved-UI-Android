@@ -58,20 +58,14 @@ object UtilityCanadaImg {
     private fun getRadarAnimStringArray(rid: String, duration: String): String {
         val radHtml = (MyApplication.canadaEcSitePrefix + "/radar/index_e.html?id=$rid").getHtmlSep()
         var durationPattern = "<p>Short .1hr.:</p>(.*?)</div>"
-        if (duration == "long") {
-            durationPattern = "<p>Long .3hr.:</p>(.*?)</div>"
-        }
+        if (duration == "long") durationPattern = "<p>Long .3hr.:</p>(.*?)</div>"
         val radarHtml1Hr = radHtml.parse(durationPattern)
         var timeStamps = radarHtml1Hr.parseColumn("display='(.*?)'&amp;")
         val radarSiteCode = (timeStamps.first()).split("_")[0]
         var urlString = ""
-        timeStamps.forEach {
-            urlString += ":/data/radar/detailed/temp_image/$radarSiteCode/$it.GIF"
-        }
+        timeStamps.forEach { urlString += ":/data/radar/detailed/temp_image/$radarSiteCode/$it.GIF" }
         timeStamps = radHtml.parseColumn("src=.(/data/radar/.*?GIF)\"")
-        timeStamps.forEach {
-            urlString += ":$it"
-        }
+        timeStamps.forEach { urlString += ":$it" }
         return urlString
     }
 
@@ -94,11 +88,7 @@ object UtilityCanadaImg {
         } else {
             url
         }
-        val layerCount = if (GeographyType.CITIES.pref) {
-            2
-        } else {
-            1
-        }
+        val layerCount = if (GeographyType.CITIES.pref) 2 else 1
         val bitmaps = mutableListOf(urlImg.getImage())
         val layers = mutableListOf<Drawable>()
         if (GeographyType.CITIES.pref) {
@@ -129,11 +119,7 @@ object UtilityCanadaImg {
         val radHtml = url.getHtmlSep()
         val matchString = "(/data/radar/.*?GIF)\""
         val summary = radHtml.parse(matchString).replace("detailed/", "")
-        val layerCount = if (GeographyType.CITIES.pref) {
-            2
-        } else {
-            1
-        }
+        val layerCount = if (GeographyType.CITIES.pref) 2 else 1
         val bitmaps = mutableListOf((MyApplication.canadaEcSitePrefix + "/$summary").getImage())
         val layers = mutableListOf<Drawable>()
         var sectorMap = sector.toLowerCase(Locale.US)

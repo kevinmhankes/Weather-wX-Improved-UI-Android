@@ -82,9 +82,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         val activityArguments = intent.getStringArrayExtra(RID)
         radarSite = activityArguments!![0]
         imageType = activityArguments[1]
-        if (radarSite == "NAT") {
-            radarSite = "CAN"
-        }
+        if (radarSite == "NAT") radarSite = "CAN"
         url = Utility.readPref(this, "CA_LAST_RID_URL", url)
         if (MyApplication.wxoglRememberLocation) {
             if (MyApplication.wxoglRid != "") {
@@ -224,11 +222,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
                 } else {
                     mosaicShown = true
                     img.resetZoom()
-                    if (imageType == "rad") {
-                        getMosaic(ridArrLoc[position])
-                    } else {
-                        getContent()
-                    }
+                    if (imageType == "rad") getMosaic(ridArrLoc[position]) else getContent()
                 }
             }
         }

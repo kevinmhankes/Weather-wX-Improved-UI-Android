@@ -50,9 +50,7 @@ object UtilityCanada {
     fun getIcons7Day(html: String): String {
         var iconList = ""
         val days = html.split((MyApplication.newline + MyApplication.newline)).dropLastWhile { it.isEmpty() }
-        days.forEach {
-            iconList += translateIconName(it) + "!"
-        }
+        days.forEach { iconList += translateIconName(it) + "!" }
         return iconList
     }
 
@@ -218,13 +216,10 @@ object UtilityCanada {
         if (times.isNotEmpty()) {
             var hour = times[0].toIntOrNull() ?: 0
             if (time.contains("AM"))
-                if (hour < 8)
-                    daytime = false
+                if (hour < 8) daytime = false
             if (time.contains("PM")) {
-                if (hour == 12)
-                    hour = 0
-                if (hour > 6)
-                    daytime = false
+                if (hour == 12) hour = 0
+                if (hour > 6) daytime = false
             }
         }
         if (!daytime) {
@@ -289,12 +284,8 @@ object UtilityCanada {
         val resultListDay = html.parseColumn("<title>(.*?)</title>")
         var j = 0
         for (i in 2 until resultListDay.size) {
-            if (resultListDay[i].contains("Current Conditions")) {
-                continue
-            }
-            if (!resultListDay[i].contains(":")) {
-                continue
-            }
+            if (resultListDay[i].contains("Current Conditions")) continue
+            if (!resultListDay[i].contains(":")) continue
             val string = resultListDay[i].split(":")[0] + ": " + stringList[j]
             sevenDayForecast += string + MyApplication.newline + MyApplication.newline
             j += 1
