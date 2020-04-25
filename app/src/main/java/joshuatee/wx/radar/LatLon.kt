@@ -144,24 +144,14 @@ class LatLon() {
             val y = mutableListOf<Double>()
             list.indices.forEach { i ->
                 if (isWarning) {
-                    if (i.isEven()) {
-                        y.add((list[i].toDoubleOrNull() ?: 0.0) * multiplier)
-                    } else {
-                        x.add(list[i].toDoubleOrNull() ?: 0.0)
-                    }
+                    if (i.isEven()) y.add((list[i].toDoubleOrNull() ?: 0.0) * multiplier) else x.add(list[i].toDoubleOrNull() ?: 0.0)
                 } else {
-                    if (i.isEven()) {
-                        x.add(list[i].toDoubleOrNull() ?: 0.0)
-                    } else {
-                        y.add((list[i].toDoubleOrNull() ?: 0.0) * multiplier)
-                    }
+                    if (i.isEven()) x.add(list[i].toDoubleOrNull() ?: 0.0) else y.add((list[i].toDoubleOrNull() ?: 0.0) * multiplier)
                 }
             }
             val latLons = mutableListOf<LatLon>()
             if (y.size > 3 && x.size > 3 && x.size == y.size) {
-                x.forEachIndexed { index, _ ->
-                    latLons.add(LatLon(x[index], y[index]))
-                }
+                x.forEachIndexed { index, _ -> latLons.add(LatLon(x[index], y[index])) }
             }
             return latLons
         }

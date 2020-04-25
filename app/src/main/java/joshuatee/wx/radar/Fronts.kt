@@ -27,9 +27,7 @@ class Fronts(var type: FrontTypeEnum) {
 
     override fun toString(): String {
         var string = ""
-        coordinates.forEach {
-            string += "$it "
-        }
+        coordinates.forEach { string += "$it " }
         return string
     }
 }
