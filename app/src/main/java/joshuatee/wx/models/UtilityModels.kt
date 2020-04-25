@@ -52,11 +52,7 @@ object UtilityModels {
                     om.time = UtilityStringExternal.truncate(om.time, om.timeTruncate)
                 }
                 writePrefs(context, om)
-                withContext(Dispatchers.IO) {
-                    (0 until om.numPanes).forEach {
-                        om.displayData.bitmap[it] = om.getImage(it, overlayImg)
-                    }
-                }
+                withContext(Dispatchers.IO) { (0 until om.numPanes).forEach { om.displayData.bitmap[it] = om.getImage(it, overlayImg) } }
                 (0 until om.numPanes).forEach {
                     if (om.numPanes > 1) {
                         UtilityImg.resizeViewAndSetImage(context, om.displayData.bitmap[it], om.displayData.img[it])
@@ -67,11 +63,7 @@ object UtilityModels {
                 om.animRan = false
                 if (!om.firstRun) {
                     (0 until om.numPanes).forEach {
-                        UtilityImg.imgRestorePosnZoom(
-                                context,
-                                om.displayData.img[it],
-                                om.modelProvider + om.numPanes.toString() + it.toString()
-                        )
+                        UtilityImg.imgRestorePosnZoom(context, om.displayData.img[it], om.modelProvider + om.numPanes.toString() + it.toString())
                     }
                     if (UIPreferences.fabInModels && om.numPanes < 2) {
                         om.fab1?.visibility = View.VISIBLE
@@ -86,13 +78,9 @@ object UtilityModels {
     fun getAnimate(om: ObjectModel, overlayImg: List<String>, uiDispatcher: CoroutineDispatcher): Job =
             GlobalScope.launch(uiDispatcher) {
                 withContext(Dispatchers.IO) {
-                    (0 until om.numPanes).forEach {
-                        om.displayData.animDrawable[it] = om.getAnimate(it, overlayImg)
-                    }
+                    (0 until om.numPanes).forEach { om.displayData.animDrawable[it] = om.getAnimate(it, overlayImg) }
                 }
-                (0 until om.numPanes).forEach {
-                    UtilityImgAnim.startAnimation(om.displayData.animDrawable[it], om.displayData.img[it])
-                }
+                (0 until om.numPanes).forEach { UtilityImgAnim.startAnimation(om.displayData.animDrawable[it], om.displayData.img[it]) }
                 om.animRan = true
             }
 
@@ -137,17 +125,13 @@ object UtilityModels {
 
     fun moveForward(spinnerTime: ObjectSpinner) {
         var time = spinnerTime.selectedItemPosition + 1
-        if (time == spinnerTime.size()) {
-            time = 0
-        }
+        if (time == spinnerTime.size()) time = 0
         spinnerTime.setSelection(time)
     }
 
     fun moveBack(spinnerTime: ObjectSpinner) {
         var time = spinnerTime.selectedItemPosition - 1
-        if (time == -1) {
-            time = spinnerTime.lastIndex
-        }
+        if (time == -1) time = spinnerTime.lastIndex
         spinnerTime.setSelection(time)
     }
 
@@ -176,9 +160,7 @@ object UtilityModels {
         var amPm: String
         if (hourOfDay > 11) {
             amPm = "pm"
-            if (hourOfDay > 12) {
-                hourOfDay -= 12
-            }
+            if (hourOfDay > 12) hourOfDay -= 12
         } else {
             amPm = "am"
         }
@@ -225,8 +207,8 @@ object UtilityModels {
             prefix: String,
             showDate: Boolean
     ) {
-        var run = runOriginal
-        var modelCurrentTime = modelCurrentTimeF
+        var run = runOriginal.replace("Z", "").replace("z", "")
+        val modelCurrentTime = modelCurrentTimeF.replace("Z", "").replace("z", "")
         // run is the current run , ie 12Z
         // modelCurrentTime is the most recent model run
         // listTime is a list of all times for a model ... 000 , 003,006, etc
@@ -234,17 +216,12 @@ object UtilityModels {
         // prefix allows us to handle times such as f000 ( SPC SREF )
         // in response to time_str coming in as the following on rare occasions we need to truncate
         // 000 Wed 8pm
-        var tmpStr: String
-        run = run.replace("Z", "")
-        run = run.replace("z", "")
-        modelCurrentTime = modelCurrentTime.replace("Z", "")
-        modelCurrentTime = modelCurrentTime.replace("z", "")
         if (modelCurrentTime != "") {
             if ((run.toIntOrNull() ?: 0) > (modelCurrentTime.toIntOrNull() ?: 0)) {
                 run = ((run.toIntOrNull() ?: 0) - 24).toString()
             }
             (0 until listTime.size).forEach {
-                tmpStr = MyApplication.space.split(listTime[it])[0].replace(prefix, "")
+                val tmpStr = MyApplication.space.split(listTime[it])[0].replace(prefix, "")
                 listTime[it] = prefix + tmpStr + " " + convertTimeRunToTimeString(run, tmpStr, showDate)
             }
             dataAdapterTime.notifyDataSetChanged()

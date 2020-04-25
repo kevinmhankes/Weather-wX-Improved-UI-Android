@@ -41,19 +41,14 @@ internal object UtilityModelWpcGefsInputOutput {
             val runData = RunTimeData()
             val currentHour = UtilityTime.currentHourInUtc
             runData.mostRecentRun = "00"
-            if (currentHour in 12..17) {
-                runData.mostRecentRun = "06"
-            }
-            if (currentHour >= 18) {
-                runData.mostRecentRun = "12"
-            }
-            if (currentHour < 6) {
-                runData.mostRecentRun = "18"
-            }
-            runData.listRunAdd("00")
-            runData.listRunAdd("06")
-            runData.listRunAdd("12")
-            runData.listRunAdd("18")
+            if (currentHour in 12..17) runData.mostRecentRun = "06"
+            if (currentHour >= 18) runData.mostRecentRun = "12"
+            if (currentHour < 6) runData.mostRecentRun = "18"
+            listOf("00", "06", "12", "18").forEach { runData.listRunAdd(it) }
+            //runData.listRunAdd("00")
+            //runData.listRunAdd("06")
+            //runData.listRunAdd("12")
+            //runData.listRunAdd("18")
             runData.timeStrConv = runData.mostRecentRun
             return runData
         }

@@ -41,14 +41,8 @@ internal object UtilityModelSpcSrefInputOutput {
             val tmpTxt = html.parse(RegExp.srefPattern2)
             val result = html.parseColumn(RegExp.srefPattern3)
             val latestRunAl = tmpTxt.split("</a>").dropLastWhile { it.isEmpty() }
-            if (latestRunAl.isNotEmpty()) {
-                runData.listRunAdd(latestRunAl[0])
-            }
-            if (result.isNotEmpty()) {
-                result.forEach {
-                    runData.listRunAdd(it)
-                }
-            }
+            if (latestRunAl.isNotEmpty()) runData.listRunAdd(latestRunAl[0])
+            if (result.isNotEmpty()) { result.forEach { runData.listRunAdd(it) } }
             runData.imageCompleteStr = tmpTxt
             runData.mostRecentRun = tmpTxt.parseLastMatch(RegExp.srefPattern1)
             return runData
@@ -60,9 +54,7 @@ internal object UtilityModelSpcSrefInputOutput {
     }
 
     fun getAnimation(context: Context, om: ObjectModel): AnimationDrawable {
-        if (om.spinnerTimeValue == -1) {
-            return AnimationDrawable()
-        }
+        if (om.spinnerTimeValue == -1) return AnimationDrawable()
         val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).map {
             getImage(context, om, om.spTime.list[it].split(" ").getOrNull(0) ?: "")
         }

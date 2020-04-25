@@ -56,26 +56,23 @@ internal object UtilityModelSpcHrrrInputOutput {
 
     fun getImage(context: Context, om: ObjectModel, time: String, overlayImg: List<String>): Bitmap {
         val layerUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/"
-        var imgUrl: String
         val bitmaps = mutableListOf<Bitmap>()
         val layers = mutableListOf<Drawable>()
         overlayImg.forEach {
-            imgUrl = layerUrl + getSectorCode(om.sector).toLowerCase(Locale.US) + "/" + it + "/" + it + ".gif"
-            bitmaps.add(UtilityImg.eraseBackground(imgUrl.getImage(), -1))
+            val url = layerUrl + getSectorCode(om.sector).toLowerCase(Locale.US) + "/" + it + "/" + it + ".gif"
+            bitmaps.add(UtilityImg.eraseBackground(url.getImage(), -1))
         }
-        imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/hrrr/data/hrrr3/" + getSectorCode(om.sector).toLowerCase(Locale.US) + "/R" +
+        val backgroundUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/hrrr/data/hrrr3/" + getSectorCode(om.sector).toLowerCase(Locale.US) + "/R" +
                 om.run.replace("Z", "") + "_F" + formatTime(time) + "_V" + getValidTime(om.run, time, om.rtd.validTime) +
                 "_" + getSectorCode(om.sector) + "_" + om.currentParam + ".gif"
-        bitmaps.add(UtilityImg.eraseBackground(imgUrl.getImage(), -1))
+        bitmaps.add(UtilityImg.eraseBackground(backgroundUrl.getImage(), -1))
         layers.add(ColorDrawable(Color.WHITE))
         layers += bitmaps.map { BitmapDrawable(context.resources, it) }
         return UtilityImg.layerDrawableToBitmap(layers)
     }
 
     fun getAnimation(context: Context, om: ObjectModel, overlayImg: List<String>): AnimationDrawable {
-        if (om.spinnerTimeValue == -1) {
-            return AnimationDrawable()
-        }
+        if (om.spinnerTimeValue == -1) return AnimationDrawable()
         val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).map { k ->
             getImage(context, om, om.spTime.list[k].split(" ").dropLastWhile { it.isEmpty() }.getOrNull(0) ?: "", overlayImg)
         }

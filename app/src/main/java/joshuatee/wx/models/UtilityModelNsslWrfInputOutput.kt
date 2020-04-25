@@ -53,11 +53,7 @@ internal object UtilityModelNsslWrfInputOutput {
 
     fun getImage(context: Context, om: ObjectModel, timeOriginal: String): Bitmap {
         val time = timeOriginal.split(" ")[0]
-        val sectorIndex = if (om.sector == "") {
-            0
-        } else {
-            UtilityModelNsslWrfInterface.sectorsLong.indexOf(om.sector)
-        }
+        val sectorIndex = if (om.sector == "") 0 else UtilityModelNsslWrfInterface.sectorsLong.indexOf(om.sector)
         val sector = UtilityModelNsslWrfInterface.sectors[sectorIndex]
         val baseLayerUrl = "https://cams.nssl.noaa.gov/graphics/blank_maps/spc_$sector.png"
         var modelPostfix = "_nssl"
