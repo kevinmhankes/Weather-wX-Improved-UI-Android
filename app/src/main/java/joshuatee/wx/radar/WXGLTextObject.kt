@@ -64,16 +64,9 @@ class WXGLTextObject(
     init {
         this.maxCitiesPerGlview = maxCitiesPerGlview / numberOfPanes
         // locfrag should show fewer then full screen wxogl
-        if (numberOfPanes == 1 && !wxglSurfaceView.fullScreen)
-            this.maxCitiesPerGlview = (maxCitiesPerGlview * 0.60).toInt()
-        if (numberOfPanes != 1)
-            this.glviewWidth = MyApplication.dm.widthPixels / (numberOfPanes / 2)
-        else
-            this.glviewWidth = MyApplication.dm.widthPixels
-        if (numberOfPanes != 1)
-            this.glviewHeight = MyApplication.dm.heightPixels / 2
-        else
-            this.glviewHeight = MyApplication.dm.heightPixels
+        if (numberOfPanes == 1 && !wxglSurfaceView.fullScreen) this.maxCitiesPerGlview = (maxCitiesPerGlview * 0.60).toInt()
+        if (numberOfPanes != 1) this.glviewWidth = MyApplication.dm.widthPixels / (numberOfPanes / 2) else this.glviewWidth = MyApplication.dm.widthPixels
+        if (numberOfPanes != 1) this.glviewHeight = MyApplication.dm.heightPixels / 2 else this.glviewHeight = MyApplication.dm.heightPixels
         projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
         layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
@@ -87,17 +80,13 @@ class WXGLTextObject(
             wxglSurfaceView.cities = mutableListOf()
             scale = getScale()
             oglrZoom = 1.0f
-            if (wxglRender.zoom < 1.00f) {
-                oglrZoom = wxglRender.zoom * 0.8f
-            }
+            if (wxglRender.zoom < 1.00f) oglrZoom = wxglRender.zoom * 0.8f
             textSize = MyApplication.textSizeSmall * oglrZoom * 0.75f * MyApplication.radarTextSize
             val cityMinZoom = 0.50
             if (wxglRender.zoom > cityMinZoom) {
                 val cityExtLength = UtilityCitiesExtended.cities.size
                 for (c in 0 until cityExtLength) {
-                    if (wxglSurfaceView.cities.size > maxCitiesPerGlview) {
-                        break
-                    }
+                    if (wxglSurfaceView.cities.size > maxCitiesPerGlview) break
                     checkAndDrawText(
                             wxglSurfaceView.cities,
                             UtilityCitiesExtended.cities[c].latD,
@@ -144,9 +133,7 @@ class WXGLTextObject(
             wxglSurfaceView.countyLabels = mutableListOf()
             scale = getScale()
             oglrZoom = 1.0f
-            if (wxglRender.zoom < 1.00f) {
-                oglrZoom = wxglRender.zoom * 0.8f
-            }
+            if (wxglRender.zoom < 1.00f) oglrZoom = wxglRender.zoom * 0.8f
             textSize = MyApplication.textSizeSmall * oglrZoom * 0.65f * MyApplication.radarTextSize
             if (wxglRender.zoom > 1.50) {
                 UtilityCountyLabels.countyName.indices.forEach {
@@ -182,9 +169,7 @@ class WXGLTextObject(
             wxglSurfaceView.spotterLabels = mutableListOf()
             scale = getScale()
             oglrZoom = 1.0f
-            if (wxglRender.zoom < 1.00f) {
-                oglrZoom = wxglRender.zoom * 0.8f
-            }
+            if (wxglRender.zoom < 1.00f) oglrZoom = wxglRender.zoom * 0.8f
             textSize = MyApplication.textSizeSmall * oglrZoom * MyApplication.radarTextSize * 0.75f
             if (wxglRender.zoom > 0.5) {
                 // spotter list make copy first
@@ -287,9 +272,7 @@ class WXGLTextObject(
             wxglSurfaceView.spotterTextView = mutableListOf()
             var indexSpotter = 0
             while (indexSpotter < UtilitySpotter.spotterList.size) {
-                if (UtilitySpotter.spotterList[indexSpotter].unique == WXGLRadarActivity.spotterId) {
-                    break
-                }
+                if (UtilitySpotter.spotterList[indexSpotter].unique == WXGLRadarActivity.spotterId) break
                 indexSpotter += 1
             }
             var indexSpotterReport = 0
@@ -309,9 +292,7 @@ class WXGLTextObject(
             }
             scale = getScale()
             oglrZoom = 1.0f
-            if (wxglRender.zoom < 1.0f) {
-                oglrZoom = wxglRender.zoom * 0.8f
-            }
+            if (wxglRender.zoom < 1.0f) oglrZoom = wxglRender.zoom * 0.8f
             if (wxglRender.zoom > 0.5) {
                 for (c in 0 until 1) {
                    val drawText = checkButDoNotDrawText(
@@ -356,9 +337,7 @@ class WXGLTextObject(
         addCountyLabels()
         addObservations()
         addSpottersLabels()
-        if (numberOfPanes == 1 && WXGLRadarActivity.spotterShowSelected) {
-            addSpotter()
-        }
+        if (numberOfPanes == 1 && WXGLRadarActivity.spotterShowSelected) addSpotter()
         addWpcPressureCenters()
     }
 
@@ -367,16 +346,12 @@ class WXGLTextObject(
         hideCountyLabels()
         hideObservations()
         hideSpottersLabels()
-        if (numberOfPanes == 1 && WXGLRadarActivity.spotterShowSelected) {
-            hideSpotter()
-        }
+        if (numberOfPanes == 1 && WXGLRadarActivity.spotterShowSelected) hideSpotter()
         hideWpcPressureCenters()
     }
 
     fun initializeObservations() {
-        if (PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) {
-            observationsInitialized = true
-        }
+        if (PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) observationsInitialized = true
     }
 
     fun addWpcPressureCenters() {
@@ -386,16 +361,12 @@ class WXGLTextObject(
             wxglSurfaceView.pressureCenterLabels = mutableListOf()
             scale = getScale()
             oglrZoom = 1.0f
-            if (wxglRender.zoom < 1.00f) {
-                oglrZoom = wxglRender.zoom * 0.8f
-            }
+            if (wxglRender.zoom < 1.00f) oglrZoom = wxglRender.zoom * 0.8f
             textSize = MyApplication.textSizeNormal * MyApplication.radarTextSize
             if (wxglRender.zoom < (0.5 / wxglRender.zoomScreenScaleFactor)) {
                 UtilityWpcFronts.pressureCenters.indices.forEach {
                     var color = Color.rgb(0,127,225)
-                    if (UtilityWpcFronts.pressureCenters[it].type == PressureCenterTypeEnum.LOW) {
-                        color = Color.RED
-                    }
+                    if (UtilityWpcFronts.pressureCenters[it].type == PressureCenterTypeEnum.LOW) color = Color.RED
                     checkAndDrawText(
                             wxglSurfaceView.pressureCenterLabels,
                             UtilityWpcFronts.pressureCenters[it].lat,
@@ -423,9 +394,7 @@ class WXGLTextObject(
             wxglSurfaceView.observations = mutableListOf()
             scale = getScale()
             oglrZoom = 1.0f
-            if (wxglRender.zoom < 1.0f) {
-                oglrZoom = wxglRender.zoom * 0.8f
-            }
+            if (wxglRender.zoom < 1.0f) oglrZoom = wxglRender.zoom * 0.8f
             textSize = MyApplication.textSizeSmall * oglrZoom * fontScaleFactorObs * MyApplication.radarTextSize
             val obsArr = UtilityMetar.metarDataList[paneNumber].obsArr.toList()
             val obsArrExt = UtilityMetar.metarDataList[paneNumber].obsArrExt.toList()
@@ -476,7 +445,5 @@ class WXGLTextObject(
         }
     }
 
-    fun setWXGLRender(wxglRender: WXGLRender) {
-        this.wxglRender = wxglRender
-    }
+    fun setWXGLRender(wxglRender: WXGLRender) { this.wxglRender = wxglRender }
 }
