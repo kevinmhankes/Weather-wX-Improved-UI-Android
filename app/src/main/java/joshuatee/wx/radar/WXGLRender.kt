@@ -163,9 +163,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     private var projectionNumbers = ProjectionNumbers()
     var product: String
         get() = prod
-        set(value) {
-            prod = value
-        }
+        set(value) { prod = value }
 
     init {
         bgColorFRed = Color.red(MyApplication.nexradRadarBackgroundColor) / 255.0f
@@ -190,12 +188,8 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             Jni.genIndex(triangleIndexBuffer, breakSize15, breakSize15)
             Jni.genIndexLine(lineIndexBuffer, breakSizeLine * 4, breakSizeLine * 2)
         }
-        MyApplication.radarWarningPolygons.forEach {
-            genericWarningBuffers.add(ObjectOglBuffers(it))
-        }
-        if (UtilityUI.isTablet()) {
-            zoomScreenScaleFactor = 2.0
-        }
+        MyApplication.radarWarningPolygons.forEach { genericWarningBuffers.add(ObjectOglBuffers(it)) }
+        if (UtilityUI.isTablet()) zoomScreenScaleFactor = 2.0
     }
 
     fun initializeGeometry() {
@@ -357,24 +351,12 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     override fun onSurfaceCreated(gl: GL10, config: EGLConfig) {
         GLES20.glClearColor(bgColorFRed, bgColorFGreen, bgColorFBlue, 1f)
         OpenGLShader.sp_SolidColor = GLES20.glCreateProgram()
-        GLES20.glAttachShader(
-                OpenGLShader.sp_SolidColor,
-                OpenGLShader.loadShader(GLES20.GL_VERTEX_SHADER, OpenGLShader.vs_SolidColor)
-        )
-        GLES20.glAttachShader(
-                OpenGLShader.sp_SolidColor,
-                OpenGLShader.loadShader(GLES20.GL_FRAGMENT_SHADER, OpenGLShader.fs_SolidColor)
-        )
+        GLES20.glAttachShader(OpenGLShader.sp_SolidColor, OpenGLShader.loadShader(GLES20.GL_VERTEX_SHADER, OpenGLShader.vs_SolidColor))
+        GLES20.glAttachShader(OpenGLShader.sp_SolidColor, OpenGLShader.loadShader(GLES20.GL_FRAGMENT_SHADER, OpenGLShader.fs_SolidColor))
         GLES20.glLinkProgram(OpenGLShader.sp_SolidColor)
         GLES20.glUseProgram(OpenGLShader.sp_SolidColor)
-        val vertexShaderUniform = OpenGLShaderUniform.loadShader(
-                GLES20.GL_VERTEX_SHADER,
-                OpenGLShaderUniform.vs_SolidColorUnfiform
-        )
-        val fragmentShaderUniform = OpenGLShaderUniform.loadShader(
-                GLES20.GL_FRAGMENT_SHADER,
-                OpenGLShaderUniform.fs_SolidColorUnfiform
-        )
+        val vertexShaderUniform = OpenGLShaderUniform.loadShader(GLES20.GL_VERTEX_SHADER, OpenGLShaderUniform.vs_SolidColorUnfiform)
+        val fragmentShaderUniform = OpenGLShaderUniform.loadShader(GLES20.GL_FRAGMENT_SHADER, OpenGLShaderUniform.fs_SolidColorUnfiform)
         OpenGLShaderUniform.sp_SolidColorUniform = GLES20.glCreateProgram()
         GLES20.glAttachShader(OpenGLShaderUniform.sp_SolidColorUniform, vertexShaderUniform)
         GLES20.glAttachShader(OpenGLShaderUniform.sp_SolidColorUniform, fragmentShaderUniform)
@@ -399,12 +381,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             Matrix.translateM(matrixProjectionAndView, 0, gpsLatLonTransformed[0] * zoom, gpsLatLonTransformed[1] * zoom, 0f)
         }
         Matrix.scaleM(matrixProjectionAndView, 0, zoom, zoom, 1f)
-        GLES20.glUniformMatrix4fv(
-                GLES20.glGetUniformLocation(
-                        OpenGLShader.sp_SolidColor,
-                        "uMVPMatrix"
-                ), 1, false, matrixProjectionAndView, 0
-        )
+        GLES20.glUniformMatrix4fv(GLES20.glGetUniformLocation(OpenGLShader.sp_SolidColor, "uMVPMatrix"), 1, false, matrixProjectionAndView, 0)
         (0 until chunkCount).forEach {
             radarChunkCnt = if (it < chunkCount - 1) {
                 breakSizeRadar * 6
@@ -413,30 +390,11 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             }
             try {
                 radarBuffers.floatBuffer.position(it * breakSizeRadar * 32)
-                GLES20.glVertexAttribPointer(
-                        positionHandle,
-                        2,
-                        GLES20.GL_FLOAT,
-                        false,
-                        0,
-                        radarBuffers.floatBuffer.slice().asFloatBuffer()
-                )
+                GLES20.glVertexAttribPointer(positionHandle, 2, GLES20.GL_FLOAT, false, 0, radarBuffers.floatBuffer.slice().asFloatBuffer())
                 radarBuffers.colorBuffer.position(it * breakSizeRadar * 12)
-                GLES20.glVertexAttribPointer(
-                        colorHandle,
-                        3,
-                        GLES20.GL_UNSIGNED_BYTE,
-                        true,
-                        0,
-                        radarBuffers.colorBuffer.slice()
-                )
+                GLES20.glVertexAttribPointer(colorHandle, 3, GLES20.GL_UNSIGNED_BYTE, true, 0, radarBuffers.colorBuffer.slice())
                 triangleIndexBuffer.position(0)
-                GLES20.glDrawElements(
-                        GLES20.GL_TRIANGLES,
-                        radarChunkCnt,
-                        GLES20.GL_UNSIGNED_SHORT,
-                        triangleIndexBuffer.slice().asShortBuffer()
-                )
+                GLES20.glDrawElements(GLES20.GL_TRIANGLES, radarChunkCnt, GLES20.GL_UNSIGNED_SHORT, triangleIndexBuffer.slice().asShortBuffer())
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
             }
@@ -453,9 +411,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         // to be checked. Will do this later when I have more time
         if (!displayHold) {
             listOf(spotterBuffers, hiBuffers, tvsBuffers).forEach {
-                if (zoom > it.scaleCutOff) {
-                    drawTriangles(it)
-                }
+                if (zoom > it.scaleCutOff) drawTriangles(it)
             }
             GLES20.glLineWidth(3.0f)
             listOf(stiBuffers, wbGustsBuffers, wbBuffers).forEach {
@@ -465,9 +421,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 }
             }
             listOf(wbCircleBuffers).forEach {
-                if (zoom > it.scaleCutOff) {
-                    drawTriangles(it)
-                }
+                if (zoom > it.scaleCutOff) drawTriangles(it)
             }
         }
         GLES20.glLineWidth(MyApplication.radarGpsCircleLineSize.toFloat())
@@ -477,62 +431,29 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             drawPolygons(locCircleBuffers, 16)
         }
         GLES20.glLineWidth(PolygonType.TOR.size)
-        listOf(warningTstBuffers, warningFfwBuffers, warningTorBuffers).forEach {
-            drawPolygons(it, 8)
-        }
-        genericWarningBuffers.forEach {
-            if (it.warningType!!.isEnabled) {
-                drawPolygons(it, 8)
-            }
-        }
+        listOf(warningTstBuffers, warningFfwBuffers, warningTorBuffers).forEach { drawPolygons(it, 8) }
+        genericWarningBuffers.forEach { if (it.warningType!!.isEnabled) drawPolygons(it, 8) }
         GLES20.glLineWidth(PolygonType.WATCH_TORNADO.size)
         listOf(
                 mpdBuffers,
                 mcdBuffers,
                 watchBuffers,
                 watchTornadoBuffers
-        ).forEach {
-            drawPolygons(it, 8)
-        }
-
+        ).forEach { drawPolygons(it, 8) }
         GLES20.glLineWidth(PolygonType.SWO.size)
-        listOf(swoBuffers).forEach {
-            drawPolygons(it, 8)
-        }
-
+        listOf(swoBuffers).forEach { drawPolygons(it, 8) }
         if (zoom < (0.50 / zoomScreenScaleFactor)) {
             GLES20.glLineWidth(MyApplication.radarWatchMcdLineSize)
-            wpcFrontBuffersList.forEach {
-                drawElement(it)
-            }
+            wpcFrontBuffersList.forEach { drawElement(it) }
         }
     }
 
     private fun drawTriangles(buffers: ObjectOglBuffers) {
         if (buffers.isInitialized) {
             buffers.setToPositionZero()
-            GLES20.glVertexAttribPointer(
-                    positionHandle,
-                    2,
-                    GLES20.GL_FLOAT,
-                    false,
-                    0,
-                    buffers.floatBuffer.slice().asFloatBuffer()
-            )
-            GLES20.glVertexAttribPointer(
-                    colorHandle,
-                    3,
-                    GLES20.GL_UNSIGNED_BYTE,
-                    true,
-                    0,
-                    buffers.colorBuffer.slice().asFloatBuffer()
-            )
-            GLES20.glDrawElements(
-                    GLES20.GL_TRIANGLES,
-                    buffers.floatBuffer.capacity() / 8,
-                    GLES20.GL_UNSIGNED_SHORT,
-                    buffers.indexBuffer.slice().asShortBuffer()
-            )
+            GLES20.glVertexAttribPointer(positionHandle, 2, GLES20.GL_FLOAT, false, 0, buffers.floatBuffer.slice().asFloatBuffer())
+            GLES20.glVertexAttribPointer(colorHandle, 3, GLES20.GL_UNSIGNED_BYTE, true, 0, buffers.colorBuffer.slice().asFloatBuffer())
+            GLES20.glDrawElements(GLES20.GL_TRIANGLES, buffers.floatBuffer.capacity() / 8, GLES20.GL_UNSIGNED_SHORT, buffers.indexBuffer.slice().asShortBuffer())
         }
     }
 
@@ -542,28 +463,9 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             (0 until buffers.chunkCount).forEach { _ ->
                 lineIndexBuffer.position(0)
                 buffers.setToPositionZero()
-                GLES20.glVertexAttribPointer(
-                        positionHandle,
-                        2,
-                        GLES20.GL_FLOAT,
-                        false,
-                        0,
-                        buffers.floatBuffer.slice().asFloatBuffer()
-                )
-                GLES20.glVertexAttribPointer(
-                        colorHandle,
-                        3,
-                        GLES20.GL_UNSIGNED_BYTE,
-                        true,
-                        0,
-                        buffers.colorBuffer
-                )
-                GLES20.glDrawElements(
-                        GLES20.GL_LINES,
-                        buffers.floatBuffer.capacity() / countDivisor,
-                        GLES20.GL_UNSIGNED_SHORT,
-                        lineIndexBuffer.slice().asShortBuffer()
-                )
+                GLES20.glVertexAttribPointer(positionHandle, 2, GLES20.GL_FLOAT, false, 0, buffers.floatBuffer.slice().asFloatBuffer())
+                GLES20.glVertexAttribPointer(colorHandle, 3, GLES20.GL_UNSIGNED_BYTE, true, 0, buffers.colorBuffer)
+                GLES20.glDrawElements(GLES20.GL_LINES, buffers.floatBuffer.capacity() / countDivisor, GLES20.GL_UNSIGNED_SHORT, lineIndexBuffer.slice().asShortBuffer())
             }
         }
     }
@@ -580,31 +482,10 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                     buffers.floatBuffer.position(it * 480000)
                     buffers.colorBuffer.position(0)
                     lineIndexBuffer.position(0)
-                    GLES20.glVertexAttribPointer(
-                            positionHandle,
-                            2,
-                            GLES20.GL_FLOAT,
-                            false,
-                            0,
-                            buffers.floatBuffer.slice().asFloatBuffer()
-                    )
-                    GLES20.glVertexAttribPointer(
-                            colorHandle,
-                            3,
-                            GLES20.GL_UNSIGNED_BYTE,
-                            true,
-                            0,
-                            buffers.colorBuffer.slice()
-                    )
-                    GLES20.glDrawElements(
-                            GLES20.GL_LINES,
-                            lineCnt,
-                            GLES20.GL_UNSIGNED_SHORT,
-                            lineIndexBuffer.slice().asShortBuffer()
-                    )
-                } catch (e: Exception) {
-
-                }
+                    GLES20.glVertexAttribPointer(positionHandle, 2, GLES20.GL_FLOAT, false, 0, buffers.floatBuffer.slice().asFloatBuffer())
+                    GLES20.glVertexAttribPointer(colorHandle, 3, GLES20.GL_UNSIGNED_BYTE, true, 0, buffers.colorBuffer.slice())
+                    GLES20.glDrawElements(GLES20.GL_LINES, lineCnt, GLES20.GL_UNSIGNED_SHORT, lineIndexBuffer.slice().asShortBuffer())
+                } catch (e: Exception) { }
             }
         }
     }
@@ -616,16 +497,8 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             matrixView[it] = 0.0f
             matrixProjectionAndView[it] = 0.0f
         }
-        Matrix.orthoM(
-                matrixProjection,
-                0,
-                (-1 * ortInt).toFloat(),
-                ortInt.toFloat(),
-                -1f * ortInt.toFloat() * (1 / surfaceRatio),
-                ortInt * (1 / surfaceRatio),
-                1f,
-                -1f
-        )
+        Matrix.orthoM(matrixProjection, 0, (-1 * ortInt).toFloat(), ortInt.toFloat(), -1f * ortInt.toFloat() * (1 / surfaceRatio),
+                ortInt * (1 / surfaceRatio), 1f, -1f)
         Matrix.setLookAtM(matrixView, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1.0f, 0.0f)
         Matrix.multiplyMM(matrixProjectionAndView, 0, matrixProjection, 0, matrixView, 0)
         Matrix.multiplyMM(matrixProjectionAndViewOrig, 0, matrixProjection, 0, matrixView, 0)
@@ -637,13 +510,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         Matrix.scaleM(matrixProjectionAndView, 0, zoom, zoom, 1f)
     }
 
-    private fun scaleLength(currentLength: Float): Float {
-        return if (zoom > 1.01f) {
-            currentLength / zoom * 2
-        } else {
-            currentLength
-        }
-    }
+    private fun scaleLength(currentLength: Float) = if (zoom > 1.01f) currentLength / zoom * 2 else currentLength
 
     fun constructStateLines() = constructGenericGeographic(stateLineBuffers)
 
