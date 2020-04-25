@@ -221,9 +221,7 @@ class BackgroundFetch(val context: Context) {
         }
         LocalBroadcastManager.getInstance(context).sendBroadcast(Intent("notifran"))
         notificationUrls += UtilityNotificationSpc.sendSwoNotifications(context, inBlackout)
-        if (MyApplication.alertNhcEpacNotification || MyApplication.alertNhcAtlNotification) {
-            notificationUrls += UtilityNotificationNhc.send(context, MyApplication.alertNhcEpacNotification, MyApplication.alertNhcAtlNotification)
-        }
+        if (MyApplication.alertNhcEpacNotification || MyApplication.alertNhcAtlNotification) notificationUrls += UtilityNotificationNhc.send(context, MyApplication.alertNhcEpacNotification, MyApplication.alertNhcAtlNotification)
         // send 7day and current conditions notifications for locations
         (1..Location.numLocations).forEach {
             val requestID = UtilityTime.currentTimeMillis().toInt()
@@ -231,19 +229,13 @@ class BackgroundFetch(val context: Context) {
         }
         // check for any text prod notifications
         UtilityNotificationTextProduct.notifyOnAll(context)
-        if (locationNeedsMcd) {
-            notificationUrls += UtilityNotificationSpc.sendMcdLocationNotifications(context)
-        }
+        if (locationNeedsMcd) notificationUrls += UtilityNotificationSpc.sendMcdLocationNotifications(context)
         if (locationNeedsSwo) {
             notificationUrls += UtilityNotificationSpc.sendSwoLocationNotifications(context)
             notificationUrls += UtilityNotificationSpc.sendSwoD48LocationNotifications(context)
         }
-        if (locationNeedsSpcFw) {
-            notificationUrls += UtilityNotificationSpcFireWeather.sendSpcFireWeatherD12LocationNotifications(context)
-        }
-        if (locationNeedsWpcMpd) {
-            notificationUrls += UtilityNotificationWpc.sendMpdLocationNotifications(context)
-        }
+        if (locationNeedsSpcFw) notificationUrls += UtilityNotificationSpcFireWeather.sendSpcFireWeatherD12LocationNotifications(context)
+        if (locationNeedsWpcMpd) notificationUrls += UtilityNotificationWpc.sendMpdLocationNotifications(context)
         cancelOldNotifications(notificationUrls)
     }
 

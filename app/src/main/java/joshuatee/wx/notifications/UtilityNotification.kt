@@ -79,9 +79,7 @@ object UtilityNotification {
             if (Location.isUS(locNumInt)) {
                 val oldnotifUrls = notifUrls
                 notifUrls += UtilityUS.checkForNotifications(context, locNumInt, inBlackout, tornadoWarningString)
-                if (oldnotifUrls != notifUrls) {
-                    alertPresent = true
-                }
+                if (oldnotifUrls != notifUrls) alertPresent = true
             } else {
                 val html = UtilityCanada.getLocationHtml(Location.getLatLon(locNumInt))
                 val hazArr = UtilityCanada.getHazards(html)
@@ -190,21 +188,15 @@ object UtilityNotification {
             // problem is if network is down it will be a non deterministic value so we need something different
             val currentUpdateTime = UtilityTime.currentTimeMillis()
             val lastUpdateTime = Utility.readPref(context, "CC" + locNum + "_LAST_UPDATE", 0.toLong())
-            if (MyApplication.locations[locNumInt].ccNotification) {
-                notifUrls += url + "CC" + MyApplication.notificationStrSep
-            }
-            if (MyApplication.locations[locNumInt].sevenDayNotification) {
-                notifUrls += url + "7day" + MyApplication.notificationStrSep
-            }
+            if (MyApplication.locations[locNumInt].ccNotification) notifUrls += url + "CC" + MyApplication.notificationStrSep
+            if (MyApplication.locations[locNumInt].sevenDayNotification) notifUrls += url + "7day" + MyApplication.notificationStrSep
             if (currentUpdateTime > lastUpdateTime + 1000 * 60 * ccUpdateInterval) {
                 val objCc = ObjectForecastPackageCurrentConditions(context, locNumInt)
                 val objHazards = ObjectForecastPackageHazards(locNumInt)
                 val objSevenDay = ObjectForecastPackage7Day(locNumInt)
                 val updateTime = UtilityTime.currentTimeMillis()
                 Utility.writePref(context, "CC" + locNum + "_LAST_UPDATE", updateTime)
-                if (locNum == widgetLocNum && widgetsEnabled) {
-                    UtilityWidget.widgetDownloadData(context, objCc, objSevenDay, objHazards)
-                }
+                if (locNum == widgetLocNum && widgetsEnabled) UtilityWidget.widgetDownloadData(context, objCc, objSevenDay, objHazards)
                 if (MyApplication.locations[locNumInt].ccNotification) {
                     noMain = locLabelStr
                     noBody = objCc.data + MyApplication.newline + objCc.status
@@ -226,9 +218,9 @@ object UtilityNotification {
                     stackBuilder.addNextIntent(resultIntent)
                     val resultPendingIntent = stackBuilder.getPendingIntent(x, PendingIntent.FLAG_UPDATE_CURRENT)
                     val tmpArr = noBody.split(MyApplication.DEGREE_SYMBOL.toRegex()).dropLastWhile { it.isEmpty() }
-                    var smalliconRes = R.drawable.temp_0
+                    var smallIconResource = R.drawable.temp_0
                     if (tmpArr.isNotEmpty()) {
-                        smalliconRes = if (Location.isUS(locNumInt)) {
+                        smallIconResource = if (Location.isUS(locNumInt)) {
                             UtilityTempIcon.getTempIcon(tmpArr[0])
                         } else {
                             val d = tmpArr[0].toDoubleOrNull() ?: 0.0
@@ -247,7 +239,7 @@ object UtilityNotification {
                             noMain,
                             noBody,
                             resultPendingIntent,
-                            smalliconRes,
+                            smallIconResource,
                             bmc,
                             noSummary,
                             NotificationCompat.PRIORITY_HIGH
@@ -299,9 +291,7 @@ object UtilityNotification {
     // change NotificationManager.IMPORTANCE_DEFAULT and NotificationManager.IMPORTANCE_LOW to NotificationManager.IMPORTANCE_HIGH
     // in attempt to automatically have notifications in Android Q show up in status bar
     fun initChannels(context: Context) {
-        if (Build.VERSION.SDK_INT < 26 || notificationChannelInitialized) {
-            return
-        }
+        if (Build.VERSION.SDK_INT < 26 || notificationChannelInitialized) return
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val channel = NotificationChannel("default", "Channel name", NotificationManager.IMPORTANCE_HIGH)
         channel.description = "wX weather"
@@ -361,10 +351,8 @@ object UtilityNotification {
                             .setLights(notification.color, onMs, offMs)
                             .setSmallIcon(notification.iconAlert)
             ).bigText(notification.noSummary).build()
-            if (MyApplication.notifSoundRepeat)
-                noti.flags = noti.flags or Notification.FLAG_INSISTENT
-            if (MyApplication.notifTts)
-                UtilityTts.synthesizeTextAndPlay(notification.context, notification.noMain, notification.noMain)
+            if (MyApplication.notifSoundRepeat) noti.flags = noti.flags or Notification.FLAG_INSISTENT
+            if (MyApplication.notifTts) UtilityTts.synthesizeTextAndPlay(notification.context, notification.noMain, notification.noMain)
         } else {
             noti = NotificationCompat.BigTextStyle(
                     NotificationCompat.Builder(notification.context, notiChannelStrNoSound)
@@ -376,11 +364,7 @@ object UtilityNotification {
                             .setAutoCancel(MyApplication.alertAutocancel)
                             .setColor(UIPreferences.colorNotif)
                             .setPriority(notification.priority)
-                            .addAction(
-                                    notification.iconAction,
-                                    notification.buttonStr,
-                                    notification.actionPendingIntent
-                            )
+                            .addAction(notification.iconAction, notification.buttonStr, notification.actionPendingIntent)
                             .setLights(notification.color, onMs, offMs)
                             .setSmallIcon(notification.iconAlert)
             ).bigText(notification.noSummary).build()
@@ -463,11 +447,8 @@ object UtilityNotification {
     // bug: https://code.google.com/p/android/issues/detail?id=43179&q=setSmallIcon&colspec=ID%20Type%20Status%20Owner%20Summary%20Stars
     // pulldown small icon taking default level
 
-    private fun createNotificationBigTextBigIcon(
-            context: Context, sound: Boolean, noMain: String,
-            noBody: String, resultPendingIntent: PendingIntent, smallIcon: Int,
-            iconAlert: Bitmap, noSummary: String, prio: Int
-    ): Notification {
+    private fun createNotificationBigTextBigIcon(context: Context, sound: Boolean, noMain: String, noBody: String, resultPendingIntent: PendingIntent, smallIcon: Int,
+            iconAlert: Bitmap, noSummary: String, prio: Int): Notification {
         initChannels(context)
         val height = context.resources.getDimension(android.R.dimen.notification_large_icon_height).toInt()
         val width = context.resources.getDimension(android.R.dimen.notification_large_icon_width).toInt()

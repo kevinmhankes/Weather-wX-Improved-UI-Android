@@ -32,9 +32,7 @@ class BootBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intentF: Intent) {
         when (intentF.action) {
-            Intent.ACTION_BOOT_COMPLETED -> {
-                UtilityWXJobService.startService(context)
-            }
+            Intent.ACTION_BOOT_COMPLETED -> UtilityWXJobService.startService(context)
         }
     }
 }
