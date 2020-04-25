@@ -43,9 +43,7 @@ internal object UtilityModelNcepInputOutput {
         val fullHtml = url.getHtml()
         val html = fullHtml.parse(RegExp.ncepPattern2).replace("UTC", "Z").replace(" ", "")
         runCompletionDataStr.append(html.replace("Z", " UTC"))
-        if (runCompletionDataStr.length > 8) {
-            runCompletionDataStr.insert(8, " ")
-        }
+        if (runCompletionDataStr.length > 8) runCompletionDataStr.insert(8, " ")
         val timeCompleteUrl = "${MyApplication.nwsMagNcepWebsitePrefix}/model-fhrs.php?group=Model%20Guidance&model=" + model.toLowerCase(Locale.US) +
                 "&fhr_mode=image&loop_start=-1&loop_end=-1&area=" + spinnerSectorCurrent + "&fourpan=no&imageSize=&preselected_formatted_cycle_date=" +
                 runCompletionDataStr + "&cycle=" + runCompletionDataStr + "&param=" + param + "&ps=area"
@@ -69,13 +67,9 @@ internal object UtilityModelNcepInputOutput {
     }
 
     fun getAnimation(context: Context, om: ObjectModel): AnimationDrawable {
-        if (om.spinnerTimeValue == -1) {
-            return AnimationDrawable()
-        }
-        val timeList = om.spTime.list.toMutableList()
-        val bitmaps = (om.spinnerTimeValue until timeList.size).map {
-            getImage(om, timeList[it].split(" ").getOrNull(0) ?: "")
-        }
+        if (om.spinnerTimeValue == -1) return AnimationDrawable()
+        val timeList = om.spTime.list
+        val bitmaps = (om.spinnerTimeValue until timeList.size).map { getImage(om, timeList[it].split(" ").getOrNull(0) ?: "") }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
 }

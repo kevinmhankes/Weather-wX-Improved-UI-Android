@@ -84,12 +84,8 @@ internal object UtilityModelNsslWrfInputOutput {
     }
 
     fun getAnimation(context: Context, om: ObjectModel): AnimationDrawable {
-        if (om.spinnerTimeValue == -1) {
-            return AnimationDrawable()
-        }
-        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).map {
-            getImage(context, om, om.spTime.list[it].split(" ").getOrNull(0) ?: "")
-        }
+        if (om.spinnerTimeValue == -1) return AnimationDrawable()
+        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).map { getImage(context, om, om.spTime.list[it].split(" ").getOrNull(0) ?: "") }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
 }

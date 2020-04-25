@@ -190,8 +190,7 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
         }
     }
 
-    fun getRunTime(): RunTimeData {
-        return when (modelType) {
+    fun getRunTime() = when (modelType) {
             ModelType.WPCGEFS -> UtilityModelWpcGefsInputOutput.runTime
             ModelType.ESRL -> UtilityModelEsrlInputOutput.getRunTime(model, displayData.param[0])
             ModelType.NSSL -> UtilityModelNsslWrfInputOutput.runTime
@@ -201,7 +200,6 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
             ModelType.SPCHRRR -> UtilityModelSpcHrrrInputOutput.runTime
             else -> RunTimeData()
         }
-    }
 
     fun setParams(selectedItemPosition: Int) {
         modelIndex = selectedItemPosition

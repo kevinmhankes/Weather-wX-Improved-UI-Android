@@ -120,9 +120,7 @@ internal object UtilityModelEsrlInputOutput {
             "HRRR_AK" -> {}
             "RAP", "RAP_NCEP" ->
                 when (om.sectorInt) {
-                    9 -> {
-                        sector = "alaska"
-                    }
+                    9 -> sector = "alaska"
                     10 -> { // AK Zoom
                         sector = "a1"
                         paramTmp = paramTmp.replace("_", "_$sector")
@@ -174,13 +172,9 @@ internal object UtilityModelEsrlInputOutput {
     }
 
     fun getAnimation(context: Context, om: ObjectModel): AnimationDrawable {
-        if (om.spinnerTimeValue == -1) {
-            return AnimationDrawable()
-        }
-        val timeList = om.spTime.list.toMutableList()
-        val bitmaps = (om.spinnerTimeValue until timeList.size).map {
-            getImage(om, timeList[it].split(" ").getOrNull(0) ?: "")
-        }
+        if (om.spinnerTimeValue == -1) return AnimationDrawable()
+        val timeList = om.spTime.list
+        val bitmaps = (om.spinnerTimeValue until timeList.size).map { getImage(om, timeList[it].split(" ").getOrNull(0) ?: "") }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
 }

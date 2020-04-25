@@ -33,25 +33,17 @@ internal object UtilityModelGlcfsInputOutput {
 
     fun getImage(om: ObjectModel, timeOriginal: String): Bitmap {
         var sector = ""
-        if (om.sector.split(" ").size > 1) {
-            sector = om.sector.split(" ")[1].substring(0, 1).toLowerCase(Locale.US)
-        }
+        if (om.sector.split(" ").size > 1) sector = om.sector.split(" ")[1].substring(0, 1).toLowerCase(Locale.US)
         var time = timeOriginal.replace("00", "0")
         val timeInt = time.toIntOrNull() ?: 0
-        if (timeInt > 9) {
-            time = time.replace(Regex("^0"), "")
-        }
+        if (timeInt > 9) time = time.replace(Regex("^0"), "")
         val url = "https://www.glerl.noaa.gov/res/glcfs/fcast/$sector${om.currentParam}+$time.gif"
         return url.getImage()
     }
 
     fun getAnimation(context: Context, om: ObjectModel): AnimationDrawable {
-        if (om.spinnerTimeValue == -1) {
-            return AnimationDrawable()
-        }
-        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).map {
-            getImage(om, om.spTime.list[it].split(" ").getOrNull(0) ?: "")
-        }
+        if (om.spinnerTimeValue == -1) return AnimationDrawable()
+        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).map { getImage(om, om.spTime.list[it].split(" ").getOrNull(0) ?: "") }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
 }
