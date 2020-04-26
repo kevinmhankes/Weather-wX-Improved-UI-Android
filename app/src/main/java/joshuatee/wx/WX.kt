@@ -31,6 +31,8 @@ import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -108,18 +110,35 @@ class WX : CommonActionBarFragment() {
 
             navigationView = findViewById<NavigationView>(R.id.nav_view)
             drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+
+
+            val headerLayout = navigationView.getHeaderView(0)
+            //val headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main)
+            //panel = headerLayout.findViewById<View>(R.id.viewId)
+
+            val settingsButton = headerLayout.findViewById<ImageButton>(R.id.settingsButton)
+            val settingsText = headerLayout.findViewById<TextView>(R.id.settingsText)
+            settingsButton.setOnClickListener { Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show() }
+            settingsText.setOnClickListener { Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show() }
+
             //navigationView.setNavigationItemSelectedListener(this)
             navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener {item ->
                 when (item.itemId) {
-                    R.id.examSchedule -> {
+                    R.id.settingsButton, R.id.settingsText -> {
+                        Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.ncep -> {
                     }
                     R.id.uswarn -> {
                         Toast.makeText(applicationContext, "US Alerts", Toast.LENGTH_SHORT).show()
                     }
                 }
-                    drawerLayout.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(GravityCompat.START)
                 true
             })
+
+
+
 
             val fab2 = ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD, OnClickListener { drawerLayout.openDrawer(Gravity.LEFT)})
         }
