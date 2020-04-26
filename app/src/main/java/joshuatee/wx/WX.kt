@@ -116,16 +116,6 @@ class WX : CommonActionBarFragment() {
         if (UIPreferences.navDrawerMainScreen) {
             toolbarBottom.visibility = View.GONE
             slidingTabLayout.visibility = View.GONE
-            /*val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-            val listView: ListView = findViewById(R.id.left_drawer)
-            val actionBarDrawerToggle = ActionBarDrawerToggle(
-                    this,
-                    drawerLayout,
-                    R.string.drawer_open,
-                    R.string.drawer_close
-            )
-            drawerLayout.addDrawerListener(actionBarDrawerToggle)*/
-
             navigationView = findViewById<NavigationView>(R.id.nav_view)
             drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
             navigationView.itemIconTintList = null
