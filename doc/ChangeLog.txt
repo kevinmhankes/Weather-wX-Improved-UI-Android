@@ -32,6 +32,7 @@
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
 // TODO [FIX] nexrad cities performance
 // TODO [FIX] address gps/screen always on
+// TODO [ADD] theme support for new navbar
 
 55407 2020_04_26
 55406 2020_04_26    [FIX] storm reports - having location follow gps breaks the location marker
