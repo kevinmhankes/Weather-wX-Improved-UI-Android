@@ -21,8 +21,6 @@
 
 package joshuatee.wx.settings
 
-import java.util.Locale
-
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -301,16 +299,6 @@ class SettingsLocationGenericActivity : BaseActivity(),
         }
     }
 
-    /*private fun addressSearch(address: String) = GlobalScope.launch(uiDispatcher) {
-        val xyStr = withContext(Dispatchers.IO) { UtilityLocation.getLatLonFromAddress(address) }
-        locXEt.setText(xyStr[0])
-        locYEt.setText(xyStr[1])
-        val xStr = locXEt.text.toString()
-        val yStr = locYEt.text.toString()
-        val labelStr = locLabelEt.text.toString()
-        saveLocation(locNum, xStr, yStr, labelStr)
-    }*/
-
     override fun onStop() {
         super.onStop()
         val restartNotif = Utility.readPref(this, "RESTART_NOTIF", "false")
@@ -504,28 +492,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         }
     }
 
-    /*private fun addressSearchAndSave(locNum: String, address: String, labelStr: String) = GlobalScope.launch(uiDispatcher) {
-        var xyStr = listOf<String>()
-        var toastStr = ""
-        var goodLocation = false
-        withContext(Dispatchers.IO) {
-            xyStr = UtilityLocation.getLatLonFromAddress(address)
-            if (xyStr.size > 1) {
-                toastStr = Location.locationSave(this@SettingsLocationGenericActivity, locNum, xyStr[0], xyStr[1], labelStr)
-                goodLocation = true
-            }
-        }
-        locXEt.setText(xyStr[0])
-        locYEt.setText(xyStr[1])
-        if (goodLocation) {
-            showMessage(toastStr)
-            Utility.writePref(this@SettingsLocationGenericActivity, "CURRENT_LOC_FRAGMENT", locNum)
-            Location.currentLocationStr = locNum
-        }
-        finish()
-    }*/
-
-    private fun gpsAndSave(locNum: String, labelStr: String) =
+   /* private fun gpsAndSave(locNum: String, labelStr: String) =
             GlobalScope.launch(uiDispatcher) {
                 var toastStr = ""
                 var goodLocation = false
@@ -546,7 +513,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                     Location.currentLocationStr = locNum
                 }
                 finish()
-            }
+            }*/
 
     private fun notificationsCanada(hide: Boolean) {
         var visibility = View.VISIBLE

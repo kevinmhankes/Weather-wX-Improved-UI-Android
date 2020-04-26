@@ -27,13 +27,12 @@
 // TODO [FIX] toolbar handling in WXGLSurfaceView
 // TODO [FIX] Android toggle cities on off main screen not working
 // TODO [REF] make WXGLDownload all static
-// TODO [REF] NCEP MAG WW3 changes
 // TODO [REF] remove roaming location feature
 // TODO [FIX] Android share text does not preserve line breaks
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
 // TODO [FIX] nexrad cities performance
 
-55406 2020_04_26
+55406 2020_04_26    [FIX] storm reports - having location follow gps breaks the location marker
 55405 2020_04_26    [FIX] remove location in save in US Alerts as OSM is not going to work anymore
                     [FIX] remove all services dependant on OSM: MCD location save, VR location save, fallback location search
 55404 2020_04_26    [ADD] WIP - new UI option

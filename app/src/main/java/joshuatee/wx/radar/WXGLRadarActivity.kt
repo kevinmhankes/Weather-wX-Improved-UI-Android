@@ -863,8 +863,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun getGPSFromDouble() {
-        locXCurrent = latD.toString()
-        locYCurrent = lonD.toString()
+        if (!archiveMode) {
+            locXCurrent = latD.toString()
+            locYCurrent = lonD.toString()
+        }
     }
 
     private fun getLatLon() = LatLon(locXCurrent, locYCurrent)

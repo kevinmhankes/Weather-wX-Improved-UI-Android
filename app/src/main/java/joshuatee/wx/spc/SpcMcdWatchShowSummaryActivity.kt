@@ -25,15 +25,12 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.graphics.Bitmap
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
-import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
-import android.view.ContextMenu.ContextMenuInfo
 
 import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.objects.PolygonType
-import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.util.Utility
@@ -149,7 +146,6 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
             objectCardImage.setOnClickListener(View.OnClickListener {
                 ObjectIntent(this@SpcMcdWatchShowSummaryActivity, SpcMcdWatchShowActivity::class.java, SpcMcdWatchShowActivity.NUMBER, arrayOf(mcdNumbers[mcdIndex], "", polygonType.toString()))
             })
-            //if (mcdList.size == 1) registerForContextMenu(objectCardImage.img)
         }
         if (mcdList.size == 1) {
             val wfoStr = text.parse("ATTN...WFO...(.*?)... ")
@@ -168,16 +164,6 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
         }
         if (mcdList.isEmpty()) ObjectCardText(this@SpcMcdWatchShowSummaryActivity, linearLayout, toolbar, toolbarBottom, nothingPresentStr)
     }
-
-    /*override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo?) {
-        super.onCreateContextMenu(menu, v, menuInfo)
-        wfos.filter{ !it.contains("<BR>") }.forEach { menu.add(0, v.id, 0, "Add location: $it - " + Utility.getWfoSiteName(it)) }
-    }
-
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        wfos.filter { item.title.contains(it) }.forEach { UtilityLocation.saveLocationForMcd(it, this@SpcMcdWatchShowSummaryActivity, linearLayout, uiDispatcher) }
-        return true
-    }*/
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (audioPlayMenu(item.itemId, text, number, product)) return true
