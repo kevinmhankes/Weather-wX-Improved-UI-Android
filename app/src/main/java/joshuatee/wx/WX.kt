@@ -40,15 +40,20 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
-import joshuatee.wx.activitiesmisc.AfdActivity
-import joshuatee.wx.activitiesmisc.HourlyActivity
-import joshuatee.wx.activitiesmisc.SevereDashboardActivity
-import joshuatee.wx.activitiesmisc.USWarningsWithRadarActivity
+import joshuatee.wx.activitiesmisc.*
+import joshuatee.wx.canada.CanadaAlertsActivity
+import joshuatee.wx.canada.CanadaRadarActivity
+import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.fragments.LocationFragment
 import joshuatee.wx.fragments.ViewPagerAdapter
+import joshuatee.wx.models.ModelsSpcHrefActivity
+import joshuatee.wx.models.ModelsSpcHrrrActivity
+import joshuatee.wx.models.ModelsSpcSrefActivity
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.radar.AwcRadarMosaicActivity
+import joshuatee.wx.radar.USNwsMosaicActivity
 import joshuatee.wx.settings.Location
-import joshuatee.wx.spc.UtilitySpc
+import joshuatee.wx.spc.*
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import joshuatee.wx.vis.GoesActivity
@@ -183,21 +188,120 @@ class WX : CommonActionBarFragment() {
             //navigationView.setNavigationItemSelectedListener(this)
             navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener {item ->
                 when (item.itemId) {
+                    R.id.esrl -> {
+                    }
+                    R.id.rainfall_outlook -> {
+                    }
+                    R.id.glcfs -> {
+                    }
+                    R.id.goes_global -> {
+                    }
+                    R.id.lightning -> {
+                    }
+                    R.id.national_images -> {
+                    }
+                    R.id.national_text -> {
+                    }
                     R.id.ncep_models -> {
                     }
+                    R.id.nhc -> {
+                    }
+                    R.id.nssl_wrf -> {
+                    }
+                    R.id.observations -> {
+                        if (Location.isUS) {
+                            ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("OBSERVATIONS"))
+                        } else {
+                            ObjectIntent.showImage(this, arrayOf("http://weather.gc.ca/data/wxoimages/wocanmap0_e.jpg", "Observations"))
+                        }
+                    }
+                    R.id.observation_sites -> {
+                    }
+                    R.id.radar_mosaic -> {
+                        if (Location.isUS) {
+                            if (!UIPreferences.useAwcRadarMosaic) {
+                                ObjectIntent(this, USNwsMosaicActivity::class.java, USNwsMosaicActivity.URL, arrayOf("location"))
+                            } else {
+                                ObjectIntent(this, AwcRadarMosaicActivity::class.java, AwcRadarMosaicActivity.URL, arrayOf(""))
+                            }
+                        } else {
+                            val prov = Utility.readPref(this, "NWS" + Location.currentLocationStr + "_STATE", "")
+                            ObjectIntent(this, CanadaRadarActivity::class.java, CanadaRadarActivity.RID, arrayOf(UtilityCanada.getSectorFromProvince(prov), "rad"))
+                        }
+                    }
+                    R.id.radar_dual_pane -> {
+                    }
+                    R.id.radar_quad_pane -> {
+                    }
+                    R.id.spc_comp_map -> {
+                        // FIXME have constructure with no url and array
+                        ObjectIntent(this, SpcCompmapActivity::class.java, "",
+                        arrayOf())
+                    }
+                    R.id.spc_convective_outlooks -> {
+                        ObjectIntent(this, SpcSwoSummaryActivity::class.java, "", arrayOf())
+                    }
+                    R.id.spc_day_1 -> {
+                        ObjectIntent(this, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf("1", ""))
+                    }
+                    R.id.spc_day_2 -> {
+                        ObjectIntent(this, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf("2", ""))
+                    }
+                    R.id.spc_day_3 -> {
+                        ObjectIntent(this, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf("3", ""))
+                    }
+                    R.id.spc_day_4_8 -> {
+                        ObjectIntent(this, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf("4-8", ""))
+                    }
+                    R.id.spc_fire_outlooks -> {
+                        ObjectIntent(this, SpcFireOutlookSummaryActivity::class.java, "",
+                        arrayOf(""))
+                    }
+                    R.id.spc_href -> {
+                        ObjectIntent(this, ModelsSpcHrefActivity::class.java,
+                        "",
+                        arrayOf("1", "SPCHREF", "SPC HREF"))
+                    }
+                    R.id.spc_hrrr -> {
+                        ObjectIntent(this, ModelsSpcHrrrActivity::class.java,
+                        "",
+                        arrayOf("1", "SPCHRRR", "SPC HRRR"))
+                    }
+                    R.id.spc_mesoanalysis -> {
+                        ObjectIntent(this,SpcMesoActivity::class.java,
+                        SpcMesoActivity.INFO,
+                        arrayOf("", "1", "SPCMESO"))
+                    }
+                    R.id.spc_soundings -> {
+                        ObjectIntent(this, SpcSoundingsActivity::class.java, SpcSoundingsActivity.URL, arrayOf(Location.wfo, ""))
+                    }
+                    R.id.spc_sref -> {
+                        ObjectIntent(this, ModelsSpcSrefActivity::class.java, ModelsSpcSrefActivity.INFO, arrayOf("1", "SPCSREF", "SPCSREF"))
+                    }
+                    R.id.spc_storm_reports -> {
+                        ObjectIntent(this, SpcStormReportsActivity::class.java,
+                        SpcStormReportsActivity.NO,
+                        arrayOf("today"))
+                    }
+                    R.id.spc_thunderstorm_outlooks -> {
+                    }
+                    R.id.spotters -> {
+                    }
                     R.id.us_alerts -> {
-                        ObjectIntent(this, USWarningsWithRadarActivity::class.java, USWarningsWithRadarActivity.URL,
-                                arrayOf(".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?", "us")
-                        )
+                        if (Location.isUS) {
+                            ObjectIntent(this, USWarningsWithRadarActivity::class.java, USWarningsWithRadarActivity.URL,
+                                    arrayOf(".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?", "us")
+                            )
+                        } else {
+                            ObjectIntent(this, CanadaAlertsActivity::class.java)
+                        }
+                    }
+                    R.id.wpc_gefs -> {
                     }
                 }
                 drawerLayout.closeDrawer(GravityCompat.START)
                 true
             })
-
-
-
-
             val fab2 = ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD, OnClickListener { drawerLayout.openDrawer(Gravity.LEFT)})
         }
 
@@ -351,10 +455,10 @@ class WX : CommonActionBarFragment() {
         }
     }
 
-   /* fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        when (item.itemId) {
-            *//*R.id.nav_camera -> {
+    /* fun onNavigationItemSelected(item: MenuItem): Boolean {
+         // Handle navigation view item clicks here.
+         when (item.itemId) {
+             *//*R.id.nav_camera -> {
                 // Handle the camera action
             }
             R.id.nav_gallery -> {
