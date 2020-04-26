@@ -128,11 +128,8 @@ class WX : CommonActionBarFragment() {
 
             navigationView = findViewById<NavigationView>(R.id.nav_view)
             drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-
-
+            navigationView.itemIconTintList = null
             val headerLayout = navigationView.getHeaderView(0)
-            //val headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main)
-            //panel = headerLayout.findViewById<View>(R.id.viewId)
 
             // TODO chunk below needs a lot of refactor , create static objectIntent and pass drawer to close as optional
             val severeDashboardButton = headerLayout.findViewById<ImageButton>(R.id.severeDashboardButton)

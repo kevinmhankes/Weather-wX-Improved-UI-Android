@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/esrl"
+        android:icon="@drawable/hrrrviewer"
         android:title="ESRL HRRR/RAP" />
     <item
         android:id="@+id/rainfall_outlook"
