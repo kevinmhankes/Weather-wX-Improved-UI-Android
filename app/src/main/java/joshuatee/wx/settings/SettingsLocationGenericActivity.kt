@@ -221,7 +221,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
             linearLayout.addView(it.card)
         }
         hideNonUSNotifications()
-        if (locNumArr[1] != "") {
+        /*if (locNumArr[1] != "") {
             if (locNumArr[1] == " roaming") {
                 locLabelEt.setText(locNumArr[1].toUpperCase(Locale.US))
                 gpsAndSave(locNum, locNumArr[1].toUpperCase(Locale.US))
@@ -230,7 +230,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 locLabelEt.setText(locNumArr[1])
                 addressSearchAndSave(locNum, addrSend, locNumArr[1])
             }
-        }
+        }*/
     }
 
     override fun onRestart() {
@@ -301,7 +301,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         }
     }
 
-    private fun addressSearch(address: String) = GlobalScope.launch(uiDispatcher) {
+    /*private fun addressSearch(address: String) = GlobalScope.launch(uiDispatcher) {
         val xyStr = withContext(Dispatchers.IO) { UtilityLocation.getLatLonFromAddress(address) }
         locXEt.setText(xyStr[0])
         locYEt.setText(xyStr[1])
@@ -309,7 +309,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         val yStr = locYEt.text.toString()
         val labelStr = locLabelEt.text.toString()
         saveLocation(locNum, xStr, yStr, labelStr)
-    }
+    }*/
 
     override fun onStop() {
         super.onStop()
@@ -363,7 +363,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
             override fun onQueryTextSubmit(query: String): Boolean {
                 locLabelEt.setText(query)
                 val addressToSend = query.replace(" ", "+")
-                addressSearch(addressToSend)
+                //addressSearch(addressToSend)
                 val searchViewLocal = menuLocal!!.findItem(R.id.ab_search).actionView as SearchView
                 searchViewLocal.onActionViewCollapsed()
                 return false
@@ -500,11 +500,11 @@ class SettingsLocationGenericActivity : BaseActivity(),
             val addrStrTmp = thingsYouSaid[0]
             locLabelEt.setText(addrStrTmp)
             val addrSend = addrStrTmp.replace(" ", "+")
-            addressSearchAndSave(locNum, addrSend, addrStrTmp)
+            //addressSearchAndSave(locNum, addrSend, addrStrTmp)
         }
     }
 
-    private fun addressSearchAndSave(locNum: String, address: String, labelStr: String) = GlobalScope.launch(uiDispatcher) {
+    /*private fun addressSearchAndSave(locNum: String, address: String, labelStr: String) = GlobalScope.launch(uiDispatcher) {
         var xyStr = listOf<String>()
         var toastStr = ""
         var goodLocation = false
@@ -523,7 +523,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
             Location.currentLocationStr = locNum
         }
         finish()
-    }
+    }*/
 
     private fun gpsAndSave(locNum: String, labelStr: String) =
             GlobalScope.launch(uiDispatcher) {

@@ -149,7 +149,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
             objectCardImage.setOnClickListener(View.OnClickListener {
                 ObjectIntent(this@SpcMcdWatchShowSummaryActivity, SpcMcdWatchShowActivity::class.java, SpcMcdWatchShowActivity.NUMBER, arrayOf(mcdNumbers[mcdIndex], "", polygonType.toString()))
             })
-            if (mcdList.size == 1) registerForContextMenu(objectCardImage.img)
+            //if (mcdList.size == 1) registerForContextMenu(objectCardImage.img)
         }
         if (mcdList.size == 1) {
             val wfoStr = text.parse("ATTN...WFO...(.*?)... ")
@@ -169,7 +169,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
         if (mcdList.isEmpty()) ObjectCardText(this@SpcMcdWatchShowSummaryActivity, linearLayout, toolbar, toolbarBottom, nothingPresentStr)
     }
 
-    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo?) {
+    /*override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
         wfos.filter{ !it.contains("<BR>") }.forEach { menu.add(0, v.id, 0, "Add location: $it - " + Utility.getWfoSiteName(it)) }
     }
@@ -177,7 +177,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
     override fun onContextItemSelected(item: MenuItem): Boolean {
         wfos.filter { item.title.contains(it) }.forEach { UtilityLocation.saveLocationForMcd(it, this@SpcMcdWatchShowSummaryActivity, linearLayout, uiDispatcher) }
         return true
-    }
+    }*/
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (audioPlayMenu(item.itemId, text, number, product)) return true

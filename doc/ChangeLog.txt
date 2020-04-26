@@ -34,6 +34,7 @@
 // TODO [FIX] nexrad cities performance
 
 55405 2020_04_26    [FIX] remove location in save in US Alerts as OSM is not going to work anymore
+                    [FIX] remove all services dependant on OSM: MCD location save, VR location save, fallback location search
 55404 2020_04_26    [ADD] WIP - new UI option
 55403 2020_04_26    [ADD] WIP - new UI option
 55402 2020_04_26    [ADD] better formatting in NHC Storm detail

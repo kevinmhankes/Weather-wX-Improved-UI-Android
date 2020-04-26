@@ -67,12 +67,12 @@ object UtilityLocation {
             return latLon
         }
 
-    fun getLatLonFromAddress(addressOriginal: String): List<String> {
+   /* fun getLatLonFromAddress(addressOriginal: String): List<String> {
         val address = addressOriginal.replace(" ", "+")
         val url = "http://nominatim.openstreetmap.org/search?q=$address&format=xml&polygon=0&addressdetails=1"
         val html = url.getHtml()
         return UtilityString.parseMultipleFirst(html, "lat=.(.*?).\\slon=.(.*?).\\s", 2)
-    }
+    }*/
 
     fun getGps(context: Context): DoubleArray {
         val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -195,7 +195,7 @@ object UtilityLocation {
         }
     }
 
-    fun saveLocationForMcd(nwsOffice: String, context: Context, linearLayout: LinearLayout, uiDispatcher: CoroutineDispatcher) = GlobalScope.launch(uiDispatcher) {
+    /*fun saveLocationForMcd(nwsOffice: String, context: Context, linearLayout: LinearLayout, uiDispatcher: CoroutineDispatcher) = GlobalScope.launch(uiDispatcher) {
         var toastString = ""
         withContext(Dispatchers.IO) {
             val locNumIntCurrent = joshuatee.wx.settings.Location.numLocations + 1
@@ -206,7 +206,7 @@ object UtilityLocation {
             toastString = joshuatee.wx.settings.Location.locationSave(context, locNumToSaveStr, xyStr[0], xyStr[1], loc)
         }
         UtilityUI.makeSnackBar(linearLayout, toastString)
-    }
+    }*/
 
     fun hasAlerts(locNum: Int): Boolean = MyApplication.locations[locNum].notification
             || MyApplication.locations[locNum].notificationMcd

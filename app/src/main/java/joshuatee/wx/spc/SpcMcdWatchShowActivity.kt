@@ -103,21 +103,21 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
         objectCardImage.setOnClickListener(View.OnClickListener {
             ObjectIntent.showImage(this@SpcMcdWatchShowActivity, arrayOf(objectWatchProduct.imgUrl, objectWatchProduct.title, "true"))
         })
-        registerForContextMenu(objectCardImage.img)
+        //registerForContextMenu(objectCardImage.img)
         UtilityTts.conditionalPlay(activityArguments, 1, applicationContext, objectWatchProduct.text, objectWatchProduct.prod)
     }
 
-    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo?) {
+   /* override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
         objectWatchProduct.wfos.forEach { menu.add(0, v.id, 0, "Add location: $it - " + Utility.getWfoSiteName(it)) }
-    }
+    }*/
 
-    override fun onContextItemSelected(item: MenuItem): Boolean {
+    /*override fun onContextItemSelected(item: MenuItem): Boolean {
         objectWatchProduct.wfos.filter { item.title.contains(it) }.forEach {
             UtilityLocation.saveLocationForMcd(it, this@SpcMcdWatchShowActivity, linearLayout, uiDispatcher)
         }
         return true
-    }
+    }*/
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (audioPlayMenu(item.itemId, objectWatchProduct.text, number, objectWatchProduct.prod)) return true
