@@ -8,7 +8,6 @@
     android:orientation="vertical"
     android:background="@color/bg_blue"
     >
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +18,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/severeDashboardButton"
             android:backgroundTint="@color/bg_blue"
-            app:srcCompat="@drawable/ic_report_24dp"/>
+            app:srcCompat="@drawable/ic_report_24dp_white"/>
         <TextView
             android:id="@+id/severeDashboardText"
             android:layout_width="wrap_content"
@@ -30,7 +29,6 @@
             android:textColor="#FFF"
             android:textSize="16sp" />
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +39,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/visibleSatelliteButton"
             android:backgroundTint="@color/bg_blue"
-            app:srcCompat="@drawable/ic_cloud_24dp"/>
+            app:srcCompat="@drawable/ic_cloud_24dp_white"/>
         <TextView
             android:id="@+id/visibleSatelliteText"
             android:layout_width="wrap_content"
@@ -52,7 +50,6 @@
             android:textColor="#FFF"
             android:textSize="16sp" />
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,7 +60,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/wfoButton"
             android:backgroundTint="@color/bg_blue"
-            app:srcCompat="@drawable/ic_info_outline_24dp"/>
+            app:srcCompat="@drawable/ic_info_outline_24dp_white"/>
         <TextView
             android:id="@+id/wfoText"
             android:layout_width="wrap_content"
@@ -74,7 +71,6 @@
             android:textColor="#FFF"
             android:textSize="16sp" />
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -85,7 +81,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/hourlyButton"
             android:backgroundTint="@color/bg_blue"
-            app:srcCompat="@drawable/ic_place_24dp"/>
+            app:srcCompat="@drawable/ic_place_24dp_white"/>
         <TextView
             android:id="@+id/hourlyText"
             android:layout_width="wrap_content"
@@ -96,7 +92,6 @@
             android:textColor="#FFF"
             android:textSize="16sp" />
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -107,7 +102,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/settingsButton"
             android:backgroundTint="@color/bg_blue"
-            app:srcCompat="@drawable/ic_add_box_24dp"/>
+            app:srcCompat="@drawable/ic_add_box_24dp_white"/>
         <TextView
             android:id="@+id/settingsText"
             android:layout_width="wrap_content"

@@ -110,9 +110,8 @@ class WX : CommonActionBarFragment() {
         slidingTabLayout.tabGravity = TabLayout.GRAVITY_FILL
         slidingTabLayout.setupWithViewPager(viewPager)
         if (android.os.Build.VERSION.SDK_INT > 20) slidingTabLayout.elevation = MyApplication.elevationPref
-        if (MyApplication.simpleMode || UIPreferences.hideTopToolbar) slidingTabLayout.visibility = View.GONE
+        if (MyApplication.simpleMode || UIPreferences.hideTopToolbar || UIPreferences.navDrawerMainScreen) slidingTabLayout.visibility = View.GONE
         slidingTabLayout.setSelectedTabIndicatorColor(UtilityTheme.getPrimaryColorFromSelectedTheme(this, 0))
-
         if (UIPreferences.navDrawerMainScreen) {
             toolbarBottom.visibility = View.GONE
             slidingTabLayout.visibility = View.GONE
@@ -120,7 +119,6 @@ class WX : CommonActionBarFragment() {
             drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
             navigationView.itemIconTintList = null
             val headerLayout = navigationView.getHeaderView(0)
-
             // TODO chunk below needs a lot of refactor , create static objectIntent and pass drawer to close as optional
             val severeDashboardButton = headerLayout.findViewById<ImageButton>(R.id.severeDashboardButton)
             val severeDashboardText = headerLayout.findViewById<TextView>(R.id.severeDashboardText)
@@ -132,7 +130,6 @@ class WX : CommonActionBarFragment() {
             val hourlyText = headerLayout.findViewById<TextView>(R.id.hourlyText)
             val settingsButton = headerLayout.findViewById<ImageButton>(R.id.settingsButton)
             val settingsText = headerLayout.findViewById<TextView>(R.id.settingsText)
-
             severeDashboardButton.setOnClickListener {
                 ObjectIntent(this, SevereDashboardActivity::class.java)
                 drawerLayout.closeDrawer(GravityCompat.START)
@@ -141,7 +138,6 @@ class WX : CommonActionBarFragment() {
                 ObjectIntent(this, SevereDashboardActivity::class.java)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
-
             visButton.setOnClickListener {
                 ObjectIntent(this, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
                 drawerLayout.closeDrawer(GravityCompat.START)
@@ -150,7 +146,6 @@ class WX : CommonActionBarFragment() {
                 ObjectIntent(this, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
-
             wfoButton.setOnClickListener {
                 ObjectIntent(this, AfdActivity::class.java, AfdActivity.URL, arrayOf(Location.wfo, ""))
                 drawerLayout.closeDrawer(GravityCompat.START)
@@ -159,7 +154,6 @@ class WX : CommonActionBarFragment() {
                 ObjectIntent(this, AfdActivity::class.java, AfdActivity.URL, arrayOf(Location.wfo, ""))
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
-
             hourlyButton.setOnClickListener {
                 ObjectIntent(this, HourlyActivity::class.java, HourlyActivity.LOC_NUM, Location.currentLocationStr)
                 drawerLayout.closeDrawer(GravityCompat.START)
@@ -168,7 +162,6 @@ class WX : CommonActionBarFragment() {
                 ObjectIntent(this, HourlyActivity::class.java, HourlyActivity.LOC_NUM, Location.currentLocationStr)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
-
             settingsButton.setOnClickListener {
                 ObjectIntent.showSettings(this)
                 drawerLayout.closeDrawer(GravityCompat.START)
@@ -177,8 +170,6 @@ class WX : CommonActionBarFragment() {
                 ObjectIntent.showSettings(this)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
-
-            //navigationView.setNavigationItemSelectedListener(this)
             navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener {item ->
                 when (item.itemId) {
                     // FIXME need twitter and opc
@@ -355,7 +346,6 @@ class WX : CommonActionBarFragment() {
             })
             val fab2 = ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD, OnClickListener { drawerLayout.openDrawer(Gravity.LEFT)})
         }
-
         // material 1.1.0, since we are using .Bridge theme the below is not needed
         // but left for reference
         //slidingTabLayout.setTabTextColors(-1711276033, Color.WHITE)
