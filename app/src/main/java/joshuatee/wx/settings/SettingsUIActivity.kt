@@ -32,6 +32,7 @@ import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
+import joshuatee.wx.util.UtilityLog
 
 import kotlinx.android.synthetic.main.activity_settings_ui.*
 
@@ -327,6 +328,7 @@ class SettingsUIActivity : BaseActivity() {
         Utility.writePref(this, "TAB2_HEADER", et2.text.toString())
         Utility.writePref(this, "TAB3_HEADER", et3.text.toString())
         MyApplication.initPreferences(this)
+        //UtilityLog.d("Wx", "ONSTOP")
     }
 
     private fun setupEditText() {
@@ -342,6 +344,7 @@ class SettingsUIActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
+        UIPreferences.navDrawerMainScreen = Utility.readPref(this, "NAV_DRAWER_MAIN_SCREEN", "false").startsWith("t")
         if ((UIPreferences.tilesPerRow != tilesPerRowStart) || (UIPreferences.navDrawerMainScreen != navDrawerMainScreen))
             UtilityAlertDialog.restart() else super.onBackPressed()
     }
