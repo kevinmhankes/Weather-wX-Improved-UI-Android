@@ -26,11 +26,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.view.Gravity
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.ListView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.tabs.TabLayout
 import joshuatee.wx.fragments.LocationFragment
@@ -40,12 +45,16 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class WX : CommonActionBarFragment() {
 
     private var backButtonCounter = 0
     private lateinit var vpa: ViewPagerAdapter
     private lateinit var voiceRecognitionIcon: MenuItem
     private var tabIndex = 0
+    // test flag for new interface style
+    //private val newInterface = true
+    //private val newInterface = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(UIPreferences.themeInt)
@@ -80,6 +89,22 @@ class WX : CommonActionBarFragment() {
         if (android.os.Build.VERSION.SDK_INT > 20) slidingTabLayout.elevation = MyApplication.elevationPref
         if (MyApplication.simpleMode || UIPreferences.hideTopToolbar) slidingTabLayout.visibility = View.GONE
         slidingTabLayout.setSelectedTabIndicatorColor(UtilityTheme.getPrimaryColorFromSelectedTheme(this, 0))
+
+        /*if (newInterface) {
+            toolbarBottom.visibility = View.GONE
+            slidingTabLayout.visibility = View.GONE
+            val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+            val listView: ListView = findViewById(R.id.left_drawer)
+            val actionBarDrawerToggle = ActionBarDrawerToggle(
+                    this,
+                    drawerLayout,
+                    R.string.drawer_open,
+                    R.string.drawer_close
+            )
+            drawerLayout.addDrawerListener(actionBarDrawerToggle)
+            val fab2 = ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD, OnClickListener { drawerLayout.openDrawer(Gravity.LEFT)})
+        }*/
+
         // material 1.1.0, since we are using .Bridge theme the below is not needed
         // but left for reference
         //slidingTabLayout.setTabTextColors(-1711276033, Color.WHITE)

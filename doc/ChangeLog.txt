@@ -32,7 +32,7 @@
 // TODO [FIX] Android share text does not preserve line breaks
 // TODO [FIX] nexrad cities performance
 
-55402 2020_04_25    [ADD] better formatting in NHC Storm detail
+55402 2020_04_26    [ADD] better formatting in NHC Storm detail
                     [ADD] onrestart to NHC Storm detail (refresh data when resume)
                     [ADD] some keyboard commands to multipane radar
 55401 2020_04_25    [FIX] NHC EPAC storms were not showing
