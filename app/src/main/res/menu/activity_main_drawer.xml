@@ -37,6 +37,9 @@
         android:id="@+id/observation_sites"
         android:title="Observation Sites" />
     <item
+        android:id="@+id/opc"
+        android:title="OPC" />
+    <item
         android:id="@+id/radar_mosaic"
         android:title="Radar Mosaic" />
     <item
@@ -90,6 +93,12 @@
     <item
         android:id="@+id/spotters"
         android:title="Spotters" />
+    <item
+        android:id="@+id/twitter_states"
+        android:title="Twitter states" />
+    <item
+        android:id="@+id/twitter_tornado"
+        android:title="Twitter tornado" />
     <item
         android:id="@+id/us_alerts"
         android:title="US Alerts" />

@@ -255,6 +255,11 @@ class WX : CommonActionBarFragment() {
                         "",
                         arrayOf())
                     }
+                    R.id.opc -> {
+                        ObjectIntent(this, ImageCollectionActivity::class.java,
+                                ImageCollectionActivity.TYPE,
+                                arrayOf("OPC"))
+                    }
                     R.id.radar_mosaic -> {
                         if (Location.isUS) {
                             if (!UIPreferences.useAwcRadarMosaic) {
@@ -333,6 +338,15 @@ class WX : CommonActionBarFragment() {
                     }
                     R.id.spotters -> {
                         ObjectIntent(this, SpottersActivity::class.java)
+                    }
+                    R.id.twitter_states -> {
+                        ObjectIntent(this, WebViewTwitter::class.java,
+                                "",
+                                arrayOf())
+                    }
+                    R.id.twitter_tornado -> {
+                        ObjectIntent(this, WebView::class.java, WebView.URL,
+                                arrayOf("https://mobile.twitter.com/hashtag/tornado", "#tornado"))
                     }
                     R.id.us_alerts -> {
                         if (Location.isUS) {
