@@ -41,6 +41,7 @@ import android.view.WindowManager
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.os.Handler
+import android.view.KeyEvent
 import joshuatee.wx.*
 
 import joshuatee.wx.settings.UtilityLocation
@@ -1043,6 +1044,97 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     private fun getContentSingleThreaded(wxglSurfaceView: WXGLSurfaceView, wxglRender: WXGLRender, currentRadarIndex: Int) {
         getContent(wxglSurfaceView, wxglRender, currentRadarIndex)
+    }
+
+    private fun showMap() {
+        objectImageMap.toggleMap()
+        if (objectImageMap.map.visibility != View.GONE) {
+            UtilityWXGLTextObject.hideLabels(numberOfPanes, wxglTextObjects)
+        } else {
+            UtilityWXGLTextObject.showLabels(numberOfPanes, wxglTextObjects)
+        }
+    }
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+        when (keyCode) {
+            /*KeyEvent.KEYCODE_2 -> {
+                if (event.isCtrlPressed) showMultipaneRadar("2")
+                return true
+            }
+            KeyEvent.KEYCODE_4 -> {
+                if (event.isCtrlPressed) showMultipaneRadar("4")
+                return true
+            }*/
+            KeyEvent.KEYCODE_L -> {
+                if (event.isCtrlPressed) showMap()
+                return true
+            }
+            KeyEvent.KEYCODE_M -> {
+                if (event.isCtrlPressed) toolbarBottom.showOverflowMenu()
+                return true
+            }
+            /*KeyEvent.KEYCODE_A -> {
+                if (inOglAnim) {
+                    inOglAnim = false
+                    inOglAnimPaused = false
+                    // if an L2 anim is in process sleep for 1 second to let the current decode/render finish
+                    // otherwise the new selection might overwrite in the OGLR object - hack
+                    // (revert) 2016_08 have this apply to Level 3 in addition to Level 2
+                    if (wxglRender.product.contains("L2")) SystemClock.sleep(2000)
+                    setStarButton()
+                    animateButton.setIcon(MyApplication.ICON_PLAY)
+                    animateButton.title = animateButtonPlayString
+                    getContent()
+                }
+                if (event.isCtrlPressed) animateRadar(MyApplication.uiAnimIconFrames.toIntOrNull() ?: 0)
+                return true
+            }
+            KeyEvent.KEYCODE_F -> {
+                if (event.isCtrlPressed) actionToggleFavorite()
+                return true
+            }
+            KeyEvent.KEYCODE_R -> {
+                if (event.isCtrlPressed) getReflectivity()
+                return true
+            }
+            KeyEvent.KEYCODE_V -> {
+                if (event.isCtrlPressed) getVelocity()
+                return true
+            }*/
+            KeyEvent.KEYCODE_SLASH -> {
+                if (event.isAltPressed) ObjectDialogue(this, Utility.showRadarShortCuts())
+                return true
+            }
+            KeyEvent.KEYCODE_REFRESH -> {
+                getContentIntelligent()
+                return true
+            }
+            KeyEvent.KEYCODE_DPAD_UP -> {
+                if (event.isCtrlPressed) {
+                    wxglSurfaceViews.forEach{ it.zoomOutByKey() }
+                } else {
+                    wxglSurfaceViews.forEach{ it.onScrollByKeyboard(0.0f, -20.0f) }
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_DPAD_DOWN -> {
+                if (event.isCtrlPressed) {
+                    wxglSurfaceViews.forEach{ it.zoomInByKey() }
+                } else {
+                    wxglSurfaceViews.forEach{ it.onScrollByKeyboard(0.0f, 20.0f) }
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_DPAD_LEFT -> {
+                wxglSurfaceViews.forEach{ it.onScrollByKeyboard(-20.0f, 0.0f) }
+                return true
+            }
+            KeyEvent.KEYCODE_DPAD_RIGHT -> {
+                wxglSurfaceViews.forEach{ it.onScrollByKeyboard(20.0f, 0.0f) }
+                return true
+            }
+            else -> return super.onKeyUp(keyCode, event)
+        }
     }
 }
 

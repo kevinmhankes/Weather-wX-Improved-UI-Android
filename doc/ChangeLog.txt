@@ -34,6 +34,7 @@
 
 55402 2020_04_25    [ADD] better formatting in NHC Storm detail
                     [ADD] onrestart to NHC Storm detail (refresh data when resume)
+                    [ADD] some keyboard commands to multipane radar
 55401 2020_04_25    [FIX] NHC EPAC storms were not showing
 55400 2020_04_25    [REF] misc
                     [FIX] NCEP MAG HRRR animation was not working

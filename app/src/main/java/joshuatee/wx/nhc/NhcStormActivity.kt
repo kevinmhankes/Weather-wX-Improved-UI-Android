@@ -65,7 +65,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var activityArguments: List<String>
     // FIXME analyze usage of url, probably not needed here
-    private var url = ""
+    //private var url = ""
     private var html = ""
     private var product = ""
     private var stormId = ""
@@ -95,7 +95,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.nhc_storm)
         toolbarBottom.setOnMenuItemClickListener(this)
         activityArguments = intent.getStringArrayExtra(URL)!!.toList()
-        url = activityArguments[0]
+        //url = activityArguments[0]
         toolbarTitle = activityArguments[1]
         val titles = toolbarTitle.split(" - ")
         title = "NHC"
@@ -179,7 +179,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (audioPlayMenu(item.itemId, html, product, product)) return true
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(this, this, activityArguments[1], Utility.fromHtml(url), bitmaps)
+            R.id.action_share -> UtilityShare.shareText(this, this, activityArguments[1], html, bitmaps)
             R.id.action_MIATCPEP2 -> setProduct("MIATCP$stormId")
             R.id.action_MIATCMEP2 -> setProduct("MIATCM$stormId")
             R.id.action_MIATCDEP2 -> setProduct("MIATCD$stormId")
