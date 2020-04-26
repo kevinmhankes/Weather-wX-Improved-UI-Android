@@ -46,17 +46,23 @@ import joshuatee.wx.canada.CanadaRadarActivity
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.fragments.LocationFragment
 import joshuatee.wx.fragments.ViewPagerAdapter
+import joshuatee.wx.models.ModelsGenericActivity
 import joshuatee.wx.models.ModelsSpcHrefActivity
 import joshuatee.wx.models.ModelsSpcHrrrActivity
 import joshuatee.wx.models.ModelsSpcSrefActivity
+import joshuatee.wx.nhc.NhcActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.AwcRadarMosaicActivity
 import joshuatee.wx.radar.USNwsMosaicActivity
+import joshuatee.wx.radar.WXGLRadarActivityMultiPane
 import joshuatee.wx.settings.Location
 import joshuatee.wx.spc.*
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import joshuatee.wx.vis.GoesActivity
+import joshuatee.wx.wpc.WpcImagesActivity
+import joshuatee.wx.wpc.WpcRainfallForecastSummaryActivity
+import joshuatee.wx.wpc.WpcTextProductsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -188,25 +194,54 @@ class WX : CommonActionBarFragment() {
             //navigationView.setNavigationItemSelectedListener(this)
             navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener {item ->
                 when (item.itemId) {
+                    // FIXME need twitter and opc
                     R.id.esrl -> {
+                        ObjectIntent(this, ModelsGenericActivity::class.java,
+                        ModelsGenericActivity.INFO,
+                        arrayOf("1", "ESRL", "ESRL"))
                     }
                     R.id.rainfall_outlook -> {
+                        ObjectIntent(this, WpcRainfallForecastSummaryActivity::class.java,
+                        "",
+                        arrayOf())
                     }
                     R.id.glcfs -> {
+                        ObjectIntent(this, ModelsGenericActivity::class.java, ModelsGenericActivity.INFO, arrayOf("1", "GLCFS", "GLCFS"))
                     }
                     R.id.goes_global -> {
+                        ObjectIntent(this, ImageCollectionActivity::class.java,
+                        ImageCollectionActivity.TYPE,
+                        arrayOf("GOESFD"))
                     }
                     R.id.lightning -> {
+                        ObjectIntent(this,LightningActivity::class.java,
+                        "",
+                        arrayOf())
                     }
                     R.id.national_images -> {
+                        ObjectIntent(this, WpcImagesActivity::class.java,
+                        "",
+                        arrayOf())
                     }
                     R.id.national_text -> {
+                        ObjectIntent(this, WpcTextProductsActivity::class.java,
+                        WpcTextProductsActivity.URL,
+                        arrayOf("pmdspd", "Short Range Forecast Discussion"))
                     }
                     R.id.ncep_models -> {
+                        ObjectIntent(this, ModelsGenericActivity::class.java,
+                        ModelsGenericActivity.INFO,
+                        arrayOf("1", "NCEP", "NCEP"))
                     }
                     R.id.nhc -> {
+                        ObjectIntent(this, NhcActivity::class.java,
+                        "",
+                        arrayOf())
                     }
                     R.id.nssl_wrf -> {
+                        ObjectIntent(this, ModelsGenericActivity::class.java,
+                        ModelsGenericActivity.INFO,
+                        arrayOf("1", "NSSL", "NSSL"))
                     }
                     R.id.observations -> {
                         if (Location.isUS) {
@@ -216,6 +251,9 @@ class WX : CommonActionBarFragment() {
                         }
                     }
                     R.id.observation_sites -> {
+                        ObjectIntent(this, NwsObsSitesActivity::class.java,
+                        "",
+                        arrayOf())
                     }
                     R.id.radar_mosaic -> {
                         if (Location.isUS) {
@@ -230,8 +268,14 @@ class WX : CommonActionBarFragment() {
                         }
                     }
                     R.id.radar_dual_pane -> {
+                        ObjectIntent(this,WXGLRadarActivityMultiPane::class.java,
+                        WXGLRadarActivityMultiPane.RID,
+                        arrayOf(Location.rid, "", "2"))
                     }
                     R.id.radar_quad_pane -> {
+                        ObjectIntent(this,WXGLRadarActivityMultiPane::class.java,
+                                WXGLRadarActivityMultiPane.RID,
+                                arrayOf(Location.rid, "", "4"))
                     }
                     R.id.spc_comp_map -> {
                         // FIXME have constructure with no url and array
@@ -284,8 +328,11 @@ class WX : CommonActionBarFragment() {
                         arrayOf("today"))
                     }
                     R.id.spc_thunderstorm_outlooks -> {
+                        ObjectIntent(this, SpcThunderStormOutlookActivity::class.java, "",
+                        arrayOf())
                     }
                     R.id.spotters -> {
+                        ObjectIntent(this, SpottersActivity::class.java)
                     }
                     R.id.us_alerts -> {
                         if (Location.isUS) {
@@ -297,6 +344,9 @@ class WX : CommonActionBarFragment() {
                         }
                     }
                     R.id.wpc_gefs -> {
+                        ObjectIntent(this, ModelsGenericActivity::class.java,
+                        ModelsGenericActivity.INFO,
+                        arrayOf("1", "WPCGEFS", "WPC"))
                     }
                 }
                 drawerLayout.closeDrawer(GravityCompat.START)
