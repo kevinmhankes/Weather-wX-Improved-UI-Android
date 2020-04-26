@@ -183,9 +183,9 @@ class WX : CommonActionBarFragment() {
             //navigationView.setNavigationItemSelectedListener(this)
             navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener {item ->
                 when (item.itemId) {
-                    R.id.ncep -> {
+                    R.id.ncep_models -> {
                     }
-                    R.id.uswarn -> {
+                    R.id.us_alerts -> {
                         ObjectIntent(this, USWarningsWithRadarActivity::class.java, USWarningsWithRadarActivity.URL,
                                 arrayOf(".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?", "us")
                         )
