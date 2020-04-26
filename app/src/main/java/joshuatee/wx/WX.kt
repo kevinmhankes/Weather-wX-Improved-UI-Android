@@ -124,6 +124,18 @@ class WX : CommonActionBarFragment() {
             //navigationView.setNavigationItemSelectedListener(this)
             navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener {item ->
                 when (item.itemId) {
+                    R.id.severeDashboardButton, R.id.severeDashboardText -> {
+                        Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.visibleSatelliteButton, R.id.visibleSatelliteText -> {
+                        Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.wfoButton, R.id.wfoText -> {
+                        Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.hourlyButton, R.id.hourlyText -> {
+                        Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
+                    }
                     R.id.settingsButton, R.id.settingsText -> {
                         Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
                     }

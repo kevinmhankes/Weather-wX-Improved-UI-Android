@@ -9,41 +9,99 @@
     android:background="@color/bg_blue"
     >
 
-    <!--
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:layout_height="@dimen/nav_header_height"
-       android:background="@drawable/side_nav_bar"
-       android:paddingBottom="@dimen/activity_vertical_margin"
-       android:paddingLeft="@dimen/activity_horizontal_margin"
-       android:paddingRight="@dimen/activity_horizontal_margin"
-       android:paddingTop="@dimen/activity_vertical_margin"-->
-
-
-
-    <!--    android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@drawable/profil"-->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Severe Dashboard"
-        android:textColor="@color/white"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-    <!-- android:paddingTop="@dimen/nav_header_vertical_spacing"-->
-
-    <!--<TextView
-        android:id="@+id/settings"
-        android:textColor="@color/white"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings" />-->
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/severeDashboardButton"
+            android:backgroundTint="@color/bg_blue"
+            app:srcCompat="@drawable/ic_report_24dp"/>
+        <TextView
+            android:id="@+id/severeDashboardText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Severe Dashboard"
+            android:textAllCaps="false"
+            android:textColor="#FFF"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="10dp">
+        >
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/visibleSatelliteButton"
+            android:backgroundTint="@color/bg_blue"
+            app:srcCompat="@drawable/ic_cloud_24dp"/>
+        <TextView
+            android:id="@+id/visibleSatelliteText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Visible Satellite"
+            android:textAllCaps="false"
+            android:textColor="#FFF"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/wfoButton"
+            android:backgroundTint="@color/bg_blue"
+            app:srcCompat="@drawable/ic_info_outline_24dp"/>
+        <TextView
+            android:id="@+id/wfoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Local Text Products"
+            android:textAllCaps="false"
+            android:textColor="#FFF"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hourlyButton"
+            android:backgroundTint="@color/bg_blue"
+            app:srcCompat="@drawable/ic_place_24dp"/>
+        <TextView
+            android:id="@+id/hourlyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Hourly Forecast"
+            android:textAllCaps="false"
+            android:textColor="#FFF"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,6 +116,6 @@
             android:text="Settings"
             android:textAllCaps="false"
             android:textColor="#FFF"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 </LinearLayout>
