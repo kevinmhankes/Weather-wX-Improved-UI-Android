@@ -50,6 +50,7 @@ class SettingsUIActivity : BaseActivity() {
     )
     private val textSizeArr = mutableListOf<String>()
     private var tilesPerRowStart = 0
+    private var navDrawerMainScreen = false
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +58,7 @@ class SettingsUIActivity : BaseActivity() {
         toolbar.subtitle = "Please tap on text for additional help."
         ObjectCard(this, R.id.cv_tab_labels)
         tilesPerRowStart = UIPreferences.tilesPerRow
+        navDrawerMainScreen = UIPreferences.navDrawerMainScreen
         setupEditText()
         (0 until 20).forEach { textSizeArr.add(((it + 1) * 50).toString()) }
         linearLayout.addView(
@@ -67,6 +69,14 @@ class SettingsUIActivity : BaseActivity() {
                         "white",
                         R.string.spinner_theme_label,
                         colorArr
+                ).card
+        )
+        linearLayout.addView(
+                ObjectSettingsCheckBox(
+                        this,
+                        "Use navigation drawer on main screen",
+                        "NAV_DRAWER_MAIN_SCREEN",
+                        R.string.nav_drawer_main_screen_label
                 ).card
         )
         linearLayout.addView(
@@ -332,6 +342,7 @@ class SettingsUIActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if (UIPreferences.tilesPerRow != tilesPerRowStart) UtilityAlertDialog.restart() else super.onBackPressed()
+        if ((UIPreferences.tilesPerRow != tilesPerRowStart) || (UIPreferences.navDrawerMainScreen != navDrawerMainScreen))
+            UtilityAlertDialog.restart() else super.onBackPressed()
     }
 }

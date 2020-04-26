@@ -19,6 +19,11 @@
 
 <resources>
 
+    <string name="nav_drawer_main_screen_label">
+          Instead of using tabs on the main screen use a navigation drawer. You can then tab the plus icon bottom right or swipe from the left to
+        open the drawer. This option may be better for people who like to navigate by text instead of picture.
+</string>
+
     <string name="radar_show_wpc_fronts_label">
           Show WPC Fronts and pressure highs and lows. The data is not realtime but rather forecast data from NWS WPC.
          You can long press (press and hold) in nexrad radar and you will see the timestamp for the current data. For example "WPC Fronts: 0107 1200Z"

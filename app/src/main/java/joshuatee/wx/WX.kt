@@ -56,14 +56,14 @@ class WX : CommonActionBarFragment() {
     private var tabIndex = 0
     // test flag for new interface style
     //private val newInterface = true
-    private val newInterface = false
+    //private val newInterface = false
     private lateinit var navigationView: NavigationView
     private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(UIPreferences.themeInt)
         super.onCreate(savedInstanceState)
-        val layoutId = if (newInterface) R.layout.activity_main_drawer else R.layout.activity_main
+        val layoutId = if (UIPreferences.navDrawerMainScreen) R.layout.activity_main_drawer else R.layout.activity_main
         setContentView(layoutId)
         UtilityTheme.setPrimaryColor(this)
         val toolbarBottom: Toolbar = findViewById(R.id.toolbar_bottom)
@@ -95,7 +95,7 @@ class WX : CommonActionBarFragment() {
         if (MyApplication.simpleMode || UIPreferences.hideTopToolbar) slidingTabLayout.visibility = View.GONE
         slidingTabLayout.setSelectedTabIndicatorColor(UtilityTheme.getPrimaryColorFromSelectedTheme(this, 0))
 
-        if (newInterface) {
+        if (UIPreferences.navDrawerMainScreen) {
             toolbarBottom.visibility = View.GONE
             slidingTabLayout.visibility = View.GONE
             /*val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)

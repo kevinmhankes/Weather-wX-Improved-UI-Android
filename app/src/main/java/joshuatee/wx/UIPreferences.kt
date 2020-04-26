@@ -60,8 +60,10 @@ object UIPreferences {
     var nwsIconSizeDefault = 20
     var normalTextSizeDefault = 16
     var normalTextSize = 16
+    var navDrawerMainScreen = false
 
     fun initPreferences(context: Context) {
+        navDrawerMainScreen = Utility.readPref(context, "NAV_DRAWER_MAIN_SCREEN", "false").startsWith("t")
         if (UtilityUI.isTablet()) normalTextSizeDefault = 18
         normalTextSize = Utility.readPref(context, "TEXTVIEW_FONT_SIZE", normalTextSizeDefault) // 14 16 21
         MyApplication.textSizeSmall = UtilityUI.spToPx(normalTextSize - 2, context)
