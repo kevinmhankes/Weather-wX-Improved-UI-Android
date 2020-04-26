@@ -124,13 +124,13 @@ class WX : CommonActionBarFragment() {
             //panel = headerLayout.findViewById<View>(R.id.viewId)
 
             // TODO chunk below needs a lot of refactor , create static objectIntent and pass drawer to close as optional
-            val severeDashboardButton = headerLayout.findViewById<TextView>(R.id.severeDashboardButton)
+            val severeDashboardButton = headerLayout.findViewById<ImageButton>(R.id.severeDashboardButton)
             val severeDashboardText = headerLayout.findViewById<TextView>(R.id.severeDashboardText)
-            val visButton = headerLayout.findViewById<TextView>(R.id.visibleSatelliteButton)
+            val visButton = headerLayout.findViewById<ImageButton>(R.id.visibleSatelliteButton)
             val visText = headerLayout.findViewById<TextView>(R.id.visibleSatelliteText)
-            val wfoButton = headerLayout.findViewById<TextView>(R.id.wfoButton)
+            val wfoButton = headerLayout.findViewById<ImageButton>(R.id.wfoButton)
             val wfoText = headerLayout.findViewById<TextView>(R.id.wfoText)
-            val hourlyButton = headerLayout.findViewById<TextView>(R.id.hourlyButton)
+            val hourlyButton = headerLayout.findViewById<ImageButton>(R.id.hourlyButton)
             val hourlyText = headerLayout.findViewById<TextView>(R.id.hourlyText)
             val settingsButton = headerLayout.findViewById<ImageButton>(R.id.settingsButton)
             val settingsText = headerLayout.findViewById<TextView>(R.id.settingsText)
