@@ -40,11 +40,18 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
+import joshuatee.wx.activitiesmisc.AfdActivity
+import joshuatee.wx.activitiesmisc.HourlyActivity
+import joshuatee.wx.activitiesmisc.SevereDashboardActivity
+import joshuatee.wx.activitiesmisc.USWarningsWithRadarActivity
 import joshuatee.wx.fragments.LocationFragment
 import joshuatee.wx.fragments.ViewPagerAdapter
+import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.settings.Location
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
+import joshuatee.wx.vis.GoesActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -116,33 +123,72 @@ class WX : CommonActionBarFragment() {
             //val headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main)
             //panel = headerLayout.findViewById<View>(R.id.viewId)
 
+            // TODO chunk below needs a lot of refactor , create static objectIntent and pass drawer to close as optional
+            val severeDashboardButton = headerLayout.findViewById<TextView>(R.id.severeDashboardButton)
+            val severeDashboardText = headerLayout.findViewById<TextView>(R.id.severeDashboardText)
+            val visButton = headerLayout.findViewById<TextView>(R.id.visibleSatelliteButton)
+            val visText = headerLayout.findViewById<TextView>(R.id.visibleSatelliteText)
+            val wfoButton = headerLayout.findViewById<TextView>(R.id.wfoButton)
+            val wfoText = headerLayout.findViewById<TextView>(R.id.wfoText)
+            val hourlyButton = headerLayout.findViewById<TextView>(R.id.hourlyButton)
+            val hourlyText = headerLayout.findViewById<TextView>(R.id.hourlyText)
             val settingsButton = headerLayout.findViewById<ImageButton>(R.id.settingsButton)
             val settingsText = headerLayout.findViewById<TextView>(R.id.settingsText)
-            settingsButton.setOnClickListener { Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show() }
-            settingsText.setOnClickListener { Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show() }
+
+            severeDashboardButton.setOnClickListener {
+                ObjectIntent(this, SevereDashboardActivity::class.java)
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            severeDashboardText.setOnClickListener {
+                ObjectIntent(this, SevereDashboardActivity::class.java)
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+
+            visButton.setOnClickListener {
+                ObjectIntent(this, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            visText.setOnClickListener {
+                ObjectIntent(this, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+
+            wfoButton.setOnClickListener {
+                ObjectIntent(this, AfdActivity::class.java, AfdActivity.URL, arrayOf(Location.wfo, ""))
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            wfoText.setOnClickListener {
+                ObjectIntent(this, AfdActivity::class.java, AfdActivity.URL, arrayOf(Location.wfo, ""))
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+
+            hourlyButton.setOnClickListener {
+                ObjectIntent(this, HourlyActivity::class.java, HourlyActivity.LOC_NUM, Location.currentLocationStr)
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            hourlyText.setOnClickListener {
+                ObjectIntent(this, HourlyActivity::class.java, HourlyActivity.LOC_NUM, Location.currentLocationStr)
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+
+            settingsButton.setOnClickListener {
+                ObjectIntent.showSettings(this)
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            settingsText.setOnClickListener {
+                ObjectIntent.showSettings(this)
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
 
             //navigationView.setNavigationItemSelectedListener(this)
             navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener {item ->
                 when (item.itemId) {
-                    R.id.severeDashboardButton, R.id.severeDashboardText -> {
-                        Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
-                    }
-                    R.id.visibleSatelliteButton, R.id.visibleSatelliteText -> {
-                        Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
-                    }
-                    R.id.wfoButton, R.id.wfoText -> {
-                        Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
-                    }
-                    R.id.hourlyButton, R.id.hourlyText -> {
-                        Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
-                    }
-                    R.id.settingsButton, R.id.settingsText -> {
-                        Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
-                    }
                     R.id.ncep -> {
                     }
                     R.id.uswarn -> {
-                        Toast.makeText(applicationContext, "US Alerts", Toast.LENGTH_SHORT).show()
+                        ObjectIntent(this, USWarningsWithRadarActivity::class.java, USWarningsWithRadarActivity.URL,
+                                arrayOf(".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?", "us")
+                        )
                     }
                 }
                 drawerLayout.closeDrawer(GravityCompat.START)

@@ -32,6 +32,7 @@ import joshuatee.wx.radar.WXGLRadarActivityMultiPane
 import joshuatee.wx.settings.FavAddActivity
 import joshuatee.wx.settings.FavRemoveActivity
 import joshuatee.wx.settings.SettingsLocationGenericActivity
+import joshuatee.wx.settings.SettingsMainActivity
 
 //
 // Used to start another activity
@@ -68,6 +69,9 @@ class ObjectIntent() {
     }
 
     companion object {
+
+        fun showSettings(context: Context) { ObjectIntent(context, SettingsMainActivity::class.java) }
+
         fun showWeb(context: Context, url: String) { ObjectIntent(context, Intent.ACTION_VIEW, Uri.parse(url)) }
 
         fun showWebView(context: Context, array: Array<String>) { ObjectIntent(context, WebView::class.java, WebView.URL, array) }
