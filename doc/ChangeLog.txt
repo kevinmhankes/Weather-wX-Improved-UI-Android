@@ -30,6 +30,7 @@
 // TODO [REF] NCEP MAG WW3 changes
 // TODO [REF] remove roaming location feature
 // TODO [FIX] Android share text does not preserve line breaks
+// TODO [FIX] storm reports long press does not reliably work
 // TODO [FIX] nexrad cities performance
 
 55405 2020_04_26
