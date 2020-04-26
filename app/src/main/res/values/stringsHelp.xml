@@ -701,7 +701,7 @@ This activity can be used to add or modify an existing location. To add a new lo
             will automatically populate the label, lat, lon, and save the location. If a suggested city was not selected you can edit the location label if desired and then use
         check icon to save the location.
             Additionally, you can touch the GPS icon to populate the lat/lon fields if you have location services enabled.
-            You should see two popup messages, one at the start and one after the location has been saved. On this screen you can
+            You should see one popup message after the location has been saved. On this screen you can
         also toggle notifications on or off for this specific location. </string>
 
     <string name="show_county_label">
