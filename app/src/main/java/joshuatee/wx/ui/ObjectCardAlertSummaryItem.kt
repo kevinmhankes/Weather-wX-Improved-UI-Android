@@ -42,7 +42,6 @@ class ObjectCardAlertSummaryItem(context: Context) {
     private val textViewBottom = ObjectTextView(context, backgroundText = true)
     var radarButton = ObjectButton(context,"Radar", MyApplication.ICON_RADAR)
     var detailsButton = ObjectButton(context,"Details", MyApplication.ICON_CURRENT)
-    var locationButton = ObjectButton(context,"Location", MyApplication.ICON_ADD)
 
     init {
         val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)
@@ -52,7 +51,6 @@ class ObjectCardAlertSummaryItem(context: Context) {
         linearLayoutHorizontal.layoutParams = layoutParams
         linearLayoutHorizontal.addView(radarButton.card)
         linearLayoutHorizontal.addView(detailsButton.card)
-        linearLayoutHorizontal.addView(locationButton.card)
         objectLinearLayout.addView(linearLayoutHorizontal)
         objectCard.addView(objectLinearLayout)
     }

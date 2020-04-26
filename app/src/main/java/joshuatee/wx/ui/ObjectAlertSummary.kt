@@ -39,10 +39,7 @@ import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.WXGLRadarActivity
-import joshuatee.wx.settings.Location
-import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityString
 import kotlinx.coroutines.*
@@ -132,7 +129,7 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
                     objectCardAlertSummaryItem.setListener(View.OnClickListener { showWarningDetails(url) })
                     objectCardAlertSummaryItem.radarButton.setOnClickListener(View.OnClickListener { radarInterface(nwsOffice) })
                     objectCardAlertSummaryItem.detailsButton.setOnClickListener(View.OnClickListener { showWarningDetails(url) })
-                    objectCardAlertSummaryItem.locationButton.setOnClickListener(View.OnClickListener { addLocation(firstZone, firstCounty) })
+                    //objectCardAlertSummaryItem.locationButton.setOnClickListener(View.OnClickListener { addLocation(firstZone, firstCounty, uiDispatcher) })
                     linearLayout.addView(objectCardAlertSummaryItem.card)
                     i += 1
                 }
@@ -178,7 +175,9 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
         ObjectIntent(context, USAlertsDetailActivity::class.java, USAlertsDetailActivity.URL, arrayOf(url, ""))
     }
 
-    private fun addLocation(zone: String, county: String) = GlobalScope.launch(uiDispatcher) {
+    /*private fun addLocation(zone: String, county: String, uiDispatcher: CoroutineDispatcher) = GlobalScope.launch(uiDispatcher) {
+        UtilityLog.d("Wx", "ALERT: " + zone)
+        UtilityLog.d("Wx", "ALERT: " + county)
         var message = ""
         var coordinates = listOf<String>()
         withContext(Dispatchers.IO) {
@@ -192,12 +191,13 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
                     UtilityDownloadNws.getLatLonForZone(zone)
                 }
             }
+            UtilityLog.d("Wx", "ALERT: " + coordinates)
             val x = coordinates[0]
             val y = coordinates[1]
             message = Location.locationSave(context, locNumToSaveStr, x, y, county)
         }
         UtilityUI.makeSnackBar(linearLayout, message)
-    }
+    }*/
 
     fun getTitle(title: String) = "(" + totalAlertsCnt + ") " + title.toUpperCase(Locale.US) + " Alerts"
 }

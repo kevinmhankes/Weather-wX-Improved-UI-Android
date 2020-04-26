@@ -27,6 +27,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import joshuatee.wx.Extensions.getHtml
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.GlobalArrays
@@ -69,7 +70,8 @@ object UtilityLocation {
     fun getLatLonFromAddress(addressOriginal: String): List<String> {
         val address = addressOriginal.replace(" ", "+")
         val url = "http://nominatim.openstreetmap.org/search?q=$address&format=xml&polygon=0&addressdetails=1"
-        return UtilityString.getHtmlAndParseMultipleFirstMatch(url, "lat=.(.*?).\\slon=.(.*?).\\s", 2).toList()
+        val html = url.getHtml()
+        return UtilityString.parseMultipleFirst(html, "lat=.(.*?).\\slon=.(.*?).\\s", 2)
     }
 
     fun getGps(context: Context): DoubleArray {
