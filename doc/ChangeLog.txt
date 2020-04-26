@@ -31,7 +31,9 @@
 // TODO [FIX] Android share text does not preserve line breaks
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
 // TODO [FIX] nexrad cities performance
+// TODO [FIX] address gps/screen always on
 
+55407 2020_04_26
 55406 2020_04_26    [FIX] storm reports - having location follow gps breaks the location marker
 55405 2020_04_26    [FIX] remove location in save in US Alerts as OSM is not going to work anymore
                     [FIX] remove all services dependant on OSM: MCD location save, VR location save, fallback location search
