@@ -31,12 +31,12 @@ import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
-import android.widget.ListView
-import androidx.appcompat.app.ActionBarDrawerToggle
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import joshuatee.wx.fragments.LocationFragment
 import joshuatee.wx.fragments.ViewPagerAdapter
@@ -54,12 +54,15 @@ class WX : CommonActionBarFragment() {
     private var tabIndex = 0
     // test flag for new interface style
     //private val newInterface = true
-    //private val newInterface = true
+    private val newInterface = false
+    private lateinit var navigationView: NavigationView
+    private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(UIPreferences.themeInt)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val layoutId = if (newInterface) R.layout.activity_main_drawer else R.layout.activity_main
+        setContentView(layoutId)
         UtilityTheme.setPrimaryColor(this)
         val toolbarBottom: Toolbar = findViewById(R.id.toolbar_bottom)
         view = findViewById(android.R.id.content)
@@ -90,10 +93,10 @@ class WX : CommonActionBarFragment() {
         if (MyApplication.simpleMode || UIPreferences.hideTopToolbar) slidingTabLayout.visibility = View.GONE
         slidingTabLayout.setSelectedTabIndicatorColor(UtilityTheme.getPrimaryColorFromSelectedTheme(this, 0))
 
-        /*if (newInterface) {
+        if (newInterface) {
             toolbarBottom.visibility = View.GONE
             slidingTabLayout.visibility = View.GONE
-            val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+            /*val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
             val listView: ListView = findViewById(R.id.left_drawer)
             val actionBarDrawerToggle = ActionBarDrawerToggle(
                     this,
@@ -101,9 +104,25 @@ class WX : CommonActionBarFragment() {
                     R.string.drawer_open,
                     R.string.drawer_close
             )
-            drawerLayout.addDrawerListener(actionBarDrawerToggle)
+            drawerLayout.addDrawerListener(actionBarDrawerToggle)*/
+
+            navigationView = findViewById<NavigationView>(R.id.nav_view)
+            drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+            //navigationView.setNavigationItemSelectedListener(this)
+            navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener {item ->
+                when (item.itemId) {
+                    R.id.examSchedule -> {
+                    }
+                    R.id.uswarn -> {
+                        Toast.makeText(applicationContext, "US Alerts", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                true
+            })
+
             val fab2 = ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD, OnClickListener { drawerLayout.openDrawer(Gravity.LEFT)})
-        }*/
+        }
 
         // material 1.1.0, since we are using .Bridge theme the below is not needed
         // but left for reference
@@ -254,6 +273,33 @@ class WX : CommonActionBarFragment() {
             else -> return super.onKeyUp(keyCode, event)
         }
     }
+
+   /* fun onNavigationItemSelected(item: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+        when (item.itemId) {
+            *//*R.id.nav_camera -> {
+                // Handle the camera action
+            }
+            R.id.nav_gallery -> {
+
+            }
+            R.id.nav_slideshow -> {
+
+            }
+            R.id.nav_manage -> {
+
+            }
+            R.id.nav_share -> {
+
+            }
+            R.id.nav_send -> {
+
+            }*//*
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }*/
 }
 
 

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group android:checkableBehavior="single">
+        <item
+            android:id="@+id/uswarn"
+            android:icon="@drawable/uswarn"
+            android:title="US Alerts" />
+        <item
+            android:id="@+id/timeTable"
+            android:icon="@drawable/uswarn"
+            android:title="Time Table" />
+        <item
+            android:id="@+id/examSchedule"
+            android:icon="@drawable/uswarn"
+            android:title="Exam Schedule" />
+        <item
+            android:id="@+id/attendence"
+            android:icon="@drawable/uswarn"
+            android:title="Attendence" />
+        <item
+            android:id="@+id/result"
+            android:icon="@drawable/uswarn"
+            android:title="Results" />
+    </group>
+<item android:title="Social">
+        <menu>
+            <item
+                android:id="@+id/fb"
+                android:icon="@drawable/uswarn"
+                android:title="Faacebook" />
+            <item
+                android:id="@+id/gplus"
+                android:icon="@drawable/uswarn"
+                android:title="Google +" />
+            <item
+                android:id="@+id/twitter"
+                android:icon="@drawable/uswarn"
+                android:title="Twitter" />
+            <item
+                android:id="@+id/youtube"
+                android:icon="@drawable/uswarn"
+                android:title="Youtube" />
+            <item
+                android:id="@+id/github"
+                android:icon="@drawable/uswarn"
+                android:title="Github" />
+        </menu>
+    </item>
+</menu>
