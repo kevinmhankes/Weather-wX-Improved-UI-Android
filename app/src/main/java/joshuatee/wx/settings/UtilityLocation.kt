@@ -25,23 +25,18 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
-import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import joshuatee.wx.Extensions.getHtml
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.radar.LatLon
 
 import joshuatee.wx.radar.RID
-import joshuatee.wx.util.UtilityString
 import joshuatee.wx.util.UtilityTime
 
 import joshuatee.wx.objects.DistanceUnit
-import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
-import kotlinx.coroutines.*
 import java.util.*
 
 object UtilityLocation {

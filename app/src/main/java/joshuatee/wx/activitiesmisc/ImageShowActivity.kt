@@ -24,6 +24,7 @@ package joshuatee.wx.activitiesmisc
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.Extensions.getImage
@@ -37,7 +38,7 @@ import joshuatee.wx.util.UtilityShare
 
 import kotlinx.coroutines.*
 
-class ImageShowActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
+class ImageShowActivity : BaseActivity() {
 
     //
     // This is a general purpose activity used to view one image. URL and title are passed in via extras
@@ -60,10 +61,15 @@ class ImageShowActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     private var needsWhiteBackground = false
     private lateinit var img: ObjectTouchImageView
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.image_show_activity, menu)
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_image_show_bottom_toolbar, R.menu.image_show_activity, true)
-        toolbarBottom.setOnMenuItemClickListener(this)
+        super.onCreate(savedInstanceState, R.layout.activity_image_show, R.menu.image_show_activity, false)
+        //toolbarBottom.setOnMenuItemClickListener(this)
         img = ObjectTouchImageView(this, this, toolbar, R.id.iv)
         val activityArguments: Array<String> = intent.getStringArrayExtra(URL)!!
         url = activityArguments[0]
@@ -103,7 +109,7 @@ class ImageShowActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         img.setBitmap(UtilityIO.bitmapFromInternalStorage(this@ImageShowActivity, urls[1]))
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> UtilityShare.shareBitmap(this, this, shareTitle, bitmap)
             else -> return super.onOptionsItemSelected(item)

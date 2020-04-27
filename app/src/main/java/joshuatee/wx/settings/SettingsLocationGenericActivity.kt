@@ -564,20 +564,20 @@ class SettingsLocationGenericActivity : BaseActivity(),
     private fun showMessage(string: String) = UtilityUI.makeSnackBar(rl, string)
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
-        when (keyCode) {
+        return when (keyCode) {
             KeyEvent.KEYCODE_G -> {
                 if (event.isCtrlPressed) actionGps()
-                return true
+                true
             }
             KeyEvent.KEYCODE_M -> {
                 if (event.isCtrlPressed) toolbarBottom.showOverflowMenu()
-                return true
+                true
             }
             KeyEvent.KEYCODE_SLASH -> {
                 if (event.isAltPressed) ObjectDialogue(this, Utility.showLocationEditShortCuts())
-                return true
+                true
             }
-            else -> return super.onKeyUp(keyCode, event)
+            else -> super.onKeyUp(keyCode, event)
         }
     }
 }

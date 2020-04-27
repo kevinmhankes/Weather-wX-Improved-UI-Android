@@ -25,9 +25,9 @@ class ExternalSunriseLocation(latitude: String, longitude: String) {
     /**
      * Creates a new instance of `Location` with the given parameters.
      *
-     * @param latitude
+     *  latitude
      * the latitude, in degrees, of this location. North latitude is positive, south negative.
-     * @param longitude
+     *  longitude
      * the longitude, in degrees, of this location. East longitude is positive, east negative.
      */
     val latitude = latitude.toBigDecimalOrNull() ?: BigDecimal("0.0")

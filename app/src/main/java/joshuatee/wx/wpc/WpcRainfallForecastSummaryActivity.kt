@@ -24,6 +24,7 @@ package joshuatee.wx.wpc
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
@@ -37,17 +38,22 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
-class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
+class WpcRainfallForecastSummaryActivity : BaseActivity() { // , Toolbar.OnMenuItemClickListener
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmaps = listOf<Bitmap>()
     private var imagesPerRow = 2
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.shared_multigraphics, menu)
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.shared_multigraphics, true)
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout, R.menu.shared_multigraphics, false)
         if (UtilityUI.isLandScape(this)) imagesPerRow = 3
-        toolbarBottom.setOnMenuItemClickListener(this)
+        //toolbarBottom.setOnMenuItemClickListener(this)
         title = "Excessive Rainfall Outlooks"
         toolbar.subtitle = "WPC"
         getContent()
@@ -72,11 +78,19 @@ class WpcRainfallForecastSummaryActivity : BaseActivity(), Toolbar.OnMenuItemCli
         }
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> UtilityShare.shareText(this, this, getString(UtilityWpcRainfallForecast.activityTitle), "", bitmaps)
             else -> return super.onOptionsItemSelected(item)
         }
         return true
     }
+
+   /* override fun onMenuItemClick(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_share -> UtilityShare.shareText(this, this, getString(UtilityWpcRainfallForecast.activityTitle), "", bitmaps)
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }*/
 }

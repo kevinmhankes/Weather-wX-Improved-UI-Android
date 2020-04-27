@@ -31,7 +31,6 @@ import joshuatee.wx.radar.LatLon
 import okhttp3.Request
 
 import joshuatee.wx.Extensions.*
-import joshuatee.wx.RegExp
 
 object UtilityDownloadNws {
 
@@ -41,7 +40,7 @@ object UtilityDownloadNws {
 
     fun getHazardData(url: String) = getStringFromUrlJson(url)
 
-    fun getLatLonForZone(zone: String): List<String> {
+    /*fun getLatLonForZone(zone: String): List<String> {
         var html = (MyApplication.nwsApiUrl + "/zones/forecast/" + zone.toUpperCase(Locale.US)).getNwsHtml()
         html = html.replace("\n", "")
         html = html.replace(" ", "")
@@ -57,7 +56,7 @@ object UtilityDownloadNws {
             }
         }
         return listOf(lat, lon)
-    }
+    }*/
 
     fun getCap(sector: String) = if (sector == "us") {
         getStringFromUrlXml(MyApplication.nwsApiUrl + "/alerts/active?region_type=land")

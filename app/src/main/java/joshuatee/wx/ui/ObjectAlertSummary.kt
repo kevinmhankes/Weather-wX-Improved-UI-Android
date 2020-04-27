@@ -42,9 +42,8 @@ import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityString
-import kotlinx.coroutines.*
 
-class ObjectAlertSummary(private val context: Context, private val linearLayout: LinearLayout, private val scrollView: ScrollView, private val uiDispatcher: CoroutineDispatcher) {
+class ObjectAlertSummary(private val context: Context, private val linearLayout: LinearLayout, private val scrollView: ScrollView) {
 
     private var totalAlertsCnt = 0
     var navList = listOf<String>()

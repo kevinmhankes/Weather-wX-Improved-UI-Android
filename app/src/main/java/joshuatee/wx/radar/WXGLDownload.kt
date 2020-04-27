@@ -185,12 +185,8 @@ class WXGLDownload {
     private fun iowaMesoL2Archive(radarSite: String, url: String): String {
         val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, false).toUpperCase(Locale.US)
         val baseUrl = "http://mesonet-nexrad.agron.iastate.edu/level2/raw/$ridPrefix$radarSite/"
-        UtilityLog.d("wx", "STORM REPORTS: " + baseUrl)
         val tmpStr = (baseUrl + "dir.list").getHtmlSep()
-        UtilityLog.d("wx", "STORM REPORTS: " + tmpStr)
         val regexp = ".*?($ridPrefix$url[0-9]).*?"
-        UtilityLog.d("wx", "STORM REPORTS: " + regexp)
-        //UtilityLog.d("wx", "STORM REPORTS: " + baseUrl + tmpStr.parse(regexp))
         return baseUrl + tmpStr.parse(regexp)
     }
 

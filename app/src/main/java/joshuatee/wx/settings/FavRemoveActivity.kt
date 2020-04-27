@@ -195,21 +195,19 @@ class FavRemoveActivity : BaseActivity() {
     }
 
     private fun getFullString(shortCode: String): String {
-        val fullName: String
-        when (type) {
-            "SND" -> fullName = Utility.getSoundingSiteName(shortCode)
-            "WFO" -> fullName = shortCode + ": " + Utility.getWfoSiteName(shortCode)
-            "RID" -> fullName = shortCode + ": " + Utility.getRadarSiteName(shortCode)
+        return when (type) {
+            "SND" -> Utility.getSoundingSiteName(shortCode)
+            "WFO" -> shortCode + ": " + Utility.getWfoSiteName(shortCode)
+            "RID" -> shortCode + ": " + Utility.getRadarSiteName(shortCode)
             "NWSTEXT" -> {
                 val index = UtilityFavorites.findPositionNwsText(shortCode)
-                fullName = if (index != -1) UtilityWpcText.labels[index] else shortCode
+                if (index != -1) UtilityWpcText.labels[index] else shortCode
             }
-            "SREF" -> fullName = shortCode
-            "RIDCA" -> fullName = findCanadaRadarSiteLabel(shortCode)
-            "SPCMESO" -> fullName = findSpcMesoLabel(shortCode)
-            else -> fullName = ""
+            "SREF" -> shortCode
+            "RIDCA" -> findCanadaRadarSiteLabel(shortCode)
+            "SPCMESO" -> findSpcMesoLabel(shortCode)
+            else -> ""
         }
-        return fullName
     }
 
     private fun saveMyApp(favorite: String, favoriteLabel: String) {

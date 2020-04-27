@@ -24,6 +24,7 @@ package joshuatee.wx.activitiesmisc
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.Menu
 import android.widget.AdapterView
 import java.util.Locale
 import android.view.MenuItem
@@ -42,7 +43,7 @@ import kotlinx.coroutines.*
 import kotlinx.android.synthetic.main.activity_linear_layout_show_navdrawer_bottom_toolbar.*
 
 // FIXME rename USWarningsWithRadarActivity
-class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
+class USWarningsWithRadarActivity : BaseActivity() {
 
     // US weather alert interface
     //
@@ -65,15 +66,19 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
     private lateinit var objectNavDrawer: ObjectNavDrawer
     private lateinit var objectAlertSummary: ObjectAlertSummary
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.uswarn, menu)
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_show_navdrawer_bottom_toolbar, R.menu.uswarn, true)
-        toolbarBottom.setOnMenuItemClickListener(this)
-        toolbar.setOnClickListener { toolbar.showOverflowMenu() }
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_show_navdrawer, R.menu.uswarn, false)
+        //toolbar.setOnClickListener { toolbar.showOverflowMenu() }
         val activityArguments = intent.getStringArrayExtra(URL)
         turlLocal[0] = activityArguments!![0]
         turlLocal[1] = activityArguments[1]
-        objectAlertSummary = ObjectAlertSummary(this, linearLayout, scrollView, uiDispatcher)
+        objectAlertSummary = ObjectAlertSummary(this, linearLayout, scrollView)
         objectNavDrawer = ObjectNavDrawer(this, objectAlertSummary.filterArray.toList())
         objectNavDrawer.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             objectNavDrawer.listView.setItemChecked(position, false)
@@ -127,9 +132,9 @@ class USWarningsWithRadarActivity : BaseActivity(), Toolbar.OnMenuItemClickListe
         objectNavDrawer.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
+    //override fun onOptionsItemSelected(item: MenuItem) = objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_warnmap -> ObjectIntent.showImage(this@USWarningsWithRadarActivity, arrayOf("https://forecast.weather.gov/wwamap/png/US.png", "CONUS warning map"))

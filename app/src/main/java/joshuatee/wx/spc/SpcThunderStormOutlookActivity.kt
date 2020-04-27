@@ -25,6 +25,7 @@ import android.annotation.SuppressLint
 
 import android.os.Bundle
 import android.graphics.Bitmap
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
@@ -38,7 +39,7 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
-class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
+class SpcThunderStormOutlookActivity : BaseActivity() {
 
     //
     // SPC Thunderstorm Outlooks
@@ -49,11 +50,16 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
     private var urls = listOf<String>()
     private var imagesPerRow = 2
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.shared_multigraphics, menu)
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.shared_multigraphics, true)
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout, R.menu.shared_multigraphics, false)
         if (UtilityUI.isLandScape(this)) imagesPerRow = 3
-        toolbarBottom.setOnMenuItemClickListener(this)
+        //toolbarBottom.setOnMenuItemClickListener(this)
         toolbar.subtitle = "SPC"
         title = "Thunderstorm Outlooks"
         getContent()
@@ -76,7 +82,7 @@ class SpcThunderStormOutlookActivity : BaseActivity(), Toolbar.OnMenuItemClickLi
         }
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> UtilityShare.shareText(this, this, "SPC Thunderstorm Outlook", "", bitmaps)
             else -> return super.onOptionsItemSelected(item)

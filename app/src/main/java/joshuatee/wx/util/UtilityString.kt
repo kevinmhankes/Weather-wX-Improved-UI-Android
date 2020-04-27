@@ -132,7 +132,7 @@ object UtilityString {
 
     //fun getHtmlAndParseMultipleFirstMatch(url: String, match: String, number: Int) = parseMultipleFirst(url.getHtml(), match, number)
 
-    fun parseMultipleFirst(data: String, match: String, number: Int): MutableList<String> {
+    /*fun parseMultipleFirst(data: String, match: String, number: Int): MutableList<String> {
         val result = MutableList(number) { "" }
         try {
             val pattern = Pattern.compile(match)
@@ -143,7 +143,7 @@ object UtilityString {
             UtilityLog.handleException(e)
         }
         return result
-    }
+    }*/
 
     fun parseMultiple(data: String, match: String, number: Int): MutableList<String> {
         val result = MutableList(number) { "" }

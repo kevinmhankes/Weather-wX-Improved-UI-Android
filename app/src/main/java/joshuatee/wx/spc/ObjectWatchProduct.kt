@@ -45,8 +45,7 @@ internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
         private set
     var text = ""
         private set
-    var wfos = listOf<String>()
-        private set
+    private var wfos = listOf<String>()
 
     init {
         this.productNumber = productNumber

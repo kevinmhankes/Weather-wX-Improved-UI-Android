@@ -24,6 +24,7 @@ package joshuatee.wx.spc
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
@@ -38,19 +39,24 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
-class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
+class SpcSwoSummaryActivity : BaseActivity() {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmaps = mutableListOf<Bitmap>()
     private var imagesPerRow = 2
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.spc_swo_summary, menu)
+        //val menu = toolbarBottom.menu
+        UtilityShortcut.hidePinIfNeeded(menu)
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.spc_swo_summary, true)
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout, R.menu.spc_swo_summary, false)
         if (UtilityUI.isLandScape(this)) imagesPerRow = 3
-        toolbarBottom.setOnMenuItemClickListener(this)
-        val menu = toolbarBottom.menu
-        UtilityShortcut.hidePinIfNeeded(menu)
+        //toolbarBottom.setOnMenuItemClickListener(this)
         toolbar.subtitle = "SPC"
         title = "Convective Outlooks"
         getContent()
@@ -72,7 +78,7 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         }
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.SPC_SWO_SUMMARY)
             R.id.action_share -> UtilityShare.shareText(this, this, "Convective Outlook Summary", "", bitmaps)

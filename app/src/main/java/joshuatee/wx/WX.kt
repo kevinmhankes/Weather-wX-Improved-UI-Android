@@ -47,7 +47,6 @@ import joshuatee.wx.canada.CanadaRadarActivity
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.fragments.LocationFragment
 import joshuatee.wx.fragments.ViewPagerAdapter
-import joshuatee.wx.models.ModelsGenericActivity
 import joshuatee.wx.models.ModelsSpcHrefActivity
 import joshuatee.wx.models.ModelsSpcHrrrActivity
 import joshuatee.wx.models.ModelsSpcSrefActivity
@@ -55,7 +54,6 @@ import joshuatee.wx.nhc.NhcActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.AwcRadarMosaicActivity
 import joshuatee.wx.radar.USNwsMosaicActivity
-import joshuatee.wx.radar.WXGLRadarActivityMultiPane
 import joshuatee.wx.settings.Location
 import joshuatee.wx.spc.*
 import joshuatee.wx.ui.*
@@ -183,26 +181,16 @@ class WX : CommonActionBarFragment() {
                 when (item.itemId) {
                     // FIXME need twitter and opc
                     R.id.esrl -> ObjectIntent.showModel(this, arrayOf("1", "ESRL", "ESRL"))
-                    R.id.rainfall_outlook -> {
-                        ObjectIntent(this, WpcRainfallForecastSummaryActivity::class.java, "", arrayOf())
-                    }
+                    R.id.rainfall_outlook -> ObjectIntent(this, WpcRainfallForecastSummaryActivity::class.java, "", arrayOf())
                     R.id.glcfs -> ObjectIntent.showModel(this, arrayOf("1", "GLCFS", "GLCFS"))
-                    R.id.goes_global -> {
-                        ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("GOESFD"))
-                    }
-                    R.id.lightning -> {
-                        ObjectIntent(this,LightningActivity::class.java, "", arrayOf())
-                    }
-                    R.id.national_images -> {
-                        ObjectIntent(this, WpcImagesActivity::class.java, "", arrayOf())
-                    }
+                    R.id.goes_global -> ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("GOESFD"))
+                    R.id.lightning -> ObjectIntent(this,LightningActivity::class.java, "", arrayOf())
+                    R.id.national_images -> ObjectIntent(this, WpcImagesActivity::class.java, "", arrayOf())
                     R.id.national_text -> {
                         ObjectIntent(this, WpcTextProductsActivity::class.java, WpcTextProductsActivity.URL, arrayOf("pmdspd", "Short Range Forecast Discussion"))
                     }
                     R.id.ncep_models -> ObjectIntent.showModel(this, arrayOf("1", "NCEP", "NCEP"))
-                    R.id.nhc -> {
-                        ObjectIntent(this, NhcActivity::class.java, "", arrayOf())
-                    }
+                    R.id.nhc -> ObjectIntent(this, NhcActivity::class.java, "", arrayOf())
                     R.id.nssl_wrf -> ObjectIntent.showModel(this, arrayOf("1", "NSSL", "NSSL"))
                     R.id.observations -> {
                         if (Location.isUS) {
@@ -211,12 +199,8 @@ class WX : CommonActionBarFragment() {
                             ObjectIntent.showImage(this, arrayOf("http://weather.gc.ca/data/wxoimages/wocanmap0_e.jpg", "Observations"))
                         }
                     }
-                    R.id.observation_sites -> {
-                        ObjectIntent(this, NwsObsSitesActivity::class.java, "", arrayOf())
-                    }
-                    R.id.opc -> {
-                        ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("OPC"))
-                    }
+                    R.id.observation_sites -> ObjectIntent(this, NwsObsSitesActivity::class.java, "", arrayOf())
+                    R.id.opc -> ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("OPC"))
                     R.id.radar_mosaic -> {
                         if (Location.isUS) {
                             if (!UIPreferences.useAwcRadarMosaic) {
@@ -235,25 +219,15 @@ class WX : CommonActionBarFragment() {
                         // FIXME have constructure with no url and array
                         ObjectIntent(this, SpcCompmapActivity::class.java, "", arrayOf())
                     }
-                    R.id.spc_convective_outlooks -> {
-                        ObjectIntent(this, SpcSwoSummaryActivity::class.java, "", arrayOf())
-                    }
+                    R.id.spc_convective_outlooks -> ObjectIntent(this, SpcSwoSummaryActivity::class.java, "", arrayOf())
                     R.id.spc_day_1 -> ObjectIntent.showSpcSwo(this, arrayOf("1", ""))
                     R.id.spc_day_2 -> ObjectIntent.showSpcSwo(this, arrayOf("2", ""))
                     R.id.spc_day_3 -> ObjectIntent.showSpcSwo(this, arrayOf("3", ""))
                     R.id.spc_day_4_8 -> ObjectIntent.showSpcSwo(this, arrayOf("4-8", ""))
-                    R.id.spc_fire_outlooks -> {
-                        ObjectIntent(this, SpcFireOutlookSummaryActivity::class.java, "", arrayOf(""))
-                    }
-                    R.id.spc_href -> {
-                        ObjectIntent(this, ModelsSpcHrefActivity::class.java, "", arrayOf("1", "SPCHREF", "SPC HREF"))
-                    }
-                    R.id.spc_hrrr -> {
-                        ObjectIntent(this, ModelsSpcHrrrActivity::class.java, "", arrayOf("1", "SPCHRRR", "SPC HRRR"))
-                    }
-                    R.id.spc_mesoanalysis -> {
-                        ObjectIntent(this,SpcMesoActivity::class.java, SpcMesoActivity.INFO, arrayOf("", "1", "SPCMESO"))
-                    }
+                    R.id.spc_fire_outlooks -> ObjectIntent(this, SpcFireOutlookSummaryActivity::class.java, "", arrayOf(""))
+                    R.id.spc_href -> ObjectIntent(this, ModelsSpcHrefActivity::class.java, "", arrayOf("1", "SPCHREF", "SPC HREF"))
+                    R.id.spc_hrrr -> ObjectIntent(this, ModelsSpcHrrrActivity::class.java, "", arrayOf("1", "SPCHRRR", "SPC HRRR"))
+                    R.id.spc_mesoanalysis -> ObjectIntent(this,SpcMesoActivity::class.java, SpcMesoActivity.INFO, arrayOf("", "1", "SPCMESO"))
                     R.id.spc_soundings -> {
                         ObjectIntent(this, SpcSoundingsActivity::class.java, SpcSoundingsActivity.URL, arrayOf(Location.wfo, ""))
                     }
@@ -263,15 +237,9 @@ class WX : CommonActionBarFragment() {
                     R.id.spc_storm_reports -> {
                         ObjectIntent(this, SpcStormReportsActivity::class.java, SpcStormReportsActivity.NO, arrayOf("today"))
                     }
-                    R.id.spc_thunderstorm_outlooks -> {
-                        ObjectIntent(this, SpcThunderStormOutlookActivity::class.java, "", arrayOf())
-                    }
-                    R.id.spotters -> {
-                        ObjectIntent(this, SpottersActivity::class.java)
-                    }
-                    R.id.twitter_states -> {
-                        ObjectIntent(this, WebViewTwitter::class.java, "", arrayOf())
-                    }
+                    R.id.spc_thunderstorm_outlooks -> ObjectIntent(this, SpcThunderStormOutlookActivity::class.java, "", arrayOf())
+                    R.id.spotters -> ObjectIntent(this, SpottersActivity::class.java)
+                    R.id.twitter_states -> ObjectIntent(this, WebViewTwitter::class.java, "", arrayOf())
                     R.id.twitter_tornado -> {
                         ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf("https://mobile.twitter.com/hashtag/tornado", "#tornado"))
                     }

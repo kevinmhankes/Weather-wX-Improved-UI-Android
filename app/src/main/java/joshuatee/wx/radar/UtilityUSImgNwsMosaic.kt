@@ -28,7 +28,6 @@ import android.graphics.Bitmap.Config
 import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.ProjectionType

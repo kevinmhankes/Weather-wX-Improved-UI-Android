@@ -25,6 +25,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.content.res.Configuration
 import android.graphics.drawable.AnimationDrawable
+import android.view.Menu
 import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
 import joshuatee.wx.Extensions.getImage
@@ -41,7 +42,7 @@ import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.vis.UtilityGoesFullDisk
 import kotlinx.coroutines.*
 
-class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
+class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemClickListener
 
     companion object {
         const val TYPE = ""
@@ -56,14 +57,21 @@ class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLi
     private lateinit var activityArguments: Array<String>
     private var animDrawable = AnimationDrawable()
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.imagecollection, menu)
+        actionAnimate = menu.findItem(R.id.action_animate)
+        actionAnimate.isVisible = false
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer_bottom_toolbar, R.menu.imagecollection, iconsEvenlySpaced = true, bottomToolbar = true)
+        super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer, R.menu.imagecollection, iconsEvenlySpaced = true, bottomToolbar = false)
         activityArguments = intent.getStringArrayExtra(TYPE)!!
         imageCollection = MyApplication.imageCollectionMap[activityArguments[0]]!!
-        toolbarBottom.setOnMenuItemClickListener(this)
-        actionAnimate = toolbarBottom.menu.findItem(R.id.action_animate)
-        actionAnimate.isVisible = false
+        //toolbarBottom.setOnMenuItemClickListener(this)
+        //actionAnimate = toolbarBottom.menu.findItem(R.id.action_animate)
+        //actionAnimate.isVisible = false
         title = imageCollection.title
         drw = ObjectNavDrawer(this, imageCollection.labels, imageCollection.urls)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, drw, imageCollection.prefTokenIdx)
@@ -103,7 +111,23 @@ class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLi
         drw.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
+    /*override fun onMenuItemClick(item: MenuItem): Boolean {
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
+        when (item.itemId) {
+            R.id.action_animate -> getAnimate()
+            R.id.action_share -> {
+                if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
+                    checkOverlayPerms()
+                } else {
+                    UtilityShare.shareBitmap(this, this, imageCollection.title, bitmap)
+                }
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }*/
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_animate -> getAnimate()
@@ -119,7 +143,7 @@ class ImageCollectionActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLi
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
+    //override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onStop() {
         img.imgSavePosnZoom(this, imageCollection.prefImagePosition)

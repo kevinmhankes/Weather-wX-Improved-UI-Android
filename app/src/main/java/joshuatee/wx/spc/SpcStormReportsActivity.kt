@@ -279,8 +279,6 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             x = "0.0"
             y = "0.0"
         }
-        UtilityLog.d("wx", "STORM REPORTS: " + time)
-        UtilityLog.d("wx", "STORM REPORTS: " + patternL2)
         if (prod == "L2REF" || prod == "L2VEL") ObjectIntent.showRadar(this, arrayOf(radarSite, "", prod, "", patternL2, x, y))
     }
 

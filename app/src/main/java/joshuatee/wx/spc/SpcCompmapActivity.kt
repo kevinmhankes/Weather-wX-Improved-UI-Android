@@ -24,9 +24,9 @@ package joshuatee.wx.spc
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.content.res.Configuration
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.AdapterView
-import androidx.appcompat.widget.Toolbar
 
 import joshuatee.wx.R
 import joshuatee.wx.ui.BaseActivity
@@ -37,7 +37,7 @@ import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
 import kotlinx.coroutines.*
 
-class SpcCompmapActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
+class SpcCompmapActivity : BaseActivity() {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var layerStr = ""
@@ -46,10 +46,15 @@ class SpcCompmapActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     private lateinit var drw: ObjectNavDrawer
     private var paramList = mutableListOf<String>()
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.shared_multigraphics, menu)
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer_bottom_toolbar, R.menu.shared_multigraphics, true)
-        toolbarBottom.setOnMenuItemClickListener(this)
+        super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer, R.menu.shared_multigraphics, false)
+        //toolbarBottom.setOnMenuItemClickListener(this)
         paramList = UtilitySpcCompmap.labels.toMutableList()
         drw = ObjectNavDrawer(this, paramList)
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -114,9 +119,9 @@ class SpcCompmapActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         drw.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
+    //override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_share -> UtilityShare.shareBitmap(this, this, "SPC Compmap", bitmap)
