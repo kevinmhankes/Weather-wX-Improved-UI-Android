@@ -37,13 +37,10 @@ import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.audio.UtilityVoiceCommand
 import joshuatee.wx.canada.*
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.radar.AwcRadarMosaicActivity
-import joshuatee.wx.radar.USNwsMosaicActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.SettingsMainActivity
 import joshuatee.wx.spc.SpcSoundingsActivity
 import joshuatee.wx.ui.UtilityUI
-import joshuatee.wx.util.Utility
 import joshuatee.wx.vis.GoesActivity
 
 open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListener {
@@ -66,9 +63,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
         when (item.itemId) {
             R.id.action_alert -> {
                 if (Location.isUS) {
-                    ObjectIntent(this, USWarningsWithRadarActivity::class.java, USWarningsWithRadarActivity.URL,
-                            arrayOf(".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?", "us")
-                    )
+                    ObjectIntent.showUsAlerts(this)
                 } else {
                     ObjectIntent(this, CanadaAlertsActivity::class.java)
                 }

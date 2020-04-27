@@ -36,7 +36,6 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.radar.*
 import joshuatee.wx.spc.SpcMcdWatchShowActivity
-import joshuatee.wx.spc.SpcStormReportsActivity
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.ui.*
 import kotlinx.android.synthetic.main.activity_linear_layout.*

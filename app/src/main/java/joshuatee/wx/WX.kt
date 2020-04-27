@@ -179,7 +179,6 @@ class WX : CommonActionBarFragment() {
             }
             navigationView.setNavigationItemSelectedListener{ item ->
                 when (item.itemId) {
-                    // FIXME need twitter and opc
                     R.id.esrl -> ObjectIntent.showModel(this, arrayOf("1", "ESRL", "ESRL"))
                     R.id.rainfall_outlook -> ObjectIntent(this, WpcRainfallForecastSummaryActivity::class.java, "", arrayOf())
                     R.id.glcfs -> ObjectIntent.showModel(this, arrayOf("1", "GLCFS", "GLCFS"))
@@ -204,10 +203,7 @@ class WX : CommonActionBarFragment() {
                     R.id.radar_mosaic -> ObjectIntent.showRadarMosaic(this)
                     R.id.radar_dual_pane -> ObjectIntent.showRadarMultiPane(this, arrayOf(Location.rid, "", "2"))
                     R.id.radar_quad_pane -> ObjectIntent.showRadarMultiPane(this, arrayOf(Location.rid, "", "4"))
-                    R.id.spc_comp_map -> {
-                        // FIXME have constructure with no url and array
-                        ObjectIntent(this, SpcCompmapActivity::class.java, "", arrayOf())
-                    }
+                    R.id.spc_comp_map -> ObjectIntent(this, SpcCompmapActivity::class.java, "", arrayOf())
                     R.id.spc_convective_outlooks -> ObjectIntent(this, SpcSwoSummaryActivity::class.java, "", arrayOf())
                     R.id.spc_day_1 -> ObjectIntent.showSpcSwo(this, arrayOf("1", ""))
                     R.id.spc_day_2 -> ObjectIntent.showSpcSwo(this, arrayOf("2", ""))
@@ -217,21 +213,13 @@ class WX : CommonActionBarFragment() {
                     R.id.spc_href -> ObjectIntent(this, ModelsSpcHrefActivity::class.java, "", arrayOf("1", "SPCHREF", "SPC HREF"))
                     R.id.spc_hrrr -> ObjectIntent(this, ModelsSpcHrrrActivity::class.java, "", arrayOf("1", "SPCHRRR", "SPC HRRR"))
                     R.id.spc_mesoanalysis -> ObjectIntent(this,SpcMesoActivity::class.java, SpcMesoActivity.INFO, arrayOf("", "1", "SPCMESO"))
-                    R.id.spc_soundings -> {
-                        ObjectIntent(this, SpcSoundingsActivity::class.java, SpcSoundingsActivity.URL, arrayOf(Location.wfo, ""))
-                    }
-                    R.id.spc_sref -> {
-                        ObjectIntent(this, ModelsSpcSrefActivity::class.java, ModelsSpcSrefActivity.INFO, arrayOf("1", "SPCSREF", "SPCSREF"))
-                    }
-                    R.id.spc_storm_reports -> {
-                        ObjectIntent.showSpcStormReports(this)
-                    }
+                    R.id.spc_soundings -> ObjectIntent(this, SpcSoundingsActivity::class.java, SpcSoundingsActivity.URL, arrayOf(Location.wfo, ""))
+                    R.id.spc_sref -> ObjectIntent(this, ModelsSpcSrefActivity::class.java, ModelsSpcSrefActivity.INFO, arrayOf("1", "SPCSREF", "SPCSREF"))
+                    R.id.spc_storm_reports -> ObjectIntent.showSpcStormReports(this)
                     R.id.spc_thunderstorm_outlooks -> ObjectIntent(this, SpcThunderStormOutlookActivity::class.java, "", arrayOf())
                     R.id.spotters -> ObjectIntent(this, SpottersActivity::class.java)
                     R.id.twitter_states -> ObjectIntent(this, WebViewTwitter::class.java, "", arrayOf())
-                    R.id.twitter_tornado -> {
-                        ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf("https://mobile.twitter.com/hashtag/tornado", "#tornado"))
-                    }
+                    R.id.twitter_tornado -> ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf("https://mobile.twitter.com/hashtag/tornado", "#tornado"))
                     R.id.us_alerts -> {
                         if (Location.isUS) {
                             ObjectIntent.showUsAlerts(this)
