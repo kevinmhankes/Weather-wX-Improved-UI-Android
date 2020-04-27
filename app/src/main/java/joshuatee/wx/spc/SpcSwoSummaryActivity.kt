@@ -63,16 +63,12 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         bitmaps = mutableListOf()
-        withContext(Dispatchers.IO) {
-            listOf("1", "2", "3", "4-8").forEach { bitmaps.addAll(UtilitySpcSwo.getImages(it, false)) }
-        }
+        withContext(Dispatchers.IO) { listOf("1", "2", "3", "4-8").forEach { bitmaps.addAll(UtilitySpcSwo.getImages(it, false)) } }
         linearLayout.removeAllViews()
         val objectImageSummary = ObjectImageSummary(this@SpcSwoSummaryActivity, linearLayout, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
             val day = if (index < 3) (index + 1).toString() else "4-8"
-            objectCardImage.setOnClickListener(View.OnClickListener {
-                ObjectIntent.showSpcSwo(this@SpcSwoSummaryActivity, arrayOf(day, ""))
-            })
+            objectCardImage.setOnClickListener(View.OnClickListener { ObjectIntent.showSpcSwo(this@SpcSwoSummaryActivity, arrayOf(day, "")) })
         }
     }
 
