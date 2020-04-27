@@ -34,6 +34,7 @@
 // TODO [FIX] address gps/screen always on
 // TODO [REF] use ObjectIntent.showModel in ModelGeneric for invokation for dual pane
 // TODO [ADD] use more ObjectIntent in CAB/WX
+// TODO [FIX] NCEP param validation (automate)
 
 55408 2020_04_27    [ADD] WIP - new UI option (ObjectIntent optimizations)
                     [FIX] NCEP MAG GFS Composite Radar Reflectivity was not working
