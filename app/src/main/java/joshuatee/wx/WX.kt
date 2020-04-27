@@ -43,8 +43,6 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import joshuatee.wx.activitiesmisc.*
 import joshuatee.wx.canada.CanadaAlertsActivity
-import joshuatee.wx.canada.CanadaRadarActivity
-import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.fragments.LocationFragment
 import joshuatee.wx.fragments.ViewPagerAdapter
 import joshuatee.wx.models.ModelsSpcHrefActivity
@@ -52,8 +50,6 @@ import joshuatee.wx.models.ModelsSpcHrrrActivity
 import joshuatee.wx.models.ModelsSpcSrefActivity
 import joshuatee.wx.nhc.NhcActivity
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.radar.AwcRadarMosaicActivity
-import joshuatee.wx.radar.USNwsMosaicActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.spc.*
 import joshuatee.wx.ui.*
@@ -63,7 +59,6 @@ import joshuatee.wx.wpc.WpcImagesActivity
 import joshuatee.wx.wpc.WpcRainfallForecastSummaryActivity
 import joshuatee.wx.wpc.WpcTextProductsActivity
 import kotlinx.android.synthetic.main.activity_main.*
-
 
 class WX : CommonActionBarFragment() {
 
