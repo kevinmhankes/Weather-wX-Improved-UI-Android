@@ -36,6 +36,7 @@
 // TODO [ADD] use more ObjectIntent in CAB/WX
 // TODO [FIX] NCEP param validation (automate)
 
+55409 2020_04_27
 55408 2020_04_27    [ADD] WIP - new UI option (ObjectIntent optimizations)
                     [FIX] NCEP MAG GFS Composite Radar Reflectivity was not working
                     [ADD] remove bottom toolbar to save real estate in OPC/Goes Global/WPC Rainfall summary/Observations/SPC Compmap
