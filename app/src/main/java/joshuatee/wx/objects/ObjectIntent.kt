@@ -26,6 +26,7 @@ import android.content.Intent
 import android.net.Uri
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.activitiesmisc.TextScreenActivity
+import joshuatee.wx.activitiesmisc.USWarningsWithRadarActivity
 import joshuatee.wx.activitiesmisc.WebView
 import joshuatee.wx.models.ModelsGenericActivity
 import joshuatee.wx.radar.WXGLRadarActivity
@@ -71,6 +72,15 @@ class ObjectIntent() {
     }
 
     companion object {
+
+        fun showUsAlerts(context: Context) {
+            ObjectIntent(
+                    context,
+                    USWarningsWithRadarActivity::class.java,
+                    USWarningsWithRadarActivity.URL,
+                    arrayOf(".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?", "us")
+            )
+        }
 
         fun showSpcSwo(context: Context, array: Array<String>) { ObjectIntent(context, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, array) }
 

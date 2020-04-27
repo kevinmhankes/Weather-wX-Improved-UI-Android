@@ -131,12 +131,7 @@ class SevereDashboardActivity : BaseActivity() {
             }
             if (it == 0) {
                 card.setOnClickListener(View.OnClickListener {
-                    ObjectIntent(
-                            this@SevereDashboardActivity,
-                            USWarningsWithRadarActivity::class.java,
-                            USWarningsWithRadarActivity.URL,
-                            arrayOf(".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?", "us")
-                    )
+                    ObjectIntent.showUsAlerts(this@SevereDashboardActivity)
                 })
             } else {
                 card.setOnClickListener(View.OnClickListener {

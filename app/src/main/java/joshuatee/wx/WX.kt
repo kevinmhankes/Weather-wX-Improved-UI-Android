@@ -245,9 +245,7 @@ class WX : CommonActionBarFragment() {
                     }
                     R.id.us_alerts -> {
                         if (Location.isUS) {
-                            ObjectIntent(this, USWarningsWithRadarActivity::class.java, USWarningsWithRadarActivity.URL,
-                                    arrayOf(".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?", "us")
-                            )
+                            ObjectIntent.showUsAlerts(this)
                         } else {
                             ObjectIntent(this, CanadaAlertsActivity::class.java)
                         }
