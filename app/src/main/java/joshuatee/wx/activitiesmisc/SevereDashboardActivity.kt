@@ -135,7 +135,7 @@ class SevereDashboardActivity : BaseActivity() {
                 })
             } else {
                 card.setOnClickListener(View.OnClickListener {
-                    ObjectIntent(this@SevereDashboardActivity, SpcStormReportsActivity::class.java, SpcStormReportsActivity.NO, arrayOf("today"))
+                    ObjectIntent.showSpcStormReports(this@SevereDashboardActivity)
                 })
             }
             numberOfImages += 1

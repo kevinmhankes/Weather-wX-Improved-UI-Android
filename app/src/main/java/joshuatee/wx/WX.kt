@@ -201,18 +201,7 @@ class WX : CommonActionBarFragment() {
                     }
                     R.id.observation_sites -> ObjectIntent(this, NwsObsSitesActivity::class.java, "", arrayOf())
                     R.id.opc -> ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("OPC"))
-                    R.id.radar_mosaic -> {
-                        if (Location.isUS) {
-                            if (!UIPreferences.useAwcRadarMosaic) {
-                                ObjectIntent(this, USNwsMosaicActivity::class.java, USNwsMosaicActivity.URL, arrayOf("location"))
-                            } else {
-                                ObjectIntent(this, AwcRadarMosaicActivity::class.java, AwcRadarMosaicActivity.URL, arrayOf(""))
-                            }
-                        } else {
-                            val prov = Utility.readPref(this, "NWS" + Location.currentLocationStr + "_STATE", "")
-                            ObjectIntent(this, CanadaRadarActivity::class.java, CanadaRadarActivity.RID, arrayOf(UtilityCanada.getSectorFromProvince(prov), "rad"))
-                        }
-                    }
+                    R.id.radar_mosaic -> ObjectIntent.showRadarMosaic(this)
                     R.id.radar_dual_pane -> ObjectIntent.showRadarMultiPane(this, arrayOf(Location.rid, "", "2"))
                     R.id.radar_quad_pane -> ObjectIntent.showRadarMultiPane(this, arrayOf(Location.rid, "", "4"))
                     R.id.spc_comp_map -> {
@@ -235,7 +224,7 @@ class WX : CommonActionBarFragment() {
                         ObjectIntent(this, ModelsSpcSrefActivity::class.java, ModelsSpcSrefActivity.INFO, arrayOf("1", "SPCSREF", "SPCSREF"))
                     }
                     R.id.spc_storm_reports -> {
-                        ObjectIntent(this, SpcStormReportsActivity::class.java, SpcStormReportsActivity.NO, arrayOf("today"))
+                        ObjectIntent.showSpcStormReports(this)
                     }
                     R.id.spc_thunderstorm_outlooks -> ObjectIntent(this, SpcThunderStormOutlookActivity::class.java, "", arrayOf())
                     R.id.spotters -> ObjectIntent(this, SpottersActivity::class.java)

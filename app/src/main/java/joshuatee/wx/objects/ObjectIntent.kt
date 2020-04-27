@@ -24,18 +24,22 @@ package joshuatee.wx.objects
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.activitiesmisc.TextScreenActivity
 import joshuatee.wx.activitiesmisc.USWarningsWithRadarActivity
 import joshuatee.wx.activitiesmisc.WebView
+import joshuatee.wx.canada.CanadaRadarActivity
+import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.models.ModelsGenericActivity
+import joshuatee.wx.radar.AwcRadarMosaicActivity
+import joshuatee.wx.radar.USNwsMosaicActivity
 import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.radar.WXGLRadarActivityMultiPane
-import joshuatee.wx.settings.FavAddActivity
-import joshuatee.wx.settings.FavRemoveActivity
-import joshuatee.wx.settings.SettingsLocationGenericActivity
-import joshuatee.wx.settings.SettingsMainActivity
+import joshuatee.wx.settings.*
+import joshuatee.wx.spc.SpcStormReportsActivity
 import joshuatee.wx.spc.SpcSwoActivity
+import joshuatee.wx.util.Utility
 
 //
 // Used to start another activity
@@ -81,6 +85,21 @@ class ObjectIntent() {
                     arrayOf(".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?", "us")
             )
         }
+
+        fun showRadarMosaic(context: Context) {
+            if (Location.isUS) {
+                if (!UIPreferences.useAwcRadarMosaic) {
+                    ObjectIntent(context, USNwsMosaicActivity::class.java, USNwsMosaicActivity.URL, arrayOf("location"))
+                } else {
+                    ObjectIntent(context, AwcRadarMosaicActivity::class.java, AwcRadarMosaicActivity.URL, arrayOf(""))
+                }
+            } else {
+                val prov = Utility.readPref(context, "NWS" + Location.currentLocationStr + "_STATE", "")
+                ObjectIntent(context, CanadaRadarActivity::class.java, CanadaRadarActivity.RID, arrayOf(UtilityCanada.getSectorFromProvince(prov), "rad"))
+            }
+        }
+
+        fun showSpcStormReports(context: Context) { ObjectIntent(context, SpcStormReportsActivity::class.java, SpcStormReportsActivity.NO, arrayOf("today")) }
 
         fun showSpcSwo(context: Context, array: Array<String>) { ObjectIntent(context, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, array) }
 

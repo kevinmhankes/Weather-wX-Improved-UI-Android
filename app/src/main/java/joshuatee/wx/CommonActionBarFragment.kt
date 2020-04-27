@@ -92,18 +92,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
             R.id.action_dashboard -> openDashboard()
             R.id.action_spotters -> ObjectIntent(this, SpottersActivity::class.java)
             R.id.action_settings -> openSettings()
-            R.id.action_radar_mosaic -> {
-                if (Location.isUS) {
-                    if (!UIPreferences.useAwcRadarMosaic) {
-                        ObjectIntent(this, USNwsMosaicActivity::class.java, USNwsMosaicActivity.URL, arrayOf("location"))
-                    } else {
-                        ObjectIntent(this, AwcRadarMosaicActivity::class.java, AwcRadarMosaicActivity.URL, arrayOf(""))
-                    }
-                } else {
-                    val prov = Utility.readPref(this, "NWS" + Location.currentLocationStr + "_STATE", "")
-                    ObjectIntent(this, CanadaRadarActivity::class.java, CanadaRadarActivity.RID, arrayOf(UtilityCanada.getSectorFromProvince(prov), "rad"))
-                }
-            }
+            R.id.action_radar_mosaic -> ObjectIntent.showRadarMosaic(this)
             R.id.action_vr -> {
                 if (UtilityTts.mediaPlayer != null && UtilityTts.mediaPlayer!!.isPlaying) {
                     UtilityTts.mediaPlayer!!.stop()
