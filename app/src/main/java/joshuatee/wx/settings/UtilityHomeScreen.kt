@@ -107,7 +107,7 @@ internal object UtilityHomeScreen {
 
         MyApplication.HM_CLASS["LTG"] = LightningActivity::class.java
         MyApplication.HM_CLASS_ARGS["LTG"] = arrayOf("")
-        MyApplication.HM_CLASS_ID["LTG"] = LightningActivity.URL
+        MyApplication.HM_CLASS_ID["LTG"] = ""
 
         MyApplication.HM_CLASS["CONUSWV"] = GoesActivity::class.java
         MyApplication.HM_CLASS_ARGS["CONUSWV"] = arrayOf("CONUS", "09")

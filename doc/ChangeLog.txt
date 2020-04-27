@@ -32,11 +32,10 @@
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
 // TODO [FIX] nexrad cities performance
 // TODO [FIX] address gps/screen always on
-// TODO [REF] use ObjectIntent.showModel in ModelGeneric for invokation for dual pane
 // TODO [ADD] use more ObjectIntent in CAB/WX
 // TODO [FIX] NCEP param validation (automate)
 
-55409 2020_04_27
+55409 2020_04_27    [ADD] remove bottom toolbar to save real estate in lightning
 55408 2020_04_27    [ADD] WIP - new UI option (ObjectIntent optimizations)
                     [FIX] NCEP MAG GFS Composite Radar Reflectivity was not working
                     [ADD] remove bottom toolbar to save real estate in OPC/Goes Global/WPC Rainfall summary/Observations/SPC Compmap

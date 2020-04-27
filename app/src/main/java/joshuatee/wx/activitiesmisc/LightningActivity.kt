@@ -24,8 +24,8 @@ package joshuatee.wx.activitiesmisc
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
@@ -38,18 +38,11 @@ import joshuatee.wx.util.UtilityShare
 
 import kotlinx.coroutines.*
 
-class LightningActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
+class LightningActivity : VideoRecordActivity() {
 
     //
     // Used to view lighting data
     //
-    // Arguments
-    // 1: URL TODO what is this arg for?
-    //
-
-    companion object {
-        const val URL = ""
-    }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmap = UtilityImg.getBlankBitmap()
@@ -59,11 +52,14 @@ class LightningActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
     private lateinit var objectNavDrawer: ObjectNavDrawer
     private val prefTokenIdx = "LIGHTNING_SECTOR_IDX"
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.lightning_activity, menu)
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer_bottom_toolbar, R.menu.lightning_activity, iconsEvenlySpaced = true, bottomToolbar = true)
-        toolbarBottom.setOnMenuItemClickListener(this)
-        toolbar.setOnClickListener { toolbar.showOverflowMenu() }
+        super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer, R.menu.lightning_activity, iconsEvenlySpaced = true, bottomToolbar = false)
         objectNavDrawer = ObjectNavDrawer(this, UtilityLightning.labels, UtilityLightning.urls)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, objectNavDrawer, prefTokenIdx)
         objectNavDrawer.index = Utility.readPref(this, prefTokenIdx, 0)
@@ -102,9 +98,7 @@ class LightningActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener
         objectNavDrawer.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
-
-    override fun onMenuItemClick(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_share -> {

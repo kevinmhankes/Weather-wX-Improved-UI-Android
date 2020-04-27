@@ -184,7 +184,7 @@ class WX : CommonActionBarFragment() {
                     R.id.rainfall_outlook -> ObjectIntent(this, WpcRainfallForecastSummaryActivity::class.java, "", arrayOf())
                     R.id.glcfs -> ObjectIntent.showModel(this, arrayOf("1", "GLCFS", "GLCFS"))
                     R.id.goes_global -> ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("GOESFD"))
-                    R.id.lightning -> ObjectIntent(this,LightningActivity::class.java, "", arrayOf())
+                    R.id.lightning -> ObjectIntent(this,LightningActivity::class.java)
                     R.id.national_images -> ObjectIntent(this, WpcImagesActivity::class.java, "", arrayOf())
                     R.id.national_text -> {
                         ObjectIntent(this, WpcTextProductsActivity::class.java, WpcTextProductsActivity.URL, arrayOf("pmdspd", "Short Range Forecast Discussion"))
