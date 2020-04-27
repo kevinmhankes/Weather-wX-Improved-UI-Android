@@ -25,6 +25,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.KeyEvent
@@ -114,7 +116,11 @@ class WX : CommonActionBarFragment() {
             navigationView = findViewById(R.id.nav_view)
             drawerLayout = findViewById(R.id.drawer_layout)
             navigationView.itemIconTintList = null
+            if (!UIPreferences.themeIsWhite) navigationView.itemTextColor = ColorStateList.valueOf(Color.WHITE)
+            val color = UtilityTheme.getPrimaryColorFromSelectedTheme(this, 0)
+            val tint = ColorStateList.valueOf(color)
             val headerLayout = navigationView.getHeaderView(0)
+            headerLayout.setBackgroundColor(color)
             // TODO chunk below needs a lot of refactor , create static objectIntent and pass drawer to close as optional
             val severeDashboardButton = headerLayout.findViewById<ImageButton>(R.id.severeDashboardButton)
             val severeDashboardText = headerLayout.findViewById<TextView>(R.id.severeDashboardText)
@@ -126,6 +132,13 @@ class WX : CommonActionBarFragment() {
             val hourlyText = headerLayout.findViewById<TextView>(R.id.hourlyText)
             val settingsButton = headerLayout.findViewById<ImageButton>(R.id.settingsButton)
             val settingsText = headerLayout.findViewById<TextView>(R.id.settingsText)
+            if (android.os.Build.VERSION.SDK_INT > 20) {
+                severeDashboardButton.backgroundTintList = tint
+                visButton.backgroundTintList = tint
+                wfoButton.backgroundTintList = tint
+                hourlyButton.backgroundTintList = tint
+                settingsButton.backgroundTintList = tint
+            }
             severeDashboardButton.setOnClickListener {
                 ObjectIntent(this, SevereDashboardActivity::class.java)
                 drawerLayout.closeDrawer(GravityCompat.START)
@@ -340,7 +353,7 @@ class WX : CommonActionBarFragment() {
                 drawerLayout.closeDrawer(GravityCompat.START)
                 true
             }
-            val fab2 = ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD, OnClickListener { drawerLayout.openDrawer(Gravity.LEFT)})
+            ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD, OnClickListener { drawerLayout.openDrawer(Gravity.LEFT)})
         }
         // material 1.1.0, since we are using .Bridge theme the below is not needed
         // but left for reference
