@@ -33,8 +33,9 @@
 // TODO [FIX] nexrad cities performance
 // TODO [FIX] address gps/screen always on
 // TODO [ADD] theme support for new navbar
+// TODO [ADD] use more ObjectIntent in CAB/WX
 
-55407 2020_04_26
+55407 2020_04_27    [FIX] SPC Convective outlook - title is more descriptive when image shown alone
 55406 2020_04_26    [FIX] storm reports - having location follow gps breaks the location marker
 55405 2020_04_26    [FIX] remove location in save in US Alerts as OSM is not going to work anymore
                     [FIX] remove all services dependant on OSM: MCD location save, VR location save, fallback location search

@@ -133,6 +133,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         var textUrl = "SWODY$day"
+        val imageLabel = "Day $day Convective Outlook"
         var urls = listOf("")
         if (day == "4-8") textUrl = "SWOD48"
         withContext(Dispatchers.IO) {
@@ -145,14 +146,14 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         if (activityArguments[1] == "sound") UtilityTts.synthesizeTextAndPlay(applicationContext, html, "spcswo")
         when (day) {
             "1", "2" -> {
-                listOf(0, 1, 2, 3).forEach { setImageAndClickAction(it, urls, textUrl) }
+                listOf(0, 1, 2, 3).forEach { setImageAndClickAction(it, urls, imageLabel) }
                 objectCardImageList[4].visibility = View.GONE
             }
             "3" -> {
-                listOf(0, 1).forEach { setImageAndClickAction(it, urls, textUrl) }
+                listOf(0, 1).forEach { setImageAndClickAction(it, urls, imageLabel) }
                 (2..4).forEach { objectCardImageList[it].visibility = View.GONE }
             }
-            "4-8" -> listOf(0, 1, 2, 3, 4).forEach { setImageAndClickAction(it, urls, textUrl) }
+            "4-8" -> listOf(0, 1, 2, 3, 4).forEach { setImageAndClickAction(it, urls, imageLabel) }
         }
     }
 

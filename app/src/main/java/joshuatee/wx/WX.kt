@@ -33,7 +33,6 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -72,9 +71,6 @@ class WX : CommonActionBarFragment() {
     private lateinit var vpa: ViewPagerAdapter
     private lateinit var voiceRecognitionIcon: MenuItem
     private var tabIndex = 0
-    // test flag for new interface style
-    //private val newInterface = true
-    //private val newInterface = false
     private lateinit var navigationView: NavigationView
     private lateinit var drawerLayout: DrawerLayout
 
@@ -115,8 +111,8 @@ class WX : CommonActionBarFragment() {
         if (UIPreferences.navDrawerMainScreen) {
             toolbarBottom.visibility = View.GONE
             slidingTabLayout.visibility = View.GONE
-            navigationView = findViewById<NavigationView>(R.id.nav_view)
-            drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+            navigationView = findViewById(R.id.nav_view)
+            drawerLayout = findViewById(R.id.drawer_layout)
             navigationView.itemIconTintList = null
             val headerLayout = navigationView.getHeaderView(0)
             // TODO chunk below needs a lot of refactor , create static objectIntent and pass drawer to close as optional
@@ -162,15 +158,15 @@ class WX : CommonActionBarFragment() {
                 ObjectIntent(this, HourlyActivity::class.java, HourlyActivity.LOC_NUM, Location.currentLocationStr)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
-            settingsButton.setOnClickListener {
+            settingsButton.setOnClickListener{
                 ObjectIntent.showSettings(this)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
-            settingsText.setOnClickListener {
+            settingsText.setOnClickListener{
                 ObjectIntent.showSettings(this)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
-            navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener {item ->
+            navigationView.setNavigationItemSelectedListener{ item ->
                 when (item.itemId) {
                     // FIXME need twitter and opc
                     R.id.esrl -> {
@@ -343,7 +339,7 @@ class WX : CommonActionBarFragment() {
                 }
                 drawerLayout.closeDrawer(GravityCompat.START)
                 true
-            })
+            }
             val fab2 = ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD, OnClickListener { drawerLayout.openDrawer(Gravity.LEFT)})
         }
         // material 1.1.0, since we are using .Bridge theme the below is not needed
