@@ -71,7 +71,7 @@ class SpcSwoSummaryActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
             val day = if (index < 3) (index + 1).toString() else "4-8"
             objectCardImage.setOnClickListener(View.OnClickListener {
-                ObjectIntent(this@SpcSwoSummaryActivity, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf(day, ""))
+                ObjectIntent.showSpcSwo(this@SpcSwoSummaryActivity, arrayOf(day, ""))
             })
         }
     }

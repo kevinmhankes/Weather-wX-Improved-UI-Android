@@ -177,12 +177,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
                         "(" + (om.curImg + 1).toString() + ")" + om.displayData.param[0] + "/" + om.displayData.param[1]
                 )
             }
-            R.id.action_multipane -> ObjectIntent(
-                    this,
-                    ModelsGenericActivity::class.java,
-                    INFO,
-                    arrayOf("2", activityArguments!![1], activityArguments!![2])
-            )
+            R.id.action_multipane -> ObjectIntent.showModel(this, arrayOf("2", activityArguments!![1], activityArguments!![2]))
             R.id.action_share -> {
                 if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
                     checkOverlayPerms()

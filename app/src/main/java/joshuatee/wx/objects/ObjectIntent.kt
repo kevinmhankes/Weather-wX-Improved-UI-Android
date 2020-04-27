@@ -27,12 +27,14 @@ import android.net.Uri
 import joshuatee.wx.activitiesmisc.ImageShowActivity
 import joshuatee.wx.activitiesmisc.TextScreenActivity
 import joshuatee.wx.activitiesmisc.WebView
+import joshuatee.wx.models.ModelsGenericActivity
 import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.radar.WXGLRadarActivityMultiPane
 import joshuatee.wx.settings.FavAddActivity
 import joshuatee.wx.settings.FavRemoveActivity
 import joshuatee.wx.settings.SettingsLocationGenericActivity
 import joshuatee.wx.settings.SettingsMainActivity
+import joshuatee.wx.spc.SpcSwoActivity
 
 //
 // Used to start another activity
@@ -69,6 +71,10 @@ class ObjectIntent() {
     }
 
     companion object {
+
+        fun showSpcSwo(context: Context, array: Array<String>) { ObjectIntent(context, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, array) }
+
+        fun showModel(context: Context, array: Array<String>) { ObjectIntent(context, ModelsGenericActivity::class.java, ModelsGenericActivity.INFO, array) }
 
         fun showSettings(context: Context) { ObjectIntent(context, SettingsMainActivity::class.java) }
 
