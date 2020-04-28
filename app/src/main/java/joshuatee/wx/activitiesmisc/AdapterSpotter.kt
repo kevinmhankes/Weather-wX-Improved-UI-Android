@@ -52,16 +52,12 @@ internal class AdapterSpotter(private val dataSet: MutableList<Spotter>) : Recyc
             itemView.setOnClickListener(this)
         }
 
-        override fun onClick(v: View) {
-            myClickListener!!.onItemClick(adapterPosition)
-        }
+        override fun onClick(v: View) { myClickListener!!.onItemClick(adapterPosition) }
     }
 
     fun setListener(fn: (Int) -> Unit) {
         myClickListener = object : MyClickListener {
-            override fun onItemClick(position: Int) {
-                fn(position)
-            }
+            override fun onItemClick(position: Int) { fn(position) }
         }
     }
 
@@ -75,6 +71,7 @@ internal class AdapterSpotter(private val dataSet: MutableList<Spotter>) : Recyc
         holder.time.text = dataSet[position].reportAt
         holder.email.text = dataSet[position].email.replace(MyApplication.newline, " ")
         holder.email.setOnClickListener(View.OnClickListener {
+            // TODO add to ObjectIntent
             val intent = Intent(Intent.ACTION_SENDTO)
             intent.data = Uri.parse("mailto:")
             intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(holder.email.text))
@@ -96,9 +93,7 @@ internal class AdapterSpotter(private val dataSet: MutableList<Spotter>) : Recyc
 
     fun getItem(index: Int) = dataSet[index]
 
-    interface MyClickListener {
-        fun onItemClick(position: Int)
-    }
+    interface MyClickListener { fun onItemClick(position: Int) }
 
     private fun removeItem(position: Int) {
         dataSet.removeAt(position)

@@ -44,14 +44,10 @@ internal class AdapterUSWarningsImpact(private val dataSet: List<ObjectImpactGra
             itemView.setOnClickListener(this)
         }
 
-        override fun onClick(v: View) {
-            myClickListener!!.onItemClick(adapterPosition)
-        }
+        override fun onClick(v: View) { myClickListener!!.onItemClick(adapterPosition) }
     }
 
-    fun setOnItemClickListener(myClickListenerloc: MyClickListener) {
-        myClickListener = myClickListenerloc
-    }
+    fun setOnItemClickListener(myClickListenerloc: MyClickListener) { myClickListener = myClickListenerloc }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataObjectHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cardview_uswarningsimpact, parent, false)
@@ -66,9 +62,7 @@ internal class AdapterUSWarningsImpact(private val dataSet: List<ObjectImpactGra
 
     override fun getItemCount() = dataSet.size
 
-    interface MyClickListener {
-        fun onItemClick(position: Int)
-    }
+    interface MyClickListener { fun onItemClick(position: Int) }
 
     companion object {
         private var myClickListener: MyClickListener? = null
