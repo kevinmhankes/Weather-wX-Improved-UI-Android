@@ -61,26 +61,26 @@ object UtilityVoiceCommand {
                 ObjectIntent(context, AfdActivity::class.java, AfdActivity.URL, arrayOf(wfo, "AFD", "sound"))
             }
         } else if (vrString.contains("cloud")) {
-            ObjectIntent(context, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
+            ObjectIntent.showVis(context)
         } else if (vrString.toUpperCase(Locale.US).contains("SPC")) {
             if (tokens.size > 1) {
                 when {
-                    vrString.contains("1") -> ObjectIntent(context, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf("1", "sound"))
-                    vrString.contains("2") -> ObjectIntent(context, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf("2", "sound"))
-                    vrString.contains("3") -> ObjectIntent(context, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf("3", "sound"))
-                    else -> ObjectIntent(context, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf("4-8", "sound"))
+                    vrString.contains("1") -> ObjectIntent.showSpcSwo(context, arrayOf("1", "sound"))
+                    vrString.contains("2") -> ObjectIntent.showSpcSwo(context, arrayOf("2", "sound"))
+                    vrString.contains("3") -> ObjectIntent.showSpcSwo(context, arrayOf("3", "sound"))
+                    else -> ObjectIntent.showSpcSwo(context, arrayOf("4-8", "sound"))
                 }
             } else {
-                ObjectIntent(context, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf("1", "sound"))
+                ObjectIntent.showSpcSwo(context, arrayOf("1", "sound"))
             }
         } else if (vrString.contains("day one")) {
-            ObjectIntent(context, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf("1", "sound"))
+            ObjectIntent.showSpcSwo(context, arrayOf("1", "sound"))
         } else if (vrString.contains("day 2")) {
-            ObjectIntent(context, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf("2", "sound"))
+            ObjectIntent.showSpcSwo(context, arrayOf("2", "sound"))
         } else if (vrString.contains("day 3")) {
-            ObjectIntent(context, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf("3", "sound"))
+            ObjectIntent.showSpcSwo(context, arrayOf("3", "sound"))
         } else if (vrString.contains("day 4")) {
-            ObjectIntent(context, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, arrayOf("4-8", "sound"))
+            ObjectIntent.showSpcSwo(context, arrayOf("4-8", "sound"))
         } else if (vrString.contains("add")) {
             vrString = vrString.replace("add location", "")
             ObjectIntent.showLocationEdit(context, arrayOf((Location.numLocations + 1).toString(), vrString))
@@ -88,7 +88,7 @@ object UtilityVoiceCommand {
             vrString = vrString.replace("edit location", "")
             ObjectIntent.showLocationEdit(context, arrayOf(Location.currentLocationStr, vrString))
         } else if (vrString.contains("mosaic")) {
-            ObjectIntent(context, USNwsMosaicActivity::class.java, USNwsMosaicActivity.URL, arrayOf(""))
+            ObjectIntent.showRadarMosaic(context)
         } else if (vrString.contains("map")) {
             if (tokens.size > 1) {
                 when (tokens[1]) {

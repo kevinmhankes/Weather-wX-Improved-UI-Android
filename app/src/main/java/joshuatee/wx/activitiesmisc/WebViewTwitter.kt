@@ -71,11 +71,7 @@ class WebViewTwitter : BaseActivity(), OnItemSelectedListener {
     val prefToken = "STATE_CODE"
 
     override fun onBackPressed() {
-        if (webview.canGoBack()) {
-            webview.goBack()
-        } else {
-            super.onBackPressed()
-        }
+        if (webview.canGoBack()) webview.goBack() else super.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -107,9 +103,7 @@ class WebViewTwitter : BaseActivity(), OnItemSelectedListener {
         sector = sectorList[pos].split(":")[0]
         Utility.writePref(this, prefToken, sector)
         var url = "https://mobile.twitter.com/hashtag/" + sector.toLowerCase(Locale.US)
-        if (sector.length == 2) {
-            url += "wx"
-        }
+        if (sector.length == 2) url += "wx"
         webview.loadUrl(url)
     }
 

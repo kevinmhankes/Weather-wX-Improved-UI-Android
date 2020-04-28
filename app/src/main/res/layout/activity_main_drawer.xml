@@ -63,7 +63,7 @@
             </LinearLayout>
         </RelativeLayout>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab2"
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@id/fab"
@@ -76,7 +76,7 @@
             app:pressedTranslationZ="@dimen/fab_elevation_pressed"
             app:srcCompat="@drawable/ic_play_arrow_24dp" />
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/fab2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@id/ll"

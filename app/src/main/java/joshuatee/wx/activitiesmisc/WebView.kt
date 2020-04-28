@@ -53,10 +53,7 @@ class WebView : BaseActivity() {
     private var url = ""
 
     override fun onBackPressed() {
-        if (webview.canGoBack())
-            webview.goBack()
-        else
-            super.onBackPressed()
+        if (webview.canGoBack()) webview.goBack() else super.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -236,22 +236,11 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         try {
             when {
                 product.contains("L2") -> {
-                    wxglNexradLevel2.decodeAndPlot(
-                            context,
-                            radarBuffers.fileName,
-                            prod,
-                            radarStatusStr,
-                            indexString,
-                            performDecomp
-                    )
+                    wxglNexradLevel2.decodeAndPlot(context, radarBuffers.fileName, prod, radarStatusStr, indexString, performDecomp)
                     radarBuffers.extractL2Data(wxglNexradLevel2)
                 }
                 product.contains("NSW") || product.startsWith("NC") || product.matches(Regex("N[0-3]S")) -> {
-                    wxglNexradLevel3.decodeAndPlotFourBit(
-                            context,
-                            radarBuffers.fileName,
-                            radarStatusStr
-                    )
+                    wxglNexradLevel3.decodeAndPlotFourBit(context, radarBuffers.fileName, radarStatusStr)
                     radarBuffers.extractL3Data(wxglNexradLevel3)
                 }
                 else -> {
@@ -575,9 +564,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         buffers.setToPositionZero()
     }
 
-    private fun deconstructGenericGeographic(buffers: ObjectOglBuffers) {
-        buffers.isInitialized = false
-    }
+    private fun deconstructGenericGeographic(buffers: ObjectOglBuffers) { buffers.isInitialized = false }
 
     private fun constructGenericLinesShort(buffers: ObjectOglBuffers, f: List<Double>) {
         val remainder: Int
@@ -621,9 +608,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         constructGenericLinesShort(stiBuffers, fSti)
     }
 
-    fun deconstructStiLines() {
-        deconstructGenericLines(stiBuffers)
-    }
+    fun deconstructStiLines() { deconstructGenericLines(stiBuffers) }
 
     fun constructWatchMcdLines() {
         constructGenericLines(mcdBuffers)
@@ -707,9 +692,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         locCircleBuffers.isInitialized = true
     }
 
-    fun deconstructLocationDot() {
-        locationDotBuffers.isInitialized = false
-    }
+    fun deconstructLocationDot() { locationDotBuffers.isInitialized = false }
 
     fun constructSpotters() {
         spotterBuffers.isInitialized = false
@@ -721,9 +704,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         constructTriangles(spotterBuffers)
     }
 
-    fun deconstructSpotters() {
-        spotterBuffers.isInitialized = false
-    }
+    fun deconstructSpotters() { spotterBuffers.isInitialized = false }
 
     fun constructHi() {
         hiBuffers.lenInit = MyApplication.radarHiSize.toFloat()
@@ -748,9 +729,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         buffers.isInitialized = true
     }
 
-    fun deconstructHi() {
-        hiBuffers.isInitialized = false
-    }
+    fun deconstructHi() { hiBuffers.isInitialized = false }
 
     fun constructTvs() {
         tvsBuffers.lenInit = MyApplication.radarTvsSize.toFloat()
@@ -759,9 +738,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         constructTriangles(tvsBuffers)
     }
 
-    fun deconstructTvs() {
-        tvsBuffers.isInitialized = false
-    }
+    fun deconstructTvs() { tvsBuffers.isInitialized = false }
 
     fun constructMpdLines() = constructGenericLines(mpdBuffers)
 
@@ -907,9 +884,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         wbCircleBuffers.isInitialized = true
     }
 
-    private fun deconstructWBCircle() {
-        wbCircleBuffers.isInitialized = false
-    }
+    private fun deconstructWBCircle() { wbCircleBuffers.isInitialized = false }
 
     fun constructSwoLines() {
         val hashSwo = UtilitySwoDayOne.HASH_SWO.toMap()
@@ -953,28 +928,18 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         }
     }
 
-    fun deconstructSwoLines() {
-        swoBuffers.isInitialized = false
-    }
+    fun deconstructSwoLines() { swoBuffers.isInitialized = false }
 
-    fun setHiInit(hiInit: Boolean) {
-        hiBuffers.isInitialized = hiInit
-    }
+    fun setHiInit(hiInit: Boolean) { hiBuffers.isInitialized = hiInit }
 
-    fun setTvsInit(tvsInit: Boolean) {
-        tvsBuffers.isInitialized = tvsInit
-    }
+    fun setTvsInit(tvsInit: Boolean) { tvsBuffers.isInitialized = tvsInit }
 
     val oneDegreeScaleFactor: Float
         get() = projectionNumbers.oneDegreeScaleFactorFloat
 
-    fun setChunkCountSti(chunkCountSti: Int) {
-        this.stiBuffers.chunkCount = chunkCountSti
-    }
+    fun setChunkCountSti(chunkCountSti: Int) { this.stiBuffers.chunkCount = chunkCountSti }
 
-    fun setChunkCount(chunkCount: Int) {
-        this.chunkCount = chunkCount
-    }
+    fun setChunkCount(chunkCount: Int) { this.chunkCount = chunkCount }
 
     fun setViewInitial(zoom: Float, x: Float, y: Float) {
         this.zoom = zoom

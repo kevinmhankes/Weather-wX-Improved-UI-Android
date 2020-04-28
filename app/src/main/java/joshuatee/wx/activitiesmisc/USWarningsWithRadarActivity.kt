@@ -74,7 +74,6 @@ class USWarningsWithRadarActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_show_navdrawer, R.menu.uswarn, false)
-        //toolbar.setOnClickListener { toolbar.showOverflowMenu() }
         val activityArguments = intent.getStringArrayExtra(URL)
         turlLocal[0] = activityArguments!![0]
         turlLocal[1] = activityArguments[1]
@@ -131,8 +130,6 @@ class USWarningsWithRadarActivity : BaseActivity() {
         super.onConfigurationChanged(newConfig)
         objectNavDrawer.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
-
-    //override fun onOptionsItemSelected(item: MenuItem) = objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) return true

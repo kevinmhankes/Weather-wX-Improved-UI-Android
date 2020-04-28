@@ -31,7 +31,6 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
-import joshuatee.wx.activitiesmisc.WebView
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.*
 import joshuatee.wx.ui.*
@@ -79,10 +78,7 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        if (MyApplication.sndFav.contains(":$office:"))
-            star.setIcon(MyApplication.STAR_ICON)
-        else
-            star.setIcon(MyApplication.STAR_OUTLINE_ICON)
+        if (MyApplication.sndFav.contains(":$office:")) star.setIcon(MyApplication.STAR_ICON) else star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         bitmap = withContext(Dispatchers.IO) { UtilitySpcSoundings.getImage(this@SpcSoundingsActivity, office) }
         img.img.visibility = View.VISIBLE
         img.setBitmap(bitmap)
@@ -93,6 +89,7 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
 
     private fun getContentSPCPlot() = GlobalScope.launch(uiDispatcher) {
         imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/$upperAir"
+        // FIXME break apart
         withContext(Dispatchers.IO) {
             val date = UtilityString.getHtmlAndParse("${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/", "/obswx/maps/" + upperAir + "_([0-9]{6}_[0-9]{2}).gif")
             bitmap = UtilityImg.getBitmapAddWhiteBackground(this@SpcSoundingsActivity, imgUrl + "_" + date + ".gif")
@@ -114,7 +111,7 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
             R.id.action_sfc -> setPlotAndGet("sfc")
             R.id.action_map -> imageMap.toggleMap()
             R.id.action_fav -> toggleFavorite()
-            R.id.action_spc_help -> ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf("${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/help/begin.html", office))
+            R.id.action_spc_help -> ObjectIntent.showWebView(this, arrayOf("${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/help/begin.html", office))
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -146,8 +143,8 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
                 firstTime = false
             }
             when (position) {
-                1 -> ObjectIntent(this, FavAddActivity::class.java, FavAddActivity.TYPE, arrayOf("SND"))
-                2 -> ObjectIntent(this, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, arrayOf("SND"))
+                1 -> ObjectIntent.favoriteAdd(this, arrayOf("SND"))
+                2 -> ObjectIntent.favoriteRemove(this, arrayOf("SND"))
                 else -> {
                     office = locations[position].split(" ").getOrNull(0) ?: ""
                     getContent()

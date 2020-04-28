@@ -37,6 +37,7 @@ import joshuatee.wx.settings.*
 import joshuatee.wx.spc.SpcStormReportsActivity
 import joshuatee.wx.spc.SpcSwoActivity
 import joshuatee.wx.util.Utility
+import joshuatee.wx.vis.GoesActivity
 
 //
 // Used to start another activity
@@ -73,6 +74,14 @@ class ObjectIntent() {
     }
 
     companion object {
+
+        fun showHazard(context: Context, array: Array<String>) {
+            ObjectIntent(context, USAlertsDetailActivity::class.java, USAlertsDetailActivity.URL, array)
+        }
+
+        fun showVis(context: Context) {
+            ObjectIntent(context, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
+        }
 
         fun showObservations(context: Context) {
             if (Location.isUS) {

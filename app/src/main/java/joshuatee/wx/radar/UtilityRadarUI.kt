@@ -77,7 +77,7 @@ internal object UtilityRadarUI {
 
     private fun showNearestWarning(context: Context, wxglSurfaceView: WXGLSurfaceView) {
         val polygonUrl = UtilityWXOGL.showTextProducts(wxglSurfaceView.latLon)
-        if (polygonUrl != "") ObjectIntent(context, USAlertsDetailActivity::class.java, USAlertsDetailActivity.URL, arrayOf(polygonUrl, ""))
+        if (polygonUrl != "") ObjectIntent.showHazard(context, arrayOf(polygonUrl, ""))
     }
 
     fun addItemsToLongPress(longPressList: MutableList<String>, lat: String, lon: String, context: Context, wxglSurfaceView: WXGLSurfaceView,

@@ -84,11 +84,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         imageType = activityArguments[1]
         if (radarSite == "NAT") radarSite = "CAN"
         url = Utility.readPref(this, "CA_LAST_RID_URL", url)
-        if (MyApplication.wxoglRememberLocation) {
-            if (MyApplication.wxoglRid != "") {
-                radarSite = Utility.readPref(this, "CA_LAST_RID", radarSite)
-            }
-        }
+        if (MyApplication.wxoglRememberLocation && MyApplication.wxoglRid != "") radarSite = Utility.readPref(this, "CA_LAST_RID", radarSite)
         title = "Canada"
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
         imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::mapToCanadaRadarSite)

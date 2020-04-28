@@ -40,8 +40,6 @@ import joshuatee.wx.models.DisplayData
 import joshuatee.wx.models.UtilityModels
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.VideoRecordActivity
-import joshuatee.wx.settings.FavAddActivity
-import joshuatee.wx.settings.FavRemoveActivity
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityFavorites
@@ -151,24 +149,16 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
             menu.findItem(R.id.action_multipane).isVisible = false
         star = menu.findItem(R.id.action_fav)
         star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        if (showRadar)
-            menuRadar.title = on + menuRadarStr
-        if (showOutlook)
-            menuOutlook.title = on + menuOutlookStr
-        if (showWatwarn)
-            menuWatwarn.title = on + menuWatwarnStr
-        if (showTopography)
-            menuTopography.title = on + menuTopographyStr
+        if (showRadar) menuRadar.title = on + menuRadarStr
+        if (showOutlook) menuOutlook.title = on + menuOutlookStr
+        if (showWatwarn) menuWatwarn.title = on + menuWatwarnStr
+        if (showTopography) menuTopography.title = on + menuTopographyStr
         UtilitySpcMeso.swipePosition = 0
         if (numPanes == 1) {
             displayData.img[0].setOnTouchListener(object : OnSwipeTouchListener(this) {
-                override fun onSwipeLeft() {
-                    if (displayData.img[curImg].currentZoom < 1.01f) UtilitySpcMeso.moveForward(objectSpinner)
-                }
+                override fun onSwipeLeft() { if (displayData.img[curImg].currentZoom < 1.01f) UtilitySpcMeso.moveForward(objectSpinner) }
 
-                override fun onSwipeRight() {
-                    if (displayData.img[curImg].currentZoom < 1.01f) UtilitySpcMeso.moveBack(objectSpinner)
-                }
+                override fun onSwipeRight() { if (displayData.img[curImg].currentZoom < 1.01f) UtilitySpcMeso.moveBack(objectSpinner) }
             })
         }
         favListLabel = UtilityFavorites.setupMenuSpc(MyApplication.spcmesoLabelFav, displayData.paramLabel[curImg])
@@ -427,8 +417,8 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
         when (parent.id) {
             R.id.spinner1 -> {
                 when (position) {
-                    1 -> ObjectIntent(this, FavAddActivity::class.java, FavAddActivity.TYPE, arrayOf("SPCMESO"))
-                    2 -> ObjectIntent(this, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, arrayOf("SPCMESO"))
+                    1 -> ObjectIntent.favoriteAdd(this, arrayOf("SPCMESO"))
+                    2 -> ObjectIntent.favoriteRemove(this, arrayOf("SPCMESO"))
                     else -> {
                         if (favListParm.count() > position && favListLabel.count() > position) {
                             displayData.param[curImg] = favListParm[position]

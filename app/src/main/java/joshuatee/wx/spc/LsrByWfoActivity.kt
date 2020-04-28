@@ -35,8 +35,6 @@ import joshuatee.wx.R
 import joshuatee.wx.MyApplication
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.settings.FavAddActivity
-import joshuatee.wx.settings.FavRemoveActivity
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownload
@@ -126,8 +124,8 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
         if (locations.isNotEmpty()) {
             when (position) {
-                1 -> ObjectIntent(this, FavAddActivity::class.java, FavAddActivity.TYPE, arrayOf("WFO"))
-                2 -> ObjectIntent(this, FavRemoveActivity::class.java, FavRemoveActivity.TYPE, arrayOf("WFO"))
+                1 -> ObjectIntent.favoriteAdd(this, arrayOf("WFO"))
+                2 -> ObjectIntent.favoriteRemove(this, arrayOf("WFO"))
                 else -> {
                     wfo = locations[position].split(" ").getOrNull(0) ?: ""
                     getContent()

@@ -93,7 +93,7 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
             R.id.action_atl_7daily -> showImageProduct("${MyApplication.nwsNhcWebsitePrefix}/tafb/atl_anal.gif", "ATL 7-Day Analysis", "true")
             R.id.action_epac_sst_anomaly -> showImageProduct("${MyApplication.nwsNhcWebsitePrefix}/tafb/pac_anom.gif", "EPAC SST Anomaly", "true")
             R.id.action_atl_sst_anomaly -> showImageProduct("${MyApplication.nwsNhcWebsitePrefix}/tafb/atl_anom.gif", "ATL SST Anomaly", "true")
-            R.id.action_glcfs -> ObjectIntent(this, ModelsGenericActivity::class.java, ModelsGenericActivity.INFO, arrayOf("1", "GLCFS", "GLCFS"))
+            R.id.action_glcfs -> ObjectIntent.showModel(this, arrayOf("1", "GLCFS", "GLCFS"))
             else -> return super.onOptionsItemSelected(item)
         }
         return true

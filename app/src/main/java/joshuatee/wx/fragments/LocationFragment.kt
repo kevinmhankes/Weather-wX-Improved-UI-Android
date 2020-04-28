@@ -40,7 +40,6 @@ import androidx.cardview.widget.CardView
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
-import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityLocation
@@ -50,14 +49,12 @@ import joshuatee.wx.util.*
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.activitiesmisc.TextScreenActivity
 import joshuatee.wx.notifications.UtilityNotificationTools
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.TextSize
 import joshuatee.wx.radar.*
 import joshuatee.wx.ui.*
-import joshuatee.wx.vis.GoesActivity
 import kotlinx.coroutines.*
 
 class LocationFragment : Fragment()  {
@@ -405,9 +402,7 @@ class LocationFragment : Fragment()  {
         if (PolygonType.MCD.pref && activityReferenceWithNull != null) {
             withContext(Dispatchers.IO) {
                 UtilityDownloadMcd.get(activityReference)
-                if (activityReferenceWithNull != null) {
-                    UtilityDownloadWatch.get(activityReference)
-                }
+                if (activityReferenceWithNull != null) UtilityDownloadWatch.get(activityReference)
             }
             if (!wxglRenders[idx].product.startsWith("2")) {
                 UtilityRadarUI.plotMcdWatchPolygons(wxglSurfaceViews[idx], wxglRenders[idx], false)
@@ -440,12 +435,8 @@ class LocationFragment : Fragment()  {
         // guess it's worth another try to see if the issue back then was fixed in the various re-writes that have
         // occurred since
         if (Location.isUS && idx == 0) {
-            if (PolygonType.OBS.pref) {
-                UtilityWXGLTextObject.updateObservations(numberOfRadars, wxglTextObjects)
-            }
-            if (PolygonType.SPOTTER_LABELS.pref) {
-                UtilityWXGLTextObject.updateSpotterLabels(numberOfRadars, wxglTextObjects)
-            }
+            if (PolygonType.OBS.pref) UtilityWXGLTextObject.updateObservations(numberOfRadars, wxglTextObjects)
+            if (PolygonType.SPOTTER_LABELS.pref) UtilityWXGLTextObject.updateSpotterLabels(numberOfRadars, wxglTextObjects)
             wxglSurfaceViews[idx].requestRender()
             if (idx == oglrIdx) {
                 radarTime = radarTimeStampLocal
@@ -470,16 +461,12 @@ class LocationFragment : Fragment()  {
         val shortText = UtilityStringExternal.truncate(longText, UIPreferences.homescreenTextLength)
         homeScreenTextCards[productIndex].setTextShort(shortText)
         homeScreenTextCards[productIndex].setText(shortText)
-        if (homeScreenTextCards[productIndex].product == "HOURLY") {
-            homeScreenTextCards[productIndex].typefaceMono()
-        }
+        if (homeScreenTextCards[productIndex].product == "HOURLY") homeScreenTextCards[productIndex].typefaceMono()
     }
 
     private fun getImageProduct(productString: String) = GlobalScope.launch(uiDispatcher) {
         val productIndex = productString.toIntOrNull() ?: 0
-        val bitmap = withContext(Dispatchers.IO) {
-            UtilityDownload.getImageProduct(MyApplication.appContext, homeScreenImageCards[productIndex].product)
-        }
+        val bitmap = withContext(Dispatchers.IO) { UtilityDownload.getImageProduct(MyApplication.appContext, homeScreenImageCards[productIndex].product) }
         homeScreenImageCards[productIndex].setImage(bitmap)
     }
 
@@ -497,9 +484,7 @@ class LocationFragment : Fragment()  {
                         alertDialogRadarLongPress!!
                 )
             } else {
-                (0 until numberOfRadars).forEach {
-                    wxglTextObjects[it].addLabels()
-                }
+                (0 until numberOfRadars).forEach { wxglTextObjects[it].addLabels() }
             }
         }
     }
@@ -520,9 +505,7 @@ class LocationFragment : Fragment()  {
     private fun getRadarTimeStamp(string: String, j: Int): String {
         var timestamp = ""
         val tokens = string.split(" ")
-        if (tokens.size > 3) {
-            timestamp = tokens[3]
-        }
+        if (tokens.size > 3) timestamp = tokens[3]
         return wxglRenders[j].rid + ": " + timestamp + " (" + Utility.getRadarSiteName(wxglRenders[j].rid) + ")"
     }
 
@@ -532,9 +515,7 @@ class LocationFragment : Fragment()  {
 
     override fun onPause() {
         if (glviewInitialized) {
-            wxglSurfaceViews.forEach {
-                it.onPause()
-            }
+            wxglSurfaceViews.forEach { it.onPause() }
         }
         super.onPause()
     }
@@ -566,7 +547,7 @@ class LocationFragment : Fragment()  {
                         startActivity(intent)
                     }
                 } else {
-                    ObjectIntent(activityReference, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
+                    ObjectIntent.showVis(activityReference)
                 }
             })
         }
@@ -590,9 +571,7 @@ class LocationFragment : Fragment()  {
     }
 
     private fun radarTimestamps(): List<String> {
-        return (0 until wxglSurfaceViews.size).map {
-            getRadarTimeStamp(wxglRenders[it].wxglNexradLevel3.timestamp, it)
-        }
+        return (0 until wxglSurfaceViews.size).map { getRadarTimeStamp(wxglRenders[it].wxglNexradLevel3.timestamp, it) }
     }
 
     private fun setupHazardCardsCA(hazUrl: String) {
@@ -606,24 +585,13 @@ class LocationFragment : Fragment()  {
         hazardsCards[0].setTextColor(UIPreferences.textHighlightColor)
         hazardsCards[0].text = hazUrl
         val hazUrlCa = objHazards.hazards
-        hazardsCards[0].setOnClickListener(OnClickListener {
-            ObjectIntent(
-                    activityReference,
-                    TextScreenActivity::class.java,
-                    TextScreenActivity.URL,
-                    arrayOf(Utility.fromHtml(hazUrlCa), hazUrl)
-            )
-        })
-        if (!hazUrl.startsWith("NO WATCHES OR WARNINGS IN EFFECT")) {
-            linearLayoutHazards?.addView(hazardsCards[0].card)
-        }
+        hazardsCards[0].setOnClickListener(OnClickListener { ObjectIntent.showText(activityReference, arrayOf(Utility.fromHtml(hazUrlCa), hazUrl)) })
+        if (!hazUrl.startsWith("NO WATCHES OR WARNINGS IN EFFECT")) linearLayoutHazards?.addView(hazardsCards[0].card)
     }
 
     private fun setupAlertDialogStatus() {
         alertDialogStatus = ObjectDialogue(activityReference, alertDialogStatusList)
-        alertDialogStatus!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
-            dialog.dismiss()
-        })
+        alertDialogStatus!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ -> dialog.dismiss() })
         alertDialogStatus!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogStatusList[which]
             if (wxglRenders.size > 0) {
@@ -651,9 +619,7 @@ class LocationFragment : Fragment()  {
 
     private fun setupAlertDialogRadarLongPress() {
         alertDialogRadarLongPress = ObjectDialogue(activityReference, alertDialogRadarLongPressAl)
-        alertDialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
-            dialog.dismiss()
-        })
+        alertDialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ -> dialog.dismiss() })
         alertDialogRadarLongPress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogRadarLongPressAl[which]
             UtilityRadarUI.doLongPressAction(
@@ -674,15 +640,8 @@ class LocationFragment : Fragment()  {
         val oldRidIdx = wxglRenders[idxIntG].rid
         wxglRenders[idxIntG].rid = ridNew
         if (idxIntG != oglrIdx) {
-            MyApplication.homescreenFav = MyApplication.homescreenFav.replace(
-                    "NXRD-$oldRidIdx",
-                    "NXRD-" + wxglRenders[idxIntG].rid
-            )
-            Utility.writePref(
-                    activityReference,
-                    "HOMESCREEN_FAV",
-                    MyApplication.homescreenFav
-            )
+            MyApplication.homescreenFav = MyApplication.homescreenFav.replace("NXRD-$oldRidIdx", "NXRD-" + wxglRenders[idxIntG].rid)
+            Utility.writePref(activityReference, "HOMESCREEN_FAV", MyApplication.homescreenFav)
         }
         radarLocationChangedAl[idxIntG] = true
         wxglSurfaceViews[idxIntG].scaleFactor = MyApplication.wxoglSize.toFloat() / 10.0f
@@ -694,9 +653,7 @@ class LocationFragment : Fragment()  {
 
     override fun onAttach(context: Context) { // was Context? before 'androidx.preference:preference:1.1.0' // was 1.0.0
         super.onAttach(context)
-        if (context is FragmentActivity) {
-            mActivity = context
-        }
+        if (context is FragmentActivity) mActivity = context
     }
 
     override fun onDetach() {
@@ -716,9 +673,7 @@ class LocationFragment : Fragment()  {
                 hazardsCards[z].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
                 hazardsCards[z].setTextColor(UIPreferences.textHighlightColor)
                 hazardsCards[z].text = objHazards.titles[z].toUpperCase(Locale.US)
-                hazardsCards[z].setOnClickListener(OnClickListener {
-                    ObjectIntent(activityReference, USAlertsDetailActivity::class.java, USAlertsDetailActivity.URL, arrayOf(objHazards.urls[z]))
-                })
+                hazardsCards[z].setOnClickListener(OnClickListener { ObjectIntent.showHazard(activityReference, arrayOf(objHazards.urls[z])) })
                 linearLayoutHazards?.addView(hazardsCards[z].card)
             } else {
                 hazardsExpandedAl.add(false)
@@ -876,9 +831,7 @@ class LocationFragment : Fragment()  {
         }
     }
 
-    fun showLocations() {
-        locationDialogue.show()
-    }
+    fun showLocations() { locationDialogue.show() }
 
     // FIXME change to return context and use getContext in API greater then 22
     // FIXME duplicate for 2 other areas

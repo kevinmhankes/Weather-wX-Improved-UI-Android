@@ -134,7 +134,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
 
     fun openVis() {
         if (Location.isUS) {
-            ObjectIntent(this, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
+            ObjectIntent.showVis(this)
         } else {
             ObjectIntent(this, CanadaRadarActivity::class.java, CanadaRadarActivity.RID, arrayOf(Location.rid, "vis"))
         }

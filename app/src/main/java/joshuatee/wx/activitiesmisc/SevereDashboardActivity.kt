@@ -129,13 +129,9 @@ class SevereDashboardActivity : BaseActivity() {
                 card = ObjectCardImage(this@SevereDashboardActivity, horizontalLinearLayouts.last().linearLayout, bitmaps[it], imagesPerRow)
             }
             if (it == 0) {
-                card.setOnClickListener(View.OnClickListener {
-                    ObjectIntent.showUsAlerts(this@SevereDashboardActivity)
-                })
+                card.setOnClickListener(View.OnClickListener { ObjectIntent.showUsAlerts(this@SevereDashboardActivity) })
             } else {
-                card.setOnClickListener(View.OnClickListener {
-                    ObjectIntent.showSpcStormReports(this@SevereDashboardActivity)
-                })
+                card.setOnClickListener(View.OnClickListener { ObjectIntent.showSpcStormReports(this@SevereDashboardActivity) })
             }
             numberOfImages += 1
         }
@@ -155,16 +151,10 @@ class SevereDashboardActivity : BaseActivity() {
                     val data = severeWarning.warnings[index]
                     if (!data.startsWith("O.EXP")) {
                         val objectCardDashAlertItem = ObjectCardDashAlertItem(this@SevereDashboardActivity, linearLayout, severeWarning, index)
-                        objectCardDashAlertItem.setListener(View.OnClickListener {
-                            showWarningDetails(severeWarning.idList[index])
-                        })
+                        objectCardDashAlertItem.setListener(View.OnClickListener { showWarningDetails(severeWarning.idList[index]) })
                         val id = numberOfWarnings
-                        objectCardDashAlertItem.radarButton.setOnClickListener(View.OnClickListener {
-                            radarInterface(id)
-                        })
-                        objectCardDashAlertItem.detailsButton.setOnClickListener(View.OnClickListener {
-                            showWarningDetails(severeWarning.idList[index])
-                        })
+                        objectCardDashAlertItem.radarButton.setOnClickListener(View.OnClickListener { radarInterface(id) })
+                        objectCardDashAlertItem.detailsButton.setOnClickListener(View.OnClickListener { showWarningDetails(severeWarning.idList[index]) })
                         listOfWfoForWarnings.add(severeWarning.listOfWfo[index])
                         objectCardDashAlertItem.setId(numberOfWarnings)
                         numberOfWarnings += 1
@@ -234,6 +224,6 @@ class SevereDashboardActivity : BaseActivity() {
     }
 
     private fun showWarningDetails(url: String) {
-        ObjectIntent(this@SevereDashboardActivity, USAlertsDetailActivity::class.java, USAlertsDetailActivity.URL, arrayOf("https://api.weather.gov/alerts/$url", ""))
+        ObjectIntent.showHazard(this@SevereDashboardActivity, arrayOf("https://api.weather.gov/alerts/$url", ""))
     }
 }

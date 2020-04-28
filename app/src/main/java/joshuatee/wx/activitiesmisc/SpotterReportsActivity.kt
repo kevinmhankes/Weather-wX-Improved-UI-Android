@@ -35,24 +35,29 @@ import joshuatee.wx.util.UtilityTime
 
 class SpotterReportsActivity : BaseActivity() {
 
-    // TODO onrestart
-
     //
     // Show active spotter reports
     //
 
+    private lateinit var objectRecyclerViewGeneric: ObjectRecyclerViewGeneric
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_recyclerview_toolbar, null, false)
-        val objectRecyclerViewGeneric = ObjectRecyclerViewGeneric(this, this, R.id.card_list)
+        objectRecyclerViewGeneric = ObjectRecyclerViewGeneric(this, this, R.id.card_list)
         val adapterSpotterReports = AdapterSpotterReports(UtilitySpotter.spotterReports)
         objectRecyclerViewGeneric.recyclerView.adapter = adapterSpotterReports
         title = UtilitySpotter.spotterReports.size.toString() + " Spotter reports " + UtilityTime.gmtTime("HH:mm") + " UTC"
         adapterSpotterReports.setOnItemClickListener(object : AdapterSpotterReports.MyClickListener {
-            override fun onItemClick(position: Int) {
-                itemSelected(position)
-            }
+            override fun onItemClick(position: Int) { itemSelected(position) }
         })
+    }
+
+    override fun onRestart() {
+        //val adapterSpotterReports = AdapterSpotterReports(UtilitySpotter.spotterReports)
+        objectRecyclerViewGeneric.recyclerView.adapter = AdapterSpotterReports(UtilitySpotter.spotterReports)
+        title = UtilitySpotter.spotterReports.size.toString() + " Spotter reports " + UtilityTime.gmtTime("HH:mm") + " UTC"
+        super.onRestart()
     }
 
     private fun itemSelected(position: Int) {

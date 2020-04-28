@@ -35,8 +35,6 @@ import java.util.TreeMap
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.CapAlert
-import joshuatee.wx.activitiesmisc.ImageShowActivity
-import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.util.Utility
@@ -65,14 +63,7 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
         val cardText = ObjectCardText(context)
         linearLayout.addView(cardText.card)
         val objectCardImageView = ObjectCardImage(context, bitmap)
-        objectCardImageView.setOnClickListener(View.OnClickListener {
-            ObjectIntent(
-                    context,
-                    ImageShowActivity::class.java,
-                    ImageShowActivity.URL,
-                    arrayOf("https://forecast.weather.gov/wwamap/png/US.png", "US Alerts", "true")
-            )
-        })
+        objectCardImageView.setOnClickListener(View.OnClickListener { ObjectIntent.showImage(context, arrayOf("https://forecast.weather.gov/wwamap/png/US.png", "US Alerts", "true")) })
         linearLayout.addView(objectCardImageView.card)
         totalAlertsCnt = 0
         val mapEvent = TreeMap<String, Int>()
@@ -167,36 +158,10 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
         val radarSite = GlobalDictionaries.wfoToRadarSite[office] ?: ""
         val radarLabel = Utility.getRadarSiteName(radarSite)
         val state = radarLabel.split(",")[0]
-        ObjectIntent(context, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, arrayOf(radarSite, state, "N0Q", ""))
+        ObjectIntent.showRadar(context, arrayOf(radarSite, state, "N0Q", ""))
     }
 
-    private fun showWarningDetails(url: String) {
-        ObjectIntent(context, USAlertsDetailActivity::class.java, USAlertsDetailActivity.URL, arrayOf(url, ""))
-    }
-
-    /*private fun addLocation(zone: String, county: String, uiDispatcher: CoroutineDispatcher) = GlobalScope.launch(uiDispatcher) {
-        UtilityLog.d("Wx", "ALERT: " + zone)
-        UtilityLog.d("Wx", "ALERT: " + county)
-        var message = ""
-        var coordinates = listOf<String>()
-        withContext(Dispatchers.IO) {
-            var locNumIntCurrent = Location.numLocations
-            locNumIntCurrent += 1
-            val locNumToSaveStr = locNumIntCurrent.toString()
-            if (zone.length > 3) {
-                coordinates = if (zone.matches("[A-Z][A-Z]C.*?".toRegex())) {
-                    UtilityLocation.getLatLonFromAddress(county + "," + zone.substring(0, 2))
-                } else {
-                    UtilityDownloadNws.getLatLonForZone(zone)
-                }
-            }
-            UtilityLog.d("Wx", "ALERT: " + coordinates)
-            val x = coordinates[0]
-            val y = coordinates[1]
-            message = Location.locationSave(context, locNumToSaveStr, x, y, county)
-        }
-        UtilityUI.makeSnackBar(linearLayout, message)
-    }*/
+    private fun showWarningDetails(url: String) { ObjectIntent.showHazard(context, arrayOf(url, "")) }
 
     fun getTitle(title: String) = "(" + totalAlertsCnt + ") " + title.toUpperCase(Locale.US) + " Alerts"
 }

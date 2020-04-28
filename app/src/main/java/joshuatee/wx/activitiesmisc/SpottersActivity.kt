@@ -95,9 +95,7 @@ class SpottersActivity : BaseActivity() {
         getContent()
     }
 
-    private fun reportFAB() {
-        ObjectIntent(this, SpotterReportsActivity::class.java)
-    }
+    private fun reportFAB() { ObjectIntent(this, SpotterReportsActivity::class.java) }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         spotterList = withContext(Dispatchers.IO) { UtilitySpotter.get(this@SpottersActivity) }.toMutableList()
@@ -151,8 +149,7 @@ class SpottersActivity : BaseActivity() {
     private fun sortSpotters() {
         Collections.sort(spotterList, Comparator { p1, p2 ->
             val res = p1.lastName.compareTo(p2.lastName, ignoreCase = true)
-            if (res != 0)
-                return@Comparator res
+            if (res != 0) return@Comparator res
             p1.firstName.compareTo(p2.firstName, ignoreCase = true)
         })
         if (firstTime) {
@@ -186,7 +183,5 @@ class SpottersActivity : BaseActivity() {
         ObjectIntent.showRadar(this, arrayOf(radarSite, "", "N0Q", "", spotterList[position].unique))
     }
 
-    private fun toggleFavorite(position: Int) {
-        checkFavorite(position)
-    }
+    private fun toggleFavorite(position: Int) { checkFavorite(position) }
 } 
