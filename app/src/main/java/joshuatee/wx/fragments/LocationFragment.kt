@@ -44,7 +44,6 @@ import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.canada.UtilityCanada
-import joshuatee.wx.settings.SettingsLocationGenericActivity
 import joshuatee.wx.util.*
 
 import joshuatee.wx.Extensions.*
@@ -103,8 +102,8 @@ class LocationFragment : Fragment()  {
     private var alertDialogStatus: ObjectDialogue? = null
     private val alertDialogStatusList = mutableListOf<String>()
     private var idxIntG = 0
-    private var alertDialogRadarLongPress: ObjectDialogue? = null
-    private val alertDialogRadarLongPressAl = mutableListOf<String>()
+    private var dialogRadarLongPress: ObjectDialogue? = null
+    private val radarLongPressItems = mutableListOf<String>()
     private var objHazards = ObjectForecastPackageHazards()
     private var objSevenDay = ObjectForecastPackage7Day()
     private var locationChangedSevenDay = false
@@ -410,12 +409,7 @@ class LocationFragment : Fragment()  {
 
     private fun getTextProduct(productString: String) = GlobalScope.launch(uiDispatcher) {
         val productIndex = productString.toIntOrNull() ?: 0
-        val longTextDownload = withContext(Dispatchers.IO) {
-            UtilityDownload.getTextProduct(
-                    MyApplication.appContext,
-                    homeScreenTextCards[productIndex].product
-            ).replace("<br>AREA FORECAST DISCUSSION", "AREA FORECAST DISCUSSION")
-        }
+        val longTextDownload = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(MyApplication.appContext, homeScreenTextCards[productIndex].product) }
         var longText = longTextDownload
         if (homeScreenTextCards[productIndex].product=="NFDOFFN31" || homeScreenTextCards[productIndex].product=="NFDOFFN32") {
             longText = Utility.fromHtml(longTextDownload)
@@ -437,15 +431,7 @@ class LocationFragment : Fragment()  {
         override fun onProgressChanged(progress: Int, idx: Int, idxInt: Int) {
             if (progress != 50000) {
                 idxIntG = idx
-                UtilityRadarUI.addItemsToLongPress(
-                        alertDialogRadarLongPressAl,
-                        x,
-                        y,
-                        activityReference,
-                        wxglSurfaceViews[idx],
-                        wxglRenders[idx],
-                        alertDialogRadarLongPress!!
-                )
+                UtilityRadarUI.addItemsToLongPress(radarLongPressItems, x, y, activityReference, wxglSurfaceViews[idx], wxglRenders[idx], dialogRadarLongPress!!)
             } else {
                 (0 until numberOfRadars).forEach { wxglTextObjects[it].addLabels() }
             }
@@ -581,10 +567,10 @@ class LocationFragment : Fragment()  {
     }
 
     private fun setupAlertDialogRadarLongPress() {
-        alertDialogRadarLongPress = ObjectDialogue(activityReference, alertDialogRadarLongPressAl)
-        alertDialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ -> dialog.dismiss() })
-        alertDialogRadarLongPress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            val strName = alertDialogRadarLongPressAl[which]
+        dialogRadarLongPress = ObjectDialogue(activityReference, radarLongPressItems)
+        dialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ -> dialog.dismiss() })
+        dialogRadarLongPress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+            val strName = radarLongPressItems[which]
             UtilityRadarUI.doLongPressAction(
                     strName,
                     activityReference,
