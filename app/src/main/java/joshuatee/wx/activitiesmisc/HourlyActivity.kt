@@ -89,9 +89,7 @@ class HourlyActivity : BaseActivity() {
         htmlShare = withContext(Dispatchers.IO) { UtilityUSHourly.getString(locationNumber) }
         hourlyData = withContext(Dispatchers.IO) { UtilityUSHourly.getStringForActivity(htmlShare[1]) }
         graphCard.visibility = View.VISIBLE
-        objectCardVerticalText.setText(
-            listOf(hourlyData.time, hourlyData.temp, hourlyData.windSpeed, hourlyData.windDir, hourlyData.conditions)
-        )
+        objectCardVerticalText.setText(listOf(hourlyData.time, hourlyData.temp, hourlyData.windSpeed, hourlyData.windDir, hourlyData.conditions))
         // For ChromeOS
         //objectCardVerticalText.card.requestFocus()
         plotData()
@@ -124,11 +122,7 @@ class HourlyActivity : BaseActivity() {
             override fun formatLabel(value: Double, isValueX: Boolean): String {
                 return if (isValueX) {
                     // show normal x values
-                    if ((value.toInt() % 10) == 0) {
-                        super.formatLabel(value, isValueX)
-                    } else {
-                        ""
-                    }
+                    if ((value.toInt() % 10) == 0) super.formatLabel(value, isValueX) else ""
                 } else {
                     // show currency for y values
                     super.formatLabel(value, isValueX)

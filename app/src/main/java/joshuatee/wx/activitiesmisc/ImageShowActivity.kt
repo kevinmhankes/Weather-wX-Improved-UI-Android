@@ -69,7 +69,6 @@ class ImageShowActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_image_show, R.menu.image_show_activity, false)
-        //toolbarBottom.setOnMenuItemClickListener(this)
         img = ObjectTouchImageView(this, this, toolbar, R.id.iv)
         val activityArguments: Array<String> = intent.getStringArrayExtra(URL)!!
         url = activityArguments[0]

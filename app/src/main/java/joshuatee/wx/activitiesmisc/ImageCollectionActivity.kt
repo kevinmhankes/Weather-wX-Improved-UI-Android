@@ -69,9 +69,6 @@ class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemC
         super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer, R.menu.imagecollection, iconsEvenlySpaced = true, bottomToolbar = false)
         activityArguments = intent.getStringArrayExtra(TYPE)!!
         imageCollection = MyApplication.imageCollectionMap[activityArguments[0]]!!
-        //toolbarBottom.setOnMenuItemClickListener(this)
-        //actionAnimate = toolbarBottom.menu.findItem(R.id.action_animate)
-        //actionAnimate.isVisible = false
         title = imageCollection.title
         drw = ObjectNavDrawer(this, imageCollection.labels, imageCollection.urls)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, drw, imageCollection.prefTokenIdx)
@@ -88,9 +85,7 @@ class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemC
         super.onRestart()
     }
 
-    private fun getContentFixThis() {
-        getContent()
-    }
+    private fun getContentFixThis() { getContent() }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         toolbar.subtitle = drw.getLabel()
@@ -111,22 +106,6 @@ class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemC
         drw.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
-    /*override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
-        when (item.itemId) {
-            R.id.action_animate -> getAnimate()
-            R.id.action_share -> {
-                if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
-                    checkOverlayPerms()
-                } else {
-                    UtilityShare.shareBitmap(this, this, imageCollection.title, bitmap)
-                }
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
-    }*/
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
@@ -142,8 +121,6 @@ class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemC
         }
         return true
     }
-
-    //override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onStop() {
         img.imgSavePosnZoom(this, imageCollection.prefImagePosition)
