@@ -315,7 +315,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         cardList.clear()
         wfoProd.forEach {
             val textCard = ObjectCardText(this@AfdActivity, linearLayout)
-            textCard.setTextAndTranslate(Utility.fromHtml(it))
+            textCard.setTextAndTranslate(it)
             cardList.add(textCard.card)
         }
     }
