@@ -26,7 +26,9 @@ import android.content.Intent
 import android.net.Uri
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.*
+import joshuatee.wx.canada.CanadaHourlyActivity
 import joshuatee.wx.canada.CanadaRadarActivity
+import joshuatee.wx.canada.CanadaTextActivity
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.models.ModelsGenericActivity
 import joshuatee.wx.radar.AwcRadarMosaicActivity
@@ -34,6 +36,8 @@ import joshuatee.wx.radar.USNwsMosaicActivity
 import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.radar.WXGLRadarActivityMultiPane
 import joshuatee.wx.settings.*
+import joshuatee.wx.spc.SpcMcdWatchShowActivity
+import joshuatee.wx.spc.SpcSoundingsActivity
 import joshuatee.wx.spc.SpcStormReportsActivity
 import joshuatee.wx.spc.SpcSwoActivity
 import joshuatee.wx.util.Utility
@@ -75,6 +79,30 @@ class ObjectIntent() {
 
     companion object {
 
+        fun showMcd(context: Context, array: Array<String>) {
+            ObjectIntent(context, SpcMcdWatchShowActivity::class.java, SpcMcdWatchShowActivity.NUMBER, array)
+        }
+
+        fun showSounding(context: Context) {
+            ObjectIntent(context, SpcSoundingsActivity::class.java, SpcSoundingsActivity.URL, arrayOf(Location.wfo, ""))
+        }
+
+        fun showWfoText(context: Context) {
+            if (Location.isUS) {
+                ObjectIntent(context, AfdActivity::class.java, AfdActivity.URL, arrayOf(Location.wfo, ""))
+            } else {
+                ObjectIntent(context, CanadaTextActivity::class.java)
+            }
+        }
+
+        fun showHourly(context: Context) {
+            if (Location.isUS) {
+                ObjectIntent(context, HourlyActivity::class.java, HourlyActivity.LOC_NUM, Location.currentLocationStr)
+            } else {
+                ObjectIntent(context, CanadaHourlyActivity::class.java, CanadaHourlyActivity.LOC_NUM, Location.currentLocationStr)
+            }
+        }
+
         fun showHazard(context: Context, array: Array<String>) {
             ObjectIntent(context, USAlertsDetailActivity::class.java, USAlertsDetailActivity.URL, array)
         }
@@ -87,7 +115,7 @@ class ObjectIntent() {
             if (Location.isUS) {
                 ObjectIntent(context, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("OBSERVATIONS"))
             } else {
-                ObjectIntent.showImage(context, arrayOf("http://weather.gc.ca/data/wxoimages/wocanmap0_e.jpg", "Observations"))
+                showImage(context, arrayOf("http://weather.gc.ca/data/wxoimages/wocanmap0_e.jpg", "Observations"))
             }
         }
 

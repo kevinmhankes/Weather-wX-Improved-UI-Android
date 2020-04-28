@@ -39,9 +39,7 @@ import joshuatee.wx.canada.*
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.SettingsMainActivity
-import joshuatee.wx.spc.SpcSoundingsActivity
 import joshuatee.wx.ui.UtilityUI
-import joshuatee.wx.vis.GoesActivity
 
 open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListener {
 
@@ -71,8 +69,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
             R.id.action_observations -> ObjectIntent.showObservations(this)
             R.id.action_playlist -> ObjectIntent(this, SettingsPlaylistActivity::class.java)
             R.id.action_soundings -> {
-                if (Location.isUS)
-                    ObjectIntent(this, SpcSoundingsActivity::class.java, SpcSoundingsActivity.URL, arrayOf(Location.wfo, ""))
+                if (Location.isUS) ObjectIntent.showSounding(this)
             }
             R.id.action_cloud -> openVis()
             R.id.action_radar -> openNexradRadar(this)
@@ -123,11 +120,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
     }
 
     fun openAfd() {
-        if (Location.isUS) {
-            ObjectIntent(this, AfdActivity::class.java, AfdActivity.URL, arrayOf(Location.wfo, ""))
-        } else {
-            ObjectIntent(this, CanadaTextActivity::class.java)
-        }
+        ObjectIntent.showWfoText(this)
     }
 
     fun openSettings() = ObjectIntent(this, SettingsMainActivity::class.java)
@@ -149,11 +142,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
     }
 
     fun openHourly() {
-        if (Location.isUS) {
-            ObjectIntent(this, HourlyActivity::class.java, HourlyActivity.LOC_NUM, Location.currentLocationStr)
-        } else {
-            ObjectIntent(this, CanadaHourlyActivity::class.java, CanadaHourlyActivity.LOC_NUM, Location.currentLocationStr)
-        }
+        ObjectIntent.showHourly(this)
     }
 
     fun openActivity(context: Context, activityName: String) {

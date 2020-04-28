@@ -297,6 +297,6 @@ internal object UtilityRadarUI {
 
     private fun showNearestProduct(context: Context, polygonType: PolygonType, wxglSurfaceView: WXGLSurfaceView, uiDispatcher: CoroutineDispatcher) = GlobalScope.launch(uiDispatcher) {
         val text = withContext(Dispatchers.IO) { UtilityWatch.show(wxglSurfaceView.latLon, polygonType) }
-        if (text != "") ObjectIntent(context, SpcMcdWatchShowActivity::class.java, SpcMcdWatchShowActivity.NUMBER, arrayOf(text, "", polygonType.toString()))
+        if (text != "") ObjectIntent.showMcd(context, arrayOf(text, "", polygonType.toString()))
     }
 }

@@ -38,7 +38,7 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
-class WpcRainfallForecastSummaryActivity : BaseActivity() { // , Toolbar.OnMenuItemClickListener
+class WpcRainfallForecastSummaryActivity : BaseActivity() {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmaps = listOf<Bitmap>()
@@ -53,7 +53,6 @@ class WpcRainfallForecastSummaryActivity : BaseActivity() { // , Toolbar.OnMenuI
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, R.menu.shared_multigraphics, false)
         if (UtilityUI.isLandScape(this)) imagesPerRow = 3
-        //toolbarBottom.setOnMenuItemClickListener(this)
         title = "Excessive Rainfall Outlooks"
         toolbar.subtitle = "WPC"
         getContent()
@@ -85,12 +84,4 @@ class WpcRainfallForecastSummaryActivity : BaseActivity() { // , Toolbar.OnMenuI
         }
         return true
     }
-
-   /* override fun onMenuItemClick(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(this, this, getString(UtilityWpcRainfallForecast.activityTitle), "", bitmaps)
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
-    }*/
 }

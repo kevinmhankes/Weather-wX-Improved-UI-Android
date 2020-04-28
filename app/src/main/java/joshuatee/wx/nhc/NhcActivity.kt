@@ -42,11 +42,6 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
-    companion object {
-        // Not used other then in homescreen activities
-        const val URL = ""
-    }
-
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var objNhc: ObjectNhc
 

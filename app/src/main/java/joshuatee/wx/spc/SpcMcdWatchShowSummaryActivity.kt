@@ -144,7 +144,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
         mcdList.indices.forEach { mcdIndex ->
             val objectCardImage = ObjectCardImage(this@SpcMcdWatchShowSummaryActivity, linearLayout, bitmaps[mcdIndex])
             objectCardImage.setOnClickListener(View.OnClickListener {
-                ObjectIntent(this@SpcMcdWatchShowSummaryActivity, SpcMcdWatchShowActivity::class.java, SpcMcdWatchShowActivity.NUMBER, arrayOf(mcdNumbers[mcdIndex], "", polygonType.toString()))
+                ObjectIntent.showMcd(this@SpcMcdWatchShowSummaryActivity, arrayOf(mcdNumbers[mcdIndex], "", polygonType.toString()))
             })
         }
         if (mcdList.size == 1) {

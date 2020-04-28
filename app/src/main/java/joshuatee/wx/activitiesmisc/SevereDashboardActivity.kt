@@ -35,7 +35,6 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.radar.*
-import joshuatee.wx.spc.SpcMcdWatchShowActivity
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.ui.*
 import kotlinx.android.synthetic.main.activity_linear_layout.*
@@ -199,7 +198,7 @@ class SevereDashboardActivity : BaseActivity() {
                         }
                         val number = severeNotice.numbers[j]
                         card.setOnClickListener(View.OnClickListener {
-                            ObjectIntent(this@SevereDashboardActivity, SpcMcdWatchShowActivity::class.java, SpcMcdWatchShowActivity.NUMBER, arrayOf(number, "", severeNotice.toString()))
+                            ObjectIntent.showMcd(this@SevereDashboardActivity, arrayOf(number, "", severeNotice.toString()))
                         })
                         numberOfImages += 1
                     }

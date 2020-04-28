@@ -89,7 +89,7 @@ internal object UtilityHomeScreen {
         MyApplication.HM_CLASS_ARGS["WPCTEXT"] = arrayOf("pmdspd", "Short Range Forecast Discussion")
 
         MyApplication.HM_CLASS["NHC"] = NhcActivity::class.java
-        MyApplication.HM_CLASS_ID["NHC"] = NhcActivity.URL
+        MyApplication.HM_CLASS_ID["NHC"] = ""
         MyApplication.HM_CLASS_ARGS["NHC"] = arrayOf()
 
 

@@ -54,7 +54,6 @@ import joshuatee.wx.settings.Location
 import joshuatee.wx.spc.*
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
-import joshuatee.wx.vis.GoesActivity
 import joshuatee.wx.wpc.WpcImagesActivity
 import joshuatee.wx.wpc.WpcRainfallForecastSummaryActivity
 import joshuatee.wx.wpc.WpcTextProductsActivity
@@ -141,27 +140,27 @@ class WX : CommonActionBarFragment() {
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             visButton.setOnClickListener {
-                ObjectIntent(this, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
+                ObjectIntent.showVis(this)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             visText.setOnClickListener {
-                ObjectIntent(this, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
+                ObjectIntent.showVis(this)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             wfoButton.setOnClickListener {
-                ObjectIntent(this, AfdActivity::class.java, AfdActivity.URL, arrayOf(Location.wfo, ""))
+                ObjectIntent.showWfoText(this)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             wfoText.setOnClickListener {
-                ObjectIntent(this, AfdActivity::class.java, AfdActivity.URL, arrayOf(Location.wfo, ""))
+                ObjectIntent.showWfoText(this)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             hourlyButton.setOnClickListener {
-                ObjectIntent(this, HourlyActivity::class.java, HourlyActivity.LOC_NUM, Location.currentLocationStr)
+                ObjectIntent.showHourly(this)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             hourlyText.setOnClickListener {
-                ObjectIntent(this, HourlyActivity::class.java, HourlyActivity.LOC_NUM, Location.currentLocationStr)
+                ObjectIntent.showHourly(this)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             settingsButton.setOnClickListener{
@@ -175,38 +174,38 @@ class WX : CommonActionBarFragment() {
             navigationView.setNavigationItemSelectedListener{ item ->
                 when (item.itemId) {
                     R.id.esrl -> ObjectIntent.showModel(this, arrayOf("1", "ESRL", "ESRL"))
-                    R.id.rainfall_outlook -> ObjectIntent(this, WpcRainfallForecastSummaryActivity::class.java, "", arrayOf())
+                    R.id.rainfall_outlook -> ObjectIntent(this, WpcRainfallForecastSummaryActivity::class.java)
                     R.id.glcfs -> ObjectIntent.showModel(this, arrayOf("1", "GLCFS", "GLCFS"))
                     R.id.goes_global -> ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("GOESFD"))
                     R.id.lightning -> ObjectIntent(this,LightningActivity::class.java)
                     R.id.national_images -> ObjectIntent(this, WpcImagesActivity::class.java, "", arrayOf())
                     R.id.national_text -> ObjectIntent(this, WpcTextProductsActivity::class.java, WpcTextProductsActivity.URL, arrayOf("pmdspd", "Short Range Forecast Discussion"))
                     R.id.ncep_models -> ObjectIntent.showModel(this, arrayOf("1", "NCEP", "NCEP"))
-                    R.id.nhc -> ObjectIntent(this, NhcActivity::class.java, "", arrayOf())
+                    R.id.nhc -> ObjectIntent(this, NhcActivity::class.java)
                     R.id.nssl_wrf -> ObjectIntent.showModel(this, arrayOf("1", "NSSL", "NSSL"))
                     R.id.observations -> ObjectIntent.showObservations(this)
-                    R.id.observation_sites -> ObjectIntent(this, NwsObsSitesActivity::class.java, "", arrayOf())
+                    R.id.observation_sites -> ObjectIntent(this, NwsObsSitesActivity::class.java)
                     R.id.opc -> ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("OPC"))
                     R.id.radar_mosaic -> ObjectIntent.showRadarMosaic(this)
                     R.id.radar_dual_pane -> ObjectIntent.showRadarMultiPane(this, arrayOf(Location.rid, "", "2"))
                     R.id.radar_quad_pane -> ObjectIntent.showRadarMultiPane(this, arrayOf(Location.rid, "", "4"))
-                    R.id.spc_comp_map -> ObjectIntent(this, SpcCompmapActivity::class.java, "", arrayOf())
-                    R.id.spc_convective_outlooks -> ObjectIntent(this, SpcSwoSummaryActivity::class.java, "", arrayOf())
+                    R.id.spc_comp_map -> ObjectIntent(this, SpcCompmapActivity::class.java)
+                    R.id.spc_convective_outlooks -> ObjectIntent(this, SpcSwoSummaryActivity::class.java )
                     R.id.spc_day_1 -> ObjectIntent.showSpcSwo(this, arrayOf("1", ""))
                     R.id.spc_day_2 -> ObjectIntent.showSpcSwo(this, arrayOf("2", ""))
                     R.id.spc_day_3 -> ObjectIntent.showSpcSwo(this, arrayOf("3", ""))
                     R.id.spc_day_4_8 -> ObjectIntent.showSpcSwo(this, arrayOf("4-8", ""))
-                    R.id.spc_fire_outlooks -> ObjectIntent(this, SpcFireOutlookSummaryActivity::class.java, "", arrayOf(""))
+                    R.id.spc_fire_outlooks -> ObjectIntent(this, SpcFireOutlookSummaryActivity::class.java)
                     R.id.spc_href -> ObjectIntent(this, ModelsSpcHrefActivity::class.java, "", arrayOf("1", "SPCHREF", "SPC HREF"))
                     R.id.spc_hrrr -> ObjectIntent(this, ModelsSpcHrrrActivity::class.java, "", arrayOf("1", "SPCHRRR", "SPC HRRR"))
                     R.id.spc_mesoanalysis -> ObjectIntent(this,SpcMesoActivity::class.java, SpcMesoActivity.INFO, arrayOf("", "1", "SPCMESO"))
-                    R.id.spc_soundings -> ObjectIntent(this, SpcSoundingsActivity::class.java, SpcSoundingsActivity.URL, arrayOf(Location.wfo, ""))
+                    R.id.spc_soundings -> ObjectIntent.showSounding(this)
                     R.id.spc_sref -> ObjectIntent(this, ModelsSpcSrefActivity::class.java, ModelsSpcSrefActivity.INFO, arrayOf("1", "SPCSREF", "SPCSREF"))
                     R.id.spc_storm_reports -> ObjectIntent.showSpcStormReports(this)
-                    R.id.spc_thunderstorm_outlooks -> ObjectIntent(this, SpcThunderStormOutlookActivity::class.java, "", arrayOf())
+                    R.id.spc_thunderstorm_outlooks -> ObjectIntent(this, SpcThunderStormOutlookActivity::class.java)
                     R.id.spotters -> ObjectIntent(this, SpottersActivity::class.java)
-                    R.id.twitter_states -> ObjectIntent(this, WebViewTwitter::class.java, "", arrayOf())
-                    R.id.twitter_tornado -> ObjectIntent(this, WebView::class.java, WebView.URL, arrayOf("https://mobile.twitter.com/hashtag/tornado", "#tornado"))
+                    R.id.twitter_states -> ObjectIntent(this, WebViewTwitter::class.java)
+                    R.id.twitter_tornado -> ObjectIntent.showWebView(this, arrayOf("https://mobile.twitter.com/hashtag/tornado", "#tornado"))
                     R.id.us_alerts -> {
                         if (Location.isUS) {
                             ObjectIntent.showUsAlerts(this)

@@ -47,7 +47,6 @@ class SpcSwoSummaryActivity : BaseActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.spc_swo_summary, menu)
-        //val menu = toolbarBottom.menu
         UtilityShortcut.hidePinIfNeeded(menu)
         return true
     }
@@ -56,7 +55,6 @@ class SpcSwoSummaryActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, R.menu.spc_swo_summary, false)
         if (UtilityUI.isLandScape(this)) imagesPerRow = 3
-        //toolbarBottom.setOnMenuItemClickListener(this)
         toolbar.subtitle = "SPC"
         title = "Convective Outlooks"
         getContent()
