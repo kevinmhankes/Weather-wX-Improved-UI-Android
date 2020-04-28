@@ -151,25 +151,13 @@ class LocationFragment : Fragment()  {
                 radarLocationChangedAl.add(false)
                 wxglSurfaceViews[index].index = index
                 relativeLayouts.add(RelativeLayout(activityReference))
-                wxglTextObjects.add(
-                        WXGLTextObject(
-                                activityReference,
-                                relativeLayouts[index],
-                                wxglSurfaceViews[index],
-                                wxglRenders[index],
-                                numPanes,
-                                4
-                        )
-                )
+                wxglTextObjects.add(WXGLTextObject(activityReference, relativeLayouts[index], wxglSurfaceViews[index], wxglRenders[index], numPanes, 4))
                 wxglSurfaceViews[index].wxglTextObjects = wxglTextObjects
                 wxglSurfaceViews[index].locationFragment = true
                 wxglTextObjects[index].initializeLabels(activityReference)
                 relativeLayouts[index].addView(wxglSurfaceViews[index])
                 cardViews.last().addView(relativeLayouts[index])
-                cardViews.last().layoutParams = RelativeLayout.LayoutParams(
-                        MyApplication.dm.widthPixels - (MyApplication.lLpadding * 2).toInt(),
-                        MyApplication.dm.widthPixels - (MyApplication.lLpadding * 2).toInt()
-                )
+                cardViews.last().layoutParams = RelativeLayout.LayoutParams(MyApplication.dm.widthPixels - (MyApplication.lLpadding * 2).toInt(), MyApplication.dm.widthPixels - (MyApplication.lLpadding * 2).toInt())
                 linearLayout.addView(cardViews.last())
                 index += 1
             } else if (token.contains("TXT-")) {
@@ -192,16 +180,7 @@ class LocationFragment : Fragment()  {
                 oldRadarSites[index] = ""
                 radarLocationChangedAl.add(false)
                 relativeLayouts.add(RelativeLayout(activityReference))
-                wxglTextObjects.add(
-                        WXGLTextObject(
-                                activityReference,
-                                relativeLayouts[index],
-                                wxglSurfaceViews[index],
-                                wxglRenders[index],
-                                numPanes,
-                                4 // FIXME
-                        )
-                )
+                wxglTextObjects.add(WXGLTextObject(activityReference, relativeLayouts[index], wxglSurfaceViews[index], wxglRenders[index], numPanes, 4))
                 wxglSurfaceViews[index].wxglTextObjects = wxglTextObjects
                 wxglSurfaceViews[index].locationFragment = true
                 wxglTextObjects[index].initializeLabels(activityReference)
@@ -258,14 +237,7 @@ class LocationFragment : Fragment()  {
         getContent()
         if (MyApplication.locDisplayImg) {
             wxglSurfaceViews.indices.forEach {
-                glviewInitialized = UtilityRadarUI.initGlviewFragment(
-                        wxglSurfaceViews[it],
-                        it,
-                        wxglRenders,
-                        wxglSurfaceViews,
-                        wxglTextObjects,
-                        changeListener
-                )
+                glviewInitialized = UtilityRadarUI.initGlviewFragment(wxglSurfaceViews[it], it, wxglRenders, wxglSurfaceViews, wxglTextObjects, changeListener)
             }
         }
         scrollView = view.findViewById(R.id.sv)
@@ -289,12 +261,7 @@ class LocationFragment : Fragment()  {
             setImageOnClick()
             getContent()
         } else {
-            ObjectIntent(
-                    activityReference,
-                    SettingsLocationGenericActivity::class.java,
-                    SettingsLocationGenericActivity.LOC_NUM,
-                    arrayOf((position + 1).toString(), "")
-            )
+            ObjectIntent.showLocationEdit(activityReference, arrayOf((position + 1).toString(), ""))
         }
         locationLabel.text = Location.name
     }
@@ -315,9 +282,7 @@ class LocationFragment : Fragment()  {
 
     override fun onResume() {
         super.onResume()
-        if (glviewInitialized) {
-            wxglSurfaceViews.forEach { it.onResume() }
-        }
+        if (glviewInitialized) { wxglSurfaceViews.forEach { it.onResume() } }
         cardCC?.refreshTextSize()
         locationLabel.refreshTextSize(TextSize.MEDIUM)
         locationLabel.text = Location.name
@@ -409,9 +374,7 @@ class LocationFragment : Fragment()  {
             }
         }
         if (PolygonType.MPD.pref && activityReferenceWithNull != null) {
-            withContext(Dispatchers.IO) {
-                UtilityDownloadMpd.get(activityReference)
-            }
+            withContext(Dispatchers.IO) { UtilityDownloadMpd.get(activityReference) }
             if (!wxglRenders[idx].product.startsWith("2")) {
                 UtilityRadarUI.plotMpdPolygons(wxglSurfaceViews[idx], wxglRenders[idx], false)
             }
