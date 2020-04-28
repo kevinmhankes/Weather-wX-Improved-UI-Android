@@ -76,7 +76,7 @@ class LocationFragment : Fragment()  {
     private var glviewInitialized = false
     private var sevenDayExtShown = false
     private lateinit var intent: Intent
-    private var cardCC: ObjectCardCurrentConditions? = null
+    private var objectCardCurrentConditions: ObjectCardCurrentConditions? = null
     private lateinit var linearLayout: LinearLayout
     private var homescreenFavLocal = ""
     private var sevenDayCards = mutableListOf<ObjectCard7Day>()
@@ -104,8 +104,8 @@ class LocationFragment : Fragment()  {
     private var idxIntG = 0
     private var dialogRadarLongPress: ObjectDialogue? = null
     private val radarLongPressItems = mutableListOf<String>()
-    private var objHazards = ObjectHazards()
-    private var objSevenDay = ObjectSevenDay()
+    private var objectHazards = ObjectHazards()
+    private var objectSevenDay = ObjectSevenDay()
     private var locationChangedSevenDay = false
     private var locationChangedHazards = false
     private var paneList = listOf<Int>()
@@ -126,8 +126,8 @@ class LocationFragment : Fragment()  {
             val widthDivider = 1
             val numPanes = 1
             if (token == "TXT-CC" || token == "TXT-CC2") {
-                if (!currentConditionsAdded && cardCC != null) {
-                    linearLayout.addView(cardCC!!.card)
+                if (!currentConditionsAdded && objectCardCurrentConditions != null) {
+                    linearLayout.addView(objectCardCurrentConditions!!.card)
                     currentConditionsAdded = true
                 }
             } else if (token == "TXT-HAZ") {
@@ -223,10 +223,10 @@ class LocationFragment : Fragment()  {
         locationLabel.setTextColor(UIPreferences.textHighlightColor)
         locationLabel.setOnClickListener(OnClickListener { locationDialogue.show() })
         if (homescreenFavLocal.contains("TXT-CC2")) {
-            cardCC = ObjectCardCurrentConditions(activityReference, 2)
-            cardCC?.setListener(alertDialogStatus, alertDialogStatusList, ::radarTimestamps)
+            objectCardCurrentConditions = ObjectCardCurrentConditions(activityReference, 2)
+            objectCardCurrentConditions?.setListener(alertDialogStatus, alertDialogStatusList, ::radarTimestamps)
         } else {
-            cardCC = ObjectCardCurrentConditions(activityReference, 1)
+            objectCardCurrentConditions = ObjectCardCurrentConditions(activityReference, 1)
         }
         if (homescreenFavLocal.contains("TXT-7DAY")) {
             linearLayoutForecast = LinearLayout(activityReference)
@@ -282,7 +282,7 @@ class LocationFragment : Fragment()  {
     override fun onResume() {
         super.onResume()
         if (glviewInitialized) { wxglSurfaceViews.forEach { it.onResume() } }
-        cardCC?.refreshTextSize()
+        objectCardCurrentConditions?.refreshTextSize()
         locationLabel.refreshTextSize(TextSize.MEDIUM)
         locationLabel.text = Location.name
         sevenDayCards.forEach{ it.refreshTextSize() }
@@ -402,7 +402,7 @@ class LocationFragment : Fragment()  {
             wxglSurfaceViews[idx].requestRender()
             if (idx == oglrIdx) {
                 radarTime = radarTimeStampLocal
-                cardCC?.setStatus(currentConditionsTime + radarTime)
+                objectCardCurrentConditions?.setStatus(currentConditionsTime + radarTime)
             }
         }
     }
@@ -533,7 +533,7 @@ class LocationFragment : Fragment()  {
         hazardsCards[0].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
         hazardsCards[0].setTextColor(UIPreferences.textHighlightColor)
         hazardsCards[0].text = hazUrl
-        val hazUrlCa = objHazards.hazards
+        val hazUrlCa = objectHazards.hazards
         hazardsCards[0].setOnClickListener(OnClickListener { ObjectIntent.showText(activityReference, arrayOf(Utility.fromHtml(hazUrlCa), hazUrl)) })
         if (!hazUrl.startsWith("NO WATCHES OR WARNINGS IN EFFECT")) linearLayoutHazards?.addView(hazardsCards[0].card)
     }
@@ -614,15 +614,15 @@ class LocationFragment : Fragment()  {
         linearLayoutHazards?.removeAllViews()
         hazardsExpandedAl.clear()
         hazardsCards.clear()
-        objHazards.titles.indices.forEach { z ->
-            if (UtilityNotificationTools.nwsLocalAlertNotFiltered(activityReference, objHazards.titles[z])) {
+        objectHazards.titles.indices.forEach { z ->
+            if (UtilityNotificationTools.nwsLocalAlertNotFiltered(activityReference, objectHazards.titles[z])) {
                 hazardsExpandedAl.add(false)
                 hazardsCards.add(ObjectCardText(activityReference))
                 hazardsCards[z].setPaddingAmount(MyApplication.paddingSettings)
                 hazardsCards[z].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
                 hazardsCards[z].setTextColor(UIPreferences.textHighlightColor)
-                hazardsCards[z].text = objHazards.titles[z].toUpperCase(Locale.US)
-                hazardsCards[z].setOnClickListener(OnClickListener { ObjectIntent.showHazard(activityReference, arrayOf(objHazards.urls[z])) })
+                hazardsCards[z].text = objectHazards.titles[z].toUpperCase(Locale.US)
+                hazardsCards[z].setOnClickListener(OnClickListener { ObjectIntent.showHazard(activityReference, arrayOf(objectHazards.urls[z])) })
                 linearLayoutHazards?.addView(hazardsCards[z].card)
             } else {
                 hazardsExpandedAl.add(false)
@@ -639,18 +639,18 @@ class LocationFragment : Fragment()  {
 
     private fun getLocationForecast() = GlobalScope.launch(uiDispatcher) {
         var bitmapForCurrentConditions: Bitmap? = null
-        var objCc = ObjectCurrentConditions()
+        var objectCurrentConditions = ObjectCurrentConditions()
         //
         // Current Conditions
         //
         withContext(Dispatchers.IO) {
             try {
-                objCc = ObjectCurrentConditions(activityReference, Location.currentLocation)
+                objectCurrentConditions = ObjectCurrentConditions(activityReference, Location.currentLocation)
                 if (homescreenFavLocal.contains("TXT-CC2")) {
                     bitmapForCurrentConditions = if (Location.isUS) {
-                        UtilityNws.getIcon(activityReference, objCc.iconUrl)
+                        UtilityNws.getIcon(activityReference, objectCurrentConditions.iconUrl)
                     } else {
-                        UtilityNws.getIcon(activityReference, UtilityCanada.translateIconNameCurrentConditions(objCc.data, objCc.status))
+                        UtilityNws.getIcon(activityReference, UtilityCanada.translateIconNameCurrentConditions(objectCurrentConditions.data, objectCurrentConditions.status))
                     }
                 }
             } catch (e: Exception) {
@@ -661,21 +661,21 @@ class LocationFragment : Fragment()  {
             //
             // Current Conditions
             //
-            cardCC?.let {
+            objectCardCurrentConditions?.let {
                 if (homescreenFavLocal.contains("TXT-CC2")) {
-                    currentConditionsTime = objCc.status
+                    currentConditionsTime = objectCurrentConditions.status
                     if (bitmapForCurrentConditions != null) {
                         it.updateContent(
                                 bitmapForCurrentConditions!!,
-                                objCc,
+                                objectCurrentConditions,
                                 Location.isUS,
                                 currentConditionsTime,
                                 radarTime
                         )
                     }
                 } else {
-                    it.setTopLine(objCc.data)
-                    currentConditionsTime = objCc.status
+                    it.setTopLine(objectCurrentConditions.data)
+                    currentConditionsTime = objectCurrentConditions.status
                     it.setStatus(currentConditionsTime + radarTime)
                 }
             }
@@ -690,15 +690,15 @@ class LocationFragment : Fragment()  {
         }
         withContext(Dispatchers.IO) {
             try {
-                objSevenDay = ObjectSevenDay(Location.currentLocation)
-                Utility.writePref(activityReference, "FCST", objSevenDay.sevenDayLong)
+                objectSevenDay = ObjectSevenDay(Location.currentLocation)
+                Utility.writePref(activityReference, "FCST", objectSevenDay.sevenDayLong)
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
             }
             try {
-                Utility.writePref(activityReference, "FCST", objSevenDay.sevenDayLong)
+                Utility.writePref(activityReference, "FCST", objectSevenDay.sevenDayLong)
                 if (homescreenFavLocal.contains("TXT-7DAY")) {
-                    bitmaps = objSevenDay.icons.map { UtilityNws.getIcon(activityReference, it) }
+                    bitmaps = objectSevenDay.icons.map { UtilityNws.getIcon(activityReference, it) }
                 }
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
@@ -708,7 +708,7 @@ class LocationFragment : Fragment()  {
             if (homescreenFavLocal.contains("TXT-7DAY")) {
                 linearLayoutForecast?.removeAllViewsInLayout()
                 sevenDayCards = mutableListOf()
-                val day7Arr = objSevenDay.forecastList
+                val day7Arr = objectSevenDay.forecastList
                 bitmaps.forEachIndexed { index, bitmap ->
                     val objectCard7Day = ObjectCard7Day(activityReference, bitmap, Location.isUS, index, day7Arr)
                     objectCard7Day.setOnClickListener(OnClickListener { scrollView.smoothScrollTo(0, 0) })
@@ -745,7 +745,7 @@ class LocationFragment : Fragment()  {
         }
         withContext(Dispatchers.IO) {
             try {
-                objHazards = if (Location.isUS(Location.currentLocation)) {
+                objectHazards = if (Location.isUS(Location.currentLocation)) {
                     ObjectHazards(Location.currentLocation)
                 } else {
                     val html = UtilityCanada.getLocationHtml(Location.getLatLon(Location.currentLocation))
@@ -757,7 +757,7 @@ class LocationFragment : Fragment()  {
         }
         if (isAdded) {
             if (Location.isUS) {
-                if (objHazards.titles.isEmpty()) {
+                if (objectHazards.titles.isEmpty()) {
                     if (homescreenFavLocal.contains("TXT-HAZ")) {
                         linearLayoutHazards?.removeAllViews()
                         linearLayoutHazards?.visibility = View.GONE
@@ -769,8 +769,8 @@ class LocationFragment : Fragment()  {
                     }
                 }
             } else {
-                if (objHazards.getHazardsShort() != "") {
-                    val hazardsSum = objHazards.getHazardsShort().toUpperCase(Locale.US)
+                if (objectHazards.getHazardsShort() != "") {
+                    val hazardsSum = objectHazards.getHazardsShort().toUpperCase(Locale.US)
                     if (homescreenFavLocal.contains("TXT-HAZ")) {
                         linearLayoutHazards?.visibility = View.VISIBLE
                         setupHazardCardsCA(hazardsSum)
