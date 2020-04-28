@@ -107,14 +107,8 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         if (Utility.readPref(this, "WFO_REMEMBER_LOCATION", "") == "true") {
             wfo = Utility.readPref(this, "WFO_LAST_USED", Location.wfo)
         }
-        if (wfo == "") {
-            wfo = "OUN"
-        }
-        product = if (activityArguments[1] == "") {
-            MyApplication.wfoTextFav
-        } else {
-            activityArguments[1]
-        }
+        if (wfo == "") wfo = "OUN"
+        product = if (activityArguments[1] == "") MyApplication.wfoTextFav else activityArguments[1]
         if (product.startsWith("RTP") && product.length == 5) {
             val state = Utility.getWfoSiteName(wfo).split(",")[0]
             product = "RTP$state"
@@ -139,9 +133,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
                 val state = Utility.getWfoSiteName(wfo).split(",")[0]
                 getProduct(drw.token.replace("ZZ", state))
             }
-            else -> {
-                getProduct(drw.token)
-            }
+            else -> getProduct(drw.token)
         }
     }
 
@@ -295,9 +287,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         val state = locationList[0].split(" ")[1]
         wfoListPerState = mutableListOf()
         wfoListPerState.clear()
-        GlobalArrays.wfos
-                .filter { it.contains(state) }
-                .forEach {
+        GlobalArrays.wfos.filter { it.contains(state) }.forEach {
                     wfoListPerState.add(MyApplication.space.split(it)[0].replace(":", ""))
                 }
         wfoListPerState.sort()
@@ -332,9 +322,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
 
     private fun checkForCliSite() = GlobalScope.launch(uiDispatcher) {
         if (product == "CLI") {
-            val cliHtml = withContext(Dispatchers.IO) {
-                UtilityDownload.getStringFromUrl("https://w2.weather.gov/climate/index.php?wfo=" + wfo.toLowerCase(Locale.US))
-            }
+            val cliHtml = withContext(Dispatchers.IO) { UtilityDownload.getStringFromUrl("https://w2.weather.gov/climate/index.php?wfo=" + wfo.toLowerCase(Locale.US)) }
             val cliSites = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('.*?','(.*?)'\\)")
             val cliNames = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('(.*?)','.*?'\\)")
             val dialogueMain = ObjectDialogue(this@AfdActivity, "Select site from $wfo:", cliNames)
