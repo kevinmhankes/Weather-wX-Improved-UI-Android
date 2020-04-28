@@ -26,7 +26,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R

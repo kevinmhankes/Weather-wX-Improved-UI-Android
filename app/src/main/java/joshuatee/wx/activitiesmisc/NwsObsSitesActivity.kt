@@ -119,10 +119,9 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_lastused -> showObsSite(Utility.readPref(this, prefToken, ""))
-            R.id.action_map -> {
-                val url = "https://www.wrh.noaa.gov/map/?obs=true&wfo=" + Location.wfo.toLowerCase(Locale.US)
-                ObjectIntent.showWebView(this, arrayOf(url, "Observations near " + Location.wfo))
-            }
+            R.id.action_map -> ObjectIntent.showWebView(this,
+                        arrayOf("https://www.wrh.noaa.gov/map/?obs=true&wfo=" + Location.wfo.toLowerCase(Locale.US),
+                                "Observations near " + Location.wfo))
             else -> return super.onOptionsItemSelected(item)
         }
         return true

@@ -61,8 +61,6 @@ class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemC
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.imagecollection, menu)
-        //actionAnimate = menu.findItem(R.id.action_animate)
-        //actionAnimate!!.isVisible = false
         return true
     }
 
@@ -98,7 +96,6 @@ class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemC
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         toolbar.subtitle = drw.getLabel()
-        //if (drw.url.contains("jma") && imageCollection.title == "GOESFD" && actionAnimate != null) actionAnimate!!.isVisible = true
         bitmap = withContext(Dispatchers.IO) { drw.url.getImage() }
         if (drw.url.contains("large_latestsfc.gif")) img.setMaxZoom(16f) else img.setMaxZoom(4f)
         img.setBitmap(bitmap)
