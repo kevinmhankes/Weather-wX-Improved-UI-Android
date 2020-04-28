@@ -328,17 +328,18 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         return true
     }
 
-    fun zoomInByKey() {
+    fun zoomInByKey(paneScaleFactor: Float = 1.0f) {
         density = (wxglRender.ortInt * 2).toFloat() / width
+        mScaleFactor *= ( 2.0f / paneScaleFactor )
         if (MyApplication.dualpaneshareposn && !locationFragment) {
-            mScaleFactor *= 2.0f
+            //mScaleFactor *= 2.0f
             (0 until numPanes).forEach {
                 wxglRenders[it].setViewInitial(mScaleFactor, wxglRenders[it].x * 2.0f, wxglRenders[it].y * 2.0f)
                 wxglSurfaceViews[it].mScaleFactor = mScaleFactor
                 wxglSurfaceViews[it].requestRender()
             }
         } else {
-            mScaleFactor *= 2.0f
+            //mScaleFactor *= 2.0f
             wxglRender.setViewInitial(mScaleFactor, wxglRender.x * 2.0f, wxglRender.y * 2.0f)
             requestRender()
         }
@@ -374,8 +375,8 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         return true
     }
 
-    fun zoomOutByKey() {
-        mScaleFactor /= 2.0f
+    fun zoomOutByKey(paneScaleFactor: Float = 1.0f) {
+        mScaleFactor /= (2.0f * paneScaleFactor)
         if (MyApplication.dualpaneshareposn && !locationFragment) {
             (0 until numPanes).forEach {
                 wxglRenders[it].setViewInitial(mScaleFactor, wxglRenders[it].x / 2.0f, wxglRenders[it].y / 2.0f)
