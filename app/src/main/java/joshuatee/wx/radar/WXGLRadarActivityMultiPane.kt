@@ -109,7 +109,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private var prefPrefix = "WXOGL_DUALPANE"
     private var relativeLayouts = mutableListOf<RelativeLayout>()
     private var wxglTextObjects = mutableListOf<WXGLTextObject>()
-    private var alertDialogRadarLongPress: ObjectDialogue? = null
+    private var dialogRadarLongPress: ObjectDialogue? = null
     private var doNotSavePref = false
     private var useSinglePanePref = false
     private var landScape = false
@@ -816,7 +816,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         this@WXGLRadarActivityMultiPane,
                         wxglSurfaceViews[idxInt],
                         wxglRenders[idxIntAl],
-                        alertDialogRadarLongPress!!
+                        dialogRadarLongPress!!
                 )
             } else {
                 panesList.forEach { wxglTextObjects[it].addLabels() }
@@ -903,12 +903,12 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private fun getLatLon() = LatLon(locXCurrent, locYCurrent)
 
     private fun setupAlertDialogRadarLongPress() {
-        alertDialogRadarLongPress = ObjectDialogue(this@WXGLRadarActivityMultiPane, alertDialogStatusAl)
-        alertDialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+        dialogRadarLongPress = ObjectDialogue(this@WXGLRadarActivityMultiPane, alertDialogStatusAl)
+        dialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(this)
         })
-        alertDialogRadarLongPress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+        dialogRadarLongPress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val strName = alertDialogStatusAl[which]
             UtilityRadarUI.doLongPressAction(
                     strName,
