@@ -57,7 +57,7 @@ object UtilityUS {
     }
 
     fun checkForNotifications(context: Context, currentLoc: Int, inBlackout: Boolean, tornadoWarningString: String): String {
-        var html = ObjectForecastPackageHazards.getHazardsHtml(Location.getLatLon(currentLoc))
+        var html = ObjectHazards.getHazardsHtml(Location.getLatLon(currentLoc))
         var notificationUrls = ""
         val locationLabelString = "(" + Location.getName(currentLoc) + ") "
         val ids = html.parseColumn("\"@id\": \"(.*?)\"")

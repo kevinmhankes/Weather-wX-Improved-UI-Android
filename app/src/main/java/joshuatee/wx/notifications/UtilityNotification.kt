@@ -191,9 +191,9 @@ object UtilityNotification {
             if (MyApplication.locations[locNumInt].ccNotification) notifUrls += url + "CC" + MyApplication.notificationStrSep
             if (MyApplication.locations[locNumInt].sevenDayNotification) notifUrls += url + "7day" + MyApplication.notificationStrSep
             if (currentUpdateTime > lastUpdateTime + 1000 * 60 * ccUpdateInterval) {
-                val objCc = ObjectForecastPackageCurrentConditions(context, locNumInt)
-                val objHazards = ObjectForecastPackageHazards(locNumInt)
-                val objSevenDay = ObjectForecastPackage7Day(locNumInt)
+                val objCc = ObjectCurrentConditions(context, locNumInt)
+                val objHazards = ObjectHazards(locNumInt)
+                val objSevenDay = ObjectSevenDay(locNumInt)
                 val updateTime = UtilityTime.currentTimeMillis()
                 Utility.writePref(context, "CC" + locNum + "_LAST_UPDATE", updateTime)
                 if (locNum == widgetLocNum && widgetsEnabled) UtilityWidget.widgetDownloadData(context, objCc, objSevenDay, objHazards)

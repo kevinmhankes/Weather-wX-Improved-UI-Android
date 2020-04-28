@@ -59,9 +59,9 @@ class ForecastActivity : BaseActivity() {
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var activityArguments: Array<String>
     private var latLon = LatLon()
-    private var objCc = ObjectForecastPackageCurrentConditions()
-    private var objHazards = ObjectForecastPackageHazards()
-    private var objSevenDay = ObjectForecastPackage7Day()
+    private var objCc = ObjectCurrentConditions()
+    private var objHazards = ObjectHazards()
+    private var objSevenDay = ObjectSevenDay()
     private var ccTime = ""
     private var radarTime = ""
     private lateinit var cardCC: ObjectCardCurrentConditions
@@ -100,9 +100,9 @@ class ForecastActivity : BaseActivity() {
             //
             // Current conditions
             //
-            objCc = ObjectForecastPackageCurrentConditions(this@ForecastActivity, latLon)
-            objHazards = ObjectForecastPackageHazards(latLon)
-            objSevenDay = ObjectForecastPackage7Day(latLon)
+            objCc = ObjectCurrentConditions(this@ForecastActivity, latLon)
+            objHazards = ObjectHazards(latLon)
+            objSevenDay = ObjectSevenDay(latLon)
             bitmapForCurrentCondition = UtilityNws.getIcon(this@ForecastActivity, objCc.iconUrl)
             //
             // 7day

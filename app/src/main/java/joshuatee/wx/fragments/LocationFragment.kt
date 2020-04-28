@@ -104,8 +104,8 @@ class LocationFragment : Fragment()  {
     private var idxIntG = 0
     private var dialogRadarLongPress: ObjectDialogue? = null
     private val radarLongPressItems = mutableListOf<String>()
-    private var objHazards = ObjectForecastPackageHazards()
-    private var objSevenDay = ObjectForecastPackage7Day()
+    private var objHazards = ObjectHazards()
+    private var objSevenDay = ObjectSevenDay()
     private var locationChangedSevenDay = false
     private var locationChangedHazards = false
     private var paneList = listOf<Int>()
@@ -639,13 +639,13 @@ class LocationFragment : Fragment()  {
 
     private fun getLocationForecast() = GlobalScope.launch(uiDispatcher) {
         var bitmapForCurrentConditions: Bitmap? = null
-        var objCc = ObjectForecastPackageCurrentConditions()
+        var objCc = ObjectCurrentConditions()
         //
         // Current Conditions
         //
         withContext(Dispatchers.IO) {
             try {
-                objCc = ObjectForecastPackageCurrentConditions(activityReference, Location.currentLocation)
+                objCc = ObjectCurrentConditions(activityReference, Location.currentLocation)
                 if (homescreenFavLocal.contains("TXT-CC2")) {
                     bitmapForCurrentConditions = if (Location.isUS) {
                         UtilityNws.getIcon(activityReference, objCc.iconUrl)
@@ -690,7 +690,7 @@ class LocationFragment : Fragment()  {
         }
         withContext(Dispatchers.IO) {
             try {
-                objSevenDay = ObjectForecastPackage7Day(Location.currentLocation)
+                objSevenDay = ObjectSevenDay(Location.currentLocation)
                 Utility.writePref(activityReference, "FCST", objSevenDay.sevenDayLong)
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
@@ -746,10 +746,10 @@ class LocationFragment : Fragment()  {
         withContext(Dispatchers.IO) {
             try {
                 objHazards = if (Location.isUS(Location.currentLocation)) {
-                    ObjectForecastPackageHazards(Location.currentLocation)
+                    ObjectHazards(Location.currentLocation)
                 } else {
                     val html = UtilityCanada.getLocationHtml(Location.getLatLon(Location.currentLocation))
-                    ObjectForecastPackageHazards(html)
+                    ObjectHazards(html)
                 }
             } catch (e: Exception) {
                 UtilityLog.handleException(e)

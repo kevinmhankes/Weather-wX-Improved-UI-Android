@@ -29,7 +29,7 @@ import android.widget.LinearLayout
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.TextSize
 import joshuatee.wx.settings.Location
-import joshuatee.wx.util.ObjectForecastPackageCurrentConditions
+import joshuatee.wx.util.ObjectCurrentConditions
 
 class ObjectCardCurrentConditions(context: Context, version: Int) {
 
@@ -92,7 +92,7 @@ class ObjectCardCurrentConditions(context: Context, version: Int) {
         }
     }
 
-    fun updateContent(bitmap: Bitmap, objCc: ObjectForecastPackageCurrentConditions, isUS: Boolean, time: String, radarTime: String) {
+    fun updateContent(bitmap: Bitmap, objCc: ObjectCurrentConditions, isUS: Boolean, time: String, radarTime: String) {
         objectImageView.setImage(bitmap)
         val sep = " - "
         val conditionTokens = objCc.data.split(sep).dropLastWhile { it.isEmpty() }

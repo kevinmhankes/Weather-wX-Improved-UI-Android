@@ -34,7 +34,7 @@ import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.ui.ObjectRecyclerViewGeneric
 import joshuatee.wx.ui.UtilityUI
-import joshuatee.wx.util.ObjectForecastPackageCurrentConditions
+import joshuatee.wx.util.ObjectCurrentConditions
 import kotlinx.coroutines.*
 
 class SettingsLocationRecyclerViewActivity : BaseActivity() {
@@ -47,7 +47,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
     private var locations = mutableListOf<String>()
     private lateinit var recyclerView: ObjectRecyclerViewGeneric
     private lateinit var settingsLocationAdapterList: SettingsLocationAdapterList
-    private var currentConditions = mutableListOf<ObjectForecastPackageCurrentConditions>()
+    private var currentConditions = mutableListOf<ObjectCurrentConditions>()
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +67,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         currentConditions.clear()
         withContext(Dispatchers.IO) {
             MyApplication.locations.indices.forEach { index ->
-                val objectForecastPackageCurrentConditions = ObjectForecastPackageCurrentConditions(this@SettingsLocationRecyclerViewActivity, index)
+                val objectForecastPackageCurrentConditions = ObjectCurrentConditions(this@SettingsLocationRecyclerViewActivity, index)
                 currentConditions.add(objectForecastPackageCurrentConditions)
                 objectForecastPackageCurrentConditions.format()
             }

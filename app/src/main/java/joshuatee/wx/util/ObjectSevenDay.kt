@@ -28,7 +28,7 @@ import joshuatee.wx.settings.Location
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.radar.LatLon
 
-class ObjectForecastPackage7Day {
+class ObjectSevenDay {
 
     // separated by "!"
     var iconsAsString = ""

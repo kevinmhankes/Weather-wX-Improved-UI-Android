@@ -28,7 +28,7 @@ import joshuatee.wx.settings.Location
 
 import joshuatee.wx.radar.LatLon
 
-class ObjectForecastPackageCurrentConditions {
+class ObjectCurrentConditions {
 
     var topLine = ""
     var data = ""

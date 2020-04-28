@@ -27,7 +27,7 @@ import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.radar.LatLon
 import joshuatee.wx.settings.Location
 
-class ObjectForecastPackageHazards {
+class ObjectHazards {
 
     private var hazardsShort = ""
     var urls = listOf<String>()

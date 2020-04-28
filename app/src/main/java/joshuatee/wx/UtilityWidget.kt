@@ -95,7 +95,7 @@ object UtilityWidget {
         }
     }
 
-    fun widgetDownloadData(context: Context, objCc: ObjectForecastPackageCurrentConditions, objSevenDay: ObjectForecastPackage7Day, objHazards: ObjectForecastPackageHazards) {
+    fun widgetDownloadData(context: Context, objCc: ObjectCurrentConditions, objSevenDay: ObjectSevenDay, objHazards: ObjectHazards) {
         val hazardRaw = objHazards.hazards
         Utility.writePref(context, "HAZARD_WIDGET", objHazards.getHazardsShort())
         Utility.writePref(context, "7DAY_WIDGET", objSevenDay.sevenDayShort)
