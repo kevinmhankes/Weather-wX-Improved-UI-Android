@@ -68,13 +68,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                     ObjectIntent(this, CanadaAlertsActivity::class.java)
                 }
             }
-            R.id.action_observations -> {
-                if (Location.isUS) {
-                    ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("OBSERVATIONS"))
-                } else {
-                    ObjectIntent.showImage(this, arrayOf("http://weather.gc.ca/data/wxoimages/wocanmap0_e.jpg", "Observations"))
-                }
-            }
+            R.id.action_observations -> ObjectIntent.showObservations(this)
             R.id.action_playlist -> ObjectIntent(this, SettingsPlaylistActivity::class.java)
             R.id.action_soundings -> {
                 if (Location.isUS)

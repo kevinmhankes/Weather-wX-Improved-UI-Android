@@ -25,10 +25,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.activitiesmisc.ImageShowActivity
-import joshuatee.wx.activitiesmisc.TextScreenActivity
-import joshuatee.wx.activitiesmisc.USWarningsWithRadarActivity
-import joshuatee.wx.activitiesmisc.WebView
+import joshuatee.wx.activitiesmisc.*
 import joshuatee.wx.canada.CanadaRadarActivity
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.models.ModelsGenericActivity
@@ -76,6 +73,14 @@ class ObjectIntent() {
     }
 
     companion object {
+
+        fun showObservations(context: Context) {
+            if (Location.isUS) {
+                ObjectIntent(context, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("OBSERVATIONS"))
+            } else {
+                ObjectIntent.showImage(context, arrayOf("http://weather.gc.ca/data/wxoimages/wocanmap0_e.jpg", "Observations"))
+            }
+        }
 
         fun showUsAlerts(context: Context) {
             ObjectIntent(

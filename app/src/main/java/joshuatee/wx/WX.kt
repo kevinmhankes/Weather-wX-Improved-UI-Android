@@ -180,19 +180,11 @@ class WX : CommonActionBarFragment() {
                     R.id.goes_global -> ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("GOESFD"))
                     R.id.lightning -> ObjectIntent(this,LightningActivity::class.java)
                     R.id.national_images -> ObjectIntent(this, WpcImagesActivity::class.java, "", arrayOf())
-                    R.id.national_text -> {
-                        ObjectIntent(this, WpcTextProductsActivity::class.java, WpcTextProductsActivity.URL, arrayOf("pmdspd", "Short Range Forecast Discussion"))
-                    }
+                    R.id.national_text -> ObjectIntent(this, WpcTextProductsActivity::class.java, WpcTextProductsActivity.URL, arrayOf("pmdspd", "Short Range Forecast Discussion"))
                     R.id.ncep_models -> ObjectIntent.showModel(this, arrayOf("1", "NCEP", "NCEP"))
                     R.id.nhc -> ObjectIntent(this, NhcActivity::class.java, "", arrayOf())
                     R.id.nssl_wrf -> ObjectIntent.showModel(this, arrayOf("1", "NSSL", "NSSL"))
-                    R.id.observations -> {
-                        if (Location.isUS) {
-                            ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("OBSERVATIONS"))
-                        } else {
-                            ObjectIntent.showImage(this, arrayOf("http://weather.gc.ca/data/wxoimages/wocanmap0_e.jpg", "Observations"))
-                        }
-                    }
+                    R.id.observations -> ObjectIntent.showObservations(this)
                     R.id.observation_sites -> ObjectIntent(this, NwsObsSitesActivity::class.java, "", arrayOf())
                     R.id.opc -> ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("OPC"))
                     R.id.radar_mosaic -> ObjectIntent.showRadarMosaic(this)
