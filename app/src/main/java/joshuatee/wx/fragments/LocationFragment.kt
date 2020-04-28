@@ -570,16 +570,8 @@ class LocationFragment : Fragment()  {
         dialogRadarLongPress = ObjectDialogue(activityReference, radarLongPressItems)
         dialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ -> dialog.dismiss() })
         dialogRadarLongPress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            val strName = radarLongPressItems[which]
-            UtilityRadarUI.doLongPressAction(
-                    strName,
-                    activityReference,
-                    activityReference,
-                    wxglSurfaceViews[idxIntG],
-                    wxglRenders[idxIntG],
-                    uiDispatcher,
-                    ::longPressRadarSiteSwitch
-            )
+            val item = radarLongPressItems[which]
+            UtilityRadarUI.doLongPressAction(item, activityReference, activityReference, wxglSurfaceViews[idxIntG], wxglRenders[idxIntG], uiDispatcher, ::longPressRadarSiteSwitch)
             dialog.dismiss()
         })
     }
@@ -665,13 +657,7 @@ class LocationFragment : Fragment()  {
                 if (homescreenFavLocal.contains("TXT-CC2")) {
                     currentConditionsTime = objectCurrentConditions.status
                     if (bitmapForCurrentConditions != null) {
-                        it.updateContent(
-                                bitmapForCurrentConditions!!,
-                                objectCurrentConditions,
-                                Location.isUS,
-                                currentConditionsTime,
-                                radarTime
-                        )
+                        it.updateContent(bitmapForCurrentConditions!!, objectCurrentConditions, Location.isUS, currentConditionsTime, radarTime)
                     }
                 } else {
                     it.setTopLine(objectCurrentConditions.data)
@@ -697,9 +683,7 @@ class LocationFragment : Fragment()  {
             }
             try {
                 Utility.writePref(activityReference, "FCST", objectSevenDay.sevenDayLong)
-                if (homescreenFavLocal.contains("TXT-7DAY")) {
-                    bitmaps = objectSevenDay.icons.map { UtilityNws.getIcon(activityReference, it) }
-                }
+                if (homescreenFavLocal.contains("TXT-7DAY")) bitmaps = objectSevenDay.icons.map { UtilityNws.getIcon(activityReference, it) }
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
             }
@@ -729,10 +713,8 @@ class LocationFragment : Fragment()  {
             //
             // Canada legal card
             //
-            if (!Location.isUS) {
-                if (homescreenFavLocal.contains("TXT-7DAY2")) {
-                    ObjectCALegal(activityReference, linearLayoutForecast!!, UtilityCanada.getLocationUrl(x, y))
-                }
+            if (!Location.isUS && homescreenFavLocal.contains("TXT-7DAY2")) {
+                ObjectCALegal(activityReference, linearLayoutForecast!!, UtilityCanada.getLocationUrl(x, y))
             }
         }
     }
