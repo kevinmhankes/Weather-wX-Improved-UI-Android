@@ -22,25 +22,27 @@
 package joshuatee.wx.activitiesmisc
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.content.res.Configuration
 import android.graphics.drawable.AnimationDrawable
+import android.os.Bundle
 import android.view.Menu
-import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
-import joshuatee.wx.Extensions.getImage
-import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
+import joshuatee.wx.Extensions.getImage
+import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.radar.VideoRecordActivity
-import joshuatee.wx.ui.*
+import joshuatee.wx.ui.ObjectImagesCollection
+import joshuatee.wx.ui.ObjectNavDrawer
+import joshuatee.wx.ui.ObjectTouchImageView
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityImgAnim
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.vis.UtilityGoesFullDisk
 import kotlinx.coroutines.*
+
 
 class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemClickListener
 
@@ -59,9 +61,16 @@ class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemC
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.imagecollection, menu)
+        //actionAnimate = menu.findItem(R.id.action_animate)
+        //actionAnimate!!.isVisible = false
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         actionAnimate = menu.findItem(R.id.action_animate)
         actionAnimate!!.isVisible = false
-        return true
+        if (drw.url.contains("jma") && imageCollection.title == "GOESFD" && actionAnimate != null) actionAnimate!!.isVisible = true
+        return super.onPrepareOptionsMenu(menu)
     }
 
     @SuppressLint("MissingSuperCall")
@@ -89,11 +98,12 @@ class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemC
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         toolbar.subtitle = drw.getLabel()
-        if (drw.url.contains("jma") && imageCollection.title == "GOESFD" && actionAnimate != null) actionAnimate!!.isVisible = true
+        //if (drw.url.contains("jma") && imageCollection.title == "GOESFD" && actionAnimate != null) actionAnimate!!.isVisible = true
         bitmap = withContext(Dispatchers.IO) { drw.url.getImage() }
         if (drw.url.contains("large_latestsfc.gif")) img.setMaxZoom(16f) else img.setMaxZoom(4f)
         img.setBitmap(bitmap)
         img.firstRunSetZoomPosn(imageCollection.prefImagePosition)
+        invalidateOptionsMenu()
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
