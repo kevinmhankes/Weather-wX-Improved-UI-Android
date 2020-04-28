@@ -411,14 +411,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                         ::getLatLon
                 )
                 withContext(Dispatchers.IO) {
-                    UtilityRadarUI.plotRadar(
-                            oglr,
-                            "",
-                            this@WXGLRadarActivityMultiPane,
-                            ::getGpsFromDouble,
-                            ::getLatLon,
-                            false
-                    )
+                    UtilityRadarUI.plotRadar(oglr, "", this@WXGLRadarActivityMultiPane, ::getGpsFromDouble, ::getLatLon, false)
                 }
                 if (!oglInView) {
                     glviewShow()
