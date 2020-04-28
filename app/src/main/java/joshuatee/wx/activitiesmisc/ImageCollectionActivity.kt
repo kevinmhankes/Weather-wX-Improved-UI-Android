@@ -52,7 +52,7 @@ class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemC
     private var bitmap = UtilityImg.getBlankBitmap()
     private lateinit var img: ObjectTouchImageView
     private lateinit var drw: ObjectNavDrawer
-    private lateinit var actionAnimate: MenuItem
+    private var actionAnimate: MenuItem? = null
     private lateinit var imageCollection: ObjectImagesCollection
     private lateinit var activityArguments: Array<String>
     private var animDrawable = AnimationDrawable()
@@ -60,7 +60,7 @@ class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemC
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.imagecollection, menu)
         actionAnimate = menu.findItem(R.id.action_animate)
-        actionAnimate.isVisible = false
+        actionAnimate!!.isVisible = false
         return true
     }
 
@@ -89,7 +89,7 @@ class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemC
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         toolbar.subtitle = drw.getLabel()
-        if (drw.url.contains("jma") && imageCollection.title == "GOESFD") actionAnimate.isVisible = true
+        if (drw.url.contains("jma") && imageCollection.title == "GOESFD" && actionAnimate != null) actionAnimate!!.isVisible = true
         bitmap = withContext(Dispatchers.IO) { drw.url.getImage() }
         if (drw.url.contains("large_latestsfc.gif")) img.setMaxZoom(16f) else img.setMaxZoom(4f)
         img.setBitmap(bitmap)
