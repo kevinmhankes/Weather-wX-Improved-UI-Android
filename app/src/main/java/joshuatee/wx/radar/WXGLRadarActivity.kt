@@ -1093,7 +1093,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 return true
             }
             KeyEvent.KEYCODE_DPAD_UP -> {
-                if (event.isCtrlPressed) {
+                if (event.isAltPressed) {
                     wxglSurfaceView.zoomOutByKey()
                 } else {
                     wxglSurfaceView.onScrollByKeyboard(0.0f, -20.0f)
@@ -1101,7 +1101,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 return true
             }
             KeyEvent.KEYCODE_DPAD_DOWN -> {
-                if (event.isCtrlPressed) {
+                if (event.isAltPressed) {
                     wxglSurfaceView.zoomInByKey()
                 } else {
                     wxglSurfaceView.onScrollByKeyboard(0.0f, 20.0f)

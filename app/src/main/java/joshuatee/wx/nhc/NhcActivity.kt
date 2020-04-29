@@ -33,7 +33,6 @@ import joshuatee.wx.R
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.audio.AudioPlayActivity
-import joshuatee.wx.models.ModelsGenericActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.wpc.WpcTextProductsActivity
 import kotlinx.coroutines.*

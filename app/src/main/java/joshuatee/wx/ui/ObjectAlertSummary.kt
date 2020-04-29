@@ -36,7 +36,6 @@ import java.util.TreeMap
 import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.CapAlert
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityString

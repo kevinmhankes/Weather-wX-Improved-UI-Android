@@ -28,6 +28,7 @@ import android.content.IntentFilter
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.MenuItem
@@ -114,6 +115,8 @@ class WX : CommonActionBarFragment() {
             val headerLayout = navigationView.getHeaderView(0)
             headerLayout.setBackgroundColor(color)
             // TODO chunk below needs a lot of refactor , create static objectIntent and pass drawer to close as optional
+            val statusText = headerLayout.findViewById<TextView>(R.id.statusText)
+            statusText.visibility = View.GONE
             val severeDashboardButton = headerLayout.findViewById<ImageButton>(R.id.severeDashboardButton)
             val severeDashboardText = headerLayout.findViewById<TextView>(R.id.severeDashboardText)
             val visButton = headerLayout.findViewById<ImageButton>(R.id.visibleSatelliteButton)
@@ -218,7 +221,23 @@ class WX : CommonActionBarFragment() {
                 drawerLayout.closeDrawer(GravityCompat.START)
                 true
             }
-            ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD, OnClickListener { drawerLayout.openDrawer(Gravity.LEFT)})
+            ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD, OnClickListener {
+                val headerSize: Float
+                val tabStr = UtilitySpc.checkSpc()
+                if (MyApplication.checkspc || MyApplication.checktor || MyApplication.checkwpc
+                        && (tabStr[0] != "SPC" || tabStr[1] != "MISC")) {
+                    statusText.visibility = View.VISIBLE
+                    statusText.text = tabStr[0] + " " + tabStr[1]
+                    headerSize = 280f
+                } else {
+                    statusText.visibility = View.GONE
+                    headerSize = 250f
+                }
+                val layoutParams = headerLayout.layoutParams
+                layoutParams.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, headerSize, resources.displayMetrics).toInt()
+                headerLayout.layoutParams = layoutParams
+                drawerLayout.openDrawer(Gravity.LEFT)
+            })
         }
         // material 1.1.0, since we are using .Bridge theme the below is not needed
         // but left for reference

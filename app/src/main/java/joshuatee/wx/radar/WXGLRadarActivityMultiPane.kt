@@ -1103,7 +1103,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 return true
             }
             KeyEvent.KEYCODE_DPAD_UP -> {
-                if (event.isCtrlPressed) {
+                if (event.isAltPressed) {
                     wxglSurfaceViews.forEach{ it.zoomOutByKey(numberOfPanes.toFloat()) }
                 } else {
                     wxglSurfaceViews.forEach{ it.onScrollByKeyboard(0.0f, -20.0f) }
@@ -1111,7 +1111,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 return true
             }
             KeyEvent.KEYCODE_DPAD_DOWN -> {
-                if (event.isCtrlPressed) {
+                if (event.isAltPressed) {
                     wxglSurfaceViews.forEach{ it.zoomInByKey(numberOfPanes.toFloat()) }
                 } else {
                     wxglSurfaceViews.forEach{ it.onScrollByKeyboard(0.0f, 20.0f) }

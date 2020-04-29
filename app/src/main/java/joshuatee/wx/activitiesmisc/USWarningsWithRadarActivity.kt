@@ -28,7 +28,6 @@ import android.view.Menu
 import android.widget.AdapterView
 import java.util.Locale
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R

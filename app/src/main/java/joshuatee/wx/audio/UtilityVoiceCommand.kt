@@ -27,15 +27,12 @@ import android.content.Context
 import android.view.View
 
 import joshuatee.wx.activitiesmisc.AfdActivity
-import joshuatee.wx.radar.USNwsMosaicActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.spc.SpcMesoActivity
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.spc.SpcSwoActivity
 import joshuatee.wx.util.Utility
-import joshuatee.wx.vis.GoesActivity
 import joshuatee.wx.wpc.WpcTextProductsActivity
 
 object UtilityVoiceCommand {

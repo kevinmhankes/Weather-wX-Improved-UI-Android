@@ -28,9 +28,7 @@ import android.view.View
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.ForecastActivity
-import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.external.UtilityStringExternal
-import joshuatee.wx.spc.SpcMcdWatchShowActivity
 import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.ObjectImageMap
 

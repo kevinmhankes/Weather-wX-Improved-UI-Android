@@ -8,6 +8,15 @@
     android:orientation="vertical"
     android:background="@color/bg_blue"
     >
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Severe"
+        android:textAllCaps="false"
+        android:textColor="#FFF"
+        android:textSize="16sp" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
