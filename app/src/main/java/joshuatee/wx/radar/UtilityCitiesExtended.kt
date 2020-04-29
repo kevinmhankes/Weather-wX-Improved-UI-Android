@@ -30,9 +30,9 @@ internal object UtilityCitiesExtended {
 
     private var initialized = false
     var cities = mutableListOf<CityExt>()
-    var cityLabels = mutableListOf<String>()
-    var cityLat = mutableListOf<Double>()
-    var cityLon = mutableListOf<Double>()
+    var cityLabels = arrayOf<String>()
+    var cityLat = arrayOf<Double>()
+    var cityLon = arrayOf<Double>()
 
     fun create(context: Context) {
         if (!initialized) {
@@ -43,8 +43,12 @@ internal object UtilityCitiesExtended {
             var tokens: Array<String>
             val text = UtilityIO.readTextFileFromRaw(context.resources, R.raw.cityall)
             val lines = text.split("\n").dropLastWhile { it.isEmpty() }
-            lines.forEach {
-                tokens = MyApplication.comma.split(it)
+            cityLabels = Array(lines.size) {""}
+            cityLat = Array(lines.size) {0.0}
+            cityLon = Array(lines.size) {0.0}
+            for (index in lines.indices) {
+            //lines.forEach {
+                tokens = MyApplication.comma.split(lines[index])
                 latitude = tokens[2].toDoubleOrNull() ?: 0.0
                 longitude = (tokens[3].replace("-", "")).toDoubleOrNull() ?: 0.0
                 if (tokens.size > 4) {
@@ -52,9 +56,9 @@ internal object UtilityCitiesExtended {
                 } else {
                     cities.add(CityExt(tokens[0], tokens[1], latitude, longitude))
                 }
-                cityLabels.add(tokens[1].trim() + ", " + tokens[0])
-                cityLat.add(latitude)
-                cityLon.add(longitude)
+                cityLabels[index] = tokens[1].trim() + ", " + tokens[0]
+                cityLat[index] = latitude
+                cityLon[index] = longitude
             }
         }
     }

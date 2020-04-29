@@ -750,6 +750,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                         img.setZoom(1.0f)
                         wxglSurfaceView.scaleFactor = MyApplication.wxoglSize / 10.0f
                         wxglRender.setViewInitial(MyApplication.wxoglSize / 10.0f, 0.0f, 0.0f)
+                        // ADD Apr 2020 to fix issue when switching via map to new location
+                        UtilityWXGLTextObject.showLabels(numberOfPanes, wxglTextObjects)
                     }
                     restarted = false
                     ridChanged = true

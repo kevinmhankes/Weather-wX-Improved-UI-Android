@@ -75,7 +75,7 @@ class WXGLTextObject(
     }
 
     private fun addCities() {
-        UtilityLog.d("WX", "DEBUG: add cities")
+        UtilityLog.d("WX", "DEBUG: add cities" + citiesInitialized.toString())
         if (GeographyType.CITIES.pref && citiesInitialized) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             hideCities()
@@ -85,16 +85,24 @@ class WXGLTextObject(
             if (wxglRender.zoom < 1.00f) oglrZoom = wxglRender.zoom * 0.8f
             textSize = MyApplication.textSizeSmall * oglrZoom * 0.75f * MyApplication.radarTextSize
             val cityMinZoom = 0.50
+            UtilityLog.d("WX", "DEBUG: " + wxglRender.zoom.toString() + " " + cityMinZoom.toString())
             if (wxglRender.zoom > cityMinZoom) {
                 val cityExtLength = UtilityCitiesExtended.cities.size
                 for (index in 0 until cityExtLength) {
-                    UtilityLog.d("WX", "DEBUG: " + index.toString())
+                    //UtilityLog.d("WX", "DEBUG: " + index.toString())
                     if (wxglSurfaceView.cities.size < maxCitiesPerGlview) {
-                        checkAndDrawText(
+                        /*checkAndDrawText(
                                 wxglSurfaceView.cities,
                                 UtilityCitiesExtended.cities[index].latD,
                                 UtilityCitiesExtended.cities[index].lonD,
                                 UtilityCitiesExtended.cities[index].name,
+                                MyApplication.radarColorCity
+                        )*/
+                        checkAndDrawText(
+                                wxglSurfaceView.cities,
+                                UtilityCitiesExtended.cityLat[index],
+                                UtilityCitiesExtended.cityLon[index],
+                                UtilityCitiesExtended.cityLabels[index],
                                 MyApplication.radarColorCity
                         )
                     } else {
