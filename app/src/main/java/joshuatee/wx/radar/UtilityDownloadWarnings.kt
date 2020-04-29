@@ -48,15 +48,11 @@ internal object UtilityDownloadWarnings {
         }
     }
 
-    fun getForSevereDashboard(context: Context) {
-        if (timer.isRefreshNeeded(context)) getPolygonVtec(context)
-    }
+    fun getForSevereDashboard(context: Context) { if (timer.isRefreshNeeded(context)) getPolygonVtec(context) }
 
     // The only difference from the get method above is the absence of any preference check
     // ie - if you call this you are going to download regardless
-    fun getForNotification(context: Context) {
-        if (timer.isRefreshNeeded(context)) getPolygonVtec(context)
-    }
+    fun getForNotification(context: Context) { if (timer.isRefreshNeeded(context)) getPolygonVtec(context) }
 
     private fun getPolygonVtec(context: Context) {
         // FIXME improve structure

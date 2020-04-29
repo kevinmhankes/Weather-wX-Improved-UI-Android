@@ -36,9 +36,7 @@ internal object UtilityDownloadWatch {
     const val type = "WATCH"
     var timer = DownloadTimer(type)
 
-    fun get(context: Context) {
-        if (timer.isRefreshNeeded(context)) getWatch(context)
-    }
+    fun get(context: Context) { if (timer.isRefreshNeeded(context)) getWatch(context) }
 
     fun getWatch(context: Context): WatchData {
         val html = "${MyApplication.nwsSPCwebsitePrefix}/products/watch/".getHtml()
@@ -71,7 +69,7 @@ internal object UtilityDownloadWatch {
         val listOriginal = UtilityString.parseColumn(MyApplication.severeDashboardWat.value, RegExp.watchPattern)
         val list = listOriginal.map { String.format("%4s", it).replace(' ', '0') }
         var watchNoList = ""
-        list.forEach { watchNoList = "$watchNoList$it:" }
+        list.forEach { watchNoList += "$it:" }
         if (PolygonType.MCD.pref) MyApplication.watchNoList.valueSet(context, watchNoList)
         return list
     }

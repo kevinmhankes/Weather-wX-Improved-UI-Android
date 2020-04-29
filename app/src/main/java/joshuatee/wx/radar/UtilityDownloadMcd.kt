@@ -36,9 +36,7 @@ internal object UtilityDownloadMcd {
     const val type = "MCD"
     var timer = DownloadTimer(type)
 
-    fun get(context: Context) {
-        if (timer.isRefreshNeeded(context)) getMcd(context)
-    }
+    fun get(context: Context) { if (timer.isRefreshNeeded(context)) getMcd(context) }
 
     fun getMcd(context: Context): WatchData {
         val html = "${MyApplication.nwsSPCwebsitePrefix}/products/md/".getHtml()
@@ -51,18 +49,15 @@ internal object UtilityDownloadMcd {
             htmlList.add(mcdData[0])
             latLonString += mcdData[1]
         }
-        val locationNeedsMcd = UtilityNotificationSpc.locationNeedsMcd()
-        if (PolygonType.MCD.pref || locationNeedsMcd) MyApplication.mcdLatLon.valueSet(context, latLonString)
+        if (PolygonType.MCD.pref || UtilityNotificationSpc.locationNeedsMcd()) MyApplication.mcdLatLon.valueSet(context, latLonString)
         return WatchData(numberList, htmlList)
     }
 
     private fun getListOfNumbers(context: Context): List<String> {
         val list = UtilityString.parseColumn(MyApplication.severeDashboardMcd.value, RegExp.mcdPatternAlertr)
         var mcdNoList = ""
-        // FIXME use +=
-        list.forEach { mcdNoList = "$mcdNoList$it:" }
-        val locationNeedsMcd = UtilityNotificationSpc.locationNeedsMcd()
-        if (PolygonType.MCD.pref || locationNeedsMcd) MyApplication.mcdNoList.valueSet(context, mcdNoList)
+        list.forEach { mcdNoList += "$it:" }
+        if (PolygonType.MCD.pref || UtilityNotificationSpc.locationNeedsMcd()) MyApplication.mcdNoList.valueSet(context, mcdNoList)
         return list
     }
 

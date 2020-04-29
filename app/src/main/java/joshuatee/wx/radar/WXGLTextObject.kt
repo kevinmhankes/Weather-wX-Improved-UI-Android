@@ -35,6 +35,7 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.ProjectionType
 import joshuatee.wx.util.ProjectionNumbers
 import joshuatee.wx.util.UtilityCanvasProjection
+import joshuatee.wx.util.UtilityLog
 
 import kotlin.math.*
 
@@ -74,6 +75,7 @@ class WXGLTextObject(
     }
 
     private fun addCities() {
+        UtilityLog.d("WX", "DEBUG: add cities")
         if (GeographyType.CITIES.pref && citiesInitialized) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             hideCities()
@@ -85,15 +87,19 @@ class WXGLTextObject(
             val cityMinZoom = 0.50
             if (wxglRender.zoom > cityMinZoom) {
                 val cityExtLength = UtilityCitiesExtended.cities.size
-                for (c in 0 until cityExtLength) {
-                    if (wxglSurfaceView.cities.size > maxCitiesPerGlview) break
-                    checkAndDrawText(
-                            wxglSurfaceView.cities,
-                            UtilityCitiesExtended.cities[c].latD,
-                            UtilityCitiesExtended.cities[c].lonD,
-                            UtilityCitiesExtended.cities[c].name,
-                            MyApplication.radarColorCity
-                    )
+                for (index in 0 until cityExtLength) {
+                    UtilityLog.d("WX", "DEBUG: " + index.toString())
+                    if (wxglSurfaceView.cities.size < maxCitiesPerGlview) {
+                        checkAndDrawText(
+                                wxglSurfaceView.cities,
+                                UtilityCitiesExtended.cities[index].latD,
+                                UtilityCitiesExtended.cities[index].lonD,
+                                UtilityCitiesExtended.cities[index].name,
+                                MyApplication.radarColorCity
+                        )
+                    } else {
+                        break
+                    }
                 }
             } else {
                 hideCities()
@@ -104,9 +110,9 @@ class WXGLTextObject(
     }
 
     private fun hideCities() {
-        wxglSurfaceView.cities.indices.forEach {
-            wxglSurfaceView.cities[it].visibility = View.GONE
-            relativeLayout.removeView(wxglSurfaceView.cities[it])
+        for (index in 0 until wxglSurfaceView.cities.size) {
+            wxglSurfaceView.cities[index].visibility = View.GONE
+            relativeLayout.removeView(wxglSurfaceView.cities[index])
         }
     }
 
