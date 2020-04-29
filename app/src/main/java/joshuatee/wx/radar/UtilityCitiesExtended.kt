@@ -47,7 +47,6 @@ internal object UtilityCitiesExtended {
             cityLat = Array(lines.size) {0.0}
             cityLon = Array(lines.size) {0.0}
             for (index in lines.indices) {
-            //lines.forEach {
                 tokens = MyApplication.comma.split(lines[index])
                 latitude = tokens[2].toDoubleOrNull() ?: 0.0
                 longitude = (tokens[3].replace("-", "")).toDoubleOrNull() ?: 0.0

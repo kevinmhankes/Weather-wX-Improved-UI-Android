@@ -75,7 +75,7 @@ class WXGLTextObject(
     }
 
     private fun addCities() {
-        UtilityLog.d("WX", "DEBUG: add cities" + citiesInitialized.toString())
+        //UtilityLog.d("WX", "DEBUG: add cities" + citiesInitialized.toString())
         if (GeographyType.CITIES.pref && citiesInitialized) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             hideCities()

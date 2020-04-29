@@ -36,7 +36,7 @@
 // TODO [FIX] NCEP param validation (automate)
 // TODO [ADD] NHC for homescreen
 
-55411 2020_04_28    [REF] misc
+55411 2020_04_29    [REF] misc
                     [FIX] wxglradar - fix issue when switching via map to new location
 55410 2020_04_28    [REF] ObjectIntent
 55409 2020_04_28    [ADD] remove bottom toolbar to save real estate in lightning
