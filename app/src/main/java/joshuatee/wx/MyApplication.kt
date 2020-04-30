@@ -34,7 +34,6 @@ import android.util.TypedValue
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
-import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.notifications.UtilityNotificationTextProduct
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectPolygonWarning

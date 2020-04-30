@@ -59,9 +59,7 @@ object UtilityTts {
         if (!ttsInit) {
             try {
                 ttobjGlobal = TextToSpeech(context, TextToSpeech.OnInitListener { status ->
-                    if (status != TextToSpeech.ERROR) {
-                        ttobjGlobal?.language = Locale.US
-                    }
+                    if (status != TextToSpeech.ERROR) ttobjGlobal?.language = Locale.US
                 })
                 ttsInit = true
                 ttobjGlobal!!.setSpeechRate(Utility.readPref(context, "TTS_SPEED_PREF", 10) / 10f)
@@ -79,10 +77,8 @@ object UtilityTts {
         }
     }
 
-    private fun splitInChunks(s: String, chunkSize: Int): List<String> {
-        val length = s.length
-        return (0..length step chunkSize).map { s.substring(it, min(length, it + chunkSize)) }
-    }
+    private fun splitInChunks(string: String, chunkSize: Int): List<String> =
+            (0..string.length step chunkSize).map { string.substring(it, min(string.length, it + chunkSize)) }
 
     private fun initMediaPlayer(context: Context) {
         mediaPlayer = MediaPlayer()
@@ -209,20 +205,19 @@ object UtilityTts {
     }
 
     private fun synthesizeText(context: Context, txtF: String, prod: String) {
-        var txt = txtF
         if (mediaPlayer != null && mediaPlayer!!.isPlaying) mediaPlayer!!.stop()
-        txt = UtilityTtsTranslations.translateAbbreviation(txt)
+        val txt = UtilityTtsTranslations.translateAbbreviation(txtF)
         val myHashRender = HashMap<String, String>()
         val musicDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
         val wxDir = File(musicDir, MyApplication.packageNameAsString)
         if (!wxDir.exists() && !wxDir.mkdirs()) return
-        val chunkAl = splitInChunks(Utility.fromHtml(txt), 250)
-        fileCount = chunkAl.size
+        val chunks = splitInChunks(Utility.fromHtml(txt), 250)
+        fileCount = chunks.size
         (0 until fileCount).forEach {
             myHashRender.clear()
             myHashRender[TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID] = it.toString() + prod
             val fileName = File(wxDir, FILENAME + it.toString()).absolutePath
-            ttobjGlobal!!.synthesizeToFile(chunkAl[it], myHashRender, fileName)
+            ttobjGlobal!!.synthesizeToFile(chunks[it], myHashRender, fileName)
         }
         if (UIPreferences.mediaControlNotif) UtilityNotification.createMediaControlNotification(context, prod)
     }
@@ -275,12 +270,9 @@ object UtilityTts {
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
-
     }
 
     fun conditionalPlay(activityArguments: Array<String>, index: Int, context: Context, html: String, label: String) {
-        if (activityArguments.size > index) {
-            if (activityArguments[index] == "sound") synthesizeTextAndPlay(context, html, label)
-        }
+        if (activityArguments.size > index && activityArguments[index] == "sound") synthesizeTextAndPlay(context, html, label)
     }
 }
