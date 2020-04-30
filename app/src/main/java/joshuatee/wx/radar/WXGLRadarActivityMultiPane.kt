@@ -283,9 +283,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 wxglRenders[it].rid = Utility.readPref(this, prefPrefix + "_RID", initialRadarSite)
             }
         }
-        if (MyApplication.dualpaneshareposn) {
-            (1 until numberOfPanes).forEach { wxglRenders[it].rid = wxglRenders[0].rid }
-        }
+        if (MyApplication.dualpaneshareposn) (1 until numberOfPanes).forEach { wxglRenders[it].rid = wxglRenders[0].rid }
         val defaultProducts = listOf("N0Q", "N0U", "N0C", "DVL")
         panesList.forEach {
             oldRadarSites[it] = ""
@@ -332,18 +330,13 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         checkForAutoRefresh()
     }
 
+    // TODO method for ContextCompat
     private fun checkForAutoRefresh() {
         if (MyApplication.wxoglRadarAutoRefresh) {
             mInterval = 60000 * Utility.readPref(this, "RADAR_REFRESH_INTERVAL", 3)
             locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            if (ContextCompat.checkSelfPermission(
-                            this,
-                            android.Manifest.permission.ACCESS_FINE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED
-                    || ContextCompat.checkSelfPermission(
-                            this,
-                            android.Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
             ) {
                 val gpsEnabled = locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 if (gpsEnabled != null && gpsEnabled) {
@@ -526,11 +519,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     private fun progressUpdate(vararg values: String) {
-        if ((values[1].toIntOrNull() ?: 0) > 1) {
-            setSubTitle(values[0], values[1])
-        } else {
-            toolbar.subtitle = "Problem downloading"
-        }
+        if ((values[1].toIntOrNull() ?: 0) > 1) setSubTitle(values[0], values[1]) else toolbar.subtitle = "Problem downloading"
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -562,9 +551,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             // if an L2 anim is in process sleep for 1 second to let the current decode/render finish
             // otherwise the new selection might overwrite in the OGLR object - hack
             // (revert) 2016_08 have this apply to Level 3 in addition to Level 2
-            if (wxglRenders[0].product.contains("L2") || wxglRenders[1].product.contains("L2")) SystemClock.sleep(
-                    2000
-            )
+            if (wxglRenders[0].product.contains("L2") || wxglRenders[1].product.contains("L2")) SystemClock.sleep(2000)
             animateButton.setIcon(MyApplication.ICON_PLAY)
             animateButton.title = animateButtonPlayString
             // spotter code is serialized for now
@@ -731,7 +718,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         adjustTiltAndProductMenus()
     }
 
-    private fun ridMapSwitch(r: String) {
+    private fun ridMapSwitch(newRadar: String) {
         mapShown = false
         UtilityWXGLTextObject.showLabels(numberOfPanes, wxglTextObjects)
         if (inOglAnim) {
@@ -739,9 +726,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             inOglAnimPaused = false
             // if an L2 anim is in process sleep for 1 second to let the current decode/render finish
             // otherwise the new selection might overwrite in the OGLR object - hack
-            if (wxglRenders[0].product.contains("L2") || wxglRenders[1].product.contains("L2")) SystemClock.sleep(
-                    2000
-            )
+            if (wxglRenders[0].product.contains("L2") || wxglRenders[1].product.contains("L2")) SystemClock.sleep(2000)
             animateButton.setIcon(MyApplication.ICON_PLAY)
             animateButton.title = animateButtonPlayString
         }
@@ -750,14 +735,14 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             // if one long presses change the currently active radar as well
             curRadar = idxIntAl
             panesList.forEach {
-                wxglRenders[it].rid = r
+                wxglRenders[it].rid = newRadar
                 wxglSurfaceViews[it].scaleFactor = MyApplication.wxoglSize / 10.0f
                 wxglRenders[it].setViewInitial(MyApplication.wxoglSize / 10.0f, 0.0f, 0.0f)
             }
         } else {
             // if one long presses change the currently active radar as well
             curRadar = idxIntAl
-            wxglRenders[idxIntAl].rid = r
+            wxglRenders[idxIntAl].rid = newRadar
             wxglSurfaceViews[idxIntAl].scaleFactor = MyApplication.wxoglSize / 10.0f
             wxglRenders[idxIntAl].setViewInitial(MyApplication.wxoglSize / 10.0f, 0.0f, 0.0f)
         }
@@ -785,14 +770,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         inOglAnim = false
         mHandler?.let { stopRepeatingTask() }
         locationManager?.let {
-            if (ContextCompat.checkSelfPermission(
-                            this,
-                            android.Manifest.permission.ACCESS_FINE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED
-                    || ContextCompat.checkSelfPermission(
-                            this,
-                            android.Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
             )
                 it.removeUpdates(locationListener)
         }
@@ -822,18 +801,14 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private val mStatusChecker: Runnable = object : Runnable {
         override fun run() {
             if (mHandler != null) {
-                if (loopCount > 0) {
-                    if (inOglAnim) animTriggerDownloads = true else getContentSerial()
-                }
+                if (loopCount > 0) { if (inOglAnim) animTriggerDownloads = true else getContentSerial() }
                 loopCount += 1
                 handler.postDelayed(this, mInterval.toLong())
             }
         }
     }
 
-    private fun startRepeatingTask() {
-        mStatusChecker.run()
-    }
+    private fun startRepeatingTask() { mStatusChecker.run() }
 
     private fun stopRepeatingTask() {
         mHandler!!.removeCallbacks(mStatusChecker)
@@ -1103,7 +1078,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 return true
             }
             KeyEvent.KEYCODE_DPAD_UP -> {
-                if (event.isAltPressed) {
+                if (event.isCtrlPressed) {
                     wxglSurfaceViews.forEach{ it.zoomOutByKey(numberOfPanes.toFloat()) }
                 } else {
                     wxglSurfaceViews.forEach{ it.onScrollByKeyboard(0.0f, -20.0f) }
@@ -1111,7 +1086,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 return true
             }
             KeyEvent.KEYCODE_DPAD_DOWN -> {
-                if (event.isAltPressed) {
+                if (event.isCtrlPressed) {
                     wxglSurfaceViews.forEach{ it.zoomInByKey(numberOfPanes.toFloat()) }
                 } else {
                     wxglSurfaceViews.forEach{ it.onScrollByKeyboard(0.0f, 20.0f) }
