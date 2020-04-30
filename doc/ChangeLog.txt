@@ -36,6 +36,7 @@
 // TODO [FIX] NCEP param validation (automate)
 // TODO [ADD] NHC for homescreen
 
+55415 2020_04_30
 55414 2020_04_30    [REF] misc
                     [ADD] androidx.preference:preference:1.1.0 to 1.1.1
                     [FIX] revert as didn't work: [ADD] nexrad radar zoom-out/in keyboard controls switch from ctrl to alt (up/down arrows)
