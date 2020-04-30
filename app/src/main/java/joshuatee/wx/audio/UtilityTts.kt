@@ -56,16 +56,18 @@ object UtilityTts {
 
     fun initTts(context: Context) {
         // samsung bug, if users do not have google TTS selected it will crash - add try-catch so user can at least use rest of prog
-        try {
-            ttobjGlobal = TextToSpeech(context, TextToSpeech.OnInitListener { status ->
-                if (status != TextToSpeech.ERROR) {
-                    ttobjGlobal?.language = Locale.US
-                }
-            })
-            ttsInit = true
-            ttobjGlobal!!.setSpeechRate(Utility.readPref(context, "TTS_SPEED_PREF", 10) / 10f)
-        } catch (e: Exception) {
-            UtilityLog.handleException(e)
+        if (!ttsInit) {
+            try {
+                ttobjGlobal = TextToSpeech(context, TextToSpeech.OnInitListener { status ->
+                    if (status != TextToSpeech.ERROR) {
+                        ttobjGlobal?.language = Locale.US
+                    }
+                })
+                ttsInit = true
+                ttobjGlobal!!.setSpeechRate(Utility.readPref(context, "TTS_SPEED_PREF", 10) / 10f)
+            } catch (e: Exception) {
+                UtilityLog.handleException(e)
+            }
         }
     }
 

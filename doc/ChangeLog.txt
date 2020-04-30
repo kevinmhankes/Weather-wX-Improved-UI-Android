@@ -36,7 +36,7 @@
 // TODO [FIX] NCEP param validation (automate)
 // TODO [ADD] NHC for homescreen
 
-55416 2020_04_30
+55416 2020_04_30    [ADD] move initTts out of MyApp and into AudioPlayActivity
 55415 2020_04_30    [FIX] nexrad controls keyboard zoom in/out in multipane - attempt #2
 55414 2020_04_30    [REF] misc
                     [ADD] androidx.preference:preference:1.1.0 to 1.1.1

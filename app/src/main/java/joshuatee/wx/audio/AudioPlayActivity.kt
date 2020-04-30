@@ -70,6 +70,7 @@ abstract class AudioPlayActivity : AppCompatActivity() {
         toolbarBottom.setOnClickListener { toolbarBottom.showOverflowMenu() }
         UtilityToolbar.fullScreenMode(toolbar, false)
         initBottomToolbar()
+        UtilityTts.initTts(this)
     }
 
     private fun initBottomToolbar() {

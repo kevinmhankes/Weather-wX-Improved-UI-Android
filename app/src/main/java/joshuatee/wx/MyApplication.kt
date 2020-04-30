@@ -69,6 +69,7 @@ class MyApplication : Application() {
     // FIXME numerous camelCase opportunities below
     override fun onCreate() {
         super.onCreate()
+        //UtilityLog.d("wx","DEBUG: BEGIN")
         appContext = applicationContext
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
         editor = preferences.edit()
@@ -115,11 +116,12 @@ class MyApplication : Application() {
                 .readTimeout(15, TimeUnit.SECONDS)
                 .addInterceptor(okHttp3Interceptor)
                 .build()
-        UtilityTts.initTts(applicationContext)
+        //UtilityTts.initTts(applicationContext)
         UtilityCities.initialize()
         if (!loadedBuffers) initBuffers(this)
         httpClientUnsafe = UtilityHttp.getUnsafeOkHttpClient()
         imageCollectionMap = ObjectImagesCollection.initialize()
+        //UtilityLog.d("wx","DEBUG: END")
     }
 
     companion object {
