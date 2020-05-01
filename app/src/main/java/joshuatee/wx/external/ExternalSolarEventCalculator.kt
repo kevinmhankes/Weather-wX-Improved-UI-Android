@@ -129,11 +129,10 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
         val innerParens = multiplyBy(convertRadiansToDegrees(tanL), BigDecimal("0.91764"))
         var rightAscension = BigDecimal(atan(convertDegreesToRadians(innerParens).toDouble()))
         rightAscension = setScale(convertRadiansToDegrees(rightAscension))
-        if (rightAscension.toDouble() < 0) {
+        if (rightAscension.toDouble() < 0)
             rightAscension = rightAscension.add(BigDecimal.valueOf(360))
-        } else if (rightAscension.toDouble() > 360) {
+        else if (rightAscension.toDouble() > 360)
             rightAscension = rightAscension.subtract(BigDecimal.valueOf(360))
-        }
         val ninety = BigDecimal.valueOf(90)
         var longitudeQuadrant = sunTrueLong.divide(ninety, 0, RoundingMode.FLOOR)
         longitudeQuadrant = longitudeQuadrant.multiply(ninety)
@@ -180,11 +179,10 @@ internal class ExternalSolarEventCalculator(private val location: ExternalSunris
         val innerParens = longitudeHour.multiply(BigDecimal("0.06571"))
         var localMeanTime = sunLocalHour.add(rightAscension).subtract(innerParens)
         localMeanTime = localMeanTime.subtract(BigDecimal("6.622"))
-        if (localMeanTime.toDouble() < 0) {
+        if (localMeanTime.toDouble() < 0)
             localMeanTime = localMeanTime.add(BigDecimal.valueOf(24))
-        } else if (localMeanTime.toDouble() > 24) {
+        else if (localMeanTime.toDouble() > 24)
             localMeanTime = localMeanTime.subtract(BigDecimal.valueOf(24))
-        }
         return setScale(localMeanTime)
     }
 

@@ -34,9 +34,7 @@ internal class SettingsLocationAdapterList(private val dataSet: MutableList<Stri
     }
 
     fun setListener(fn: (Int) -> Unit) {
-        myClickListener = object : MyClickListener {
-            override fun onItemClick(position: Int) { fn(position) }
-        }
+        myClickListener = object : MyClickListener { override fun onItemClick(position: Int) { fn(position) } }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataObjectHolder {

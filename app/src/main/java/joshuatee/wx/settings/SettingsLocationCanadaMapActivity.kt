@@ -158,7 +158,7 @@ class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
                 R.id.map_sk,
                 R.id.map_yt
         ).forEach {
-            val map: ImageMap = findViewById(it)
+            val map = findViewById<ImageMap>(it)
             map.visibility = View.GONE
         }
     }
@@ -166,9 +166,7 @@ class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
     private fun getCityFromXml(token: String): String {
         val data = UtilityIO.readTextFileFromRaw(this@SettingsLocationCanadaMapActivity.resources, R.raw.maps)
         val lines = data.split(MyApplication.newline)
-        lines.forEach {
-            if (it.contains(token)) return it.parse("title=\"(.*?)\"")
-        }
+        lines.forEach { if (it.contains(token)) return it.parse("title=\"(.*?)\"") }
         return ""
     }
 }

@@ -52,11 +52,7 @@ class SettingsColorPickerActivity : AppCompatActivity(), OnColorChangedListener 
     private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (UIPreferences.themeInt == R.style.MyCustomTheme_white_NOAB) {
-            setTheme(R.style.MyCustomTheme_NOAB)
-        } else {
-            setTheme(UIPreferences.themeInt)
-        }
+        if (UIPreferences.themeInt == R.style.MyCustomTheme_white_NOAB) setTheme(R.style.MyCustomTheme_NOAB) else setTheme(UIPreferences.themeInt)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings_color_picker)
         toolbar = findViewById(R.id.toolbar_top)

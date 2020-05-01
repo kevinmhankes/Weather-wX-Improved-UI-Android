@@ -78,11 +78,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         title = "Palette Editor"
         toolbar.subtitle = WXGLNexrad.productCodeStringToName[type]
         formattedDate = UtilityTime.getDateAsString("MMdd")
-        name = if (activityArguments[2].contains("false")) {
-            activityArguments[1]
-        } else {
-            activityArguments[1] + "_" + formattedDate
-        }
+        name = if (activityArguments[2].contains("false")) activityArguments[1] else activityArguments[1] + "_" + formattedDate
         palTitle.setText(name)
         palTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeLarge)
         palContent.setText(UtilityColorPalette.getColorMapStringFromDisk(this, type, activityArguments[1]))
