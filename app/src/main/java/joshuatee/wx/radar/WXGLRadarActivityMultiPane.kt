@@ -95,6 +95,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     private var mapShown = false
     private lateinit var pauseButton: MenuItem
     private lateinit var animateButton: MenuItem
+    // TODO remove this global var
     private var delay = 0
     private var frameCountGlobal = 0
     private var locXCurrent = ""
@@ -128,7 +129,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     override fun onCreate(savedInstanceState: Bundle?) {
         val activityArguments = intent.getStringArrayExtra(RID)
         if (activityArguments != null && activityArguments.size > 3 ) {
-            if (activityArguments[3] == "true") {
+            if (activityArguments[3] == "true") { // invoked from single pane radar
                 doNotSavePref = true
                 useSinglePanePref = true
             }
