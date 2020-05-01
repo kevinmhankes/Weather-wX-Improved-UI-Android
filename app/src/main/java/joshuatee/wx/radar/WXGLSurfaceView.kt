@@ -330,7 +330,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
 
     fun zoomInByKey(paneScaleFactor: Float = 1.0f) {
         density = (wxglRender.ortInt * 2).toFloat() / width
-        mScaleFactor *= ( 2.0f * (1.0f / paneScaleFactor))
+        mScaleFactor *= ( 2.0f * (1.0f * paneScaleFactor))
         if (MyApplication.dualpaneshareposn && !locationFragment) {
             //mScaleFactor *= 2.0f
             (0 until numPanes).forEach {
@@ -376,7 +376,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
     }
 
     fun zoomOutByKey(paneScaleFactor: Float = 1.0f) {
-        mScaleFactor /= (2.0f / (1.0f / paneScaleFactor))
+        mScaleFactor /= (2.0f / (1.0f * paneScaleFactor))
         if (MyApplication.dualpaneshareposn && !locationFragment) {
             (0 until numPanes).forEach {
                 wxglRenders[it].setViewInitial(mScaleFactor, wxglRenders[it].x / 2.0f, wxglRenders[it].y / 2.0f)
