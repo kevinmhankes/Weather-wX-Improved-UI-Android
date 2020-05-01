@@ -161,11 +161,7 @@ object UtilityCanadaImg {
         }
         val radHtml = url.getHtmlSep()
         if (sector == "CAN") sector = "NAT"
-        val durationPatMatch = if (duration == "long") {
-            "<p>Long .3hr.:</p>(.*?)</div>"
-        } else {
-            "<p>Short .1hr.:</p>(.*?)</div>"
-        }
+        val durationPatMatch = if (duration == "long") "<p>Long .3hr.:</p>(.*?)</div>" else "<p>Short .1hr.:</p>(.*?)</div>"
         val radarHtml1Hr = radHtml.parse(durationPatMatch)
         val list = radarHtml1Hr.parseColumn("display='(.*?)'&amp;")
         var urlList = ""

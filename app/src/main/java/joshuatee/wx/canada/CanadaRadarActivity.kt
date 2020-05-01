@@ -55,7 +55,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
     }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private var animDrawable: AnimationDrawable = AnimationDrawable()
+    private var animDrawable = AnimationDrawable()
     private var firstTime = true
     private var animRan = false
     private lateinit var img: ObjectTouchImageView
