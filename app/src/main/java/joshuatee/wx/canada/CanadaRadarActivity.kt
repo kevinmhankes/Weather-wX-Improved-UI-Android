@@ -64,9 +64,9 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
     private var mosaicShown = false
     private var mosaicShownId = ""
     private var imageType = "rad"
-    private var ridFav = ""
+    private var favoriteString = ""
     private lateinit var imageMap: ObjectImageMap
-    private var ridArrLoc = listOf<String>()
+    private var favorites = listOf<String>()
     private lateinit var star: MenuItem
     private var url = "https://weather.gc.ca/data/satellite/goes_wcan_visible_100.jpg"
     private var bitmap = UtilityImg.getBlankBitmap()
@@ -88,20 +88,20 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         title = "Canada"
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
         imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::mapToCanadaRadarSite)
-        ridFav = Utility.readPref(this, "RID_CA_FAV", MyApplication.prefSeparator)
-        ridArrLoc = UtilityFavorites.setupMenuCanada(ridFav, radarSite)
-        objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, ridArrLoc)
+        favoriteString = Utility.readPref(this, "RID_CA_FAV", MyApplication.prefSeparator)
+        favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
+        objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, favorites)
     }
 
     override fun onRestart() {
-        ridFav = Utility.readPref(this, "RID_CA_FAV", MyApplication.prefSeparator)
-        ridArrLoc = UtilityFavorites.setupMenuCanada(ridFav, radarSite)
-        objectSpinner.refreshData(this, ridArrLoc)
+        favoriteString = Utility.readPref(this, "RID_CA_FAV", MyApplication.prefSeparator)
+        favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
+        objectSpinner.refreshData(this, favorites)
         super.onRestart()
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        if (ridFav.contains(":$radarSite:")) {
+        if (favoriteString.contains(":$radarSite:")) {
             star.setIcon(MyApplication.STAR_ICON)
         } else {
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
@@ -183,8 +183,8 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         imageType = "rad"
         this.radarSite = radarSite
         img.resetZoom()
-        ridArrLoc = UtilityFavorites.setupMenuCanada(ridFav, radarSite)
-        objectSpinner.refreshData(this, ridArrLoc)
+        favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
+        objectSpinner.refreshData(this, favorites)
     }
 
     private fun getAnimate(frameCountStr: String) = GlobalScope.launch(uiDispatcher) {
@@ -210,15 +210,15 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
             1 -> ObjectIntent.favoriteAdd(this@CanadaRadarActivity, arrayOf("RIDCA"))
             2 -> ObjectIntent.favoriteRemove(this@CanadaRadarActivity, arrayOf("RIDCA"))
             else -> {
-                if (ridArrLoc[position].length > 3) {
-                    rad = UtilityStringExternal.truncate(ridArrLoc[position], 3)
+                if (favorites[position].length > 3) {
+                    rad = UtilityStringExternal.truncate(favorites[position], 3)
                     mosaicShown = false
                     img.resetZoom()
                     getContent()
                 } else {
                     mosaicShown = true
                     img.resetZoom()
-                    if (imageType == "rad") getMosaic(ridArrLoc[position]) else getContent()
+                    if (imageType == "rad") getMosaic(favorites[position]) else getContent()
                 }
             }
         }
@@ -233,9 +233,9 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
     }
 
     private fun toggleFavorite() {
-        ridFav = UtilityFavorites.toggleString(this, radarSite, star, "RID_CA_FAV")
-        ridArrLoc = UtilityFavorites.setupMenuCanada(ridFav, radarSite)
-        objectSpinner.refreshData(this, ridArrLoc)
+        favoriteString = UtilityFavorites.toggleString(this, radarSite, star, "RID_CA_FAV")
+        favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
+        objectSpinner.refreshData(this, favorites)
     }
 
     override fun onStop() {
