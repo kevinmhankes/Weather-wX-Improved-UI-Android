@@ -92,8 +92,7 @@ abstract class AudioPlayActivity : AppCompatActivity() {
                 if (isStoragePermissionGranted) {
                     UtilityTts.synthesizeTextAndPlay(applicationContext, txt, prod)
                     pause.setIcon(MyApplication.ICON_PAUSE)
-                    if (UIPreferences.mediaControlNotif)
-                        UtilityNotification.createMediaControlNotification(applicationContext, "")
+                    if (UIPreferences.mediaControlNotif) UtilityNotification.createMediaControlNotification(applicationContext, "")
                 } else {
                     UtilityLog.d("wx", "perm to write to storage was not granted")
                 }
@@ -104,9 +103,8 @@ abstract class AudioPlayActivity : AppCompatActivity() {
                     pause.setIcon(MyApplication.ICON_PAUSE_PRESSED)
                 else
                     pause.setIcon(MyApplication.ICON_PAUSE)
-                if (UtilityTts.mediaPlayer != null && UtilityTts.mediaPlayer!!.isPlaying)
-                    if (UIPreferences.mediaControlNotif)
-                        UtilityNotification.createMediaControlNotification(applicationContext, "")
+                if (UtilityTts.mediaPlayer != null && UtilityTts.mediaPlayer!!.isPlaying && UIPreferences.mediaControlNotif)
+                    UtilityNotification.createMediaControlNotification(applicationContext, "")
             }
             R.id.action_playlist -> UtilityPlayList.add(this, view, playlistToken, txt)
             else -> return false

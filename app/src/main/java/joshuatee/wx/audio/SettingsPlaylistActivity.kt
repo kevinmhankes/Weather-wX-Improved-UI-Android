@@ -62,12 +62,13 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         super.onCreate(savedInstanceState, R.layout.activity_recyclerview_playlist, R.menu.settings_playlist, true)
         toolbarBottom.setOnMenuItemClickListener(this)
         ObjectFab(this, this, R.id.fab, View.OnClickListener { playAll() })
-        fabPause = ObjectFab(this, this, R.id.fab3, View.OnClickListener { playItemFAB() })
-        if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying) {
-            fabPause.fabSetResDrawable(this, MyApplication.ICON_PAUSE_PRESSED)
+        fabPause = ObjectFab(this, this, R.id.fab3, View.OnClickListener { playItemFab() })
+        val icon = if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying) {
+            MyApplication.ICON_PAUSE_PRESSED
         } else {
-            fabPause.fabSetResDrawable(this, MyApplication.ICON_PAUSE)
+            MyApplication.ICON_PAUSE
         }
+        fabPause.fabSetResDrawable(this, icon)
         diaAfd = ObjectDialogue(this, "Select fixed location AFD products:", GlobalArrays.wfos)
         diaAfd.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             val name = diaAfd.getItem(which)
@@ -109,6 +110,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         ca = PlayListAdapter(playListItems)
         recyclerView.recyclerView.adapter = ca
         ca.setListener(::itemSelected)
+        UtilityTts.initTts(this)
         getContent()
     }
 
@@ -175,27 +177,24 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         }
     }
 
-    private fun playItemFAB() {
+    private fun playItemFab() {
         if (UtilityTts.mediaPlayer != null) UtilityTts.playMediaPlayer(1)
-        if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying) {
-            fabPause.fabSetResDrawable(this, MyApplication.ICON_PAUSE_PRESSED)
+        val icon = if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying) {
+            MyApplication.ICON_PAUSE_PRESSED
         } else {
-            fabPause.fabSetResDrawable(this, MyApplication.ICON_PAUSE)
+            MyApplication.ICON_PAUSE
         }
-        if (UtilityTts.mediaPlayer != null && UtilityTts.mediaPlayer!!.isPlaying) {
-            if (UIPreferences.mediaControlNotif) {
-                UtilityNotification.createMediaControlNotification(applicationContext, "")
-            }
+        fabPause.fabSetResDrawable(this, icon)
+        if (UtilityTts.mediaPlayer != null && UtilityTts.mediaPlayer!!.isPlaying && UIPreferences.mediaControlNotif) {
+            UtilityNotification.createMediaControlNotification(applicationContext, "")
         }
     }
 
     private fun playAll() {
         fabPause.fabSetResDrawable(this, MyApplication.ICON_PAUSE)
         if (isStoragePermissionGranted) UtilityTts.synthesizeTextAndPlayPlaylist(this, 1)
-        if (UtilityTts.mediaPlayer != null && UtilityTts.mediaPlayer!!.isPlaying) {
-            if (UIPreferences.mediaControlNotif) {
-                UtilityNotification.createMediaControlNotification(applicationContext, "")
-            }
+        if (UtilityTts.mediaPlayer != null && UtilityTts.mediaPlayer!!.isPlaying && UIPreferences.mediaControlNotif) {
+            UtilityNotification.createMediaControlNotification(applicationContext, "")
         }
     }
 

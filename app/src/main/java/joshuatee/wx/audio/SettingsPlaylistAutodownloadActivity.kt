@@ -62,9 +62,7 @@ class SettingsPlaylistAutodownloadActivity : BaseActivity() {
         recyclerView = ObjectRecyclerView(this, this, R.id.cardList, ridArr, ::pickItem)
     }
 
-    private fun updateList() {
-        ridArr = ridFav.split(tokenSep.toRegex()).dropLastWhile { it.isEmpty() }.toMutableList()
-    }
+    private fun updateList() { ridArr = ridFav.split(tokenSep.toRegex()).dropLastWhile { it.isEmpty() }.toMutableList() }
 
     private fun deleteFAB() {
         if (deleteMode) {
