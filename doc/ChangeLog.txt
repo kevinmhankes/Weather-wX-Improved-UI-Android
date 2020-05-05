@@ -37,6 +37,7 @@
 // TODO [ADD] NHC for homescreen
 // TODO [REF] remove prefs stored initially with defaultlocation
 
+55418 2020_05_05
 55417 2020_05_05    [REF] misc
                     [ADD] nexrad long press - don't show warnings text entry if no warnings present
                     [ADD] NCEP MAG models - add Composite Radar Reflectivity into a number of models
