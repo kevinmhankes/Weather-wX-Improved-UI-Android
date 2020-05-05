@@ -39,6 +39,7 @@
 
 55417 2020_05_05    [REF] misc
                     [ADD] nexrad long press - don't show warnings text entry if no warnings present
+                    [ADD] NCEP MAG models - add Composite Radar Reflectivity into a number of models
 55416 2020_04_30    [ADD] move initTts out of MyApp and into AudioPlayActivity
 55415 2020_04_30    [FIX] nexrad controls keyboard zoom in/out in multipane - attempt #2
 55414 2020_04_30    [REF] misc
