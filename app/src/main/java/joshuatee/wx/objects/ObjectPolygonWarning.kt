@@ -25,7 +25,6 @@ import android.content.Context
 import joshuatee.wx.DataStorage
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityVtec
 
 class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
@@ -78,7 +77,6 @@ class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
                     count += UtilityVtec.getStormCount(polygonDataByType[it]!!.storage.value)
                 }
             }
-            UtilityLog.d("wx", "DEBUG: $count")
             return count > 0
         }
     }
