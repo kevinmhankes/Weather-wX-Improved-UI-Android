@@ -130,21 +130,6 @@ object UtilityString {
 
     internal fun getHtmlAndParseSep(url: String, pattern: Pattern) = url.getHtmlSep().parse(pattern)
 
-    //fun getHtmlAndParseMultipleFirstMatch(url: String, match: String, number: Int) = parseMultipleFirst(url.getHtml(), match, number)
-
-    /*fun parseMultipleFirst(data: String, match: String, number: Int): MutableList<String> {
-        val result = MutableList(number) { "" }
-        try {
-            val pattern = Pattern.compile(match)
-            val m = pattern.matcher(data)
-            m.find()
-            (0 until number).forEach { result[it] = m.group(it + 1)!! }
-        } catch (e: Exception) {
-            UtilityLog.handleException(e)
-        }
-        return result
-    }*/
-
     fun parseMultiple(data: String, match: String, number: Int): MutableList<String> {
         val result = MutableList(number) { "" }
         try {
