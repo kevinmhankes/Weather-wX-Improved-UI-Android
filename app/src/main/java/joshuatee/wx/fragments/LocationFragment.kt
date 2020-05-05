@@ -70,7 +70,6 @@ class LocationFragment : Fragment()  {
     private var lastRefresh = 0.toLong()
     private var currentConditionsTime = ""
     private var radarTime = ""
-    // FIXME see if the 2 vars below can be removed
     private var x = ""
     private var y = ""
     private var glviewInitialized = false
@@ -428,7 +427,7 @@ class LocationFragment : Fragment()  {
         override fun onProgressChanged(progress: Int, idx: Int, idxInt: Int) {
             if (progress != 50000) {
                 idxIntG = idx
-                UtilityRadarUI.addItemsToLongPress(radarLongPressItems, x, y, activityReference, wxglSurfaceViews[idx], wxglRenders[idx], dialogRadarLongPress!!)
+                UtilityRadarUI.addItemsToLongPress(radarLongPressItems, Location.x, Location.y, activityReference, wxglSurfaceViews[idx], wxglRenders[idx], dialogRadarLongPress!!)
             } else {
                 (0 until numberOfRadars).forEach { wxglTextObjects[it].addLabels() }
             }
@@ -711,7 +710,7 @@ class LocationFragment : Fragment()  {
             // Canada legal card
             //
             if (!Location.isUS && homescreenFavLocal.contains("TXT-7DAY2")) {
-                ObjectCALegal(activityReference, linearLayoutForecast!!, UtilityCanada.getLocationUrl(x, y))
+                ObjectCALegal(activityReference, linearLayoutForecast!!, UtilityCanada.getLocationUrl(Location.x, Location.y))
             }
         }
     }
