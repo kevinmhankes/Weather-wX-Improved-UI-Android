@@ -35,7 +35,7 @@
 // TODO [ADD] use more ObjectIntent in CAB/WX
 // TODO [FIX] NCEP param validation (automate)
 // TODO [ADD] NHC for homescreen
-// TODO [REF] remove prefs stored initially with default location
+// TODO [REF] remove prefs stored initially with defaultlocation
 
 55417 2020_05_05    [REF] misc
                     [ADD] nexrad long press - don't show warnings text entry if no warnings present
