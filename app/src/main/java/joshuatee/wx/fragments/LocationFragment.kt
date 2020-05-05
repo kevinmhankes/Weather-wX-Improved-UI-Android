@@ -108,7 +108,6 @@ class LocationFragment : Fragment()  {
     private var locationChangedSevenDay = false
     private var locationChangedHazards = false
     private var paneList = listOf<Int>()
-    private var cardSunrise: ObjectCardText? = null
 
     private fun addDynamicCards() {
         var currentConditionsAdded = false
@@ -285,7 +284,6 @@ class LocationFragment : Fragment()  {
         locationLabel.refreshTextSize(TextSize.MEDIUM)
         locationLabel.text = Location.name
         sevenDayCards.forEach{ it.refreshTextSize() }
-        cardSunrise?.refreshTextSize(TextSize.MEDIUM)
         homeScreenTextCards.forEach{ it.refreshTextSize() }
         hazardsCards.forEach{ it.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal) }
         // TODO use a Timer class to handle the data refresh stuff
@@ -699,15 +697,15 @@ class LocationFragment : Fragment()  {
                     sevenDayCards.add(objectCard7Day)
                 }
                 // sunrise card
-                cardSunrise = ObjectCardText(activityReference)
-                cardSunrise!!.center()
-                cardSunrise!!.setOnClickListener(OnClickListener { scrollView.smoothScrollTo(0, 0) })
+                val cardSunrise = ObjectCardText(activityReference)
+                cardSunrise.center()
+                cardSunrise.setOnClickListener(OnClickListener { scrollView.smoothScrollTo(0, 0) })
                 try {
-                    cardSunrise!!.text = UtilityTimeSunMoon.getForHomeScreen(activityReference)
+                    cardSunrise.text = UtilityTimeSunMoon.getForHomeScreen(activityReference)
                 } catch (e: Exception) {
                     UtilityLog.handleException(e)
                 }
-                linearLayoutForecast?.addView(cardSunrise!!.card)
+                linearLayoutForecast?.addView(cardSunrise.card)
             }
             //
             // Canada legal card
