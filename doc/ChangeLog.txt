@@ -37,7 +37,7 @@
 // TODO [ADD] NHC for homescreen
 // TODO [REF] remove prefs stored initially with default location
 
-55417 2020_05_02    [REF] misc
+55417 2020_05_05    [REF] misc
 55416 2020_04_30    [ADD] move initTts out of MyApp and into AudioPlayActivity
 55415 2020_04_30    [FIX] nexrad controls keyboard zoom in/out in multipane - attempt #2
 55414 2020_04_30    [REF] misc

@@ -85,15 +85,12 @@ object UtilityMath {
         return value
     }
 
-    fun celsiusToFahrenheit(valueF: String): String {
-        var value = valueF
-        if (MyApplication.unitsF) {
-            val tmpNum = (value.toDoubleOrNull() ?: 0.0) * 9 / 5 + 32
-            value = round(tmpNum).toInt().toString()
+    fun celsiusToFahrenheit(value: String) = if (MyApplication.unitsF) {
+            round(((value.toDoubleOrNull() ?: 0.0) * 9 / 5 + 32)).toInt().toString()
+        } else {
+            value
         }
-        return value
-    }
-
+    
     internal fun fahrenheitToCelsius(valueDF: Double): String {
         val valueD = (valueDF - 32) * 5 / 9
         return round(valueD).toInt().toString()
