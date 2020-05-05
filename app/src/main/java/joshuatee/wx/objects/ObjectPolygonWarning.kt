@@ -23,7 +23,10 @@ package joshuatee.wx.objects
 
 import android.content.Context
 import joshuatee.wx.DataStorage
+import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityLog
+import joshuatee.wx.util.UtilityVtec
 
 class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
 
@@ -63,6 +66,20 @@ class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
 
         fun load(context: Context) {
             polygonList.forEach { polygonDataByType[it] = ObjectPolygonWarning(context, it) }
+        }
+
+        fun isCountNonZero(): Boolean {
+            val tstCount = UtilityVtec.getStormCount(MyApplication.severeDashboardTst.value)
+            val torCount = UtilityVtec.getStormCount(MyApplication.severeDashboardTor.value)
+            val ffwCount = UtilityVtec.getStormCount(MyApplication.severeDashboardFfw.value)
+            var count = tstCount + torCount + ffwCount
+            polygonList.forEach {
+                if (polygonDataByType[it]!!.isEnabled) {
+                    count += UtilityVtec.getStormCount(polygonDataByType[it]!!.storage.value)
+                }
+            }
+            UtilityLog.d("wx", "DEBUG: $count")
+            return count > 0
         }
     }
 }
