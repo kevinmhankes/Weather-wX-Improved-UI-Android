@@ -59,25 +59,18 @@ object UtilityImg {
         fn()
     }
 
-    fun mergeImages(context: Context, imageA: Bitmap, imageB: Bitmap): Bitmap {
-        val layers = listOf(BitmapDrawable(context.resources, imageA), BitmapDrawable(context.resources, imageB))
-        return layerDrawableToBitmap(layers)
-    }
+    fun mergeImages(context: Context, imageA: Bitmap, imageB: Bitmap) =
+            layerDrawableToBitmap(listOf(BitmapDrawable(context.resources, imageA), BitmapDrawable(context.resources, imageB)))
 
-    fun addColorBackground(context: Context, bitmap: Bitmap, color: Int): Bitmap {
-        val layers = listOf(ColorDrawable(color), BitmapDrawable(context.resources, bitmap))
-        return layerDrawableToBitmap(layers)
-    }
+    fun addColorBackground(context: Context, bitmap: Bitmap, color: Int) =
+            layerDrawableToBitmap(listOf(ColorDrawable(color), BitmapDrawable(context.resources, bitmap)))
 
     fun getBlankBitmap(): Bitmap = Bitmap.createBitmap(10, 10, Config.ARGB_8888)
 
     fun getBitmapRemoveBackground(imgUrl: String, color: Int) = eraseBackground(imgUrl.getImage(), color)
 
-    fun getBitmapAddWhiteBackground(context: Context, imgUrl: String): Bitmap {
-        val bitmap = imgUrl.getImage()
-        val layers = listOf(ColorDrawable(Color.WHITE), BitmapDrawable(context.resources, bitmap))
-        return layerDrawableToBitmap(layers)
-    }
+    fun getBitmapAddWhiteBackground(context: Context, imgUrl: String) =
+            layerDrawableToBitmap(listOf(ColorDrawable(Color.WHITE), BitmapDrawable(context.resources, imgUrl.getImage())))
 
     // FIXME rename Posn to Position
     fun firstRunSetZoomPosn(firstRunF: Boolean, img: TouchImageView2, pref: String): Boolean {
