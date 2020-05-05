@@ -110,9 +110,7 @@ object UtilityCanvasMain {
         } else {
             getLocalGeometryData(context)
         }
-        if (PolygonType.TST.pref) {
-            UtilityCanvas.addWarnings(projectionType, bitmapCanvas, projectionNumbers)
-        }
+        if (PolygonType.TST.pref) { UtilityCanvas.addWarnings(projectionType, bitmapCanvas, projectionNumbers) }
         if (GeographyType.HIGHWAYS.pref && highwayProvider) {
             UtilityCanvasGeneric.draw(
                     projectionType,
@@ -212,22 +210,16 @@ object UtilityCanvasMain {
                         stateRelativeBuffer = ByteBuffer.allocateDirect(4 * countState)
                         stateRelativeBuffer.order(ByteOrder.nativeOrder())
                         stateRelativeBuffer.position(0)
-                        listOf(3).forEach {
-                            loadBuffer(context.resources, fileIds[it], stateRelativeBuffer, countArr[it])
-                        }
+                        listOf(3).forEach { loadBuffer(context.resources, fileIds[it], stateRelativeBuffer, countArr[it]) }
                     }
                     GeographyType.HIGHWAYS -> {
                         hwRelativeBuffer = ByteBuffer.allocateDirect(4 * countHw)
                         hwRelativeBuffer.order(ByteOrder.nativeOrder())
                         hwRelativeBuffer.position(0)
-                        for (s in intArrayOf(1)) {
-                            loadBuffer(context.resources, fileIds[s], hwRelativeBuffer, countArr[s])
-                        }
+                        for (s in intArrayOf(1)) { loadBuffer(context.resources, fileIds[s], hwRelativeBuffer, countArr[s]) }
                     }
                     GeographyType.HIGHWAYS_EXTENDED -> {
-                        for (s in intArrayOf(6)) {
-                            loadBuffer(context.resources, fileIds[s], hwExtRelativeBuffer, countArr[s])
-                        }
+                        for (s in intArrayOf(6)) { loadBuffer(context.resources, fileIds[s], hwExtRelativeBuffer, countArr[s]) }
                     }
                     GeographyType.LAKES -> {
                         lakesRelativeBuffer = ByteBuffer.allocateDirect(4 * countLakes)

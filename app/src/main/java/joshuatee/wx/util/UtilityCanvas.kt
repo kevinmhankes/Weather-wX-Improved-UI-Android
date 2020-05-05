@@ -121,26 +121,18 @@ internal object UtilityCanvas {
         if (projectionType.needsCanvasShift) canvas.translate(UtilityCanvasMain.xOffset, UtilityCanvasMain.yOffset)
         paint.strokeWidth = projectionNumbers.polygonWidth.toFloat()
         paint.color = polygonType.color
-        var prefToken = ""
-        when (polygonType) {
-            PolygonType.MCD -> prefToken = MyApplication.mcdLatLon.value
-            PolygonType.MPD -> prefToken = MyApplication.mpdLatLon.value
-            PolygonType.WATCH -> prefToken = MyApplication.watchLatLon.value
-            PolygonType.WATCH_TORNADO -> prefToken = MyApplication.watchLatLonTor.value
-            else -> {}
+        val prefToken = when (polygonType) {
+            PolygonType.MCD -> MyApplication.mcdLatLon.value
+            PolygonType.MPD -> MyApplication.mpdLatLon.value
+            PolygonType.WATCH -> MyApplication.watchLatLon.value
+            PolygonType.WATCH_TORNADO -> MyApplication.watchLatLonTor.value
+            else -> ""
         }
         val list = prefToken.split(":").dropLastWhile { it.isEmpty() }
         canvasDrawWatchMcdMpd(list, canvas, path, paint, projectionType.isMercator, projectionNumbers)
     }
 
-    private fun canvasDrawWatchMcdMpd(
-            warnings: List<String>,
-            canvas: Canvas,
-            path: Path,
-            paint: Paint,
-            isMercator: Boolean,
-            projectionNumbers: ProjectionNumbers
-    ) {
+    private fun canvasDrawWatchMcdMpd(warnings: List<String>, canvas: Canvas, path: Path, paint: Paint, isMercator: Boolean, projectionNumbers: ProjectionNumbers) {
         warnings.forEach { warning ->
             val latLons = LatLon.parseStringToLatLons(warning, 1.0, false)
             path.reset()
@@ -168,8 +160,6 @@ internal object UtilityCanvas {
     }
 
     private fun canvasDrawWarnings(warnings: List<String>, vtecs: List<String>, canvas: Canvas, path: Path, paint: Paint, isMercator: Boolean, projectionNumbers: ProjectionNumbers) {
-        var firstX: Double
-        var firstY: Double
         warnings.forEachIndexed { polygonCount, warning ->
             if (vtecs.isNotEmpty() && vtecs.size > polygonCount && !vtecs[polygonCount].startsWith("0.EXP") && !vtecs[polygonCount].startsWith("0.CAN")) {
                 val latLons = LatLon.parseStringToLatLons(warning)
@@ -180,8 +170,8 @@ internal object UtilityCanvas {
                     } else {
                         UtilityCanvasProjection.compute4326Numbers(latLons[0], projectionNumbers)
                     }
-                    firstX = startCoordinates[0]
-                    firstY = startCoordinates[1]
+                    val firstX = startCoordinates[0]
+                    val firstY = startCoordinates[1]
                     path.moveTo(firstX.toFloat(), firstY.toFloat())
                     (1 until latLons.size).forEach { index ->
                         val coordinates = if (isMercator) {

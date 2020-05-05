@@ -53,17 +53,14 @@ object UtilityMath {
         return listOf(rx, ry)
     }
 
-    fun computeMiddishPoint(x0: Double, y0: Double, x1: Double, y1: Double, fraction: Double) = listOf(x0 + fraction * (x1 - x0) , y0 + fraction * (y1 - y0))
+    fun computeMidPoint(x0: Double, y0: Double, x1: Double, y1: Double, fraction: Double) = listOf(x0 + fraction * (x1 - x0) , y0 + fraction * (y1 - y0))
 
     // 42.98888 to 42.99
     fun latLonFix(x: String): String {
         val dblX = x.toDoubleOrNull() ?: 0.0
         var newX = "0.0"
         try {
-            newX = String.format(Locale.US, "%.2f", dblX)
-            newX = newX.replace("00$".toRegex(), "")
-            newX = newX.replace("0$".toRegex(), "")
-            newX = newX.replace("\\.$".toRegex(), "")
+            newX = String.format(Locale.US, "%.2f", dblX).replace("00$".toRegex(), "").replace("0$".toRegex(), "").replace("\\.$".toRegex(), "")
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
@@ -73,16 +70,14 @@ object UtilityMath {
     // convert polar cords to rect
     fun toRect(r: Float, t: Float) = floatArrayOf((r * cos(t / (180.00f / PI))).toFloat(), (r * sin(t / (180.00f / PI))).toFloat())
 
-    fun unitsPressure(valueF: String): String {
-        var value = valueF
-        var tmpNum = value.toDoubleOrNull() ?: 0.0
-        if (MyApplication.unitsM) {
-            tmpNum *= 33.8637526
-            value = String.format(Locale.US, "%.2f", tmpNum) + " mb"
+    fun unitsPressure(value: String): String {
+        var num = value.toDoubleOrNull() ?: 0.0
+        return if (MyApplication.unitsM) {
+            num *= 33.8637526
+            String.format(Locale.US, "%.2f", num) + " mb"
         } else {
-            value = String.format(Locale.US, "%.2f", tmpNum) + " in"
+            String.format(Locale.US, "%.2f", num) + " in"
         }
-        return value
     }
 
     fun celsiusToFahrenheit(value: String) = if (MyApplication.unitsF) {
@@ -90,39 +85,22 @@ object UtilityMath {
         } else {
             value
         }
-    
-    internal fun fahrenheitToCelsius(valueDF: Double): String {
-        val valueD = (valueDF - 32) * 5 / 9
-        return round(valueD).toInt().toString()
-    }
 
-    private fun celsiusToFahrenheitAsInt(valueF: Int): String {
-        var value = valueF
-        var retVal = ""
-        if (MyApplication.unitsF) {
-            value = value * 9 / 5 + 32
-            retVal = round(value.toFloat()).toString()
-        }
-        return retVal
-    }
+    internal fun fahrenheitToCelsius(value: Double) = round(((value - 32) * 5 / 9)).toInt().toString()
+
+    // used by celsiusToFahrenheitTable only
+    private fun celsiusToFahrenheitAsInt(value: Int) = round((value * 9 / 5 + 32).toFloat()).toString()
 
     fun celsiusToFahrenheitTable(): String {
         var table = ""
         val cInit = -40
-        for (z in 40 downTo cInit) {
-            val f = celsiusToFahrenheitAsInt(z)
-            table += z.toString() + "  " + f + MyApplication.newline
-        }
+        for (z in 40 downTo cInit) { table += z.toString() + "  " + celsiusToFahrenheitAsInt(z) + MyApplication.newline }
         return table
     }
 
-    internal fun roundToString(valueD: Double) = round(valueD.toFloat()).toInt().toString()
+    internal fun roundToString(value: Double) = round(value.toFloat()).toInt().toString()
 
-    internal fun pressureMBtoIn(valueOriginal: String): String {
-        val tmpNum = (valueOriginal.toDoubleOrNull() ?: 0.0) / 33.8637526
-        val value = String.format(Locale.US, "%.2f", tmpNum)
-        return "$value in"
-    }
+    internal fun pressureMBtoIn(value: String) = String.format(Locale.US, "%.2f", ((value.toDoubleOrNull() ?: 0.0) / 33.8637526)) + " in"
 
     fun pixPerDegreeLon(centerX: Double, factor: Double): Double {
         val radius = 180 / PI * (1 / cos(Math.toRadians(30.51))) * factor
@@ -178,10 +156,4 @@ object UtilityMath {
             ""
         }
     }
-
-    /*static String getWindChill(double tempD, double mphD )
-	{
-		double windChillD = 35.74 + 0.6215 * tempD - 35.75 * Math.pow(mphD,0.16) + 0.4275*tempD * Math.pow(mphD,0.16);
-		return "(" + UtilityMath.unitsTemp(Integer.toString((int)(Math.round(windChillD)))) + MyApplication.DEGREE_SYMBOL + ")";
-	}*/
 }

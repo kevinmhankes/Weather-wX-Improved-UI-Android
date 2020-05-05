@@ -164,7 +164,7 @@ object UtilityWpcFronts {
             val coordinates = parseLatLon(tokens[index])
             front.coordinates.add(LatLon(coordinates[0], coordinates[1]))
             val oldCoordinates = parseLatLon(tokens[index + 1])
-            val coord = UtilityMath.computeMiddishPoint(coordinates[0], coordinates[1], oldCoordinates[0], oldCoordinates[1], 0.8)
+            val coord = UtilityMath.computeMidPoint(coordinates[0], coordinates[1], oldCoordinates[0], oldCoordinates[1], 0.8)
             front.coordinates.add(LatLon(coord[0], coord[1]))
         }
     }
