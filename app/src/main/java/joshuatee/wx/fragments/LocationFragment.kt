@@ -75,7 +75,6 @@ class LocationFragment : Fragment()  {
     private var y = ""
     private var glviewInitialized = false
     private var sevenDayExtShown = false
-    private lateinit var intent: Intent
     private var objectCardCurrentConditions: ObjectCardCurrentConditions? = null
     private lateinit var linearLayout: LinearLayout
     private var homescreenFavLocal = ""
@@ -491,7 +490,7 @@ class LocationFragment : Fragment()  {
                             args[z] = Location.rid
                     }
                     if (cl != null && id != null) {
-                        intent = Intent(activityReference, cl)
+                        val intent = Intent(activityReference, cl)
                         intent.putExtra(id, args)
                         startActivity(intent)
                     }
