@@ -30,6 +30,7 @@ import joshuatee.wx.util.UtilityImgAnim
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
+import joshuatee.wx.util.UtilityLog
 
 object UtilityGoes {
 
@@ -56,6 +57,7 @@ object UtilityGoes {
         // https://cdn.star.nesdis.noaa.gov/GOES17/ABI/CONUS/GEOCOLOR/1250x750.jpg
         // https://cdn.star.nesdis.noaa.gov/GOES16/ABI/CONUS/GEOCOLOR/1250x750.jpg
         val url = MyApplication.goes16Url + "/" + satellite + "/ABI/" + sectorLocal + "/" + product + "/" + getImageFileName(sector)
+        UtilityLog.d("wx", "DEBUG: " + url)
         return url.getImage()
     }
 
@@ -125,6 +127,8 @@ object UtilityGoes {
             "CONUS-G17",
             "FD-G17",
             "ak",
+            "cak",
+            "sea",
             "hi",
             "pnw",
             "psw",
@@ -155,6 +159,8 @@ object UtilityGoes {
             "cam" to "Central America",
             "taw" to "Tropical Atlantic",
             "ak" to "Alaska",
+            "cak" to "Central Alaska",
+            "sea" to "Southeastern Alaska",
             "hi" to "Hawaii",
             "wus" to "US Pacific Coast",
             "tpw" to "Tropical Pacific",
@@ -185,6 +191,8 @@ object UtilityGoes {
             "ssa" to "1800x1080",
             "np" to "1800x1080",
             "ak" to "1000x1000",
+            "cak" to "1200x1200",
+            "sea" to "1200x1200",
             "hi" to "1200x1200"
     )
 }

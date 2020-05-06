@@ -38,9 +38,12 @@ import kotlinx.coroutines.*
 
 class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
 
-    companion object {
-        const val RID = ""
-    }
+    //
+    // GOES 16 / GOES 17 image viewer
+    // https://www.star.nesdis.noaa.gov/GOES/index.php
+    //
+
+    companion object { const val RID = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmap = UtilityImg.getBlankBitmap()
@@ -144,6 +147,8 @@ class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
             R.id.action_smv -> getContent("smv")
             R.id.action_se -> getContent("se")
             R.id.action_ak -> getContent("ak")
+            R.id.action_cak -> getContent("cak")
+            R.id.action_sea -> getContent("sea")
             R.id.action_hi -> getContent("hi")
             R.id.action_can -> getContent("can")
             R.id.action_mex -> getContent("mex")

@@ -42,23 +42,23 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private lateinit var objNhc: ObjectNhc
+    private lateinit var objectNhc: ObjectNhc
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.nhc)
         toolbarBottom.setOnMenuItemClickListener(this)
-        objNhc = ObjectNhc(this, linearLayout)
+        objectNhc = ObjectNhc(this, linearLayout)
         getContent()
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         scrollView.smoothScrollTo(0, 0)
-        withContext(Dispatchers.IO) { objNhc.getTextData() }
-        objNhc.showTextData()
+        withContext(Dispatchers.IO) { objectNhc.getTextData() }
+        objectNhc.showTextData()
         NhcOceanEnum.values().forEach {
-            withContext(Dispatchers.IO) { objNhc.regionMap[it]!!.getImages() }
-            objNhc.showImageData(it)
+            withContext(Dispatchers.IO) { objectNhc.regionMap[it]!!.getImages() }
+            objectNhc.showImageData(it)
         }
     }
 
@@ -71,7 +71,7 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, objNhc.html, "", "")) return true
+        if (audioPlayMenu(item.itemId, objectNhc.html, "", "")) return true
         when (item.itemId) {
             R.id.action_atl_two -> showTextProduct("MIATWOAT")
             R.id.action_atl_twd -> showTextProduct("MIATWDAT")
@@ -80,7 +80,7 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
             R.id.action_atl_tws -> showTextProduct("MIATWSAT")
             R.id.action_epac_tws -> showTextProduct("MIATWSEP")
             R.id.action_cpac_two -> showTextProduct("HFOTWOCP")
-            R.id.action_share -> UtilityShare.shareText(this, "", Utility.fromHtml(objNhc.html))
+            R.id.action_share -> UtilityShare.shareText(this, "", Utility.fromHtml(objectNhc.html))
             R.id.action_epac_daily -> showImageProduct("https://www.ssd.noaa.gov/PS/TROP/DATA/RT/SST/PAC/20.jpg", "EPAC Daily Analysis", "false")
             R.id.action_atl_daily -> showImageProduct("https://www.ssd.noaa.gov/PS/TROP/DATA/RT/SST/ATL/20.jpg", "ATL Daily Analysis", "false")
             R.id.action_epac_7daily -> showImageProduct("${MyApplication.nwsNhcWebsitePrefix}/tafb/pac_anal.gif", "EPAC 7-Day Analysis", "true")
@@ -94,7 +94,7 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onRestart() {
-        objNhc.handleRestartForNotification()
+        objectNhc.handleRestartForNotification()
         super.onRestart()
     }
 }

@@ -58,14 +58,10 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     //  5: Storm ID
     //
 
-    companion object {
-        const val URL = ""
-    }
+    companion object { const val URL = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var activityArguments: List<String>
-    // FIXME analyze usage of url, probably not needed here
-    //private var url = ""
     private var html = ""
     private var product = ""
     private var stormId = ""
@@ -95,7 +91,6 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.nhc_storm)
         toolbarBottom.setOnMenuItemClickListener(this)
         activityArguments = intent.getStringArrayExtra(URL)!!.toList()
-        //url = activityArguments[0]
         toolbarTitle = activityArguments[1]
         val titles = toolbarTitle.split(" - ")
         title = "NHC"

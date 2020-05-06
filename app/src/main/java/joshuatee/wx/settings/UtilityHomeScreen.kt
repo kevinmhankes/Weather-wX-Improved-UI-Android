@@ -92,7 +92,6 @@ internal object UtilityHomeScreen {
         MyApplication.HM_CLASS_ID["NHC"] = ""
         MyApplication.HM_CLASS_ARGS["NHC"] = arrayOf()
 
-
         MyApplication.HM_CLASS["MODEL_NCEP"] = ModelsGenericActivity::class.java
         MyApplication.HM_CLASS_ID["MODEL_NCEP"] = ModelsGenericActivity.INFO
         MyApplication.HM_CLASS_ARGS["MODEL_NCEP"] = arrayOf("1", "NCEP", "NCEP")
@@ -147,7 +146,6 @@ internal object UtilityHomeScreen {
             MyApplication.HM_CLASS_ARGS["RAD_2KM"] = arrayOf("")
             MyApplication.HM_CLASS_ID["RAD_2KM"] = AwcRadarMosaicActivity.URL
         }
-
         listOf(
                 "FMAP",
                 "FMAPD2",
@@ -180,7 +178,6 @@ internal object UtilityHomeScreen {
             MyApplication.HM_CLASS_ARGS[it] = arrayOf("HS", it)
             MyApplication.HM_CLASS_ID[it] = WpcImagesActivity.URL
         }
-
         listOf(
                 "USWARN",
                 "AKWARN",
@@ -189,6 +186,18 @@ internal object UtilityHomeScreen {
             MyApplication.HM_CLASS[it] = USWarningsWithRadarActivity::class.java
             MyApplication.HM_CLASS_ARGS[it] = arrayOf(".*?Tornado Warning.*?|.*?Severe Thunderstorm Warning.*?|.*?Flash Flood Warning.*?", "us")
             MyApplication.HM_CLASS_ID[it] = USWarningsWithRadarActivity.URL
+        }
+        listOf(
+                "NHC2ATL",
+                "NHC5ATL",
+                "NHC2EPAC",
+                "NHC5EPAC",
+                "NHC2CPAC",
+                "NHC5CPAC"
+        ).forEach {
+            MyApplication.HM_CLASS[it] = NhcActivity::class.java
+            MyApplication.HM_CLASS_ID[it] = ""
+            MyApplication.HM_CLASS_ARGS[it] = arrayOf()
         }
     }
 }

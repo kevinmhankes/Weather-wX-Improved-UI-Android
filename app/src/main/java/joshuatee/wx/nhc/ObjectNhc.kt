@@ -138,9 +138,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
                 objectCardImage = ObjectCardImage(context, horizontalLinearLayouts.last().linearLayout, bitmap, imagesPerRow)
             }
             numberOfImages += 1
-            objectCardImage.setOnClickListener(View.OnClickListener {
-                ObjectIntent.showImage(context, regionMap[region]!!.getTitle(index))
-            })
+            objectCardImage.setOnClickListener(View.OnClickListener { ObjectIntent.showImage(context, regionMap[region]!!.getTitle(index)) })
         }
     }
 

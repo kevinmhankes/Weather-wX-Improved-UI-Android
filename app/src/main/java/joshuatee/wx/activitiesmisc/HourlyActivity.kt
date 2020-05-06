@@ -48,12 +48,11 @@ class HourlyActivity : BaseActivity() {
 
     //
     // This activity is accessible from the action bar and provides hourly forecast for the current location
-    // Possible improvements: better text formatting ( possibly color ), proper handling of "nil", graphs
+    //
+    // arg0 location number ( "1" being first saved location )
     //
 
-    companion object {
-        const val LOC_NUM = ""
-    }
+    companion object { const val LOC_NUM = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var htmlShare = listOf<String>()

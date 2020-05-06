@@ -74,8 +74,8 @@ object UtilityDownload {
                         UtilityUSImgNwsMosaic.get(context, UtilityUSImgNwsMosaic.getSectorFromState(state), false)
                     }
                 } else {
-                    val prov = Utility.readPref(context, "NWS" + location + "_STATE", "")
-                    UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, UtilityCanada.getSectorFromProvince(prov))
+                    val province = Utility.readPref(context, "NWS" + location + "_STATE", "")
+                    UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, UtilityCanada.getSectorFromProvince(province))
                 }
             } else {
                 var product = "rad_rala"
@@ -151,6 +151,12 @@ object UtilityDownload {
             "QPF1-5" -> url = "${MyApplication.nwsWPCwebsitePrefix}/qpf/p120i.gif"
             "QPF1-7" -> url = "${MyApplication.nwsWPCwebsitePrefix}/qpf/p168i.gif"
             "WPC_ANALYSIS" -> url = "${MyApplication.nwsWPCwebsitePrefix}/images/wwd/radnat/NATRAD_24.gif"
+            "NHC2ATL" -> url = "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_2d0.png"
+            "NHC5ATL" -> url = "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_atl_5d0.png"
+            "NHC2EPAC" -> url = "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_2d0.png"
+            "NHC5EPAC" -> url = "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_pac_5d0.png"
+            "NHC2CPAC" -> url = "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_2d0.png"
+            "NHC5CPAC" -> url = "${MyApplication.nwsNhcWebsitePrefix}/xgtwo/two_cpac_5d0.png"
             "SPC_TST" -> {
                 needsBitmap = false
                 val images = UtilitySpc.thunderStormOutlookImages

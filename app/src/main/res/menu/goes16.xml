@@ -136,6 +136,14 @@
                 android:title="Alaska"
                 app:showAsAction="never" />
             <item
+                android:id="@+id/action_cak"
+                android:title="Central Alaska"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_sea"
+                android:title="Southeastern Alaska"
+                app:showAsAction="never" />
+            <item
                 android:id="@+id/action_hi"
                 android:title="Hawaii"
                 app:showAsAction="never" />
