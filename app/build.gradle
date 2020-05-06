@@ -27,6 +27,7 @@ android {
     defaultConfig {
         applicationId "joshuatee.wx"
         minSdkVersion 16   // 4.1
+        //minSdkVersion 21   // 5.0
         //targetSdkVersion 'R' // 30
         targetSdkVersion 29
         // Stops the Gradle plugin’s automatic rasterization of vectors (2016_02_25 add 23.2 )
@@ -118,6 +119,7 @@ dependencies {
     // Other
     implementation "com.squareup.okhttp3:okhttp:3.12.8"
     implementation 'com.jjoe64:graphview:4.2.2'
+    //implementation "com.squareup.okhttp3:okhttp:3.14.8"
 }
 
 repositories {
