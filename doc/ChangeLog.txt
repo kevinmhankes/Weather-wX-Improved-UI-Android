@@ -34,8 +34,9 @@
 // TODO [FIX] address gps/screen always on
 // TODO [ADD] use more ObjectIntent in CAB/WX
 // TODO [FIX] NCEP param validation (automate)
-// TODO [ADD] NHC for homescreen
 // TODO [REF] WXGLRender rename rid to radarSite
+// TODO [FIX] if radar center on location, text labels are not in the correct spot
+// TODO [ADD] NHC for homescreen
 
 55418 2020_05_06    [FIX] nexrad long press was not showing warnings if only SPS - add generic count method in utilVtec
                     [FIX] nexrad multipane remove cntrl - up arrown/down arrow as it's not working correctly
