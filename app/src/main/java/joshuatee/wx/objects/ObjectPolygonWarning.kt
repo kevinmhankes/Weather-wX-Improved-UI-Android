@@ -25,6 +25,7 @@ import android.content.Context
 import joshuatee.wx.DataStorage
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityVtec
 
 class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
@@ -74,7 +75,7 @@ class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
             var count = tstCount + torCount + ffwCount
             polygonList.forEach {
                 if (polygonDataByType[it]!!.isEnabled) {
-                    count += UtilityVtec.getStormCount(polygonDataByType[it]!!.storage.value)
+                    count += UtilityVtec.getStormCountGeneric(polygonDataByType[it]!!.storage.value)
                 }
             }
             return count > 0

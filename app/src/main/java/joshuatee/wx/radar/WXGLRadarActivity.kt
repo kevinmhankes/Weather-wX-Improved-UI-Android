@@ -639,7 +639,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             R.id.action_a3 -> animateRadar(3)
             R.id.action_NVW -> getContentVwp()
             R.id.action_fav -> actionToggleFavorite()
-            R.id.action_TDWR -> alertDialogTDWR()
+            R.id.action_TDWR -> alertDialogTdwr()
             R.id.action_ridmap -> showMap()
             else -> return super.onOptionsItemSelected(item)
         }
@@ -844,7 +844,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         mapSwitch(wxglRender.rid)
     }
 
-    private fun alertDialogTDWR() {
+    private fun alertDialogTdwr() {
         val diaTdwr = ObjectDialogue(this@WXGLRadarActivity, GlobalArrays.tdwrRadars)
         diaTdwr.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()

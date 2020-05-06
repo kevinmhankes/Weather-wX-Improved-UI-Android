@@ -49,6 +49,10 @@ object UtilityVtec {
         dashboardString = ExternalDuplicateRemover().stripDuplicates(dashboardString)
         return dashboardString.split(MyApplication.newline).dropLastWhile { it.isEmpty() }.size
     }
+
+    fun getStormCountGeneric(data: String): Int {
+        return data.parseColumn("(NWS-IDP-PROD-)").size
+    }
 }
 
 
