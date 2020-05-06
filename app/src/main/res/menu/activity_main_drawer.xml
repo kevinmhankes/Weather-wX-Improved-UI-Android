@@ -17,6 +17,10 @@
         android:icon="@drawable/goesfulldisk"
         android:title="Global Satellite" />
     <item
+        android:id="@+id/goes_conus_wv"
+        android:icon="@drawable/goes"
+        android:title="GOES Conus Water Vapor" />
+    <item
         android:id="@+id/lightning"
         android:icon="@drawable/lightning"
         android:title="Lightning" />
