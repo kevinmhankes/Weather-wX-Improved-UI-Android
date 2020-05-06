@@ -94,7 +94,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private lateinit var wxglRender: WXGLRender
     private var oldProd = ""
     private var firstRun = true
-    private var oldRidArr = Array(1) { "" }
+    private var oldRadarSites = Array(1) { "" }
     private var mHandler: Handler? = null
     private var mInterval = 180000 // 180 seconds by default
     private var loopCount = 0
@@ -371,7 +371,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                         wxglSurfaceView,
                         wxglRender,
                         0,
-                        oldRidArr,
+                        oldRadarSites, // was oldRidArr
                         wxglRenders,
                         wxglTextObjects,
                         paneList,

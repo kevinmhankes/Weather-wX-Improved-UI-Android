@@ -167,7 +167,9 @@ internal object UtilityRadarUI {
             wxglTextObjects: MutableList<WXGLTextObject>, paneList: List<Int>, imageMap: ObjectImageMap?, wxglSurfaceViews: MutableList<WXGLSurfaceView>,
             fnGps: () -> Unit, fnGetLatLon: () -> LatLon, archiveMode: Boolean = false) {
         wxglRender.initializeGeometry()
+        UtilityLog.d("wx", "DEBUG: redraw geo called " + oldRadarSites[index] + " " + wxglRenders[index].rid)
         if (oldRadarSites[index] != wxglRenders[index].rid) {
+            UtilityLog.d("wx", "DEBUG: redraw geo")
             wxglRender.setChunkCount(0)
             wxglRender.setChunkCountSti(0)
             wxglRender.setHiInit(false)

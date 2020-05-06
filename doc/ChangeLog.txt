@@ -35,10 +35,10 @@
 // TODO [ADD] use more ObjectIntent in CAB/WX
 // TODO [FIX] NCEP param validation (automate)
 // TODO [ADD] NHC for homescreen
-// TODO [REF] remove prefs stored initially with default location
 // TODO [REF] WXGLRender rename rid to radarSite
 
 55418 2020_05_06    [FIX] nexrad long press was not showing warnings if only SPS - add generic count method in utilVtec
+                    [FIX] nexrad multipane remove cntrl - up arrown/down arrow as it's not working correctly
 55417 2020_05_05    [REF] misc
                     [ADD] nexrad long press - don't show warnings text entry if no warnings present
                     [ADD] NCEP MAG models - add Composite Radar Reflectivity into a number of models
