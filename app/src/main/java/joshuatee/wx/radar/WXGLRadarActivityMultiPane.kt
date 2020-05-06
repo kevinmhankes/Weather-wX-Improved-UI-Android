@@ -385,9 +385,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 if ((wxglRenders[z].product.matches(Regex("N[0-3]U")) || wxglRenders[z].product == "L2VEL") && WXGLNexrad.isRidTdwr(wxglRenders[z].rid)) {
                     wxglRenders[z].product = "TV0"
                 }
-                if (wxglRenders[z].product == "TV0" && !WXGLNexrad.isRidTdwr(wxglRenders[z].rid)) {
-                    wxglRenders[z].product = "N0U"
-                }
+                if (wxglRenders[z].product == "TV0" && !WXGLNexrad.isRidTdwr(wxglRenders[z].rid)) wxglRenders[z].product = "N0U"
                 toolbar.subtitle = ""
                 setToolbarTitle()
                 adjustTiltAndProductMenus()
@@ -416,10 +414,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     restartedZoom = false
                     ridChanged = false
                 }
-                if (PolygonType.SPOTTER_LABELS.pref) UtilityWXGLTextObject.updateSpotterLabels(
-                        numberOfPanes,
-                        wxglTextObjects
-                )
+                if (PolygonType.SPOTTER_LABELS.pref) UtilityWXGLTextObject.updateSpotterLabels(numberOfPanes, wxglTextObjects)
                 if (PolygonType.OBS.pref || PolygonType.WIND_BARB.pref) UtilityWXGLTextObject.updateObservations(numberOfPanes, wxglTextObjects)
                 glview.requestRender()
                 setSubTitle()
@@ -676,7 +671,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 }
                 ObjectIntent.showRadarMultiPane(this, arrayOf(joshuatee.wx.settings.Location.rid, "", "4", "true"))
             }
-            R.id.action_TDWR -> alertDialogTDWR()
+            R.id.action_TDWR -> alertDialogTdwr()
             R.id.action_ridmap -> {
                 objectImageMap.toggleMap()
                 oglInView = if (objectImageMap.map.visibility != View.GONE) {
@@ -755,7 +750,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         val infoArr = Array(numberOfPanes) { "" }
         panesList.forEach {
             infoArr[it] = WXGLNexrad.getRadarInfo(this,(it + 1).toString())
-            scanInfo = scanInfo + infoArr[it] + MyApplication.newline + MyApplication.newline
+            scanInfo += infoArr[it] + MyApplication.newline + MyApplication.newline
         }
         ObjectDialogue(this, scanInfo)
     }
@@ -892,23 +887,20 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         })
     }
 
-    private fun longPressRadarSiteSwitch(strName: String) {
-        val ridNew = strName.parse(UtilityRadarUI.longPressRadarSiteRegex)
+    private fun longPressRadarSiteSwitch(string: String) {
+        val newRadarSite = string.parse(UtilityRadarUI.longPressRadarSiteRegex)
         if (MyApplication.dualpaneshareposn) {
-            panesList.forEach {
-                wxglRenders[it].rid = ridNew
-                wxglRenders[it].rid = ridNew
-            }
+            panesList.forEach { wxglRenders[it].rid = newRadarSite }
             ridChanged = true
             ridMapSwitch(wxglRenders[curRadar].rid)
         } else {
-            wxglRenders[idxIntAl].rid = ridNew
+            wxglRenders[idxIntAl].rid = newRadarSite
             ridChanged = true
             ridMapSwitch(wxglRenders[idxIntAl].rid)
         }
     }
 
-    private fun alertDialogTDWR() {
+    private fun alertDialogTdwr() {
         val objectDialogue = ObjectDialogue(this@WXGLRadarActivityMultiPane, GlobalArrays.tdwrRadars)
         objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
