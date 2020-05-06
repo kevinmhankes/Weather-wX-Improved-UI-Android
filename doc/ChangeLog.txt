@@ -39,6 +39,7 @@
 // TODO [REF] GOES - "Due to known security vulnerabilities with legacy encryption standards, we must disable TLS 1.0 and 1.1 on 29 May 2020."
 // TODO [REF]         https://cashapp.github.io/2019-02-05/okhttp-3-13-requires-android-5
 
+55420 2020_05_06
 55419 2020_05_06    [ADD] Java8 support for Java/Kotlin needed for upcoming okhttp update
 55418 2020_05_06    [FIX] nexrad long press was not showing warnings if only SPS - add generic count method in utilVtec
                     [FIX] nexrad multipane remove cntrl - up arrow/down arrow as it's not working correctly
