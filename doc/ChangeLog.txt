@@ -39,6 +39,7 @@
 // TODO [REF]         https://cashapp.github.io/2019-02-05/okhttp-3-13-requires-android-5
 // TODO [REF]         https://square.github.io/okhttp/upgrading_to_okhttp_4/
 
+55421 2020_05_07
 55420 2020_05_07    [ADD] test then backout update to minsdk to 21 and okhttp to 3.14.x / 4.6.0
                     [FIX] if radar center on location, text labels are not in the correct spot
 55419 2020_05_06    [ADD] Java8 support for Java/Kotlin needed for upcoming okhttp update
