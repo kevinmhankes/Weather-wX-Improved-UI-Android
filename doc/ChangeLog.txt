@@ -35,7 +35,6 @@
 // TODO [ADD] use more ObjectIntent in CAB/WX
 // TODO [FIX] NCEP param validation (automate)
 // TODO [REF] WXGLRender rename rid to radarSite
-// TODO [FIX] if radar center on location, text labels are not in the correct spot
 // TODO [REF] GOES - "Due to known security vulnerabilities with legacy encryption standards, we must disable TLS 1.0 and 1.1 on 29 May 2020."
 // TODO [REF]         https://cashapp.github.io/2019-02-05/okhttp-3-13-requires-android-5
 // TODO [REF]         https://square.github.io/okhttp/upgrading_to_okhttp_4/
