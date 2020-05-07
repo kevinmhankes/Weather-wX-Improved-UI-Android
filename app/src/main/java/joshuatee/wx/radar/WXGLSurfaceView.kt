@@ -277,6 +277,36 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
 
     override fun onSingleTapUp(event: MotionEvent) = true
 
+    // used only if center on location enabled
+    fun resetView() {
+        density = (wxglRender.ortInt * 2).toFloat() / width
+        xMiddle = (width / 2).toFloat()
+        yMiddle = (height / 2).toFloat()
+        val zoomFactor = 1.0f
+        if (MyApplication.wxoglCenterOnLocation) {
+            if (MyApplication.dualpaneshareposn && !locationFragment) {
+                mScaleFactor *= zoomFactor
+                (0 until numPanes).forEach {
+                    wxglRenders[it].setViewInitial(mScaleFactor, wxglRenders[it].x * zoomFactor, wxglRenders[it].y * zoomFactor)
+                    wxglSurfaceViews[it].mScaleFactor = mScaleFactor
+                    wxglSurfaceViews[it].requestRender()
+                }
+            } else {
+                mScaleFactor *= zoomFactor
+                wxglRender.setViewInitial(mScaleFactor, wxglRender.x * zoomFactor, wxglRender.y * zoomFactor)
+                requestRender()
+            }
+
+            scaleFactorGlobal = mScaleFactor
+            if (fullScreen || numPanes > 1) {
+                toolbar!!.visibility = View.VISIBLE
+                toolbarsHidden = false
+                if (!archiveMode) toolbarBottom!!.visibility = View.VISIBLE
+            }
+            listener?.onProgressChanged(50000, index, idxInt)
+        }
+    }
+
     override fun onDoubleTap(event: MotionEvent): Boolean {
         density = (wxglRender.ortInt * 2).toFloat() / width
         xPos = event.x

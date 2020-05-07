@@ -401,6 +401,10 @@ class LocationFragment : Fragment()  {
                 objectCardCurrentConditions?.setStatus(currentConditionsTime + radarTime)
             }
         }
+        if (MyApplication.wxoglCenterOnLocation) {
+            //wxglSurfaceViews[idx].requestRender()
+            wxglSurfaceViews[idx].resetView()
+        }
     }
 
     private fun getTextProduct(productString: String) = GlobalScope.launch(uiDispatcher) {
