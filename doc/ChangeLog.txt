@@ -41,6 +41,7 @@
 // TODO [REF]         https://square.github.io/okhttp/upgrading_to_okhttp_4/
 
 55420 2020_05_07    [ADD] test then backout update to minsdk to 21 and okhttp to 3.14.x / 4.6.0
+                    [FIX] if radar center on location, text labels are not in the correct spot (locfrag still needs work)
 55419 2020_05_06    [ADD] Java8 support for Java/Kotlin needed for upcoming okhttp update
 55418 2020_05_06    [FIX] nexrad long press was not showing warnings if only SPS - add generic count method in utilVtec
                     [FIX] nexrad multipane remove cntrl - up arrow/down arrow as it's not working correctly

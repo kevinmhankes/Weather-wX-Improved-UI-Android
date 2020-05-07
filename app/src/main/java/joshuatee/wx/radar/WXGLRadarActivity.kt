@@ -806,6 +806,10 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         getGPSFromDouble()
         wxglRender.constructLocationDot(locXCurrent, locYCurrent, archiveMode)
         wxglSurfaceView.requestRender()
+        if (MyApplication.wxoglCenterOnLocation) {
+            UtilityWXGLTextObject.hideLabels(1, wxglTextObjects)
+            UtilityWXGLTextObject.showLabels(1, wxglTextObjects)
+        }
     }
 
     private fun getGPSFromDouble() {

@@ -110,7 +110,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     private var chunkCount = 0
     private var totalBins = 0
     private var totalBinsOgl = 0
-    private var gpsLatLonTransformed = floatArrayOf(0.0f, 0.0f)
+    var gpsLatLonTransformed = floatArrayOf(0.0f, 0.0f)
     var displayHold = false
     var zoom = 1.0f
         set(scale) {

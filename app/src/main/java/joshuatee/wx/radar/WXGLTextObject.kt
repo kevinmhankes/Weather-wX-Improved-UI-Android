@@ -209,8 +209,17 @@ class WXGLTextObject(
 
     private fun checkAndDrawText(textViews: MutableList<TextView>, lat: Double, lon: Double, text: String, color: Int) {
         val coordinates = UtilityCanvasProjection.computeMercatorNumbers(lat, lon, projectionNumbers)
-        coordinates[0] = coordinates[0] + wxglRender.x / wxglRender.zoom
-        coordinates[1] = coordinates[1] - wxglRender.y / wxglRender.zoom
+        val renderX: Float
+        val renderY: Float
+        if (MyApplication.wxoglCenterOnLocation) {
+            renderX = wxglRender.gpsLatLonTransformed[0]
+            renderY = wxglRender.gpsLatLonTransformed[1]
+        } else {
+            renderX = wxglRender.x / wxglRender.zoom
+            renderY = wxglRender.y / wxglRender.zoom
+        }
+        coordinates[0] = coordinates[0] + renderX
+        coordinates[1] = coordinates[1] - renderY
         if (abs(coordinates[0] * scale) < glviewWidth && abs(coordinates[1] * scale) < glviewHeight) {
             val textView = TextView(context)
             textViews.add(textView)
@@ -239,8 +248,15 @@ class WXGLTextObject(
 
     private fun checkButDoNotDrawText(textViews: MutableList<TextView>, lat: Double, lon: Double, color: Int, textSizeTv: Float): Boolean {
         val coordinates = UtilityCanvasProjection.computeMercatorNumbers(lat, lon, projectionNumbers)
-        coordinates[0] = coordinates[0] + wxglRender.x / wxglRender.zoom
-        coordinates[1] = coordinates[1] - wxglRender.y / wxglRender.zoom
+        //coordinates[0] = coordinates[0] + wxglRender.x / wxglRender.zoom
+        //coordinates[1] = coordinates[1] - wxglRender.y / wxglRender.zoom
+        if (MyApplication.wxoglCenterOnLocation) {
+            coordinates[0] = coordinates[0] + wxglRender.gpsLatLonTransformed[0]
+            coordinates[1] = coordinates[1] - wxglRender.gpsLatLonTransformed[1]
+        } else {
+            coordinates[0] = coordinates[0] + wxglRender.x / wxglRender.zoom
+            coordinates[1] = coordinates[1] - wxglRender.y / wxglRender.zoom
+        }
         var drawText = false
         if (abs(coordinates[0] * scale) < glviewWidth && abs(coordinates[1] * scale) < glviewHeight) {
             drawText = true
