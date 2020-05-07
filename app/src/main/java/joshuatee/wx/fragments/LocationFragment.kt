@@ -402,7 +402,6 @@ class LocationFragment : Fragment()  {
             }
         }
         if (MyApplication.wxoglCenterOnLocation) {
-            //wxglSurfaceViews[idx].requestRender()
             wxglSurfaceViews[idx].resetView()
         }
     }

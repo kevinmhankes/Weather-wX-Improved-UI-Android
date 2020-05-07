@@ -438,6 +438,11 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     UtilityWXGLTextObject.updateWpcFronts(numberOfPanes, wxglTextObjects)
                 }
                 UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivityMultiPane)
+                if (MyApplication.wxoglCenterOnLocation) {
+                    wxglSurfaceViews[z].resetView()
+                    //UtilityWXGLTextObject.hideLabels(it, wxglTextObjects)
+                    //UtilityWXGLTextObject.showLabels(it, wxglTextObjects)
+                }
             }
 
     private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
@@ -856,6 +861,11 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         panesList.forEach {
             wxglRenders[it].constructLocationDot(locXCurrent, locYCurrent, false)
             wxglSurfaceViews[it].requestRender()
+            if (MyApplication.wxoglCenterOnLocation) {
+                wxglSurfaceViews[it].resetView()
+                UtilityWXGLTextObject.hideLabels(it, wxglTextObjects)
+                UtilityWXGLTextObject.showLabels(it, wxglTextObjects)
+            }
         }
     }
 
