@@ -120,6 +120,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:3.12.8"
     implementation 'com.jjoe64:graphview:4.2.2'
     //implementation "com.squareup.okhttp3:okhttp:3.14.8"
+    //implementation "com.squareup.okhttp3:okhttp:4.6.0"
 }
 
 repositories {

@@ -579,6 +579,7 @@ object UtilityDownload {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body()!!.byteStream())
+            //val inputStream = BufferedInputStream(response.body!!.byteStream())
             val bufferedReader = BufferedReader(InputStreamReader(inputStream))
             var line: String? = bufferedReader.readLine()
             while (line != null) {
@@ -600,6 +601,7 @@ object UtilityDownload {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body()!!.byteStream())
+            //val inputStream = BufferedInputStream(response.body!!.byteStream())
             val bufferedReader = BufferedReader(InputStreamReader(inputStream))
             var line: String? = bufferedReader.readLine()
             while (line != null) {
@@ -621,6 +623,7 @@ object UtilityDownload {
             val request = Request.Builder().url(strURL).build()
             val response = MyApplication.httpClientUnsafe!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body()!!.byteStream())
+            //val inputStream = BufferedInputStream(response.body!!.byteStream())
             val bufferedReader = BufferedReader(InputStreamReader(inputStream))
             var line: String? = bufferedReader.readLine()
             while (line != null) {
@@ -643,6 +646,7 @@ object UtilityDownload {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             val bufferedReader = BufferedReader(InputStreamReader(BufferedInputStream(response.body()!!.byteStream())))
+            //val bufferedReader = BufferedReader(InputStreamReader(BufferedInputStream(response.body!!.byteStream())))
             var line: String? = bufferedReader.readLine()
             while (line != null) {
                 out.append(line)
@@ -681,7 +685,8 @@ object UtilityDownload {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             BitmapFactory.decodeStream(BufferedInputStream(response.body()!!.byteStream()))
-        } catch (e: Exception) {
+            //BitmapFactory.decodeStream(BufferedInputStream(response.body!!.byteStream()))
+    } catch (e: Exception) {
             UtilityImg.getBlankBitmap()
         } catch (e: OutOfMemoryError) {
             UtilityImg.getBlankBitmap()
@@ -691,7 +696,8 @@ object UtilityDownload {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClientUnsafe!!.newCall(request).execute()
             BitmapFactory.decodeStream(BufferedInputStream(response.body()!!.byteStream()))
-        } catch (e: Exception) {
+            //BitmapFactory.decodeStream(BufferedInputStream(response.body!!.byteStream()))
+    } catch (e: Exception) {
             UtilityImg.getBlankBitmap()
         } catch (e: OutOfMemoryError) {
             UtilityImg.getBlankBitmap()
@@ -701,7 +707,8 @@ object UtilityDownload {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             response.body()!!.byteStream()
-        } catch (e: IOException) {
+            //response.body!!.byteStream()
+    } catch (e: IOException) {
             UtilityLog.handleException(e)
             null
         }

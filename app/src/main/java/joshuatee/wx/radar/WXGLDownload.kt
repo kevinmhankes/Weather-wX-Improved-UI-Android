@@ -177,6 +177,8 @@ class WXGLDownload {
             val request = Request.Builder().url(url).header("Range", "bytes=0-$byteEnd").build()
             val response = MyApplication.httpClient!!.newCall(request).execute() // was client
             response.body()!!.byteStream()
+            //val byteStream: InputStream = response.body!!.byteStream()
+            //byteStream
         } catch (e: IOException) {
             null
         }
