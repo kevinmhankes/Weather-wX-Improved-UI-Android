@@ -40,7 +40,7 @@
 // TODO [REF]         https://square.github.io/okhttp/upgrading_to_okhttp_4/
 // TODO [ADD] settings location: Lat long to last line, Top line all blue, Some other indicator if notification
 
-55422 2020_05_08
+55422 2020_05_08    [ADD] In settings location, condense the number of lines, make the top line blue, indicate active alerts with text "*Alerts" at end of name
 55421 2020_05_08    [FIX] TTS bug when starting voice in one activity and moving to another and starting a new voice (do not check ttsInit in initTts)
 55420 2020_05_07    [ADD] test then backout update to minsdk to 21 and okhttp to 3.14.x / 4.6.0
                     [FIX] if radar center on location, text labels are not in the correct spot

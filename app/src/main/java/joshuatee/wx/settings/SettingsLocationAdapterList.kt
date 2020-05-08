@@ -23,7 +23,7 @@ internal class SettingsLocationAdapterList(private val dataSet: MutableList<Stri
         val text1 = ObjectTextView(itemView, R.id.text1, TextSize.MEDIUM)
         val currentConditions = ObjectTextView(itemView, R.id.currentConditions, TextSize.SMALL)
         val text2 = ObjectTextView(itemView, R.id.text2, backgroundText = true)
-        val text3 = ObjectTextView(itemView, R.id.text3, backgroundText = true)
+        //val text3 = ObjectTextView(itemView, R.id.text3, backgroundText = true)
 
         init {
             ObjectCard(itemView, R.id.cv1)
@@ -58,17 +58,19 @@ internal class SettingsLocationAdapterList(private val dataSet: MutableList<Stri
         }
         holder.text1.text = Location.getName(position)
         if (UtilityLocation.hasAlerts(position)) {
-            holder.text1.color = UIPreferences.textHighlightColor
-        } else {
-            holder.text1.color = UIPreferences.backgroundColor
+            holder.text1.text = Location.getName(position) + " +Alert"
         }
+        holder.text1.color = UIPreferences.textHighlightColor
+        //} else {
+        //    holder.text1.color = UIPreferences.backgroundColor
+        //}
         holder.currentConditions.text = Location.getObservation(position)
         if (nonUs) {
-            holder.text2.text = "${UtilityStringExternal.truncate(lat, 6)} , ${UtilityStringExternal.truncate(lon, 6)}"
-            holder.text3.text = "RID: ${Location.getRid(position)} ${UtilityLocation.hasAlerts(position)}"
+            //holder.text2.text = "${UtilityStringExternal.truncate(lat, 6)} , ${UtilityStringExternal.truncate(lon, 6)}"
+            holder.text2.text = "RID: ${Location.getRid(position)} ${UtilityLocation.hasAlerts(position)} (${UtilityStringExternal.truncate(lat, 6)} , ${UtilityStringExternal.truncate(lon, 6)})"
         } else {
-            holder.text2.text = "${UtilityStringExternal.truncate(Location.getX(position), 6)} , ${UtilityStringExternal.truncate(Location.getY(position), 6)}"
-            holder.text3.text = "WFO: ${Location.getWfo(position)}  RID: ${Location.getRid(position)}"
+            //holder.text2.text = "${UtilityStringExternal.truncate(Location.getX(position), 6)} , ${UtilityStringExternal.truncate(Location.getY(position), 6)}"
+            holder.text2.text = "WFO: ${Location.getWfo(position)}  RID: ${Location.getRid(position)} (${UtilityStringExternal.truncate(Location.getX(position), 6)} , ${UtilityStringExternal.truncate(Location.getY(position), 6)})"
         }
     }
 
