@@ -893,7 +893,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         colorSwo[2] = Color.rgb(255, 140, 0)
         colorSwo[3] = Color.YELLOW
         colorSwo[4] = Color.rgb(0, 100, 0)
-        var tmpCoords: DoubleArray
+        var coordinates: DoubleArray
         val fSize = (0..4).filter { hashSwo[it] != null }.sumBy { hashSwo.getOrElse(it) { listOf() }.size }
         swoBuffers.breakSize = 15000
         swoBuffers.chunkCount = 1
@@ -917,12 +917,12 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                     swoBuffers.putColor(Color.red(colorSwo[it]).toByte())
                     swoBuffers.putColor(Color.green(colorSwo[it]).toByte())
                     swoBuffers.putColor(Color.blue(colorSwo[it]).toByte())
-                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(hashSwo.getOrElse(it) { listOf() }[j], (hashSwo.getOrElse(it) { listOf() }[j + 1] * -1.0f), projectionNumbers)
-                    swoBuffers.putFloat(tmpCoords[0].toFloat())
-                    swoBuffers.putFloat(tmpCoords[1].toFloat() * -1.0f)
-                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(hashSwo.getOrElse(it) { listOf() }[j + 2], (hashSwo.getOrElse(it) { listOf() }[j + 3] * -1.0f), projectionNumbers)
-                    swoBuffers.putFloat(tmpCoords[0].toFloat())
-                    swoBuffers.putFloat(tmpCoords[1].toFloat() * -1.0f)
+                    coordinates = UtilityCanvasProjection.computeMercatorNumbers(hashSwo.getOrElse(it) { listOf() }[j], (hashSwo.getOrElse(it) { listOf() }[j + 1] * -1.0f), projectionNumbers)
+                    swoBuffers.putFloat(coordinates[0].toFloat())
+                    swoBuffers.putFloat(coordinates[1].toFloat() * -1.0f)
+                    coordinates = UtilityCanvasProjection.computeMercatorNumbers(hashSwo.getOrElse(it) { listOf() }[j + 2], (hashSwo.getOrElse(it) { listOf() }[j + 3] * -1.0f), projectionNumbers)
+                    swoBuffers.putFloat(coordinates[0].toFloat())
+                    swoBuffers.putFloat(coordinates[1].toFloat() * -1.0f)
                     //j += 4
                 }
             }
