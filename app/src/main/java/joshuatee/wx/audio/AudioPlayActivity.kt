@@ -90,7 +90,7 @@ abstract class AudioPlayActivity : AppCompatActivity() {
         when (item) {
             R.id.action_read_aloud -> {
                 if (isStoragePermissionGranted) {
-                    UtilityTts.synthesizeTextAndPlay(applicationContext, txt, prod)
+                    UtilityTts.synthesizeTextAndPlay(this, txt, prod)
                     pause.setIcon(MyApplication.ICON_PAUSE)
                     if (UIPreferences.mediaControlNotif) UtilityNotification.createMediaControlNotification(applicationContext, "")
                 } else {

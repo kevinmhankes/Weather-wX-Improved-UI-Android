@@ -56,7 +56,7 @@ object UtilityTts {
 
     fun initTts(context: Context) {
         // samsung bug, if users do not have google TTS selected it will crash - add try-catch so user can at least use rest of prog
-        if (!ttsInit) {
+        //if (!ttsInit) {
             try {
                 ttobjGlobal = TextToSpeech(context, TextToSpeech.OnInitListener { status ->
                     if (status != TextToSpeech.ERROR) ttobjGlobal?.language = Locale.US
@@ -66,7 +66,7 @@ object UtilityTts {
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
             }
-        }
+        //}
     }
 
     internal fun playAgainTts(context: Context) {
@@ -186,6 +186,7 @@ object UtilityTts {
         currentFile = 0
         ttsIsPaused = false
         if (!ttsInit) initTts(context)
+        //initTts(context)
         // clear the queue of any pending objects
         ttobjGlobal!!.stop()
         if (!mpInit) initMediaPlayer(context)
