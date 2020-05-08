@@ -894,7 +894,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         colorSwo[3] = Color.YELLOW
         colorSwo[4] = Color.rgb(0, 100, 0)
         var tmpCoords: DoubleArray
-        val fSize = (0..4).filter { hashSwo[it] != null }.sumBy { hashSwo[it]!!.size }
+        val fSize = (0..4).filter { hashSwo[it] != null }.sumBy { hashSwo.getOrElse(it) { listOf() }.size }
         swoBuffers.breakSize = 15000
         swoBuffers.chunkCount = 1
         val totalBinsSwo = fSize / 4
@@ -909,17 +909,17 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         (0..4).forEach {
             if (hashSwo[it] != null) {
                 var j = 0
-                while (j < hashSwo[it]!!.size) {
+                while (j < hashSwo.getOrElse(it) { listOf() }.size) {
                     swoBuffers.putColor(Color.red(colorSwo[it]).toByte())
                     swoBuffers.putColor(Color.green(colorSwo[it]).toByte())
                     swoBuffers.putColor(Color.blue(colorSwo[it]).toByte())
                     swoBuffers.putColor(Color.red(colorSwo[it]).toByte())
                     swoBuffers.putColor(Color.green(colorSwo[it]).toByte())
                     swoBuffers.putColor(Color.blue(colorSwo[it]).toByte())
-                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(hashSwo[it]!![j], (hashSwo[it]!![j + 1] * -1.0f), projectionNumbers)
+                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(hashSwo.getOrElse(it) { listOf() }[j], (hashSwo.getOrElse(it) { listOf() }[j + 1] * -1.0f), projectionNumbers)
                     swoBuffers.putFloat(tmpCoords[0].toFloat())
                     swoBuffers.putFloat(tmpCoords[1].toFloat() * -1.0f)
-                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(hashSwo[it]!![j + 2], (hashSwo[it]!![j + 3] * -1.0f), projectionNumbers)
+                    tmpCoords = UtilityCanvasProjection.computeMercatorNumbers(hashSwo.getOrElse(it) { listOf() }[j + 2], (hashSwo.getOrElse(it) { listOf() }[j + 3] * -1.0f), projectionNumbers)
                     swoBuffers.putFloat(tmpCoords[0].toFloat())
                     swoBuffers.putFloat(tmpCoords[1].toFloat() * -1.0f)
                     j += 4
