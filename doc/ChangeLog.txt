@@ -40,6 +40,7 @@
 // TODO [REF]         https://square.github.io/okhttp/upgrading_to_okhttp_4/
 // TODO [ADD] labelFor for TextViews support EditText
 
+55425 2020_05_09
 55424 2020_05_09    [REF] remove legacy png for icons in folders like app/src/main/res/drawable-xhdpi
 55423 2020_05_09    [REF] remove Obsolete SDK_INT Version Check
                     [REF] move values-v21/styles.xml to values/styles.xml
