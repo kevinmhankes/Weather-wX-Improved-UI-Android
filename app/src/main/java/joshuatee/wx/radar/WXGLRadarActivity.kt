@@ -1001,19 +1001,22 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 return true
             }
             KeyEvent.KEYCODE_A -> {
-                if (inOglAnim) {
-                    inOglAnim = false
-                    inOglAnimPaused = false
-                    // if an L2 anim is in process sleep for 1 second to let the current decode/render finish
-                    // otherwise the new selection might overwrite in the OGLR object - hack
-                    // (revert) 2016_08 have this apply to Level 3 in addition to Level 2
-                    if (wxglRender.product.contains("L2")) SystemClock.sleep(2000)
-                    setStarButton()
-                    animateButton.setIcon(MyApplication.ICON_PLAY)
-                    animateButton.title = animateButtonPlayString
-                    getContent()
+                if (event.isCtrlPressed) {
+                    if (inOglAnim) {
+                        inOglAnim = false
+                        inOglAnimPaused = false
+                        // if an L2 anim is in process sleep for 1 second to let the current decode/render finish
+                        // otherwise the new selection might overwrite in the OGLR object - hack
+                        // (revert) 2016_08 have this apply to Level 3 in addition to Level 2
+                        if (wxglRender.product.contains("L2")) SystemClock.sleep(2000)
+                        setStarButton()
+                        animateButton.setIcon(MyApplication.ICON_PLAY)
+                        animateButton.title = animateButtonPlayString
+                        getContent()
+                    } else {
+                        animateRadar(MyApplication.uiAnimIconFrames.toIntOrNull() ?: 0)
+                    }
                 }
-                if (event.isCtrlPressed) animateRadar(MyApplication.uiAnimIconFrames.toIntOrNull() ?: 0)
                 return true
             }
             KeyEvent.KEYCODE_F -> {
