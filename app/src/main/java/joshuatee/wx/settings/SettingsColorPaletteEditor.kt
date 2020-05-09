@@ -164,7 +164,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
     }
 
     private fun showLoadFromFileMenuItem() {
-        toolbarBottom.menu.findItem(R.id.action_load).isVisible = Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT
+        toolbarBottom.menu.findItem(R.id.action_load).isVisible = true
     }
 
     private fun loadSettings() { performFileSearch() }
@@ -194,19 +194,17 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
      * Fires an intent to spin up the "file chooser" UI and select an image.
      */
     private fun performFileSearch() {
-        if (Build.VERSION.SDK_INT > 18) {
-            // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file browser.
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            // Filter to only show results that can be "opened", such as a
-            // file (as opposed to a list of contacts or timezones)
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            // Filter to show only images, using the image MIME data type.
-            // If one wanted to search for ogg vorbis files, the type would be "audio/ogg".
-            // To search for all documents available via installed storage providers,
-            // it would be "*/*".
-            intent.type = "*/*"
-            startActivityForResult(intent, READ_REQUEST_CODE)
-        }
+        // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file browser.
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        // Filter to only show results that can be "opened", such as a
+        // file (as opposed to a list of contacts or timezones)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        // Filter to show only images, using the image MIME data type.
+        // If one wanted to search for ogg vorbis files, the type would be "audio/ogg".
+        // To search for all documents available via installed storage providers,
+        // it would be "*/*".
+        intent.type = "*/*"
+        startActivityForResult(intent, READ_REQUEST_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {

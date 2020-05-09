@@ -210,7 +210,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             menu.findItem(R.id.action_tilt_blank).isVisible = false
             menu.findItem(R.id.action_tools_blank).isVisible = false
         }
-        if (Build.VERSION.SDK_INT < 21) menu.findItem(R.id.action_share).title = "Share"
         delay = UtilityImg.animInterval(this)
         panesList.forEach {
             wxglSurfaceViews.add(WXGLSurfaceView(this, widthDivider, numberOfPanes, heightDivider))
@@ -225,14 +224,14 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 relativeLayouts.add(findViewById(elementIds[it]))
                 relativeLayouts[it].addView(wxglSurfaceViews[it])
                 val params = relativeLayouts[it].layoutParams
-                if (Build.VERSION.SDK_INT >= 19 && (UIPreferences.radarImmersiveMode || UIPreferences.radarToolbarTransparent))
+                if (UIPreferences.radarImmersiveMode || UIPreferences.radarToolbarTransparent)
                     params.height = MyApplication.dm.heightPixels / 2 + UtilityUI.statusBarHeight(this)
                 else
                     params.height = MyApplication.dm.heightPixels /
                             2 - MyApplication.actionBarHeight /
                             2 - UtilityUI.statusBarHeight(this) / 2 -
                             (UtilityUI.navigationBarHeight(this) / 2.0).toInt()
-                if (Build.VERSION.SDK_INT >= 19 && UIPreferences.radarToolbarTransparent && !UIPreferences.radarImmersiveMode && numberOfPanes == 4) {
+                if (UIPreferences.radarToolbarTransparent && !UIPreferences.radarImmersiveMode && numberOfPanes == 4) {
                     params.height = MyApplication.dm.heightPixels / 2 - UtilityUI.statusBarHeight(this) / 2
                 }
                 params.width = MyApplication.dm.widthPixels / 2
@@ -569,7 +568,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                             + MyApplication.newline + MyApplication.newline
             )
             R.id.action_share -> {
-                if (Build.VERSION.SDK_INT > 20) {
+                if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
                     if (animRan) {

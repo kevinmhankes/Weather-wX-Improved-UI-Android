@@ -8,7 +8,6 @@ joshua.tee@gmail.com
 
 package joshuatee.wx.telecine
 
-import android.app.Notification
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -40,16 +39,13 @@ class TelecineService : Service() {
             val context = applicationContext
             val title = context.getString(R.string.notification_recording_title)
             val subtitle = context.getString(R.string.notification_recording_subtitle)
-            var notification: Notification? = null
-            if (Build.VERSION.SDK_INT > 20) {
-                notification = NotificationCompat.Builder(context, UtilityNotification.notiChannelStrNoSound)
-                        .setContentTitle(title)
-                        .setContentText(subtitle)
-                        .setSmallIcon(R.drawable.ic_videocam_24dp)
-                        .setColor(ContextCompat.getColor(context, R.color.primary_normal))
-                        .setAutoCancel(true)
-                        .build()
-            }
+            val notification = NotificationCompat.Builder(context, UtilityNotification.notiChannelStrNoSound)
+                    .setContentTitle(title)
+                    .setContentText(subtitle)
+                    .setSmallIcon(R.drawable.ic_videocam_24dp)
+                    .setColor(ContextCompat.getColor(context, R.color.primary_normal))
+                    .setAutoCancel(true)
+                    .build()
             startForeground(NOTIFICATION_ID, notification)
         }
 

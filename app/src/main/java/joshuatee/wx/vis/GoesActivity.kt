@@ -165,7 +165,7 @@ class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
             R.id.action_eep -> getContent("eep")
             R.id.action_np -> getContent("np")
             R.id.action_share -> {
-                if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
+                if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
                     UtilityShare.shareBitmap(this, this, drw.getLabel(), bitmap)

@@ -78,18 +78,14 @@ class ObjectFab {
     private fun setupFab(context: Context, icon: Int) {
         if (UIPreferences.themeIsWhite) fab.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue_accent))
         fabSetResDrawable(context, icon)
-        if (Build.VERSION.SDK_INT > 20) {
-            fab.elevation = MyApplication.fabElevation
-            fab.translationZ = MyApplication.fabElevationDepressed
-        }
+        fab.elevation = MyApplication.fabElevation
+        fab.translationZ = MyApplication.fabElevationDepressed
     }
 
     private fun setupFab(context: Context) {
         if (UIPreferences.themeIsWhite) fab.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue_accent))
-        if (Build.VERSION.SDK_INT > 20) {
-            fab.elevation = MyApplication.fabElevation
-            fab.translationZ = MyApplication.fabElevationDepressed
-        }
+        fab.elevation = MyApplication.fabElevation
+        fab.translationZ = MyApplication.fabElevationDepressed
     }
 }
 

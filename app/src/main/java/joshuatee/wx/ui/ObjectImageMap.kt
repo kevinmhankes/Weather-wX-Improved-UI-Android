@@ -23,7 +23,6 @@ package joshuatee.wx.ui
 
 import android.app.Activity
 import android.content.Context
-import android.os.Build
 import android.view.View
 import joshuatee.wx.util.ImageMap
 import androidx.appcompat.widget.Toolbar
@@ -44,8 +43,7 @@ class ObjectImageMap(
     init { map.visibility = View.GONE }
 
     fun toggleMap() {
-        var toolbarAlpha = 255
-        if (Build.VERSION.SDK_INT > 20) toolbarAlpha = toolbar.background.alpha
+        val toolbarAlpha = toolbar.background.alpha
         if (toolbarAlpha == 0) isRadarWithTransparent = true
         if (map.visibility == View.GONE) {
             setupMap()

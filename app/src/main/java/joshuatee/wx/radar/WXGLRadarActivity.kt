@@ -204,11 +204,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             menu.findItem(R.id.action_tilt_blank).isVisible = false
             menu.findItem(R.id.action_tools_blank).isVisible = false
         }
-        if (Build.VERSION.SDK_INT > 20) {
-            menu.findItem(R.id.action_jellybean_drawtools).isVisible = false
-        } else {
-            menu.findItem(R.id.action_share).title = "Share"
-        }
+        menu.findItem(R.id.action_jellybean_drawtools).isVisible = false
         delay = UtilityImg.animInterval(this)
         img = findViewById(R.id.iv)
         img.maxZoom = 6.0f

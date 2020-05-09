@@ -85,33 +85,31 @@ class ObjectWidgetCC(context: Context) {
             remoteViews.setTextViewText(R.id.text4, sevenDay)
             remoteViews.setTextColor(R.id.text4, MyApplication.widgetTextColor)
         }
-        if (android.os.Build.VERSION.SDK_INT > 20) {
-            val wbIcon = UtilityImg.vectorDrawableToBitmap(context, R.drawable.ic_navigation_white_24dp, MyApplication.widgetHighlightTextColor)
-            var windBardRotate = 0.0f
-            if (currentConditionsList.size > 2) {
-                val tmpWindArr = MyApplication.space.split(currentConditionsList[2])
-                var windDirStr = ""
-                if (tmpWindArr.isNotEmpty()) windDirStr = tmpWindArr[0]
-                windBardRotate = when (windDirStr) {
-                    "N" -> 180f
-                    "NE" -> 225f
-                    "E" -> 270f
-                    "SE" -> 315f
-                    "S" -> 0f
-                    "NW" -> 135f
-                    "W" -> 90f
-                    "SW" -> 45f
-                    else -> 1000f
-                }
+        val wbIcon = UtilityImg.vectorDrawableToBitmap(context, R.drawable.ic_navigation_white_24dp, MyApplication.widgetHighlightTextColor)
+        var windBardRotate = 0.0f
+        if (currentConditionsList.size > 2) {
+            val tmpWindArr = MyApplication.space.split(currentConditionsList[2])
+            var windDirStr = ""
+            if (tmpWindArr.isNotEmpty()) windDirStr = tmpWindArr[0]
+            windBardRotate = when (windDirStr) {
+                "N" -> 180f
+                "NE" -> 225f
+                "E" -> 270f
+                "SE" -> 315f
+                "S" -> 0f
+                "NW" -> 135f
+                "W" -> 90f
+                "SW" -> 45f
+                else -> 1000f
             }
-            val scaleFactor = MyApplication.deviceScale / 3.0f * 1.25f
-            val matrix = Matrix()
-            matrix.postRotate(windBardRotate, 100f, 100f)
-            var rotatedWb = Bitmap.createBitmap(wbIcon, 0, 0, wbIcon.width, wbIcon.height, matrix, true)
-            rotatedWb = Bitmap.createScaledBitmap(rotatedWb, (wbIcon.width * scaleFactor).toInt(), (wbIcon.height * scaleFactor).toInt(), false)
-            remoteViews.setImageViewUri(R.id.wind_barb, Uri.parse(""))
-            if (windBardRotate < 500) remoteViews.setImageViewBitmap(R.id.wind_barb, rotatedWb)
         }
+        val scaleFactor = MyApplication.deviceScale / 3.0f * 1.25f
+        val matrix = Matrix()
+        matrix.postRotate(windBardRotate, 100f, 100f)
+        var rotatedWb = Bitmap.createBitmap(wbIcon, 0, 0, wbIcon.width, wbIcon.height, matrix, true)
+        rotatedWb = Bitmap.createScaledBitmap(rotatedWb, (wbIcon.width * scaleFactor).toInt(), (wbIcon.height * scaleFactor).toInt(), false)
+        remoteViews.setImageViewUri(R.id.wind_barb, Uri.parse(""))
+        if (windBardRotate < 500) remoteViews.setImageViewBitmap(R.id.wind_barb, rotatedWb)
         if (!currentConditionsList[0].contains("NA")) {
             remoteViews.setImageViewUri(R.id.iv, Uri.parse(""))
             remoteViews.setImageViewBitmap(R.id.iv, bitmap)

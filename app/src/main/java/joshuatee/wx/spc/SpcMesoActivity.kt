@@ -36,6 +36,7 @@ import joshuatee.wx.Extensions.getHtml
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
+import joshuatee.wx.UIPreferences
 import joshuatee.wx.models.DisplayData
 import joshuatee.wx.models.UtilityModels
 import joshuatee.wx.objects.ObjectIntent
@@ -343,7 +344,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
             R.id.action_a12 -> getAnimate(12)
             R.id.action_a18 -> getAnimate(18)
             R.id.action_share -> {
-                if (android.os.Build.VERSION.SDK_INT > 20) {
+                if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
                     var title = UtilitySpcMeso.sectorMap[sector] + " - " + displayData.paramLabel[0]

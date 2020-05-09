@@ -123,7 +123,7 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
             R.id.action_sat_vis -> getContent("sat_vis")
             R.id.action_sat_wv -> getContent("sat_wv")
             R.id.action_share -> {
-                if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
+                if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
                     if (animRan) {

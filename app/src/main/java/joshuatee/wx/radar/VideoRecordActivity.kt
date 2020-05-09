@@ -84,10 +84,8 @@ abstract class VideoRecordActivity : AppCompatActivity() {
 
     private fun fireScreenCaptureIntent() {
         val manager = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
-        if (Build.VERSION.SDK_INT > 20) {
-            val intent = manager.createScreenCaptureIntent()
-            startActivityForResult(intent, CREATE_SCREEN_CAPTURE)
-        }
+        val intent = manager.createScreenCaptureIntent()
+        startActivityForResult(intent, CREATE_SCREEN_CAPTURE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

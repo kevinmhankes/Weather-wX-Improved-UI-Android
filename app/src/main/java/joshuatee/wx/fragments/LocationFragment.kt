@@ -197,7 +197,7 @@ class LocationFragment : Fragment()  {
         setupAlertDialogStatus()
         setupAlertDialogRadarLongPress()
         val view: View =
-                if (android.os.Build.VERSION.SDK_INT < 21 && UIPreferences.themeInt == R.style.MyCustomTheme_white_NOAB)
+                if (UIPreferences.themeInt == R.style.MyCustomTheme_white_NOAB)
                     inflater.inflate(R.layout.fragment_location_white, container, false)
                 else
                     inflater.inflate(R.layout.fragment_location, container, false)

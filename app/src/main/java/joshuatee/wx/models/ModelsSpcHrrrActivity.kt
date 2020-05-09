@@ -49,9 +49,7 @@ import kotlinx.coroutines.*
 
 class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, OnItemSelectedListener {
 
-    companion object {
-        const val INFO = ""
-    }
+    companion object { const val INFO = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var spRun: ObjectSpinner
@@ -181,7 +179,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
             R.id.action_forward -> UtilityModels.moveForward(om.spTime)
             R.id.action_animate -> UtilityModels.getAnimate(om, overlayImg, uiDispatcher)
             R.id.action_share -> {
-                if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
+                if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
                     UtilityModels.legacyShare(this@ModelsSpcHrrrActivity,this@ModelsSpcHrrrActivity, om.animRan, om)

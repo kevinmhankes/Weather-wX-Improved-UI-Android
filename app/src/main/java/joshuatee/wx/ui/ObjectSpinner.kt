@@ -142,7 +142,7 @@ class ObjectSpinner {
 
     private fun setupSpinner() {
         val tint = ColorStateList.valueOf(UIPreferences.colorOffwhiteToolbar)
-        if (android.os.Build.VERSION.SDK_INT > 20) spinner.backgroundTintList = tint
+        spinner.backgroundTintList = tint
     }
 }
 

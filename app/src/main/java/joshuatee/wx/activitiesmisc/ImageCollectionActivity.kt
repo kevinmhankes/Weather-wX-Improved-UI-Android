@@ -43,12 +43,9 @@ import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.vis.UtilityGoesFullDisk
 import kotlinx.coroutines.*
 
-
 class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemClickListener
 
-    companion object {
-        const val TYPE = ""
-    }
+    companion object { const val TYPE = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmap = UtilityImg.getBlankBitmap()
@@ -118,7 +115,7 @@ class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemC
         when (item.itemId) {
             R.id.action_animate -> getAnimate()
             R.id.action_share -> {
-                if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
+                if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
                     UtilityShare.shareBitmap(this, this, imageCollection.title, bitmap)

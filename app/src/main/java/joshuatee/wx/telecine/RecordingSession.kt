@@ -208,20 +208,18 @@ internal class RecordingSession(
         } catch (e: IOException) {
             throw RuntimeException("Unable to prepare MediaRecorder.", e)
         }
-        if (Build.VERSION.SDK_INT > 20) {
-            projection = projectionManager!!.getMediaProjection(resultCode, data)
-            val surface = recorder!!.surface
-            display = projection!!.createVirtualDisplay(
-                DISPLAY_NAME,
-                recordingInfo.width,
-                recordingInfo.height,
-                recordingInfo.density,
-                VIRTUAL_DISPLAY_FLAG_PRESENTATION,
-                surface,
-                null,
-                null
-            )
-        }
+        projection = projectionManager!!.getMediaProjection(resultCode, data)
+        val surface = recorder!!.surface
+        display = projection!!.createVirtualDisplay(
+            DISPLAY_NAME,
+            recordingInfo.width,
+            recordingInfo.height,
+            recordingInfo.density,
+            VIRTUAL_DISPLAY_FLAG_PRESENTATION,
+            surface,
+            null,
+            null
+        )
         recorder!!.start()
         running = true
         listener.onStart()
@@ -232,18 +230,16 @@ internal class RecordingSession(
         showOverlay()
         var propagate = false
         try {
-            if (Build.VERSION.SDK_INT > 20) {
-                // Stop the projection in order to flush everything to the recorder.
-                projection!!.stop()
-                // Stop the recorder which writes the contents to the file.
-                try {
-                    recorder!!.stop()
-                } catch (e: RuntimeException) {
-                } finally {
-                    if (recorder != null)
-                        recorder!!.release()
-                    recorder = null
-                }
+            // Stop the projection in order to flush everything to the recorder.
+            projection!!.stop()
+            // Stop the recorder which writes the contents to the file.
+            try {
+                recorder!!.stop()
+            } catch (e: RuntimeException) {
+            } finally {
+                if (recorder != null)
+                    recorder!!.release()
+                recorder = null
             }
             propagate = true
         } finally {
@@ -256,11 +252,9 @@ internal class RecordingSession(
                 }
             }
         }
-        if (Build.VERSION.SDK_INT > 20) {
-            if (recorder != null)
-                recorder!!.release()
-            display!!.release()
-        }
+        // FIXME let
+        if (recorder != null) recorder!!.release()
+        display!!.release()
         val uri = FileProvider.getUriForFile(context, "${MyApplication.packageNameAsString}.fileprovider", File(outputFile!!))
         mainThread.post {showNotification(uri, null)}
     }
@@ -413,19 +407,17 @@ internal class RecordingSession(
         val subtitle = context.getText(R.string.notification_captured_subtitle)
         val share = context.getText(R.string.notification_captured_share)
         var builder: NotificationCompat.Builder? = null
-        if (Build.VERSION.SDK_INT > 20) {
-            val actionShare = NotificationCompat.Action.Builder(R.drawable.ic_share_24dp, share, pendingShareIntent).build()
-            builder = NotificationCompat.Builder(context, UtilityNotification.notiChannelStrNoSound)
-                .setContentTitle(title)
-                .setContentText(subtitle)
-                .setWhen(UtilityTime.currentTimeMillis())
-                .setShowWhen(true)
-                .setSmallIcon(R.drawable.ic_videocam_24dp)
-                .setColor(UIPreferences.colorNotif)
-                .setContentIntent(pendingViewIntent)
-                .setAutoCancel(true)
-                .addAction(actionShare)
-        }
+        val actionShare = NotificationCompat.Action.Builder(R.drawable.ic_share_24dp, share, pendingShareIntent).build()
+        builder = NotificationCompat.Builder(context, UtilityNotification.notiChannelStrNoSound)
+            .setContentTitle(title)
+            .setContentText(subtitle)
+            .setWhen(UtilityTime.currentTimeMillis())
+            .setShowWhen(true)
+            .setSmallIcon(R.drawable.ic_videocam_24dp)
+            .setColor(UIPreferences.colorNotif)
+            .setContentIntent(pendingViewIntent)
+            .setAutoCancel(true)
+            .addAction(actionShare)
         if (bitmap != null) {
             builder!!.setLargeIcon(createSquareBitmap(bitmap))
                 .setStyle(

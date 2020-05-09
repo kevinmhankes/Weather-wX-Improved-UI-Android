@@ -78,7 +78,7 @@ class WX : CommonActionBarFragment() {
         UtilityTheme.setPrimaryColor(this)
         val toolbarBottom: Toolbar = findViewById(R.id.toolbar_bottom)
         view = findViewById(android.R.id.content)
-        if (android.os.Build.VERSION.SDK_INT > 20) toolbarBottom.elevation = MyApplication.elevationPref
+        toolbarBottom.elevation = MyApplication.elevationPref
         if (MyApplication.iconsEvenSpaced) {
             UtilityToolbar.setupEvenlyDistributedToolbar(this, toolbarBottom, R.menu.cab)
         } else {
@@ -101,7 +101,7 @@ class WX : CommonActionBarFragment() {
         viewPager.adapter = vpa
         slidingTabLayout.tabGravity = TabLayout.GRAVITY_FILL
         slidingTabLayout.setupWithViewPager(viewPager)
-        if (android.os.Build.VERSION.SDK_INT > 20) slidingTabLayout.elevation = MyApplication.elevationPref
+        slidingTabLayout.elevation = MyApplication.elevationPref
         if (MyApplication.simpleMode || UIPreferences.hideTopToolbar || UIPreferences.navDrawerMainScreen) slidingTabLayout.visibility = View.GONE
         slidingTabLayout.setSelectedTabIndicatorColor(UtilityTheme.getPrimaryColorFromSelectedTheme(this, 0))
         if (UIPreferences.navDrawerMainScreen) {
@@ -128,13 +128,12 @@ class WX : CommonActionBarFragment() {
             val hourlyText = headerLayout.findViewById<TextView>(R.id.hourlyText)
             val settingsButton = headerLayout.findViewById<ImageButton>(R.id.settingsButton)
             val settingsText = headerLayout.findViewById<TextView>(R.id.settingsText)
-            if (android.os.Build.VERSION.SDK_INT > 20) {
-                severeDashboardButton.backgroundTintList = tint
-                visButton.backgroundTintList = tint
-                wfoButton.backgroundTintList = tint
-                hourlyButton.backgroundTintList = tint
-                settingsButton.backgroundTintList = tint
-            }
+            // FIXME forEach
+            severeDashboardButton.backgroundTintList = tint
+            visButton.backgroundTintList = tint
+            wfoButton.backgroundTintList = tint
+            hourlyButton.backgroundTintList = tint
+            settingsButton.backgroundTintList = tint
             severeDashboardButton.setOnClickListener {
                 ObjectIntent(this, SevereDashboardActivity::class.java)
                 drawerLayout.closeDrawer(GravityCompat.START)

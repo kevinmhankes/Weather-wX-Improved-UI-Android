@@ -144,7 +144,7 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
             R.id.action_a6 -> getAnimate(6)
             R.id.action_stop -> animDrawable.stop()
             R.id.action_share -> {
-                if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
+                if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
                     if (animRan) {

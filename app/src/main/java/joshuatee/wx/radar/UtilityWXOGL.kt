@@ -92,16 +92,14 @@ object UtilityWXOGL {
             try {
                 while (!dis.isAtEndOfFile) {
                     byte = dis.readByte()
-                    if (android.os.Build.VERSION.SDK_INT >= 19) {
-                        if (byte.toChar() == 'V') vSpotted = true
-                        if (Character.isAlphabetic(byte.toInt()) || Character.isWhitespace(byte.toInt())
-                                || Character.isDigit(byte.toInt()) || Character.isISOControl(byte.toInt()) || Character.isDefined(byte.toInt())) {
-                            if (vSpotted) {
-                                output += if (byte == 0.toByte()) {
-                                    "<br>"
-                                } else {
-                                    String(byteArrayOf(byte))
-                                }
+                    if (byte.toChar() == 'V') vSpotted = true
+                    if (Character.isAlphabetic(byte.toInt()) || Character.isWhitespace(byte.toInt())
+                            || Character.isDigit(byte.toInt()) || Character.isISOControl(byte.toInt()) || Character.isDefined(byte.toInt())) {
+                        if (vSpotted) {
+                            output += if (byte == 0.toByte()) {
+                                "<br>"
+                            } else {
+                                String(byteArrayOf(byte))
                             }
                         }
                     }

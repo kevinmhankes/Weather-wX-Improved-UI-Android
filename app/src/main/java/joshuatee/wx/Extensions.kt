@@ -21,7 +21,6 @@
 
 package joshuatee.wx.Extensions
 
-import android.os.Build
 import android.view.View
 import java.util.regex.Pattern
 
@@ -54,23 +53,11 @@ fun String.parseColumn(pattern: Pattern) = UtilityString.parseColumn(this, patte
 
 fun String.parseColumnMutable(match: String) = UtilityString.parseColumnMutable(this, match)
 
-fun String.getImage() = if (Build.VERSION.SDK_INT > 20) {
-        UtilityDownload.getBitmapFromUrl(this)
-    } else {
-        UtilityDownload.getBitmapFromUrlUnsafe(this)
-    }
+fun String.getImage() = UtilityDownload.getBitmapFromUrl(this)
 
-fun String.getHtml() = if (Build.VERSION.SDK_INT > 20) {
-        UtilityDownload.getStringFromUrl(this)
-    } else {
-        UtilityDownload.getStringFromUrlUnsafe(this)
-    }
+fun String.getHtml() = UtilityDownload.getStringFromUrl(this)
 
-fun String.getHtmlWithNewLine() = if (Build.VERSION.SDK_INT > 20) {
-        UtilityDownload.getStringFromUrlWithNewLine(this)
-    } else {
-        UtilityDownload.getStringFromUrlUnsafe(this)
-    }
+fun String.getHtmlWithNewLine() = UtilityDownload.getStringFromUrlWithNewLine(this)
 
 fun String.getNwsHtml() = UtilityDownloadNws.getStringFromUrl(this)
 

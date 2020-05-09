@@ -102,7 +102,7 @@ class LightningActivity : VideoRecordActivity() {
         if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_share -> {
-                if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
+                if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
                     UtilityShare.shareBitmap(this, this, "Lightning Strikes " + objectNavDrawer.getLabel() + " $periodPretty", bitmap)

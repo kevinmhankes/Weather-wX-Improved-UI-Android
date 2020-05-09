@@ -54,9 +54,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
     // arg2 - pref model token and hash lookup
     // arg3 - title string
 
-    companion object {
-        const val INFO = ""
-    }
+    companion object { const val INFO = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var fab1: ObjectFab? = null
@@ -179,7 +177,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
             }
             R.id.action_multipane -> ObjectIntent.showModel(this, arrayOf("2", activityArguments!![1], activityArguments!![2]))
             R.id.action_share -> {
-                if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
+                if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
                     UtilityModels.legacyShare(this@ModelsGenericActivity, this@ModelsGenericActivity, om.animRan, om)

@@ -58,9 +58,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     // arg1 - number of panes, 1 or 2
     // arg2 - pref model token and hash lookup
 
-    companion object {
-        const val INFO = ""
-    }
+    companion object { const val INFO = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var initSpinnerSetup = false
@@ -200,7 +198,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
             R.id.action_multipane -> ObjectIntent(this, ModelsSpcSrefActivity::class.java, INFO, arrayOf("2", activityArguments[1], activityArguments[2]))
             R.id.action_fav -> toggleFavorite()
             R.id.action_share -> {
-                if (android.os.Build.VERSION.SDK_INT > 20 && UIPreferences.recordScreenShare) {
+                if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
                     UtilityModels.legacyShare(this@ModelsSpcSrefActivity, this@ModelsSpcSrefActivity, om.animRan, om)
