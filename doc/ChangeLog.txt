@@ -38,6 +38,7 @@
 // TODO [ADD] labelFor for TextViews support EditText
 // TODO [FIX] nexrad images via share not working
 
+55427 2020_05_09
 55426 2020_05_09    [REF] wip - utilDownload - move base get to utilNetworkIO
                     [FIX] android keyboard shortcut for stop animate not working
 55425 2020_05_09    [ADD] migrate "com.squareup.okhttp3:okhttp:3.14.8"  to "com.squareup.okhttp3:okhttp:4.6.0"
