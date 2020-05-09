@@ -244,9 +244,7 @@ class WX : CommonActionBarFragment() {
         // but left for reference
         //slidingTabLayout.setTabTextColors(-1711276033, Color.WHITE)
         //val a = slidingTabLayout.tabTextColors
-        //UtilityLog.d("wx COLOR", a.toString()) // -13746343
         refreshDynamicContent()
-        if (android.os.Build.VERSION.SDK_INT < 21) toolbarBottom.bringToFront()
     }
 
     override fun onBackPressed() {
