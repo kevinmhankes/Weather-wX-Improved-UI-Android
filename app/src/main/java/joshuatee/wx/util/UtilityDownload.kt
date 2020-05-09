@@ -635,19 +635,9 @@ object UtilityDownload {
         return out.toString().replace(breakStr, "<br>")
     }
 
-    fun getBitmapFromUrl(url: String): Bitmap = try {
+    /*fun getBitmapFromUrl(url: String): Bitmap = try {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
-            BitmapFactory.decodeStream(BufferedInputStream(response.body!!.byteStream()))
-    } catch (e: Exception) {
-            UtilityImg.getBlankBitmap()
-        } catch (e: OutOfMemoryError) {
-            UtilityImg.getBlankBitmap()
-        }
-
-    fun getBitmapFromUrlUnsafe(url: String): Bitmap = try {
-            val request = Request.Builder().url(url).build()
-            val response = MyApplication.httpClientUnsafe!!.newCall(request).execute()
             BitmapFactory.decodeStream(BufferedInputStream(response.body!!.byteStream()))
     } catch (e: Exception) {
             UtilityImg.getBlankBitmap()
@@ -662,18 +652,8 @@ object UtilityDownload {
     } catch (e: IOException) {
             UtilityLog.handleException(e)
             null
-        }
+        }*/
 
-    /* fun getInputStreamFromUrlUnsafe(strURL: String): InputStream? {
-        return try {
-            val request = Request.Builder().url(strURL).build()
-            val response = MyApplication.httpClientUnsafe!!.newCall(request).execute()
-            response.body()!!.byteStream()
-        } catch (e: IOException) {
-            UtilityLog.HandleException(e)
-            null
-        }
-    }*/
 
     fun getRadarStatusMessage(context: Context, radarSite: String): String {
         val ridSmall = if (radarSite.length == 4) radarSite.replace("^T".toRegex(), "") else radarSite

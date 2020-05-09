@@ -32,6 +32,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
+import joshuatee.wx.Extensions.getInputStream
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.ProjectionType
@@ -63,12 +64,12 @@ object UtilityUSImgWX {
         val inputStream: InputStream?
         if (!product.contains("L2")) {
             val url = WXGLDownload.getRadarFileUrl(radarSite, product, tdwr)
-            inputStream = UtilityDownload.getInputStreamFromUrl(url)
+            inputStream = url.getInputStream()
             inputStream?.let { UtilityIO.saveInputStream(context, it, "nids") }
         } else {
             val wxglDownload = WXGLDownload()
             val remoteFile = wxglDownload.getLevel2Url(radarSite)
-            inputStream = UtilityDownload.getInputStreamFromUrl(remoteFile)
+            inputStream = remoteFile.getInputStream()
             inputStream?.let { UtilityIO.saveInputStream(context, it, "l2") }
             try {
                 inputStream?.close()

@@ -28,6 +28,7 @@ import joshuatee.wx.util.UtilityString
 import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.external.UtilityStringExternal
+import joshuatee.wx.util.UtilityNetworkIO
 
 fun String.parse(match: String) = UtilityString.parse(this, match)
 
@@ -53,7 +54,7 @@ fun String.parseColumn(pattern: Pattern) = UtilityString.parseColumn(this, patte
 
 fun String.parseColumnMutable(match: String) = UtilityString.parseColumnMutable(this, match)
 
-fun String.getImage() = UtilityDownload.getBitmapFromUrl(this)
+fun String.getImage() = UtilityNetworkIO.getBitmapFromUrl(this)
 
 fun String.getHtml() = UtilityDownload.getStringFromUrl(this)
 
@@ -69,7 +70,7 @@ fun String.parseLastMatch(pattern: Pattern) = UtilityString.parseLastMatch(this,
 
 fun String.parseLastMatch(match: String) = UtilityString.parseLastMatch(this, match)
 
-fun String.getInputStream() = UtilityDownload.getInputStreamFromUrl(this)
+fun String.getInputStream() = UtilityNetworkIO.getInputStreamFromUrl(this)
 
 fun View.setPadding(padding: Int) { this.setPadding(padding, padding, padding, padding) }
 

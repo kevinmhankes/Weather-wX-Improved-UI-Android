@@ -143,7 +143,7 @@ class WXGLDownload {
             val token = list.getOrNull(arrLength - (frameCount - count + additionalAdd) * 2 + 1)
             if (token != null) {
                 fileList.add(token)
-                val inputStream = UtilityDownload.getInputStreamFromUrl(baseUrl + token)
+                val inputStream = (baseUrl + token).getInputStream()
                 inputStream?.let { UtilityIO.saveInputStream(context, inputStream, token) }
             }
         }

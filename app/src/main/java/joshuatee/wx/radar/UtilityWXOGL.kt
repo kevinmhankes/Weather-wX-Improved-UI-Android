@@ -69,7 +69,7 @@ object UtilityWXOGL {
         val indexString = "0"
         val file: File
         val url = WXGLDownload.getRadarFileUrl(radarSite, product, false)
-        val inputStream = UtilityDownload.getInputStreamFromUrl(url)
+        val inputStream = url.getInputStream()
         if (inputStream != null) {
             UtilityIO.saveInputStream(context, inputStream, l3BaseFn + indexString + "_d")
         } else {
