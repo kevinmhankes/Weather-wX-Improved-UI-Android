@@ -578,8 +578,7 @@ object UtilityDownload {
         try {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
-            val inputStream = BufferedInputStream(response.body()!!.byteStream())
-            //val inputStream = BufferedInputStream(response.body!!.byteStream())
+            val inputStream = BufferedInputStream(response.body!!.byteStream())
             val bufferedReader = BufferedReader(InputStreamReader(inputStream))
             var line: String? = bufferedReader.readLine()
             while (line != null) {
@@ -600,34 +599,11 @@ object UtilityDownload {
         try {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
-            val inputStream = BufferedInputStream(response.body()!!.byteStream())
-            //val inputStream = BufferedInputStream(response.body!!.byteStream())
+            val inputStream = BufferedInputStream(response.body!!.byteStream())
             val bufferedReader = BufferedReader(InputStreamReader(inputStream))
             var line: String? = bufferedReader.readLine()
             while (line != null) {
                 out.append(line + MyApplication.newline)
-                line = bufferedReader.readLine()
-            }
-            bufferedReader.close()
-        } catch (e: Exception) {
-            UtilityLog.handleException(e)
-        } catch (e: OutOfMemoryError) {
-            UtilityLog.handleException(e)
-        }
-        return out.toString()
-    }
-
-    fun getStringFromUrlUnsafe(strURL: String): String {
-        val out = StringBuilder(5000)
-        try {
-            val request = Request.Builder().url(strURL).build()
-            val response = MyApplication.httpClientUnsafe!!.newCall(request).execute()
-            val inputStream = BufferedInputStream(response.body()!!.byteStream())
-            //val inputStream = BufferedInputStream(response.body!!.byteStream())
-            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-            var line: String? = bufferedReader.readLine()
-            while (line != null) {
-                out.append(line)
                 line = bufferedReader.readLine()
             }
             bufferedReader.close()
@@ -645,8 +621,7 @@ object UtilityDownload {
         try {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
-            val bufferedReader = BufferedReader(InputStreamReader(BufferedInputStream(response.body()!!.byteStream())))
-            //val bufferedReader = BufferedReader(InputStreamReader(BufferedInputStream(response.body!!.byteStream())))
+            val bufferedReader = BufferedReader(InputStreamReader(BufferedInputStream(response.body!!.byteStream())))
             var line: String? = bufferedReader.readLine()
             while (line != null) {
                 out.append(line)
@@ -660,32 +635,10 @@ object UtilityDownload {
         return out.toString().replace(breakStr, "<br>")
     }
 
-    /*fun getStringFromURLSepSUnsafe(strURL: String): String {
-        val breakStr = "ABC123_456ZZ"
-        val out = StringBuilder(5000)
-        try {
-            val request = Request.Builder().url(strURL).build()
-            val response = MyApplication.httpClientUnsafe!!.newCall(request).execute()
-            val br =
-                BufferedReader(InputStreamReader(BufferedInputStream(response.body()!!.byteStream())))
-            var line: String? = br.readLine()
-            while (line != null) {
-                out.append(line)
-                out.append(breakStr)
-                line = br.readLine()
-            }
-            br.close()
-        } catch (e: Exception) {
-            UtilityLog.HandleException(e)
-        }
-        return out.toString().replace(breakStr, "<br>")
-    }*/
-
     fun getBitmapFromUrl(url: String): Bitmap = try {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
-            BitmapFactory.decodeStream(BufferedInputStream(response.body()!!.byteStream()))
-            //BitmapFactory.decodeStream(BufferedInputStream(response.body!!.byteStream()))
+            BitmapFactory.decodeStream(BufferedInputStream(response.body!!.byteStream()))
     } catch (e: Exception) {
             UtilityImg.getBlankBitmap()
         } catch (e: OutOfMemoryError) {
@@ -695,8 +648,7 @@ object UtilityDownload {
     fun getBitmapFromUrlUnsafe(url: String): Bitmap = try {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClientUnsafe!!.newCall(request).execute()
-            BitmapFactory.decodeStream(BufferedInputStream(response.body()!!.byteStream()))
-            //BitmapFactory.decodeStream(BufferedInputStream(response.body!!.byteStream()))
+            BitmapFactory.decodeStream(BufferedInputStream(response.body!!.byteStream()))
     } catch (e: Exception) {
             UtilityImg.getBlankBitmap()
         } catch (e: OutOfMemoryError) {
@@ -706,8 +658,7 @@ object UtilityDownload {
     fun getInputStreamFromUrl(url: String): InputStream? = try {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
-            response.body()!!.byteStream()
-            //response.body!!.byteStream()
+            response.body!!.byteStream()
     } catch (e: IOException) {
             UtilityLog.handleException(e)
             null

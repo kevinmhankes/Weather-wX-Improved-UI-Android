@@ -35,12 +35,11 @@
 // TODO [ADD] use more ObjectIntent in CAB/WX
 // TODO [FIX] NCEP param validation (automate)
 // TODO [REF] WXGLRender rename rid to radarSite
-// TODO [REF] GOES - "Due to known security vulnerabilities with legacy encryption standards, we must disable TLS 1.0 and 1.1 on 29 May 2020."
-// TODO [REF]         https://cashapp.github.io/2019-02-05/okhttp-3-13-requires-android-5
-// TODO [REF]         https://square.github.io/okhttp/upgrading_to_okhttp_4/
 // TODO [ADD] labelFor for TextViews support EditText
+// TODO [REF] utilDownload - move base get to utilDownloadFoundation
+// TODO [FIX] nexrad images via share not working
 
-55425 2020_05_09
+55425 2020_05_09    [ADD] migrate "com.squareup.okhttp3:okhttp:3.14.8"  to "com.squareup.okhttp3:okhttp:4.6.0"
 55424 2020_05_09    [REF] remove legacy png for icons in folders like app/src/main/res/drawable-xhdpi
 55423 2020_05_09    [REF] remove Obsolete SDK_INT Version Check
                     [REF] move values-v21/styles.xml to values/styles.xml

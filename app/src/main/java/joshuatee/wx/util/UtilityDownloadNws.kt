@@ -82,8 +82,7 @@ object UtilityDownloadNws {
                     .addHeader("Accept", header)
                     .build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
-            val inputStream = BufferedInputStream(response.body()!!.byteStream())
-            //val inputStream = BufferedInputStream(response.body!!.byteStream())
+            val inputStream = BufferedInputStream(response.body!!.byteStream())
             val bufferedReader = BufferedReader(InputStreamReader(inputStream))
             var line: String? = bufferedReader.readLine()
             while (line != null) {
@@ -105,8 +104,7 @@ object UtilityDownloadNws {
                     .header("User-Agent", USER_AGENT_STR)
                     .build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
-            val inputStream = BufferedInputStream(response.body()!!.byteStream())
-            //val inputStream = BufferedInputStream(response.body!!.byteStream())
+            val inputStream = BufferedInputStream(response.body!!.byteStream())
             val bufferedReader = BufferedReader(InputStreamReader(inputStream))
             var line: String? = bufferedReader.readLine()
             while (line != null) {
@@ -130,8 +128,7 @@ object UtilityDownloadNws {
                     .addHeader("Accept", "application/vnd.noaa.dwml+xml;version=1")
                     .build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
-            val inputStream = BufferedInputStream(response.body()!!.byteStream())
-            //val inputStream = BufferedInputStream(response.body!!.byteStream())
+            val inputStream = BufferedInputStream(response.body!!.byteStream())
             val bufferedReader = BufferedReader(InputStreamReader(inputStream))
             var line: String? = bufferedReader.readLine()
             while (line != null) {
