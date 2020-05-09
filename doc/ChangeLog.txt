@@ -39,6 +39,7 @@
 // TODO [REF] utilDownload - move base get to utilDownloadFoundation
 // TODO [FIX] nexrad images via share not working
 
+55426 2020_05_09
 55425 2020_05_09    [ADD] migrate "com.squareup.okhttp3:okhttp:3.14.8"  to "com.squareup.okhttp3:okhttp:4.6.0"
 55424 2020_05_09    [REF] remove legacy png for icons in folders like app/src/main/res/drawable-xhdpi
 55423 2020_05_09    [REF] remove Obsolete SDK_INT Version Check
