@@ -40,9 +40,10 @@
 // TODO [REF]         https://square.github.io/okhttp/upgrading_to_okhttp_4/
 // TODO [ADD] labelFor for TextViews support EditText
 
-55423 2020_05_08    [REF] remove Obsolete SDK_INT Version Check
+55424 2020_05_09
+55423 2020_05_09    [REF] remove Obsolete SDK_INT Version Check
                     [REF] move values-v21/styles.xml to values/styles.xml
-55422 2020_05_08    [ADD] In settings location, condense the number of lines, make the top line blue, indicate active alerts with text "*Alerts" at end of name
+55422 2020_05_09    [ADD] In settings location, condense the number of lines, make the top line blue, indicate active alerts with text "*Alerts" at end of name
                     [REF] BREAKING MAJOR CHANGE move minSdkVersion 16 -> 21
                     [REF] move "com.squareup.okhttp3:okhttp:3.12.8" to "com.squareup.okhttp3:okhttp:3.14.8" (with a quick plan to move to 4.6 soon)
 55421 2020_05_08    [FIX] TTS bug when starting voice in one activity and moving to another and starting a new voice (do not check ttsInit in initTts)
