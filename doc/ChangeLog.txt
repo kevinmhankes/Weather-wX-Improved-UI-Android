@@ -37,6 +37,7 @@
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [ADD] labelFor for TextViews support EditText
 
+55428 2020_05_09
 55427 2020_05_09    [FIX] nexrad images via share not working
                     [ADD] if settings - notification - interval is set to 121 don't set service on program start
 55426 2020_05_09    [REF] wip - utilDownload - move base get to utilNetworkIO
