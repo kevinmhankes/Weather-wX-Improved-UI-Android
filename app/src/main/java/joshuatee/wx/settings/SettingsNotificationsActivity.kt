@@ -247,7 +247,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                         R.string.alert_interval_np_label,
                         12,
                         1,
-                        120
+                        121
                 ).card
         )
         linearLayout.addView(

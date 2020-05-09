@@ -34,11 +34,14 @@ object UtilityWXJobService {
 
     private var kJobId = 0
 
-    fun startService(c: Context) {
-        if (android.os.Build.VERSION.SDK_INT > 23) {
-            start(c)
-        } else {
-            c.startService(Intent(c, AlertService::class.java))
+    fun startService(context: Context) {
+        val alertNotificationIntervalCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_INTERVAL", -1)
+        if (alertNotificationIntervalCurrent < 121) {
+            if (android.os.Build.VERSION.SDK_INT > 23) {
+                start(context)
+            } else {
+                context.startService(Intent(context, AlertService::class.java))
+            }
         }
     }
 
