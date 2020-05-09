@@ -39,6 +39,7 @@
 // TODO [REF]         https://cashapp.github.io/2019-02-05/okhttp-3-13-requires-android-5
 // TODO [REF]         https://square.github.io/okhttp/upgrading_to_okhttp_4/
 
+55423 2020_05_08
 55422 2020_05_08    [ADD] In settings location, condense the number of lines, make the top line blue, indicate active alerts with text "*Alerts" at end of name
                     [REF] BREAKING MAJOR CHANGE move minSdkVersion 16 -> 21
                     [REF] move "com.squareup.okhttp3:okhttp:3.12.8" to "com.squareup.okhttp3:okhttp:3.14.8" (with a quick plan to move to 4.6 soon)
