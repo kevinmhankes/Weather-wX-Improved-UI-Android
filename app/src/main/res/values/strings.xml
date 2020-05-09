@@ -129,7 +129,6 @@
     <string name="animate_icon">Animate</string>
     <string name="uswarn_start_time">Start:&#160;%1$s</string>
     <string name="uswarn_end_time">End:&#160;&#160;&#160;%1$s</string>
-    <string name="wpc_mpd_noactive">No active MPDs</string>
     <string name="settings_loc_generic_ca_x">CANADA:%1$s</string>
     <string name="help_menu_item">Help</string>
     <string name="main_screen_ca_disclaimor">Data for Canada forecasts and radar provided by http://weather.gc.ca/canada_e.html. Touch to open external browser to this site.</string>
@@ -159,7 +158,6 @@
     <string name="label_clear_all">Clear all</string>
     <string name="label_reset">Reset</string>
     <string name="label_delete_location">Delete location</string>
-    <string name="label_speak_location">Speak location</string>
     <string name="label_ca_via_map">Canada via map</string>
     <string name="label_show_location_on_map">Show Current Location on Map</string>
     <string name="label_radar_jellybean_drawtools">Draw/Distance Tool</string>

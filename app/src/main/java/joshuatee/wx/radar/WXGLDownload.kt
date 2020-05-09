@@ -28,7 +28,6 @@ import java.io.InputStream
 import java.util.Locale
 
 import joshuatee.wx.MyApplication
-import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityFileManagement
 import joshuatee.wx.util.UtilityIO
 import joshuatee.wx.util.UtilityLog

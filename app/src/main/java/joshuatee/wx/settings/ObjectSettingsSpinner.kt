@@ -23,7 +23,6 @@ package joshuatee.wx.settings
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.os.Build
 import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView

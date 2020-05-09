@@ -300,8 +300,8 @@ class MyApplication : Application() {
         const val ICON_PAUSE = R.drawable.ic_pause_24dp
         const val ICON_PAUSE_PRESSED = R.drawable.ic_pause_white_24dp
         const val ICON_ADD = R.drawable.ic_add_box_24dp
-        const val ICON_BACK = R.drawable.ic_keyboard_arrow_left_24dp
-        const val ICON_FORWARD = R.drawable.ic_keyboard_arrow_right_24dp
+        //const val ICON_BACK = R.drawable.ic_keyboard_arrow_left_24dp
+        //const val ICON_FORWARD = R.drawable.ic_keyboard_arrow_right_24dp
         const val ICON_SKIP_BACK = R.drawable.ic_skip_previous_24dp
         const val ICON_SKIP_FORWARD = R.drawable.ic_skip_next_24dp
         var spchrrrZoom = 0.0f

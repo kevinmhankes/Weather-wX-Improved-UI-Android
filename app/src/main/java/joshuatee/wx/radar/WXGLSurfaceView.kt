@@ -24,7 +24,6 @@ package joshuatee.wx.radar
 import android.app.Activity
 import android.content.Context
 import android.opengl.GLSurfaceView
-import android.os.Build
 import androidx.appcompat.widget.Toolbar
 import android.util.AttributeSet
 import android.view.GestureDetector

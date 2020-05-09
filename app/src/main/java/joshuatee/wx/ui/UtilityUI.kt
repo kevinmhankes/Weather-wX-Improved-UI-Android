@@ -30,7 +30,6 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
-import android.os.Build
 import android.util.TypedValue
 import android.view.View
 import android.widget.*
