@@ -567,7 +567,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                 startService(intent)
             }
             R.id.action_share -> {
-                if (Build.VERSION.SDK_INT > 20) {
+                if (UIPreferences.recordScreenShare) {
                     showDistanceTool = "true"
                     checkOverlayPerms()
                 } else {

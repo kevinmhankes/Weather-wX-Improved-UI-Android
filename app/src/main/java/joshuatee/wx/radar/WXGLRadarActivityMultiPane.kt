@@ -22,41 +22,40 @@
 package joshuatee.wx.radar
 
 import android.annotation.SuppressLint
-import java.io.File
-
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.os.SystemClock
-import androidx.core.content.ContextCompat
+import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
-import android.os.Handler
-import android.view.KeyEvent
-import joshuatee.wx.*
-
-import joshuatee.wx.settings.UtilityLocation
-import joshuatee.wx.ui.ObjectDialogue
-import joshuatee.wx.ui.UtilityToolbar
-import joshuatee.wx.ui.UtilityUI
-import joshuatee.wx.settings.SettingsRadarActivity
-import joshuatee.wx.ui.ObjectImageMap
-
-import joshuatee.wx.Extensions.*
-
+import androidx.core.content.ContextCompat
+import joshuatee.wx.Extensions.parse
+import joshuatee.wx.GlobalArrays
+import joshuatee.wx.MyApplication
+import joshuatee.wx.R
+import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
+import joshuatee.wx.settings.SettingsRadarActivity
+import joshuatee.wx.settings.UtilityLocation
+import joshuatee.wx.ui.ObjectDialogue
+import joshuatee.wx.ui.ObjectImageMap
+import joshuatee.wx.ui.UtilityToolbar
+import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
+import java.io.File
 
 class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListener {
 
@@ -543,6 +542,31 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     private fun isTdwr(product: String) = product in WXGLNexrad.tdwrProductList
 
+    /*var shareBitmap = UtilityImg.getBlankBitmap()
+
+    private fun getBitmapForShare() = GlobalScope.launch(uiDispatcher) {
+        val bitmap = async(Dispatchers.IO) {
+            UtilityUSImgWX.layeredImgFromFile(
+                    applicationContext,
+                    wxglRenders[curRadar].rid,
+                    wxglRenders[curRadar].product,
+                    "0",
+                    true
+            )
+        }
+        shareBitmap = bitmap.await()
+    }*/
+
+    private fun getBitmapForShare(): Bitmap {
+        return UtilityUSImgWX.layeredImgFromFile(
+                applicationContext,
+                wxglRenders[curRadar].rid,
+                wxglRenders[curRadar].product,
+                "1",
+                true
+        )
+    }
+
     override fun onMenuItemClick(item: MenuItem): Boolean {
         UtilityUI.immersiveMode(this)
         if (inOglAnim && (item.itemId != R.id.action_fav) && (item.itemId != R.id.action_share) && (item.itemId != R.id.action_tools)) {
@@ -592,13 +616,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                                 wxglRenders[curRadar].rid +
                                         " (" + Utility.getRadarSiteName(wxglRenders[curRadar].rid) + ") "
                                         + wxglRenders[curRadar].product,
-                                UtilityUSImgWX.layeredImgFromFile(
-                                        applicationContext,
-                                        wxglRenders[curRadar].rid,
-                                        wxglRenders[curRadar].product,
-                                        "0",
-                                        true
-                                )
+                                getBitmapForShare()
                         )
                     }
                 }

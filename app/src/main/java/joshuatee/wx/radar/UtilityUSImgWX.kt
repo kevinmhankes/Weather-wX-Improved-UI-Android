@@ -37,7 +37,6 @@ import joshuatee.wx.Extensions.getInputStream
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.ProjectionType
 import joshuatee.wx.util.UtilityCanvasMain
-import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityIO
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityLog
