@@ -25,7 +25,6 @@ import android.view.View
 import java.util.regex.Pattern
 
 import joshuatee.wx.util.UtilityString
-import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.util.UtilityNetworkIO
@@ -56,13 +55,13 @@ fun String.parseColumnMutable(match: String) = UtilityString.parseColumnMutable(
 
 fun String.getImage() = UtilityNetworkIO.getBitmapFromUrl(this)
 
-fun String.getHtml() = UtilityDownload.getStringFromUrl(this)
+fun String.getHtml() = UtilityNetworkIO.getStringFromUrl(this)
 
-fun String.getHtmlWithNewLine() = UtilityDownload.getStringFromUrlWithNewLine(this)
+fun String.getHtmlWithNewLine() = UtilityNetworkIO.getStringFromUrlWithNewLine(this)
 
 fun String.getNwsHtml() = UtilityDownloadNws.getStringFromUrl(this)
 
-fun String.getHtmlSep() = UtilityDownload.getStringFromUrlWithSeparator(this)
+fun String.getHtmlSep() = UtilityNetworkIO.getStringFromUrlWithSeparator(this)
 
 fun String.parseColumnAll(pattern: Pattern) = UtilityString.parseColumnAll(this, pattern)
 

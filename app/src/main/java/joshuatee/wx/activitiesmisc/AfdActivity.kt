@@ -35,6 +35,7 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.view.GravityCompat
+import joshuatee.wx.Extensions.getHtml
 import joshuatee.wx.Extensions.parseColumn
 
 import joshuatee.wx.R
@@ -322,7 +323,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
 
     private fun checkForCliSite() = GlobalScope.launch(uiDispatcher) {
         if (product == "CLI") {
-            val cliHtml = withContext(Dispatchers.IO) { UtilityDownload.getStringFromUrl("https://w2.weather.gov/climate/index.php?wfo=" + wfo.toLowerCase(Locale.US)) }
+            val cliHtml = withContext(Dispatchers.IO) { ("https://w2.weather.gov/climate/index.php?wfo=" + wfo.toLowerCase(Locale.US)).getHtml() }
             val cliSites = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('.*?','(.*?)'\\)")
             val cliNames = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('(.*?)','.*?'\\)")
             val dialogueMain = ObjectDialogue(this@AfdActivity, "Select site from $wfo:", cliNames)

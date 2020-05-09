@@ -26,28 +26,11 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.util.Locale
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 
 import joshuatee.wx.MyApplication
-import joshuatee.wx.activitiesmisc.UtilityLightning
-import joshuatee.wx.activitiesmisc.UtilityUSHourly
-import joshuatee.wx.audio.UtilityPlayList
-import joshuatee.wx.canada.UtilityCanadaImg
-import joshuatee.wx.settings.Location
-import joshuatee.wx.settings.UtilityLocation
-import joshuatee.wx.spc.*
 import okhttp3.Request
-
-import joshuatee.wx.Extensions.*
-import joshuatee.wx.RegExp
-import joshuatee.wx.UIPreferences
-import joshuatee.wx.canada.UtilityCanada
-import joshuatee.wx.radar.UtilityAwcRadarMosaic
-import joshuatee.wx.radar.UtilityUSImgNwsMosaic
-import joshuatee.wx.vis.UtilityGoes
 
 object UtilityNetworkIO {
 
@@ -123,7 +106,7 @@ object UtilityNetworkIO {
             UtilityImg.getBlankBitmap()
         }
 
-    fun getBitmapFromUrlUnsafe(url: String): Bitmap = try {
+   /* fun getBitmapFromUrlUnsafe(url: String): Bitmap = try {
             val request = Request.Builder().url(url).build()
             val response = MyApplication.httpClientUnsafe!!.newCall(request).execute()
             BitmapFactory.decodeStream(BufferedInputStream(response.body!!.byteStream()))
@@ -131,7 +114,7 @@ object UtilityNetworkIO {
             UtilityImg.getBlankBitmap()
         } catch (e: OutOfMemoryError) {
             UtilityImg.getBlankBitmap()
-        }
+        }*/
 
     fun getInputStreamFromUrl(url: String): InputStream? = try {
             val request = Request.Builder().url(url).build()

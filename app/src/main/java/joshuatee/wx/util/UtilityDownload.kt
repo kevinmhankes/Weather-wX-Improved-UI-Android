@@ -21,15 +21,9 @@
 
 package joshuatee.wx.util
 
-import java.io.BufferedInputStream
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
 import java.util.Locale
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.UtilityLightning
@@ -39,7 +33,6 @@ import joshuatee.wx.canada.UtilityCanadaImg
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.spc.*
-import okhttp3.Request
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
@@ -572,88 +565,6 @@ object UtilityDownload {
         text = text.replace("<br>", " ")
         return text
     }
-
-    fun getStringFromUrl(url: String): String {
-        val out = StringBuilder(5000)
-        try {
-            val request = Request.Builder().url(url).build()
-            val response = MyApplication.httpClient!!.newCall(request).execute()
-            val inputStream = BufferedInputStream(response.body!!.byteStream())
-            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-            var line: String? = bufferedReader.readLine()
-            while (line != null) {
-                out.append(line)
-                line = bufferedReader.readLine()
-            }
-            bufferedReader.close()
-        } catch (e: Exception) {
-            UtilityLog.handleException(e)
-        } catch (e: OutOfMemoryError) {
-            UtilityLog.handleException(e)
-        }
-        return out.toString()
-    }
-
-    fun getStringFromUrlWithNewLine(url: String): String {
-        val out = StringBuilder(5000)
-        try {
-            val request = Request.Builder().url(url).build()
-            val response = MyApplication.httpClient!!.newCall(request).execute()
-            val inputStream = BufferedInputStream(response.body!!.byteStream())
-            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-            var line: String? = bufferedReader.readLine()
-            while (line != null) {
-                out.append(line + MyApplication.newline)
-                line = bufferedReader.readLine()
-            }
-            bufferedReader.close()
-        } catch (e: Exception) {
-            UtilityLog.handleException(e)
-        } catch (e: OutOfMemoryError) {
-            UtilityLog.handleException(e)
-        }
-        return out.toString()
-    }
-
-    fun getStringFromUrlWithSeparator(url: String): String {
-        val breakStr = "ABC123_456ZZ"
-        val out = StringBuilder(5000)
-        try {
-            val request = Request.Builder().url(url).build()
-            val response = MyApplication.httpClient!!.newCall(request).execute()
-            val bufferedReader = BufferedReader(InputStreamReader(BufferedInputStream(response.body!!.byteStream())))
-            var line: String? = bufferedReader.readLine()
-            while (line != null) {
-                out.append(line)
-                out.append(breakStr)
-                line = bufferedReader.readLine()
-            }
-            bufferedReader.close()
-        } catch (e: Exception) {
-            UtilityLog.handleException(e)
-        }
-        return out.toString().replace(breakStr, "<br>")
-    }
-
-    /*fun getBitmapFromUrl(url: String): Bitmap = try {
-            val request = Request.Builder().url(url).build()
-            val response = MyApplication.httpClient!!.newCall(request).execute()
-            BitmapFactory.decodeStream(BufferedInputStream(response.body!!.byteStream()))
-    } catch (e: Exception) {
-            UtilityImg.getBlankBitmap()
-        } catch (e: OutOfMemoryError) {
-            UtilityImg.getBlankBitmap()
-        }
-
-    fun getInputStreamFromUrl(url: String): InputStream? = try {
-            val request = Request.Builder().url(url).build()
-            val response = MyApplication.httpClient!!.newCall(request).execute()
-            response.body!!.byteStream()
-    } catch (e: IOException) {
-            UtilityLog.handleException(e)
-            null
-        }*/
-
 
     fun getRadarStatusMessage(context: Context, radarSite: String): String {
         val ridSmall = if (radarSite.length == 4) radarSite.replace("^T".toRegex(), "") else radarSite
