@@ -50,7 +50,7 @@ class ObjectCardBlackHeaderText(context: Context, val linearLayout: LinearLayout
     private fun setTextHeader() {
         objectTextView.text = text
         objectTextView.setTextSize(TextSize.LARGE)
-        objectTextView.setPadding(20,20,20,20)
+        objectTextView.setPadding(20)
         objectTextView.color = UIPreferences.textHighlightColor
         objectTextView.tv.setBackgroundColor(Color.BLACK)
         objectTextView.tv.setTextColor(Color.WHITE)
