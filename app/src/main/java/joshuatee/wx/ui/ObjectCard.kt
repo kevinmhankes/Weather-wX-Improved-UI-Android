@@ -30,9 +30,7 @@ import joshuatee.wx.MyApplication
 
 class ObjectCard {
 
-    companion object {
-        private const val padding = 2
-    }
+    companion object { private const val padding = 2 }
 
     val card: CardView
 
