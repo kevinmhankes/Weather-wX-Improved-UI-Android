@@ -25,6 +25,7 @@ import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
+import joshuatee.wx.Extensions.parseMultiple
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 
@@ -66,12 +67,12 @@ class ObjectCardAlertSummaryItem(context: Context) {
         val startTime: String
         val endTime: String
         if (capAlert.title.contains("until")) {
-            val items = UtilityString.parseMultiple(capAlert.title, "(.*?) issued (.*?) until (.*?) by (.*?)$",  4)
+            val items = capAlert.title.parseMultiple("(.*?) issued (.*?) until (.*?) by (.*?)$",  4)
             title = items[0]
             startTime = items[1]
             endTime = items[2]
         } else {
-            val items = UtilityString.parseMultiple(capAlert.title, "(.*?) issued (.*?) by (.*?)$", 3)
+            val items = capAlert.title.parseMultiple("(.*?) issued (.*?) by (.*?)$", 3)
             title = items[0]
             startTime = items[1]
             endTime = ""
