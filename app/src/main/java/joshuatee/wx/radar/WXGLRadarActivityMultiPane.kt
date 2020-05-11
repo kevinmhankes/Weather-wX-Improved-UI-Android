@@ -457,7 +457,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             frameCountGlobal = frameCount
             val animArray = Array(numberOfPanes) { Array(frameCount) { "" } }
             panesList.forEach { z ->
-                animArray[z] = wxglRenders[z].wxglDownload.getRadarFilesForAnimation(this@WXGLRadarActivityMultiPane, frameCount).toTypedArray()
+                // TODO pass wxglRender only
+                animArray[z] = WXGLDownload.getRadarFilesForAnimation(this@WXGLRadarActivityMultiPane, frameCount, wxglRenders[z].rid, wxglRenders[z].product).toTypedArray()
                 try {
                     (animArray[z].indices).forEach { r ->
                         file = File(this@WXGLRadarActivityMultiPane.filesDir, animArray[z][r])
@@ -473,8 +474,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             while (inOglAnim) {
                 if (animTriggerDownloads) {
                     panesList.forEach { z ->
-                        animArray[z] =
-                                wxglRenders[z].wxglDownload.getRadarFilesForAnimation(this@WXGLRadarActivityMultiPane, frameCount).toTypedArray()
+                        animArray[z] = WXGLDownload.getRadarFilesForAnimation(this@WXGLRadarActivityMultiPane, frameCount, wxglRenders[z].rid, wxglRenders[z].product).toTypedArray()
                         try {
                             (animArray[z].indices).forEach { r ->
                                 file = File(this@WXGLRadarActivityMultiPane.filesDir, animArray[z][r])
@@ -1045,14 +1045,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         when (keyCode) {
-            /*KeyEvent.KEYCODE_2 -> {
-                if (event.isCtrlPressed) showMultipaneRadar("2")
-                return true
-            }
-            KeyEvent.KEYCODE_4 -> {
-                if (event.isCtrlPressed) showMultipaneRadar("4")
-                return true
-            }*/
             KeyEvent.KEYCODE_L -> {
                 if (event.isCtrlPressed) showMap()
                 return true
@@ -1061,34 +1053,6 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 if (event.isCtrlPressed) toolbarBottom.showOverflowMenu()
                 return true
             }
-            /*KeyEvent.KEYCODE_A -> {
-                if (inOglAnim) {
-                    inOglAnim = false
-                    inOglAnimPaused = false
-                    // if an L2 anim is in process sleep for 1 second to let the current decode/render finish
-                    // otherwise the new selection might overwrite in the OGLR object - hack
-                    // (revert) 2016_08 have this apply to Level 3 in addition to Level 2
-                    if (wxglRender.product.contains("L2")) SystemClock.sleep(2000)
-                    setStarButton()
-                    animateButton.setIcon(MyApplication.ICON_PLAY)
-                    animateButton.title = animateButtonPlayString
-                    getContent()
-                }
-                if (event.isCtrlPressed) animateRadar(MyApplication.uiAnimIconFrames.toIntOrNull() ?: 0)
-                return true
-            }
-            KeyEvent.KEYCODE_F -> {
-                if (event.isCtrlPressed) actionToggleFavorite()
-                return true
-            }
-            KeyEvent.KEYCODE_R -> {
-                if (event.isCtrlPressed) getReflectivity()
-                return true
-            }
-            KeyEvent.KEYCODE_V -> {
-                if (event.isCtrlPressed) getVelocity()
-                return true
-            }*/
             KeyEvent.KEYCODE_SLASH -> {
                 if (event.isAltPressed) ObjectDialogue(this, Utility.showRadarShortCuts())
                 return true

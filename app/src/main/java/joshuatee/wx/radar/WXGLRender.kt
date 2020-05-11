@@ -159,7 +159,6 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     private var useMercatorProjection = true
     private val wxglNexradLevel2 = WXGLNexradLevel2()
     val wxglNexradLevel3 = WXGLNexradLevel3()
-    val wxglDownload = WXGLDownload()
     private var projectionNumbers = ProjectionNumbers()
     var product: String
         get() = prod
@@ -224,7 +223,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         // if fn is empty string then we need to fetch the radar file
         // if set, its part of an anim sequence
         if (radarBuffers.fileName == "") {
-            ridPrefixGlobal = wxglDownload.getRadarFile(context, urlStr, this.rid, prod, indexString, tdwr)
+            ridPrefixGlobal = WXGLDownload.getRadarFile(context, urlStr, this.rid, prod, indexString, tdwr)
             radarBuffers.fileName = if (!product.contains("L2")) {
                 val l3BaseFn = "nids"
                 l3BaseFn + indexString
@@ -274,33 +273,33 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 totalBins = UtilityWXOGLPerfRaster.generate(radarBuffers, wxglNexradLevel3.binWord)
             } else if (!product.contains("L2")) {
                 totalBins = if (!fourBitProducts.contains(radarBuffers.productCode)) {
-                                if (!MyApplication.radarUseJni)
-                                    UtilityWXOGLPerf.decode8BitAndGenRadials(context, radarBuffers)
-                                else {
-                                    Jni.decode8BitAndGenRadials(
-                                            UtilityIO.getFilePath(context, radarBuffers.fileName),
-                                            wxglNexradLevel3.seekStart,
-                                            wxglNexradLevel3.compressedFileSize,
-                                            wxglNexradLevel3.iBuff,
-                                            wxglNexradLevel3.oBuff,
-                                            radarBuffers.floatBuffer,
-                                            radarBuffers.colorBuffer,
-                                            radarBuffers.binSize,
-                                            Color.red(radarBuffers.bgColor).toByte(),
-                                            Color.green(radarBuffers.bgColor).toByte(),
-                                            Color.blue(radarBuffers.bgColor).toByte(),
-                                            objectColorPalette.redValues,
-                                            objectColorPalette.greenValues,
-                                            objectColorPalette.blueValues
-                                    )
-                                }
-                        } else {
-                            UtilityWXOGLPerf.genRadials(
-                                    radarBuffers,
-                                    wxglNexradLevel3.binWord,
-                                    wxglNexradLevel3.radialStart
-                            )
-                        }
+                    if (!MyApplication.radarUseJni)
+                        UtilityWXOGLPerf.decode8BitAndGenRadials(context, radarBuffers)
+                    else {
+                        Jni.decode8BitAndGenRadials(
+                                UtilityIO.getFilePath(context, radarBuffers.fileName),
+                                wxglNexradLevel3.seekStart,
+                                wxglNexradLevel3.compressedFileSize,
+                                wxglNexradLevel3.iBuff,
+                                wxglNexradLevel3.oBuff,
+                                radarBuffers.floatBuffer,
+                                radarBuffers.colorBuffer,
+                                radarBuffers.binSize,
+                                Color.red(radarBuffers.bgColor).toByte(),
+                                Color.green(radarBuffers.bgColor).toByte(),
+                                Color.blue(radarBuffers.bgColor).toByte(),
+                                objectColorPalette.redValues,
+                                objectColorPalette.greenValues,
+                                objectColorPalette.blueValues
+                        )
+                    }
+                } else {
+                    UtilityWXOGLPerf.genRadials(
+                            radarBuffers,
+                            wxglNexradLevel3.binWord,
+                            wxglNexradLevel3.radialStart
+                    )
+                }
             } else {
                 wxglNexradLevel2.binWord.position(0)
                 totalBins = if (MyApplication.radarUseJni)

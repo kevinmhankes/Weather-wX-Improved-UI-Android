@@ -26,7 +26,6 @@
 // TODO [FIX] change animation interval to animation speed
 // TODO [FIX] toolbar handling in WXGLSurfaceView
 // TODO [FIX] Android toggle cities on off main screen not working
-// TODO [REF] make WXGLDownload all static
 // TODO [REF] remove roaming location feature
 // TODO [FIX] Android share text does not preserve line breaks
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
@@ -37,7 +36,7 @@
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [ADD] labelFor for TextViews support EditText
 
-55429 2020_05_11    [REF] wip - move WXGLDownload to static
+55429 2020_05_11    [REF] move WXGLDownload to static
 55428 2020_05_09    [FIX] in httpInterceptor in myApp, close response within loop per bug report okhttp
 55427 2020_05_09    [FIX] nexrad images via share not working
                     [ADD] if settings - notification - interval is set to 121 don't set service on program start

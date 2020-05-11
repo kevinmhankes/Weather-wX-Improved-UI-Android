@@ -66,8 +66,7 @@ object UtilityUSImgWX {
             inputStream = url.getInputStream()
             inputStream?.let { UtilityIO.saveInputStream(context, it, "nids") }
         } else {
-            val wxglDownload = WXGLDownload()
-            val remoteFile = wxglDownload.getLevel2Url(radarSite)
+            val remoteFile = WXGLDownload.getLevel2Url(radarSite)
             inputStream = remoteFile.getInputStream()
             inputStream?.let { UtilityIO.saveInputStream(context, it, "l2") }
             try {
