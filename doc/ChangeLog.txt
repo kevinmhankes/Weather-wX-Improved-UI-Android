@@ -33,6 +33,7 @@
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [ADD] labelFor for TextViews support EditText
 
+55431 2020_05_11
 55430 2020_05_11    [FIX] AWC radar mosaic sectors were off by one
                     [ADD] if notif interval set to 121, cancel all background processing
                     [REF] mv AfdActivity.kt WfoTextActivity.kt
