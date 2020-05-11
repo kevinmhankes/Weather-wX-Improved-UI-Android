@@ -234,21 +234,19 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         radarBuffers.setProductCodeFromString(product)
         try {
             when {
+                // Level 2
                 product.contains("L2") -> {
                     wxglNexradLevel2.decodeAndPlot(context, radarBuffers.fileName, prod, radarStatusStr, indexString, performDecomp)
                     radarBuffers.extractL2Data(wxglNexradLevel2)
                 }
+                // 4bit products spectrum width, comp ref, storm relative mean velocity
                 product.contains("NSW") || product.startsWith("NC") || product.matches(Regex("N[0-3]S")) -> {
                     wxglNexradLevel3.decodeAndPlotFourBit(context, radarBuffers.fileName, radarStatusStr)
                     radarBuffers.extractL3Data(wxglNexradLevel3)
                 }
+                // Level 3 8bit
                 else -> {
-                    wxglNexradLevel3.decodeAndPlot(
-                            context,
-                            radarBuffers.fileName,
-                            rid,
-                            radarStatusStr
-                    )
+                    wxglNexradLevel3.decodeAndPlot(context, radarBuffers.fileName, rid, radarStatusStr)
                     radarBuffers.extractL3Data(wxglNexradLevel3)
                 }
             }
@@ -294,11 +292,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                         )
                     }
                 } else {
-                    UtilityWXOGLPerf.genRadials(
-                            radarBuffers,
-                            wxglNexradLevel3.binWord,
-                            wxglNexradLevel3.radialStart
-                    )
+                    UtilityWXOGLPerf.genRadials(radarBuffers, wxglNexradLevel3.binWord, wxglNexradLevel3.radialStart)
                 }
             } else {
                 wxglNexradLevel2.binWord.position(0)
