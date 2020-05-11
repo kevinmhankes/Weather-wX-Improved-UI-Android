@@ -44,24 +44,24 @@ class WXGLDownload {
     private var radarSite = ""
     private var product = ""
 
-    fun getRadarFile(context: Context, urlStr: String, radarSite: String, product: String, idxStr: String, tdwr: Boolean): String {
+    fun getRadarFile(context: Context, urlStr: String, radarSite: String, product: String, indexString: String, tdwr: Boolean): String {
         val ridPrefix = UtilityWXOGL.getRidPrefix(radarSite, tdwr)
         this.radarSite = radarSite
         this.product = product
         if (!product.contains("L2")) {
             val inputStream = getRadarFileUrl(radarSite, product, tdwr).getInputStream()
             val l3BaseFn = "nids"
-            inputStream?.let { UtilityIO.saveInputStream(context, inputStream, l3BaseFn + idxStr + "_d") }
-            UtilityFileManagement.moveFile(context, l3BaseFn + idxStr + "_d", l3BaseFn + idxStr)
+            inputStream?.let { UtilityIO.saveInputStream(context, inputStream, l3BaseFn + indexString + "_d") }
+            UtilityFileManagement.moveFile(context, l3BaseFn + indexString + "_d", l3BaseFn + indexString)
         } else {
             if (urlStr == "") {
                 val inputStream = getInputStreamFromUrlL2(getLevel2Url(radarSite), product)
-                inputStream?.let { UtilityIO.saveInputStream(context, it, "l2_d$idxStr") }
+                inputStream?.let { UtilityIO.saveInputStream(context, it, "l2_d$indexString") }
             } else {
                 val inputStream = getInputStreamFromUrlL2(iowaMesoL2Archive(radarSite, urlStr), product)
-                inputStream?.let { UtilityIO.saveInputStream(context, it, "l2_d$idxStr") }
+                inputStream?.let { UtilityIO.saveInputStream(context, it, "l2_d$indexString") }
             }
-            UtilityFileManagement.moveFile(context, "l2_d$idxStr", "l2$idxStr", 1024)
+            UtilityFileManagement.moveFile(context, "l2_d$indexString", "l2$indexString", 1024)
         }
         return ridPrefix
     }
