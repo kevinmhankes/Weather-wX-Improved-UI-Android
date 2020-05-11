@@ -36,13 +36,19 @@ object UtilityWXJobService {
 
     fun startService(context: Context) {
         val alertNotificationIntervalCurrent = Utility.readPref(context, "ALERT_NOTIFICATION_INTERVAL", -1)
-        if (alertNotificationIntervalCurrent < 121) {
+        //if (alertNotificationIntervalCurrent < 121) {
             if (android.os.Build.VERSION.SDK_INT > 23) {
-                start(context)
+                if (alertNotificationIntervalCurrent < 121) {
+                    start(context)
+                } else {
+                    val scheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+                    scheduler.cancelAll()
+                    UtilityLog.d("wx", "job cancel all")
+                }
             } else {
                 context.startService(Intent(context, AlertService::class.java))
             }
-        }
+        //}
     }
 
     fun start(context: Context) {

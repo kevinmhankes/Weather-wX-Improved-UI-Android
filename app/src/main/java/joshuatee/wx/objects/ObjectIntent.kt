@@ -141,6 +141,8 @@ class ObjectIntent() {
             }
         }
 
+        fun showCanadaRadar(context: Context, array: Array<String>) { ObjectIntent(context, CanadaRadarActivity::class.java, CanadaRadarActivity.RID, array) }
+
         fun showSpcStormReports(context: Context) { ObjectIntent(context, SpcStormReportsActivity::class.java, SpcStormReportsActivity.NO, arrayOf("today")) }
 
         fun showSpcSwo(context: Context, array: Array<String>) { ObjectIntent(context, SpcSwoActivity::class.java, SpcSwoActivity.NUMBER, array) }

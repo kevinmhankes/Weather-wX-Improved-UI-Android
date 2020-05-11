@@ -31,7 +31,6 @@ import joshuatee.wx.UIPreferences
 
 import joshuatee.wx.activitiesmisc.CapAlert
 import joshuatee.wx.objects.TextSize
-import joshuatee.wx.util.UtilityString
 
 class ObjectCardAlertSummaryItem(context: Context) {
 

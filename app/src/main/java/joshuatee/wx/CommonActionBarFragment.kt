@@ -68,9 +68,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
             }
             R.id.action_observations -> ObjectIntent.showObservations(this)
             R.id.action_playlist -> ObjectIntent(this, SettingsPlaylistActivity::class.java)
-            R.id.action_soundings -> {
-                if (Location.isUS) ObjectIntent.showSounding(this)
-            }
+            R.id.action_soundings -> if (Location.isUS) ObjectIntent.showSounding(this)
             R.id.action_cloud -> openVis()
             R.id.action_radar -> openNexradRadar(this)
             R.id.action_forecast -> openHourly()
@@ -102,8 +100,8 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
         if (requestCode == requestOk && resultCode == Activity.RESULT_OK) {
             val thingsYouSaid = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
             UtilityUI.makeSnackBar(view, thingsYouSaid!![0])
-            val addrStrTmp = thingsYouSaid[0]
-            UtilityVoiceCommand.processCommand(this, view, addrStrTmp, Location.rid, Location.wfo, Location.state)
+            val string = thingsYouSaid[0]
+            UtilityVoiceCommand.processCommand(this, view, string, Location.rid, Location.wfo, Location.state)
         }
     }
 
@@ -115,7 +113,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
                 ObjectIntent.showRadarMultiPane(context, arrayOf(Location.rid, "", "2"))
             }
         } else {
-            ObjectIntent(context, CanadaRadarActivity::class.java, CanadaRadarActivity.RID, arrayOf(Location.rid, "rad"))
+            ObjectIntent.showCanadaRadar(context, arrayOf(Location.rid, "rad"))
         }
     }
 
@@ -129,7 +127,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
         if (Location.isUS) {
             ObjectIntent.showVis(this)
         } else {
-            ObjectIntent(this, CanadaRadarActivity::class.java, CanadaRadarActivity.RID, arrayOf(Location.rid, "vis"))
+            ObjectIntent.showCanadaRadar(this, arrayOf(Location.rid, "vis"))
         }
     }
 
