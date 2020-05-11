@@ -36,6 +36,7 @@
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [ADD] labelFor for TextViews support EditText
 
+55430 2020_05_11
 55429 2020_05_11    [REF] move WXGLDownload to static
 55428 2020_05_09    [FIX] in httpInterceptor in myApp, close response within loop per bug report okhttp
 55427 2020_05_09    [FIX] nexrad images via share not working
