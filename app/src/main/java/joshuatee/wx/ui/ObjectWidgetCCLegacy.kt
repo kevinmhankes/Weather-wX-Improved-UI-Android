@@ -141,7 +141,7 @@ class ObjectWidgetCCLegacy(context: Context, allWidgetIds: IntArray) {
         }
         // AFD
         if (Location.isUS(widgetLocationNumber)) {
-            UtilityWidget.setupIntent(context, remoteViews, AfdActivity::class.java, R.id.b_afd, AfdActivity.URL, arrayOf(wfo, ""), actionAfd)
+            UtilityWidget.setupIntent(context, remoteViews, WfoTextActivity::class.java, R.id.b_afd, WfoTextActivity.URL, arrayOf(wfo, ""), actionAfd)
         } else {
             UtilityWidget.setupIntent(context, remoteViews, CanadaTextActivity::class.java, R.id.b_afd, actionAfd)
         }

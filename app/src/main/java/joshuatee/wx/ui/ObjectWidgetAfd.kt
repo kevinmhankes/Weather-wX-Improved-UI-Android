@@ -27,7 +27,7 @@ import android.widget.RemoteViews
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UtilityWidget
-import joshuatee.wx.activitiesmisc.AfdActivity
+import joshuatee.wx.activitiesmisc.WfoTextActivity
 import joshuatee.wx.objects.WidgetFile
 import joshuatee.wx.util.Utility
 
@@ -41,10 +41,13 @@ class ObjectWidgetAfd(context: Context) {
         val afd = Utility.readPref(context, "AFD_WIDGET", "")
         remoteViews.setTextViewText(R.id.text1, Utility.fromHtml(afd))
         remoteViews.setTextViewTextSize(R.id.text1, TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeSmall)
-        var product = "AFD"
-        if (Utility.readPref(context, "WFO_TEXT_FAV", "").startsWith("VFD")) product = "VFD"
+        val product = if (Utility.readPref(context, "WFO_TEXT_FAV", "").startsWith("VFD")) {
+            "VFD"
+        } else {
+            "AFD"
+        }
         if (!MyApplication.widgetPreventTap) {
-            UtilityWidget.setupIntent(context, remoteViews, AfdActivity::class.java, R.id.text1, AfdActivity.URL, arrayOf(wfo, product), WidgetFile.AFD.action)
+            UtilityWidget.setupIntent(context, remoteViews, WfoTextActivity::class.java, R.id.text1, WfoTextActivity.URL, arrayOf(wfo, product), WidgetFile.AFD.action)
         }
     }
 }

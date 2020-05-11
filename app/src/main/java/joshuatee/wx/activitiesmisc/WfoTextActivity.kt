@@ -54,7 +54,7 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_afd.*
 
-class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClickListener {
+class WfoTextActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClickListener {
 
     // The primary purpose of this activity is to view AFD from location's NWS office
     // However, other NWS office text products are also available from the AB menu
@@ -159,11 +159,11 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         if (wfo != oldWfo) version = 1
         html = withContext(Dispatchers.IO) {
             when {
-                product == "CLI" -> UtilityDownload.getTextProduct(this@AfdActivity, product + wfo + originalWfo)
-                product.startsWith("RTP") && product.length == 5 -> UtilityDownload.getTextProduct(this@AfdActivity, product)
+                product == "CLI" -> UtilityDownload.getTextProduct(this@WfoTextActivity, product + wfo + originalWfo)
+                product.startsWith("RTP") && product.length == 5 -> UtilityDownload.getTextProduct(this@WfoTextActivity, product)
                 else -> {
                     if (version == 1) {
-                        UtilityDownload.getTextProduct(this@AfdActivity, product + wfo)
+                        UtilityDownload.getTextProduct(this@WfoTextActivity, product + wfo)
                     } else {
                         UtilityDownload.getTextProduct(product + wfo, version)
                     }
@@ -190,15 +190,15 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         UtilityTts.conditionalPlay(activityArguments, 2, applicationContext, html, product)
         if (activityArguments[1] == "") {
             if (product.startsWith("RTP") && product.length == 5) {
-                Utility.writePref(this@AfdActivity, "WFO_TEXT_FAV", "RTPZZ")
+                Utility.writePref(this@WfoTextActivity, "WFO_TEXT_FAV", "RTPZZ")
             } else {
-                Utility.writePref(this@AfdActivity, "WFO_TEXT_FAV", product)
+                Utility.writePref(this@WfoTextActivity, "WFO_TEXT_FAV", product)
             }
             MyApplication.wfoTextFav = product
         }
         oldProduct = product
         oldWfo = wfo
-        Utility.writePref(this@AfdActivity, "WFO_LAST_USED", wfo)
+        Utility.writePref(this@WfoTextActivity, "WFO_LAST_USED", wfo)
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -305,7 +305,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             html = ""
             wfoListPerState.forEach {
                 html = if (version == 1) {
-                    UtilityDownload.getTextProduct(this@AfdActivity, product + it)
+                    UtilityDownload.getTextProduct(this@WfoTextActivity, product + it)
                 } else {
                     UtilityDownload.getTextProduct(product + it, version)
                 }
@@ -315,7 +315,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
         objectCardText.visibility = View.GONE
         cardList.clear()
         wfoProd.forEach {
-            val textCard = ObjectCardText(this@AfdActivity, linearLayout)
+            val textCard = ObjectCardText(this@WfoTextActivity, linearLayout)
             textCard.setTextAndTranslate(it)
             cardList.add(textCard.card)
         }
@@ -326,7 +326,7 @@ class AfdActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClick
             val cliHtml = withContext(Dispatchers.IO) { ("https://w2.weather.gov/climate/index.php?wfo=" + wfo.toLowerCase(Locale.US)).getHtml() }
             val cliSites = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('.*?','(.*?)'\\)")
             val cliNames = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('(.*?)','.*?'\\)")
-            val dialogueMain = ObjectDialogue(this@AfdActivity, "Select site from $wfo:", cliNames)
+            val dialogueMain = ObjectDialogue(this@WfoTextActivity, "Select site from $wfo:", cliNames)
             dialogueMain.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, index ->
                 wfo = Utility.safeGet(cliSites, index)
                 dialog.dismiss()

@@ -303,7 +303,7 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".activitiesmisc.AfdActivity"
+      android:name=".activitiesmisc.WfoTextActivity"
       android:label=""
       android:parentActivityName="WX" >
   </activity>

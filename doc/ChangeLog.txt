@@ -19,7 +19,6 @@
 // TODO [ADD] storm reports - optimization for landscape
 // TODO [ADD] us alerts - optimization for landscape
 // TODO [FIX] chromeOS: text size for observations in nexrad
-// TODO [REF] rename AfdActivity to WfoText
 // TODO [ADD] ability to step through animations
 // TODO [FIX] hitting this? https://stackoverflow.com/questions/54120745/android-9-0-notificationmanager-notify-throwing-java-lang-securityexception
 // TODO [FIX] chromeOS - multipane radar toolbar is not fully transparent
@@ -36,6 +35,7 @@
 
 55430 2020_05_11    [FIX] AWC radar mosaic sectors were off by one
                     [ADD] if notif interval set to 121, cancel all background processing
+                    [REF] mv AfdActivity.kt WfoTextActivity.kt
 55429 2020_05_11    [REF] move WXGLDownload to static
 55428 2020_05_09    [FIX] in httpInterceptor in myApp, close response within loop per bug report okhttp
 55427 2020_05_09    [FIX] nexrad images via share not working

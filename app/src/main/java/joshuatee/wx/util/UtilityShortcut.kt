@@ -32,7 +32,7 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 
 import joshuatee.wx.R
-import joshuatee.wx.activitiesmisc.AfdActivity
+import joshuatee.wx.activitiesmisc.WfoTextActivity
 import joshuatee.wx.activitiesmisc.SevereDashboardActivity
 import joshuatee.wx.objects.ObjectIntentShortcut
 import joshuatee.wx.objects.ShortcutType
@@ -74,7 +74,7 @@ object UtilityShortcut {
                     imageId = R.drawable.ntor
                 }
                 ShortcutType.AFD -> {
-                    intent = ObjectIntentShortcut(context, AfdActivity::class.java, AfdActivity.URL, arrayOf(Location.wfo, "")).intent
+                    intent = ObjectIntentShortcut(context, WfoTextActivity::class.java, WfoTextActivity.URL, arrayOf(Location.wfo, "")).intent
                     imageId = R.drawable.widget_afd
                 }
                 ShortcutType.GOES16 -> {
@@ -105,18 +105,11 @@ object UtilityShortcut {
     }
 
     fun hidePinIfNeeded(toolbar: Toolbar) {
-        if (android.os.Build.VERSION.SDK_INT < 26) {
-            val menu = toolbar.menu
-            val pin = menu.findItem(R.id.action_pin)
-            pin.isVisible = false
-        }
+        if (android.os.Build.VERSION.SDK_INT < 26) toolbar.menu.findItem(R.id.action_pin).isVisible = false
     }
 
     fun hidePinIfNeeded(menu: Menu) {
-        if (android.os.Build.VERSION.SDK_INT < 26) {
-            val pin = menu.findItem(R.id.action_pin)
-            pin.isVisible = false
-        }
+        if (android.os.Build.VERSION.SDK_INT < 26) menu.findItem(R.id.action_pin).isVisible = false
     }
 }
 

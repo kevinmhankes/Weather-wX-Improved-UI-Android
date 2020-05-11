@@ -89,10 +89,14 @@ class ObjectIntent() {
 
         fun showWfoText(context: Context) {
             if (Location.isUS) {
-                ObjectIntent(context, AfdActivity::class.java, AfdActivity.URL, arrayOf(Location.wfo, ""))
+                ObjectIntent(context, WfoTextActivity::class.java, WfoTextActivity.URL, arrayOf(Location.wfo, ""))
             } else {
                 ObjectIntent(context, CanadaTextActivity::class.java)
             }
+        }
+
+        fun showWfoText(context: Context, array: Array<String>) {
+            ObjectIntent(context, WfoTextActivity::class.java, WfoTextActivity.URL, array)
         }
 
         fun showHourly(context: Context) {

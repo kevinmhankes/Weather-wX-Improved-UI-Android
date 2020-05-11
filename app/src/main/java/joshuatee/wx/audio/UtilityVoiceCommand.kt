@@ -26,7 +26,6 @@ import java.util.Locale
 import android.content.Context
 import android.view.View
 
-import joshuatee.wx.activitiesmisc.AfdActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.spc.SpcMesoActivity
 import joshuatee.wx.ui.UtilityUI
@@ -55,7 +54,7 @@ object UtilityVoiceCommand {
             if (wfo == "WPC") {
                 ObjectIntent(context, WpcTextProductsActivity::class.java, WpcTextProductsActivity.URL, arrayOf("pmdspd", "Short Range Forecast Discussion", "sound"))
             } else {
-                ObjectIntent(context, AfdActivity::class.java, AfdActivity.URL, arrayOf(wfo, "AFD", "sound"))
+                ObjectIntent.showWfoText(context, arrayOf(wfo, "AFD", "sound"))
             }
         } else if (vrString.contains("cloud")) {
             ObjectIntent.showVis(context)
