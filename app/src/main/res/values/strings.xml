@@ -45,7 +45,9 @@
         Additional software and tools are used from Telecine, GraphView,
         bzip2, TouchImageView, OkHttp, ImageMap, HoloColorPicker, and OpenStreetMaps.
         Software is provided \"as is\". Use at your own risk. Use for educational purposes and non-commercial purposes only.
-        Do not use for operational purposes.  &#169; 2013&#8211;2020 joshua.tee@gmail.com . Privacy Policy: this app does not collect any data from the user or the user’s device. Please report bugs or suggestions via email to me as opposed to app store reviews.
+        Do not use for operational purposes.  &#169; 2013&#8211;2020 joshua.tee@gmail.com .
+        Privacy Policy: this app does not collect any data from the user or the user’s device.
+        Please report bugs or suggestions via email to me as opposed to app store reviews.
         wX is licensed under the GNU GPLv3 license. For more information on the license please go here:
     http://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="title_activity_settings_location_generic">Location Settings</string>
@@ -66,14 +68,10 @@
     <string name="label_l2vel">SuperRes Velocity</string>
     <string name="label_tzl">TZL: Long Range Digital Base Reflectivity</string>
     <string name="label_tz0">TZ0: Digital Base Reflectivity</string>
-    <!--<string name="label_tr0">TR0: Digital Base Reflectivity</string>-->
     <string name="label_tv0">TV0: Digital Base Velocity</string>
-
     <string name="label_ncr">NCR: Composite Reflectivity 124nm</string>
     <string name="label_ncz">NCZ: Composite Reflectivity 248nm</string>
-
     <string name="label_vil">VIL: Vertically Integrated Liquid</string>
-
     <string name="label_a3">Animate 3 frames</string>
     <string name="label_a6">Animate 6 frames</string>
     <string name="label_a12">Animate 12 frames</string>

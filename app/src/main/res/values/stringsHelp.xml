@@ -27,7 +27,7 @@
     <string name="radar_show_wpc_fronts_label">
           Show WPC Fronts and pressure highs and lows. The data is not realtime but rather forecast data from NWS WPC.
          You can long press (press and hold) in nexrad radar and you will see the timestamp for the current data. For example "WPC Fronts: 0107 1200Z"
-         would indicate Janunary 7, 12:00 in GMT. Blue is for cold fronts and high pressure centers. Red is for warm fronts and low
+         would indicate January 7, 12:00 in GMT. Blue is for cold fronts and high pressure centers. Red is for warm fronts and low
          pressure centers. Light brown is for troughs which could be a trough, outflow boundary, squall line, or dry line. Stationary fronts
          are alternating red and blue. Occluded fronts are pink.
 
@@ -38,7 +38,7 @@
 </string>
 
     <string name="gps_update_interval_label">
-          Minumum time in seconds between GPS updates if GPS and auto-refresh enabled.
+          Minimum time in seconds between GPS updates if GPS and auto-refresh enabled.
 </string>
 
     <string name="textview_fontsize_np_label">
@@ -91,7 +91,8 @@ Use a dataset 4 times larger then the default county dataset: cb_2015_us_county_
 </string>
 
     <string name="radar_icons_level2_label">
-If enabled and displaying base velocity tapping on the velocity icon again will show Level2. Once Level2 is shown tapping on icon again will show Level3. Same applied to base reflectivity.
+If enabled and displaying base velocity tapping on the velocity icon again will show Level2.
+        Once Level2 is shown tapping on icon again will show Level3. Same applied to base reflectivity.
 </string>
 
 
@@ -150,7 +151,7 @@ Nexrad radar single pane activity will have the status bar and navigation bar hi
 
     <string name="record_screen_share_label">
 Use screen recording technology for sharing in activities involving just images and offering animations. After touching the record button in
-          the upper right of the screen touch the same area to stop the recording. Media can be accesssed via the notifications or via a filemanager
+          the upper right of the screen touch the same area to stop the recording. Media can be accessed via the notifications or via a filemanager
           in the DCIM or Movies folder.
       </string>
 
@@ -201,10 +202,8 @@ Configure size of the circle at the end of wind barbs if configured. Default is 
 If set to true the lightning icon on the bottom toolbar of the main screen will show the dual-pane radar instead of the traditional single pane radar.
 </string>
 
-
     <string name="locdot_follows_gps_label">
-Location dot will use the GPS of your device and will update on every scan as opposed to using the lat/lon of your saved location. If \"Screen on, auto refresh\" is enabled
-        it will update location frequently.
+Location dot will use the GPS of your device and will also keep the screen on and refresh data according to the refresh interval setting which is 3 minutes by default.
 </string>
 
     <string name="dualpaneshareposn_label">
@@ -479,7 +478,7 @@ If selected the toolbars will not have the ability to be hidden on demand. If in
 Translate NWS abbreviations in text products.</string>
 
     <string name="activity_settings_generic_help">
-This activity can be used to add or modify an existing location. To add a new location you can use the magnifiying glass icon to search for a new location.
+This activity can be used to add or modify an existing location. To add a new location you can use the magnifying glass icon to search for a new location.
         A successful search will populate the latitude and longitude fields with good values. If you choose a location that is suggested via autocomplete then it
             will automatically populate the label, lat, lon, and save the location. If a suggested city was not selected you can edit the location label if desired and then use
         check icon to save the location.
@@ -502,7 +501,7 @@ If enabled the WXOGL radar will hail signatures with hail size at or greater the
      For estimate hail from 1-2 inches 2 markers will be shown and 3 markers for hail from 2-3 inches.</string>
 
     <string name="show_tvs_label">
-If enabled the WXOGL radar will show tornado vortext signature as shown via upside down triangle with color matching tornado warning/watch polygons.</string>
+If enabled the WXOGL radar will show tornado vortex signature as shown via upside down triangle with color matching tornado warning/watch polygons.</string>
 
     <string name="hi_size_np">
 Allows one to change the size of the Hail markers. Default value is 8.</string>

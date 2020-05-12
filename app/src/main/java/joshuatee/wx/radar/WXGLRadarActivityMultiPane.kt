@@ -331,7 +331,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     // TODO method for ContextCompat
     private fun checkForAutoRefresh() {
-        if (MyApplication.wxoglRadarAutoRefresh) {
+        if (MyApplication.wxoglRadarAutoRefresh || MyApplication.locationDotFollowsGps) {
             mInterval = 60000 * Utility.readPref(this, "RADAR_REFRESH_INTERVAL", 3)
             locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
