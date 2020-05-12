@@ -31,6 +31,7 @@ import android.graphics.Color
 import android.opengl.GLSurfaceView.Renderer
 import android.opengl.GLES20
 import android.opengl.Matrix
+import joshuatee.wx.Extensions.isEven
 
 import joshuatee.wx.Jni
 import joshuatee.wx.MyApplication
@@ -250,9 +251,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                     radarBuffers.extractL3Data(wxglNexradLevel3)
                 }
             }
-        } catch (e: Exception) {
-            UtilityLog.handleException(e)
-        }
+        } catch (e: Exception) { UtilityLog.handleException(e) }
         if (radarBuffers.numRangeBins == 0) {
             radarBuffers.numRangeBins = 460
             radarBuffers.numberOfRadials = 360
@@ -314,9 +313,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 else
                     UtilityWXOGLPerf.genRadials(radarBuffers, wxglNexradLevel2.binWord, wxglNexradLevel2.radialStartAngle)
             } // level 2 , level 3 check
-        } catch (e: Exception) {
-            UtilityLog.handleException(e)
-        }
+        } catch (e: Exception) { UtilityLog.handleException(e) }
         breakSize15 = 15000
         chunkCount = 1
         if (totalBins < breakSize15) {
@@ -347,7 +344,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
 
     override fun onDrawFrame(gl: GL10) {
         GLES20.glUseProgram(OpenGLShader.sp_SolidColor)
-        GLES20.glClearColor(bgColorFRed, bgColorFGreen, bgColorFBlue, 1f)
+        GLES20.glClearColor(bgColorFRed, bgColorFGreen, bgColorFBlue, 1.0f)
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT or GLES20.GL_DEPTH_BUFFER_BIT)
         positionHandle = GLES20.glGetAttribLocation(OpenGLShader.sp_SolidColor, "vPosition")
         colorHandle = GLES20.glGetAttribLocation(OpenGLShader.sp_SolidColor, "a_Color")
@@ -356,13 +353,12 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         GLES20.glEnableVertexAttribArray(colorHandle)
         matrixProjectionAndView = matrixProjectionAndViewOrig
         Matrix.multiplyMM(matrixProjectionAndView, 0, matrixProjection, 0, matrixView, 0)
-        //Matrix.translateM(matrixProjectionAndView, 0, x, y, 0f)
         if (!MyApplication.wxoglCenterOnLocation) {
-            Matrix.translateM(matrixProjectionAndView, 0, x, y, 0f)
+            Matrix.translateM(matrixProjectionAndView, 0, x, y, 0.0f)
         } else {
-            Matrix.translateM(matrixProjectionAndView, 0, gpsLatLonTransformed[0] * zoom, gpsLatLonTransformed[1] * zoom, 0f)
+            Matrix.translateM(matrixProjectionAndView, 0, gpsLatLonTransformed[0] * zoom, gpsLatLonTransformed[1] * zoom, 0.0f)
         }
-        Matrix.scaleM(matrixProjectionAndView, 0, zoom, zoom, 1f)
+        Matrix.scaleM(matrixProjectionAndView, 0, zoom, zoom, 1.0f)
         GLES20.glUniformMatrix4fv(GLES20.glGetUniformLocation(OpenGLShader.sp_SolidColor, "uMVPMatrix"), 1, false, matrixProjectionAndView, 0)
         (0 until chunkCount).forEach {
             radarChunkCnt = if (it < chunkCount - 1) {
@@ -377,9 +373,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 GLES20.glVertexAttribPointer(colorHandle, 3, GLES20.GL_UNSIGNED_BYTE, true, 0, radarBuffers.colorBuffer.slice())
                 triangleIndexBuffer.position(0)
                 GLES20.glDrawElements(GLES20.GL_TRIANGLES, radarChunkCnt, GLES20.GL_UNSIGNED_SHORT, triangleIndexBuffer.slice().asShortBuffer())
-            } catch (e: Exception) {
-                UtilityLog.handleException(e)
-            }
+            } catch (e: Exception) { UtilityLog.handleException(e) }
         }
         GLES20.glLineWidth(defaultLineWidth)
         listOf(countyLineBuffers, stateLineBuffers, hwBuffers, hwExtBuffers, lakeBuffers).forEach {
@@ -416,12 +410,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         listOf(warningTstBuffers, warningFfwBuffers, warningTorBuffers).forEach { drawPolygons(it, 8) }
         genericWarningBuffers.forEach { if (it.warningType!!.isEnabled) drawPolygons(it, 8) }
         GLES20.glLineWidth(PolygonType.WATCH_TORNADO.size)
-        listOf(
-                mpdBuffers,
-                mcdBuffers,
-                watchBuffers,
-                watchTornadoBuffers
-        ).forEach { drawPolygons(it, 8) }
+        listOf(mpdBuffers, mcdBuffers, watchBuffers, watchTornadoBuffers).forEach { drawPolygons(it, 8) }
         GLES20.glLineWidth(PolygonType.SWO.size)
         listOf(swoBuffers).forEach { drawPolygons(it, 8) }
         if (zoom < (0.50 / zoomScreenScaleFactor)) {
@@ -479,17 +468,17 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             matrixView[it] = 0.0f
             matrixProjectionAndView[it] = 0.0f
         }
-        Matrix.orthoM(matrixProjection, 0, (-1 * ortInt).toFloat(), ortInt.toFloat(), -1f * ortInt.toFloat() * (1 / surfaceRatio),
-                ortInt * (1 / surfaceRatio), 1f, -1f)
-        Matrix.setLookAtM(matrixView, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1.0f, 0.0f)
+        Matrix.orthoM(matrixProjection, 0, (-1 * ortInt).toFloat(), ortInt.toFloat(), -1.0f * ortInt.toFloat() * (1 / surfaceRatio),
+                ortInt * (1 / surfaceRatio), 1.0f, -1.0f)
+        Matrix.setLookAtM(matrixView, 0, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f)
         Matrix.multiplyMM(matrixProjectionAndView, 0, matrixProjection, 0, matrixView, 0)
         Matrix.multiplyMM(matrixProjectionAndViewOrig, 0, matrixProjection, 0, matrixView, 0)
         if (!MyApplication.wxoglCenterOnLocation) {
-            Matrix.translateM(matrixProjectionAndView, 0, x, y, 0f)
+            Matrix.translateM(matrixProjectionAndView, 0, x, y, 0.0f)
         } else {
-            Matrix.translateM(matrixProjectionAndView, 0, gpsLatLonTransformed[0] * zoom, gpsLatLonTransformed[1] * zoom, 0f)
+            Matrix.translateM(matrixProjectionAndView, 0, gpsLatLonTransformed[0] * zoom, gpsLatLonTransformed[1] * zoom, 0.0f)
         }
-        Matrix.scaleM(matrixProjectionAndView, 0, zoom, zoom, 1f)
+        Matrix.scaleM(matrixProjectionAndView, 0, zoom, zoom, 1.0f)
     }
 
     private fun scaleLength(currentLength: Float) = if (zoom > 1.01f) currentLength / zoom * 2 else currentLength
@@ -545,13 +534,9 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                         buffers.count
                 )
             } else {
+                // This is not used at the moment
                 // FIXME - will want native code version for 4326
-                UtilityWXOGLPerf.generate4326Projection(
-                        buffers.geotype.relativeBuffer,
-                        buffers.floatBuffer,
-                        projectionNumbers,
-                        buffers.count
-                )
+                UtilityWXOGLPerf.generate4326Projection(buffers.geotype.relativeBuffer, buffers.floatBuffer, projectionNumbers, buffers.count)
             }
         }
         buffers.setToPositionZero()
@@ -559,21 +544,19 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
 
     private fun deconstructGenericGeographic(buffers: ObjectOglBuffers) { buffers.isInitialized = false }
 
-    private fun constructGenericLinesShort(buffers: ObjectOglBuffers, f: List<Double>) {
+    private fun constructGenericLinesShort(buffers: ObjectOglBuffers, list: List<Double>) {
         val remainder: Int
-        buffers.initialize(4 * 4 * f.size, 0, 3 * 4 * f.size, buffers.type.color)
+        buffers.initialize(4 * 4 * list.size, 0, 3 * 4 * list.size, buffers.type.color)
         try {
             if (MyApplication.radarUseJni) {
-                Jni.colorGen(buffers.colorBuffer, 4 * f.size, buffers.colorArray)
+                Jni.colorGen(buffers.colorBuffer, 4 * list.size, buffers.colorArray)
             } else {
-                UtilityWXOGLPerf.colorGen(buffers.colorBuffer, 4 * f.size, buffers.colorArray)
+                UtilityWXOGLPerf.colorGen(buffers.colorBuffer, 4 * list.size, buffers.colorArray)
             }
-        } catch (e: java.lang.Exception) {
-            UtilityLog.handleException(e)
-        }
+        } catch (e: java.lang.Exception) { UtilityLog.handleException(e) }
         buffers.breakSize = 15000
         buffers.chunkCount = 1
-        val totalBinsSti = f.size / 4
+        val totalBinsSti = list.size / 4
         if (totalBinsSti < buffers.breakSize) {
             buffers.breakSize = totalBinsSti
             remainder = buffers.breakSize
@@ -586,10 +569,10 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         (0 until buffers.chunkCount).forEach {
             if (it == buffers.chunkCount - 1) buffers.breakSize = remainder
             for (notUsed in 0 until buffers.breakSize) {
-                buffers.putFloat(f[vList].toFloat())
-                buffers.putFloat(f[vList + 1].toFloat() * -1)
-                buffers.putFloat(f[vList + 2].toFloat())
-                buffers.putFloat(f[vList + 3].toFloat() * -1)
+                buffers.putFloat(list[vList].toFloat())
+                buffers.putFloat(list[vList + 1].toFloat() * -1)
+                buffers.putFloat(list[vList + 2].toFloat())
+                buffers.putFloat(list[vList + 3].toFloat() * -1)
                 vList += 4
             }
         }
@@ -597,8 +580,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     }
 
     fun constructStiLines() {
-        val fSti = WXGLNexradLevel3StormInfo.decodeAndPlot(context, indexString, projectionNumbers)
-        constructGenericLinesShort(stiBuffers, fSti)
+        constructGenericLinesShort(stiBuffers, WXGLNexradLevel3StormInfo.decodeAndPlot(context, indexString, projectionNumbers))
     }
 
     fun deconstructStiLines() { deconstructGenericLines(stiBuffers) }
@@ -652,7 +634,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         var xx = 0
         var yy = 0
         locationMarkers.indices.forEach {
-            if (it and 1 == 0) {
+            if (it.isEven()) {
                 locationDotBuffers.xList[xx] = locationMarkers[it]
                 xx += 1
             } else {
