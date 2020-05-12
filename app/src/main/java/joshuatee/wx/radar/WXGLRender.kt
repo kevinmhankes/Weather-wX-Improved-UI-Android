@@ -331,7 +331,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     }
 
     override fun onSurfaceCreated(gl: GL10, config: EGLConfig) {
-        GLES20.glClearColor(bgColorFRed, bgColorFGreen, bgColorFBlue, 1f)
+        GLES20.glClearColor(bgColorFRed, bgColorFGreen, bgColorFBlue, 1.0f)
         OpenGLShader.sp_SolidColor = GLES20.glCreateProgram()
         GLES20.glAttachShader(OpenGLShader.sp_SolidColor, OpenGLShader.loadShader(GLES20.GL_VERTEX_SHADER, OpenGLShader.vs_SolidColor))
         GLES20.glAttachShader(OpenGLShader.sp_SolidColor, OpenGLShader.loadShader(GLES20.GL_FRAGMENT_SHADER, OpenGLShader.fs_SolidColor))
