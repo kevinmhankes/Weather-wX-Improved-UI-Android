@@ -102,7 +102,14 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     private val genericWarningBuffers = mutableListOf<ObjectOglBuffers>()
     private var wpcFrontBuffersList = mutableListOf<ObjectOglBuffers>()
     private var wpcFrontPaints = mutableListOf<Int>()
-    private val colorSwo = IntArray(5)
+    //private val colorSwo = IntArray(5)
+    private val colorSwo = intArrayOf(Color.MAGENTA, Color.RED, Color.rgb(255, 140, 0), Color.YELLOW, Color.rgb(0, 100, 0))
+    //colorSwo[0] = Color.MAGENTA
+    //colorSwo[1] = Color.RED
+    //colorSwo[2] = Color.rgb(255, 140, 0)
+    //colorSwo[3] = Color.YELLOW
+    //colorSwo[4] = Color.rgb(0, 100, 0)
+
     private var breakSize15 = 15000
     private val breakSizeRadar = 15000
     private var positionHandle = 0
@@ -858,11 +865,11 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
 
     fun constructSwoLines() {
         val hashSwo = UtilitySwoDayOne.HASH_SWO.toMap()
-        colorSwo[0] = Color.MAGENTA
+        /*colorSwo[0] = Color.MAGENTA
         colorSwo[1] = Color.RED
         colorSwo[2] = Color.rgb(255, 140, 0)
         colorSwo[3] = Color.YELLOW
-        colorSwo[4] = Color.rgb(0, 100, 0)
+        colorSwo[4] = Color.rgb(0, 100, 0)*/
         var coordinates: DoubleArray
         val fSize = (0..4).filter { hashSwo[it] != null }.sumBy { hashSwo.getOrElse(it) { listOf() }.size }
         swoBuffers.breakSize = 15000

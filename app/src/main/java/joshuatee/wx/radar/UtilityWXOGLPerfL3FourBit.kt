@@ -33,7 +33,6 @@ import joshuatee.wx.util.UtilityLog
 internal object UtilityWXOGLPerfL3FourBit {
 
     // Used for Legacy 4bit radar - only SRM or spectrum width 30 or TDWR TR0
-    // was decode4bit
     fun decodeRadial(context: Context, fileName: String, radialStart: ByteBuffer, binWord: ByteBuffer): Short {
         var numberOfRangeBins = 0.toShort()
         try {
@@ -58,12 +57,11 @@ internal object UtilityWXOGLPerfL3FourBit {
                 }
             }
             dataInputStream.close()
-        } catch (e: IOException) {
-            UtilityLog.handleException(e)
-        }
+        } catch (e: IOException) { UtilityLog.handleException(e) }
         return numberOfRangeBins
     }
 
+    // comp ref
     fun decodeRaster(context: Context, fileName: String, binWord: ByteBuffer): Short {
         val numberOfRangeBins = 0.toShort()
         try {
@@ -89,23 +87,18 @@ internal object UtilityWXOGLPerfL3FourBit {
             // 232 rows in NCZ
             var bin: Short
             var numOfBins: Int
-            var totalPerRow: Int
             for (unused in 0 until numberOfRows) {
                 val numberOfBytes = dataInputStream.readUnsignedShort()
-                totalPerRow = 0
                 for (s in 0 until numberOfBytes) {
                     bin = dataInputStream.readUnsignedByte().toShort()
                     numOfBins = bin.toInt() shr 4
                     for (u in 0 until numOfBins) {
                         binWord.put((bin % 16).toByte())
-                        totalPerRow += 1
                     }
                 }
             }
             dataInputStream.close()
-        } catch (e: IOException) {
-            UtilityLog.handleException(e)
-        }
+        } catch (e: IOException) { UtilityLog.handleException(e) }
         return numberOfRangeBins
     }
 }
