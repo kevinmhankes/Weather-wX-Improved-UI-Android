@@ -143,7 +143,7 @@ open class ObjectOglBuffers() {
     val colorArray: ByteArray
         get() = byteArrayOf(solidColorRed, solidColorGreen, solidColorBlue)
 
-    // provided a list of X1 Y2 X2 Y2 , break apart into seperate X,Y lists
+    // provided a list of X1 Y2 X2 Y2 , break apart into separate X,Y lists
     // used by TVS and HI
     fun setXYList(combinedLatLonList: List<Double>) {
         xList = DoubleArray(combinedLatLonList.size / 2)

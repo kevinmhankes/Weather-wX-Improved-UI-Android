@@ -722,18 +722,16 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     fun deconstructMpdLines() = deconstructGenericLines(mpdBuffers)
 
     private fun constructGenericLines(buffers: ObjectOglBuffers) {
-        var fList = listOf<Double>()
+        var list = listOf<Double>()
         when (buffers.type) {
-            PolygonType.MCD, PolygonType.MPD, PolygonType.WATCH, PolygonType.WATCH_TORNADO -> fList = UtilityWatch.add(projectionNumbers, buffers.type).toList()
-            PolygonType.TST, PolygonType.TOR, PolygonType.FFW -> fList = WXGLPolygonWarnings.add(projectionNumbers, buffers.type).toList()
-            PolygonType.STI -> fList = WXGLNexradLevel3StormInfo.decodeAndPlot(context, indexString, projectionNumbers).toList()
-            else -> {
-                if (buffers.warningType != null) fList = WXGLPolygonWarnings.addGeneric(projectionNumbers, buffers.warningType!!).toList()
-            }
+            PolygonType.MCD, PolygonType.MPD, PolygonType.WATCH, PolygonType.WATCH_TORNADO -> list = UtilityWatch.add(projectionNumbers, buffers.type).toList()
+            PolygonType.TST, PolygonType.TOR, PolygonType.FFW -> list = WXGLPolygonWarnings.add(projectionNumbers, buffers.type).toList()
+            PolygonType.STI -> list = WXGLNexradLevel3StormInfo.decodeAndPlot(context, indexString, projectionNumbers).toList()
+            else -> if (buffers.warningType != null) list = WXGLPolygonWarnings.addGeneric(projectionNumbers, buffers.warningType!!).toList()
         }
         buffers.breakSize = 15000
         buffers.chunkCount = 1
-        val totalBinsGeneric = fList.size / 4
+        val totalBinsGeneric = list.size / 4
         var remainder = 0
         if (totalBinsGeneric < buffers.breakSize) {
             buffers.breakSize = totalBinsGeneric
@@ -758,11 +756,11 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         (0 until buffers.chunkCount).forEach {
             if (it == buffers.chunkCount - 1) buffers.breakSize = remainder
             for (notUsed in 0 until buffers.breakSize) {
-                if (fList.size > (vList + 3)) {
-                    buffers.putFloat(fList[vList].toFloat())
-                    buffers.putFloat(fList[vList + 1].toFloat() * -1.0f)
-                    buffers.putFloat(fList[vList + 2].toFloat())
-                    buffers.putFloat(fList[vList + 3].toFloat() * -1.0f)
+                if (list.size > (vList + 3)) {
+                    buffers.putFloat(list[vList].toFloat())
+                    buffers.putFloat(list[vList + 1].toFloat() * -1.0f)
+                    buffers.putFloat(list[vList + 2].toFloat())
+                    buffers.putFloat(list[vList + 3].toFloat() * -1.0f)
                     vList += 4
                 }
             }
@@ -776,15 +774,13 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     }
 
     fun constructWBLines() {
-        val fWb = WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, projectionType, false, paneNumber)
-        constructGenericLinesShort(wbBuffers, fWb)
+        constructGenericLinesShort(wbBuffers, WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, projectionType, false, paneNumber))
         constructWBLinesGusts()
         constructWBCircle()
     }
 
     private fun constructWBLinesGusts() {
-        val fWbGusts = WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, projectionType, true, paneNumber)
-        constructGenericLinesShort(wbGustsBuffers, fWbGusts)
+        constructGenericLinesShort(wbGustsBuffers, WXGLNexradLevel3WindBarbs.decodeAndPlot(rid, projectionType, true, paneNumber))
     }
 
     fun deconstructWBLines() {
