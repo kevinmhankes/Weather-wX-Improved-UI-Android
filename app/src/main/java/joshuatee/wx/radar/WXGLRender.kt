@@ -710,8 +710,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
 
     fun constructTvs() {
         tvsBuffers.lenInit = MyApplication.radarTvsSize.toFloat()
-        val stormList = WXGLNexradLevel3TVS.decodeAndPlot(context, rid, indexString)
-        tvsBuffers.setXYList(stormList)
+        tvsBuffers.setXYList(WXGLNexradLevel3TVS.decodeAndPlot(context, rid, indexString))
         constructTriangles(tvsBuffers)
     }
 
