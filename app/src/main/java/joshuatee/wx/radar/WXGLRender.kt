@@ -629,7 +629,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             gpsX = x
             gpsY = y
         }
-        locationDotBuffers.xList = DoubleArray(locationMarkers.size)
+        /*locationDotBuffers.xList = DoubleArray(locationMarkers.size)
         locationDotBuffers.yList = DoubleArray(locationMarkers.size)
         var xx = 0
         var yy = 0
@@ -641,7 +641,9 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 locationDotBuffers.yList[yy] = locationMarkers[it]
                 yy += 1
             }
-        }
+        }*/
+        locationDotBuffers.xList = locationMarkers.filterIndexed { index: Int, _: Double -> index.isEven() }.toDoubleArray()
+        locationDotBuffers.yList = locationMarkers.filterIndexed { index: Int, _: Double -> !index.isEven() }.toDoubleArray()
         locationDotBuffers.triangleCount = 12
         constructTriangles(locationDotBuffers)
         locCircleBuffers.triangleCount = 36
