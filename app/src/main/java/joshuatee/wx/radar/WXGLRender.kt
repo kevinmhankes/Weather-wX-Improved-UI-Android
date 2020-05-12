@@ -847,11 +847,8 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         wbCircleBuffers.colorIntArray = UtilityMetar.metarDataList[paneNumber].obsArrAviationColor
         wbCircleBuffers.count = wbCircleBuffers.xList.size
         wbCircleBuffers.triangleCount = 6
-        wbCircleBuffers.initialize(
-                24 * wbCircleBuffers.count * wbCircleBuffers.triangleCount,
-                12 * wbCircleBuffers.count * wbCircleBuffers.triangleCount,
-                9 * wbCircleBuffers.count * wbCircleBuffers.triangleCount
-        )
+        val count = wbCircleBuffers.count * wbCircleBuffers.triangleCount
+        wbCircleBuffers.initialize(24 * count, 12 * count, 9 * count)
         wbCircleBuffers.lenInit = scaleLength(wbCircleBuffers.lenInit)
         wbCircleBuffers.draw(projectionNumbers)
         wbCircleBuffers.isInitialized = true
@@ -881,8 +878,6 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         swoBuffers.isInitialized = true
         (0..4).forEach {
             if (hashSwo[it] != null) {
-                //var j = 0
-                //while (j < hashSwo.getOrElse(it) { listOf() }.size) {
                 for (j in hashSwo.getOrElse(it) { listOf() }.indices step 4) {
                     swoBuffers.putColor(Color.red(colorSwo[it]).toByte())
                     swoBuffers.putColor(Color.green(colorSwo[it]).toByte())
@@ -896,7 +891,6 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                     coordinates = UtilityCanvasProjection.computeMercatorNumbers(hashSwo.getOrElse(it) { listOf() }[j + 2], (hashSwo.getOrElse(it) { listOf() }[j + 3] * -1.0f), projectionNumbers)
                     swoBuffers.putFloat(coordinates[0].toFloat())
                     swoBuffers.putFloat(coordinates[1].toFloat() * -1.0f)
-                    //j += 4
                 }
             }
         }
