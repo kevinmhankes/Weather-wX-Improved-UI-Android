@@ -28,12 +28,12 @@
 // TODO [FIX] Android share text does not preserve line breaks
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
 // TODO [FIX] nexrad cities performance
-// TODO [FIX] address gps/screen always on
 // TODO [FIX] NCEP param validation (automate)
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [ADD] labelFor for TextViews support EditText
 // TODO [REF] rename files in radar
 
+55432 2020_05_12
 55431 2020_05_12    [ADD] in radar settings if location dot follows GPS also keep screen on and perform refresh
 55430 2020_05_11    [FIX] AWC radar mosaic sectors were off by one
                     [ADD] if notif interval set to 121, cancel all background processing (if Android 7.0 or higher - API 24)
