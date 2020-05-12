@@ -365,7 +365,8 @@ Turn on sound for this notification.</string>
     <string name="alert_sound_text_prod_label">
 Turn on sound for this notification.</string>
     <string name="alert_interval_np_label">
-Interval to use for checking all notifications.</string>
+Interval to use for checking all notifications. This also impacts widgets and the value should be lower then the widget check interval. If this value is set to the
+    highest value possible - 121 - it will completely disable the background check mechanism if you are running Android 7.0 or higher.</string>
     <string name="alert_onlyonce_label">
 Notifications will not be persistent and will only display once for the life of the event</string>
     <string name="alert_autocancel_label">
@@ -529,7 +530,6 @@ By default when this activity is started the delete mode is enabled which means 
     the selected location is changed. The lightning bolt allows you to add additional OpenGL based nexrad radars. You can reset the cards shown to the default with the last entry under the submenu. Please note that any change in this list
     will require an app restart and after restart  you will be in the main settings activity.
 </string>
-
 
     <string name="loc1_radar_warnings_label">
 Show warnings and watches in radar mosaic products.</string>

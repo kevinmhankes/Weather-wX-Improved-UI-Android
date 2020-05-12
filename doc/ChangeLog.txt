@@ -35,7 +35,7 @@
 
 55431 2020_05_11    [ADD] in radar settings if location dot follows GPS also keep screen on and perform refresh
 55430 2020_05_11    [FIX] AWC radar mosaic sectors were off by one
-                    [ADD] if notif interval set to 121, cancel all background processing
+                    [ADD] if notif interval set to 121, cancel all background processing (if Android 7.0 or higher - API 24)
                     [REF] mv AfdActivity.kt WfoTextActivity.kt
 55429 2020_05_11    [REF] move WXGLDownload to static
 55428 2020_05_09    [FIX] in httpInterceptor in myApp, close response within loop per bug report okhttp
