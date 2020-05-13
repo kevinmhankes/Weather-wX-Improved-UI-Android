@@ -1,7 +1,3 @@
-// TODO [ADD] Level 2 BV colormap and wrapping (Alex)a
-// TODO [FIX] base velocity legend
-// TODO [ADD] line size - swo, wb, wb gusts, sti
-// TODO [REF] OkHttp 3.13 Requires Android 5+ – Square Corner Blog – Medium  https://medium.com/square-corner-blog/okhttp-3-13-requires-android-5-818bb78d07ce
 // TODO [REF] move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
 // TODO       NWS_LOCATION RID_LOC
 // TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
@@ -33,7 +29,7 @@
 // TODO [ADD] labelFor for TextViews support EditText
 // TODO [REF] rename files in radar
 
-55432 2020_05_12
+55432 2020_05_13
 55431 2020_05_12    [ADD] in radar settings if location dot follows GPS also keep screen on and perform refresh
 55430 2020_05_11    [FIX] AWC radar mosaic sectors were off by one
                     [ADD] if notif interval set to 121, cancel all background processing (if Android 7.0 or higher - API 24)

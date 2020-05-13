@@ -692,13 +692,9 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
 
     private fun constructTriangles(buffers: ObjectOglBuffers) {
         buffers.count = buffers.xList.size
+        val count = buffers.count * buffers.triangleCount
         when (buffers.type) {
-            PolygonType.LOCDOT, PolygonType.SPOTTER -> buffers.initialize(
-                    24 * buffers.count * buffers.triangleCount,
-                    12 * buffers.count * buffers.triangleCount,
-                    9 * buffers.count * buffers.triangleCount,
-                    buffers.type.color
-            )
+            PolygonType.LOCDOT, PolygonType.SPOTTER -> buffers.initialize(24 * count, 12 * count, 9 * count, buffers.type.color)
             else -> buffers.initialize(4 * 6 * buffers.count, 4 * 3 * buffers.count, 9 * buffers.count, buffers.type.color)
         }
         buffers.lenInit = scaleLength(buffers.lenInit)

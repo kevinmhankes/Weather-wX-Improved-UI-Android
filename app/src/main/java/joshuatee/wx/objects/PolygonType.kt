@@ -24,12 +24,7 @@ package joshuatee.wx.objects
 import android.graphics.Color
 import joshuatee.wx.MyApplication
 
-enum class PolygonType constructor(
-        var color: Int,
-        private val typeAsString: String,
-        var pref: Boolean,
-        var size: Float
-) {
+enum class PolygonType constructor(var color: Int, private val typeAsString: String, var pref: Boolean, var size: Float) {
 
     MCD(MyApplication.radarColorMcd, "MCD", MyApplication.radarWatMcd, MyApplication.radarWatchMcdLineSize),
     MPD(MyApplication.radarColorMpd, "MPD", MyApplication.radarMpd, MyApplication.radarWatchMcdLineSize),
