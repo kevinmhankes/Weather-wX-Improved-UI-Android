@@ -49,7 +49,6 @@ import joshuatee.wx.settings.UtilityHomeScreen
 import joshuatee.wx.ui.ObjectImagesCollection
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.UtilityCities
-import joshuatee.wx.util.UtilityHttp
 import joshuatee.wx.util.UtilityLog
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -118,7 +117,6 @@ class MyApplication : Application() {
                 .build()
         UtilityCities.initialize()
         if (!loadedBuffers) initBuffers(this)
-        httpClientUnsafe = UtilityHttp.getUnsafeOkHttpClient()
         imageCollectionMap = ObjectImagesCollection.initialize()
     }
 
@@ -160,7 +158,6 @@ class MyApplication : Application() {
         var primaryColor = 0
         var deviceScale = 0f
         var httpClient: OkHttpClient? = null
-        var httpClientUnsafe: OkHttpClient? = null
         lateinit var preferences: SharedPreferences
         private lateinit var preferencesTelecine: SharedPreferences
         lateinit var editor: SharedPreferences.Editor

@@ -350,7 +350,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 locLabelEt.setText(query)
-                val addressToSend = query.replace(" ", "+")
+                //val addressToSend = query.replace(" ", "+")
                 //addressSearch(addressToSend)
                 val searchViewLocal = menuLocal!!.findItem(R.id.ab_search).actionView as SearchView
                 searchViewLocal.onActionViewCollapsed()
@@ -487,7 +487,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
             showMessage(thingsYouSaid!![0])
             val addrStrTmp = thingsYouSaid[0]
             locLabelEt.setText(addrStrTmp)
-            val addrSend = addrStrTmp.replace(" ", "+")
+            //val addrSend = addrStrTmp.replace(" ", "+")
             //addressSearchAndSave(locNum, addrSend, addrStrTmp)
         }
     }

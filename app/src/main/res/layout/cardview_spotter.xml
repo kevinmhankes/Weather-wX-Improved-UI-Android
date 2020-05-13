@@ -53,7 +53,7 @@
                 android:paddingEnd="@dimen/padding" />
         </LinearLayout>
 
-        <LinearLayout
+        <!--<LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -73,7 +73,7 @@
                 android:paddingStart="@dimen/padding_half"
                 android:paddingEnd="@dimen/padding"
                 android:paddingBottom="@dimen/padding" />
-        </LinearLayout>
+        </LinearLayout>-->
     </LinearLayout>
 </androidx.cardview.widget.CardView>
 

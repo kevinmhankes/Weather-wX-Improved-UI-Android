@@ -406,7 +406,7 @@ internal class RecordingSession(
         val title = context.getText(R.string.notification_captured_title)
         val subtitle = context.getText(R.string.notification_captured_subtitle)
         val share = context.getText(R.string.notification_captured_share)
-        var builder: NotificationCompat.Builder? = null
+        var builder: NotificationCompat.Builder?
         val actionShare = NotificationCompat.Action.Builder(R.drawable.ic_share_24dp, share, pendingShareIntent).build()
         builder = NotificationCompat.Builder(context, UtilityNotification.notiChannelStrNoSound)
             .setContentTitle(title)

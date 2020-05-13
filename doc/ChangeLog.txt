@@ -14,7 +14,9 @@
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
 
-55433 2020_05_13
+55433 2020_05_13    [ADD] onrestart to settings - about
+                    [REF] delete UtilityHttp.java
+                    [ADD] in Spotter activity remove phone number/email as they are not available on https://www.spotternetwork.org/ w/o member login
 55432 2020_05_13    [REF] misc
 55431 2020_05_12    [ADD] in radar settings if location dot follows GPS also keep screen on and perform refresh
 55430 2020_05_11    [FIX] AWC radar mosaic sectors were off by one

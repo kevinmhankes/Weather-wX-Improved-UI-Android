@@ -78,8 +78,18 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         iOSVersion.text = "iOS port of wX is called wXL23"
         iOSVersion.setOnClickListener(View.OnClickListener { ObjectIntent.showWebView(this, arrayOf(iOSUrl, "wXL23 for iOS")) })
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
+        displayContent()
+    }
+
+    fun displayContent() {
         textCard.text = Utility.showVersion(this, this)
         html = Utility.showVersion(this, this)
+    }
+
+    override fun onRestart() {
+        textCard.text = Utility.showVersion(this, this)
+        html = Utility.showVersion(this, this)
+        super.onRestart()
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
