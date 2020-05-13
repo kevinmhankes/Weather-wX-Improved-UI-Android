@@ -1,35 +1,20 @@
-// TODO [REF] move off rid/wfo/sounding lat/lon/name currently in pref should be in objects (like flutter/iOS)
-// TODO       NWS_LOCATION RID_LOC
 // TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
-// TODO [ADD] radar file class from flutter
-// TODO [FIX] select radar from main screen via icon brings up zoomed out view UtilityLocationFragment
-// TODO [FIX] roaming location needs background GPS perm for Android 10 (API 29)
-// TODO [ADD] textual obs in fixed radars on homescreen
 // TODO [ADD] use ENUM instead of RID_FAV WFO_FAV SND_FAV (util/UtilityFavorites)
-// TODO [ADD] look into magnification gestures
-// TODO [FIX] dual/quad pane radar don't take up the entire screen on chomeOS
-// TODO [REF] move off MyApplication.colon.split MyApplication.colon.space
-// TODO       miscPref.split(":").dropLastWhile { it.isEmpty() }
-// TODO [REF] reduce use of RegExp class
-// TODO [REF] use LatLon in Spotter, SpotterReports and other places that have lat and lon
+// TODO [FIX] dual/quad pane radar don't take up the entire screen on chromeOS
 // TODO [ADD] storm reports - optimization for landscape
 // TODO [ADD] us alerts - optimization for landscape
 // TODO [FIX] chromeOS: text size for observations in nexrad
 // TODO [ADD] ability to step through animations
 // TODO [FIX] hitting this? https://stackoverflow.com/questions/54120745/android-9-0-notificationmanager-notify-throwing-java-lang-securityexception
-// TODO [FIX] chromeOS - multipane radar toolbar is not fully transparent
-// TODO [FIX] toolbar handling in WXGLSurfaceView
 // TODO [FIX] Android toggle cities on off main screen not working
 // TODO [REF] remove roaming location feature
 // TODO [FIX] Android share text does not preserve line breaks
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
 // TODO [FIX] nexrad cities performance
-// TODO [FIX] NCEP param validation (automate)
 // TODO [REF] WXGLRender rename rid to radarSite
-// TODO [ADD] labelFor for TextViews support EditText
-// TODO [REF] rename files in radar
+// TODO [REF] rename files/classes in radar folder
 
-55432 2020_05_13
+55432 2020_05_13    [REF] misc
 55431 2020_05_12    [ADD] in radar settings if location dot follows GPS also keep screen on and perform refresh
 55430 2020_05_11    [FIX] AWC radar mosaic sectors were off by one
                     [ADD] if notif interval set to 121, cancel all background processing (if Android 7.0 or higher - API 24)

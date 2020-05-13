@@ -382,9 +382,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 drawElement(it)
             }
         }
-        // whether or not to respect the display being touched needs to be stored in
-        // object gl buffers. The wXL23 Metal code is more generic and thus each element drawn will need
-        // to be checked. Will do this later when I have more time
+        // whether or not to respect the display being touched needs to be stored in object gl buffers
         if (!displayHold) {
             listOf(spotterBuffers, hiBuffers, tvsBuffers).forEach {
                 if (zoom > it.scaleCutOff) drawTriangles(it)
@@ -501,7 +499,6 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
 
     fun deconstructCounty() = deconstructGenericGeographic(countyLineBuffers)
 
-    // FIXME this check for 4326 will need to be done in other locations as well but for now just testing to see
     // if the rectangular projection is realized.
     private fun constructGenericGeographic(buffers: ObjectOglBuffers) {
         if (!buffers.isInitialized) {
@@ -535,7 +532,6 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                 )
             } else {
                 // This is not used at the moment
-                // FIXME - will want native code version for 4326
                 UtilityWXOGLPerf.generate4326Projection(buffers.geotype.relativeBuffer, buffers.floatBuffer, projectionNumbers, buffers.count)
             }
         }
@@ -629,19 +625,6 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
             gpsX = x
             gpsY = y
         }
-        /*locationDotBuffers.xList = DoubleArray(locationMarkers.size)
-        locationDotBuffers.yList = DoubleArray(locationMarkers.size)
-        var xx = 0
-        var yy = 0
-        locationMarkers.indices.forEach {
-            if (it.isEven()) {
-                locationDotBuffers.xList[xx] = locationMarkers[it]
-                xx += 1
-            } else {
-                locationDotBuffers.yList[yy] = locationMarkers[it]
-                yy += 1
-            }
-        }*/
         locationDotBuffers.xList = locationMarkers.filterIndexed { index: Int, _: Double -> index.isEven() }.toDoubleArray()
         locationDotBuffers.yList = locationMarkers.filterIndexed { index: Int, _: Double -> !index.isEven() }.toDoubleArray()
         locationDotBuffers.triangleCount = 12
