@@ -14,6 +14,7 @@
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
 
+55433 2020_05_13
 55432 2020_05_13    [REF] misc
 55431 2020_05_12    [ADD] in radar settings if location dot follows GPS also keep screen on and perform refresh
 55430 2020_05_11    [FIX] AWC radar mosaic sectors were off by one
