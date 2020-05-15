@@ -89,8 +89,6 @@ class HourlyActivity : BaseActivity() {
         hourlyData = withContext(Dispatchers.IO) { UtilityUSHourly.getStringForActivity(htmlShare[1]) }
         graphCard.visibility = View.VISIBLE
         objectCardVerticalText.setText(listOf(hourlyData.time, hourlyData.temp, hourlyData.windSpeed, hourlyData.windDir, hourlyData.conditions))
-        // For ChromeOS
-        //objectCardVerticalText.card.requestFocus()
         plotData()
     }
 

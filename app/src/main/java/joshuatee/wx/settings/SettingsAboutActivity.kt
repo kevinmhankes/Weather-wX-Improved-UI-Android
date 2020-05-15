@@ -81,7 +81,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         displayContent()
     }
 
-    fun displayContent() {
+    private fun displayContent() {
         textCard.text = Utility.showVersion(this, this)
         html = Utility.showVersion(this, this)
     }

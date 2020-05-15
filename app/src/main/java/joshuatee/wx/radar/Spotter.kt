@@ -39,7 +39,7 @@ class Spotter internal constructor(
     var lon = ""
     var reportAt = ""
     var email = ""
-    var phone = ""
+    private var phone = ""
     var unique = ""
     var latD = 0.0
         private set
