@@ -61,9 +61,11 @@ object UIPreferences {
     var normalTextSizeDefault = 16
     var normalTextSize = 16
     var navDrawerMainScreen = false
+    var navDrawerMainScreenOnRight = true
 
     fun initPreferences(context: Context) {
         navDrawerMainScreen = Utility.readPref(context, "NAV_DRAWER_MAIN_SCREEN", "false").startsWith("t")
+        navDrawerMainScreenOnRight = Utility.readPref(context, "NAV_DRAWER_MAIN_SCREEN_ON_RIGHT", "true").startsWith("t")
         if (UtilityUI.isTablet()) normalTextSizeDefault = 18
         normalTextSize = Utility.readPref(context, "TEXTVIEW_FONT_SIZE", normalTextSizeDefault) // 14 16 21
         MyApplication.textSizeSmall = UtilityUI.spToPx(normalTextSize - 2, context)

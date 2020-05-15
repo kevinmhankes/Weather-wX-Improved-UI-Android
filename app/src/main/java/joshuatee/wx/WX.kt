@@ -61,6 +61,7 @@ import joshuatee.wx.wpc.WpcRainfallForecastSummaryActivity
 import joshuatee.wx.wpc.WpcTextProductsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class WX : CommonActionBarFragment() {
 
     private var backButtonCounter = 0
@@ -73,7 +74,15 @@ class WX : CommonActionBarFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(UIPreferences.themeInt)
         super.onCreate(savedInstanceState)
-        val layoutId = if (UIPreferences.navDrawerMainScreen) R.layout.activity_main_drawer else R.layout.activity_main
+        val layoutId = if (UIPreferences.navDrawerMainScreen) {
+            if (UIPreferences.navDrawerMainScreenOnRight) {
+                R.layout.activity_main_drawer_right
+            } else {
+                R.layout.activity_main_drawer
+            }
+        } else {
+            R.layout.activity_main
+        }
         setContentView(layoutId)
         UtilityTheme.setPrimaryColor(this)
         val toolbarBottom: Toolbar = findViewById(R.id.toolbar_bottom)
@@ -134,45 +143,46 @@ class WX : CommonActionBarFragment() {
             wfoButton.backgroundTintList = tint
             hourlyButton.backgroundTintList = tint
             settingsButton.backgroundTintList = tint
+            val gravityForDrawer = if (UIPreferences.navDrawerMainScreenOnRight) GravityCompat.END else GravityCompat.START
             severeDashboardButton.setOnClickListener {
                 ObjectIntent(this, SevereDashboardActivity::class.java)
-                drawerLayout.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(gravityForDrawer)
             }
             severeDashboardText.setOnClickListener {
                 ObjectIntent(this, SevereDashboardActivity::class.java)
-                drawerLayout.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(gravityForDrawer)
             }
             visButton.setOnClickListener {
                 ObjectIntent.showVis(this)
-                drawerLayout.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(gravityForDrawer)
             }
             visText.setOnClickListener {
                 ObjectIntent.showVis(this)
-                drawerLayout.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(gravityForDrawer)
             }
             wfoButton.setOnClickListener {
                 ObjectIntent.showWfoText(this)
-                drawerLayout.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(gravityForDrawer)
             }
             wfoText.setOnClickListener {
                 ObjectIntent.showWfoText(this)
-                drawerLayout.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(gravityForDrawer)
             }
             hourlyButton.setOnClickListener {
                 ObjectIntent.showHourly(this)
-                drawerLayout.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(gravityForDrawer)
             }
             hourlyText.setOnClickListener {
                 ObjectIntent.showHourly(this)
-                drawerLayout.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(gravityForDrawer)
             }
             settingsButton.setOnClickListener{
                 ObjectIntent.showSettings(this)
-                drawerLayout.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(gravityForDrawer)
             }
             settingsText.setOnClickListener{
                 ObjectIntent.showSettings(this)
-                drawerLayout.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(gravityForDrawer)
             }
             navigationView.setNavigationItemSelectedListener{ item ->
                 when (item.itemId) {
@@ -219,7 +229,11 @@ class WX : CommonActionBarFragment() {
                     }
                     R.id.wpc_gefs -> ObjectIntent.showModel(this, arrayOf("1", "WPCGEFS", "WPC"))
                 }
-                drawerLayout.closeDrawer(GravityCompat.START)
+                if (UIPreferences.navDrawerMainScreenOnRight) {
+                    drawerLayout.closeDrawer(GravityCompat.END)
+                } else {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                }
                 true
             }
             ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD, OnClickListener {
@@ -237,7 +251,11 @@ class WX : CommonActionBarFragment() {
                 val layoutParams = headerLayout.layoutParams
                 layoutParams.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, headerSize, resources.displayMetrics).toInt()
                 headerLayout.layoutParams = layoutParams
-                drawerLayout.openDrawer(Gravity.LEFT)
+                if (UIPreferences.navDrawerMainScreenOnRight) {
+                    drawerLayout.openDrawer(Gravity.RIGHT)
+                } else {
+                    drawerLayout.openDrawer(Gravity.LEFT)
+                }
             })
         }
         // material 1.1.0, since we are using .Bridge theme the below is not needed

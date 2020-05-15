@@ -69,6 +69,13 @@ object UtilityTts {
         //}
     }
 
+    fun shutdownTts() {
+        ttobjGlobal.let {
+            ttobjGlobal!!.stop()
+            ttobjGlobal!!.shutdown()
+        }
+    }
+
     internal fun playAgainTts(context: Context) {
         if (!ttsInit) initTts(context)
         ttobjGlobal!!.setSpeechRate(Utility.readPref(context, "TTS_SPEED_PREF", 10) / 10f)

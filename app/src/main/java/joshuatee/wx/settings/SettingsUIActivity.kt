@@ -51,6 +51,7 @@ class SettingsUIActivity : BaseActivity() {
     private val textSizeArr = mutableListOf<String>()
     private var tilesPerRowStart = 0
     private var navDrawerMainScreen = false
+    private var navDrawerMainScreenOnRight = true
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +60,7 @@ class SettingsUIActivity : BaseActivity() {
         ObjectCard(this, R.id.cv_tab_labels)
         tilesPerRowStart = UIPreferences.tilesPerRow
         navDrawerMainScreen = UIPreferences.navDrawerMainScreen
+        navDrawerMainScreenOnRight = UIPreferences.navDrawerMainScreenOnRight
         setupEditText()
         (0 until 20).forEach { textSizeArr.add(((it + 1) * 50).toString()) }
         linearLayout.addView(
@@ -77,6 +79,14 @@ class SettingsUIActivity : BaseActivity() {
                         "Use navigation drawer on main screen",
                         "NAV_DRAWER_MAIN_SCREEN",
                         R.string.nav_drawer_main_screen_label
+                ).card
+        )
+        linearLayout.addView(
+                ObjectSettingsCheckBox(
+                        this,
+                        "Navigation drawer on main screen is on right side",
+                        "NAV_DRAWER_MAIN_SCREEN_ON_RIGHT",
+                        R.string.nav_drawer_main_screen_on_right_label
                 ).card
         )
         linearLayout.addView(
@@ -344,7 +354,11 @@ class SettingsUIActivity : BaseActivity() {
 
     override fun onBackPressed() {
         UIPreferences.navDrawerMainScreen = Utility.readPref(this, "NAV_DRAWER_MAIN_SCREEN", "false").startsWith("t")
-        if ((UIPreferences.tilesPerRow != tilesPerRowStart) || (UIPreferences.navDrawerMainScreen != navDrawerMainScreen))
+        UIPreferences.navDrawerMainScreenOnRight = Utility.readPref(this, "NAV_DRAWER_MAIN_SCREEN_ON_RIGHT", "true").startsWith("t")
+        if ((UIPreferences.tilesPerRow != tilesPerRowStart)
+                || (UIPreferences.navDrawerMainScreen != navDrawerMainScreen)
+                || (UIPreferences.navDrawerMainScreenOnRight != navDrawerMainScreenOnRight)
+        )
             UtilityAlertDialog.restart() else super.onBackPressed()
     }
 }

@@ -63,17 +63,18 @@ class ObjectSettingsCheckBox(context: Context, label: String, pref: String, strI
         objectLinearLayout.addView(textView)
         checkBox.gravity = Gravity.CENTER_VERTICAL
         val truePrefs = listOf(
-            "COD_HW_DEFAULT",
-            "DUALPANE_SHARE_POSN",
-            "UNITS_F",
-            "UNITS_M",
-            "FAB_IN_MODELS",
-            "NWS_TEXT_REMOVELINEBREAKS",
-            "RECORD_SCREEN_SHARE",
-            "PREF_PREVENT_ACCIDENTAL_EXIT",
-            "COD_LOCDOT_DEFAULT",
-            "UI_MAIN_SCREEN_RADAR_FAB",
-            "RADAR_TOOLBAR_TRANSPARENT"
+                "COD_HW_DEFAULT",
+                "DUALPANE_SHARE_POSN",
+                "UNITS_F",
+                "UNITS_M",
+                "FAB_IN_MODELS",
+                "NWS_TEXT_REMOVELINEBREAKS",
+                "RECORD_SCREEN_SHARE",
+                "PREF_PREVENT_ACCIDENTAL_EXIT",
+                "COD_LOCDOT_DEFAULT",
+                "UI_MAIN_SCREEN_RADAR_FAB",
+                "RADAR_TOOLBAR_TRANSPARENT",
+                "NAV_DRAWER_MAIN_SCREEN_ON_RIGHT"
         )
         checkBox.isChecked = Utility.readPref(context, pref, java.lang.Boolean.toString(truePrefs.contains(pref))) == "true"
         checkBox.setOnCheckedChangeListener { compoundButton, _ ->
