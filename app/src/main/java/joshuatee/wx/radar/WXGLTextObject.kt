@@ -79,7 +79,7 @@ class WXGLTextObject(
         if (GeographyType.CITIES.pref && citiesInitialized) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             hideCities()
-            wxglSurfaceView.cities = mutableListOf()
+            wxglSurfaceView.cities.clear()
             scale = getScale()
             oglrZoom = 1.0f
             if (wxglRender.zoom < 1.00f) oglrZoom = wxglRender.zoom * 0.8f
@@ -144,7 +144,7 @@ class WXGLTextObject(
         if (MyApplication.radarCountyLabels && countyLabelsInitialized) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             hideCountyLabels()
-            wxglSurfaceView.countyLabels = mutableListOf()
+            wxglSurfaceView.countyLabels.clear()
             scale = getScale()
             oglrZoom = 1.0f
             if (wxglRender.zoom < 1.00f) oglrZoom = wxglRender.zoom * 0.8f
@@ -180,7 +180,7 @@ class WXGLTextObject(
             spotterLat = 0.0
             spotterLon = 0.0
             hideSpottersLabels()
-            wxglSurfaceView.spotterLabels = mutableListOf()
+            wxglSurfaceView.spotterLabels.clear()
             scale = getScale()
             oglrZoom = 1.0f
             if (wxglRender.zoom < 1.00f) oglrZoom = wxglRender.zoom * 0.8f
@@ -299,7 +299,7 @@ class WXGLTextObject(
             val spotterLon: Double
             var report = false
             hideSpotter()
-            wxglSurfaceView.spotterTextView = mutableListOf()
+            wxglSurfaceView.spotterTextView.clear()
             var indexSpotter = 0
             while (indexSpotter < UtilitySpotter.spotterList.size) {
                 if (UtilitySpotter.spotterList[indexSpotter].unique == WXGLRadarActivity.spotterId) break
@@ -388,7 +388,7 @@ class WXGLTextObject(
         if (MyApplication.radarShowWpcFronts) {
             projectionNumbers = ProjectionNumbers(wxglRender.rid, ProjectionType.WX_OGL)
             hideWpcPressureCenters()
-            wxglSurfaceView.pressureCenterLabels = mutableListOf()
+            wxglSurfaceView.pressureCenterLabels.clear()
             scale = getScale()
             oglrZoom = 1.0f
             if (wxglRender.zoom < 1.00f) oglrZoom = wxglRender.zoom * 0.8f
@@ -421,7 +421,7 @@ class WXGLTextObject(
             spotterLon = 0.0
             val fontScaleFactorObs = 0.65f
             hideObservations()
-            wxglSurfaceView.observations = mutableListOf()
+            wxglSurfaceView.observations.clear()
             scale = getScale()
             oglrZoom = 1.0f
             if (wxglRender.zoom < 1.0f) oglrZoom = wxglRender.zoom * 0.8f
