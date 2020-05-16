@@ -13,6 +13,7 @@
 // TODO [REF] rename files/classes in radar folder
 
 55435 2020_05_16    [REF] misc
+                    [ADD] 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3' to 1.3.6 (and 2nd one)
 55434 2020_05_15    [ADD] option in settings UI to have main screen nav drawer open from right side
                     [FIX] prevent leak in TTS for AudioPlayActivity
 55433 2020_05_13    [ADD] onrestart to settings - about
