@@ -23,7 +23,7 @@ package joshuatee.wx.radar
 
 class Fronts(var type: FrontTypeEnum) {
 
-    var coordinates = mutableListOf<LatLon>()
+    val coordinates = mutableListOf<LatLon>()
 
     override fun toString(): String {
         var string = ""
