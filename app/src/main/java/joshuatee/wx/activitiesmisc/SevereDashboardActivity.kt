@@ -52,7 +52,7 @@ class SevereDashboardActivity : BaseActivity() {
     //
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private var bitmaps = mutableListOf<Bitmap>()
+    private val bitmaps = mutableListOf<Bitmap>()
     private var watchCount = 0
     private var mcdCount = 0
     private var mpdCount = 0
@@ -60,9 +60,9 @@ class SevereDashboardActivity : BaseActivity() {
     private var ffwCount = 0
     private var torCount = 0
     private var numberOfImages = 0
-    private var horizontalLinearLayouts = mutableListOf<ObjectLinearLayout> ()
+    private val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout> ()
     private var imagesPerRow = 2
-    private var listOfWfoForWarnings = mutableListOf<String>()
+    private val listOfWfoForWarnings = mutableListOf<String>()
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.severe_dashboard, menu)
@@ -83,8 +83,8 @@ class SevereDashboardActivity : BaseActivity() {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        bitmaps = mutableListOf()
-        horizontalLinearLayouts = mutableListOf()
+        bitmaps.clear()
+        horizontalLinearLayouts.clear()
         val snWat = SevereNotice(PolygonType.WATCH)
         val snMcd = SevereNotice(PolygonType.MCD)
         val snMpd = SevereNotice(PolygonType.MPD)
@@ -141,7 +141,7 @@ class SevereDashboardActivity : BaseActivity() {
         bitmaps.addAll(snMcd.bitmaps)
         bitmaps.addAll(snMpd.bitmaps)
         bitmaps.addAll(bitmaps)
-        listOfWfoForWarnings = mutableListOf()
+        listOfWfoForWarnings.clear()
         var numberOfWarnings = 0
         listOf(wTor, wTst, wFfw).forEach { severeWarning ->
             if (severeWarning.count > 0) {

@@ -52,9 +52,7 @@ class ForecastActivity : BaseActivity() {
     // arg1  lon
     //
 
-    companion object {
-        const val URL = ""
-    }
+    companion object { const val URL = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var activityArguments: Array<String>

@@ -25,7 +25,7 @@ import android.content.Context
 import androidx.preference.PreferenceManager
 import joshuatee.wx.util.Utility
 
-class DataStorage(private var preference: String) {
+class DataStorage(private val preference: String) {
 
     private var storedVal = ""
 

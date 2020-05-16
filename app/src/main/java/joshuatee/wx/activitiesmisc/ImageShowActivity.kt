@@ -48,9 +48,7 @@ class ImageShowActivity : BaseActivity() {
     // 3: (optional) string "true" means a white background is needed
     //
 
-    companion object {
-        const val URL = ""
-    }
+    companion object { const val URL = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var url = ""

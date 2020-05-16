@@ -30,7 +30,7 @@ import joshuatee.wx.util.UtilityTime
 // particularly in nexrad radar
 //
 
-class DownloadTimer(private var identifier: String) {
+class DownloadTimer(private val identifier: String) {
 
     private var initialized = false
     private var lastRefresh = 0.toLong()

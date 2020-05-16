@@ -65,9 +65,7 @@ class WfoTextActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemC
     // 2: product
     //
 
-    companion object {
-        const val URL = ""
-    }
+    companion object { const val URL = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var firstTime = true
@@ -85,7 +83,7 @@ class WfoTextActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemC
     private var version = 0
     private var oldProduct = ""
     private var oldWfo = ""
-    private var wfoListPerState = mutableListOf<String>()
+    private val wfoListPerState = mutableListOf<String>()
     private val cardList = mutableListOf<CardView>()
     private lateinit var objectCardText: ObjectCardText
     private lateinit var objectSpinner: ObjectSpinner
@@ -286,7 +284,6 @@ class WfoTextActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemC
 
     private fun wfoByState() {
         val state = locationList[0].split(" ")[1]
-        wfoListPerState = mutableListOf()
         wfoListPerState.clear()
         GlobalArrays.wfos.filter { it.contains(state) }.forEach {
                     wfoListPerState.add(MyApplication.space.split(it)[0].replace(":", ""))

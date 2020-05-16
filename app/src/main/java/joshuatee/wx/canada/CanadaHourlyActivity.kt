@@ -35,9 +35,7 @@ import kotlinx.android.synthetic.main.activity_linear_layout.*
 
 class CanadaHourlyActivity : BaseActivity() {
 
-    companion object {
-        const val LOC_NUM = ""
-    }
+    companion object { const val LOC_NUM = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var locNumInt = 0

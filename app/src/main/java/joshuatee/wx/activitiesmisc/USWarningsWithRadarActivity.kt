@@ -51,14 +51,13 @@ class USWarningsWithRadarActivity : BaseActivity() {
     // 2: region ( "us" )
     //
 
-    companion object {
-        const val URL = ""
-    }
+    companion object { const val URL = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var html = ""
     private var usDownloaded = false
     private var usDataStr = ""
+    // TODO refactor var naming
     private val turlLocal = Array(3) { "" }
     private var firstRun = true
     private var bitmap = UtilityImg.getBlankBitmap()

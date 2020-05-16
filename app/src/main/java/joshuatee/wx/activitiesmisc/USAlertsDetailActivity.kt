@@ -39,9 +39,7 @@ import kotlinx.android.synthetic.main.activity_usalertsdetail.*
 
 class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
-    companion object {
-        const val URL = ""
-    }
+    companion object { const val URL = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var activityArguments: Array<String>
