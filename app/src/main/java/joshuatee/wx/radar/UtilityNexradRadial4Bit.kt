@@ -45,8 +45,7 @@ internal object UtilityNexradRadial4Bit {
     fun decodeAndPlot(context: Context, bitmap: Bitmap, fileName: String, product: String) {
         val canvas = Canvas(bitmap)
         val nwsRadarBgBlack = Utility.readPref(context, "NWS_RADAR_BG_BLACK", "")
-        var zeroColor = ContextCompat.getColor(context, R.color.black)
-        if (nwsRadarBgBlack != "true") zeroColor = ContextCompat.getColor(context, R.color.white)
+        val zeroColor = if (nwsRadarBgBlack != "true") ContextCompat.getColor(context, R.color.white) else ContextCompat.getColor(context, R.color.black)
         var isVelocity = false
         if (product.contains("S") || product.contains("V") || product.contains("U")) {
             isVelocity = true
@@ -160,24 +159,27 @@ internal object UtilityNexradRadial4Bit {
                 var xy2: FloatArray
                 var xy3: FloatArray
                 var xy4: FloatArray
-                val wallpaint = Paint()
-                wallpaint.style = Style.FILL
-                val wallpath = Path()
-                var g = 0
+                val paint = Paint()
+                paint.style = Style.FILL
+                val path = Path()
+                //var g = 0
                 var angle: Float
                 var angleV: Float
                 var level: Int
                 var levelCount: Int
                 var binStart: Float
-                var bin: Int
-                while (g < numberOfRadials) {
+                //var bin: Int
+                // TODO use for loops
+                //while (g < numberOfRadials) {
+                for (g in 0 until numberOfRadials) {
                     angle = radialStartAngle[g]
                     angleV = radialAngleDelta[g]
                     level = binWord[g][0]
                     levelCount = 0
                     binStart = binSize
-                    bin = 0
-                    while (bin < numberOfRangeBins) {
+                    //bin = 0
+                    for (bin in 0 until numberOfRangeBins) {
+                    //while (bin < numberOfRangeBins) {
                         if (binWord[g][bin] == level && bin != numberOfRangeBins - 1) {
                             levelCount += 1
                         } else {
@@ -197,28 +199,28 @@ internal object UtilityNexradRadial4Bit {
                             xy3[1] = (xy3[1] - centerY) * -1
                             xy4[1] = (xy4[1] - centerY) * -1
                             if (level == 0) {
-                                wallpaint.color = zeroColor
+                                paint.color = zeroColor
                             } else {
                                 if (isVelocity) {
-                                    wallpaint.color = graphColor2[level]
+                                    paint.color = graphColor2[level]
                                 } else {
-                                    wallpaint.color = graphColor[level]
+                                    paint.color = graphColor[level]
                                 }
                             }
-                            wallpath.rewind()
-                            wallpath.moveTo(xy1[0], xy1[1])
-                            wallpath.lineTo(xy2[0], xy2[1])
-                            wallpath.lineTo(xy3[0], xy3[1])
-                            wallpath.lineTo(xy4[0], xy4[1])
-                            wallpath.lineTo(xy1[0], xy1[1])
-                            canvas.drawPath(wallpath, wallpaint)
+                            path.rewind()
+                            path.moveTo(xy1[0], xy1[1])
+                            path.lineTo(xy2[0], xy2[1])
+                            path.lineTo(xy3[0], xy3[1])
+                            path.lineTo(xy4[0], xy4[1])
+                            path.lineTo(xy1[0], xy1[1])
+                            canvas.drawPath(path, paint)
                             level = binWord[g][bin]
                             binStart = bin * binSize
                             levelCount = 1
                         }
-                        bin += 1
+                        //bin += 1
                     }
-                    g += 1
+                    //g += 1
                 }
             }
         } catch (e: IOException) {

@@ -29,14 +29,14 @@ import joshuatee.wx.util.UtilityIO
 internal object UtilityCitiesExtended {
 
     private var initialized = false
-    var cities = mutableListOf<CityExt>()
+    val cities = mutableListOf<CityExt>()
     var cityLabels = arrayOf<String>()
     var cityLat = arrayOf<Double>()
     var cityLon = arrayOf<Double>()
 
     fun create(context: Context) {
         if (!initialized) {
-            cities = mutableListOf()
+            cities.clear()
             initialized = true
             var latitude: Double
             var longitude: Double
