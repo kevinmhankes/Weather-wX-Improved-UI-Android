@@ -25,9 +25,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.widget.LinearLayout
 
-class ObjectImageSummary(context: Context, var linearLayout: LinearLayout, var bitmaps: List<Bitmap>) {
+class ObjectImageSummary(context: Context, val linearLayout: LinearLayout, val bitmaps: List<Bitmap>) {
 
-    var objectCardImages = mutableListOf<ObjectCardImage>()
+    val objectCardImages = mutableListOf<ObjectCardImage>()
 
     init {
         val imagesPerRow = 2

@@ -37,7 +37,7 @@ class ObjectImageMap(
     private val views: List<View>
 ) {
 
-    var map: ImageMap = activity.findViewById(resId)
+    val map: ImageMap = activity.findViewById(resId)
     var isRadarWithTransparent = false
 
     init { map.visibility = View.GONE }

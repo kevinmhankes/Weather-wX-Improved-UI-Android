@@ -33,7 +33,7 @@ import joshuatee.wx.MyApplication
 class ObjectCardVerticalText(context: Context, numberOfColumns: Int) {
 
     private val objectCard = ObjectCard(context)
-    private var textViews = mutableListOf<TextView>()
+    private val textViews = mutableListOf<TextView>()
 
     init {
         val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.HORIZONTAL, Gravity.CENTER)

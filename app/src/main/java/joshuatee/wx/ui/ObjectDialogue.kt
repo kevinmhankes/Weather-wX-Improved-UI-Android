@@ -41,7 +41,7 @@ class ObjectDialogue {
     }
 
     private val alertDialog: AlertDialog.Builder
-    private var arrayAdapter: ArrayAdapter<String>
+    private val arrayAdapter: ArrayAdapter<String>
 
     constructor(context: Context, title: String, list: List<String>) {
         alertDialog = AlertDialog.Builder(context)
