@@ -35,31 +35,30 @@ import joshuatee.wx.util.UtilityCanvasProjection
 
 class LatLon() {
 
-    // FIXME match with swift latNum / lonNum
-    private var x = 0.0
-    private var y = 0.0
+    private var latNum = 0.0
+    private var lonNum = 0.0
     private var xStr = "0.0"
     private var yStr = "0.0"
 
     constructor(latLon: DoubleArray) : this() {
-        this.x = latLon[0]
-        this.y = latLon[1]
-        this.xStr = this.x.toString()
-        this.yStr = this.y.toString()
+        this.latNum = latLon[0]
+        this.lonNum = latLon[1]
+        this.xStr = this.latNum.toString()
+        this.yStr = this.lonNum.toString()
     }
 
-    constructor(x: Double, y: Double) : this() {
-        this.x = x
-        this.y = y
-        this.xStr = this.x.toString()
-        this.yStr = this.y.toString()
+    constructor(latNum: Double, lonNum: Double) : this() {
+        this.latNum = latNum
+        this.lonNum = lonNum
+        this.xStr = this.latNum.toString()
+        this.yStr = this.lonNum.toString()
     }
 
     constructor(xStr: String, yStr: String) : this() {
         this.xStr = xStr
         this.yStr = yStr
-        this.x = this.xStr.toDoubleOrNull() ?: 0.0
-        this.y = this.yStr.toDoubleOrNull() ?: 0.0
+        this.latNum = this.xStr.toDoubleOrNull() ?: 0.0
+        this.lonNum = this.yStr.toDoubleOrNull() ?: 0.0
     }
 
     constructor(temp: String) : this() {
@@ -76,36 +75,36 @@ class LatLon() {
             tmpDbl += 100
             this.yStr = tmpDbl.toString()
         }
-        this.x = xStr.toDoubleOrNull() ?: 0.0
-        this.y = yStr.toDoubleOrNull() ?: 0.0
+        this.latNum = xStr.toDoubleOrNull() ?: 0.0
+        this.lonNum = yStr.toDoubleOrNull() ?: 0.0
     }
 
     var lat: Double
-        get() { return x }
+        get() { return latNum }
         set(newValue) {
-            x = newValue
-            xStr = x.toString()
+            latNum = newValue
+            xStr = latNum.toString()
         }
 
     var lon: Double
-        get() { return y }
+        get() { return lonNum }
         set(newValue) {
-            y = newValue
-            yStr = y.toString()
+            lonNum = newValue
+            yStr = lonNum.toString()
         }
 
     var latString: String
         get() { return xStr }
         set(newValue) {
             xStr = newValue
-            x = newValue.toDoubleOrNull() ?: 0.0
+            latNum = newValue.toDoubleOrNull() ?: 0.0
         }
 
     var lonString: String
         get() { return yStr }
         set(newValue) {
             yStr = newValue
-            y = newValue.toDoubleOrNull() ?: 0.0
+            lonNum = newValue.toDoubleOrNull() ?: 0.0
         }
 
     fun asList() = listOf(lat, lon)
