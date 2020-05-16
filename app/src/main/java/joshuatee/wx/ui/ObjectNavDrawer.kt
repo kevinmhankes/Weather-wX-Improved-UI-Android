@@ -36,7 +36,7 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
     val listView: ListView = activity.findViewById(R.id.left_drawer)
     val actionBarDrawerToggle: ActionBarDrawerToggle
     var tokens = listOf<String>()
-    var index: Int = 0
+    var index = 0
 
     init {
         listView.adapter = ArrayAdapter(activity, R.layout.drawer_list_item, labels)

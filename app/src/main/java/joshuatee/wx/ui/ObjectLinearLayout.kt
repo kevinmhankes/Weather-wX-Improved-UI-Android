@@ -26,7 +26,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 
-class ObjectLinearLayout(context: Context) {
+class ObjectLinearLayout(val context: Context) {
 
     val linearLayout = LinearLayout(context)
 

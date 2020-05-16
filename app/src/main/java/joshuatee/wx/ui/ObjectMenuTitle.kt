@@ -21,7 +21,7 @@
 
 package joshuatee.wx.ui
 
-class ObjectMenuTitle(var title: String, var count: Int) {
+class ObjectMenuTitle(val title: String, val count: Int) {
 
     companion object {
 

@@ -28,7 +28,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ObjectRecyclerView(context: Context, activity: Activity, resourceId: Int, list: MutableList<String>, fn: (Int) -> Unit) {
 
-    var recyclerView: RecyclerView = activity.findViewById(resourceId)
+    val recyclerView: RecyclerView = activity.findViewById(resourceId)
     var ca = SingleTextAdapterList(list)
 
     init {
