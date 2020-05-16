@@ -51,9 +51,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
     // Arguments
     // - MCD/Wat number
 
-    companion object {
-        const val NO = ""
-    }
+    companion object { const val NO = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var number = ""

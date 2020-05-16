@@ -52,9 +52,7 @@ class WpcRainfallForecastActivity : AudioPlayActivity(), OnMenuItemClickListener
     // 1: day
     //
 
-    companion object {
-        const val NUMBER = ""
-    }
+    companion object { const val NUMBER = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var textProduct = ""

@@ -63,9 +63,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     // 1: string "yesterday" or "today"
     //
 
-    companion object {
-        const val NO = ""
-    }
+    companion object { const val NO = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var no = ""

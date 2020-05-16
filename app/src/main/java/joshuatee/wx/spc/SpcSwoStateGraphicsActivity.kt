@@ -49,9 +49,7 @@ class SpcSwoStateGraphicsActivity : VideoRecordActivity(), OnItemSelectedListene
     // Arguments
     // 1: day
 
-    companion object {
-        const val NO = ""
-    }
+    companion object { const val NO = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var day = ""

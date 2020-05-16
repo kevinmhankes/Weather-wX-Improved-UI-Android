@@ -52,9 +52,7 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
     // 1: number of MCD, WAT, or MPD such as 0403
     //
 
-    companion object {
-        const val NUMBER = ""
-    }
+    companion object { const val NUMBER = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var number = ""

@@ -58,7 +58,6 @@ class SpcThunderStormOutlookActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, R.menu.shared_multigraphics, false)
         if (UtilityUI.isLandScape(this)) imagesPerRow = 3
-        //toolbarBottom.setOnMenuItemClickListener(this)
         toolbar.subtitle = "SPC"
         title = "Thunderstorm Outlooks"
         getContent()

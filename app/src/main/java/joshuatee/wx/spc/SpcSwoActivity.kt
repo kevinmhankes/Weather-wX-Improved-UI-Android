@@ -56,9 +56,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     // 1: day
     //
 
-    companion object {
-        const val NUMBER = ""
-    }
+    companion object { const val NUMBER = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var html = ""
@@ -67,7 +65,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private var day = ""
     private var playlistProd = ""
     private lateinit var objectCardText: ObjectCardText
-    private var objectCardImageList = mutableListOf<ObjectCardImage>()
+    private val objectCardImageList = mutableListOf<ObjectCardImage>()
     private var imagesPerRow = 2
 
     @SuppressLint("MissingSuperCall")

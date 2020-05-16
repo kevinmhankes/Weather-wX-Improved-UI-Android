@@ -56,9 +56,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
     // 1: text product (lower case)
     //
 
-    companion object {
-        const val URL = ""
-    }
+    companion object { const val URL = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var activityArguments: Array<String>

@@ -37,12 +37,9 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener,
-        OnMenuItemClickListener {
+class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener, OnMenuItemClickListener {
 
-    companion object {
-        const val URL = ""
-    }
+    companion object { const val URL = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var imgUrl = ""
