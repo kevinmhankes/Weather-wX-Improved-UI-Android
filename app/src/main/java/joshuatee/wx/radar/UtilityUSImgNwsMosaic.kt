@@ -146,15 +146,13 @@ object UtilityUSImgNwsMosaic {
     internal fun getAnimation(context: Context, sector: String, frameCount: Int, isInteractive: Boolean): AnimationDrawable {
         val urls: List<String>
         val bitmaps = mutableListOf<Bitmap>()
-        var scaleType = ProjectionType.NWS_MOSAIC_SECTOR
         val sectorUrl = if (sector == "latest") "Conus" else sector
         val colorDrawable = if (MyApplication.blackBg) ColorDrawable(Color.BLACK) else ColorDrawable(Color.WHITE)
         var bitmapCanvas = UtilityImg.getBlankBitmap()
         val baseUrl = "${MyApplication.nwsRadarWebsitePrefix}/ridge/Conus/RadarImg/"
-        if (sector == "latest") scaleType = ProjectionType.NWS_MOSAIC
-        var sPattern = "href=.(" + sectorUrl + "_[0-9]{8}_[0-9]{4}_N0Ronly.gif)"
-        if (sectorUrl == "alaska") sPattern = "href=.(" + "NATAK" + "_[0-9]{8}_[0-9]{4}.gif)"
-        urls = UtilityImgAnim.getUrlArray("${MyApplication.nwsRadarWebsitePrefix}/ridge/Conus/RadarImg/", sPattern, frameCount)
+        val scaleType = if (sector == "latest") ProjectionType.NWS_MOSAIC else ProjectionType.NWS_MOSAIC_SECTOR
+        val regExp = if (sectorUrl == "alaska") "href=.(" + "NATAK" + "_[0-9]{8}_[0-9]{4}.gif)" else "href=.(" + sectorUrl + "_[0-9]{8}_[0-9]{4}_N0Ronly.gif)"
+        urls = UtilityImgAnim.getUrlArray("${MyApplication.nwsRadarWebsitePrefix}/ridge/Conus/RadarImg/", regExp, frameCount)
         urls.forEach {
             if (MyApplication.blackBg && sector != "alaska") {
                 bitmaps.add(UtilityImg.getBitmapRemoveBackground(baseUrl + it, -1))
@@ -170,16 +168,14 @@ object UtilityUSImgNwsMosaic {
         } catch (e: OutOfMemoryError) {
             bitmapCanvas = UtilityImg.getBlankBitmap()
         }
-        val delay = UtilityImg.animInterval(context)
-        return UtilityImgAnim.getAnimationDrawableFromBitmapListWithCanvas(context, bitmaps, delay, colorDrawable, bitmapCanvas)
+        return UtilityImgAnim.getAnimationDrawableFromBitmapListWithCanvas(context, bitmaps, UtilityImg.animInterval(context), colorDrawable, bitmapCanvas)
     }
 
     fun get(context: Context, sector: String, isInteractive: Boolean): Bitmap {
         val imgUrl = "${MyApplication.nwsRadarWebsitePrefix}/Conus/RadarImg/" + sector + "_radaronly.gif"
         if (sector == "alaska") return "${MyApplication.nwsRadarWebsitePrefix}/ridge/Conus/RadarImg/alaska.gif".getImage()
         val colorDrawable = if (MyApplication.blackBg) ColorDrawable(Color.BLACK) else ColorDrawable(Color.WHITE)
-        var scaleType = ProjectionType.NWS_MOSAIC_SECTOR
-        if (sector == "latest") scaleType = ProjectionType.NWS_MOSAIC
+        val scaleType = if (sector == "latest") ProjectionType.NWS_MOSAIC else ProjectionType.NWS_MOSAIC_SECTOR
         var bitmap = imgUrl.getImage()
         var bitmapCanvas = UtilityImg.getBlankBitmap()
         if (MyApplication.blackBg) bitmap = UtilityImg.eraseBackground(bitmap, -1)

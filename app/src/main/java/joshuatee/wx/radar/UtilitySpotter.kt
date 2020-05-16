@@ -27,8 +27,8 @@ import joshuatee.wx.objects.DownloadTimer
 
 object UtilitySpotter {
 
-    internal var spotterList = mutableListOf<Spotter>()
-    private var reportsList = mutableListOf<SpotterReports>()
+    internal val spotterList = mutableListOf<Spotter>()
+    private val reportsList = mutableListOf<SpotterReports>()
     val timer = DownloadTimer("SPOTTER")
     internal var x = DoubleArray(1)
         private set
@@ -48,8 +48,8 @@ object UtilitySpotter {
 
     fun get(context: Context): MutableList<Spotter> {
         if (timer.isRefreshNeeded(context)) {
-            spotterList = mutableListOf()
-            reportsList = mutableListOf()
+            spotterList.clear()
+            reportsList.clear()
             val lats = mutableListOf<String>()
             val lons = mutableListOf<String>()
             var html = ("http://www.spotternetwork.org/feeds/csv.txt").getHtmlSep()
