@@ -72,8 +72,8 @@ import joshuatee.wx.objects.DownloadTimer
 
 object UtilityWpcFronts {
 
-    var pressureCenters = mutableListOf<PressureCenter>()
-    var fronts = mutableListOf<Fronts>()
+    val pressureCenters = mutableListOf<PressureCenter>()
+    val fronts = mutableListOf<Fronts>()
     private val timer = DownloadTimer("WPC FRONTS")
 
     private fun addColdFrontTriangles(front: Fronts, tokens: List<String>) {
@@ -193,8 +193,8 @@ object UtilityWpcFronts {
 
     fun get(context: Context) {
         if (timer.isRefreshNeeded(context)) {
-            pressureCenters = mutableListOf()
-            fronts = mutableListOf()
+            pressureCenters.clear()
+            fronts.clear()
             val urlBlob = MyApplication.nwsWPCwebsitePrefix + "/basicwx/coded_srp.txt"
             var html = urlBlob.getHtmlSep()
             html = html.replace("<br>", MyApplication.newline)
