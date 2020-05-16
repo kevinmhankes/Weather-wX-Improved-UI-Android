@@ -71,9 +71,7 @@ object UtilityUSImgWX {
             inputStream?.let { UtilityIO.saveInputStream(context, it, "l2") }
             try {
                 inputStream?.close()
-            } catch (e: Exception) {
-                UtilityLog.handleException(e)
-            }
+            } catch (e: Exception) { UtilityLog.handleException(e) }
         }
         val layers = mutableListOf<Drawable>()
         val colorDrawable = ColorDrawable(MyApplication.nexradRadarBackgroundColor)

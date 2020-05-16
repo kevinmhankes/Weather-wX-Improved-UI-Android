@@ -51,9 +51,7 @@ internal object UtilityNexradRadial8Bit {
             val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, fileName))
             dis.bigEndian = true
             while (true) {
-                if (dis.readShort().toInt() == -1) {
-                    break
-                }
+                if (dis.readShort().toInt() == -1) break
             }
             // the following chunk was added to analyze the header so that status info could be extracted
             // index 4 is radar height
@@ -185,8 +183,6 @@ internal object UtilityNexradRadial8Bit {
                 }
                 if (numberOfRangeBins % 2 != 0) binWord.position(binWord.position() + 4)
             }
-        } catch (e: IOException) {
-            UtilityLog.handleException(e)
-        }
+        } catch (e: IOException) { UtilityLog.handleException(e) }
     }
 }

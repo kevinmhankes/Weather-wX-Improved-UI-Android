@@ -84,13 +84,12 @@ internal object UtilityNexradRadial4Bit {
                 val numberOfRangeBins = dis.readUnsignedShort()
                 dis.skipBytes(6)
                 val numberOfRadials = dis.readUnsignedShort()
-                var r = 0
                 val numberOfRleHalfwords = IntArray(numberOfRadials)
                 val radialStartAngle = FloatArray(numberOfRadials)
                 val radialAngleDelta = FloatArray(numberOfRadials)
                 val binWord = Array(numberOfRadials) { IntArray(numberOfRangeBins) }
                 var tnMod10: Int
-                while (r < numberOfRadials) {
+                for (r in 0 until numberOfRadials) {
                     numberOfRleHalfwords[r] = dis.readUnsignedShort()
                     var tn = dis.readUnsignedShort()
                     if (tn % 2 == 1) tn += 1
@@ -104,8 +103,7 @@ internal object UtilityNexradRadial4Bit {
                     radialAngleDelta[r] = dis.readUnsignedShort().toFloat()
                     radialAngleDelta[r] = 1.0f
                     var binCount = 0
-                    var s = 0
-                    while (s < numberOfRleHalfwords[r] * 2) {
+                    for (s in 0 until numberOfRleHalfwords[r] * 2) {
                         // old 4 bit
                         val bin = dis.readUnsignedByte()
                         val numOfBins = bin shr 4
@@ -113,9 +111,7 @@ internal object UtilityNexradRadial4Bit {
                             binWord[r][binCount] = bin % 16
                             ++binCount
                         }
-                        s += 1
                     }
-                    r += 1
                 }
                 dis.close()
                 val graphColor = IntArray(16)
@@ -162,33 +158,24 @@ internal object UtilityNexradRadial4Bit {
                 val paint = Paint()
                 paint.style = Style.FILL
                 val path = Path()
-                //var g = 0
                 var angle: Float
                 var angleV: Float
                 var level: Int
                 var levelCount: Int
                 var binStart: Float
-                //var bin: Int
-                // TODO use for loops
-                //while (g < numberOfRadials) {
                 for (g in 0 until numberOfRadials) {
                     angle = radialStartAngle[g]
                     angleV = radialAngleDelta[g]
                     level = binWord[g][0]
                     levelCount = 0
                     binStart = binSize
-                    //bin = 0
                     for (bin in 0 until numberOfRangeBins) {
-                    //while (bin < numberOfRangeBins) {
                         if (binWord[g][bin] == level && bin != numberOfRangeBins - 1) {
                             levelCount += 1
                         } else {
                             xy1 = UtilityMath.toRect(binStart, angle)
                             xy2 = UtilityMath.toRect(binStart + binSize * levelCount, angle)
-                            xy3 = UtilityMath.toRect(
-                                binStart + binSize * levelCount,
-                                angle - angleV
-                            )
+                            xy3 = UtilityMath.toRect(binStart + binSize * levelCount, angle - angleV)
                             xy4 = UtilityMath.toRect(binStart, angle - angleV)
                             xy1[0] += centerX.toFloat()
                             xy2[0] += centerX.toFloat()
@@ -218,13 +205,9 @@ internal object UtilityNexradRadial4Bit {
                             binStart = bin * binSize
                             levelCount = 1
                         }
-                        //bin += 1
                     }
-                    //g += 1
                 }
             }
-        } catch (e: IOException) {
-            UtilityLog.handleException(e)
-        }
+        } catch (e: IOException) { UtilityLog.handleException(e) }
     }
 }
