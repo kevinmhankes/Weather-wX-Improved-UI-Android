@@ -101,7 +101,7 @@ internal object UtilityRadarUI {
         if (MyApplication.radarShowWpcFronts) {
             var wpcFrontsTimeStamp = Utility.readPref(context,"WPC_FRONTS_TIMESTAMP", "")
             wpcFrontsTimeStamp = wpcFrontsTimeStamp.replace(UtilityTime.getYear().toString(), "")
-            wpcFrontsTimeStamp = wpcFrontsTimeStamp.insert(4, " ")
+            if (wpcFrontsTimeStamp.length > 6) wpcFrontsTimeStamp = wpcFrontsTimeStamp.insert(4, " ")
             longPressList.add(MyApplication.newline + "WPC Fronts: " + wpcFrontsTimeStamp)
         }
         longPressList += wxglRender.ridNewList.map { "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name) }
