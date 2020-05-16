@@ -45,9 +45,9 @@ class SpotterReportsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_recyclerview_toolbar, null, false)
         objectRecyclerViewGeneric = ObjectRecyclerViewGeneric(this, this, R.id.card_list)
-        val adapterSpotterReports = AdapterSpotterReports(UtilitySpotter.spotterReports)
+        val adapterSpotterReports = AdapterSpotterReports(UtilitySpotter.reports)
         objectRecyclerViewGeneric.recyclerView.adapter = adapterSpotterReports
-        title = UtilitySpotter.spotterReports.size.toString() + " Spotter reports " + UtilityTime.gmtTime("HH:mm") + " UTC"
+        title = UtilitySpotter.reports.size.toString() + " Spotter reports " + UtilityTime.gmtTime("HH:mm") + " UTC"
         adapterSpotterReports.setOnItemClickListener(object : AdapterSpotterReports.MyClickListener {
             override fun onItemClick(position: Int) { itemSelected(position) }
         })
@@ -55,13 +55,13 @@ class SpotterReportsActivity : BaseActivity() {
 
     override fun onRestart() {
         //val adapterSpotterReports = AdapterSpotterReports(UtilitySpotter.spotterReports)
-        objectRecyclerViewGeneric.recyclerView.adapter = AdapterSpotterReports(UtilitySpotter.spotterReports)
-        title = UtilitySpotter.spotterReports.size.toString() + " Spotter reports " + UtilityTime.gmtTime("HH:mm") + " UTC"
+        objectRecyclerViewGeneric.recyclerView.adapter = AdapterSpotterReports(UtilitySpotter.reports)
+        title = UtilitySpotter.reports.size.toString() + " Spotter reports " + UtilityTime.gmtTime("HH:mm") + " UTC"
         super.onRestart()
     }
 
     private fun itemSelected(position: Int) {
-        val radarSite = UtilityLocation.getNearestOffice("RADAR", LatLon(UtilitySpotter.spotterReports[position].lat, UtilitySpotter.spotterReports[position].lon))
-        ObjectIntent.showRadar(this, arrayOf(radarSite, "", "N0Q", "", UtilitySpotter.spotterReports[position].uniq))
+        val radarSite = UtilityLocation.getNearestOffice("RADAR", LatLon(UtilitySpotter.reports[position].lat, UtilitySpotter.reports[position].lon))
+        ObjectIntent.showRadar(this, arrayOf(radarSite, "", "N0Q", "", UtilitySpotter.reports[position].uniq))
     }
 } 

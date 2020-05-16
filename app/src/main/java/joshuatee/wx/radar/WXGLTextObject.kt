@@ -306,8 +306,8 @@ class WXGLTextObject(
                 indexSpotter += 1
             }
             var indexSpotterReport = 0
-            while (indexSpotterReport < UtilitySpotter.spotterReports.size) {
-                if (UtilitySpotter.spotterReports[indexSpotterReport].uniq == WXGLRadarActivity.spotterId) {
+            while (indexSpotterReport < UtilitySpotter.reports.size) {
+                if (UtilitySpotter.reports[indexSpotterReport].uniq == WXGLRadarActivity.spotterId) {
                     report = true
                     break
                 }
@@ -317,8 +317,8 @@ class WXGLTextObject(
                 spotterLat = UtilitySpotter.spotterList[indexSpotter].lat.toDoubleOrNull() ?: 0.0
                 spotterLon = UtilitySpotter.spotterList[indexSpotter].lon.toDoubleOrNull() ?: 0.0
             } else {
-                spotterLat = UtilitySpotter.spotterReports[indexSpotterReport].lat.toDoubleOrNull() ?: 0.0
-                spotterLon = UtilitySpotter.spotterReports[indexSpotterReport].lon.toDoubleOrNull() ?: 0.0
+                spotterLat = UtilitySpotter.reports[indexSpotterReport].lat.toDoubleOrNull() ?: 0.0
+                spotterLon = UtilitySpotter.reports[indexSpotterReport].lon.toDoubleOrNull() ?: 0.0
             }
             scale = getScale()
             oglrZoom = 1.0f
@@ -337,7 +337,7 @@ class WXGLTextObject(
                             wxglSurfaceView.spotterTextView[c].text =
                                     UtilitySpotter.spotterList[indexSpotter].lastName.replace("0FAV ", "")
                         } else {
-                            wxglSurfaceView.spotterTextView[c].text = UtilitySpotter.spotterReports[indexSpotterReport].type
+                            wxglSurfaceView.spotterTextView[c].text = UtilitySpotter.reports[indexSpotterReport].type
                         }
                     }
 
