@@ -29,17 +29,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.SevereWarning
 
-class ObjectCardDashAlertItem(
-        context: Context,
-        val linearLayout: LinearLayout,
-        private val severeWarning: SevereWarning,
-        val index: Int
-        //private val senderName: String,
-        //private val eventType: String,
-        //private val effectiveTime: String,
-        //private val expiresTime: String,
-        //private val areaDescription: String
-) {
+class ObjectCardDashAlertItem(context: Context, val linearLayout: LinearLayout, private val severeWarning: SevereWarning, val index: Int) {
 
     private val objectCard = ObjectCard(context)
     private val textViewTop = ObjectTextView(context, UIPreferences.textHighlightColor)
@@ -47,8 +37,8 @@ class ObjectCardDashAlertItem(
     private val textViewStart = ObjectTextView(context)
     private val textViewEnd = ObjectTextView(context)
     private val textViewBottom = ObjectTextView(context, backgroundText = true)
-    var radarButton = ObjectButton(context,"Radar", MyApplication.ICON_RADAR)
-    var detailsButton = ObjectButton(context,"Details", MyApplication.ICON_CURRENT)
+    val radarButton = ObjectButton(context,"Radar", MyApplication.ICON_RADAR)
+    val detailsButton = ObjectButton(context,"Details", MyApplication.ICON_CURRENT)
 
     init {
         val linearLayoutVertical = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)

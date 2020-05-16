@@ -34,7 +34,7 @@ import joshuatee.wx.util.ObjectCurrentConditions
 class ObjectCardCurrentConditions(context: Context, version: Int) {
 
     private val objCard = ObjectCard(context)
-    private var objectImageView = ObjectImageView(context)
+    private val objectImageView = ObjectImageView(context)
     private val textViewTop = ObjectTextView(context, TextSize.MEDIUM)
     private val textViewBottom = ObjectTextView(context, backgroundText = true)
     private val textViewMiddle = ObjectTextView(context, backgroundText = true)
