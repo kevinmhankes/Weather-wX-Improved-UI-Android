@@ -34,7 +34,7 @@ import joshuatee.wx.util.UtilityString
 internal object UtilityDownloadWatch {
 
     const val type = "WATCH"
-    var timer = DownloadTimer(type)
+    val timer = DownloadTimer(type)
 
     fun get(context: Context) { if (timer.isRefreshNeeded(context)) getWatch(context) }
 

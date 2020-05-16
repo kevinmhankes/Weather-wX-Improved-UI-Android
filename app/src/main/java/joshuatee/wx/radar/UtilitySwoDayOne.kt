@@ -31,7 +31,7 @@ import joshuatee.wx.objects.DownloadTimer
 
 internal object UtilitySwoDayOne {
 
-    var timer = DownloadTimer("SWO")
+    val timer = DownloadTimer("SWO")
 
     @SuppressLint("UseSparseArrays")
     val HASH_SWO = mutableMapOf<Int, List<Double>>()

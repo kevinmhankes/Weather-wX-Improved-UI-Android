@@ -42,9 +42,7 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
     // arg1: "widget" (optional) - if this arg is specified it will show mosaic for widget location
     //       "location" for current location
 
-    companion object {
-        const val URL = ""
-    }
+    companion object { const val URL = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var animRan = false

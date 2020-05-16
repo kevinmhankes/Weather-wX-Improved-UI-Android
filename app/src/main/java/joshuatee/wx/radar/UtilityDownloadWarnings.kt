@@ -31,7 +31,7 @@ import joshuatee.wx.util.UtilityDownloadNws
 internal object UtilityDownloadWarnings {
 
     const val type = "WARNINGS"
-    var timer = DownloadTimer(type)
+    val timer = DownloadTimer(type)
 
     private const val baseUrl = "https://api.weather.gov/alerts/active?event="
     private const val tStormUrl = baseUrl + "Severe%20Thunderstorm%20Warning"

@@ -35,7 +35,7 @@ import joshuatee.wx.util.UtilityString
 internal object UtilityDownloadMpd {
 
     const val type = "MPD"
-    var timer = DownloadTimer(type)
+    val timer = DownloadTimer(type)
 
     fun get(context: Context) { if (timer.isRefreshNeeded(context)) getMpd(context) }
 

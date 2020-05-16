@@ -29,7 +29,7 @@ object UtilitySpotter {
 
     internal var spotterList = mutableListOf<Spotter>()
     private var reportsList = mutableListOf<SpotterReports>()
-    var timer = DownloadTimer("SPOTTER")
+    val timer = DownloadTimer("SPOTTER")
     internal var x = DoubleArray(1)
         private set
     internal var y = DoubleArray(1)

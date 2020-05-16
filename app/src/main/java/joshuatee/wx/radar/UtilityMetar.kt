@@ -45,7 +45,7 @@ internal object UtilityMetar {
     // A flag is used to track if it's been initialized
     private var initializedObsMap = false
     private val obsLatLon = mutableMapOf<String, Array<String>>()
-    var timer = DownloadTimer("METAR")
+    val timer = DownloadTimer("METAR")
 
     fun getStateMetarArrayForWXOGL(context: Context, rid: String, paneNumber: Int) {
         if (timer.isRefreshNeeded(context) || rid != metarDataList[paneNumber].obsStateOld) {
