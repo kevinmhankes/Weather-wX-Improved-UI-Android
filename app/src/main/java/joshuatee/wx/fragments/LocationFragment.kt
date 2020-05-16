@@ -77,12 +77,12 @@ class LocationFragment : Fragment()  {
     private var objectCardCurrentConditions: ObjectCardCurrentConditions? = null
     private lateinit var linearLayout: LinearLayout
     private var homescreenFavLocal = ""
-    private var sevenDayCards = mutableListOf<ObjectCard7Day>()
+    private val sevenDayCards = mutableListOf<ObjectCard7Day>()
     private val homeScreenTextCards = mutableListOf<ObjectCardHSText>()
     private val homeScreenImageCards = mutableListOf<ObjectCardHSImage>()
-    private var wxglRenders = mutableListOf<WXGLRender>()
-    private var wxglSurfaceViews = mutableListOf<WXGLSurfaceView>()
-    private var wxglTextObjects = mutableListOf<WXGLTextObject>()
+    private val wxglRenders = mutableListOf<WXGLRender>()
+    private val wxglSurfaceViews = mutableListOf<WXGLSurfaceView>()
+    private val wxglTextObjects = mutableListOf<WXGLTextObject>()
     private var numberOfRadars = 0
     private var oldRadarSites = Array(2) { "" }
     private val radarLocationChangedAl = mutableListOf<Boolean>()
@@ -690,7 +690,7 @@ class LocationFragment : Fragment()  {
         if (isAdded) {
             if (homescreenFavLocal.contains("TXT-7DAY")) {
                 linearLayoutForecast?.removeAllViewsInLayout()
-                sevenDayCards = mutableListOf()
+                sevenDayCards.clear()
                 val day7Arr = objectSevenDay.forecastList
                 bitmaps.forEachIndexed { index, bitmap ->
                     val objectCard7Day = ObjectCard7Day(activityReference, bitmap, Location.isUS, index, day7Arr)
