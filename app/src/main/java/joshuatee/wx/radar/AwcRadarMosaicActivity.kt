@@ -25,6 +25,7 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 
@@ -35,7 +36,7 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
+class AwcRadarMosaicActivity : VideoRecordActivity() {
 
     // Provides native interface to AWC radar mosaics along with animations
     //
@@ -56,11 +57,14 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
     private val prefTokenProduct = "AWCMOSAIC_PRODUCT_LAST_USED"
     private var sector = "us"
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.awcmosaic, menu)
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer_bottom_toolbar, R.menu.awcmosaic, iconsEvenlySpaced = true, bottomToolbar = true)
-        toolbarBottom.setOnMenuItemClickListener(this)
-        UtilityShortcut.hidePinIfNeeded(toolbarBottom)
+        super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer, R.menu.awcmosaic, iconsEvenlySpaced = true, bottomToolbar = false)
         objectNavDrawer = ObjectNavDrawer(this, UtilityAwcRadarMosaic.labels, UtilityAwcRadarMosaic.sectors)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, objectNavDrawer, "")
         img.setMaxZoom(8.0f)
@@ -69,7 +73,6 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
         product = Utility.readPref(this, prefTokenProduct, product)
         objectNavDrawer.index = UtilityAwcRadarMosaic.sectors.indexOf(sector)
         objectNavDrawer.setListener(::getContentFixThis)
-        toolbarBottom.setOnClickListener { objectNavDrawer.drawerLayout.openDrawer(objectNavDrawer.listView) }
         getContent(product)
     }
 
@@ -83,6 +86,7 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
     private fun getContent(productLocal: String) = GlobalScope.launch(uiDispatcher) {
         product = productLocal
         toolbar.subtitle = objectNavDrawer.getLabel()
+        title = product
         bitmap = withContext(Dispatchers.IO) { UtilityAwcRadarMosaic.get(objectNavDrawer.url, product) }
         img.setBitmap(bitmap)
         animRan = false
@@ -106,10 +110,9 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
         objectNavDrawer.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
-            R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.RADAR_MOSAIC)
             R.id.action_animate -> getAnimate()
             R.id.action_stop -> animDrawable.stop()
             R.id.action_rad_rala -> getContent("rad_rala")
@@ -135,8 +138,6 @@ class AwcRadarMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickLis
         }
         return true
     }
-
-    override fun onOptionsItemSelected(item: MenuItem) = objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onStop() {
         img.imgSavePosnZoom(this, prefImagePosition)

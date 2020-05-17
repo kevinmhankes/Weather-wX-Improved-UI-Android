@@ -25,8 +25,8 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
@@ -36,7 +36,7 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
+class USNwsMosaicActivity : VideoRecordActivity() {
 
     // Provides native interface to NWS radar mosaics along with animations
     //
@@ -57,11 +57,15 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
     private lateinit var objectNavDrawer: ObjectNavDrawer
     private val prefImagePosition = "NWSRADMOS"
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.nwsmosaic, menu)
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer_bottom_toolbar, R.menu.nwsmosaic, iconsEvenlySpaced = true, bottomToolbar = true)
-        toolbarBottom.setOnMenuItemClickListener(this)
-        UtilityShortcut.hidePinIfNeeded(toolbarBottom)
+        super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer, R.menu.nwsmosaic, iconsEvenlySpaced = true, bottomToolbar = false)
+        //UtilityShortcut.hidePinIfNeeded(toolbarBottom)
         val activityArguments = intent.getStringArrayExtra(URL)
         if (activityArguments == null) {
             nwsRadarMosaicSectorLabelCurrent = Utility.readPref(this, "NWS_RADAR_MOSAIC_SECTOR_CURRENT", "Central Great Lakes")
@@ -135,10 +139,10 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
         objectNavDrawer.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
-            R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.RADAR_MOSAIC)
+            //R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.RADAR_MOSAIC)
             R.id.action_a12 -> getAnimate(12)
             R.id.action_a18 -> getAnimate(18)
             R.id.action_a6 -> getAnimate(6)
@@ -158,8 +162,6 @@ class USNwsMosaicActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListen
         }
         return true
     }
-
-    override fun onOptionsItemSelected(item: MenuItem) = objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onStop() {
         img.imgSavePosnZoom(this, prefImagePosition)

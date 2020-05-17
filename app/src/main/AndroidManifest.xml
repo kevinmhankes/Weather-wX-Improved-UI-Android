@@ -182,7 +182,7 @@
   </activity>
   <activity
       android:name=".radar.AwcRadarMosaicActivity"
-      android:label="AWC Radar Mosaics"
+      android:label=""
       android:parentActivityName="WX" >
   </activity>
   <activity
