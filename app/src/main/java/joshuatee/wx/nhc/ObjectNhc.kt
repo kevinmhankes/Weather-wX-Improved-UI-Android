@@ -22,6 +22,7 @@
 package joshuatee.wx.nhc
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.view.View
 import android.widget.LinearLayout
 import joshuatee.wx.MyApplication
@@ -56,6 +57,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     private var movementSpeeds = listOf<String>()
     private var lastUpdates = listOf<String>()
     private var statusList = mutableListOf<String>()
+    val bitmaps = mutableListOf<Bitmap>()
 
     init {
         if (UtilityUI.isLandScape(context)) imagesPerRow = 3
@@ -87,26 +89,6 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
             val status = text.parseFirst("(\\.\\.\\..*?\\.\\.\\.)")
             statusList.add(status)
         }
-
-        /*NhcOceanEnum.values().forEach { type ->
-            if (type != NhcOceanEnum.CPAC) {
-                (1 until 6).forEach {
-                    val stormInfo = UtilityNhc.getHurricaneInfo(regionMap[type]!!.baseUrl + it.toString() + ".xml")
-                    if (stormInfo.title != "") {
-                        regionMap[type]!!.storms.add(
-                                ObjectNhcStormInfo(
-                                        stormInfo.title.replace(regionMap[type]!!.replaceString, ""),
-                                        stormInfo.summary,
-                                        UtilityString.getNwsPre(stormInfo.url),
-                                        stormInfo.image1,
-                                        stormInfo.image2,
-                                        stormInfo.wallet
-                                )
-                        )
-                    }
-                }
-            }
-        }*/
     }
 
     fun showTextData() {
@@ -138,43 +120,14 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
                         statusList[index]
                 )
                 stormDataList.add(objectNhcStormDetails)
-                //val objStormData = ObjectNhcStormDetails(it.summary, it.image1)
-                val cPacData = ObjectCardNhcStormReportItem(context, linearLayout, objectNhcStormDetails)
-                cPacData.setListener(View.OnClickListener { ObjectIntent.showNhcStorm(context, objectNhcStormDetails) })
+                val card = ObjectCardNhcStormReportItem(context, linearLayout, objectNhcStormDetails)
+                card.setListener(View.OnClickListener { ObjectIntent.showNhcStorm(context, objectNhcStormDetails) })
             }
         }
-
-        /*if (regionMap[NhcOceanEnum.ATL]!!.storms.size < 1) {
-            val noAtl = "There are no tropical cyclones in the Atlantic at this time."
-            ObjectCardText(context, linearLayout, noAtl)
-            html = noAtl
-        } else {
-            regionMap[NhcOceanEnum.ATL]!!.storms.forEach {
-                if (it.image1 != "") {
-                    val objStormData = ObjectNhcStormDetails(it.summary, it.image1)
-                    val cAtlData = ObjectCardNhcStormReportItem(context, linearLayout, objStormData)
-                    html += it.summary
-                    cAtlData.setListener(View.OnClickListener { ObjectIntent.showNhcStorm(context, objStormData) })
-                }
-            }
-        }
-        if (regionMap[NhcOceanEnum.EPAC]!!.storms.size < 1) {
-            val noPac = "There are no tropical cyclones in the Eastern Pacific at this time."
-            ObjectCardText(context, linearLayout, noPac)
-            html += noPac
-        } else {
-            regionMap[NhcOceanEnum.EPAC]!!.storms.forEach {
-                if (it.image1 != "") {
-                    val objStormData = ObjectNhcStormDetails(it.summary, it.image1)
-                    val cPacData = ObjectCardNhcStormReportItem(context, linearLayout, objStormData)
-                    html += it.summary
-                    cPacData.setListener(View.OnClickListener { ObjectIntent.showNhcStorm(context, objStormData) })
-                }
-            }
-        }*/
     }
 
     fun showImageData(region: NhcOceanEnum) {
+        bitmaps.clear()
         regionMap[region]!!.bitmaps.forEachIndexed { index, bitmap ->
             val objectCardImage: ObjectCardImage
             if (numberOfImages % imagesPerRow == 0) {
@@ -187,6 +140,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
             }
             numberOfImages += 1
             objectCardImage.setOnClickListener(View.OnClickListener { ObjectIntent.showImage(context, regionMap[region]!!.getTitle(index)) })
+            bitmaps.add(bitmap)
         }
     }
 

@@ -61,13 +61,8 @@ class NhcStormActivity : BaseActivity() {
     private lateinit var stormData: ObjectNhcStormDetails
     private var html = ""
     private var product = ""
-    //private var stormId = ""
-    //private var goesId = ""
-    //private var goesSector = ""
     private var toolbarTitle = ""
     private val bitmaps = mutableListOf<Bitmap>()
-    //private var baseUrl = ""
-    //private var baseUrlShort = ""
     private lateinit var objectCardText: ObjectCardText
     private var numberOfImages = 0
     private var imagesPerRow = 2
@@ -75,7 +70,7 @@ class NhcStormActivity : BaseActivity() {
     private val imageUrls = listOf(
             "_5day_cone_with_line_and_wind_sm2.png",
             "_key_messages.png",
-            "WPCQPF_sm2.gif",
+            //"WPCQPF_sm2.gif",
             "_earliest_reasonable_toa_34_sm2.png",
             "_most_likely_toa_34_sm2.png",
             "_wind_probs_34_F120_sm2.png",
@@ -92,7 +87,7 @@ class NhcStormActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, R.menu.nhc_storm, false)
         stormData = intent.getSerializableExtra(URL) as ObjectNhcStormDetails
-        title = "NHC"
+        title = stormData.name + " " + stormData.classification
         toolbar.subtitle = stormData.forTopHeader()
         product = "MIATCP${stormData.binNumber}"
         getContent()
@@ -140,9 +135,8 @@ class NhcStormActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //if (audioPlayMenu(item.itemId, html, product, product)) return true
         when (item.itemId) {
-            //R.id.action_share -> UtilityShare.shareText(this, this, stormData.url, html, bitmaps)
+            R.id.action_share -> UtilityShare.shareText(this, this, stormData.name, "", bitmaps)
             R.id.action_MIATCPEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCP${stormData.binNumber}"))
             R.id.action_MIATCMEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCM${stormData.binNumber}"))
             R.id.action_MIATCDEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCD${stormData.binNumber}"))

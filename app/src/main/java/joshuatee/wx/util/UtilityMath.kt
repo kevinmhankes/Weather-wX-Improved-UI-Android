@@ -116,28 +116,6 @@ object UtilityMath {
         val normalizedDirection = direction.toInt() % 360
         val listIndex = round((normalizedDirection.toDouble() / 22.5)).toInt()
         return windDirections[listIndex]
-
-        /*val dirStr: String
-        if (direction > 337.5 || direction <= 22.5)
-            dirStr = "N"
-        else if (direction > 22.5 && direction <= 67.5)
-            dirStr = "NE"
-        else if (direction > 67.5 && direction <= 112.5)
-            dirStr = "E"
-        else if (direction > 112.5 && direction <= 157.5)
-            dirStr = "SE"
-        else if (direction > 157.5 && direction <= 202.5)
-            dirStr = "S"
-        else if (direction > 202.5 && direction <= 247.5)
-            dirStr = "SW"
-        else if (direction > 247.5 && direction <= 292.5)
-            dirStr = "W"
-        else if (direction > 292.5 && direction <= 337.5)
-            dirStr = "NW"
-        else
-            dirStr = ""
-        return dirStr*/
-
     }
 
     // https://training.weather.gov/wdtd/tools/misc/beamwidth/index.htm
