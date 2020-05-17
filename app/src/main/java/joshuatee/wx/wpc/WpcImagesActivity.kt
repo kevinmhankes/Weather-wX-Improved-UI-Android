@@ -24,6 +24,7 @@ package joshuatee.wx.wpc
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.content.res.Configuration
+import android.view.Menu
 import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
@@ -59,6 +60,11 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
     private lateinit var activityArguments: Array<String>
     private var calledFromHomeScreen = false
     private var homeScreenId = ""
+
+    /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.wpcimages, menu)
+        return true
+    }*/
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
