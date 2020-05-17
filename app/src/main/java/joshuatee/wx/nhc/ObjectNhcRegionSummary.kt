@@ -32,7 +32,6 @@ class ObjectNhcRegionSummary(region: NhcOceanEnum) {
     var urls: List<String>
     var titles: List<String>
     var bitmaps = listOf<Bitmap>()
-    //var storms = mutableListOf<ObjectNhcStormInfo>()
     private var replaceString: String
     private var baseUrl: String
 
