@@ -85,7 +85,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         movementSpeeds = html.parseColumn("\"movementSpeed\": (.*?),")
         lastUpdates = html.parseColumn("\"lastUpdate\": \"(.*?)\"")
         binNumbers.forEach {
-            val text = UtilityDownload.getTextProduct(context, "MIATCP" + it)
+            val text = UtilityDownload.getTextProduct(context, "MIATCP$it")
             val status = text.parseFirst("(\\.\\.\\..*?\\.\\.\\.)")
             statusList.add(status)
         }

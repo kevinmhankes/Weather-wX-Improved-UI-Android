@@ -24,6 +24,7 @@ package joshuatee.wx.nhc
 import java.io.Serializable
 
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.MyApplication
 import joshuatee.wx.util.UtilityMath
 import java.util.*
 
@@ -54,6 +55,11 @@ class ObjectNhcStormDetails(
 
     fun forTopHeader(): String {
         return movement + ", " + pressure + "mb, " + intensity + " mph"
+    }
+
+    fun summaryForNotification(): String {
+        return name + " " + classification + MyApplication.newline + center + MyApplication.newline +
+                movement + MyApplication.newline + pressure + " mb" + MyApplication.newline + intensity + " mph"
     }
 }
 

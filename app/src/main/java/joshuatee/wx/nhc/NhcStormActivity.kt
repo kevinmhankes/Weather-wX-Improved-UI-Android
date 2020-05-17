@@ -57,7 +57,6 @@ class NhcStormActivity : BaseActivity() {
     private lateinit var stormData: ObjectNhcStormDetails
     private var html = ""
     private var product = ""
-    private var toolbarTitle = ""
     private val bitmaps = mutableListOf<Bitmap>()
     private lateinit var objectCardText: ObjectCardText
     private var numberOfImages = 0
@@ -98,7 +97,7 @@ class NhcStormActivity : BaseActivity() {
         bitmaps.clear()
         withContext(Dispatchers.IO) {
             imageUrls.forEach {
-                var url = stormData.baseUrl
+                val url = stormData.baseUrl
                 //if (it == "WPCQPF_sm2.gif") url = baseUrlShort
                 bitmaps.add((url + it).getImage())
             }
@@ -118,7 +117,7 @@ class NhcStormActivity : BaseActivity() {
                 }
                 numberOfImages += 1
                 objectCardImage.setOnClickListener(View.OnClickListener {
-                    var url = stormData.baseUrl
+                    val url = stormData.baseUrl
                     //if (imageUrls[index] == "WPCQPF_sm2.gif") url = baseUrlShort
                     val fullUrl = url + imageUrls[index]
                     ObjectIntent.showImage(this@NhcStormActivity, arrayOf(fullUrl, ""))
@@ -137,7 +136,7 @@ class NhcStormActivity : BaseActivity() {
             R.id.action_MIATCMEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCM${stormData.binNumber}"))
             R.id.action_MIATCDEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCD${stormData.binNumber}"))
             R.id.action_MIAPWSEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIAPWS${stormData.binNumber}"))
-            R.id.action_mute_notification -> UtilityNotificationNhc.muteNotification(this, toolbarTitle)
+            R.id.action_mute_notification -> UtilityNotificationNhc.muteNotification(this, stormData.id)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

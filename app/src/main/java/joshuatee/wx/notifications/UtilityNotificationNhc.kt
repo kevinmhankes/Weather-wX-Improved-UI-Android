@@ -28,11 +28,10 @@ import androidx.core.app.NotificationCompat
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.nhc.NhcStormActivity
-import joshuatee.wx.nhc.ObjectNhcStormInfo
+import joshuatee.wx.nhc.ObjectNhcStormDetails
 import joshuatee.wx.nhc.UtilityNhc
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
-import joshuatee.wx.util.UtilityString
 
 object UtilityNotificationNhc {
 
@@ -47,7 +46,7 @@ object UtilityNotificationNhc {
     internal fun send(context: Context, epac: Boolean, atl: Boolean): String {
         var notifUrls = ""
         val muteStr = Utility.readPref(context, "NOTIF_NHC_MUTE", "")
-        val atlSumList = mutableListOf<String>()
+        /*val atlSumList = mutableListOf<String>()
         val atlLinkList = mutableListOf<String>()
         val atlTitleList = mutableListOf<String>()
         val atlImg1List = mutableListOf<String>()
@@ -58,9 +57,12 @@ object UtilityNotificationNhc {
         val pacTitleList = mutableListOf<String>()
         val pacImg1List = mutableListOf<String>()
         val pacImg2List = mutableListOf<String>()
-        val pacWalletList = mutableListOf<String>()
-        var dataRet: ObjectNhcStormInfo
-        if (atl) {
+        val pacWalletList = mutableListOf<String>()*/
+        //var dataRet: ObjectNhcStormInfo
+
+        val storms = UtilityNhc.getHurricaneInfo()
+
+        /*if (atl) {
             (1 until 6).forEach {
                 dataRet = UtilityNhc.getHurricaneInfo("${MyApplication.nwsNhcWebsitePrefix}/nhc_at" + it.toString() + ".xml")
                 if (dataRet.title != "") {
@@ -85,8 +87,19 @@ object UtilityNotificationNhc {
                     pacWalletList.add(dataRet.wallet)
                 }
             }
+        }*/
+
+        if (epac || atl) {
+            storms.forEach {
+                if (!muteStr.contains(it.id)) {
+                    notifUrls += sendNotification(context, MyApplication.alertNotificationSoundNhcAtl, it)
+                } else {
+                    UtilityLog.d("wx", "blocking " + it.id)
+                }
+            }
         }
-        if (atl) {
+
+       /* if (atl) {
             (0 until atlSumList.size).forEach {
                 if (!muteStr.contains(atlTitleList[it]))
                     notifUrls += sendNotification(
@@ -123,28 +136,26 @@ object UtilityNotificationNhc {
                     UtilityLog.d("wx", "blocking " + pacTitleList[it])
                 }
             }
-        }
+        }*/
+
+
+
         return notifUrls
     }
 
-    private fun sendNotification(context: Context, notifUrl: String, mdNo: String, notifTitle: String, iconAlert: Int,
-            img1Url: String, img2Url: String, soundPref: Boolean, wallet: String): String {
+    private fun sendNotification(context: Context, soundPref: Boolean, stormData: ObjectNhcStormDetails): String {
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
-        val objPI = ObjectPendingIntents(
-                context, NhcStormActivity::class.java, NhcStormActivity.URL,
-                arrayOf(notifUrl, notifTitle, "nosound", img1Url, img2Url, wallet),
-                arrayOf(notifUrl, notifTitle, "sound", img1Url, img2Url, wallet)
-        )
-        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, notifTitle))) {
+        val objPI = ObjectPendingIntents(context, NhcStormActivity::class.java, NhcStormActivity.URL, stormData)
+        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, stormData.id))) {
             val sound = soundPref && !inBlackout
             val objectNotification = ObjectNotification(
                     context,
                     sound,
-                    notifTitle,
-                    mdNo,
+                    stormData.id,
+                    stormData.summaryForNotification(),
                     objPI.resultPendingIntent,
-                    iconAlert,
-                    mdNo,
+                    MyApplication.ICON_NHC_1,
+                    stormData.summaryForNotification(),
                     NotificationCompat.PRIORITY_HIGH,
                     Color.YELLOW,
                     MyApplication.ICON_ACTION,
@@ -152,9 +163,9 @@ object UtilityNotificationNhc {
                     context.resources.getString(R.string.read_aloud)
             )
             val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
-            objectNotification.sendNotification(context, notifTitle, 1, notification)
+            objectNotification.sendNotification(context, stormData.id, 1, notification)
         }
-        return notifTitle + MyApplication.notificationStrSep
+        return stormData.id + MyApplication.notificationStrSep
     }
 }
 
