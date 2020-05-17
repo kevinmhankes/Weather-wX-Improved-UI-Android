@@ -70,9 +70,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     // 3: number of panes
     // 4: coming from single pane
 
-    companion object {
-        const val RID = ""
-    }
+    companion object { const val RID = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var numberOfPanes = 4
@@ -430,11 +428,11 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     withContext(Dispatchers.IO) { UtilityDownloadMpd.get(this@WXGLRadarActivityMultiPane) }
                     if (!oglr.product.startsWith("2")) UtilityRadarUI.plotMpdPolygons(glview, oglr, false)
                 }
-                if (MyApplication.radarShowWpcFronts) {
-                    withContext(Dispatchers.IO) { UtilityWpcFronts.get(this@WXGLRadarActivityMultiPane) }
-                    if (!oglr.product.startsWith("2")) UtilityRadarUI.plotWpcFronts(glview, oglr, false)
-                    UtilityWXGLTextObject.updateWpcFronts(numberOfPanes, wxglTextObjects)
-                }
+                //if (MyApplication.radarShowWpcFronts) {
+                //    withContext(Dispatchers.IO) { UtilityWpcFronts.get(this@WXGLRadarActivityMultiPane) }
+                //    if (!oglr.product.startsWith("2")) UtilityRadarUI.plotWpcFronts(glview, oglr, false)
+                //    UtilityWXGLTextObject.updateWpcFronts(numberOfPanes, wxglTextObjects)
+                //}
                 UtilityRadarUI.updateLastRadarTime(this@WXGLRadarActivityMultiPane)
                 if (MyApplication.wxoglCenterOnLocation) {
                     wxglSurfaceViews[z].resetView()
