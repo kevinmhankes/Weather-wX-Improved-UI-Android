@@ -21,10 +21,12 @@
 
 package joshuatee.wx.nhc
 
+import java.io.Serializable
+
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 
-class ObjectNhcStormDetails(val data: String) {
+class ObjectNhcStormDetails(val data: String, val url: String): Serializable {
 
     /*
    <nhc:center>30.8, -68.3<br>
@@ -49,6 +51,7 @@ class ObjectNhcStormDetails(val data: String) {
     var pressure = data.parse("<nhc:pressure>(.*?)<br> ")
     var wind = data.parse("<nhc:wind>(.*?)<br> ")
     var headline = data.parse("<nhc:headline>(.*?)<br> ")
+    var baseUrl = url.replace("_5day_cone_with_line_and_wind_sm2.png", "")
 
     override fun toString (): String {
         var string = center + MyApplication.newline

@@ -31,6 +31,8 @@ import joshuatee.wx.canada.CanadaRadarActivity
 import joshuatee.wx.canada.CanadaTextActivity
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.models.ModelsGenericActivity
+import joshuatee.wx.nhc.NhcStormActivity
+import joshuatee.wx.nhc.ObjectNhcStormDetails
 import joshuatee.wx.radar.AwcRadarMosaicActivity
 import joshuatee.wx.radar.USNwsMosaicActivity
 import joshuatee.wx.radar.WXGLRadarActivity
@@ -42,6 +44,7 @@ import joshuatee.wx.spc.SpcStormReportsActivity
 import joshuatee.wx.spc.SpcSwoActivity
 import joshuatee.wx.util.Utility
 import joshuatee.wx.vis.GoesActivity
+import joshuatee.wx.wpc.WpcTextProductsActivity
 
 //
 // Used to start another activity
@@ -78,6 +81,16 @@ class ObjectIntent() {
     }
 
     companion object {
+
+        fun showWpcText(context: Context, array: Array<String>) {
+            ObjectIntent(context, WpcTextProductsActivity::class.java, WpcTextProductsActivity.URL, array)
+        }
+
+        fun showNhcStorm(context: Context, stormData: ObjectNhcStormDetails) {
+            val intent = Intent(context, NhcStormActivity::class.java)
+            intent.putExtra(NhcStormActivity.URL, stormData)
+            context.startActivity(intent)
+        }
 
         fun showMcd(context: Context, array: Array<String>) {
             ObjectIntent(context, SpcMcdWatchShowActivity::class.java, SpcMcdWatchShowActivity.NUMBER, array)

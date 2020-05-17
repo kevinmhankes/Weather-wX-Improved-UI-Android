@@ -89,17 +89,10 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         } else {
             regionMap[NhcOceanEnum.ATL]!!.storms.forEach {
                 if (it.image1 != "") {
-                    val objStormData = ObjectNhcStormDetails(it.summary)
+                    val objStormData = ObjectNhcStormDetails(it.summary, it.image1)
                     val cAtlData = ObjectCardNhcStormReportItem(context, linearLayout, objStormData)
                     html += it.summary
-                    val url = it.url
-                    val imgUrl1 = it.image1
-                    val imgUrl2 = it.image2
-                    val title = it.title
-                    val wallet = it.wallet
-                    cAtlData.setListener(View.OnClickListener {
-                        ObjectIntent(context, NhcStormActivity::class.java, NhcStormActivity.URL, arrayOf(url, title, "nosound", imgUrl1, imgUrl2, wallet))
-                    })
+                    cAtlData.setListener(View.OnClickListener { ObjectIntent.showNhcStorm(context, objStormData) })
                 }
             }
         }
@@ -110,17 +103,10 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         } else {
             regionMap[NhcOceanEnum.EPAC]!!.storms.forEach {
                 if (it.image1 != "") {
-                    val objStormData = ObjectNhcStormDetails(it.summary)
+                    val objStormData = ObjectNhcStormDetails(it.summary, it.image1)
                     val cPacData = ObjectCardNhcStormReportItem(context, linearLayout, objStormData)
                     html += it.summary
-                    val url = it.url
-                    val imgUrl1 = it.image1
-                    val imgUrl2 = it.image2
-                    val title = it.title
-                    val wallet = it.wallet
-                    cPacData.setListener(View.OnClickListener {
-                        ObjectIntent(context, NhcStormActivity::class.java, NhcStormActivity.URL, arrayOf(url, title, "nosound", imgUrl1, imgUrl2, wallet))
-                    })
+                    cPacData.setListener(View.OnClickListener { ObjectIntent.showNhcStorm(context, objStormData) })
                 }
             }
         }

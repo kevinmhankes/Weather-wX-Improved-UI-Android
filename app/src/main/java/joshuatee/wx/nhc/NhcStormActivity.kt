@@ -31,7 +31,6 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
-import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.notifications.UtilityNotificationNhc
 import joshuatee.wx.ui.ObjectCardImage
@@ -51,17 +50,13 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     //
     // Arguments
     //
-    //  1: URL ( FIXME for what? )
-    //  2: Title
-    //  3: IMG URL
-    //  4: IMG URL
-    //  5: Storm ID
+    //  1: object ObjectNhcStormDetails
     //
 
     companion object { const val URL = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private lateinit var activityArguments: List<String>
+    private lateinit var stormData: ObjectNhcStormDetails
     private var html = ""
     private var product = ""
     private var stormId = ""
@@ -90,8 +85,8 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.nhc_storm)
         toolbarBottom.setOnMenuItemClickListener(this)
-        activityArguments = intent.getStringArrayExtra(URL)!!.toList()
-        toolbarTitle = activityArguments[1]
+        stormData = intent.getSerializableExtra(URL) as ObjectNhcStormDetails
+        toolbarTitle = stormData.url
         val titles = toolbarTitle.split(" - ")
         title = "NHC"
         if (titles.size > 1) toolbar.subtitle = titles[1]
@@ -100,15 +95,12 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun initializeEnvironment() {
-        val imgUrl1 = activityArguments[3]
         val year = UtilityTime.year()
         var yearInString = year.toString()
-        val yearInStringFull = year.toString()
         val yearInStringShort = yearInString.substring(2)
         yearInString = yearInString.substring(max(yearInString.length - 2, 0))
-        baseUrl = imgUrl1.replace(yearInString + "_5day_cone_with_line_and_wind_sm2.png", "")
-        baseUrl += yearInString
-        stormId = activityArguments[5]
+        baseUrl = stormData.baseUrl
+        stormId = stormData.wallet
         stormId = stormId.replace("EP0", "EP").replace("AL0", "AL")
         goesSector = UtilityStringExternal.truncate(stormId, 1)
         goesSector = goesSector.replace("A", "L")  // value is either E or L
@@ -116,7 +108,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         goesId = stormId.replace("EP", "").replace("AT", "")
         if (goesId.length < 2) goesId = "0$goesId"
         product = "MIATCP$stormId"
-        baseUrlShort = baseUrl.replace(yearInStringFull, "") + yearInStringShort
+        baseUrlShort = "https://www.nhc.noaa.gov/storm_graphics/" + goesId + "/" + stormData.atcf.replace(yearInString, "") + yearInStringShort
     }
 
     override fun onRestart() {
@@ -134,6 +126,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
             }
         }
         linearLayout.removeAllViews()
+        numberOfImages = 0
         bitmaps.forEachIndexed { index, bitmap ->
             if (bitmap.width > 100) {
                 val objectCardImage: ObjectCardImage
@@ -157,28 +150,16 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         html = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@NhcStormActivity, product) }
         objectCardText = ObjectCardText(this@NhcStormActivity, linearLayout, toolbar, toolbarBottom)
         if (html.contains("<")) objectCardText.text = Utility.fromHtml(html) else objectCardText.text = html
-        if (activityArguments.size > 2 && activityArguments[2] == "sound") UtilityTts.synthesizeTextAndPlay(applicationContext, html, product)
-    }
-
-    private fun getText() = GlobalScope.launch(uiDispatcher) {
-        html = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@NhcStormActivity, product) }
-        if (html.contains("<")) objectCardText.text = Utility.fromHtml(html) else objectCardText.text = html
-        scrollView.smoothScrollTo(0, 0)
-    }
-
-    private fun setProduct(product: String) {
-        this.product = product
-        getText()
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (audioPlayMenu(item.itemId, html, product, product)) return true
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(this, this, activityArguments[1], html, bitmaps)
-            R.id.action_MIATCPEP2 -> setProduct("MIATCP$stormId")
-            R.id.action_MIATCMEP2 -> setProduct("MIATCM$stormId")
-            R.id.action_MIATCDEP2 -> setProduct("MIATCD$stormId")
-            R.id.action_MIAPWSEP2 -> setProduct("MIAPWS$stormId")
+            R.id.action_share -> UtilityShare.shareText(this, this, stormData.url, html, bitmaps)
+            R.id.action_MIATCPEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCP$stormId"))
+            R.id.action_MIATCMEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCM$stormId"))
+            R.id.action_MIATCDEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCD$stormId"))
+            R.id.action_MIAPWSEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIAPWS$stormId"))
             R.id.action_mute_notification -> UtilityNotificationNhc.muteNotification(this, toolbarTitle)
             else -> return super.onOptionsItemSelected(item)
         }
