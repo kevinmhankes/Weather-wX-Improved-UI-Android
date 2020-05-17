@@ -28,15 +28,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
-import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
-import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.notifications.UtilityNotificationNhc
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
-import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectLinearLayout
@@ -44,7 +41,6 @@ import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
-import kotlin.math.max
 
 class NhcStormActivity : BaseActivity() {
 
