@@ -28,7 +28,6 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityString
 
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectLinearLayout
@@ -40,7 +39,6 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
 
     private var notificationCard: ObjectCardText? = null
     private val cardNotificationHeaderText = "Currently blocked storm notifications, tap this text to clear all blocks "
-    var html = ""
     private var numberOfImages = 0
     private var imagesPerRow = 2
     private val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout>()
@@ -113,7 +111,6 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
 
     fun showTextData() {
         linearLayout.removeAllViewsInLayout()
-        html = ""
         val muteStr = Utility.readPref(context, "NOTIF_NHC_MUTE", "")
         notificationCard = ObjectCardText(context, cardNotificationHeaderText + muteStr)
         linearLayout.addView(notificationCard?.card)
@@ -126,26 +123,24 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
 
         if (ids.isNotEmpty()) {
             ids.indices.forEach { index ->
-                    val objectNhcStormDetails = ObjectNhcStormDetails(
-                    names[index],
-                movementDirs[index],
-                movementSpeeds[index],
-                pressures[index],
-                binNumbers[index],
-                ids[index],
-                lastUpdates[index],
-                classifications[index],
-                latitudes[index],
-                longitudes[index],
-                intensities[index],
-                statusList[index]
+                val objectNhcStormDetails = ObjectNhcStormDetails(
+                        names[index],
+                        movementDirs[index],
+                        movementSpeeds[index],
+                        pressures[index],
+                        binNumbers[index],
+                        ids[index],
+                        lastUpdates[index],
+                        classifications[index],
+                        latitudes[index],
+                        longitudes[index],
+                        intensities[index],
+                        statusList[index]
                 )
                 stormDataList.add(objectNhcStormDetails)
-
                 //val objStormData = ObjectNhcStormDetails(it.summary, it.image1)
                 val cPacData = ObjectCardNhcStormReportItem(context, linearLayout, objectNhcStormDetails)
                 cPacData.setListener(View.OnClickListener { ObjectIntent.showNhcStorm(context, objectNhcStormDetails) })
-
             }
         }
 

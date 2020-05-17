@@ -25,6 +25,7 @@ import android.annotation.SuppressLint
 import java.util.Locale
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.view.MenuItem
 import joshuatee.wx.MyApplication
@@ -34,20 +35,25 @@ import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.wpc.WpcTextProductsActivity
 import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
-class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
+class NhcActivity : BaseActivity() {
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private lateinit var objectNhc: ObjectNhc
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.nhc, menu)
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.nhc)
-        toolbarBottom.setOnMenuItemClickListener(this)
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout, R.menu.nhc, false)
         objectNhc = ObjectNhc(this, linearLayout)
         getContent()
     }
@@ -70,8 +76,7 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
         ObjectIntent.showImage(this, arrayOf(imageUrl, title, needWhiteBackground))
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, objectNhc.html, "", "")) return true
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_atl_two -> showTextProduct("MIATWOAT")
             R.id.action_atl_twd -> showTextProduct("MIATWDAT")
@@ -80,7 +85,7 @@ class NhcActivity : AudioPlayActivity(), OnMenuItemClickListener {
             R.id.action_atl_tws -> showTextProduct("MIATWSAT")
             R.id.action_epac_tws -> showTextProduct("MIATWSEP")
             R.id.action_cpac_two -> showTextProduct("HFOTWOCP")
-            R.id.action_share -> UtilityShare.shareText(this, "", Utility.fromHtml(objectNhc.html))
+            //R.id.action_share -> UtilityShare.shareText(this, "", Utility.fromHtml(objectNhc.html))
             R.id.action_epac_daily -> showImageProduct("https://www.ssd.noaa.gov/PS/TROP/DATA/RT/SST/PAC/20.jpg", "EPAC Daily Analysis", "false")
             R.id.action_atl_daily -> showImageProduct("https://www.ssd.noaa.gov/PS/TROP/DATA/RT/SST/ATL/20.jpg", "ATL Daily Analysis", "false")
             R.id.action_epac_7daily -> showImageProduct("${MyApplication.nwsNhcWebsitePrefix}/tafb/pac_anal.gif", "EPAC 7-Day Analysis", "true")

@@ -24,6 +24,7 @@ package joshuatee.wx.nhc
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
@@ -37,6 +38,7 @@ import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectLinearLayout
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
@@ -44,7 +46,7 @@ import kotlinx.coroutines.*
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 import kotlin.math.max
 
-class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
+class NhcStormActivity : BaseActivity() {
 
     // Main page for details on individual storms
     //
@@ -81,10 +83,14 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
             "_wind_probs_64_F120_sm2.png"
     )
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.nhc_storm, menu)
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.nhc_storm)
-        toolbarBottom.setOnMenuItemClickListener(this)
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout, R.menu.nhc_storm, false)
         stormData = intent.getSerializableExtra(URL) as ObjectNhcStormDetails
         //toolbarTitle = stormData.url
         val titles = toolbarTitle.split(" - ")
@@ -152,8 +158,8 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         if (html.contains("<")) objectCardText.text = Utility.fromHtml(html) else objectCardText.text = html
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, html, product, product)) return true
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        //if (audioPlayMenu(item.itemId, html, product, product)) return true
         when (item.itemId) {
             //R.id.action_share -> UtilityShare.shareText(this, this, stormData.url, html, bitmaps)
             R.id.action_MIATCPEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCP${stormData.binNumber}"))
