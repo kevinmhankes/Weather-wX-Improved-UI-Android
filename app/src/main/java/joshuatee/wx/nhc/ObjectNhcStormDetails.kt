@@ -56,6 +56,10 @@ class ObjectNhcStormDetails(
         baseUrl = "https://www.nhc.noaa.gov/storm_graphics/" + modBinNumber + "/" + id.toUpperCase(Locale.US)
     }
 
+    fun forTopHeader(): String {
+        return movement + ", " + pressure + "mb, " + intensity + " mph"
+    }
+
     /*
    <nhc:center>30.8, -68.3<br>
    <nhc:type>Post-Tropical Cyclone<br>

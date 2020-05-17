@@ -92,29 +92,10 @@ class NhcStormActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, R.menu.nhc_storm, false)
         stormData = intent.getSerializableExtra(URL) as ObjectNhcStormDetails
-        //toolbarTitle = stormData.url
-        val titles = toolbarTitle.split(" - ")
         title = "NHC"
-        if (titles.size > 1) toolbar.subtitle = titles[1]
-        initializeEnvironment()
-        getContent()
-    }
-
-    private fun initializeEnvironment() {
-        /*val year = UtilityTime.year()
-        var yearInString = year.toString()
-        val yearInStringShort = yearInString.substring(2)
-        yearInString = yearInString.substring(max(yearInString.length - 2, 0))
-        baseUrl = stormData.baseUrl
-        stormId = stormData.wallet
-        stormId = stormId.replace("EP0", "EP").replace("AL0", "AL")
-        goesSector = UtilityStringExternal.truncate(stormId, 1)
-        goesSector = goesSector.replace("A", "L")  // value is either E or L
-        stormId = stormId.replace("AL", "AT")
-        goesId = stormId.replace("EP", "").replace("AT", "")
-        if (goesId.length < 2) goesId = "0$goesId"*/
+        toolbar.subtitle = stormData.forTopHeader()
         product = "MIATCP${stormData.binNumber}"
-        //baseUrlShort = "https://www.nhc.noaa.gov/storm_graphics/" + goesId + "/" + stormData.atcf.replace(yearInString, "") + yearInStringShort
+        getContent()
     }
 
     override fun onRestart() {
