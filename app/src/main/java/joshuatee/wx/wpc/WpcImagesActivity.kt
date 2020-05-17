@@ -24,7 +24,6 @@ package joshuatee.wx.wpc
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.content.res.Configuration
-import android.view.Menu
 import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
 import android.view.View

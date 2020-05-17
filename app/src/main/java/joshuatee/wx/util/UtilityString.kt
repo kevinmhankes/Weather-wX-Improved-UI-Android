@@ -237,7 +237,7 @@ object UtilityString {
         return i
     }
 
-    fun getNwsPre(url: String) = url.getHtmlSep().parse(RegExp.pre2Pattern)
+    //fun getNwsPre(url: String) = url.getHtmlSep().parse(RegExp.pre2Pattern)
 
     fun getLastXChars(s: String, x: Int) = when {
         s.length == x -> s

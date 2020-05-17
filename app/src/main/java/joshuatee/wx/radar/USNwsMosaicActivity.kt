@@ -30,7 +30,6 @@ import android.view.MenuItem
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.settings.Location
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*

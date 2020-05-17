@@ -30,7 +30,6 @@ import joshuatee.wx.util.UtilityImgAnim
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
-import joshuatee.wx.util.UtilityLog
 
 object UtilityGoes {
 
@@ -57,7 +56,6 @@ object UtilityGoes {
         // https://cdn.star.nesdis.noaa.gov/GOES17/ABI/CONUS/GEOCOLOR/1250x750.jpg
         // https://cdn.star.nesdis.noaa.gov/GOES16/ABI/CONUS/GEOCOLOR/1250x750.jpg
         val url = MyApplication.goes16Url + "/" + satellite + "/ABI/" + sectorLocal + "/" + product + "/" + getImageFileName(sector)
-        UtilityLog.d("wx", "DEBUG: " + url)
         return url.getImage()
     }
 
