@@ -13,7 +13,7 @@
 // TODO [REF] rename files/classes in radar folder
 // TODO [REF] use val for lists with .clear() instead of var and reset
 
-55439 2020_05_17
+55439 2020_05_17    [ADD] Radar mosaic - remove bottom toolbars
 55438 2020_05_17    [ADD] NHC Storm move to json data source per https://www.weather.gov/media/notification/scn20-25tropical_javascrpt.pdf
                     [ADD] remove un-needed toolbar options in NHC and NHC Storm and remove bottom toolbar
 55437 2020_05_16    [FIX] disable WPC Fronts in multipane due to crash, lower pressure centers still show
