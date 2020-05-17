@@ -46,49 +46,7 @@ object UtilityNotificationNhc {
     internal fun send(context: Context, epac: Boolean, atl: Boolean): String {
         var notifUrls = ""
         val muteStr = Utility.readPref(context, "NOTIF_NHC_MUTE", "")
-        /*val atlSumList = mutableListOf<String>()
-        val atlLinkList = mutableListOf<String>()
-        val atlTitleList = mutableListOf<String>()
-        val atlImg1List = mutableListOf<String>()
-        val atlImg2List = mutableListOf<String>()
-        val atlWalletList = mutableListOf<String>()
-        val pacSumList = mutableListOf<String>()
-        val pacLinkList = mutableListOf<String>()
-        val pacTitleList = mutableListOf<String>()
-        val pacImg1List = mutableListOf<String>()
-        val pacImg2List = mutableListOf<String>()
-        val pacWalletList = mutableListOf<String>()*/
-        //var dataRet: ObjectNhcStormInfo
-
         val storms = UtilityNhc.getHurricaneInfo()
-
-        /*if (atl) {
-            (1 until 6).forEach {
-                dataRet = UtilityNhc.getHurricaneInfo("${MyApplication.nwsNhcWebsitePrefix}/nhc_at" + it.toString() + ".xml")
-                if (dataRet.title != "") {
-                    atlTitleList.add(dataRet.title.replace("NHC Atlantic Wallet", ""))
-                    atlSumList.add(dataRet.summary)
-                    atlLinkList.add(UtilityString.getNwsPre(dataRet.url))
-                    atlImg1List.add(dataRet.image1)
-                    atlImg2List.add(dataRet.image2)
-                    atlWalletList.add(dataRet.wallet)
-                }
-            }
-        }
-        if (epac) {
-            (1 until 6).forEach {
-                dataRet = UtilityNhc.getHurricaneInfo("${MyApplication.nwsNhcWebsitePrefix}/nhc_ep" + it.toString() + ".xml")
-                if (dataRet.title != "") {
-                    pacTitleList.add(dataRet.title.replace("NHC Eastern Pacific Wallet", ""))
-                    pacSumList.add(dataRet.summary)
-                    pacLinkList.add(UtilityString.getNwsPre(dataRet.url))
-                    pacImg1List.add(dataRet.image1)
-                    pacImg2List.add(dataRet.image2)
-                    pacWalletList.add(dataRet.wallet)
-                }
-            }
-        }*/
-
         if (epac || atl) {
             storms.forEach {
                 if (!muteStr.contains(it.id)) {
@@ -98,48 +56,6 @@ object UtilityNotificationNhc {
                 }
             }
         }
-
-       /* if (atl) {
-            (0 until atlSumList.size).forEach {
-                if (!muteStr.contains(atlTitleList[it]))
-                    notifUrls += sendNotification(
-                            context,
-                            atlLinkList[it],
-                            Utility.fromHtml(atlSumList[it]),
-                            atlTitleList[it],
-                            MyApplication.ICON_NHC_1,
-                            atlImg1List[it],
-                            atlImg2List[it],
-                            MyApplication.alertNotificationSoundNhcAtl,
-                            atlWalletList[it]
-                    )
-                else {
-                    UtilityLog.d("wx", "blocking " + atlTitleList[it])
-                }
-            }
-        }
-        if (epac) {
-            (0 until pacSumList.size).forEach {
-                if (!muteStr.contains(pacTitleList[it]))
-                    notifUrls += sendNotification(
-                            context,
-                            pacLinkList[it],
-                            Utility.fromHtml(pacSumList[it]),
-                            pacTitleList[it],
-                            MyApplication.ICON_NHC_2,
-                            pacImg1List[it],
-                            pacImg2List[it],
-                            MyApplication.alertNotificationSoundNhcEpac,
-                            pacWalletList[it]
-                    )
-                else {
-                    UtilityLog.d("wx", "blocking " + pacTitleList[it])
-                }
-            }
-        }*/
-
-
-
         return notifUrls
     }
 
