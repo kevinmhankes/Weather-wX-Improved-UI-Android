@@ -24,6 +24,7 @@ package joshuatee.wx.nhc
 import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
+import joshuatee.wx.MyApplication
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.util.Utility
@@ -32,6 +33,8 @@ import joshuatee.wx.util.UtilityString
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectLinearLayout
 import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.Extensions.*
+import joshuatee.wx.util.UtilityDownload
 
 class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
 
@@ -42,6 +45,19 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     private var imagesPerRow = 2
     private val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout>()
     val regionMap = mutableMapOf<NhcOceanEnum, ObjectNhcRegionSummary>()
+    private var stormDataList = mutableListOf<ObjectNhcStormDetails>()
+    private var ids = listOf<String>()
+    private var binNumbers = listOf<String>()
+    private var names = listOf<String>()
+    private var classifications = listOf<String>()
+    private var intensities = listOf<String>()
+    private var pressures = listOf<String>()
+    private var latitudes = listOf<String>()
+    private var longitudes = listOf<String>()
+    private var movementDirs = listOf<String>()
+    private var movementSpeeds = listOf<String>()
+    private var lastUpdates = listOf<String>()
+    private var statusList = mutableListOf<String>()
 
     init {
         if (UtilityUI.isLandScape(context)) imagesPerRow = 3
@@ -49,7 +65,32 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
     }
 
     fun getTextData() {
-        NhcOceanEnum.values().forEach { type ->
+        statusList.clear()
+        val url = MyApplication.nwsNhcWebsitePrefix + "/CurrentStorms.json"
+        //val url = "https://www.nhc.noaa.gov/productexamples/NHC_JSON_Sample.json"
+        val html = url.getHtml()
+        ids = html.parseColumn("\"id\": \"(.*?)\"")
+        binNumbers = html.parseColumn("\"binNumber\": \"(.*?)\"")
+        names = html.parseColumn("\"name\": \"(.*?)\"")
+        classifications = html.parseColumn("\"classification\": \"(.*?)\"")
+        intensities = html.parseColumn("\"intensity\": \"(.*?)\"")
+        pressures = html.parseColumn("\"pressure\": \"(.*?)\"")
+        // sample data not quoted for these two
+        //intensities = html.parseColumn("\"intensity\": (.*?),");
+        //pressures = html.parseColumn("\"pressure\": (.*?),");
+        //
+        latitudes = html.parseColumn("\"latitude\": \"(.*?)\"")
+        longitudes = html.parseColumn("\"longitude\": \"(.*?)\"")
+        movementDirs = html.parseColumn("\"movementDir\": (.*?),")
+        movementSpeeds = html.parseColumn("\"movementSpeed\": (.*?),")
+        lastUpdates = html.parseColumn("\"lastUpdate\": \"(.*?)\"")
+        binNumbers.forEach {
+            val text = UtilityDownload.getTextProduct(context, "MIATCP" + it)
+            val status = text.parseFirst("(\\.\\.\\..*?\\.\\.\\.)")
+            statusList.add(status)
+        }
+
+        /*NhcOceanEnum.values().forEach { type ->
             if (type != NhcOceanEnum.CPAC) {
                 (1 until 6).forEach {
                     val stormInfo = UtilityNhc.getHurricaneInfo(regionMap[type]!!.baseUrl + it.toString() + ".xml")
@@ -67,7 +108,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
                     }
                 }
             }
-        }
+        }*/
     }
 
     fun showTextData() {
@@ -82,7 +123,33 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         } else {
             notificationCard?.visibility = View.GONE
         }
-        if (regionMap[NhcOceanEnum.ATL]!!.storms.size < 1) {
+
+        if (ids.isNotEmpty()) {
+            ids.indices.forEach { index ->
+                    val objectNhcStormDetails = ObjectNhcStormDetails(
+                    names[index],
+                movementDirs[index],
+                movementSpeeds[index],
+                pressures[index],
+                binNumbers[index],
+                ids[index],
+                lastUpdates[index],
+                classifications[index],
+                latitudes[index],
+                longitudes[index],
+                intensities[index],
+                statusList[index]
+                )
+                stormDataList.add(objectNhcStormDetails)
+
+                //val objStormData = ObjectNhcStormDetails(it.summary, it.image1)
+                val cPacData = ObjectCardNhcStormReportItem(context, linearLayout, objectNhcStormDetails)
+                cPacData.setListener(View.OnClickListener { ObjectIntent.showNhcStorm(context, objectNhcStormDetails) })
+
+            }
+        }
+
+        /*if (regionMap[NhcOceanEnum.ATL]!!.storms.size < 1) {
             val noAtl = "There are no tropical cyclones in the Atlantic at this time."
             ObjectCardText(context, linearLayout, noAtl)
             html = noAtl
@@ -109,7 +176,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
                     cPacData.setListener(View.OnClickListener { ObjectIntent.showNhcStorm(context, objStormData) })
                 }
             }
-        }
+        }*/
     }
 
     fun showImageData(region: NhcOceanEnum) {

@@ -59,13 +59,13 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private lateinit var stormData: ObjectNhcStormDetails
     private var html = ""
     private var product = ""
-    private var stormId = ""
-    private var goesId = ""
-    private var goesSector = ""
+    //private var stormId = ""
+    //private var goesId = ""
+    //private var goesSector = ""
     private var toolbarTitle = ""
     private val bitmaps = mutableListOf<Bitmap>()
-    private var baseUrl = ""
-    private var baseUrlShort = ""
+    //private var baseUrl = ""
+    //private var baseUrlShort = ""
     private lateinit var objectCardText: ObjectCardText
     private var numberOfImages = 0
     private var imagesPerRow = 2
@@ -86,7 +86,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.nhc_storm)
         toolbarBottom.setOnMenuItemClickListener(this)
         stormData = intent.getSerializableExtra(URL) as ObjectNhcStormDetails
-        toolbarTitle = stormData.url
+        //toolbarTitle = stormData.url
         val titles = toolbarTitle.split(" - ")
         title = "NHC"
         if (titles.size > 1) toolbar.subtitle = titles[1]
@@ -95,7 +95,7 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun initializeEnvironment() {
-        val year = UtilityTime.year()
+        /*val year = UtilityTime.year()
         var yearInString = year.toString()
         val yearInStringShort = yearInString.substring(2)
         yearInString = yearInString.substring(max(yearInString.length - 2, 0))
@@ -106,9 +106,9 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         goesSector = goesSector.replace("A", "L")  // value is either E or L
         stormId = stormId.replace("AL", "AT")
         goesId = stormId.replace("EP", "").replace("AT", "")
-        if (goesId.length < 2) goesId = "0$goesId"
-        product = "MIATCP$stormId"
-        baseUrlShort = "https://www.nhc.noaa.gov/storm_graphics/" + goesId + "/" + stormData.atcf.replace(yearInString, "") + yearInStringShort
+        if (goesId.length < 2) goesId = "0$goesId"*/
+        product = "MIATCP${stormData.binNumber}"
+        //baseUrlShort = "https://www.nhc.noaa.gov/storm_graphics/" + goesId + "/" + stormData.atcf.replace(yearInString, "") + yearInStringShort
     }
 
     override fun onRestart() {
@@ -120,8 +120,8 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
         bitmaps.clear()
         withContext(Dispatchers.IO) {
             imageUrls.forEach {
-                var url = baseUrl
-                if (it == "WPCQPF_sm2.gif") url = baseUrlShort
+                var url = stormData.baseUrl
+                //if (it == "WPCQPF_sm2.gif") url = baseUrlShort
                 bitmaps.add((url + it).getImage())
             }
         }
@@ -140,8 +140,8 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 }
                 numberOfImages += 1
                 objectCardImage.setOnClickListener(View.OnClickListener {
-                    var url = baseUrl
-                    if (imageUrls[index] == "WPCQPF_sm2.gif") url = baseUrlShort
+                    var url = stormData.baseUrl
+                    //if (imageUrls[index] == "WPCQPF_sm2.gif") url = baseUrlShort
                     val fullUrl = url + imageUrls[index]
                     ObjectIntent.showImage(this@NhcStormActivity, arrayOf(fullUrl, ""))
                 })
@@ -155,11 +155,11 @@ class NhcStormActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (audioPlayMenu(item.itemId, html, product, product)) return true
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(this, this, stormData.url, html, bitmaps)
-            R.id.action_MIATCPEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCP$stormId"))
-            R.id.action_MIATCMEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCM$stormId"))
-            R.id.action_MIATCDEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCD$stormId"))
-            R.id.action_MIAPWSEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIAPWS$stormId"))
+            //R.id.action_share -> UtilityShare.shareText(this, this, stormData.url, html, bitmaps)
+            R.id.action_MIATCPEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCP${stormData.binNumber}"))
+            R.id.action_MIATCMEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCM${stormData.binNumber}"))
+            R.id.action_MIATCDEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCD${stormData.binNumber}"))
+            R.id.action_MIAPWSEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIAPWS${stormData.binNumber}"))
             R.id.action_mute_notification -> UtilityNotificationNhc.muteNotification(this, toolbarTitle)
             else -> return super.onOptionsItemSelected(item)
         }

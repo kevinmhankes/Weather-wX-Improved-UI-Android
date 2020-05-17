@@ -30,6 +30,7 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectLinearLayout
 import joshuatee.wx.ui.ObjectTextView
+import java.util.*
 
 class ObjectCardNhcStormReportItem(context: Context, linearLayout: LinearLayout, stormData: ObjectNhcStormDetails) {
 
@@ -46,12 +47,12 @@ class ObjectCardNhcStormReportItem(context: Context, linearLayout: LinearLayout,
         objectLinearLayout.addViews(listOf(textViewTop.tv, textViewTime.tv, textViewMovement.tv))
         objectLinearLayout.addViews(listOf(textViewPressure.tv, textViewWindSpeed.tv, textViewBottom.tv))
         objectCard.addView(objectLinearLayout.linearLayout)
-        textViewTop.text = stormData.name + " (" + stormData.type + ") " + stormData.center
-        textViewTime.text = stormData.dateTime
+        textViewTop.text = stormData.name + " (" + stormData.classification + ") " + stormData.center
+        textViewTime.text = stormData.dateTime.replace("T", " ").replace(":00.000Z", "Z")
         textViewMovement.text = "Moving: " + stormData.movement
         textViewPressure.text = "Min pressure: " + stormData.pressure
-        textViewWindSpeed.text = "Max sustained: " + stormData.wind
-        textViewBottom.text = stormData.headline + " " + stormData.wallet + " " + stormData.atcf
+        textViewWindSpeed.text = "Max sustained: " + stormData.intensity
+        textViewBottom.text = stormData.status + " " + stormData.binNumber + " " + stormData.id.toUpperCase(Locale.US)
         linearLayout.addView(objectCard.card)
     }
 

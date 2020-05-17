@@ -25,8 +25,36 @@ import java.io.Serializable
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
+import joshuatee.wx.util.UtilityMath
+import java.util.*
 
-class ObjectNhcStormDetails(val data: String, val url: String): Serializable {
+class ObjectNhcStormDetails(
+                            var name: String,
+                            var movementDir: String,
+                            var movementSpeed: String,
+                            var pressure: String,
+                            var binNumber: String,
+                            var id: String,
+                            var lastUpdate: String,
+                            var classification: String,
+                            var lat: String,
+                            var lon: String,
+                            var intensity: String,
+                            var status: String): Serializable {
+
+    var center: String
+    var dateTime: String
+    var movement: String
+    var baseUrl: String
+
+    init {
+        center = lat + " " + lon
+        dateTime = lastUpdate
+        movement = UtilityMath.convertWindDir(movementDir.toDoubleOrNull() ?: 0.0) + " at " + movementSpeed + " mph"
+        var modBinNumber = binNumber
+        if (modBinNumber.length == 3) { modBinNumber = modBinNumber.insert(2, "0") }
+        baseUrl = "https://www.nhc.noaa.gov/storm_graphics/" + modBinNumber + "/" + id.toUpperCase(Locale.US)
+    }
 
     /*
    <nhc:center>30.8, -68.3<br>
@@ -41,7 +69,7 @@ class ObjectNhcStormDetails(val data: String, val url: String): Serializable {
    <nhc:headline> ...ANDREA IS A REMNANT LOW... ...THIS IS THE LAST ADVISORY...<br>
      */
 
-    var center = data.parse("<nhc:center>(.*?)<br> ")
+   /* var center = data.parse("<nhc:center>(.*?)<br> ")
     var type = data.parse("<nhc:type>(.*?)<br> ")
     var name = data.parse("<nhc:name>(.*?)<br> ")
     var wallet = data.parse("<nhc:wallet>(.*?)<br> ")
@@ -51,9 +79,9 @@ class ObjectNhcStormDetails(val data: String, val url: String): Serializable {
     var pressure = data.parse("<nhc:pressure>(.*?)<br> ")
     var wind = data.parse("<nhc:wind>(.*?)<br> ")
     var headline = data.parse("<nhc:headline>(.*?)<br> ")
-    var baseUrl = url.replace("_5day_cone_with_line_and_wind_sm2.png", "")
+    var baseUrl = url.replace("_5day_cone_with_line_and_wind_sm2.png", "")*/
 
-    override fun toString (): String {
+    /*override fun toString (): String {
         var string = center + MyApplication.newline
         string += type + MyApplication.newline
         string += name + MyApplication.newline
@@ -65,7 +93,7 @@ class ObjectNhcStormDetails(val data: String, val url: String): Serializable {
         string += wind + MyApplication.newline
         string += headline + MyApplication.newline
         return string
-    }
+    }*/
 }
 
 
