@@ -112,7 +112,12 @@ object UtilityMath {
     fun rad2deg(rad: Double) = rad * 180.0 / PI
 
     fun convertWindDir(direction: Double): String {
-        val dirStr: String
+        val windDirections = listOf("N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N")
+        val normalizedDirection = direction.toInt() % 360
+        val listIndex = round((normalizedDirection.toDouble() / 22.5)).toInt()
+        return windDirections[listIndex]
+
+        /*val dirStr: String
         if (direction > 337.5 || direction <= 22.5)
             dirStr = "N"
         else if (direction > 22.5 && direction <= 67.5)
@@ -131,7 +136,8 @@ object UtilityMath {
             dirStr = "NW"
         else
             dirStr = ""
-        return dirStr
+        return dirStr*/
+
     }
 
     // https://training.weather.gov/wdtd/tools/misc/beamwidth/index.htm
