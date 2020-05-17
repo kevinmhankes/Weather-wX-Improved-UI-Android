@@ -86,7 +86,7 @@ class ObjectNhc(val context: Context, private val linearLayout: LinearLayout) {
         lastUpdates = html.parseColumn("\"lastUpdate\": \"(.*?)\"")
         binNumbers.forEach {
             val text = UtilityDownload.getTextProduct(context, "MIATCP$it")
-            val status = text.parseFirst("(\\.\\.\\..*?\\.\\.\\.)")
+            val status = text.replace("\n", " ").parseFirst("(\\.\\.\\..*?\\.\\.\\.)")
             statusList.add(status)
         }
     }
