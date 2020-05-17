@@ -13,6 +13,7 @@
 // TODO [REF] rename files/classes in radar folder
 // TODO [REF] use val for lists with .clear() instead of var and reset
 
+55438 2020_05_16
 55437 2020_05_16    [FIX] disable WPC Fronts in multipane due to crash, lower pressure centers still show
 55436 2020_05_16    [REF] misc
                     [ADD] Freeze Warning to WFO warning filter list
