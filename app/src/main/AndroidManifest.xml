@@ -21,8 +21,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="joshuatee.wx"
-    android:versionCode="55436"
-    android:versionName="55436"
+    android:versionCode="55437"
+    android:versionName="55437"
     >
 
  <uses-permission android:name="android.permission.INTERNET" />
