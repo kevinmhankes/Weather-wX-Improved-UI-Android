@@ -13,6 +13,7 @@
 // TODO [REF] rename files/classes in radar folder
 // TODO [REF] use val for lists with .clear() instead of var and reset
 
+55442 2020_05_18
 55441 2020_05_18    [ADD] allWhite theme - wip
 55440 2020_05_17    [ADD] NHC Storm - QPF graphic
                     [ADD] remove bottom toolbar in WPC Images and settings about
