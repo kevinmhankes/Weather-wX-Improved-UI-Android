@@ -15,6 +15,7 @@
 // TODO [ADD] migrate to new icons including new plus icon
 // TODO [FIX] drop down not working in new theme
 
+55443 2020_05_18    [ADD] allWhite theme
 55442 2020_05_18    [ADD] allWhite theme
                     [ADD] in multiple activities move playlist off main toolbar to submenu
 55441 2020_05_18    [ADD] allWhite theme - wip
