@@ -26,6 +26,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
@@ -33,12 +34,13 @@ import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityShare
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
-class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
+class SettingsAboutActivity : BaseActivity() {
 
     private var html = ""
     private lateinit var textCard: ObjectCardText
@@ -46,13 +48,14 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private val iOSUrl = "https://apps.apple.com/us/app/wxl23/id1171250052"
     private val releaseNotesUrl = "https://docs.google.com/document/u/1/d/e/2PACX-1vT-YfH9yH_qmxLHe25UGlJvHHj_25qmTHJoeWPBbNWlvS4nm0YBmFeAnEpeel3GTL3OYKnvXkMNbnOX/pub"
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.generic_about, menu)
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.shared_tts)
-        val menu = toolbarBottom.menu
-        val playlistMi = menu.findItem(R.id.action_playlist)
-        playlistMi.isVisible = false
-        toolbarBottom.setOnMenuItemClickListener(this)
+        super.onCreate(savedInstanceState, R.layout.activity_linear_layout, R.menu.generic_about, false)
         val version = Utility.getVersion(this)
         toolbar.subtitle = "version: $version"
         val faqButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
@@ -65,12 +68,12 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         releaseNotesButton.setOnClickListener(View.OnClickListener { ObjectIntent.showWebView(this, arrayOf(releaseNotesUrl, "Release Notes")) })
         val emailButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         emailButton.setTextColor(UIPreferences.textHighlightColor)
-        emailButton.text = "Email developer"
+        emailButton.text = "Email developer joshua.tee@gmail.com"
         emailButton.setOnClickListener(View.OnClickListener {
             val intent = Intent(Intent.ACTION_SENDTO)
             intent.data = Uri.parse("mailto:")
             intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("joshua.tee@gmail.com"))
-            intent.putExtra(Intent.EXTRA_SUBJECT, "")
+            intent.putExtra(Intent.EXTRA_SUBJECT, "wX version $version")
             startActivity(Intent.createChooser(intent, "Send Email"))
         })
         val iOSVersion = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
@@ -92,8 +95,7 @@ class SettingsAboutActivity : AudioPlayActivity(), OnMenuItemClickListener {
         super.onRestart()
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, html, "txt", "txt")) return true
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> UtilityShare.shareText(this, "About wX", html)
             else -> return super.onOptionsItemSelected(item)
