@@ -211,6 +211,7 @@ object Utility {
         themeStr.startsWith("mixedBlue") -> R.style.MyCustomTheme_mixedBlue_NOAB
         themeStr == "white" -> R.style.MyCustomTheme_white_NOAB
         themeStr.startsWith("whiteNew") -> R.style.MyCustomTheme_whiter_NOAB
+        themeStr.startsWith("allWhite") -> R.style.MyCustomTheme_whitest_NOAB
         themeStr.startsWith("orange") -> R.style.MyCustomTheme_orange_NOAB
         themeStr.startsWith("WhiteToolbar") -> R.style.MyCustomTheme_white_NOAB
         else -> R.style.MyCustomTheme_NOAB

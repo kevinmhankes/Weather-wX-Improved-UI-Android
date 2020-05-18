@@ -46,6 +46,7 @@ class SettingsUIActivity : BaseActivity() {
             "gray",
             "white",
             "whiteNew",
+            "allWhite",
             "orange"
     )
     private val textSizeArr = mutableListOf<String>()
