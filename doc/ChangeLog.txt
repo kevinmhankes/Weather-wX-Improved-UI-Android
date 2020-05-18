@@ -11,8 +11,9 @@
 // TODO [FIX] nexrad cities performance
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
+// TODO [FIX] allWhite theme - icons in alerts/dash
 
-55444 2020_05_18
+55444 2020_05_18    [ADD] allWhite theme
 55443 2020_05_18    [ADD] allWhite theme
                     [FIX] nexrad toolbar for all white theme
                     [FIX] LSR by WFO via SPC Storm reports formatting was corrected
