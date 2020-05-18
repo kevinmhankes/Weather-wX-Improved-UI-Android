@@ -184,6 +184,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         }
         setupAlertDialogRadarLongPress()
         UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
+        toolbar.setTitleTextColor(Color.WHITE)
         if (archiveMode && !spotterShowSelected) toolbarBottom.visibility = View.GONE
         val latLonArrD = UtilityLocation.getGps(this)
         latD = latLonArrD[0]
@@ -273,9 +274,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     private fun setStarButton() {
         if (MyApplication.ridFav.contains(":" + wxglRender.rid + ":")) {
-            starButton.setIcon(MyApplication.STAR_ICON)
+            starButton.setIcon(MyApplication.STAR_ICON_WHITE)
         } else {
-            starButton.setIcon(MyApplication.STAR_OUTLINE_ICON)
+            starButton.setIcon(MyApplication.STAR_OUTLINE_ICON_WHITE)
         }
         starButton.title = starButtonString
     }
@@ -285,7 +286,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         inOglAnim = false
         inOglAnimPaused = false
         setStarButton()
-        animateButton.setIcon(MyApplication.ICON_PLAY)
+        animateButton.setIcon(MyApplication.ICON_PLAY_WHITE)
         animateButton.title = animateButtonPlayString
         restarted = true
         restartedZoom = true
@@ -546,7 +547,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             // (revert) 2016_08 have this apply to Level 3 in addition to Level 2
             if (wxglRender.product.contains("L2")) SystemClock.sleep(2000)
             setStarButton()
-            animateButton.setIcon(MyApplication.ICON_PLAY)
+            animateButton.setIcon(MyApplication.ICON_PLAY_WHITE)
             animateButton.title = animateButtonPlayString
             getContent()
             if (item.itemId == R.id.action_a) return true
@@ -644,9 +645,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun animateRadar(frameCount: Int) {
-        animateButton.setIcon(MyApplication.ICON_STOP)
+        animateButton.setIcon(MyApplication.ICON_STOP_WHITE)
         animateButton.title = animateButtonStopString
-        starButton.setIcon(MyApplication.ICON_PAUSE)
+        starButton.setIcon(MyApplication.ICON_PAUSE_WHITE)
         starButton.title = pauseButtonString
         getAnimate(frameCount)
     }
@@ -687,7 +688,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         if (radarSitesForFavorites.size > 2) {
             inOglAnim = false
             inOglAnimPaused = false
-            animateButton.setIcon(MyApplication.ICON_PLAY)
+            animateButton.setIcon(MyApplication.ICON_PLAY_WHITE)
             animateButton.title = animateButtonPlayString
             when (position) {
                 1 -> ObjectIntent.favoriteAdd(this, arrayOf("RID"))
@@ -956,11 +957,11 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private fun actionToggleFavorite() {
         if (inOglAnim) {
             inOglAnimPaused = if (!inOglAnimPaused) {
-                starButton.setIcon(MyApplication.ICON_PLAY)
+                starButton.setIcon(MyApplication.ICON_PLAY_WHITE)
                 starButton.title = resumeButtonString
                 true
             } else {
-                starButton.setIcon(MyApplication.ICON_PAUSE)
+                starButton.setIcon(MyApplication.ICON_PAUSE_WHITE)
                 starButton.title = pauseButtonString
                 false
             }
@@ -1011,7 +1012,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
                         // (revert) 2016_08 have this apply to Level 3 in addition to Level 2
                         if (wxglRender.product.contains("L2")) SystemClock.sleep(2000)
                         setStarButton()
-                        animateButton.setIcon(MyApplication.ICON_PLAY)
+                        animateButton.setIcon(MyApplication.ICON_PLAY_WHITE)
                         animateButton.title = animateButtonPlayString
                         getContent()
                     } else {

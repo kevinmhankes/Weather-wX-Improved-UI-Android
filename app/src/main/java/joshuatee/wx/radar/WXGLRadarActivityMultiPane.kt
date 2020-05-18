@@ -27,6 +27,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -178,6 +179,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         if (useSinglePanePref) prefPrefix = "WXOGL"
         setupAlertDialogRadarLongPress()
         UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
+        toolbar.setTitleTextColor(Color.WHITE)
         val latLonListAsDoubles = UtilityLocation.getGps(this as Context)
         latD = latLonListAsDoubles[0]
         lonD = latLonListAsDoubles[1]
@@ -355,7 +357,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         delay = UtilityImg.animInterval(this)
         inOglAnim = false
         inOglAnimPaused = false
-        animateButton.setIcon(MyApplication.ICON_PLAY)
+        animateButton.setIcon(MyApplication.ICON_PLAY_WHITE)
         animateButton.title = animateButtonPlayString
         restartedZoom = true
         panesList.forEach {
@@ -574,7 +576,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             // otherwise the new selection might overwrite in the OGLR object - hack
             // (revert) 2016_08 have this apply to Level 3 in addition to Level 2
             if (wxglRenders[0].product.contains("L2") || wxglRenders[1].product.contains("L2")) SystemClock.sleep(2000)
-            animateButton.setIcon(MyApplication.ICON_PLAY)
+            animateButton.setIcon(MyApplication.ICON_PLAY_WHITE)
             animateButton.title = animateButtonPlayString
             // spotter code is serialized for now
             if (PolygonType.SPOTTER.pref || PolygonType.SPOTTER_LABELS.pref) getContentSerial() else getContentParallel()
@@ -673,11 +675,11 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             R.id.action_fav -> {
                 if (inOglAnim) {
                     inOglAnimPaused = if (!inOglAnimPaused) {
-                        pauseButton.setIcon(MyApplication.ICON_PLAY)
+                        pauseButton.setIcon(MyApplication.ICON_PLAY_WHITE)
                         pauseButton.title = resumeButtonString
                         true
                     } else {
-                        pauseButton.setIcon(MyApplication.ICON_PAUSE)
+                        pauseButton.setIcon(MyApplication.ICON_PAUSE_WHITE)
                         pauseButton.title = pauseButtonString
                         false
                     }
@@ -708,9 +710,9 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     }
 
     private fun animateRadar(frameCount: Int) {
-        animateButton.setIcon(MyApplication.ICON_STOP)
+        animateButton.setIcon(MyApplication.ICON_STOP_WHITE)
         animateButton.title = animateButtonStopString
-        pauseButton.setIcon(MyApplication.ICON_PAUSE)
+        pauseButton.setIcon(MyApplication.ICON_PAUSE_WHITE)
         pauseButton.title = pauseButtonString
         getAnimate(frameCount)
     }
@@ -743,7 +745,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             // if an L2 anim is in process sleep for 1 second to let the current decode/render finish
             // otherwise the new selection might overwrite in the OGLR object - hack
             if (wxglRenders[0].product.contains("L2") || wxglRenders[1].product.contains("L2")) SystemClock.sleep(2000)
-            animateButton.setIcon(MyApplication.ICON_PLAY)
+            animateButton.setIcon(MyApplication.ICON_PLAY_WHITE)
             animateButton.title = animateButtonPlayString
         }
 

@@ -6,7 +6,7 @@
     android:layout_height="@dimen/nav_header_height"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:background="@color/bg_blue"
+    android:background="@color/primary_blue"
     >
     <TextView
         android:id="@+id/statusText"
@@ -21,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/primary_blue"
         >
         <ImageButton
             android:layout_width="wrap_content"
@@ -42,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/primary_blue"
         >
         <ImageButton
             android:layout_width="wrap_content"
@@ -63,6 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/primary_blue"
         >
         <ImageButton
             android:layout_width="wrap_content"
@@ -84,6 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/primary_blue"
         >
         <ImageButton
             android:layout_width="wrap_content"
@@ -105,6 +109,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/primary_blue"
         >
         <ImageButton
             android:layout_width="wrap_content"

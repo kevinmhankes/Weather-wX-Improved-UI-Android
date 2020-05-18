@@ -236,7 +236,7 @@ class WX : CommonActionBarFragment() {
                 }
                 true
             }
-            ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD, OnClickListener {
+            ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD2, OnClickListener {
                 val headerSize: Float
                 val tabStr = UtilitySpc.checkSpc()
                 if (MyApplication.checkspc || MyApplication.checktor || MyApplication.checkwpc

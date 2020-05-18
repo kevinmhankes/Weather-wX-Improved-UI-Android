@@ -290,12 +290,23 @@ class MyApplication : Application() {
         const val ICON_DELETE = R.drawable.ic_delete_24dp
         const val STAR_ICON = R.drawable.ic_star_24dp
         const val STAR_OUTLINE_ICON = R.drawable.ic_star_outline_24dp
+        const val STAR_ICON_WHITE = R.drawable.ic_star_24dp_white
+        const val STAR_OUTLINE_ICON_WHITE = R.drawable.ic_star_outline_24dp_white
+
         const val ICON_PLAY = R.drawable.ic_play_arrow_24dp
+        const val ICON_PLAY_WHITE = R.drawable.ic_play_arrow_24dp_white
+
         const val ICON_STOP = R.drawable.ic_stop_24dp
+        const val ICON_STOP_WHITE = R.drawable.ic_stop_24dp_white
+
         const val ICON_MIC = R.drawable.ic_mic_24dp
         const val ICON_PAUSE = R.drawable.ic_pause_24dp
+        const val ICON_PAUSE_WHITE = R.drawable.ic_pause_24dp_white
+
         const val ICON_PAUSE_PRESSED = R.drawable.ic_pause_white_24dp
         const val ICON_ADD = R.drawable.ic_add_box_24dp
+        const val ICON_ADD2 = R.drawable.ic_add2_box_24dp_white
+
         //const val ICON_BACK = R.drawable.ic_keyboard_arrow_left_24dp
         //const val ICON_FORWARD = R.drawable.ic_keyboard_arrow_right_24dp
         const val ICON_SKIP_BACK = R.drawable.ic_skip_previous_24dp
