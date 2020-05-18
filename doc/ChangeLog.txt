@@ -11,11 +11,10 @@
 // TODO [FIX] nexrad cities performance
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
-// TODO [REF] use val for lists with .clear() instead of var and reset
-// TODO [ADD] migrate to new icons including new plus icon
-// TODO [FIX] drop down not working in new theme
 
 55443 2020_05_18    [ADD] allWhite theme
+                    [FIX] nexrad toolbar for all white theme
+                    [FIX] LSR by WFO via SPC Storm reports formatting was corrected
 55442 2020_05_18    [ADD] allWhite theme
                     [ADD] in multiple activities move playlist off main toolbar to submenu
 55441 2020_05_18    [ADD] allWhite theme - wip

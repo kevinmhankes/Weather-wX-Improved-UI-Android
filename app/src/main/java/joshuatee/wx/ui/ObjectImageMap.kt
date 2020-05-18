@@ -23,10 +23,12 @@ package joshuatee.wx.ui
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import joshuatee.wx.util.ImageMap
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.MyApplication
+import joshuatee.wx.util.Utility
 
 class ObjectImageMap(
     val activity: Activity,
@@ -48,6 +50,10 @@ class ObjectImageMap(
         if (map.visibility == View.GONE) {
             setupMap()
             if (isRadarWithTransparent) {
+                if (Utility.isThemeAllWhite()) {
+                    toolbar.setBackgroundColor(Color.BLACK)
+                    toolbarBottom.setBackgroundColor(Color.BLACK)
+                }
                 toolbar.background.mutate().alpha = 255
                 toolbarBottom.background.mutate().alpha = 255
             }

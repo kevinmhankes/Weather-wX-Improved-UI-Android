@@ -18,7 +18,6 @@
 
  -->
 
-<!--
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar_top"
@@ -27,16 +26,7 @@
     android:background="?attr/colorPrimary"
     android:minHeight="?attr/actionBarSize"
     app:theme="@style/MyLightToolbarStyle"
-    app:popupTheme="@style/MyLightToolbarStyle"> -->
-
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar_top"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/colorPrimary"
-    android:minHeight="?attr/actionBarSize"
-    app:popupTheme="@style/MyDarkToolbarStyle">
+    app:popupTheme="@style/MyLightToolbarStyle">
 
     <Spinner
         android:id="@+id/spinner1"

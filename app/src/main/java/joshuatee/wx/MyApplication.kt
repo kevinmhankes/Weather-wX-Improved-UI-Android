@@ -300,10 +300,10 @@ class MyApplication : Application() {
         const val STAR_ICON_WHITE = R.drawable.ic_star_24dp_white
         const val STAR_OUTLINE_ICON_WHITE = R.drawable.ic_star_outline_24dp_white
 
-        const val ICON_PLAY = R.drawable.ic_play_arrow_24dp
+        //const val ICON_PLAY = R.drawable.ic_play_arrow_24dp
         const val ICON_PLAY_WHITE = R.drawable.ic_play_arrow_24dp_white
 
-        const val ICON_STOP = R.drawable.ic_stop_24dp
+        //const val ICON_STOP = R.drawable.ic_stop_24dp
         const val ICON_STOP_WHITE = R.drawable.ic_stop_24dp_white
 
         const val ICON_MIC = R.drawable.ic_mic_24dp

@@ -179,6 +179,11 @@
         <item name="android:colorBackground">?attr/colorPrimaryDark</item>
     </style>
 
+    <style name="MyLightToolbarStyle" parent="ThemeOverlay.MaterialComponents.Dark">
+        <item name="android:colorBackground">?attr/colorPrimaryDark</item>
+        <item name="android:textColorSecondary">#B3FFFFFF</item>
+    </style>
+
    <!-- <style name="MyDialogTheme" parent="Theme.MaterialComponents.Dialog">
         <item name="android:windowBackground">@color/primary_dark_blue</item>
         <item name="android:windowIsFloating">true</item>

@@ -143,25 +143,43 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         if (numberOfPanes == 2) {
             if (UIPreferences.radarImmersiveMode || UIPreferences.radarToolbarTransparent) {
                 if (landScape) {
-                    layoutType = R.layout.activity_uswxoglmultipane_immersive_landscape
+                    layoutType = if (Utility.isThemeAllWhite())
+                        R.layout.activity_uswxoglmultipane_immersive_landscape_white
+                    else
+                        R.layout.activity_uswxoglmultipane_immersive_landscape
                     heightDivider = 1
                 } else {
-                    layoutType = R.layout.activity_uswxoglmultipane_immersive
+                    layoutType = if (Utility.isThemeAllWhite())
+                        R.layout.activity_uswxoglmultipane_immersive_white
+                    else
+                        R.layout.activity_uswxoglmultipane_immersive
                 }
             } else {
                 if (landScape) {
-                    layoutType = R.layout.activity_uswxoglmultipane_immersive_landscape
+                    layoutType = if (Utility.isThemeAllWhite())
+                        R.layout.activity_uswxoglmultipane_immersive_landscape_white
+                    else
+                        R.layout.activity_uswxoglmultipane_immersive_landscape
                     heightDivider = 1
                 } else {
-                    layoutType = R.layout.activity_uswxoglmultipane
+                    layoutType = if (Utility.isThemeAllWhite())
+                        R.layout.activity_uswxoglmultipane_white
+                    else
+                        R.layout.activity_uswxoglmultipane
                 }
             }
             super.onCreate(savedInstanceState, layoutType, R.menu.uswxoglradarmultipane, iconsEvenlySpaced = true, bottomToolbar = true)
         } else {
             layoutType = if (UIPreferences.radarImmersiveMode || UIPreferences.radarToolbarTransparent) {
-                R.layout.activity_uswxoglmultipane_quad_immersive
+                if (Utility.isThemeAllWhite())
+                    R.layout.activity_uswxoglmultipane_quad_immersive_white
+                else
+                    R.layout.activity_uswxoglmultipane_quad_immersive
             } else {
-                R.layout.activity_uswxoglmultipane_quad
+                if (Utility.isThemeAllWhite())
+                    R.layout.activity_uswxoglmultipane_quad_white
+                else
+                    R.layout.activity_uswxoglmultipane_quad
             }
             super.onCreate(savedInstanceState, layoutType, R.menu.uswxoglradarmultipane, iconsEvenlySpaced = true, bottomToolbar = true)
         }

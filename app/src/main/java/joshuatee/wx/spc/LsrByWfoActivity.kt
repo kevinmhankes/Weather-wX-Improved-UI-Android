@@ -57,9 +57,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
     // 2: product ( always LSR )
     //
 
-    companion object {
-        const val URL = ""
-    }
+    companion object { const val URL = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var firstTime = true
@@ -148,7 +146,10 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
         ridFavOld = MyApplication.wfoFav
         wfoProd = withContext(Dispatchers.IO) { lsrFromWfo }
         linearLayout.removeAllViewsInLayout()
-        wfoProd.forEach { ObjectCardText(this@LsrByWfoActivity, linearLayout, Utility.fromHtml(it)) }
+        wfoProd.forEach {
+            val objectCardText = ObjectCardText(this@LsrByWfoActivity, linearLayout, Utility.fromHtml(it))
+            objectCardText.typefaceMono()
+        }
     }
 
     private val lsrFromWfo: List<String>
