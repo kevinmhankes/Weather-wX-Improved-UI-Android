@@ -65,7 +65,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         val icon = if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying) {
             MyApplication.ICON_PAUSE_PRESSED
         } else {
-            MyApplication.ICON_PAUSE
+            MyApplication.ICON_PAUSE_WHITE
         }
         fabPause.fabSetResDrawable(this, icon)
         diaAfd = ObjectDialogue(this, "Select fixed location AFD products:", GlobalArrays.wfos)

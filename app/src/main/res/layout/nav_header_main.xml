@@ -21,7 +21,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/primary_blue"
         >
         <ImageButton
             android:layout_width="wrap_content"
@@ -43,7 +42,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/primary_blue"
         >
         <ImageButton
             android:layout_width="wrap_content"
@@ -65,7 +63,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/primary_blue"
         >
         <ImageButton
             android:layout_width="wrap_content"
@@ -87,7 +84,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/primary_blue"
         >
         <ImageButton
             android:layout_width="wrap_content"
@@ -109,14 +105,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/primary_blue"
         >
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/settingsButton"
             android:backgroundTint="@color/bg_blue"
-            app:srcCompat="@drawable/ic_add_box_24dp_white"/>
+            app:srcCompat="@drawable/ic_settings_24dp_white"/>
         <TextView
             android:id="@+id/settingsText"
             android:layout_width="wrap_content"

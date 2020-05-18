@@ -27,6 +27,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 
 import java.util.Locale
@@ -36,6 +37,7 @@ import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.notifications.UtilityNotificationTextProduct
 import joshuatee.wx.MyApplication
+import joshuatee.wx.UIPreferences
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.ui.ObjectSpinner
 
@@ -132,6 +134,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener,
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
         when (position) {
             1 -> ObjectIntent.favoriteAdd(this, arrayOf("NWSTEXT"))
             2 -> ObjectIntent.favoriteRemove(this, arrayOf("NWSTEXT"))

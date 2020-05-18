@@ -24,6 +24,7 @@ package joshuatee.wx.activitiesmisc
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.res.Configuration
+import android.graphics.Color
 import java.util.Locale
 
 import androidx.cardview.widget.CardView
@@ -33,6 +34,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.view.GravityCompat
 import joshuatee.wx.Extensions.getHtml
@@ -45,6 +47,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.GlobalArrays
+import joshuatee.wx.UIPreferences
 import joshuatee.wx.ui.*
 
 import joshuatee.wx.objects.ObjectIntent
@@ -251,6 +254,7 @@ class WfoTextActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemC
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
         if (locationList.isNotEmpty()) {
             when (position) {
                 1 -> ObjectIntent.favoriteAdd(this, arrayOf("WFO"))

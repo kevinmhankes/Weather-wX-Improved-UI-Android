@@ -24,33 +24,33 @@ package joshuatee.wx.settings
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.SearchView.OnQueryTextListener
-import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
-import android.content.Intent
 import android.view.*
 import android.view.View.OnClickListener
 import android.widget.*
-
-import joshuatee.wx.R
-import joshuatee.wx.canada.UtilityCitiesCanada
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import joshuatee.wx.MyApplication
+import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.canada.UtilityCitiesCanada
 import joshuatee.wx.notifications.UtilityWXJobService
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.UtilityCitiesExtended
 import joshuatee.wx.ui.*
-import joshuatee.wx.util.*
+import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityMap
+import kotlinx.android.synthetic.main.activity_settings_location_generic.*
 import kotlinx.coroutines.*
 
-import kotlinx.android.synthetic.main.activity_settings_location_generic.*
 
 class SettingsLocationGenericActivity : BaseActivity(),
         OnMenuItemClickListener { // OnCheckedChangeListener OnClickListener
@@ -358,7 +358,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
             }
         })
         menuLocal = menu
-        if (UIPreferences.themeIsWhite) changeSearchViewTextColor(searchView)
+        if (UIPreferences.themeIsWhite && UIPreferences.themeInt != R.style.MyCustomTheme_whitest_NOAB) changeSearchViewTextColor(searchView)
         // the SearchView's AutoCompleteTextView drop down. For some reason this wasn't working in styles.xml
         val autoCompleteTextView: SearchView.SearchAutoComplete = searchView.findViewById(R.id.search_src_text)
         if (UIPreferences.themeIsWhite)

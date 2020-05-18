@@ -27,6 +27,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import joshuatee.wx.Extensions.getImage
 
@@ -36,6 +37,7 @@ import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
 
 import joshuatee.wx.GlobalArrays
+import joshuatee.wx.UIPreferences
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
@@ -93,6 +95,7 @@ class SpcSwoStateGraphicsActivity : VideoRecordActivity(), OnItemSelectedListene
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
         if (firstTime) {
             UtilityToolbar.fullScreenMode(this)
             firstTime = false

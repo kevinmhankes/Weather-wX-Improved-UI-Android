@@ -47,6 +47,7 @@ import android.widget.RelativeLayout
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.os.Handler
 import android.view.KeyEvent
+import android.widget.TextView
 
 import joshuatee.wx.R
 import joshuatee.wx.settings.UtilityLocation
@@ -685,6 +686,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private fun showRadarScanInfo() { ObjectDialogue(this, WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"")) }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+        (parent.getChildAt(0) as TextView).setTextColor(Color.WHITE)
         if (radarSitesForFavorites.size > 2) {
             inOglAnim = false
             inOglAnimPaused = false

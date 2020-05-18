@@ -283,11 +283,18 @@ class MyApplication : Application() {
         const val ICON_ACTION = R.drawable.ic_play_arrow_24dp
         const val ICON_ALERT = R.drawable.ic_warning_24dp
         const val ICON_RADAR = R.drawable.ic_flash_on_24dp
+        const val ICON_RADAR_WHITE = R.drawable.ic_flash_on_24dp_white
+        const val ICON_RADAR_BLACK = R.drawable.ic_flash_on_24dp_black
+
         const val ICON_FORECAST = R.drawable.ic_place_24dp
         const val ICON_CURRENT = R.drawable.ic_info_outline_24dp
+        const val ICON_CURRENT_BLACK = R.drawable.ic_info_outline_24dp_black
+
         const val ICON_NHC_1 = R.drawable.ic_brightness_auto_24dp
         //const val ICON_NHC_2 = R.drawable.ic_brightness_medium_24dp
         const val ICON_DELETE = R.drawable.ic_delete_24dp
+        const val ICON_DELETE_WHITE = R.drawable.ic_delete_24dp_white
+
         const val STAR_ICON = R.drawable.ic_star_24dp
         const val STAR_OUTLINE_ICON = R.drawable.ic_star_outline_24dp
         const val STAR_ICON_WHITE = R.drawable.ic_star_24dp_white

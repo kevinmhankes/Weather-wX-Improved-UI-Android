@@ -34,6 +34,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.view.GravityCompat
 import joshuatee.wx.MyApplication
 
@@ -128,6 +129,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
         when (parent.id) {
             R.id.spinner_run -> if (!spinnerRunRan) spinnerRunRan = true
             R.id.spinner_time -> if (!spinnerTimeRan) spinnerTimeRan = true

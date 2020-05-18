@@ -32,6 +32,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.LinearLayout
+import android.widget.TextView
 import joshuatee.wx.Extensions.getHtml
 
 import joshuatee.wx.MyApplication
@@ -415,6 +416,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener,
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
         when (parent.id) {
             R.id.spinner1 -> {
                 when (position) {

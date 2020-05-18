@@ -29,10 +29,12 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
+import joshuatee.wx.UIPreferences
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.*
@@ -122,6 +124,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
         if (locations.isNotEmpty()) {
             when (position) {
                 1 -> ObjectIntent.favoriteAdd(this, arrayOf("WFO"))

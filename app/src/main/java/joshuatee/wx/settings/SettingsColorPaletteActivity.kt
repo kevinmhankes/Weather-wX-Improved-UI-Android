@@ -71,7 +71,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
         title = MyApplication.radarColorPalette[type]
         prefToken = "RADAR_COLOR_PALETTE_$type"
         fab1 = ObjectFab(this, this, R.id.fab1, R.drawable.ic_reorder_24dp, View.OnClickListener { addPalFab() })
-        fab2 = ObjectFab(this, this, R.id.fab2, MyApplication.ICON_DELETE, View.OnClickListener { editPalFab() })
+        fab2 = ObjectFab(this, this, R.id.fab2, MyApplication.ICON_DELETE_WHITE, View.OnClickListener { editPalFab() })
         rowListItem = allItemList
         val gridLayoutManager = GridLayoutManager(this, UIPreferences.tilesPerRow)
         cardList.setHasFixedSize(true)
@@ -122,7 +122,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                 if (MyApplication.radarColorPalette[type] == it.colorMapLabel && it.builtin) {
                     builtinStr = "true"
                     fab2.visibility = View.GONE
-                    fab1.fab.setImageDrawable(ContextCompat.getDrawable(this@SettingsColorPaletteActivity, R.drawable.ic_add_box_24dp))
+                    fab1.fab.setImageDrawable(ContextCompat.getDrawable(this@SettingsColorPaletteActivity, MyApplication.ICON_ADD2))
                 }
             }
             return allItems
@@ -178,7 +178,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
         if (rowListItem[position].builtin) {
             builtinStr = "true"
             fab2.visibility = View.GONE
-            fab1.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_add_box_24dp))
+            fab1.fab.setImageDrawable(ContextCompat.getDrawable(this, MyApplication.ICON_ADD2))
         } else {
             builtinStr = "false"
             fab2.visibility = View.VISIBLE

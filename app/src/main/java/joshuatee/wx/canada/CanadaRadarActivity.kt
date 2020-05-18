@@ -30,6 +30,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.TextView
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
@@ -200,6 +201,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
         if (firstTime) {
             UtilityToolbar.fullScreenMode(toolbar, toolbarBottom)
             firstTime = false

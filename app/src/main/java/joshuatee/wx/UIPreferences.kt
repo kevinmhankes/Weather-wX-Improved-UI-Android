@@ -62,6 +62,7 @@ object UIPreferences {
     var normalTextSize = 16
     var navDrawerMainScreen = false
     var navDrawerMainScreenOnRight = true
+    var spinnerTextColor = Color.WHITE
 
     fun initPreferences(context: Context) {
         navDrawerMainScreen = Utility.readPref(context, "NAV_DRAWER_MAIN_SCREEN", "false").startsWith("t")
@@ -106,6 +107,9 @@ object UIPreferences {
             textHighlightColor = Color.YELLOW
             backgroundColor = Color.WHITE
             themeIsWhite = false
+        }
+        if (themeInt == R.style.MyCustomTheme_whitest_NOAB) {
+            spinnerTextColor = Color.BLACK
         }
     }
 }

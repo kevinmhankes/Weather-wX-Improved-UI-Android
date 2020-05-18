@@ -40,8 +40,8 @@ class ObjectCardAlertSummaryItem(context: Context) {
     private val textViewStart = ObjectTextView(context, TextSize.SMALL)
     private val textViewEnd = ObjectTextView(context, TextSize.SMALL)
     private val textViewBottom = ObjectTextView(context, backgroundText = true)
-    val radarButton = ObjectButton(context,"Radar", MyApplication.ICON_RADAR)
-    val detailsButton = ObjectButton(context,"Details", MyApplication.ICON_CURRENT)
+    val radarButton = ObjectButton(context,"Radar", MyApplication.ICON_RADAR_BLACK)
+    val detailsButton = ObjectButton(context,"Details", MyApplication.ICON_CURRENT_BLACK)
 
     init {
         val objectLinearLayout = ObjectLinearLayout(context, LinearLayout.VERTICAL, Gravity.CENTER_VERTICAL)

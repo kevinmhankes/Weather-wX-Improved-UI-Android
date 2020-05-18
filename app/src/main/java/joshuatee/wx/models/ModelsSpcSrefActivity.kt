@@ -34,6 +34,7 @@ import android.view.View.OnClickListener
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.LinearLayout
+import android.widget.TextView
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
@@ -231,6 +232,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
         if (spinnerRunRan && spinnerTimeRan) {
             if (parent.id == R.id.spinner1) {
                 when (position) {

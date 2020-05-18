@@ -37,6 +37,7 @@ import android.view.View.OnClickListener
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -98,7 +99,7 @@ class WX : CommonActionBarFragment() {
         val menu = toolbarBottom.menu
         voiceRecognitionIcon = menu.findItem(R.id.action_vr)
         voiceRecognitionIcon.isVisible = MyApplication.vrButton
-        val fab = ObjectFab(this, this, R.id.fab, MyApplication.ICON_RADAR, OnClickListener { openNexradRadar(this) })
+        val fab = ObjectFab(this, this, R.id.fab, MyApplication.ICON_RADAR_WHITE, OnClickListener { openNexradRadar(this) })
         if (UIPreferences.mainScreenRadarFab) {
             val radarMi = menu.findItem(R.id.action_radar)
             radarMi.isVisible = false
@@ -121,9 +122,14 @@ class WX : CommonActionBarFragment() {
             navigationView.itemIconTintList = null
             if (!UIPreferences.themeIsWhite) navigationView.itemTextColor = ColorStateList.valueOf(Color.WHITE)
             val color = UtilityTheme.getPrimaryColorFromSelectedTheme(this, 0)
-            val tint = ColorStateList.valueOf(color)
+            var tint = ColorStateList.valueOf(color)
             val headerLayout = navigationView.getHeaderView(0)
             headerLayout.setBackgroundColor(color)
+            if (UIPreferences.themeInt == R.style.MyCustomTheme_whitest_NOAB) {
+                val colorForWhite = ContextCompat.getColor(this, R.color.primary_blue)
+                headerLayout.setBackgroundColor(colorForWhite)
+                tint = ColorStateList.valueOf(colorForWhite)
+            }
             // TODO chunk below needs a lot of refactor , create static objectIntent and pass drawer to close as optional
             val statusText = headerLayout.findViewById<TextView>(R.id.statusText)
             statusText.visibility = View.GONE
