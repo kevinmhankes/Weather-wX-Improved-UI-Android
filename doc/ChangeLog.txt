@@ -14,6 +14,7 @@
 // TODO [REF] use val for lists with .clear() instead of var and reset
 
 55440 2020_05_17    [ADD] NHC Storm - QPF graphic
+                    [ADD] remove bottom toolbar in WPC Images and settings about
 55439 2020_05_17    [ADD] Radar mosaic - remove bottom toolbars
 55438 2020_05_17    [ADD] NHC Storm move to json data source per https://www.weather.gov/media/notification/scn20-25tropical_javascrpt.pdf
                     [ADD] remove un-needed toolbar options in NHC and NHC Storm and remove bottom toolbar

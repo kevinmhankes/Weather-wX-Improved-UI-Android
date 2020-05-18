@@ -22,21 +22,14 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <include layout="@layout/widget_toolbar_bottom" />
-
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_above="@id/toolbar_bottom"
             android:orientation="vertical">
-
             <include layout="@layout/widget_toolbar_top" />
-
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -46,18 +39,15 @@
                 android:orientation="vertical"
                 android:padding="0dip"
                 android:stretchColumns="*">
-
                 <joshuatee.wx.ui.TouchImageView2
                     android:id="@+id/img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:scaleType="fitCenter" />
-
             </TableLayout>
         </LinearLayout>
     </RelativeLayout>
-
     <ExpandableListView
         android:id="@+id/left_drawer"
         android:layout_width="480dp"

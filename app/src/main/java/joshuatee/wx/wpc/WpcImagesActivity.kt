@@ -24,7 +24,7 @@ package joshuatee.wx.wpc
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.content.res.Configuration
-import androidx.appcompat.widget.Toolbar
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import joshuatee.wx.Extensions.getImage
@@ -41,34 +41,42 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_wpcimages.*
 
-class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
-        Toolbar.OnMenuItemClickListener {
+class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener {
 
-    companion object {
-        const val URL = ""
-    }
+    companion object { const val URL = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var bitmap = UtilityImg.getBlankBitmap()
     private var timePeriod = 1
     private var firstRun = false
     private var imageLoaded = false
-    private lateinit var actionBack: MenuItem
-    private lateinit var actionForward: MenuItem
+    private var actionBack: MenuItem? = null
+    private var actionForward: MenuItem? = null
     private lateinit var drw: ObjectNavDrawerCombo
     private lateinit var activityArguments: Array<String>
     private var calledFromHomeScreen = false
     private var homeScreenId = ""
 
-    /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.wpcimages, menu)
         return true
-    }*/
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        actionBack = menu.findItem(R.id.action_back)
+        actionForward = menu.findItem(R.id.action_forward)
+        actionBack!!.isVisible = false
+        actionForward!!.isVisible = false
+        if (drw.getUrl().contains("https://graphical.weather.gov/images/conus/")) {
+            actionBack!!.isVisible = true
+            actionForward!!.isVisible = true
+        }
+        return super.onPrepareOptionsMenu(menu)
+    }
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_wpcimages, R.menu.wpcimages, iconsEvenlySpaced = true, bottomToolbar = true)
-        toolbarBottom.setOnMenuItemClickListener(this)
+        super.onCreate(savedInstanceState, R.layout.activity_wpcimages, R.menu.wpcimages, iconsEvenlySpaced = true, bottomToolbar = false)
         img.setOnClickListener(this)
         img.setOnTouchListener(object : OnSwipeTouchListener(this) {
             override fun onSwipeLeft() {
@@ -86,11 +94,11 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
                 calledFromHomeScreen = true
             }
         }
-        val menu = toolbarBottom.menu
-        actionBack = menu.findItem(R.id.action_back)
-        actionForward = menu.findItem(R.id.action_forward)
-        actionBack.isVisible = false
-        actionForward.isVisible = false
+        //val menu = toolbarBottom.menu
+        //actionBack = menu.findItem(R.id.action_back)
+        //actionForward = menu.findItem(R.id.action_forward)
+        //actionBack.isVisible = false
+        //actionForward.isVisible = false
         UtilityWpcImages.createData()
         drw = ObjectNavDrawerCombo(this, UtilityWpcImages.groups, UtilityWpcImages.longCodes, UtilityWpcImages.shortCodes, this, "WPG_IMG")
         drw.setListener(::getContentFixThis)
@@ -116,17 +124,17 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
             when {
                 drw.getUrl().contains("https://graphical.weather.gov/images/conus/") -> {
                     getUrl = drw.getUrl() + timePeriod + "_conus.png"
-                    actionBack.isVisible = true
-                    actionForward.isVisible = true
+                    ///actionBack.isVisible = true
+                    //actionForward.isVisible = true
                 }
                 drw.getUrl().contains("aviationweather") -> {
-                    actionBack.isVisible = true
-                    actionForward.isVisible = true
+                    //actionBack.isVisible = true
+                    //actionForward.isVisible = true
                     getUrl = drw.getUrl()
                 }
                 else -> {
-                    actionBack.isVisible = false
-                    actionForward.isVisible = false
+                    //actionBack.isVisible = false
+                    //actionForward.isVisible = false
                     getUrl = drw.getUrl()
                 }
             }
@@ -146,6 +154,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
             firstRun = true
         }
         imageLoaded = true
+        invalidateOptionsMenu()
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -158,7 +167,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
         drw.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_forward -> {
@@ -179,8 +188,6 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener,
         }
         return true
     }
-
-    override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onClick(v: View) {
         when (v.id) {
