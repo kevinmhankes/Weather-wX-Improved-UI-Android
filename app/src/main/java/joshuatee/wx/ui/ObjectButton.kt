@@ -23,8 +23,10 @@ package joshuatee.wx.ui
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.view.View
 import com.google.android.material.button.MaterialButton
+import joshuatee.wx.util.Utility
 
 class ObjectButton(context: Context, title: String, icon: Int) {
 
@@ -39,6 +41,8 @@ class ObjectButton(context: Context, title: String, icon: Int) {
         button.setIconResource(icon)
         button.setBackgroundColor(Color.TRANSPARENT)
         button.setPadding(padding, padding, padding, padding)
+        if (Utility.isThemeAllWhite()) button.iconTintMode = PorterDuff.Mode.DARKEN
+        if (Utility.isThemeAllBlack()) button.iconTintMode = PorterDuff.Mode.LIGHTEN
     }
 
     fun setOnClickListener(fn: View.OnClickListener) { button.setOnClickListener(fn) }

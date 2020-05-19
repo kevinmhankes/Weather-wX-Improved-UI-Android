@@ -23,6 +23,7 @@ package joshuatee.wx.ui
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.util.SparseArray
@@ -49,6 +50,7 @@ class ObjectNavDrawerCombo(
     var imgGroupIdx: Int
 
     init {
+        if (Utility.isThemeAllWhite()) listView.setBackgroundColor(Color.WHITE)
         listView.setAdapter(MyExpandableListAdapter(activity, items))
         actionBarDrawerToggle = ActionBarDrawerToggle(
             activity,

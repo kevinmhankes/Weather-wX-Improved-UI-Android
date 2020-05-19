@@ -22,13 +22,18 @@
 package joshuatee.wx.ui
 
 import android.app.Activity
+import android.graphics.Color
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.ActionBarDrawerToggle
 import android.widget.ArrayAdapter
 import android.widget.ListView
-
+import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
 import joshuatee.wx.R
+import joshuatee.wx.util.Utility
+
 
 class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
 
@@ -39,7 +44,18 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
     var index = 0
 
     init {
-        listView.adapter = ArrayAdapter(activity, R.layout.drawer_list_item, labels)
+        if (Utility.isThemeAllWhite()) {
+            listView.setBackgroundColor(Color.WHITE)
+            listView.adapter = object : ArrayAdapter<String>(activity, R.layout.drawer_list_item, labels) {
+                override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    val view: View = super.getView(position, convertView, parent)
+                    view.findViewById<TextView>(android.R.id.text1).setTextColor(Color.BLACK)
+                    return view
+                }
+            }
+        } else {
+            listView.adapter = ArrayAdapter(activity, R.layout.drawer_list_item, labels)
+        }
         actionBarDrawerToggle = ActionBarDrawerToggle(
             activity,
             drawerLayout,

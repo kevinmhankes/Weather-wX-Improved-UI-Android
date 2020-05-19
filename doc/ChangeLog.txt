@@ -19,11 +19,12 @@
 // TODO [FIX] NHC share only shares last 3 images
 // TODO [FIX] level3 share via menu shows timestamp from widget
 // TODO [FIX] allWhite theme:  (make note of chromeOS toolbar alpha in release notes)
-// TODO             Icons us alerts/severe dash
 // TODO             Models time save ncep esrl
-// TODO             drawer background
 
 55446 2020_05_19    [ADD] allWhite theme - Tts pause icon is yellow when activated
+                    [ADD] allWhite theme - drawer background
+                    [ADD] allWhite theme - Icons us alerts/severe dash
+                    [ADD] allWhite theme - SPC HRRR fix
 55445 2020_05_19    [ADD] nhc storm 3 wide if tablet
                     [REF] utilNws icon
                     [ADD] allWhite theme - bottom sheet support

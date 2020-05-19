@@ -133,10 +133,10 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
             }
         }
         if (parent.id == R.id.spinner_run) {
-            UtilityModels.updateTime(
+            /*UtilityModels.updateTime(
                     UtilityString.getLastXChars(spRun.selectedItem.toString(), 2),
                     om.rtd.mostRecentRun, om.spTime.list, om.spTime.arrayAdapter, "", false
-            )
+            )*/
         }
     }
 
@@ -204,12 +204,18 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         spRun.notifyDataSetChanged()
         miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
         spRun.setSelection(0)
-        om.spTime.setSelection(0)
+        // below was moved form onItem
+        UtilityModels.updateTime(
+                UtilityString.getLastXChars(spRun.selectedItem.toString(), 2),
+                om.rtd.mostRecentRun, om.spTime.list, om.spTime.arrayAdapter, "", false
+        )
+        om.spTime.notifyDataSetChanged()
+        //om.spTime.setSelection(0)
         if (!firstRunTimeSet) {
             firstRunTimeSet = true
             om.spTime.setSelection(Utility.readPref(this@ModelsSpcHrrrActivity, om.prefRunPosn, 0))
         }
-        om.spTime.notifyDataSetChanged()
+        //om.spTime.notifyDataSetChanged()
         UtilityModels.getContent(this@ModelsSpcHrrrActivity, om, overlayImg, uiDispatcher)
     }
 

@@ -1,11 +1,13 @@
 package joshuatee.wx.util
 
 import android.app.Activity
+import android.graphics.Color
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.CheckedTextView
+import android.widget.LinearLayout
 import android.widget.TextView
 
 import joshuatee.wx.R
@@ -23,7 +25,15 @@ class MyExpandableListAdapter(act: Activity, private val groups: SparseArray<Gro
         val children = getChild(groupPosition, childPosition) as String
         if (convertView == null) convertView = inflater.inflate(R.layout.listrow_details, null)
         val text: TextView = convertView!!.findViewById(R.id.textView1)
+        val linearLayout: LinearLayout = convertView.findViewById(R.id.linearLayout)
+        val spacing: View = convertView.findViewById(R.id.spacing)
         text.text = children
+        if (Utility.isThemeAllWhite()) {
+            spacing.setBackgroundColor(Color.WHITE)
+            linearLayout.setBackgroundColor(Color.WHITE)
+            text.setBackgroundColor(Color.WHITE)
+            text.setTextColor(Color.BLACK)
+        }
         return convertView
     }
 
@@ -41,6 +51,10 @@ class MyExpandableListAdapter(act: Activity, private val groups: SparseArray<Gro
         val group = getGroup(groupPosition) as Group
         (convertView as CheckedTextView).text = group.string
         convertView.isChecked = isExpanded
+        if (Utility.isThemeAllWhite()) {
+            convertView.setBackgroundColor(Color.WHITE)
+            convertView.setTextColor(Color.BLACK)
+        }
         return convertView
     }
 
