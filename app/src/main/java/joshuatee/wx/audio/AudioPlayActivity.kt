@@ -35,6 +35,7 @@ import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.ui.UtilityToolbar
+import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
 
 abstract class AudioPlayActivity : AppCompatActivity() {
@@ -49,6 +50,7 @@ abstract class AudioPlayActivity : AppCompatActivity() {
     private var ttsProd = ""
     private var ttsTxt = ""
     private lateinit var view: View
+    private var pausePressedIcon = 0
 
     protected fun onCreate(savedInstanceState: Bundle?, layoutResId: Int, menuResId: Int) {
         setTheme(UIPreferences.themeInt)
@@ -70,6 +72,7 @@ abstract class AudioPlayActivity : AppCompatActivity() {
         UtilityToolbar.fullScreenMode(toolbar, false)
         initBottomToolbar()
         UtilityTts.initTts(this)
+        pausePressedIcon = if (Utility.isThemeAllWhite()) MyApplication.ICON_PAUSE_PRESSED_BLUE else MyApplication.ICON_PAUSE_PRESSED
     }
 
     private fun initBottomToolbar() {
@@ -78,7 +81,7 @@ abstract class AudioPlayActivity : AppCompatActivity() {
         val playlist = menu.findItem(R.id.action_playlist)
         playlist.let { playlist.setIcon(R.drawable.ic_playlist_add_24dp) }
         if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying)
-            pause.setIcon(MyApplication.ICON_PAUSE_PRESSED)
+            pause.setIcon(pausePressedIcon)
         else
             pause.setIcon(MyApplication.ICON_PAUSE)
     }
@@ -99,7 +102,7 @@ abstract class AudioPlayActivity : AppCompatActivity() {
             R.id.action_stop -> {
                 if (UtilityTts.mediaPlayer != null) UtilityTts.playMediaPlayer(1)
                 if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying)
-                    pause.setIcon(MyApplication.ICON_PAUSE_PRESSED)
+                    pause.setIcon(pausePressedIcon)
                 else
                     pause.setIcon(MyApplication.ICON_PAUSE)
                 if (UtilityTts.mediaPlayer != null && UtilityTts.mediaPlayer!!.isPlaying && UIPreferences.mediaControlNotif)
@@ -113,7 +116,7 @@ abstract class AudioPlayActivity : AppCompatActivity() {
 
     override fun onRestart() {
         if (UtilityTts.mediaPlayer != null && !UtilityTts.mediaPlayer!!.isPlaying)
-            pause.setIcon(MyApplication.ICON_PAUSE_PRESSED)
+            pause.setIcon(pausePressedIcon)
         else
             pause.setIcon(MyApplication.ICON_PAUSE)
         super.onRestart()

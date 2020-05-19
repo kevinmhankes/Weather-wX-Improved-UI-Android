@@ -311,6 +311,7 @@ class MyApplication : Application() {
         const val ICON_PAUSE_WHITE = R.drawable.ic_pause_24dp_white
 
         const val ICON_PAUSE_PRESSED = R.drawable.ic_pause_white_24dp
+        const val ICON_PAUSE_PRESSED_BLUE = R.drawable.ic_pause_blue_24dp
         const val ICON_ADD = R.drawable.ic_add_box_24dp
         const val ICON_ADD2 = R.drawable.ic_add2_box_24dp_white
 
