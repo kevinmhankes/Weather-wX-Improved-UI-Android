@@ -24,7 +24,8 @@
 // TODO             drawer background
 // TODO             Tts pause icon is yellow when activated
 
-55445 2020_05_18    [ADD] nhc storm 3 wide if tablet
+55446 2020_05_19 
+55445 2020_05_19    [ADD] nhc storm 3 wide if tablet
                     [REF] utilNws icon
                     [ADD] allWhite theme - bottom sheet support
                     [ADD] allWhite theme - alert dialogue
