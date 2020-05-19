@@ -218,6 +218,8 @@ object Utility {
         else -> R.style.MyCustomTheme_NOAB
     }
 
+    fun isThemeAllBlack() = UIPreferences.themeInt == R.style.MyCustomTheme_Holo_Dark_NOAB
+
     fun isThemeAllWhite() = UIPreferences.themeInt == R.style.MyCustomTheme_whitest_NOAB
 
     fun getHazards(url: String) = url.parse("<!-- AddThis Button END --> {3}<hr /><br />(.*?)</div>")

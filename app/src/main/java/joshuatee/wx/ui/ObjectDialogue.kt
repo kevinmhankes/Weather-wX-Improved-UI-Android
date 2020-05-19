@@ -33,6 +33,7 @@ import android.util.TypedValue
 import android.widget.TextView
 import android.view.ViewGroup
 import android.view.View
+import joshuatee.wx.util.Utility
 
 class ObjectDialogue {
 
@@ -74,7 +75,11 @@ class ObjectDialogue {
 
     fun setupTextView(textView: TextView) {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
-        textView.setTextColor(Color.WHITE)
+        if (Utility.isThemeAllWhite()) {
+            textView.setTextColor(Color.BLACK)
+        } else {
+            textView.setTextColor(Color.WHITE)
+        }
         textView.setPadding(20,10,20,10)
     }
 

@@ -11,10 +11,23 @@
 // TODO [FIX] nexrad cities performance
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
+// TODO [REF] cleanup external stuff
 // TODO [FIX] allWhite theme - icons in alerts/dash
 // TODO [FIX] remove usage of always show icons in menus
+// TODO [FIX] Kotlin obs icon not correct
+// TODO [FIX] Android warning share text formatting
+// TODO [FIX] NHC share only shares last 3 images
+// TODO [FIX] level3 share via menu shows timestamp from widget
+// TODO [FIX] allWhite theme:  (make note of chromeOS toolbar alpha in release notes)
+// TODO             Icons usalerts/severe dash
+// TODO             Models time save ncep esrl
+// TODO             drawer background
+// TODO             Tts pause icon is yellow when activated
 
-55445 2020_05_18
+55445 2020_05_18    [ADD] nhc storm 3 wide if tablet
+                    [REF] utilNws icon
+                    [ADD] allWhite theme - bottom sheet support
+                    [ADD] allWhite theme - alert dialogue
 55444 2020_05_18    [ADD] allWhite theme
 55443 2020_05_18    [ADD] allWhite theme
                     [FIX] nexrad toolbar for all white theme

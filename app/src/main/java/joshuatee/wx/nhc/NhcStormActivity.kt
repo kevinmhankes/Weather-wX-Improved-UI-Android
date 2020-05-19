@@ -32,11 +32,8 @@ import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
 import joshuatee.wx.notifications.UtilityNotificationNhc
-import joshuatee.wx.ui.ObjectCardImage
-import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.ui.BaseActivity
-import joshuatee.wx.ui.ObjectLinearLayout
+import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
@@ -85,6 +82,7 @@ class NhcStormActivity : BaseActivity() {
         title = stormData.name + " " + stormData.classification
         toolbar.subtitle = stormData.forTopHeader()
         product = "MIATCP${stormData.binNumber}"
+        if (UtilityUI.isLandScape(this)) imagesPerRow = 3
         getContent()
     }
 
