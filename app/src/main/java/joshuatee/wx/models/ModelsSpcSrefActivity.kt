@@ -43,13 +43,9 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.ui.ObjectNavDrawerCombo
 import joshuatee.wx.ui.ObjectSpinner
-import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityAlertDialog
-import joshuatee.wx.util.UtilityFavorites
-import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.UtilityUI
-import joshuatee.wx.util.UtilityString
+import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
 class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, OnItemSelectedListener {
@@ -163,12 +159,21 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         om.spTime.notifyDataSetChanged()
         spRun.setSelection(0)
         initSpinnerSetup = true
+        UtilityModels.updateTime(
+                UtilityString.getLastXChars(spRun.selectedItem.toString().replace("z", ""), 2),
+                om.rtd.mostRecentRun,
+                om.spTime.list,
+                om.spTime.arrayAdapter,
+                "f",
+                false
+        )
+        om.spTime.notifyDataSetChanged()
         miStatus.title = Utility.fromHtml(om.rtd.imageCompleteStr.replace("in through", "-"))
         if (!firstRunTimeSet) {
             firstRunTimeSet = true
             om.spTime.setSelection(Utility.readPref(this@ModelsSpcSrefActivity, om.prefRunPosn, 0))
         }
-        om.spTime.notifyDataSetChanged()
+        //om.spTime.notifyDataSetChanged()
         if (om.spTime.selectedItemPosition == 0 || om.numPanes > 1) {
             updateStarIcon()
             UtilityModels.getContent(this@ModelsSpcSrefActivity, om, listOf(""), uiDispatcher)
@@ -257,14 +262,14 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
             }
         }
         if (parent.id == R.id.spinner_run) {
-            UtilityModels.updateTime(
+            /*UtilityModels.updateTime(
                     UtilityString.getLastXChars(spRun.selectedItem.toString().replace("z", ""), 2),
                     om.rtd.mostRecentRun,
                     om.spTime.list,
                     om.spTime.arrayAdapter,
                     "f",
                     false
-            )
+            )*/
         }
     }
 

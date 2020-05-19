@@ -23,6 +23,7 @@ package joshuatee.wx.activitiesmisc
 
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 
 class CapAlert {
@@ -61,17 +62,17 @@ class CapAlert {
             capAlert.event = eventText.parse("<cap:event>(.*?)</cap:event>")
             capAlert.vtec = eventText.parse("<valueName>VTEC</valueName>.*?<value>(.*?)</value>")
             capAlert.zones = eventText.parse("<valueName>UGC</valueName>.*?<value>(.*?)</value>")
-            capAlert.text = "<h4><b>"
+            capAlert.text = ""
             capAlert.text += capAlert.title
-            capAlert.text += "</b></h4>"
-            capAlert.text += "<b>Counties: "
+            capAlert.text += MyApplication.newline + MyApplication.newline
+            capAlert.text += "Counties: "
             capAlert.text += capAlert.area
-            capAlert.text += "</b><br><br>"
+            capAlert.text += MyApplication.newline + MyApplication.newline
             capAlert.text += capAlert.summary
-            capAlert.text += "<br><br><br>"
+            capAlert.text += MyApplication.newline + MyApplication.newline
             capAlert.text += capAlert.instructions
-            capAlert.text += "<br><br><br>"
-            capAlert.summary = capAlert.summary.replace("<br>\\*", "<br><br>*")
+            capAlert.text += MyApplication.newline + MyApplication.newline
+            //capAlert.summary = capAlert.summary.replace("<br>\\*", "<br><br>*")
             if (UIPreferences.nwsTextRemovelinebreaks) {
                 capAlert.instructions = capAlert.instructions.replace("<br><br>", "<BR><BR>").replace("<br>", " ")
             }
@@ -96,16 +97,16 @@ class CapAlert {
                     capAlert.instructions = html.parse("</description>.*?<instruction>(.*?)</instruction>.*?<areaDesc>")
                     capAlert.area = html.parse("</instruction>.*?<areaDesc>(.*?)</areaDesc>.*?")
                     capAlert.area = capAlert.area.replace("&apos;", "'")
-                    capAlert.text = "<h4><b>"
+                    capAlert.text = ""
                     capAlert.text += capAlert.title
-                    capAlert.text += "</b></h4>"
-                    capAlert.text += "<b>Counties: "
+                    capAlert.text += MyApplication.newline + MyApplication.newline
+                    capAlert.text += "Counties: "
                     capAlert.text += capAlert.area
-                    capAlert.text += "</b><br><br>"
+                    capAlert.text += MyApplication.newline + MyApplication.newline
                     capAlert.text += capAlert.summary
-                    capAlert.text += "<br><br><br>"
+                    capAlert.text += MyApplication.newline + MyApplication.newline
                     capAlert.text += capAlert.instructions
-                    capAlert.text += "<br><br><br>"
+                    capAlert.text += MyApplication.newline + MyApplication.newline
                 }
             } else {
                 capAlert.title = html.parse("\"headline\": \"(.*?)\"")
@@ -116,16 +117,16 @@ class CapAlert {
                 capAlert.summary = capAlert.summary.replace("\\n", " ")
                 capAlert.summary = capAlert.summary.replace("ABC123", "\n\n")
                 capAlert.instructions = capAlert.instructions.replace("\\n", " ")
-                capAlert.text = "<h4><b>"
+                capAlert.text = ""
                 capAlert.text += capAlert.title
-                capAlert.text += "</b></h4>"
-                capAlert.text += "<b>Counties: "
+                capAlert.text += MyApplication.newline + MyApplication.newline
+                capAlert.text += "Counties: "
                 capAlert.text += capAlert.area
-                capAlert.text += "</b><br><br>"
+                capAlert.text += MyApplication.newline + MyApplication.newline
                 capAlert.text += capAlert.summary
-                capAlert.text += "<br><br><br>"
+                capAlert.text += MyApplication.newline + MyApplication.newline
                 capAlert.text += capAlert.instructions
-                capAlert.text += "<br><br><br>"
+                capAlert.text += MyApplication.newline + MyApplication.newline
             }
             capAlert.summary = capAlert.summary.replace("<br>\\*".toRegex(), "<br><br>*")
             if (UIPreferences.nwsTextRemovelinebreaks) {
