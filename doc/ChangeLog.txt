@@ -21,6 +21,7 @@
 // TODO [FIX] allWhite theme:  (make note of chromeOS toolbar alpha in release notes)
 // TODO             Models time save ncep esrl
 
+55447 2020_05_19
 55446 2020_05_19    [ADD] allWhite theme - Tts pause icon is yellow when activated
                     [ADD] allWhite theme - drawer background
                     [ADD] allWhite theme - Icons us alerts/severe dash
