@@ -112,11 +112,8 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         }
         miStatus = menu.findItem(R.id.action_status)
         miStatus.title = "in through"
-        //om.spTime = ObjectSpinner(this, this, this, R.id.spinner_time)
         om.displayData = DisplayDataNoSpinner(this, this, om.numPanes, om)
-        //spRun = ObjectSpinner(this, this, this, R.id.spinner_run)
         om.sector = Utility.readPref(this, om.prefSector, "S19")
-        //spSector = ObjectSpinner(this, this, this, R.id.spinner_sector, UtilityModelSpcHrefInterface.sectorsLong, om.sector)
         UtilityModelSpcHrefInterface.createData()
         objectNavDrawerCombo = ObjectNavDrawerCombo(
                 this,
@@ -159,7 +156,6 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     override fun onNothingSelected(parent: AdapterView<*>) {}*/
 
-    //override fun onOptionsItemSelected(item: MenuItem) = objectNavDrawerCombo.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (objectNavDrawerCombo.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
@@ -196,7 +192,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    //UtilityModels.legacyShare(this@ModelsSpcHrefActivity, this@ModelsSpcHrefActivity, om.animRan, om)
+                    UtilityModels.legacyShare(this@ModelsSpcHrefActivity, this@ModelsSpcHrefActivity, om.animRan, om)
                 }
             }
             else -> return super.onOptionsItemSelected(item)
@@ -212,23 +208,6 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         }
         return true
     }
-
-  /*  private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
-        om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
-        spRun.clear()
-        spRun.addAll(om.rtd.listRun)
-        spRun.notifyDataSetChanged()
-        miStatus.title = "in through " + om.rtd.imageCompleteStr
-        spRun.setSelection(0)
-        om.spTime.setSelection(0)
-        if (!firstRunTimeSet) {
-            firstRunTimeSet = true
-            om.spTime.setSelection(Utility.readPref(this@ModelsSpcHrefActivity, om.prefRunPosn, 0))
-        }
-        om.spTime.notifyDataSetChanged()
-        UtilityModels.getContent(this@ModelsSpcHrefActivity, om, listOf(""), uiDispatcher)
-    }
-*/
 
     private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
         om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
@@ -262,10 +241,6 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 om.displayData.paramLabel[it] = "500 mb Height/Wind"
             }
         }
-        //spRun.setSelection(0)
-        //om.spTime.setSelection(0)
-        //om.spTime.clear()
-        //(om.startStep until om.endStep).forEach { om.spTime.add(String.format(Locale.US, "%02d", it)) }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

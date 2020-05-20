@@ -31,6 +31,7 @@ import joshuatee.wx.util.UtilityImgAnim
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp
+import joshuatee.wx.util.UtilityLog
 
 internal object UtilityModelSpcSrefInputOutput {
 
@@ -48,15 +49,17 @@ internal object UtilityModelSpcSrefInputOutput {
             return runData
         }
 
-    fun getImage(context: Context, om: ObjectModel, time: String): Bitmap {
+    fun getImage(context: Context, om: ObjectModelNoSpinner, time: String): Bitmap {
         val run = om.run.replace("z", "")
-        return UtilityImg.getBitmapAddWhiteBackground(context, "${MyApplication.nwsSPCwebsitePrefix}/exper/sref/gifs/$run/${om.currentParam}$time.gif")
+        val url = "${MyApplication.nwsSPCwebsitePrefix}/exper/sref/gifs/$run/${om.currentParam}$time.gif"
+        UtilityLog.d("wx", "DEBUG: " + url)
+        return UtilityImg.getBitmapAddWhiteBackground(context, url)
     }
 
-    fun getAnimation(context: Context, om: ObjectModel): AnimationDrawable {
+    fun getAnimation(context: Context, om: ObjectModelNoSpinner): AnimationDrawable {
         if (om.spinnerTimeValue == -1) return AnimationDrawable()
-        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).map {
-            getImage(context, om, om.spTime.list[it].split(" ").getOrNull(0) ?: "")
+        val bitmaps = (om.spinnerTimeValue until om.times.size).map {
+            getImage(context, om, om.times[it].split(" ").getOrNull(0) ?: "")
         }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }

@@ -67,12 +67,36 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
 
     fun updateLists(activity: Activity, items: List<String>, tokens: List<String>) {
         listView.adapter = ArrayAdapter(activity, R.layout.drawer_list_item, items)
+        if (Utility.isThemeAllWhite()) {
+            listView.setBackgroundColor(Color.WHITE)
+            listView.adapter = object : ArrayAdapter<String>(activity, R.layout.drawer_list_item, items) {
+                override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    val view: View = super.getView(position, convertView, parent)
+                    view.findViewById<TextView>(android.R.id.text1).setTextColor(Color.BLACK)
+                    return view
+                }
+            }
+        } else {
+            listView.adapter = ArrayAdapter(activity, R.layout.drawer_list_item, items)
+        }
         labels = items
         this.tokens = tokens
     }
 
     fun updateLists(activity: Activity, items: List<String>) {
         listView.adapter = ArrayAdapter(activity, R.layout.drawer_list_item, items)
+        if (Utility.isThemeAllWhite()) {
+            listView.setBackgroundColor(Color.WHITE)
+            listView.adapter = object : ArrayAdapter<String>(activity, R.layout.drawer_list_item, items) {
+                override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    val view: View = super.getView(position, convertView, parent)
+                    view.findViewById<TextView>(android.R.id.text1).setTextColor(Color.BLACK)
+                    return view
+                }
+            }
+        } else {
+            listView.adapter = ArrayAdapter(activity, R.layout.drawer_list_item, items)
+        }
         labels = items
     }
 

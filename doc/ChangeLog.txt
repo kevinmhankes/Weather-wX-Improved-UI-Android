@@ -15,8 +15,9 @@
 // TODO [FIX] remove usage of always show icons in menus
 // TODO [FIX] NHC share only shares last 3 images
 // TODO [FIX] correct obs icon on misc tab
+// TODO [ADD] Model migration: code cleanup/lint, test
 
-55450 2020_05_20
+55450 2020_05_20    [ADD] WIP - model rewrite
 55449 2020_05_20    [ADD] WIP - model rewrite (not SPC SREF yet)
 55448 2020_05_20    [FIX] revert changes in SPC HRRR/HREF/SREF
 55447 2020_05_19    [ADD] allWhite theme - SPC HREF/SREF fix

@@ -29,7 +29,6 @@ import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import joshuatee.wx.Extensions.safeGet
 import joshuatee.wx.ui.ObjectFab
-import joshuatee.wx.util.UtilityImg
 
 class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanesStr: String) {
 
@@ -152,7 +151,6 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
         sector = Utility.readPref(context, prefSector, sectors[0])
     }
 
-    // TODO
     fun getImage(index: Int, overlayImg: List<String>): Bitmap {
         currentParam = displayData.param[index]
         return when (modelType) {
@@ -161,27 +159,23 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
             ModelType.NSSL -> UtilityModelNsslWrfInputOutput.getImage(context, this, time)
             ModelType.GLCFS -> UtilityModelGlcfsInputOutput.getImage(this, time)
             ModelType.NCEP -> UtilityModelNcepInputOutput.getImage(this, time)
-            //ModelType.SPCSREF -> UtilityModelSpcSrefInputOutput.getImage(context, this, time)
+            ModelType.SPCSREF -> UtilityModelSpcSrefInputOutput.getImage(context, this, time)
             ModelType.SPCHREF -> UtilityModelSpcHrefInputOutput.getImage(context, this, time)
             ModelType.SPCHRRR -> UtilityModelSpcHrrrInputOutput.getImage(context, this, time, overlayImg)
-            else -> { return UtilityImg.getBlankBitmap()}
         }
     }
 
-    // TODO
     fun getAnimate(index: Int, overlayImg: List<String>): AnimationDrawable {
         currentParam = displayData.param[index]
-        //spinnerTimeValue = spTime.selectedItemPosition
         return when (modelType) {
             ModelType.WPCGEFS -> UtilityModelWpcGefsInputOutput.getAnimation(context, this)
             ModelType.ESRL -> UtilityModelEsrlInputOutput.getAnimation(context, this)
             ModelType.NSSL -> UtilityModelNsslWrfInputOutput.getAnimation(context, this)
             ModelType.GLCFS -> UtilityModelGlcfsInputOutput.getAnimation(context, this)
             ModelType.NCEP -> UtilityModelNcepInputOutput.getAnimation(context, this)
-            //ModelType.SPCSREF -> UtilityModelSpcSrefInputOutput.getAnimation(context, this)
+            ModelType.SPCSREF -> UtilityModelSpcSrefInputOutput.getAnimation(context, this)
             ModelType.SPCHREF -> UtilityModelSpcHrefInputOutput.getAnimation(context, this)
             ModelType.SPCHRRR -> UtilityModelSpcHrrrInputOutput.getAnimation(context, this, overlayImg)
-            else -> return AnimationDrawable()
         }
     }
 
@@ -522,7 +516,6 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
 
     private fun timeIdxIncr() {
         this.timeIndex += 1
-        // TODO
         this.time = this.times.safeGet(timeIndex)
     }
 

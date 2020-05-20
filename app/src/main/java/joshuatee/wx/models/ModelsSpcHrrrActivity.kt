@@ -178,8 +178,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
                 if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    // TODO
-                    //UtilityModels.legacyShare(this@ModelsSpcHrrrActivity,this@ModelsSpcHrrrActivity, om.animRan, om)
+                    UtilityModels.legacyShare(this@ModelsSpcHrrrActivity,this@ModelsSpcHrrrActivity, om.animRan, om)
                 }
             }
             else -> return super.onOptionsItemSelected(item)

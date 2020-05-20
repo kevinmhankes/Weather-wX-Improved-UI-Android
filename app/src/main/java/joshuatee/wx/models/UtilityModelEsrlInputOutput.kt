@@ -104,6 +104,15 @@ internal object UtilityModelEsrlInputOutput {
         var paramTmp = om.currentParam
         val imgUrl: String
         val zipStr = "TZA"
+        if (om.model.contains("HRRR"))
+            om.sectorInt = UtilityModelEsrlInterface.sectorsHrrr.indexOf(sector)
+        else
+            om.sectorInt = UtilityModelEsrlInterface.sectorsRap.indexOf(sector)
+        if (om.sectorInt == -1 ) {
+            om.sectorInt = 0
+            om.sector = "Full"
+        }
+        //UtilityLog.d("Wx", "DEBUG: " + sector + " " + om.sectorInt.toString())
         when (om.model) {
             "HRRR", "HRRR_NCEP" -> when {
                 om.sectorInt == 0 -> {
@@ -167,6 +176,7 @@ internal object UtilityModelEsrlInputOutput {
                     "%20Model%20Fields%20-%20Experimental&maxFcstLen=15&fcstStrLen=-1&domain=" +
                     sector.toLowerCase(Locale.US) + "&adtfn=1"
         }
+        //UtilityLog.d("Wx", imgUrl)
         onDemandUrl.getHtml()
         return imgUrl.getImage()
     }
