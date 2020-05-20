@@ -29,7 +29,7 @@ import joshuatee.wx.MyApplication
 object UtilityColorPaletteGeneric {
 
     private fun generate(context: Context, product: String, code: String) {
-        // prod will be a string such as "94" for refl
+        // prod will be a string such as "94" for reflectivity
         // -32 to 95
         //var colorMapR: ByteBuffer
         //var colorMapG: ByteBuffer
@@ -45,6 +45,7 @@ object UtilityColorPaletteGeneric {
         var colorMapR = objColormap.redValues
         var colorMapG = objColormap.greenValues
         var colorMapB = objColormap.blueValues
+        // TODO switch to colorMapProductCode in when
         when (product) {
             "94" -> {
                 scale = 2

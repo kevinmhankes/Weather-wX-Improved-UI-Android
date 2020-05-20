@@ -136,10 +136,10 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
             }
         }
         if (parent.id == R.id.spinner_run) {
-            /*UtilityModels.updateTime(
+            UtilityModels.updateTime(
                     UtilityString.getLastXChars(spRun.selectedItem.toString(), 2),
                     om.rtd.mostRecentRun, om.spTime.list, om.spTime.arrayAdapter, "", false
-            )*/
+            )
         }
     }
 
@@ -189,17 +189,12 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         spRun.notifyDataSetChanged()
         miStatus.title = "in through " + om.rtd.imageCompleteStr
         spRun.setSelection(0)
-        UtilityModels.updateTime(
-                UtilityString.getLastXChars(spRun.selectedItem.toString(), 2),
-                om.rtd.mostRecentRun, om.spTime.list, om.spTime.arrayAdapter, "", false
-        )
-        om.spTime.notifyDataSetChanged()
-        //om.spTime.setSelection(0)
+        om.spTime.setSelection(0)
         if (!firstRunTimeSet) {
             firstRunTimeSet = true
             om.spTime.setSelection(Utility.readPref(this@ModelsSpcHrefActivity, om.prefRunPosn, 0))
         }
-        //om.spTime.notifyDataSetChanged()
+        om.spTime.notifyDataSetChanged()
         UtilityModels.getContent(this@ModelsSpcHrefActivity, om, listOf(""), uiDispatcher)
     }
 

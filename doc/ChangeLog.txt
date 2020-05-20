@@ -15,7 +15,7 @@
 // TODO [FIX] remove usage of always show icons in menus
 // TODO [FIX] NHC share only shares last 3 images
 
-55448 2020_05_19
+55448 2020_05_20    [FIX] revert changes in SPC HRRR/HREF/SREF
 55447 2020_05_19    [ADD] allWhite theme - SPC HREF/SREF fix
                     [FIX] obs icon not correct in new nav drawer
 55446 2020_05_19    [ADD] allWhite theme - Tts pause icon is yellow when activated
