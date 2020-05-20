@@ -22,6 +22,7 @@
 package joshuatee.wx.models
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
 import android.content.res.Configuration
 
@@ -30,35 +31,25 @@ import java.util.Locale
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.text.TextUtils
 import android.view.KeyEvent
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.LinearLayout
-import android.widget.TextView
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.ui.ObjectFab
-import joshuatee.wx.ui.ObjectNavDrawer
-import joshuatee.wx.ui.ObjectSpinner
 import joshuatee.wx.radar.VideoRecordActivity
-import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, OnItemSelectedListener {
+class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { // OnItemSelectedListener
 
     companion object { const val INFO = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private lateinit var spRun: ObjectSpinner
-    private lateinit var spSector: ObjectSpinner
-    private var spinnerRunRan = false
-    private var spinnerTimeRan = false
-    private var spinnerSectorRan = false
-    private var firstRunTimeSet = false
     private var fab1: ObjectFab? = null
     private var fab2: ObjectFab? = null
     private val overlayImg = mutableListOf<String>()
@@ -66,17 +57,30 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     private lateinit var miStatusParam1: MenuItem
     private lateinit var miStatusParam2: MenuItem
     private lateinit var drw: ObjectNavDrawer
-    private lateinit var om: ObjectModel
+    private lateinit var om: ObjectModelNoSpinner
     private lateinit var activityArguments: Array<String>
+    private lateinit var timeMenuItem: MenuItem
+    private lateinit var sectorMenuItem: MenuItem
+    private lateinit var runMenuItem: MenuItem
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.models_spchrrr_top, menu)
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        sectorMenuItem = menu.findItem(R.id.action_region)
+        return super.onPrepareOptionsMenu(menu)
+    }
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         activityArguments = intent.getStringArrayExtra(INFO)!!
-        om = ObjectModel(this, activityArguments[1], activityArguments[0])
+        om = ObjectModelNoSpinner(this, activityArguments[1], activityArguments[0])
         if (om.numPanes == 1) {
-            super.onCreate(savedInstanceState, R.layout.activity_models_generic, R.menu.models_spchrrr, iconsEvenlySpaced = false, bottomToolbar = true)
+            super.onCreate(savedInstanceState, R.layout.activity_models_generic_nospinner, R.menu.models_spchrrr, iconsEvenlySpaced = false, bottomToolbar = true)
         } else {
-            super.onCreate(savedInstanceState, R.layout.activity_models_generic_multipane, R.menu.models_spchrrr, iconsEvenlySpaced = false, bottomToolbar = true)
+            super.onCreate(savedInstanceState, R.layout.activity_models_generic_multipane_nospinner, R.menu.models_spchrrr, iconsEvenlySpaced = false, bottomToolbar = true)
             val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
             if (UtilityUI.isLandScape(this)) linearLayout.orientation = LinearLayout.HORIZONTAL
         }
@@ -84,11 +88,19 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         title = activityArguments[2]
         overlayImg.addAll(listOf(*TextUtils.split(Utility.readPref(this, "SPCHRRR_OVERLAY", ""), ":")))
         val menu = toolbarBottom.menu
+        timeMenuItem = menu.findItem(R.id.action_time)
+        runMenuItem = menu.findItem(R.id.action_run)
         miStatusParam1 = menu.findItem(R.id.action_status_param1)
         miStatusParam2 = menu.findItem(R.id.action_status_param2)
         if (om.numPanes < 2) {
-            fab1 = ObjectFab(this, this, R.id.fab1, View.OnClickListener { UtilityModels.moveBack(om.spTime) })
-            fab2 = ObjectFab(this, this, R.id.fab2, View.OnClickListener { UtilityModels.moveForward(om.spTime) })
+            fab1 = ObjectFab(this, this, R.id.fab1, View.OnClickListener {
+                om.leftClick()
+                getContent()
+            })
+            fab2 = ObjectFab(this, this, R.id.fab2, View.OnClickListener {
+                om.rightClick()
+                getContent()
+            })
             menu.findItem(R.id.action_img1).isVisible = false
             menu.findItem(R.id.action_img2).isVisible = false
             if (UIPreferences.fabInModels) {
@@ -103,46 +115,20 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         }
         miStatus = menu.findItem(R.id.action_status)
         miStatus.title = "in through"
-        om.spTime = ObjectSpinner(this, this, this, R.id.spinner_time)
-        om.displayData = DisplayData(this, this, om.numPanes, om.spTime)
-        spRun = ObjectSpinner(this, this, this, R.id.spinner_run)
-        spSector = ObjectSpinner(this, this, this, R.id.spinner_sector, UtilityModelSpcHrrrInterface.sectors, om.sector)
-        ObjectSpinner(this, this, this, R.id.spinner_model, om.models, om.model)
+        om.displayData = DisplayDataNoSpinner(this, this, om.numPanes, om)
         drw = ObjectNavDrawer(this, UtilityModelSpcHrrrInterface.labels, UtilityModelSpcHrrrInterface.params)
-        om.setUIElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2, spRun, spSector)
+        om.setUiElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2)
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             drw.listView.setItemChecked(position, false)
             drw.drawerLayout.closeDrawer(drw.listView)
             om.displayData.param[om.curImg] = drw.tokens[position]
             om.displayData.paramLabel[om.curImg] = drw.getLabel(position)
-            UtilityModels.getContent(this, om, overlayImg, uiDispatcher)
+            UtilityModels.getContentNonSpinner(this, om, overlayImg, uiDispatcher)
+            updateMenuTitles()
         }
         setupModel()
         getRunStatus()
     }
-
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
-        if (spinnerRunRan && spinnerTimeRan && spinnerSectorRan) {
-            UtilityModels.getContent(this, om, overlayImg, uiDispatcher)
-        } else {
-            when (parent.id) {
-                R.id.spinner_run -> if (!spinnerRunRan) spinnerRunRan = true
-                R.id.spinner_time -> if (!spinnerTimeRan) spinnerTimeRan = true
-                R.id.spinner_sector -> if (!spinnerSectorRan) spinnerSectorRan = true
-            }
-        }
-        if (parent.id == R.id.spinner_run) {
-            UtilityModels.updateTime(
-                    UtilityString.getLastXChars(spRun.selectedItem.toString(), 2),
-                    om.rtd.mostRecentRun, om.spTime.list, om.spTime.arrayAdapter, "", false
-            )
-        }
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>) {}
-
-    override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
@@ -174,17 +160,26 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
             R.id.action_layer_cnty -> overlaySelected("cnty")
             R.id.action_layer_clear -> {
                 overlayImg.clear()
-                UtilityModels.getContent(this, om, overlayImg, uiDispatcher)
+                UtilityModels.getContentNonSpinner(this, om, overlayImg, uiDispatcher)
             }
             R.id.action_multipane -> ObjectIntent(this, ModelsSpcHrrrActivity::class.java, INFO, arrayOf("2", activityArguments[1], activityArguments[2]))
-            R.id.action_back -> UtilityModels.moveBack(om.spTime)
-            R.id.action_forward -> UtilityModels.moveForward(om.spTime)
+            R.id.action_back -> {
+                om.leftClick()
+                getContent()
+            }
+            R.id.action_forward -> {
+                om.rightClick()
+                getContent()
+            }
             R.id.action_animate -> UtilityModels.getAnimate(om, overlayImg, uiDispatcher)
+            R.id.action_time -> dialogTime()
+            R.id.action_run -> dialogRun()
             R.id.action_share -> {
                 if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityModels.legacyShare(this@ModelsSpcHrrrActivity,this@ModelsSpcHrrrActivity, om.animRan, om)
+                    // TODO
+                    //UtilityModels.legacyShare(this@ModelsSpcHrrrActivity,this@ModelsSpcHrrrActivity, om.animRan, om)
                 }
             }
             else -> return super.onOptionsItemSelected(item)
@@ -192,25 +187,39 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
+        when (item.itemId) {
+            R.id.action_region -> dialogRegion()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
     private fun overlaySelected(overlay: String) {
         if (overlayImg.contains(overlay)) overlayImg.remove(overlay) else overlayImg.add(overlay)
-        UtilityModels.getContent(this@ModelsSpcHrrrActivity, om, overlayImg, uiDispatcher)
+        getContent()
     }
 
     private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
         om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
-        spRun.clear()
-        spRun.addAll(om.rtd.listRun)
-        spRun.notifyDataSetChanged()
         miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
-        spRun.setSelection(0)
-        om.spTime.setSelection(0)
-        if (!firstRunTimeSet) {
-            firstRunTimeSet = true
-            om.spTime.setSelection(Utility.readPref(this@ModelsSpcHrrrActivity, om.prefRunPosn, 0))
-        }
-        om.spTime.notifyDataSetChanged()
-        UtilityModels.getContent(this@ModelsSpcHrrrActivity, om, overlayImg, uiDispatcher)
+        om.run = om.rtd.mostRecentRun
+        (om.startStep until om.endStep).forEach { om.times.add(String.format(Locale.US, "%02d", it)) }
+        UtilityModels.updateTime(UtilityString.getLastXChars(om.run, 2), om.rtd.mostRecentRun, om.times, "", false)
+        om.setTimeIdx(Utility.readPref(this@ModelsSpcHrrrActivity, om.prefRunPosn, 0))
+        getContent()
+    }
+
+    private fun getContent() {
+        UtilityModels.getContentNonSpinner(this, om, overlayImg, uiDispatcher)
+        updateMenuTitles()
+    }
+
+    private fun updateMenuTitles() {
+        sectorMenuItem.title = om.sector
+        timeMenuItem.title = om.time
+        runMenuItem.title = om.run
     }
 
     private fun setupModel() {
@@ -224,10 +233,6 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
                 om.displayData.paramLabel[it] = om.labels[0]
             }
         }
-        spRun.setSelection(0)
-        om.spTime.setSelection(0)
-        om.spTime.clear()
-        (om.startStep until om.endStep).forEach { om.spTime.add(String.format(Locale.US, "%02d", it)) }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -240,11 +245,53 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
         drw.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
+    private fun dialogTime() {
+        val objectDialogue = ObjectDialogue(this@ModelsSpcHrrrActivity, om.times)
+        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+            dialog.dismiss()
+            UtilityUI.immersiveMode(this)
+        })
+        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+            om.setTimeIdx(which)
+            getContent()
+            dialog.dismiss()
+        })
+        objectDialogue.show()
+    }
+
+    private fun dialogRegion() {
+        val objectDialogue = ObjectDialogue(this@ModelsSpcHrrrActivity, UtilityModelSpcHrrrInterface.sectors)
+        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+            dialog.dismiss()
+            UtilityUI.immersiveMode(this)
+        })
+        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+            om.sector = UtilityModelSpcHrrrInterface.sectors[which]
+            getContent()
+            dialog.dismiss()
+        })
+        objectDialogue.show()
+    }
+
+    private fun dialogRun() {
+        val objectDialogue = ObjectDialogue(this@ModelsSpcHrrrActivity, om.rtd.listRun)
+        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+            dialog.dismiss()
+            UtilityUI.immersiveMode(this)
+        })
+        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+            om.run = om.rtd.listRun[which]
+            getContent()
+            dialog.dismiss()
+        })
+        objectDialogue.show()
+    }
+
     override fun onStop() {
         if (om.imageLoaded) {
             Utility.writePref(this, "SPCHRRR_OVERLAY", TextUtils.join(":", overlayImg))
             (0 until om.numPanes).forEach { UtilityImg.imgSavePosnZoom(this, om.displayData.img[it], om.modelProvider + om.numPanes.toString() + it.toString()) }
-            Utility.writePref(this, om.prefRunPosn, om.spTime.selectedItemPosition)
+            Utility.writePref(this, om.prefRunPosn, om.timeIndex)
         }
         super.onStop()
     }
@@ -252,11 +299,17 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener, On
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {
             KeyEvent.KEYCODE_J -> {
-                if (event.isCtrlPressed) UtilityModels.moveBack(om.spTime)
+                if (event.isCtrlPressed) {
+                    om.leftClick()
+                    getContent()
+                }
                 true
             }
             KeyEvent.KEYCODE_K -> {
-                if (event.isCtrlPressed) UtilityModels.moveForward(om.spTime)
+                if (event.isCtrlPressed) {
+                    om.rightClick()
+                    getContent()
+                }
                 true
             }
             else -> super.onKeyUp(keyCode, event)

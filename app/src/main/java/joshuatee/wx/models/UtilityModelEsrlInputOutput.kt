@@ -99,7 +99,7 @@ internal object UtilityModelEsrlInputOutput {
     // https://rapidrefresh.noaa.gov/RAP/for_web/rap_jet/2016091600/full/cref_sfc_f00.png
     // https://rapidrefresh.noaa.gov/HRRR/for_web/hrrr_jet/2016091607/full/1ref_sfc_f00.png
 
-    fun getImage(om: ObjectModel, time: String): Bitmap {
+    fun getImage(om: ObjectModelNoSpinner, time: String): Bitmap {
         var sector = om.sector
         var paramTmp = om.currentParam
         val imgUrl: String
@@ -171,9 +171,9 @@ internal object UtilityModelEsrlInputOutput {
         return imgUrl.getImage()
     }
 
-    fun getAnimation(context: Context, om: ObjectModel): AnimationDrawable {
+    fun getAnimation(context: Context, om: ObjectModelNoSpinner): AnimationDrawable {
         if (om.spinnerTimeValue == -1) return AnimationDrawable()
-        val timeList = om.spTime.list
+        val timeList = om.times
         val bitmaps = (om.spinnerTimeValue until timeList.size).map { getImage(om, timeList[it].split(" ").getOrNull(0) ?: "") }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }

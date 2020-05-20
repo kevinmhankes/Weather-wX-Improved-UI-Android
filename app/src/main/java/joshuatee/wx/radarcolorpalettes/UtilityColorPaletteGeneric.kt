@@ -105,6 +105,7 @@ object UtilityColorPaletteGeneric {
         val bAl = mutableListOf<Int>()
         val text = UtilityColorPalette.getColorMapStringFromDisk(context, product, code)
         val lines = text.split("\n")
+        // TODO why are these used?
         var r = "0"
         var g = "0"
         var b = "0"

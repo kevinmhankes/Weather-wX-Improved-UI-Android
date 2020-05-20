@@ -37,6 +37,7 @@ import joshuatee.wx.util.UtilityTime
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
+import joshuatee.wx.util.UtilityLog
 
 internal object UtilityModelSpcHrrrInputOutput {
 
@@ -54,7 +55,7 @@ internal object UtilityModelSpcHrrrInputOutput {
             return runData
         }
 
-    fun getImage(context: Context, om: ObjectModel, time: String, overlayImg: List<String>): Bitmap {
+    fun getImage(context: Context, om: ObjectModelNoSpinner, time: String, overlayImg: List<String>): Bitmap {
         val layerUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/"
         val bitmaps = mutableListOf<Bitmap>()
         val layers = mutableListOf<Drawable>()
@@ -65,16 +66,17 @@ internal object UtilityModelSpcHrrrInputOutput {
         val backgroundUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/hrrr/data/hrrr3/" + getSectorCode(om.sector).toLowerCase(Locale.US) + "/R" +
                 om.run.replace("Z", "") + "_F" + formatTime(time) + "_V" + getValidTime(om.run, time, om.rtd.validTime) +
                 "_" + getSectorCode(om.sector) + "_" + om.currentParam + ".gif"
+        UtilityLog.d("wx", backgroundUrl)
         bitmaps.add(UtilityImg.eraseBackground(backgroundUrl.getImage(), -1))
         layers.add(ColorDrawable(Color.WHITE))
         layers += bitmaps.map { BitmapDrawable(context.resources, it) }
         return UtilityImg.layerDrawableToBitmap(layers)
     }
 
-    fun getAnimation(context: Context, om: ObjectModel, overlayImg: List<String>): AnimationDrawable {
+    fun getAnimation(context: Context, om: ObjectModelNoSpinner, overlayImg: List<String>): AnimationDrawable {
         if (om.spinnerTimeValue == -1) return AnimationDrawable()
-        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).map { k ->
-            getImage(context, om, om.spTime.list[k].split(" ").dropLastWhile { it.isEmpty() }.getOrNull(0) ?: "", overlayImg)
+        val bitmaps = (om.spinnerTimeValue until om.times.size).map { k ->
+            getImage(context, om, om.times[k].split(" ").dropLastWhile { it.isEmpty() }.getOrNull(0) ?: "", overlayImg)
         }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }

@@ -42,6 +42,40 @@ import kotlinx.coroutines.*
 
 object UtilityModels {
 
+    fun getContentNonSpinner(context: Context, om: ObjectModelNoSpinner, overlayImg: List<String>, uiDispatcher: CoroutineDispatcher): Job =
+            GlobalScope.launch(uiDispatcher) {
+                //om.run = om.spRun.selectedItem.toString()
+                //om.time = om.spTime.selectedItem.toString()
+                //om.sector = om.spSector.selectedItem.toString()
+                //om.sectorInt = om.spSector.selectedItemPosition
+                if (om.truncateTime) {
+                    om.time = UtilityStringExternal.truncate(om.time, om.timeTruncate)
+                }
+                writePrefs(context, om)
+                withContext(Dispatchers.IO) { (0 until om.numPanes).forEach { om.displayData.bitmap[it] = om.getImage(it, overlayImg) } }
+                (0 until om.numPanes).forEach {
+                    if (om.numPanes > 1) {
+                        UtilityImg.resizeViewAndSetImage(context, om.displayData.bitmap[it], om.displayData.img[it])
+                    } else {
+                        om.displayData.img[it].setImageBitmap(om.displayData.bitmap[it])
+                    }
+                }
+                om.animRan = false
+                if (!om.firstRun) {
+                    (0 until om.numPanes).forEach {
+                        UtilityImg.imgRestorePosnZoom(context, om.displayData.img[it], om.modelProvider + om.numPanes.toString() + it.toString())
+                    }
+                    if (UIPreferences.fabInModels && om.numPanes < 2) {
+                        om.fab1?.visibility = View.VISIBLE
+                        om.fab2?.visibility = View.VISIBLE
+                    }
+                    om.firstRun = true
+                }
+                // TODO
+                //updateToolbarLabels(om)
+                om.imageLoaded = true
+            }
+
     fun getContent(context: Context, om: ObjectModel, overlayImg: List<String>, uiDispatcher: CoroutineDispatcher): Job =
             GlobalScope.launch(uiDispatcher) {
                 om.run = om.spRun.selectedItem.toString()
@@ -84,6 +118,15 @@ object UtilityModels {
                 om.animRan = true
             }
 
+    fun getAnimate(om: ObjectModelNoSpinner, overlayImg: List<String>, uiDispatcher: CoroutineDispatcher): Job =
+            GlobalScope.launch(uiDispatcher) {
+                withContext(Dispatchers.IO) {
+                    (0 until om.numPanes).forEach { om.displayData.animDrawable[it] = om.getAnimate(it, overlayImg) }
+                }
+                (0 until om.numPanes).forEach { UtilityImgAnim.startAnimation(om.displayData.animDrawable[it], om.displayData.img[it]) }
+                om.animRan = true
+            }
+
     private fun updateToolbarLabels(om: ObjectModel) {
         if (om.numPanes > 1) {
             setSubtitleRestoreIMGXYZOOM(
@@ -100,6 +143,14 @@ object UtilityModels {
     }
 
     private fun writePrefs(context: Context, om: ObjectModel) {
+        Utility.writePref(context, om.prefSector, om.sector)
+        (0 until om.numPanes).forEach {
+            Utility.writePref(context, om.prefParam + it.toString(), om.displayData.param[it])
+            Utility.writePref(context, om.prefParamLabel + it.toString(), om.displayData.paramLabel[it])
+        }
+    }
+
+    private fun writePrefs(context: Context, om: ObjectModelNoSpinner) {
         Utility.writePref(context, om.prefSector, om.sector)
         (0 until om.numPanes).forEach {
             Utility.writePref(context, om.prefParam + it.toString(), om.displayData.param[it])
@@ -225,6 +276,34 @@ object UtilityModels {
                 listTime[it] = prefix + tmpStr + " " + convertTimeRunToTimeString(run, tmpStr, showDate)
             }
             dataAdapterTime.notifyDataSetChanged()
+        }
+    }
+
+    fun updateTime(
+            runOriginal: String,
+            modelCurrentTimeF: String,
+            listTime: MutableList<String>,
+            prefix: String,
+            showDate: Boolean
+    ) {
+        var run = runOriginal.replace("Z", "").replace("z", "")
+        val modelCurrentTime = modelCurrentTimeF.replace("Z", "").replace("z", "")
+        // run is the current run , ie 12Z
+        // modelCurrentTime is the most recent model run
+        // listTime is a list of all times for a model ... 000 , 003,006, etc
+        // dataAdapterTime is the adapter passed so that we can notify on changes
+        // prefix allows us to handle times such as f000 ( SPC SREF )
+        // in response to time_str coming in as the following on rare occasions we need to truncate
+        // 000 Wed 8pm
+        if (modelCurrentTime != "") {
+            if ((run.toIntOrNull() ?: 0) > (modelCurrentTime.toIntOrNull() ?: 0)) {
+                run = ((run.toIntOrNull() ?: 0) - 24).toString()
+            }
+            (0 until listTime.size).forEach {
+                val tmpStr = MyApplication.space.split(listTime[it])[0].replace(prefix, "")
+                listTime[it] = prefix + tmpStr + " " + convertTimeRunToTimeString(run, tmpStr, showDate)
+            }
+            //dataAdapterTime.notifyDataSetChanged()
         }
     }
 

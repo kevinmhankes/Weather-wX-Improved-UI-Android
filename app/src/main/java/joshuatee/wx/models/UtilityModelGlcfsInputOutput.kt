@@ -31,7 +31,7 @@ import java.util.*
 
 internal object UtilityModelGlcfsInputOutput {
 
-    fun getImage(om: ObjectModel, timeOriginal: String): Bitmap {
+    fun getImage(om: ObjectModelNoSpinner, timeOriginal: String): Bitmap {
         var sector = ""
         if (om.sector.split(" ").size > 1) sector = om.sector.split(" ")[1].substring(0, 1).toLowerCase(Locale.US)
         var time = timeOriginal.replace("00", "0")
@@ -41,9 +41,9 @@ internal object UtilityModelGlcfsInputOutput {
         return url.getImage()
     }
 
-    fun getAnimation(context: Context, om: ObjectModel): AnimationDrawable {
+    fun getAnimation(context: Context, om: ObjectModelNoSpinner): AnimationDrawable {
         if (om.spinnerTimeValue == -1) return AnimationDrawable()
-        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).map { getImage(om, om.spTime.list[it].split(" ").getOrNull(0) ?: "") }
+        val bitmaps = (om.spinnerTimeValue until om.times.size).map { getImage(om, om.times[it].split(" ").getOrNull(0) ?: "") }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
 }

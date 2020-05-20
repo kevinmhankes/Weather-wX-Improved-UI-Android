@@ -27,7 +27,10 @@ import java.util.regex.Pattern
 import joshuatee.wx.util.UtilityString
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.external.UtilityStringExternal
+import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityNetworkIO
+
+fun List<String>.safeGet(index: Int) = Utility.safeGet(this, index)
 
 fun String.parse(match: String) = UtilityString.parse(this, match)
 

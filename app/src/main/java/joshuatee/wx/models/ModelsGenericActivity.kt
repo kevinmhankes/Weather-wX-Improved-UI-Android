@@ -22,9 +22,11 @@
 package joshuatee.wx.models
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
 import android.content.res.Configuration
 import android.view.KeyEvent
+import android.view.Menu
 
 import java.util.Locale
 
@@ -32,11 +34,8 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.view.GravityCompat
-import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
@@ -46,8 +45,7 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
-        OnItemSelectedListener {
+class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     // This code provides a native android interface to Weather Models
     //
@@ -60,40 +58,63 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var fab1: ObjectFab? = null
     private var fab2: ObjectFab? = null
-    private var spinnerRunRan = false
-    private var spinnerTimeRan = false
-    private var spinnerSectorRan = false
-    private var spinnerModelRan = false
+    //private var spinnerRunRan = false
+    //private var spinnerTimeRan = false
+    //private var spinnerSectorRan = false
+    //private var spinnerModelRan = false
     private var activityArguments: Array<String>? = arrayOf()
     private lateinit var miStatus: MenuItem
     private lateinit var miStatusParam1: MenuItem
     private lateinit var miStatusParam2: MenuItem
-    private lateinit var om: ObjectModel
-    private lateinit var spRun: ObjectSpinner
-    private lateinit var spSector: ObjectSpinner
+    private lateinit var om: ObjectModelNoSpinner
+    //private lateinit var spRun: ObjectSpinner
+    //private lateinit var spSector: ObjectSpinner
     private lateinit var drw: ObjectNavDrawer
-    private var firstRunTimeSet = false
+    //private var firstRunTimeSet = false
+    private lateinit var timeMenuItem: MenuItem
+    private lateinit var sectorMenuItem: MenuItem
+    private lateinit var runMenuItem: MenuItem
+    private lateinit var modelMenuItem: MenuItem
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.models_generic_top, menu)
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        sectorMenuItem = menu.findItem(R.id.action_region)
+        modelMenuItem = menu.findItem(R.id.action_model)
+        return super.onPrepareOptionsMenu(menu)
+    }
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         activityArguments = intent.getStringArrayExtra(INFO)
         if (activityArguments == null) activityArguments = arrayOf("1", "NCEP", "NCEP")
-        om = ObjectModel(this, activityArguments!![1], activityArguments!![0])
+        om = ObjectModelNoSpinner(this, activityArguments!![1], activityArguments!![0])
         if (om.numPanes == 1) {
-            super.onCreate(savedInstanceState, R.layout.activity_models_generic, R.menu.models_generic, iconsEvenlySpaced = false, bottomToolbar = true)
+            super.onCreate(savedInstanceState, R.layout.activity_models_generic_nospinner, R.menu.models_generic, iconsEvenlySpaced = false, bottomToolbar = true)
         } else {
-            super.onCreate(savedInstanceState, R.layout.activity_models_generic_multipane, R.menu.models_generic, iconsEvenlySpaced = false, bottomToolbar = true)
+            super.onCreate(savedInstanceState, R.layout.activity_models_generic_multipane_nospinner, R.menu.models_generic, iconsEvenlySpaced = false, bottomToolbar = true)
             val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
             if (UtilityUI.isLandScape(this)) linearLayout.orientation = LinearLayout.HORIZONTAL
         }
         toolbarBottom.setOnMenuItemClickListener(this)
         title = activityArguments!![2]
         val menu = toolbarBottom.menu
+        timeMenuItem = menu.findItem(R.id.action_time)
+        runMenuItem = menu.findItem(R.id.action_run)
         miStatusParam1 = menu.findItem(R.id.action_status_param1)
         miStatusParam2 = menu.findItem(R.id.action_status_param2)
         if (om.numPanes < 2) {
-            fab1 = ObjectFab(this, this, R.id.fab1, View.OnClickListener { UtilityModels.moveBack(om.spTime) })
-            fab2 = ObjectFab(this, this, R.id.fab2, View.OnClickListener { UtilityModels.moveForward(om.spTime) })
+            fab1 = ObjectFab(this, this, R.id.fab1, View.OnClickListener {
+                om.leftClick()
+                getContent()
+            })
+            fab2 = ObjectFab(this, this, R.id.fab2, View.OnClickListener {
+                om.rightClick()
+                getContent()
+            })
             menu.findItem(R.id.action_img1).isVisible = false
             menu.findItem(R.id.action_img2).isVisible = false
             if (UIPreferences.fabInModels) {
@@ -111,24 +132,27 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
         miStatus = menu.findItem(R.id.action_status)
         miStatus.title = "in through"
         menu.findItem(R.id.action_map).isVisible = false
-        om.spTime = ObjectSpinner(this, this, this, R.id.spinner_time)
-        om.displayData = DisplayData(this, this, om.numPanes, om.spTime)
-        spRun = ObjectSpinner(this, this, this, R.id.spinner_run)
-        spSector = ObjectSpinner(this, this, this, R.id.spinner_sector, om.sectors)
-        spSector.setSelection(om.sector)
-        ObjectSpinner(this, this, this, R.id.spinner_model, om.models, om.model)
+        //om.spTime = ObjectSpinner(this, this, this, R.id.spinner_time)
+        om.displayData = DisplayDataNoSpinner(this, this, om.numPanes, om)
+        //spRun = ObjectSpinner(this, this, this, R.id.spinner_run)
+        //spSector = ObjectSpinner(this, this, this, R.id.spinner_sector, om.sectors)
+        //spSector.setSelection(om.sector)
+        //ObjectSpinner(this, this, this, R.id.spinner_model, om.models, om.model)
         drw = ObjectNavDrawer(this, om.labels, om.params)
-        om.setUIElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2, spRun, spSector)
+        om.setUiElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2)
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             drw.listView.setItemChecked(position, false)
             drw.drawerLayout.closeDrawer(drw.listView)
             om.displayData.param[om.curImg] = drw.tokens[position]
             om.displayData.paramLabel[om.curImg] = drw.getLabel(position)
-            UtilityModels.getContent(this, om, listOf(""), uiDispatcher)
+            //UtilityModels.getContent(this, om, listOf(""), uiDispatcher)
+            getContent()
         }
+        setupModel()
+        getRunStatus()
     }
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+    /*override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
         when (parent.id) {
             R.id.spinner_run -> if (!spinnerRunRan) spinnerRunRan = true
@@ -148,18 +172,25 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
         } else if (firstRunTimeSet) { // && spinnerRunRan && spinnerTimeRan && spinnerSectorRan && spinnerModelRan
             UtilityModels.getContent(this, om, listOf(""), uiDispatcher)
         }
+    }*/
 
-    }
+    //override fun onNothingSelected(parent: AdapterView<*>) {}
 
-    override fun onNothingSelected(parent: AdapterView<*>) {}
-
-    override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
+    //override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
-            R.id.action_back -> UtilityModels.moveBack(om.spTime)
-            R.id.action_forward -> UtilityModels.moveForward(om.spTime)
+            R.id.action_back -> {
+                om.leftClick()
+                getContent()
+            }
+            R.id.action_forward -> {
+                om.leftClick()
+                getContent()
+            }
+            R.id.action_time -> dialogTime()
+            R.id.action_run -> dialogRun()
             R.id.action_animate -> UtilityModels.getAnimate(om, listOf(""), uiDispatcher)
             R.id.action_img1 -> {
                 om.curImg = 0
@@ -182,7 +213,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityModels.legacyShare(this@ModelsGenericActivity, this@ModelsGenericActivity, om.animRan, om)
+                    //UtilityModels.legacyShare(this@ModelsGenericActivity, this@ModelsGenericActivity, om.animRan, om)
                 }
             }
             else -> return super.onOptionsItemSelected(item)
@@ -190,7 +221,17 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
         return true
     }
 
-    private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
+        when (item.itemId) {
+            R.id.action_region -> dialogRegion()
+            R.id.action_model -> dialogModel()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
+    /*private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
         if (om.modelType == ModelType.NCEP) {
             om.rtd = withContext(Dispatchers.IO) { UtilityModelNcepInputOutput.getRunTime(om.model, om.displayData.param[0], om.sectors[0]) }
             om.time = om.rtd.mostRecentRun
@@ -227,6 +268,34 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 om.spTime.setSelection(Utility.readPref(this@ModelsGenericActivity, om.prefRunPosn, 1))
             }
         }
+    }*/
+
+    private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
+        om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
+
+        when (om.modelType) {
+            ModelType.NCEP -> setupListRunZ(om.numberRuns)
+            else -> {}
+        }
+
+        miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
+        om.run = om.rtd.mostRecentRun
+        (om.startStep until om.endStep).forEach { om.times.add(String.format(Locale.US, "%02d", it)) }
+        UtilityModels.updateTime(UtilityString.getLastXChars(om.run, 2), om.rtd.mostRecentRun, om.times, "", false)
+        om.setTimeIdx(Utility.readPref(this@ModelsGenericActivity, om.prefRunPosn, 0))
+        getContent()
+    }
+
+    private fun getContent() {
+        UtilityModels.getContentNonSpinner(this, om, listOf(""), uiDispatcher)
+        updateMenuTitles()
+    }
+
+    private fun updateMenuTitles() {
+        sectorMenuItem.title = om.sector
+        timeMenuItem.title = om.time
+        runMenuItem.title = om.run
+        modelMenuItem.title = om.model
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -239,17 +308,78 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
         drw.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
+    private fun dialogTime() {
+        val objectDialogue = ObjectDialogue(this@ModelsGenericActivity, om.times)
+        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+            dialog.dismiss()
+            UtilityUI.immersiveMode(this)
+        })
+        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+            om.setTimeIdx(which)
+            getContent()
+            dialog.dismiss()
+        })
+        objectDialogue.show()
+    }
+
+    private fun dialogRegion() {
+        val objectDialogue = ObjectDialogue(this@ModelsGenericActivity, om.sectors)
+        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+            dialog.dismiss()
+            UtilityUI.immersiveMode(this)
+        })
+        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+            om.sector = om.sectors[which]
+            getContent()
+            dialog.dismiss()
+        })
+        objectDialogue.show()
+    }
+
+    private fun dialogRun() {
+        UtilityLog.d("wx", "DEBUG: " + om.rtd.listRun)
+        val objectDialogue = ObjectDialogue(this@ModelsGenericActivity, om.rtd.listRun)
+        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+            dialog.dismiss()
+            UtilityUI.immersiveMode(this)
+        })
+        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+            om.run = om.rtd.listRun[which]
+            getContent()
+            dialog.dismiss()
+        })
+        objectDialogue.show()
+    }
+
+    private fun dialogModel() {
+        val objectDialogue = ObjectDialogue(this@ModelsGenericActivity, om.models)
+        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+            dialog.dismiss()
+            UtilityUI.immersiveMode(this)
+        })
+        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+            om.model = om.models[which]
+            Utility.writePref(this, om.prefModel, om.model)
+            Utility.writePref(this, om.prefModelIndex, which)
+            getContent()
+            dialog.dismiss()
+        })
+        objectDialogue.show()
+    }
+
     override fun onStop() {
         if (om.imageLoaded) {
             (0 until om.numPanes).forEach {
                 UtilityImg.imgSavePosnZoom(this, om.displayData.img[it], om.modelProvider + om.numPanes.toString() + it.toString())
             }
-            Utility.writePref(this, om.prefRunPosn, om.spTime.selectedItemPosition)
+            Utility.writePref(this, om.prefRunPosn, om.timeIndex)
         }
         super.onStop()
     }
 
     private fun setupModel() {
+        val modelPosition = Utility.readPref(this, om.prefModelIndex, 0)
+        om.setParams(modelPosition)
         (0 until om.numPanes).forEach {
             om.displayData.param[it] = om.params[0]
             om.displayData.param[it] = Utility.readPref(this, om.prefParam + it.toString(), om.displayData.param[0])
@@ -265,74 +395,82 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener,
                 om.displayData.param[1] = om.params[0]
                 om.displayData.paramLabel[1] = om.labels[0]
             }
-        spSector.refreshData(this, om.sectors)
-        spSector.setSelection(om.sector)
+        //spSector.refreshData(this, om.sectors)
+        //spSector.setSelection(om.sector)
         drw.updateLists(this, om.labels, om.params)
-        spRun.setSelection(0)
+        //spRun.setSelection(0)
         when (om.modelType) {
             ModelType.NCEP -> setupListRunZ(om.numberRuns)
             else -> {}
         }
-        om.spTime.setSelection(0)
-        om.spTime.list.clear()
+        //om.spTime.setSelection(0)
+        //om.spTime.list.clear()
         when (om.modelType) {
             ModelType.GLCFS -> {
-                (om.startStep..om.endStep step om.stepAmount).forEach { om.spTime.list.add(String.format(Locale.US, om.format, it)) }
-                (51..121 step 3).forEach { om.spTime.list.add(String.format(Locale.US, om.format, it)) }
+                (om.startStep..om.endStep step om.stepAmount).forEach { om.times.add(String.format(Locale.US, om.format, it)) }
+                (51..121 step 3).forEach { om.times.add(String.format(Locale.US, om.format, it)) }
             }
             ModelType.NCEP -> {
                 when (om.model) {
                     "HRRR" -> {
-                        (om.startStep..om.endStep step om.stepAmount).forEach { om.spTime.add(String.format(Locale.US, "%03d" + "00", it)) }
+                        (om.startStep..om.endStep step om.stepAmount).forEach { om.times.add(String.format(Locale.US, "%03d" + "00", it)) }
                     }
                     "GEFS-SPAG", "GEFS-MEAN-SPRD" -> {
-                        (0..181 step 6).forEach { om.spTime.add(String.format(Locale.US, "%03d", it)) }
-                        (192..385 step 12).forEach { om.spTime.add(String.format(Locale.US, "%03d", it)) }
+                        (0..181 step 6).forEach { om.times.add(String.format(Locale.US, "%03d", it)) }
+                        (192..385 step 12).forEach { om.times.add(String.format(Locale.US, "%03d", it)) }
                     }
                     "GFS" -> {
-                        (0..241 step 3).forEach { om.spTime.add(String.format(Locale.US, "%03d", it)) }
-                        (252..385 step 12).forEach { om.spTime.add(String.format(Locale.US, "%03d", it)) }
+                        (0..241 step 3).forEach { om.times.add(String.format(Locale.US, "%03d", it)) }
+                        (252..385 step 12).forEach { om.times.add(String.format(Locale.US, "%03d", it)) }
                     }
-                    else -> (om.startStep..om.endStep step om.stepAmount).forEach { om.spTime.list.add(String.format(Locale.US, om.format, it)) }
+                    else -> (om.startStep..om.endStep step om.stepAmount).forEach { om.times.add(String.format(Locale.US, om.format, it)) }
                 }
             }
-            else -> (om.startStep..om.endStep step om.stepAmount).forEach { om.spTime.list.add(String.format(Locale.US, om.format, it)) }
+            else -> (om.startStep..om.endStep step om.stepAmount).forEach { om.times.add(String.format(Locale.US, om.format, it)) }
         }
+        Utility.writePref(this, om.prefModel, om.model)
     }
 
     private fun setupListRunZ(numberRuns: Int) {
-        spRun.clear()
+        UtilityLog.d("wx", "DEBUG: setupListRunZ " + numberRuns.toString())
+        om.rtd.listRun.clear()
         when (numberRuns) {
-            1 -> spRun.add("00Z")
+            1 -> om.rtd.listRun.add("00Z")
             2 -> {
-                spRun.add("00Z")
-                spRun.add("12Z")
+                om.rtd.listRun.add("00Z")
+                om.rtd.listRun.add("12Z")
             }
             4 -> {
-                spRun.add("00Z")
-                spRun.add("06Z")
-                spRun.add("12Z")
-                spRun.add("18Z")
+                om.rtd.listRun.add("00Z")
+                om.rtd.listRun.add("06Z")
+                om.rtd.listRun.add("12Z")
+                om.rtd.listRun.add("18Z")
             }
             5 -> {
-                spRun.add("03Z")
-                spRun.add("09Z")
-                spRun.add("15Z")
-                spRun.add("21Z")
+                om.rtd.listRun.add("03Z")
+                om.rtd.listRun.add("09Z")
+                om.rtd.listRun.add("15Z")
+                om.rtd.listRun.add("21Z")
             }
-            24 -> (0..23).forEach { spRun.add(String.format(Locale.US, "%02d", it) + "Z") }
+            24 -> (0..23).forEach { om.rtd.listRun.add(String.format(Locale.US, "%02d", it) + "Z") }
         }
-        spRun.notifyDataSetChanged()
+        //spRun.notifyDataSetChanged()
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {
             KeyEvent.KEYCODE_J -> {
-                if (event.isCtrlPressed) UtilityModels.moveBack(om.spTime)
+                if (event.isCtrlPressed) {
+                    om.leftClick()
+                    getContent()
+                }
                 true
             }
             KeyEvent.KEYCODE_K -> {
-                if (event.isCtrlPressed) UtilityModels.moveForward(om.spTime)
+                if (event.isCtrlPressed) {
+                    om.leftClick()
+                    getContent()
+                }
                 true
             }
             KeyEvent.KEYCODE_D -> {

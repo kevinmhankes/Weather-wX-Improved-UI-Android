@@ -27,11 +27,11 @@ import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import joshuatee.wx.Extensions.safeGet
 import joshuatee.wx.ui.ObjectFab
-import joshuatee.wx.ui.ObjectSpinner
 import joshuatee.wx.util.UtilityImg
 
-class ObjectModel(val context: Context, var prefModel: String, numPanesStr: String) {
+class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanesStr: String) {
 
     var run = "00Z"
     var time = "00"
@@ -54,17 +54,19 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
     var prefParamLabel = "MODEL_" + prefModel + numPanesStr + "_PARAM_LAST_USED_LABEL"
     var prefRunPosn = "MODEL_" + prefModel + numPanesStr + "_RUN_POSN"
     var modelProvider = "MODEL_$prefModel$numPanesStr"
-    private var prefModelIndex = "MODEL_$prefModel${numPanesStr}_INDEX"
+    var prefModelIndex = "MODEL_$prefModel${numPanesStr}_INDEX"
     private var modelIndex = 0
     var rtd = RunTimeData()
-    lateinit var displayData: DisplayData
+    lateinit var displayData: DisplayDataNoSpinner
     var sectors = listOf("")
     var labels = listOf("")
     var params = listOf("")
     var models = listOf("")
+    var times = mutableListOf("")
+    var timeIndex = 0
+    //var timeStr = ""
     private var defaultModel = ""
     var spinnerTimeValue = 0
-    lateinit var spTime: ObjectSpinner
     var animRan = false
     var firstRun = false
     var imageLoaded = false
@@ -73,25 +75,13 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
     var fab1: ObjectFab? = null
     var fab2: ObjectFab? = null
     lateinit var toolbar: Toolbar
-    lateinit var spRun: ObjectSpinner
-    lateinit var spSector: ObjectSpinner
 
-    fun setUIElements(
-            toolbar: Toolbar,
-            fab1: ObjectFab?,
-            fab2: ObjectFab?,
-            miStatusParam1: MenuItem,
-            miStatusParam2: MenuItem,
-            spRun: ObjectSpinner,
-            spSector: ObjectSpinner
-    ) {
+    fun setUiElements(toolbar: Toolbar, fab1: ObjectFab?, fab2: ObjectFab?, miStatusParam1: MenuItem, miStatusParam2: MenuItem) {
         this.miStatusParam1 = miStatusParam1
         this.miStatusParam2 = miStatusParam2
         this.fab1 = fab1
         this.fab2 = fab2
         this.toolbar = toolbar
-        this.spRun = spRun
-        this.spSector = spSector
     }
 
     init {
@@ -162,33 +152,35 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
         sector = Utility.readPref(context, prefSector, sectors[0])
     }
 
+    // TODO
     fun getImage(index: Int, overlayImg: List<String>): Bitmap {
         currentParam = displayData.param[index]
         return when (modelType) {
-            //ModelType.WPCGEFS -> UtilityModelWpcGefsInputOutput.getImage(this, time)
-            //ModelType.ESRL -> UtilityModelEsrlInputOutput.getImage(this, time)
-            //ModelType.NSSL -> UtilityModelNsslWrfInputOutput.getImage(context, this, time)
-            //ModelType.GLCFS -> UtilityModelGlcfsInputOutput.getImage(this, time)
-            //ModelType.NCEP -> UtilityModelNcepInputOutput.getImage(this, time)
-            ModelType.SPCSREF -> UtilityModelSpcSrefInputOutput.getImage(context, this, time)
-            //ModelType.SPCHREF -> UtilityModelSpcHrefInputOutput.getImage(context, this, time)
-            //ModelType.SPCHRRR -> UtilityModelSpcHrrrInputOutput.getImage(context, this, time, overlayImg)
-            else -> return UtilityImg.getBlankBitmap()
+            ModelType.WPCGEFS -> UtilityModelWpcGefsInputOutput.getImage(this, time)
+            ModelType.ESRL -> UtilityModelEsrlInputOutput.getImage(this, time)
+            ModelType.NSSL -> UtilityModelNsslWrfInputOutput.getImage(context, this, time)
+            ModelType.GLCFS -> UtilityModelGlcfsInputOutput.getImage(this, time)
+            ModelType.NCEP -> UtilityModelNcepInputOutput.getImage(this, time)
+            //ModelType.SPCSREF -> UtilityModelSpcSrefInputOutput.getImage(context, this, time)
+            ModelType.SPCHREF -> UtilityModelSpcHrefInputOutput.getImage(context, this, time)
+            ModelType.SPCHRRR -> UtilityModelSpcHrrrInputOutput.getImage(context, this, time, overlayImg)
+            else -> { return UtilityImg.getBlankBitmap()}
         }
     }
 
+    // TODO
     fun getAnimate(index: Int, overlayImg: List<String>): AnimationDrawable {
         currentParam = displayData.param[index]
-        spinnerTimeValue = spTime.selectedItemPosition
+        //spinnerTimeValue = spTime.selectedItemPosition
         return when (modelType) {
-            //ModelType.WPCGEFS -> UtilityModelWpcGefsInputOutput.getAnimation(context, this)
-            //ModelType.ESRL -> UtilityModelEsrlInputOutput.getAnimation(context, this)
-            //ModelType.NSSL -> UtilityModelNsslWrfInputOutput.getAnimation(context, this)
-            //ModelType.GLCFS -> UtilityModelGlcfsInputOutput.getAnimation(context, this)
-            //ModelType.NCEP -> UtilityModelNcepInputOutput.getAnimation(context, this)
-            ModelType.SPCSREF -> UtilityModelSpcSrefInputOutput.getAnimation(context, this)
-            //ModelType.SPCHREF -> UtilityModelSpcHrefInputOutput.getAnimation(context, this)
-            //ModelType.SPCHRRR -> UtilityModelSpcHrrrInputOutput.getAnimation(context, this, overlayImg)
+            ModelType.WPCGEFS -> UtilityModelWpcGefsInputOutput.getAnimation(context, this)
+            ModelType.ESRL -> UtilityModelEsrlInputOutput.getAnimation(context, this)
+            ModelType.NSSL -> UtilityModelNsslWrfInputOutput.getAnimation(context, this)
+            ModelType.GLCFS -> UtilityModelGlcfsInputOutput.getAnimation(context, this)
+            ModelType.NCEP -> UtilityModelNcepInputOutput.getAnimation(context, this)
+            //ModelType.SPCSREF -> UtilityModelSpcSrefInputOutput.getAnimation(context, this)
+            ModelType.SPCHREF -> UtilityModelSpcHrefInputOutput.getAnimation(context, this)
+            ModelType.SPCHRRR -> UtilityModelSpcHrrrInputOutput.getAnimation(context, this, overlayImg)
             else -> return AnimationDrawable()
         }
     }
@@ -518,6 +510,40 @@ class ObjectModel(val context: Context, var prefModel: String, numPanesStr: Stri
                 }
             }
             else -> {}
+        }
+    }
+
+    fun setTimeIdx(timeIdx: Int) {
+        if (timeIdx > -1 && timeIdx < times.size) {
+            this.timeIndex = timeIdx
+            this.time = this.times[timeIdx]
+        }
+    }
+
+    private fun timeIdxIncr() {
+        this.timeIndex += 1
+        // TODO
+        this.time = this.times.safeGet(timeIndex)
+    }
+
+    private fun timeIdxDecr() {
+        this.timeIndex -= 1
+        this.time = this.times.safeGet(timeIndex)
+    }
+
+    fun leftClick() {
+        if (timeIndex == 0) {
+            setTimeIdx(times.size - 1)
+        } else {
+            timeIdxDecr()
+        }
+    }
+
+    fun rightClick() {
+        if (timeIndex == times.size - 1) {
+            setTimeIdx(0)
+        } else {
+            timeIdxIncr()
         }
     }
 }

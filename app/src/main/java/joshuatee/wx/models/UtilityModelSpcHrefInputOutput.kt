@@ -32,6 +32,7 @@ import joshuatee.wx.util.UtilityImgAnim
 import joshuatee.wx.util.UtilityTime
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
+import joshuatee.wx.util.UtilityLog
 import java.util.*
 
 internal object UtilityModelSpcHrefInputOutput {
@@ -50,9 +51,9 @@ internal object UtilityModelSpcHrefInputOutput {
             return runData
         }
 
-    fun getImage(context: Context, om: ObjectModel, time: String): Bitmap {
+    fun getImage(context: Context, om: ObjectModelNoSpinner, time: String): Bitmap {
         val sectorIndex = if (om.sector == "") 0 else UtilityModelSpcHrefInterface.sectorsLong.indexOf(om.sector)
-        val sector = UtilityModelSpcHrefInterface.sectors[sectorIndex]
+        val sector = UtilityModelSpcHrefInterface.sectors.safeGet(sectorIndex)
         if (om.run.length < 10) return UtilityImg.getBlankBitmap()
         val year = om.run.substring(0, 4)
         val month = om.run.substring(4, 6)
@@ -77,6 +78,7 @@ internal object UtilityModelSpcHrefInputOutput {
                         "." + sector.toLowerCase(Locale.US) + ".f0" + time + "00.png"
             }
             urls.add(url)
+            UtilityLog.d("wx", url)
         }
         urls.add("${MyApplication.nwsSPCwebsitePrefix}/exper/href/graphics/blank_maps/$sector.png")
         urls.forEach {
@@ -89,10 +91,10 @@ internal object UtilityModelSpcHrefInputOutput {
         return UtilityImg.layerDrawableToBitmap(layers)
     }
 
-    fun getAnimation(context: Context, om: ObjectModel): AnimationDrawable {
+    fun getAnimation(context: Context, om: ObjectModelNoSpinner): AnimationDrawable {
         if (om.spinnerTimeValue == -1) return AnimationDrawable()
-        val bitmaps = (om.spinnerTimeValue until om.spTime.list.size).map {
-            getImage(context, om, om.spTime.list[it].split(" ").getOrNull(0) ?: "")
+        val bitmaps = (om.spinnerTimeValue until om.times.size).map {
+            getImage(context, om, om.times[it].split(" ").getOrNull(0) ?: "")
         }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)
     }
