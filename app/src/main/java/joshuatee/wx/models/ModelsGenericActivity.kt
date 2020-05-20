@@ -36,6 +36,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.LinearLayout
 import androidx.core.view.GravityCompat
+import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
@@ -68,6 +69,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
     private var sectorMenuItem: MenuItem? = null
     private lateinit var runMenuItem: MenuItem
     private var modelMenuItem: MenuItem? = null
+    private var firstRunTimeSet = false
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.models_generic_top, menu)
@@ -232,17 +234,56 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }*/
 
     private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
-        om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
+
+        if (om.modelType == ModelType.NCEP) {
+            om.rtd = withContext(Dispatchers.IO) { UtilityModelNcepInputOutput.getRunTime(om.model, om.displayData.param[0], om.sectors[0]) }
+            om.run = om.rtd.mostRecentRun
+            //spRun.setSelection(om.rtd.mostRecentRun)
+            //if (om.model == "CFS" && 0 == ) UtilityModels.getContent(this@ModelsGenericActivity, om, listOf(""), uiDispatcher)
+            miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
+            (0 until om.times.size).forEach {
+                val items = MyApplication.space.split(om.times[it])[0]
+                om.times[it] = "$items " + UtilityModels.convertTimeRunToTimeString(om.rtd.mostRecentRun.replace("Z", ""), items, true)
+            }
+            if (!firstRunTimeSet) {
+                firstRunTimeSet = true
+                om.setTimeIdx(Utility.readPref(this@ModelsGenericActivity, om.prefRunPosn, 1))
+            }
+        } else {
+            om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
+            //spRun.addAll(om.rtd.listRun)
+            miStatus.isVisible = true
+            miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
+            (0 until om.times.size).forEach {
+                om.times[it] = om.times[it] + " " + UtilityModels.convertTimeRunToTimeString(
+                        om.rtd.timeStrConv.replace("Z", ""),
+                        om.times[it],
+                        false
+                )
+            }
+            if (!firstRunTimeSet) {
+                firstRunTimeSet = true
+                om.setTimeIdx(Utility.readPref(this@ModelsGenericActivity, om.prefRunPosn, 1))
+            }
+        }
+        getContent()
+
+        /*om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
         when (om.modelType) {
             ModelType.NCEP -> setupListRunZ(om.numberRuns)
             else -> {}
         }
         miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
         om.run = om.rtd.mostRecentRun
-        //(om.startStep until om.endStep).forEach { om.times.add(String.format(Locale.US, "%02d", it)) }
-        UtilityModels.updateTime(UtilityString.getLastXChars(om.run, 2), om.rtd.mostRecentRun, om.times, "", false)
+        (0 until om.times.size).forEach {
+            om.times[it] = om.times[it] + " " + UtilityModels.convertTimeRunToTimeString(
+                    om.rtd.timeStrConv.replace("Z", ""),
+                    om.times[it],
+                    false
+            )
+        }
         om.setTimeIdx(Utility.readPref(this@ModelsGenericActivity, om.prefRunPosn, 0))
-        getContent()
+        getContent()*/
     }
 
     private fun getContent() {
