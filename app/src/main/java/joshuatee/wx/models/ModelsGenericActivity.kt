@@ -251,7 +251,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
             }
         } else {
             om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
-            //spRun.addAll(om.rtd.listRun)
+            om.run = om.rtd.mostRecentRun
             miStatus.isVisible = true
             miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
             (0 until om.times.size).forEach {
