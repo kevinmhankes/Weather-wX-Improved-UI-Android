@@ -366,6 +366,12 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
             ModelType.NCEP -> setupListRunZ(om.numberRuns)
             else -> {}
         }
+
+
+        if (!om.sectors.contains(om.sector)) {
+            om.sector = om.sectors[0]
+        }
+
         om.times.clear()
         when (om.modelType) {
             ModelType.GLCFS -> {

@@ -170,7 +170,7 @@ class MiscFragment : Fragment() {
                     "goesfulldisk", "GOES Full Disk"
             )
             hm["nwsobs"] = TileObject(
-                    R.drawable.nwsobs,
+                    R.drawable.nwsobssites,
                     NwsObsSitesActivity::class.java,
                     "",
                     arrayOf(),
