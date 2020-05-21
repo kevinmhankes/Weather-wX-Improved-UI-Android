@@ -36,6 +36,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.LinearLayout
 import androidx.core.view.GravityCompat
+import joshuatee.wx.Extensions.safeGet
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
@@ -226,6 +227,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
         if (om.modelType == ModelType.NCEP) {
             om.rtd = withContext(Dispatchers.IO) { UtilityModelNcepInputOutput.getRunTime(om.model, om.displayData.param[0], om.sectors[0]) }
             om.run = om.rtd.mostRecentRun
+            om.rtd.listRun = om.ncepRuns
             //spRun.setSelection(om.rtd.mostRecentRun)
             //if (om.model == "CFS" && 0 == ) UtilityModels.getContent(this@ModelsGenericActivity, om, listOf(""), uiDispatcher)
             miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
@@ -442,26 +444,26 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     private fun setupListRunZ(numberRuns: Int) {
         //UtilityLog.d("wx", "DEBUG: setupListRunZ " + numberRuns.toString())
-        om.rtd.listRun.clear()
+        om.ncepRuns.clear()
         when (numberRuns) {
-            1 -> om.rtd.listRun.add("00Z")
+            1 -> om.ncepRuns.add("00Z")
             2 -> {
-                om.rtd.listRun.add("00Z")
-                om.rtd.listRun.add("12Z")
+                om.ncepRuns.add("00Z")
+                om.ncepRuns.add("12Z")
             }
             4 -> {
-                om.rtd.listRun.add("00Z")
-                om.rtd.listRun.add("06Z")
-                om.rtd.listRun.add("12Z")
-                om.rtd.listRun.add("18Z")
+                om.ncepRuns.add("00Z")
+                om.ncepRuns.add("06Z")
+                om.ncepRuns.add("12Z")
+                om.ncepRuns.add("18Z")
             }
             5 -> {
-                om.rtd.listRun.add("03Z")
-                om.rtd.listRun.add("09Z")
-                om.rtd.listRun.add("15Z")
-                om.rtd.listRun.add("21Z")
+                om.ncepRuns.add("03Z")
+                om.ncepRuns.add("09Z")
+                om.ncepRuns.add("15Z")
+                om.ncepRuns.add("21Z")
             }
-            24 -> (0..23).forEach { om.rtd.listRun.add(String.format(Locale.US, "%02d", it) + "Z") }
+            24 -> (0..23).forEach { om.ncepRuns.add(String.format(Locale.US, "%02d", it) + "Z") }
         }
     }
 

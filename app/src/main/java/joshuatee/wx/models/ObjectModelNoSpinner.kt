@@ -61,6 +61,7 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
     var labels = listOf("")
     var params = listOf("")
     var models = listOf("")
+    var ncepRuns = mutableListOf("")
     var times = mutableListOf("")
     var timeIndex = 0
     //var timeStr = ""

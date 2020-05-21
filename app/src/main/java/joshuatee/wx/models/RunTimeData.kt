@@ -24,7 +24,7 @@ package joshuatee.wx.models
 class RunTimeData {
 
     // list of model runs
-    val listRun = mutableListOf<String>()
+    var listRun = mutableListOf<String>()
     // most recently completed run, what user will see by default
     var mostRecentRun = ""
     var imageCompleteInt = 0
