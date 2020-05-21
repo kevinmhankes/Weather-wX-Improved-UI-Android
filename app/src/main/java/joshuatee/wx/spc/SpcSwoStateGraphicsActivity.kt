@@ -27,10 +27,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.TextView
-import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
@@ -39,7 +35,6 @@ import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
 
 import joshuatee.wx.GlobalArrays
-import joshuatee.wx.UIPreferences
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
@@ -128,7 +123,7 @@ class SpcSwoStateGraphicsActivity : VideoRecordActivity() {
         })
         objectDialogue.show()
     }
-    
+
     override fun onStop() {
         img.imgSavePosnZoom(this, imgPrefToken)
         super.onStop()
