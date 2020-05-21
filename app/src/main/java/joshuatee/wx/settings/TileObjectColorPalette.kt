@@ -38,6 +38,7 @@ internal class TileObjectColorPalette(val colorMapLabel: String, val toolbar: To
 
     val bitmapWithText: Bitmap
 
+    // TODO accept into for product
     init {
         val oldMap: String
         val bitmap: Bitmap
@@ -48,7 +49,7 @@ internal class TileObjectColorPalette(val colorMapLabel: String, val toolbar: To
             oldMap = MyApplication.radarColorPalette[product]!!
             MyApplication.radarColorPalette[product] = colorMapLabel
             try {
-                UtilityColorPaletteGeneric.loadColorMap(context, product)
+                UtilityColorPaletteGeneric.loadColorMap(context, product.toIntOrNull() ?: 94)
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
             }

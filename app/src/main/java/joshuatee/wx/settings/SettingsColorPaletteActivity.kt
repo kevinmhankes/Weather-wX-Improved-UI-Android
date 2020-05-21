@@ -133,7 +133,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
         tileAdapterColorPalette = TileAdapterColorPalette(rowListItem, UIPreferences.tilesPerRow)
         cardList.adapter = tileAdapterColorPalette
         title = MyApplication.radarColorPalette[type]
-        UtilityColorPaletteGeneric.loadColorMap(this, type)
+        UtilityColorPaletteGeneric.loadColorMap(this, type.toIntOrNull() ?: 94)
         super.onRestart()
     }
 
@@ -163,7 +163,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                 Utility.writePrefWithNull(this@SettingsColorPaletteActivity, rowListItem[globalPosition].prefToken, MyApplication.radarColorPalette[type])
                 Utility.commitPref(this@SettingsColorPaletteActivity)
                 rowListItem[globalPosition].toolbar.title = MyApplication.radarColorPalette[type]
-                UtilityColorPaletteGeneric.loadColorMap(this, type)
+                UtilityColorPaletteGeneric.loadColorMap(this, type.toIntOrNull() ?: 94)
                 rowListItem = allItemList
                 tileAdapterColorPalette = TileAdapterColorPalette(rowListItem, UIPreferences.tilesPerRow)
                 cardList.adapter = tileAdapterColorPalette
@@ -188,12 +188,12 @@ class SettingsColorPaletteActivity : BaseActivity() {
             MyApplication.radarColorPalette[type] = rowListItem[position].colorMapLabel
             Utility.writePrefWithNull(this@SettingsColorPaletteActivity, rowListItem[position].prefToken, MyApplication.radarColorPalette[type])
             rowListItem[position].toolbar.title = MyApplication.radarColorPalette[type]
-            UtilityColorPaletteGeneric.loadColorMap(this, type)
+            UtilityColorPaletteGeneric.loadColorMap(this, type.toIntOrNull() ?: 94)
         } else {
             MyApplication.radarColorPalette[type] = rowListItem[position].colorMapLabel
             Utility.writePrefWithNull(this@SettingsColorPaletteActivity, rowListItem[position].prefToken, MyApplication.radarColorPalette[type])
             rowListItem[position].toolbar.title = MyApplication.radarColorPalette[type]
-            UtilityColorPaletteGeneric.loadColorMap(this, type)
+            UtilityColorPaletteGeneric.loadColorMap(this, type.toIntOrNull() ?: 94)
         }
     }
 }

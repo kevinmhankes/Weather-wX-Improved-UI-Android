@@ -28,7 +28,7 @@ import joshuatee.wx.MyApplication
 
 object UtilityColorPaletteGeneric {
 
-    private fun generate(context: Context, product: String, code: String) {
+    private fun generate(context: Context, colorMapProductCode: Int, code: String) {
         // prod will be a string such as "94" for reflectivity
         // -32 to 95
         //var colorMapR: ByteBuffer
@@ -40,55 +40,54 @@ object UtilityColorPaletteGeneric {
         val lowerEnd: Int
         var prodOffset = 0.0
         var prodScale = 1.0
-        var colorMapProductCode = product.toIntOrNull() ?: 0
+        //val colorMapProductCode = product.toIntOrNull() ?: 94
         val objColormap = MyApplication.colorMap[colorMapProductCode]!!
         var colorMapR = objColormap.redValues
         var colorMapG = objColormap.greenValues
         var colorMapB = objColormap.blueValues
-        // TODO switch to colorMapProductCode in when
-        when (product) {
-            "94" -> {
+        when (colorMapProductCode) {
+            94 -> {
                 scale = 2
                 lowerEnd = -32
             }
-            "99" -> {
+            99 -> {
                 scale = 1
                 lowerEnd = -127
             }
-            "134" -> {
+            134 -> {
                 scale = 1
                 lowerEnd = 0
                 prodOffset = 0.0
                 prodScale = 3.64
             }
-            "135" -> {
+            135 -> {
                 scale = 1
                 lowerEnd = 0
             }
-            "159" -> {
+            159 -> {
                 scale = 1
                 lowerEnd = 0
                 prodOffset = 128.0
                 prodScale = 16.0
             }
-            "161" -> {
+            161 -> {
                 scale = 1
                 lowerEnd = 0
                 prodOffset = -60.5
                 prodScale = 300.0
             }
-            "163" -> {
+            163 -> {
                 scale = 1
                 lowerEnd = 0
                 prodOffset = 43.0
                 prodScale = 20.0
             }
-            "172" -> {
+            172 -> {
                 scale = 1
                 lowerEnd = 0
             }
             else -> {
-                colorMapProductCode = 94
+                //colorMapProductCode = 94
                 colorMapR = MyApplication.colorMap[colorMapProductCode]!!.redValues
                 colorMapG = MyApplication.colorMap[colorMapProductCode]!!.greenValues
                 colorMapB = MyApplication.colorMap[colorMapProductCode]!!.blueValues
@@ -103,14 +102,13 @@ object UtilityColorPaletteGeneric {
         val rAl = mutableListOf<Int>()
         val gAl = mutableListOf<Int>()
         val bAl = mutableListOf<Int>()
-        val text = UtilityColorPalette.getColorMapStringFromDisk(context, product, code)
-        val lines = text.split("\n")
+        val text = UtilityColorPalette.getColorMapStringFromDisk(context, colorMapProductCode.toString(), code)
         // TODO why are these used?
         var r = "0"
         var g = "0"
         var b = "0"
         var priorLineHas6 = false
-        lines.forEach { line ->
+        text.split("\n").forEach { line ->
             if (line.contains("olor") && !line.contains("#")) {
                 val items = if (line.contains(",")) line.split(",") else line.split(" ")
                 if (items.size > 4) {
@@ -139,7 +137,7 @@ object UtilityColorPaletteGeneric {
                 }
             }
         }
-        if (product == "161") {
+        if (colorMapProductCode == 161) {
             // pad first 16, think this is needed
             (0 until 10).forEach { _ ->
                 if (rAl.size > 0 && gAl.size > 0 && bAl.size > 0) {
@@ -149,7 +147,7 @@ object UtilityColorPaletteGeneric {
                 }
             }
         }
-        if (product == "99" || product == "135") {
+        if (colorMapProductCode == 99 || colorMapProductCode == 135) {
             // first two levels are range folder per ICD
             if (rAl.size > 0 && gAl.size > 0 && bAl.size > 0) {
                 colorMapR.put(rAl[0].toByte())
@@ -219,50 +217,49 @@ object UtilityColorPaletteGeneric {
         }
     }
 
-    fun loadColorMap(context: Context, product: String) {
+    fun loadColorMap(context: Context, product: Int) {
         // This is the entrance method to load a colormap called at various spots
         // http://www.usawx.com/grradarexamples.htm
         when (product) {
-            "94" -> when (MyApplication.radarColorPalette[product]) {
+            94 -> when (MyApplication.radarColorPalette[product.toString()]) {
                 "AF" -> generate(context, product, "AF")
                 "EAK" -> generate(context, product, "EAK")
                 "DKenh" -> generate(context, product, "DKenh")
                 "COD", "CODENH" -> generate(context, product, "CODENH")
                 "MENH" -> generate(context, product, "MENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
             }
-            "99" -> when (MyApplication.radarColorPalette[product]) {
+            99 -> when (MyApplication.radarColorPalette[product.toString()]) {
                 "COD", "CODENH" -> generate(context, product, "CODENH")
                 "AF" -> generate(context, product, "AF")
                 "EAK" -> generate(context, product, "EAK")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
             }
-            "134" -> when (MyApplication.radarColorPalette[product]) {
+            134 -> when (MyApplication.radarColorPalette[product.toString()]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
             }
-            "135" -> when (MyApplication.radarColorPalette[product]) {
+            135 -> when (MyApplication.radarColorPalette[product.toString()]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
             }
-            "159" -> when (MyApplication.radarColorPalette[product]) {
+            159 -> when (MyApplication.radarColorPalette[product.toString()]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
             }
-            "161" -> when (MyApplication.radarColorPalette[product]) {
+            161 -> when (MyApplication.radarColorPalette[product.toString()]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
             }
-            "163" -> when (MyApplication.radarColorPalette[product]) {
+            163 -> when (MyApplication.radarColorPalette[product.toString()]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
             }
-            "172" -> when (MyApplication.radarColorPalette[product]) {
+            172 -> when (MyApplication.radarColorPalette[product.toString()]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
             }
-            else -> {
-            }
+            else -> { }
         }
     }
 }

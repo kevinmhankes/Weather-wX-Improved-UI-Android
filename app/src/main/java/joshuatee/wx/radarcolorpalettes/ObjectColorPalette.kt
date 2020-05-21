@@ -27,8 +27,8 @@ import java.nio.ByteOrder
 
 import joshuatee.wx.util.UtilityLog
 
-class ObjectColorPalette(val context: Context, private val colormapCode: String) {
-
+class ObjectColorPalette(val context: Context, private val colormapCode: Int) {
+    // TODO use Int
     var redValues: ByteBuffer = ByteBuffer.allocateDirect(16)
         private set
     var greenValues: ByteBuffer = ByteBuffer.allocateDirect(16)
@@ -47,19 +47,11 @@ class ObjectColorPalette(val context: Context, private val colormapCode: String)
 
     fun init() {
         when (colormapCode) {
-            "19" -> {
+            19, 30, 56 -> {
                 setupBuffers(16)
                 UtilityColorPalette4bitGeneric.generate(context, colormapCode)
             }
-            "30" -> {
-                setupBuffers(16)
-                UtilityColorPalette4bitGeneric.generate(context, colormapCode)
-            }
-            "56" -> {
-                setupBuffers(16)
-                UtilityColorPalette4bitGeneric.generate(context, colormapCode)
-            }
-            "165" -> {
+            165 -> {
                 setupBuffers(256)
                 try {
                     UtilityColorPalette165.loadColorMap(context)
