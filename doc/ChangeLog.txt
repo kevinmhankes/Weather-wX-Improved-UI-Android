@@ -18,6 +18,7 @@
 // TODO [FIX] NCEP models , after change model reset time to 1
 // TODO [ADD] document RunTimeData
 // TODO [ADD] move away from spinners in other activities
+// TODO [REF] optimize multiple dialogues in models
 
 55453 2020_05_21
 55452 2020_05_21    [FIX] NCEP models FABs need all white icons

@@ -233,10 +233,12 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 val items = MyApplication.space.split(om.times[it])[0]
                 om.times[it] = "$items " + UtilityModels.convertTimeRunToTimeString(om.rtd.mostRecentRun.replace("Z", ""), items, true)
             }
-            if (!firstRunTimeSet) {
+            /*if (!firstRunTimeSet) {
                 firstRunTimeSet = true
                 om.setTimeIdx(Utility.readPref(this@ModelsGenericActivity, om.prefRunPosn, 1))
-            }
+            } else {
+                om.setTimeIdx(1)
+            }*/
         } else {
             om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
             om.run = om.rtd.mostRecentRun
@@ -249,10 +251,18 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
                         false
                 )
             }
-            if (!firstRunTimeSet) {
+            /*if (!firstRunTimeSet) {
                 firstRunTimeSet = true
                 om.setTimeIdx(Utility.readPref(this@ModelsGenericActivity, om.prefRunPosn, 1))
-            }
+            } else {
+                om.setTimeIdx(1)
+            }*/
+        }
+        if (!firstRunTimeSet) {
+            firstRunTimeSet = true
+            om.setTimeIdx(Utility.readPref(this@ModelsGenericActivity, om.prefRunPosn, 1))
+        } else {
+            om.setTimeIdx(1)
         }
         getContent()
 
