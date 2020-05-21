@@ -15,6 +15,7 @@
 // TODO [FIX] remove usage of always show icons in menus
 // TODO [FIX] NHC share only shares last 3 images
 
+55452 2020_05_21
 55451 2020_05_20    [FIX] correct obs icon on misc tab
                     [ADD] WIP - model rewrite (fixes)
                     [REF] colorpal, use Int instead of String for product code
