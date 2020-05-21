@@ -298,7 +298,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 true
             }
             KeyEvent.KEYCODE_K -> {
-                if (event.isCtrlPressed) om.leftClick()
+                if (event.isCtrlPressed) om.rightClick()
                 true
             }
             else -> super.onKeyUp(keyCode, event)

@@ -81,9 +81,9 @@ Show the media control notification in status bar.
 Allows one to hide or show the voice recognition icon on the main screen. Off by default.
 </string>
 
-    <string name="help_models_nssl_wrf">
+   <!-- <string name="help_models_nssl_wrf">
 Interface for the NSSL WRF Forecasts found at http://wrf.nssl.noaa.gov/newsite/
-</string>
+</string>-->
 
     <string name="obs_ext_zoom_label">
 With observations or wind barbs enabled if you zoom in closely on an obs site the detailed METAR will appear.

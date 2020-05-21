@@ -49,16 +49,17 @@ object WXGLNexrad {
 
     // next 3 maps are for color palette editor : Map<String, String>
     val productCodeStringToName = mapOf(
-            "94" to "Reflectivity",
-            "99" to "Velocity",
-            "134" to "Digital Vertical Integrated Liquid",
-            "135" to "Enhanced Echo Tops",
-            "159" to "Differential Reflectivity",
-            "161" to "Correlation Coefficient",
-            "163" to "Specific Differential Phase",
-            "172" to "Digital Storm Total Precipitation"
+            94 to "Reflectivity",
+            99 to "Velocity",
+            134 to "Digital Vertical Integrated Liquid",
+            135 to "Enhanced Echo Tops",
+            159 to "Differential Reflectivity",
+            161 to "Correlation Coefficient",
+            163 to "Specific Differential Phase",
+            172 to "Digital Storm Total Precipitation"
     )
 
+    // TODO move to Int
     val productCodeStringToCode = mapOf(
             "94" to "N0Q",
             "99" to "N0U",
@@ -70,6 +71,7 @@ object WXGLNexrad {
             "172" to "DSP"
     )
 
+    // TODO move to Int
     val productCodeStringToResourceFile = mapOf(
             "94" to R.raw.dvn94,
             "99" to R.raw.dvn99,
@@ -81,7 +83,7 @@ object WXGLNexrad {
             "172" to R.raw.vax172
     )
 
-    val colorPaletteProducts = listOf("94", "99", "134", "135", "159", "161", "163", "172")
+    val colorPaletteProducts = listOf(94, 99, 134, 135, 159, 161, 163, 172)
 
     private val closestTdwrToNexrad = mapOf(
             "DTX" to "DTW",

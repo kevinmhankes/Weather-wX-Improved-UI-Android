@@ -31,7 +31,6 @@ import joshuatee.wx.util.UtilityImgAnim
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp
-import joshuatee.wx.util.UtilityLog
 
 internal object UtilityModelSpcSrefInputOutput {
 
@@ -52,7 +51,6 @@ internal object UtilityModelSpcSrefInputOutput {
     fun getImage(context: Context, om: ObjectModelNoSpinner, time: String): Bitmap {
         val run = om.run.replace("z", "")
         val url = "${MyApplication.nwsSPCwebsitePrefix}/exper/sref/gifs/$run/${om.currentParam}$time.gif"
-        UtilityLog.d("wx", "DEBUG: " + url)
         return UtilityImg.getBitmapAddWhiteBackground(context, url)
     }
 

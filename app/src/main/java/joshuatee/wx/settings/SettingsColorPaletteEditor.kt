@@ -58,6 +58,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
     private var formattedDate = ""
     private var name = ""
     private var type = ""
+    private var typeAsInt = 0
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,8 +75,9 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         showLoadFromFileMenuItem()
         activityArguments = intent.getStringArrayExtra(URL)!!
         type = activityArguments[0]
+        typeAsInt = type.toIntOrNull() ?: 94
         title = "Palette Editor"
-        toolbar.subtitle = WXGLNexrad.productCodeStringToName[type]
+        toolbar.subtitle = WXGLNexrad.productCodeStringToName[typeAsInt]
         formattedDate = UtilityTime.getDateAsString("MMdd")
         name = if (activityArguments[2].contains("false")) activityArguments[1] else activityArguments[1] + "_" + formattedDate
         palTitle.setText(name)
@@ -92,9 +94,9 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
             textToSave = textToSave.replace(",,".toRegex(), ",")
             palContent.setText(textToSave)
             Utility.writePref(context, "RADAR_COLOR_PAL_" + type + "_" + palTitle.text.toString(), textToSave)
-            if (!MyApplication.radarColorPaletteList[type]!!.contains(palTitle.text.toString())) {
-                MyApplication.radarColorPaletteList[type] = MyApplication.radarColorPaletteList[type]!! + ":" + palTitle.text.toString()
-                Utility.writePref(context, "RADAR_COLOR_PALETTE_" + type + "_LIST", MyApplication.radarColorPaletteList[type]!!)
+            if (!MyApplication.radarColorPaletteList[typeAsInt]!!.contains(palTitle.text.toString())) {
+                MyApplication.radarColorPaletteList[typeAsInt] = MyApplication.radarColorPaletteList[typeAsInt]!! + ":" + palTitle.text.toString()
+                Utility.writePref(context, "RADAR_COLOR_PALETTE_" + type + "_LIST", MyApplication.radarColorPaletteList[typeAsInt]!!)
             }
             toolbar.subtitle = "Last saved: $date"
         } else {

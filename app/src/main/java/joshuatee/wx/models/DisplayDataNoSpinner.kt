@@ -28,7 +28,6 @@ import joshuatee.wx.R
 import joshuatee.wx.ui.OnSwipeTouchListener
 import joshuatee.wx.ui.TouchImageView2
 import joshuatee.wx.util.UtilityImg
-import joshuatee.wx.util.UtilityLog
 
 class DisplayDataNoSpinner(context: Context, activity: Activity, numPanes: Int, om: ObjectModelNoSpinner) {
 

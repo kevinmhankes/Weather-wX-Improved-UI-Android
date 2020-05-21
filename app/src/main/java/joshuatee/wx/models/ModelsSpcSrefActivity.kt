@@ -392,17 +392,11 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {
             KeyEvent.KEYCODE_J -> {
-                if (event.isCtrlPressed) {
-                    om.leftClick()
-                    getContent()
-                }
+                if (event.isCtrlPressed) om.leftClick()
                 true
             }
             KeyEvent.KEYCODE_K -> {
-                if (event.isCtrlPressed) {
-                    om.leftClick()
-                    getContent()
-                }
+                if (event.isCtrlPressed) om.rightClick()
                 true
             }
             else -> super.onKeyUp(keyCode, event)

@@ -221,43 +221,43 @@ object UtilityColorPaletteGeneric {
         // This is the entrance method to load a colormap called at various spots
         // http://www.usawx.com/grradarexamples.htm
         when (product) {
-            94 -> when (MyApplication.radarColorPalette[product.toString()]) {
+            94 -> when (MyApplication.radarColorPalette[product]) {
                 "AF" -> generate(context, product, "AF")
                 "EAK" -> generate(context, product, "EAK")
                 "DKenh" -> generate(context, product, "DKenh")
                 "COD", "CODENH" -> generate(context, product, "CODENH")
                 "MENH" -> generate(context, product, "MENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
-            99 -> when (MyApplication.radarColorPalette[product.toString()]) {
+            99 -> when (MyApplication.radarColorPalette[product]) {
                 "COD", "CODENH" -> generate(context, product, "CODENH")
                 "AF" -> generate(context, product, "AF")
                 "EAK" -> generate(context, product, "EAK")
-                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
-            134 -> when (MyApplication.radarColorPalette[product.toString()]) {
+            134 -> when (MyApplication.radarColorPalette[product]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
-            135 -> when (MyApplication.radarColorPalette[product.toString()]) {
+            135 -> when (MyApplication.radarColorPalette[product]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
-            159 -> when (MyApplication.radarColorPalette[product.toString()]) {
+            159 -> when (MyApplication.radarColorPalette[product]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
-            161 -> when (MyApplication.radarColorPalette[product.toString()]) {
+            161 -> when (MyApplication.radarColorPalette[product]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
-            163 -> when (MyApplication.radarColorPalette[product.toString()]) {
+            163 -> when (MyApplication.radarColorPalette[product]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
-            172 -> when (MyApplication.radarColorPalette[product.toString()]) {
+            172 -> when (MyApplication.radarColorPalette[product]) {
                 "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product.toString()]!!)
+                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
             else -> { }
         }

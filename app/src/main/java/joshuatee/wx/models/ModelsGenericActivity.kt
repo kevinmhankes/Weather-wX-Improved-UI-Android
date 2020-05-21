@@ -36,7 +36,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.LinearLayout
 import androidx.core.view.GravityCompat
-import joshuatee.wx.Extensions.safeGet
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
@@ -470,17 +469,11 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {
             KeyEvent.KEYCODE_J -> {
-                if (event.isCtrlPressed) {
-                    om.leftClick()
-                    getContent()
-                }
+                if (event.isCtrlPressed) om.leftClick()
                 true
             }
             KeyEvent.KEYCODE_K -> {
-                if (event.isCtrlPressed) {
-                    om.leftClick()
-                    getContent()
-                }
+                if (event.isCtrlPressed) om.rightClick()
                 true
             }
             KeyEvent.KEYCODE_D -> {

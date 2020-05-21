@@ -53,6 +53,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
     private lateinit var rowListItem: List<TileObjectColorPalette>
     private lateinit var tileAdapterColorPalette: TileAdapterColorPalette
     private var type = ""
+    private var typeAsInt = 0
     private var globalPosition = 0
     private lateinit var fab1: ObjectFab
     private lateinit var fab2: ObjectFab
@@ -67,8 +68,9 @@ class SettingsColorPaletteActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_recyclerview_toolbar_with_twofab, null, false)
         type = intent.getStringArrayExtra(TYPE)!![0]
-        toolbar.subtitle = WXGLNexrad.productCodeStringToName[type]
-        title = MyApplication.radarColorPalette[type]
+        typeAsInt = type.toIntOrNull() ?: 94
+        toolbar.subtitle = WXGLNexrad.productCodeStringToName[typeAsInt]
+        title = MyApplication.radarColorPalette[typeAsInt]
         prefToken = "RADAR_COLOR_PALETTE_$type"
         fab1 = ObjectFab(this, this, R.id.fab1, R.drawable.ic_reorder_24dp, View.OnClickListener { addPalFab() })
         fab2 = ObjectFab(this, this, R.id.fab2, MyApplication.ICON_DELETE_WHITE, View.OnClickListener { editPalFab() })
@@ -84,8 +86,8 @@ class SettingsColorPaletteActivity : BaseActivity() {
     private val allItemList: List<TileObjectColorPalette>
         get() {
             val allItems = mutableListOf<TileObjectColorPalette>()
-            when (type) {
-                "94" -> {
+            when (typeAsInt) {
+                94 -> {
                     allItems.add(TileObjectColorPalette("CODENH", toolbar, prefToken, this@SettingsColorPaletteActivity, type, true))
                     allItems.add(TileObjectColorPalette("DKenh", toolbar, prefToken, this@SettingsColorPaletteActivity, type, true))
                     allItems.add(TileObjectColorPalette("CODE", toolbar, prefToken, this@SettingsColorPaletteActivity, type, true))
@@ -93,16 +95,16 @@ class SettingsColorPaletteActivity : BaseActivity() {
                     allItems.add(TileObjectColorPalette("NWSD", toolbar, prefToken, this@SettingsColorPaletteActivity, type, true))
                     allItems.add(TileObjectColorPalette("AF", toolbar, prefToken, this@SettingsColorPaletteActivity, type, true))
                     allItems.add(TileObjectColorPalette("EAK", toolbar, prefToken, this@SettingsColorPaletteActivity, type, true))
-                    val prefArr = MyApplication.radarColorPaletteList["94"]!!.split(":").dropLastWhile { it.isEmpty() }
+                    val prefArr = MyApplication.radarColorPaletteList[94]!!.split(":").dropLastWhile { it.isEmpty() }
                     prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
                         TileObjectColorPalette(it, toolbar, prefToken, this@SettingsColorPaletteActivity, type, false)
                     }
                 }
-                "99" -> {
+                99 -> {
                     listOf("CODENH", "AF", "EAK").forEach {
                         allItems.add(TileObjectColorPalette(it, toolbar, prefToken, this@SettingsColorPaletteActivity, type, true))
                     }
-                    val prefArr = MyApplication.radarColorPaletteList["99"]!!.split(":").dropLastWhile { it.isEmpty() }
+                    val prefArr = MyApplication.radarColorPaletteList[99]!!.split(":").dropLastWhile { it.isEmpty() }
                     prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
                         TileObjectColorPalette(it, toolbar, prefToken, this@SettingsColorPaletteActivity, type, false)
                     }
@@ -111,7 +113,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                     listOf("CODENH").forEach {
                         allItems.add(TileObjectColorPalette(it, toolbar, prefToken, this@SettingsColorPaletteActivity, type, true))
                     }
-                    val prefArr = MyApplication.radarColorPaletteList[type]!!.split(":").dropLastWhile { it.isEmpty() }
+                    val prefArr = MyApplication.radarColorPaletteList[typeAsInt]!!.split(":").dropLastWhile { it.isEmpty() }
                     prefArr.asSequence().filter { it != "" }.mapTo(allItems) {
                         TileObjectColorPalette(it, toolbar, prefToken, this@SettingsColorPaletteActivity, type, false)
                     }
@@ -119,7 +121,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
             }
             builtinStr = "false"
             allItems.forEach {
-                if (MyApplication.radarColorPalette[type] == it.colorMapLabel && it.builtin) {
+                if (MyApplication.radarColorPalette[typeAsInt] == it.colorMapLabel && it.builtin) {
                     builtinStr = "true"
                     fab2.visibility = View.GONE
                     fab1.fab.setImageDrawable(ContextCompat.getDrawable(this@SettingsColorPaletteActivity, MyApplication.ICON_ADD2))
@@ -132,8 +134,8 @@ class SettingsColorPaletteActivity : BaseActivity() {
         rowListItem = allItemList
         tileAdapterColorPalette = TileAdapterColorPalette(rowListItem, UIPreferences.tilesPerRow)
         cardList.adapter = tileAdapterColorPalette
-        title = MyApplication.radarColorPalette[type]
-        UtilityColorPaletteGeneric.loadColorMap(this, type.toIntOrNull() ?: 94)
+        title = MyApplication.radarColorPalette[typeAsInt]
+        UtilityColorPaletteGeneric.loadColorMap(this, typeAsInt)
         super.onRestart()
     }
 
@@ -146,7 +148,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
     }
 
     private fun addPalFab() {
-        ObjectIntent(this@SettingsColorPaletteActivity, SettingsColorPaletteEditor::class.java, SettingsColorPaletteEditor.URL, arrayOf(type, MyApplication.radarColorPalette[type]!!, builtinStr))
+        ObjectIntent(this@SettingsColorPaletteActivity, SettingsColorPaletteEditor::class.java, SettingsColorPaletteEditor.URL, arrayOf(type, MyApplication.radarColorPalette[typeAsInt]!!, builtinStr))
     }
 
     @SuppressLint("ApplySharedPref")
@@ -154,16 +156,16 @@ class SettingsColorPaletteActivity : BaseActivity() {
         val builtInHelpMsg = "Built-in color palettes can not be deleted."
         if (rowListItem[globalPosition].prefToken == "RADAR_COLOR_PALETTE_$type") {
             if (!rowListItem[globalPosition].builtin) {
-                val newValue = MyApplication.radarColorPaletteList[type]!!.replace(":" + rowListItem[globalPosition].colorMapLabel, "")
-                MyApplication.radarColorPaletteList[type] = newValue
-                Utility.writePref(this@SettingsColorPaletteActivity, "RADAR_COLOR_PALETTE_" + type + "_LIST", MyApplication.radarColorPaletteList[type]!!)
+                val newValue = MyApplication.radarColorPaletteList[typeAsInt]!!.replace(":" + rowListItem[globalPosition].colorMapLabel, "")
+                MyApplication.radarColorPaletteList[typeAsInt] = newValue
+                Utility.writePref(this@SettingsColorPaletteActivity, "RADAR_COLOR_PALETTE_" + type + "_LIST", MyApplication.radarColorPaletteList[typeAsInt]!!)
                 Utility.removePref(this@SettingsColorPaletteActivity, "RADAR_COLOR_PAL_" + type + "_" + rowListItem[globalPosition].colorMapLabel)
                 UtilityFileManagement.deleteFile(this, "colormap" + type + rowListItem[globalPosition].colorMapLabel)
-                MyApplication.radarColorPalette[type] = "CODENH"
-                Utility.writePrefWithNull(this@SettingsColorPaletteActivity, rowListItem[globalPosition].prefToken, MyApplication.radarColorPalette[type])
+                MyApplication.radarColorPalette[typeAsInt] = "CODENH"
+                Utility.writePrefWithNull(this@SettingsColorPaletteActivity, rowListItem[globalPosition].prefToken, MyApplication.radarColorPalette[typeAsInt])
                 Utility.commitPref(this@SettingsColorPaletteActivity)
-                rowListItem[globalPosition].toolbar.title = MyApplication.radarColorPalette[type]
-                UtilityColorPaletteGeneric.loadColorMap(this, type.toIntOrNull() ?: 94)
+                rowListItem[globalPosition].toolbar.title = MyApplication.radarColorPalette[typeAsInt]
+                UtilityColorPaletteGeneric.loadColorMap(this, typeAsInt)
                 rowListItem = allItemList
                 tileAdapterColorPalette = TileAdapterColorPalette(rowListItem, UIPreferences.tilesPerRow)
                 cardList.adapter = tileAdapterColorPalette
@@ -185,15 +187,15 @@ class SettingsColorPaletteActivity : BaseActivity() {
             fab1.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_reorder_24dp))
         }
         if (rowListItem[position].prefToken == "RADAR_COLOR_PALETTE_$type") {
-            MyApplication.radarColorPalette[type] = rowListItem[position].colorMapLabel
-            Utility.writePrefWithNull(this@SettingsColorPaletteActivity, rowListItem[position].prefToken, MyApplication.radarColorPalette[type])
-            rowListItem[position].toolbar.title = MyApplication.radarColorPalette[type]
-            UtilityColorPaletteGeneric.loadColorMap(this, type.toIntOrNull() ?: 94)
+            MyApplication.radarColorPalette[typeAsInt] = rowListItem[position].colorMapLabel
+            Utility.writePrefWithNull(this@SettingsColorPaletteActivity, rowListItem[position].prefToken, MyApplication.radarColorPalette[typeAsInt])
+            rowListItem[position].toolbar.title = MyApplication.radarColorPalette[typeAsInt]
+            UtilityColorPaletteGeneric.loadColorMap(this, typeAsInt)
         } else {
-            MyApplication.radarColorPalette[type] = rowListItem[position].colorMapLabel
-            Utility.writePrefWithNull(this@SettingsColorPaletteActivity, rowListItem[position].prefToken, MyApplication.radarColorPalette[type])
-            rowListItem[position].toolbar.title = MyApplication.radarColorPalette[type]
-            UtilityColorPaletteGeneric.loadColorMap(this, type.toIntOrNull() ?: 94)
+            MyApplication.radarColorPalette[typeAsInt] = rowListItem[position].colorMapLabel
+            Utility.writePrefWithNull(this@SettingsColorPaletteActivity, rowListItem[position].prefToken, MyApplication.radarColorPalette[typeAsInt])
+            rowListItem[position].toolbar.title = MyApplication.radarColorPalette[typeAsInt]
+            UtilityColorPaletteGeneric.loadColorMap(this, typeAsInt)
         }
     }
 }

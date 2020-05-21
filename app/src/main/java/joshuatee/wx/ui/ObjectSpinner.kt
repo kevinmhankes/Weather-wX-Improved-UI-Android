@@ -35,8 +35,7 @@ import joshuatee.wx.UIPreferences
 
 class ObjectSpinner {
 
-    var arrayAdapter: ArrayAdapter<String>
-        private set
+    private var arrayAdapter: ArrayAdapter<String>
     private val spinner: Spinner
     val list: MutableList<String>
 
@@ -107,26 +106,26 @@ class ObjectSpinner {
 
     fun setSelection(idx: Int) = spinner.setSelection(idx)
 
-    fun setSelection(key: String) {
+   /* fun setSelection(key: String) {
         var index = arrayAdapter.getPosition(key)
         if (index == -1) index = 0
         spinner.setSelection(index)
-    }
+    }*/
 
     private fun setOnItemSelectedListener(listener: AdapterView.OnItemSelectedListener) { spinner.onItemSelectedListener = listener }
 
     val selectedItemPosition get() = spinner.selectedItemPosition
 
-    val selectedItem: Any get() = spinner.selectedItem ?: 0
+    //val selectedItem: Any get() = spinner.selectedItem ?: 0
 
     val lastIndex get() = list.lastIndex
 
-    fun addAll(tmpList: List<String>) {
+    /*fun addAll(tmpList: List<String>) {
         list.clear()
         list.addAll(tmpList)
         arrayAdapter.clear()
         arrayAdapter.addAll(tmpList)
-    }
+    }*/
 
     fun add(value: String) = list.add(value)
 
