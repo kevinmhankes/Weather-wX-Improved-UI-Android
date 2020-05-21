@@ -160,8 +160,8 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
             R.id.action_back -> om.leftClick()
             R.id.action_forward -> om.rightClick()
             R.id.action_animate -> UtilityModels.getAnimate(om, overlayImg, uiDispatcher)
-            R.id.action_time -> genericDialog(om.times) { which -> om.setTimeIdx(which) }
-            R.id.action_run -> dialogRun()
+            R.id.action_time -> genericDialog(om.times) { om.setTimeIdx(it) }
+            R.id.action_run -> genericDialog(om.rtd.listRun) { om.run = om.rtd.listRun[it] }
             R.id.action_share -> {
                 if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
@@ -177,7 +177,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
-            R.id.action_region -> genericDialog(UtilityModelSpcHrrrInterface.sectors) { which -> om.sector = UtilityModelSpcHrrrInterface.sectors[which] }
+            R.id.action_region -> genericDialog(UtilityModelSpcHrrrInterface.sectors) { om.sector = UtilityModelSpcHrrrInterface.sectors[it] }
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -239,50 +239,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
             UtilityUI.immersiveMode(this)
         })
         objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            //om.setTimeIdx(which)
             fn(which)
-            getContent()
-            dialog.dismiss()
-        })
-        objectDialogue.show()
-    }
-
-    private fun dialogTimeA() {
-        val objectDialogue = ObjectDialogue(this@ModelsSpcHrrrActivity, om.times)
-        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
-            dialog.dismiss()
-            UtilityUI.immersiveMode(this)
-        })
-        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            om.setTimeIdx(which)
-            getContent()
-            dialog.dismiss()
-        })
-        objectDialogue.show()
-    }
-
-    private fun dialogRegionA() {
-        val objectDialogue = ObjectDialogue(this@ModelsSpcHrrrActivity, UtilityModelSpcHrrrInterface.sectors)
-        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
-            dialog.dismiss()
-            UtilityUI.immersiveMode(this)
-        })
-        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            om.sector = UtilityModelSpcHrrrInterface.sectors[which]
-            getContent()
-            dialog.dismiss()
-        })
-        objectDialogue.show()
-    }
-
-    private fun dialogRun() {
-        val objectDialogue = ObjectDialogue(this@ModelsSpcHrrrActivity, om.rtd.listRun)
-        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
-            dialog.dismiss()
-            UtilityUI.immersiveMode(this)
-        })
-        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            om.run = om.rtd.listRun[which]
             getContent()
             dialog.dismiss()
         })

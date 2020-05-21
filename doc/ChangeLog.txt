@@ -16,10 +16,9 @@
 // TODO [FIX] NHC share only shares last 3 images
 // TODO [ADD] document RunTimeData
 // TODO [ADD] move away from spinners in other activities
-// TODO [REF] optimize multiple dialogues in models
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
 
-55456 2020_05_21
+55456 2020_05_21    [REF] dialogue functions in model code using lambda (move to common ui code, pass context)
 55455 2020_05_21    [FIX] ctrl j/k in models needs to be reversed
                     [REF] for various dictionaries (myapp) related to color pal, use Int instead of String for key. Impacts colormap editor stuff as well
 55454 2020_05_21    [FIX] Ncep prior runs not showing up

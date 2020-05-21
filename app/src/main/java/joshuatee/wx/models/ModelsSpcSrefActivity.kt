@@ -151,34 +151,6 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
     }
 
- /*   private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
-        om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
-        spRun.clear()
-        spRun.addAll(om.rtd.listRun)
-        spRun.notifyDataSetChanged()
-        (0 until om.spTime.size()).forEach {
-            om.spTime[it] = om.spTime[it] + " " +
-                    UtilityModels.convertTimeRunToTimeString(
-                            om.rtd.mostRecentRun.replace("z", ""),
-                            om.spTime[it].replace("f", ""),
-                            false
-                    )
-        }
-        om.spTime.notifyDataSetChanged()
-        spRun.setSelection(0)
-        initSpinnerSetup = true
-        miStatus.title = Utility.fromHtml(om.rtd.imageCompleteStr.replace("in through", "-"))
-        if (!firstRunTimeSet) {
-            firstRunTimeSet = true
-            om.spTime.setSelection(Utility.readPref(this@ModelsSpcSrefActivity, om.prefRunPosn, 0))
-        }
-        om.spTime.notifyDataSetChanged()
-        if (om.spTime.selectedItemPosition == 0 || om.numPanes > 1) {
-            updateStarIcon()
-            UtilityModels.getContent(this@ModelsSpcSrefActivity, om, listOf(""), uiDispatcher)
-        }
-    }*/
-
     private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
         om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
         UtilityLog.d("wx", "DEBUG: " + om.rtd.listRun)
@@ -237,8 +209,8 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
             }
             R.id.action_multipane -> ObjectIntent(this, ModelsSpcSrefActivity::class.java, INFO, arrayOf("2", activityArguments[1], activityArguments[2]))
             R.id.action_fav -> toggleFavorite()
-            R.id.action_time -> dialogTime()
-            R.id.action_run -> dialogRun()
+            R.id.action_time -> genericDialog(om.times) { om.setTimeIdx(it) }
+            R.id.action_run -> genericDialog(om.rtd.listRun) { om.run = om.rtd.listRun[it] }
             R.id.action_share -> {
                 if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
@@ -256,7 +228,13 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
-            R.id.action_param -> dialogParam()
+            R.id.action_param -> genericDialog(favList) {
+                when (it) {
+                    1 -> ObjectIntent.favoriteAdd(this, arrayOf("SREF"))
+                    2 -> ObjectIntent.favoriteRemove(this, arrayOf("SREF"))
+                    else -> om.displayData.param[om.curImg] = favList[it]
+                }
+            }
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -275,43 +253,6 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     private fun showHelpTextDialog() {
         UtilityAlertDialog.showHelpTextWeb("${MyApplication.nwsSPCwebsitePrefix}/exper/sref/about_sref.html", this)
     }
-
-   /* override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
-        if (spinnerRunRan && spinnerTimeRan) {
-            if (parent.id == R.id.spinner1) {
-                when (position) {
-                    1 -> ObjectIntent.favoriteAdd(this, arrayOf("SREF"))
-                    2 -> ObjectIntent.favoriteRemove(this, arrayOf("SREF"))
-                    else -> {
-                        om.displayData.param[om.curImg] = favList[position]
-                        if (initSpinnerSetup) {
-                            updateStarIcon()
-                            UtilityModels.getContent(this, om, listOf(""), uiDispatcher)
-                        }
-                    }
-                }
-            } else {
-                updateStarIcon()
-                UtilityModels.getContent(this, om, listOf(""), uiDispatcher)
-            }
-        } else {
-            when (parent.id) {
-                R.id.spinner_run -> if (!spinnerRunRan) spinnerRunRan = true
-                R.id.spinner_time -> if (!spinnerTimeRan) spinnerTimeRan = true
-            }
-        }
-        if (parent.id == R.id.spinner_run) {
-            UtilityModels.updateTime(
-                    UtilityString.getLastXChars(spRun.selectedItem.toString().replace("z", ""), 2),
-                    om.rtd.mostRecentRun,
-                    om.spTime.list,
-                    om.spTime.arrayAdapter,
-                    "f",
-                    false
-            )
-        }
-    }*/
 
     private fun toggleFavorite() {
         UtilityFavorites.toggle(this, om.displayData.param[om.curImg], star, "SREF_FAV")
@@ -343,46 +284,14 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         }
     }
 
-    private fun dialogTime() {
-        val objectDialogue = ObjectDialogue(this@ModelsSpcSrefActivity, om.times)
+    private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
+        val objectDialogue = ObjectDialogue(this@ModelsSpcSrefActivity, list)
         objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(this)
         })
         objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            om.setTimeIdx(which)
-            getContent()
-            dialog.dismiss()
-        })
-        objectDialogue.show()
-    }
-
-    private fun dialogRun() {
-        val objectDialogue = ObjectDialogue(this@ModelsSpcSrefActivity, om.rtd.listRun)
-        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
-            dialog.dismiss()
-            UtilityUI.immersiveMode(this)
-        })
-        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            om.run = om.rtd.listRun[which]
-            getContent()
-            dialog.dismiss()
-        })
-        objectDialogue.show()
-    }
-
-    private fun dialogParam() {
-        val objectDialogue = ObjectDialogue(this@ModelsSpcSrefActivity, favList)
-        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
-            dialog.dismiss()
-            UtilityUI.immersiveMode(this)
-        })
-        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, position ->
-            when (position) {
-                1 -> ObjectIntent.favoriteAdd(this, arrayOf("SREF"))
-                2 -> ObjectIntent.favoriteRemove(this, arrayOf("SREF"))
-                else -> om.displayData.param[om.curImg] = favList[position]
-            }
+            fn(which)
             getContent()
             dialog.dismiss()
         })

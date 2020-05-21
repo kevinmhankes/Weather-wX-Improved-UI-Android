@@ -140,8 +140,8 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
         when (item.itemId) {
             R.id.action_back -> om.leftClick()
             R.id.action_forward -> om.rightClick()
-            R.id.action_time -> dialogTime()
-            R.id.action_run -> dialogRun()
+            R.id.action_time -> genericDialog(om.times) { om.setTimeIdx(it) }
+            R.id.action_run -> genericDialog(om.rtd.listRun) { om.run = om.rtd.listRun[it] }
             R.id.action_animate -> UtilityModels.getAnimate(om, listOf(""), uiDispatcher)
             R.id.action_img1 -> {
                 om.curImg = 0
@@ -175,54 +175,23 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
-            R.id.action_region -> dialogRegion()
-            R.id.action_model -> dialogModel()
+            R.id.action_region -> genericDialog(om.sectors) {
+                om.sector = om.sectors[it]
+                om.sectorInt = it
+            }
+            R.id.action_model -> genericDialog(om.models) {
+                om.model = om.models[it]
+                Utility.writePref(this, om.prefModel, om.model)
+                Utility.writePref(this, om.prefModelIndex, it)
+                setupModel()
+                getRunStatus()
+            }
             else -> return super.onOptionsItemSelected(item)
         }
         return true
     }
 
-    /*private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
-        if (om.modelType == ModelType.NCEP) {
-            om.rtd = withContext(Dispatchers.IO) { UtilityModelNcepInputOutput.getRunTime(om.model, om.displayData.param[0], om.sectors[0]) }
-            om.time = om.rtd.mostRecentRun
-            spRun.notifyDataSetChanged()
-            spRun.setSelection(om.rtd.mostRecentRun)
-            if (om.model == "CFS" && 0 == spRun.selectedItemPosition) UtilityModels.getContent(this@ModelsGenericActivity, om, listOf(""), uiDispatcher)
-            miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
-            (0 until om.spTime.size()).forEach {
-                val items = MyApplication.space.split(om.spTime[it])[0]
-                om.spTime[it] = "$items " + UtilityModels.convertTimeRunToTimeString(om.rtd.mostRecentRun.replace("Z", ""), items, true)
-            }
-            om.spTime.notifyDataSetChanged()
-            if (!firstRunTimeSet) {
-                firstRunTimeSet = true
-                om.spTime.setSelection(Utility.readPref(this@ModelsGenericActivity, om.prefRunPosn, 1))
-            }
-        } else {
-            om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
-            spRun.clear()
-            spRun.addAll(om.rtd.listRun)
-            miStatus.isVisible = true
-            miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
-            spRun.notifyDataSetChanged()
-            (0 until om.spTime.size()).forEach {
-                om.spTime[it] = om.spTime[it] + " " + UtilityModels.convertTimeRunToTimeString(
-                        om.rtd.timeStrConv.replace("Z", ""),
-                        om.spTime[it],
-                        false
-                )
-            }
-            om.spTime.notifyDataSetChanged()
-            if (!firstRunTimeSet) {
-                firstRunTimeSet = true
-                om.spTime.setSelection(Utility.readPref(this@ModelsGenericActivity, om.prefRunPosn, 1))
-            }
-        }
-    }*/
-
     private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
-
         if (om.modelType == ModelType.NCEP) {
             om.rtd = withContext(Dispatchers.IO) { UtilityModelNcepInputOutput.getRunTime(om.model, om.displayData.param[0], om.sectors[0]) }
             om.run = om.rtd.mostRecentRun
@@ -234,12 +203,6 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 val items = MyApplication.space.split(om.times[it])[0]
                 om.times[it] = "$items " + UtilityModels.convertTimeRunToTimeString(om.rtd.mostRecentRun.replace("Z", ""), items, true)
             }
-            /*if (!firstRunTimeSet) {
-                firstRunTimeSet = true
-                om.setTimeIdx(Utility.readPref(this@ModelsGenericActivity, om.prefRunPosn, 1))
-            } else {
-                om.setTimeIdx(1)
-            }*/
         } else {
             om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
             om.run = om.rtd.mostRecentRun
@@ -252,12 +215,6 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
                         false
                 )
             }
-            /*if (!firstRunTimeSet) {
-                firstRunTimeSet = true
-                om.setTimeIdx(Utility.readPref(this@ModelsGenericActivity, om.prefRunPosn, 1))
-            } else {
-                om.setTimeIdx(1)
-            }*/
         }
         if (!firstRunTimeSet) {
             firstRunTimeSet = true
@@ -266,23 +223,6 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
             om.setTimeIdx(1)
         }
         getContent()
-
-        /*om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
-        when (om.modelType) {
-            ModelType.NCEP -> setupListRunZ(om.numberRuns)
-            else -> {}
-        }
-        miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
-        om.run = om.rtd.mostRecentRun
-        (0 until om.times.size).forEach {
-            om.times[it] = om.times[it] + " " + UtilityModels.convertTimeRunToTimeString(
-                    om.rtd.timeStrConv.replace("Z", ""),
-                    om.times[it],
-                    false
-            )
-        }
-        om.setTimeIdx(Utility.readPref(this@ModelsGenericActivity, om.prefRunPosn, 0))
-        getContent()*/
     }
 
     private fun getContent() {
@@ -316,62 +256,14 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
         drw.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
-    private fun dialogTime() {
-        val objectDialogue = ObjectDialogue(this@ModelsGenericActivity, om.times)
+    private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
+        val objectDialogue = ObjectDialogue(this@ModelsGenericActivity, list)
         objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(this)
         })
         objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            om.setTimeIdx(which)
-            getContent()
-            dialog.dismiss()
-        })
-        objectDialogue.show()
-    }
-
-    private fun dialogRegion() {
-        val objectDialogue = ObjectDialogue(this@ModelsGenericActivity, om.sectors)
-        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
-            dialog.dismiss()
-            UtilityUI.immersiveMode(this)
-        })
-        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            om.sector = om.sectors[which]
-            om.sectorInt = which
-            getContent()
-            dialog.dismiss()
-        })
-        objectDialogue.show()
-    }
-
-    private fun dialogRun() {
-        UtilityLog.d("wx", "DEBUG: " + om.rtd.listRun)
-        val objectDialogue = ObjectDialogue(this@ModelsGenericActivity, om.rtd.listRun)
-        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
-            dialog.dismiss()
-            UtilityUI.immersiveMode(this)
-        })
-        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            om.run = om.rtd.listRun[which]
-            getContent()
-            dialog.dismiss()
-        })
-        objectDialogue.show()
-    }
-
-    private fun dialogModel() {
-        val objectDialogue = ObjectDialogue(this@ModelsGenericActivity, om.models)
-        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
-            dialog.dismiss()
-            UtilityUI.immersiveMode(this)
-        })
-        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            om.model = om.models[which]
-            Utility.writePref(this, om.prefModel, om.model)
-            Utility.writePref(this, om.prefModelIndex, which)
-            setupModel()
-            getRunStatus()
+            fn(which)
             getContent()
             dialog.dismiss()
         })
@@ -442,7 +334,6 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun setupListRunZ(numberRuns: Int) {
-        //UtilityLog.d("wx", "DEBUG: setupListRunZ " + numberRuns.toString())
         om.ncepRuns.clear()
         when (numberRuns) {
             1 -> om.ncepRuns.add("00Z")

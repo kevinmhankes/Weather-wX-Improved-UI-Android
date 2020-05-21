@@ -129,28 +129,6 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         getRunStatus()
     }
 
-/*    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
-        if (spinnerRunRan && spinnerTimeRan && spinnerSectorRan) {
-            UtilityModels.getContent(this, om, listOf(""), uiDispatcher)
-        } else {
-            when (parent.id) {
-                R.id.spinner_run -> if (!spinnerRunRan) spinnerRunRan = true
-                R.id.spinner_time -> if (!spinnerTimeRan) spinnerTimeRan = true
-                R.id.spinner_sector -> if (!spinnerSectorRan) spinnerSectorRan = true
-            }
-        }
-        if (parent.id == R.id.spinner_run) {
-            UtilityModels.updateTime(
-                    UtilityString.getLastXChars(spRun.selectedItem.toString(), 2),
-                    om.rtd.mostRecentRun, om.spTime.list, om.spTime.arrayAdapter, "", false
-            )
-        }
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>) {}*/
-
-
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (objectNavDrawerCombo.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
@@ -173,8 +151,8 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 )
             }
             R.id.action_animate -> UtilityModels.getAnimate(om, listOf(""), uiDispatcher)
-            R.id.action_time -> dialogTime()
-            R.id.action_run -> dialogRun()
+            R.id.action_time -> genericDialog(om.times) { om.setTimeIdx(it) }
+            R.id.action_run -> genericDialog(om.rtd.listRun) { om.run = om.rtd.listRun[it] }
             R.id.action_multipane -> ObjectIntent(this, ModelsSpcHrefActivity::class.java, INFO, arrayOf("2", activityArguments!![1], activityArguments!![2]))
             R.id.action_share -> {
                 if (UIPreferences.recordScreenShare) {
@@ -191,7 +169,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (objectNavDrawerCombo.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
-            R.id.action_region -> dialogRegion()
+            R.id.action_region -> genericDialog(UtilityModelSpcHrefInterface.sectorsLong) { om.sector = UtilityModelSpcHrefInterface.sectorsLong[it] }
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -241,42 +219,14 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         objectNavDrawerCombo.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
-    private fun dialogTime() {
-        val objectDialogue = ObjectDialogue(this@ModelsSpcHrefActivity, om.times)
+    private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
+        val objectDialogue = ObjectDialogue(this@ModelsSpcHrefActivity, list)
         objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(this)
         })
         objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            om.setTimeIdx(which)
-            getContent()
-            dialog.dismiss()
-        })
-        objectDialogue.show()
-    }
-
-    private fun dialogRegion() {
-        val objectDialogue = ObjectDialogue(this@ModelsSpcHrefActivity, UtilityModelSpcHrefInterface.sectorsLong)
-        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
-            dialog.dismiss()
-            UtilityUI.immersiveMode(this)
-        })
-        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            om.sector = UtilityModelSpcHrefInterface.sectorsLong[which]
-            getContent()
-            dialog.dismiss()
-        })
-        objectDialogue.show()
-    }
-
-    private fun dialogRun() {
-        val objectDialogue = ObjectDialogue(this@ModelsSpcHrefActivity, om.rtd.listRun)
-        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
-            dialog.dismiss()
-            UtilityUI.immersiveMode(this)
-        })
-        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
-            om.run = om.rtd.listRun[which]
+            fn(which)
             getContent()
             dialog.dismiss()
         })
