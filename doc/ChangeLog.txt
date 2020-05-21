@@ -15,6 +15,7 @@
 // TODO [FIX] remove usage of always show icons in menus
 // TODO [FIX] NHC share only shares last 3 images
 // TODO [FIX] NCEP models does not show time pretty label after switch model or product
+// TODO [FIX] NCEP models , after change model reset time to 1
 // TODO [ADD] document RunTimeData
 
 55453 2020_05_21
