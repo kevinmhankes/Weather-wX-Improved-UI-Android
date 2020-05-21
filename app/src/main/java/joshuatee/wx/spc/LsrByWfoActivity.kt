@@ -22,19 +22,18 @@
 package joshuatee.wx.spc
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import java.util.Locale
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
+import joshuatee.wx.Extensions.safeGet
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
-import joshuatee.wx.UIPreferences
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.*
@@ -48,7 +47,7 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_afd.*
 
-class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItemClickListener {
+class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     //
     // The primary purpose of this activity is to view all recent LSR by WFO
@@ -70,7 +69,16 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
     private val prefToken = "WFO_FAV"
     private var ridFavOld = ""
     private var wfoProd = listOf<String>()
-    private lateinit var objectSpinner: ObjectSpinner
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.afd_top, menu)
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        menu.findItem(R.id.action_sector).title = locations.safeGet(0)
+        return super.onPrepareOptionsMenu(menu)
+    }
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,15 +91,14 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
         prod = if (activityArguments[1] == "") MyApplication.wfoTextFav else activityArguments[1]
         toolbar.title = prod
         locations = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
-        objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, locations)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(scrollView))
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToWfo)
+        getContent()
     }
 
     override fun onRestart() {
         if (ridFavOld != MyApplication.wfoFav) {
             locations = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
-            objectSpinner.refreshData(this@LsrByWfoActivity, locations)
         }
         super.onRestart()
     }
@@ -112,16 +119,15 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
         wfo = loc.toUpperCase(Locale.US)
         mapShown = false
         locations = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
-        objectSpinner.refreshData(this@LsrByWfoActivity, locations)
+        getContent()
     }
 
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleString(this, wfo, star, prefToken)
         locations = UtilityFavorites.setupMenu(this, ridFav, wfo, prefToken)
-        objectSpinner.refreshData(this@LsrByWfoActivity, locations)
     }
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+/*    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
         (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
         if (locations.isNotEmpty()) {
             when (position) {
@@ -139,9 +145,48 @@ class LsrByWfoActivity : AudioPlayActivity(), OnItemSelectedListener, OnMenuItem
         }
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>) {}
+    override fun onNothingSelected(parent: AdapterView<*>) {}*/
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_sector -> genericDialog(locations) {
+                if (locations.isNotEmpty()) {
+                    when (it) {
+                        1 -> ObjectIntent.favoriteAdd(this, arrayOf("WFO"))
+                        2 -> ObjectIntent.favoriteRemove(this, arrayOf("WFO"))
+                        else -> {
+                            wfo = locations[it].split(" ").getOrNull(0) ?: ""
+                            locations = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
+                            getContent()
+                        }
+                    }
+                    if (firstTime) {
+                        UtilityToolbar.fullScreenMode(toolbar, toolbarBottom)
+                        firstTime = false
+                    }
+                }
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
+    private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
+        val objectDialogue = ObjectDialogue(this, list)
+        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+            dialog.dismiss()
+            UtilityUI.immersiveMode(this)
+        })
+        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+            fn(which)
+            getContent()
+            dialog.dismiss()
+        })
+        objectDialogue.show()
+    }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        invalidateOptionsMenu()
         scrollView.smoothScrollTo(0, 0)
         ridFavOld = MyApplication.wfoFav
         wfoProd = withContext(Dispatchers.IO) { lsrFromWfo }

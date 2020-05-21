@@ -22,24 +22,23 @@
 package joshuatee.wx.spc
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
+import joshuatee.wx.Extensions.safeGet
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
-import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.*
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener, OnMenuItemClickListener {
+class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
 
     companion object { const val URL = "" }
 
@@ -55,7 +54,17 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener, OnMenuItemC
     private val prefToken = "SND_FAV"
     private var upperAir = ""
     private var bitmap = UtilityImg.getBlankBitmap()
-    private lateinit var objectSpinner: ObjectSpinner
+    //private lateinit var objectSpinner: ObjectSpinner
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.afd_top, menu)
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        menu.findItem(R.id.action_sector).title = locations.safeGet(0)
+        return super.onPrepareOptionsMenu(menu)
+    }
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,18 +74,20 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener, OnMenuItemC
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv)
         office = UtilityLocation.getNearestSoundingSite(Location.latLon)
         locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
-        objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, locations)
+        //objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, locations)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToSnd)
+        getContent()
     }
 
     override fun onRestart() {
         locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
-        objectSpinner.refreshData(this, locations)
+        //objectSpinner.refreshData(this, locations)
         super.onRestart()
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        invalidateOptionsMenu()
         if (MyApplication.sndFav.contains(":$office:")) star.setIcon(MyApplication.STAR_ICON) else star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         bitmap = withContext(Dispatchers.IO) { UtilitySpcSoundings.getImage(this@SpcSoundingsActivity, office) }
         img.img.visibility = View.VISIBLE
@@ -125,17 +136,18 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener, OnMenuItemC
         office = loc
         mapShown = false
         locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
-        objectSpinner.refreshData(this, locations)
+        getContent()
+        //objectSpinner.refreshData(this, locations)
         img.resetZoom()
     }
 
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleString(this, office, star, prefToken)
         locations = UtilityFavorites.setupMenu(this, ridFav, office, prefToken)
-        objectSpinner.refreshData(this, locations)
+        //objectSpinner.refreshData(this, locations)
     }
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+   /* override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
         (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
         if (locations.isNotEmpty()) {
             if (firstTime) {
@@ -151,9 +163,47 @@ class SpcSoundingsActivity : BaseActivity(), OnItemSelectedListener, OnMenuItemC
                 }
             }
         }
+    }*/
+
+    //override fun onNothingSelected(parent: AdapterView<*>) {}
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_sector -> genericDialog(locations) {
+                if (locations.isNotEmpty()) {
+                    if (firstTime) {
+                        UtilityToolbar.fullScreenMode(toolbar, toolbarBottom)
+                        firstTime = false
+                    }
+                    when (it) {
+                        1 -> ObjectIntent.favoriteAdd(this, arrayOf("SND"))
+                        2 -> ObjectIntent.favoriteRemove(this, arrayOf("SND"))
+                        else -> {
+                            office = locations[it].split(" ").getOrNull(0) ?: ""
+                            locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
+                            getContent()
+                        }
+                    }
+                }
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>) {}
+    private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
+        val objectDialogue = ObjectDialogue(this, list)
+        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+            dialog.dismiss()
+            UtilityUI.immersiveMode(this)
+        })
+        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+            fn(which)
+            getContent()
+            dialog.dismiss()
+        })
+        objectDialogue.show()
+    }
 
     override fun onStop() {
         img.imgSavePosnZoom(this, "SOUNDING")
