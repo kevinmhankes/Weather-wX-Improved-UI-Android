@@ -17,6 +17,7 @@
 // TODO [FIX] NCEP models does not show time pretty label after switch model or product
 // TODO [FIX] NCEP models , after change model reset time to 1
 // TODO [ADD] document RunTimeData
+// TODO [ADD] move away from spinners in other activities
 
 55453 2020_05_21
 55452 2020_05_21    [FIX] NCEP models FABs need all white icons

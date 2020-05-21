@@ -48,12 +48,11 @@ class DisplayDataNoSpinner(context: Context, activity: Activity, numPanes: Int, 
         (0 until numPanes).forEach {
             img[it].setOnTouchListener(object : OnSwipeTouchListener(context) {
                 override fun onSwipeLeft() {
-                    //UtilityLog.d("Wx", "DEBUG: swipe left")
-                    if (img[0].currentZoom < 1.01f) om.leftClick()
+                    if (img[0].currentZoom < 1.01f) om.rightClick()
                 }
 
                 override fun onSwipeRight() {
-                    if (img[0].currentZoom < 1.01f) om.rightClick()
+                    if (img[0].currentZoom < 1.01f) om.leftClick()
                 }
             })
         }
