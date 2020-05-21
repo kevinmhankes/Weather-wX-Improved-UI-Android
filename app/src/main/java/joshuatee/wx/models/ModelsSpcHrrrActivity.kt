@@ -93,14 +93,8 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
         miStatusParam1 = menu.findItem(R.id.action_status_param1)
         miStatusParam2 = menu.findItem(R.id.action_status_param2)
         if (om.numPanes < 2) {
-            fab1 = ObjectFab(this, this, R.id.fab1, View.OnClickListener {
-                om.leftClick()
-                getContent()
-            })
-            fab2 = ObjectFab(this, this, R.id.fab2, View.OnClickListener {
-                om.rightClick()
-                getContent()
-            })
+            fab1 = ObjectFab(this, this, R.id.fab1, View.OnClickListener { om.leftClick() })
+            fab2 = ObjectFab(this, this, R.id.fab2, View.OnClickListener { om.rightClick() })
             menu.findItem(R.id.action_img1).isVisible = false
             menu.findItem(R.id.action_img2).isVisible = false
             if (UIPreferences.fabInModels) {
@@ -117,7 +111,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
         miStatus.title = "in through"
         om.displayData = DisplayDataNoSpinner(this, this, om.numPanes, om)
         drw = ObjectNavDrawer(this, UtilityModelSpcHrrrInterface.labels, UtilityModelSpcHrrrInterface.params)
-        om.setUiElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2)
+        om.setUiElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2, ::getContent)
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             drw.listView.setItemChecked(position, false)
             drw.drawerLayout.closeDrawer(drw.listView)
@@ -163,14 +157,8 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
                 UtilityModels.getContentNonSpinner(this, om, overlayImg, uiDispatcher)
             }
             R.id.action_multipane -> ObjectIntent(this, ModelsSpcHrrrActivity::class.java, INFO, arrayOf("2", activityArguments[1], activityArguments[2]))
-            R.id.action_back -> {
-                om.leftClick()
-                getContent()
-            }
-            R.id.action_forward -> {
-                om.rightClick()
-                getContent()
-            }
+            R.id.action_back -> om.leftClick()
+            R.id.action_forward -> om.rightClick()
             R.id.action_animate -> UtilityModels.getAnimate(om, overlayImg, uiDispatcher)
             R.id.action_time -> dialogTime()
             R.id.action_run -> dialogRun()
@@ -298,17 +286,11 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {
             KeyEvent.KEYCODE_J -> {
-                if (event.isCtrlPressed) {
-                    om.leftClick()
-                    getContent()
-                }
+                if (event.isCtrlPressed) om.leftClick()
                 true
             }
             KeyEvent.KEYCODE_K -> {
-                if (event.isCtrlPressed) {
-                    om.rightClick()
-                    getContent()
-                }
+                if (event.isCtrlPressed) om.rightClick()
                 true
             }
             else -> super.onKeyUp(keyCode, event)

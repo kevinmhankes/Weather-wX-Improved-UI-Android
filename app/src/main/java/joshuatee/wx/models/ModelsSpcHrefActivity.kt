@@ -90,14 +90,8 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         miStatusParam1 = menu.findItem(R.id.action_status_param1)
         miStatusParam2 = menu.findItem(R.id.action_status_param2)
         if (om.numPanes < 2) {
-            fab1 = ObjectFab(this, this, R.id.fab1, View.OnClickListener {
-                om.leftClick()
-                getContent()
-            })
-            fab2 = ObjectFab(this, this, R.id.fab2, View.OnClickListener {
-                om.rightClick()
-                getContent()
-            })
+            fab1 = ObjectFab(this, this, R.id.fab1, View.OnClickListener { om.leftClick() })
+            fab2 = ObjectFab(this, this, R.id.fab2, View.OnClickListener { om.rightClick() })
             menu.findItem(R.id.action_img1).isVisible = false
             menu.findItem(R.id.action_img2).isVisible = false
             if (UIPreferences.fabInModels) {
@@ -123,7 +117,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 this,
                 ""
         )
-        om.setUiElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2)
+        om.setUiElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2, ::getContent)
         objectNavDrawerCombo.listView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
             objectNavDrawerCombo.drawerLayout.closeDrawer(objectNavDrawerCombo.listView)
             om.displayData.param[om.curImg] = objectNavDrawerCombo.getToken(groupPosition, childPosition)
@@ -160,14 +154,8 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (objectNavDrawerCombo.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
-            R.id.action_back -> {
-                om.leftClick()
-                getContent()
-            }
-            R.id.action_forward -> {
-                om.rightClick()
-                getContent()
-            }
+            R.id.action_back -> om.leftClick()
+            R.id.action_forward -> om.rightClick()
             R.id.action_img1 -> {
                 om.curImg = 0
                 UtilityModels.setSubtitleRestoreIMGXYZOOM(
@@ -306,17 +294,11 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {
             KeyEvent.KEYCODE_J -> {
-                if (event.isCtrlPressed) {
-                    om.leftClick()
-                    getContent()
-                }
+                if (event.isCtrlPressed) om.leftClick()
                 true
             }
             KeyEvent.KEYCODE_K -> {
-                if (event.isCtrlPressed) {
-                    om.leftClick()
-                    getContent()
-                }
+                if (event.isCtrlPressed) om.leftClick()
                 true
             }
             else -> super.onKeyUp(keyCode, event)

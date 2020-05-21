@@ -74,13 +74,15 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
     var fab1: ObjectFab? = null
     var fab2: ObjectFab? = null
     lateinit var toolbar: Toolbar
+    lateinit var getContent: () -> Unit
 
-    fun setUiElements(toolbar: Toolbar, fab1: ObjectFab?, fab2: ObjectFab?, miStatusParam1: MenuItem, miStatusParam2: MenuItem) {
+    fun setUiElements(toolbar: Toolbar, fab1: ObjectFab?, fab2: ObjectFab?, miStatusParam1: MenuItem, miStatusParam2: MenuItem, getContent: () -> Unit) {
         this.miStatusParam1 = miStatusParam1
         this.miStatusParam2 = miStatusParam2
         this.fab1 = fab1
         this.fab2 = fab2
         this.toolbar = toolbar
+        this.getContent = getContent
     }
 
     init {
@@ -530,6 +532,7 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
         } else {
             timeIdxDecr()
         }
+        getContent()
     }
 
     fun rightClick() {
@@ -538,6 +541,7 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
         } else {
             timeIdxIncr()
         }
+        getContent()
     }
 }
 

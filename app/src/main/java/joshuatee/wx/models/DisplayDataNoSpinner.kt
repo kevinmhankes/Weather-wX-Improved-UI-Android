@@ -28,6 +28,7 @@ import joshuatee.wx.R
 import joshuatee.wx.ui.OnSwipeTouchListener
 import joshuatee.wx.ui.TouchImageView2
 import joshuatee.wx.util.UtilityImg
+import joshuatee.wx.util.UtilityLog
 
 class DisplayDataNoSpinner(context: Context, activity: Activity, numPanes: Int, om: ObjectModelNoSpinner) {
 
@@ -46,9 +47,14 @@ class DisplayDataNoSpinner(context: Context, activity: Activity, numPanes: Int, 
         }
         (0 until numPanes).forEach {
             img[it].setOnTouchListener(object : OnSwipeTouchListener(context) {
-                override fun onSwipeLeft() { if (img[0].currentZoom < 1.01f) om.leftClick() }
+                override fun onSwipeLeft() {
+                    //UtilityLog.d("Wx", "DEBUG: swipe left")
+                    if (img[0].currentZoom < 1.01f) om.leftClick()
+                }
 
-                override fun onSwipeRight() { if (img[0].currentZoom < 1.01f) om.rightClick() }
+                override fun onSwipeRight() {
+                    if (img[0].currentZoom < 1.01f) om.rightClick()
+                }
             })
         }
     }

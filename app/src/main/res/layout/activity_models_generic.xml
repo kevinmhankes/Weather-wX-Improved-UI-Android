@@ -125,7 +125,7 @@
                         app:layout_anchor="@id/iv1"
                         app:layout_anchorGravity="bottom|right"
                         app:pressedTranslationZ="@dimen/fab_elevation_pressed"
-                        app:srcCompat="@drawable/ic_keyboard_arrow_right_24dp" />
+                        app:srcCompat="@drawable/ic_keyboard_arrow_right_24dp_white" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab1"
@@ -138,7 +138,7 @@
                         app:layout_anchor="@id/iv1"
                         app:layout_anchorGravity="bottom|right"
                         app:pressedTranslationZ="@dimen/fab_elevation_pressed"
-                        app:srcCompat="@drawable/ic_keyboard_arrow_left_24dp" />
+                        app:srcCompat="@drawable/ic_keyboard_arrow_left_24dp_white" />
 
                 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

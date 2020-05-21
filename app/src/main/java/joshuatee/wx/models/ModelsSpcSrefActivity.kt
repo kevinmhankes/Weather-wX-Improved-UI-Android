@@ -126,7 +126,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         setupModel()
         favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
         UtilityModelSpcSrefInterface.createData()
-        om.setUiElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2)
+        om.setUiElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2, ::getContent)
         drw = ObjectNavDrawerCombo(
                 this,
                 UtilityModelSpcSrefInterface.groups,
