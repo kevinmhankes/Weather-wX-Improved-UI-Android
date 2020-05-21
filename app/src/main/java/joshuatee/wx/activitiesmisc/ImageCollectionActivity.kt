@@ -43,7 +43,7 @@ import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.vis.UtilityGoesFullDisk
 import kotlinx.coroutines.*
 
-class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemClickListener
+class ImageCollectionActivity : VideoRecordActivity() {
 
     companion object { const val TYPE = "" }
 
@@ -80,7 +80,7 @@ class ImageCollectionActivity : VideoRecordActivity() { // , Toolbar.OnMenuItemC
         drw.index = Utility.readPref(this, imageCollection.prefTokenIdx, 0)
         drw.setListener(::getContentFixThis)
         toolbar.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
-        toolbarBottom.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
+        //toolbarBottom.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
         getContent()
     }
 
