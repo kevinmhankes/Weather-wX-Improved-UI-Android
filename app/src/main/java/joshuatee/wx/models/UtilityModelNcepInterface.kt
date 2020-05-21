@@ -51,7 +51,7 @@ internal object UtilityModelNcepInterface {
             "AFRICA",
             "NORTH-PAC",
             "EAST-PAC",
-            "WN-ATL",
+            "WEST-ATL",
             "ATLANTIC",
             "POLAR",
             "ALASKA",

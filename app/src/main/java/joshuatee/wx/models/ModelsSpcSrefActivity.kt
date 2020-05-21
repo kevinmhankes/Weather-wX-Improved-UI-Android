@@ -203,7 +203,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun updateMenuTitles() {
-        timeMenuItem.title = om.time
+        timeMenuItem.title = om.getTimeLabel()
         runMenuItem.title = om.run
         paramMenuItem.title = om.displayData.param[0]
     }

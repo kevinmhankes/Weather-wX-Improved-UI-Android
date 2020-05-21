@@ -290,10 +290,15 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun updateMenuTitles() {
+        UtilityLog.d("wx", "DEBUG: " + om.time)
+        UtilityLog.d("wx", "DEBUG: " + om.timeIndex)
+        UtilityLog.d("wx", "DEBUG: " + om.times)
+
+
         if (sectorMenuItem != null) {
             sectorMenuItem?.title = om.sector
         }
-        timeMenuItem.title = om.time
+        timeMenuItem.title = om.getTimeLabel()
         runMenuItem.title = om.run
         if (modelMenuItem != null) {
             modelMenuItem?.title = om.model

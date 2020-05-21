@@ -509,6 +509,12 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
         }
     }
 
+    fun getTimeLabel() = if (timeIndex > -1 && timeIndex < times.size) {
+            times[timeIndex]
+        } else {
+            ""
+        }
+
     fun setTimeIdx(timeIdx: Int) {
         if (timeIdx > -1 && timeIdx < times.size) {
             this.timeIndex = timeIdx

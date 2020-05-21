@@ -205,7 +205,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
 
     private fun updateMenuTitles() {
         sectorMenuItem.title = om.sector
-        timeMenuItem.title = om.time
+        timeMenuItem.title = om.getTimeLabel()
         runMenuItem.title = om.run
     }
 

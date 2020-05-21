@@ -14,13 +14,13 @@
 // TODO [REF] cleanup external stuff
 // TODO [FIX] remove usage of always show icons in menus
 // TODO [FIX] NHC share only shares last 3 images
-// TODO [FIX] NCEP models does not show time pretty label after switch model or product
-// TODO [FIX] NCEP models , after change model reset time to 1
 // TODO [ADD] document RunTimeData
 // TODO [ADD] move away from spinners in other activities
 // TODO [REF] optimize multiple dialogues in models
 
-55453 2020_05_21
+55453 2020_05_21    [FIX] NCEP GFS change one sector to "WEST-ATL"
+                    [FIX] NCEP models , after change model reset time to 1
+                    [FIX] NCEP models does not show time pretty label after switch model or product
 55452 2020_05_21    [FIX] NCEP models FABs need all white icons
                     [FIX] NCEP model swipe left/right not working
 55451 2020_05_20    [FIX] correct obs icon on misc tab
