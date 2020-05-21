@@ -160,7 +160,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
             R.id.action_back -> om.leftClick()
             R.id.action_forward -> om.rightClick()
             R.id.action_animate -> UtilityModels.getAnimate(om, overlayImg, uiDispatcher)
-            R.id.action_time -> dialogTime()
+            R.id.action_time -> genericDialog(om.times) { which -> om.setTimeIdx(which) }
             R.id.action_run -> dialogRun()
             R.id.action_share -> {
                 if (UIPreferences.recordScreenShare) {
@@ -177,7 +177,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
-            R.id.action_region -> dialogRegion()
+            R.id.action_region -> genericDialog(UtilityModelSpcHrrrInterface.sectors) { which -> om.sector = UtilityModelSpcHrrrInterface.sectors[which] }
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -232,7 +232,22 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
         drw.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
-    private fun dialogTime() {
+    private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
+        val objectDialogue = ObjectDialogue(this@ModelsSpcHrrrActivity, list)
+        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+            dialog.dismiss()
+            UtilityUI.immersiveMode(this)
+        })
+        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+            //om.setTimeIdx(which)
+            fn(which)
+            getContent()
+            dialog.dismiss()
+        })
+        objectDialogue.show()
+    }
+
+    private fun dialogTimeA() {
         val objectDialogue = ObjectDialogue(this@ModelsSpcHrrrActivity, om.times)
         objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
@@ -246,7 +261,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
         objectDialogue.show()
     }
 
-    private fun dialogRegion() {
+    private fun dialogRegionA() {
         val objectDialogue = ObjectDialogue(this@ModelsSpcHrrrActivity, UtilityModelSpcHrrrInterface.sectors)
         objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
