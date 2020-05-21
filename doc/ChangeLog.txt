@@ -14,6 +14,11 @@
 // TODO [REF] cleanup external stuff
 // TODO [FIX] remove usage of always show icons in menus
 // TODO [FIX] NHC share only shares last 3 images
+// TODO [FIX] NCEP models does not show time pretty label after switch model or product
+// TODO [FIX] NCEP model swipe left/right not working
+// TODO [ADD] document RunTimeData
+// TODO [FIX] NCEP models FABS need all white icons
+
 
 55452 2020_05_21
 55451 2020_05_20    [FIX] correct obs icon on misc tab
