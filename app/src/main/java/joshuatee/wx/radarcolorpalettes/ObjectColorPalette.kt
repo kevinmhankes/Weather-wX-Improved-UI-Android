@@ -58,6 +58,12 @@ class ObjectColorPalette(val context: Context, private val colormapCode: Int) {
         blueValues.put(Color.blue(colorAsInt).toByte())
     }
 
+    fun putBytes(redByte: Byte, greenByte: Byte, blueByte: Byte) {
+        redValues.put(redByte)
+        greenValues.put(greenByte)
+        blueValues.put(blueByte)
+    }
+
     fun init() {
         when (colormapCode) {
             19, 30, 56 -> {

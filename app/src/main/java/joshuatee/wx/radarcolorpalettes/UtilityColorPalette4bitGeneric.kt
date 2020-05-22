@@ -30,9 +30,7 @@ import joshuatee.wx.util.UtilityIO
 internal object UtilityColorPalette4bitGeneric {
 
     fun generate(context: Context, product: Int) {
-        MyApplication.colorMap[product]!!.redValues.position(0)
-        MyApplication.colorMap[product]!!.greenValues.position(0)
-        MyApplication.colorMap[product]!!.blueValues.position(0)
+        MyApplication.colorMap[product]!!.position(0)
         val fileId = when (product) {
             19 -> R.raw.colormap19
             30 -> R.raw.colormap30
@@ -45,9 +43,7 @@ internal object UtilityColorPalette4bitGeneric {
                 val red = colors[0].toInt().toByte()
                 val green = colors[1].toInt().toByte()
                 val blue = colors[2].toInt().toByte()
-                MyApplication.colorMap[product]!!.redValues.put(red)
-                MyApplication.colorMap[product]!!.greenValues.put(green)
-                MyApplication.colorMap[product]!!.blueValues.put(blue)
+                MyApplication.colorMap[product]!!.putBytes(red, green, blue)
             }
         }
     }
