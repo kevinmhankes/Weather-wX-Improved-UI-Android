@@ -223,48 +223,6 @@ object UtilityColorPaletteGeneric {
         var code = MyApplication.radarColorPalette[product] ?: ""
         if (code == "COD") code =  "CODENH"
         generate(context, product, code)
-
-        /*when (product) {
-            94 -> when (MyApplication.radarColorPalette[product]) {
-                "AF" -> generate(context, product, "AF")
-                "EAK" -> generate(context, product, "EAK")
-                "DKenh" -> generate(context, product, "DKenh")
-                "COD", "CODENH" -> generate(context, product, "CODENH")
-                "MENH" -> generate(context, product, "MENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
-            }
-            99 -> when (MyApplication.radarColorPalette[product]) {
-                "COD", "CODENH" -> generate(context, product, "CODENH")
-                "AF" -> generate(context, product, "AF")
-                "EAK" -> generate(context, product, "EAK")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
-            }
-            134 -> when (MyApplication.radarColorPalette[product]) {
-                "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
-            }
-            135 -> when (MyApplication.radarColorPalette[product]) {
-                "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
-            }
-            159 -> when (MyApplication.radarColorPalette[product]) {
-                "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
-            }
-            161 -> when (MyApplication.radarColorPalette[product]) {
-                "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
-            }
-            163 -> when (MyApplication.radarColorPalette[product]) {
-                "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
-            }
-            172 -> when (MyApplication.radarColorPalette[product]) {
-                "CODENH" -> generate(context, product, "CODENH")
-                else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
-            }
-            else -> { }
-        }*/
     }
 }
 
