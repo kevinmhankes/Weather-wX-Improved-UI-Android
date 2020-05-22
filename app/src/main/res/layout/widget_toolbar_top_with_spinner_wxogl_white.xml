@@ -28,12 +28,12 @@
     app:theme="@style/MyLightToolbarStyle"
     app:popupTheme="@style/MyLightToolbarStyle">
 
-    <Spinner
+<!--    <Spinner
         android:id="@+id/spinner1"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_weight="1"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent" />-->
 
 </androidx.appcompat.widget.Toolbar>

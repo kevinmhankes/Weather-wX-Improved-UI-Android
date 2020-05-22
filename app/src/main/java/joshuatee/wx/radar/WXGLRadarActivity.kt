@@ -38,16 +38,10 @@ import android.os.SystemClock
 import androidx.core.app.NavUtils
 import androidx.core.app.TaskStackBuilder
 import androidx.core.content.ContextCompat
-import android.view.MenuItem
-import android.view.View
-import android.view.WindowManager
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.os.Handler
-import android.view.KeyEvent
-import android.widget.TextView
+import android.view.*
 
 import joshuatee.wx.R
 import joshuatee.wx.settings.UtilityLocation
@@ -66,7 +60,7 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuItemClickListener {
+class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     // This activity is a general purpose viewer of nexrad and mosaic content
     // nexrad data is downloaded from NWS FTP, decoded and drawn using OpenGL ES
@@ -141,7 +135,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private val numberOfPanes = 1
     private var paneList = listOf<Int>()
     private var wxglTextObjects = mutableListOf<WXGLTextObject>()
-    private lateinit var objectSpinner: ObjectSpinner
+    //private lateinit var objectSpinner: ObjectSpinner
     private var dialogRadarLongPress: ObjectDialogue? = null
     private var isGetContentInProgress = false
     private val animateButtonPlayString = "Animate Frames"
@@ -149,6 +143,17 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     private val pauseButtonString = "Pause animation"
     private val starButtonString = "Toggle favorite"
     private val resumeButtonString = "Resume animation"
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.uswxoglradar_top, menu)
+        //val actionSector = menu.findItem(R.id.action_sector)
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        menu.findItem(R.id.action_sector).title = radarSitesForFavorites.safeGet(0)
+        return super.onPrepareOptionsMenu(menu)
+    }
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -261,8 +266,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         if (MyApplication.radarShowLegend) showLegend()
         title = wxglRender.product
         radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
-        objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, radarSitesForFavorites)
+        //objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, radarSitesForFavorites)
         checkForAutoRefresh()
+        getContent()
     }
 
     private fun adjustTiltMenu() {
@@ -307,7 +313,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
             getContent()
         } else {
             radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
-            objectSpinner.refreshData(this, radarSitesForFavorites)
+            getContent()
+            //objectSpinner.refreshData(this, radarSitesForFavorites)
         }
         checkForAutoRefresh()
         super.onRestart()
@@ -338,6 +345,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        invalidateOptionsMenu()
         if (!isGetContentInProgress) {
             isGetContentInProgress = true
             val ridIsTdwr = WXGLNexrad.isRidTdwr(wxglRender.rid)
@@ -678,18 +686,19 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         mapShown = false
         radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
         adjustTiltMenu()
-        objectSpinner.refreshData(this@WXGLRadarActivity, radarSitesForFavorites)
+        getContent()
+        //objectSpinner.refreshData(this@WXGLRadarActivity, radarSitesForFavorites)
     }
 
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleString(this, wxglRender.rid, starButton, prefToken)
         radarSitesForFavorites = UtilityFavorites.setupMenu(this, ridFav, wxglRender.rid, prefToken)
-        objectSpinner.refreshData(this@WXGLRadarActivity, radarSitesForFavorites)
+        //objectSpinner.refreshData(this@WXGLRadarActivity, radarSitesForFavorites)
     }
 
     private fun showRadarScanInfo() { ObjectDialogue(this, WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"")) }
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+    /*override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
         (parent.getChildAt(0) as TextView).setTextColor(Color.WHITE)
         if (radarSitesForFavorites.size > 2) {
             inOglAnim = false
@@ -726,7 +735,38 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
         UtilityUI.immersiveMode(this)
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>) {}
+    override fun onNothingSelected(parent: AdapterView<*>) {}*/
+
+   /* override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_sector -> genericDialog(GlobalArrays.states) {
+                if (firstTime) {
+                    UtilityToolbar.fullScreenMode(this)
+                    firstTime = false
+                }
+                img.setZoom(1.0f)
+                state = GlobalArrays.states[it].split(":")[0]
+                getContent()
+            }
+            R.id.action_share -> UtilityShare.shareBitmap(this, this, "$state SWO D$day", bitmap)
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }*/
+
+    private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
+        val objectDialogue = ObjectDialogue(this, list)
+        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+            dialog.dismiss()
+            UtilityUI.immersiveMode(this)
+        })
+        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+            fn(which)
+            getContent()
+            dialog.dismiss()
+        })
+        objectDialogue.show()
+    }
 
     override fun onStop() {
         super.onStop()
@@ -902,6 +942,43 @@ class WXGLRadarActivity : VideoRecordActivity(), OnItemSelectedListener, OnMenuI
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_sector -> {
+                genericDialog(radarSitesForFavorites) {
+                    if (radarSitesForFavorites.size > 2) {
+                        inOglAnim = false
+                        inOglAnimPaused = false
+                        animateButton.setIcon(MyApplication.ICON_PLAY_WHITE)
+                        animateButton.title = animateButtonPlayString
+                        when (it) {
+                            1 -> ObjectIntent.favoriteAdd(this, arrayOf("RID"))
+                            2 -> ObjectIntent.favoriteRemove(this, arrayOf("RID"))
+                            else -> {
+                                if (radarSitesForFavorites[it] == " ") {
+                                    wxglRender.rid = joshuatee.wx.settings.Location.rid
+                                } else {
+                                    wxglRender.rid = radarSitesForFavorites[it].split(" ").getOrNull(0) ?: ""
+                                }
+                                if (!restarted && !(MyApplication.wxoglRememberLocation && firstRun)) {
+                                    img.resetZoom()
+                                    img.setZoom(1.0f)
+                                    wxglSurfaceView.scaleFactor = MyApplication.wxoglSize / 10.0f
+                                    wxglRender.setViewInitial(MyApplication.wxoglSize / 10.0f, 0.0f, 0.0f)
+                                    // ADD Apr 2020 to fix issue when switching via map to new location
+                                    UtilityWXGLTextObject.showLabels(numberOfPanes, wxglTextObjects)
+                                }
+                                restarted = false
+                                ridChanged = true
+                                getContent()
+                            }
+                        }
+                        if (firstTime) {
+                            UtilityToolbar.fullScreenMode(toolbar, toolbarBottom)
+                            firstTime = false
+                        }
+                    }
+                    UtilityUI.immersiveMode(this)
+                }
+            }
             android.R.id.home -> {
                 if (Utility.readPref(this@WXGLRadarActivity, "LAUNCH_TO_RADAR", "false") == "false") {
                     NavUtils.navigateUpFromSameTask(this)
