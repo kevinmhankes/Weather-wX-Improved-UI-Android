@@ -37,9 +37,6 @@ object UtilityColorPaletteGeneric {
         var prodOffset = 0.0
         var prodScale = 1.0
         val objColormap = MyApplication.colorMap[colorMapProductCode]!!
-        //var colorMapR = objColormap.redValues
-        //var colorMapG = objColormap.greenValues
-        //var colorMapB = objColormap.blueValues
         when (colorMapProductCode) {
             94 -> {
                 scale = 2
@@ -82,17 +79,10 @@ object UtilityColorPaletteGeneric {
                 lowerEnd = 0
             }
             else -> {
-                //colorMapProductCode = 94
-                //colorMapR = MyApplication.colorMap[colorMapProductCode]!!.redValues
-                //colorMapG = MyApplication.colorMap[colorMapProductCode]!!.greenValues
-                //colorMapB = MyApplication.colorMap[colorMapProductCode]!!.blueValues
                 scale = 2
                 lowerEnd = -32
             }
         }
-        //colorMapR.position(0)
-        //colorMapG.position(0)
-        //colorMapB.position(0)
         objColormap.position(0)
         val dbzAl = mutableListOf<Int>()
         val rAl = mutableListOf<Int>()
@@ -137,9 +127,6 @@ object UtilityColorPaletteGeneric {
             // pad first 16, think this is needed
             (0 until 10).forEach { _ ->
                 if (rAl.size > 0 && gAl.size > 0 && bAl.size > 0) {
-                    //colorMapR.put(rAl[0].toByte())
-                    //colorMapG.put(gAl[0].toByte())
-                    //colorMapB.put(bAl[0].toByte())
                     objColormap.putBytes(rAl[0].toByte(), gAl[0].toByte(), bAl[0].toByte())
                 }
             }
@@ -147,27 +134,15 @@ object UtilityColorPaletteGeneric {
         if (colorMapProductCode == 99 || colorMapProductCode == 135) {
             // first two levels are range folder per ICD
             if (rAl.size > 0 && gAl.size > 0 && bAl.size > 0) {
-                /*colorMapR.put(rAl[0].toByte())
-                colorMapG.put(gAl[0].toByte())
-                colorMapB.put(bAl[0].toByte())
-                colorMapR.put(rAl[0].toByte())
-                colorMapG.put(gAl[0].toByte())
-                colorMapB.put(bAl[0].toByte())*/
                 objColormap.putBytes(rAl[0].toByte(), gAl[0].toByte(), bAl[0].toByte())
                 objColormap.putBytes(rAl[0].toByte(), gAl[0].toByte(), bAl[0].toByte())
             }
         }
         if (rAl.size > 0 && gAl.size > 0 && bAl.size > 0) {
             (lowerEnd until dbzAl[0]).forEach { _ ->
-                //colorMapR.put(rAl[0].toByte())
-                //colorMapG.put(gAl[0].toByte())
-                //colorMapB.put(bAl[0].toByte())
                 objColormap.putBytes(rAl[0].toByte(), gAl[0].toByte(), bAl[0].toByte())
                 if (scale == 2) { // 94 reflectivity
                     objColormap.putBytes(rAl[0].toByte(), gAl[0].toByte(), bAl[0].toByte())
-                    //colorMapR.put(rAl[0].toByte())
-                    //colorMapG.put(gAl[0].toByte())
-                    //colorMapB.put(bAl[0].toByte())
                 }
             }
         }
@@ -181,9 +156,6 @@ object UtilityColorPaletteGeneric {
                 objColormap.putBytes(rAl[index].toByte(), gAl[index].toByte(), bAl[index].toByte())
                 if (scale == 2) {
                     objColormap.putBytes(rAl[index].toByte(), gAl[index].toByte(), bAl[index].toByte())
-                    //if (colorMapR.hasRemaining()) colorMapR.put(rAl[index].toByte())
-                    //if (colorMapG.hasRemaining()) colorMapG.put(gAl[index].toByte())
-                    //if (colorMapB.hasRemaining()) colorMapB.put(bAl[index].toByte())
                 }
                 (1 until diff).forEach { j ->
                     if (scale == 1) {
@@ -198,14 +170,8 @@ object UtilityColorPaletteGeneric {
                 }
             } else {
                 objColormap.putBytes(rAl[index].toByte(), gAl[index].toByte(), bAl[index].toByte())
-                //if (colorMapR.hasRemaining()) colorMapR.put(rAl[index].toByte())
-                //if (colorMapG.hasRemaining()) colorMapG.put(gAl[index].toByte())
-                //if (colorMapB.hasRemaining()) colorMapB.put(bAl[index].toByte())
                 if (scale == 2) {
                     objColormap.putBytes(rAl[index].toByte(), gAl[index].toByte(), bAl[index].toByte())
-                    //if (colorMapR.hasRemaining()) colorMapR.put(rAl[index].toByte())
-                    //if (colorMapG.hasRemaining()) colorMapG.put(gAl[index].toByte())
-                    //if (colorMapB.hasRemaining()) colorMapB.put(bAl[index].toByte())
                 }
             }
         }
