@@ -36,7 +36,6 @@ object UtilityColorPaletteGeneric {
         val lowerEnd: Int
         var prodOffset = 0.0
         var prodScale = 1.0
-        //val colorMapProductCode = product.toIntOrNull() ?: 94
         val objColormap = MyApplication.colorMap[colorMapProductCode]!!
         var colorMapR = objColormap.redValues
         var colorMapG = objColormap.greenValues
@@ -91,9 +90,10 @@ object UtilityColorPaletteGeneric {
                 lowerEnd = -32
             }
         }
-        colorMapR.position(0)
-        colorMapG.position(0)
-        colorMapB.position(0)
+        //colorMapR.position(0)
+        //colorMapG.position(0)
+        //colorMapB.position(0)
+        objColormap.position(0)
         val dbzAl = mutableListOf<Int>()
         val rAl = mutableListOf<Int>()
         val gAl = mutableListOf<Int>()
