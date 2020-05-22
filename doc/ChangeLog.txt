@@ -16,6 +16,7 @@
 // TODO [FIX] NHC share only shares last 3 images
 // TODO [ADD] document RunTimeData
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
+// TODO [FIX] SPC Meso with long param hides the other icons
 
 55458 2020_05_21
 55457 2020_05_21    [ADD] WFOText, SPC SWO State, Sounding, LSR by WFO, SPC Meso, WPC Text, Nexrad to dialog
