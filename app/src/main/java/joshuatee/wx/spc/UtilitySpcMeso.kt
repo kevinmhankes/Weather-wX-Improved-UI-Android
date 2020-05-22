@@ -62,13 +62,15 @@ object UtilitySpcMeso {
     internal fun moveBack(param: String, list: List<String>): Int {
         UtilityLog.d("wxBack", param + " " + list)
         var swipePosition = list.lastIndexOf(param)
-        return if (list.size > 3) {
-            if (swipePosition >= list.size) swipePosition = list.size - 1
-            if (swipePosition == 3) swipePosition = 0 else swipePosition -= 1
-            if (swipePosition == -1) swipePosition = list.size - 1
+        swipePosition -= 1
+        UtilityLog.d("wxBack", swipePosition.toString())
+        return if (swipePosition > 2) {
+            //if (swipePosition >= list.size) swipePosition = list.size - 1
+            //if (swipePosition == 3) swipePosition = 0 else swipePosition -= 1
+            //if (swipePosition == -1) swipePosition = list.size - 1
             swipePosition
         } else {
-            swipePosition
+            list.size - 1
         }
     }
 
