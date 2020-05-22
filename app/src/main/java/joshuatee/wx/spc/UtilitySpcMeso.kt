@@ -52,6 +52,7 @@ object UtilitySpcMeso {
         var swipePosition = list.lastIndexOf(param)
         UtilityLog.d("wxForward", swipePosition.toString())
         swipePosition += 1
+        if (swipePosition == 1) return 3
         return if (list.size > swipePosition) {
             swipePosition
         } else {
