@@ -148,7 +148,6 @@ object UtilityFavorites {
         Utility.writePref(context, "SPCMESO_FAV", favoriteString)
         Utility.writePref(context, "SPCMESO_LABEL_FAV", favoriteLabelString)
         MyApplication.spcMesoFav = favoriteString
-        MyApplication.spcmesoLabelFav = favoriteLabelString
     }
 
     // Takes a value and a colon separated string

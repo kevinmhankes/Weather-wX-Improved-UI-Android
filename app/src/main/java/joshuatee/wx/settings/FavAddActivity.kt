@@ -39,12 +39,10 @@ import joshuatee.wx.wpc.UtilityWpcText
 
 class FavAddActivity : BaseActivity() {
 
-    companion object {
-        const val TYPE = ""
-    }
+    companion object { const val TYPE = "" }
 
     private var prefToken = ""
-    private var prefTokenLabel = ""
+    //private var prefTokenLabel = ""
     private var data = listOf<String>()
     private var dataTokens = listOf<String>()
     private var type = ""
@@ -89,7 +87,7 @@ class FavAddActivity : BaseActivity() {
             }
             "SPCMESO" -> {
                 prefToken = "SPCMESO_FAV"
-                prefTokenLabel = "SPCMESO_LABEL_FAV"
+                //prefTokenLabel = "SPCMESO_LABEL_FAV"
                 data = UtilitySpcMeso.labels
                 dataTokens = UtilitySpcMeso.params
                 verboseTitle = "parameter"
@@ -102,11 +100,11 @@ class FavAddActivity : BaseActivity() {
     private fun itemClicked(position: Int) {
         val item = data[position]
         var favoriteString = Utility.readPref(this, prefToken, UtilityFavorites.initialValue)
-        var favoriteLabel = if (type == "SPCMESO") {
+        /*var favoriteLabel = if (type == "SPCMESO") {
             Utility.readPref(this, prefTokenLabel, UtilityFavorites.initialValue)
         } else {
             ""
-        }
+        }*/
         val tmpArr = when (type) {
             "SPCMESO" -> {
                 if (dataTokens[position].contains(":")) {
@@ -134,20 +132,20 @@ class FavAddActivity : BaseActivity() {
             when (type) {
                 "SPCMESO" -> {
                     favoriteString += UtilitySpcMeso.params[position] + ":"
-                    favoriteLabel += UtilitySpcMeso.labels[position] + ":"
-                    Utility.writePref(this, prefTokenLabel, favoriteLabel)
+                    //favoriteLabel += UtilitySpcMeso.labels[position] + ":"
+                    //Utility.writePref(this, prefTokenLabel, favoriteLabel)
                 }
                 else -> favoriteString += tmpArr[0] + ":"
             }
             Utility.writePref(this, prefToken, favoriteString)
-            saveMyApp(favoriteString, favoriteLabel)
+            saveMyApp(favoriteString)
             toolbar.subtitle = "Last added: $item"
         } else {
             toolbar.subtitle = "Already added: $item"
         }
     }
 
-    private fun saveMyApp(fav: String, favLabel: String) {
+    private fun saveMyApp(fav: String) {
         when (type) {
             "SND" -> MyApplication.sndFav = fav
             "WFO" -> MyApplication.wfoFav = fav
@@ -156,7 +154,7 @@ class FavAddActivity : BaseActivity() {
             "SREF" -> MyApplication.srefFav = fav
             "SPCMESO" -> {
                 MyApplication.spcMesoFav = fav
-                MyApplication.spcmesoLabelFav = favLabel
+                //MyApplication.spcmesoLabelFav = favLabel
             }
         }
     }

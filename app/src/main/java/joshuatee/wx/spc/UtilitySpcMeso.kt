@@ -46,6 +46,31 @@ object UtilitySpcMeso {
             ObjectMenuTitle("Beta", 10)
     )
 
+    fun getLabelListFromParam(paramList: List<String>): List<String> {
+        val labelList = mutableListOf<String>()
+        UtilityLog.d("wxDEBUG", paramList.toString())
+        paramList.forEach {
+            if (it == "Add..." || it == "Modify...") {
+                labelList.add(it)
+            } else {
+                val index = params.indexOf(it)
+                if (index != -1) {
+                    val label = labels[index]
+                    labelList.add(label)
+                } else {
+                    UtilityLog.d("wxDEBUG", it + " -1 index " + MyApplication.spcMesoFav)
+                }
+            }
+        }
+        return labelList
+    }
+
+    fun getLabelFromParam(param: String): String {
+        val index = params.indexOf(param)
+        val label = labels[index]
+        return label
+    }
+
     //var swipePosition = 0
 
     internal fun moveForward(list: List<String>): Int {
@@ -102,7 +127,7 @@ object UtilitySpcMeso {
             "mcon",
             "thea",
             "mxth",
-            "temp_chg",
+            //"temp_chg",
             "dwpt_chg",
             "mixr_chg",
             "thte_chg",
@@ -144,57 +169,57 @@ object UtilitySpcMeso {
             "tadv"
     )
 
-    internal fun setParamFromFav(token: String): List<String> {
+    internal fun setParamFromFav(token: String): String {
         var param = ""
-        var label = ""
+        //var label = ""
         val tmpArr = MyApplication.spcMesoFav.split(":").dropLastWhile { it.isEmpty() }
-        val tmpArrLabel = MyApplication.spcmesoLabelFav.split(":").dropLastWhile { it.isEmpty() }
+        //val tmpArrLabel = MyApplication.spcmesoLabelFav.split(":").dropLastWhile { it.isEmpty() }
         when (token) {
             "SPCMESO1" ->
                 if (tmpArr.size > 3) {
                     param = tmpArr[3]
-                    label = tmpArrLabel[3]
+                    //label = tmpArrLabel[3]
                 } else {
                     param = "500mb"
-                    label = "500mb Analysis"
+                    //label = "500mb Analysis"
                 }
             "SPCMESO2" -> if (tmpArr.size > 4) {
                 param = tmpArr[4]
-                label = tmpArrLabel[4]
+                //label = tmpArrLabel[4]
             } else {
                 param = "pmsl"
-                label = "MSL Pressure/Wind"
+                //label = "MSL Pressure/Wind"
             }
             "SPCMESO3" -> if (tmpArr.size > 5) {
                 param = tmpArr[5]
-                label = tmpArrLabel[5]
+                //label = tmpArrLabel[5]
             } else {
                 param = "ttd"
-                label = "Temp/Dewpt/Wind"
+                //label = "Temp/Dewpt/Wind"
             }
             "SPCMESO4" -> if (tmpArr.size > 6) {
                 param = tmpArr[6]
-                label = tmpArrLabel[6]
+                //label = tmpArrLabel[6]
             } else {
                 param = "rgnlrad"
-                label = "Radar"
+                //label = "Radar"
             }
             "SPCMESO5" -> if (tmpArr.size > 7) {
                 param = tmpArr[7]
-                label = tmpArrLabel[7]
+                //label = tmpArrLabel[7]
             } else {
                 param = "lllr"
-                label = "Low-Level Lapse Rates"
+                //label = "Low-Level Lapse Rates"
             }
             "SPCMESO6" -> if (tmpArr.size > 8) {
                 param = tmpArr[8]
-                label = tmpArrLabel[8]
+                //label = tmpArrLabel[8]
             } else {
                 param = "laps"
-                label = "Mid-Level Lapse Rates"
+                //label = "Mid-Level Lapse Rates"
             }
         }
-        return listOf(param, label)
+        return param
     }
 
     var shortCodes: Array<Array<String>> = Array(12) { Array(25) { "" } }

@@ -46,15 +46,12 @@ class FavRemoveActivity : BaseActivity() {
 
     // FIXME this is nasty, works but has not been touched in years
 
-    companion object {
-        const val TYPE = ""
-    }
+    companion object { const val TYPE = "" }
 
     private var favorites = mutableListOf<String>()
     private var favoriteString = ""
-    private var favoriteLabel = ""
+    //private var favoriteLabel = ""
     private var prefToken = ""
-    private var prefTokenLabel = ""
     private var prefTokenLocation = ""
     private var labels = mutableListOf<String>()
     private lateinit var objectRecyclerView: ObjectRecyclerView
@@ -98,7 +95,7 @@ class FavRemoveActivity : BaseActivity() {
             }
             "SPCMESO" -> {
                 prefToken = "SPCMESO_FAV"
-                prefTokenLabel = "SPCMESO_LABEL_FAV"
+                //prefTokenLabel = "SPCMESO_LABEL_FAV"
                 verboseTitle = "parameters"
             }
         }
@@ -151,9 +148,9 @@ class FavRemoveActivity : BaseActivity() {
                 favoriteString = initialValue
                 favorites.forEach { favoriteString += ":$it" }
                 Utility.writePref(this, prefToken, "$favoriteString:")
-                favoriteLabel = initialValue
-                favoriteLabel += objectRecyclerView.toString()
-                Utility.writePref(this, prefTokenLabel, favoriteLabel)
+                //favoriteLabel = initialValue
+                //favoriteLabel += objectRecyclerView.toString()
+                //Utility.writePref(this, prefTokenLabel, favoriteLabel)
             }
             else -> {
                 favoriteString = initialValue
@@ -187,9 +184,9 @@ class FavRemoveActivity : BaseActivity() {
         Utility.writePref(this, prefToken, "$favoriteString:")
         when (type) {
             "SPCMESO" -> {
-                favoriteLabel = initialValue
-                favoriteLabel += objectRecyclerView.toString()
-                Utility.writePref(this, prefTokenLabel, favoriteLabel)
+                //favoriteLabel = initialValue
+                //favoriteLabel += objectRecyclerView.toString()
+                //Utility.writePref(this, prefTokenLabel, favoriteLabel)
             }
         }
     }
@@ -210,17 +207,14 @@ class FavRemoveActivity : BaseActivity() {
         }
     }
 
-    private fun saveMyApp(favorite: String, favoriteLabel: String) {
+    private fun saveMyApp(favorite: String) {
         when (type) {
             "SND" -> MyApplication.sndFav = favorite
             "WFO" -> MyApplication.wfoFav = favorite
             "RID" -> MyApplication.ridFav = favorite
             "NWSTEXT" -> MyApplication.nwsTextFav = favorite
             "SREF" -> MyApplication.srefFav = favorite
-            "SPCMESO" -> {
-                MyApplication.spcMesoFav = favorite
-                MyApplication.spcmesoLabelFav = favoriteLabel
-            }
+            "SPCMESO" -> MyApplication.spcMesoFav = favorite
         }
     }
 
@@ -247,29 +241,28 @@ class FavRemoveActivity : BaseActivity() {
                 favoriteString = Utility.readPref(this, prefToken, " : :")
                 favoriteString = favoriteString.replace(favorites[position] + ":", "")
                 objectRecyclerView.deleteItem(position)
-                favoriteLabel = initialValue + objectRecyclerView.toString()
+                //favoriteLabel = initialValue + objectRecyclerView.toString()
                 Utility.writePref(this, prefToken, favoriteString)
-                Utility.writePref(this, prefTokenLabel, favoriteLabel)
-                saveMyApp(favoriteString, favoriteLabel)
+                saveMyApp(favoriteString)
             }
             else -> {
                 favoriteString = Utility.readPref(this, prefToken, " : :")
                 favoriteString = favoriteString.replace(favorites[position] + ":", "")
                 objectRecyclerView.deleteItem(position)
                 Utility.writePref(this, prefToken, favoriteString)
-                saveMyApp(favoriteString, favoriteLabel)
+                saveMyApp(favoriteString)
             }
         }
     }
 
     private fun moveUpItem(position: Int) {
         moveUp(position)
-        saveMyApp(favoriteString, favoriteLabel)
+        saveMyApp(favoriteString)
     }
 
     private fun moveDownItem(position: Int) {
         moveDown(position)
-        saveMyApp(favoriteString, favoriteLabel)
+        saveMyApp(favoriteString)
     }
 }
 
