@@ -468,7 +468,7 @@ class MyApplication : Application() {
 
         fun initBuffers(context: Context) {
             loadedBuffers = true
-            ColorPalettes.init(context)
+            ColorPalettes.initialize(context)
             initRadarGeometryAll(context)
             GeographyType.refresh()
         }

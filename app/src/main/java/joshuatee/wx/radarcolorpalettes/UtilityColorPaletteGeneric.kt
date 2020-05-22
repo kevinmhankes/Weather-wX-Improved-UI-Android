@@ -88,13 +88,11 @@ object UtilityColorPaletteGeneric {
         val rAl = mutableListOf<Int>()
         val gAl = mutableListOf<Int>()
         val bAl = mutableListOf<Int>()
-        val text = UtilityColorPalette.getColorMapStringFromDisk(context, colorMapProductCode.toString(), code)
-        // TODO why are these used?
         var r = "0"
         var g = "0"
         var b = "0"
         var priorLineHas6 = false
-        text.split("\n").forEach { line ->
+        UtilityColorPalette.getColorMapStringFromDisk(context, colorMapProductCode.toString(), code).split("\n").forEach { line ->
             if (line.contains("olor") && !line.contains("#")) {
                 val items = if (line.contains(",")) line.split(",") else line.split(" ")
                 if (items.size > 4) {

@@ -29,6 +29,7 @@ import android.view.View
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.external.UtilityStringExternal
+import joshuatee.wx.util.UtilityLog
 
 class ViewColorLegend(context: Context, private val product: String) : View(context) {
 
@@ -59,11 +60,15 @@ class ViewColorLegend(context: Context, private val product: String) : View(cont
     }
 
     private fun setColorWithBuffers(prodId: Int, index: Int) {
-        myPaint.color = Color.rgb(
-            MyApplication.colorMap[prodId]!!.redValues.get(index).toInt() and 0xFF,
-            MyApplication.colorMap[prodId]!!.greenValues.get(index).toInt() and 0xFF,
-            MyApplication.colorMap[prodId]!!.blueValues.get(index).toInt() and 0xFF
-        )
+        try {
+            myPaint.color = Color.rgb(
+                    MyApplication.colorMap[prodId]!!.redValues.get(index).toInt() and 0xFF,
+                    MyApplication.colorMap[prodId]!!.greenValues.get(index).toInt() and 0xFF,
+                    MyApplication.colorMap[prodId]!!.blueValues.get(index).toInt() and 0xFF
+            )
+        } catch (e: Exception) {
+            UtilityLog.handleException(e)
+        }
         myPaint.strokeWidth = 10.0f
     }
 

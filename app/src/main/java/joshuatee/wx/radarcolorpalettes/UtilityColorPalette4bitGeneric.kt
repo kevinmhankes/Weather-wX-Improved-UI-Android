@@ -38,13 +38,7 @@ internal object UtilityColorPalette4bitGeneric {
             else -> R.raw.colormap19
         }
         UtilityIO.readTextFileFromRaw(context.resources, fileId).split("\n").forEach { line ->
-            if (line.contains(",")) {
-                val colors = line.split(",")
-                val red = colors[0].toInt().toByte()
-                val green = colors[1].toInt().toByte()
-                val blue = colors[2].toInt().toByte()
-                MyApplication.colorMap[product]!!.putBytes(red, green, blue)
-            }
+            if (line.contains(",")) MyApplication.colorMap[product]!!.putLine(line)
         }
     }
 }

@@ -29,7 +29,7 @@ import java.nio.ByteOrder
 import joshuatee.wx.util.UtilityLog
 
 class ObjectColorPalette(val context: Context, private val colormapCode: Int) {
-    // TODO use Int
+
     var redValues: ByteBuffer = ByteBuffer.allocateDirect(16)
         private set
     var greenValues: ByteBuffer = ByteBuffer.allocateDirect(16)
@@ -64,7 +64,13 @@ class ObjectColorPalette(val context: Context, private val colormapCode: Int) {
         if (blueValues.hasRemaining()) blueValues.put(blueByte)
     }
 
-    fun init() {
+    // comma separated r,g,b (4bit)
+    fun putLine(line: String) {
+        val colors = line.split(",")
+        putBytes(colors[0].toInt().toByte(), colors[1].toInt().toByte(), colors[2].toInt().toByte())
+    }
+
+    fun initialize() {
         when (colormapCode) {
             19, 30, 56 -> {
                 setupBuffers(16)
@@ -74,17 +80,13 @@ class ObjectColorPalette(val context: Context, private val colormapCode: Int) {
                 setupBuffers(256)
                 try {
                     UtilityColorPalette165.loadColorMap(context)
-                } catch (e: Exception) {
-                    UtilityLog.handleException(e)
-                }
+                } catch (e: Exception) { UtilityLog.handleException(e) }
             }
             else -> {
                 setupBuffers(256)
                 try {
                     UtilityColorPaletteGeneric.loadColorMap(context, colormapCode)
-                } catch (e: Exception) {
-                    UtilityLog.handleException(e)
-                }
+                } catch (e: Exception) { UtilityLog.handleException(e) }
             }
         }
     }
