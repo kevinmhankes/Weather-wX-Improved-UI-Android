@@ -66,9 +66,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
     private lateinit var om: ObjectModelNoSpinner
     private lateinit var drw: ObjectNavDrawer
     private lateinit var timeMenuItem: MenuItem
-    private var sectorMenuItem: MenuItem? = null
     private lateinit var runMenuItem: MenuItem
-    private var modelMenuItem: MenuItem? = null
     private var firstRunTimeSet = false
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -77,8 +75,8 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        sectorMenuItem = menu.findItem(R.id.action_region)
-        modelMenuItem = menu.findItem(R.id.action_model)
+        menu.findItem(R.id.action_region).title = om.sector
+        menu.findItem(R.id.action_model).title = om.model
         return super.onPrepareOptionsMenu(menu)
     }
 
@@ -164,7 +162,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityModels.legacyShare(this@ModelsGenericActivity, this@ModelsGenericActivity, om.animRan, om)
+                    UtilityModels.legacyShare(this, this, om.animRan, om)
                 }
             }
             else -> return super.onOptionsItemSelected(item)
@@ -231,19 +229,9 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun updateMenuTitles() {
-        UtilityLog.d("wx", "DEBUG: " + om.time)
-        UtilityLog.d("wx", "DEBUG: " + om.timeIndex)
-        UtilityLog.d("wx", "DEBUG: " + om.times)
-
-
-        if (sectorMenuItem != null) {
-            sectorMenuItem?.title = om.sector
-        }
+        invalidateOptionsMenu()
         timeMenuItem.title = om.getTimeLabel()
         runMenuItem.title = om.run
-        if (modelMenuItem != null) {
-            modelMenuItem?.title = om.model
-        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -257,7 +245,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
-        val objectDialogue = ObjectDialogue(this@ModelsGenericActivity, list)
+        val objectDialogue = ObjectDialogue(this, list)
         objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(this)

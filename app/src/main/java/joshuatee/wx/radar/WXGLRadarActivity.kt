@@ -32,7 +32,6 @@ import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import androidx.core.app.NavUtils
@@ -165,7 +164,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
             ObjectIntent(this, SevereDashboardActivity::class.java)
         }
         UtilityUI.immersiveMode(this)
-        if (UIPreferences.radarStatusBarTransparent && Build.VERSION.SDK_INT >= 21) {
+        if (UIPreferences.radarStatusBarTransparent) {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             window.statusBarColor = Color.TRANSPARENT
         }

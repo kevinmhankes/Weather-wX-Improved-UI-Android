@@ -43,6 +43,10 @@ class RunTimeData {
     fun listRunAddAll(list: List<String>) {
         listRun.addAll(list)
     }
+
+    override fun toString(): String {
+        return mostRecentRun + " " + imageCompleteStr + " " + timeStrConv + " " + validTime + " " + listRun
+    }
 }
 
 

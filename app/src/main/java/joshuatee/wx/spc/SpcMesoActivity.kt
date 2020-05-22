@@ -37,7 +37,8 @@ import joshuatee.wx.Extensions.safeGet
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.models.DisplayData
+import joshuatee.wx.models.DisplayDataNoSpinner
+import joshuatee.wx.models.ObjectModelNoSpinner
 import joshuatee.wx.models.UtilityModels
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.VideoRecordActivity
@@ -84,7 +85,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
     private lateinit var prefParam: String
     private lateinit var prefParamLabel: String
     private lateinit var drw: ObjectNavDrawerCombo
-    private lateinit var displayData: DisplayData
+    private lateinit var displayData: DisplayDataNoSpinner
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.spcmeso_top, menu)
@@ -114,7 +115,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
         prefSector = prefModel + numPanesAsString + "_SECTOR_LAST_USED"
         prefParam = prefModel + numPanesAsString + "_PARAM_LAST_USED"
         prefParamLabel = prefModel + numPanesAsString + "_PARAM_LAST_USED_LABEL"
-        displayData = DisplayData(this, this, numPanes, ObjectSpinner(this as Context))
+        displayData = DisplayDataNoSpinner(this, this, numPanes, ObjectModelNoSpinner(this, "", "")) // ObjectSpinner(this as Context)
         displayData.param[0] = "pmsl"
         displayData.paramLabel[0] = "MSL Pressure/Wind"
         if (numPanes > 1) {

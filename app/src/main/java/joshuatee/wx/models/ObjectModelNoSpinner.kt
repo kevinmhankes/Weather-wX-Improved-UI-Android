@@ -64,7 +64,6 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
     var ncepRuns = mutableListOf("")
     var times = mutableListOf("")
     var timeIndex = 0
-    //var timeStr = ""
     private var defaultModel = ""
     var spinnerTimeValue = 0
     var animRan = false

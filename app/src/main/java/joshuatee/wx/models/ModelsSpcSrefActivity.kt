@@ -67,7 +67,6 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     private lateinit var om: ObjectModelNoSpinner
     private lateinit var timeMenuItem: MenuItem
     private lateinit var runMenuItem: MenuItem
-    private lateinit var paramMenuItem: MenuItem
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.models_spcsref_top, menu)
@@ -75,7 +74,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        paramMenuItem = menu.findItem(R.id.action_param)
+        menu.findItem(R.id.action_param).title = om.displayData.param.safeGet(0)
         return super.onPrepareOptionsMenu(menu)
     }
 
@@ -177,7 +176,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     private fun updateMenuTitles() {
         timeMenuItem.title = om.getTimeLabel()
         runMenuItem.title = om.run
-        paramMenuItem.title = om.displayData.param[0]
+        invalidateOptionsMenu()
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -215,7 +214,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityModels.legacyShare(this@ModelsSpcSrefActivity, this@ModelsSpcSrefActivity, om.animRan, om)
+                    UtilityModels.legacyShare(this, this, om.animRan, om)
                 }
             }
             R.id.action_animate -> UtilityModels.getAnimate(om, listOf(""), uiDispatcher)
@@ -285,7 +284,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
-        val objectDialogue = ObjectDialogue(this@ModelsSpcSrefActivity, list)
+        val objectDialogue = ObjectDialogue(this, list)
         objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(this)

@@ -45,15 +45,17 @@ class DisplayDataNoSpinner(context: Context, activity: Activity, numPanes: Int, 
             img[1].setOnTouchImageViewListener { img[0].setZoom(img[1]) }
         }
         (0 until numPanes).forEach {
-            img[it].setOnTouchListener(object : OnSwipeTouchListener(context) {
-                override fun onSwipeLeft() {
-                    if (img[0].currentZoom < 1.01f) om.rightClick()
-                }
+            if (om.prefModel != "") { // Don't use in SPC Meso
+                img[it].setOnTouchListener(object : OnSwipeTouchListener(context) {
+                    override fun onSwipeLeft() {
+                        if (img[0].currentZoom < 1.01f) om.rightClick()
+                    }
 
-                override fun onSwipeRight() {
-                    if (img[0].currentZoom < 1.01f) om.leftClick()
-                }
-            })
+                    override fun onSwipeRight() {
+                        if (img[0].currentZoom < 1.01f) om.leftClick()
+                    }
+                })
+            }
         }
     }
 }

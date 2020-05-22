@@ -37,7 +37,6 @@ import joshuatee.wx.util.UtilityTime
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
-import joshuatee.wx.util.UtilityLog
 
 internal object UtilityModelSpcHrrrInputOutput {
 
@@ -66,7 +65,6 @@ internal object UtilityModelSpcHrrrInputOutput {
         val backgroundUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/hrrr/data/hrrr3/" + getSectorCode(om.sector).toLowerCase(Locale.US) + "/R" +
                 om.run.replace("Z", "") + "_F" + formatTime(time) + "_V" + getValidTime(om.run, time, om.rtd.validTime) +
                 "_" + getSectorCode(om.sector) + "_" + om.currentParam + ".gif"
-        UtilityLog.d("wx", backgroundUrl)
         bitmaps.add(UtilityImg.eraseBackground(backgroundUrl.getImage(), -1))
         layers.add(ColorDrawable(Color.WHITE))
         layers += bitmaps.map { BitmapDrawable(context.resources, it) }
@@ -86,7 +84,6 @@ internal object UtilityModelSpcHrrrInputOutput {
             .firstOrNull { sectorName == UtilityModelSpcHrrrInterface.sectors[it] }
             ?.let { UtilityModelSpcHrrrInterface.sectorCodes[it] }
             ?: "S19"
-
 
     private fun getValidTime(run: String, validTimeForecast: String, validTime: String): String {
         var validTimeCurrent = ""

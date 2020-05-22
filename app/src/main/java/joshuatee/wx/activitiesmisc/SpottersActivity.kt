@@ -90,7 +90,7 @@ class SpottersActivity : BaseActivity() {
         super.onCreate(savedInstanceState, R.layout.activity_recyclerview_toolbar_with_onefab, null, false)
         title = titleString
         toolbar.subtitle = "Tap on name for actions."
-        ObjectFab(this, this, R.id.fab, R.drawable.ic_info_outline_24dp, View.OnClickListener { reportFAB() })
+        ObjectFab(this, this, R.id.fab, R.drawable.ic_info_outline_24dp_white, View.OnClickListener { reportFAB() })
         recyclerView = ObjectRecyclerViewGeneric(this, this, R.id.card_list)
         getContent()
     }
@@ -107,11 +107,13 @@ class SpottersActivity : BaseActivity() {
     }
 
     private fun changeSearchViewTextColor(view: View?) {
-        if (view != null) {
-            if (view is TextView) {
-                view.setTextColor(Color.WHITE)
-            } else if (view is ViewGroup) {
-                (0 until view.childCount).forEach { changeSearchViewTextColor(view.getChildAt(it)) }
+        if (!Utility.isThemeAllWhite()) {
+            if (view != null) {
+                if (view is TextView) {
+                    view.setTextColor(Color.WHITE)
+                } else if (view is ViewGroup) {
+                    (0 until view.childCount).forEach { changeSearchViewTextColor(view.getChildAt(it)) }
+                }
             }
         }
     }

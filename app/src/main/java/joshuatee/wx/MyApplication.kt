@@ -338,7 +338,7 @@ class MyApplication : Application() {
             UIPreferences.initPreferences(context)
             radarGeometrySetColors()
             listOf(94, 99, 134, 135, 159, 161, 163, 165, 172).forEach {
-                radarColorPalette[it] = getInitialPreferenceString("RADAR_COLOR_PALETTE_" + it.toString(), "CODENH")
+                radarColorPalette[it] = getInitialPreferenceString("RADAR_COLOR_PALETTE_$it", "CODENH")
             }
             cardCorners = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, preferences.getInt("CARD_CORNER_RADIUS", 0).toFloat(), dm)
             telecineVideoSizePercentage = preferencesTelecine.getInt("video-size", 100)

@@ -13,12 +13,9 @@
 // TODO [REF] rename files/classes in radar folder
 // TODO [REF] cleanup external stuff
 // TODO [FIX] remove usage of always show icons in menus
-// TODO [FIX] NHC share only shares last 3 images
-// TODO [ADD] document RunTimeData
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
-// TODO [ADD] have multipane top toolbar look like single pane
 
-55460 2020_05_22
+55460 2020_05_22    [ADD] in model switch to invalidate for top toolbar textual items
 55459 2020_05_22    [FIX] SPC Meso, show param instead of label due to space constraints
                     [FIX] SPC Meso, add back swipe left/right
                     [FIX] nexrad single pane, only show radar ID due to lack of room in top toolbar

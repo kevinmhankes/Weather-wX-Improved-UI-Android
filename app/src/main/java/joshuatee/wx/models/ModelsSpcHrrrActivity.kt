@@ -60,7 +60,6 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
     private lateinit var om: ObjectModelNoSpinner
     private lateinit var activityArguments: Array<String>
     private lateinit var timeMenuItem: MenuItem
-    private lateinit var sectorMenuItem: MenuItem
     private lateinit var runMenuItem: MenuItem
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -69,7 +68,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        sectorMenuItem = menu.findItem(R.id.action_region)
+        menu.findItem(R.id.action_region).title = om.sector
         return super.onPrepareOptionsMenu(menu)
     }
 
@@ -166,7 +165,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
                 if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityModels.legacyShare(this@ModelsSpcHrrrActivity,this@ModelsSpcHrrrActivity, om.animRan, om)
+                    UtilityModels.legacyShare(this,this, om.animRan, om)
                 }
             }
             else -> return super.onOptionsItemSelected(item)
@@ -204,7 +203,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
     }
 
     private fun updateMenuTitles() {
-        sectorMenuItem.title = om.sector
+        invalidateOptionsMenu()
         timeMenuItem.title = om.getTimeLabel()
         runMenuItem.title = om.run
     }
@@ -233,7 +232,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
     }
 
     private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
-        val objectDialogue = ObjectDialogue(this@ModelsSpcHrrrActivity, list)
+        val objectDialogue = ObjectDialogue(this, list)
         objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(this)

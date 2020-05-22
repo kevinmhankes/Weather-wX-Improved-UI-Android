@@ -57,7 +57,6 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     private lateinit var om: ObjectModelNoSpinner
     private var activityArguments: Array<String>? = arrayOf()
     private lateinit var timeMenuItem: MenuItem
-    private lateinit var sectorMenuItem: MenuItem
     private lateinit var runMenuItem: MenuItem
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -66,7 +65,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        sectorMenuItem = menu.findItem(R.id.action_region)
+        menu.findItem(R.id.action_region).title = om.sector
         return super.onPrepareOptionsMenu(menu)
     }
 
@@ -158,7 +157,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityModels.legacyShare(this@ModelsSpcHrefActivity, this@ModelsSpcHrefActivity, om.animRan, om)
+                    UtilityModels.legacyShare(this, this, om.animRan, om)
                 }
             }
             else -> return super.onOptionsItemSelected(item)
@@ -191,7 +190,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun updateMenuTitles() {
-        sectorMenuItem.title = om.sector
+        invalidateOptionsMenu()
         timeMenuItem.title = om.getTimeLabel()
         runMenuItem.title = om.run
     }
@@ -220,7 +219,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
-        val objectDialogue = ObjectDialogue(this@ModelsSpcHrefActivity, list)
+        val objectDialogue = ObjectDialogue(this, list)
         objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(this)
