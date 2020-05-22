@@ -19,6 +19,7 @@
 
 55459 2020_05_22    [FIX] SPC Meso, show param instead of label due to space constraints
                     [FIX] SPC Meso, add back swipe left/right
+                    [FIX] nexrad single pane, only show radar ID due to lack of room in top toolbar
 55458 2020_05_21    [FIX] nexrad reset view in mapswitch
 55457 2020_05_21    [ADD] WFOText, SPC SWO State, Sounding, LSR by WFO, SPC Meso, WPC Text, Nexrad to dialog
 55456 2020_05_21    [REF] dialogue functions in model code using lambda (move to common ui code, pass context)

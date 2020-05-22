@@ -26,7 +26,6 @@ import android.util.SparseArray
 import joshuatee.wx.MyApplication
 import joshuatee.wx.ui.ObjectMenuTitle
 import joshuatee.wx.util.Group
-import joshuatee.wx.util.UtilityLog
 
 object UtilitySpcMeso {
 
@@ -48,9 +47,7 @@ object UtilitySpcMeso {
     //var swipePosition = 0
 
     internal fun moveForward(param: String, list: List<String>): Int {
-        UtilityLog.d("wxForward", param + " " + list)
         var swipePosition = list.lastIndexOf(param)
-        UtilityLog.d("wxForward", swipePosition.toString())
         swipePosition += 1
         if (swipePosition == 1) return 3
         return if (list.size > swipePosition) {
@@ -61,14 +58,9 @@ object UtilitySpcMeso {
     }
 
     internal fun moveBack(param: String, list: List<String>): Int {
-        UtilityLog.d("wxBack", param + " " + list)
         var swipePosition = list.lastIndexOf(param)
         swipePosition -= 1
-        UtilityLog.d("wxBack", swipePosition.toString())
         return if (swipePosition > 2) {
-            //if (swipePosition >= list.size) swipePosition = list.size - 1
-            //if (swipePosition == 3) swipePosition = 0 else swipePosition -= 1
-            //if (swipePosition == -1) swipePosition = list.size - 1
             swipePosition
         } else {
             list.size - 1

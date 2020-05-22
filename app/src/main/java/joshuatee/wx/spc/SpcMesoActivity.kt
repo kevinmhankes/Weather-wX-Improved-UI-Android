@@ -152,18 +152,15 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
         if (showOutlook) menuOutlook.title = on + menuOutlookStr
         if (showWatwarn) menuWatwarn.title = on + menuWatwarnStr
         if (showTopography) menuTopography.title = on + menuTopographyStr
-        //UtilitySpcMeso.swipePosition = 0
         if (numPanes == 1) {
             displayData.img[0].setOnTouchListener(object : OnSwipeTouchListener(this) {
                 override fun onSwipeLeft() { if (displayData.img[curImg].currentZoom < 1.01f) {
                     val index = UtilitySpcMeso.moveForward(favListParm.safeGet(0), favListParm)
-                    UtilityLog.d("wx",   " " + index)
                     showProductInFavList(index)
                 } }
 
                 override fun onSwipeRight() { if (displayData.img[curImg].currentZoom < 1.01f) {
                     val index = UtilitySpcMeso.moveBack(favListParm.safeGet(0), favListParm)
-                    UtilityLog.d("wx",   " " + index)
                     showProductInFavList(index)
                 } }
             })

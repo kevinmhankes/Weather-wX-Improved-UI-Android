@@ -135,7 +135,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
     private val numberOfPanes = 1
     private var paneList = listOf<Int>()
     private var wxglTextObjects = mutableListOf<WXGLTextObject>()
-    //private lateinit var objectSpinner: ObjectSpinner
     private var dialogRadarLongPress: ObjectDialogue? = null
     private var isGetContentInProgress = false
     private val animateButtonPlayString = "Animate Frames"
@@ -146,12 +145,11 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.uswxoglradar_top, menu)
-        //val actionSector = menu.findItem(R.id.action_sector)
         return true
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        menu.findItem(R.id.action_sector).title = radarSitesForFavorites.safeGet(0)
+        menu.findItem(R.id.action_sector).title = radarSitesForFavorites.safeGet(0).split(" ")[0]
         return super.onPrepareOptionsMenu(menu)
     }
 
@@ -266,7 +264,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
         if (MyApplication.radarShowLegend) showLegend()
         title = wxglRender.product
         radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
-        //objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, radarSitesForFavorites)
         checkForAutoRefresh()
         getContent()
     }
