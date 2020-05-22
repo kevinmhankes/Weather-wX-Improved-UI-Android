@@ -25,8 +25,8 @@ import android.util.SparseArray
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.ui.ObjectMenuTitle
-import joshuatee.wx.ui.ObjectSpinner
 import joshuatee.wx.util.Group
+import joshuatee.wx.util.UtilityLog
 
 object UtilitySpcMeso {
 
@@ -45,31 +45,30 @@ object UtilitySpcMeso {
             ObjectMenuTitle("Beta", 10)
     )
 
-    var swipePosition = 0
+    //var swipePosition = 0
 
-    internal fun moveForward(spinner: ObjectSpinner) {
-        val originalValue = spinner[swipePosition]
-        if (spinner.size() > 3) {
-            swipePosition += if (swipePosition == 0) 3 else 1
-            if (swipePosition >= spinner.size()) swipePosition = 0
-            spinner.setSelection(swipePosition)
-        }
-        val newValue = spinner[swipePosition]
-        if (newValue == originalValue) {
-            if (spinner.size() > 3) {
-                swipePosition += 1
-                if (swipePosition >= spinner.size()) swipePosition = 0
-                spinner.setSelection(swipePosition)
-            }
+    internal fun moveForward(param: String, list: List<String>): Int {
+        UtilityLog.d("wxForward", param + " " + list)
+        var swipePosition = list.lastIndexOf(param)
+        UtilityLog.d("wxForward", swipePosition.toString())
+        swipePosition += 1
+        return if (list.size > swipePosition) {
+            swipePosition
+        } else {
+            3
         }
     }
 
-    internal fun moveBack(spinner: ObjectSpinner) {
-        if (spinner.size() > 3) {
-            if (swipePosition >= spinner.size()) swipePosition = spinner.size() - 1
+    internal fun moveBack(param: String, list: List<String>): Int {
+        UtilityLog.d("wxBack", param + " " + list)
+        var swipePosition = list.lastIndexOf(param)
+        return if (list.size > 3) {
+            if (swipePosition >= list.size) swipePosition = list.size - 1
             if (swipePosition == 3) swipePosition = 0 else swipePosition -= 1
-            if (swipePosition == -1) swipePosition = spinner.size() - 1
-            spinner.setSelection(swipePosition)
+            if (swipePosition == -1) swipePosition = list.size - 1
+            swipePosition
+        } else {
+            swipePosition
         }
     }
 

@@ -42,10 +42,7 @@ import joshuatee.wx.models.UtilityModels
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.*
-import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityFavorites
-import joshuatee.wx.util.UtilityImg
-import joshuatee.wx.util.UtilityShare
+import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
 class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
@@ -155,15 +152,22 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
         if (showOutlook) menuOutlook.title = on + menuOutlookStr
         if (showWatwarn) menuWatwarn.title = on + menuWatwarnStr
         if (showTopography) menuTopography.title = on + menuTopographyStr
-        UtilitySpcMeso.swipePosition = 0
-        // TODO bring this feature back
-        //if (numPanes == 1) {
-           /* displayData.img[0].setOnTouchListener(object : OnSwipeTouchListener(this) {
-                override fun onSwipeLeft() { if (displayData.img[curImg].currentZoom < 1.01f) UtilitySpcMeso.moveForward(objectSpinner) }
+        //UtilitySpcMeso.swipePosition = 0
+        if (numPanes == 1) {
+            displayData.img[0].setOnTouchListener(object : OnSwipeTouchListener(this) {
+                override fun onSwipeLeft() { if (displayData.img[curImg].currentZoom < 1.01f) {
+                    val index = UtilitySpcMeso.moveForward(favListParm.safeGet(0), favListParm)
+                    UtilityLog.d("wx",   " " + index)
+                    showProductInFavList(index)
+                } }
 
-                override fun onSwipeRight() { if (displayData.img[curImg].currentZoom < 1.01f) UtilitySpcMeso.moveBack(objectSpinner) }
-            })*/
-        //}
+                override fun onSwipeRight() { if (displayData.img[curImg].currentZoom < 1.01f) {
+                    val index = UtilitySpcMeso.moveBack(favListParm.safeGet(0), favListParm)
+                    UtilityLog.d("wx",   " " + index)
+                    showProductInFavList(index)
+                } }
+            })
+        }
         favListLabel = UtilityFavorites.setupMenuSpc(MyApplication.spcmesoLabelFav, displayData.paramLabel[curImg])
         favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])
         UtilitySpcMeso.createData()
@@ -342,6 +346,18 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
         UtilityModels.setSubtitleRestoreIMGXYZOOM(displayData.img, toolbar, "(" + (curImg + 1) + ")" + displayData.paramLabel[0] + "/" + displayData.paramLabel[1])
     }
 
+    private fun showProductInFavList(index: Int) {
+        if (favListParm.count() > index && favListLabel.count() > index) {
+            displayData.param[curImg] = favListParm[index]
+            displayData.paramLabel[curImg] = favListLabel[index]
+            Utility.writePref(this, prefParam + curImg, displayData.param[curImg])
+            Utility.writePref(this, prefParamLabel + curImg, displayData.paramLabel[curImg])
+            favListLabel = UtilityFavorites.setupMenuSpc(MyApplication.spcmesoLabelFav, displayData.paramLabel[curImg])
+            favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])
+            getContent()
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
@@ -349,17 +365,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 when (it) {
                     1 -> ObjectIntent.favoriteAdd(this, arrayOf("SPCMESO"))
                     2 -> ObjectIntent.favoriteRemove(this, arrayOf("SPCMESO"))
-                    else -> {
-                        if (favListParm.count() > it && favListLabel.count() > it) {
-                            displayData.param[curImg] = favListParm[it]
-                            displayData.paramLabel[curImg] = favListLabel[it]
-                            Utility.writePref(this, prefParam + curImg, displayData.param[curImg])
-                            Utility.writePref(this, prefParamLabel + curImg, displayData.paramLabel[curImg])
-                            favListLabel = UtilityFavorites.setupMenuSpc(MyApplication.spcmesoLabelFav, displayData.paramLabel[curImg])
-                            favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])
-                            getContent()
-                        }
-                    }
+                    else -> showProductInFavList(it)
                 }
             }
             R.id.action_a6 -> getAnimate(6)
