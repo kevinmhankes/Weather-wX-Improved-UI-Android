@@ -220,7 +220,11 @@ object UtilityColorPaletteGeneric {
     fun loadColorMap(context: Context, product: Int) {
         // This is the entrance method to load a colormap called at various spots
         // http://www.usawx.com/grradarexamples.htm
-        when (product) {
+        var code = MyApplication.radarColorPalette[product] ?: ""
+        if (code == "COD") code =  "CODENH"
+        generate(context, product, code)
+
+        /*when (product) {
             94 -> when (MyApplication.radarColorPalette[product]) {
                 "AF" -> generate(context, product, "AF")
                 "EAK" -> generate(context, product, "EAK")
@@ -260,7 +264,7 @@ object UtilityColorPaletteGeneric {
                 else -> generate(context, product, MyApplication.radarColorPalette[product]!!)
             }
             else -> { }
-        }
+        }*/
     }
 }
 
