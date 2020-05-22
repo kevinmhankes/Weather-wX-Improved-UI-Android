@@ -37,9 +37,9 @@ object UtilityColorPaletteGeneric {
         var prodOffset = 0.0
         var prodScale = 1.0
         val objColormap = MyApplication.colorMap[colorMapProductCode]!!
-        var colorMapR = objColormap.redValues
-        var colorMapG = objColormap.greenValues
-        var colorMapB = objColormap.blueValues
+        //var colorMapR = objColormap.redValues
+        //var colorMapG = objColormap.greenValues
+        //var colorMapB = objColormap.blueValues
         when (colorMapProductCode) {
             94 -> {
                 scale = 2
@@ -83,9 +83,9 @@ object UtilityColorPaletteGeneric {
             }
             else -> {
                 //colorMapProductCode = 94
-                colorMapR = MyApplication.colorMap[colorMapProductCode]!!.redValues
-                colorMapG = MyApplication.colorMap[colorMapProductCode]!!.greenValues
-                colorMapB = MyApplication.colorMap[colorMapProductCode]!!.blueValues
+                //colorMapR = MyApplication.colorMap[colorMapProductCode]!!.redValues
+                //colorMapG = MyApplication.colorMap[colorMapProductCode]!!.greenValues
+                //colorMapB = MyApplication.colorMap[colorMapProductCode]!!.blueValues
                 scale = 2
                 lowerEnd = -32
             }
@@ -137,32 +137,37 @@ object UtilityColorPaletteGeneric {
             // pad first 16, think this is needed
             (0 until 10).forEach { _ ->
                 if (rAl.size > 0 && gAl.size > 0 && bAl.size > 0) {
-                    colorMapR.put(rAl[0].toByte())
-                    colorMapG.put(gAl[0].toByte())
-                    colorMapB.put(bAl[0].toByte())
+                    //colorMapR.put(rAl[0].toByte())
+                    //colorMapG.put(gAl[0].toByte())
+                    //colorMapB.put(bAl[0].toByte())
+                    objColormap.putBytes(rAl[0].toByte(), gAl[0].toByte(), bAl[0].toByte())
                 }
             }
         }
         if (colorMapProductCode == 99 || colorMapProductCode == 135) {
             // first two levels are range folder per ICD
             if (rAl.size > 0 && gAl.size > 0 && bAl.size > 0) {
-                colorMapR.put(rAl[0].toByte())
+                /*colorMapR.put(rAl[0].toByte())
                 colorMapG.put(gAl[0].toByte())
                 colorMapB.put(bAl[0].toByte())
                 colorMapR.put(rAl[0].toByte())
                 colorMapG.put(gAl[0].toByte())
-                colorMapB.put(bAl[0].toByte())
+                colorMapB.put(bAl[0].toByte())*/
+                objColormap.putBytes(rAl[0].toByte(), gAl[0].toByte(), bAl[0].toByte())
+                objColormap.putBytes(rAl[0].toByte(), gAl[0].toByte(), bAl[0].toByte())
             }
         }
         if (rAl.size > 0 && gAl.size > 0 && bAl.size > 0) {
             (lowerEnd until dbzAl[0]).forEach { _ ->
-                colorMapR.put(rAl[0].toByte())
-                colorMapG.put(gAl[0].toByte())
-                colorMapB.put(bAl[0].toByte())
+                //colorMapR.put(rAl[0].toByte())
+                //colorMapG.put(gAl[0].toByte())
+                //colorMapB.put(bAl[0].toByte())
+                objColormap.putBytes(rAl[0].toByte(), gAl[0].toByte(), bAl[0].toByte())
                 if (scale == 2) { // 94 reflectivity
-                    colorMapR.put(rAl[0].toByte())
-                    colorMapG.put(gAl[0].toByte())
-                    colorMapB.put(bAl[0].toByte())
+                    objColormap.putBytes(rAl[0].toByte(), gAl[0].toByte(), bAl[0].toByte())
+                    //colorMapR.put(rAl[0].toByte())
+                    //colorMapG.put(gAl[0].toByte())
+                    //colorMapB.put(bAl[0].toByte())
                 }
             }
         }
