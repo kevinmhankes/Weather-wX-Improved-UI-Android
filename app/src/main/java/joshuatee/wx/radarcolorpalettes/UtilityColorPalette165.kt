@@ -30,9 +30,7 @@ internal object UtilityColorPalette165 {
 
     private fun generate(context: Context, code: String) {
         val obj165 = MyApplication.colorMap[165]!!
-        obj165.redValues.position(0)
-        obj165.greenValues.position(0)
-        obj165.blueValues.position(0)
+        obj165.position(0)
         val dbzs = mutableListOf<Int>()
         val rAl = mutableListOf<Int>()
         val gAl = mutableListOf<Int>()
@@ -56,11 +54,7 @@ internal object UtilityColorPalette165 {
             obj165.redValues.put(rAl[it].toByte())
             obj165.greenValues.put(gAl[it].toByte())
             obj165.blueValues.put(bAl[it].toByte())
-            (1 until diff).forEach { _ ->
-                obj165.redValues.put(Color.red(lowColor).toByte())
-                obj165.greenValues.put(Color.green(lowColor).toByte())
-                obj165.blueValues.put(Color.blue(lowColor).toByte())
-            }
+            (1 until diff).forEach { _ -> obj165.putInt(lowColor) }
         }
     }
 

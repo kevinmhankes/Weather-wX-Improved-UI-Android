@@ -22,6 +22,7 @@
 package joshuatee.wx.radarcolorpalettes
 
 import android.content.Context
+import android.graphics.Color
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
@@ -43,6 +44,18 @@ class ObjectColorPalette(val context: Context, private val colormapCode: Int) {
         greenValues.order(ByteOrder.nativeOrder())
         blueValues = ByteBuffer.allocateDirect(size)
         blueValues.order(ByteOrder.nativeOrder())
+    }
+
+    fun position(index: Int) {
+        redValues.position(index)
+        blueValues.position(index)
+        greenValues.position(index)
+    }
+
+    fun putInt(colorAsInt: Int) {
+        redValues.put(Color.red(colorAsInt).toByte())
+        greenValues.put(Color.green(colorAsInt).toByte())
+        blueValues.put(Color.blue(colorAsInt).toByte())
     }
 
     fun init() {
