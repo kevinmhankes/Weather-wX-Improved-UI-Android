@@ -33,14 +33,13 @@ internal object UtilityColorPalette4bitGeneric {
         MyApplication.colorMap[product]!!.redValues.position(0)
         MyApplication.colorMap[product]!!.greenValues.position(0)
         MyApplication.colorMap[product]!!.blueValues.position(0)
-        val cmFileInt = when (product) {
+        val fileId = when (product) {
             19 -> R.raw.colormap19
             30 -> R.raw.colormap30
             56 -> R.raw.colormap56
             else -> R.raw.colormap19
         }
-        val text = UtilityIO.readTextFileFromRaw(context.resources, cmFileInt)
-        text.split("\n").forEach { line ->
+        UtilityIO.readTextFileFromRaw(context.resources, fileId).split("\n").forEach { line ->
             if (line.contains(",")) {
                 val colors = line.split(",")
                 val red = colors[0].toInt().toByte()
