@@ -685,6 +685,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
         wxglRender.rid = radarSite
         mapShown = false
         radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
+        // TODO make into a method
+        wxglSurfaceView.scaleFactor = MyApplication.wxoglSize / 10.0f
+        wxglRender.setViewInitial(MyApplication.wxoglSize / 10.0f, 0.0f, 0.0f)
         adjustTiltMenu()
         getContent()
         //objectSpinner.refreshData(this@WXGLRadarActivity, radarSitesForFavorites)

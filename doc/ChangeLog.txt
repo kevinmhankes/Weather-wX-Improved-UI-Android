@@ -18,7 +18,7 @@
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
 // TODO [FIX] SPC Meso with long param hides the other icons
 
-55458 2020_05_21
+55458 2020_05_21    [FIX] nexrad reset view in mapswitch
 55457 2020_05_21    [ADD] WFOText, SPC SWO State, Sounding, LSR by WFO, SPC Meso, WPC Text, Nexrad to dialog
 55456 2020_05_21    [REF] dialogue functions in model code using lambda (move to common ui code, pass context)
 55455 2020_05_21    [FIX] ctrl j/k in models needs to be reversed
