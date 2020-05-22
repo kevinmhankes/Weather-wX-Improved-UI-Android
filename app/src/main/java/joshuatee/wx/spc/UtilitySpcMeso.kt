@@ -22,10 +22,12 @@
 package joshuatee.wx.spc
 
 import android.util.SparseArray
+import joshuatee.wx.Extensions.safeGet
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.ui.ObjectMenuTitle
 import joshuatee.wx.util.Group
+import joshuatee.wx.util.UtilityLog
 
 object UtilitySpcMeso {
 
@@ -46,24 +48,36 @@ object UtilitySpcMeso {
 
     //var swipePosition = 0
 
-    internal fun moveForward(param: String, list: List<String>): Int {
-        var swipePosition = list.lastIndexOf(param)
-        swipePosition += 1
-        if (swipePosition == 1) return 3
-        return if (list.size > swipePosition) {
-            swipePosition
+    internal fun moveForward(list: List<String>): Int {
+        val param = list.safeGet(0)
+        UtilityLog.d("wx", "DEBUG: " + list)
+        if (list.size > 3) {
+            var swipePosition = list.lastIndexOf(param)
+            swipePosition += 1
+            if (swipePosition == 1) return 3
+            return if (list.size > swipePosition) {
+                swipePosition
+            } else {
+                3
+            }
         } else {
-            3
+            return 0
         }
     }
 
-    internal fun moveBack(param: String, list: List<String>): Int {
-        var swipePosition = list.lastIndexOf(param)
-        swipePosition -= 1
-        return if (swipePosition > 2) {
-            swipePosition
+    internal fun moveBack(list: List<String>): Int {
+        val param = list.safeGet(0)
+        UtilityLog.d("wx", "DEBUG: " + list)
+        if (list.size > 3) {
+            var swipePosition = list.lastIndexOf(param)
+            swipePosition -= 1
+            return if (swipePosition > 2) {
+                swipePosition
+            } else {
+                list.size - 1
+            }
         } else {
-            list.size - 1
+            return 0
         }
     }
 

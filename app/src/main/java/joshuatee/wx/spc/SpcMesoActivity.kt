@@ -156,12 +156,12 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
         if (numPanes == 1) {
             displayData.img[0].setOnTouchListener(object : OnSwipeTouchListener(this) {
                 override fun onSwipeLeft() { if (displayData.img[curImg].currentZoom < 1.01f) {
-                    val index = UtilitySpcMeso.moveForward(favListParm.safeGet(0), favListParm)
+                    val index = UtilitySpcMeso.moveForward(getFavList())
                     showProductInFavList(index)
                 } }
 
                 override fun onSwipeRight() { if (displayData.img[curImg].currentZoom < 1.01f) {
-                    val index = UtilitySpcMeso.moveBack(favListParm.safeGet(0), favListParm)
+                    val index = UtilitySpcMeso.moveBack(getFavList())
                     showProductInFavList(index)
                 } }
             })
@@ -184,6 +184,8 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
         }
         getContent()
     }
+
+    fun getFavList() = favListParm
 
     override fun onRestart() {
         favListLabel = UtilityFavorites.setupMenuSpc(MyApplication.spcmesoLabelFav, displayData.paramLabel[curImg])
