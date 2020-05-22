@@ -184,20 +184,15 @@ object UtilityColorPaletteGeneric {
                 (1 until diff).forEach { j ->
                     if (scale == 1) {
                         val colorInt = UtilityNexradColors.interpolateColor(lowColor, highColor, j.toDouble() / (diff * scale).toDouble())
-                        if (colorMapR.hasRemaining()) colorMapR.put(Color.red(colorInt).toByte())
-                        if (colorMapG.hasRemaining()) colorMapG.put(Color.green(colorInt).toByte())
-                        if (colorMapB.hasRemaining()) colorMapB.put(Color.blue(colorInt).toByte())
+                        //if (colorMapR.hasRemaining()) colorMapR.put(Color.red(colorInt).toByte())
+                        //if (colorMapG.hasRemaining()) colorMapG.put(Color.green(colorInt).toByte())
+                        //if (colorMapB.hasRemaining()) colorMapB.put(Color.blue(colorInt).toByte())
+                        objColormap.putInt(colorInt)
                     } else if (scale == 2) {
-                        val colorInt = UtilityNexradColors.interpolateColor(lowColor, highColor, (j * scale - 1).toDouble() / (diff * scale).toDouble()
-                        )
-                        val colorInt2 = UtilityNexradColors.interpolateColor(lowColor, highColor, (j * scale).toDouble() / (diff * scale).toDouble()
-                        )
-                        if (colorMapR.hasRemaining()) colorMapR.put(Color.red(colorInt).toByte())
-                        if (colorMapG.hasRemaining()) colorMapG.put(Color.green(colorInt).toByte())
-                        if (colorMapB.hasRemaining()) colorMapB.put(Color.blue(colorInt).toByte())
-                        if (colorMapR.hasRemaining()) colorMapR.put(Color.red(colorInt2).toByte())
-                        if (colorMapG.hasRemaining()) colorMapG.put(Color.green(colorInt2).toByte())
-                        if (colorMapB.hasRemaining()) colorMapB.put(Color.blue(colorInt2).toByte())
+                        val colorInt = UtilityNexradColors.interpolateColor(lowColor, highColor, (j * scale - 1).toDouble() / (diff * scale).toDouble())
+                        val colorInt2 = UtilityNexradColors.interpolateColor(lowColor, highColor, (j * scale).toDouble() / (diff * scale).toDouble())
+                        objColormap.putInt(colorInt)
+                        objColormap.putInt(colorInt2)
                     }
                 }
             } else {

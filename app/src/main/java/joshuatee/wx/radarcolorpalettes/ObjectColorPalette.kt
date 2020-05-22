@@ -59,9 +59,9 @@ class ObjectColorPalette(val context: Context, private val colormapCode: Int) {
     }
 
     fun putBytes(redByte: Byte, greenByte: Byte, blueByte: Byte) {
-        redValues.put(redByte)
-        greenValues.put(greenByte)
-        blueValues.put(blueByte)
+        if (redValues.hasRemaining()) redValues.put(redByte)
+        if (greenValues.hasRemaining()) greenValues.put(greenByte)
+        if (blueValues.hasRemaining()) blueValues.put(blueByte)
     }
 
     fun init() {
