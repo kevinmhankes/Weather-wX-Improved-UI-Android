@@ -29,11 +29,7 @@ import joshuatee.wx.MyApplication
 object UtilityColorPaletteGeneric {
 
     private fun generate(context: Context, colorMapProductCode: Int, code: String) {
-        // prod will be a string such as "94" for reflectivity
         // -32 to 95
-        //var colorMapR: ByteBuffer
-        //var colorMapG: ByteBuffer
-        //var colorMapB: ByteBuffer
         // add 32 and double to get 255 ( prod 94 )
         // def 2 and -32
         val scale: Int
