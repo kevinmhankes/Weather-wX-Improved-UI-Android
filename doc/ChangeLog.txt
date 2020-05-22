@@ -15,7 +15,6 @@
 // TODO [FIX] remove usage of always show icons in menus
 // TODO [FIX] NHC share only shares last 3 images
 // TODO [ADD] document RunTimeData
-// TODO [ADD] move away from spinners in other activities
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
 
 55457 2020_05_21    [ADD] WFOText, SPC SWO State, Sounding, LSR by WFO, SPC Meso, WPC Text, Nexrad to dialog

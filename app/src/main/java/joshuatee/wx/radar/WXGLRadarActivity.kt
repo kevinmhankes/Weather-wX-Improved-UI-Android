@@ -968,6 +968,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
                                 }
                                 restarted = false
                                 ridChanged = true
+                                radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
                                 getContent()
                             }
                         }
