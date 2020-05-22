@@ -30,10 +30,7 @@ import android.content.res.Configuration
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import android.widget.LinearLayout
-import android.widget.TextView
 import joshuatee.wx.Extensions.getHtml
 import joshuatee.wx.Extensions.safeGet
 
@@ -60,9 +57,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
     // arg2 - pref model token and hash lookup
     //
 
-    companion object {
-        var INFO = ""
-    }
+    companion object { var INFO = "" }
 
     private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var animRan = false
@@ -100,7 +95,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        menu.findItem(R.id.action_product).title = favListLabel.safeGet(0)
+        menu.findItem(R.id.action_product).title = favListParm.safeGet(0)
         return super.onPrepareOptionsMenu(menu)
     }
 
