@@ -58,16 +58,16 @@ class ObjectColorPalette(val context: Context, private val colormapCode: Int) {
         blueValues.put(Color.blue(colorAsInt).toByte())
     }
 
-    fun putBytes(redByte: Byte, greenByte: Byte, blueByte: Byte) {
-        if (redValues.hasRemaining()) redValues.put(redByte)
-        if (greenValues.hasRemaining()) greenValues.put(greenByte)
-        if (blueValues.hasRemaining()) blueValues.put(blueByte)
+    fun putBytes(redByte: Int, greenByte: Int, blueByte: Int) {
+        if (redValues.hasRemaining()) redValues.put(redByte.toByte())
+        if (greenValues.hasRemaining()) greenValues.put(greenByte.toByte())
+        if (blueValues.hasRemaining()) blueValues.put(blueByte.toByte())
     }
 
     // comma separated r,g,b (4bit)
     fun putLine(line: String) {
         val colors = line.split(",")
-        putBytes(colors[0].toInt().toByte(), colors[1].toInt().toByte(), colors[2].toInt().toByte())
+        putBytes(colors[0].toInt(), colors[1].toInt(), colors[2].toInt())
     }
 
     fun initialize() {

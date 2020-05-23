@@ -125,22 +125,22 @@ object UtilityColorPaletteGeneric {
             // pad first 16, think this is needed
             (0 until 10).forEach { _ ->
                 if (redList.size > 0 && greenList.size > 0 && blueList.size > 0) {
-                    objectColorPalette.putBytes(redList[0].toByte(), greenList[0].toByte(), blueList[0].toByte())
+                    objectColorPalette.putBytes(redList[0], greenList[0], blueList[0])
                 }
             }
         }
         if (colorMapProductCode == 99 || colorMapProductCode == 135) {
             // first two levels are range folder per ICD
             if (redList.size > 0 && greenList.size > 0 && blueList.size > 0) {
-                objectColorPalette.putBytes(redList[0].toByte(), greenList[0].toByte(), blueList[0].toByte())
-                objectColorPalette.putBytes(redList[0].toByte(), greenList[0].toByte(), blueList[0].toByte())
+                objectColorPalette.putBytes(redList[0], greenList[0], blueList[0])
+                objectColorPalette.putBytes(redList[0], greenList[0], blueList[0])
             }
         }
         if (redList.size > 0 && greenList.size > 0 && blueList.size > 0) {
             (lowerEnd until dbzList[0]).forEach { _ ->
-                objectColorPalette.putBytes(redList[0].toByte(), greenList[0].toByte(), blueList[0].toByte())
+                objectColorPalette.putBytes(redList[0], greenList[0], blueList[0])
                 if (scale == 2) { // 94 reflectivity
-                    objectColorPalette.putBytes(redList[0].toByte(), greenList[0].toByte(), blueList[0].toByte())
+                    objectColorPalette.putBytes(redList[0], greenList[0], blueList[0])
                 }
             }
         }
@@ -151,9 +151,9 @@ object UtilityColorPaletteGeneric {
                 val high = dbzList[index + 1]
                 val highColor = Color.rgb(redList[index + 1], greenList[index + 1], blueList[index + 1])
                 val diff = high - low
-                objectColorPalette.putBytes(redList[index].toByte(), greenList[index].toByte(), blueList[index].toByte())
+                objectColorPalette.putBytes(redList[index], greenList[index], blueList[index])
                 if (scale == 2) {
-                    objectColorPalette.putBytes(redList[index].toByte(), greenList[index].toByte(), blueList[index].toByte())
+                    objectColorPalette.putBytes(redList[index], greenList[index], blueList[index])
                 }
                 (1 until diff).forEach { j ->
                     if (scale == 1) {
@@ -167,9 +167,9 @@ object UtilityColorPaletteGeneric {
                     }
                 }
             } else {
-                objectColorPalette.putBytes(redList[index].toByte(), greenList[index].toByte(), blueList[index].toByte())
+                objectColorPalette.putBytes(redList[index], greenList[index], blueList[index])
                 if (scale == 2) {
-                    objectColorPalette.putBytes(redList[index].toByte(), greenList[index].toByte(), blueList[index].toByte())
+                    objectColorPalette.putBytes(redList[index], greenList[index], blueList[index])
                 }
             }
         }
