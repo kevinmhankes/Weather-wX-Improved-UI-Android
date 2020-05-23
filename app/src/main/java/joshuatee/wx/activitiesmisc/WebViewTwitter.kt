@@ -112,9 +112,7 @@ class WebViewTwitter : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_sector -> genericDialog(sectorList) {
-                getContent(it)
-            }
+            R.id.action_sector -> genericDialog(sectorList) { getContent(it) }
             R.id.action_browser -> {
                 var tail = "wx"
                 var stateTmp = sector.toLowerCase(Locale.US)
