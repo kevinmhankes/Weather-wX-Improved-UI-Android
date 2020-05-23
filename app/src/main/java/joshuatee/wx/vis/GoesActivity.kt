@@ -25,7 +25,7 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
+import android.view.Menu
 import android.view.MenuItem
 
 import joshuatee.wx.R
@@ -36,7 +36,7 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
+class GoesActivity : VideoRecordActivity() {
 
     //
     // GOES 16 / GOES 17 image viewer
@@ -56,10 +56,15 @@ class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
     private lateinit var activityArguments: Array<String>
     private val prefImagePosition = "GOES16_IMG"
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.goes16, menu)
+        return true
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer_bottom_toolbar, R.menu.goes16, iconsEvenlySpaced = true, bottomToolbar = true)
-        toolbarBottom.setOnMenuItemClickListener(this)
+        super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer, R.menu.goes16, iconsEvenlySpaced = true, bottomToolbar = false)
+        //toolbarBottom.setOnMenuItemClickListener(this)
         UtilityShortcut.hidePinIfNeeded(toolbarBottom)
         activityArguments = intent.getStringArrayExtra(RID)!!
         drw = ObjectNavDrawer(this, UtilityGoes.labels, UtilityGoes.codes)
@@ -120,7 +125,7 @@ class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
         oldSector = sector
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.GOES16)
@@ -181,7 +186,7 @@ class GoesActivity : VideoRecordActivity(), Toolbar.OnMenuItemClickListener {
         super.onRestart()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
+    //override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onStop() {
         img.imgSavePosnZoom(this, prefImagePosition)
