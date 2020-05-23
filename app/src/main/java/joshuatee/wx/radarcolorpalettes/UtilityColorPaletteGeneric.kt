@@ -92,7 +92,7 @@ object UtilityColorPaletteGeneric {
         var g = "0"
         var b = "0"
         var priorLineHas6 = false
-        UtilityColorPalette.getColorMapStringFromDisk(context, colorMapProductCode.toString(), code).split("\n").forEach { line ->
+        UtilityColorPalette.getColorMapStringFromDisk(context, colorMapProductCode, code).split("\n").forEach { line ->
             if (line.contains("olor") && !line.contains("#")) {
                 val items = if (line.contains(",")) line.split(",") else line.split(" ")
                 if (items.size > 4) {

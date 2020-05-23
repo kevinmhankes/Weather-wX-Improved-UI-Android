@@ -28,36 +28,38 @@ import joshuatee.wx.MyApplication
 
 internal object UtilityColorPalette165 {
 
+    private const val radarColorPaletteCode = 165
+
     private fun generate(context: Context, code: String) {
-        val obj165 = MyApplication.colorMap[165]!!
+        val obj165 = MyApplication.colorMap[radarColorPaletteCode]!!
         obj165.position(0)
-        val dbzs = mutableListOf<Int>()
-        val rAl = mutableListOf<Int>()
-        val gAl = mutableListOf<Int>()
-        val bAl = mutableListOf<Int>()
-        val text = UtilityColorPalette.getColorMapStringFromDisk(context, "165", code)
+        val dbzList = mutableListOf<Int>()
+        val redList = mutableListOf<Int>()
+        val greenList = mutableListOf<Int>()
+        val blueList = mutableListOf<Int>()
+        val text = UtilityColorPalette.getColorMapStringFromDisk(context, radarColorPaletteCode, code)
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }
         lines.forEach { line ->
             if (line.contains("olor") && !line.contains("#")) {
                 val items = if (line.contains(",")) line.split(",") else line.split(" ")
                 if (items.size > 4) {
-                    dbzs.add(items[1].toIntOrNull() ?: 0)
-                    rAl.add(items[2].toIntOrNull() ?: 0)
-                    gAl.add(items[3].toIntOrNull() ?: 0)
-                    bAl.add(items[4].toIntOrNull() ?: 0)
+                    dbzList.add(items[1].toIntOrNull() ?: 0)
+                    redList.add(items[2].toIntOrNull() ?: 0)
+                    greenList.add(items[3].toIntOrNull() ?: 0)
+                    blueList.add(items[4].toIntOrNull() ?: 0)
                 }
             }
         }
         val diff = 10
-        dbzs.indices.forEach {
-            val lowColor = Color.rgb(rAl[it], gAl[it], bAl[it])
-            obj165.putBytes(rAl[it].toByte(), gAl[it].toByte(), bAl[it].toByte())
+        dbzList.indices.forEach {
+            val lowColor = Color.rgb(redList[it], greenList[it], blueList[it])
+            obj165.putBytes(redList[it].toByte(), greenList[it].toByte(), blueList[it].toByte())
             (1 until diff).forEach { _ -> obj165.putInt(lowColor) }
         }
     }
 
     fun loadColorMap(context: Context) {
-        generate(context, MyApplication.radarColorPalette[165]!!)
+        generate(context, MyApplication.radarColorPalette[radarColorPaletteCode]!!)
     }
 }
 

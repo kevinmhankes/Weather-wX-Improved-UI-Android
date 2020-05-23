@@ -82,7 +82,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
         name = if (activityArguments[2].contains("false")) activityArguments[1] else activityArguments[1] + "_" + formattedDate
         palTitle.setText(name)
         palTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeLarge)
-        palContent.setText(UtilityColorPalette.getColorMapStringFromDisk(this, type, activityArguments[1]))
+        palContent.setText(UtilityColorPalette.getColorMapStringFromDisk(this, typeAsInt, activityArguments[1]))
         palContent.setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
     }
 
@@ -147,7 +147,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_reset -> palContent.setText(UtilityColorPalette.getColorMapStringFromDisk(this, type, activityArguments[1]))
+            R.id.action_reset -> palContent.setText(UtilityColorPalette.getColorMapStringFromDisk(this, typeAsInt, activityArguments[1]))
             R.id.action_clear -> palContent.setText("")
             R.id.action_help -> ObjectDialogue(this,"Not implemented yet.")
             R.id.action_share -> UtilityShare.shareTextAsAttachment(this, this, palTitle.text.toString(), palContent.text.toString(), "wX_colormap_" + palTitle.text.toString() + ".txt")
