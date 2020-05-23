@@ -105,11 +105,23 @@ object UtilityShortcut {
     }
 
     fun hidePinIfNeeded(toolbar: Toolbar) {
-        if (android.os.Build.VERSION.SDK_INT < 26) toolbar.menu.findItem(R.id.action_pin).isVisible = false
+        if (android.os.Build.VERSION.SDK_INT < 26) {
+            try {
+                toolbar.menu.findItem(R.id.action_pin).isVisible = false
+            } catch (e:Exception) {
+                UtilityLog.handleException(e)
+            }
+        }
     }
 
     fun hidePinIfNeeded(menu: Menu) {
-        if (android.os.Build.VERSION.SDK_INT < 26) menu.findItem(R.id.action_pin).isVisible = false
+        if (android.os.Build.VERSION.SDK_INT < 26) {
+            try {
+                menu.findItem(R.id.action_pin).isVisible = false
+            } catch (e:Exception) {
+                UtilityLog.handleException(e)
+            }
+        }
     }
 }
 

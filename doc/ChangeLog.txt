@@ -16,7 +16,7 @@
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
 // TODO [ADD] Consider optional fab to open drawer
 
-55468 2020_05_23
+55468 2020_05_23    [FIX] pre SDK26 vis crashes after change in prior release
 55467 2020_05_23    [ADD] GOES, remove bottom toolbar
 55466 2020_05_23    [REF] significant refactor in colormap
 55465 2020_05_23    [FIX] wfo notification filter all white
