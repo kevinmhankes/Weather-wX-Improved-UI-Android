@@ -46,6 +46,13 @@ class ObjectColorPaletteLine {
         blue = items[4].toIntOrNull() ?: 0
     }
 
+    constructor(dbz: Int, red: String, green: String, blue: String) {
+        this.dbz = dbz
+        this.red = red.toIntOrNull() ?: 0
+        this.green = green.toIntOrNull() ?: 0
+        this.blue = blue.toIntOrNull() ?: 0
+    }
+
     val asInt get() = Color.rgb(red, green, blue)
 }
 

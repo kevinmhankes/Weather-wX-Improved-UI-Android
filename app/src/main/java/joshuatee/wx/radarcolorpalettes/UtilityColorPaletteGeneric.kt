@@ -22,7 +22,6 @@
 package joshuatee.wx.radarcolorpalettes
 
 import android.content.Context
-import android.graphics.Color
 
 import joshuatee.wx.MyApplication
 
@@ -84,10 +83,11 @@ object UtilityColorPaletteGeneric {
             }
         }
         objectColorPalette.position(0)
-        val dbzList = mutableListOf<Int>()
-        val redList = mutableListOf<Int>()
-        val greenList = mutableListOf<Int>()
-        val blueList = mutableListOf<Int>()
+        //val dbzList = mutableListOf<Int>()
+        //val redList = mutableListOf<Int>()
+        //val greenList = mutableListOf<Int>()
+        //val blueList = mutableListOf<Int>()
+        val objectColorPaletteLines = mutableListOf<ObjectColorPaletteLine>()
         var r = "0"
         var g = "0"
         var b = "0"
@@ -97,20 +97,35 @@ object UtilityColorPaletteGeneric {
                 val items = if (line.contains(",")) line.split(",") else line.split(" ")
                 if (items.size > 4) {
                     if (priorLineHas6) {
-                        dbzList.add(((items[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset - 1).toInt())
+                        /*dbzList.add(((items[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset - 1).toInt())
                         redList.add(r.toIntOrNull() ?: 0)
                         greenList.add(g.toIntOrNull() ?: 0)
-                        blueList.add(b.toIntOrNull() ?: 0)
-                        dbzList.add(((items[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset).toInt())
+                        blueList.add(b.toIntOrNull() ?: 0)*/
+                        objectColorPaletteLines.add(ObjectColorPaletteLine(((items[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset - 1).toInt(), r, g, b))
+
+                        /*dbzList.add(((items[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset).toInt())
                         redList.add(items[2].toIntOrNull() ?: 0)
                         greenList.add(items[3].toIntOrNull() ?: 0)
-                        blueList.add(items[4].toIntOrNull() ?: 0)
+                        blueList.add(items[4].toIntOrNull() ?: 0)*/
+                        objectColorPaletteLines.add(ObjectColorPaletteLine(items){
+                            ((it[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset).toInt()
+                        })
+
                         priorLineHas6 = false
+
+                       /* val test = ObjectColorPaletteLine(items)
+                        val test3 = ObjectColorPaletteLine(items) {
+                            ((it[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset - 1).toInt()
+                        }*/
                     } else {
-                        dbzList.add(((items[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset).toInt())
+                       /* dbzList.add(((items[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset).toInt())
                         redList.add(items[2].toIntOrNull() ?: 0)
                         greenList.add(items[3].toIntOrNull() ?: 0)
-                        blueList.add(items[4].toIntOrNull() ?: 0)
+                        blueList.add(items[4].toIntOrNull() ?: 0)*/
+                        objectColorPaletteLines.add(ObjectColorPaletteLine(items){
+                            ((it[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset).toInt()
+                        })
+
                     }
                     if (items.size > 7) {
                         priorLineHas6 = true
@@ -124,36 +139,36 @@ object UtilityColorPaletteGeneric {
         if (colorMapProductCode == 161) {
             // pad first 16, think this is needed
             (0 until 10).forEach { _ ->
-                if (redList.size > 0 && greenList.size > 0 && blueList.size > 0) {
-                    objectColorPalette.putBytes(redList[0], greenList[0], blueList[0])
+                if (objectColorPaletteLines.size > 0) {
+                    objectColorPalette.putLine(objectColorPaletteLines[0])
                 }
             }
         }
         if (colorMapProductCode == 99 || colorMapProductCode == 135) {
             // first two levels are range folder per ICD
-            if (redList.size > 0 && greenList.size > 0 && blueList.size > 0) {
-                objectColorPalette.putBytes(redList[0], greenList[0], blueList[0])
-                objectColorPalette.putBytes(redList[0], greenList[0], blueList[0])
+            if (objectColorPaletteLines.size > 0) {
+                objectColorPalette.putLine(objectColorPaletteLines[0])
+                objectColorPalette.putLine(objectColorPaletteLines[0])
             }
         }
-        if (redList.size > 0 && greenList.size > 0 && blueList.size > 0) {
-            (lowerEnd until dbzList[0]).forEach { _ ->
-                objectColorPalette.putBytes(redList[0], greenList[0], blueList[0])
+        if (objectColorPaletteLines.size > 0) {
+            (lowerEnd until objectColorPaletteLines[0].dbz).forEach { _ ->
+                objectColorPalette.putLine(objectColorPaletteLines[0])
                 if (scale == 2) { // 94 reflectivity
-                    objectColorPalette.putBytes(redList[0], greenList[0], blueList[0])
+                    objectColorPalette.putLine(objectColorPaletteLines[0])
                 }
             }
         }
-        dbzList.indices.forEach { index ->
-            if (index < dbzList.lastIndex) {
-                val low = dbzList[index]
-                val lowColor = Color.rgb(redList[index], greenList[index], blueList[index])
-                val high = dbzList[index + 1]
-                val highColor = Color.rgb(redList[index + 1], greenList[index + 1], blueList[index + 1])
+        objectColorPaletteLines.indices.forEach { index ->
+            if (index < objectColorPaletteLines.lastIndex) {
+                val low = objectColorPaletteLines[index].dbz
+                val lowColor = objectColorPaletteLines[index].asInt
+                val high = objectColorPaletteLines[index + 1].dbz
+                val highColor = objectColorPaletteLines[index + 1].asInt
                 val diff = high - low
-                objectColorPalette.putBytes(redList[index], greenList[index], blueList[index])
+                objectColorPalette.putLine(objectColorPaletteLines[index])
                 if (scale == 2) {
-                    objectColorPalette.putBytes(redList[index], greenList[index], blueList[index])
+                    objectColorPalette.putLine(objectColorPaletteLines[index])
                 }
                 (1 until diff).forEach { j ->
                     if (scale == 1) {
@@ -167,9 +182,9 @@ object UtilityColorPaletteGeneric {
                     }
                 }
             } else {
-                objectColorPalette.putBytes(redList[index], greenList[index], blueList[index])
+                objectColorPalette.putLine(objectColorPaletteLines[index])
                 if (scale == 2) {
-                    objectColorPalette.putBytes(redList[index], greenList[index], blueList[index])
+                    objectColorPalette.putLine(objectColorPaletteLines[index])
                 }
             }
         }

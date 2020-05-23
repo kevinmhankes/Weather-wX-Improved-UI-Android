@@ -22,7 +22,6 @@
 package joshuatee.wx.radarcolorpalettes
 
 import android.content.Context
-import android.graphics.Color
 
 import joshuatee.wx.MyApplication
 

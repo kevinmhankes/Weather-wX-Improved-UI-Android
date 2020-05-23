@@ -34,7 +34,6 @@ import java.util.TimeZone
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.external.UtilityStringExternal
-import joshuatee.wx.ui.ObjectSpinner
 import joshuatee.wx.ui.TouchImageView2
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
@@ -118,18 +117,6 @@ object UtilityModels {
                     om.prefModel + " " + om.displayData.paramLabel[0] + " " + om.timeIndex.toString(),
                     om.displayData.bitmap[0]
             )
-    }
-
-    fun moveForward(spinnerTime: ObjectSpinner) {
-        var time = spinnerTime.selectedItemPosition + 1
-        if (time == spinnerTime.size()) time = 0
-        spinnerTime.setSelection(time)
-    }
-
-    fun moveBack(spinnerTime: ObjectSpinner) {
-        var time = spinnerTime.selectedItemPosition - 1
-        if (time == -1) time = spinnerTime.lastIndex
-        spinnerTime.setSelection(time)
     }
 
     // FIXME don't need this - to simple
