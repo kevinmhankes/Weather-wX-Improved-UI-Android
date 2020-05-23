@@ -33,27 +33,20 @@ internal object UtilityColorPalette165 {
     private fun generate(context: Context, code: String) {
         val objectColorPalette = MyApplication.colorMap[radarColorPaletteCode]!!
         objectColorPalette.position(0)
-        val dbzList = mutableListOf<Int>()
-        val redList = mutableListOf<Int>()
-        val greenList = mutableListOf<Int>()
-        val blueList = mutableListOf<Int>()
+        val objectColorPaletteLines = mutableListOf<ObjectColorPaletteLine>()
         val text = UtilityColorPalette.getColorMapStringFromDisk(context, radarColorPaletteCode, code)
         val lines = text.split("\n").dropLastWhile { it.isEmpty() }
         lines.forEach { line ->
             if (line.contains("olor") && !line.contains("#")) {
                 val items = if (line.contains(",")) line.split(",") else line.split(" ")
                 if (items.size > 4) {
-                    dbzList.add(items[1].toIntOrNull() ?: 0)
-                    redList.add(items[2].toIntOrNull() ?: 0)
-                    greenList.add(items[3].toIntOrNull() ?: 0)
-                    blueList.add(items[4].toIntOrNull() ?: 0)
+                    objectColorPaletteLines.add(ObjectColorPaletteLine(items))
                 }
             }
         }
         val diff = 10
-        dbzList.indices.forEach {
-            val lowColor = Color.rgb(redList[it], greenList[it], blueList[it])
-            (0 until diff).forEach { _ -> objectColorPalette.putInt(lowColor) }
+        objectColorPaletteLines.forEach {
+            (0 until diff).forEach { _ -> objectColorPalette.putLine(it) }
         }
     }
 

@@ -70,6 +70,10 @@ class ObjectColorPalette(val context: Context, private val colormapCode: Int) {
         putBytes(colors[0].toInt(), colors[1].toInt(), colors[2].toInt())
     }
 
+    fun putLine(objectColorPaletteLine: ObjectColorPaletteLine) {
+        putBytes(objectColorPaletteLine.red, objectColorPaletteLine.green, objectColorPaletteLine.blue)
+    }
+
     fun initialize() {
         when (colormapCode) {
             19, 30, 56 -> {
