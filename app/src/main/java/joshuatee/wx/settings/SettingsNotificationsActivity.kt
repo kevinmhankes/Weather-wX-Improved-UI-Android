@@ -35,6 +35,9 @@ import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AlertDialog
 import android.content.Intent
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.TextView
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
@@ -326,7 +329,7 @@ class SettingsNotificationsActivity : BaseActivity() {
                 checkedItems[i] = false
             }
         }
-        val dialog = AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(this, R.style.PickerDialogTheme)
                 .setTitle("Choose which Local NWS Alerts to not show:")
                 .setMultiChoiceItems(items.toTypedArray(), checkedItems) { _, indexSelected, isChecked ->
                     if (isChecked) {

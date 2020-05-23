@@ -29,13 +29,14 @@ import android.widget.LinearLayout
 
 import joshuatee.wx.R
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.objects.TextSize
 
 class ObjectCALegal(context: Context, linearLayout: LinearLayout, url: String) {
 
     private val objectCardText = ObjectCardText(context)
 
     init {
-        objectCardText.lightText()
+        objectCardText.refreshTextSize(TextSize.SMALL)
         objectCardText.center()
         objectCardText.setOnClickListener(View.OnClickListener { ObjectIntent(context, Intent.ACTION_VIEW, Uri.parse(url)) })
         objectCardText.text = context.resources.getText(R.string.main_screen_ca_disclaimor).toString()

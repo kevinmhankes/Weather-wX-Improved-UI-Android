@@ -17,10 +17,9 @@
 // TODO [ADD] Consider optional fab to open drawer
 // TODO [ADD] obs site move to top toolbar, if no last used, use closest
 // TODO [FIX] Twitter state selector
-// TODO [FIX] allwhite Canada legal disclaimo
-// TODO [FIX] wfo notification filter allwhite
 
-55465 2020_05_23
+55465 2020_05_23    [FIX] wfo notification filter allwhite
+                    [FIX] allwhite Canada legal disclaimor
 55464 2020_05_23    [ADD] remove spinner from CA radar
 55463 2020_05_22    [REF] misc
 55462 2020_05_22    [FIX] SPC Meso swipe left/right when no favs
