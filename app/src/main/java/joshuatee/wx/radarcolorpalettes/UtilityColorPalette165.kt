@@ -31,8 +31,8 @@ internal object UtilityColorPalette165 {
     private const val radarColorPaletteCode = 165
 
     private fun generate(context: Context, code: String) {
-        val obj165 = MyApplication.colorMap[radarColorPaletteCode]!!
-        obj165.position(0)
+        val objectColorPalette = MyApplication.colorMap[radarColorPaletteCode]!!
+        objectColorPalette.position(0)
         val dbzList = mutableListOf<Int>()
         val redList = mutableListOf<Int>()
         val greenList = mutableListOf<Int>()
@@ -53,8 +53,8 @@ internal object UtilityColorPalette165 {
         val diff = 10
         dbzList.indices.forEach {
             val lowColor = Color.rgb(redList[it], greenList[it], blueList[it])
-            obj165.putBytes(redList[it].toByte(), greenList[it].toByte(), blueList[it].toByte())
-            (1 until diff).forEach { _ -> obj165.putInt(lowColor) }
+            objectColorPalette.putBytes(redList[it].toByte(), greenList[it].toByte(), blueList[it].toByte())
+            (1 until diff).forEach { _ -> objectColorPalette.putInt(lowColor) }
         }
     }
 
