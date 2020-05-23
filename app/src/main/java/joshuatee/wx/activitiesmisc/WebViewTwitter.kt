@@ -29,22 +29,16 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.webkit.WebViewClient
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
-import joshuatee.wx.Extensions.safeGet
 
 import joshuatee.wx.R
 
 import joshuatee.wx.GlobalArrays
-import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.Location
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityFavorites
 
 import kotlinx.android.synthetic.main.activity_webview_toolbar_state.*
 
@@ -69,7 +63,6 @@ class WebViewTwitter : BaseActivity() {
     )
     private var sectorList = listOf<String>()
     private var sector = ""
-    //private lateinit var objectSpinner: ObjectSpinner
     val prefToken = "STATE_CODE"
 
     override fun onBackPressed() {
@@ -132,7 +125,6 @@ class WebViewTwitter : BaseActivity() {
                     }
                 }
                 ObjectIntent(this, Intent.ACTION_VIEW, Uri.parse("http://twitter.com/hashtag/$stateTmp$tail"))
-                true
             }
             else -> return super.onOptionsItemSelected(item)
         }
@@ -147,23 +139,8 @@ class WebViewTwitter : BaseActivity() {
         })
         objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
             fn(which)
-            //getContent()
             dialog.dismiss()
         })
         objectDialogue.show()
     }
-
-
-    //private fun findPosition(key: String) = (0 until objectSpinner.size()).firstOrNull { objectSpinner[it].toLowerCase(Locale.US).startsWith("$key:") } ?: 0
-
-/*    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        sector = sectorList[pos].split(":")[0]
-        Utility.writePref(this, prefToken, sector)
-        var url = "https://mobile.twitter.com/hashtag/" + sector.toLowerCase(Locale.US)
-        if (sector.length == 2) url += "wx"
-        webview.loadUrl(url)
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>) {}*/
-
 }
