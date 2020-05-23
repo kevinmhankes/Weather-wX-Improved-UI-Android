@@ -93,7 +93,6 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
-        //objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, products)
         UtilityWpcText.createData()
         drw = ObjectNavDrawerCombo(this, UtilityWpcText.groups, UtilityWpcText.longCodes, UtilityWpcText.shortCodes, this, "")
         drw.setListener(::changeProduct)
@@ -124,8 +123,6 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
     }
 
-   // override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
-
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (audioPlayMenu(item.itemId, html, product, product)) return true
         when (item.itemId) {
@@ -139,20 +136,6 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
         return true
     }
-
-    /*override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
-        when (position) {
-            1 -> ObjectIntent.favoriteAdd(this, arrayOf("NWSTEXT"))
-            2 -> ObjectIntent.favoriteRemove(this, arrayOf("NWSTEXT"))
-            else -> {
-                product = products[position].split(":").getOrNull(0) ?: ""
-                getContent()
-            }
-        }
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>) {}*/
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
@@ -192,7 +175,6 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onRestart() {
         if (ridFavOld != MyApplication.nwsTextFav) {
             products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, UtilityWpcText.labels[findPosition(product)])
-            //objectSpinner.refreshData(this, products)
         }
         super.onRestart()
     }
@@ -200,14 +182,12 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private fun toggleFavorite() {
         UtilityFavorites.toggle(this, product, star, "NWS_TEXT_FAV")
         products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
-        //objectSpinner.refreshData(this, products)
     }
 
     private fun changeProduct() {
         product = drw.getUrl()
         products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, UtilityWpcText.labels[findPosition(product)])
         getContent()
-        //objectSpinner.refreshData(this, products)
     }
 
     private fun updateSubmenuNotificationText() {

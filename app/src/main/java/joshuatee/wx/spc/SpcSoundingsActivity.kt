@@ -54,7 +54,6 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
     private val prefToken = "SND_FAV"
     private var upperAir = ""
     private var bitmap = UtilityImg.getBlankBitmap()
-    //private lateinit var objectSpinner: ObjectSpinner
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.afd_top, menu)
@@ -74,7 +73,6 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv)
         office = UtilityLocation.getNearestSoundingSite(Location.latLon)
         locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
-        //objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, locations)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToSnd)
         getContent()
@@ -82,7 +80,6 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
 
     override fun onRestart() {
         locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
-        //objectSpinner.refreshData(this, locations)
         super.onRestart()
     }
 
@@ -137,35 +134,13 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
         mapShown = false
         locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
         getContent()
-        //objectSpinner.refreshData(this, locations)
         img.resetZoom()
     }
 
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleString(this, office, star, prefToken)
         locations = UtilityFavorites.setupMenu(this, ridFav, office, prefToken)
-        //objectSpinner.refreshData(this, locations)
     }
-
-   /* override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
-        if (locations.isNotEmpty()) {
-            if (firstTime) {
-                UtilityToolbar.fullScreenMode(toolbar, toolbarBottom)
-                firstTime = false
-            }
-            when (position) {
-                1 -> ObjectIntent.favoriteAdd(this, arrayOf("SND"))
-                2 -> ObjectIntent.favoriteRemove(this, arrayOf("SND"))
-                else -> {
-                    office = locations[position].split(" ").getOrNull(0) ?: ""
-                    getContent()
-                }
-            }
-        }
-    }*/
-
-    //override fun onNothingSelected(parent: AdapterView<*>) {}
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

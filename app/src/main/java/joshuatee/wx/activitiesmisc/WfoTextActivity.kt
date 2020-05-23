@@ -86,7 +86,6 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private val wfoListPerState = mutableListOf<String>()
     private val cardList = mutableListOf<CardView>()
     private lateinit var objectCardText: ObjectCardText
-    //private lateinit var objectSpinner: ObjectSpinner
     private lateinit var drw: ObjectNavDrawer
     private var originalWfo = ""
     private val fixedWidthProducts = listOf("RTP", "RWR", "CLI", "RVA")
@@ -127,7 +126,6 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
         oldProduct = ""
         oldWfo = ""
         locationList = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
-        //objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, locationList)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(objectCardText.card, scrollView))
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToWfo)
         getContent()
@@ -151,7 +149,6 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onRestart() {
         if (ridFavOld != MyApplication.wfoFav) {
             locationList = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
-            //objectSpinner.refreshData(this, locationList)
         }
         super.onRestart()
     }
@@ -220,9 +217,7 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 getContent()
             }
             R.id.action_forward -> {
-                if (version > 1) {
-                    version -= 2
-                }
+                if (version > 1) version -= 2
                 getContent()
             }
             R.id.action_fav -> toggleFavorite()
@@ -255,39 +250,12 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
         mapShown = false
         locationList = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
         getContent()
-        //objectSpinner.refreshData(this, locationList)
     }
 
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleString(this, wfo, star, prefToken)
         locationList = UtilityFavorites.setupMenu(this, ridFav, wfo, prefToken)
-        //objectSpinner.refreshData(this, locationList)
     }
-
-  /*  override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
-        if (locationList.isNotEmpty()) {
-            when (position) {
-                1 -> ObjectIntent.favoriteAdd(this, arrayOf("WFO"))
-                2 -> ObjectIntent.favoriteRemove(this, arrayOf("WFO"))
-                else -> {
-                    wfo = locationList[position].split(" ").getOrNull(0) ?: ""
-                    originalWfo = wfo
-                    if (product.startsWith("RTP") && product.length == 5) {
-                        val state = Utility.getWfoSiteName(wfo).split(",")[0]
-                        product = "RTP$state"
-                    }
-                    if (product == "CLI") checkForCliSite() else getContent()
-                }
-            }
-            if (firstTime) {
-                UtilityToolbar.fullScreenMode(toolbar, toolbarBottom)
-                firstTime = false
-            }
-        }
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>) {}*/
 
     private fun updateSubmenuNotificationText() {
         if (UtilityNotificationTextProduct.check(product + wfo)) {
@@ -348,9 +316,6 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
             dialogueMain.show()
         }
     }
-
-    // For navigation drawer
-    //override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true

@@ -127,26 +127,6 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         locations = UtilityFavorites.setupMenu(this, ridFav, wfo, prefToken)
     }
 
-/*    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
-        if (locations.isNotEmpty()) {
-            when (position) {
-                1 -> ObjectIntent.favoriteAdd(this, arrayOf("WFO"))
-                2 -> ObjectIntent.favoriteRemove(this, arrayOf("WFO"))
-                else -> {
-                    wfo = locations[position].split(" ").getOrNull(0) ?: ""
-                    getContent()
-                }
-            }
-            if (firstTime) {
-                UtilityToolbar.fullScreenMode(toolbar, toolbarBottom)
-                firstTime = false
-            }
-        }
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>) {}*/
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_sector -> genericDialog(locations) {

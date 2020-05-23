@@ -14,8 +14,9 @@
 // TODO [REF] cleanup external stuff
 // TODO [FIX] remove usage of always show icons in menus
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
+// TODO [ADD] remove spinner from CA radar
 
-55463 2020_05_22
+55463 2020_05_22    [REF] misc
 55462 2020_05_22    [FIX] SPC Meso swipe left/right when no favs
                     [FIX] redo SPC Meso fav management to not use labels
 55461 2020_05_22    [REF] misc
