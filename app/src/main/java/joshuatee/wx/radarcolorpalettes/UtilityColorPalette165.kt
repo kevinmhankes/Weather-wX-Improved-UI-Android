@@ -53,8 +53,7 @@ internal object UtilityColorPalette165 {
         val diff = 10
         dbzList.indices.forEach {
             val lowColor = Color.rgb(redList[it], greenList[it], blueList[it])
-            objectColorPalette.putBytes(redList[it], greenList[it], blueList[it])
-            (1 until diff).forEach { _ -> objectColorPalette.putInt(lowColor) }
+            (0 until diff).forEach { _ -> objectColorPalette.putInt(lowColor) }
         }
     }
 
