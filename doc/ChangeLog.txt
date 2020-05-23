@@ -15,7 +15,9 @@
 // TODO [FIX] remove usage of always show icons in menus
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
 // TODO [ADD] Consider optional fab to open drawer
+// TODO [ADD] GOES, remove bottom toolbar
 
+55467 2020_05_23
 55466 2020_05_23    [REF] significant refactor in colormap
 55465 2020_05_23    [FIX] wfo notification filter all white
                     [FIX] all white Canada legal disclaimer
