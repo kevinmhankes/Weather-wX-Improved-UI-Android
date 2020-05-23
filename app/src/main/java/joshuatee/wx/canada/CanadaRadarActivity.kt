@@ -22,16 +22,16 @@
 package joshuatee.wx.canada
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.TextView
 import joshuatee.wx.Extensions.getImage
+import joshuatee.wx.Extensions.safeGet
 
 import joshuatee.wx.R
 import joshuatee.wx.external.UtilityStringExternal
@@ -43,7 +43,7 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
-class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelectedListener, OnMenuItemClickListener {
+class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemClickListener {
 
     // Canada Radar
     //
@@ -58,7 +58,6 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
     private var firstTime = true
     private var animRan = false
     private lateinit var img: ObjectTouchImageView
-    private var rad = ""
     private var radarSite = ""
     private var mosaicShown = false
     private var mosaicShownId = ""
@@ -69,7 +68,16 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
     private lateinit var star: MenuItem
     private var url = "https://weather.gc.ca/data/satellite/goes_wcan_visible_100.jpg"
     private var bitmap = UtilityImg.getBlankBitmap()
-    private lateinit var objectSpinner: ObjectSpinner
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.canada_radar_top, menu)
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        menu.findItem(R.id.action_sector).title = favorites.safeGet(0)
+        return super.onPrepareOptionsMenu(menu)
+    }
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,17 +97,18 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::mapToCanadaRadarSite)
         favoriteString = Utility.readPref(this, "RID_CA_FAV", MyApplication.prefSeparator)
         favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
-        objectSpinner = ObjectSpinner(this, this, this, R.id.spinner1, favorites)
+        getContent()
     }
 
     override fun onRestart() {
         favoriteString = Utility.readPref(this, "RID_CA_FAV", MyApplication.prefSeparator)
         favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
-        objectSpinner.refreshData(this, favorites)
+        getContent()
         super.onRestart()
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        invalidateOptionsMenu()
         if (favoriteString.contains(":$radarSite:")) {
             star.setIcon(MyApplication.STAR_ICON)
         } else {
@@ -107,7 +116,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         }
         withContext(Dispatchers.IO) {
             bitmap = if (imageType == "rad") {
-                UtilityCanadaImg.getRadarBitmapOptionsApplied(this@CanadaRadarActivity, rad, "")
+                UtilityCanadaImg.getRadarBitmapOptionsApplied(this@CanadaRadarActivity, radarSite, "")
             } else {
                 url.getImage()
             }
@@ -183,7 +192,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         this.radarSite = radarSite
         img.resetZoom()
         favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
-        objectSpinner.refreshData(this, favorites)
+        getContent()
     }
 
     private fun getAnimate(frameCountStr: String) = GlobalScope.launch(uiDispatcher) {
@@ -192,7 +201,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
                 UtilityCanadaImg.getGoesAnimation(this@CanadaRadarActivity, url)
             } else {
                 if (!mosaicShown)
-                    UtilityCanadaImg.getRadarAnimOptionsApplied(this@CanadaRadarActivity, rad, frameCountStr)
+                    UtilityCanadaImg.getRadarAnimOptionsApplied(this@CanadaRadarActivity, radarSite, frameCountStr)
                 else
                     UtilityCanadaImg.getRadarMosaicAnimation(this@CanadaRadarActivity, mosaicShownId, frameCountStr)
             }
@@ -200,42 +209,57 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnItemSelect
         animRan = UtilityImgAnim.startAnimation(animDrawable, img)
     }
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-        (parent.getChildAt(0) as TextView).setTextColor(UIPreferences.spinnerTextColor)
-        if (firstTime) {
-            UtilityToolbar.fullScreenMode(toolbar, toolbarBottom)
-            firstTime = false
-        }
-        when (position) {
-            1 -> ObjectIntent.favoriteAdd(this@CanadaRadarActivity, arrayOf("RIDCA"))
-            2 -> ObjectIntent.favoriteRemove(this@CanadaRadarActivity, arrayOf("RIDCA"))
-            else -> {
-                if (favorites[position].length > 3) {
-                    rad = UtilityStringExternal.truncate(favorites[position], 3)
-                    mosaicShown = false
-                    img.resetZoom()
-                    getContent()
-                } else {
-                    mosaicShown = true
-                    img.resetZoom()
-                    if (imageType == "rad") getMosaic(favorites[position]) else getContent()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_sector -> genericDialog(favorites) {
+                if (firstTime) {
+                    UtilityToolbar.fullScreenMode(toolbar, toolbarBottom)
+                    firstTime = false
+                }
+                when (it) {
+                    1 -> ObjectIntent.favoriteAdd(this@CanadaRadarActivity, arrayOf("RIDCA"))
+                    2 -> ObjectIntent.favoriteRemove(this@CanadaRadarActivity, arrayOf("RIDCA"))
+                    else -> {
+                        if (favorites[it].length > 3) {
+                            radarSite = UtilityStringExternal.truncate(favorites[it], 3)
+                            mosaicShown = false
+                            img.resetZoom()
+                            favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
+                            getContent()
+                        } else {
+                            mosaicShown = true
+                            img.resetZoom()
+                            if (imageType == "rad") getMosaic(favorites[it]) else getContent()
+                        }
+                    }
                 }
             }
+            else -> return super.onOptionsItemSelected(item)
         }
+        return true
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>) {}
+    private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
+        val objectDialogue = ObjectDialogue(this, list)
+        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+            dialog.dismiss()
+            UtilityUI.immersiveMode(this)
+        })
+        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+            fn(which)
+            getContent()
+            dialog.dismiss()
+        })
+        objectDialogue.show()
+    }
 
     override fun onClick(v: View) {
-        when (v.id) {
-            R.id.iv -> UtilityToolbar.showHide(toolbar, toolbarBottom)
-        }
+        when (v.id) { R.id.iv -> UtilityToolbar.showHide(toolbar, toolbarBottom) }
     }
 
     private fun toggleFavorite() {
         favoriteString = UtilityFavorites.toggleString(this, radarSite, star, "RID_CA_FAV")
         favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
-        objectSpinner.refreshData(this, favorites)
     }
 
     override fun onStop() {
