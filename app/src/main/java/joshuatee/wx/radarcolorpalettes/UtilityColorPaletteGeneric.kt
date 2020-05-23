@@ -101,11 +101,7 @@ object UtilityColorPaletteGeneric {
                         redList.add(r.toIntOrNull() ?: 0)
                         greenList.add(g.toIntOrNull() ?: 0)
                         blueList.add(b.toIntOrNull() ?: 0)*/
-                        //objectColorPaletteLines.add(ObjectColorPaletteLine(((items[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset - 1).toInt(), r, g, b))
-
-                        objectColorPaletteLines.add(ObjectColorPaletteLine(items){
-                            ((it[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset - 1).toInt()
-                        })
+                        objectColorPaletteLines.add(ObjectColorPaletteLine(((items[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset - 1).toInt(), r, g, b))
 
                         /*dbzList.add(((items[1].toDoubleOrNull() ?: 0.0) * prodScale + prodOffset).toInt())
                         redList.add(items[2].toIntOrNull() ?: 0)
