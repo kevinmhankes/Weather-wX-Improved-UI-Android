@@ -195,8 +195,6 @@ class ObjectCardText(private val context: Context) {
 
     fun setTextSize(type: Int, size: Float) = tv.setTextSize(type, size)
 
-    fun lightText() { tv.setTextAppearance(context, UIPreferences.smallTextTheme) }
-
     fun typefaceMono() { tv.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL) }
 
     fun typefaceDefault() { tv.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL) }

@@ -45,7 +45,7 @@ class RunTimeData {
     }
 
     override fun toString(): String {
-        return mostRecentRun + " " + imageCompleteStr + " " + timeStrConv + " " + validTime + " " + listRun
+        return "$mostRecentRun $imageCompleteStr $timeStrConv $validTime $listRun"
     }
 }
 

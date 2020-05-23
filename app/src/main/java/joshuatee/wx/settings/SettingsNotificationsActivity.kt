@@ -35,9 +35,6 @@ import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AlertDialog
 import android.content.Intent
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.TextView
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
