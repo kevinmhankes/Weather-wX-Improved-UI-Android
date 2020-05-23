@@ -24,8 +24,8 @@ package joshuatee.wx.activitiesmisc
 import android.annotation.SuppressLint
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
 
 import joshuatee.wx.R
 import joshuatee.wx.external.UtilityStringExternal
@@ -34,12 +34,13 @@ import joshuatee.wx.util.UtilityIO
 
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.radar.UtilityMetar
 import joshuatee.wx.settings.Location
 import joshuatee.wx.ui.ObjectRecyclerView
 import joshuatee.wx.util.Utility
 import java.util.*
 
-class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
+class NwsObsSitesActivity : BaseActivity() {
 
     //
     // Used to view NWS website for obs data and provide a link to the map
@@ -53,14 +54,23 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     private var siteDisplay = false
     private var provSelected = ""
     private lateinit var objectRecyclerView: ObjectRecyclerView
-    private val titleString = "Observation sites"
+    private val titleString = "Obs sites"
     val prefToken = "NWS_OBSSITE_LAST_USED"
-    private lateinit var lastUsedMenuItem: MenuItem
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.nwsobssites, menu)
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        menu.findItem(R.id.action_lastused).title = "Last Used: " + Utility.readPref(this, prefToken, UtilityMetar.findClosestObservation(this, Location.latLon).name)
+        return super.onPrepareOptionsMenu(menu)
+    }
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_recyclerview_bottom_toolbar, R.menu.nwsobssites, true)
-        toolbarBottom.setOnMenuItemClickListener(this)
+        super.onCreate(savedInstanceState, R.layout.activity_recyclerview_toolbar, R.menu.nwsobssites, bottomToolbar = false)
+        //toolbarBottom.setOnMenuItemClickListener(this)
         title = titleString
         updateButton()
         siteDisplay = false
@@ -68,8 +78,9 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
     }
 
     private fun updateButton() {
-        lastUsedMenuItem = toolbarBottom.menu.findItem(R.id.action_lastused)
-        lastUsedMenuItem.title = "Last Used: " + Utility.readPref(this, prefToken, "")
+        invalidateOptionsMenu()
+        //lastUsedMenuItem = toolbarBottom.menu.findItem(R.id.action_lastused)
+        //lastUsedMenuItem.title = "Last Used: " + Utility.readPref(this, prefToken, "")
     }
 
     private fun itemClicked(position: Int) {
@@ -116,9 +127,9 @@ class NwsObsSitesActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         siteDisplay = true
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_lastused -> showObsSite(Utility.readPref(this, prefToken, ""))
+            R.id.action_lastused -> showObsSite(Utility.readPref(this, prefToken, UtilityMetar.findClosestObservation(this, Location.latLon).name))
             R.id.action_map -> ObjectIntent.showWebView(this,
                         arrayOf("https://www.wrh.noaa.gov/map/?obs=true&wfo=" + Location.wfo.toLowerCase(Locale.US),
                                 "Observations near " + Location.wfo))
