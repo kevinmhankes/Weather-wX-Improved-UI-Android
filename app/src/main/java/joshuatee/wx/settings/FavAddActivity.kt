@@ -42,7 +42,6 @@ class FavAddActivity : BaseActivity() {
     companion object { const val TYPE = "" }
 
     private var prefToken = ""
-    //private var prefTokenLabel = ""
     private var data = listOf<String>()
     private var dataTokens = listOf<String>()
     private var type = ""
@@ -87,7 +86,6 @@ class FavAddActivity : BaseActivity() {
             }
             "SPCMESO" -> {
                 prefToken = "SPCMESO_FAV"
-                //prefTokenLabel = "SPCMESO_LABEL_FAV"
                 data = UtilitySpcMeso.labels
                 dataTokens = UtilitySpcMeso.params
                 verboseTitle = "parameter"
@@ -100,11 +98,6 @@ class FavAddActivity : BaseActivity() {
     private fun itemClicked(position: Int) {
         val item = data[position]
         var favoriteString = Utility.readPref(this, prefToken, UtilityFavorites.initialValue)
-        /*var favoriteLabel = if (type == "SPCMESO") {
-            Utility.readPref(this, prefTokenLabel, UtilityFavorites.initialValue)
-        } else {
-            ""
-        }*/
         val tmpArr = when (type) {
             "SPCMESO" -> {
                 if (dataTokens[position].contains(":")) {
@@ -129,13 +122,9 @@ class FavAddActivity : BaseActivity() {
             }
         }
         if (!favoriteString.contains(tmpArr[0])) {
-            when (type) {
-                "SPCMESO" -> {
-                    favoriteString += UtilitySpcMeso.params[position] + ":"
-                    //favoriteLabel += UtilitySpcMeso.labels[position] + ":"
-                    //Utility.writePref(this, prefTokenLabel, favoriteLabel)
-                }
-                else -> favoriteString += tmpArr[0] + ":"
+            favoriteString += when (type) {
+                "SPCMESO" -> UtilitySpcMeso.params[position] + ":"
+                else -> tmpArr[0] + ":"
             }
             Utility.writePref(this, prefToken, favoriteString)
             saveMyApp(favoriteString)
@@ -152,10 +141,7 @@ class FavAddActivity : BaseActivity() {
             "RID" -> MyApplication.ridFav = fav
             "NWSTEXT" -> MyApplication.nwsTextFav = fav
             "SREF" -> MyApplication.srefFav = fav
-            "SPCMESO" -> {
-                MyApplication.spcMesoFav = fav
-                //MyApplication.spcmesoLabelFav = favLabel
-            }
+            "SPCMESO" -> MyApplication.spcMesoFav = fav
         }
     }
 }

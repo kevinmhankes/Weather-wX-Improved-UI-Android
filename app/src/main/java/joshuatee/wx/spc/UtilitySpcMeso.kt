@@ -27,7 +27,6 @@ import joshuatee.wx.Extensions.safeGet
 import joshuatee.wx.MyApplication
 import joshuatee.wx.ui.ObjectMenuTitle
 import joshuatee.wx.util.Group
-import joshuatee.wx.util.UtilityLog
 
 object UtilitySpcMeso {
 
@@ -48,7 +47,6 @@ object UtilitySpcMeso {
 
     fun getLabelListFromParam(paramList: List<String>): List<String> {
         val labelList = mutableListOf<String>()
-        UtilityLog.d("wxDEBUG", paramList.toString())
         paramList.forEach {
             if (it == "Add..." || it == "Modify...") {
                 labelList.add(it)
@@ -57,8 +55,6 @@ object UtilitySpcMeso {
                 if (index != -1) {
                     val label = labels[index]
                     labelList.add(label)
-                } else {
-                    UtilityLog.d("wxDEBUG", it + " -1 index " + MyApplication.spcMesoFav)
                 }
             }
         }
@@ -67,15 +63,11 @@ object UtilitySpcMeso {
 
     fun getLabelFromParam(param: String): String {
         val index = params.indexOf(param)
-        val label = labels[index]
-        return label
+        return labels[index]
     }
-
-    //var swipePosition = 0
 
     internal fun moveForward(list: List<String>): Int {
         val param = list.safeGet(0)
-        UtilityLog.d("wx", "DEBUG: " + list)
         if (list.size > 3) {
             var swipePosition = list.lastIndexOf(param)
             swipePosition += 1
@@ -92,17 +84,16 @@ object UtilitySpcMeso {
 
     internal fun moveBack(list: List<String>): Int {
         val param = list.safeGet(0)
-        UtilityLog.d("wx", "DEBUG: " + list)
-        if (list.size > 3) {
+        return if (list.size > 3) {
             var swipePosition = list.lastIndexOf(param)
             swipePosition -= 1
-            return if (swipePosition > 2) {
+            if (swipePosition > 2) {
                 swipePosition
             } else {
                 list.size - 1
             }
         } else {
-            return 0
+            0
         }
     }
 
@@ -171,53 +162,14 @@ object UtilitySpcMeso {
 
     internal fun setParamFromFav(token: String): String {
         var param = ""
-        //var label = ""
         val tmpArr = MyApplication.spcMesoFav.split(":").dropLastWhile { it.isEmpty() }
-        //val tmpArrLabel = MyApplication.spcmesoLabelFav.split(":").dropLastWhile { it.isEmpty() }
         when (token) {
-            "SPCMESO1" ->
-                if (tmpArr.size > 3) {
-                    param = tmpArr[3]
-                    //label = tmpArrLabel[3]
-                } else {
-                    param = "500mb"
-                    //label = "500mb Analysis"
-                }
-            "SPCMESO2" -> if (tmpArr.size > 4) {
-                param = tmpArr[4]
-                //label = tmpArrLabel[4]
-            } else {
-                param = "pmsl"
-                //label = "MSL Pressure/Wind"
-            }
-            "SPCMESO3" -> if (tmpArr.size > 5) {
-                param = tmpArr[5]
-                //label = tmpArrLabel[5]
-            } else {
-                param = "ttd"
-                //label = "Temp/Dewpt/Wind"
-            }
-            "SPCMESO4" -> if (tmpArr.size > 6) {
-                param = tmpArr[6]
-                //label = tmpArrLabel[6]
-            } else {
-                param = "rgnlrad"
-                //label = "Radar"
-            }
-            "SPCMESO5" -> if (tmpArr.size > 7) {
-                param = tmpArr[7]
-                //label = tmpArrLabel[7]
-            } else {
-                param = "lllr"
-                //label = "Low-Level Lapse Rates"
-            }
-            "SPCMESO6" -> if (tmpArr.size > 8) {
-                param = tmpArr[8]
-                //label = tmpArrLabel[8]
-            } else {
-                param = "laps"
-                //label = "Mid-Level Lapse Rates"
-            }
+            "SPCMESO1" -> param = if (tmpArr.size > 3) tmpArr[3] else "500mb"
+            "SPCMESO2" -> param = if (tmpArr.size > 4) tmpArr[4] else "pmsl"
+            "SPCMESO3" -> param = if (tmpArr.size > 5) tmpArr[5] else "ttd"
+            "SPCMESO4" -> param = if (tmpArr.size > 6) tmpArr[6] else "rgnlrad"
+            "SPCMESO5" -> param = if (tmpArr.size > 7) tmpArr[7] else "lllr"
+            "SPCMESO6" -> param = if (tmpArr.size > 8) tmpArr[8] else "laps"
         }
         return param
     }

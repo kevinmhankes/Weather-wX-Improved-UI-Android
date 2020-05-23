@@ -50,7 +50,6 @@ class FavRemoveActivity : BaseActivity() {
 
     private var favorites = mutableListOf<String>()
     private var favoriteString = ""
-    //private var favoriteLabel = ""
     private var prefToken = ""
     private var prefTokenLocation = ""
     private var labels = mutableListOf<String>()
@@ -95,7 +94,6 @@ class FavRemoveActivity : BaseActivity() {
             }
             "SPCMESO" -> {
                 prefToken = "SPCMESO_FAV"
-                //prefTokenLabel = "SPCMESO_LABEL_FAV"
                 verboseTitle = "parameters"
             }
         }
@@ -143,21 +141,9 @@ class FavRemoveActivity : BaseActivity() {
             favorites[0] = tmp
             objectRecyclerView.setItem(0, getFullString(tmp))
         }
-        when (type) {
-            "SPCMESO" -> {
-                favoriteString = initialValue
-                favorites.forEach { favoriteString += ":$it" }
-                Utility.writePref(this, prefToken, "$favoriteString:")
-                //favoriteLabel = initialValue
-                //favoriteLabel += objectRecyclerView.toString()
-                //Utility.writePref(this, prefTokenLabel, favoriteLabel)
-            }
-            else -> {
-                favoriteString = initialValue
-                favorites.forEach { favoriteString += ":$it" }
-                Utility.writePref(this, prefToken, "$favoriteString:")
-            }
-        }
+        favoriteString = initialValue
+        favorites.forEach { favoriteString += ":$it" }
+        Utility.writePref(this, prefToken, "$favoriteString:")
     }
 
     private fun moveDown(pos: Int) {
@@ -182,13 +168,6 @@ class FavRemoveActivity : BaseActivity() {
         favoriteString = initialValue
         favorites.forEach { favoriteString += ":$it" }
         Utility.writePref(this, prefToken, "$favoriteString:")
-        when (type) {
-            "SPCMESO" -> {
-                //favoriteLabel = initialValue
-                //favoriteLabel += objectRecyclerView.toString()
-                //Utility.writePref(this, prefTokenLabel, favoriteLabel)
-            }
-        }
     }
 
     private fun getFullString(shortCode: String): String {
@@ -241,7 +220,6 @@ class FavRemoveActivity : BaseActivity() {
                 favoriteString = Utility.readPref(this, prefToken, " : :")
                 favoriteString = favoriteString.replace(favorites[position] + ":", "")
                 objectRecyclerView.deleteItem(position)
-                //favoriteLabel = initialValue + objectRecyclerView.toString()
                 Utility.writePref(this, prefToken, favoriteString)
                 saveMyApp(favoriteString)
             }
