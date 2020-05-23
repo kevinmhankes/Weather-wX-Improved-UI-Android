@@ -14,6 +14,11 @@
 // TODO [REF] cleanup external stuff
 // TODO [FIX] remove usage of always show icons in menus
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
+// TODO [ADD] Consider optional fab to open drawer
+// TODO [ADD] obs site move to top toolbar, if no last used, use closest
+// TODO [FIX] Twitter state selector
+// TODO [FIX] allwhite Canada legal disclaimo
+// TODO [FIX] wfo notification filter allwhite
 
 55465 2020_05_23
 55464 2020_05_23    [ADD] remove spinner from CA radar
