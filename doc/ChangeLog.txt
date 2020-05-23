@@ -16,10 +16,10 @@
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
 // TODO [ADD] Consider optional fab to open drawer
 // TODO [ADD] obs site move to top toolbar, if no last used, use closest
-// TODO [FIX] Twitter state selector
 
 55465 2020_05_23    [FIX] wfo notification filter allwhite
                     [FIX] allwhite Canada legal disclaimor
+                    [FIX] Twitter state selector
 55464 2020_05_23    [ADD] remove spinner from CA radar
 55463 2020_05_22    [REF] misc
 55462 2020_05_22    [FIX] SPC Meso swipe left/right when no favs
