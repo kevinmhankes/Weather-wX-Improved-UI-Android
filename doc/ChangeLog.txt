@@ -16,6 +16,7 @@
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
 // TODO [ADD] Consider optional fab to open drawer
 
+55466 2020_05_23
 55465 2020_05_23    [FIX] wfo notification filter all white
                     [FIX] all white Canada legal disclaimer
                     [FIX] Twitter state selector
