@@ -30,6 +30,7 @@ import androidx.preference.PreferenceManager
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.util.TypedValue
+import joshuatee.wx.audio.UtilityTts
 
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
@@ -116,6 +117,10 @@ class MyApplication : Application() {
                 .addInterceptor(okHttp3Interceptor)
                 .build()
         UtilityCities.initialize()
+        if (notifTts) {
+            UtilityTts.initTts(applicationContext)
+            UtilityLog.d("wx", "DEBUG: TTS init for notif" )
+        }
         if (!loadedBuffers) initBuffers(this)
         imageCollectionMap = ObjectImagesCollection.initialize()
     }

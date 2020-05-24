@@ -16,6 +16,7 @@
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
 
 55471 2020_05_24    [FIX] VR button missing needs themed color ic_mic_24dp
+                    [FIX] add conditional TTS init in MyApp if notifications use TTS
 55470 2020_05_24    [ADD] ref colormap "nws" which has been in iOS version for some time
                     [ADD] title/subtitle in SPC Meso
                     [FIX] nexrad: animate and then long press to switch site does not stop animate
