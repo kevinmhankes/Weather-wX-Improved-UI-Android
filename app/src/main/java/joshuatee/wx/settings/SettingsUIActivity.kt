@@ -24,6 +24,8 @@ package joshuatee.wx.settings
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.core.app.NavUtils
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
@@ -32,6 +34,8 @@ import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
+import joshuatee.wx.util.UtilityLog
+import joshuatee.wx.util.UtilityShare
 
 import kotlinx.android.synthetic.main.activity_settings_ui.*
 
@@ -361,5 +365,24 @@ class SettingsUIActivity : BaseActivity() {
                 || (UIPreferences.navDrawerMainScreenOnRight != navDrawerMainScreenOnRight)
         )
             UtilityAlertDialog.restart() else super.onBackPressed()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                UtilityLog.d("wx", "DEBUG - home")
+                UIPreferences.navDrawerMainScreen = Utility.readPref(this, "NAV_DRAWER_MAIN_SCREEN", "false").startsWith("t")
+                UIPreferences.navDrawerMainScreenOnRight = Utility.readPref(this, "NAV_DRAWER_MAIN_SCREEN_ON_RIGHT", "true").startsWith("t")
+                if ((UIPreferences.tilesPerRow != tilesPerRowStart)
+                        || (UIPreferences.navDrawerMainScreen != navDrawerMainScreen)
+                        || (UIPreferences.navDrawerMainScreenOnRight != navDrawerMainScreenOnRight)
+                )
+                    UtilityAlertDialog.restart()
+                else
+                    NavUtils.navigateUpFromSameTask(this)
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 }
