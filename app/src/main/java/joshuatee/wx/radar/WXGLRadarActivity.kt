@@ -678,6 +678,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun mapSwitch(radarSite: String) {
+        objectImageMap.hideMap()
         wxglRender.rid = radarSite
         mapShown = false
         radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
@@ -686,13 +687,11 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
         wxglRender.setViewInitial(MyApplication.wxoglSize / 10.0f, 0.0f, 0.0f)
         adjustTiltMenu()
         getContent()
-        //objectSpinner.refreshData(this@WXGLRadarActivity, radarSitesForFavorites)
     }
 
     private fun toggleFavorite() {
         val ridFav = UtilityFavorites.toggleString(this, wxglRender.rid, starButton, prefToken)
         radarSitesForFavorites = UtilityFavorites.setupMenu(this, ridFav, wxglRender.rid, prefToken)
-        //objectSpinner.refreshData(this@WXGLRadarActivity, radarSitesForFavorites)
     }
 
     private fun showRadarScanInfo() { ObjectDialogue(this, WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"")) }
@@ -888,6 +887,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
     private fun longPressRadarSiteSwitch(strName: String) {
         wxglRender.rid = strName.parse(UtilityRadarUI.longPressRadarSiteRegex)
         ridChanged = true
+        stopAnimation()
         mapSwitch(wxglRender.rid)
     }
 
@@ -939,15 +939,19 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
         rl.addView(legend, layoutParams)
     }
 
+    private fun stopAnimation() {
+        inOglAnim = false
+        inOglAnimPaused = false
+        animateButton.setIcon(MyApplication.ICON_PLAY_WHITE)
+        animateButton.title = animateButtonPlayString
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_sector -> {
                 genericDialog(radarSitesForFavorites) {
                     if (radarSitesForFavorites.size > 2) {
-                        inOglAnim = false
-                        inOglAnimPaused = false
-                        animateButton.setIcon(MyApplication.ICON_PLAY_WHITE)
-                        animateButton.title = animateButtonPlayString
+                        stopAnimation()
                         when (it) {
                             1 -> ObjectIntent.favoriteAdd(this, arrayOf("RID"))
                             2 -> ObjectIntent.favoriteRemove(this, arrayOf("RID"))
@@ -957,7 +961,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
                                 } else {
                                     wxglRender.rid = radarSitesForFavorites[it].split(" ").getOrNull(0) ?: ""
                                 }
-                                if (!restarted && !(MyApplication.wxoglRememberLocation && firstRun)) {
+                                /*if (!restarted && !(MyApplication.wxoglRememberLocation && firstRun)) {
                                     img.resetZoom()
                                     img.setZoom(1.0f)
                                     wxglSurfaceView.scaleFactor = MyApplication.wxoglSize / 10.0f
@@ -966,7 +970,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
                                     UtilityWXGLTextObject.showLabels(numberOfPanes, wxglTextObjects)
                                 }
                                 restarted = false
-                                ridChanged = true
+                                ridChanged = true*/
+                                mapSwitch(wxglRender.rid)
                                 radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
                                 getContent()
                             }

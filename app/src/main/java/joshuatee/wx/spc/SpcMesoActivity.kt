@@ -109,6 +109,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
             if (UtilityUI.isLandScape(this)) linearLayout.orientation = LinearLayout.HORIZONTAL
         }
         toolbarBottom.setOnMenuItemClickListener(this)
+        title = "SPC Meso"
         prefModel = activityArguments[2]
         prefSector = prefModel + numPanesAsString + "_SECTOR_LAST_USED"
         prefParam = prefModel + numPanesAsString + "_PARAM_LAST_USED"
@@ -217,7 +218,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
             firstRun = true
         }
         imageLoaded = true
-        if (numPanes > 1) setTitle()
+        setTitle()
     }
 
     private fun getAnimate(frames: Int) = GlobalScope.launch(uiDispatcher) {
@@ -338,12 +339,16 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun setTitle() {
-        UtilityModels.setSubtitleRestoreIMGXYZOOM(displayData.img, toolbar, "(" + (curImg + 1) + ")" + displayData.paramLabel[0] + "/" + displayData.paramLabel[1])
+        if (numPanes > 1)
+            UtilityModels.setSubtitleRestoreIMGXYZOOM(displayData.img, toolbar, "(" + (curImg + 1) + ")" + displayData.paramLabel[0] + "/" + displayData.paramLabel[1])
+        else
+            toolbar.subtitle = displayData.paramLabel[0]
     }
 
     private fun showProductInFavList(index: Int) {
         if (favListParm.count() > index) {
             displayData.param[curImg] = favListParm[index]
+            displayData.paramLabel[curImg] = UtilitySpcMeso.getLabelFromParam(favListParm[index])
             Utility.writePref(this, prefParam + curImg, displayData.param[curImg])
             Utility.writePref(this, prefParamLabel + curImg, displayData.paramLabel[curImg])
             favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])

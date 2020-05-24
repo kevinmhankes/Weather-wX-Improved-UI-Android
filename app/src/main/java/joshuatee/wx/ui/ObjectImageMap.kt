@@ -64,6 +64,16 @@ class ObjectImageMap(
         }
     }
 
+    fun hideMap() {
+        //val toolbarAlpha = toolbar.background.alpha
+        //if (toolbarAlpha == 0) isRadarWithTransparent = true
+        if (map.visibility != View.GONE) {
+            map.visibility = View.GONE
+            views.forEach { it.visibility = View.VISIBLE }
+            if (isRadarWithTransparent) UtilityToolbar.transparentToolbars(toolbar, toolbarBottom)
+        }
+    }
+
     private fun setupMap() {
         views.forEach { it.visibility = View.GONE }
         setupImageMap(context, toolbar, toolbarBottom)
