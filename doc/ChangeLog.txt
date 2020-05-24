@@ -15,7 +15,7 @@
 // TODO [FIX] remove usage of always show icons in menus
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
 
-55470 2020_05_23    [ADD] ref colormap "nws" which has been in iOS version for some time
+55470 2020_05_24    [ADD] ref colormap "nws" which has been in iOS version for some time
 55469 2020_05_23    [REF] misc
 55468 2020_05_23    [FIX] pre SDK26 vis crashes after change in prior release
 55467 2020_05_23    [ADD] GOES, remove bottom toolbar
