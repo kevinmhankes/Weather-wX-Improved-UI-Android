@@ -40,6 +40,7 @@ object UtilityColorPalette {
                 "CUST", "CODE" -> fileId = R.raw.colormaprefcode
                 "NSSL" -> fileId = R.raw.colormaprefnssl
                 "NWSD" -> fileId = R.raw.colormaprefnwsd
+                "NWS" -> fileId = R.raw.colormaprefnws
                 "COD", "CODENH" -> fileId = R.raw.colormaprefcodenh
                 "MENH" -> fileId = R.raw.colormaprefmenh
                 else -> text = Utility.readPref(context, "RADAR_COLOR_PAL_" + product + "_" + code, "")

@@ -93,6 +93,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
                     allItems.add(TileObjectColorPalette("CODE", toolbar, prefToken, this@SettingsColorPaletteActivity, type, true))
                     allItems.add(TileObjectColorPalette("NSSL", toolbar, prefToken, this@SettingsColorPaletteActivity, type, true))
                     allItems.add(TileObjectColorPalette("NWSD", toolbar, prefToken, this@SettingsColorPaletteActivity, type, true))
+                    allItems.add(TileObjectColorPalette("NWS", toolbar, prefToken, this@SettingsColorPaletteActivity, type, true))
                     allItems.add(TileObjectColorPalette("AF", toolbar, prefToken, this@SettingsColorPaletteActivity, type, true))
                     allItems.add(TileObjectColorPalette("EAK", toolbar, prefToken, this@SettingsColorPaletteActivity, type, true))
                     val prefArr = MyApplication.radarColorPaletteList[94]!!.split(":").dropLastWhile { it.isEmpty() }
