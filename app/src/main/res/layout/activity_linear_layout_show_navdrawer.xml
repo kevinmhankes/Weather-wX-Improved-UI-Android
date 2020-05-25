@@ -23,14 +23,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+ <!--   <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent">-->
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_above="@id/toolbar_bottom"
             android:orientation="vertical">
 
             <include layout="@layout/widget_toolbar_top" />
@@ -51,7 +50,7 @@
 
             </ScrollView>
         </LinearLayout>
-    </RelativeLayout>
+<!--    </RelativeLayout>-->
 
     <ListView
         android:id="@+id/left_drawer"
