@@ -14,6 +14,7 @@
 // TODO [REF] cleanup external stuff
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
 
+55475 2020_05_25
 55474 2020_05_25    [REF] misc
 55473 2020_05_24    [FIX] add try/catch to at joshuatee.wx.radarcolorpalettes.ObjectColorPalette.putInt
 55472 2020_05_24    [FIX] if in settings -> UI , toggle the new nav drawer and use the top arrow instead of the bottom, it will crash
