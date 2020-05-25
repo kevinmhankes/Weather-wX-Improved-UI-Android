@@ -38,9 +38,7 @@ internal class AdapterSpotter(private val dataSet: MutableList<Spotter>) : Recyc
     internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         val name = ObjectTextView(itemView, R.id.name, UIPreferences.textHighlightColor, TextSize.MEDIUM)
-        //val email = ObjectTextView(itemView, R.id.email, backgroundText = true)
         val time = ObjectTextView(itemView, R.id.time, backgroundText = true)
-        //val phone = ObjectTextView(itemView, R.id.phone, backgroundText = true)
 
         init {
             ObjectCard(itemView, R.id.cv1)
@@ -64,24 +62,6 @@ internal class AdapterSpotter(private val dataSet: MutableList<Spotter>) : Recyc
     override fun onBindViewHolder(holder: DataObjectHolder, position: Int) {
         holder.name.text = dataSet[position].lastName + ", " + dataSet[position].firstName
         holder.time.text = dataSet[position].reportAt
-       /* holder.email.text = dataSet[position].email.replace(MyApplication.newline, " ")
-        holder.email.setOnClickListener(View.OnClickListener {
-            // TODO add to ObjectIntent
-            val intent = Intent(Intent.ACTION_SENDTO)
-            intent.data = Uri.parse("mailto:")
-            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(holder.email.text))
-            intent.putExtra(Intent.EXTRA_SUBJECT, "")
-            holder.email.context.startActivity(Intent.createChooser(intent, "Send Email"))
-        })
-        holder.phone.text = dataSet[position].phone.replace(MyApplication.newline, " ")
-        holder.phone.setOnClickListener(View.OnClickListener {
-            val telephonyManager = holder.phone.context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-            if (telephonyManager.phoneType != TelephonyManager.PHONE_TYPE_NONE) {
-                val intent = Intent(Intent.ACTION_DIAL)
-                intent.data = Uri.parse("tel:" + dataSet[position].phone)
-                holder.phone.context.startActivity(intent)
-            }
-        })*/
     }
 
     override fun getItemCount() = dataSet.size
