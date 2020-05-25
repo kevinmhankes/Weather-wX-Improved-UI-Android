@@ -13,6 +13,8 @@
 // TODO [REF] rename files/classes in radar folder
 // TODO [REF] cleanup external stuff
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
+// TODO [REF] radarHeight in NexradL3
+// TODO [ADD] better verbiage for PIN
 
 55475 2020_05_25
 55474 2020_05_25    [REF] misc
