@@ -89,7 +89,7 @@ class Location(val context: Context, locNumInt: Int) {
         addToListOfNames(name)
     }
 
-    fun saveLocationToNewSlot(newLocNumInt: Int) {
+    fun saveToNewSlot(newLocNumInt: Int) {
         val iStr = (newLocNumInt + 1).toString()
         Utility.writePref(context, "ALERT" + iStr + "_NOTIFICATION", alertNotificationCurrent)
         Utility.writePref(context, "ALERT_CC" + iStr + "_NOTIFICATION", alertCcNotificationCurrent)

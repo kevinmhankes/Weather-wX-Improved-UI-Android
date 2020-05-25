@@ -126,13 +126,13 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         if (position > 0) {
             val locA = Location(this, position - 1)
             val locB = Location(this, position)
-            locA.saveLocationToNewSlot(position)
-            locB.saveLocationToNewSlot(position - 1)
+            locA.saveToNewSlot(position)
+            locB.saveToNewSlot(position - 1)
         } else {
             val locA = Location(this, Location.numLocations - 1)
             val locB = Location(this, 0)
-            locA.saveLocationToNewSlot(0)
-            locB.saveLocationToNewSlot(Location.numLocations - 1)
+            locA.saveToNewSlot(0)
+            locB.saveToNewSlot(Location.numLocations - 1)
         }
         settingsLocationAdapterList.notifyDataSetChanged()
     }
@@ -141,13 +141,13 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         if (position < Location.numLocations - 1) {
             val locA = Location(this, position)
             val locB = Location(this, position + 1)
-            locA.saveLocationToNewSlot(position + 1)
-            locB.saveLocationToNewSlot(position)
+            locA.saveToNewSlot(position + 1)
+            locB.saveToNewSlot(position)
         } else {
             val locA = Location(this, position)
             val locB = Location(this, 0)
-            locA.saveLocationToNewSlot(0)
-            locB.saveLocationToNewSlot(position)
+            locA.saveToNewSlot(0)
+            locB.saveToNewSlot(position)
         }
         settingsLocationAdapterList.notifyDataSetChanged()
     }
