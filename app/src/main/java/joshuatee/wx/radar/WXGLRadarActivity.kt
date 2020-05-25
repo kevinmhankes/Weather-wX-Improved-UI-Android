@@ -696,62 +696,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     private fun showRadarScanInfo() { ObjectDialogue(this, WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"")) }
 
-    /*override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-        (parent.getChildAt(0) as TextView).setTextColor(Color.WHITE)
-        if (radarSitesForFavorites.size > 2) {
-            inOglAnim = false
-            inOglAnimPaused = false
-            animateButton.setIcon(MyApplication.ICON_PLAY_WHITE)
-            animateButton.title = animateButtonPlayString
-            when (position) {
-                1 -> ObjectIntent.favoriteAdd(this, arrayOf("RID"))
-                2 -> ObjectIntent.favoriteRemove(this, arrayOf("RID"))
-                else -> {
-                    if (radarSitesForFavorites[position] == " ") {
-                        wxglRender.rid = joshuatee.wx.settings.Location.rid
-                    } else {
-                        wxglRender.rid = radarSitesForFavorites[position].split(" ").getOrNull(0) ?: ""
-                    }
-                    if (!restarted && !(MyApplication.wxoglRememberLocation && firstRun)) {
-                        img.resetZoom()
-                        img.setZoom(1.0f)
-                        wxglSurfaceView.scaleFactor = MyApplication.wxoglSize / 10.0f
-                        wxglRender.setViewInitial(MyApplication.wxoglSize / 10.0f, 0.0f, 0.0f)
-                        // ADD Apr 2020 to fix issue when switching via map to new location
-                        UtilityWXGLTextObject.showLabels(numberOfPanes, wxglTextObjects)
-                    }
-                    restarted = false
-                    ridChanged = true
-                    getContent()
-                }
-            }
-            if (firstTime) {
-                UtilityToolbar.fullScreenMode(toolbar, toolbarBottom)
-                firstTime = false
-            }
-        }
-        UtilityUI.immersiveMode(this)
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>) {}*/
-
-   /* override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_sector -> genericDialog(GlobalArrays.states) {
-                if (firstTime) {
-                    UtilityToolbar.fullScreenMode(this)
-                    firstTime = false
-                }
-                img.setZoom(1.0f)
-                state = GlobalArrays.states[it].split(":")[0]
-                getContent()
-            }
-            R.id.action_share -> UtilityShare.shareBitmap(this, this, "$state SWO D$day", bitmap)
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
-    }*/
-
     private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
         val objectDialogue = ObjectDialogue(this, list)
         objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->

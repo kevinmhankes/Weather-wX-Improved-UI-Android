@@ -94,11 +94,6 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener {
                 calledFromHomeScreen = true
             }
         }
-        //val menu = toolbarBottom.menu
-        //actionBack = menu.findItem(R.id.action_back)
-        //actionForward = menu.findItem(R.id.action_forward)
-        //actionBack.isVisible = false
-        //actionForward.isVisible = false
         UtilityWpcImages.createData()
         drw = ObjectNavDrawerCombo(this, UtilityWpcImages.groups, UtilityWpcImages.longCodes, UtilityWpcImages.shortCodes, this, "WPG_IMG")
         drw.setListener(::getContentFixThis)
@@ -117,26 +112,13 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        val getUrl: String
         if (!calledFromHomeScreen) {
             title = "Images"
             toolbar.subtitle = drw.getLabel()
-            when {
-                drw.getUrl().contains("https://graphical.weather.gov/images/conus/") -> {
-                    getUrl = drw.getUrl() + timePeriod + "_conus.png"
-                    ///actionBack.isVisible = true
-                    //actionForward.isVisible = true
-                }
-                drw.getUrl().contains("aviationweather") -> {
-                    //actionBack.isVisible = true
-                    //actionForward.isVisible = true
-                    getUrl = drw.getUrl()
-                }
-                else -> {
-                    //actionBack.isVisible = false
-                    //actionForward.isVisible = false
-                    getUrl = drw.getUrl()
-                }
+            val getUrl = when {
+                drw.getUrl().contains("https://graphical.weather.gov/images/conus/") -> drw.getUrl() + timePeriod + "_conus.png"
+                drw.getUrl().contains("aviationweather") -> drw.getUrl()
+                else -> drw.getUrl()
             }
             Utility.writePref(this@WpcImagesActivity, "WPG_IMG_FAV_URL", drw.getUrl())
             Utility.writePref(this@WpcImagesActivity, "WPG_IMG_IDX", drw.imgIdx)
@@ -190,9 +172,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        when (v.id) {
-            R.id.iv -> UtilityToolbar.showHide(toolbar, toolbarBottom)
-        }
+        when (v.id) {R.id.iv -> UtilityToolbar.showHide(toolbar, toolbarBottom) }
     }
 
     override fun onStop() {
