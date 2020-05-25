@@ -15,7 +15,7 @@
 // TODO [FIX] remove usage of always show icons in menus
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
 
-55473 2020_05_24
+55473 2020_05_24    [FIX] add try/catch to at joshuatee.wx.radarcolorpalettes.ObjectColorPalette.putInt
 55472 2020_05_24    [FIX] if in settings -> UI , toggle the new nav drawer and use the top arrow instead of the bottom, it will crash
 55471 2020_05_24    [FIX] VR button missing needs themed color ic_mic_24dp
                     [FIX] add conditional TTS init in MyApp if notifications use TTS
