@@ -60,7 +60,7 @@ class ForecastActivity : BaseActivity() {
     private var objectCurrentConditions = ObjectCurrentConditions()
     private var objectHazards = ObjectHazards()
     private var objectSevenDay = ObjectSevenDay()
-    private var ccTime = ""
+    private var currentConditionsTime = ""
     private var radarTime = ""
     private lateinit var objectCardCurrentConditions: ObjectCardCurrentConditions
     private lateinit var linearLayoutForecast: ObjectLinearLayout
@@ -111,8 +111,8 @@ class ForecastActivity : BaseActivity() {
         // CC
         //
         objectCardCurrentConditions.let {
-            ccTime = objectCurrentConditions.status
-            if (bitmapForCurrentCondition != null) it.updateContent(bitmapForCurrentCondition!!, objectCurrentConditions, true, ccTime, radarTime)
+            currentConditionsTime = objectCurrentConditions.status
+            if (bitmapForCurrentCondition != null) it.updateContent(bitmapForCurrentCondition!!, objectCurrentConditions, true, currentConditionsTime, radarTime)
         }
         //
         // 7day
@@ -168,7 +168,7 @@ class ForecastActivity : BaseActivity() {
 
     private fun saveLocation() = GlobalScope.launch(uiDispatcher) {
         withContext(Dispatchers.IO) {
-            val message = Location.locationSave(this@ForecastActivity, latLon)
+            val message = Location.save(this@ForecastActivity, latLon)
             UtilityUI.makeSnackBar(linearLayout, message)
         }
     }

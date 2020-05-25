@@ -232,10 +232,10 @@ class Location(val context: Context, locNumInt: Int) {
             return listOf(wfo, radarStation)
         }
 
-        fun locationSave(context: Context, latLon: LatLon) =
-                locationSave(context, (numLocations + 1).toString(), latLon.latString, latLon.lonString, latLon.toString())
+        fun save(context: Context, latLon: LatLon) =
+                save(context, (numLocations + 1).toString(), latLon.latString, latLon.lonString, latLon.toString())
 
-        fun locationSave(context: Context, locNum: String, xStr: String, yStr: String, labelStr: String): String {
+        fun save(context: Context, locNum: String, xStr: String, yStr: String, labelStr: String): String {
             if (xStr == "" || yStr == "" || labelStr == "") return "Location label, latitude, and longitude all must have valid values, please try again."
             val locNumInt = locNum.toIntOrNull() ?: 0
             val locNumIntCurrent = numLocations
@@ -292,7 +292,7 @@ class Location(val context: Context, locNumInt: Int) {
             currentLocationStr = locNum
         }
 
-        fun deleteLocation(context: Context, locToDeleteStr: String) {
+        fun delete(context: Context, locToDeleteStr: String) {
             val locToDeleteInt = locToDeleteStr.toIntOrNull() ?: 0
             val locNumIntCurrent = numLocations
             val locNumIntCurrentStr = locNumIntCurrent.toString()

@@ -171,6 +171,7 @@ object UtilityLocation {
         return LatLon(x, y)
     }
 
+    // TODO retire in Summer 2020
     fun checkRoamingLocation(context: Context, locNum: String, xStr: String, yStr: String) {
         val currentXY = getGps(context)
         val roamingLocationDistanceCheck = Utility.readPref(context, "ROAMING_LOCATION_DISTANCE_CHECK", 5)
@@ -179,7 +180,7 @@ object UtilityLocation {
         val currentDistance = LatLon.distance(LatLon(currentXY[0], currentXY[1]), LatLon(locX, locY), DistanceUnit.NAUTICAL_MILE)
         if (currentDistance > roamingLocationDistanceCheck && (currentXY[0] > 1.0 || currentXY[0] < -1.0) && (currentXY[1] > 1.0 || currentXY[1] < -1.0)) {
             val date = UtilityTime.getDateAsString("MM-dd-yy HH:mm:SS Z")
-            joshuatee.wx.settings.Location.locationSave(context, locNum, currentXY[0].toString(), currentXY[1].toString(), "ROAMING $date")
+            joshuatee.wx.settings.Location.save(context, locNum, currentXY[0].toString(), currentXY[1].toString(), "ROAMING $date")
         }
     }
 

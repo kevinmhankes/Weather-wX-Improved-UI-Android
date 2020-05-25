@@ -112,7 +112,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
 
     private fun delete(position: Int) {
         if (settingsLocationAdapterList.itemCount > 1) {
-            Location.deleteLocation(this, (position + 1).toString())
+            Location.delete(this, (position + 1).toString())
             settingsLocationAdapterList.deleteItem(position)
             settingsLocationAdapterList.notifyDataSetChanged()
             updateTitle()

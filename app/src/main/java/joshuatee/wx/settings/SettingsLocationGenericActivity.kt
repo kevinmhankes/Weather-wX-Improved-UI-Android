@@ -286,7 +286,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         var toastStr = ""
         var xLoc = ""
         withContext(Dispatchers.IO) {
-            toastStr = Location.locationSave(this@SettingsLocationGenericActivity, locNum, xStr, yStr, labelStr)
+            toastStr = Location.save(this@SettingsLocationGenericActivity, locNum, xStr, yStr, labelStr)
             xLoc = xStr
         }
         showMessage(toastStr)
@@ -369,7 +369,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
     }
 
     private fun delete() {
-        Location.deleteLocation(this, locNum)
+        Location.delete(this, locNum)
         afterDelete()
         showMessage("Deleted location: $locNum ($locLabelCurrent)")
         UtilityWXJobService.startService(this)
