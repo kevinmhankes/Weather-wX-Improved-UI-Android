@@ -113,6 +113,7 @@ class WXGLNexradLevel3 internal constructor() {
             // index 2,3 is long as Int
             val latitudeOfRadar = dis.readInt() / 1000.0
             val longitudeOfRadar = dis.readInt() / 1000.0
+            // TODO refactor like swift
             val heightOfRadar = dis.readUnsignedShort().toShort()
             radarHeight = heightOfRadar.toInt()
             productCode = dis.readUnsignedShort().toShort()
