@@ -56,7 +56,7 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
     private var bitmap = UtilityImg.getBlankBitmap()
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.afd_top, menu)
+        menuInflater.inflate(R.menu.spcsoundings_top, menu)
         return true
     }
 

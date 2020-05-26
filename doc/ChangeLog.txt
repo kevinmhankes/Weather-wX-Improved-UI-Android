@@ -5,14 +5,14 @@
 // TODO [ADD] us alerts - optimization for landscape
 // TODO [FIX] chromeOS: text size for observations in nexrad
 // TODO [FIX] Android toggle cities on off main screen not working
-// TODO [REF] remove roaming location feature
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
 // TODO [FIX] nexrad cities performance
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
 
-55476 2020_05_26
+55476 2020_05_26    [REF] misc
+                    [REF] remove roaming location feature
 55475 2020_05_26    [FIX] possible fix joshuatee.wx.notifications.UtilityNotificationSpc.sendMcdLocationNotifications (UtilityNotificationSpc.kt:182) java.lang.ArrayIndexOutOfBoundsException:
                     [REF] remove unused xml layout and drawables
                     [REF] remove useless relative layouts in xml: hourly, spc swo state, cardview_spotter

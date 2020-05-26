@@ -41,7 +41,6 @@ import joshuatee.wx.activitiesmisc.TextScreenActivity
 import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.fragments.UtilityNws
 import joshuatee.wx.radar.WXGLRadarActivity
-import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.audio.VoiceCommandActivity
 import joshuatee.wx.canada.CanadaHourlyActivity

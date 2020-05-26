@@ -430,9 +430,9 @@ Use Millibars instead of inches.</string>
  Interval for updating current conditions and seven day for selected location. Setting this to 0 will disable updates on the homescreen.
     The only way to trigger updates aside from app restarts would be to touch the status text under the current conditions.
     </string>
-    <string name="roaming_location_distance_check_np_label">
+   <!-- <string name="roaming_location_distance_check_np_label">
 If using a roaming location the amount of miles traveled before a location change is checked for.
-    </string>
+    </string>-->
 
     <string name="cc_interval_np_label">
         Check interval for widget data in minutes.

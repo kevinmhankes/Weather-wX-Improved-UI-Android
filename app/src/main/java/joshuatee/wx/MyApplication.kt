@@ -229,7 +229,7 @@ class MyApplication : Application() {
         var alertNotificationSoundTornadoCurrent = false
         var alertNotificationSoundSpcmcd = false
         var alertNotificationSoundWpcmpd = false
-        var alertNotificationSoundNhcEpac = false
+        //var alertNotificationSoundNhcEpac = false
         var alertNotificationSoundNhcAtl = false
         var alertNotificationSoundSpcwat = false
         var alertNotificationSoundSpcswo = false
@@ -395,7 +395,7 @@ class MyApplication : Application() {
             alertNotificationSoundTornadoCurrent = getInitialPreference("ALERT_NOTIFICATION_SOUND_TORNADO", "false")
             alertNotificationSoundSpcmcd = getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCMCD", "false")
             alertNotificationSoundWpcmpd = getInitialPreference("ALERT_NOTIFICATION_SOUND_WPCMPD", "false")
-            alertNotificationSoundNhcEpac = getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_EPAC", "false")
+            //alertNotificationSoundNhcEpac = getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_EPAC", "false")
             alertNotificationSoundNhcAtl = getInitialPreference("ALERT_NOTIFICATION_SOUND_NHC_ATL", "false")
             alertNotificationSoundSpcwat = getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCWAT", "false")
             alertNotificationSoundSpcswo = getInitialPreference("ALERT_NOTIFICATION_SOUND_SPCSWO", "false")
