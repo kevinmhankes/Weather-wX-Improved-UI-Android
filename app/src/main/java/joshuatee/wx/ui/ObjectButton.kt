@@ -26,6 +26,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.view.View
 import com.google.android.material.button.MaterialButton
+import joshuatee.wx.Extensions.setPadding
 import joshuatee.wx.util.Utility
 
 class ObjectButton(context: Context, title: String, icon: Int) {
@@ -40,7 +41,7 @@ class ObjectButton(context: Context, title: String, icon: Int) {
         button.text = title
         button.setIconResource(icon)
         button.setBackgroundColor(Color.TRANSPARENT)
-        button.setPadding(padding, padding, padding, padding)
+        button.setPadding(padding)
         if (Utility.isThemeAllWhite()) button.iconTintMode = PorterDuff.Mode.DARKEN
         if (Utility.isThemeAllBlack()) button.iconTintMode = PorterDuff.Mode.LIGHTEN
     }

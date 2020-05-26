@@ -118,7 +118,6 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
                     objectCardAlertSummaryItem.setListener(View.OnClickListener { showWarningDetails(url) })
                     objectCardAlertSummaryItem.radarButton.setOnClickListener(View.OnClickListener { radarInterface(nwsOffice) })
                     objectCardAlertSummaryItem.detailsButton.setOnClickListener(View.OnClickListener { showWarningDetails(url) })
-                    //objectCardAlertSummaryItem.locationButton.setOnClickListener(View.OnClickListener { addLocation(firstZone, firstCounty, uiDispatcher) })
                     linearLayout.addView(objectCardAlertSummaryItem.card)
                     i += 1
                 }
