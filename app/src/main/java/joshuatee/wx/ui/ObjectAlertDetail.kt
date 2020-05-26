@@ -23,6 +23,7 @@ package joshuatee.wx.ui
 
 import android.content.Context
 import android.widget.LinearLayout
+import joshuatee.wx.Extensions.parseMultiple
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
@@ -60,13 +61,13 @@ class ObjectAlertDetail(val context: Context, linearLayout: LinearLayout) {
         } else {
             if (!url.contains("NWS-IDP-PROD")) {
                 if (capAlert.title.contains("until")) {
-                    val items = UtilityString.parseMultiple(capAlert.title, "(.*?) issued (.*?) until (.*?) by (.*?)$", 4)
+                    val items = capAlert.title.parseMultiple("(.*?) issued (.*?) until (.*?) by (.*?)$", 4)
                     title = items[0]
                     startTime = items[1]
                     endTime = items[2]
                     wfo = items[3]
                 } else {
-                    val items = UtilityString.parseMultiple(capAlert.title, "(.*?) issued (.*?) by (.*?)$", 3)
+                    val items = capAlert.title.parseMultiple("(.*?) issued (.*?) by (.*?)$", 3)
                     title = items[0]
                     startTime = items[1]
                     wfo = items[2]
@@ -74,21 +75,21 @@ class ObjectAlertDetail(val context: Context, linearLayout: LinearLayout) {
             } else {
                 when {
                     capAlert.title.contains("expiring") -> {
-                        val items = UtilityString.parseMultiple(capAlert.title, "(.*?) issued (.*?) expiring (.*?) by (.*?)$", 4)
+                        val items = capAlert.title.parseMultiple("(.*?) issued (.*?) expiring (.*?) by (.*?)$", 4)
                         title = items[0]
                         startTime = items[1]
                         endTime = items[2]
                         wfo = items[3]
                     }
                     capAlert.title.contains("until") -> {
-                        val items = UtilityString.parseMultiple(capAlert.title, "(.*?) issued (.*?) until (.*?) by (.*?)$", 4)
+                        val items = capAlert.title.parseMultiple("(.*?) issued (.*?) until (.*?) by (.*?)$", 4)
                         title = items[0]
                         startTime = items[1]
                         endTime = items[2]
                         wfo = items[3]
                     }
                     else -> {
-                        val items = UtilityString.parseMultiple(capAlert.title, "(.*?) issued (.*?) by (.*?)$", 3)
+                        val items = capAlert.title.parseMultiple("(.*?) issued (.*?) by (.*?)$", 3)
                         title = items[0]
                         startTime = items[1]
                         wfo = items[2]
