@@ -76,6 +76,8 @@ fun String.parseLastMatch(match: String) = UtilityString.parseLastMatch(this, ma
 
 fun String.parseMultiple(match: String, count: Int) = UtilityString.parseMultiple(this, match, count)
 
+fun String.parseMultiple(match: Pattern, count: Int) = UtilityString.parseMultiple(this, match, count)
+
 fun String.getInputStream() = UtilityNetworkIO.getInputStreamFromUrl(this)
 
 fun View.setPadding(padding: Int) { this.setPadding(padding, padding, padding, padding) }

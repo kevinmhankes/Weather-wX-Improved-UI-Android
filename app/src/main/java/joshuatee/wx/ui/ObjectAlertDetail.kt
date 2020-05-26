@@ -30,7 +30,6 @@ import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.CapAlert
 import joshuatee.wx.objects.TextSize
-import joshuatee.wx.util.UtilityString
 
 class ObjectAlertDetail(val context: Context, linearLayout: LinearLayout) {
 
