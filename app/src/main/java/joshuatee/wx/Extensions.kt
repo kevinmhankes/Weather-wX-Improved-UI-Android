@@ -30,6 +30,8 @@ import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityNetworkIO
 
+fun Array<String>.safeGet(index: Int) = Utility.safeGet(this, index)
+
 fun List<String>.safeGet(index: Int) = Utility.safeGet(this, index)
 
 fun String.parse(match: String) = UtilityString.parse(this, match)

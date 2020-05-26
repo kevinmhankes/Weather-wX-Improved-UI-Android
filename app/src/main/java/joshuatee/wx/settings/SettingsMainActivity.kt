@@ -186,7 +186,7 @@ class SettingsMainActivity : BaseActivity() {
                         120
                 ).card
         )
-        linearLayout.addView(
+        /*linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Roaming distance check in miles",
@@ -196,7 +196,7 @@ class SettingsMainActivity : BaseActivity() {
                         1,
                         120
                 ).card
-        )
+        )*/
         linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,

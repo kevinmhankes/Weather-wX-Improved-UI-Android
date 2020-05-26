@@ -72,8 +72,8 @@ object UtilityNotification {
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         val tornadoWarningString = "Tornado Warning"
         if (MyApplication.locations.size > locNumInt && MyApplication.locations[locNumInt].notification) {
-            if (Location.getName(locNumInt).contains("ROAMING"))
-                UtilityLocation.checkRoamingLocation(context, locNum, Location.getX(locNumInt), Location.getY(locNumInt))
+            //if (Location.getName(locNumInt).contains("ROAMING"))
+            //    UtilityLocation.checkRoamingLocation(context, locNum, Location.getX(locNumInt), Location.getY(locNumInt))
             var locLabelStr = "(" + Location.getName(locNumInt) + ") "
             var alertPresent = false
             if (Location.isUS(locNumInt)) {

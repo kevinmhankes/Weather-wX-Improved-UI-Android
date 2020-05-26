@@ -176,10 +176,10 @@ internal object UtilityNotificationSpc {
                 val polygonShape = polygonFrame.build()
                 for (n in 1..Location.numLocations) {
                     val locNum = n.toString()
-                    if (MyApplication.locations[n - 1].notificationMcd && mcdNumbers.size > z) {
+                    if (MyApplication.locations[n - 1].notificationMcd) {
                         // if location is watching for MCDs pull ib lat/lon and iterate over polygons
                         // call secondary method to send notif if required
-                        if (polygonShape.contains(Location.getLatLon(n - 1).asPoint())) notifUrls += sendMcdNotification(context, locNum, mcdNumbers[z])
+                        if (polygonShape.contains(Location.getLatLon(n - 1).asPoint())) notifUrls += sendMcdNotification(context, locNum, mcdNumbers.safeGet(z))
                     }
                 }
             }

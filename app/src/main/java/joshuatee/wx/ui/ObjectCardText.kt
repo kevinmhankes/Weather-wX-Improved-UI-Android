@@ -37,7 +37,7 @@ import joshuatee.wx.audio.UtilityTtsTranslations
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.TextSize
 
-class ObjectCardText(private val context: Context) {
+class ObjectCardText(context: Context) {
 
     private val objectCard = ObjectCard(context)
     val tv = TextView(context)

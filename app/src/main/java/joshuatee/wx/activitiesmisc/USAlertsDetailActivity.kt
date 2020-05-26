@@ -41,7 +41,7 @@ class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main // CoroutineDispatcher
     private lateinit var activityArguments: Array<String>
     private var capAlert = CapAlert()
     private lateinit var objectAlertDetail: ObjectAlertDetail
@@ -74,7 +74,7 @@ class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (audioPlayMenu(item.itemId, capAlert.text, "alert", "alert")) return true
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(this, capAlert.title + " " + capAlert.area, Utility.fromHtml(capAlert.text))
+            R.id.action_share -> UtilityShare.shareText(this, capAlert.title + " " + capAlert.area, capAlert.text)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

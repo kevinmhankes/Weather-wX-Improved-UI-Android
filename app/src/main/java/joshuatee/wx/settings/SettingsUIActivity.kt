@@ -35,7 +35,6 @@ import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
 import joshuatee.wx.util.UtilityLog
-import joshuatee.wx.util.UtilityShare
 
 import kotlinx.android.synthetic.main.activity_settings_ui.*
 

@@ -18,7 +18,7 @@
 -->
 
 <resources>
-    <string name="label_pin">PIN</string>
+    <string name="label_pin">Add shortcut to home screen</string>
     <string name="radar_shortcut">Radar</string>
     <string name="spcmesoanalysis_shortcut">SPC Mesoanalysis</string>
     <string name="ncepModels_shortcut">NCEP Models</string>

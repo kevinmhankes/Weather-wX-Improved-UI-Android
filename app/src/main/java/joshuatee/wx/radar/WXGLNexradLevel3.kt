@@ -64,6 +64,10 @@ class WXGLNexradLevel3 internal constructor() {
     var oBuff: ByteBuffer = ByteBuffer.allocate(0)
     var radarHeight = 0
     var degree = 0f
+    private var operationalMode: Short = 0
+    private var volumeCoveragePattern: Short = 0
+    private var latitudeOfRadar = 0.0
+    private var longitudeOfRadar = 0.0
 
     init {
         try {
@@ -111,14 +115,13 @@ class WXGLNexradLevel3 internal constructor() {
             // index 4 is radar height
             // index 0,1 is lat as Int
             // index 2,3 is long as Int
-            val latitudeOfRadar = dis.readInt() / 1000.0
-            val longitudeOfRadar = dis.readInt() / 1000.0
-            // TODO refactor like swift
-            val heightOfRadar = dis.readUnsignedShort().toShort()
-            radarHeight = heightOfRadar.toInt()
+            latitudeOfRadar = dis.readInt() / 1000.0
+            longitudeOfRadar = dis.readInt() / 1000.0
+            //val heightOfRadar = dis.readUnsignedShort().toShort()
+            radarHeight = dis.readUnsignedShort()
             productCode = dis.readUnsignedShort().toShort()
-            val operationalMode = dis.readUnsignedShort().toShort()
-            val volumeCoveragePattern = dis.readUnsignedShort().toShort()
+            operationalMode = dis.readUnsignedShort().toShort()
+            volumeCoveragePattern = dis.readUnsignedShort().toShort()
 
             //val sequenceNumber = dis.readUnsignedShort().toShort()
             //val volumeScanNumber = dis.readUnsignedShort().toShort()
@@ -130,15 +133,7 @@ class WXGLNexradLevel3 internal constructor() {
             val volumeScanDate = dis.readUnsignedShort().toShort()
             val volumeScanTime = dis.readInt()
             val d = UtilityTime.radarTime(volumeScanDate, volumeScanTime)
-            val radarInfo = formatRadarString(
-                    d,
-                    operationalMode.toInt(),
-                    productCode.toInt(),
-                    heightOfRadar.toInt(),
-                    latitudeOfRadar,
-                    longitudeOfRadar,
-                    volumeCoveragePattern.toInt()
-            )
+            val radarInfo = formatRadarString(d)
             // Generally speaking radarStatusStr will be blank string for single pane or homescreen
             // and "1", "2", "3", or "4" for multi-pane
             WXGLNexrad.writeRadarInfo(context, radarStatus, radarInfo)
@@ -202,14 +197,15 @@ class WXGLNexradLevel3 internal constructor() {
         final short  number_of_blocks = (short) dis.readUnsignedShort();
         final short  header2 = (short) dis.readUnsignedShort();*/
             dis.skipBytes(20)
-            val latitudeOfRadar = dis.readInt() / 1000.0
-            val longitudeOfRadar = dis.readInt() / 1000.0
-            val heightOfRadar = dis.readUnsignedShort().toShort()
+            latitudeOfRadar = dis.readInt() / 1000.0
+            longitudeOfRadar = dis.readInt() / 1000.0
+            //val heightOfRadar = dis.readUnsignedShort().toShort()
+            radarHeight = dis.readUnsignedShort()
             productCode = dis.readUnsignedShort().toShort()
             // init 4 bit now depends on productCode
             init4Bit()
-            val operationalMode = dis.readUnsignedShort().toShort()
-            val volumeCoveragePattern = dis.readUnsignedShort().toShort()
+            operationalMode = dis.readUnsignedShort().toShort()
+            volumeCoveragePattern = dis.readUnsignedShort().toShort()
 
             //val sequenceNumber = dis.readUnsignedShort().toShort()
             //val volumeScanNumber = dis.readUnsignedShort().toShort()
@@ -224,15 +220,7 @@ class WXGLNexradLevel3 internal constructor() {
             //final short        product_generation_date = (short) dis.readUnsignedShort();
             //final int        product_generation_time    = dis.readInt() ;
             dis.skipBytes(6)
-            val radarInfo = formatRadarString(
-                    d,
-                    operationalMode.toInt(),
-                    productCode.toInt(),
-                    heightOfRadar.toInt(),
-                    latitudeOfRadar,
-                    longitudeOfRadar,
-                    volumeCoveragePattern.toInt()
-            )
+            val radarInfo = formatRadarString(d)
             WXGLNexrad.writeRadarInfo(context, radarStatus, radarInfo)
             timestamp = radarInfo
             /*final short  p1                        = (short) dis.readUnsignedShort();
@@ -296,20 +284,12 @@ class WXGLNexradLevel3 internal constructor() {
         }
     }
 
-    private fun formatRadarString(
-            date: Date,
-            operationalMode: Int,
-            productCode: Int,
-            heightOfRadar: Int,
-            latitudeOfRadar: Double,
-            longitudeOfRadar: Double,
-            vcp: Int
-    ) = try {
+    private fun formatRadarString(date: Date) = try {
             date.toString() + MyApplication.newline +
                     "Radar Mode: " + operationalMode + MyApplication.newline +
-                    "VCP: " + vcp + MyApplication.newline +
+                    "VCP: " + volumeCoveragePattern + MyApplication.newline +
                     "Product Code: " + productCode + MyApplication.newline +
-                    "Radar height: " + heightOfRadar + MyApplication.newline +
+                    "Radar height: " + radarHeight + MyApplication.newline +
                     "Radar Lat: " + latitudeOfRadar + MyApplication.newline +
                     "Radar Lon: " + longitudeOfRadar
         } catch (e: AssertionError) {

@@ -32,7 +32,6 @@ import joshuatee.wx.GlobalArrays
 import joshuatee.wx.radar.LatLon
 
 import joshuatee.wx.radar.RID
-import joshuatee.wx.util.UtilityTime
 
 import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.util.Utility
@@ -171,8 +170,7 @@ object UtilityLocation {
         return LatLon(x, y)
     }
 
-    // TODO retire in Summer 2020
-    fun checkRoamingLocation(context: Context, locNum: String, xStr: String, yStr: String) {
+    /*fun checkRoamingLocation(context: Context, locNum: String, xStr: String, yStr: String) {
         val currentXY = getGps(context)
         val roamingLocationDistanceCheck = Utility.readPref(context, "ROAMING_LOCATION_DISTANCE_CHECK", 5)
         val locX = xStr.toDoubleOrNull() ?: 0.0
@@ -182,7 +180,7 @@ object UtilityLocation {
             val date = UtilityTime.getDateAsString("MM-dd-yy HH:mm:SS Z")
             joshuatee.wx.settings.Location.save(context, locNum, currentXY[0].toString(), currentXY[1].toString(), "ROAMING $date")
         }
-    }
+    }*/
 
     fun hasAlerts(locNum: Int): Boolean = MyApplication.locations[locNum].notification
             || MyApplication.locations[locNum].notificationMcd

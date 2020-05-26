@@ -49,7 +49,7 @@ object UIPreferences {
     var tilesPerRowDefault = 3
     var themeStr = ""
     var themeInt = 0
-    var smallTextTheme = 0
+    //private var smallTextTheme = 0
     var textHighlightColor = 0
     var textSmallThemeColor = 0
     var themeIsWhite = true
@@ -95,13 +95,13 @@ object UIPreferences {
         themeStr = Utility.readPref(context, "THEME_BLUE", "whiteNew")
         themeInt = Utility.theme(themeStr)
         if (themeInt == R.style.MyCustomTheme_white_NOAB || themeInt == R.style.MyCustomTheme_whiter_NOAB || themeInt == R.style.MyCustomTheme_whitest_NOAB) {
-            smallTextTheme = android.R.style.TextAppearance_Small_Inverse
+            //smallTextTheme = android.R.style.TextAppearance_Small_Inverse
             textSmallThemeColor = Color.GRAY
             textHighlightColor = Color.rgb(14, 71, 161)
             backgroundColor = Color.BLACK
             themeIsWhite = true
         } else {
-            smallTextTheme = android.R.style.TextAppearance_Small
+            //smallTextTheme = android.R.style.TextAppearance_Small
             textSmallThemeColor = Color.LTGRAY
             textHighlightColor = Color.YELLOW
             backgroundColor = Color.WHITE

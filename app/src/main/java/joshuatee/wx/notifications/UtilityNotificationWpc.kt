@@ -32,10 +32,10 @@ import joshuatee.wx.external.ExternalPolygon
 import android.content.Context
 import android.graphics.Color
 import androidx.core.app.NotificationCompat
+import joshuatee.wx.Extensions.safeGet
 
 import joshuatee.wx.objects.PolygonType.MPD
 import joshuatee.wx.radar.LatLon
-import joshuatee.wx.util.Utility
 
 internal object UtilityNotificationWpc {
 
@@ -59,7 +59,7 @@ internal object UtilityNotificationWpc {
                         // if location is watching for MCDs pull ib lat/lon and iterate over polygons
                         // call secondary method to send notification if required
                         val contains = polygon2.contains(Location.getLatLon(n - 1).asPoint())
-                        if (contains) notifUrls += sendMpdNotification(context, locNum, Utility.safeGet(mpdNumbers, z))
+                        if (contains) notifUrls += sendMpdNotification(context, locNum, mpdNumbers.safeGet(z))
                     }
                 }
             }

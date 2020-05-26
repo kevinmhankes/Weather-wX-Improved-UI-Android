@@ -6,17 +6,17 @@
 // TODO [FIX] chromeOS: text size for observations in nexrad
 // TODO [FIX] Android toggle cities on off main screen not working
 // TODO [REF] remove roaming location feature
-// TODO [FIX] Android share text does not preserve line breaks
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
 // TODO [FIX] nexrad cities performance
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
-// TODO [REF] cleanup external stuff
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
-// TODO [REF] radarHeight in NexradL3
-// TODO [ADD] better verbiage for PIN
 
 55475 2020_05_26    [FIX] possible fix joshuatee.wx.notifications.UtilityNotificationSpc.sendMcdLocationNotifications (UtilityNotificationSpc.kt:182) java.lang.ArrayIndexOutOfBoundsException:
+                    [REF] remove unused xml layout and drawables
+                    [REF] remove useless relative layouts in xml: hourly, spc swo state, cardview_spotter
+                    [REF] change menu option label from Pin to Add shortcut to home screen
+                    [FIX] (needs test) Android share text does not preserve line breaks
 55474 2020_05_25    [REF] misc
 55473 2020_05_24    [FIX] add try/catch to at joshuatee.wx.radarcolorpalettes.ObjectColorPalette.putInt
 55472 2020_05_24    [FIX] if in settings -> UI , toggle the new nav drawer and use the top arrow instead of the bottom, it will crash
