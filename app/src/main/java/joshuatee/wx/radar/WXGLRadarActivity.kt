@@ -160,9 +160,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
             super.onCreate(savedInstanceState, R.layout.activity_uswxogl, R.menu.uswxoglradar, iconsEvenlySpaced = true, bottomToolbar = true)
         }
         toolbarBottom.setOnMenuItemClickListener(this)
-        toolbar.setOnClickListener {
-            ObjectIntent(this, SevereDashboardActivity::class.java)
-        }
+        toolbar.setOnClickListener { ObjectIntent(this, SevereDashboardActivity::class.java) }
         UtilityUI.immersiveMode(this)
         if (UIPreferences.radarStatusBarTransparent) {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
