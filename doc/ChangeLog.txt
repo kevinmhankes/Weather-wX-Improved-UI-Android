@@ -1,15 +1,9 @@
 // TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
-// TODO [ADD] use ENUM instead of RID_FAV WFO_FAV SND_FAV (util/UtilityFavorites)
 // TODO [FIX] dual/quad pane radar don't take up the entire screen on chromeOS
-// TODO [ADD] storm reports - optimization for landscape
-// TODO [ADD] us alerts - optimization for landscape
 // TODO [FIX] chromeOS: text size for observations in nexrad
-// TODO [FIX] Android toggle cities on off main screen not working
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
-// TODO [FIX] nexrad cities performance
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
-// TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
 
 55476 2020_05_26    [REF] misc
                     [REF] remove roaming location feature
