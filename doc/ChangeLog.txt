@@ -12,6 +12,7 @@
 // TODO [REF] rename files/classes in radar folder
 // TODO [ADD] in nexrad, customize color legend textual label to show either show or hide but not both
 
+55476 2020_05_26
 55475 2020_05_26    [FIX] possible fix joshuatee.wx.notifications.UtilityNotificationSpc.sendMcdLocationNotifications (UtilityNotificationSpc.kt:182) java.lang.ArrayIndexOutOfBoundsException:
                     [REF] remove unused xml layout and drawables
                     [REF] remove useless relative layouts in xml: hourly, spc swo state, cardview_spotter
