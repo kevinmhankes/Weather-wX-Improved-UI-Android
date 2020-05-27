@@ -179,7 +179,6 @@ class SevereDashboardActivity : BaseActivity() {
         return subTitle
     }
 
-    // className: Class<*>
     private fun showItems(sn: SevereNotice) {
         listOf(sn)
                 .asSequence()
