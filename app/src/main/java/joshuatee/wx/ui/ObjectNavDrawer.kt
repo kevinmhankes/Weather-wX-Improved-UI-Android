@@ -108,7 +108,7 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
         setListener(fn)
     }
 
-    var url = ""
+    val url: String
         get() = tokens[index]
 
     fun getUrlCount() = tokens.size
@@ -120,7 +120,7 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
         return labels[index]
     }
 
-    var token = ""
+    val token: String
         get() {
             if (index >= tokens.size) index = tokens.size - 1
             return tokens[index]

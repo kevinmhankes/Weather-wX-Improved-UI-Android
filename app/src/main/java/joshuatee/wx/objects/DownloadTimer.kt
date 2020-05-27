@@ -23,7 +23,6 @@ package joshuatee.wx.objects
 
 import android.content.Context
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityTime
 
 //
