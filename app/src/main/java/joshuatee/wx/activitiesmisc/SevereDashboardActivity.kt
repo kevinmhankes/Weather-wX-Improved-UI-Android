@@ -51,7 +51,7 @@ class SevereDashboardActivity : BaseActivity() {
     // All data items can be tapped on for further exploration
     //
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private val bitmaps = mutableListOf<Bitmap>()
     private var watchCount = 0
     private var mcdCount = 0

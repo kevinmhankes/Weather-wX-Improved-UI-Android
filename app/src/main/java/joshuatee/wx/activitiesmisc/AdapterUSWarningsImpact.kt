@@ -64,7 +64,5 @@ internal class AdapterUSWarningsImpact(private val dataSet: List<ObjectImpactGra
 
     interface MyClickListener { fun onItemClick(position: Int) }
 
-    companion object {
-        private var myClickListener: MyClickListener? = null
-    }
+    companion object { private var myClickListener: MyClickListener? = null }
 }

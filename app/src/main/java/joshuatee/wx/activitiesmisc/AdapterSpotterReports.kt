@@ -38,10 +38,10 @@ internal class AdapterSpotterReports(private val dataSet: List<SpotterReports>) 
 
     internal class DataObjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        val name = ObjectTextView(itemView, R.id.name, UIPreferences.textHighlightColor, TextSize.MEDIUM)
-        val email = ObjectTextView(itemView, R.id.email, backgroundText = true)
+        val type = ObjectTextView(itemView, R.id.type, UIPreferences.textHighlightColor, TextSize.MEDIUM)
+        val city = ObjectTextView(itemView, R.id.city, backgroundText = true)
         val time = ObjectTextView(itemView, R.id.time, backgroundText = true)
-        val phone = ObjectTextView(itemView, R.id.phone, backgroundText = true)
+        val name = ObjectTextView(itemView, R.id.name, backgroundText = true)
         val summary = ObjectTextView(itemView, R.id.summary, backgroundText = true)
 
         init {
@@ -60,10 +60,10 @@ internal class AdapterSpotterReports(private val dataSet: List<SpotterReports>) 
     }
 
     override fun onBindViewHolder(holder: DataObjectHolder, position: Int) {
-        holder.name.text = dataSet[position].type
+        holder.type.text = dataSet[position].type
         holder.time.text = dataSet[position].time
-        holder.email.text = dataSet[position].city.replace(MyApplication.newline, " ")
-        holder.phone.text = dataSet[position].lastName + ", " + dataSet[position].firstName
+        holder.city.text = dataSet[position].city.replace(MyApplication.newline, " ")
+        holder.name.text = dataSet[position].lastName + ", " + dataSet[position].firstName
         holder.summary.text = dataSet[position].narrative
     }
 
@@ -71,7 +71,5 @@ internal class AdapterSpotterReports(private val dataSet: List<SpotterReports>) 
 
     interface MyClickListener { fun onItemClick(position: Int) }
 
-    companion object {
-        private var myClickListener: MyClickListener? = null
-    }
+    companion object { private var myClickListener: MyClickListener? = null }
 }

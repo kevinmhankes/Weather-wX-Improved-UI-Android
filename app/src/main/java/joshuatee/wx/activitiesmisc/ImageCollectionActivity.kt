@@ -47,11 +47,10 @@ class ImageCollectionActivity : VideoRecordActivity() {
 
     companion object { const val TYPE = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var bitmap = UtilityImg.getBlankBitmap()
     private lateinit var img: ObjectTouchImageView
     private lateinit var drw: ObjectNavDrawer
-    private var actionAnimate: MenuItem? = null
     private lateinit var imageCollection: ObjectImagesCollection
     private lateinit var activityArguments: Array<String>
     private var animDrawable = AnimationDrawable()
@@ -62,9 +61,9 @@ class ImageCollectionActivity : VideoRecordActivity() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        actionAnimate = menu.findItem(R.id.action_animate)
-        actionAnimate!!.isVisible = false
-        if (drw.url.contains("jma") && imageCollection.title == "GOESFD" && actionAnimate != null) actionAnimate!!.isVisible = true
+        val actionAnimate = menu.findItem(R.id.action_animate)
+        actionAnimate.isVisible = false
+        if (drw.url.contains("jma") && imageCollection.title == "GOESFD") actionAnimate.isVisible = true
         return super.onPrepareOptionsMenu(menu)
     }
 

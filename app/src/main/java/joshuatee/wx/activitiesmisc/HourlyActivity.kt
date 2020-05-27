@@ -54,7 +54,7 @@ class HourlyActivity : BaseActivity() {
 
     companion object { const val LOC_NUM = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var htmlShare = listOf<String>()
     private lateinit var objectCard: ObjectCard
     private lateinit var objectCardVerticalText: ObjectCardVerticalText

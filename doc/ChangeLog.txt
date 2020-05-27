@@ -9,6 +9,7 @@
                     [REF] remove roaming location feature
                     [FIX] implement separate timer for SevereDashboard and Radar. If warnings disabled they can essentially be overriden
                     by going into the radar activity before severe dashboard
+                    [REF] rename layout IDs for spotter report card
 55475 2020_05_26    [FIX] possible fix joshuatee.wx.notifications.UtilityNotificationSpc.sendMcdLocationNotifications (UtilityNotificationSpc.kt:182) java.lang.ArrayIndexOutOfBoundsException:
                     [REF] remove unused xml layout and drawables
                     [REF] remove useless relative layouts in xml: hourly, spc swo state, cardview_spotter
