@@ -73,13 +73,11 @@ class ImageCollectionActivity : VideoRecordActivity() {
         activityArguments = intent.getStringArrayExtra(TYPE)!!
         imageCollection = MyApplication.imageCollectionMap[activityArguments[0]]!!
         title = imageCollection.title
-        drw = ObjectNavDrawer(this, imageCollection.labels, imageCollection.urls)
+        drw = ObjectNavDrawer(this, imageCollection.labels, imageCollection.urls, ::getContentFixThis)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, drw, imageCollection.prefTokenIdx)
         img.setListener(this, drw, ::getContentFixThis)
         drw.index = Utility.readPref(this, imageCollection.prefTokenIdx, 0)
-        drw.setListener(::getContentFixThis)
         toolbar.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
-        //toolbarBottom.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
         getContent()
     }
 

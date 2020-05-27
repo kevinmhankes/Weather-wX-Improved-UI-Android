@@ -67,7 +67,7 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var firstTime = true
     private lateinit var activityArguments: Array<String>
     private var product = ""
@@ -80,7 +80,7 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private lateinit var locationList: List<String>
     private val prefToken = "WFO_FAV"
     private var ridFavOld = ""
-    private var version = 0
+    private var version = 1
     private var oldProduct = ""
     private var oldWfo = ""
     private val wfoListPerState = mutableListOf<String>()
@@ -104,8 +104,7 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_afd, R.menu.afd)
         toolbarBottom.setOnMenuItemClickListener(this)
-        drw = ObjectNavDrawer(this, UtilityWfoText.labels, UtilityWfoText.codes)
-        drw.setListener(::getContentFixThis)
+        drw = ObjectNavDrawer(this, UtilityWfoText.labels, UtilityWfoText.codes, ::getContentFixThis)
         UtilityShortcut.hidePinIfNeeded(toolbarBottom)
         objectCardText = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         star = toolbarBottom.menu.findItem(R.id.action_fav)
@@ -122,9 +121,6 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
             product = "RTP$state"
         }
         title = product
-        version = 1
-        oldProduct = ""
-        oldWfo = ""
         locationList = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(objectCardText.card, scrollView))
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToWfo)

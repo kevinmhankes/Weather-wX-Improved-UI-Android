@@ -104,6 +104,10 @@ class ObjectNavDrawer(activity: Activity, private var labels: List<String>) {
         this.tokens = tokens
     }
 
+    constructor(activity: Activity, items: List<String>, tokens: List<String>, fn: () -> Unit) : this(activity, items, tokens) {
+        setListener(fn)
+    }
+
     var url = ""
         get() = tokens[index]
 

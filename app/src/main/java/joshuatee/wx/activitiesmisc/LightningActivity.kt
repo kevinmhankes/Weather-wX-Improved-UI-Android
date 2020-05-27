@@ -60,10 +60,9 @@ class LightningActivity : VideoRecordActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer, R.menu.lightning_activity, iconsEvenlySpaced = true, bottomToolbar = false)
-        objectNavDrawer = ObjectNavDrawer(this, UtilityLightning.labels, UtilityLightning.urls)
+        objectNavDrawer = ObjectNavDrawer(this, UtilityLightning.labels, UtilityLightning.urls, ::getContentFixThis)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, objectNavDrawer, prefTokenIdx)
         objectNavDrawer.index = Utility.readPref(this, prefTokenIdx, 0)
-        objectNavDrawer.setListener(::getContentFixThis)
         period = Utility.readPref(this, "LIGHTNING_PERIOD", period)
         periodPretty = UtilityLightning.getTimePretty(period)
         getContent()
