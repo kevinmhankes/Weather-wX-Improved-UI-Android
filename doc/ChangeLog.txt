@@ -5,6 +5,7 @@
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
 
+55477 2020_05_27
 55476 2020_05_27    [REF] misc
                     [REF] remove roaming location feature
                     [FIX] implement separate timer for SevereDashboard and Radar. If warnings disabled they can essentially be overriden
