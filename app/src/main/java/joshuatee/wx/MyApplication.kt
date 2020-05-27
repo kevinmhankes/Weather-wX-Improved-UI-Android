@@ -752,6 +752,7 @@ class MyApplication : Application() {
             UtilityDownloadMcd.timer.resetTimer()
             UtilityDownloadMpd.timer.resetTimer()
             UtilityDownloadWarnings.timer.resetTimer()
+            UtilityDownloadWarnings.timerSevereDashboard.resetTimer()
             UtilityDownloadWatch.timer.resetTimer()
             UtilityMetar.timer.resetTimer()
             UtilitySpotter.timer.resetTimer()

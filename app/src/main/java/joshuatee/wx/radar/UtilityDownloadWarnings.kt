@@ -32,6 +32,7 @@ internal object UtilityDownloadWarnings {
 
     const val type = "WARNINGS"
     val timer = DownloadTimer(type)
+    val timerSevereDashboard = DownloadTimer("WARNINGS_SEVERE_DASHBOARD")
 
     private const val baseUrl = "https://api.weather.gov/alerts/active?event="
     private const val tStormUrl = baseUrl + "Severe%20Thunderstorm%20Warning"
@@ -48,7 +49,7 @@ internal object UtilityDownloadWarnings {
         }
     }
 
-    fun getForSevereDashboard(context: Context) { if (timer.isRefreshNeeded(context)) getPolygonVtec(context) }
+    fun getForSevereDashboard(context: Context) { if (timerSevereDashboard.isRefreshNeeded(context)) getPolygonVtec(context) }
 
     // The only difference from the get method above is the absence of any preference check
     // ie - if you call this you are going to download regardless
