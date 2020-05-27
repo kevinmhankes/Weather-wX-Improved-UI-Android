@@ -33,7 +33,7 @@ import kotlinx.coroutines.*
 
 class USWarningsImpactActivity : BaseActivity() {
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private lateinit var recyclerView: ObjectRecyclerViewGeneric
     private var warningsList = listOf<ObjectImpactGraphic>()
     private var warningsListSorted = listOf<ObjectImpactGraphic>()

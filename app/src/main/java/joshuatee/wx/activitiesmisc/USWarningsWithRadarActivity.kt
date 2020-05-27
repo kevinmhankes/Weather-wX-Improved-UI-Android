@@ -53,7 +53,7 @@ class USWarningsWithRadarActivity : BaseActivity() {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var html = ""
     private var usDownloaded = false
     private var usDataStr = ""

@@ -119,11 +119,7 @@ class LightningActivity : VideoRecordActivity() {
 
     private fun setPeriodGetContent(period: String) {
         this.period = period
-        periodPretty = if (period == "0.25") {
-            "15 MIN"
-        } else {
-            "$period HR"
-        }
+        periodPretty = UtilityLightning.getTimePretty(period)
         getContent()
     }
 
