@@ -26,9 +26,9 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import joshuatee.wx.Extensions.truncate
 
 import joshuatee.wx.R
-import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.util.UtilityIO
 
@@ -52,7 +52,7 @@ class NwsObsSitesActivity : BaseActivity() {
     private val listCity = mutableListOf<String>()
     private val listSort = mutableListOf<String>()
     private var siteDisplay = false
-    private var provSelected = ""
+    private var stateSelected = ""
     private lateinit var objectRecyclerView: ObjectRecyclerView
     private val titleString = "Obs sites"
     val prefToken = "NWS_OBSSITE_LAST_USED"
@@ -70,7 +70,6 @@ class NwsObsSitesActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_recyclerview_toolbar, R.menu.nwsobssites, bottomToolbar = false)
-        //toolbarBottom.setOnMenuItemClickListener(this)
         title = titleString
         updateButton()
         siteDisplay = false
@@ -79,14 +78,12 @@ class NwsObsSitesActivity : BaseActivity() {
 
     private fun updateButton() {
         invalidateOptionsMenu()
-        //lastUsedMenuItem = toolbarBottom.menu.findItem(R.id.action_lastused)
-        //lastUsedMenuItem.title = "Last Used: " + Utility.readPref(this, prefToken, "")
     }
 
     private fun itemClicked(position: Int) {
         if (!siteDisplay) {
-            provSelected = UtilityStringExternal.truncate(GlobalArrays.states[position], 2)
-            title = "$titleString ($provSelected)"
+            stateSelected = GlobalArrays.states[position].truncate(2)
+            title = "$titleString ($stateSelected)"
             stateSelected()
         } else {
             when (position) {
@@ -116,7 +113,7 @@ class NwsObsSitesActivity : BaseActivity() {
         listOf(listCity, listIds, listSort).forEach { it.clear() }
         listCity.add("..Back to state list")
         listIds.add("..Back to state list")
-        lines.filterTo(listSort) { it.startsWith(provSelected.toUpperCase(Locale.US)) }
+        lines.filterTo(listSort) { it.startsWith(stateSelected.toUpperCase(Locale.US)) }
         listSort.sort()
         listSort.forEach {
             val items = it.split(",")

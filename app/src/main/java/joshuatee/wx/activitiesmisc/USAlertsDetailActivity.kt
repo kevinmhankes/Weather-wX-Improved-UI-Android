@@ -49,7 +49,6 @@ class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_usalertsdetail, R.menu.shared_tts)
-        title = ""
         ObjectCard(this, R.id.cardView)
         toolbarBottom.menu.findItem(R.id.action_playlist).isVisible = false
         toolbarBottom.setOnMenuItemClickListener(this)
