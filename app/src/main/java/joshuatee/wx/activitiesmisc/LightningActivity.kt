@@ -44,7 +44,7 @@ class LightningActivity : VideoRecordActivity() {
     // Used to view lighting data
     //
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var bitmap = UtilityImg.getBlankBitmap()
     private var period = "0.25"
     private var periodPretty = "15 MIN"
@@ -66,7 +66,6 @@ class LightningActivity : VideoRecordActivity() {
         objectNavDrawer.setListener(::getContentFixThis)
         period = Utility.readPref(this, "LIGHTNING_PERIOD", period)
         periodPretty = UtilityLightning.getTimePretty(period)
-        toolbarBottom.setOnClickListener { objectNavDrawer.drawerLayout.openDrawer(objectNavDrawer.listView) }
         getContent()
     }
 
@@ -108,19 +107,23 @@ class LightningActivity : VideoRecordActivity() {
                     UtilityShare.shareBitmap(this, this, "Lightning Strikes " + objectNavDrawer.getLabel() + " $periodPretty", bitmap)
                 }
             }
-            R.id.action_15min -> setPeriodGetContent("0.25", "15 MIN")
-            R.id.action_2hr -> setPeriodGetContent("2", "2 HR")
-            R.id.action_12hr -> setPeriodGetContent("12", "12 HR")
-            R.id.action_24hr -> setPeriodGetContent("24", "24 HR")
-            R.id.action_48hr -> setPeriodGetContent("48", "48 HR")
+            R.id.action_15min -> setPeriodGetContent("0.25")
+            R.id.action_2hr -> setPeriodGetContent("2")
+            R.id.action_12hr -> setPeriodGetContent("12")
+            R.id.action_24hr -> setPeriodGetContent("24")
+            R.id.action_48hr -> setPeriodGetContent("48")
             else -> return super.onOptionsItemSelected(item)
         }
         return true
     }
 
-    private fun setPeriodGetContent(period: String, periodPretty: String) {
+    private fun setPeriodGetContent(period: String) {
         this.period = period
-        this.periodPretty = periodPretty
+        periodPretty = if (period == "0.25") {
+            "15 MIN"
+        } else {
+            "$period HR"
+        }
         getContent()
     }
 
