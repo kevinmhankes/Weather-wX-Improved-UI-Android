@@ -46,7 +46,7 @@ class USNwsMosaicActivity : VideoRecordActivity() {
         const val URL = ""
     }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var animRan = false
     private var animDrawable = AnimationDrawable()
     private lateinit var img: ObjectTouchImageView
@@ -89,12 +89,11 @@ class USNwsMosaicActivity : VideoRecordActivity() {
                 nwsRadarMosaicSectorLabelCurrent = Utility.readPref(this, "NWS_RADAR_MOSAIC_SECTOR_CURRENT", "Central Great Lakes")
             }
         }
-        objectNavDrawer = ObjectNavDrawer(this, UtilityUSImgNwsMosaic.labels, UtilityUSImgNwsMosaic.sectors)
+        objectNavDrawer = ObjectNavDrawer(this, UtilityUSImgNwsMosaic.labels, UtilityUSImgNwsMosaic.sectors, ::getContentFixThis)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, objectNavDrawer, "")
         img.setMaxZoom(8.0f)
         img.setListener(this, objectNavDrawer, ::getContentFixThis)
         objectNavDrawer.index = findPosition(nwsRadarMosaicSectorLabelCurrent)
-        objectNavDrawer.setListener(::getContentFixThis)
         toolbarBottom.setOnClickListener { objectNavDrawer.drawerLayout.openDrawer(objectNavDrawer.listView) }
         getContent()
         // FIXME how to handle this on sector change img.setZoom(1.0f)

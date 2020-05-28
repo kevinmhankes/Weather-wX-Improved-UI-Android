@@ -54,7 +54,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     companion object { const val INFO = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var favList = listOf<String>()
     private lateinit var star: MenuItem
     private var fab1: ObjectFab? = null

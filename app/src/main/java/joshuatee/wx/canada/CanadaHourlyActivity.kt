@@ -37,17 +37,17 @@ class CanadaHourlyActivity : BaseActivity() {
 
     companion object { const val LOC_NUM = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
-    private var locNumInt = 0
+    private val uiDispatcher = Dispatchers.Main
+    private var locationNumber = 0
     private lateinit var objectCardText: ObjectCardText
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
-        locNumInt = (intent.getStringExtra(LOC_NUM)!!.toIntOrNull() ?: 0) - 1
+        locationNumber = (intent.getStringExtra(LOC_NUM)!!.toIntOrNull() ?: 0) - 1
         objectCardText = ObjectCardText(this, linearLayout, toolbar)
         ObjectCALegal(this, linearLayout, UtilityCanadaHourly.getUrl(Location.locationIndex))
-        title = Location.getName(locNumInt) + " hourly forecast"
+        title = Location.getName(locationNumber) + " hourly forecast"
         getContent()
     }
 
@@ -57,7 +57,7 @@ class CanadaHourlyActivity : BaseActivity() {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        objectCardText.text = withContext(Dispatchers.IO) { UtilityCanadaHourly.getString(locNumInt) }
+        objectCardText.text = withContext(Dispatchers.IO) { UtilityCanadaHourly.getString(locationNumber) }
         objectCardText.typefaceMono()
     }
 }

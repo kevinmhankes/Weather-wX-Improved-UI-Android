@@ -38,7 +38,7 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class CanadaAlertsActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var firstTime = true
     private lateinit var objectCanadaWarnings: ObjectCanadaWarnings
 

@@ -53,7 +53,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCl
 
     companion object { const val RID = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var animDrawable = AnimationDrawable()
     private var firstTime = true
     private var animRan = false

@@ -43,7 +43,7 @@ class AwcRadarMosaicActivity : VideoRecordActivity() {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var animRan = false
     private var animDrawable = AnimationDrawable()
     private lateinit var img: ObjectTouchImageView
@@ -63,14 +63,13 @@ class AwcRadarMosaicActivity : VideoRecordActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer, R.menu.awcmosaic, iconsEvenlySpaced = true, bottomToolbar = false)
-        objectNavDrawer = ObjectNavDrawer(this, UtilityAwcRadarMosaic.labels, UtilityAwcRadarMosaic.sectors)
+        objectNavDrawer = ObjectNavDrawer(this, UtilityAwcRadarMosaic.labels, UtilityAwcRadarMosaic.sectors, ::getContentFixThis)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, objectNavDrawer, "")
         img.setMaxZoom(8.0f)
         img.setListener(this, objectNavDrawer, ::getContentFixThis)
         sector = Utility.readPref(this, prefTokenSector, sector)
         product = Utility.readPref(this, prefTokenProduct, product)
         objectNavDrawer.index = UtilityAwcRadarMosaic.sectors.indexOf(sector)
-        objectNavDrawer.setListener(::getContentFixThis)
         getContent(product)
     }
 

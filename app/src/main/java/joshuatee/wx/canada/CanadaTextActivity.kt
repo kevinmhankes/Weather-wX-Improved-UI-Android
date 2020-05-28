@@ -43,7 +43,7 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class CanadaTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var product = "focn45"
     private var html = ""
     private lateinit var objectCardText: ObjectCardText
