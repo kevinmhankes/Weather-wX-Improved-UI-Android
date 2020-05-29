@@ -150,6 +150,7 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        locationList = UtilityFavorites.setupMenu(this@WfoTextActivity, MyApplication.wfoFav, wfo, prefToken)
         updateSubmenuNotificationText()
         invalidateOptionsMenu()
         if (MyApplication.wfoFav.contains(":$wfo:")) {
@@ -249,8 +250,7 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun toggleFavorite() {
-        val ridFav = UtilityFavorites.toggleString(this, wfo, star, prefToken)
-        locationList = UtilityFavorites.setupMenu(this, ridFav, wfo, prefToken)
+        UtilityFavorites.toggle(this, wfo, star, prefToken)
     }
 
     private fun updateSubmenuNotificationText() {
@@ -315,6 +315,8 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
+        locationList = UtilityFavorites.setupMenu(this@WfoTextActivity, MyApplication.wfoFav, wfo, prefToken)
+        UtilityLog.d("WX", "DEBUG: " + locationList)
         when (item.itemId) {
             R.id.action_sector -> genericDialog(locationList) {
                 if (locationList.isNotEmpty()) {

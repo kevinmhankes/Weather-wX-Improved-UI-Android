@@ -76,6 +76,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         menu.findItem(R.id.action_product).title = products.safeGet(0)
+        UtilityLog.d("wx", "DEBUG2: "  + products)
         return super.onPrepareOptionsMenu(menu)
     }
 
@@ -101,6 +102,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        products = UtilityFavorites.setupMenu(this@WpcTextProductsActivity, MyApplication.nwsTextFav, product, prefToken)
         invalidateOptionsMenu()
         updateSubmenuNotificationText()
         scrollView.smoothScrollTo(0, 0)
@@ -140,9 +142,9 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
+        products = UtilityFavorites.setupMenu(this, MyApplication.nwsTextFav, product, prefToken)
         when (item.itemId) {
             R.id.action_product -> {
-                products = UtilityFavorites.setupMenu(this, MyApplication.nwsTextFav, product, prefToken)
                 genericDialog(products) {
                     when (it) {
                         1 -> ObjectIntent.favoriteAdd(this, arrayOf("NWSTEXT"))
