@@ -37,12 +37,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.*
-import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityDownload
-import joshuatee.wx.util.UtilityFavorites
-import joshuatee.wx.util.UtilityImageMap
-import joshuatee.wx.util.UtilityShare
-import joshuatee.wx.util.UtilityString
+import joshuatee.wx.util.*
 import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_afd.*
@@ -124,8 +119,6 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun toggleFavorite() {
         UtilityFavorites.toggle(this, wfo, star, prefToken)
-        //val ridFav = UtilityFavorites.toggleString(this, wfo, star, prefToken)
-        //locations = UtilityFavorites.setupMenu(this, ridFav, wfo, prefToken)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -138,7 +131,6 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
                         2 -> ObjectIntent.favoriteRemove(this, arrayOf("WFO"))
                         else -> {
                             wfo = locations[it].split(" ").getOrNull(0) ?: ""
-                            locations = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
                             getContent()
                         }
                     }
@@ -168,11 +160,18 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        locations = UtilityFavorites.setupMenu(this@LsrByWfoActivity, MyApplication.wfoFav, wfo, prefToken)
         invalidateOptionsMenu()
+        if (MyApplication.wfoFav.contains(":$wfo:")) {
+            star.setIcon(MyApplication.STAR_ICON)
+        } else {
+            star.setIcon(MyApplication.STAR_OUTLINE_ICON)
+        }
         scrollView.smoothScrollTo(0, 0)
         ridFavOld = MyApplication.wfoFav
-        wfoProd = withContext(Dispatchers.IO) { lsrFromWfo }
         linearLayout.removeAllViewsInLayout()
+        UtilityLog.d("WX", "DEBUG: " + wfo)
+        wfoProd = withContext(Dispatchers.IO) { lsrFromWfo }
         wfoProd.forEach {
             val objectCardText = ObjectCardText(this@LsrByWfoActivity, linearLayout, Utility.fromHtml(it))
             objectCardText.typefaceMono()
