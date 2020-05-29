@@ -39,7 +39,7 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class WpcRainfallForecastSummaryActivity : BaseActivity() {
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var bitmaps = listOf<Bitmap>()
     private var imagesPerRow = 2
 

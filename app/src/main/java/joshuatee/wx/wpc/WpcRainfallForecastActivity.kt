@@ -54,7 +54,7 @@ class WpcRainfallForecastActivity : AudioPlayActivity(), OnMenuItemClickListener
 
     companion object { const val NUMBER = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var textProduct = ""
     private var imageUrl = ""
     private var bitmap = UtilityImg.getBlankBitmap()

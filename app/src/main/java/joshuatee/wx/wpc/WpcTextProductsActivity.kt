@@ -56,7 +56,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private lateinit var activityArguments: Array<String>
     private var product = ""
     private var html = ""
@@ -140,14 +140,17 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
-            R.id.action_product -> genericDialog(products) {
-                when (it) {
-                    1 -> ObjectIntent.favoriteAdd(this, arrayOf("NWSTEXT"))
-                    2 -> ObjectIntent.favoriteRemove(this, arrayOf("NWSTEXT"))
-                    else -> {
-                        product = products[it].split(":").getOrNull(0) ?: ""
-                        products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
-                        getContent()
+            R.id.action_product -> {
+                products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
+                genericDialog(products) {
+                    when (it) {
+                        1 -> ObjectIntent.favoriteAdd(this, arrayOf("NWSTEXT"))
+                        2 -> ObjectIntent.favoriteRemove(this, arrayOf("NWSTEXT"))
+                        else -> {
+                            product = products[it].split(":").getOrNull(0) ?: ""
+                            products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
+                            getContent()
+                        }
                     }
                 }
             }
@@ -172,12 +175,12 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun findPosition(key: String) = UtilityWpcText.labels.indices.firstOrNull { UtilityWpcText.labels[it].contains(key) } ?: 0
 
-    override fun onRestart() {
-        if (ridFavOld != MyApplication.nwsTextFav) {
-            products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, UtilityWpcText.labels[findPosition(product)])
-        }
-        super.onRestart()
-    }
+    //override fun onRestart() {
+    //if (ridFavOld != MyApplication.nwsTextFav) {
+    //    products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, UtilityWpcText.labels[findPosition(product)])
+    //}
+    //super.onRestart()
+    //}
 
     private fun toggleFavorite() {
         UtilityFavorites.toggle(this, product, star, "NWS_TEXT_FAV")
@@ -187,6 +190,8 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private fun changeProduct() {
         product = drw.getUrl()
         products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, UtilityWpcText.labels[findPosition(product)])
+        UtilityLog.d("wx", "DEBUG: " + product)
+        UtilityLog.d("wx", "DEBUG: " + UtilityWpcText.labels[findPosition(product)])
         getContent()
     }
 
