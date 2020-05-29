@@ -68,6 +68,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCl
     private lateinit var star: MenuItem
     private var url = "https://weather.gc.ca/data/satellite/goes_wcan_visible_100.jpg"
     private var bitmap = UtilityImg.getBlankBitmap()
+    private val prefToken = "RID_CA_FAV"
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.canada_radar_top, menu)
@@ -95,13 +96,13 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCl
         title = "Canada"
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
         imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::mapToCanadaRadarSite)
-        favoriteString = Utility.readPref(this, "RID_CA_FAV", MyApplication.prefSeparator)
+        favoriteString = Utility.readPref(this, prefToken, MyApplication.prefSeparator)
         favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
         getContent()
     }
 
     override fun onRestart() {
-        favoriteString = Utility.readPref(this, "RID_CA_FAV", MyApplication.prefSeparator)
+        favoriteString = Utility.readPref(this, prefToken, MyApplication.prefSeparator)
         favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
         getContent()
         super.onRestart()
@@ -258,8 +259,9 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCl
     }
 
     private fun toggleFavorite() {
-        favoriteString = UtilityFavorites.toggleString(this, radarSite, star, "RID_CA_FAV")
-        favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
+        UtilityFavorites.toggle(this, radarSite, star, prefToken)
+        //favoriteString = UtilityFavorites.toggleString(this, radarSite, star, "RID_CA_FAV")
+        //favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
     }
 
     override fun onStop() {

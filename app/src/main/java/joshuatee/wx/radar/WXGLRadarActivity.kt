@@ -688,8 +688,9 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun toggleFavorite() {
-        val ridFav = UtilityFavorites.toggleString(this, wxglRender.rid, starButton, prefToken)
-        radarSitesForFavorites = UtilityFavorites.setupMenu(this, ridFav, wxglRender.rid, prefToken)
+        UtilityFavorites.toggle(this, wxglRender.rid, starButton, prefToken)
+        //val ridFav = UtilityFavorites.toggleString(this, wxglRender.rid, starButton, prefToken)
+        //radarSitesForFavorites = UtilityFavorites.setupMenu(this, ridFav, wxglRender.rid, prefToken)
     }
 
     private fun showRadarScanInfo() { ObjectDialogue(this, WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"")) }
@@ -889,6 +890,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
         when (item.itemId) {
             R.id.action_sector -> {
                 genericDialog(radarSitesForFavorites) {

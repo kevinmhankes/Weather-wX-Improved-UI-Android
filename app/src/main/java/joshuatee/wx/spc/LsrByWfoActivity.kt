@@ -123,8 +123,9 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun toggleFavorite() {
-        val ridFav = UtilityFavorites.toggleString(this, wfo, star, prefToken)
-        locations = UtilityFavorites.setupMenu(this, ridFav, wfo, prefToken)
+        UtilityFavorites.toggle(this, wfo, star, prefToken)
+        //val ridFav = UtilityFavorites.toggleString(this, wfo, star, prefToken)
+        //locations = UtilityFavorites.setupMenu(this, ridFav, wfo, prefToken)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

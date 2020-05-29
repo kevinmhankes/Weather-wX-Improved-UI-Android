@@ -120,7 +120,7 @@ object UtilityFavorites {
     }
 
     // mirror of method above save it returns the string
-    fun toggleString(context: Context, value: String, star: MenuItem, prefToken: String): String {
+   /* fun toggleString(context: Context, value: String, star: MenuItem, prefToken: String): String {
         var favoriteString = Utility.readPref(context, prefToken, initialValue)
         if (favoriteString.contains(value)) {
             favoriteString = favoriteString.replace("$value:", "")
@@ -138,7 +138,7 @@ object UtilityFavorites {
             "NWS_TEXT_FAV" -> MyApplication.nwsTextFav = favoriteString
         }
         return favoriteString
-    }
+    }*/
 
     // TODO get rid of
     fun findPositionNwsText(key: String) = UtilityWpcText.labels.indices.firstOrNull { UtilityWpcText.labels[it].startsWith(key) } ?: -1
