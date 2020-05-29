@@ -164,6 +164,8 @@ object UtilityFavorites {
     }
 
     fun setupMenuNwsText(favoriteString: String, value: String): List<String> {
+        UtilityLog.d("wx", "DEBUG: FAV1 " + favoriteString)
+        UtilityLog.d("wx", "DEBUG: FAV2 " + value)
         val favorites = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
         favorites[0] = value
         favorites[1] = ADD_STR
@@ -181,6 +183,7 @@ object UtilityFavorites {
                 }
             }
         }
+        UtilityLog.d("wx", "DEBUG: FAV3 " + returnList)
         return returnList.toList()
     }
 
