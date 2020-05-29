@@ -26,7 +26,6 @@ import android.view.MenuItem
 
 import joshuatee.wx.MyApplication
 
-import joshuatee.wx.GlobalArrays
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.spc.UtilitySpcMeso
 import joshuatee.wx.wpc.UtilityWpcText
@@ -57,7 +56,10 @@ object UtilityFavorites {
             "WFO_FAV" -> MyApplication.wfoFav = value
             "RID_FAV" -> MyApplication.ridFav = value
             "SND_FAV" -> MyApplication.sndFav = value
-
+            "SREF_FAV" -> MyApplication.srefFav = value
+            "NWS_TEXT_FAV" -> MyApplication.nwsTextFav = value
+            "SPCMESO_FAV" ->  MyApplication.spcMesoFav = value
+            "RID_CA_FAV" -> MyApplication.caRidFav = value
         }
     }
 
@@ -106,7 +108,4 @@ object UtilityFavorites {
             "RID_CA_FAV" -> MyApplication.caRidFav = favoriteString
         }
     }
-    
-    // TODO get rid of
-    fun findPositionNwsText(key: String) = UtilityWpcText.labels.indices.firstOrNull { UtilityWpcText.labels[it].startsWith(key) } ?: -1
 }

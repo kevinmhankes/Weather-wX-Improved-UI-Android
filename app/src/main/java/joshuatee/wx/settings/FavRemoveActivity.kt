@@ -175,10 +175,7 @@ class FavRemoveActivity : BaseActivity() {
             "SND" -> Utility.getSoundingSiteName(shortCode)
             "WFO" -> shortCode + ": " + Utility.getWfoSiteName(shortCode)
             "RID" -> shortCode + ": " + Utility.getRadarSiteName(shortCode)
-            "NWSTEXT" -> {
-                val index = UtilityFavorites.findPositionNwsText(shortCode)
-                if (index != -1) UtilityWpcText.labels[index] else shortCode
-            }
+            "NWSTEXT" -> shortCode + ": " + UtilityWpcText.getLabel(shortCode)
             "SREF" -> shortCode
             "RIDCA" -> findCanadaRadarSiteLabel(shortCode)
             "SPCMESO" -> findSpcMesoLabel(shortCode)
