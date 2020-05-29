@@ -68,7 +68,11 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        menu.findItem(R.id.action_region).title = om.sector
+        if (om.sector == "") {
+            menu.findItem(R.id.action_region).title = om.sectors[0]
+        } else {
+            menu.findItem(R.id.action_region).title = om.sector
+        }
         return super.onPrepareOptionsMenu(menu)
     }
 

@@ -106,7 +106,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         miStatus = menu.findItem(R.id.action_status)
         miStatus.title = "in through"
         om.displayData = DisplayDataNoSpinner(this, this, om.numPanes, om)
-        om.sector = Utility.readPref(this, om.prefSector, "S19")
+        om.sector = Utility.readPref(this, om.prefSector, om.sectors[0])
         UtilityModelSpcHrefInterface.createData()
         objectNavDrawerCombo = ObjectNavDrawerCombo(
                 this,

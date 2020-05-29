@@ -52,7 +52,9 @@ internal object UtilityModelSpcHrefInputOutput {
         }
 
     fun getImage(context: Context, om: ObjectModelNoSpinner, time: String): Bitmap {
-        val sectorIndex = if (om.sector == "") 0 else UtilityModelSpcHrefInterface.sectorsLong.indexOf(om.sector)
+        var sectorIndex = if (om.sector == "") 0 else UtilityModelSpcHrefInterface.sectorsLong.indexOf(om.sector)
+        UtilityLog.d("wx", "DEBUG: " + sectorIndex + " " + om.sector)
+        if (sectorIndex == -1) sectorIndex = 0
         val sector = UtilityModelSpcHrefInterface.sectors.safeGet(sectorIndex)
         if (om.run.length < 10) return UtilityImg.getBlankBitmap()
         val year = om.run.substring(0, 4)

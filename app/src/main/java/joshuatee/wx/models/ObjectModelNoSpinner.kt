@@ -124,6 +124,7 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
             "SPCHREF" -> {
                 modelType = ModelType.SPCHREF
                 models = UtilityModelSpcHrefInterface.models
+                sectors = UtilityModelSpcHrefInterface.sectors
                 defaultModel = "HREF"
                 timeTruncate = 2
                 startStep = 1
@@ -135,6 +136,7 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
                 models = UtilityModelSpcHrrrInterface.models
                 params = UtilityModelSpcHrrrInterface.params
                 labels = UtilityModelSpcHrrrInterface.labels
+                sectors = UtilityModelSpcHrrrInterface.sectors
                 defaultModel = "HRRR"
                 timeTruncate = 2
                 startStep = 2
