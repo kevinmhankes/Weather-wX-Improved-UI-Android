@@ -4,6 +4,8 @@
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
+// TODO [REF] rationalize fav management, move to common method for setup starting with wpc text
+// TODO [FIX] Spc hrrr no sector by default showing
 
 55482 2020_05_29    [REF] misc
 55481 2020_05_28    [ADD] Android Studio update to 4.0 with associated gradle updates
