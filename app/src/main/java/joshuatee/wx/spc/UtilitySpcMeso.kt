@@ -45,22 +45,6 @@ object UtilitySpcMeso {
             ObjectMenuTitle("Beta", 10)
     )
 
-  /*  fun getLabelListFromParam(paramList: List<String>): List<String> {
-        val labelList = mutableListOf<String>()
-        paramList.forEach {
-            if (it == "Add..." || it == "Modify...") {
-                labelList.add(it)
-            } else {
-                val index = params.indexOf(it)
-                if (index != -1) {
-                    val label = labels[index]
-                    labelList.add(label)
-                }
-            }
-        }
-        return labelList
-    }*/
-
     fun getLabelFromParam(param: String): String {
         val index = params.indexOf(param)
         return if (index == -1 ) "" else labels[index]
@@ -178,7 +162,7 @@ object UtilitySpcMeso {
     var longCodes: Array<Array<String>> = Array(12) { Array(25) { "" } }
     internal val groups = SparseArray<Group>()
 
-    internal fun createData() {
+    internal fun create() {
         var k = 0
         titles.indices.forEach { index ->
             val group = Group(titles[index].title)

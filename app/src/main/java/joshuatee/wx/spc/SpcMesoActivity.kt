@@ -167,15 +167,11 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
             })
         }
         favListParm = UtilityFavorites.setupMenu(this, MyApplication.spcMesoFav, displayData.param[curImg], prefToken)
-        UtilitySpcMeso.createData()
+        UtilitySpcMeso.create()
         drw = ObjectNavDrawerCombo(this, UtilitySpcMeso.groups, UtilitySpcMeso.longCodes, UtilitySpcMeso.shortCodes, this, "")
         drw.listView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
             drw.drawerLayout.closeDrawer(drw.listView)
-            displayData.param[curImg] = drw.getToken(groupPosition, childPosition)
-            displayData.paramLabel[curImg] = drw.getLabel(groupPosition, childPosition)
-            Utility.writePref(this, prefParam + curImg, displayData.param[curImg])
-            Utility.writePref(this, prefParamLabel + curImg, displayData.paramLabel[curImg])
-            favListParm = UtilityFavorites.setupMenu(this, MyApplication.spcMesoFav, displayData.param[curImg], prefToken)
+            setAndLaunchParam(drw.getToken(groupPosition, childPosition), groupPosition, childPosition)
             getContent()
             true
         }
@@ -411,12 +407,11 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
         ObjectDialogue(this@SpcMesoActivity, Utility.fromHtml(helpText))
     }
 
-    private fun setAndLaunchParam(paramStr: String, a: Int, b: Int) {
-        displayData.param[curImg] = paramStr
+    private fun setAndLaunchParam(param: String, a: Int, b: Int) {
+        displayData.param[curImg] = param
         displayData.paramLabel[curImg] = UtilitySpcMeso.longCodes[a][b]
         Utility.writePref(this, prefParam + curImg, displayData.param[curImg])
         Utility.writePref(this, prefParamLabel + curImg, displayData.paramLabel[curImg])
-        //favListParm = UtilityFavorites.setupMenu(this, MyApplication.spcMesoFav, displayData.param[curImg], prefToken)
         getContent()
     }
 

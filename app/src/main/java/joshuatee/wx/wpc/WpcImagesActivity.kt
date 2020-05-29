@@ -92,7 +92,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener {
                 calledFromHomeScreen = true
             }
         }
-        UtilityWpcImages.createData()
+        UtilityWpcImages.create()
         drw = ObjectNavDrawerCombo(this, UtilityWpcImages.groups, UtilityWpcImages.longCodes, UtilityWpcImages.shortCodes, this, "WPG_IMG")
         drw.setListener(::getContentFixThis)
         toolbar.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
