@@ -79,11 +79,12 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
     }
 
     override fun onRestart() {
-        locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
+        getContent()
         super.onRestart()
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        locations = UtilityFavorites.setupMenu(this@SpcSoundingsActivity, MyApplication.sndFav, office, prefToken)
         invalidateOptionsMenu()
         if (MyApplication.sndFav.contains(":$office:")) star.setIcon(MyApplication.STAR_ICON) else star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         bitmap = withContext(Dispatchers.IO) { UtilitySpcSoundings.getImage(this@SpcSoundingsActivity, office) }
@@ -138,11 +139,11 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
     }
 
     private fun toggleFavorite() {
-        val ridFav = UtilityFavorites.toggleString(this, office, star, prefToken)
-        locations = UtilityFavorites.setupMenu(this, ridFav, office, prefToken)
+        UtilityFavorites.toggle(this, office, star, prefToken)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
         when (item.itemId) {
             R.id.action_sector -> genericDialog(locations) {
                 if (locations.isNotEmpty()) {
