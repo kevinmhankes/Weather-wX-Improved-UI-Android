@@ -27,6 +27,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Utility
 
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.GlobalArrays
 import joshuatee.wx.radar.LatLon
 
 object UtilityCanada {
@@ -46,6 +47,16 @@ object UtilityCanada {
         "SK" to "PAC",
         "YT" to "CAN"
     )
+
+    fun getRadarLabel(radarSite: String): String {
+        val label = GlobalArrays.canadaRadars.findLast { it.startsWith(radarSite) }
+        return if (label == null) {
+            radarSite
+        } else {
+            val items = label.split(":")
+            items.safeGet(1)
+        }
+    }
 
     fun getIcons7Day(html: String): String {
         var iconList = ""

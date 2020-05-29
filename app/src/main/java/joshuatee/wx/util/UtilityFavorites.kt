@@ -27,6 +27,7 @@ import android.view.MenuItem
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.GlobalArrays
+import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.spc.UtilitySpcMeso
 import joshuatee.wx.wpc.UtilityWpcText
 
@@ -76,6 +77,7 @@ object UtilityFavorites {
                 "SND_FAV" -> Utility.getSoundingSiteName(favorites[k])
                 "NWS_TEXT_FAV" -> UtilityWpcText.getLabel(favorites[k])
                 "SPCMESO_FAV" -> UtilitySpcMeso.getLabelFromParam(favorites[k])
+                "RID_CA_FAV" -> UtilityCanada.getRadarLabel(favorites[k])
                 "SPCSREF_FAV" -> ""
                 else -> "FIXME"
             }
@@ -116,6 +118,7 @@ object UtilityFavorites {
             "SREF_FAV" -> MyApplication.srefFav = favoriteString
             "NWS_TEXT_FAV" -> MyApplication.nwsTextFav = favoriteString
             "SPCMESO_FAV" ->  MyApplication.spcMesoFav = favoriteString
+            "RID_CA_FAV" -> MyApplication.caRidFav = favoriteString
         }
     }
 

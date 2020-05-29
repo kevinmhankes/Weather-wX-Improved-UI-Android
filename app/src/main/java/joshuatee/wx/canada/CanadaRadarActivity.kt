@@ -62,7 +62,6 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCl
     private var mosaicShown = false
     private var mosaicShownId = ""
     private var imageType = "rad"
-    private var favoriteString = ""
     private lateinit var imageMap: ObjectImageMap
     private var favorites = listOf<String>()
     private lateinit var star: MenuItem
@@ -96,21 +95,19 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCl
         title = "Canada"
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
         imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::mapToCanadaRadarSite)
-        favoriteString = Utility.readPref(this, prefToken, MyApplication.prefSeparator)
-        favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
+        favorites = UtilityFavorites.setupMenu(this, MyApplication.caRidFav, radarSite, prefToken)
         getContent()
     }
 
     override fun onRestart() {
-        favoriteString = Utility.readPref(this, prefToken, MyApplication.prefSeparator)
-        favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
         getContent()
         super.onRestart()
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        favorites = UtilityFavorites.setupMenu(this@CanadaRadarActivity, MyApplication.caRidFav, radarSite, prefToken)
         invalidateOptionsMenu()
-        if (favoriteString.contains(":$radarSite:")) {
+        if (MyApplication.caRidFav.contains(":$radarSite:")) {
             star.setIcon(MyApplication.STAR_ICON)
         } else {
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
@@ -192,7 +189,6 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCl
         imageType = "rad"
         this.radarSite = radarSite
         img.resetZoom()
-        favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
         getContent()
     }
 
@@ -211,6 +207,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCl
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        favorites = UtilityFavorites.setupMenu(this, MyApplication.caRidFav, radarSite, prefToken)
         when (item.itemId) {
             R.id.action_sector -> genericDialog(favorites) {
                 if (firstTime) {
@@ -225,7 +222,6 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCl
                             radarSite = UtilityStringExternal.truncate(favorites[it], 3)
                             mosaicShown = false
                             img.resetZoom()
-                            favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
                             getContent()
                         } else {
                             mosaicShown = true
@@ -260,8 +256,6 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCl
 
     private fun toggleFavorite() {
         UtilityFavorites.toggle(this, radarSite, star, prefToken)
-        //favoriteString = UtilityFavorites.toggleString(this, radarSite, star, "RID_CA_FAV")
-        //favorites = UtilityFavorites.setupMenuCanada(favoriteString, radarSite)
     }
 
     override fun onStop() {

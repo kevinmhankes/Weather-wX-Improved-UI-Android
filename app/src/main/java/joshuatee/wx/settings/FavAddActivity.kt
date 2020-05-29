@@ -134,14 +134,15 @@ class FavAddActivity : BaseActivity() {
         }
     }
 
-    private fun saveMyApp(fav: String) {
+    private fun saveMyApp(favorite: String) {
         when (type) {
-            "SND" -> MyApplication.sndFav = fav
-            "WFO" -> MyApplication.wfoFav = fav
-            "RID" -> MyApplication.ridFav = fav
-            "NWSTEXT" -> MyApplication.nwsTextFav = fav
-            "SREF" -> MyApplication.srefFav = fav
-            "SPCMESO" -> MyApplication.spcMesoFav = fav
+            "SND" -> MyApplication.sndFav = favorite
+            "WFO" -> MyApplication.wfoFav = favorite
+            "RID" -> MyApplication.ridFav = favorite
+            "NWSTEXT" -> MyApplication.nwsTextFav = favorite
+            "SREF" -> MyApplication.srefFav = favorite
+            "SPCMESO" -> MyApplication.spcMesoFav = favorite
+            "RIDCA" -> MyApplication.caRidFav = favorite
         }
     }
 }

@@ -129,6 +129,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        locations = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
         when (item.itemId) {
             R.id.action_sector -> genericDialog(locations) {
                 if (locations.isNotEmpty()) {

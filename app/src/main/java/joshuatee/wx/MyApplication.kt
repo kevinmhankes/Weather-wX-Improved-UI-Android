@@ -218,6 +218,7 @@ class MyApplication : Application() {
         var sndFav = ""
         var srefFav = ""
         var spcMesoFav = ""
+        var caRidFav = ""
         //var spcmesoLabelFav = ""
         var nwsTextFav = ""
         //var radarColorPalette = mutableMapOf<String, String>()
@@ -385,6 +386,7 @@ class MyApplication : Application() {
             sndFav = getInitialPreferenceString("SND_FAV", prefSeparator)
             srefFav = getInitialPreferenceString("SREF_FAV", prefSeparator)
             spcMesoFav = getInitialPreferenceString("SPCMESO_FAV", prefSeparator)
+            caRidFav = getInitialPreferenceString("RID_CA_FAV", prefSeparator)
             //spcmesoLabelFav = getInitialPreferenceString("SPCMESO_LABEL_FAV", prefSeparator)
             nwsTextFav = getInitialPreferenceString("NWS_TEXT_FAV", prefSeparator)
             notifSoundUri = getInitialPreferenceString("NOTIF_SOUND_URI", "")
