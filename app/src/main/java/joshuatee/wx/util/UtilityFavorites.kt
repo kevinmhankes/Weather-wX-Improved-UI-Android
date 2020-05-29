@@ -86,21 +86,6 @@ object UtilityFavorites {
         return returnList.toList()
     }
 
-    fun setupMenuCanada(favoriteString: String, value: String): List<String> {
-        val favorites = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
-        favorites[0] = value
-        favorites[1] = ADD_STR
-        favorites[2] = MODIFY_STR
-        val returnList = MutableList(favorites.size) { "" }
-        favorites.indices.forEach { k ->
-            GlobalArrays.canadaRadars.indices.filter { GlobalArrays.canadaRadars[it].contains(favorites[k]) }.forEach {
-                    returnList[k] = GlobalArrays.canadaRadars[it].replace(":", "")
-                }
-            if (k == 1 || k == 2) returnList[k] = favorites[k]
-        }
-        return returnList.toList()
-    }
-
     fun toggle(context: Context, value: String, star: MenuItem, prefToken: String) {
         var favoriteString = Utility.readPref(context, prefToken, initialValue)
         if (favoriteString.contains(value)) {
@@ -121,28 +106,7 @@ object UtilityFavorites {
             "RID_CA_FAV" -> MyApplication.caRidFav = favoriteString
         }
     }
-
-    // mirror of method above save it returns the string
-   /* fun toggleString(context: Context, value: String, star: MenuItem, prefToken: String): String {
-        var favoriteString = Utility.readPref(context, prefToken, initialValue)
-        if (favoriteString.contains(value)) {
-            favoriteString = favoriteString.replace("$value:", "")
-            star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        } else {
-            favoriteString = "$favoriteString$value:"
-            star.setIcon(MyApplication.STAR_ICON)
-        }
-        Utility.writePref(context, prefToken, favoriteString)
-        when (prefToken) {
-            "RID_FAV" -> MyApplication.ridFav = favoriteString
-            "WFO_FAV" -> MyApplication.wfoFav = favoriteString
-            "SND_FAV" -> MyApplication.sndFav = favoriteString
-            "SREF_FAV" -> MyApplication.srefFav = favoriteString
-            "NWS_TEXT_FAV" -> MyApplication.nwsTextFav = favoriteString
-        }
-        return favoriteString
-    }*/
-
+    
     // TODO get rid of
     fun findPositionNwsText(key: String) = UtilityWpcText.labels.indices.firstOrNull { UtilityWpcText.labels[it].startsWith(key) } ?: -1
 }
