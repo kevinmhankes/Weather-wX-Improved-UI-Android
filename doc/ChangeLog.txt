@@ -5,7 +5,8 @@
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
 
-55483 2020_05_29
+55484 2020_05_29
+55483 2020_05_29    [REF] misc
 55482 2020_05_29    [REF] misc
                     [FIX] Spc hrrr/href no sector by default showing
                     [FIX] Spc hrrr/href/sref default model time was not optimal
