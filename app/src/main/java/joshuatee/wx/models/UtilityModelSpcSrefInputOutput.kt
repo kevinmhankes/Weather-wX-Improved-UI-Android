@@ -31,7 +31,6 @@ import joshuatee.wx.util.UtilityImgAnim
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp
-import joshuatee.wx.util.UtilityLog
 
 internal object UtilityModelSpcSrefInputOutput {
 

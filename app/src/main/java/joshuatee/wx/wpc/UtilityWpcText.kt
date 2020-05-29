@@ -26,7 +26,6 @@ import joshuatee.wx.Extensions.safeGet
 
 import joshuatee.wx.util.Group
 import joshuatee.wx.ui.ObjectMenuTitle
-import joshuatee.wx.util.Utility
 
 internal object UtilityWpcText {
 
