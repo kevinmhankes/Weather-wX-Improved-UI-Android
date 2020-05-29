@@ -45,13 +45,11 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var bitmap = UtilityImg.getBlankBitmap()
     private var timePeriod = 1
     private var firstRun = false
     private var imageLoaded = false
-    private var actionBack: MenuItem? = null
-    private var actionForward: MenuItem? = null
     private lateinit var drw: ObjectNavDrawerCombo
     private lateinit var activityArguments: Array<String>
     private var calledFromHomeScreen = false
@@ -63,13 +61,13 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        actionBack = menu.findItem(R.id.action_back)
-        actionForward = menu.findItem(R.id.action_forward)
+        val actionBack = menu.findItem(R.id.action_back)
+        val actionForward = menu.findItem(R.id.action_forward)
         actionBack!!.isVisible = false
         actionForward!!.isVisible = false
         if (drw.getUrl().contains("https://graphical.weather.gov/images/conus/")) {
-            actionBack!!.isVisible = true
-            actionForward!!.isVisible = true
+            actionBack.isVisible = true
+            actionForward.isVisible = true
         }
         return super.onPrepareOptionsMenu(menu)
     }
@@ -98,7 +96,6 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener {
         drw = ObjectNavDrawerCombo(this, UtilityWpcImages.groups, UtilityWpcImages.longCodes, UtilityWpcImages.shortCodes, this, "WPG_IMG")
         drw.setListener(::getContentFixThis)
         toolbar.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
-        toolbarBottom.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
         getContent()
     }
 

@@ -5,7 +5,7 @@
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
 
-55482 2020_05_28
+55482 2020_05_29    [REF] misc
 55481 2020_05_28    [ADD] Android Studio update to 4.0 with associated gradle updates
                     [ADD] update ndk from r21 to r21c
 55477 2020_05_28    [REF] misc
