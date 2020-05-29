@@ -5,6 +5,7 @@
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
 // TODO [REF] rationalize fav management, move to common method for setup starting with wpc text
+// TODO [FIX] default param for SPC HREF
 
 55482 2020_05_29    [REF] misc
                     [FIX] Spc hrrr/href no sector by default showing
