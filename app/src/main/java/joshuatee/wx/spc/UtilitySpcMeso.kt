@@ -27,6 +27,8 @@ import joshuatee.wx.Extensions.safeGet
 import joshuatee.wx.MyApplication
 import joshuatee.wx.ui.ObjectMenuTitle
 import joshuatee.wx.util.Group
+import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityLog
 
 object UtilitySpcMeso {
 
@@ -63,7 +65,8 @@ object UtilitySpcMeso {
 
     fun getLabelFromParam(param: String): String {
         val index = params.indexOf(param)
-        return labels[index]
+        UtilityLog.d("wx", "DEBUG: " + index + " " + param)
+        return if (index == -1 ) "" else labels[index]
     }
 
     internal fun moveForward(list: List<String>): Int {

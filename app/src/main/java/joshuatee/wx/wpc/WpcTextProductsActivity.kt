@@ -67,6 +67,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private var ridFavOld = ""
     private lateinit var textCard: ObjectCardText
     private lateinit var drw: ObjectNavDrawerCombo
+    private val prefToken = "NWS_TEXT_FAV"
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.wpctext_products_top, menu)
@@ -92,7 +93,8 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             initialProduct = product
         }
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
-        products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
+        //products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
+        products = UtilityFavorites.setupMenu(this, MyApplication.nwsTextFav, product, prefToken)
         UtilityWpcText.createData()
         drw = ObjectNavDrawerCombo(this, UtilityWpcText.groups, UtilityWpcText.longCodes, UtilityWpcText.shortCodes, this, "")
         drw.setListener(::changeProduct)
@@ -141,14 +143,15 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
             R.id.action_product -> {
-                products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
+                //products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
+                products = UtilityFavorites.setupMenu(this, MyApplication.nwsTextFav, product, prefToken)
                 genericDialog(products) {
                     when (it) {
                         1 -> ObjectIntent.favoriteAdd(this, arrayOf("NWSTEXT"))
                         2 -> ObjectIntent.favoriteRemove(this, arrayOf("NWSTEXT"))
                         else -> {
-                            product = products[it].split(":").getOrNull(0) ?: ""
-                            products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
+                            product = products[it].split(" ").getOrNull(0) ?: ""
+                            //products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
                             getContent()
                         }
                     }
@@ -173,23 +176,14 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         objectDialogue.show()
     }
 
-    //private fun findPosition(key: String) = UtilityWpcText.labels.indices.firstOrNull { UtilityWpcText.labels[it].contains(key) } ?: 0
-
-    //override fun onRestart() {
-    //if (ridFavOld != MyApplication.nwsTextFav) {
-    //    products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, UtilityWpcText.labels[findPosition(product)])
-    //}
-    //super.onRestart()
-    //}
-
     private fun toggleFavorite() {
-        UtilityFavorites.toggle(this, product, star, "NWS_TEXT_FAV")
-        //products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
+        UtilityFavorites.toggle(this, product, star, prefToken)
     }
 
     private fun changeProduct() {
         product = drw.getUrl()
-        products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
+        //products = UtilityFavorites.setupMenuNwsText(MyApplication.nwsTextFav, product)
+        products = UtilityFavorites.setupMenu(this, MyApplication.nwsTextFav, product, prefToken)
         getContent()
     }
 

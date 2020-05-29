@@ -22,15 +22,26 @@
 package joshuatee.wx.wpc
 
 import android.util.SparseArray
+import joshuatee.wx.Extensions.safeGet
 
 import joshuatee.wx.util.Group
 import joshuatee.wx.ui.ObjectMenuTitle
+import joshuatee.wx.util.Utility
 
 internal object UtilityWpcText {
 
     fun needsFixedWidthFont(product: String): Boolean {
         val productList = listOf("RWRMX", "UVICAC")
         return product.startsWith("TPT") || product.startsWith("SWPC") || productList.contains(product)
+    }
+
+    fun getLabel(token: String): String {
+        val list = labels.filter { it.startsWith(token) }
+        return if (list.isNotEmpty()) {
+            list[0].split(":").safeGet(1)
+        } else {
+            ""
+        }
     }
 
     private val titles = listOf(

@@ -67,6 +67,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     private lateinit var om: ObjectModelNoSpinner
     private lateinit var timeMenuItem: MenuItem
     private lateinit var runMenuItem: MenuItem
+    private val prefToken = "SPCSREF_FAV"
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.models_spcsref_top, menu)
@@ -123,7 +124,8 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         miStatus.title = "in through"
         om.displayData = DisplayDataNoSpinner(this, this, om.numPanes, om)
         setupModel()
-        favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
+        //favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
+        favList = UtilityFavorites.setupMenu(this, MyApplication.srefFav, om.displayData.param[om.curImg], prefToken)
         UtilityModelSpcSrefInterface.createData()
         om.setUiElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2, ::getContent)
         drw = ObjectNavDrawerCombo(
@@ -138,10 +140,10 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         getRunStatus()
     }
 
-    override fun onRestart() {
+    /*override fun onRestart() {
         favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
         super.onRestart()
-    }
+    }*/
 
     private fun updateStarIcon() {
         if (MyApplication.srefFav.contains(":" + om.displayData.param[om.curImg] + ":"))
@@ -162,15 +164,18 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
                     )
         }
         miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
-        om.run = om.rtd.listRun.safeGet(0)
-        om.setTimeIdx(Utility.readPref(this@ModelsSpcSrefActivity, om.prefRunPosn, 0))
+        //om.run = om.rtd.listRun.safeGet(0)
+        om.run = "latest"
+        om.setTimeIdx(Utility.readPref(this@ModelsSpcSrefActivity, om.prefRunPosn, 1))
         getContent()
     }
 
     private fun getContent() {
+        favList = UtilityFavorites.setupMenu(this, MyApplication.srefFav, om.displayData.param[om.curImg], prefToken)
+        UtilityLog.d("wx", "DEBUG: " + om.displayData.param[om.curImg] )
+        updateMenuTitles()
         updateStarIcon()
         UtilityModels.getContentNonSpinner(this, om, listOf(""), uiDispatcher)
-        updateMenuTitles()
     }
 
     private fun updateMenuTitles() {
@@ -226,12 +231,16 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
+        favList = UtilityFavorites.setupMenu(this, MyApplication.srefFav, om.displayData.param[om.curImg], prefToken)
         when (item.itemId) {
             R.id.action_param -> genericDialog(favList) {
                 when (it) {
                     1 -> ObjectIntent.favoriteAdd(this, arrayOf("SREF"))
                     2 -> ObjectIntent.favoriteRemove(this, arrayOf("SREF"))
-                    else -> om.displayData.param[om.curImg] = favList[it]
+                    else -> {
+                        om.displayData.param[om.curImg] = favList[it].split(" ").safeGet(0)
+                        getContent()
+                    }
                 }
             }
             else -> return super.onOptionsItemSelected(item)
@@ -255,13 +264,13 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     private fun toggleFavorite() {
         UtilityFavorites.toggle(this, om.displayData.param[om.curImg], star, "SREF_FAV")
-        favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
+        //favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
     }
 
     private fun refreshSpinner() {
         om.displayData.param[om.curImg] = drw.getUrl()
         om.displayData.paramLabel[om.curImg] = drw.getLabel()
-        favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
+        //favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
         getContent()
     }
 

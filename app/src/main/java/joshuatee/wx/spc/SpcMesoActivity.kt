@@ -84,6 +84,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
     private lateinit var prefParamLabel: String
     private lateinit var drw: ObjectNavDrawerCombo
     private lateinit var displayData: DisplayDataNoSpinner
+    private val prefToken = "SPCMESO_FAV"
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.spcmeso_top, menu)
@@ -91,7 +92,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        menu.findItem(R.id.action_product).title = favListParm.safeGet(0)
+        menu.findItem(R.id.action_product).title = favListParm.safeGet(0).split(" ").safeGet(0)
         return super.onPrepareOptionsMenu(menu)
     }
 
@@ -165,7 +166,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 } }
             })
         }
-        favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])
+        favListParm = UtilityFavorites.setupMenu(this, MyApplication.spcMesoFav, displayData.param[curImg], prefToken)
         UtilitySpcMeso.createData()
         drw = ObjectNavDrawerCombo(this, UtilitySpcMeso.groups, UtilitySpcMeso.longCodes, UtilitySpcMeso.shortCodes, this, "")
         drw.listView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
@@ -174,8 +175,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
             displayData.paramLabel[curImg] = drw.getLabel(groupPosition, childPosition)
             Utility.writePref(this, prefParam + curImg, displayData.param[curImg])
             Utility.writePref(this, prefParamLabel + curImg, displayData.paramLabel[curImg])
-            refreshSpinner()
-            favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])
+            favListParm = UtilityFavorites.setupMenu(this, MyApplication.spcMesoFav, displayData.param[curImg], prefToken)
             getContent()
             true
         }
@@ -185,11 +185,12 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
     fun getFavList() = favListParm
 
     override fun onRestart() {
-        favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])
+        getContent()
         super.onRestart()
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        favListParm = UtilityFavorites.setupMenu(this@SpcMesoActivity, MyApplication.spcMesoFav, displayData.param[curImg], prefToken)
         invalidateOptionsMenu()
         if (MyApplication.spcMesoFav.contains(":" + displayData.param[curImg] + ":"))
             star.setIcon(MyApplication.STAR_ICON)
@@ -347,19 +348,20 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     private fun showProductInFavList(index: Int) {
         if (favListParm.count() > index) {
-            displayData.param[curImg] = favListParm[index]
-            displayData.paramLabel[curImg] = UtilitySpcMeso.getLabelFromParam(favListParm[index])
+            displayData.param[curImg] = favListParm[index].split(" ").safeGet(0)
+            displayData.paramLabel[curImg] = favListParm[index]
             Utility.writePref(this, prefParam + curImg, displayData.param[curImg])
             Utility.writePref(this, prefParamLabel + curImg, displayData.paramLabel[curImg])
-            favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])
+            favListParm = UtilityFavorites.setupMenu(this, MyApplication.spcMesoFav, displayData.param[curImg], prefToken)
             getContent()
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
+        favListParm = UtilityFavorites.setupMenu(this, MyApplication.spcMesoFav, displayData.param[curImg], prefToken)
         when (item.itemId) {
-            R.id.action_product -> genericDialog(UtilitySpcMeso.getLabelListFromParam(favListParm)) {
+            R.id.action_product -> genericDialog(favListParm) {
                 when (it) {
                     1 -> ObjectIntent.favoriteAdd(this, arrayOf("SPCMESO"))
                     2 -> ObjectIntent.favoriteRemove(this, arrayOf("SPCMESO"))
@@ -414,7 +416,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
         displayData.paramLabel[curImg] = UtilitySpcMeso.longCodes[a][b]
         Utility.writePref(this, prefParam + curImg, displayData.param[curImg])
         Utility.writePref(this, prefParamLabel + curImg, displayData.paramLabel[curImg])
-        refreshSpinner()
+        //favListParm = UtilityFavorites.setupMenu(this, MyApplication.spcMesoFav, displayData.param[curImg], prefToken)
         getContent()
     }
 
@@ -434,8 +436,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun toggleFavorite() {
-        UtilityFavorites.toggleSpcMeso(this, displayData.param[curImg], displayData.paramLabel[curImg], star)
-        favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])
+        UtilityFavorites.toggle(this, displayData.param[curImg], star, prefToken)
     }
 
     private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
@@ -450,9 +451,5 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
             dialog.dismiss()
         })
         objectDialogue.show()
-    }
-
-    private fun refreshSpinner() {
-        favListParm = UtilityFavorites.setupMenuSpc(MyApplication.spcMesoFav, displayData.param[curImg])
     }
 }

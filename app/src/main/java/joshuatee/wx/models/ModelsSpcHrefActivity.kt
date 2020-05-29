@@ -180,7 +180,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         om.run = om.rtd.mostRecentRun
         (om.startStep until om.endStep).forEach { om.times.add(String.format(Locale.US, "%02d", it)) }
         UtilityModels.updateTime(UtilityString.getLastXChars(om.run, 2), om.rtd.mostRecentRun, om.times, "", false)
-        om.setTimeIdx(Utility.readPref(this@ModelsSpcHrefActivity, om.prefRunPosn, 0))
+        om.setTimeIdx(Utility.readPref(this@ModelsSpcHrefActivity, om.prefRunPosn, 1))
         getContent()
     }
 

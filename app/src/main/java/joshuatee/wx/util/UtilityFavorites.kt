@@ -27,6 +27,7 @@ import android.view.MenuItem
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.GlobalArrays
+import joshuatee.wx.spc.UtilitySpcMeso
 import joshuatee.wx.wpc.UtilityWpcText
 
 object UtilityFavorites {
@@ -55,6 +56,7 @@ object UtilityFavorites {
             "WFO_FAV" -> MyApplication.wfoFav = value
             "RID_FAV" -> MyApplication.ridFav = value
             "SND_FAV" -> MyApplication.sndFav = value
+
         }
     }
 
@@ -67,10 +69,14 @@ object UtilityFavorites {
         favorites[2] = MODIFY_STR
         val returnList = MutableList(favorites.size) { "" }
         favorites.indices.forEach { k ->
+            UtilityLog.d("wx", "DEBUG: " + favorites[k])
             val name = when (prefToken) {
                 "RID_FAV" -> Utility.getRadarSiteName(favorites[k])
                 "WFO_FAV" -> Utility.getWfoSiteName(favorites[k])
                 "SND_FAV" -> Utility.getSoundingSiteName(favorites[k])
+                "NWS_TEXT_FAV" -> UtilityWpcText.getLabel(favorites[k])
+                "SPCMESO_FAV" -> UtilitySpcMeso.getLabelFromParam(favorites[k])
+                "SPCSREF_FAV" -> ""
                 else -> "FIXME"
             }
             if (k == 1 || k == 2) returnList[k] = favorites[k] else returnList[k] = favorites[k] + DELIM_TOKEN + name
@@ -109,6 +115,7 @@ object UtilityFavorites {
             "SND_FAV" -> MyApplication.sndFav = favoriteString
             "SREF_FAV" -> MyApplication.srefFav = favoriteString
             "NWS_TEXT_FAV" -> MyApplication.nwsTextFav = favoriteString
+            "SPCMESO_FAV" ->  MyApplication.spcMesoFav = favoriteString
         }
     }
 
@@ -133,59 +140,6 @@ object UtilityFavorites {
         return favoriteString
     }
 
-    fun toggleSpcMeso(context: Context, value: String, label: String, star: MenuItem) {
-        var favoriteString = Utility.readPref(context, "SPCMESO_FAV", initialValue)
-        var favoriteLabelString = Utility.readPref(context, "SPCMESO_LABEL_FAV", initialValue)
-        if (favoriteString.contains(value)) {
-            favoriteString = favoriteString.replace("$value:", "")
-            favoriteLabelString = favoriteLabelString.replace("$label:", "")
-            star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        } else {
-            favoriteString = "$favoriteString$value:"
-            favoriteLabelString = "$favoriteLabelString$label:"
-            star.setIcon(MyApplication.STAR_ICON)
-        }
-        Utility.writePref(context, "SPCMESO_FAV", favoriteString)
-        Utility.writePref(context, "SPCMESO_LABEL_FAV", favoriteLabelString)
-        MyApplication.spcMesoFav = favoriteString
-    }
-
-    // Takes a value and a colon separated string
-    // returns a List with the value at the start followed by two constant values (add/modify)
-    // followed by each token in the string as list items
-    // If somehow the input colon separated string is to small correct it in this method
-    fun setupMenuSpc(favoriteString: String, value: String): List<String> {
-        var favorites = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
-        if (favorites.size < 3) favorites = MutableList(3) { "" }
-        favorites[0] = value
-        favorites[1] = ADD_STR
-        favorites[2] = MODIFY_STR
-        return favorites.toList()
-    }
-
-    fun setupMenuNwsText(favoriteString: String, value: String): List<String> {
-        UtilityLog.d("wx", "DEBUG: FAV1 " + favoriteString)
-        UtilityLog.d("wx", "DEBUG: FAV2 " + value)
-        val favorites = favoriteString.split(":").dropLastWhile { it.isEmpty() }.toMutableList()
-        favorites[0] = value
-        favorites[1] = ADD_STR
-        favorites[2] = MODIFY_STR
-        val returnList = MutableList(favorites.size) { "" }
-        favorites.indices.forEach {
-            if (it == 1 || it == 2) {
-                returnList[it] = favorites[it]
-            } else {
-                val index = findPositionNwsText(favorites[it])
-                if (index == -1) {
-                    returnList[it] = value
-                } else {
-                    returnList[it] = UtilityWpcText.labels[findPositionNwsText(favorites[it])]
-                }
-            }
-        }
-        UtilityLog.d("wx", "DEBUG: FAV3 " + returnList)
-        return returnList.toList()
-    }
-
+    // TODO get rid of
     fun findPositionNwsText(key: String) = UtilityWpcText.labels.indices.firstOrNull { UtilityWpcText.labels[it].startsWith(key) } ?: -1
 }
