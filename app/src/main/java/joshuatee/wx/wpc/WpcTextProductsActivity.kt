@@ -76,7 +76,6 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         menu.findItem(R.id.action_product).title = products.safeGet(0)
-        UtilityLog.d("wx", "DEBUG2: "  + products)
         return super.onPrepareOptionsMenu(menu)
     }
 
@@ -94,8 +93,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             initialProduct = product
         }
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
-        products = UtilityFavorites.setupMenu(this, MyApplication.nwsTextFav, product, prefToken)
-        UtilityWpcText.createData()
+        UtilityWpcText.create()
         drw = ObjectNavDrawerCombo(this, UtilityWpcText.groups, UtilityWpcText.longCodes, UtilityWpcText.shortCodes, this, "")
         drw.setListener(::changeProduct)
         getContent()
@@ -106,11 +104,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         invalidateOptionsMenu()
         updateSubmenuNotificationText()
         scrollView.smoothScrollTo(0, 0)
-        if (MyApplication.nwsTextFav.contains(":$product:")) {
-            star.setIcon(MyApplication.STAR_ICON)
-        } else {
-            star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        }
+        if (MyApplication.nwsTextFav.contains(":$product:")) star.setIcon(MyApplication.STAR_ICON) else star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         ridFavOld = MyApplication.nwsTextFav
         html = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@WpcTextProductsActivity, product) }
         textCard.setTextAndTranslate(html)
@@ -181,7 +175,6 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun changeProduct() {
         product = drw.getUrl()
-        products = UtilityFavorites.setupMenu(this, MyApplication.nwsTextFav, product, prefToken)
         getContent()
     }
 

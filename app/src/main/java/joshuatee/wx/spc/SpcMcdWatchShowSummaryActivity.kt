@@ -53,7 +53,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
 
     companion object { const val NO = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var number = ""
     private var imgUrl = ""
     private var textUrl = ""

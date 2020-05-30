@@ -39,7 +39,7 @@ import kotlinx.coroutines.*
 
 class SpcCompmapActivity : BaseActivity() {
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var layerStr = ""
     private lateinit var img: ObjectTouchImageView
     private var bitmap = UtilityImg.getBlankBitmap()

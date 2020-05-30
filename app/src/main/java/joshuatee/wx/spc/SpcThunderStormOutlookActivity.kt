@@ -44,7 +44,7 @@ class SpcThunderStormOutlookActivity : BaseActivity() {
     // SPC Thunderstorm Outlooks
     //
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var bitmaps = listOf<Bitmap>()
     private var urls = listOf<String>()
     private var imagesPerRow = 2

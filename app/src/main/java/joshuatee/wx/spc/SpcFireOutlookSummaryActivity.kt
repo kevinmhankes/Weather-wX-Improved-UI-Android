@@ -43,7 +43,7 @@ class SpcFireOutlookSummaryActivity : BaseActivity() {
     // SPC Fire Weather Outlooks
     //
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var bitmaps = listOf<Bitmap>()
     private var imagesPerRow = 2
 

@@ -181,7 +181,7 @@ internal object UtilityWpcText {
     var shortCodes = Array(13) { Array(39) { "" } }
     var longCodes = Array(13) { Array(39) { "" } }
 
-    internal fun createData() {
+    internal fun create() {
         var k = 0
         titles.indices.forEach { index ->
             val group = Group(titles[index].title)

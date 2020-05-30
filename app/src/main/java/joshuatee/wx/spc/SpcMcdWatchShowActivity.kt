@@ -54,7 +54,7 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     companion object { const val NUMBER = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var number = ""
     private lateinit var activityArguments: Array<String>
     private lateinit var objectCardImage: ObjectCardImage
