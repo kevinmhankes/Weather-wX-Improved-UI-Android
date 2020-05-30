@@ -140,11 +140,6 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         getRunStatus()
     }
 
-    /*override fun onRestart() {
-        favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
-        super.onRestart()
-    }*/
-
     private fun updateStarIcon() {
         if (MyApplication.srefFav.contains(":" + om.displayData.param[om.curImg] + ":"))
             star.setIcon(MyApplication.STAR_ICON)
@@ -164,15 +159,14 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
                     )
         }
         miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
-        //om.run = om.rtd.listRun.safeGet(0)
-        om.run = "latest"
+        om.run = om.rtd.listRun.safeGet(0)
+        //om.run = "latest"
         om.setTimeIdx(Utility.readPref(this@ModelsSpcSrefActivity, om.prefRunPosn, 1))
         getContent()
     }
 
     private fun getContent() {
         favList = UtilityFavorites.setupMenu(this, MyApplication.srefFav, om.displayData.param[om.curImg], prefToken)
-        UtilityLog.d("wx", "DEBUG: " + om.displayData.param[om.curImg] )
         updateMenuTitles()
         updateStarIcon()
         UtilityModels.getContentNonSpinner(this, om, listOf(""), uiDispatcher)
@@ -264,13 +258,11 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     private fun toggleFavorite() {
         UtilityFavorites.toggle(this, om.displayData.param[om.curImg], star, "SREF_FAV")
-        //favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
     }
 
     private fun refreshSpinner() {
         om.displayData.param[om.curImg] = drw.getUrl()
         om.displayData.paramLabel[om.curImg] = drw.getLabel()
-        //favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
         getContent()
     }
 

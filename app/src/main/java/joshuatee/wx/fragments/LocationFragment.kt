@@ -63,7 +63,7 @@ class LocationFragment : Fragment()  {
     // hazards, 7 days and radar ( option )
     //
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private lateinit var scrollView: ScrollView
     private lateinit var locationDialogue: ObjectDialogue
     private lateinit var locationLabel: ObjectCardText
