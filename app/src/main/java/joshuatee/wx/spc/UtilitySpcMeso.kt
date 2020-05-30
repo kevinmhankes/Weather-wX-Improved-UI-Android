@@ -35,8 +35,8 @@ object UtilitySpcMeso {
             ObjectMenuTitle("Surface", 15),
             ObjectMenuTitle("Upper Air", 25),
             ObjectMenuTitle("Thermodynamics", 19),
-            ObjectMenuTitle("Wind Shear", 18),
-            ObjectMenuTitle("Composite Indices", 21),
+            ObjectMenuTitle("Wind Shear", 19),
+            ObjectMenuTitle("Composite Indices", 22),
             ObjectMenuTitle("Multi-Parameter Fields", 10),
             ObjectMenuTitle("Heavy Rain", 8),
             ObjectMenuTitle("Winter Weather", 14),
@@ -257,6 +257,7 @@ object UtilitySpcMeso {
             "effh",
             "srh3",
             "srh1",
+            "srh5", // may 2020
             "llsr",
             "mlsr",
             "ulsr",
@@ -266,10 +267,12 @@ object UtilitySpcMeso {
             "srh3_chg",
             "shr1_chg",
             "shr6_chg",
+
             "scp",
             "lscp",
             "stor",
             "stpc",
+            "stpc5", // may 2020
             "sigt1",
             "sigt2",
             "nstp",
@@ -409,6 +412,7 @@ object UtilitySpcMeso {
             "3-hour Most-Unstable CAPE Change",
             "3-hour Low-Level LR Change",
             "6-hour Mid-Level LR Change",
+
             "Bulk Shear - Effective",
             "Bulk Shear - Sfc-6km",
             "Bulk Shear - Sfc-8km",
@@ -418,6 +422,7 @@ object UtilitySpcMeso {
             "SR Helicity - Effective",
             "SR Helicity - Sfc-3km",
             "SR Helicity - Sfc-1km",
+            "SR Helicity - Sfc-500m", // may 2020
             "SR Wind - Sfc-2km",
             "SR Wind - 4-6km",
             "SR Wind - 9-11km",
@@ -432,6 +437,7 @@ object UtilitySpcMeso {
             "Supercell Composite (left-moving)",
             "Sgfnt Tornado (fixed layer)",
             "Sgfnt Tornado (effective layer)",
+            "Sgfnt Tornado (0-500m SRH)", // may 2020
             "Cond. Prob. Sigtor (Eqn 1)",
             "Cond. Prob. Sigtor (Eqn 2)",
             "Non-Supercell Tornado",
