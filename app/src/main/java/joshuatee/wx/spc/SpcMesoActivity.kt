@@ -32,6 +32,7 @@ import android.view.MenuItem
 import android.widget.LinearLayout
 import joshuatee.wx.Extensions.getHtml
 import joshuatee.wx.Extensions.safeGet
+import joshuatee.wx.Extensions.startAnimation
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
@@ -225,11 +226,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 displayData.animDrawable[it] = UtilitySpcMesoInputOutput.getAnimation(this@SpcMesoActivity, sector, displayData.param[it], frames)
             }
         }
-        (0 until numPanes).forEach {
-            displayData.img[it].setImageDrawable(displayData.animDrawable[it])
-            displayData.animDrawable[it].isOneShot = false
-            displayData.animDrawable[it].start()
-        }
+        (0 until numPanes).forEach { displayData.animDrawable[it].startAnimation(displayData.img[it]) }
         animRan = true
     }
 

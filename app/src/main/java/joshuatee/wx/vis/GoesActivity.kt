@@ -27,6 +27,7 @@ import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import joshuatee.wx.Extensions.startAnimation
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
@@ -191,6 +192,6 @@ class GoesActivity : VideoRecordActivity() {
 
     private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
         animDrawable = withContext(Dispatchers.IO) { UtilityGoes.getAnimation(this@GoesActivity, drw.url, sector, frameCount) }
-        UtilityImgAnim.startAnimation(animDrawable, img)
+        animDrawable.startAnimation(img)
     }
 }

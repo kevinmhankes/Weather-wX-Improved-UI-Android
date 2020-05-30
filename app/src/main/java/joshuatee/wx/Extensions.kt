@@ -21,14 +21,14 @@
 
 package joshuatee.wx.Extensions
 
+import android.graphics.drawable.AnimationDrawable
 import android.view.View
 import java.util.regex.Pattern
 
-import joshuatee.wx.util.UtilityString
-import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.external.UtilityStringExternal
-import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityNetworkIO
+import joshuatee.wx.ui.ObjectTouchImageView
+import joshuatee.wx.ui.TouchImageView2
+import joshuatee.wx.util.*
 
 fun Array<String>.safeGet(index: Int) = Utility.safeGet(this, index)
 
@@ -83,6 +83,11 @@ fun String.getInputStream() = UtilityNetworkIO.getInputStreamFromUrl(this)
 fun View.setPadding(padding: Int) { this.setPadding(padding, padding, padding, padding) }
 
 fun Int.isEven() = this and 1 == 0
+
+fun AnimationDrawable.startAnimation(img: TouchImageView2) = UtilityImgAnim.startAnimation(this, img)
+
+fun AnimationDrawable.startAnimation(img: ObjectTouchImageView) = UtilityImgAnim.startAnimation(this, img)
+
 
 
 
