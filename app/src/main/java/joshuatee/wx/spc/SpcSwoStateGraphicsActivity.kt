@@ -49,7 +49,7 @@ class SpcSwoStateGraphicsActivity : VideoRecordActivity() {
 
     companion object { const val NO = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var day = ""
     private var imgUrl = ""
     private lateinit var img: ObjectTouchImageView
@@ -74,7 +74,6 @@ class SpcSwoStateGraphicsActivity : VideoRecordActivity() {
         day = intent.getStringArrayExtra(NO)!![0]
         state = Utility.getWfoSiteName(Location.wfo).split(",")[0]
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv)
-        invalidateOptionsMenu()
         getContent()
     }
 

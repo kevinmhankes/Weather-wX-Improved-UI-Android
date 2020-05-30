@@ -65,7 +65,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     companion object { const val NO = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var no = ""
     private var imgUrl = ""
     private var textUrl = ""

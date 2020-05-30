@@ -58,7 +58,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     companion object { const val NUMBER = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var html = ""
     private var bitmaps = listOf<Bitmap>()
     private lateinit var activityArguments: Array<String>

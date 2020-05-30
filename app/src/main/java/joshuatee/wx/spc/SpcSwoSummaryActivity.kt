@@ -40,7 +40,7 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class SpcSwoSummaryActivity : BaseActivity() {
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var bitmaps = mutableListOf<Bitmap>()
     private var imagesPerRow = 2
 
