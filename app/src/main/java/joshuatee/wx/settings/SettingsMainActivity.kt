@@ -47,68 +47,15 @@ class SettingsMainActivity : BaseActivity() {
         val textSize = MyApplication.textSizeLarge
         val padding = MyApplication.paddingSettings
         toolbar.subtitle = "$version, tap on text for additional help."
-        val cardAbout = ObjectCardText(
-                this,
-                "About wX",
-                textSize,
-                padding
-        )
-        val cardLocations = ObjectCardText(
-                this,
-                "Locations",
-                textSize,
-                SettingsLocationRecyclerViewActivity::class.java,
-                padding
-        )
-        val cardNotif = ObjectCardText(
-                this,
-                "Notifications",
-                textSize,
-                SettingsNotificationsActivity::class.java,
-                padding
-        )
-        val cardWidgets = ObjectCardText(
-                this,
-                "Widgets",
-                textSize,
-                SettingsWidgetsActivity::class.java,
-                padding
-        )
-        val cardColors = ObjectCardText(
-                this,
-                "Colors",
-                textSize,
-                SettingsColorsActivity::class.java,
-                padding
-        )
-        val cardPL = ObjectCardText(
-                this,
-                "PlayList",
-                textSize,
-                SettingsPlaylistActivity::class.java,
-                padding
-        )
-        val cardRadar = ObjectCardText(
-                this,
-                "Radar",
-                textSize,
-                SettingsRadarActivity::class.java,
-                padding
-        )
-        val cardHS = ObjectCardText(
-                this,
-                "Home Screen",
-                textSize,
-                SettingsHomeScreenActivity::class.java,
-                padding
-        )
-        val cardUI = ObjectCardText(
-                this,
-                "User Interface",
-                textSize,
-                SettingsUIActivity::class.java,
-                padding
-        )
+        val cardAbout = ObjectCardText(this, "About wX", textSize, padding)
+        val cardLocations = ObjectCardText(this, "Locations", textSize, SettingsLocationRecyclerViewActivity::class.java, padding)
+        val cardNotif = ObjectCardText(this, "Notifications", textSize, SettingsNotificationsActivity::class.java, padding)
+        val cardWidgets = ObjectCardText(this, "Widgets", textSize, SettingsWidgetsActivity::class.java, padding)
+        val cardColors = ObjectCardText(this, "Colors", textSize, SettingsColorsActivity::class.java, padding)
+        val cardPL = ObjectCardText(this, "PlayList", textSize, SettingsPlaylistActivity::class.java, padding)
+        val cardRadar = ObjectCardText(this, "Radar", textSize, SettingsRadarActivity::class.java, padding)
+        val cardHS = ObjectCardText(this, "Home Screen", textSize, SettingsHomeScreenActivity::class.java, padding)
+        val cardUI = ObjectCardText(this, "User Interface", textSize, SettingsUIActivity::class.java, padding)
         val cardCtoF = ObjectCardText(this, "Celsius to fahrenheit table", textSize, padding)
         cardCtoF.setOnClickListener(View.OnClickListener {
             ObjectIntent.showText(this, arrayOf(UtilityMath.celsiusToFahrenheitTable(), "Celsius to Fahrenheit table"))
@@ -125,7 +72,6 @@ class SettingsMainActivity : BaseActivity() {
                 cardHS.card,
                 cardUI.card,
                 cardCtoF.card
-                //cardDeleteFiles.card
         ).forEach {
             linearLayout.addView(it)
         }

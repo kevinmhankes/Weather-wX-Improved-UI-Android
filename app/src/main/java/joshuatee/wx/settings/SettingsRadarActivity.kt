@@ -48,30 +48,11 @@ class SettingsRadarActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
         toolbar.subtitle = "Please tap on text for additional help."
-        ObjectCardText(
-                this,
-                linearLayout,
-                "Colors",
-                MyApplication.textSizeNormal,
-                SettingsColorsActivity::class.java,
-                MyApplication.paddingSettings
-        )
-        ObjectCardText(
-                this,
-                linearLayout,
-                "Color Palettes",
-                MyApplication.textSizeNormal,
-                SettingsColorPaletteListingActivity::class.java,
-                MyApplication.paddingSettings
-        )
-        ObjectCardText(
-                this,
-                linearLayout,
-                "Screen Recorder",
-                MyApplication.textSizeNormal,
-                SettingsTelecineActivity::class.java,
-                MyApplication.paddingSettings
-        )
+        val textSize = MyApplication.textSizeLarge
+        val padding = MyApplication.paddingSettings
+        ObjectCardText(this, linearLayout, "Colors", textSize, SettingsColorsActivity::class.java, padding)
+        ObjectCardText(this, linearLayout, "Color Palettes", textSize, SettingsColorPaletteListingActivity::class.java, padding)
+        ObjectCardText(this, linearLayout, "Screen Recorder", textSize, SettingsTelecineActivity::class.java, padding)
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
