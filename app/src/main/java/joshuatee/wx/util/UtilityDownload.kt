@@ -296,6 +296,7 @@ object UtilityDownload {
             prod == "SWPCHIGH" -> text = (MyApplication.nwsSwpcWebSitePrefix + "/text/weekly.txt").getHtmlWithNewLine().removeLineBreaks()
             prod == "SWPCDISC" -> text = (MyApplication.nwsSwpcWebSitePrefix + "/text/discussion.txt").getHtmlWithNewLine().removeLineBreaks()
             prod == "SWPC3DAYGEO" -> text = (MyApplication.nwsSwpcWebSitePrefix + "/text/3-day-geomag-forecast.txt").getHtmlWithNewLine()
+            prod.startsWith("MIATWS") -> text = "${MyApplication.nwsNhcWebsitePrefix}/ftp/pub/forecasts/discussion/$prod".getHtmlWithNewLine()
             prod.contains("MIATCP") || prod.contains("MIATCM") || prod.contains("MIATCD") || prod.contains("MIAPWS") || prod.contains("MIAHS") -> {
                 val url = "${MyApplication.nwsNhcWebsitePrefix}/text/$prod.shtml"
                 text = url.getHtmlWithNewLine()

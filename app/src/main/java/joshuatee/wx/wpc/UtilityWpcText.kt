@@ -30,7 +30,7 @@ import joshuatee.wx.ui.ObjectMenuTitle
 internal object UtilityWpcText {
 
     fun needsFixedWidthFont(product: String): Boolean {
-        val productList = listOf("RWRMX", "UVICAC")
+        val productList = listOf("RWRMX", "UVICAC", "MIATWSEP", "MIATWSAT")
         return product.startsWith("TPT") || product.startsWith("SWPC") || productList.contains(product)
     }
 

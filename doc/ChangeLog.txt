@@ -7,7 +7,7 @@
 // TODO [REF] simplify method nodes, getContent -> get ?
 // TODO [REF] rename utilShare methods
 
-55485 2020_05_30
+55485 2020_05_30    [ADD] NHC text products MIATWSAT / EP are now fixed-width font with newlines not stripped
 55484 2020_05_30    [REF] misc
                     [FIX] single pane radar was not at correct zoom level if position not remembered
 55483 2020_05_29    [REF] misc
