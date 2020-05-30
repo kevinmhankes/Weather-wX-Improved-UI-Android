@@ -42,7 +42,7 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var imgUrl = ""
     private lateinit var img: ObjectTouchImageView
     private lateinit var imageMap: ObjectImageMap
@@ -72,7 +72,6 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
         star = toolbarBottom.menu.findItem(R.id.action_fav)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv)
         office = UtilityLocation.getNearestSoundingSite(Location.latLon)
-        locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToSnd)
         getContent()
@@ -97,7 +96,6 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
 
     private fun getContentSPCPlot() = GlobalScope.launch(uiDispatcher) {
         imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/$upperAir"
-        // FIXME break apart
         withContext(Dispatchers.IO) {
             val date = UtilityString.getHtmlAndParse("${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/", "/obswx/maps/" + upperAir + "_([0-9]{6}_[0-9]{2}).gif")
             bitmap = UtilityImg.getBitmapAddWhiteBackground(this@SpcSoundingsActivity, imgUrl + "_" + date + ".gif")
@@ -130,10 +128,9 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
         getContentSPCPlot()
     }
 
-    private fun mapSwitch(loc: String) {
-        office = loc
+    private fun mapSwitch(location: String) {
+        office = location
         mapShown = false
-        locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
         getContent()
         img.resetZoom()
     }
@@ -156,7 +153,6 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
                         2 -> ObjectIntent.favoriteRemove(this, arrayOf("SND"))
                         else -> {
                             office = locations[it].split(" ").getOrNull(0) ?: ""
-                            locations = UtilityFavorites.setupMenu(this, MyApplication.sndFav, office, prefToken)
                             getContent()
                         }
                     }

@@ -6,7 +6,7 @@
 // TODO [REF] rename files/classes in radar folder
 // TODO [REF] simplify method nodes, getContent -> get ?
 
-55484 2020_05_29    [REF] misc
+55484 2020_05_30    [REF] misc
 55483 2020_05_29    [REF] misc
 55482 2020_05_29    [REF] misc
                     [FIX] Spc hrrr/href no sector by default showing
