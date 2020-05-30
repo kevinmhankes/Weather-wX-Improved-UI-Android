@@ -47,7 +47,7 @@ import joshuatee.wx.R
 
 class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var playListItems = mutableListOf<String>()
     private var ridFav = ""
     private val prefToken = "PLAYLIST"

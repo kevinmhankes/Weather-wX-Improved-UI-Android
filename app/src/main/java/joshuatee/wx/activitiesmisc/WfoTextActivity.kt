@@ -121,7 +121,6 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
             product = "RTP$state"
         }
         title = product
-        locationList = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(objectCardText.card, scrollView))
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToWfo)
         getContent()
@@ -245,7 +244,6 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
         wfo = loc.toUpperCase(Locale.US)
         originalWfo = wfo
         mapShown = false
-        locationList = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
         getContent()
     }
 
@@ -316,7 +314,6 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         locationList = UtilityFavorites.setupMenu(this@WfoTextActivity, MyApplication.wfoFav, wfo, prefToken)
-        UtilityLog.d("WX", "DEBUG: " + locationList)
         when (item.itemId) {
             R.id.action_sector -> genericDialog(locationList) {
                 if (locationList.isNotEmpty()) {
@@ -330,7 +327,6 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
                                 val state = Utility.getWfoSiteName(wfo).split(",")[0]
                                 product = "RTP$state"
                             }
-                            locationList = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
                             if (product == "CLI") checkForCliSite() else getContent()
                         }
                     }

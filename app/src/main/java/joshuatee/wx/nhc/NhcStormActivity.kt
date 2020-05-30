@@ -50,7 +50,7 @@ class NhcStormActivity : BaseActivity() {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private lateinit var stormData: ObjectNhcStormDetails
     private var html = ""
     private var product = ""

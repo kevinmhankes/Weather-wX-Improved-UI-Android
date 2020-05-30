@@ -95,7 +95,6 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCl
         title = "Canada"
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(img.img))
         imageMap.addClickHandler(::ridMapSwitch, UtilityImageMap::mapToCanadaRadarSite)
-        favorites = UtilityFavorites.setupMenu(this, MyApplication.caRidFav, radarSite, prefToken)
         getContent()
     }
 
@@ -107,11 +106,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCl
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         favorites = UtilityFavorites.setupMenu(this@CanadaRadarActivity, MyApplication.caRidFav, radarSite, prefToken)
         invalidateOptionsMenu()
-        if (MyApplication.caRidFav.contains(":$radarSite:")) {
-            star.setIcon(MyApplication.STAR_ICON)
-        } else {
-            star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        }
+        if (MyApplication.caRidFav.contains(":$radarSite:")) star.setIcon(MyApplication.STAR_ICON) else star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         withContext(Dispatchers.IO) {
             bitmap = if (imageType == "rad") {
                 UtilityCanadaImg.getRadarBitmapOptionsApplied(this@CanadaRadarActivity, radarSite, "")

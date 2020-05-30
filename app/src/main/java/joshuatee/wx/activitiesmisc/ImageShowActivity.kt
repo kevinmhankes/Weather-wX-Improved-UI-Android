@@ -50,7 +50,7 @@ class ImageShowActivity : BaseActivity() {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var url = ""
     private var urls = listOf<String>()
     private var bitmap = UtilityImg.getBlankBitmap()

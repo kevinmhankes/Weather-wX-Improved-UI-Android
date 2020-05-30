@@ -40,7 +40,7 @@ import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
 class NhcActivity : BaseActivity() {
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private lateinit var objectNhc: ObjectNhc
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

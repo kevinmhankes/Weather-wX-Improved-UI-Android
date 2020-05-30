@@ -55,7 +55,7 @@ class SpottersActivity : BaseActivity() {
     // can tap on email or phone to respectively email or call the individual
     //
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private lateinit var ca: AdapterSpotter
     private var spotterList = mutableListOf<Spotter>()
     private var spotterList2 = mutableListOf<Spotter>()

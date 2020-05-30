@@ -54,7 +54,7 @@ class ForecastActivity : BaseActivity() {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private lateinit var activityArguments: Array<String>
     private var latLon = LatLon()
     private var objectCurrentConditions = ObjectCurrentConditions()

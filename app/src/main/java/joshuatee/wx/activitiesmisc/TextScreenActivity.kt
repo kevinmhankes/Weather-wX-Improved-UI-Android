@@ -48,7 +48,7 @@ class TextScreenActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private lateinit var activityArguments: Array<String>
     private var url = ""
     private var html = ""
