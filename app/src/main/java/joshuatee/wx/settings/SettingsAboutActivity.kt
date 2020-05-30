@@ -29,14 +29,17 @@ import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCardText
+import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityFileManagement
 import joshuatee.wx.util.UtilityShare
-import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
+import kotlinx.android.synthetic.main.activity_linear_layout.linearLayout
 
 class SettingsAboutActivity : BaseActivity() {
 
@@ -79,6 +82,11 @@ class SettingsAboutActivity : BaseActivity() {
         iOSVersion.text = "iOS port of wX is called wXL23"
         iOSVersion.setOnClickListener(View.OnClickListener { ObjectIntent.showWebView(this, arrayOf(iOSUrl, "wXL23 for iOS")) })
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
+        val cardDeleteFiles = ObjectCardText(this, "Delete old radar files", MyApplication.textSizeNormal, MyApplication.paddingSettings)
+        cardDeleteFiles.setOnClickListener(View.OnClickListener {
+            UtilityUI.makeSnackBar(linearLayout, "Deleted old radar files: " + UtilityFileManagement.deleteCacheFiles(this))
+        })
+        linearLayout.addView(cardDeleteFiles.card)
         displayContent()
     }
 

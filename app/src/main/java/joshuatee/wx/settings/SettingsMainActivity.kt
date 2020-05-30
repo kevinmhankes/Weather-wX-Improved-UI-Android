@@ -33,7 +33,6 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.ui.UtilityTheme
-import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout.*
@@ -104,12 +103,8 @@ class SettingsMainActivity : BaseActivity() {
                 MyApplication.paddingSettings
         )
         val cardCtoF = ObjectCardText(this, "Celsius to fahrenheit table", MyApplication.textSizeNormal, MyApplication.paddingSettings)
-        val cardDeleteFiles = ObjectCardText(this, "Delete old radar files", MyApplication.textSizeNormal, MyApplication.paddingSettings)
         cardCtoF.setOnClickListener(View.OnClickListener {
             ObjectIntent.showText(this, arrayOf(UtilityMath.celsiusToFahrenheitTable(), "Celsius to Fahrenheit table"))
-        })
-        cardDeleteFiles.setOnClickListener(View.OnClickListener {
-            UtilityUI.makeSnackBar(linearLayout, "Deleted old radar files: " + UtilityFileManagement.deleteCacheFiles(this))
         })
         cardAbout.setOnClickListener(View.OnClickListener { ObjectIntent(this, SettingsAboutActivity::class.java) })
         listOf(
@@ -122,8 +117,8 @@ class SettingsMainActivity : BaseActivity() {
                 cardRadar.card,
                 cardHS.card,
                 cardUI.card,
-                cardCtoF.card,
-                cardDeleteFiles.card
+                cardCtoF.card
+                //cardDeleteFiles.card
         ).forEach {
             linearLayout.addView(it)
         }
