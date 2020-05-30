@@ -37,6 +37,7 @@ import joshuatee.wx.util.UtilityAlertDialog
 import joshuatee.wx.util.UtilityLog
 
 import kotlinx.android.synthetic.main.activity_settings_ui.*
+import kotlinx.android.synthetic.main.activity_settings_ui.linearLayout
 
 class SettingsUIActivity : BaseActivity() {
 
@@ -253,6 +254,80 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.ui_awc_radar_mosaic
                 ).card
         )
+
+        linearLayout.addView(
+                ObjectSettingsCheckBox(
+                        this,
+                        "Check for SPC MCD/Watches",
+                        "CHECKSPC",
+                        R.string.checkspc_switch_label
+                ).card
+        )
+        linearLayout.addView(
+                ObjectSettingsCheckBox(
+                        this,
+                        "Check for WPC MPDs",
+                        "CHECKWPC",
+                        R.string.checkwpc_switch_label
+                ).card
+        )
+        linearLayout.addView(
+                ObjectSettingsCheckBox(
+                        this,
+                        "Check for TOR,TST,FFW",
+                        "CHECKTOR",
+                        R.string.checktor_switch_label
+                ).card
+        )
+        linearLayout.addView(
+                ObjectSettingsCheckBox(
+                        this,
+                        "Media control notification",
+                        "MEDIA_CONTROL_NOTIF",
+                        R.string.media_control_notif_tv
+                ).card
+        )
+        linearLayout.addView(
+                ObjectSettingsCheckBox(
+                        this,
+                        "Dual-pane radar from main screen",
+                        "DUALPANE_RADAR_ICON",
+                        R.string.dualpane_radar_icon_tv
+                ).card
+        )
+        linearLayout.addView(
+                ObjectSettingsCheckBox(
+                        this,
+                        "Translate abbreviations",
+                        "TRANSLATE_TEXT",
+                        R.string.translate_text_label
+                ).card
+        )
+
+        linearLayout.addView(
+                ObjectSettingsSeekBar(
+                        this,
+                        "Refresh interval for location in minutes",
+                        "REFRESH_LOC_MIN",
+                        R.string.refresh_loc_min_np_label,
+                        10,
+                        0,
+                        120
+                ).card
+        )
+        linearLayout.addView(
+                ObjectSettingsSeekBar(
+                        this,
+                        "Text to speech speed, requires app restart",
+                        "TTS_SPEED_PREF",
+                        R.string.tts_speed_np_label,
+                        10,
+                        1,
+                        20
+                ).card
+        )
+
+
         linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,

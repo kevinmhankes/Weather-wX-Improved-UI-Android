@@ -127,7 +127,9 @@ class SettingsMainActivity : BaseActivity() {
         ).forEach {
             linearLayout.addView(it)
         }
-        linearLayout.addView(
+
+
+        /*linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
                         "Check for SPC MCD/Watches",
@@ -174,8 +176,10 @@ class SettingsMainActivity : BaseActivity() {
                         "TRANSLATE_TEXT",
                         R.string.translate_text_label
                 ).card
-        )
-        linearLayout.addView(
+        )*/
+
+
+        /*linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,
                         "Refresh interval for location in minutes",
@@ -196,7 +200,9 @@ class SettingsMainActivity : BaseActivity() {
                         1,
                         20
                 ).card
-        )
+        )*/
+
+
     }
 
     override fun onStop() {
