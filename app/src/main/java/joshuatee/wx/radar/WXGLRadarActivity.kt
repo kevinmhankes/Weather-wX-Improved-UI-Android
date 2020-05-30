@@ -263,7 +263,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
         }
         if (MyApplication.radarShowLegend) showLegend()
         title = wxglRender.product
-       // radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
         checkForAutoRefresh()
         getContent()
     }
@@ -304,15 +303,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 wxglTextObjects[it].addLabels()
             }
         }
-        // if the top toolbar is not showing then neither are showing and the only restart
-        // is from an app switch or resume from sleep, therefore get content directly
-        if (wxglSurfaceView.toolbarsHidden) {
-            getContent()
-        } else {
-            radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
-            getContent()
-            //objectSpinner.refreshData(this, radarSitesForFavorites)
-        }
+        getContent()
         checkForAutoRefresh()
         super.onRestart()
     }
@@ -683,8 +674,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
         objectImageMap.hideMap()
         wxglRender.rid = radarSite
         mapShown = false
-        radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
-        // TODO make into a method
         wxglSurfaceView.scaleFactor = MyApplication.wxoglSize / 10.0f
         wxglRender.setViewInitial(MyApplication.wxoglSize / 10.0f, 0.0f, 0.0f)
         adjustTiltMenu()
@@ -693,8 +682,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     private fun toggleFavorite() {
         UtilityFavorites.toggle(this, wxglRender.rid, starButton, prefToken)
-        //val ridFav = UtilityFavorites.toggleString(this, wxglRender.rid, starButton, prefToken)
-        //radarSitesForFavorites = UtilityFavorites.setupMenu(this, ridFav, wxglRender.rid, prefToken)
     }
 
     private fun showRadarScanInfo() { ObjectDialogue(this, WXGLNexrad.getRadarInfo(this@WXGLRadarActivity,"")) }
@@ -909,18 +896,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
                                 } else {
                                     wxglRender.rid = radarSitesForFavorites[it].split(" ").getOrNull(0) ?: ""
                                 }
-                                /*if (!restarted && !(MyApplication.wxoglRememberLocation && firstRun)) {
-                                    img.resetZoom()
-                                    img.setZoom(1.0f)
-                                    wxglSurfaceView.scaleFactor = MyApplication.wxoglSize / 10.0f
-                                    wxglRender.setViewInitial(MyApplication.wxoglSize / 10.0f, 0.0f, 0.0f)
-                                    // ADD Apr 2020 to fix issue when switching via map to new location
-                                    UtilityWXGLTextObject.showLabels(numberOfPanes, wxglTextObjects)
-                                }
-                                restarted = false
-                                ridChanged = true*/
                                 mapSwitch(wxglRender.rid)
-                                radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
                                 getContent()
                             }
                         }
