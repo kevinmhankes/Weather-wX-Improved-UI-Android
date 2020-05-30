@@ -56,7 +56,7 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     companion object { var INFO = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var animRan = false
     private var showRadar = true
     private var showOutlook = true
@@ -166,7 +166,6 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 } }
             })
         }
-        favListParm = UtilityFavorites.setupMenu(this, MyApplication.spcMesoFav, displayData.param[curImg], prefToken)
         UtilitySpcMeso.create()
         drw = ObjectNavDrawerCombo(this, UtilitySpcMeso.groups, UtilitySpcMeso.longCodes, UtilitySpcMeso.shortCodes, this, "")
         drw.listView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
@@ -215,6 +214,8 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
             firstRun = true
         }
         imageLoaded = true
+        Utility.writePref(this@SpcMesoActivity, prefParam + curImg, displayData.param[curImg])
+        Utility.writePref(this@SpcMesoActivity, prefParamLabel + curImg, displayData.paramLabel[curImg])
         setTitle()
     }
 
@@ -346,9 +347,6 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
         if (favListParm.count() > index) {
             displayData.param[curImg] = favListParm[index].split(" ").safeGet(0)
             displayData.paramLabel[curImg] = favListParm[index]
-            Utility.writePref(this, prefParam + curImg, displayData.param[curImg])
-            Utility.writePref(this, prefParamLabel + curImg, displayData.paramLabel[curImg])
-            favListParm = UtilityFavorites.setupMenu(this, MyApplication.spcMesoFav, displayData.param[curImg], prefToken)
             getContent()
         }
     }
@@ -410,8 +408,6 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
     private fun setAndLaunchParam(param: String, a: Int, b: Int) {
         displayData.param[curImg] = param
         displayData.paramLabel[curImg] = UtilitySpcMeso.longCodes[a][b]
-        Utility.writePref(this, prefParam + curImg, displayData.param[curImg])
-        Utility.writePref(this, prefParamLabel + curImg, displayData.paramLabel[curImg])
         getContent()
     }
 
