@@ -174,7 +174,7 @@ object UtilityUSImgWX {
         return animDrawable
     }
 
-    fun bitmapForColorPalette(context: Context, product: String): Bitmap {
+    fun bitmapForColorPalette(context: Context, product: Int): Bitmap {
         val fileName = "nids_dvn_" + product + "_archive"
         UtilityIO.saveRawToInternalStorage(context, WXGLNexrad.productCodeStringToResourceFile[product] ?: R.raw.dvn94, fileName)
         val layers = mutableListOf<Drawable>()

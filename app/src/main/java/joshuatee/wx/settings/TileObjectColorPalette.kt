@@ -53,7 +53,7 @@ internal class TileObjectColorPalette(val colorMapLabel: String, val toolbar: To
             } catch (e: Exception) {
                 UtilityLog.handleException(e)
             }
-            bitmap = UtilityUSImgWX.bitmapForColorPalette(context, product)
+            bitmap = UtilityUSImgWX.bitmapForColorPalette(context, productAsInt)
             bitmapWithText = UtilityImg.drawTextToBitmap(context, bitmap, colorMapLabel, textColor)
             UtilityIO.bitmapToInternalStorage(context, bitmapWithText, "colormap$product$colorMapLabel")
             MyApplication.radarColorPalette[productAsInt] = oldMap
