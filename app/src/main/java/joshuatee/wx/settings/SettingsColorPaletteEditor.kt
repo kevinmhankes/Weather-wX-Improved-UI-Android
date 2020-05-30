@@ -150,7 +150,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
             R.id.action_reset -> palContent.setText(UtilityColorPalette.getColorMapStringFromDisk(this, typeAsInt, activityArguments[1]))
             R.id.action_clear -> palContent.setText("")
             R.id.action_help -> ObjectDialogue(this,"Not implemented yet.")
-            R.id.action_share -> UtilityShare.shareTextAsAttachment(this, this, palTitle.text.toString(), palContent.text.toString(), "wX_colormap_" + palTitle.text.toString() + ".txt")
+            R.id.action_share -> UtilityShare.textAsAttachment(this, this, palTitle.text.toString(), palContent.text.toString(), "wX_colormap_" + palTitle.text.toString() + ".txt")
             R.id.action_load -> loadSettings()
             R.id.action_website -> ObjectIntent.showWeb(this, "http://almanydesigns.com/grx/reflectivity/")
             R.id.action_website2 -> ObjectIntent.showWeb(this, "http://www.usawx.com/grradarexamples.htm")

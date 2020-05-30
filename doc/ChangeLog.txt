@@ -5,7 +5,6 @@
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
 // TODO [REF] simplify method nodes, getContent -> get ?
-// TODO [REF] rename utilShare methods
 
 55487 2020_05_30    [ADD] increase font size in settings main screen
 55486 2020_05_30    [ADD] move "delete old radar files" from Settings into Settings -> About. You should never need this command.
