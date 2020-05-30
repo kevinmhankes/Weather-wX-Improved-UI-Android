@@ -82,7 +82,7 @@ class CanadaTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
         if (audioPlayMenu(item.itemId, html, product, product)) return true
         when (item.itemId) {
             R.id.action_share -> {
-                UtilityShare.shareText(this, getDescription(), Utility.fromHtml(html))
+                UtilityShare.text(this, getDescription(), Utility.fromHtml(html))
                 return true
             }
             R.id.action_focn45 -> setProdAndDescription("focn45")

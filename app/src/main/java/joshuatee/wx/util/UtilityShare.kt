@@ -69,7 +69,7 @@ object UtilityShare {
         activity.startActivity(Intent.createChooser(sharingIntent, "Share via"))
     }
 
-    fun shareText(context: Context, subject: String, text: String) {
+    fun text(context: Context, subject: String, text: String) {
         val formattedDate = UtilityTime.getDateAsString("yyyy-MM-dd HH:mm:ss")
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
@@ -78,7 +78,7 @@ object UtilityShare {
         context.startActivity(Intent.createChooser(sharingIntent, "Share via"))
     }
 
-    fun shareText(activity: Activity, context: Context, subject: String, text: String, bitmaps: List<Bitmap>) {
+    fun text(activity: Activity, context: Context, subject: String, text: String, bitmaps: List<Bitmap>) {
         val bitmap = UtilityImg.mergeImagesVertically(bitmaps)
         shareBitmap(activity, context, subject, bitmap, text)
     }

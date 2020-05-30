@@ -103,7 +103,7 @@ class SettingsAboutActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareText(this, "About wX", html)
+            R.id.action_share -> UtilityShare.text(this, "About wX", html)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

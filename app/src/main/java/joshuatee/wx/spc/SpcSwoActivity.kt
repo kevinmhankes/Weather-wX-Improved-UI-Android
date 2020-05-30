@@ -167,8 +167,8 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (audioPlayMenu(item.itemId, html, playlistProd, playlistProd)) return true
         when (item.itemId) {
-            R.id.action_share_all -> UtilityShare.shareText(this, this, "Day $day Convective Outlook", Utility.fromHtml(html), bitmaps)
-            R.id.action_share_text -> UtilityShare.shareText(this, "Day $day Convective Outlook - Text", Utility.fromHtml(html))
+            R.id.action_share_all -> UtilityShare.text(this, this, "Day $day Convective Outlook", Utility.fromHtml(html), bitmaps)
+            R.id.action_share_text -> UtilityShare.text(this, "Day $day Convective Outlook - Text", Utility.fromHtml(html))
             R.id.action_share_tornado -> if (bitmaps.size > 1) UtilityShare.shareBitmap(this, this, "Day $day Convective Outlook - Tornado", bitmaps[1])
             R.id.action_share_hail -> if (bitmaps.size > 2) UtilityShare.shareBitmap(this, this, "Day $day Convective Outlook - Hail", bitmaps[2])
             R.id.action_share_wind -> if (bitmaps.size > 3) UtilityShare.shareBitmap(this, this, "Day $day Convective Outlook - Wind", bitmaps[3])

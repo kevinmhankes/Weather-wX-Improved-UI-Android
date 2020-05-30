@@ -103,7 +103,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         when (item.itemId) {
             R.id.action_fav -> toggleFavorite()
             R.id.action_map -> imageMap.toggleMap()
-            R.id.action_share -> UtilityShare.shareText(this, prod + wfo, Utility.fromHtml(wfoProd.toString()))
+            R.id.action_share -> UtilityShare.text(this, prod + wfo, Utility.fromHtml(wfoProd.toString()))
             else -> return super.onOptionsItemSelected(item)
         }
         return true

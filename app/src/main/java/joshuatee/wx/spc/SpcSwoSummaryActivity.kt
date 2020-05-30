@@ -78,7 +78,7 @@ class SpcSwoSummaryActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.SPC_SWO_SUMMARY)
-            R.id.action_share -> UtilityShare.shareText(this, this, "Convective Outlook Summary", "", bitmaps)
+            R.id.action_share -> UtilityShare.text(this, this, "Convective Outlook Summary", "", bitmaps)
             else -> return super.onOptionsItemSelected(item)
         }
         return true
