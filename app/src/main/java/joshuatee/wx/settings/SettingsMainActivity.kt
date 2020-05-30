@@ -44,65 +44,72 @@ class SettingsMainActivity : BaseActivity() {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
         UtilityTheme.setPrimaryColor(this)
         val version = Utility.getVersion(this)
+        val textSize = MyApplication.textSizeLarge
+        val padding = MyApplication.paddingSettings
         toolbar.subtitle = "$version, tap on text for additional help."
-        val cardAbout = ObjectCardText(this, "About wX", MyApplication.textSizeNormal, MyApplication.paddingSettings)
+        val cardAbout = ObjectCardText(
+                this,
+                "About wX",
+                textSize,
+                padding
+        )
         val cardLocations = ObjectCardText(
                 this,
                 "Locations",
-                MyApplication.textSizeNormal,
+                textSize,
                 SettingsLocationRecyclerViewActivity::class.java,
-                MyApplication.paddingSettings
+                padding
         )
         val cardNotif = ObjectCardText(
                 this,
                 "Notifications",
-                MyApplication.textSizeNormal,
+                textSize,
                 SettingsNotificationsActivity::class.java,
-                MyApplication.paddingSettings
+                padding
         )
         val cardWidgets = ObjectCardText(
                 this,
                 "Widgets",
-                MyApplication.textSizeNormal,
+                textSize,
                 SettingsWidgetsActivity::class.java,
-                MyApplication.paddingSettings
+                padding
         )
         val cardColors = ObjectCardText(
                 this,
                 "Colors",
-                MyApplication.textSizeNormal,
+                textSize,
                 SettingsColorsActivity::class.java,
-                MyApplication.paddingSettings
+                padding
         )
         val cardPL = ObjectCardText(
                 this,
                 "PlayList",
-                MyApplication.textSizeNormal,
+                textSize,
                 SettingsPlaylistActivity::class.java,
-                MyApplication.paddingSettings
+                padding
         )
         val cardRadar = ObjectCardText(
                 this,
                 "Radar",
-                MyApplication.textSizeNormal,
+                textSize,
                 SettingsRadarActivity::class.java,
-                MyApplication.paddingSettings
+                padding
         )
         val cardHS = ObjectCardText(
                 this,
                 "Home Screen",
-                MyApplication.textSizeNormal,
+                textSize,
                 SettingsHomeScreenActivity::class.java,
-                MyApplication.paddingSettings
+                padding
         )
         val cardUI = ObjectCardText(
                 this,
                 "User Interface",
-                MyApplication.textSizeNormal,
+                textSize,
                 SettingsUIActivity::class.java,
-                MyApplication.paddingSettings
+                padding
         )
-        val cardCtoF = ObjectCardText(this, "Celsius to fahrenheit table", MyApplication.textSizeNormal, MyApplication.paddingSettings)
+        val cardCtoF = ObjectCardText(this, "Celsius to fahrenheit table", textSize, padding)
         cardCtoF.setOnClickListener(View.OnClickListener {
             ObjectIntent.showText(this, arrayOf(UtilityMath.celsiusToFahrenheitTable(), "Celsius to Fahrenheit table"))
         })
@@ -122,82 +129,6 @@ class SettingsMainActivity : BaseActivity() {
         ).forEach {
             linearLayout.addView(it)
         }
-
-
-        /*linearLayout.addView(
-                ObjectSettingsCheckBox(
-                        this,
-                        "Check for SPC MCD/Watches",
-                        "CHECKSPC",
-                        R.string.checkspc_switch_label
-                ).card
-        )
-        linearLayout.addView(
-                ObjectSettingsCheckBox(
-                        this,
-                        "Check for WPC MPDs",
-                        "CHECKWPC",
-                        R.string.checkwpc_switch_label
-                ).card
-        )
-        linearLayout.addView(
-                ObjectSettingsCheckBox(
-                        this,
-                        "Check for TOR,TST,FFW",
-                        "CHECKTOR",
-                        R.string.checktor_switch_label
-                ).card
-        )
-        linearLayout.addView(
-                ObjectSettingsCheckBox(
-                        this,
-                        "Media control notification",
-                        "MEDIA_CONTROL_NOTIF",
-                        R.string.media_control_notif_tv
-                ).card
-        )
-        linearLayout.addView(
-                ObjectSettingsCheckBox(
-                        this,
-                        "Dual-pane radar from main screen",
-                        "DUALPANE_RADAR_ICON",
-                        R.string.dualpane_radar_icon_tv
-                ).card
-        )
-        linearLayout.addView(
-                ObjectSettingsCheckBox(
-                        this,
-                        "Translate abbreviations",
-                        "TRANSLATE_TEXT",
-                        R.string.translate_text_label
-                ).card
-        )*/
-
-
-        /*linearLayout.addView(
-                ObjectSettingsSeekBar(
-                        this,
-                        "Refresh interval for location in minutes",
-                        "REFRESH_LOC_MIN",
-                        R.string.refresh_loc_min_np_label,
-                        10,
-                        0,
-                        120
-                ).card
-        )
-        linearLayout.addView(
-                ObjectSettingsSeekBar(
-                        this,
-                        "Text to speech speed, requires app restart",
-                        "TTS_SPEED_PREF",
-                        R.string.tts_speed_np_label,
-                        10,
-                        1,
-                        20
-                ).card
-        )*/
-
-
     }
 
     override fun onStop() {
