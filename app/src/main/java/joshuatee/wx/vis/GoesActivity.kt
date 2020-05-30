@@ -183,7 +183,7 @@ class GoesActivity : VideoRecordActivity() {
         getContent(sector)
         super.onRestart()
     }
-    
+
     override fun onStop() {
         img.imgSavePosnZoom(this, prefImagePosition)
         super.onStop()

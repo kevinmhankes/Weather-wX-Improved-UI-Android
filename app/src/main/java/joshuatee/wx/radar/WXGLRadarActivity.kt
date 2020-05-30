@@ -257,10 +257,13 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
             if (MyApplication.wxoglRid != "") wxglRender.rid = MyApplication.wxoglRid
             wxglRender.product = MyApplication.wxoglProd
             wxglRender.setViewInitial(MyApplication.wxoglZoom, MyApplication.wxoglX, MyApplication.wxoglY)
+        } else {
+            wxglSurfaceView.scaleFactor = MyApplication.wxoglSize / 10.0f
+            wxglRender.setViewInitial(MyApplication.wxoglSize / 10.0f, 0.0f, 0.0f)
         }
         if (MyApplication.radarShowLegend) showLegend()
         title = wxglRender.product
-        radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
+       // radarSitesForFavorites = UtilityFavorites.setupMenu(this, MyApplication.ridFav, wxglRender.rid, prefToken)
         checkForAutoRefresh()
         getContent()
     }
@@ -339,6 +342,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
+        radarSitesForFavorites = UtilityFavorites.setupMenu(this@WXGLRadarActivity, MyApplication.ridFav, wxglRender.rid, prefToken)
         invalidateOptionsMenu()
         if (!isGetContentInProgress) {
             isGetContentInProgress = true
