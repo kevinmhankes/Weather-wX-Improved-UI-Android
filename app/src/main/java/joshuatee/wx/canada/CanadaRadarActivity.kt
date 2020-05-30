@@ -32,6 +32,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.Extensions.safeGet
+import joshuatee.wx.Extensions.startAnimation
 
 import joshuatee.wx.R
 import joshuatee.wx.external.UtilityStringExternal
@@ -198,7 +199,7 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCl
                     UtilityCanadaImg.getRadarMosaicAnimation(this@CanadaRadarActivity, mosaicShownId, frameCountStr)
             }
         }
-        animRan = UtilityImgAnim.startAnimation(animDrawable, img)
+        animRan = animDrawable.startAnimation(img)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

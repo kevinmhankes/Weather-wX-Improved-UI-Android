@@ -26,6 +26,7 @@ import android.content.Context
 import android.graphics.PointF
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import joshuatee.wx.Extensions.startAnimation
 
 import java.sql.Date
 import java.util.Calendar
@@ -91,7 +92,7 @@ object UtilityModels {
                 withContext(Dispatchers.IO) {
                     (0 until om.numPanes).forEach { om.displayData.animDrawable[it] = om.getAnimate(it, overlayImg) }
                 }
-                (0 until om.numPanes).forEach { UtilityImgAnim.startAnimation(om.displayData.animDrawable[it], om.displayData.img[it]) }
+                (0 until om.numPanes).forEach { om.displayData.animDrawable[it].startAnimation(om.displayData.img[it]) }
                 om.animRan = true
             }
 
