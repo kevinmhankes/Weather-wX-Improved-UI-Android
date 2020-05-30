@@ -7,6 +7,7 @@
 // TODO [REF] simplify method nodes, getContent -> get ?
 // TODO [REF] rename utilShare methods
 
+55487 2020_05_30
 55486 2020_05_30    [ADD] move "delete old radar files" from Settings into Settings -> About. You should never need this command.
 55485 2020_05_30    [ADD] NHC text products MIATWSAT / EP are now fixed-width font with newlines not stripped
                     [ADD] new SPC Meso param SR Helicity - Sfc-500m (srh5)
