@@ -45,7 +45,7 @@ class GoesActivity : VideoRecordActivity() {
 
     companion object { const val RID = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val uiDispatcher = Dispatchers.Main
     private var bitmap = UtilityImg.getBlankBitmap()
     private lateinit var img: ObjectTouchImageView
     private var animDrawable = AnimationDrawable()
@@ -64,15 +64,13 @@ class GoesActivity : VideoRecordActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer, R.menu.goes16, iconsEvenlySpaced = true, bottomToolbar = false)
-        //toolbarBottom.setOnMenuItemClickListener(this)
         UtilityShortcut.hidePinIfNeeded(toolbarBottom)
         activityArguments = intent.getStringArrayExtra(RID)!!
-        drw = ObjectNavDrawer(this, UtilityGoes.labels, UtilityGoes.codes)
+        drw = ObjectNavDrawer(this, UtilityGoes.labels, UtilityGoes.codes, ::getContentFixThis)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, drw, "")
         img.setMaxZoom(8f)
         img.setListener(this, drw, ::getContentFixThis)
         readPrefs()
-        drw.setListener(::getContentFixThis)
         getContent(sector)
     }
 
@@ -185,9 +183,7 @@ class GoesActivity : VideoRecordActivity() {
         getContent(sector)
         super.onRestart()
     }
-
-    //override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
-
+    
     override fun onStop() {
         img.imgSavePosnZoom(this, prefImagePosition)
         super.onStop()
