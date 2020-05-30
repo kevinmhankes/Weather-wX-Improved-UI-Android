@@ -7,6 +7,7 @@
 // TODO [REF] simplify method nodes, getContent -> get ?
 // TODO [REF] rename utilShare methods
 
+55486 2020_05_30
 55485 2020_05_30    [ADD] NHC text products MIATWSAT / EP are now fixed-width font with newlines not stripped
                     [ADD] new SPC Meso param SR Helicity - Sfc-500m (srh5)
                     [ADD] new SPC Meso param Sgfnt Tornado (0-500m SRH) (stpc5)
