@@ -7,6 +7,7 @@
 // TODO [REF] simplify method nodes, getContent -> get ?
 // TODO [REF] rename utilShare methods
 
+55485 2020_05_30
 55484 2020_05_30    [REF] misc
                     [FIX] single pane radar was not at correct zoom level if position not remembered
 55483 2020_05_29    [REF] misc
@@ -17,7 +18,7 @@
 55481 2020_05_28    [ADD] Android Studio update to 4.0 with associated gradle updates
                     [ADD] update ndk from r21 to r21c
 55477 2020_05_28    [REF] misc
-                    [FIX] one type in help - thanks to Travis for pointing out
+                    [FIX] one typo in help - thanks to Travis for pointing out
                     [ADD] more verbose text prod labels for some canadian text products
 55476 2020_05_27    [REF] misc
                     [REF] remove roaming location feature
