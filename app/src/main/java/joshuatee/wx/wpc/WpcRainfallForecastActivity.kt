@@ -96,10 +96,10 @@ class WpcRainfallForecastActivity : AudioPlayActivity(), OnMenuItemClickListener
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (audioPlayMenu(item.itemId, objectCardText.text, textProduct, textProduct)) return true
         when (item.itemId) {
-            R.id.action_share_all -> UtilityShare.shareBitmap(this, this, textProduct, bitmap, objectCardText.text)
+            R.id.action_share_all -> UtilityShare.bitmap(this, this, textProduct, bitmap, objectCardText.text)
             R.id.action_share_text -> UtilityShare.text(this, textProduct, objectCardText.text)
             R.id.action_share_url -> UtilityShare.text(this, textProduct, textProduct)
-            R.id.action_share_image -> UtilityShare.shareBitmap(this, this, textProduct, bitmap)
+            R.id.action_share_image -> UtilityShare.bitmap(this, this, textProduct, bitmap)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

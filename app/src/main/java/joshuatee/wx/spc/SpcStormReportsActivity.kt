@@ -293,9 +293,9 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         if (audioPlayMenu(item.itemId, out.toString(), "spcstreports", "spcstreports")) return true
         when (item.itemId) {
-            R.id.action_share_all -> UtilityShare.shareBitmap(this, this, "Storm Reports - $no", bitmap, out.toString())
+            R.id.action_share_all -> UtilityShare.bitmap(this, this, "Storm Reports - $no", bitmap, out.toString())
             R.id.action_share_text -> UtilityShare.text(this, "Storm Reports - $no", out.toString())
-            R.id.action_share_image -> UtilityShare.shareBitmap(this, this, "Storm Reports - $no", bitmap)
+            R.id.action_share_image -> UtilityShare.bitmap(this, this, "Storm Reports - $no", bitmap)
             R.id.action_lsrbywfo -> ObjectIntent(this, LsrByWfoActivity::class.java, LsrByWfoActivity.URL, arrayOf(Location.wfo, "LSR"))
             else -> return super.onOptionsItemSelected(item)
         }

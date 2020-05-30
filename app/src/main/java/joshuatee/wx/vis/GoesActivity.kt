@@ -171,7 +171,7 @@ class GoesActivity : VideoRecordActivity() {
                 if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityShare.shareBitmap(this, this, drw.getLabel(), bitmap)
+                    UtilityShare.bitmap(this, this, drw.getLabel(), bitmap)
                 }
             }
             else -> return super.onOptionsItemSelected(item)

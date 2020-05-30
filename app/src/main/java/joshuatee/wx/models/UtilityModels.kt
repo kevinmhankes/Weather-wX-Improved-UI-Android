@@ -105,13 +105,13 @@ object UtilityModels {
 
     fun legacyShare(activity: Activity, context: Context, animRan: Boolean, om: ObjectModelNoSpinner) {
         if (animRan)
-            UtilityShare.shareAnimGif(
+            UtilityShare.animGif(
                     context,
                     om.prefModel + " " + om.displayData.paramLabel[0] + " " + om.timeIndex.toString(),
                     om.displayData.animDrawable[0]
             )
         else
-            UtilityShare.shareBitmap(
+            UtilityShare.bitmap(
                     activity,
                     context,
                     om.prefModel + " " + om.displayData.paramLabel[0] + " " + om.timeIndex.toString(),

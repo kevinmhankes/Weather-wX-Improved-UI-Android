@@ -577,13 +577,13 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 } else {
                     if (animRan) {
                         val animDrawable = UtilityUSImgWX.animationFromFiles(this, wxglRender.rid, wxglRender.product, frameCountGlobal, "", true)
-                        UtilityShare.shareAnimGif(
+                        UtilityShare.animGif(
                                 this,
                                 wxglRender.rid + " (" + Utility.getRadarSiteName(wxglRender.rid) + ") " + wxglRender.product,
                                 animDrawable
                         )
                     } else {
-                        UtilityShare.shareBitmap(
+                        UtilityShare.bitmap(
                                 this,
                                 this,
                                 wxglRender.rid + " (" + Utility.getRadarSiteName(wxglRender.rid) + ") " + wxglRender.product,

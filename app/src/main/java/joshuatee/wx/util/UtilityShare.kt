@@ -80,10 +80,10 @@ object UtilityShare {
 
     fun text(activity: Activity, context: Context, subject: String, text: String, bitmaps: List<Bitmap>) {
         val bitmap = UtilityImg.mergeImagesVertically(bitmaps)
-        shareBitmap(activity, context, subject, bitmap, text)
+        bitmap(activity, context, subject, bitmap, text)
     }
 
-    fun shareBitmap(activity: Activity, context: Context, subject: String, bitmap: Bitmap, text: String = "") {
+    fun bitmap(activity: Activity, context: Context, subject: String, bitmap: Bitmap, text: String = "") {
         val dir = File(context.filesDir.toString() + "/shared")
         if (!dir.mkdirs()) UtilityLog.d("wx", "failed to mkdir: " + context.filesDir + "/shared")
         val file = File(dir, "img1.png")
@@ -113,7 +113,7 @@ object UtilityShare {
     internal var animDrawablePublic: AnimationDrawable? = null
     internal var subjectPublic: String? = null
 
-    fun shareAnimGif(context: Context, subject: String, animDrawable: AnimationDrawable) {
+    fun animGif(context: Context, subject: String, animDrawable: AnimationDrawable) {
         UtilityUI.makeToastLegacy(context, "Creating animated gif")
         animDrawablePublic = animDrawable
         subjectPublic = subject

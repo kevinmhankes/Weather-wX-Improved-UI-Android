@@ -170,11 +170,11 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
                 if (bitmaps.size > 1)
                     UtilityShare.text(this, this, titleString, "", bitmaps)
                 else if (bitmaps.size == 1)
-                    UtilityShare.shareBitmap(this, this, titleString, bitmaps[0], Utility.fromHtml(text))
+                    UtilityShare.bitmap(this, this, titleString, bitmaps[0], Utility.fromHtml(text))
             }
             R.id.action_share_text -> UtilityShare.text(this, titleString, Utility.fromHtml(text))
             R.id.action_share_url -> UtilityShare.text(this, titleString, textUrl)
-            R.id.action_share_image -> UtilityShare.shareBitmap(this,this, titleString, bitmaps[0])
+            R.id.action_share_image -> UtilityShare.bitmap(this,this, titleString, bitmaps[0])
             else -> return super.onOptionsItemSelected(item)
         }
         return true

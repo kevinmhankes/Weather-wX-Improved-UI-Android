@@ -156,9 +156,9 @@ class CanadaRadarActivity : VideoRecordActivity(), OnClickListener, OnMenuItemCl
                     checkOverlayPerms()
                 } else {
                     if (animRan)
-                        UtilityShare.shareAnimGif(this, "", animDrawable)
+                        UtilityShare.animGif(this, "", animDrawable)
                     else
-                        UtilityShare.shareBitmap(this, this, "", bitmap)
+                        UtilityShare.bitmap(this, this, "", bitmap)
                 }
             }
             R.id.action_ridmap -> imageMap.toggleMap()

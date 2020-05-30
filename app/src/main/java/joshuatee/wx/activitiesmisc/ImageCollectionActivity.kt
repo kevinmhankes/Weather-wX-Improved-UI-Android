@@ -115,7 +115,7 @@ class ImageCollectionActivity : VideoRecordActivity() {
                 if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityShare.shareBitmap(this, this, imageCollection.title, bitmap)
+                    UtilityShare.bitmap(this, this, imageCollection.title, bitmap)
                 }
             }
             else -> return super.onOptionsItemSelected(item)

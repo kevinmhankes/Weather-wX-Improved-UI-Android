@@ -622,13 +622,13 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                                 (curRadar + 1).toString(),
                                 true
                         )
-                        UtilityShare.shareAnimGif(
+                        UtilityShare.animGif(
                                 this,
                                 wxglRenders[curRadar].rid + " (" + Utility.getRadarSiteName(wxglRenders[curRadar].rid)
                                         + ") " + wxglRenders[curRadar].product, animDrawable
                         )
                     } else {
-                        UtilityShare.shareBitmap(
+                        UtilityShare.bitmap(
                                 this,
                                 this,
                                 wxglRenders[curRadar].rid +

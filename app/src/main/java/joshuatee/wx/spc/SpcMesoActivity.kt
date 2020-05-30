@@ -373,13 +373,13 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 } else {
                     var title = UtilitySpcMeso.sectorMap[sector] + " - " + displayData.paramLabel[0]
                     if (animRan) {
-                        UtilityShare.shareAnimGif(this, title, displayData.animDrawable[0])
+                        UtilityShare.animGif(this, title, displayData.animDrawable[0])
                     } else {
                         if (numPanes == 1) {
-                            UtilityShare.shareBitmap(this, this, title, displayData.bitmap[0])
+                            UtilityShare.bitmap(this, this, title, displayData.bitmap[0])
                         } else {
                             title = UtilitySpcMeso.sectorMap[sector] + " - " + displayData.paramLabel[curImg]
-                            UtilityShare.shareBitmap(this, this,  title, displayData.bitmap[curImg])
+                            UtilityShare.bitmap(this, this,  title, displayData.bitmap[curImg])
                         }
                     }
                 }

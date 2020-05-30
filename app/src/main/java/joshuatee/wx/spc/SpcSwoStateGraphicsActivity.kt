@@ -103,7 +103,7 @@ class SpcSwoStateGraphicsActivity : VideoRecordActivity() {
                 state = GlobalArrays.states[it].split(":")[0]
                 getContent()
             }
-            R.id.action_share -> UtilityShare.shareBitmap(this, this, "$state SWO D$day", bitmap)
+            R.id.action_share -> UtilityShare.bitmap(this, this, "$state SWO D$day", bitmap)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

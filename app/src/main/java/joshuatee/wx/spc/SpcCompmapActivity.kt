@@ -124,7 +124,7 @@ class SpcCompmapActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareBitmap(this, this, "SPC Compmap", bitmap)
+            R.id.action_share -> UtilityShare.bitmap(this, this, "SPC Compmap", bitmap)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

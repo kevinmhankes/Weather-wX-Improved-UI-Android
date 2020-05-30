@@ -103,7 +103,7 @@ class LightningActivity : VideoRecordActivity() {
                 if (UIPreferences.recordScreenShare) {
                     checkOverlayPerms()
                 } else {
-                    UtilityShare.shareBitmap(this, this, "Lightning Strikes " + objectNavDrawer.getLabel() + " $periodPretty", bitmap)
+                    UtilityShare.bitmap(this, this, "Lightning Strikes " + objectNavDrawer.getLabel() + " $periodPretty", bitmap)
                 }
             }
             R.id.action_15min -> setPeriodGetContent("0.25")

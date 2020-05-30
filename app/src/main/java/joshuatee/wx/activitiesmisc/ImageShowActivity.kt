@@ -107,7 +107,7 @@ class ImageShowActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.shareBitmap(this, this, shareTitle, bitmap)
+            R.id.action_share -> UtilityShare.bitmap(this, this, shareTitle, bitmap)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

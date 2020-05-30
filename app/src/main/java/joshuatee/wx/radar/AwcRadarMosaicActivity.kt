@@ -125,9 +125,9 @@ class AwcRadarMosaicActivity : VideoRecordActivity() {
                     checkOverlayPerms()
                 } else {
                     if (animRan) {
-                        UtilityShare.shareAnimGif(this, "NWS mosaic", animDrawable)
+                        UtilityShare.animGif(this, "NWS mosaic", animDrawable)
                     } else {
-                        UtilityShare.shareBitmap(this, this, "NWS mosaic", bitmap)
+                        UtilityShare.bitmap(this, this, "NWS mosaic", bitmap)
                     }
                 }
             }
