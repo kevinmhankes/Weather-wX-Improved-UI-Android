@@ -4,9 +4,9 @@
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
-// TODO [REF] simplify method nodes, getContent -> get ?
 
 55488 2020_05_31    [REF] misc
+                    [ADD] additional NHC text products that require fixed width
 55487 2020_05_30    [ADD] increase font size in settings main screen
 55486 2020_05_30    [ADD] move "delete old radar files" from Settings into Settings -> About. You should never need this command.
 55485 2020_05_30    [ADD] NHC text products MIATWSAT / EP are now fixed-width font with newlines not stripped

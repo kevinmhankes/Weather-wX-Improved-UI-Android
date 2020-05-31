@@ -31,7 +31,11 @@ internal object UtilityWpcText {
 
     fun needsFixedWidthFont(product: String): Boolean {
         val productList = listOf("RWRMX", "UVICAC", "MIATWSEP", "MIATWSAT")
-        return product.startsWith("TPT") || product.startsWith("SWPC") || productList.contains(product)
+        return product.startsWith("TPT")
+                || product.startsWith("SWPC")
+                || product.startsWith("MIAPW")
+                || product.startsWith("MIATCM")
+                || productList.contains(product)
     }
 
     fun getLabel(token: String): String {
