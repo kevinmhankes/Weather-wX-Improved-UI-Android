@@ -33,7 +33,7 @@ import joshuatee.wx.util.*
 class WXGLNexradLevel2 {
 
     val radialStartAngle: ByteBuffer = ByteBuffer.allocateDirect(720 * 4)
-    var binSize = 0f
+    var binSize = 0.0f
         private set
     val numberOfRangeBins = 916
     val binWord: ByteBuffer = ByteBuffer.allocateDirect(720 * numberOfRangeBins)
@@ -53,8 +53,7 @@ class WXGLNexradLevel2 {
     // last argument is true/false on whether or not the DECOMP stage needs to happen
     fun decodeAndPlot(context: Context, fileName: String, prod: String, radarStatusStr: String, idxStr: String, performDecompression: Boolean) {
         val decompFileName = "$fileName.decomp$idxStr"
-        var productCode: Short = 153
-        if (prod == "L2VEL") productCode = 154
+        val productCode: Short = if (prod == "L2VEL") 154 else 153
         if (MyApplication.radarUseJni) {
             ibuff.position(0)
             obuff.position(0)
@@ -138,7 +137,7 @@ class WXGLNexradLevel2 {
             val days2 = days.short
             val milliSeconds = msecs.int
             val d = UtilityTime.radarTimeL2(days2, milliSeconds)
-            val radarInfo = d.toString() + MyApplication.newline + "Product Code: " + productCode.toInt().toString()
+            val radarInfo = d.toString() + MyApplication.newline + "Product Code: " + productCode.toString()
             WXGLNexrad.writeRadarInfo(context, radarStatusStr, radarInfo)
             binSize = WXGLNexrad.getBinSize(productCode.toInt())
         } catch (e: Exception) {
