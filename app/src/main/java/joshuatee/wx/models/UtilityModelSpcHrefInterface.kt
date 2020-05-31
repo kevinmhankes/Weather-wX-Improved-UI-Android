@@ -107,8 +107,8 @@ internal object UtilityModelSpcHrefInterface {
             "sfct_mean,10mwind_mean,mslp_mean",
             "sfctd_mean,10mwind_mean,mslp_mean",
             "cloudcover_low_mean,cloudcover_mid_mean,cloudcover_high_mean",
-            "pwat_mean", // NEW 10/19
-            "pwat_prob050080", // NEW 10/19
+            "pwat_mean",
+            "pwat_prob050080",
 
             "sbcape_max,sfc500shear_mean",
             "sbcape_mean,sfc500shear_mean",
@@ -141,7 +141,7 @@ internal object UtilityModelSpcHrefInterface {
             "snowfall_024h_prob08",
             "snowfall_024h_prob12",
             "snowfall_024h_ps",
-            "viswnd_prob0025035", // NEW 10/19
+            "viswnd_prob0025035",
             "frzrfram_003h_mean",
             "frzrqpf_003h_max",
             "frzrqpf_003h_mean",
@@ -155,7 +155,7 @@ internal object UtilityModelSpcHrefInterface {
             "fosberg_prob050",
             "fosberg_prob075",
             "10mwindhm_mean_mph_fill,10mwind_mean_mph",
-            "10mgust_max_mph_fill,10mwind_mean_mph", // NEW 10/19
+            "10mgust_max_mph_fill,10mwind_mean_mph",
             "sfcrh_mean",
             "rhwnd_prob1030",
             "rhwnd_prob1515",
@@ -224,8 +224,8 @@ internal object UtilityModelSpcHrefInterface {
             "2m AGL Temperature/MSLP/Wind",
             "2m AGL Dew Point/MSLP/Wind",
             "Cloud Cover: mean",
-            "Precipitable Water: mean", // NEW 10/19
-            "Precipitable Water: CP[>0.5, <0.8]", // NEW 10/19
+            "Precipitable Water: mean",
+            "Precipitable Water: CP[>0.5, <0.8]",
 
             "Surface Based CAPE: max",
             "Surface Based CAPE: mean",
@@ -258,7 +258,7 @@ internal object UtilityModelSpcHrefInterface {
             "24-hr Snowfall: P[>8\"]",
             "24-hr Snowfall: P[>12\"]",
             "24-hr Snowfall: stamps",
-            "Blizzard: CP[Vis, 10-m Vh] w/ snow", // NEW 10/19
+            "Blizzard: CP[Vis, 10-m Vh] w/ snow",
             "3-hr Freezing Rain: FRAM mean",
             "3-hr Freezing Rain: QPF max",
             "3-hr Freezing Rain: QPF mean",
@@ -272,7 +272,7 @@ internal object UtilityModelSpcHrefInterface {
             "Fosberg Index: P[>50]",
             "Fosberg Index: P[>75]",
             "10 m AGL Wind (Hourly Max): mean",
-            "10 m AGL Gust: mean", // NEW 10/19
+            "10 m AGL Gust: mean",
             "Relative Humidity: mean",
             "Relative Humidity and Wind: CP[RH<10%, V>30mph]",
             "Relative Humidity and Wind: CP[RH<15%, V>15mph]",
