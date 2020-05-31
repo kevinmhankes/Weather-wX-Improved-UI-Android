@@ -81,26 +81,31 @@ class WXGLNexradLevel3 internal constructor() {
     }
 
     private fun init4Bit() {
-        if (productCode == 181.toShort()) {
-            binWord = ByteBuffer.allocateDirect(360 * 720)
-            binWord.order(ByteOrder.nativeOrder())
-            radialStart = ByteBuffer.allocateDirect(4 * 360)
-            radialStart.order(ByteOrder.nativeOrder())
-        } else if (productCode == 78.toShort() || productCode == 80.toShort()) {
-            binWord = ByteBuffer.allocateDirect(360 * 592)
-            binWord.order(ByteOrder.nativeOrder())
-            radialStart = ByteBuffer.allocateDirect(4 * 360)
-            radialStart.order(ByteOrder.nativeOrder())
-        } else if (productCode == 37.toShort() || productCode == 38.toShort() || productCode == 41.toShort() || productCode == 57.toShort()) {
-            binWord = ByteBuffer.allocateDirect(464 * 464)
-            binWord.order(ByteOrder.nativeOrder())
-            radialStart = ByteBuffer.allocateDirect(4 * 360)
-            radialStart.order(ByteOrder.nativeOrder())
-        } else {
-            binWord = ByteBuffer.allocateDirect(360 * 230)
-            binWord.order(ByteOrder.nativeOrder())
-            radialStart = ByteBuffer.allocateDirect(4 * 360)
-            radialStart.order(ByteOrder.nativeOrder())
+        when (productCode.toInt()) {
+            181 -> {
+                binWord = ByteBuffer.allocateDirect(360 * 720)
+                binWord.order(ByteOrder.nativeOrder())
+                radialStart = ByteBuffer.allocateDirect(4 * 360)
+                radialStart.order(ByteOrder.nativeOrder())
+            }
+            78, 80 -> {
+                binWord = ByteBuffer.allocateDirect(360 * 592)
+                binWord.order(ByteOrder.nativeOrder())
+                radialStart = ByteBuffer.allocateDirect(4 * 360)
+                radialStart.order(ByteOrder.nativeOrder())
+            }
+            37, 38, 41, 57 -> {
+                binWord = ByteBuffer.allocateDirect(464 * 464)
+                binWord.order(ByteOrder.nativeOrder())
+                radialStart = ByteBuffer.allocateDirect(4 * 360)
+                radialStart.order(ByteOrder.nativeOrder())
+            }
+            else -> {
+                binWord = ByteBuffer.allocateDirect(360 * 230)
+                binWord.order(ByteOrder.nativeOrder())
+                radialStart = ByteBuffer.allocateDirect(4 * 360)
+                radialStart.order(ByteOrder.nativeOrder())
+            }
         }
     }
 
