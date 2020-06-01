@@ -72,7 +72,6 @@ class CapAlert {
             capAlert.text += MyApplication.newline + MyApplication.newline
             capAlert.text += capAlert.instructions
             capAlert.text += MyApplication.newline + MyApplication.newline
-            //capAlert.summary = capAlert.summary.replace("<br>\\*", "<br><br>*")
             if (UIPreferences.nwsTextRemovelinebreaks) {
                 capAlert.instructions = capAlert.instructions.replace("<br><br>", "<BR><BR>").replace("<br>", " ")
             }

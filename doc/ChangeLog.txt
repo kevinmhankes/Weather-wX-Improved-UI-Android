@@ -4,8 +4,9 @@
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
+// TODO [ADD] Remove all non nws embedded websites
 
-55488 2020_05_31    [REF] misc
+55488 2020_06_01    [REF] misc
                     [ADD] additional NHC text products that require fixed width
                     [ADD] SPC HREF 24-hr STP Calibrated: Tornado
                     [ADD] 1-hr HREF Calibrated: Thunder
