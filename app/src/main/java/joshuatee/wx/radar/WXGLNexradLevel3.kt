@@ -109,6 +109,10 @@ class WXGLNexradLevel3 internal constructor() {
         }
     }
 
+    // TODO update document reference to latest RPG Build #
+    // fig 3-6 on 3-32 in INTERFACE CONTROL DOCUMENT FOR THE RPG TO CLASS 1 USER
+    // RPG Build 14.0 Build Date 1/3/2014 Document Number 2620001U Code Identification 0WY55 WSR-88D ROC
+    // TODO consume additional header data
     fun decodeAndPlot(context: Context, fileName: String, site: String, radarStatus: String) {
         try {
             val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, fileName))
@@ -121,15 +125,12 @@ class WXGLNexradLevel3 internal constructor() {
             // index 2,3 is long as Int
             latitudeOfRadar = dis.readInt() / 1000.0
             longitudeOfRadar = dis.readInt() / 1000.0
-            //val heightOfRadar = dis.readUnsignedShort().toShort()
             radarHeight = dis.readUnsignedShort()
             productCode = dis.readUnsignedShort().toShort()
             operationalMode = dis.readUnsignedShort().toShort()
             volumeCoveragePattern = dis.readUnsignedShort().toShort()
-            //val sequenceNumber = dis.readUnsignedShort().toShort()
-            //val volumeScanNumber = dis.readUnsignedShort().toShort()
-            dis.readUnsignedShort().toShort()
-            dis.readUnsignedShort().toShort()
+            val sequenceNumber = dis.readUnsignedShort().toShort()
+            val volumeScanNumber = dis.readUnsignedShort().toShort()
             val volumeScanDate = dis.readUnsignedShort().toShort()
             val volumeScanTime = dis.readInt()
             val d = UtilityTime.radarTime(volumeScanDate, volumeScanTime)

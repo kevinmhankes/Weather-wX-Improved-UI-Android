@@ -22,6 +22,7 @@
 package joshuatee.wx.settings
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 
 import joshuatee.wx.MyApplication
@@ -39,6 +40,7 @@ class SettingsColorsActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
+        linearLayout.setBackgroundColor(Color.BLACK)
         val mapColorToPref = mutableMapOf(
             "Highway color" to "RADAR_COLOR_HW",
             "Secondary Highway color" to "RADAR_COLOR_HW_EXT",
