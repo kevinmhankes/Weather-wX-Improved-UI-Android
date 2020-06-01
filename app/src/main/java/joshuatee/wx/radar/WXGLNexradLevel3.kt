@@ -80,8 +80,8 @@ class WXGLNexradLevel3 internal constructor() {
         }
     }
 
-    private fun init4Bit() {
-        when (productCode.toInt()) {
+    private fun init4Bit(code: Short) {
+        when (code.toInt()) {
             181 -> {
                 binWord = ByteBuffer.allocateDirect(360 * 720)
                 binWord.order(ByteOrder.nativeOrder())
@@ -109,10 +109,11 @@ class WXGLNexradLevel3 internal constructor() {
         }
     }
 
-    // TODO update document reference to latest RPG Build #
     // fig 3-6 on 3-32 in INTERFACE CONTROL DOCUMENT FOR THE RPG TO CLASS 1 USER
     // RPG Build 14.0 Build Date 1/3/2014 Document Number 2620001U Code Identification 0WY55 WSR-88D ROC
     // TODO consume additional header data
+    // ICD Can be found at: https://www.roc.noaa.gov/WSR88D/BuildInfo/Files.aspx
+    // Latest is Build 18.0	released on 18 Jan 2018 stored at https://www.roc.noaa.gov/wsr88d/PublicDocs/ICDs/2620001X.pdf
     fun decodeAndPlot(context: Context, fileName: String, site: String, radarStatus: String) {
         try {
             val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, fileName))
@@ -192,19 +193,19 @@ class WXGLNexradLevel3 internal constructor() {
             longitudeOfRadar = dis.readInt() / 1000.0
             radarHeight = dis.readUnsignedShort()
             productCode = dis.readUnsignedShort().toShort()
-            init4Bit()
+            init4Bit(productCode)
             operationalMode = dis.readUnsignedShort().toShort()
             volumeCoveragePattern = dis.readUnsignedShort().toShort()
-            //val sequenceNumber = dis.readUnsignedShort().toShort()
-            //val volumeScanNumber = dis.readUnsignedShort().toShort()
-            dis.readUnsignedShort().toShort()
-            dis.readUnsignedShort().toShort()
+            val sequenceNumber = dis.readUnsignedShort().toShort()
+            val volumeScanNumber = dis.readUnsignedShort().toShort()
             val volumeScanDate = dis.readUnsignedShort().toShort()
             val volumeScanTime = dis.readInt()
             val d = UtilityTime.radarTime(volumeScanDate, volumeScanTime)
+            val productGenerationDate = dis.readUnsignedShort().toShort()
+            val productGenerationTime = dis.readInt()
             //final short        product_generation_date = (short) dis.readUnsignedShort();
             //final int        product_generation_time    = dis.readInt() ;
-            dis.skipBytes(6)
+            //dis.skipBytes(6)
             val radarInfo = formatRadarString(d)
             WXGLNexrad.writeRadarInfo(context, radarStatus, radarInfo)
             timestamp = radarInfo
