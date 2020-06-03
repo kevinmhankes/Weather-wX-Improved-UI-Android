@@ -176,16 +176,15 @@ internal object UtilityWXOGLPerf {
         var angleVCos: Float
         val radarBlackHole: Float
         val radarBlackHoleAdd: Float
-        // TODO use when
-        if (radarBuffers.productCode == 56.toShort() || radarBuffers.productCode == 30.toShort() || radarBuffers.productCode == 78.toShort()
-                || radarBuffers.productCode == 80.toShort()
-                || radarBuffers.productCode == 181.toShort()
-        ) {
-            radarBlackHole = 1.0f
-            radarBlackHoleAdd = 0.0f
-        } else {
-            radarBlackHole = 4.0f
-            radarBlackHoleAdd = 4.0f
+        when (radarBuffers.productCode.toInt()) {
+            56, 30, 78, 80, 181 -> {
+                radarBlackHole = 1.0f
+                radarBlackHoleAdd = 0.0f
+            }
+            else -> {
+                radarBlackHole = 4.0f
+                radarBlackHoleAdd = 4.0f
+            }
         }
         for (radialNumber in 0 until radarBuffers.numberOfRadials) {
             angle = radialStart.getFloat(radialNumber * 4)
