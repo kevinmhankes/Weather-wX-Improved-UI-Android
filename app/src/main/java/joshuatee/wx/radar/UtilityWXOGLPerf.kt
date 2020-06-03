@@ -176,6 +176,7 @@ internal object UtilityWXOGLPerf {
         var angleVCos: Float
         val radarBlackHole: Float
         val radarBlackHoleAdd: Float
+        // TODO use when
         if (radarBuffers.productCode == 56.toShort() || radarBuffers.productCode == 30.toShort() || radarBuffers.productCode == 78.toShort()
                 || radarBuffers.productCode == 80.toShort()
                 || radarBuffers.productCode == 181.toShort()

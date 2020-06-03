@@ -100,6 +100,7 @@ object UtilityDownload {
                 needsBitmap = false
                 var rid = Location.rid
                 if (rid == "NAT") rid = "CAN"
+                // TODO use when
                 bitmap =
                         if (rid == "CAN" || rid == "PAC" || rid == "WRN" || rid == "ONT" || rid == "QUE" || rid == "ERN")
                             UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, rid)
