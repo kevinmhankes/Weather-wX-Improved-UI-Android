@@ -63,6 +63,7 @@ class NhcActivity : BaseActivity() {
             withContext(Dispatchers.IO) { objectNhc.regionMap[it]!!.getImages() }
             objectNhc.showImageData(it)
         }
+
     }
 
     private fun showTextProduct(prod: String) {
@@ -96,6 +97,7 @@ class NhcActivity : BaseActivity() {
     }
 
     override fun onRestart() {
+        getContent()
         objectNhc.handleRestartForNotification()
         super.onRestart()
     }

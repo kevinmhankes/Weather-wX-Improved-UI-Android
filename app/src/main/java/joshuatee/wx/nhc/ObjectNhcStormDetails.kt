@@ -54,7 +54,7 @@ class ObjectNhcStormDetails(
     }
 
     fun forTopHeader(): String {
-        return movement + ", " + pressure + "mb, " + intensity + " mph"
+        return "$movement, $pressure mb, $intensity mph"
     }
 
     fun summaryForNotification(): String {
