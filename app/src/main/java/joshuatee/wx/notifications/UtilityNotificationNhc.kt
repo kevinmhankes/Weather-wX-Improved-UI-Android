@@ -79,7 +79,7 @@ object UtilityNotificationNhc {
                     context.resources.getString(R.string.read_aloud)
             )
             val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
-            objectNotification.sendNotification(context, stormData.id, 1, notification)
+            objectNotification.sendNotification(context, stormData.id + stormData.dateTime, 1, notification)
         }
         return stormData.id + MyApplication.notificationStrSep
     }

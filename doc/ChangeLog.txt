@@ -6,7 +6,8 @@
 // TODO [REF] rename files/classes in radar folder
 // TODO [ADD] Remove all non nws embedded websites
 
-55490 2020_06_07
+55490 2020_06_07    [FIX] NHC notifications were not sending at every update interval
+                    [ADD] NHC Storm detail additional graphic for flash flood risk
 55489 2020_06_07    [REF] misc
                     [ADD] org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.71 to org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72
                     [ADD] onrestart in NHC

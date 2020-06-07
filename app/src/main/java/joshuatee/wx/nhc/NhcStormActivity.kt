@@ -63,6 +63,7 @@ class NhcStormActivity : BaseActivity() {
             "_5day_cone_with_line_and_wind_sm2.png",
             "_key_messages.png",
             "WPCQPF_sm2.gif",
+            "WPCERO_sm2.gif",
             "_earliest_reasonable_toa_34_sm2.png",
             "_most_likely_toa_34_sm2.png",
             "_wind_probs_34_F120_sm2.png",
@@ -96,7 +97,8 @@ class NhcStormActivity : BaseActivity() {
         withContext(Dispatchers.IO) {
             imageUrls.forEach {
                 var url = stormData.baseUrl
-                if (it == "WPCQPF_sm2.gif") url = url.dropLast(2)
+                if (it == "WPCQPF_sm2.gif" || it == "WPCERO_sm2.gif") url = url.dropLast(2)
+                UtilityLog.d("wx", url)
                 bitmaps.add((url + it).getImage())
             }
         }
@@ -116,7 +118,7 @@ class NhcStormActivity : BaseActivity() {
                 numberOfImages += 1
                 objectCardImage.setOnClickListener(View.OnClickListener {
                     var url = stormData.baseUrl
-                    if (imageUrls[index] == "WPCQPF_sm2.gif") url = url.dropLast(2)
+                    if (imageUrls[index] == "WPCQPF_sm2.gif" || imageUrls[index] == "WPCERO_sm2.gif") url = url.dropLast(2)
                     val fullUrl = url + imageUrls[index]
                     ObjectIntent.showImage(this@NhcStormActivity, arrayOf(fullUrl, ""))
                 })
