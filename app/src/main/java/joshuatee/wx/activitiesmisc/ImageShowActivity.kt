@@ -69,7 +69,8 @@ class ImageShowActivity : BaseActivity() {
         img = ObjectTouchImageView(this, this, toolbar, R.id.iv)
         val activityArguments: Array<String> = intent.getStringArrayExtra(URL)!!
         url = activityArguments[0]
-        title = activityArguments[1]
+        title = "Image Viewer"
+        toolbar.subtitle = activityArguments[1]
         shareTitle = activityArguments[1]
         if (activityArguments.size > 2) needsWhiteBackground = activityArguments[2] == "true"
         when {
