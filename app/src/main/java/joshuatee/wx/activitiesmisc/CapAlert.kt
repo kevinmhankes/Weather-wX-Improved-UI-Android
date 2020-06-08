@@ -24,7 +24,12 @@ package joshuatee.wx.activitiesmisc
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
+import joshuatee.wx.RegExp
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.radar.LatLon
+import joshuatee.wx.settings.UtilityLocation
+import joshuatee.wx.util.UtilityLog
+import joshuatee.wx.util.UtilityString
 
 class CapAlert {
 
@@ -45,6 +50,24 @@ class CapAlert {
     var event = ""
     var effective = ""
     var expires = ""
+    var points = listOf<String>()
+
+    fun getClosestRadar(): String {
+        UtilityLog.d("wx", "DEBUG getRadar: " + points)
+        return if (points.size > 2) {
+            val lat = points[1]
+            val lon = "-" + points[0]
+            val radarSites = UtilityLocation.getNearestRadarSite(LatLon(lat, lon),1)
+            UtilityLog.d("wx", "DEBUG: " + LatLon(lat, lon))
+            if (radarSites.isEmpty()) {
+                ""
+            } else {
+                radarSites[0].name
+            }
+        } else {
+            ""
+        }
+    }
 
     companion object {
 
@@ -52,7 +75,7 @@ class CapAlert {
         fun initializeFromCap(eventText: String): CapAlert {
             val capAlert = CapAlert()
             capAlert.url = eventText.parse("<id>(.*?)</id>")
-            capAlert.title  = eventText.parse("<title>(.*?)</title>")
+            capAlert.title = eventText.parse("<title>(.*?)</title>")
             capAlert.summary = eventText.parse("<summary>(.*?)</summary>")
             capAlert.instructions = eventText.parse("</description>.*?<instruction>(.*?)</instruction>.*?<areaDesc>")
             capAlert.area = eventText.parse("<cap:areaDesc>(.*?)</cap:areaDesc>")
@@ -78,7 +101,9 @@ class CapAlert {
             return capAlert
         }
 
+        // Used by USAlert detail
         fun createFromUrl(url: String): CapAlert {
+            UtilityLog.d("wx", "DEBUG: " + url)
             val expireStr = "This alert has expired"
             val capAlert = CapAlert()
             capAlert.url = url
@@ -108,6 +133,9 @@ class CapAlert {
                     capAlert.text += MyApplication.newline + MyApplication.newline
                 }
             } else {
+                UtilityLog.d("wx", "DEBUG: processing JSON")
+                capAlert.points = getWarningsFromJson(html)
+                UtilityLog.d("wx", "DEBUG: " + capAlert.points)
                 capAlert.title = html.parse("\"headline\": \"(.*?)\"")
                 capAlert.summary = html.parse("\"description\": \"(.*?)\"")
                 capAlert.instructions = html.parse("\"instruction\": \"(.*?)\"")
@@ -133,6 +161,24 @@ class CapAlert {
                 capAlert.instructions = capAlert.instructions.replace("<br>", " ")
             }
             return capAlert
+        }
+
+        private fun getWarningsFromJson(html: String): List<String> {
+            val data = html.replace("\n", "").replace(" ", "")
+            val warnings = UtilityString.parseColumnMutable(data, RegExp.warningLatLonPattern)
+            val warningsFiltered = mutableListOf<String>()
+            val vtecs = data.parseColumn(RegExp.warningVtecPattern)
+            warnings.forEachIndexed { i, _ ->
+                warnings[i] = warnings[i].replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
+                if (!(vtecs[i].startsWith("O.EXP") || vtecs[i].startsWith("O.CAN"))) {
+                    warningsFiltered.add(warnings[i])
+                }
+            }
+            return if (warningsFiltered.size > 0) {
+                warningsFiltered[0].split(" ")
+            } else {
+                warningsFiltered
+            }
         }
     }
 }
