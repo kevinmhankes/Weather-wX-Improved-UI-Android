@@ -89,6 +89,7 @@ class USAlertsDetailActivity : AudioPlayActivity(), OnMenuItemClickListener {
         return true
     }
 
+    // TODO move to util
     private fun radarInterface() {
         val radarLabel = Utility.getRadarSiteName(radarSite)
         val state = radarLabel.split(",").safeGet(0)

@@ -27,9 +27,13 @@ import joshuatee.wx.Extensions.condenseSpace
 import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.Extensions.parse
 import joshuatee.wx.MyApplication
+import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.objects.PolygonType
+import joshuatee.wx.radar.LatLon
+import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityImg
+import joshuatee.wx.util.UtilityLog
 
 internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
 
@@ -46,6 +50,8 @@ internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
     var text = ""
         private set
     private var wfos = listOf<String>()
+    private var stringOfLatLon = ""
+    private var latLons = listOf<String>()
 
     init {
         this.productNumber = productNumber
@@ -74,9 +80,29 @@ internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
 
     fun getData(context: Context) {
         text = UtilityDownload.getTextProduct(context, prod)
+        stringOfLatLon = UtilityNotification.storeWatMcdLatLon(text).replace(":", "")
+        latLons = stringOfLatLon.split(" ")
+        UtilityLog.d("wx", "DEBUG: " + latLons)
         bitmap = imgUrl.getImage()
         val wfoString = text.parse("ATTN...WFO...(.*?)...<BR><BR>")
         wfos = wfoString.split("\\.\\.\\.".toRegex()).dropLastWhile { it.isEmpty() }
+    }
+
+    fun getClosestRadar(): String {
+        UtilityLog.d("wx", "DEBUG getRadar: " + latLons)
+        return if (latLons.size > 2) {
+            val lat = latLons[0]
+            val lon = "-" + latLons[1]
+            val radarSites = UtilityLocation.getNearestRadarSite(LatLon(lat, lon),1)
+            UtilityLog.d("wx", "DEBUG: " + LatLon(lat, lon))
+            if (radarSites.isEmpty()) {
+                ""
+            } else {
+                radarSites[0].name
+            }
+        } else {
+            ""
+        }
     }
 
     val textForSubtitle: String
