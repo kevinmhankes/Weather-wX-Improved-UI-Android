@@ -27,7 +27,6 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
-import joshuatee.wx.Extensions.safeGet
 
 import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
@@ -105,7 +104,7 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (audioPlayMenu(item.itemId, objectWatchProduct.text, number, objectWatchProduct.prod)) return true
         when (item.itemId) {
-            R.id.action_radar -> radarInterface()
+            R.id.action_radar -> ObjectIntent.showRadarBySite(this, objectWatchProduct.getClosestRadar())
             R.id.action_share_all -> UtilityShare.bitmap(this, this, objectWatchProduct.title, objectWatchProduct.bitmap, Utility.fromHtml(objectWatchProduct.text))
             R.id.action_share_text -> UtilityShare.text(this, objectWatchProduct.title, Utility.fromHtml(objectWatchProduct.text))
             R.id.action_share_url -> UtilityShare.text(this, objectWatchProduct.title, objectWatchProduct.textUrl)
@@ -113,12 +112,5 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
             else -> return super.onOptionsItemSelected(item)
         }
         return true
-    }
-
-    private fun radarInterface() {
-        val radarSite = objectWatchProduct.getClosestRadar()
-        val radarLabel = Utility.getRadarSiteName(radarSite)
-        val state = radarLabel.split(",").safeGet(0)
-        ObjectIntent.showRadar(this@SpcMcdWatchShowActivity, arrayOf(radarSite, state, "N0Q", ""))
     }
 }

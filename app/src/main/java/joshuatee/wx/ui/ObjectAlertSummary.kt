@@ -153,10 +153,11 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
     }
 
     private fun radarInterface(office: String) {
-        val radarSite = GlobalDictionaries.wfoToRadarSite[office] ?: ""
-        val radarLabel = Utility.getRadarSiteName(radarSite)
-        val state = radarLabel.split(",")[0]
-        ObjectIntent.showRadar(context, arrayOf(radarSite, state, "N0Q", ""))
+        ObjectIntent.showRadarBySite(context, GlobalDictionaries.wfoToRadarSite[office] ?: "")
+        //val radarSite = GlobalDictionaries.wfoToRadarSite[office] ?: ""
+        //val radarLabel = Utility.getRadarSiteName(radarSite)
+        //val state = radarLabel.split(",")[0]
+        //ObjectIntent.showRadar(context, arrayOf(radarSite, state, "N0Q", ""))
     }
 
     private fun showWarningDetails(url: String) { ObjectIntent.showHazard(context, arrayOf(url, "")) }

@@ -30,7 +30,6 @@ import android.view.View
 import android.widget.LinearLayout
 import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.Extensions.safeGet
-import joshuatee.wx.GlobalDictionaries
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
@@ -216,7 +215,7 @@ class SevereDashboardActivity : BaseActivity() {
         }
         return true
     }
-    
+
     private fun showWarningDetails(url: String) {
         ObjectIntent.showHazard(this@SevereDashboardActivity, arrayOf("https://api.weather.gov/alerts/$url", ""))
     }
