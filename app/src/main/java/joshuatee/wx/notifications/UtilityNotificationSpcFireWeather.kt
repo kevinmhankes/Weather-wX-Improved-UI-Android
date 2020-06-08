@@ -52,8 +52,8 @@ internal object UtilityNotificationSpcFireWeather {
         detailRaw = detailRaw.replace("&nbsp".toRegex(), " ")
         val noBody = detailRaw
         val objectPendingIntents = ObjectPendingIntents(context, SpcFireOutlookSummaryActivity::class.java)
-        val cancelStr = "spcfwloc$day$locNum$threatLevel$validTime"
-        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, cancelStr))) {
+        val cancelString = "spcfwloc$day$locNum$threatLevel$validTime"
+        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, cancelString))) {
             val sound = MyApplication.locations[locNumInt].sound && !inBlackout
             val objectNotification = ObjectNotification(
                     context,
@@ -70,9 +70,9 @@ internal object UtilityNotificationSpcFireWeather {
                     context.resources.getString(R.string.read_aloud)
             )
             val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
-            objectNotification.sendNotification(context, cancelStr, 1, notification)
+            objectNotification.sendNotification(context, cancelString, 1, notification)
         }
-        return cancelStr + MyApplication.notificationStrSep
+        return cancelString + MyApplication.notificationStrSep
     }
 
     fun sendSpcFireWeatherD12LocationNotifications(context: Context): String {

@@ -5,8 +5,9 @@
 // TODO [REF] WXGLRender rename rid to radarSite
 // TODO [REF] rename files/classes in radar folder
 // TODO [ADD] Remove all non nws embedded websites
+// TODO [FIX] look at cancel strings in SPC notifications
 
-55491 2020_06_07
+55491 2020_06_08    [FIX] NHC notifications were not sending at every update interval
 55490 2020_06_07    [FIX] NHC notifications were not sending at every update interval
                     [ADD] NHC Storm detail additional graphic for flash flood risk
 55489 2020_06_07    [REF] misc

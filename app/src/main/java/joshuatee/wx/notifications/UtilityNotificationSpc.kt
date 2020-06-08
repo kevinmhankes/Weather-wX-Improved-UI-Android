@@ -70,8 +70,8 @@ internal object UtilityNotificationSpc {
                             SpcSwoActivity.NUMBER,
                             arrayOf((it + 1).toString(), ""), arrayOf((it + 1).toString(), "sound")
                     )
-                    val cancelStr = "usspcswo" + it.toString() + threatLevel[0] + validTime
-                    if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, cancelStr))) {
+                    val cancelString = "usspcswo" + it.toString() + threatLevel[0] + validTime
+                    if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, cancelString))) {
                         val sound = MyApplication.alertNotificationSoundSpcswo && !inBlackout
                         val objectNotification = ObjectNotification(
                                 context,
@@ -88,12 +88,12 @@ internal object UtilityNotificationSpc {
                                 context.resources.getString(R.string.read_aloud)
                         )
                         val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
-                        objectNotification.sendNotification(context, cancelStr, 1, notification)
+                        objectNotification.sendNotification(context, cancelString, 1, notification)
                     }
-                    notifUrls += cancelStr + MyApplication.notificationStrSep
-                } // end if to check if null string
-            } // end for loop to iterate over
-        } // end of if to test if alerts_spcconv are enabled
+                    notifUrls += cancelString + MyApplication.notificationStrSep
+                }
+            }
+        }
         return notifUrls
     }
 
@@ -159,6 +159,7 @@ internal object UtilityNotificationSpc {
                 } // end loop over polygons for specific day
             } // end loop over treat level
         } // end loop of day 1-3
+        // TODO why no separator
         return notifUrls
     }
 
@@ -184,12 +185,12 @@ internal object UtilityNotificationSpc {
                 }
             }
         }
+        // TODO why no separator
         return notifUrls
     }
 
     private fun sendMcdNotification(context: Context, locNum: String, mdNo: String): String {
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
-        val sep = ","
         val locLabel = Utility.readPref(context, "LOC" + locNum + "_LABEL", "")
         val requestID = UtilityTime.currentTimeMillis().toInt()
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
@@ -206,8 +207,8 @@ internal object UtilityNotificationSpc {
         stackBuilder.addNextIntent(resultIntent)
         val resultPendingIntent = stackBuilder.getPendingIntent(requestID, PendingIntent.FLAG_UPDATE_CURRENT)
         val resultPendingIntent2 = PendingIntent.getActivity(context, requestID + 1, resultIntent2, PendingIntent.FLAG_UPDATE_CURRENT)
-        val cancelStr = "spcmcdloc$mdNo$locNum"
-        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, cancelStr))) {
+        val cancelString = "spcmcdloc$mdNo$locNum"
+        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, cancelString))) {
             val sound = MyApplication.locations[locNumInt].sound && !inBlackout
             val objectNotification = ObjectNotification(
                     context,
@@ -224,14 +225,13 @@ internal object UtilityNotificationSpc {
                     context.resources.getString(R.string.read_aloud)
             )
             val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
-            objectNotification.sendNotification(context, cancelStr, 1, notification)
+            objectNotification.sendNotification(context, cancelString, 1, notification)
         }
-        return cancelStr + sep
+        return cancelString + MyApplication.notificationStrSep
     }
 
     private fun sendSwoNotification(context: Context, locNum: String, day: Int, threatLevel: String, validTime: String): String {
         val locNumInt = (locNum.toIntOrNull() ?: 0) - 1
-        val sep = ","
         val locLabel = Utility.readPref(context, "LOC" + locNum + "_LABEL", "")
         val requestID = UtilityTime.currentTimeMillis().toInt()
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
@@ -250,8 +250,8 @@ internal object UtilityNotificationSpc {
         stackBuilder.addNextIntent(resultIntent)
         val resultPendingIntent = stackBuilder.getPendingIntent(requestID, PendingIntent.FLAG_UPDATE_CURRENT)
         val resultPendingIntent2 = PendingIntent.getActivity(context, requestID + 1, resultIntent2, PendingIntent.FLAG_UPDATE_CURRENT)
-        val cancelStr = "spcswoloc$day$locNum$threatLevel$validTime"
-        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, cancelStr))) {
+        val cancelString = "spcswoloc$day$locNum$threatLevel$validTime"
+        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, cancelString))) {
             val sound = (MyApplication.locations.getOrNull(locNumInt)?.sound ?: false) && !inBlackout
             val objectNotification = ObjectNotification(
                     context,
@@ -268,9 +268,9 @@ internal object UtilityNotificationSpc {
                     context.resources.getString(R.string.read_aloud)
             )
             val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
-            objectNotification.sendNotification(context, cancelStr, 1, notification)
+            objectNotification.sendNotification(context, cancelString, 1, notification)
         }
-        return cancelStr + sep
+        return cancelString + MyApplication.notificationStrSep
     }
 
     fun sendSwoD48LocationNotifications(context: Context): String {
@@ -315,6 +315,7 @@ internal object UtilityNotificationSpc {
                 } // end loop over polygons for specific day
             } // end loop over treat level
         } // end loop of day 1-3
+        // TODO why no separator
         return notifUrls
     }
 }

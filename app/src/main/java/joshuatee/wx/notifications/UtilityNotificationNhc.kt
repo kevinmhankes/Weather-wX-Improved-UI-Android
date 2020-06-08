@@ -62,7 +62,8 @@ object UtilityNotificationNhc {
     private fun sendNotification(context: Context, soundPref: Boolean, stormData: ObjectNhcStormDetails): String {
         val inBlackout = UtilityNotificationUtils.checkBlackOut()
         val objPI = ObjectPendingIntents(context, NhcStormActivity::class.java, NhcStormActivity.URL, stormData)
-        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, stormData.id))) {
+        val cancelString = stormData.id + stormData.dateTime
+        if (!(MyApplication.alertOnlyOnce && UtilityNotificationUtils.checkToken(context, cancelString))) {
             val sound = soundPref && !inBlackout
             val objectNotification = ObjectNotification(
                     context,
@@ -79,9 +80,9 @@ object UtilityNotificationNhc {
                     context.resources.getString(R.string.read_aloud)
             )
             val notification = UtilityNotification.createNotificationBigTextWithAction(objectNotification)
-            objectNotification.sendNotification(context, stormData.id + stormData.dateTime, 1, notification)
+            objectNotification.sendNotification(context, cancelString, 1, notification)
         }
-        return stormData.id + MyApplication.notificationStrSep
+        return cancelString + MyApplication.notificationStrSep
     }
 }
 

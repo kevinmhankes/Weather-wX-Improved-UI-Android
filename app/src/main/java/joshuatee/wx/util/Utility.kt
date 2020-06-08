@@ -250,6 +250,7 @@ object Utility {
         string += showDiagnostics(context)
         string += "Tablet: " + UtilityUI.isTablet().toString() + MyApplication.newline
         string += "Forecast zone: " + UtilityDownloadNws.forecastZone + MyApplication.newline
+        string += "Notification Cancel String: " + Utility.readPref(context, "NOTIF_STR", "") + MyApplication.newline
         return string
     }
 
