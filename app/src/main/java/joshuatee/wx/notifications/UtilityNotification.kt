@@ -472,8 +472,8 @@ object UtilityNotification {
         return noti
     }
 
-    // Add methods in LatLon
-    internal fun storeWatMcdLatLon(html: String): String {
+    // TODO Add method to LatLon class
+    internal fun storeWatchMcdLatLon(html: String): String {
         val coordinates = html.parseColumn("([0-9]{8}).*?")
         var string = ""
         coordinates.forEach { temp ->

@@ -129,7 +129,7 @@ internal object UtilityNotificationSpc {
                 var string = ""
                 val htmlList = htmlBlob.parseColumn(threat.substring(1) + "(.*?)[A-Z&]")
                 htmlList.forEach {
-                    string += UtilityNotification.storeWatMcdLatLon(it)
+                    string += UtilityNotification.storeWatchMcdLatLon(it)
                     string = string.replace(" 99.99 99.99 ", " ") // need for the way SPC ConvO seperates on 8 's
                 } // end looping over polygons of one threat level
                 val items = MyApplication.colon.split(string)
@@ -285,7 +285,7 @@ internal object UtilityNotificationSpc {
                 var string = ""
                 val htmlList = htmlBlob.parseColumn(threat.substring(1) + "(.*?)[A-Z&]")
                 htmlList.forEach {
-                    string += UtilityNotification.storeWatMcdLatLon(it)
+                    string += UtilityNotification.storeWatchMcdLatLon(it)
                     string = string.replace(" 99.99 99.99 ", " ") // need for the way SPC ConvO seperates on 8 's
                 } // end looping over polygons of one threat level
                 val items = string.split(":")

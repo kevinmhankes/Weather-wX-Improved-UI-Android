@@ -64,6 +64,6 @@ internal object UtilityDownloadMcd {
     // return the raw MCD text and the lat/lon as a list
     fun getLatLon(context: Context, number: String): List<String> {
         val html = UtilityDownload.getTextProduct(context, "SPCMCD$number")
-        return listOf(html, UtilityNotification.storeWatMcdLatLon(html))
+        return listOf(html, UtilityNotification.storeWatchMcdLatLon(html))
     }
 }

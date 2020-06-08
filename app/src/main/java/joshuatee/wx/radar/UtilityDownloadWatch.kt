@@ -50,11 +50,11 @@ internal object UtilityDownloadWatch {
             val watchHtml = UtilityDownload.getTextProduct(context, "SPCWAT$it")
             htmlList.add(watchHtml)
             val latLonHtml = getLatLon(it)
-            watchLatLonList += UtilityNotification.storeWatMcdLatLon(latLonHtml)
+            watchLatLonList += UtilityNotification.storeWatchMcdLatLon(latLonHtml)
             if (!watchHtml.contains("Tornado Watch")) {
-                watchLatLon += UtilityNotification.storeWatMcdLatLon(latLonHtml)
+                watchLatLon += UtilityNotification.storeWatchMcdLatLon(latLonHtml)
             } else {
-                watchLatLonTor += UtilityNotification.storeWatMcdLatLon(latLonHtml)
+                watchLatLonTor += UtilityNotification.storeWatchMcdLatLon(latLonHtml)
             }
         }
         if (PolygonType.MCD.pref) {

@@ -79,7 +79,7 @@ internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
 
     fun getData(context: Context) {
         text = UtilityDownload.getTextProduct(context, prod)
-        stringOfLatLon = UtilityNotification.storeWatMcdLatLon(text).replace(":", "")
+        stringOfLatLon = UtilityNotification.storeWatchMcdLatLon(text).replace(":", "")
         latLons = stringOfLatLon.split(" ")
         //UtilityLog.d("wx", "DEBUG: " + latLons)
         bitmap = imgUrl.getImage()
