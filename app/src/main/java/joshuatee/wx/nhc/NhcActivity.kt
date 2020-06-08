@@ -97,7 +97,7 @@ class NhcActivity : BaseActivity() {
     }
 
     override fun onRestart() {
-        getContent()
+        //getContent()
         objectNhc.handleRestartForNotification()
         super.onRestart()
     }
