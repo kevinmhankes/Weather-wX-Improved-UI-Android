@@ -91,6 +91,26 @@ internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
     fun getClosestRadar(): String {
         UtilityLog.d("wx", "DEBUG getRadar: " + latLons)
         return if (latLons.size > 2) {
+
+            //
+            // TEST FOR FUTURE USE
+            //
+            var sites = mutableListOf<String>()
+            val latLonList = LatLon.parseStringToLatLons(stringOfLatLon, -1.0, isWarning = false)
+            for (latLon in latLonList) {
+                val radarSite = UtilityLocation.getNearestRadarSite(latLon,1)
+                if (radarSite.isNotEmpty()) {
+                    UtilityLog.d("wx", "DEBUG SITE: " + radarSite[0].name)
+                    sites.add(radarSite[0].name)
+                }
+            }
+            val frequenciesBySite = sites.groupingBy { it }.eachCount()
+            UtilityLog.d("wx", "DEBUG SITE: " + frequenciesBySite)
+            //
+            //
+            //
+
+
             val lat = latLons[0]
             val lon = "-" + latLons[1]
             val radarSites = UtilityLocation.getNearestRadarSite(LatLon(lat, lon),1)

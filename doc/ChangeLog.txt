@@ -7,6 +7,7 @@
 // TODO [ADD] Remove all non nws embedded websites
 // TODO [ADD] use new algorithm for radar detection in severe dash and us alerts, use shared code for states
 
+55494 2020_06_08
 55493 2020_06_08    [ADD] show radar icon in SPC MCD, WPC MPD, and SPC Watch (not optimal radar selection but close, will be improved)
 55492 2020_06_08    [ADD] show radar icon in US Alerts if polygon present
 55491 2020_06_08    [FIX] NHC notifications were not sending at every update interval
