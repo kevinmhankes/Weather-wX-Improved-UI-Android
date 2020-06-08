@@ -170,7 +170,6 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         scrollView.smoothScrollTo(0, 0)
         ridFavOld = MyApplication.wfoFav
         linearLayout.removeAllViewsInLayout()
-        UtilityLog.d("WX", "DEBUG: " + wfo)
         wfoProd = withContext(Dispatchers.IO) { lsrFromWfo }
         wfoProd.forEach {
             val objectCardText = ObjectCardText(this@LsrByWfoActivity, linearLayout, Utility.fromHtml(it))

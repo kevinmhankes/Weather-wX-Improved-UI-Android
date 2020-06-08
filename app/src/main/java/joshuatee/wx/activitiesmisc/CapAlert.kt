@@ -24,12 +24,10 @@ package joshuatee.wx.activitiesmisc
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
-import joshuatee.wx.RegExp
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.radar.LatLon
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.util.UtilityLog
-import joshuatee.wx.util.UtilityString
 
 class CapAlert {
 
