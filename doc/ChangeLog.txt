@@ -1,4 +1,4 @@
-// TODO [FIX] Canada - some radars have changed code names (need to change maps.xml as well)
+// TODO [FIX] Canada - some radars have changed code names - need to change maps.xml as well
 // TODO [FIX] dual/quad pane radar don't take up the entire screen on chromeOS
 // TODO [FIX] chromeOS: text size for observations in nexrad
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
