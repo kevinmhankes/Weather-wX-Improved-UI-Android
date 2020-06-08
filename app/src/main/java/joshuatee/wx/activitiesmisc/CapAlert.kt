@@ -165,6 +165,13 @@ class CapAlert {
 
         private fun getWarningsFromJson(html: String): List<String> {
             val data = html.replace("\n", "").replace(" ", "")
+            var points = data.parseFirst("\"coordinates\":\\[\\[(.*?)\\]\\]\\}")
+            points = points.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
+            return points.split(" ")
+        }
+
+        /*private fun getWarningsFromJsonOld(html: String): List<String> {
+            val data = html.replace("\n", "").replace(" ", "")
             val warnings = UtilityString.parseColumnMutable(data, RegExp.warningLatLonPattern)
             val warningsFiltered = mutableListOf<String>()
             val vtecs = data.parseColumn(RegExp.warningVtecPattern)
@@ -179,7 +186,7 @@ class CapAlert {
             } else {
                 warningsFiltered
             }
-        }
+        }*/
     }
 }
 

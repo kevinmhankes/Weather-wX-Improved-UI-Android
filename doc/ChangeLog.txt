@@ -7,7 +7,7 @@
 // TODO [ADD] Remove all non nws embedded websites
 // TODO [ADD] for alert closest radar use polygon center like mcd
 
-55496 2020_06_08
+55496 2020_06_08    [REF] refactor to some code added earlier today
 55495 2020_06_08    [ADD] for MCD/WAT/MPD/Alert - don't include tdwr in closest radar computation
 55494 2020_06_08    [ADD] for MCD/WAT/MPD, use center of polygon to detect radar site
                     [ADD] in severe dashboard use better radar site selection when tapping on radar icon for warning
