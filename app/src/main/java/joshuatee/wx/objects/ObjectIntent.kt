@@ -24,6 +24,7 @@ package joshuatee.wx.objects
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import joshuatee.wx.Extensions.safeGet
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.*
 import joshuatee.wx.canada.CanadaHourlyActivity
@@ -173,6 +174,12 @@ class ObjectIntent() {
         fun showWebView(context: Context, array: Array<String>) { ObjectIntent(context, WebView::class.java, WebView.URL, array) }
 
         fun showRadar(context: Context, array: Array<String>) { ObjectIntent(context, WXGLRadarActivity::class.java, WXGLRadarActivity.RID, array) }
+
+        fun showRadarBySite(context: Context, radarSite: String) {
+            val radarLabel = Utility.getRadarSiteName(radarSite)
+            val state = radarLabel.split(",")[0]
+            ObjectIntent.showRadar(context, arrayOf(radarSite, state, "N0Q", ""))
+        }
 
         fun showRadarMultiPane(context: Context, array: Array<String>) { ObjectIntent(context, WXGLRadarActivityMultiPane::class.java, WXGLRadarActivityMultiPane.RID, array) }
 

@@ -29,6 +29,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import joshuatee.wx.Extensions.getImage
+import joshuatee.wx.Extensions.safeGet
 import joshuatee.wx.GlobalDictionaries
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.ObjectIntent
@@ -152,7 +153,9 @@ class SevereDashboardActivity : BaseActivity() {
                         val objectCardDashAlertItem = ObjectCardDashAlertItem(this@SevereDashboardActivity, linearLayout, severeWarning, index)
                         objectCardDashAlertItem.setListener(View.OnClickListener { showWarningDetails(severeWarning.idList[index]) })
                         val id = numberOfWarnings
-                        objectCardDashAlertItem.radarButton.setOnClickListener(View.OnClickListener { radarInterface(id) })
+                        objectCardDashAlertItem.radarButton.setOnClickListener(View.OnClickListener {
+                            ObjectIntent.showRadarBySite(this@SevereDashboardActivity, listOfWfoForWarnings.safeGet(id))
+                        })
                         objectCardDashAlertItem.detailsButton.setOnClickListener(View.OnClickListener { showWarningDetails(severeWarning.idList[index]) })
                         listOfWfoForWarnings.add(severeWarning.listOfWfo[index])
                         objectCardDashAlertItem.setId(numberOfWarnings)
@@ -213,14 +216,7 @@ class SevereDashboardActivity : BaseActivity() {
         }
         return true
     }
-
-    private fun radarInterface(id: Int) {
-        val radarSite = GlobalDictionaries.wfoToRadarSite[listOfWfoForWarnings[id]] ?: ""
-        val radarLabel = Utility.getRadarSiteName(radarSite)
-        val state = radarLabel.split(",")[0]
-        ObjectIntent.showRadar(this@SevereDashboardActivity, arrayOf(radarSite, state, "N0Q", ""))
-    }
-
+    
     private fun showWarningDetails(url: String) {
         ObjectIntent.showHazard(this@SevereDashboardActivity, arrayOf("https://api.weather.gov/alerts/$url", ""))
     }
