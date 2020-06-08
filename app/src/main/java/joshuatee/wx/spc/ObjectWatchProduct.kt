@@ -33,7 +33,6 @@ import joshuatee.wx.radar.LatLon
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityImg
-import joshuatee.wx.util.UtilityLog
 
 internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
 
@@ -82,7 +81,7 @@ internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
         text = UtilityDownload.getTextProduct(context, prod)
         stringOfLatLon = UtilityNotification.storeWatMcdLatLon(text).replace(":", "")
         latLons = stringOfLatLon.split(" ")
-        UtilityLog.d("wx", "DEBUG: " + latLons)
+        //UtilityLog.d("wx", "DEBUG: " + latLons)
         bitmap = imgUrl.getImage()
         val wfoString = text.parse("ATTN...WFO...(.*?)...<BR><BR>")
         wfos = wfoString.split("\\.\\.\\.".toRegex()).dropLastWhile { it.isEmpty() }
@@ -101,37 +100,10 @@ internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
     }
 
     fun getClosestRadar(): String {
-        UtilityLog.d("wx", "DEBUG getRadar: " + latLons)
         return if (latLons.size > 2) {
-
-            //
-            // TEST FOR FUTURE USE
-            //
-            //var sites = mutableListOf<String>()
             val latLonList = LatLon.parseStringToLatLons(stringOfLatLon, -1.0, isWarning = false)
-            /*for (latLon in latLonList) {
-                val radarSite = UtilityLocation.getNearestRadarSite(latLon,1)
-                if (radarSite.isNotEmpty()) {
-                    UtilityLog.d("wx", "DEBUG SITE: " + radarSite[0].name)
-                    sites.add(radarSite[0].name)
-                }
-            }
-            val frequenciesBySite = sites.groupingBy { it }.eachCount()
-            UtilityLog.d("wx", "DEBUG SITE: " + frequenciesBySite)*/
             val center = getCenterOfPolygon(latLonList)
-            //val radarSitesTest = UtilityLocation.getNearestRadarSite(center, 1)
-            //UtilityLog.d("wx", "DEBUG SITE TEST: " + radarSitesTest[0].name)
-            //
-            //
-            //
-
-
-            //val lat = latLons[0]
-            //val lon = "-" + latLons[1]
-            //val radarSites = UtilityLocation.getNearestRadarSite(LatLon(lat, lon),1)
-            val radarSites = UtilityLocation.getNearestRadarSite(center,1)
-            //UtilityLog.d("wx", "DEBUG: " + LatLon(lat, lon))
-
+            val radarSites = UtilityLocation.getNearestRadarSite(center,1, includeTdwr = false)
             if (radarSites.isEmpty()) {
                 ""
             } else {

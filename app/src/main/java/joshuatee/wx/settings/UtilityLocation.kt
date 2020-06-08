@@ -107,15 +107,17 @@ object UtilityLocation {
         return sites[bestRid].name
     }
 
-    fun getNearestRadarSite(location: LatLon, count: Int): List<RID> {
+    fun getNearestRadarSite(location: LatLon, count: Int, includeTdwr: Boolean = true): List<RID> {
         val radarSites = mutableListOf<RID>()
         GlobalArrays.radars.forEach {
             val labels = it.split(":")
             radarSites.add(RID(labels[0], getSiteLocation(labels[0])))
         }
-        GlobalArrays.tdwrRadars.forEach {
-            val labels = it.split(" ")
-            radarSites.add(RID(labels[0], getSiteLocation(labels[0])))
+        if (includeTdwr) {
+            GlobalArrays.tdwrRadars.forEach {
+                val labels = it.split(" ")
+                radarSites.add(RID(labels[0], getSiteLocation(labels[0])))
+            }
         }
         var currentDistance: Double
         radarSites.forEach {

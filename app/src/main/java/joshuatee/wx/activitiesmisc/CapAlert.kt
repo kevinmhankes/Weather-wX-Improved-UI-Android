@@ -53,11 +53,11 @@ class CapAlert {
     var points = listOf<String>()
 
     fun getClosestRadar(): String {
-        UtilityLog.d("wx", "DEBUG getRadar: " + points)
+        //UtilityLog.d("wx", "DEBUG getRadar: " + points)
         return if (points.size > 2) {
             val lat = points[1]
             val lon = "-" + points[0]
-            val radarSites = UtilityLocation.getNearestRadarSite(LatLon(lat, lon),1)
+            val radarSites = UtilityLocation.getNearestRadarSite(LatLon(lat, lon),1, includeTdwr = false)
             UtilityLog.d("wx", "DEBUG: " + LatLon(lat, lon))
             if (radarSites.isEmpty()) {
                 ""
@@ -103,7 +103,7 @@ class CapAlert {
 
         // Used by USAlert detail
         fun createFromUrl(url: String): CapAlert {
-            UtilityLog.d("wx", "DEBUG: " + url)
+            //UtilityLog.d("wx", "DEBUG: " + url)
             val expireStr = "This alert has expired"
             val capAlert = CapAlert()
             capAlert.url = url

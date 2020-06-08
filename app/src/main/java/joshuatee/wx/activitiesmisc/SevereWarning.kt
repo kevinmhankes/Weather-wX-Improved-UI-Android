@@ -64,7 +64,7 @@ class SevereWarning(private val type: PolygonType) {
         return if (points.size > 2) {
             val lat = points[1]
             val lon = "-" + points[0]
-            val radarSites = UtilityLocation.getNearestRadarSite(LatLon(lat, lon),1)
+            val radarSites = UtilityLocation.getNearestRadarSite(LatLon(lat, lon),1, includeTdwr = false)
             if (radarSites.isEmpty()) {
                 ""
             } else {
@@ -84,12 +84,6 @@ class SevereWarning(private val type: PolygonType) {
         senderNameList = html.parseColumn("\"senderName\": \"(.*?)\"")
         val data = html.replace("\n", "").replace(" ", "")
         listOfPolygonRaw = data.parseColumn(RegExp.warningLatLonPattern)
-        /*val label = when (type) {
-            PolygonType.TOR -> "Tornado Warnings"
-            PolygonType.TST -> "Severe Thunderstorm Warnings"
-            PolygonType.FFW -> "Flash Flood Warnings"
-            else -> ""
-        }*/
         warnings = html.parseColumn(RegExp.warningVtecPattern)
         warnings.forEachIndexed { index, it ->
             val vtecIsCurrent = UtilityTime.isVtecCurrent(it)
