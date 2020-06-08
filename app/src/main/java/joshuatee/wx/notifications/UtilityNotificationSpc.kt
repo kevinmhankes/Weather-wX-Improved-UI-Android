@@ -159,7 +159,6 @@ internal object UtilityNotificationSpc {
                 } // end loop over polygons for specific day
             } // end loop over treat level
         } // end loop of day 1-3
-        // TODO why no separator
         return notifUrls
     }
 
@@ -185,7 +184,6 @@ internal object UtilityNotificationSpc {
                 }
             }
         }
-        // TODO why no separator
         return notifUrls
     }
 
@@ -315,7 +313,6 @@ internal object UtilityNotificationSpc {
                 } // end loop over polygons for specific day
             } // end loop over treat level
         } // end loop of day 1-3
-        // TODO why no separator
         return notifUrls
     }
 }
