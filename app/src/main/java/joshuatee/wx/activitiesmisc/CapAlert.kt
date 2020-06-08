@@ -53,12 +53,10 @@ class CapAlert {
     var points = listOf<String>()
 
     fun getClosestRadar(): String {
-        //UtilityLog.d("wx", "DEBUG getRadar: " + points)
         return if (points.size > 2) {
             val lat = points[1]
             val lon = "-" + points[0]
-            val radarSites = UtilityLocation.getNearestRadarSite(LatLon(lat, lon),1, includeTdwr = false)
-            UtilityLog.d("wx", "DEBUG: " + LatLon(lat, lon))
+            val radarSites = UtilityLocation.getNearestRadarSites(LatLon(lat, lon), 1, includeTdwr = false)
             if (radarSites.isEmpty()) {
                 ""
             } else {
