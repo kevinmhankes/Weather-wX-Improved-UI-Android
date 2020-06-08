@@ -21,13 +21,12 @@
 
 package joshuatee.wx.activitiesmisc
 
-import joshuatee.wx.MyApplication
-import joshuatee.wx.external.ExternalDuplicateRemover
 import joshuatee.wx.objects.PolygonType
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
-import joshuatee.wx.util.Utility
+import joshuatee.wx.radar.LatLon
+import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.util.UtilityTime
 
 class SevereWarning(private val type: PolygonType) {
@@ -36,8 +35,6 @@ class SevereWarning(private val type: PolygonType) {
     // encapsulates VTEC data and count for tst,tor, or ffw
     //
 
-    var text = ""
-        private set
     var count = 0
         private set
 
@@ -49,6 +46,7 @@ class SevereWarning(private val type: PolygonType) {
     var senderNameList = listOf<String>()
     var warnings = listOf<String>()
     var listOfWfo = mutableListOf<String>()
+    private var listOfPolygonRaw = listOf<String>()
 
     fun getName(): String {
         return when (type) {
@@ -59,6 +57,24 @@ class SevereWarning(private val type: PolygonType) {
         }
     }
 
+    private fun getClosestRadar(index: Int): String {
+        val data = listOfPolygonRaw[index].replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
+        val points = data.split(" ")
+        // From CapAlert
+        return if (points.size > 2) {
+            val lat = points[1]
+            val lon = "-" + points[0]
+            val radarSites = UtilityLocation.getNearestRadarSite(LatLon(lat, lon),1)
+            if (radarSites.isEmpty()) {
+                ""
+            } else {
+                radarSites[0].name
+            }
+        } else {
+            ""
+        }
+    }
+
     fun generateString(html: String) {
         idList = html.parseColumn("\"id\": \"(NWS.*?)\"")
         areaDescList = html.parseColumn("\"areaDesc\": \"(.*?)\"")
@@ -66,36 +82,25 @@ class SevereWarning(private val type: PolygonType) {
         expiresList = html.parseColumn("\"expires\": \"(.*?)\"")
         eventList = html.parseColumn("\"event\": \"(.*?)\"")
         senderNameList = html.parseColumn("\"senderName\": \"(.*?)\"")
-        val label = when (type) {
+        val data = html.replace("\n", "").replace(" ", "")
+        listOfPolygonRaw = data.parseColumn(RegExp.warningLatLonPattern)
+        /*val label = when (type) {
             PolygonType.TOR -> "Tornado Warnings"
             PolygonType.TST -> "Severe Thunderstorm Warnings"
             PolygonType.FFW -> "Flash Flood Warnings"
             else -> ""
-        }
+        }*/
         warnings = html.parseColumn(RegExp.warningVtecPattern)
-        warnings.forEach {
+        warnings.forEachIndexed { index, it ->
             val vtecIsCurrent = UtilityTime.isVtecCurrent(it)
-            var wfoLocation = ""
             if (!it.startsWith("O.EXP") && vtecIsCurrent) {
-                text += it
                 count += 1
-                val vtecComponents = it.split(".")
-                if (vtecComponents.size > 1) {
-                    val wfo = vtecComponents[2].replace("^[KP]".toRegex(), "")
-                    listOfWfo.add(wfo)
-                    wfoLocation = Utility.getWfoSiteName(wfo)
-                } else {
-                    listOfWfo.add("")
-                }
-                text += "  " + wfoLocation + MyApplication.newline
+                val radarSite = getClosestRadar(index)
+                listOfWfo.add(radarSite)
             } else {
                 listOfWfo.add("")
             }
         }
-        val remover = ExternalDuplicateRemover()
-        text = remover.stripDuplicates(text)
-        text = "(" + text.split(MyApplication.newline).dropLastWhile { it.isEmpty() }.size +
-                ") " + label + MyApplication.newline + text.replace((MyApplication.newline + "$").toRegex(), "")
     }
 }
 
