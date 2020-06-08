@@ -24,17 +24,21 @@ package joshuatee.wx.spc
 import android.content.Context
 import android.graphics.Bitmap
 import joshuatee.wx.Extensions.condenseSpace
+import joshuatee.wx.Extensions.getHtml
 import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.Extensions.parse
 import joshuatee.wx.MyApplication
 import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.radar.LatLon
+import joshuatee.wx.radar.UtilityDownloadWatch
 import joshuatee.wx.settings.UtilityLocation
+import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityImg
+import joshuatee.wx.util.UtilityLog
 
-internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
+internal class ObjectWatchProduct(val type: PolygonType, productNumber: String) {
 
     private var productNumber = ""
     var imgUrl = ""
@@ -79,9 +83,12 @@ internal class ObjectWatchProduct(type: PolygonType, productNumber: String) {
 
     fun getData(context: Context) {
         text = UtilityDownload.getTextProduct(context, prod)
-        stringOfLatLon = UtilityNotification.storeWatchMcdLatLon(text).replace(":", "")
+        var textWithLatLon = text
+        if (type == PolygonType.WATCH || type == PolygonType.WATCH_TORNADO) {
+            textWithLatLon = UtilityDownloadWatch.getLatLon(productNumber)
+        }
+        stringOfLatLon = UtilityNotification.storeWatchMcdLatLon(textWithLatLon).replace(":", "")
         latLons = stringOfLatLon.split(" ")
-        //UtilityLog.d("wx", "DEBUG: " + latLons)
         bitmap = imgUrl.getImage()
         val wfoString = text.parse("ATTN...WFO...(.*?)...<BR><BR>")
         wfos = wfoString.split("\\.\\.\\.".toRegex()).dropLastWhile { it.isEmpty() }
