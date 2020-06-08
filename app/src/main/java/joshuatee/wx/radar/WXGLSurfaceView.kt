@@ -58,8 +58,7 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
     var toolbar: Toolbar? = null
     var toolbarBottom: Toolbar? = null
     var archiveMode = false
-    var toolbarsHidden = false
-        private set
+    private var toolbarsHidden = false
     private var mScaleFactor = 1.0f
     var newX = 0.0f
         private set
