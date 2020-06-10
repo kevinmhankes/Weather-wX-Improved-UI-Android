@@ -38,6 +38,7 @@ import kotlinx.coroutines.*
 
 import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
 
+// TODO rename to TextViewer
 class TextScreenActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     //
@@ -85,7 +86,7 @@ class TextScreenActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (audioPlayMenu(item.itemId, html, "txt", "txt")) return true
         when (item.itemId) {
-            R.id.action_share -> UtilityShare.text(this, activityArguments[1], Utility.fromHtml(html))
+            R.id.action_share -> UtilityShare.text(this, activityArguments[1], html)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

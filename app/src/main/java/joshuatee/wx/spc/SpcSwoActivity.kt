@@ -35,7 +35,6 @@ import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
-import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityShare
 
@@ -167,8 +166,8 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (audioPlayMenu(item.itemId, html, playlistProd, playlistProd)) return true
         when (item.itemId) {
-            R.id.action_share_all -> UtilityShare.text(this, this, "Day $day Convective Outlook", Utility.fromHtml(html), bitmaps)
-            R.id.action_share_text -> UtilityShare.text(this, "Day $day Convective Outlook - Text", Utility.fromHtml(html))
+            R.id.action_share_all -> UtilityShare.text(this, this, "Day $day Convective Outlook", html, bitmaps)
+            R.id.action_share_text -> UtilityShare.text(this, "Day $day Convective Outlook - Text", html)
             R.id.action_share_tornado -> if (bitmaps.size > 1) UtilityShare.bitmap(this, this, "Day $day Convective Outlook - Tornado", bitmaps[1])
             R.id.action_share_hail -> if (bitmaps.size > 2) UtilityShare.bitmap(this, this, "Day $day Convective Outlook - Hail", bitmaps[2])
             R.id.action_share_wind -> if (bitmaps.size > 3) UtilityShare.bitmap(this, this, "Day $day Convective Outlook - Wind", bitmaps[3])

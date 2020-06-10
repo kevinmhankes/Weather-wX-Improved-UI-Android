@@ -128,7 +128,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 UtilityNotificationTextProduct.toggle(this, linearLayout, product.toUpperCase(Locale.US))
                 updateSubmenuNotificationText()
             }
-            R.id.action_share -> UtilityShare.text(this, product, Utility.fromHtml(html))
+            R.id.action_share -> UtilityShare.text(this, product, html)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

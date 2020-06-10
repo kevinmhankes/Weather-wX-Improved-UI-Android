@@ -229,7 +229,7 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
             R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.AFD)
             R.id.action_website -> ObjectIntent.showWebView(this, arrayOf("https://www.weather.gov/" + wfo.toLowerCase(Locale.US), wfo, "extended"))
             R.id.action_hazards -> ObjectIntent.showImage(this, arrayOf("https://www.weather.gov/wwamap/png/" + wfo.toLowerCase(Locale.US) + ".png", "$wfo WWA Map"))
-            R.id.action_share -> UtilityShare.text(this, product + wfo, Utility.fromHtml(html))
+            R.id.action_share -> UtilityShare.text(this, product + wfo, html)
             else -> return super.onOptionsItemSelected(item)
         }
         return true
