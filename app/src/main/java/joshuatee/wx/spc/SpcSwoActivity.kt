@@ -39,7 +39,6 @@ import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityShare
 
 import joshuatee.wx.Extensions.*
-import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectLinearLayout
 import joshuatee.wx.ui.UtilityUI
@@ -166,7 +165,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        val textToShare = html.replace(MyApplication.newline, MyApplication.newline + MyApplication.newline)
+        val textToShare = UtilityShare.prepTextForShare(html)
         UtilityLog.d("wx", textToShare)
         if (audioPlayMenu(item.itemId, html, playlistProd, playlistProd)) return true
         when (item.itemId) {

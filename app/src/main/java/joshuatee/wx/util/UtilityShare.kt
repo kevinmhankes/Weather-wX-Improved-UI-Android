@@ -36,6 +36,10 @@ import androidx.core.app.ShareCompat.IntentBuilder
 
 object UtilityShare {
 
+    fun prepTextForShare(text: String): String {
+        return text.replace(MyApplication.newline, MyApplication.newline + MyApplication.newline)
+    }
+
     fun textAsAttachment(activity: Activity, context: Context, subject: String, text: String, filename: String) {
         val dir = File(context.filesDir.toString() + "/shared")
         if (!dir.mkdirs()) UtilityLog.d("wx", "failed to mkdir: " + context.filesDir + "/shared")

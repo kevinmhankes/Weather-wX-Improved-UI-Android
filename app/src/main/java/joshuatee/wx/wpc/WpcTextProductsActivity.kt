@@ -121,6 +121,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
+        val textToShare = UtilityShare.prepTextForShare(html)
         if (audioPlayMenu(item.itemId, html, product, product)) return true
         when (item.itemId) {
             R.id.action_fav -> toggleFavorite()
@@ -128,7 +129,7 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 UtilityNotificationTextProduct.toggle(this, linearLayout, product.toUpperCase(Locale.US))
                 updateSubmenuNotificationText()
             }
-            R.id.action_share -> UtilityShare.text(this, product, html)
+            R.id.action_share -> UtilityShare.text(this, product, textToShare)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

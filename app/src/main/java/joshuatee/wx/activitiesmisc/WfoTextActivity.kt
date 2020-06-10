@@ -206,6 +206,7 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
+        val textToShare = UtilityShare.prepTextForShare(html)
         if (audioPlayMenu(item.itemId, html, product, product + wfo)) return true
         when (item.itemId) {
             R.id.action_back -> {
@@ -229,7 +230,7 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
             R.id.action_pin -> UtilityShortcut.create(this, ShortcutType.AFD)
             R.id.action_website -> ObjectIntent.showWebView(this, arrayOf("https://www.weather.gov/" + wfo.toLowerCase(Locale.US), wfo, "extended"))
             R.id.action_hazards -> ObjectIntent.showImage(this, arrayOf("https://www.weather.gov/wwamap/png/" + wfo.toLowerCase(Locale.US) + ".png", "$wfo WWA Map"))
-            R.id.action_share -> UtilityShare.text(this, product + wfo, html)
+            R.id.action_share -> UtilityShare.text(this, product + wfo, textToShare)
             else -> return super.onOptionsItemSelected(item)
         }
         return true
