@@ -53,6 +53,7 @@ import joshuatee.wx.models.ModelsSpcSrefActivity
 import joshuatee.wx.nhc.NhcActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.Location
+import joshuatee.wx.settings.UtilityNavDrawer
 import joshuatee.wx.spc.*
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
@@ -190,6 +191,7 @@ class WX : CommonActionBarFragment() {
                 ObjectIntent.showSettings(this)
                 drawerLayout.closeDrawer(gravityForDrawer)
             }
+            UtilityNavDrawer.hideItems(this, navigationView)
             navigationView.setNavigationItemSelectedListener{ item ->
                 when (item.itemId) {
                     R.id.esrl -> ObjectIntent.showModel(this, arrayOf("1", "ESRL", "ESRL"))

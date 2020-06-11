@@ -77,6 +77,7 @@ class ObjectSettingsCheckBox(context: Context, label: String, pref: String, strI
                 "NAV_DRAWER_MAIN_SCREEN_ON_RIGHT"
         )
         checkBox.isChecked = Utility.readPref(context, pref, java.lang.Boolean.toString(truePrefs.contains(pref))) == "true"
+             || ( pref.startsWith(UtilityNavDrawer.getPrefVar("")) && Utility.readPref(context, pref, "") != "false")
         checkBox.setOnCheckedChangeListener { compoundButton, _ ->
             if (compoundButton.isChecked) {
                 if (pref == "MEDIA_CONTROL_NOTIF") {
