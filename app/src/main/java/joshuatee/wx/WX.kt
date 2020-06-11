@@ -52,6 +52,7 @@ import joshuatee.wx.models.ModelsSpcHrrrActivity
 import joshuatee.wx.models.ModelsSpcSrefActivity
 import joshuatee.wx.nhc.NhcActivity
 import joshuatee.wx.objects.ObjectIntent
+import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityNavDrawer
 import joshuatee.wx.spc.*
@@ -87,6 +88,7 @@ class WX : CommonActionBarFragment() {
         }
         setContentView(layoutId)
         UtilityTheme.setPrimaryColor(this)
+        //PolygonType.refresh()
         val toolbarBottom: Toolbar = findViewById(R.id.toolbar_bottom)
         view = findViewById(android.R.id.content)
         toolbarBottom.elevation = MyApplication.elevationPref

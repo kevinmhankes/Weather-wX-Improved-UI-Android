@@ -38,6 +38,7 @@ import java.util.regex.Pattern
 import joshuatee.wx.notifications.UtilityNotificationTextProduct
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectPolygonWarning
+import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.PolygonWarningType
 import joshuatee.wx.radar.*
 import joshuatee.wx.radar.UtilityDownloadMcd
@@ -123,6 +124,7 @@ class MyApplication : Application() {
         }
         if (!loadedBuffers) initBuffers(this)
         imageCollectionMap = ObjectImagesCollection.initialize()
+        PolygonType.refresh()
     }
 
     companion object {

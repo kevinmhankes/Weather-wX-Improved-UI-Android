@@ -29,7 +29,6 @@ import androidx.core.app.NavUtils
 import joshuatee.wx.R
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.util.UtilityAlertDialog
-import joshuatee.wx.util.UtilityLog
 
 import kotlinx.android.synthetic.main.activity_settings_navdrawer.linearLayout
 
@@ -41,7 +40,6 @@ class SettingsNavDrawerActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_settings_navdrawer, null, false)
         tokenList = UtilityNavDrawer.getNavDrawerTokenList(this)
-        UtilityLog.d("wx", "DEBUG33: $tokenList")
         title = "Navigation Drawer"
         toolbar.subtitle = "Turn items off or on for the main screen nav drawer."
         UtilityNavDrawer.labels.forEach {
@@ -58,9 +56,6 @@ class SettingsNavDrawerActivity : BaseActivity() {
     override fun onBackPressed() {
         val newTokenList = UtilityNavDrawer.generateNewTokenList(this)
         if (tokenList != newTokenList && tokenList != "") {
-            UtilityLog.d("Wx", "DEBUG3: RESTART")
-            UtilityLog.d("wx", "DEBUG3: $newTokenList")
-            UtilityLog.d("wx", "DEBUG3: $tokenList")
             UtilityAlertDialog.restart()
         } else {
             super.onBackPressed()

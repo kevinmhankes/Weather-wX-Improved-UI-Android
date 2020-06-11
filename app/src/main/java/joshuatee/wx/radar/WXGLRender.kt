@@ -678,6 +678,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
         val count = buffers.count * buffers.triangleCount
         when (buffers.type) {
             PolygonType.LOCDOT, PolygonType.SPOTTER -> buffers.initialize(24 * count, 12 * count, 9 * count, buffers.type.color)
+            //PolygonType.LOCDOT, PolygonType.SPOTTER -> buffers.initialize(24 * count, 12 * count, 9 * count, Color.RED)
             else -> buffers.initialize(4 * 6 * buffers.count, 4 * 3 * buffers.count, 9 * buffers.count, buffers.type.color)
         }
         buffers.lenInit = scaleLength(buffers.lenInit)

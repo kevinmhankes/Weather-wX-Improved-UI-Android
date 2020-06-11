@@ -25,7 +25,6 @@ import android.content.Context
 import com.google.android.material.navigation.NavigationView
 import joshuatee.wx.R
 import joshuatee.wx.util.Utility
-import joshuatee.wx.util.UtilityLog
 
 internal object UtilityNavDrawer {
 
@@ -155,7 +154,6 @@ internal object UtilityNavDrawer {
     fun getNavDrawerTokenList(context: Context) = Utility.readPref(context, navDrawerTokenPref, "")
 
     private fun setNavDrawerTokenList(context: Context, value: String) {
-        UtilityLog.d("wx", "DEBUG333 write: " + value)
         Utility.writePref(context, navDrawerTokenPref, value)
         Utility.commitPref(context)
     }
