@@ -68,7 +68,7 @@ class SettingsUIActivity : BaseActivity() {
         navDrawerMainScreenOnRight = UIPreferences.navDrawerMainScreenOnRight
         val textSize = MyApplication.textSizeLarge
         val padding = MyApplication.paddingSettings
-        val cardNavDrawer = ObjectCardText(this, "Nav Drawer configuration", textSize, SettingsNavDrawerActivity::class.java, padding)
+        val cardNavDrawer = ObjectCardText(this, "Navigation Drawer Configuration", textSize, SettingsNavDrawerActivity::class.java, padding)
         linearLayout.addView(cardNavDrawer.card)
         ObjectCard(this, R.id.cv_tab_labels)
         setupEditText()

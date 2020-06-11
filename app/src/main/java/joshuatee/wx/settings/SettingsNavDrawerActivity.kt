@@ -117,7 +117,7 @@ class SettingsNavDrawerActivity : BaseActivity() {
 
         labels.forEach {
             linearLayout.addView(
-                    ObjectSettingsCheckBox(this, it, "NAV_DRAWER_" + tokenToLabelMap[it], R.string.nav_drawer_main_screen_toggle).card
+                    ObjectSettingsCheckBox(this, it, "XZ_NAV_DRAWER_" + tokenToLabelMap[it], R.string.nav_drawer_main_screen_toggle).card
             )
         }
     }
