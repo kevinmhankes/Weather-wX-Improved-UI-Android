@@ -12,6 +12,7 @@
 
 55502 2020_06_11    [ADD] storm reports show filter in header text
                     [REF] misc
+                    [ADD] WIP - SettingsNavDrawerActivity
 55501 2020_06_11    [ADD] if using navdrawer on main screen, with the top items in dark background you can now tap on anywhere in the row even blank space to the right of the text to activate the item
 55500 2020_06_10    try #2 for all activities in 498
 55499 2020_06_10    try #2 for SPC SWO

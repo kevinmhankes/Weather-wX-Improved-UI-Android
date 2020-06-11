@@ -32,6 +32,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCard
+import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityAlertDialog
 import joshuatee.wx.util.UtilityLog
@@ -62,10 +63,14 @@ class SettingsUIActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_settings_ui, null, false)
         toolbar.subtitle = "Please tap on text for additional help."
-        ObjectCard(this, R.id.cv_tab_labels)
         tilesPerRowStart = UIPreferences.tilesPerRow
         navDrawerMainScreen = UIPreferences.navDrawerMainScreen
         navDrawerMainScreenOnRight = UIPreferences.navDrawerMainScreenOnRight
+        val textSize = MyApplication.textSizeLarge
+        val padding = MyApplication.paddingSettings
+        val cardNavDrawer = ObjectCardText(this, "Nav Drawer configuration", textSize, SettingsNavDrawerActivity::class.java, padding)
+        linearLayout.addView(cardNavDrawer.card)
+        ObjectCard(this, R.id.cv_tab_labels)
         setupEditText()
         (0 until 20).forEach { textSizeArr.add(((it + 1) * 50).toString()) }
         linearLayout.addView(
