@@ -24,7 +24,6 @@ package joshuatee.wx.spc
 import android.content.Context
 import android.graphics.Bitmap
 import joshuatee.wx.Extensions.condenseSpace
-import joshuatee.wx.Extensions.getHtml
 import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.Extensions.parse
 import joshuatee.wx.MyApplication
@@ -33,10 +32,8 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.radar.LatLon
 import joshuatee.wx.radar.UtilityDownloadWatch
 import joshuatee.wx.settings.UtilityLocation
-import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityImg
-import joshuatee.wx.util.UtilityLog
 
 internal class ObjectWatchProduct(val type: PolygonType, productNumber: String) {
 
