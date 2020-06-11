@@ -8,6 +8,7 @@
 // TODO [ADD] for alert closest radar use polygon center like mcd
 // TODO [ADD] make items in main nav drawer be configurable (to hide)
 // TODO [ADD] look for areas in which bottom back button does something and make top arrow work as well ( similar to settings UI )
+// TODO [FIX] if GPS is on but location marker is not, GPS circle will not have dot in center
 
 55502 2020_06_11
 55501 2020_06_11    [ADD] if using navdrawer on main screen, with the top items in dark background you can now tap on anywhere in the row even blank space to the right of the text to activate the item
