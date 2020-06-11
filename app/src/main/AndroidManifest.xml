@@ -486,6 +486,11 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
+      android:name=".settings.SettingsNavDrawerActivity"
+      android:label=""
+      android:parentActivityName="WX" >
+  </activity>
+  <activity
       android:name=".canada.CanadaRadarActivity"
       android:parentActivityName="WX" >
   </activity>
