@@ -106,6 +106,8 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         previousYear = year
         previousMonth = month
         previousDay = day
+        title = "() Storm Reports -"
+        toolbar.subtitle = no
         updateIowaMesoData()
         imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/climo/reports/$no.gif"
         textUrl = "${MyApplication.nwsSPCwebsitePrefix}/climo/reports/$no.csv"
@@ -140,8 +142,6 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         out.setLength(0)
         val linesOfData = text.split("<br>").dropLastWhile { it.isEmpty() }
         mapState.clear()
-        title = "Storm Reports"
-        toolbar.subtitle = no
         val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
         linearLayout.removeAllViews()
         val objectCardImage = ObjectCardImage(this@SpcStormReportsActivity, linearLayout, bitmap)
@@ -200,7 +200,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             if (stateArrayLabel.size > 0) objectNavDrawer.updateLists(this@SpcStormReportsActivity, stateArrayLabel)
             firstRun = false
         }
-        title = "($stormCnt) Storm Reports"
+        title = "($stormCnt) Storm Reports - $filter"
         toolbar.subtitle = no
         if (stormCnt > 0) objectCardText.visibility = View.VISIBLE else objectCardText.visibility = View.GONE
     }
