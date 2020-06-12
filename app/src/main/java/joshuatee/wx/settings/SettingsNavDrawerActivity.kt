@@ -55,21 +55,21 @@ class SettingsNavDrawerActivity : BaseActivity() {
 
     override fun onBackPressed() {
         val newTokenList = UtilityNavDrawer.generateNewTokenList(this)
-        if (tokenList != newTokenList && tokenList != "") {
+        //if (tokenList != newTokenList && tokenList != "") {
             UtilityAlertDialog.restart()
-        } else {
-            super.onBackPressed()
-        }
+        //} else {
+        //    super.onBackPressed()
+        //}
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val newTokenList = UtilityNavDrawer.generateNewTokenList(this)
         when (item.itemId) {
             android.R.id.home -> {
-                if (tokenList != newTokenList && tokenList != "")
+                //if (tokenList != newTokenList && tokenList != "")
                     UtilityAlertDialog.restart()
-                else
-                    NavUtils.navigateUpFromSameTask(this)
+                //else
+                //    NavUtils.navigateUpFromSameTask(this)
             }
             else -> return super.onOptionsItemSelected(item)
         }
