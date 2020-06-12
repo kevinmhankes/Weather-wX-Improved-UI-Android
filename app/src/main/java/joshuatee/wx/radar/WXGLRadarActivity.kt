@@ -28,6 +28,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
@@ -57,6 +58,7 @@ import joshuatee.wx.activitiesmisc.SevereDashboardActivity
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.util.*
+import joshuatee.wx.vis.UtilityGoes
 import kotlinx.coroutines.*
 
 class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
@@ -583,18 +585,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
                                 animDrawable
                         )
                     } else {
-                        UtilityShare.bitmap(
-                                this,
-                                this,
-                                wxglRender.rid + " (" + Utility.getRadarSiteName(wxglRender.rid) + ") " + wxglRender.product,
-                                UtilityUSImgWX.layeredImgFromFile(
-                                        applicationContext,
-                                        wxglRender.rid,
-                                        wxglRender.product,
-                                        "0",
-                                        true
-                                )
-                        )
+                        getImageForShare()
                     }
                 }
             }
@@ -644,6 +635,22 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
             else -> return super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    private fun getImageForShare() = GlobalScope.launch(uiDispatcher) {
+        val bitmapForShare = withContext(Dispatchers.IO) { UtilityUSImgWX.layeredImgFromFile(
+                this@WXGLRadarActivity,
+                wxglRender.rid,
+                wxglRender.product,
+                "0",
+                true
+        ) }
+        UtilityShare.bitmap(
+                this@WXGLRadarActivity,
+                this@WXGLRadarActivity,
+                wxglRender.rid + " (" + Utility.getRadarSiteName(wxglRender.rid) + ") " + wxglRender.product,
+                bitmapForShare
+        )
     }
 
     private fun animateRadar(frameCount: Int) {

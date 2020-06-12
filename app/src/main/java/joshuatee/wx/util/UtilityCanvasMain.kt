@@ -35,6 +35,7 @@ import joshuatee.wx.radar.UtilityCanvasWindbarbs
 import java.io.BufferedInputStream
 import java.io.DataInputStream
 import java.io.IOException
+import java.lang.Exception
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
@@ -159,7 +160,13 @@ object UtilityCanvasMain {
             UtilityCanvasWindbarbs.draw(context, projectionType, bitmapCanvas, radarSite, true, 5)
             UtilityCanvasWindbarbs.draw(context, projectionType, bitmapCanvas, radarSite, false, 5)
         }
-        if (PolygonType.STI.pref && stormMotionProvider) UtilityCanvasStormInfo.drawNexRadStormMotion(context, projectionType, bitmapCanvas, radarSite)
+        if (PolygonType.STI.pref && stormMotionProvider) {
+            try {
+                UtilityCanvasStormInfo.drawNexRadStormMotion(context, projectionType, bitmapCanvas, radarSite)
+            } catch (e: Exception) {
+                UtilityLog.handleException(e)
+            }
+        }
         if (PolygonType.MCD.pref) {
             arrayOf(PolygonType.MCD, PolygonType.WATCH, PolygonType.WATCH_TORNADO).forEach {
                 UtilityCanvas.addMcd(projectionType, bitmapCanvas, projectionNumbers, it)

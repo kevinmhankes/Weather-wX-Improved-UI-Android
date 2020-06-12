@@ -9,7 +9,8 @@
 // TODO [ADD] certain GOES regions like CONUS have additional products (GLM, DMW)
 // TODO [ADD] for NHC storms link to GOES floater viewer to show images such as https://cdn.star.nesdis.noaa.gov/FLOATER/data/AL032020/GEOCOLOR/20201591510_GOES16-ABI-FL-GEOCOLOR-AL032020-2000x2000.jpg
 
-55503 2020_06_11    [ADD] GOES products DayCloudPhase NightMicrophysics, see https://www.star.nesdis.noaa.gov/GOES/index.php for description
+55503 2020_06_12    [ADD] GOES products DayCloudPhase NightMicrophysics, see https://www.star.nesdis.noaa.gov/GOES/index.php for description
+                    [FIX] share legacy bitmap from nexrad single pane when level3 text products like storm motion are enabled
 55502 2020_06_11    [ADD] storm reports show filter in header text
                     [REF] misc
                     [FIX] if GPS is on but location marker is not, GPS circle will not have dot in center
