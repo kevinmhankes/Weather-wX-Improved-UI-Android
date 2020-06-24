@@ -97,7 +97,7 @@ object UtilityNotificationTextProduct {
                 prod,
                 noBody,
                 objectPendingIntents.resultPendingIntent,
-                MyApplication.ICON_CURRENT,
+                MyApplication.ICON_CURRENT_WHITE,
                 noSummary,
                 NotificationCompat.PRIORITY_HIGH,
                 Color.YELLOW,

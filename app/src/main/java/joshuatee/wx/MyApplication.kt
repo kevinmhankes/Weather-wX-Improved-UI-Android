@@ -298,6 +298,7 @@ class MyApplication : Application() {
         const val ICON_FORECAST = R.drawable.ic_place_24dp
         const val ICON_CURRENT = R.drawable.ic_info_outline_24dp
         const val ICON_CURRENT_BLACK = R.drawable.ic_info_outline_24dp_black
+        const val ICON_CURRENT_WHITE = R.drawable.ic_info_outline_24dp_white
 
         const val ICON_NHC_1 = R.drawable.ic_brightness_auto_24dp
         //const val ICON_NHC_2 = R.drawable.ic_brightness_medium_24dp
