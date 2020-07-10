@@ -48,8 +48,11 @@ class ObjectNhcStormDetails(
     var baseUrl: String
 
     init {
-        var modBinNumber = binNumber
-        if (modBinNumber.length == 3) { modBinNumber = modBinNumber.insert(2, "0") }
+        //var modBinNumber = binNumber
+        var modBinNumber = binNumber.substring(0, 2) + id.substring(2, 4)
+        if (modBinNumber.length == 3) {
+            modBinNumber = modBinNumber.insert(2, "0")
+        }
         baseUrl = "https://www.nhc.noaa.gov/storm_graphics/" + modBinNumber + "/" + id.toUpperCase(Locale.US)
     }
 
