@@ -7,7 +7,9 @@
 // TODO [ADD] Remove all non nws embedded websites
 // TODO [ADD] for alert closest radar use polygon center like mcd
 // TODO [ADD] certain GOES regions like CONUS have additional products (GLM, DMW)
-// TODO [ADD] for NHC storms link to GOES floater viewer to show images such as https://cdn.star.nesdis.noaa.gov/FLOATER/data/AL032020/GEOCOLOR/20201591510_GOES16-ABI-FL-GEOCOLOR-AL032020-2000x2000.jpg
+// TODO [FIX] NSSL WRF needs better runtime detection (reference C++ code)
+// TODO [FIX] in nexrad, long press and select top entry - should not do anything
+// TODO [FIX] remove NWS Obs site KEKM since it goes offline from 9pm-6am every day (reported by user)
 
 55506 2020_07_10
 55505 2020_07_10    [FIX] NHC storm graphics not working for storms IDs over 5
