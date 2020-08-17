@@ -11,7 +11,7 @@
 // TODO [FIX] in nexrad, long press and select top entry - should not do anything
 // TODO [FIX] remove NWS Obs site KEKM since it goes offline from 9pm-6am every day (reported by user)
 
-55506 2020_07_10
+55506 2020_08_17
 55505 2020_07_10    [FIX] NHC storm graphics not working for storms IDs over 5
 55504 2020_06_24    [FIX] icon for WFO text notif
                     [ADD] update kotlin plugin to 1.3.72-release-Studio4.0-5
