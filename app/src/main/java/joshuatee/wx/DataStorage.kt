@@ -33,7 +33,9 @@ class DataStorage(private val preference: String) {
         get() = storedVal
 
     // update in memory value from what is on disk
-    fun update(context: Context) { storedVal = Utility.readPref(context, preference, "") }
+    fun update(context: Context) {
+        storedVal = Utility.readPref(context, preference, "")
+    }
 
     fun valueSet(context: Context, newValue: String) {
         storedVal = newValue
