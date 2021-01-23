@@ -112,7 +112,7 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        var mcdList = listOf<String>()
+        var mcdList: List<String>
         withContext(Dispatchers.IO) {
             mcdList = url.getHtml().parseColumn(patternStr)
             mcdList.forEach {
@@ -141,9 +141,9 @@ class SpcMcdWatchShowSummaryActivity : AudioPlayActivity(), OnMenuItemClickListe
         }
         mcdList.indices.forEach { mcdIndex ->
             val objectCardImage = ObjectCardImage(this@SpcMcdWatchShowSummaryActivity, linearLayout, bitmaps[mcdIndex])
-            objectCardImage.setOnClickListener(View.OnClickListener {
+            objectCardImage.setOnClickListener {
                 ObjectIntent.showMcd(this@SpcMcdWatchShowSummaryActivity, arrayOf(mcdNumbers[mcdIndex], "", polygonType.toString()))
-            })
+            }
         }
         if (mcdList.size == 1) {
             val wfoStr = text.parse("ATTN...WFO...(.*?)... ")

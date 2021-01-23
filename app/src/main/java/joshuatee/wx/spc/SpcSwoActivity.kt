@@ -132,7 +132,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         var textUrl = "SWODY$day"
         val imageLabel = "Day $day Convective Outlook"
-        var urls = listOf("")
+        var urls: List<String>
         if (day == "4-8") textUrl = "SWOD48"
         withContext(Dispatchers.IO) {
             html = UtilityDownload.getTextProduct(this@SpcSwoActivity, textUrl)
@@ -161,7 +161,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun setImageAndClickAction(index: Int, urls: List<String>, textUrl: String) {
         objectCardImageList[index].setImage(bitmaps[index], imagesPerRow)
-        objectCardImageList[index].setOnClickListener(View.OnClickListener { showImageProduct(urls[index], textUrl) })
+        objectCardImageList[index].setOnClickListener { showImageProduct(urls[index], textUrl) }
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {

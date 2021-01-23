@@ -27,7 +27,6 @@ import android.os.Bundle
 import android.graphics.Bitmap
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
@@ -74,9 +73,9 @@ class SpcThunderStormOutlookActivity : BaseActivity() {
         linearLayout.removeAllViews()
         val objectImageSummary = ObjectImageSummary(this@SpcThunderStormOutlookActivity, linearLayout, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
-            objectCardImage.setOnClickListener(View.OnClickListener {
+            objectCardImage.setOnClickListener {
                 ObjectIntent.showImage(this@SpcThunderStormOutlookActivity, arrayOf(urls[index], ""))
-            })
+            }
         }
     }
 

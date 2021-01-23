@@ -145,7 +145,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
         linearLayout.removeAllViews()
         val objectCardImage = ObjectCardImage(this@SpcStormReportsActivity, linearLayout, bitmap)
-        objectCardImage.setOnClickListener(View.OnClickListener {
+        objectCardImage.setOnClickListener {
             val stDatePicker = DatePickerDialog(this, pDateSetListener, year, month, day)
             val cal = Calendar.getInstance()
             cal.set(Calendar.YEAR, 2004) // 2011-05-27 was the earliest date for filtered, moved to non-filtered and can go back to 2004-03-23
@@ -155,14 +155,14 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             stDatePicker.datePicker.maxDate = UtilityTime.currentTimeMillis()
             stDatePicker.setCanceledOnTouchOutside(true)
             stDatePicker.show()
-        })
+        }
         objectCardImage.resetZoom()
         val objectCardText = ObjectCardText(this@SpcStormReportsActivity, linearLayout)
         objectCardText.visibility = View.GONE
-        objectCardText.setOnClickListener(View.OnClickListener {
+        objectCardText.setOnClickListener {
             filter = "All"
             displayData()
-        })
+        }
         stormReports = UtilitySpcStormReports.process(linesOfData)
         var stormCnt = -3
         stormReports.forEachIndexed { k, stormReport ->
@@ -180,12 +180,12 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 if (!isHeader) registerForContextMenu(stormCard.card)
                 val xStr = stormReport.lat
                 val yStr = stormReport.lon
-                stormCard.setListener(View.OnClickListener {
+                stormCard.setListener {
                     ObjectIntent.showWebView(this@SpcStormReportsActivity, arrayOf(UtilityMap.getMapUrl(xStr, yStr, "10"), "$xStr,$yStr"))
-                })
+                }
                 if (!(stormReport.description.contains("(") && stormReport.description.contains(")"))) {
                     stormCard.setTextHeader(stormReport)
-                    stormCard.setListener(View.OnClickListener { scrollView.smoothScrollTo(0, 0) })
+                    stormCard.setListener { scrollView.smoothScrollTo(0, 0) }
                 }
             }
         }

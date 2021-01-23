@@ -25,7 +25,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.view.MenuItem
-import android.view.View
 import android.widget.LinearLayout
 
 import joshuatee.wx.R
@@ -95,9 +94,9 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
         } else {
             objectCardImage.setImage(objectWatchProduct.bitmap)
         }
-        objectCardImage.setOnClickListener(View.OnClickListener {
+        objectCardImage.setOnClickListener {
             ObjectIntent.showImage(this@SpcMcdWatchShowActivity, arrayOf(objectWatchProduct.imgUrl, objectWatchProduct.title, "true"))
-        })
+        }
         UtilityTts.conditionalPlay(activityArguments, 1, applicationContext, objectWatchProduct.text, objectWatchProduct.prod)
     }
 

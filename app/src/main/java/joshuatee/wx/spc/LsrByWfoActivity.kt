@@ -22,7 +22,6 @@
 package joshuatee.wx.spc
 
 import android.annotation.SuppressLint
-import android.content.DialogInterface
 import java.util.Locale
 
 import android.os.Bundle
@@ -147,15 +146,15 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
         val objectDialogue = ObjectDialogue(this, list)
-        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+        objectDialogue.setNegativeButton { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(this)
-        })
-        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+        }
+        objectDialogue.setSingleChoiceItems { dialog, which ->
             fn(which)
             getContent()
             dialog.dismiss()
-        })
+        }
         objectDialogue.show()
     }
 

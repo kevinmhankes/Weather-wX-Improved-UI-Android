@@ -26,7 +26,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
@@ -71,10 +70,10 @@ class SpcFireOutlookSummaryActivity : BaseActivity() {
         linearLayout.removeAllViews()
         val objectImageSummary = ObjectImageSummary(this@SpcFireOutlookSummaryActivity, linearLayout, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
-            objectCardImage.setOnClickListener(View.OnClickListener {
+            objectCardImage.setOnClickListener {
                 ObjectIntent(this@SpcFireOutlookSummaryActivity, SpcFireOutlookActivity::class.java, SpcFireOutlookActivity.NUMBER,
                         arrayOf(UtilitySpcFireOutlook.textProducts[index], UtilitySpcFireOutlook.imageUrls[index]))
-            })
+            }
         }
     }
 

@@ -8,6 +8,7 @@
 // TODO [ADD] for alert closest radar use polygon center like mcd
 // TODO [ADD] certain GOES regions like CONUS have additional products (GLM, DMW)
 // TODO [FIX] NSSL WRF needs better runtime detection (reference C++ code)
+// TODO [ADD] update copyright 2021
 // TODO [FIX] move to API 30 possibly broke screen recording tools, possible no good fix, try to move drawing tools out so they still work
 
 55507 2021_01_23    [ADD] upgrade ndk from r21c to r21d

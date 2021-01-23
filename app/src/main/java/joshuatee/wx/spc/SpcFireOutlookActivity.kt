@@ -25,7 +25,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.view.MenuItem
-import android.view.View
 import android.widget.LinearLayout
 import joshuatee.wx.Extensions.getImage
 
@@ -87,9 +86,9 @@ class SpcFireOutlookActivity : AudioPlayActivity(), OnMenuItemClickListener {
         bitmap = withContext(Dispatchers.IO) { imageUrl.getImage() }
         objectCardText.text = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@SpcFireOutlookActivity, textProduct) }
         if (tabletInLandscape) objectCardImage.setImage(bitmap, 2) else objectCardImage.setImage(bitmap)
-        objectCardImage.setOnClickListener(View.OnClickListener {
+        objectCardImage.setOnClickListener {
             ObjectIntent.showImage(this@SpcFireOutlookActivity, arrayOf(imageUrl, textProduct, "true"))
-        })
+        }
         UtilityTts.conditionalPlay(activityArguments, 1, applicationContext, objectCardText.text, textProduct)
     }
 
