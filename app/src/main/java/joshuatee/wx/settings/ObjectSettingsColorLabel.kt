@@ -24,7 +24,6 @@ package joshuatee.wx.settings
 import android.content.Context
 import android.graphics.Color
 import android.view.Gravity
-import android.view.View
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 
