@@ -26,7 +26,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
@@ -67,12 +66,12 @@ class WpcRainfallForecastSummaryActivity : BaseActivity() {
         linearLayout.removeAllViews()
         val objectImageSummary = ObjectImageSummary(this@WpcRainfallForecastSummaryActivity, linearLayout, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
-            objectCardImage.setOnClickListener(View.OnClickListener {
+            objectCardImage.setOnClickListener {
                 val textProduct = UtilityWpcRainfallForecast.productCode[index]
                 val imageUrl = UtilityWpcRainfallForecast.urls[index]
                 val day = (index + 1).toString()
                 ObjectIntent(this@WpcRainfallForecastSummaryActivity, WpcRainfallForecastActivity::class.java, WpcRainfallForecastActivity.NUMBER, arrayOf(textProduct, imageUrl, day))
-            })
+            }
         }
     }
 

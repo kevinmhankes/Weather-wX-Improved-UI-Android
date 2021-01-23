@@ -26,7 +26,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.LinearLayout
 import joshuatee.wx.Extensions.getImage
 
@@ -116,12 +115,12 @@ class NhcStormActivity : BaseActivity() {
                     objectCardImage = ObjectCardImage(this@NhcStormActivity, horizontalLinearLayouts.last().linearLayout, bitmap, imagesPerRow)
                 }
                 numberOfImages += 1
-                objectCardImage.setOnClickListener(View.OnClickListener {
+                objectCardImage.setOnClickListener {
                     var url = stormData.baseUrl
                     if (imageUrls[index] == "WPCQPF_sm2.gif" || imageUrls[index] == "WPCERO_sm2.gif") url = url.dropLast(2)
                     val fullUrl = url + imageUrls[index]
                     ObjectIntent.showImage(this@NhcStormActivity, arrayOf(fullUrl, ""))
-                })
+                }
             }
         }
         html = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@NhcStormActivity, product) }

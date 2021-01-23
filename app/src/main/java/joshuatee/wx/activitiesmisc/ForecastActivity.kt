@@ -120,7 +120,7 @@ class ForecastActivity : BaseActivity() {
         linearLayoutForecast.removeAllViewsInLayout()
         bitmaps.forEachIndexed { index, bitmap ->
             val objectCard7Day = ObjectCard7Day(this@ForecastActivity, bitmap, true, index, objectSevenDay.forecastList)
-            objectCard7Day.setOnClickListener(View.OnClickListener { scrollView.smoothScrollTo(0, 0) })
+            objectCard7Day.setOnClickListener { scrollView.smoothScrollTo(0, 0) }
             linearLayoutForecast.addView(objectCard7Day.card)
         }
         // sunrise card
@@ -153,7 +153,7 @@ class ForecastActivity : BaseActivity() {
             hazardCards[z].setTextSize(TypedValue.COMPLEX_UNIT_PX, MyApplication.textSizeNormal)
             hazardCards[z].setTextColor(UIPreferences.textHighlightColor)
             hazardCards[z].text = objectHazards.titles[z].toUpperCase(Locale.US)
-            hazardCards[z].setOnClickListener(View.OnClickListener { ObjectIntent.showHazard(this@ForecastActivity, arrayOf(objectHazards.urls[z])) })
+            hazardCards[z].setOnClickListener { ObjectIntent.showHazard(this@ForecastActivity, arrayOf(objectHazards.urls[z])) }
             linearLayoutHazards.addView(hazardCards[z].card)
         }
     }

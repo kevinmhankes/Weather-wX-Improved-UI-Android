@@ -150,12 +150,12 @@ class SevereDashboardActivity : BaseActivity() {
                     val data = severeWarning.warnings[index]
                     if (!data.startsWith("O.EXP")) {
                         val objectCardDashAlertItem = ObjectCardDashAlertItem(this@SevereDashboardActivity, linearLayout, severeWarning, index)
-                        objectCardDashAlertItem.setListener(View.OnClickListener { showWarningDetails(severeWarning.idList[index]) })
+                        objectCardDashAlertItem.setListener { showWarningDetails(severeWarning.idList[index]) }
                         val id = numberOfWarnings
-                        objectCardDashAlertItem.radarButton.setOnClickListener(View.OnClickListener {
+                        objectCardDashAlertItem.radarButton.setOnClickListener {
                             ObjectIntent.showRadarBySite(this@SevereDashboardActivity, listOfWfoForWarnings.safeGet(id))
-                        })
-                        objectCardDashAlertItem.detailsButton.setOnClickListener(View.OnClickListener { showWarningDetails(severeWarning.idList[index]) })
+                        }
+                        objectCardDashAlertItem.detailsButton.setOnClickListener { showWarningDetails(severeWarning.idList[index]) }
                         listOfWfoForWarnings.add(severeWarning.listOfWfo[index])
                         objectCardDashAlertItem.setId(numberOfWarnings)
                         numberOfWarnings += 1
@@ -198,9 +198,9 @@ class SevereDashboardActivity : BaseActivity() {
                             )
                         }
                         val number = severeNotice.numbers[j]
-                        card.setOnClickListener(View.OnClickListener {
+                        card.setOnClickListener {
                             ObjectIntent.showMcd(this@SevereDashboardActivity, arrayOf(number, "", severeNotice.toString()))
-                        })
+                        }
                         numberOfImages += 1
                     }
                 }
