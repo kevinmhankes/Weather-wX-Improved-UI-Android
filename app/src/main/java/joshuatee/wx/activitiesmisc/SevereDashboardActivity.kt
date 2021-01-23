@@ -128,9 +128,9 @@ class SevereDashboardActivity : BaseActivity() {
                 card = ObjectCardImage(this@SevereDashboardActivity, horizontalLinearLayouts.last().linearLayout, bitmaps[it], imagesPerRow)
             }
             if (it == 0) {
-                card.setOnClickListener(View.OnClickListener { ObjectIntent.showUsAlerts(this@SevereDashboardActivity) })
+                card.setOnClickListener { ObjectIntent.showUsAlerts(this@SevereDashboardActivity) }
             } else {
-                card.setOnClickListener(View.OnClickListener { ObjectIntent.showSpcStormReports(this@SevereDashboardActivity) })
+                card.setOnClickListener { ObjectIntent.showSpcStormReports(this@SevereDashboardActivity) }
             }
             numberOfImages += 1
         }

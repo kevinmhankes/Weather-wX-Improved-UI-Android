@@ -19,6 +19,7 @@
                     [ADD] change buildToolsVersion from 29.0.3 to 30.0.3
                     [ADD] change targetSdkVersion from 29 to 30
                     [ADD] update androidx.media:media:1.2.0 to androidx.media:media:1.2.1
+                    [FIX] misc lint (redundant SAM constructor)
 55506 2020_08_24    [REF] com.google.android.material:material:1.2.0 (from 1.1.0) org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.0 (from 1.3.72), and others
                     [FIX] give build process more memory
 55505 2020_07_10    [FIX] NHC storm graphics not working for storms IDs over 5
