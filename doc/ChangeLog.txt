@@ -8,12 +8,17 @@
 // TODO [ADD] for alert closest radar use polygon center like mcd
 // TODO [ADD] certain GOES regions like CONUS have additional products (GLM, DMW)
 // TODO [FIX] NSSL WRF needs better runtime detection (reference C++ code)
+// TODO [FIX] move to API 30 possibly broke screen recording tools, possible no good fix, try to move drawing tools out so they still work
 
 55507 2021_01_23    [ADD] upgrade ndk from r21c to r21d
                     [FIX] in location - edit, help text for notifications has spelling mistake for notifications
                     [FIX] remove "pmdhmd: Model Diagnostics Discussion" from National Text Products as the NWS no longer provides this product
                     [FIX] corrected URLs for 2 Space Weather images in National Images
                     [FIX] in nexrad, long press and select top two entries "miles from location", etc - should not do anything (user reported bug)
+                    [ADD] change compileSdkVersion from 29 to 30
+                    [ADD] change buildToolsVersion from 29.0.3 to 30.0.3
+                    [ADD] change targetSdkVersion from 29 to 30
+                    [ADD] update androidx.media:media:1.2.0 to androidx.media:media:1.2.1
 55506 2020_08_24    [REF] com.google.android.material:material:1.2.0 (from 1.1.0) org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.0 (from 1.3.72), and others
                     [FIX] give build process more memory
 55505 2020_07_10    [FIX] NHC storm graphics not working for storms IDs over 5

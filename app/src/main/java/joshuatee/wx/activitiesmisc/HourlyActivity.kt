@@ -73,7 +73,7 @@ class HourlyActivity : BaseActivity() {
         objectCard = ObjectCard(this, R.color.black, R.id.graphCard)
         graphCard.visibility = View.GONE
         objectCardVerticalText = ObjectCardVerticalText(this, 5, linearLayout, toolbar)
-        objectCardVerticalText.setOnClickListener(View.OnClickListener { scrollView.scrollTo(0,0)})
+        objectCardVerticalText.setOnClickListener { scrollView.scrollTo(0, 0) }
         title = "Hourly Forecast"
         toolbar.subtitle = Location.getName(locationNumber)
         getContent()

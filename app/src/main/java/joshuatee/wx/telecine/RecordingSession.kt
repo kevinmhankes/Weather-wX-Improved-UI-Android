@@ -433,7 +433,7 @@ internal class RecordingSession(
             return
         }
         object : AsyncTask<Void, Void, Bitmap>() {
-            override fun doInBackground(vararg none: Void): Bitmap {
+            override fun doInBackground(vararg none: Void): Bitmap? {
                 val retriever = MediaMetadataRetriever()
                 retriever.setDataSource(context, uri)
                 return retriever.frameAtTime
