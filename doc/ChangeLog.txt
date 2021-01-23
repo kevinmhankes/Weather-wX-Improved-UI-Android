@@ -11,6 +11,7 @@
 // TODO [ADD] update copyright 2021
 // TODO [FIX] move to API 30 possibly broke screen recording tools, possible no good fix, try to move drawing tools out so they still work
 
+
 55507 2021_01_23    [ADD] upgrade ndk from r21c to r21d
                     [FIX] in location - edit, help text for notifications has spelling mistake for notifications
                     [FIX] remove "pmdhmd: Model Diagnostics Discussion" from National Text Products as the NWS no longer provides this product
