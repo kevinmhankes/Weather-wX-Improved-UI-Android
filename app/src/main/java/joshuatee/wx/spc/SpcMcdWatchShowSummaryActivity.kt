@@ -26,7 +26,6 @@ import android.os.Bundle
 import android.graphics.Bitmap
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.view.MenuItem
-import android.view.View
 
 import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity

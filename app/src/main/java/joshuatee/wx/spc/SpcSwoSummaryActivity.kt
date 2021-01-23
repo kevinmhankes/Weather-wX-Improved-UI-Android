@@ -71,7 +71,7 @@ class SpcSwoSummaryActivity : BaseActivity() {
         val objectImageSummary = ObjectImageSummary(this@SpcSwoSummaryActivity, linearLayout, bitmaps)
         objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
             val day = if (index < 3) (index + 1).toString() else "4-8"
-            objectCardImage.setOnClickListener(View.OnClickListener { ObjectIntent.showSpcSwo(this@SpcSwoSummaryActivity, arrayOf(day, "")) })
+            objectCardImage.setOnClickListener { ObjectIntent.showSpcSwo(this@SpcSwoSummaryActivity, arrayOf(day, "")) }
         }
     }
 
