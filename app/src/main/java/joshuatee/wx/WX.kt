@@ -29,11 +29,9 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.Gravity
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
-import android.view.View.OnClickListener
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
@@ -52,7 +50,6 @@ import joshuatee.wx.models.ModelsSpcHrrrActivity
 import joshuatee.wx.models.ModelsSpcSrefActivity
 import joshuatee.wx.nhc.NhcActivity
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityNavDrawer
 import joshuatee.wx.spc.*
@@ -102,7 +99,7 @@ class WX : CommonActionBarFragment() {
         val menu = toolbarBottom.menu
         voiceRecognitionIcon = menu.findItem(R.id.action_vr)
         voiceRecognitionIcon.isVisible = MyApplication.vrButton
-        val fab = ObjectFab(this, this, R.id.fab, MyApplication.ICON_RADAR_WHITE, OnClickListener { openNexradRadar(this) })
+        val fab = ObjectFab(this, this, R.id.fab, MyApplication.ICON_RADAR_WHITE) { openNexradRadar(this) }
         if (UIPreferences.mainScreenRadarFab) {
             val radarMi = menu.findItem(R.id.action_radar)
             radarMi.isVisible = false
@@ -246,7 +243,7 @@ class WX : CommonActionBarFragment() {
                 }
                 true
             }
-            ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD2, OnClickListener {
+            ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD2) {
                 val headerSize: Float
                 val tabStr = UtilitySpc.checkSpc()
                 if (MyApplication.checkspc || MyApplication.checktor || MyApplication.checkwpc
@@ -262,11 +259,11 @@ class WX : CommonActionBarFragment() {
                 layoutParams.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, headerSize, resources.displayMetrics).toInt()
                 headerLayout.layoutParams = layoutParams
                 if (UIPreferences.navDrawerMainScreenOnRight) {
-                    drawerLayout.openDrawer(Gravity.RIGHT)
+                    drawerLayout.openDrawer(GravityCompat.END)
                 } else {
-                    drawerLayout.openDrawer(Gravity.LEFT)
+                    drawerLayout.openDrawer(GravityCompat.START)
                 }
-            })
+            }
         }
         // material 1.1.0, since we are using .Bridge theme the below is not needed
         // but left for reference

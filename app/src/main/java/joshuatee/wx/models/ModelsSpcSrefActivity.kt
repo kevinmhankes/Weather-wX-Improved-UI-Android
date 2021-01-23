@@ -22,9 +22,7 @@
 package joshuatee.wx.models
 
 import android.annotation.SuppressLint
-import android.content.DialogInterface
 import java.util.Locale
-
 import android.os.Bundle
 import android.content.res.Configuration
 import android.view.KeyEvent
@@ -34,7 +32,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import joshuatee.wx.Extensions.safeGet
-
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences

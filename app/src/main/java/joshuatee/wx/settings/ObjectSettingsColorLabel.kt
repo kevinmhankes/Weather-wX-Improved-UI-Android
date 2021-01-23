@@ -50,9 +50,9 @@ internal class ObjectSettingsColorLabel(val context: Context, label: String, pri
         objectTextView.gravity = Gravity.CENTER_VERTICAL
         objectCard.addView(objectTextView.tv)
         val prefInner = pref
-        objectCard.setOnClickListener(View.OnClickListener {
+        objectCard.setOnClickListener {
             ObjectIntent(context, SettingsColorPickerActivity::class.java, SettingsColorPickerActivity.INFO, arrayOf(prefInner, label))
-        })
+        }
     }
 
     fun refreshColor() {

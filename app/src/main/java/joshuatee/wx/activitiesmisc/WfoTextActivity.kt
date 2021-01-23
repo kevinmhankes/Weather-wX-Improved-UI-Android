@@ -22,7 +22,6 @@
 package joshuatee.wx.activitiesmisc
 
 import android.annotation.SuppressLint
-import android.content.DialogInterface
 import android.content.res.Configuration
 import java.util.Locale
 
@@ -302,11 +301,11 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
             val cliSites = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('.*?','(.*?)'\\)")
             val cliNames = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('(.*?)','.*?'\\)")
             val dialogueMain = ObjectDialogue(this@WfoTextActivity, "Select site from $wfo:", cliNames)
-            dialogueMain.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, index ->
+            dialogueMain.setSingleChoiceItems { dialog, index ->
                 wfo = Utility.safeGet(cliSites, index)
                 dialog.dismiss()
                 getContent()
-            })
+            }
             originalWfo = wfo
             dialogueMain.show()
         }
@@ -344,15 +343,15 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
         val objectDialogue = ObjectDialogue(this, list)
-        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+        objectDialogue.setNegativeButton { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(this)
-        })
-        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+        }
+        objectDialogue.setSingleChoiceItems { dialog, which ->
             fn(which)
             getContent()
             dialog.dismiss()
-        })
+        }
         objectDialogue.show()
     }
 

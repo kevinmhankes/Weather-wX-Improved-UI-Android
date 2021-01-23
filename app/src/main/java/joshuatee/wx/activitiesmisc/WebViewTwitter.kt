@@ -131,14 +131,14 @@ class WebViewTwitter : BaseActivity() {
 
     private fun genericDialog(list: List<String>, fn: (Int) -> Unit) {
         val objectDialogue = ObjectDialogue(this, list)
-        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+        objectDialogue.setNegativeButton { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(this)
-        })
-        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+        }
+        objectDialogue.setSingleChoiceItems { dialog, which ->
             fn(which)
             dialog.dismiss()
-        })
+        }
         objectDialogue.show()
     }
 }

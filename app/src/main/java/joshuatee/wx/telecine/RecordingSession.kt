@@ -509,11 +509,11 @@ internal class RecordingSession(
         }.execute()
     }
 
-    private class RecordingInfo internal constructor(
-        internal val width: Int,
-        internal val height: Int,
-        internal val frameRate: Int,
-        internal val density: Int
+    private class RecordingInfo(
+        val width: Int,
+        val height: Int,
+        val frameRate: Int,
+        val density: Int
     )
 
     fun destroy() { if (running) stopRecording() }
