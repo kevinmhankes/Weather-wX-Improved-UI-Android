@@ -23,7 +23,6 @@ package joshuatee.wx.settings
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
 
 import joshuatee.wx.R
 import joshuatee.wx.audio.SettingsPlaylistActivity
@@ -57,10 +56,10 @@ class SettingsMainActivity : BaseActivity() {
         val cardHS = ObjectCardText(this, "Home Screen", textSize, SettingsHomeScreenActivity::class.java, padding)
         val cardUI = ObjectCardText(this, "User Interface", textSize, SettingsUIActivity::class.java, padding)
         val cardCtoF = ObjectCardText(this, "Celsius to fahrenheit table", textSize, padding)
-        cardCtoF.setOnClickListener(View.OnClickListener {
+        cardCtoF.setOnClickListener {
             ObjectIntent.showText(this, arrayOf(UtilityMath.celsiusToFahrenheitTable(), "Celsius to Fahrenheit table"))
-        })
-        cardAbout.setOnClickListener(View.OnClickListener { ObjectIntent(this, SettingsAboutActivity::class.java) })
+        }
+        cardAbout.setOnClickListener { ObjectIntent(this, SettingsAboutActivity::class.java) }
         listOf(
                 cardAbout.card,
                 cardLocations.card,

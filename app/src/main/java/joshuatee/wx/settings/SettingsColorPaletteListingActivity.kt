@@ -23,7 +23,6 @@ package joshuatee.wx.settings
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
@@ -49,9 +48,9 @@ class SettingsColorPaletteListingActivity : BaseActivity() {
                     MyApplication.textSizeNormal,
                     MyApplication.paddingSettings
             )
-            card.setOnClickListener(View.OnClickListener {
+            card.setOnClickListener {
                 ObjectIntent(this, SettingsColorPaletteActivity::class.java, SettingsColorPaletteActivity.TYPE, arrayOf(product.toString()))
-            })
+            }
             cardColorPalettes.add(card)
         }
     }

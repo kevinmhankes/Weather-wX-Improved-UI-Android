@@ -23,7 +23,6 @@ package joshuatee.wx.radar
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -916,11 +915,11 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     private fun setupAlertDialogRadarLongPress() {
         dialogRadarLongPress = ObjectDialogue(this@WXGLRadarActivityMultiPane, alertDialogStatusAl)
-        dialogRadarLongPress!!.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+        dialogRadarLongPress!!.setNegativeButton { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(this)
-        })
-        dialogRadarLongPress!!.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+        }
+        dialogRadarLongPress!!.setSingleChoiceItems { dialog, which ->
             val strName = alertDialogStatusAl[which]
             UtilityRadarUI.doLongPressAction(
                     strName,
@@ -932,7 +931,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                     ::longPressRadarSiteSwitch
             )
             dialog.dismiss()
-        })
+        }
     }
 
     private fun longPressRadarSiteSwitch(string: String) {
@@ -950,11 +949,11 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
 
     private fun alertDialogTdwr() {
         val objectDialogue = ObjectDialogue(this@WXGLRadarActivityMultiPane, GlobalArrays.tdwrRadars)
-        objectDialogue.setNegativeButton(DialogInterface.OnClickListener { dialog, _ ->
+        objectDialogue.setNegativeButton { dialog, _ ->
             dialog.dismiss()
             UtilityUI.immersiveMode(this)
-        })
-        objectDialogue.setSingleChoiceItems(DialogInterface.OnClickListener { dialog, which ->
+        }
+        objectDialogue.setSingleChoiceItems { dialog, which ->
             val radarFullName = GlobalArrays.tdwrRadars[which]
             wxglRenders[curRadar].rid = radarFullName.split(" ")[0]
             if (wxglRenders[curRadar].product.matches(Regex("N[0-3]Q"))) {
@@ -965,7 +964,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
             ridMapSwitch(wxglRenders[curRadar].rid)
             getContent(wxglSurfaceViews[curRadar], wxglRenders[curRadar], curRadar)
             dialog.dismiss()
-        })
+        }
         objectDialogue.show()
     }
 

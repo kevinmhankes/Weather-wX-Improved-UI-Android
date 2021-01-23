@@ -24,7 +24,6 @@ package joshuatee.wx.settings
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.core.app.NavUtils
 
 import joshuatee.wx.R
 import joshuatee.wx.ui.BaseActivity
@@ -54,12 +53,12 @@ class SettingsNavDrawerActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        val newTokenList = UtilityNavDrawer.generateNewTokenList(this)
-        //if (tokenList != newTokenList && tokenList != "") {
+        // val newTokenList = UtilityNavDrawer.generateNewTokenList(this)
+        // if (tokenList != newTokenList && tokenList != "") {
             UtilityAlertDialog.restart()
-        //} else {
+        // } else {
         //    super.onBackPressed()
-        //}
+        // }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

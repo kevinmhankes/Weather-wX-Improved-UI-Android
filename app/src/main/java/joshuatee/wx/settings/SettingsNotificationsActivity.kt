@@ -34,7 +34,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AlertDialog
 import android.content.Intent
-import android.view.View
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
@@ -61,8 +60,8 @@ class SettingsNotificationsActivity : BaseActivity() {
                 MyApplication.textSizeNormal,
                 MyApplication.paddingSettings
         )
-        cardSound.setOnClickListener(View.OnClickListener { notifSoundPicker() })
-        cardWFOFilter.setOnClickListener(View.OnClickListener { showWFONotificationFilterDialogue() })
+        cardSound.setOnClickListener { notifSoundPicker() }
+        cardWFOFilter.setOnClickListener { showWFONotificationFilterDialogue() }
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,

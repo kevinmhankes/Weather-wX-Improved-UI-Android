@@ -28,7 +28,6 @@ import android.os.Build
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import android.widget.CompoundButton
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
@@ -174,7 +173,7 @@ class SettingsRadarActivity : BaseActivity() {
                 R.string.locdot_follows_gps_label
         )
         linearLayout.addView(gpsSw.card)
-        gpsSw.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, _ ->
+        gpsSw.setOnCheckedChangeListener { compoundButton, _ ->
             MyApplication.locationDotFollowsGps = compoundButton.isChecked
             if (MyApplication.locationDotFollowsGps != Utility.readPref(
                             this,
@@ -189,7 +188,7 @@ class SettingsRadarActivity : BaseActivity() {
             } else {
                 Utility.writePref(this, "LOCDOT_FOLLOWS_GPS", "false")
             }
-        })
+        }
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,

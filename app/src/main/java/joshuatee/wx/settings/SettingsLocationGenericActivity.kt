@@ -31,7 +31,6 @@ import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.view.*
-import android.view.View.OnClickListener
 import android.widget.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
@@ -89,7 +88,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         Utility.writePref(this, "LOCATION_CANADA_PROV", "")
         Utility.writePref(this, "LOCATION_CANADA_CITY", "")
         Utility.writePref(this, "LOCATION_CANADA_ID", "")
-        ObjectFab(this, this, R.id.fab, OnClickListener { fabSaveLocation() })
+        ObjectFab(this, this, R.id.fab) { fabSaveLocation() }
         val me = toolbarBottom.menu
         listOf(R.id.cv1).forEach { ObjectCard(this, it) }
         val locNumArr = intent.getStringArrayExtra(LOC_NUM)
@@ -283,8 +282,8 @@ class SettingsLocationGenericActivity : BaseActivity(),
     }
 
     private fun saveLocation(locNum: String, xStr: String, yStr: String, labelStr: String) = GlobalScope.launch(uiDispatcher) {
-        var toastStr = ""
-        var xLoc = ""
+        var toastStr: String
+        var xLoc: String
         withContext(Dispatchers.IO) {
             toastStr = Location.save(this@SettingsLocationGenericActivity, locNum, xStr, yStr, labelStr)
             xLoc = xStr
@@ -320,7 +319,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
         cityArrayAdapter.setDropDownViewResource(MyApplication.spinnerLayout)
         searchView.setAdapter(cityArrayAdapter)
         searchView.queryHint = "Enter city here"
-        searchView.setOnItemClickListener(AdapterView.OnItemClickListener { _, _, position, _ ->
+        searchView.setOnItemClickListener { _, _, position, _ ->
             var k = 0
             for (y in combinedCitiesList.indices) {
                 if (cityArrayAdapter.getItem(position) == combinedCitiesList[y]) {
@@ -342,7 +341,7 @@ class SettingsLocationGenericActivity : BaseActivity(),
                 val labelStr = locLabelEt.text.toString()
                 saveLocation(locNum, xStr, yStr, labelStr)
             }
-        })
+        }
 
         searchView.setOnQueryTextListener(object : OnQueryTextListener {
 

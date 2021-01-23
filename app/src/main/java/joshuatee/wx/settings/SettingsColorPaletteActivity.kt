@@ -72,8 +72,8 @@ class SettingsColorPaletteActivity : BaseActivity() {
         toolbar.subtitle = WXGLNexrad.productCodeStringToName[typeAsInt]
         title = MyApplication.radarColorPalette[typeAsInt]
         prefToken = "RADAR_COLOR_PALETTE_$type"
-        fab1 = ObjectFab(this, this, R.id.fab1, R.drawable.ic_reorder_24dp, View.OnClickListener { addPalFab() })
-        fab2 = ObjectFab(this, this, R.id.fab2, MyApplication.ICON_DELETE_WHITE, View.OnClickListener { editPalFab() })
+        fab1 = ObjectFab(this, this, R.id.fab1, R.drawable.ic_reorder_24dp) { addPalFab() }
+        fab2 = ObjectFab(this, this, R.id.fab2, MyApplication.ICON_DELETE_WHITE) { editPalFab() }
         rowListItem = allItemList
         val gridLayoutManager = GridLayoutManager(this, UIPreferences.tilesPerRow)
         cardList.setHasFixedSize(true)

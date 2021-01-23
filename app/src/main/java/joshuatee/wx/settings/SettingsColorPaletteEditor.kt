@@ -30,7 +30,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 
 import joshuatee.wx.MyApplication
@@ -64,7 +63,7 @@ class SettingsColorPaletteEditor : BaseActivity(), OnMenuItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_settings_color_palette_editor, R.menu.settings_color_palette_editor, true)
         toolbarBottom.setOnMenuItemClickListener(this)
-        ObjectFab(this, this, R.id.fab, View.OnClickListener { fabSavePalette(this) })
+        ObjectFab(this, this, R.id.fab) { fabSavePalette(this) }
         ObjectCard(this, R.id.cv1)
         if (UIPreferences.themeInt == R.style.MyCustomTheme_white_NOAB) {
             listOf(palTitle, palContent).forEach {
