@@ -92,7 +92,7 @@ class ForecastActivity : BaseActivity() {
     }
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        var bitmapForCurrentCondition: Bitmap? = null
+        var bitmapForCurrentCondition: Bitmap?
         var bitmaps = listOf<Bitmap>()
         withContext(Dispatchers.IO) {
             //

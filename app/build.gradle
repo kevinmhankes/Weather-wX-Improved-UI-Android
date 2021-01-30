@@ -119,7 +119,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     implementation 'com.jjoe64:graphview:4.2.2'
-    implementation "com.squareup.okhttp3:okhttp:4.6.0"
+    implementation "com.squareup.okhttp3:okhttp:4.9.0"
 }
 
 repositories {
