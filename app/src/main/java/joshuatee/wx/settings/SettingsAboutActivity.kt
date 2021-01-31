@@ -28,6 +28,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.LinearLayout
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
@@ -38,7 +39,6 @@ import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityFileManagement
 import joshuatee.wx.util.UtilityShare
-import kotlinx.android.synthetic.main.activity_linear_layout.linearLayout
 
 class SettingsAboutActivity : BaseActivity() {
 
@@ -47,6 +47,7 @@ class SettingsAboutActivity : BaseActivity() {
     private val faqUrl = "https://docs.google.com/document/u/1/d/e/2PACX-1vQVkTWlnpRZCSn-ZI7tNLMDHUq-oWp9i1bf8e1yFf1ebEA2CFMapVUsALGJASj2aNhEMYAwBMs4GstL/pub"
     private val iOSUrl = "https://apps.apple.com/us/app/wxl23/id1171250052"
     private val releaseNotesUrl = "https://docs.google.com/document/u/1/d/e/2PACX-1vT-YfH9yH_qmxLHe25UGlJvHHj_25qmTHJoeWPBbNWlvS4nm0YBmFeAnEpeel3GTL3OYKnvXkMNbnOX/pub"
+    private lateinit var linearLayout: LinearLayout
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.generic_about, menu)
@@ -56,6 +57,7 @@ class SettingsAboutActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, R.menu.generic_about, false)
+        linearLayout = findViewById(R.id.linearLayout)
         val version = Utility.getVersion(this)
         toolbar.subtitle = "version: $version"
         val faqButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)

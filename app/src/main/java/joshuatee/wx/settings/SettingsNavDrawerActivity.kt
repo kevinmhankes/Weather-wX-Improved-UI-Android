@@ -24,20 +24,21 @@ package joshuatee.wx.settings
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.LinearLayout
 
 import joshuatee.wx.R
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.util.UtilityAlertDialog
 
-import kotlinx.android.synthetic.main.activity_settings_navdrawer.linearLayout
-
 class SettingsNavDrawerActivity : BaseActivity() {
 
     private var tokenList = ""
+    private lateinit var linearLayout: LinearLayout
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_settings_navdrawer, null, false)
+        linearLayout = findViewById(R.id.linearLayout)
         tokenList = UtilityNavDrawer.getNavDrawerTokenList(this)
         title = "Navigation Drawer"
         toolbar.subtitle = "Turn items off or on for the main screen nav drawer."
