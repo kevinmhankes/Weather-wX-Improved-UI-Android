@@ -26,23 +26,20 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import joshuatee.wx.Extensions.safeGet
-
 import java.util.Locale
-
 import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.notifications.UtilityNotificationTextProduct
 import joshuatee.wx.MyApplication
-
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
-
-import kotlinx.android.synthetic.main.activity_wpctextproducts.*
 
 class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
@@ -66,6 +63,8 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private var ridFavOld = ""
     private lateinit var textCard: ObjectCardText
     private lateinit var drw: ObjectNavDrawerCombo
+    private lateinit var scrollView: ScrollView
+    private lateinit var linearLayout: LinearLayout
     private val prefToken = "NWS_TEXT_FAV"
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -81,6 +80,8 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_wpctextproducts, R.menu.wpctext_products)
+        scrollView = findViewById(R.id.scrollView)
+        linearLayout = findViewById(R.id.linearLayout)
         toolbarBottom.setOnMenuItemClickListener(this)
         star = toolbarBottom.menu.findItem(R.id.action_fav)
         notificationToggle = toolbarBottom.menu.findItem(R.id.action_notif_text_prod)
