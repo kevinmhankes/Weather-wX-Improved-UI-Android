@@ -23,6 +23,7 @@ package joshuatee.wx.settings
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.LinearLayout
 
 import joshuatee.wx.R
 import joshuatee.wx.audio.SettingsPlaylistActivity
@@ -34,13 +35,14 @@ import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.ui.UtilityTheme
 import joshuatee.wx.util.*
 
-import kotlinx.android.synthetic.main.activity_linear_layout.*
-
 class SettingsMainActivity : BaseActivity() {
+
+    private lateinit var linearLayout: LinearLayout
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
+        linearLayout = findViewById(R.id.linearLayout)
         UtilityTheme.setPrimaryColor(this)
         val version = Utility.getVersion(this)
         val textSize = MyApplication.textSizeLarge

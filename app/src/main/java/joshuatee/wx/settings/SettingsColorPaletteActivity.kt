@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
@@ -41,8 +42,6 @@ import joshuatee.wx.ui.ObjectFab
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityFileManagement
 
-import kotlinx.android.synthetic.main.activity_recyclerview_toolbar_with_twofab.*
-
 class SettingsColorPaletteActivity : BaseActivity() {
 
     companion object {
@@ -52,6 +51,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
 
     private lateinit var rowListItem: List<TileObjectColorPalette>
     private lateinit var tileAdapterColorPalette: TileAdapterColorPalette
+    private lateinit var cardList: RecyclerView
     private var type = ""
     private var typeAsInt = 0
     private var globalPosition = 0
@@ -67,6 +67,7 @@ class SettingsColorPaletteActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_recyclerview_toolbar_with_twofab, null, false)
+        cardList = findViewById(R.id.cardList)
         type = intent.getStringArrayExtra(TYPE)!![0]
         typeAsInt = type.toIntOrNull() ?: 94
         toolbar.subtitle = WXGLNexrad.productCodeStringToName[typeAsInt]
