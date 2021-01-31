@@ -9,6 +9,7 @@
 // TODO [ADD] certain GOES regions like CONUS have additional products (GLM, DMW)
 // TODO [FIX] NSSL WRF needs better runtime detection (reference C++ code)
 // TODO [ADD] update copyright 2021
+// TODO [ADD] check for new SPC Meso parms
 // TODO [ADD] thanks google/jetbrains, one more deprecation to look into - https://developer.android.com/topic/libraries/view-binding/migration
     https://developer.android.com/topic/libraries/view-binding/migration
     https://developer.android.com/topic/libraries/view-binding#activities
