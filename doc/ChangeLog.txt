@@ -14,7 +14,7 @@
     https://developer.android.com/topic/libraries/view-binding#activities
     https://proandroiddev.com/migrating-the-deprecated-kotlin-android-extensions-compiler-plugin-to-viewbinding-d234c691dec7
 
-55509 2021_01_30
+55509 2021_01_30    [ADD] start removing import kotlinx.android.synthetic.main.activity_hourly.*, switch to findViewById (not interested in View Binding at this time)
 55508 2021_01_30    [FIX] misc lint (redundant SAM constructor)
                     [ADD] update "com.squareup.okhttp3:okhttp:4.6.0" to "com.squareup.okhttp3:okhttp:4.9.0"
 55507 2021_01_23    [ADD] upgrade ndk from r21c to r21d
