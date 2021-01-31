@@ -104,7 +104,11 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         invalidateOptionsMenu()
         updateSubmenuNotificationText()
         scrollView.smoothScrollTo(0, 0)
-        if (MyApplication.nwsTextFav.contains(":$product:")) star.setIcon(MyApplication.STAR_ICON) else star.setIcon(MyApplication.STAR_OUTLINE_ICON)
+        if (MyApplication.nwsTextFav.contains(":$product:")) {
+            star.setIcon(MyApplication.STAR_ICON)
+        } else {
+            star.setIcon(MyApplication.STAR_OUTLINE_ICON)
+        }
         ridFavOld = MyApplication.nwsTextFav
         html = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@WpcTextProductsActivity, product) }
         textCard.setTextAndTranslate(html)
@@ -136,7 +140,9 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
+        if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true
+        }
         products = UtilityFavorites.setupMenu(this, MyApplication.nwsTextFav, product, prefToken)
         when (item.itemId) {
             R.id.action_product -> {
