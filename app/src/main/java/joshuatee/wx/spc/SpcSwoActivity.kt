@@ -175,13 +175,17 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun setImageAndClickAction(index: Int, urls: List<String>, textUrl: String) {
         objectCardImageList[index].setImage(bitmaps[index], imagesPerRow)
-        objectCardImageList[index].setOnClickListener { showImageProduct(urls[index], textUrl) }
+        objectCardImageList[index].setOnClickListener {
+            showImageProduct(urls[index], textUrl)
+        }
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         val textToShare = UtilityShare.prepTextForShare(html)
         UtilityLog.d("wx", textToShare)
-        if (audioPlayMenu(item.itemId, html, playlistProd, playlistProd)) return true
+        if (audioPlayMenu(item.itemId, html, playlistProd, playlistProd)) {
+            return true
+        }
         when (item.itemId) {
             R.id.action_share_all -> UtilityShare.text(this, this, "Day $day Convective Outlook", textToShare, bitmaps)
             R.id.action_share_text -> UtilityShare.text(this, "Day $day Convective Outlook - Text", textToShare)
