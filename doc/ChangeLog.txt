@@ -10,10 +10,11 @@
 // TODO [FIX] NSSL WRF needs better runtime detection (reference C++ code)
 // TODO [ADD] update copyright 2021
 // TODO [ADD] check for new SPC Meso parms
-// TODO [ADD] thanks google/jetbrains, one more deprecation to look into - https://developer.android.com/topic/libraries/view-binding/migration
-    https://developer.android.com/topic/libraries/view-binding/migration
-    https://developer.android.com/topic/libraries/view-binding#activities
-    https://proandroiddev.com/migrating-the-deprecated-kotlin-android-extensions-compiler-plugin-to-viewbinding-d234c691dec7
+// TODO [ADD] 'IntentService' is deprecated. Deprecated in Jav
+    https://stackoverflow.com/questions/62138507/intentservice-is-deprecated-how-do-i-replace-it-with-jobintentservice
+// TODO [ADD] 'constructor Handler()' is deprecated. Deprecated in Java
+// TODO [ADD] 'getter for defaultDisplay: Display!' is deprecated. Deprecated in Java
+// TODO [ADD] 'getMetrics(DisplayMetrics!): Unit' is deprecated. Deprecated in Java
 
 55510 2021_01_31
 55509 2021_01_31    [ADD] start removing import kotlinx.android.synthetic.main.activity_hourly.*, switch to findViewById (not interested in View Binding at this time)
