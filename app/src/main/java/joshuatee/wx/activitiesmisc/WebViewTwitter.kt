@@ -28,6 +28,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.webkit.WebView
 import android.webkit.WebViewClient
 
 import joshuatee.wx.R
@@ -38,8 +39,6 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.Location
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
-
-import kotlinx.android.synthetic.main.activity_webview_toolbar_state.*
 
 class WebViewTwitter : BaseActivity() {
 
@@ -63,9 +62,14 @@ class WebViewTwitter : BaseActivity() {
     private var sectorList = listOf<String>()
     private var sector = ""
     val prefToken = "STATE_CODE"
+    private lateinit var webView: WebView
 
     override fun onBackPressed() {
-        if (webview.canGoBack()) webview.goBack() else super.onBackPressed()
+        if (webView.canGoBack()) {
+            webView.goBack()
+        } else {
+            super.onBackPressed()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -81,17 +85,18 @@ class WebViewTwitter : BaseActivity() {
     @SuppressLint("SetJavaScriptEnabled", "MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_webview_toolbar_state, null, false)
+        webView = findViewById(R.id.webView)
         title = "Twitter"
         sectorList = GlobalArrays.states + canadianSectors
         sector = Utility.readPref(this, prefToken, Location.state)
-        val webSettings = webview.settings
+        val webSettings = webView.settings
         webSettings.javaScriptEnabled = true
         if (UtilityUI.isTablet()) {
             webSettings.textZoom = (120 * (UIPreferences.normalTextSize.toDouble() / UIPreferences.normalTextSizeDefault.toDouble())).toInt()
         } else {
             webSettings.textZoom = (100 * (UIPreferences.normalTextSize.toDouble() / UIPreferences.normalTextSizeDefault.toDouble())).toInt()
         }
-        webview.webViewClient = WebViewClient()
+        webView.webViewClient = WebViewClient()
         getContent()
     }
 
@@ -105,8 +110,10 @@ class WebViewTwitter : BaseActivity() {
         invalidateOptionsMenu()
         Utility.writePref(this, prefToken, sector)
         var url = "https://mobile.twitter.com/hashtag/" + sector.toLowerCase(Locale.US)
-        if (sector.length == 2) url += "wx"
-        webview.loadUrl(url)
+        if (sector.length == 2) {
+            url += "wx"
+        }
+        webView.loadUrl(url)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

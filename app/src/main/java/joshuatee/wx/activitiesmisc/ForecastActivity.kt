@@ -28,6 +28,8 @@ import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import joshuatee.wx.MyApplication
 
 import joshuatee.wx.R
@@ -41,8 +43,6 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.LatLon
 import kotlinx.coroutines.*
-
-import kotlinx.android.synthetic.main.activity_linear_layout.*
 
 class ForecastActivity : BaseActivity() {
 
@@ -66,6 +66,8 @@ class ForecastActivity : BaseActivity() {
     private lateinit var linearLayoutForecast: ObjectLinearLayout
     private lateinit var linearLayoutHazards: ObjectLinearLayout
     private val hazardCards = mutableListOf<ObjectCardText>()
+    private lateinit var scrollView: ScrollView
+    private lateinit var linearLayout: LinearLayout
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.adhoc_forecast, menu)
@@ -75,6 +77,8 @@ class ForecastActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
+        scrollView = findViewById(R.id.scrollView)
+        linearLayout = findViewById(R.id.linearLayout)
         activityArguments = intent.getStringArrayExtra(URL)!!
         latLon = LatLon(activityArguments[0], activityArguments[1])
         title = "Forecast for"
@@ -112,7 +116,9 @@ class ForecastActivity : BaseActivity() {
         //
         objectCardCurrentConditions.let {
             currentConditionsTime = objectCurrentConditions.status
-            if (bitmapForCurrentCondition != null) it.updateContent(bitmapForCurrentCondition!!, objectCurrentConditions, true, currentConditionsTime, radarTime)
+            if (bitmapForCurrentCondition != null) {
+                it.updateContent(bitmapForCurrentCondition!!, objectCurrentConditions, true, currentConditionsTime, radarTime)
+            }
         }
         //
         // 7day

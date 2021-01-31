@@ -36,7 +36,6 @@ import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.radar.*
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.ui.*
-import kotlinx.android.synthetic.main.activity_linear_layout.*
 import kotlinx.coroutines.*
 import joshuatee.wx.R
 import joshuatee.wx.util.*
@@ -62,6 +61,7 @@ class SevereDashboardActivity : BaseActivity() {
     private val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout> ()
     private var imagesPerRow = 2
     private val listOfWfoForWarnings = mutableListOf<String>()
+    private lateinit var linearLayout: LinearLayout
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.severe_dashboard, menu)
@@ -72,7 +72,10 @@ class SevereDashboardActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
-        if (UtilityUI.isLandScape(this)) imagesPerRow = 3
+        linearLayout = findViewById(R.id.linearLayout)
+        if (UtilityUI.isLandScape(this)) {
+            imagesPerRow = 3
+        }
         getContent()
     }
 
@@ -173,10 +176,18 @@ class SevereDashboardActivity : BaseActivity() {
 
     private fun getSubTitle(): String {
         var subTitle = ""
-        if (watchCount > 0) subTitle += "W($watchCount) "
-        if (mcdCount > 0) subTitle += "M($mcdCount) "
-        if (mpdCount > 0) subTitle += "P($mpdCount) "
-        if (torCount > 0 || tstCount > 0 || ffwCount > 0) subTitle += " ($tstCount,$torCount,$ffwCount)"
+        if (watchCount > 0) {
+            subTitle += "W($watchCount) "
+        }
+        if (mcdCount > 0) {
+            subTitle += "M($mcdCount) "
+        }
+        if (mpdCount > 0) {
+            subTitle += "P($mpdCount) "
+        }
+        if (torCount > 0 || tstCount > 0 || ffwCount > 0) {
+            subTitle += " ($tstCount,$torCount,$ffwCount)"
+        }
         return subTitle
     }
 
