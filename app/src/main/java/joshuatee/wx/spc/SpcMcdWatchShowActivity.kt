@@ -40,8 +40,6 @@ import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
 import kotlinx.coroutines.*
 
-import kotlinx.android.synthetic.main.activity_linear_layout_bottom_toolbar.*
-
 class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     // show a specific MCD, Watch, or MPD - long press on image to save location
@@ -59,11 +57,13 @@ class SpcMcdWatchShowActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private lateinit var objectCardImage: ObjectCardImage
     private lateinit var objectCardText: ObjectCardText
     private lateinit var objectWatchProduct: ObjectWatchProduct
+    private lateinit var linearLayout: LinearLayout
     private var tabletInLandscape = false
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.spcmcdshowdetail)
+        linearLayout = findViewById(R.id.linearLayout)
         toolbarBottom.setOnMenuItemClickListener(this)
         tabletInLandscape = UtilityUI.isTablet() && UtilityUI.isLandScape(this)
         if (tabletInLandscape) {
