@@ -36,6 +36,7 @@ import android.view.View
 import android.view.ContextMenu.ContextMenuInfo
 import android.widget.AdapterView
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import joshuatee.wx.Extensions.getHtmlSep
 import joshuatee.wx.Extensions.getImage
 
@@ -52,8 +53,6 @@ import joshuatee.wx.settings.Location
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
-
-import kotlinx.android.synthetic.main.activity_linear_layout_show_navdrawer_bottom_toolbar.*
 
 class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
@@ -90,10 +89,12 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private val out = StringBuilder(5000)
     private var stormReports = mutableListOf<StormReport>()
     private lateinit var objectNavDrawer: ObjectNavDrawer
+    private lateinit var scrollView: ScrollView
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_show_navdrawer_bottom_toolbar, R.menu.spc_stormreports)
+        scrollView = findViewById(R.id.scrollView)
         toolbarBottom.setOnMenuItemClickListener(this)
         toolbarBottom.menu.findItem(R.id.action_playlist).isVisible = false
         val activityArguments = intent.getStringArrayExtra(NO)
@@ -102,7 +103,9 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         year = cal.get(Calendar.YEAR)
         month = cal.get(Calendar.MONTH)
         day = cal.get(Calendar.DAY_OF_MONTH)
-        if (no == "yesterday") day -= 1
+        if (no == "yesterday") {
+            day -= 1
+        }
         previousYear = year
         previousMonth = month
         previousDay = day
@@ -202,7 +205,11 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
         title = "($stormCnt) Storm Reports - $filter"
         toolbar.subtitle = no
-        if (stormCnt > 0) objectCardText.visibility = View.VISIBLE else objectCardText.visibility = View.GONE
+        if (stormCnt > 0) {
+            objectCardText.visibility = View.VISIBLE
+        } else {
+            objectCardText.visibility = View.GONE
+        }
     }
 
     private val pDateSetListener =
@@ -290,8 +297,12 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
-        if (audioPlayMenu(item.itemId, out.toString(), "spcstreports", "spcstreports")) return true
+        if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        if (audioPlayMenu(item.itemId, out.toString(), "spcstreports", "spcstreports")) {
+            return true
+        }
         when (item.itemId) {
             R.id.action_share_all -> UtilityShare.bitmap(this, this, "Storm Reports - $no", bitmap, out.toString())
             R.id.action_share_text -> UtilityShare.text(this, "Storm Reports - $no", out.toString())
@@ -303,7 +314,9 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) return true
+        if (objectNavDrawer.actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true
+        }
         return super.onOptionsItemSelected(item)
     }
 }
