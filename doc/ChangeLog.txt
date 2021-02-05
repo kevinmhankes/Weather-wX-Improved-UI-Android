@@ -16,6 +16,7 @@
 // TODO [ADD] 'getter for defaultDisplay: Display!' is deprecated. Deprecated in Java
 // TODO [ADD] 'getMetrics(DisplayMetrics!): Unit' is deprecated. Deprecated in Java
 
+55511 2021_02_05
 55510 2021_02_05    [REF] remove kotlin-android-extensions in build.gradle
                     [ADD] minor correction in SPC Tstorm URL
 55509 2021_01_31    [ADD] start removing import kotlinx.android.synthetic.main.activity_hourly.*, switch to findViewById (not interested in View Binding at this time)
