@@ -39,6 +39,7 @@ import androidx.core.content.ContextCompat
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.os.Handler
+import android.os.Looper
 import android.view.*
 
 import joshuatee.wx.R
@@ -326,7 +327,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 }
             }
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-            mHandler = Handler()
+            mHandler = Handler(Looper.getMainLooper())
             startRepeatingTask()
         }
     }
@@ -736,7 +737,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
         }
     }
 
-    private val handler = Handler()
+    private val handler = Handler(Looper.getMainLooper())
 
     private var mStatusChecker: Runnable = object : Runnable {
         override fun run() {

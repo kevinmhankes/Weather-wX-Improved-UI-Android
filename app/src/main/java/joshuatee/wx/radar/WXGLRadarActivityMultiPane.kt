@@ -32,6 +32,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.os.SystemClock
 import android.view.KeyEvent
 import android.view.MenuItem
@@ -368,7 +369,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 }
             }
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-            mHandler = Handler()
+            mHandler = Handler(Looper.getMainLooper())
             startRepeatingTask()
         }
     }
@@ -834,7 +835,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
         }
     }
 
-    private val handler = Handler()
+    private val handler = Handler(Looper.getMainLooper())
 
     private val mStatusChecker: Runnable = object : Runnable {
         override fun run() {
