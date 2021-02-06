@@ -66,7 +66,6 @@ object UtilityWXOGL {
         val product = "VWP"
         val l3BaseFn = "nidsVWP"
         val indexString = "0"
-        val file: File
         val url = WXGLDownload.getRadarFileUrl(radarSite, product, false)
         val inputStream = url.getInputStream()
         if (inputStream != null) {
@@ -74,7 +73,7 @@ object UtilityWXOGL {
         } else {
             return ""
         }
-        file = File(context.filesDir, l3BaseFn + indexString + "_d")
+        val file: File = File(context.filesDir, l3BaseFn + indexString + "_d")
         if (!file.renameTo(File(context.filesDir, l3BaseFn + indexString)))
             UtilityLog.d("wx", "Problem moving file to $l3BaseFn$indexString")
         var output = ""
