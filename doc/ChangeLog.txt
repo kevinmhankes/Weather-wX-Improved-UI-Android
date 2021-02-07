@@ -15,7 +15,11 @@
 // TODO [ADD] 'getter for defaultDisplay: Display!' is deprecated. Deprecated in Java
 // TODO [ADD] 'getMetrics(DisplayMetrics!): Unit' is deprecated. Deprecated in Java
 
-55511 2021_02_05    [ADD] misc lint and deprecations (Handler() in nexrad)
+55511 2021_02_07    [ADD] misc lint and deprecations (Handler() in nexrad)
+                    [ADD] SPC Meso - move VTP Violent Tornado from Beta into Composite Indices to match SPC website
+                    [ADD] SPC Meso - add Tornadic 0-1km EHI to Beta to match SPC website
+                    [ADD] SPC Meso - add Tornadic Tilting & Stretching to Beta to match SPC website
+                    [ADD] SPC Meso - remove Enhanced EHI from Beta as it's no longer present on the SPC website
 55510 2021_02_05    [REF] remove kotlin-android-extensions in build.gradle
                     [ADD] minor correction in SPC Tstorm URL
 55509 2021_01_31    [ADD] start removing import kotlinx.android.synthetic.main.activity_hourly.*, switch to findViewById (not interested in View Binding at this time)
