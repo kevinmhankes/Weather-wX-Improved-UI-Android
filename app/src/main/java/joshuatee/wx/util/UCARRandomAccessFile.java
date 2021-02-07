@@ -77,7 +77,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	private static final boolean debugLeaks = false;
 	private static final boolean debugAccess = false;
 	//private static final Set<String> allFiles = new HashSet<>();
-	private static final List<String> openFiles = Collections.synchronizedList(new ArrayList<String>());
+	private static final List<String> openFiles = Collections.synchronizedList(new ArrayList<>());
 	static private final AtomicInteger debug_nseeks = new AtomicInteger();
 	static private final AtomicLong debug_nbytes = new AtomicLong();
 
