@@ -199,7 +199,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	/**
 	 * The access mode of the file.
 	 */
-	private boolean readonly;
+	private final boolean readonly;
 
 	/**
 	 * The current endian (big or little) mode of the file.
