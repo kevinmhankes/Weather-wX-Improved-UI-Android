@@ -15,6 +15,7 @@
 // TODO [ADD] 'getter for defaultDisplay: Display!' is deprecated. Deprecated in Java
 // TODO [ADD] 'getMetrics(DisplayMetrics!): Unit' is deprecated. Deprecated in Java
 
+55512 2021_02_07
 55511 2021_02_07    [ADD] misc lint and deprecations (Handler() in nexrad)
                     [ADD] SPC Meso - move VTP Violent Tornado from Beta into Composite Indices to match SPC website
                     [ADD] SPC Meso - add Tornadic 0-1km EHI to Beta to match SPC website
