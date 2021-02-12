@@ -13,6 +13,7 @@
     https://stackoverflow.com/questions/62138507/intentservice-is-deprecated-how-do-i-replace-it-with-jobintentservice
 // TODO [ADD] 'getter for defaultDisplay: Display!' is deprecated. Deprecated in Java
 // TODO [ADD] 'getMetrics(DisplayMetrics!): Unit' is deprecated. Deprecated in Java
+// TODO [REF] add ObjectLocation
 
 55512 2021_02_07
 55511 2021_02_07    [ADD] misc lint and deprecations (Handler() in nexrad)
