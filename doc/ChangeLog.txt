@@ -16,7 +16,7 @@
 // TODO [REF] move radarColorPalette,colorMap to ObjectColorPalette
 // TODO [REF] add ObjectLocation
 
-55512 2021_02_07
+55512 2021_02_14    [ADD] upgrade org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.8 to 1.4.1
 55511 2021_02_07    [ADD] misc lint and deprecations (Handler() in nexrad)
                     [ADD] SPC Meso - move VTP Violent Tornado from Beta into Composite Indices to match SPC website
                     [ADD] SPC Meso - add Tornadic 0-1km EHI to Beta to match SPC website
