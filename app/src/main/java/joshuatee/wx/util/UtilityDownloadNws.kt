@@ -68,9 +68,13 @@ object UtilityDownloadNws {
     // https://forecast-v3.weather.gov/documentation?redirect=legacy
     // http://www.nws.noaa.gov/os/notification/pns16-35forecastgov.htm
 
-    fun getStringFromUrl(url: String) = getStringFromURLBase(url, "application/vnd.noaa.dwml+xml;version=1")
+//    fun getStringFromUrl(url: String) = getStringFromURLBase(url, "application/vnd.noaa.dwml+xml;version=1")
+//
+//    private fun getStringFromUrlJson(url: String) = getStringFromURLBase(url, "application/geo+json;version=1")
 
-    private fun getStringFromUrlJson(url: String) = getStringFromURLBase(url, "application/geo+json;version=1")
+    fun getStringFromUrl(url: String) = getStringFromURLBase(url, ACCEPT_STR)
+
+    private fun getStringFromUrlJson(url: String) = getStringFromURLBase(url, ACCEPT_STR)
 
     fun getStringFromUrlNoAcceptHeader(url: String) = getStringFromUrlBaseNoHeader(url)
 
@@ -80,8 +84,8 @@ object UtilityDownloadNws {
             val request = Request.Builder()
                     .url(url)
                     .header("User-Agent", USER_AGENT_STR)
-                    .addHeader("Accept", ACCEPT_STR)
-                    //.addHeader("Accept", header)
+                    //.addHeader("Accept", ACCEPT_STR)
+                    .addHeader("Accept", header)
                     .build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body!!.byteStream())
