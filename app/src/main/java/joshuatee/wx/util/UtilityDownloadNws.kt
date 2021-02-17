@@ -35,6 +35,7 @@ import joshuatee.wx.Extensions.*
 object UtilityDownloadNws {
 
     private const val USER_AGENT_STR = "Android ${MyApplication.packageNameAsString} ${MyApplication.emailAsString}"
+    private const val ACCEPT_STR = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
 
     var forecastZone = ""
 
@@ -79,7 +80,8 @@ object UtilityDownloadNws {
             val request = Request.Builder()
                     .url(url)
                     .header("User-Agent", USER_AGENT_STR)
-                    .addHeader("Accept", header)
+                    .addHeader("Accept", ACCEPT_STR)
+                    //.addHeader("Accept", header)
                     .build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body!!.byteStream())
@@ -102,6 +104,7 @@ object UtilityDownloadNws {
             val request = Request.Builder()
                     .url(url)
                     .header("User-Agent", USER_AGENT_STR)
+                    .addHeader("Accept", ACCEPT_STR)
                     .build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body!!.byteStream())

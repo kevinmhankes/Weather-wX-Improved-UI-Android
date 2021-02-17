@@ -80,7 +80,7 @@ class LocationFragment : Fragment()  {
     private val sevenDayCards = mutableListOf<ObjectCard7Day>()
     private val homeScreenTextCards = mutableListOf<ObjectCardHSText>()
     private val homeScreenImageCards = mutableListOf<ObjectCardHSImage>()
-    private val homeScreenWebCards = mutableListOf<CardView>()
+    private val homeScreenWebCards = mutableListOf<ObjectCard>()
     private val homeScreenWebViews = mutableListOf<WebView>()
     private val wxglRenders = mutableListOf<WXGLRender>()
     private val wxglSurfaceViews = mutableListOf<WXGLSurfaceView>()
@@ -192,10 +192,15 @@ class LocationFragment : Fragment()  {
                 index += 1
             } else if (token.contains("WEB-")) {
                 if (token == "WEB-7DAY") {
-                    homeScreenWebCards.add(CardView(activityReference))
-                    homeScreenWebViews.add(WebView(activityReference))
+                    val wv = WebView(activityReference)
+                    wv.settings.builtInZoomControls = true
+                    wv.settings.setSupportZoom(true)
+                    wv.settings.useWideViewPort = true
+                    wv.settings.loadWithOverviewMode = true
+                    homeScreenWebCards.add(ObjectCard(activityReference))
+                    homeScreenWebViews.add(wv)
                     homeScreenWebCards.last().addView(homeScreenWebViews.last())
-                    linearLayout.addView(homeScreenWebCards.last())
+                    linearLayout.addView(homeScreenWebCards.last().card)
                     // val forecastUrl = "https://forecast.weather.gov/MapClick.php?lat=" + Location.x + "&lon=" + Location.y + "&unit=0&lg=english&FcstType=text&TextType=2"
                     // webView.loadUrl(forecastUrl)
                 }
@@ -420,8 +425,9 @@ class LocationFragment : Fragment()  {
 
     private fun getWebProduct(productString: String) {
         //if (productString ==  "WEB-7DAY") {
-            val forecastUrl = "https://forecast.weather.gov/MapClick.php?lat=" + Location.x + "&lon=" + Location.y + "&unit=0&lg=english&FcstType=text&TextType=2"
-            homeScreenWebViews.last().loadUrl(forecastUrl)
+            // val forecastUrl = "https://forecast.weather.gov/MapClick.php?lat=" + Location.x + "&lon=" + Location.y + "&unit=0&lg=english&FcstType=text&TextType=2"
+        val forecastUrl = "https://forecast.weather.gov/MapClick.php?lat=" + Location.x + "&lon=" + Location.y + "&unit=0&lg=english&FcstType=text&TextType=2"
+        homeScreenWebViews.last().loadUrl(forecastUrl)
         //}
     }
 
