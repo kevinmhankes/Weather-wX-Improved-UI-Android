@@ -80,6 +80,8 @@ class LocationFragment : Fragment()  {
     private val sevenDayCards = mutableListOf<ObjectCard7Day>()
     private val homeScreenTextCards = mutableListOf<ObjectCardHSText>()
     private val homeScreenImageCards = mutableListOf<ObjectCardHSImage>()
+    private val homeScreenWebCards = mutableListOf<CardView>()
+    private val homeScreenWebViews = mutableListOf<WebView>()
     private val wxglRenders = mutableListOf<WXGLRender>()
     private val wxglSurfaceViews = mutableListOf<WXGLSurfaceView>()
     private val wxglTextObjects = mutableListOf<WXGLTextObject>()
@@ -190,12 +192,12 @@ class LocationFragment : Fragment()  {
                 index += 1
             } else if (token.contains("WEB-")) {
                 if (token == "WEB-7DAY") {
-                    val cv = CardView(activityReference)
-                    val webView = WebView(activityReference)
-                    cv.addView(webView)
-                    linearLayout.addView(cv)
-                    val forecastUrl = "https://forecast.weather.gov/MapClick.php?lat=" + Location.x + "&lon=" + Location.y + "&unit=0&lg=english&FcstType=text&TextType=2"
-                    webView.loadUrl(forecastUrl)
+                    homeScreenWebCards.add(CardView(activityReference))
+                    homeScreenWebViews.add(WebView(activityReference))
+                    homeScreenWebCards.last().addView(homeScreenWebViews.last())
+                    linearLayout.addView(homeScreenWebCards.last())
+                    // val forecastUrl = "https://forecast.weather.gov/MapClick.php?lat=" + Location.x + "&lon=" + Location.y + "&unit=0&lg=english&FcstType=text&TextType=2"
+                    // webView.loadUrl(forecastUrl)
                 }
             }
         } // end of loop over HM tokens
@@ -277,6 +279,7 @@ class LocationFragment : Fragment()  {
         if (needForecastData) getForecastData()
         homeScreenTextCards.indices.forEach { getTextProduct(it.toString()) }
         homeScreenImageCards.indices.forEach { getImageProduct(it.toString()) }
+        homeScreenWebViews.indices.forEach { getWebProduct(it.toString()) }
         x = Location.x
         y = Location.y
         if (MyApplication.locDisplayImg) getAllRadars()
@@ -413,6 +416,13 @@ class LocationFragment : Fragment()  {
         if (MyApplication.wxoglCenterOnLocation) {
             wxglSurfaceViews[idx].resetView()
         }
+    }
+
+    private fun getWebProduct(productString: String) {
+        //if (productString ==  "WEB-7DAY") {
+            val forecastUrl = "https://forecast.weather.gov/MapClick.php?lat=" + Location.x + "&lon=" + Location.y + "&unit=0&lg=english&FcstType=text&TextType=2"
+            homeScreenWebViews.last().loadUrl(forecastUrl)
+        //}
     }
 
     private fun getTextProduct(productString: String) = GlobalScope.launch(uiDispatcher) {
