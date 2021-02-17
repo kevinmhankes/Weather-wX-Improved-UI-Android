@@ -31,6 +31,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.ScrollView
@@ -187,6 +188,15 @@ class LocationFragment : Fragment()  {
                 )
                 linearLayout.addView(cardViews.last())
                 index += 1
+            } else if (token.contains("WEB-")) {
+                if (token == "WEB-7DAY") {
+                    val cv = CardView(activityReference)
+                    val webView = WebView(activityReference)
+                    cv.addView(webView)
+                    linearLayout.addView(cv)
+                    val forecastUrl = "https://forecast.weather.gov/MapClick.php?lat=" + Location.x + "&lon=" + Location.y + "&unit=0&lg=english&FcstType=text&TextType=2"
+                    webView.loadUrl(forecastUrl)
+                }
             }
         } // end of loop over HM tokens
         paneList = (0 until wxglSurfaceViews.size).toList()
