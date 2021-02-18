@@ -72,9 +72,13 @@ object UtilityDownloadNws {
 //
 //    private fun getStringFromUrlJson(url: String) = getStringFromURLBase(url, "application/geo+json;version=1")
 
-    fun getStringFromUrl(url: String) = getStringFromURLBase(url, ACCEPT_STR)
+//    fun getStringFromUrl(url: String) = getStringFromURLBase(url, ACCEPT_STR)
+//
+//    private fun getStringFromUrlJson(url: String) = getStringFromURLBase(url, ACCEPT_STR)
 
-    private fun getStringFromUrlJson(url: String) = getStringFromURLBase(url, ACCEPT_STR)
+    fun getStringFromUrl(url: String) = getStringFromUrlBaseNoAcceptHeader(url)
+
+    private fun getStringFromUrlJson(url: String) = getStringFromUrlBaseNoAcceptHeader(url)
 
     fun getStringFromUrlNoAcceptHeader(url: String) = getStringFromUrlBaseNoHeader(url)
 
@@ -86,6 +90,28 @@ object UtilityDownloadNws {
                     .header("User-Agent", USER_AGENT_STR)
                     //.addHeader("Accept", ACCEPT_STR)
                     .addHeader("Accept", header)
+                    .build()
+            val response = MyApplication.httpClient!!.newCall(request).execute()
+            val inputStream = BufferedInputStream(response.body!!.byteStream())
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            var line: String? = bufferedReader.readLine()
+            while (line != null) {
+                out.append(line)
+                line = bufferedReader.readLine()
+            }
+            bufferedReader.close()
+        } catch (e: Exception) {
+            UtilityLog.handleException(e)
+        }
+        return out.toString()
+    }
+
+    private fun getStringFromUrlBaseNoAcceptHeader(url: String): String {
+        val out = StringBuilder(5000)
+        try {
+            val request = Request.Builder()
+                    .url(url)
+                    .header("User-Agent", USER_AGENT_STR)
                     .build()
             val response = MyApplication.httpClient!!.newCall(request).execute()
             val inputStream = BufferedInputStream(response.body!!.byteStream())
