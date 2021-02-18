@@ -31,6 +31,7 @@ import joshuatee.wx.radar.LatLon
 import okhttp3.Request
 
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.UIPreferences
 
 object UtilityDownloadNws {
 
@@ -185,11 +186,15 @@ object UtilityDownloadNws {
     }
 
     fun get7DayData(latLon: LatLon): String {
-        val pointsData = getLocationPointData(latLon)
-        val forecastUrl = pointsData.parse("\"forecast\": \"(.*?)\"")
-        // set static var at object level for use elsewhere
-        forecastZone = forecastUrl
-        return forecastUrl.getNwsHtml()
+        if (UIPreferences.useNwsApi) {
+            val pointsData = getLocationPointData(latLon)
+            val forecastUrl = pointsData.parse("\"forecast\": \"(.*?)\"")
+            // set static var at object level for use elsewhere
+            forecastZone = forecastUrl
+            return forecastUrl.getNwsHtml()
+        } else {
+            return ""
+        }
     }
 
     private fun getLocationPointData(latLon: LatLon) = (MyApplication.nwsApiUrl + "/points/" + latLon.latString + "," + latLon.lonString).getNwsHtml()
