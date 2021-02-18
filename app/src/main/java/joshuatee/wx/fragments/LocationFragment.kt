@@ -193,10 +193,11 @@ class LocationFragment : Fragment()  {
             } else if (token.contains("WEB-")) {
                 if (token == "WEB-7DAY") {
                     val wv = WebView(activityReference)
-                    wv.settings.builtInZoomControls = true
-                    wv.settings.setSupportZoom(true)
-                    wv.settings.useWideViewPort = true
-                    wv.settings.loadWithOverviewMode = true
+                    // wv.settings.builtInZoomControls = true
+                    // wv.settings.setSupportZoom(true)
+                    // wv.settings.useWideViewPort = true
+                    // wv.settings.loadWithOverviewMode = true
+                    // wv.settings.javaScriptEnabled = true
                     homeScreenWebCards.add(ObjectCard(activityReference))
                     homeScreenWebViews.add(wv)
                     homeScreenWebCards.last().addView(homeScreenWebViews.last())
@@ -427,6 +428,7 @@ class LocationFragment : Fragment()  {
         //if (productString ==  "WEB-7DAY") {
             // val forecastUrl = "https://forecast.weather.gov/MapClick.php?lat=" + Location.x + "&lon=" + Location.y + "&unit=0&lg=english&FcstType=text&TextType=2"
         val forecastUrl = "https://forecast.weather.gov/MapClick.php?lat=" + Location.x + "&lon=" + Location.y + "&unit=0&lg=english&FcstType=text&TextType=2"
+        //val forecastUrl = "https://mobile.weather.gov/index.php?lat=" + Location.x + "&lon=" + Location.x + "&unit=0&lg=english#text_forecast"
         homeScreenWebViews.last().loadUrl(forecastUrl)
         //}
     }
