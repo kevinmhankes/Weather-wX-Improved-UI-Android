@@ -16,7 +16,8 @@
 // TODO [REF] move radarColorPalette,colorMap to ObjectColorPalette
 // TODO [REF] add ObjectLocation
 
-55515 2021_02_17
+55516 2021_02_18
+55515 2021_02_17    [FIX] web widget tweak
 55514 2021_02_17    [FIX] headers excluded for XML
 55513 2021_02_17    [ADD] Accept headers and correct in one spot
                     [ADD] change URL and use ObjectCard for webview on main screen
