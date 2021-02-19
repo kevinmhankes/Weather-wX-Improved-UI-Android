@@ -50,7 +50,7 @@ class ObjectCard7Day(context: Context, bitmap: Bitmap, isUS: Boolean, day: Int, 
         }
         horizontalContainer.addView(verticalContainer)
         objectCard.addView(horizontalContainer)
-        // UtilityLog.d("wx", forecasts[day])
+        // UtilityLog.d("wx", "A:" + forecasts[day])
         val items = if (forecasts.size > day) {
             forecasts[day].split(": ")
         } else {

@@ -137,8 +137,6 @@ class ObjectSevenDay {
                     UtilityLog.d("wx", s.trim())
                     if (iconList.size > index) {
                         icons.add(iconList[index])
-                    } else {
-                        icons.add("")
                     }
                 }
             }
