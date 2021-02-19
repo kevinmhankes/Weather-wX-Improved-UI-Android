@@ -131,16 +131,19 @@ class ObjectSevenDay {
             val iconString = forecastStringList[0]
             val forecasts = forecastString.split("\n").dropLastWhile { it.isEmpty() }
             val iconList = UtilityString.parseColumn(iconString, "<icon-link>(.*?)</icon-link>")
+            var forecast = MyApplication.newline + MyApplication.newline
             forecasts.forEachIndexed { index, s ->
                 if (s != "") {
                     detailedForecasts.add(s.trim())
-                    UtilityLog.d("wx", s.trim())
+                    forecast += s.trim()
+                    forecast += MyApplication.newline + MyApplication.newline
+                    // UtilityLog.d("wx", s.trim())
                     if (iconList.size > index) {
                         icons.add(iconList[index])
                     }
                 }
             }
-            return ""
+            return forecast
         }
     }
 }
