@@ -124,10 +124,12 @@ class ObjectSevenDay {
             }
             return forecast
         } else {
+            icons.clear()
+            detailedForecasts.clear()
             val forecastStringList = UtilityUS.getCurrentConditionsUS(html)
             val forecastString = forecastStringList[3]
             val iconString = forecastStringList[0]
-            val forecasts = forecastString.split("\n")
+            val forecasts = forecastString.split("\n").dropLastWhile { it.isEmpty() }
             val iconList = UtilityString.parseColumn(iconString, "<icon-link>(.*?)</icon-link>")
             forecasts.forEachIndexed { index, s ->
                 if (s != "") {
