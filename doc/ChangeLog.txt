@@ -17,6 +17,7 @@
 // TODO [REF] add ObjectLocation
 // TODO [ADD] test widgets with old NWS API
 
+55519 2021_02_18
 55518 2021_02_18    [FIX] 7 day widget when using old NWS API
 55517 2021_02_18    [ADD] framework for using old 7 day forecast data (nasty 2014 code), toggle in settings -> UI
 55516 2021_02_18    [ADD] don't use accept header for NWS 7day similar to iOS port
