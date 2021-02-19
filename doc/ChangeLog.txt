@@ -15,7 +15,6 @@
 // TODO [ADD] 'getMetrics(DisplayMetrics!): Unit' is deprecated. Deprecated in Java
 // TODO [REF] move radarColorPalette,colorMap to ObjectColorPalette
 // TODO [REF] add ObjectLocation
-// TODO [FIX] widgets icons no longer show when adding new widget
 // TODO [ADD] test widgets with old NWS API
 
 55518 2021_02_18
