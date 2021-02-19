@@ -193,7 +193,7 @@ object UtilityDownloadNws {
             forecastZone = forecastUrl
             return forecastUrl.getNwsHtml()
         } else {
-            return ""
+            return UtilityUS.getLocationHtml(latLon.latString, latLon.lonString)
         }
     }
 

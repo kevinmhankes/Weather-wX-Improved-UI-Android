@@ -44,10 +44,16 @@ class ObjectCard7Day(context: Context, bitmap: Bitmap, isUS: Boolean, day: Int, 
         topLineText.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, 0)
         bottomLineText.setPadding(MyApplication.padding, 0, MyApplication.paddingSmall, 0)
         verticalContainer.addViews(listOf(topLineText.tv, bottomLineText.tv))
-        if (!UIPreferences.locfragDontShowIcons) horizontalContainer.addView(objectImageView)
+        if (!UIPreferences.locfragDontShowIcons) {
+            horizontalContainer.addView(objectImageView)
+        }
         horizontalContainer.addView(verticalContainer)
         objectCard.addView(horizontalContainer)
-        val items = if (forecasts.size > day) forecasts[day].split(": ") else listOf()
+        val items = if (forecasts.size > day) {
+            forecasts[day].split(": ")
+        } else {
+            listOf()
+        }
         if (items.size > 1) {
             if (isUS) {
                 setTopLine(
@@ -69,12 +75,18 @@ class ObjectCard7Day(context: Context, bitmap: Bitmap, isUS: Boolean, day: Int, 
             }
             setBottomLine(items[1])
         }
-        if (!UIPreferences.locfragDontShowIcons) objectImageView.setImage(bitmap)
+        if (!UIPreferences.locfragDontShowIcons) {
+            objectImageView.setImage(bitmap)
+        }
     }
 
-    private fun setTopLine(text: String) { topLineText.text = text }
+    private fun setTopLine(text: String) {
+        topLineText.text = text
+    }
 
-    private fun setBottomLine(text: String) { bottomLineText.text = text }
+    private fun setBottomLine(text: String) {
+        bottomLineText.text = text
+    }
 
     fun setOnClickListener(fn: View.OnClickListener) = objectCard.setOnClickListener(fn)
 

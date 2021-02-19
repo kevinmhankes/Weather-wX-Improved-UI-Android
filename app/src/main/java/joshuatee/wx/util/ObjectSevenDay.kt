@@ -38,7 +38,7 @@ class ObjectSevenDay {
         private set
     var sevenDayShort = ""
         private set
-    var icons = listOf<String>()
+    var icons = mutableListOf<String>()
         private set
     private var detailedForecasts = mutableListOf<String>()
 
@@ -54,7 +54,7 @@ class ObjectSevenDay {
             val html = UtilityCanada.getLocationHtml(Location.getLatLon(locationNumber))
             sevenDayLong = UtilityCanada.get7Day(html)
             iconsAsString = UtilityCanada.getIcons7Day(sevenDayLong)
-            icons = UtilityCanada.getIcons7DayAsList(sevenDayLong)
+            icons = UtilityCanada.getIcons7DayAsList(sevenDayLong).toMutableList()
             convertExt7DayToList()
         }
     }
@@ -110,7 +110,7 @@ class ObjectSevenDay {
         if (UIPreferences.useNwsApi) {
             val names = html.parseColumn("\"name\": \"(.*?)\",")
             val temperatures = html.parseColumn("\"temperature\": (.*?),")
-            this.icons = html.parseColumn("\"icon\": \"(.*?)\",")
+            this.icons = html.parseColumn("\"icon\": \"(.*?)\",").toMutableList()
             val shortForecasts = html.parseColumn("\"shortForecast\": \"(.*?)\",")
             val detailedForecastsLocal = html.parseColumn("\"detailedForecast\": \"(.*?)\"")
             var forecast = MyApplication.newline + MyApplication.newline
@@ -124,6 +124,22 @@ class ObjectSevenDay {
             }
             return forecast
         } else {
+            val forecastStringList = UtilityUS.getCurrentConditionsUS(html)
+            val forecastString = forecastStringList[3]
+            val iconString = forecastStringList[0]
+            val forecasts = forecastString.split("\n")
+            val iconList = UtilityString.parseColumn(iconString, "<icon-link>(.*?)</icon-link>")
+            forecasts.forEachIndexed { index, s ->
+                if (s != "") {
+                    detailedForecasts.add(s.trim())
+                    UtilityLog.d("wx", s.trim())
+                    if (iconList.size > index) {
+                        icons.add(iconList[index])
+                    } else {
+                        icons.add("")
+                    }
+                }
+            }
             return ""
         }
     }
