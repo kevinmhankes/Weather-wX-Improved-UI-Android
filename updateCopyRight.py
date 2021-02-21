@@ -14,7 +14,7 @@ parser.add_argument("-c", "--commit", help="commit changes", action="store_true"
 args = parser.parse_args()
 
 files: List[str] = glob("app/src/main/java/joshuatee/wx/*.kt"
-files += glob("app/src/main/java/joshuatee/wx/*/*.kt"
+files += glob("app/src/main/java/joshuatee/wx/*/*.kt")
 
 for f in files:
     data = open(f).read()
