@@ -114,7 +114,7 @@ class ObjectSevenDay {
             forecasts.forEachIndexed { index, s ->
                 if (s != "") {
                     forecast += s.trim()
-                    forecast += MyApplication.newline + MyApplication.newline
+                    forecast += MyApplication.newline
                 }
             }
             return forecast
