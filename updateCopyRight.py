@@ -13,7 +13,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--commit", help="commit changes", action="store_true")
 args = parser.parse_args()
 
-files: List[str] = glob("app/src/main/java/joshuatee/wx/*.kt"
+files: List[str] = glob("app/src/main/java/joshuatee/wx/*.kt")
 files2: List[str] = glob("app/src/main/java/joshuatee/wx/*/*.kt")
 
 for f in files + files2:
