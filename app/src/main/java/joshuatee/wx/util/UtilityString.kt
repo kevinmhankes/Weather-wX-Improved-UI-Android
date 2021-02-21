@@ -266,13 +266,14 @@ object UtilityString {
         return payload.split("<" + delim + ">").toTypedArray()
     }
 
-    // static String[] parseXmlValue(String payload) {
-    //     if ( payload == null ) {
-    //         payload = "";
-    //     }
-    //     payload = payload.replaceAll( "<name>.*?</name>" , "").replaceAll( "</value>" , "")
-    //     return MyApplication.xml_value_pattern.split(payload)
-    // }
+    fun parseXmlValue(payloadF: String?): Array<String> {
+        var payload = payloadF
+        if (payload == null ) {
+            payload = "";
+        }
+        payload = payload.replace("<name>.*?</name>".toRegex() , "").replace( "</value>" , "")
+        return MyApplication.xml_value_pattern.split(payload)
+    }
 
     fun parseXmlExt (regexpList: Array<String>, html: String): Array<String> {
         val items = Array(regexpList.size) {""}

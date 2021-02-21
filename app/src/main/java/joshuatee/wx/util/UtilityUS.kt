@@ -31,6 +31,9 @@ import joshuatee.wx.activitiesmisc.CapAlert
 import joshuatee.wx.activitiesmisc.USAlertsDetailActivity
 import joshuatee.wx.notifications.*
 import joshuatee.wx.settings.Location
+import java.util.*
+import java.util.regex.Matcher
+import kotlin.collections.ArrayList
 
 
 object UtilityUS {
@@ -138,6 +141,7 @@ object UtilityUS {
         )
         val raw_data = UtilityString.parseXmlExt(data_regexp, html)
         result[0] = raw_data[10]
+        result[2] = get7Day(raw_data)
         result[3] = get7DayExt(raw_data)
         return result
     }
@@ -182,4 +186,117 @@ object UtilityUS {
         }
         return sb.toString()
     }
+
+    fun get7Day(raw_data: Array<String>): String {
+         val day_hash = Hashtable<String, String>()
+         day_hash.put("Sun","Sat");
+         day_hash.put("Mon","Sun");
+         day_hash.put("Tue","Mon");
+         day_hash.put("Wed","Tue");
+         day_hash.put("Thu","Wed");
+         day_hash.put("Fri","Thu");
+         day_hash.put("Sat","Fri");
+
+         val sb = StringBuilder(250);
+         var k = 1
+         var sum_cnt: Int
+         var max_cnt: Int
+
+         var time_p12n13_al = ArrayList<String>(14);
+         var time_p24n7_al = ArrayList<String>(8);
+         var weather_summary_al = ArrayList<String>(14);
+         var max_temp = UtilityString.parseXmlValue(raw_data[8]);
+         var min_temp = UtilityString.parseXmlValue(raw_data[9]);
+         var m: Matcher
+
+         //p = Pattern.compile(".*?weather-summary=(.*?)/>.*?");
+         try {
+             m = MyApplication.utilUS_weather_summary_pattern.matcher(raw_data[18]);
+             weather_summary_al.add("");
+             while (m.find()) {
+                 weather_summary_al.add(m.group(1).replace("\"",""));
+             }
+         }  catch (e: Exception) {
+         }
+
+         //p = Pattern.compile(".*?period-name=(.*?)>.*?");
+
+         try {
+             m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[15]);
+             time_p12n13_al.add("");
+             while (m.find()) {
+                 time_p12n13_al.add(m.group(1).replace("\"",""));
+             }
+
+         }  catch (e: Exception) {
+         }
+
+         try {
+             m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[16]);
+             time_p24n7_al.add("");
+             while (m.find()) {
+                 time_p24n7_al.add(m.group(1).replace("\"",""));
+             }
+         }  catch (e: Exception) {
+         }
+
+         if ( time_p24n7_al.get(1).contains("night"))
+         {
+
+             min_temp[1] = min_temp[1].replace("\\s*".toRegex(),"");
+
+             if (time_p24n7_al.size > 2)
+                 sb.append(day_hash.get(time_p24n7_al.get(2).substring(0,3))); // short_time
+             else
+                 sb.append(time_p24n7_al.get(1).substring(0,3));
+
+             sb.append(": ");
+             sb.append(UtilityMath.unitsTemp(min_temp[1]));
+             sb.append(" (");
+             sb.append(weather_summary_al.get(1));
+             sb.append(")");
+             sb.append(MyApplication.newline);
+
+             sum_cnt = 2;
+             max_cnt = 1;
+             k++;
+
+         } else {
+             sum_cnt = 1;
+             max_cnt = 1;
+         }
+
+         for (j in sum_cnt until min_temp.size) {
+             max_temp[max_cnt] = max_temp[max_cnt].replace(" ","");
+             min_temp[j] = min_temp[j].replace(" ","");
+             if (sum_cnt == j) {
+                 if (time_p24n7_al.size > sum_cnt+2)
+                     sb.append(day_hash.get(time_p24n7_al.get(j+1).substring(0,3))); // short_time
+             }
+             else {
+                 sb.append(time_p24n7_al.get(j).substring(0, 3)); // short_time
+             }
+             sb.append(": ");
+             sb.append(UtilityMath.unitsTemp(max_temp[max_cnt]));
+             sb.append("/");
+             sb.append(UtilityMath.unitsTemp( min_temp[j]));
+             sb.append(" (");
+             sb.append(weather_summary_al.get(k++));
+             sb.append(" / ");
+             sb.append(weather_summary_al.get(k++));
+             sb.append(")");
+             sb.append(MyApplication.newline);
+             max_cnt++;
+         }
+         sb.append(time_p12n13_al.get(time_p12n13_al.size - 1).substring(0,3)); // last_short_time
+         sb.append(": ");
+         sb.append(UtilityMath.unitsTemp( max_temp[max_temp.size - 1].replace("\\s*".toRegex(), ""))); // last_max
+         sb.append(" (" );
+         sb.append(weather_summary_al.get(weather_summary_al.size - 2));
+         sb.append(")");
+
+         //sb.append(GlobalVariables.newline);
+
+         return sb.toString().replace("Chance","Chc").replace("Thunderstorms","Tstorms");
+     }
 }

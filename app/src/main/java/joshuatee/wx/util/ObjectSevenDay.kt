@@ -80,7 +80,12 @@ class ObjectSevenDay {
             icons.forEach { iconList += "$it!" }
             return iconList
         } else {
-            return ""
+            val forecastStringList = UtilityUS.getCurrentConditionsUS(html)
+            val iconString = forecastStringList[0]
+            val icons = UtilityString.parseColumn(iconString, "<icon-link>(.*?)</icon-link>")
+            var iconList = ""
+            icons.forEach { iconList += "$it!" }
+            return iconList
         }
     }
 
@@ -102,7 +107,17 @@ class ObjectSevenDay {
                 ""
             }
         } else {
-            return ""
+            val forecastStringList = UtilityUS.getCurrentConditionsUS(html)
+            val forecastString = forecastStringList[2]
+            val forecasts = forecastString.split("\n").dropLastWhile { it.isEmpty() }
+            var forecast = MyApplication.newline + MyApplication.newline
+            forecasts.forEachIndexed { index, s ->
+                if (s != "") {
+                    forecast += s.trim()
+                    forecast += MyApplication.newline + MyApplication.newline
+                }
+            }
+            return forecast
         }
     }
 
