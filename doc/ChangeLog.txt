@@ -18,6 +18,7 @@
 // TODO [ADD] LSR by WFO - download and show one at a time
 // TODO [ADD] test widgets with old NWS API
 
+55521 2021_02_24
 55520 2021_02_24    [FIX] make AWC radar mosaic the only option for radar mosaic as NWS has removed a timeframe for the traditional radar mosaic
                     [FIX] make the older NWS API the default for 7 day forecast
 55519 2021_02_20    [FIX] legacy large widget had icons missing, they are now there but colors are a mix of white/gray
