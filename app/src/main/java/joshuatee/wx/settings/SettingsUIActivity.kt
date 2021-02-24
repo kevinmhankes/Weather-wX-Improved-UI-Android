@@ -261,14 +261,14 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.widget_prevent_tap
                 ).card
         )
-        linearLayout.addView(
-                ObjectSettingsCheckBox(
-                        this,
-                        "Use the AWC Radar mosaic images instead of the main NWS images.",
-                        "USE_AWC_RADAR_MOSAIC",
-                        R.string.ui_awc_radar_mosaic
-                ).card
-        )
+//        linearLayout.addView(
+//                ObjectSettingsCheckBox(
+//                        this,
+//                        "Use the AWC Radar mosaic images instead of the main NWS images.",
+//                        "USE_AWC_RADAR_MOSAIC",
+//                        R.string.ui_awc_radar_mosaic
+//                ).card
+//        )
 
         linearLayout.addView(
                 ObjectSettingsCheckBox(
