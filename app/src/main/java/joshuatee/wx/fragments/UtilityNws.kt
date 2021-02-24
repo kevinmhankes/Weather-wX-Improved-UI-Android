@@ -188,7 +188,7 @@ object UtilityNws {
         if (!iconString.contains(",")) {
             UtilityLog.d("wx","getBitmapWithOneNumber: " + iconString)
             number = UtilityString.parse(iconString, ".*?([0-9]+)")
-            weatherCondition = UtilityString.parse(iconString, "([a-z]+)")
+            weatherCondition = UtilityString.parse(iconString, "([a-z_]+)")
         }
         // legacy add end
 
