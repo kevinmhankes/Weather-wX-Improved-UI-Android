@@ -108,54 +108,54 @@ class CapAlert {
             } else {
                 url.getHtmlSep()
             }
-            if (!html.contains("NWS-IDP-PROD")) {
-                if (html.contains(expireStr)) {
-                    capAlert.text = expireStr
-                } else {
-                    capAlert.title = html.parse("<headline>(.+?)</headline>.*?<description>")
-                    capAlert.summary = html.parse("</headline>.*?<description>(.*?)</description>.*?<instruction>")
-                    capAlert.instructions = html.parse("</description>.*?<instruction>(.*?)</instruction>.*?<areaDesc>")
-                    capAlert.area = html.parse("</instruction>.*?<areaDesc>(.*?)</areaDesc>.*?")
-                    capAlert.area = capAlert.area.replace("&apos;", "'")
-                    capAlert.text = ""
-                    capAlert.text += capAlert.title
-                    capAlert.text += MyApplication.newline + MyApplication.newline
-                    capAlert.text += "Counties: "
-                    capAlert.text += capAlert.area
-                    capAlert.text += MyApplication.newline + MyApplication.newline
-                    capAlert.text += capAlert.summary
-                    capAlert.text += MyApplication.newline + MyApplication.newline
-                    capAlert.text += capAlert.instructions
-                    capAlert.text += MyApplication.newline + MyApplication.newline
-                }
-            } else {
-                UtilityLog.d("wx", "DEBUG: processing JSON")
-                capAlert.points = getWarningsFromJson(html)
-                UtilityLog.d("wx", "DEBUG: " + capAlert.points)
-                capAlert.title = html.parse("\"headline\": \"(.*?)\"")
-                capAlert.summary = html.parse("\"description\": \"(.*?)\"")
-                capAlert.instructions = html.parse("\"instruction\": \"(.*?)\"")
-                capAlert.area = html.parse("\"areaDesc\": \"(.*?)\"")
-                capAlert.summary = capAlert.summary.replace("\\n\\n", "ABC123")
-                capAlert.summary = capAlert.summary.replace("\\n", " ")
-                capAlert.summary = capAlert.summary.replace("ABC123", "\n\n")
-                capAlert.instructions = capAlert.instructions.replace("\\n", " ")
-                capAlert.text = ""
-                capAlert.text += capAlert.title
-                capAlert.text += MyApplication.newline + MyApplication.newline
-                capAlert.text += "Counties: "
-                capAlert.text += capAlert.area
-                capAlert.text += MyApplication.newline + MyApplication.newline
-                capAlert.text += capAlert.summary
-                capAlert.text += MyApplication.newline + MyApplication.newline
-                capAlert.text += capAlert.instructions
-                capAlert.text += MyApplication.newline + MyApplication.newline
-            }
+//            if (!html.contains("NWS-IDP-PROD")) {
+//                if (html.contains(expireStr)) {
+//                    capAlert.text = expireStr
+//                } else {
+//                    capAlert.title = html.parse("<headline>(.+?)</headline>.*?<description>")
+//                    capAlert.summary = html.parse("</headline>.*?<description>(.*?)</description>.*?<instruction>")
+//                    capAlert.instructions = html.parse("</description>.*?<instruction>(.*?)</instruction>.*?<areaDesc>")
+//                    capAlert.area = html.parse("</instruction>.*?<areaDesc>(.*?)</areaDesc>.*?")
+//                    capAlert.area = capAlert.area.replace("&apos;", "'")
+//                    capAlert.text = ""
+//                    capAlert.text += capAlert.title
+//                    capAlert.text += MyApplication.newline + MyApplication.newline
+//                    capAlert.text += "Counties: "
+//                    capAlert.text += capAlert.area
+//                    capAlert.text += MyApplication.newline + MyApplication.newline
+//                    capAlert.text += capAlert.summary
+//                    capAlert.text += MyApplication.newline + MyApplication.newline
+//                    capAlert.text += capAlert.instructions
+//                    capAlert.text += MyApplication.newline + MyApplication.newline
+//                }
+//            } else {
+            //UtilityLog.d("wx", "DEBUG: processing JSON")
+            capAlert.points = getWarningsFromJson(html)
+            UtilityLog.d("wx", "DEBUG: " + capAlert.points)
+            capAlert.title = html.parse("\"headline\": \"(.*?)\"")
+            capAlert.summary = html.parse("\"description\": \"(.*?)\"")
+            capAlert.instructions = html.parse("\"instruction\": \"(.*?)\"")
+            capAlert.area = html.parse("\"areaDesc\": \"(.*?)\"")
+            capAlert.summary = capAlert.summary.replace("\\n\\n", "ABC123")
+            capAlert.summary = capAlert.summary.replace("\\n", " ")
+            capAlert.summary = capAlert.summary.replace("ABC123", "\n\n")
+            capAlert.instructions = capAlert.instructions.replace("\\n", " ")
+            capAlert.text = ""
+            capAlert.text += capAlert.title
+            capAlert.text += MyApplication.newline + MyApplication.newline
+            capAlert.text += "Counties: "
+            capAlert.text += capAlert.area
+            capAlert.text += MyApplication.newline + MyApplication.newline
+            capAlert.text += capAlert.summary
+            capAlert.text += MyApplication.newline + MyApplication.newline
+            capAlert.text += capAlert.instructions
+            capAlert.text += MyApplication.newline + MyApplication.newline
+            //}
             capAlert.summary = capAlert.summary.replace("<br>\\*".toRegex(), "<br><br>*")
-            if (UIPreferences.nwsTextRemovelinebreaks) {
-                capAlert.instructions = capAlert.instructions.replace("<br><br>", "<BR><BR>")
-                capAlert.instructions = capAlert.instructions.replace("<br>", " ")
-            }
+//            if (UIPreferences.nwsTextRemovelinebreaks) {
+//                capAlert.instructions = capAlert.instructions.replace("<br><br>", "<BR><BR>")
+//                capAlert.instructions = capAlert.instructions.replace("<br>", " ")
+//            }
             return capAlert
         }
 
