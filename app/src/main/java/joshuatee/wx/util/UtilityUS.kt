@@ -110,7 +110,7 @@ object UtilityUS {
     // Legacy forecast support
     //
     fun getLocationHtml(x: String, y: String): String {
-        return UtilityNetworkIO.getStringFromUrlWithNewLine("https://forecast.weather.gov/MapClick.php?lat=" + x + "&lon=" + y + "&unit=0&lg=english&FcstType=dwml")
+        return UtilityNetworkIO.getStringFromUrlWithNewLine("https://forecast.weather.gov/MapClick.php?lat=$x&lon=$y&unit=0&lg=english&FcstType=dwml")
     }
 
     fun getCurrentConditionsUS(html: String): Array<String> {
