@@ -146,15 +146,15 @@ object UtilityMath {
     //
     fun unitsTemp(valueF: String): String {
         var value = valueF
-        var tmp_num = 0.0
+        var tmpNum = 0.0
         if (!MyApplication.unitsF) {
             // Deduct 32, then multiply by 5, then divide by 9
             try {
-                tmp_num = value.toDouble()
+                tmpNum = value.toDouble()
             } catch (e: java.lang.Exception) {
             }
-            tmp_num = (tmp_num - 32) * 5 / 9
-            value = Integer.toString(Math.round(tmp_num).toInt())
+            tmpNum = (tmpNum - 32) * 5 / 9
+            value = tmpNum.roundToInt().toString()
         }
         return value
     }
