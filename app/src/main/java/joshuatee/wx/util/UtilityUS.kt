@@ -147,26 +147,26 @@ object UtilityUS {
     }
 
     private fun get7DayExt(raw_data: Array<String>): String {
-        val time_p12n13_al: MutableList<String> = ArrayList(14)
-        val weather_summary_al: MutableList<String> = ArrayList(14)
+        val timeP12n13List: MutableList<String> = ArrayList(14)
+        val weatherSummaryList: MutableList<String> = ArrayList(14)
         val forecast: Array<String> = UtilityString.parseXml(raw_data[11], "text")
         // val seven_day_site_str = raw_data[20]
         // var m: Matcher
         try {
             //p = Pattern.compile(".*?weather-summary=(.*?)/>.*?");
             val m = MyApplication.utilUS_weather_summary_pattern.matcher(raw_data[18])
-            weather_summary_al.add("")
+            weatherSummaryList.add("")
             while (m.find()) {
-                weather_summary_al.add(m.group(1).replace("\"", ""))
+                weatherSummaryList.add(m.group(1).replace("\"", ""))
             }
         } catch (e: Exception) {
         }
         try {
             //p = Pattern.compile(".*?period-name=(.*?)>.*?");
             val m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[15])
-            time_p12n13_al.add("")
+            timeP12n13List.add("")
             while (m.find()) {
-                time_p12n13_al.add(m.group(1).replace("\"", ""))
+                timeP12n13List.add(m.group(1).replace("\"", ""))
             }
         } catch (e: Exception) {
         }
@@ -176,7 +176,7 @@ object UtilityUS {
         // sb.append(GlobalVariables.newline);
         // sb.append(GlobalVariables.newline);
         for (j in 1 until forecast.size) {
-            sb.append(time_p12n13_al[j])
+            sb.append(timeP12n13List[j])
             sb.append(": ")
             sb.append(forecast[j])
         }
@@ -184,103 +184,102 @@ object UtilityUS {
     }
 
     private fun get7Day(raw_data: Array<String>): String {
-        val day_hash = Hashtable<String, String>()
-        day_hash["Sun"] = "Sat"
-        day_hash["Mon"] = "Sun"
-        day_hash["Tue"] = "Mon"
-        day_hash["Wed"] = "Tue"
-        day_hash["Thu"] = "Wed"
-        day_hash["Fri"] = "Thu"
-        day_hash["Sat"] = "Fri"
+        val dayHash = Hashtable<String, String>()
+        dayHash["Sun"] = "Sat"
+        dayHash["Mon"] = "Sun"
+        dayHash["Tue"] = "Mon"
+        dayHash["Wed"] = "Tue"
+        dayHash["Thu"] = "Wed"
+        dayHash["Fri"] = "Thu"
+        dayHash["Sat"] = "Fri"
 
         val sb = StringBuilder(250)
         var k = 1
-        val sum_cnt: Int
-        var max_cnt: Int
-        val time_p12n13_al = ArrayList<String>(14)
-        val time_p24n7_al = ArrayList<String>(8)
-        val weather_summary_al = ArrayList<String>(14)
-        val max_temp = UtilityString.parseXmlValue(raw_data[8])
-        val min_temp = UtilityString.parseXmlValue(raw_data[9])
+        val sumCnt: Int
+        var maxCnt: Int
+        val timeP12n13List = ArrayList<String>(14)
+        val timeP24n7List = ArrayList<String>(8)
+        val weatherSummaryList = ArrayList<String>(14)
+        val maxTemp = UtilityString.parseXmlValue(raw_data[8])
+        val minTemp = UtilityString.parseXmlValue(raw_data[9])
         var m: Matcher
         //p = Pattern.compile(".*?weather-summary=(.*?)/>.*?");
         try {
             m = MyApplication.utilUS_weather_summary_pattern.matcher(raw_data[18])
-            weather_summary_al.add("")
+            weatherSummaryList.add("")
             while (m.find()) {
-                weather_summary_al.add(m.group(1).replace("\"",""))
+                weatherSummaryList.add(m.group(1).replace("\"",""))
             }
         } catch (e: Exception) {
         }
         //p = Pattern.compile(".*?period-name=(.*?)>.*?");
         try {
             m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[15])
-            time_p12n13_al.add("")
+            timeP12n13List.add("")
             while (m.find()) {
-                time_p12n13_al.add(m.group(1).replace("\"",""))
+                timeP12n13List.add(m.group(1).replace("\"",""))
             }
         } catch (e: Exception) {
         }
         try {
             m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[16])
-            time_p24n7_al.add("")
+            timeP24n7List.add("")
             while (m.find()) {
-                time_p24n7_al.add(m.group(1).replace("\"",""))
+                timeP24n7List.add(m.group(1).replace("\"",""))
             }
         } catch (e: Exception) {
         }
-        if (time_p24n7_al.size > 1 && time_p24n7_al[1].contains("night")) {
-            min_temp[1] = min_temp[1].replace("\\s*".toRegex(),"")
-            if (time_p24n7_al.size > 2) {
-                sb.append(day_hash[time_p24n7_al[2].substring(0, 3)]) // short_time
+        if (timeP24n7List.size > 1 && timeP24n7List[1].contains("night")) {
+            minTemp[1] = minTemp[1].replace("\\s*".toRegex(),"")
+            if (timeP24n7List.size > 2) {
+                sb.append(dayHash[timeP24n7List[2].substring(0, 3)]) // short_time
             } else {
-                sb.append(time_p24n7_al[1].substring(0, 3))
+                sb.append(timeP24n7List[1].substring(0, 3))
             }
             sb.append(": ")
-            sb.append(UtilityMath.unitsTemp(min_temp[1]))
+            sb.append(UtilityMath.unitsTemp(minTemp[1]))
             sb.append(" (")
-            sb.append(weather_summary_al[1])
+            sb.append(weatherSummaryList[1])
             sb.append(")")
             sb.append(MyApplication.newline)
-            sum_cnt = 2
-            max_cnt = 1
+            sumCnt = 2
+            maxCnt = 1
             k++
         } else {
-            sum_cnt = 1
-            max_cnt = 1
+            sumCnt = 1
+            maxCnt = 1
         }
-
-        for (j in sum_cnt until min_temp.size) {
-            max_temp[max_cnt] = max_temp[max_cnt].replace(" ","")
-            min_temp[j] = min_temp[j].replace(" ","")
-            if (sum_cnt == j) {
-                if (time_p24n7_al.size > sum_cnt+2) {
-                    sb.append(day_hash[time_p24n7_al[j + 1].substring(0, 3)]) // short_time
+        for (j in sumCnt until minTemp.size) {
+            maxTemp[maxCnt] = maxTemp[maxCnt].replace(" ","")
+            minTemp[j] = minTemp[j].replace(" ","")
+            if (sumCnt == j) {
+                if (timeP24n7List.size > sumCnt + 2) {
+                    sb.append(dayHash[timeP24n7List[j + 1].substring(0, 3)]) // short_time
                 }
             }
             else {
-                sb.append(time_p24n7_al[j].substring(0, 3)) // short_time
+                sb.append(timeP24n7List[j].substring(0, 3)) // short_time
             }
             sb.append(": ")
-            sb.append(UtilityMath.unitsTemp(max_temp[max_cnt]))
+            sb.append(UtilityMath.unitsTemp(maxTemp[maxCnt]))
             sb.append("/")
-            sb.append(UtilityMath.unitsTemp( min_temp[j]))
+            sb.append(UtilityMath.unitsTemp(minTemp[j]))
             sb.append(" (")
-            sb.append(weather_summary_al[k++])
+            sb.append(weatherSummaryList[k++])
             sb.append(" / ")
-            sb.append(weather_summary_al[k++])
+            sb.append(weatherSummaryList[k++])
             sb.append(")")
             sb.append(MyApplication.newline)
-            max_cnt++
+            maxCnt++
         }
-        if (time_p12n13_al.size > 3) {
-            sb.append(time_p12n13_al[time_p12n13_al.size - 1].substring(0, 3)) // last_short_time
+        if (timeP12n13List.size > 3) {
+            sb.append(timeP12n13List[timeP12n13List.size - 1].substring(0, 3)) // last_short_time
         }
         sb.append(": ")
-        sb.append(UtilityMath.unitsTemp( max_temp[max_temp.size - 1].replace("\\s*".toRegex(), ""))) // last_max
+        sb.append(UtilityMath.unitsTemp(maxTemp[maxTemp.size - 1].replace("\\s*".toRegex(), ""))) // last_max
         sb.append(" (" )
-        if (weather_summary_al.size > 2) {
-            sb.append(weather_summary_al[weather_summary_al.size - 2])
+        if (weatherSummaryList.size > 2) {
+            sb.append(weatherSummaryList[weatherSummaryList.size - 2])
         }
         sb.append(")")
         return sb.toString().replace("Chance","Chc").replace("Thunderstorms","Tstorms")
