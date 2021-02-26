@@ -103,12 +103,12 @@ class CapAlert {
             val expireStr = "This alert has expired"
             val capAlert = CapAlert()
             capAlert.url = url
-            val html = if (url.contains("NWS-IDP-PROD")) {
+            val html = if (url.contains("urn:oid")) {
                 UtilityDownloadNws.getStringFromUrlSep(url)
             } else {
                 url.getHtmlSep()
             }
-//            if (!html.contains("NWS-IDP-PROD")) {
+//            if (!html.contains("urn:oid")) {
 //                if (html.contains(expireStr)) {
 //                    capAlert.text = expireStr
 //                } else {
