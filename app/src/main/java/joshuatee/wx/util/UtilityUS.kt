@@ -146,11 +146,11 @@ object UtilityUS {
         return result
     }
 
-    fun get7DayExt(raw_data: Array<String>): String {
+    private fun get7DayExt(raw_data: Array<String>): String {
         val time_p12n13_al: MutableList<String> = ArrayList(14)
         val weather_summary_al: MutableList<String> = ArrayList(14)
         val forecast: Array<String> = UtilityString.parseXml(raw_data[11], "text")
-        val seven_day_site_str = raw_data[20]
+        // val seven_day_site_str = raw_data[20]
         // var m: Matcher
         try {
             //p = Pattern.compile(".*?weather-summary=(.*?)/>.*?");
@@ -179,15 +179,11 @@ object UtilityUS {
             sb.append(time_p12n13_al[j])
             sb.append(": ")
             sb.append(forecast[j])
-            if (j < forecast.size - 1) {
-                // sb.append(GlobalVariables.newline);
-                // sb.append(GlobalVariables.newline);
-            }
         }
         return sb.toString()
     }
 
-    fun get7Day(raw_data: Array<String>): String {
+    private fun get7Day(raw_data: Array<String>): String {
          val day_hash = Hashtable<String, String>()
          day_hash.put("Sun","Sat");
          day_hash.put("Mon","Sun");
