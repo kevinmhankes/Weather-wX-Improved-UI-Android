@@ -114,8 +114,8 @@ object UtilityUS {
     }
 
     fun getCurrentConditionsUS(html: String): Array<String> {
-        val result = Array<String>(6) {""}
-        val data_regexp = arrayOf(
+        val result = Array(6) {""}
+        val regexpList = arrayOf(
                 "<temperature type=.apparent. units=.Fahrenheit..*?>(.*?)</temperature>",
                 "<temperature type=.dew point. units=.Fahrenheit..*?>(.*?)</temperature>",
                 "<direction type=.wind.*?>(.*?)</direction>",
@@ -139,10 +139,10 @@ object UtilityUS {
                 "<data type=.forecast.>.*?<area-description>(.*?)</area-description>",
                 "<humidity type=.relative..*?>(.*?)</humidity>"
         )
-        val raw_data = UtilityString.parseXmlExt(data_regexp, html)
-        result[0] = raw_data[10]
-        result[2] = get7Day(raw_data)
-        result[3] = get7DayExt(raw_data)
+        val rawData = UtilityString.parseXmlExt(regexpList, html)
+        result[0] = rawData[10]
+        result[2] = get7Day(rawData)
+        result[3] = get7DayExt(rawData)
         return result
     }
 
@@ -184,95 +184,95 @@ object UtilityUS {
     }
 
     private fun get7Day(raw_data: Array<String>): String {
-         val day_hash = Hashtable<String, String>()
-         day_hash.put("Sun","Sat");
-         day_hash.put("Mon","Sun");
-         day_hash.put("Tue","Mon");
-         day_hash.put("Wed","Tue");
-         day_hash.put("Thu","Wed");
-         day_hash.put("Fri","Thu");
-         day_hash.put("Sat","Fri");
+        val day_hash = Hashtable<String, String>()
+        day_hash["Sun"] = "Sat"
+        day_hash["Mon"] = "Sun"
+        day_hash["Tue"] = "Mon"
+        day_hash["Wed"] = "Tue"
+        day_hash["Thu"] = "Wed"
+        day_hash["Fri"] = "Thu"
+        day_hash["Sat"] = "Fri"
 
-         val sb = StringBuilder(250);
-         var k = 1
-         val sum_cnt: Int
-         var max_cnt: Int
-         val time_p12n13_al = ArrayList<String>(14);
-         val time_p24n7_al = ArrayList<String>(8);
-         val weather_summary_al = ArrayList<String>(14);
-         val max_temp = UtilityString.parseXmlValue(raw_data[8]);
-         val min_temp = UtilityString.parseXmlValue(raw_data[9]);
-         var m: Matcher
-         //p = Pattern.compile(".*?weather-summary=(.*?)/>.*?");
-         try {
-             m = MyApplication.utilUS_weather_summary_pattern.matcher(raw_data[18]);
-             weather_summary_al.add("");
-             while (m.find()) {
-                 weather_summary_al.add(m.group(1).replace("\"",""));
-             }
-         }  catch (e: Exception) {
-         }
-         //p = Pattern.compile(".*?period-name=(.*?)>.*?");
-         try {
-             m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[15]);
-             time_p12n13_al.add("");
-             while (m.find()) {
-                 time_p12n13_al.add(m.group(1).replace("\"",""));
-             }
+        val sb = StringBuilder(250)
+        var k = 1
+        val sum_cnt: Int
+        var max_cnt: Int
+        val time_p12n13_al = ArrayList<String>(14)
+        val time_p24n7_al = ArrayList<String>(8)
+        val weather_summary_al = ArrayList<String>(14)
+        val max_temp = UtilityString.parseXmlValue(raw_data[8])
+        val min_temp = UtilityString.parseXmlValue(raw_data[9])
+        var m: Matcher
+        //p = Pattern.compile(".*?weather-summary=(.*?)/>.*?");
+        try {
+            m = MyApplication.utilUS_weather_summary_pattern.matcher(raw_data[18])
+            weather_summary_al.add("")
+            while (m.find()) {
+                weather_summary_al.add(m.group(1).replace("\"",""))
+            }
+        } catch (e: Exception) {
+        }
+        //p = Pattern.compile(".*?period-name=(.*?)>.*?");
+        try {
+            m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[15])
+            time_p12n13_al.add("")
+            while (m.find()) {
+                time_p12n13_al.add(m.group(1).replace("\"",""))
+            }
+        } catch (e: Exception) {
+        }
+        try {
+            m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[16])
+            time_p24n7_al.add("")
+            while (m.find()) {
+                time_p24n7_al.add(m.group(1).replace("\"",""))
+            }
+        } catch (e: Exception) {
+        }
+        if (time_p24n7_al.size > 1 && time_p24n7_al[1].contains("night")) {
+            min_temp[1] = min_temp[1].replace("\\s*".toRegex(),"")
+            if (time_p24n7_al.size > 2) {
+                sb.append(day_hash[time_p24n7_al[2].substring(0, 3)]) // short_time
+            } else {
+                sb.append(time_p24n7_al[1].substring(0, 3))
+            }
+            sb.append(": ")
+            sb.append(UtilityMath.unitsTemp(min_temp[1]))
+            sb.append(" (")
+            sb.append(weather_summary_al[1])
+            sb.append(")")
+            sb.append(MyApplication.newline)
+            sum_cnt = 2
+            max_cnt = 1
+            k++
+        } else {
+            sum_cnt = 1
+            max_cnt = 1
+        }
 
-         }  catch (e: Exception) {
-         }
-         try {
-             m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[16]);
-             time_p24n7_al.add("");
-             while (m.find()) {
-                 time_p24n7_al.add(m.group(1).replace("\"",""));
-             }
-         }  catch (e: Exception) {
-         }
-         if (time_p24n7_al.size > 1 && time_p24n7_al[1].contains("night")) {
-             min_temp[1] = min_temp[1].replace("\\s*".toRegex(),"");
-             if (time_p24n7_al.size > 2) {
-                 sb.append(day_hash.get(time_p24n7_al[2].substring(0, 3))); // short_time
-             } else {
-                 sb.append(time_p24n7_al[1].substring(0, 3))
-             }
-             sb.append(": ")
-             sb.append(UtilityMath.unitsTemp(min_temp[1]))
-             sb.append(" (")
-             sb.append(weather_summary_al[1])
-             sb.append(")")
-             sb.append(MyApplication.newline)
-             sum_cnt = 2
-             max_cnt = 1
-             k++
-         } else {
-             sum_cnt = 1
-             max_cnt = 1
-         }
-
-         for (j in sum_cnt until min_temp.size) {
-             max_temp[max_cnt] = max_temp[max_cnt].replace(" ","");
-             min_temp[j] = min_temp[j].replace(" ","");
-             if (sum_cnt == j) {
-                 if (time_p24n7_al.size > sum_cnt+2)
-                     sb.append(day_hash.get(time_p24n7_al[j+1].substring(0,3))); // short_time
-             }
-             else {
-                 sb.append(time_p24n7_al[j].substring(0, 3)); // short_time
-             }
-             sb.append(": ");
-             sb.append(UtilityMath.unitsTemp(max_temp[max_cnt]));
-             sb.append("/");
-             sb.append(UtilityMath.unitsTemp( min_temp[j]));
-             sb.append(" (");
-             sb.append(weather_summary_al[k++]);
-             sb.append(" / ");
-             sb.append(weather_summary_al[k++]);
-             sb.append(")");
-             sb.append(MyApplication.newline);
-             max_cnt++;
-         }
+        for (j in sum_cnt until min_temp.size) {
+            max_temp[max_cnt] = max_temp[max_cnt].replace(" ","")
+            min_temp[j] = min_temp[j].replace(" ","")
+            if (sum_cnt == j) {
+                if (time_p24n7_al.size > sum_cnt+2) {
+                    sb.append(day_hash[time_p24n7_al[j + 1].substring(0, 3)]) // short_time
+                }
+            }
+            else {
+                sb.append(time_p24n7_al[j].substring(0, 3)) // short_time
+            }
+            sb.append(": ")
+            sb.append(UtilityMath.unitsTemp(max_temp[max_cnt]))
+            sb.append("/")
+            sb.append(UtilityMath.unitsTemp( min_temp[j]))
+            sb.append(" (")
+            sb.append(weather_summary_al[k++])
+            sb.append(" / ")
+            sb.append(weather_summary_al[k++])
+            sb.append(")")
+            sb.append(MyApplication.newline)
+            max_cnt++
+        }
         if (time_p12n13_al.size > 3) {
             sb.append(time_p12n13_al[time_p12n13_al.size - 1].substring(0, 3)) // last_short_time
         }
@@ -284,5 +284,5 @@ object UtilityUS {
         }
         sb.append(")")
         return sb.toString().replace("Chance","Chc").replace("Thunderstorms","Tstorms")
-     }
+    }
 }
