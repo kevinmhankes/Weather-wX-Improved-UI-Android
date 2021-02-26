@@ -17,7 +17,7 @@
 // TODO [REF] add ObjectLocation
 // TODO [ADD] LSR by WFO - download and show one at a time
 
-55523 2021_02_25
+55523 2021_02_26    [FIX] add bounds checks in utilUS and code cleanup
 55522 2021_02_25    [FIX] NWS has changed URLs for some alerts which broke display in some cases
 55521 2021_02_24    [ADD] more work for icon generation 7day old api
 55520 2021_02_24    [FIX] make AWC radar mosaic the only option for radar mosaic as NWS has removed a timeframe for the traditional radar mosaic

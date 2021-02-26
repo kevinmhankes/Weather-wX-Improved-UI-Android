@@ -199,16 +199,14 @@ object UtilityUS {
 
          val sb = StringBuilder(250);
          var k = 1
-         var sum_cnt: Int
+         val sum_cnt: Int
          var max_cnt: Int
-
-         var time_p12n13_al = ArrayList<String>(14);
-         var time_p24n7_al = ArrayList<String>(8);
-         var weather_summary_al = ArrayList<String>(14);
-         var max_temp = UtilityString.parseXmlValue(raw_data[8]);
-         var min_temp = UtilityString.parseXmlValue(raw_data[9]);
+         val time_p12n13_al = ArrayList<String>(14);
+         val time_p24n7_al = ArrayList<String>(8);
+         val weather_summary_al = ArrayList<String>(14);
+         val max_temp = UtilityString.parseXmlValue(raw_data[8]);
+         val min_temp = UtilityString.parseXmlValue(raw_data[9]);
          var m: Matcher
-
          //p = Pattern.compile(".*?weather-summary=(.*?)/>.*?");
          try {
              m = MyApplication.utilUS_weather_summary_pattern.matcher(raw_data[18]);
@@ -218,9 +216,7 @@ object UtilityUS {
              }
          }  catch (e: Exception) {
          }
-
          //p = Pattern.compile(".*?period-name=(.*?)>.*?");
-
          try {
              m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[15]);
              time_p12n13_al.add("");
@@ -230,7 +226,6 @@ object UtilityUS {
 
          }  catch (e: Exception) {
          }
-
          try {
              m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[16]);
              time_p24n7_al.add("");
@@ -239,31 +234,25 @@ object UtilityUS {
              }
          }  catch (e: Exception) {
          }
-
-         if ( time_p24n7_al.get(1).contains("night"))
-         {
-
+         if (time_p24n7_al.size > 1 && time_p24n7_al[1].contains("night")) {
              min_temp[1] = min_temp[1].replace("\\s*".toRegex(),"");
-
-             if (time_p24n7_al.size > 2)
-                 sb.append(day_hash.get(time_p24n7_al.get(2).substring(0,3))); // short_time
-             else
-                 sb.append(time_p24n7_al.get(1).substring(0,3));
-
-             sb.append(": ");
-             sb.append(UtilityMath.unitsTemp(min_temp[1]));
-             sb.append(" (");
-             sb.append(weather_summary_al.get(1));
-             sb.append(")");
-             sb.append(MyApplication.newline);
-
-             sum_cnt = 2;
-             max_cnt = 1;
-             k++;
-
+             if (time_p24n7_al.size > 2) {
+                 sb.append(day_hash.get(time_p24n7_al[2].substring(0, 3))); // short_time
+             } else {
+                 sb.append(time_p24n7_al[1].substring(0, 3))
+             }
+             sb.append(": ")
+             sb.append(UtilityMath.unitsTemp(min_temp[1]))
+             sb.append(" (")
+             sb.append(weather_summary_al[1])
+             sb.append(")")
+             sb.append(MyApplication.newline)
+             sum_cnt = 2
+             max_cnt = 1
+             k++
          } else {
-             sum_cnt = 1;
-             max_cnt = 1;
+             sum_cnt = 1
+             max_cnt = 1
          }
 
          for (j in sum_cnt until min_temp.size) {
@@ -271,32 +260,33 @@ object UtilityUS {
              min_temp[j] = min_temp[j].replace(" ","");
              if (sum_cnt == j) {
                  if (time_p24n7_al.size > sum_cnt+2)
-                     sb.append(day_hash.get(time_p24n7_al.get(j+1).substring(0,3))); // short_time
+                     sb.append(day_hash.get(time_p24n7_al[j+1].substring(0,3))); // short_time
              }
              else {
-                 sb.append(time_p24n7_al.get(j).substring(0, 3)); // short_time
+                 sb.append(time_p24n7_al[j].substring(0, 3)); // short_time
              }
              sb.append(": ");
              sb.append(UtilityMath.unitsTemp(max_temp[max_cnt]));
              sb.append("/");
              sb.append(UtilityMath.unitsTemp( min_temp[j]));
              sb.append(" (");
-             sb.append(weather_summary_al.get(k++));
+             sb.append(weather_summary_al[k++]);
              sb.append(" / ");
-             sb.append(weather_summary_al.get(k++));
+             sb.append(weather_summary_al[k++]);
              sb.append(")");
              sb.append(MyApplication.newline);
              max_cnt++;
          }
-         sb.append(time_p12n13_al.get(time_p12n13_al.size - 1).substring(0,3)); // last_short_time
-         sb.append(": ");
-         sb.append(UtilityMath.unitsTemp( max_temp[max_temp.size - 1].replace("\\s*".toRegex(), ""))); // last_max
-         sb.append(" (" );
-         sb.append(weather_summary_al.get(weather_summary_al.size - 2));
-         sb.append(")");
-
-         //sb.append(GlobalVariables.newline);
-
-         return sb.toString().replace("Chance","Chc").replace("Thunderstorms","Tstorms");
+        if (time_p12n13_al.size > 3) {
+            sb.append(time_p12n13_al[time_p12n13_al.size - 1].substring(0, 3)) // last_short_time
+        }
+        sb.append(": ")
+        sb.append(UtilityMath.unitsTemp( max_temp[max_temp.size - 1].replace("\\s*".toRegex(), ""))) // last_max
+        sb.append(" (" )
+        if (weather_summary_al.size > 2) {
+            sb.append(weather_summary_al[weather_summary_al.size - 2])
+        }
+        sb.append(")")
+        return sb.toString().replace("Chance","Chc").replace("Thunderstorms","Tstorms")
      }
 }
