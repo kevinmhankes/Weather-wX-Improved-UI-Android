@@ -27,6 +27,7 @@ import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
 import joshuatee.wx.radar.LatLon
 import joshuatee.wx.settings.UtilityLocation
+import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityTime
 
 class SevereWarning(private val type: PolygonType) {
@@ -76,7 +77,7 @@ class SevereWarning(private val type: PolygonType) {
     }
 
     fun generateString(html: String) {
-        idList = html.parseColumn("\"id\": \"(NWS.*?)\"")
+        idList = html.parseColumn("\"id\": \"(https://api.weather.gov/alerts/urn.*?)\"")
         areaDescList = html.parseColumn("\"areaDesc\": \"(.*?)\"")
         effectiveList = html.parseColumn("\"effective\": \"(.*?)\"")
         expiresList = html.parseColumn("\"expires\": \"(.*?)\"")
