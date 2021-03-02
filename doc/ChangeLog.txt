@@ -16,8 +16,10 @@
 // TODO [REF] move radarColorPalette,colorMap to ObjectColorPalette
 // TODO [REF] add ObjectLocation
 // TODO [ADD] LSR by WFO - download and show one at a time
+// TODO [REF] remove warning impact stuff
 
 55526 2021_03_02    [FIX] prevent location that is not supported (such as over water) from crashing
+                    [REF] various code formatting cleanup
 55525 2021_02_27    [FIX] lint
                     [FIX] crash in severedash when tapping on alert
 55524 2021_02_26    [FIX] UtilityWXOGL, CapAlert, ObjectAlertDetail, UtilityVtec.kt to make use of the new API URL for alerts starting with urn:oid

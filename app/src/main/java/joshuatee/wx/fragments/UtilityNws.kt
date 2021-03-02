@@ -30,7 +30,6 @@ import joshuatee.wx.ui.ObjectPaint
 import joshuatee.wx.ui.ObjectPaintStripe
 import joshuatee.wx.ui.UtilityTheme
 import joshuatee.wx.util.UtilityImg
-import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityString
 
 // TODO rename file
@@ -84,21 +83,12 @@ object UtilityNws {
             if (conditions.size > 1) {
                 getDualBitmapWithNumbers(context, conditions[0], conditions[1])
             } else {
-                // UtilityImg.getBlankBitmap()
                 // legacy add
                 var urlTmp = url.replace("i=", "")
                 urlTmp = urlTmp.replace("j=", "")
                 urlTmp = urlTmp.replace("ip=", "")
                 urlTmp = urlTmp.replace("jp=", "")
                 val items = urlTmp.split(";")
-
-//                return if (items.size > 3) {
-//                    UtilityLog.d("wx", "getDualBitmapWithNumbers " + items[0] + items[2] + ":" + items[1] + items[3])
-//                    getDualBitmapWithNumbers(context, items[0] + items[2], items[1] + items[3])
-//                } else {
-//                    UtilityLog.d("wx", "getDualBitmapWithNumbers " + items[0] + " " + items[1])
-//                    getDualBitmapWithNumbers(context, items[0], items[1])
-//                }
                 return if (items.size > 3) {
                     getDualBitmapWithNumbers(context, items[0] + items[2], items[1] + items[3])
                 } else if (items.size > 2) {
@@ -129,8 +119,16 @@ object UtilityNws {
     private fun getDualBitmapWithNumbers(context: Context, iconLeftString: String, iconRightString: String): Bitmap {
         val leftTokens = iconLeftString.split(",").dropLastWhile { it.isEmpty() }
         val rightTokens = iconRightString.split(",").dropLastWhile { it.isEmpty() }
-        var leftNumber = if (leftTokens.size > 1) leftTokens[1] else ""
-        var rightNumber = if (rightTokens.size > 1) rightTokens[1] else ""
+        var leftNumber = if (leftTokens.size > 1) {
+            leftTokens[1]
+        } else {
+            ""
+        }
+        var rightNumber = if (rightTokens.size > 1) {
+            rightTokens[1]
+        } else {
+            ""
+        }
         var leftWeatherCondition: String
         var rightWeatherCondition: String
         if (leftTokens.isNotEmpty() && rightTokens.isNotEmpty()) {
@@ -147,14 +145,21 @@ object UtilityNws {
             leftWeatherCondition = UtilityString.parse(iconLeftString, "([a-z_]+)")
             rightNumber = UtilityString.parse(iconRightString, ".*?([0-9]+)")
             rightWeatherCondition = UtilityString.parse(iconRightString, "([a-z_]+)")
-            // UtilityLog.d("wx", "dual: " + leftNumber + leftWeatherCondition + rightNumber + rightWeatherCondition)
         }
         // legacy add end
 
         val halfWidth = 41
         val middlePoint = 45
-        val leftCropA = if (leftWeatherCondition.contains("fg")) middlePoint else 4
-        val leftCropB = if (rightWeatherCondition.contains("fg")) middlePoint else 4
+        val leftCropA = if (leftWeatherCondition.contains("fg")) {
+            middlePoint
+        } else {
+            4
+        }
+        val leftCropB = if (rightWeatherCondition.contains("fg")) {
+            middlePoint
+        } else {
+            4
+        }
         val bitmap = Bitmap.createBitmap(dimensions, dimensions, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         canvas.drawColor(UtilityTheme.primaryColorFromSelectedTheme)
@@ -169,7 +174,11 @@ object UtilityNws {
         val paint = ObjectPaint()
         val yText = 84
         val xTextLeft = 2
-        val xText = if (rightNumber == "100") 50 else 58
+        val xText = if (rightNumber == "100") {
+            50
+        } else {
+            58
+        }
         val paintStripe = ObjectPaintStripe()
 
         // legacy add - 2nd conditional
@@ -195,12 +204,19 @@ object UtilityNws {
     //  tsra_hi,40
     private fun getBitmapWithOneNumber(context: Context, iconString: String): Bitmap {
         val items = iconString.split(",").dropLastWhile { it.isEmpty() }
-        var number = if (items.size > 1) items[1] else ""
-        var weatherCondition = if (items.isNotEmpty()) items[0] else ""
+        var number = if (items.size > 1) {
+            items[1]
+        } else {
+            ""
+        }
+        var weatherCondition = if (items.isNotEmpty()) {
+            items[0]
+        } else {
+            ""
+        }
 
         // legacy add
         if (!iconString.contains(",")) {
-            // UtilityLog.d("wx","getBitmapWithOneNumber: " + iconString)
             number = UtilityString.parse(iconString, ".*?([0-9]+)")
             weatherCondition = UtilityString.parse(iconString, "([a-z_]+)")
         }
@@ -215,7 +231,11 @@ object UtilityNws {
         canvas.drawBitmap(bitmap2, 0.0f, 0.0f, Paint(Paint.FILTER_BITMAP_FLAG))
         val paint = ObjectPaint()
         val yText = 84
-        val xText = if (number == "100") 50 else 58
+        val xText = if (number == "100") {
+            50
+        } else {
+            58
+        }
         val paintStripe = ObjectPaintStripe()
         if (number != "") {
             canvas.drawRect(0.0f, (dimensions - numHeight).toFloat(), dimensions.toFloat(), dimensions.toFloat(), paintStripe.paint)
