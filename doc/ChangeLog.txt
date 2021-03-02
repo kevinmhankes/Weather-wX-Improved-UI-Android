@@ -18,7 +18,7 @@
 // TODO [ADD] LSR by WFO - download and show one at a time
 // TODO [REF] remove warning impact stuff
 
-55527 2021_03_02
+55527 2021_03_02    [FIX] change compile target SDK from 30 to 29, looks like latest SDK breaks image based widgets for those running latest Android
 55526 2021_03_02    [FIX] prevent location that is not supported (such as over water) from crashing
                     [REF] various code formatting cleanup
 55525 2021_02_27    [FIX] lint
