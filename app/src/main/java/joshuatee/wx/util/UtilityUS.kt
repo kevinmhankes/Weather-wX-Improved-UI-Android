@@ -250,7 +250,9 @@ object UtilityUS {
             maxCnt = 1
         }
         for (j in sumCnt until minTemp.size) {
-            maxTemp[maxCnt] = maxTemp[maxCnt].replace(" ","")
+            if (maxCnt < maxTemp.size) {
+                maxTemp[maxCnt] = maxTemp[maxCnt].replace(" ", "")
+            }
             minTemp[j] = minTemp[j].replace(" ","")
             if (sumCnt == j) {
                 if (timeP24n7List.size > sumCnt + 2) {
@@ -258,16 +260,25 @@ object UtilityUS {
                 }
             }
             else {
-                sb.append(timeP24n7List[j].substring(0, 3)) // short_time
+                val tmpString = Utility.safeGet(timeP24n7List, j)
+                if (tmpString.length > 3) {
+                    sb.append(tmpString.substring(0, 3))
+                } else {
+                    sb.append("")
+                }
             }
             sb.append(": ")
-            sb.append(UtilityMath.unitsTemp(maxTemp[maxCnt]))
+            sb.append(UtilityMath.unitsTemp(Utility.safeGet(maxTemp, maxCnt)))
             sb.append("/")
             sb.append(UtilityMath.unitsTemp(minTemp[j]))
             sb.append(" (")
-            sb.append(weatherSummaryList[k++])
+            // sb.append(weatherSummaryList[k])
+            sb.append(Utility.safeGet(weatherSummaryList, k))
+            k += 1
             sb.append(" / ")
-            sb.append(weatherSummaryList[k++])
+            // sb.append(weatherSummaryList[k])
+            sb.append(Utility.safeGet(weatherSummaryList, k))
+            k += 1
             sb.append(")")
             sb.append(MyApplication.newline)
             maxCnt++
