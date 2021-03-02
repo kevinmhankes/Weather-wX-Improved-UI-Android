@@ -55,7 +55,11 @@ internal object UtilityModelNcepInputOutput {
     }
 
     fun getImage(om: ObjectModelNoSpinner, time: String): Bitmap {
-        val modifiedTime = if (om.model == "HRRR" && time.length ==  3) time + "00" else time
+        val modifiedTime = if (om.model == "HRRR" && time.length == 3) {
+            time + "00"
+        } else {
+            time
+        }
         val imgUrl = when (om.model) {
             "GFS" -> "${MyApplication.nwsMagNcepWebsitePrefix}/data/" + om.model.toLowerCase(Locale.US) + "/" + om.run.replace("Z", "") +
                     "/" + om.sector.toLowerCase(Locale.US) + "/" + om.currentParam + "/" + om.model.toLowerCase(Locale.US) + "_" +
@@ -65,12 +69,14 @@ internal object UtilityModelNcepInputOutput {
             else -> "${MyApplication.nwsMagNcepWebsitePrefix}/data/" + om.model.toLowerCase(Locale.US) + "/" + om.run.replace("Z", "") +
                     "/" + om.model.toLowerCase(Locale.US) + "_" + om.sector.toLowerCase(Locale.US) + "_" + time + "_" + om.currentParam + ".gif"
         }
-        UtilityLog.d("wx", imgUrl)
+        // UtilityLog.d("wx", imgUrl)
         return imgUrl.getImage()
     }
 
     fun getAnimation(context: Context, om: ObjectModelNoSpinner): AnimationDrawable {
-        if (om.spinnerTimeValue == -1) return AnimationDrawable()
+        if (om.spinnerTimeValue == -1) {
+            return AnimationDrawable()
+        }
         val timeList = om.times
         val bitmaps = (om.spinnerTimeValue until timeList.size).map { getImage(om, timeList[it].split(" ").getOrNull(0) ?: "") }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps)

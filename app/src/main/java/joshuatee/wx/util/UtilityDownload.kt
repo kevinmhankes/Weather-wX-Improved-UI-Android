@@ -414,21 +414,21 @@ object UtilityDownload {
                 text = text.replace("<br><br>", MyApplication.newline)
             }
             prod.contains("PMD30D") -> {
-                val textUrl = MyApplication.tgftpSitePrefix +  "/data/raw/fx/fxus07.kwbc.pmd.30d.txt"
+                val textUrl = MyApplication.tgftpSitePrefix + "/data/raw/fx/fxus07.kwbc.pmd.30d.txt"
                 text = textUrl.getHtmlWithNewLine()
                 text = text.removeLineBreaks()
             }
             prod.contains("PMD90D") -> {
-                val textUrl = MyApplication.tgftpSitePrefix +  "/data/raw/fx/fxus05.kwbc.pmd.90d.txt"
+                val textUrl = MyApplication.tgftpSitePrefix + "/data/raw/fx/fxus05.kwbc.pmd.90d.txt"
                 text = textUrl.getHtmlWithNewLine()
                 text = text.removeLineBreaks()
             }
             prod.contains("PMDHCO") -> {
-                val textUrl = MyApplication.tgftpSitePrefix +  "/data/raw/fx/fxhw40.kwbc.pmd.hco.txt"
+                val textUrl = MyApplication.tgftpSitePrefix + "/data/raw/fx/fxhw40.kwbc.pmd.hco.txt"
                 text = textUrl.getHtmlWithNewLine()
             }
             prod.contains("PMDMRD") -> {
-                val textUrl = MyApplication.tgftpSitePrefix +  "/data/raw/fx/fxus06.kwbc.pmd.mrd.txt"
+                val textUrl = MyApplication.tgftpSitePrefix + "/data/raw/fx/fxus06.kwbc.pmd.mrd.txt"
                 text = textUrl.getHtmlWithNewLine().removeLineBreaks()
             }
             prod.startsWith("RWR") -> {
@@ -567,7 +567,11 @@ object UtilityDownload {
     }
 
     fun getRadarStatusMessage(context: Context, radarSite: String): String {
-        val ridSmall = if (radarSite.length == 4) radarSite.replace("^T".toRegex(), "") else radarSite
+        val ridSmall = if (radarSite.length == 4) {
+            radarSite.replace("^T".toRegex(), "")
+        } else {
+            radarSite
+        }
         return getTextProduct(context, "FTM" + ridSmall.toUpperCase(Locale.US))
     }
 }

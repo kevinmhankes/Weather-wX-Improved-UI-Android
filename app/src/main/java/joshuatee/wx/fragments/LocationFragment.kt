@@ -56,7 +56,7 @@ import joshuatee.wx.radar.*
 import joshuatee.wx.ui.*
 import kotlinx.coroutines.*
 
-class LocationFragment : Fragment()  {
+class LocationFragment : Fragment() {
 
     //
     // Displays the main content when wX is first opened including current conditions

@@ -93,7 +93,9 @@ object UtilityMath {
     fun celsiusToFahrenheitTable(): String {
         var table = ""
         val cInit = -40
-        for (z in 40 downTo cInit) { table += z.toString() + "  " + celsiusToFahrenheitAsInt(z) + MyApplication.newline }
+        for (z in 40 downTo cInit) {
+            table += z.toString() + "  " + celsiusToFahrenheitAsInt(z) + MyApplication.newline
+        }
         return table
     }
 

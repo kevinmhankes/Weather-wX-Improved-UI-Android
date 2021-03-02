@@ -42,7 +42,7 @@ object UtilityNws {
     //  https://api.weather.gov/icons/land/night/bkn?size=medium
     //  https://api.weather.gov/icons/land/day/tsra_hi,40?size=medium
     fun getIcon(context: Context, url: String): Bitmap {
-        UtilityLog.d("wx", url)
+        // UtilityLog.d("wx", url)
         if (url == "NULL" || url == "") {
             return Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888)
         }

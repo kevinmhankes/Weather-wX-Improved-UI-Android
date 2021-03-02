@@ -277,7 +277,7 @@ object UtilityString {
 
     fun parseXmlExt (regexpList: Array<String>, html: String): Array<String> {
         val items = Array(regexpList.size) {""}
-        var  p: Pattern
+        var p: Pattern
         // var m: Matcher
         for (i in regexpList.indices) {
             try {
@@ -286,7 +286,7 @@ object UtilityString {
                 while (m.find()) {
                     items[i] = m.group(1)
                 }
-            }  catch (e: Exception) {
+            } catch (e: Exception) {
             }
         }
         return items
