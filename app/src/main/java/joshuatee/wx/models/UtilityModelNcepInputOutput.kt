@@ -33,7 +33,6 @@ import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp
 import joshuatee.wx.util.UtilityImgAnim
-import joshuatee.wx.util.UtilityLog
 
 internal object UtilityModelNcepInputOutput {
 
@@ -44,7 +43,9 @@ internal object UtilityModelNcepInputOutput {
         val fullHtml = url.getHtml()
         val html = fullHtml.parse(RegExp.ncepPattern2).replace("UTC", "Z").replace(" ", "")
         runCompletionDataStr.append(html.replace("Z", " UTC"))
-        if (runCompletionDataStr.length > 8) runCompletionDataStr.insert(8, " ")
+        if (runCompletionDataStr.length > 8) {
+            runCompletionDataStr.insert(8, " ")
+        }
         val timeCompleteUrl = "${MyApplication.nwsMagNcepWebsitePrefix}/model-fhrs.php?group=Model%20Guidance&model=" + model.toLowerCase(Locale.US) +
                 "&fhr_mode=image&loop_start=-1&loop_end=-1&area=" + spinnerSectorCurrent + "&fourpan=no&imageSize=&preselected_formatted_cycle_date=" +
                 runCompletionDataStr + "&cycle=" + runCompletionDataStr + "&param=" + param + "&ps=area"

@@ -27,7 +27,6 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.radar.LatLon
 import joshuatee.wx.settings.UtilityLocation
-import joshuatee.wx.util.UtilityLog
 
 class CapAlert {
 

@@ -38,7 +38,6 @@ import joshuatee.wx.nhc.NhcActivity
 import joshuatee.wx.radar.AwcRadarMosaicActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.vis.GoesActivity
-import joshuatee.wx.radar.USNwsMosaicActivity
 import joshuatee.wx.radar.WXGLRadarActivity
 import joshuatee.wx.radar.WXGLRadarActivityMultiPane
 import joshuatee.wx.util.Utility
@@ -106,13 +105,13 @@ class MiscFragment : Fragment() {
                     "nhc", "NHC"
             )
             if (!UIPreferences.useAwcRadarMosaic) {
-                hm["nwsmosaic"] = TileObject(
-                        R.drawable.nws_sector,
-                        USNwsMosaicActivity::class.java,
-                        USNwsMosaicActivity.URL,
-                        arrayOf("", ""),
-                        "nwsmosaic", "AWC Radar Mosaics"
-                )
+//                hm["nwsmosaic"] = TileObject(
+//                        R.drawable.nws_sector,
+//                        USNwsMosaicActivity::class.java,
+//                        USNwsMosaicActivity.URL,
+//                        arrayOf("", ""),
+//                        "nwsmosaic", "AWC Radar Mosaics"
+//                )
             } else {
                 hm["nwsmosaic"] = TileObject(
                         R.drawable.nws_sector,

@@ -69,7 +69,8 @@ object UtilityLocation {
                 || ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             for (i in providers.indices.reversed()) {
                 location = locationManager.getLastKnownLocation(providers[i])
-                if (location != null) break
+                if (location != null)
+                    break
             }
         } else {
             UtilityLog.d("wx", "WARNING: permission not granted for roaming location")
@@ -140,8 +141,12 @@ object UtilityLocation {
                 bestRid = it
             }
         }
-        if (bestRid == -1) return "BLAH"
-        if (sites[bestRid].name == "MFX") return "MFL"
+        if (bestRid == -1) {
+            return "BLAH"
+        }
+        if (sites[bestRid].name == "MFX") {
+            return "MFL"
+        }
         return sites[bestRid].name
     }
 
@@ -172,23 +177,11 @@ object UtilityLocation {
         return LatLon(x, y)
     }
 
-    /*fun checkRoamingLocation(context: Context, locNum: String, xStr: String, yStr: String) {
-        val currentXY = getGps(context)
-        val roamingLocationDistanceCheck = Utility.readPref(context, "ROAMING_LOCATION_DISTANCE_CHECK", 5)
-        val locX = xStr.toDoubleOrNull() ?: 0.0
-        val locY = yStr.toDoubleOrNull() ?: 0.0
-        val currentDistance = LatLon.distance(LatLon(currentXY[0], currentXY[1]), LatLon(locX, locY), DistanceUnit.NAUTICAL_MILE)
-        if (currentDistance > roamingLocationDistanceCheck && (currentXY[0] > 1.0 || currentXY[0] < -1.0) && (currentXY[1] > 1.0 || currentXY[1] < -1.0)) {
-            val date = UtilityTime.getDateAsString("MM-dd-yy HH:mm:SS Z")
-            joshuatee.wx.settings.Location.save(context, locNum, currentXY[0].toString(), currentXY[1].toString(), "ROAMING $date")
-        }
-    }*/
-
     fun hasAlerts(locNum: Int): Boolean = MyApplication.locations[locNum].notification
-            || MyApplication.locations[locNum].notificationMcd
-            || MyApplication.locations[locNum].ccNotification
-            || MyApplication.locations[locNum].sevenDayNotification
-            || MyApplication.locations[locNum].notificationSpcFw
-            || MyApplication.locations[locNum].notificationSwo
-            || MyApplication.locations[locNum].notificationWpcMpd
+        || MyApplication.locations[locNum].notificationMcd
+        || MyApplication.locations[locNum].ccNotification
+        || MyApplication.locations[locNum].sevenDayNotification
+        || MyApplication.locations[locNum].notificationSpcFw
+        || MyApplication.locations[locNum].notificationSwo
+        || MyApplication.locations[locNum].notificationWpcMpd
 }

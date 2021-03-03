@@ -271,11 +271,11 @@
       android:label="@string/title_activity_uswarnings_with_radar_v3"
       android:parentActivityName="WX" >
   </activity>
-  <activity
+<!--  <activity
       android:name=".activitiesmisc.USWarningsImpactActivity"
       android:label=""
       android:parentActivityName="WX" >
-  </activity>
+  </activity>-->
   <activity
       android:name=".spc.SpcCompmapActivity"
       android:label="@string/title_activity_spccompmap"
@@ -306,11 +306,11 @@
       android:label="@string/title_activity_spcsoundings"
       android:parentActivityName="WX" >
   </activity>
-  <activity
+<!--  <activity
       android:name=".radar.USNwsMosaicActivity"
       android:label="@string/title_activity_nwsmosaic"
       android:parentActivityName="WX" >
-  </activity>
+  </activity>-->
   <activity
       android:name=".activitiesmisc.WfoTextActivity"
       android:label=""

@@ -187,14 +187,14 @@ object UtilityDownloadNws {
     }
 
     fun get7DayData(latLon: LatLon): String {
-        if (UIPreferences.useNwsApi) {
+        return if (UIPreferences.useNwsApi) {
             val pointsData = getLocationPointData(latLon)
             val forecastUrl = pointsData.parse("\"forecast\": \"(.*?)\"")
             // set static var at object level for use elsewhere
             forecastZone = forecastUrl
-            return forecastUrl.getNwsHtml()
+            forecastUrl.getNwsHtml()
         } else {
-            return UtilityUS.getLocationHtml(latLon.latString, latLon.lonString)
+            UtilityUS.getLocationHtml(latLon.latString, latLon.lonString)
         }
     }
 

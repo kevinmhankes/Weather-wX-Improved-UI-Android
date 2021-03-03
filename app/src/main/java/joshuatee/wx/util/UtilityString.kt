@@ -263,13 +263,13 @@ object UtilityString {
             payload = payload!!.replace( "<end-valid-time>.*?</end-valid-time>".toRegex() , "").replace( "<layout-key>.*?</layout-key>".toRegex() , "")
         }
         payload = payload!!.replace( "<name>.*?</name>".toRegex() , "").replace( "</" + delim + ">".toRegex() , "")
-        return payload.split("<" + delim + ">").toTypedArray()
+        return payload.split("<$delim>").toTypedArray()
     }
 
     fun parseXmlValue(payloadF: String?): Array<String> {
         var payload = payloadF
         if (payload == null ) {
-            payload = "";
+            payload = ""
         }
         payload = payload.replace("<name>.*?</name>".toRegex() , "").replace( "</value>" , "")
         return MyApplication.xml_value_pattern.split(payload)

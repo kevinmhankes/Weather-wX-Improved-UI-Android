@@ -39,7 +39,6 @@ import joshuatee.wx.RegExp
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.radar.UtilityAwcRadarMosaic
-import joshuatee.wx.radar.UtilityUSImgNwsMosaic
 import joshuatee.wx.vis.UtilityGoes
 
 object UtilityDownload {
@@ -61,11 +60,12 @@ object UtilityDownload {
                     "usa" -> k = "usa"
                 }
                 bitmap = if (Location.isUS(location)) {
-                    if (k == "usa") {
-                        UtilityUSImgNwsMosaic.get(context, "latest", false)
-                    } else {
-                        UtilityUSImgNwsMosaic.get(context, UtilityUSImgNwsMosaic.getSectorFromState(state), false)
-                    }
+//                    if (k == "usa") {
+//                        UtilityUSImgNwsMosaic.get(context, "latest", false)
+//                    } else {
+//                        UtilityUSImgNwsMosaic.get(context, UtilityUSImgNwsMosaic.getSectorFromState(state), false)
+//                    }
+                    UtilityImg.getBlankBitmap()
                 } else {
                     val province = Utility.readPref(context, "NWS" + location + "_STATE", "")
                     UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, UtilityCanada.getSectorFromProvince(province))

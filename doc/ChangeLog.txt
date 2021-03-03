@@ -16,9 +16,12 @@
 // TODO [REF] move radarColorPalette,colorMap to ObjectColorPalette
 // TODO [REF] add ObjectLocation
 // TODO [ADD] LSR by WFO - download and show one at a time
-// TODO [REF] remove warning impact stuff
+// TODO [ADD] severe dash if only 2 graphics don't show side by side
 
-55530 2021_03_02
+55530 2021_03_03    [ADD] AK/Hawaii/Carib sectors for AWC Radar Mosaic
+                    [REF] remove warning impact and old mosaic code no longer needed
+                    [REF] various formatting/code cleanup
+                    [FIX] Radar Mosaic widget when tapping on image was not opening correct mosaic activity
 55529 2021_03_02    [FIX] for target SDK 30, widgets with images not working on Android 11 devices. Needed manifest additions queries/intent
 55527 2021_03_02    [FIX] change compile target SDK from 30 to 29, looks like latest SDK breaks image based widgets for those running latest Android
 55526 2021_03_02    [FIX] prevent location that is not supported (such as over water) from crashing

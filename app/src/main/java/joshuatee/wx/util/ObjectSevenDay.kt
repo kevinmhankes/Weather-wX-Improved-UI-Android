@@ -74,18 +74,18 @@ class ObjectSevenDay {
     }
 
     private fun getIcons7Day(html: String): String {
-        if (UIPreferences.useNwsApi) {
+        return if (UIPreferences.useNwsApi) {
             val icons = html.parseColumn("\"icon\": \"(.*?)\",")
             var iconList = ""
             icons.forEach { iconList += "$it!" }
-            return iconList
+            iconList
         } else {
             val forecastStringList = UtilityUS.getCurrentConditionsUS(html)
             val iconString = forecastStringList[0]
             val icons = UtilityString.parseColumn(iconString, "<icon-link>(.*?)</icon-link>")
             var iconList = ""
             icons.forEach { iconList += "$it!" }
-            return iconList
+            iconList
         }
     }
 
