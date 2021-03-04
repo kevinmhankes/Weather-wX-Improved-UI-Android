@@ -3,7 +3,10 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion '30.0.3'    // was 29.0.3
+    buildToolsVersion '30.0.3'
+
+    // compileSdkVersion 'android-S'
+    // buildToolsVersion '31.0.0 rc1'
 
     // need $HOME/.gradle/gradle.properties to look like this
     /*
@@ -25,7 +28,10 @@ android {
     defaultConfig {
         applicationId "joshuatee.wx"
         minSdkVersion 21   // 5.0
+
         targetSdkVersion 30
+        // targetSdkVersion "S"
+
         // Stops the Gradle plugin’s automatic rasterization of vectors (2016_02_25 add 23.2 )
         vectorDrawables.useSupportLibrary = true
     }
@@ -38,7 +44,7 @@ android {
     }
 
     task buildNative(type: Exec, description: 'Compile JNI source via NDK') {
-        def ndkDir = "../../../android-ndk-r21d"
+        def ndkDir = "../../../android-ndk-r22"
         commandLine "$ndkDir/ndk-build",
                 '-C', file('src/main/jni').absolutePath,
                 '-j', Runtime.runtime.availableProcessors(),
@@ -47,7 +53,7 @@ android {
     }
 
     task cleanNative(type: Exec, description: 'Clean JNI object files') {
-        def ndkDir = "../../../android-ndk-r21d"
+        def ndkDir = "../../../android-ndk-r22"
         commandLine "$ndkDir/ndk-build",
                 '-C', file('src/main/jni').absolutePath,
                 'clean'

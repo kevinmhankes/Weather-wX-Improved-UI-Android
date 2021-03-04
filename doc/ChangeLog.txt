@@ -19,6 +19,8 @@
 
 55531 2021_03_04    [REF] remove ObjectImpactGraphic.kt and other files no longer needed
                     [REF] lint
+                    [ADD] placeholders for Android 12 (SDK31) testing
+                    [ADD] upgrade NDK to r22 from r21d
 55530 2021_03_03    [ADD] AK/Hawaii/Carib sectors for AWC Radar Mosaic
                     [REF] remove warning impact and old mosaic code no longer needed
                     [REF] various formatting/code cleanup
