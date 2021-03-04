@@ -17,7 +17,7 @@
 // TODO [REF] add ObjectLocation
 // TODO [ADD] LSR by WFO - download and show one at a time
 
-55531 2021_03_03    [REF] remove ObjectImpactGraphic.kt
+55531 2021_03_04    [REF] remove ObjectImpactGraphic.kt and other files no longer needed
                     [REF] lint
 55530 2021_03_03    [ADD] AK/Hawaii/Carib sectors for AWC Radar Mosaic
                     [REF] remove warning impact and old mosaic code no longer needed

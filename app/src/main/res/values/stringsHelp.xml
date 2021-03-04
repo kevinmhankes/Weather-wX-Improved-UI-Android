@@ -57,10 +57,6 @@
          Size of the normal size text. Default is 16. Large and small font are relative to this as well. A full manual app restart might be required for this (for now). Work in progress.
 </string>
 
-     <string name="ui_awc_radar_mosaic">
-         Use the AWC Radar mosaic images instead of the main NWS images.
-</string>
-
     <string name="widget_prevent_tap">
 Prevent tapping on a widget from opening the app. Please note that after changing this setting you must then delete and re-add any widget that you want this to take effect for.
 </string>

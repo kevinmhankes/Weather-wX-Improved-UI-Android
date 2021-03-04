@@ -53,7 +53,6 @@
     <string name="title_activity_settings_location_generic">Location Settings</string>
     <string name="title_activity_hourly">Hourly Forecast</string>
     <string name="title_activity_settings_notifications">Notifications</string>
-    <string name="title_activity_storm_reports">() Storm Reports - </string>
     <string name="title_activity_spctstorm_outlook">Thunderstorm Outlook</string>
     <string name="title_activity_spcswosummary">Convective Outlook Summary</string>
     <string name="label_br">N0Q: Base Reflectivity</string>
@@ -108,7 +107,6 @@
     <string name="title_activity_spcfire_outlook">SPC Fire Weather Outlook</string>
     <string name="title_activity_hpcrainfall_forecast">WPC Excessive Rainfall Forecast</string>
     <string name="title_activity_spcsoundings">Sounding</string>
-    <string name="title_activity_nwsmosaic">NWS Mosaics</string>
     <string name="title_activity_severe_dashboard">Severe Dashboard</string>
     <string name="title_activity_settings_location_list_view">Locations</string>
     <string name="title_activity_settings_widgets">Widgets</string>
