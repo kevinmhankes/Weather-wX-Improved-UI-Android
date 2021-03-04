@@ -17,6 +17,7 @@
 // TODO [REF] add ObjectLocation
 // TODO [ADD] LSR by WFO - download and show one at a time
 
+55532 2021_03_04
 55531 2021_03_04    [REF] remove ObjectImpactGraphic.kt and other files no longer needed
                     [REF] lint
                     [ADD] placeholders for Android 12 (SDK31) testing
