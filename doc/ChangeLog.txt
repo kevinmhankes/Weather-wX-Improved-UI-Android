@@ -20,6 +20,7 @@
 // TODO [FIX] code cleanup in utilDownloadMcd/w/mpd
 // TODO [ADD] hourly toggle for old API
 
+55534 2021_03_10
 55533 2021_03_10    [ADD] option to not use new NWS API for hourly data
 55532 2021_03_10    [FIX] some forecasts icons during generation were showing "0%" instead of nothing
                     [ADD] option to not use new NWS API for hourly data - WIP
