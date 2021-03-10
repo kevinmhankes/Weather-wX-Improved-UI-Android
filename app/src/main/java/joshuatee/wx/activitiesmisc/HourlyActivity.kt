@@ -43,6 +43,7 @@ import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.GraphView
+import joshuatee.wx.UIPreferences
 import kotlinx.coroutines.*
 
 class HourlyActivity : BaseActivity() {
@@ -95,8 +96,13 @@ class HourlyActivity : BaseActivity() {
         htmlShare = withContext(Dispatchers.IO) {
             UtilityUSHourly.get(locationNumber)
         }
-        hourlyData = withContext(Dispatchers.IO) {
+//        hourlyData = withContext(Dispatchers.IO) {
+//            UtilityUSHourly.getStringForActivity(htmlShare[1])
+//        }
+        hourlyData = if (UIPreferences.useNwsApiForHourly) {
             UtilityUSHourly.getStringForActivity(htmlShare[1])
+        } else {
+            UtilityUSHourly.getStringForActivityFromOldApi(htmlShare[1])
         }
         graphCard.visibility = View.VISIBLE
         objectCardVerticalText.setText(listOf(hourlyData.time, hourlyData.temp, hourlyData.windSpeed, hourlyData.windDir, hourlyData.conditions))

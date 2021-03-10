@@ -1,6 +1,6 @@
 /*
 
-    Copyright 2013, 2014, 2015, 2016, 2017, 2018, 2019 joshua.tee@gmail.com
+    Copyright 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021 joshua.tee@gmail.com
 
     This file is part of wX.
 
@@ -24,14 +24,11 @@ package joshuatee.wx.activitiesmisc
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.radar.LatLon
-import joshuatee.wx.GlobalVariables
 import joshuatee.wx.settings.Location
-import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityIO
-import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.util.UtilityTime
 import joshuatee.wx.util.UtilityString
-import java.util.*
+// import java.util.*
 
 object UtilityHourlyOldApi {
 
@@ -41,10 +38,10 @@ object UtilityHourlyOldApi {
                 latLon.latString + "&lon=" +
                 latLon.lonString + "&FcstType=digitalDWML")
         val header: String = "Time".ljust(13) + " " + "Temp".ljust(5) + "Dew".ljust(5) + "Precip%".ljust(7) + "Cloud%".ljust(6) + MyApplication.newline
-        return MyApplication.newline + header + UtilityHourlyOldApi.parseHourly(html)
+        return MyApplication.newline + header + parseHourly(html)
     }
 
-    fun parseHourly(html: String): String {
+    private fun parseHourly(html: String): String {
         val regexpList = arrayOf(
             "<temperature type=.hourly.*?>(.*?)</temperature>",
             "<temperature type=.dew point.*?>(.*?)</temperature>",
@@ -55,17 +52,17 @@ object UtilityHourlyOldApi {
         val rawData = UtilityString.parseXmlExt(regexpList, html)
         val temp2List = UtilityString.parseXmlValue(rawData[0])
         val temp3List = UtilityString.parseXmlValue(rawData[1])
-        var time2List = UtilityString.parseXml(rawData[2], "start-valid-time")
+        val time2List = UtilityString.parseXml(rawData[2], "start-valid-time")
         val temp4List = UtilityString.parseXmlValue(rawData[3])
         val temp5List = UtilityString.parseXmlValue(rawData[4])
 
-        var sb: String = ""
-        val year : Int = UtilityTime.getYear()
+        var sb = ""
+        val year = UtilityTime.getYear()
 
-        val temp2Len: Int = temp2List.size
-        val temp3Len: Int = temp3List.size
-        val temp4Len: Int = temp4List.size
-        val temp5Len: Int = temp5List.size
+        val temp2Len = temp2List.size
+        val temp3Len = temp3List.size
+        val temp4Len = temp4List.size
+        val temp5Len = temp5List.size
 
         for (j in 1 until temp2Len) {
             time2List[j] = UtilityString.replaceAllRegexp(time2List[j], "-0[0-9]:00", "")
@@ -74,17 +71,17 @@ object UtilityHourlyOldApi {
             time2List[j] = time2List[j].replace("00:00", "00")
 
             val timeSplit = time2List[j].split(" ")
-            //# time_split2 = time_split[0].split("/") pre 2017
+            // time_split2 = time_split[0].split("/") pre 2017
             val timeSplit2 = timeSplit[0].split("-")
             var month = timeSplit2[0].toIntOrNull() ?: 0
             val day = timeSplit2[1].toIntOrNull() ?: 0
-            var dayOfTheWeek: String = ""
+            var dayOfTheWeek = ""
             month -= 1
             dayOfTheWeek = UtilityTime.dayOfWeek(year, month, day)
 
-            var temp3Val: String = "."
-            var temp4Val: String = "."
-            var temp5Val: String = "."
+            var temp3Val = "."
+            var temp4Val = "."
+            var temp5Val = "."
 
             if (temp2Len == temp3Len) {
                 temp3Val = temp3List[j]
