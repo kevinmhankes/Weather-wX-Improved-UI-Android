@@ -46,6 +46,7 @@ class SettingsUIActivity : BaseActivity() {
             "mixedBlue",
             "darkBlue",
             "black",
+            "allBlack",
             "green",
             "gray",
             "white",
@@ -324,6 +325,14 @@ class SettingsUIActivity : BaseActivity() {
                         "Use new NWS API for 7 day",
                         "USE_NWS_API_SEVEN_DAY",
                         R.string.use_nws_api
+                ).card
+        )
+        linearLayout.addView(
+                ObjectSettingsCheckBox(
+                        this,
+                        "Use new NWS API for Hourly",
+                        "USE_NWS_API_HOURLY",
+                        R.string.use_nws_api_hourly
                 ).card
         )
 

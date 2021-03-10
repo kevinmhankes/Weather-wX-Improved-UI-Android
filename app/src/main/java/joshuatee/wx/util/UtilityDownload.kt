@@ -273,7 +273,7 @@ object UtilityDownload {
             prod == "HWOLOC" -> text = getTextProduct(context, "hwo" + Location.wfo.toLowerCase(Locale.US))
             prod == "VFDLOC" -> text = getTextProduct(context, "vfd" + Location.wfo.toLowerCase(Locale.US))
             prod == "SUNMOON" -> text = "Sun/Moon data: Content is no longer available from upstream provider."
-            prod == "HOURLY" -> text = UtilityUSHourly.getString(Location.currentLocation)[0]
+            prod == "HOURLY" -> text = UtilityUSHourly.get(Location.currentLocation)[0]
             prod == "QPF94E" -> {
                 val textUrl = "https://www.wpc.ncep.noaa.gov/qpf/ero.php?opt=curr&day=" + "1"
                 val html = textUrl.getHtmlWithNewLine()

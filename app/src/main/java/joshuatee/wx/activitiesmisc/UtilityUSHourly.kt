@@ -23,6 +23,7 @@ package joshuatee.wx.activitiesmisc
 
 import joshuatee.wx.Extensions.parseColumn
 import joshuatee.wx.MyApplication
+import joshuatee.wx.UIPreferences
 import joshuatee.wx.settings.Location
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownloadNws
@@ -68,7 +69,16 @@ object UtilityUSHourly {
             .replace("Freezing", "Frz")
             .replace("T-storms", "Tst")
 
-    fun getString(locationNumber: Int): List<String> {
+    fun get(locationNumber: Int): List<String> {
+        if (UIPreferences.useNwsApiForHourly) {
+            val dataList = getString1(locationNumber)
+            return dataList
+        }
+        val data = UtilityHourlyOldApi.getHourlyString(locationNumber)
+        return listOf(data, data)
+    }
+
+    fun getString1(locationNumber: Int): List<String> {
         val html = UtilityDownloadNws.getHourlyData(Location.getLatLon(locationNumber))
         val header = String.format("%-7s", "Time") + " " + String.format("%-5s", "Temp") + String.format("%-9s", "WindSpd") + String.format("%-8s", "WindDir") + MyApplication.newline
         return listOf(header + parse(html), html)

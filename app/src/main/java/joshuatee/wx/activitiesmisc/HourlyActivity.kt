@@ -93,7 +93,7 @@ class HourlyActivity : BaseActivity() {
 
     private fun getContent() = GlobalScope.launch(uiDispatcher) {
         htmlShare = withContext(Dispatchers.IO) {
-            UtilityUSHourly.getString(locationNumber)
+            UtilityUSHourly.get(locationNumber)
         }
         hourlyData = withContext(Dispatchers.IO) {
             UtilityUSHourly.getStringForActivity(htmlShare[1])

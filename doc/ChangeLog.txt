@@ -17,8 +17,12 @@
 // TODO [REF] add ObjectLocation
 // TODO [ADD] LSR by WFO - download and show one at a time
 // TODO [FIX] Hourly onrestart graph
+// TODO [FIX] code cleanup in utilDownloadMcd/w/mpd
+// TODO [ADD] hourly toggle for old API
 
-55532 2021_03_09    [FIX] some forecasts icons during generation were showing "0%" instead of nothing
+55532 2021_03_10    [FIX] some forecasts icons during generation were showing "0%" instead of nothing
+                    [ADD] option to not use new NWS API for hourly data - WIP
+                    [ADD] all black theme (no gray) - WIP
 55531 2021_03_04    [REF] remove ObjectImpactGraphic.kt and other files no longer needed
                     [REF] lint
                     [ADD] placeholders for Android 12 (SDK31) testing

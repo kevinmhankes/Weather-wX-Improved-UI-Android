@@ -205,7 +205,8 @@ object Utility {
 
     fun theme(themeStr: String) = when {
         themeStr.startsWith("blue") -> R.style.MyCustomTheme_NOAB
-        themeStr.startsWith("black") -> R.style.MyCustomTheme_Holo_Dark_NOAB
+        themeStr == "black" -> R.style.MyCustomTheme_Holo_Dark_NOAB
+        themeStr == "allBlack" -> R.style.MyCustomTheme_Holo_Darkest_NOAB
         themeStr.startsWith("green") -> R.style.MyCustomTheme_Green_NOAB
         themeStr.startsWith("gray") -> R.style.MyCustomTheme_Gray_NOAB
         themeStr.startsWith("darkBlue") -> R.style.MyCustomTheme_DarkBlue_NOAB
