@@ -19,6 +19,7 @@
 // TODO [FIX] Hourly onrestart graph
 // TODO [FIX] code cleanup in utilDownloadMcd/w/mpd
 // TODO [ADD] hourly toggle for old API
+// TODO [FIX] wxglpolygon warning, need vtec time check in top method like bottom
 
 55534 2021_03_10
 55533 2021_03_10    [ADD] option to not use new NWS API for hourly data
