@@ -116,6 +116,16 @@
         <item name="colorAccent">@color/blue_accent</item>
     </style>
 
+    <style name="PickerDialogThemeDark" parent="Theme.MaterialComponents.Dialog.Bridge">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="colorControlActivated">@color/gray_normal</item>
+    </style>
+
     <style name="AppCompatAlertDialogStyle" parent="Theme.MaterialComponents.Dialog.Alert.Bridge">
         <item name="colorAccent">@color/yellow</item>
         <item name="colorOnSecondary">@color/yellow</item>
