@@ -20,6 +20,7 @@
 // TODO [FIX] code cleanup in utilDownloadMcd/w/mpd
 // TODO [FIX] wxglpolygon warning, need vtec time check in top method like bottom
 // TODO [ADD] allBlack refinements (Number sliders in settings, Settings notifications dialogs, nav drawer pull out)
+// TODO                             UsAlert/Dash buttons are invisible, Pull up menus from bottom white, Location edit search dialogue blue)
 
 55534 2021_03_14
 55533 2021_03_10    [ADD] option to not use new NWS API for hourly data
