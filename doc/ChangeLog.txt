@@ -22,6 +22,7 @@
 // TODO [ADD] allBlack refinements (Settings notifications dialogs, nav drawer pull out(combos besides spc meso))
 // TODO                             UsAlert/Dash buttons are invisible, Pull up menus from bottom white, Location edit search dialogue blue)
 
+55535 2021_03_14
 55534 2021_03_14    [ADD] activity_image_show_navdrawer.xml, activity_linear_layout_show_navdrawer_bottom_toolbar.xml
                           activity_spcmeso.xml, activity_linear_layout_show_navdrawer.xml
                             change ListView android:background="@color/primary_dark_blue"
