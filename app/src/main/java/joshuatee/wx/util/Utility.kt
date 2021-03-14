@@ -45,7 +45,9 @@ object Utility {
         diagnostics += MyApplication.dm.heightPixels.toString() + " Screen height" + MyApplication.newline
         diagnostics += UtilityUI.statusBarHeight(context).toString() + " Status bar height" + MyApplication.newline
         var landScape = false
-        if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) landScape = true
+        if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            landScape = true
+        }
         diagnostics += landScape.toString() + " Landscape" + MyApplication.newline
         return diagnostics
     }
@@ -219,7 +221,7 @@ object Utility {
         else -> R.style.MyCustomTheme_NOAB
     }
 
-    fun isThemeAllBlack() = UIPreferences.themeInt == R.style.MyCustomTheme_Holo_Dark_NOAB
+    fun isThemeAllBlack() = UIPreferences.themeInt == R.style.MyCustomTheme_Holo_Dark_NOAB || UIPreferences.themeInt == R.style.MyCustomTheme_Holo_Darkest_NOAB
 
     fun isThemeAllWhite() = UIPreferences.themeInt == R.style.MyCustomTheme_whitest_NOAB
 

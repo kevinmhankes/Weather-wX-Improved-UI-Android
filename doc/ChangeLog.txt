@@ -19,10 +19,13 @@
 // TODO [FIX] Hourly onrestart graph
 // TODO [FIX] code cleanup in utilDownloadMcd/w/mpd
 // TODO [FIX] wxglpolygon warning, need vtec time check in top method like bottom
-// TODO [ADD] allBlack refinements (Settings notifications dialogs, nav drawer pull out)
+// TODO [ADD] allBlack refinements (Settings notifications dialogs, nav drawer pull out(combos besides spc meso))
 // TODO                             UsAlert/Dash buttons are invisible, Pull up menus from bottom white, Location edit search dialogue blue)
 
-55534 2021_03_14
+55534 2021_03_14    [ADD] activity_image_show_navdrawer.xml, activity_linear_layout_show_navdrawer_bottom_toolbar.xml
+                          activity_spcmeso.xml, activity_linear_layout_show_navdrawer.xml
+                            change ListView android:background="@color/primary_dark_blue"
+                            to android:background="?attr/colorPrimary" in support of allBlack theme, minor impact to other themes
 55533 2021_03_10    [ADD] option to not use new NWS API for hourly data
 55532 2021_03_10    [FIX] some forecasts icons during generation were showing "0%" instead of nothing
                     [ADD] option to not use new NWS API for hourly data - WIP
