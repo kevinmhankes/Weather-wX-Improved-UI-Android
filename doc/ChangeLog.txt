@@ -19,10 +19,11 @@
 // TODO [FIX] Hourly onrestart graph
 // TODO [FIX] code cleanup in utilDownloadMcd/w/mpd
 // TODO [FIX] wxglpolygon warning, need vtec time check in top method like bottom
-// TODO [ADD] allBlack refinements (Settings notifications dialogs, nav drawer pull out(combos besides spc meso))
+// TODO [ADD] allBlack refinements (Settings notifications dialogs)
 // TODO                             UsAlert/Dash buttons are invisible, Pull up menus from bottom white, Location edit search dialogue blue)
 
-55535 2021_03_14
+55535 2021_03_14    [ADD] additional layout changes like the last revision in the following files:
+                        res/layout/activity_models_* (except HREF)
 55534 2021_03_14    [ADD] activity_image_show_navdrawer.xml, activity_linear_layout_show_navdrawer_bottom_toolbar.xml
                           activity_spcmeso.xml, activity_linear_layout_show_navdrawer.xml
                             change ListView android:background="@color/primary_dark_blue"
