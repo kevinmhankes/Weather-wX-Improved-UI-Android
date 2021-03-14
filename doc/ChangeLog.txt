@@ -18,10 +18,10 @@
 // TODO [ADD] LSR by WFO - download and show one at a time
 // TODO [FIX] Hourly onrestart graph
 // TODO [FIX] code cleanup in utilDownloadMcd/w/mpd
-// TODO [ADD] hourly toggle for old API
 // TODO [FIX] wxglpolygon warning, need vtec time check in top method like bottom
+// TODO [ADD] allBlack refinements (Number sliders in settings, Settings notifications dialogs, nav drawer pull out)
 
-55534 2021_03_10
+55534 2021_03_14
 55533 2021_03_10    [ADD] option to not use new NWS API for hourly data
 55532 2021_03_10    [FIX] some forecasts icons during generation were showing "0%" instead of nothing
                     [ADD] option to not use new NWS API for hourly data - WIP
