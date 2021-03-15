@@ -18,8 +18,9 @@
 // TODO [ADD] LSR by WFO - download and show one at a time
 // TODO [FIX] Hourly onrestart graph
 // TODO [FIX] code cleanup in utilDownloadMcd/w/mpd
+// TODO [ADD] GOESS option to follow location
 // TODO [FIX] wxglpolygon warning, need vtec time check in top method like bottom
-// TODO [ADD] allBlack refinements (UsAlert/Dash buttons are invisible, Pull up menus from bottom white)
+// TODO [ADD] allBlack refinements (Spc sref nav drawer, Dash buttons are invisible)
 
 55536 2021_03_14
 55535 2021_03_14    [ADD] additional layout changes like the last revision in the following files:
