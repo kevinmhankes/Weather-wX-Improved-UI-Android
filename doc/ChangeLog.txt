@@ -22,7 +22,7 @@
 // TODO [FIX] wxglpolygon warning, need vtec time check in top method like bottom
 // TODO [ADD] allBlack refinements (Spc sref nav drawer, Dash buttons are invisible)
 
-55536 2021_03_14
+55536 2021_03_18    [FIX] settings->homescreen, force web option to submenu as it broke when "icons evenly spaced" was enabled
 55535 2021_03_14    [ADD] additional layout changes like the last revision in the following files:
                         res/layout/activity_models_* (except HREF)
                         use relative color xml files for icons in ObjectCardAlertSummaryItem
