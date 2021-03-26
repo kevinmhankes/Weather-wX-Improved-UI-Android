@@ -22,6 +22,7 @@
 // TODO [FIX] wxglpolygon warning, need vtec time check in top method like bottom
 // TODO [ADD] ObjectWarning
 // TODO [ADD] allBlack refinements (Spc sref nav drawer, Dash buttons are invisible)
+// TODO [ADD] change Legend to Color Legend in nexrad menu
 
 55536 2021_03_18    [FIX] settings->homescreen, force web option to submenu as it broke when "icons evenly spaced" was enabled
 55535 2021_03_14    [ADD] additional layout changes like the last revision in the following files:
