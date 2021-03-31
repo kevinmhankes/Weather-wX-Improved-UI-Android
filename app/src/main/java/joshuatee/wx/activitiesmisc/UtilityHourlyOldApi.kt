@@ -76,7 +76,7 @@ object UtilityHourlyOldApi {
             var month = timeSplit2[0].toIntOrNull() ?: 0
             val day = timeSplit2[1].toIntOrNull() ?: 0
             var dayOfTheWeek = ""
-            month -= 1
+            // month -= 1
             dayOfTheWeek = UtilityTime.dayOfWeek(year, month, day)
 
             var temp3Val = "."

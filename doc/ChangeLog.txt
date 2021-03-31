@@ -24,7 +24,8 @@
 // TODO [ADD] allBlack refinements (Spc sref nav drawer, Dash buttons are invisible)
 // TODO [ADD] change Legend to Color Legend in nexrad menu
 
-55536 2021_03_18    [FIX] settings->homescreen, force web option to submenu as it broke when "icons evenly spaced" was enabled
+55536 2021_03_31    [FIX] settings->homescreen, force web option to submenu as it broke when "icons evenly spaced" was enabled
+                    [FIX] fix time translation in old API hourly
 55535 2021_03_14    [ADD] additional layout changes like the last revision in the following files:
                         res/layout/activity_models_* (except HREF)
                         use relative color xml files for icons in ObjectCardAlertSummaryItem
