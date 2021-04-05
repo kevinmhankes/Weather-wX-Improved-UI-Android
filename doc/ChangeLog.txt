@@ -18,7 +18,7 @@
 // TODO [ADD] LSR by WFO - download and show one at a time
 // TODO [FIX] Hourly onrestart graph
 // TODO [FIX] code cleanup in utilDownloadMcd/w/mpd
-// TODO [ADD] GOESS option to follow location
+// TODO [ADD] GOES option to follow location
 // TODO [FIX] wxglpolygon warning, need vtec time check in top method like bottom
 // TODO [ADD] ObjectWarning
 // TODO [ADD] allBlack refinements (Spc sref nav drawer, Dash buttons are invisible)
