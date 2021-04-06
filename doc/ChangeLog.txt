@@ -19,9 +19,9 @@
 // TODO [FIX] Hourly onrestart graph
 // TODO [FIX] code cleanup in utilDownloadMcd/w/mpd
 // TODO [ADD] GOES option to follow location
-// TODO [FIX] wxglpolygon warning, need vtec time check in top method like bottom
 // TODO [ADD] allBlack refinements (Spc sref nav drawer, Dash buttons are invisible)
 
+55538 2021_04_06
 55537 2021_04_06    [ADD] ObjectWarning
 55536 2021_04_04    [FIX] settings->homescreen, force web option to submenu as it broke when "icons evenly spaced" was enabled
                     [FIX] fix time translation in old API hourly
