@@ -32,7 +32,6 @@ import joshuatee.wx.ui.UtilityTheme
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityString
 
-// TODO rename file
 object UtilityNws {
 
     // Given the raw icon URL from NWS, determine if bitmap is on disk or must be created
