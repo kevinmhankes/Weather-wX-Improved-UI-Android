@@ -21,11 +21,15 @@ class StartupActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Utility.readPrefWithNull(this, "LOC1_LABEL", null) == null) UtilityStorePreferences.setDefaults(this)
+        if (Utility.readPrefWithNull(this, "LOC1_LABEL", null) == null) {
+            UtilityStorePreferences.setDefaults(this)
+        }
         MyApplication.initPreferences(this)
         Location.refreshLocationData(this)
         UtilityWXJobService.startService(this)
-        if (UIPreferences.mediaControlNotif) UtilityNotification.createMediaControlNotification(applicationContext, "")
+        if (UIPreferences.mediaControlNotif) {
+            UtilityNotification.createMediaControlNotification(applicationContext, "")
+        }
         if (Utility.readPref(this, "LAUNCH_TO_RADAR", "false") == "false") {
             ObjectIntent(this, WX::class.java)
         } else {

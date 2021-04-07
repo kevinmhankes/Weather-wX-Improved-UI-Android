@@ -14,14 +14,15 @@
 // TODO [ADD] 'getter for defaultDisplay: Display!' is deprecated. Deprecated in Java
 // TODO [ADD] 'getMetrics(DisplayMetrics!): Unit' is deprecated. Deprecated in Java
 // TODO [REF] move radarColorPalette,colorMap to ObjectColorPalette
-// TODO [REF] add ObjectLocation
 // TODO [ADD] LSR by WFO - download and show one at a time
 // TODO [FIX] Hourly onrestart graph
 // TODO [FIX] code cleanup in utilDownloadMcd/w/mpd
 // TODO [ADD] GOES option to follow location
 // TODO [ADD] allBlack refinements (Spc sref nav drawer, Dash buttons are invisible)
+// TODO [REF] add ObjectLocation
 
-55538 2021_04_06
+55538 2021_04_07    [FIX] add try for java.nio.BufferOverflowException: joshuatee.wx.radar.UtilityWXOGLPerf.colorGen (UtilityWXOGLPerf.kt:589)
+                    [REF] readability
 55537 2021_04_06    [ADD] ObjectWarning
 55536 2021_04_04    [FIX] settings->homescreen, force web option to submenu as it broke when "icons evenly spaced" was enabled
                     [FIX] fix time translation in old API hourly

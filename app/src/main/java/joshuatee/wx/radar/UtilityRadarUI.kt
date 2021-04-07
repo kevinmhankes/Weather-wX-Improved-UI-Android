@@ -178,9 +178,9 @@ internal object UtilityRadarUI {
             wxglTextObjects: MutableList<WXGLTextObject>, paneList: List<Int>, imageMap: ObjectImageMap?, wxglSurfaceViews: MutableList<WXGLSurfaceView>,
             fnGps: () -> Unit, fnGetLatLon: () -> LatLon, archiveMode: Boolean = false) {
         wxglRender.initializeGeometry()
-        UtilityLog.d("wx", "DEBUG: redraw geo called " + oldRadarSites[index] + " " + wxglRenders[index].rid)
+        // UtilityLog.d("wx", "DEBUG: redraw geo called " + oldRadarSites[index] + " " + wxglRenders[index].rid)
         if (oldRadarSites[index] != wxglRenders[index].rid) {
-            UtilityLog.d("wx", "DEBUG: redraw geo")
+            // UtilityLog.d("wx", "DEBUG: redraw geo")
             wxglRender.setChunkCount(0)
             wxglRender.setChunkCountSti(0)
             wxglRender.setHiInit(false)
@@ -309,6 +309,8 @@ internal object UtilityRadarUI {
 
     private fun showNearestProduct(context: Context, polygonType: PolygonType, wxglSurfaceView: WXGLSurfaceView, uiDispatcher: CoroutineDispatcher) = GlobalScope.launch(uiDispatcher) {
         val text = withContext(Dispatchers.IO) { UtilityWatch.show(wxglSurfaceView.latLon, polygonType) }
-        if (text != "") ObjectIntent.showMcd(context, arrayOf(text, "", polygonType.toString()))
+        if (text != "") {
+            ObjectIntent.showMcd(context, arrayOf(text, "", polygonType.toString()))
+        }
     }
 }

@@ -38,7 +38,9 @@ internal object UtilityColorPalette4bitGeneric {
             else -> R.raw.colormap19
         }
         UtilityIO.readTextFileFromRaw(context.resources, fileId).split("\n").forEach { line ->
-            if (line.contains(",")) MyApplication.colorMap[product]!!.putLine(line)
+            if (line.contains(",")) {
+                MyApplication.colorMap[product]!!.putLine(line)
+            }
         }
     }
 }

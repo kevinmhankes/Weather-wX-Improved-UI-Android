@@ -39,8 +39,8 @@ class ObjectWarning() {
     var event = ""
     var sender = ""
     var polygon = ""
-    var vtec = ""
-    var geometry = ""
+    private var vtec = ""
+    private var geometry = ""
     var isCurrent = true
 
     constructor(
@@ -86,18 +86,18 @@ class ObjectWarning() {
         data = data.replace(",", " ")
         data = data.replace("-", "")
         val points = data.split(" ")
-        if (points.size > 2) {
+        return if (points.size > 2) {
             val lat = points[1]
             val lon = "-" + points[0]
             val latLon = LatLon(lat, lon)
             val radarSites = UtilityLocation.getNearestRadarSites(latLon, 1, false)
             if (radarSites.isEmpty()) {
-                return ""
+                ""
             } else {
-                return radarSites[0].name
+                radarSites[0].name
             }
         } else {
-            return ""
+            ""
         }
     }
 
@@ -112,17 +112,20 @@ class ObjectWarning() {
     companion object {
 
         fun getBulkData(type1: PolygonType): String {
-            var html = ""
-            if (type1 == PolygonType.TOR) {
-                html = MyApplication.severeDashboardTor.value
-            } else if (type1 == PolygonType.TST) {
-                html = MyApplication.severeDashboardTst.value
-            } else if (type1 == PolygonType.FFW) {
-                html = MyApplication.severeDashboardFfw.value
-            } else {
-                html = ""
+            return when (type1) {
+                PolygonType.TOR -> {
+                    MyApplication.severeDashboardTor.value
+                }
+                PolygonType.TST -> {
+                    MyApplication.severeDashboardTst.value
+                }
+                PolygonType.FFW -> {
+                    MyApplication.severeDashboardFfw.value
+                }
+                else -> {
+                    ""
+                }
             }
-            return html
         }
 
         fun parseJson(htmlF: String): List<ObjectWarning> {

@@ -96,7 +96,11 @@ class MyApplication : Application() {
         Location.refreshLocationData(this)
         System.setProperty("http.keepAlive", "false")
         newline = System.getProperty("line.separator") ?: "\n"
-        spinnerLayout = if (UIPreferences.themeIsWhite) R.layout.spinner_row_white else R.layout.spinner_row_blue
+        spinnerLayout = if (UIPreferences.themeIsWhite) {
+            R.layout.spinner_row_white
+        } else {
+            R.layout.spinner_row_blue
+        }
         //
         // Most HTTP downloads will use the structures setup below
         //
@@ -122,7 +126,9 @@ class MyApplication : Application() {
             UtilityTts.initTts(applicationContext)
             UtilityLog.d("wx", "DEBUG: TTS init for notif" )
         }
-        if (!loadedBuffers) initBuffers(this)
+        if (!loadedBuffers) {
+            initBuffers(this)
+        }
         imageCollectionMap = ObjectImagesCollection.initialize()
         PolygonType.refresh()
     }
@@ -293,11 +299,11 @@ class MyApplication : Application() {
         const val ICON_ALERT = R.drawable.ic_warning_24dp
         const val ICON_RADAR = R.drawable.ic_flash_on_24dp
         const val ICON_RADAR_WHITE = R.drawable.ic_flash_on_24dp_white
-        const val ICON_RADAR_BLACK = R.drawable.ic_flash_on_24dp_black
+        // const val ICON_RADAR_BLACK = R.drawable.ic_flash_on_24dp_black
 
         const val ICON_FORECAST = R.drawable.ic_place_24dp
         const val ICON_CURRENT = R.drawable.ic_info_outline_24dp
-        const val ICON_CURRENT_BLACK = R.drawable.ic_info_outline_24dp_black
+        // const val ICON_CURRENT_BLACK = R.drawable.ic_info_outline_24dp_black
         const val ICON_CURRENT_WHITE = R.drawable.ic_info_outline_24dp_white
 
         const val ICON_NHC_1 = R.drawable.ic_brightness_auto_24dp
@@ -371,7 +377,9 @@ class MyApplication : Application() {
             checkspc = getInitialPreference("CHECKSPC", "false")
             checkwpc = getInitialPreference("CHECKWPC", "false")
             checktor = getInitialPreference("CHECKTOR", "false")
-            if (UtilityUI.isTablet()) UIPreferences.nwsIconSizeDefault = 6
+            if (UtilityUI.isTablet()) {
+                UIPreferences.nwsIconSizeDefault = 6
+            }
             nwsIconSize = preferences.getInt("NWS_ICON_SIZE_PREF", UIPreferences.nwsIconSizeDefault)
             uiAnimIconFrames = getInitialPreferenceString("UI_ANIM_ICON_FRAMES", "10")
             blackBg = getInitialPreference("NWS_RADAR_BG_BLACK", "")
@@ -389,7 +397,9 @@ class MyApplication : Application() {
             nwsIconTextColor = getInitialPreference("NWS_ICON_TEXT_COLOR", Color.rgb(38, 97, 139))
             nwsIconBottomColor = getInitialPreference("NWS_ICON_BOTTOM_COLOR", Color.rgb(255, 255, 255))
             nexradRadarBackgroundColor = getInitialPreference("NEXRAD_RADAR_BACKGROUND_COLOR", Color.rgb(0, 0, 0))
-            if (UtilityUI.isTablet()) wxoglSizeDefault = 8
+            if (UtilityUI.isTablet()) {
+                wxoglSizeDefault = 8
+            }
             wxoglSize = getInitialPreference("WXOGL_SIZE", wxoglSizeDefault)
             wxoglRememberLocation = getInitialPreference("WXOGL_REMEMBER_LOCATION", "false")
             wxoglRadarAutoRefresh = getInitialPreference("RADAR_AUTOREFRESH", "false")
@@ -639,7 +649,9 @@ class MyApplication : Application() {
                 try {
                     val inputStream = context.resources.openRawResource(fileID)
                     val dataInputStream = DataInputStream(BufferedInputStream(inputStream))
-                    for (index in 0 until count) { byteBuffer.putFloat(dataInputStream.readFloat()) }
+                    for (index in 0 until count) {
+                        byteBuffer.putFloat(dataInputStream.readFloat())
+                    }
                     dataInputStream.close()
                     inputStream.close()
                 } catch (e: IOException) {

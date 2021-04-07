@@ -125,7 +125,9 @@ class WX : CommonActionBarFragment() {
             navigationView = findViewById(R.id.nav_view)
             drawerLayout = findViewById(R.id.drawer_layout)
             navigationView.itemIconTintList = null
-            if (!UIPreferences.themeIsWhite) navigationView.itemTextColor = ColorStateList.valueOf(Color.WHITE)
+            if (!UIPreferences.themeIsWhite) {
+                navigationView.itemTextColor = ColorStateList.valueOf(Color.WHITE)
+            }
             val color = UtilityTheme.getPrimaryColorFromSelectedTheme(this, 0)
             var tint = ColorStateList.valueOf(color)
             val headerLayout = navigationView.getHeaderView(0)
@@ -154,7 +156,11 @@ class WX : CommonActionBarFragment() {
             wfoButton.backgroundTintList = tint
             hourlyButton.backgroundTintList = tint
             settingsButton.backgroundTintList = tint
-            val gravityForDrawer = if (UIPreferences.navDrawerMainScreenOnRight) GravityCompat.END else GravityCompat.START
+            val gravityForDrawer = if (UIPreferences.navDrawerMainScreenOnRight) {
+                GravityCompat.END
+            } else {
+                GravityCompat.START
+            }
             severeDashboardButton.setOnClickListener {
                 ObjectIntent(this, SevereDashboardActivity::class.java)
                 drawerLayout.closeDrawer(gravityForDrawer)
@@ -251,8 +257,7 @@ class WX : CommonActionBarFragment() {
             ObjectFab(this, this, R.id.fab2, MyApplication.ICON_ADD2) {
                 val headerSize: Float
                 val tabStr = UtilitySpc.checkSpc()
-                if (MyApplication.checkspc || MyApplication.checktor || MyApplication.checkwpc
-                        && (tabStr[0] != "SPC" || tabStr[1] != "MISC")) {
+                if (MyApplication.checkspc || MyApplication.checktor || MyApplication.checkwpc && (tabStr[0] != "SPC" || tabStr[1] != "MISC")) {
                     statusText.visibility = View.VISIBLE
                     statusText.text = tabStr[0] + " " + tabStr[1]
                     headerSize = 280f
@@ -436,33 +441,6 @@ class WX : CommonActionBarFragment() {
             else -> return super.onKeyUp(keyCode, event)
         }
     }
-
-    /* fun onNavigationItemSelected(item: MenuItem): Boolean {
-         // Handle navigation view item clicks here.
-         when (item.itemId) {
-             *//*R.id.nav_camera -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
-
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }*//*
-        }
-
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
-    }*/
 }
 
 
