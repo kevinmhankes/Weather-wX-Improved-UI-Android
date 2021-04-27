@@ -21,7 +21,7 @@
 // TODO [ADD] allBlack refinements (Spc sref nav drawer, Dash buttons are invisible)
 // TODO [REF] add ObjectLocation
 
-55539 2021_04_07
+55539 2021_04_27    [FIX] US Tornado notification - check vtec for old alerts before notifying
 55538 2021_04_07    [FIX] add try for java.nio.BufferOverflowException: joshuatee.wx.radar.UtilityWXOGLPerf.colorGen (UtilityWXOGLPerf.kt:589)
                     [REF] readability
 55537 2021_04_06    [ADD] ObjectWarning

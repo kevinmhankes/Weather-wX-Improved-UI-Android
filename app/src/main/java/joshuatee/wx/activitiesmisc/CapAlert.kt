@@ -24,9 +24,11 @@ package joshuatee.wx.activitiesmisc
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
+import joshuatee.wx.RegExp
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.radar.LatLon
 import joshuatee.wx.settings.UtilityLocation
+import joshuatee.wx.util.UtilityString
 
 class CapAlert {
 
@@ -113,6 +115,7 @@ class CapAlert {
             capAlert.summary = capAlert.summary.replace("\\n\\n", "ABC123")
             capAlert.summary = capAlert.summary.replace("\\n", " ")
             capAlert.summary = capAlert.summary.replace("ABC123", "\n\n")
+            capAlert.vtec = UtilityString.parse(html, RegExp.warningVtecPattern)
             capAlert.instructions = capAlert.instructions.replace("\\n", " ")
             capAlert.text = ""
             capAlert.text += capAlert.title
