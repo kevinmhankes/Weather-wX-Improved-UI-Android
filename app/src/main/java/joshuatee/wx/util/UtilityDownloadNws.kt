@@ -155,13 +155,13 @@ object UtilityDownloadNws {
         return out.toString()
     }
 
-    fun getStringFromUrlSep(strURL: String): String {
-        UtilityLog.d("wx", "getStringFromUrlBaseNoHeader: $strURL")
+    fun getStringFromUrlSep(url: String): String {
+        UtilityLog.d("wx", "getStringFromUrlBaseNoHeader: $url")
         val breakStr = "ABC123_456ZZ"
         val out = StringBuilder(5000)
         try {
             val request = Request.Builder()
-                    .url(strURL)
+                    .url(url)
                     .header("User-Agent", USER_AGENT_STR)
                     .addHeader("Accept", "application/vnd.noaa.dwml+xml;version=1")
                     .build()
