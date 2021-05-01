@@ -146,8 +146,8 @@ class SevereDashboardActivity : BaseActivity() {
         // listOfWfoForWarnings.clear()
         var numberOfWarnings = 0
         listOf(wTor, wTst, wFfw).forEach { severeWarning ->
-            if (severeWarning.count > 0) {
-                ObjectCardBlackHeaderText(this@SevereDashboardActivity, linearLayout, "(" + severeWarning.count + ") " + severeWarning.getName())
+            if (severeWarning.getCount() > 0) {
+                ObjectCardBlackHeaderText(this@SevereDashboardActivity, linearLayout, "(" + severeWarning.getCount() + ") " + severeWarning.getName())
                 severeWarning.warningList.forEach { w ->
                     // val data = severeWarning.warnings[index]
                     //if (!data.startsWith("O.EXP")) {
@@ -166,9 +166,9 @@ class SevereDashboardActivity : BaseActivity() {
                 }
             }
         }
-        tstCount = wTst.count
-        ffwCount = wFfw.count
-        torCount = wTor.count
+        tstCount = wTst.getCount()
+        ffwCount = wFfw.getCount()
+        torCount = wTor.getCount()
         watchCount = snWat.getCount()
         mcdCount = snMcd.getCount()
         mpdCount = snMpd.getCount()

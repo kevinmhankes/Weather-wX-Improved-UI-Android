@@ -156,6 +156,7 @@ object UtilityDownloadNws {
     }
 
     fun getStringFromUrlSep(strURL: String): String {
+        UtilityLog.d("wx", "getStringFromUrlBaseNoHeader: $strURL")
         val breakStr = "ABC123_456ZZ"
         val out = StringBuilder(5000)
         try {

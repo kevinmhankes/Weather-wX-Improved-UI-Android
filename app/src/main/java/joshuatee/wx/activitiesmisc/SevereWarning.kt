@@ -36,8 +36,8 @@ class SevereWarning(private val type: PolygonType) {
     // encapsulates VTEC data and count for tst,tor, or ffw
     //
 
-    var count = 0
-        private set
+//    var count = 0
+//        private set
 
     var idList = listOf<String>()
     var areaDescList = listOf<String>()
@@ -46,7 +46,7 @@ class SevereWarning(private val type: PolygonType) {
     var eventList = listOf<String>()
     var senderNameList = listOf<String>()
     var warnings = listOf<String>()
-    var listOfWfo = mutableListOf<String>()
+    // var listOfWfo = mutableListOf<String>()
     private var listOfPolygonRaw = listOf<String>()
     var warningList = listOf<ObjectWarning>()
 
@@ -93,13 +93,23 @@ class SevereWarning(private val type: PolygonType) {
         warnings.forEachIndexed { index, it ->
             val vtecIsCurrent = UtilityTime.isVtecCurrent(it)
             if (!it.startsWith("O.EXP") && vtecIsCurrent) {
-                count += 1
-                val radarSite = getClosestRadar(index)
-                listOfWfo.add(radarSite)
+                // count += 1
+                // val radarSite = getClosestRadar(index)
+                //listOfWfo.add(radarSite)
             } else {
-                listOfWfo.add("")
+                //listOfWfo.add("")
             }
         }
+    }
+
+    fun getCount(): Int {
+        var i = 0
+        for (s in warningList) {
+            if (s.isCurrent) {
+                i += 1
+            }
+        }
+        return i
     }
 }
 
