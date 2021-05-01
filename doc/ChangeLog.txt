@@ -21,6 +21,7 @@
 // TODO [ADD] allBlack refinements (Dash buttons are invisible)
 // TODO [REF] add ObjectLocation
 
+55540 2021_05_01
 55539 2021_05_01    [FIX] US Tornado notification - check vtec for old alerts before notifying
                     [FIX] SevereWarning - remove unused code that was causing a crash in SevereDashboard when warning had no vtec
                     [FIX] SevereWarning - remove unused code in general
