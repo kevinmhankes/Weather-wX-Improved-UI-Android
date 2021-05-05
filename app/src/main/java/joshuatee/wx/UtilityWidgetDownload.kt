@@ -29,7 +29,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import joshuatee.wx.Extensions.getImage
 
-import joshuatee.wx.canada.UtilityCanadaImg
 import joshuatee.wx.nhc.UtilityNhc
 import joshuatee.wx.objects.WidgetFile
 import joshuatee.wx.objects.WidgetFile.*
@@ -64,7 +63,8 @@ internal object UtilityWidgetDownload {
             val bitmap = if (Location.isUS(widgetLocationNumber)) {
                 UtilityUSImg.getPreferredLayeredImg(context, rid, false)
             } else {
-                UtilityCanadaImg.getRadarBitmapOptionsApplied(context, rid, "")
+                // UtilityCanadaImg.getRadarBitmapOptionsApplied(context, rid, "")
+                UtilityImg.getBlankBitmap()
             }
             saveImage(context, bitmap, NEXRAD_RADAR.fileName)
         } catch (e: Exception) {

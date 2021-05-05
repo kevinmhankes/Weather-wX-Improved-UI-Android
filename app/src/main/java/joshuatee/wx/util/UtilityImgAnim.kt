@@ -25,8 +25,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.LayerDrawable
+//import android.graphics.drawable.ColorDrawable
+//import android.graphics.drawable.LayerDrawable
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.ui.TouchImageView2

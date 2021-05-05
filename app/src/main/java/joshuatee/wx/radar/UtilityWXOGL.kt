@@ -35,7 +35,7 @@ import joshuatee.wx.util.UtilityLog
 
 import joshuatee.wx.Extensions.*
 
-import joshuatee.wx.RegExp
+//import joshuatee.wx.RegExp
 import joshuatee.wx.objects.ObjectWarning
 
 object UtilityWXOGL {

@@ -88,6 +88,6 @@ internal object WXGLPolygonWarnings {
                 warningList += LatLon.latLonListToListOfDoubles(latLons, projectionNumbers)
             }
         }
-        return warningList;
+        return warningList
     }
 }

@@ -29,7 +29,6 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.UtilityLightning
 import joshuatee.wx.activitiesmisc.UtilityUSHourly
 import joshuatee.wx.audio.UtilityPlayList
-import joshuatee.wx.canada.UtilityCanadaImg
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.spc.*
@@ -68,7 +67,8 @@ object UtilityDownload {
                     UtilityImg.getBlankBitmap()
                 } else {
                     val province = Utility.readPref(context, "NWS" + location + "_STATE", "")
-                    UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, UtilityCanada.getSectorFromProvince(province))
+//                    UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, UtilityCanada.getSectorFromProvince(province))
+                    UtilityImg.getBlankBitmap()
                 }
             } else {
                 var product = "rad_rala"
@@ -101,8 +101,9 @@ object UtilityDownload {
                 var rid = Location.rid
                 if (rid == "NAT") rid = "CAN"
                 bitmap = when (rid) {
-                    "CAN", "PAC", "WRN", "ONT", "QUE", "ERN" -> UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, rid)
-                    else -> UtilityCanadaImg.getRadarBitmapOptionsApplied(context, rid, "")
+//                    "CAN", "PAC", "WRN", "ONT", "QUE", "ERN" -> UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, rid)
+//                    else -> UtilityCanadaImg.getRadarBitmapOptionsApplied(context, rid, "")
+                    else -> UtilityImg.getBlankBitmap()
                 }
             }
             "RAD_2KM" -> {
