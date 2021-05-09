@@ -23,6 +23,7 @@
 // TODO [REF] String.toUpperCase() -> String.uppercase(Locale.getDefault())
 
 55541 2021_05_09    [FIX] SPC SREF was not showing old runs after SPC made a minor change to their HTML code
+                    [REF] refactor getClosestRadar in CapAlert and ObjectWarning
 55540 2021_05_05    [ADD] Android Studio 4.2 update incl various gradle upgrades, etc (below)
                     [REF] WFO/WPC Text toUpperCase -> uppercase per link
                     [FIX] remove Canada radar (and supporting files) as EC no longer provides static images
