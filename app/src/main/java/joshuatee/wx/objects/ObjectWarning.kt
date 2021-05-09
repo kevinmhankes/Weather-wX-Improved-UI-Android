@@ -145,7 +145,6 @@ class ObjectWarning() {
             val listOfPolygonRaw = UtilityString.parseColumn(data, RegExp.warningLatLonPattern)
             val vtecs = UtilityString.parseColumn(html, RegExp.warningVtecPattern)
             val geometryList = UtilityString.parseColumn(html, "\"geometry\": (.*?),")
-            // count = len(idList)
             for (index in urlList.indices) {
                 warnings.add(ObjectWarning(
                         Utility.safeGet(urlList, index),
