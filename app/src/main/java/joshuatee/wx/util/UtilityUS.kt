@@ -161,13 +161,13 @@ object UtilityUS {
         val timeP12n13List = UtilityString.parseColumnMutable(rawData[15], MyApplication.utilUS_period_name_pattern)
         timeP12n13List.add(0, "")
 
-        val sb = StringBuilder(300)
+        var forecastString = ""
         for (j in 1 until forecast.size) {
-            sb.append(timeP12n13List[j].replace("\"", ""))
-            sb.append(": ")
-            sb.append(forecast[j])
+            forecastString += timeP12n13List[j].replace("\"", "")
+            forecastString += ": "
+            forecastString += forecast[j]
         }
-        return sb.toString()
+        return forecastString
     }
 
     private fun get7Day(raw_data: Array<String>): String {
