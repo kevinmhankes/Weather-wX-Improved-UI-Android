@@ -36,7 +36,6 @@ import joshuatee.wx.spc.*
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.radar.UtilityAwcRadarMosaic
 import joshuatee.wx.vis.UtilityGoes
 

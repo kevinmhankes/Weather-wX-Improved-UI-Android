@@ -28,7 +28,6 @@ import joshuatee.wx.RegExp
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectWarning
 import joshuatee.wx.util.UtilityString
-import java.util.regex.Pattern
 
 class CapAlert {
 

@@ -26,10 +26,8 @@ import android.widget.RemoteViews
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UtilityWidget
-import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.objects.WidgetFile.*
 import joshuatee.wx.radar.AwcRadarMosaicActivity
-import joshuatee.wx.settings.Location
 import joshuatee.wx.util.Utility
 
 class ObjectWidgetMosaicRadar(context: Context) {

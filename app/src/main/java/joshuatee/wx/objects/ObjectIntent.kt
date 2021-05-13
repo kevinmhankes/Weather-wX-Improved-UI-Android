@@ -28,7 +28,6 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.activitiesmisc.*
 import joshuatee.wx.canada.CanadaHourlyActivity
 import joshuatee.wx.canada.CanadaTextActivity
-import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.models.ModelsGenericActivity
 import joshuatee.wx.nhc.NhcStormActivity
 import joshuatee.wx.nhc.ObjectNhcStormDetails

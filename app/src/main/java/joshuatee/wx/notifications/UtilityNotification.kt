@@ -134,9 +134,8 @@ object UtilityNotification {
                 val noMain = locLabelStr
                 val notifier2 = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 val noti2: Notification
-                val resultIntent2: Intent
-//                if (Location.isUS(locNumInt)) {
-                resultIntent2 = Intent(context, WXGLRadarActivity::class.java)
+                //                if (Location.isUS(locNumInt)) {
+                val resultIntent2 = Intent(context, WXGLRadarActivity::class.java)
                 resultIntent2.putExtra(WXGLRadarActivity.RID, arrayOf(Location.getRid(locNumInt), nws1StateCurrent))
 //                } else {
 ////                    resultIntent2 = Intent(context, CanadaRadarActivity::class.java)
