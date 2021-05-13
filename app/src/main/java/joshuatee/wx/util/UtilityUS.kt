@@ -146,20 +146,24 @@ object UtilityUS {
         return result
     }
 
-    private fun get7DayExt(raw_data: Array<String>): String {
-        val timeP12n13List: MutableList<String> = ArrayList(14)
-        val forecast: Array<String> = UtilityString.parseXml(raw_data[11], "text")
-        try {
-            val m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[15])
-            timeP12n13List.add("")
-            while (m.find()) {
-                timeP12n13List.add(m.group(1).replace("\"", ""))
-            }
-        } catch (e: Exception) {
-        }
+    private fun get7DayExt(rawData: Array<String>): String {
+        // var timeP12n13List: MutableList<String> = ArrayList(14)
+        val forecast: Array<String> = UtilityString.parseXml(rawData[11], "text")
+//        try {
+//            val m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[15])
+//            timeP12n13List.add("")
+//            while (m.find()) {
+//                timeP12n13List.add(m.group(1).replace("\"", ""))
+//            }
+//        } catch (e: Exception) {
+//        }
+
+        val timeP12n13List = UtilityString.parseColumnMutable(rawData[15], MyApplication.utilUS_period_name_pattern)
+        timeP12n13List.add(0, "")
+
         val sb = StringBuilder(300)
         for (j in 1 until forecast.size) {
-            sb.append(timeP12n13List[j])
+            sb.append(timeP12n13List[j].replace("\"", ""))
             sb.append(": ")
             sb.append(forecast[j])
         }
