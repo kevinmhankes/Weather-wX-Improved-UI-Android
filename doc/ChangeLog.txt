@@ -20,8 +20,8 @@
 // TODO [ADD] GOES option to follow location
 // TODO [ADD] allBlack refinements (Dash buttons are invisible)
 // TODO [REF] add ObjectLocation
-// TODO [REF] String.toUpperCase() -> String.uppercase(Locale.getDefault())
 
+55544 2021_05_14
 55543 2021_05_14    [REF] misc lint 'B'.toByte() -> 'B'.code.toByte()
                     [REF] remove unused resources related to canada radar removal
                     [REF] 'com.android.tools.build:gradle:4.2.0' -> 'com.android.tools.build:gradle:4.2.1'
