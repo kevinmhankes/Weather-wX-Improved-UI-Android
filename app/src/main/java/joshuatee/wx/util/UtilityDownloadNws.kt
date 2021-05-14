@@ -63,7 +63,7 @@ object UtilityDownloadNws {
     fun getCap(sector: String) = if (sector == "us") {
         getStringFromUrlXml(MyApplication.nwsApiUrl + "/alerts/active?region_type=land")
     } else {
-        getStringFromUrlXml(MyApplication.nwsApiUrl + "/alerts/active/area/" + sector.toUpperCase(Locale.US))
+        getStringFromUrlXml(MyApplication.nwsApiUrl + "/alerts/active/area/" + sector.uppercase(Locale.US))
     }
 
     // https://forecast-v3.weather.gov/documentation?redirect=legacy

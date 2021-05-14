@@ -138,7 +138,7 @@ class WXGLNexradLevel3 internal constructor() {
             // TODO assign directly to timestamp
             val radarInfo = formatRadarString(d)
             WXGLNexrad.writeRadarInfo(context, radarStatus, radarInfo)
-            WXGLNexrad.writeRadarInfo(context, radarStatus + site.toUpperCase(Locale.US), radarInfo)
+            WXGLNexrad.writeRadarInfo(context, radarStatus + site.uppercase(Locale.US), radarInfo)
             timestamp = radarInfo
             // Because the scale for storm total precip ( 172 ) is stored as a float in halfwords 33/34
             // it is necessary to further dissect the header. Previously we skipped 74 bytes

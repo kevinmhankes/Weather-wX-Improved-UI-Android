@@ -105,9 +105,9 @@ internal object UtilityWidgetDownload {
 
     private fun hwo(context: Context) {
         val widgetLocationNumber = Utility.readPref(context, "WIDGET_LOCATION", "1")
-        var wfo = Utility.readPref(context, "NWS$widgetLocationNumber", "").toUpperCase(Locale.US)
+        var wfo = Utility.readPref(context, "NWS$widgetLocationNumber", "").uppercase(Locale.US)
         if (Utility.readPref(context, "WFO_REMEMBER_LOCATION", "") == "true") {
-            wfo = Utility.readPref(context, "WFO_LAST_USED", wfo).toUpperCase(Locale.US)
+            wfo = Utility.readPref(context, "WFO_LAST_USED", wfo).uppercase(Locale.US)
         }
         var hwoText = UtilityDownload.getTextProduct(context, "HWO$wfo")
         hwoText = hwoText.replaceFirst("<BR>[A-Z][A-Z]Z.*?[0-9]{4}<BR>".toRegex(), "")
@@ -123,9 +123,9 @@ internal object UtilityWidgetDownload {
 
     private fun afd(context: Context) {
         val widgetLocationNumber = Utility.readPref(context, "WIDGET_LOCATION", "1")
-        var wfo = Utility.readPref(context, "NWS$widgetLocationNumber", "").toUpperCase(Locale.US)
+        var wfo = Utility.readPref(context, "NWS$widgetLocationNumber", "").uppercase(Locale.US)
         if (Utility.readPref(context, "WFO_REMEMBER_LOCATION", "") == "true") {
-            wfo = Utility.readPref(context, "WFO_LAST_USED", wfo).toUpperCase(Locale.US)
+            wfo = Utility.readPref(context, "WFO_LAST_USED", wfo).uppercase(Locale.US)
         }
         if (Utility.readPref(context, "WFO_TEXT_FAV", "").startsWith("VFD")) {
             Utility.writePref(context, "AFD_WIDGET", UtilityDownload.getTextProduct(context, "VFD$wfo"))
