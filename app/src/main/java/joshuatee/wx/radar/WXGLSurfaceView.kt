@@ -125,7 +125,9 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
                         wxglRenders[it].displayHold = true
                     }
                 }
-                if (numPanes == 1 && fullScreen || numPanes > 1) UtilityUI.immersiveMode(activity!!)
+                if (numPanes == 1 && fullScreen || numPanes > 1) {
+                    UtilityUI.immersiveMode(activity!!)
+                }
             }
             MotionEvent.ACTION_MOVE -> {}
             MotionEvent.ACTION_UP -> {
@@ -176,7 +178,9 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
     override fun onLongPress(event: MotionEvent) {
         if (fullScreen) {
             toolbar!!.visibility = View.VISIBLE
-            if (!archiveMode) toolbarBottom!!.visibility = View.VISIBLE
+            if (!archiveMode) {
+                toolbarBottom!!.visibility = View.VISIBLE
+            }
         }
         density = (wxglRender.ortInt * 2).toFloat() / width
         xPos = event.x
@@ -299,7 +303,9 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
             if (fullScreen || numPanes > 1) {
                 toolbar!!.visibility = View.VISIBLE
                 toolbarsHidden = false
-                if (!archiveMode) toolbarBottom!!.visibility = View.VISIBLE
+                if (!archiveMode) {
+                    toolbarBottom!!.visibility = View.VISIBLE
+                }
             }
             listener?.onProgressChanged(50000, index, idxInt)
         }
@@ -350,7 +356,9 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         if (fullScreen || numPanes > 1) {
             toolbar!!.visibility = View.VISIBLE
             toolbarsHidden = false
-            if (!archiveMode) toolbarBottom!!.visibility = View.VISIBLE
+            if (!archiveMode) {
+                toolbarBottom!!.visibility = View.VISIBLE
+            }
         }
         listener?.onProgressChanged(50000, index, idxInt)
         return true
@@ -375,7 +383,9 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         if (fullScreen || numPanes > 1) {
             toolbar!!.visibility = View.VISIBLE
             toolbarsHidden = false
-            if (!archiveMode) toolbarBottom!!.visibility = View.VISIBLE
+            if (!archiveMode) {
+                toolbarBottom!!.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -397,7 +407,9 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         if (fullScreen || numPanes > 1) {
             toolbar!!.visibility = View.VISIBLE
             toolbarsHidden = false
-            if (!archiveMode) toolbarBottom!!.visibility = View.VISIBLE
+            if (!archiveMode) {
+                toolbarBottom!!.visibility = View.VISIBLE
+            }
         }
         listener?.onProgressChanged(50000, index, idxInt)
         return true
@@ -419,7 +431,9 @@ class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,
         if (fullScreen || numPanes > 1) {
             toolbar!!.visibility = View.VISIBLE
             toolbarsHidden = false
-            if (!archiveMode) toolbarBottom!!.visibility = View.VISIBLE
+            if (!archiveMode) {
+                toolbarBottom!!.visibility = View.VISIBLE
+            }
         }
     }
 

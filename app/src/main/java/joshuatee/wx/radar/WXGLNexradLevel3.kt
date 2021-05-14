@@ -119,7 +119,11 @@ class WXGLNexradLevel3 internal constructor() {
             val dis = UCARRandomAccessFile(UtilityIO.getFilePath(context, fileName))
             dis.bigEndian = true
             // ADVANCE PAST WMO HEADER
-            while (true) if (dis.readShort().toInt() == -1) break
+            while (true) {
+                if (dis.readShort().toInt() == -1) {
+                    break
+                }
+            }
             // the following chunk was added to analyze the header so that status info could be extracted
             // index 4 is radar height
             // index 0,1 is lat as Int
