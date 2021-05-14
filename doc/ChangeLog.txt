@@ -22,7 +22,7 @@
 // TODO [REF] add ObjectLocation
 // TODO [REF] String.toUpperCase() -> String.uppercase(Locale.getDefault())
 
-55543 2021_05_13
+55543 2021_05_13    [REF] misc lint 'B'.toByte() -> 'B'.code.toByte()
 55542 2021_05_13    [REF] utilUs cleanup, toUpperCase -> uppercase per link
 55541 2021_05_09    [FIX] SPC SREF was not showing old runs after SPC made a minor change to their HTML code
                     [REF] refactor getClosestRadar in CapAlert and ObjectWarning
