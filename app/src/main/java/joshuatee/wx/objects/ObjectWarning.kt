@@ -86,7 +86,7 @@ class ObjectWarning() {
         data = data.replace(",", " ")
         data = data.replace("-", "")
         val points = data.split(" ")
-        return ObjectWarning.getClosestRadarCompute(points)
+        return getClosestRadarCompute(points)
     }
 
     fun getPolygonAsLatLons(mult: Int): List<LatLon> {
