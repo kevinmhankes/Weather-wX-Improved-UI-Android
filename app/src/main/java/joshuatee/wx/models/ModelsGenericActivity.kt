@@ -26,24 +26,25 @@ import android.os.Bundle
 import android.content.res.Configuration
 import android.view.KeyEvent
 import android.view.Menu
-
-import java.util.Locale
-
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.LinearLayout
 import androidx.core.view.GravityCompat
+import java.util.Locale
+import kotlinx.coroutines.*
 import joshuatee.wx.MyApplication
-
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.VideoRecordActivity
-import joshuatee.wx.ui.*
-import joshuatee.wx.util.*
-import kotlinx.coroutines.*
+import joshuatee.wx.ui.ObjectDialogue
+import joshuatee.wx.ui.ObjectFab
+import joshuatee.wx.ui.ObjectNavDrawer
+import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityImg
 
 class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
@@ -89,7 +90,9 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
         } else {
             super.onCreate(savedInstanceState, R.layout.activity_models_generic_multipane_nospinner, R.menu.models_generic, iconsEvenlySpaced = false, bottomToolbar = true)
             val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
-            if (UtilityUI.isLandScape(this)) linearLayout.orientation = LinearLayout.HORIZONTAL
+            if (UtilityUI.isLandScape(this)) {
+                linearLayout.orientation = LinearLayout.HORIZONTAL
+            }
         }
         toolbarBottom.setOnMenuItemClickListener(this)
         title = activityArguments!![2]

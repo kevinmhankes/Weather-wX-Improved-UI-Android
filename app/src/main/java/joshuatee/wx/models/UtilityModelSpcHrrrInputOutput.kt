@@ -28,13 +28,10 @@ import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-
 import java.util.Locale
-
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityImgAnim
 import joshuatee.wx.util.UtilityTime
-
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 

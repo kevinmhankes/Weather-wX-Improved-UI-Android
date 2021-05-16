@@ -21,9 +21,8 @@
 
 package joshuatee.wx.models
 
-import joshuatee.wx.ui.ObjectMenuTitle
 import android.util.SparseArray
-
+import joshuatee.wx.ui.ObjectMenuTitle
 import joshuatee.wx.util.Group
 
 internal object UtilityModelSpcHrefInterface {

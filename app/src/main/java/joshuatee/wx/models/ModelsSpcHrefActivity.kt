@@ -26,21 +26,18 @@ import android.os.Bundle
 import android.content.res.Configuration
 import android.view.KeyEvent
 import android.view.Menu
-
-import java.util.Locale
-
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
-
+import java.util.Locale
+import kotlinx.coroutines.*
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
-import kotlinx.coroutines.*
 
 class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
 

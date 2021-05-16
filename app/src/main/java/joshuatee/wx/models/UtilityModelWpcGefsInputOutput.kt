@@ -26,7 +26,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
 import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.MyApplication
-
 import joshuatee.wx.util.UtilityImgAnim
 import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityTime
