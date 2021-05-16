@@ -63,6 +63,7 @@ class HourlyActivity : BaseActivity() {
     private lateinit var scrollView: ScrollView
     private lateinit var linearLayout: LinearLayout
     private lateinit var graphCard: CardView
+    private lateinit var graph: GraphView
     private var hourlyData = ObjectHourly()
     private var locationNumber = 0
 
@@ -77,6 +78,7 @@ class HourlyActivity : BaseActivity() {
         scrollView = findViewById(R.id.scrollView)
         linearLayout = findViewById(R.id.linearLayout)
         graphCard = findViewById(R.id.graphCard)
+        graph = findViewById(R.id.graph)
         locationNumber = (intent.getStringExtra(LOC_NUM)!!.toIntOrNull() ?: 0) - 1
         objectCard = ObjectCard(this, R.color.black, R.id.graphCard)
         graphCard.visibility = View.GONE
@@ -123,7 +125,7 @@ class HourlyActivity : BaseActivity() {
         }
         val series = LineGraphSeries(dataPoints.toTypedArray())
         series.color = Color.BLACK
-        val graph: GraphView = findViewById(R.id.graph)
+        graph.removeAllSeries()
         graph.viewport.isXAxisBoundsManual = true
         graph.viewport.backgroundColor = Color.LTGRAY
         graph.viewport.setMinX(0.0)

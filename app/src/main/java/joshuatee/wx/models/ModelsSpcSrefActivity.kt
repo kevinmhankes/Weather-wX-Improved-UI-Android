@@ -22,7 +22,6 @@
 package joshuatee.wx.models
 
 import android.annotation.SuppressLint
-import java.util.Locale
 import android.os.Bundle
 import android.content.res.Configuration
 import android.view.KeyEvent
@@ -31,15 +30,19 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
+import java.util.Locale
+import kotlinx.coroutines.*
 import joshuatee.wx.Extensions.safeGet
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.VideoRecordActivity
-import joshuatee.wx.ui.*
+import joshuatee.wx.ui.ObjectDialogue
+import joshuatee.wx.ui.ObjectFab
+import joshuatee.wx.ui.ObjectNavDrawerCombo
+import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.*
-import kotlinx.coroutines.*
 
 class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
@@ -84,7 +87,9 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         } else {
             super.onCreate(savedInstanceState, R.layout.activity_models_spcsrefmultipane, R.menu.models_spcsref, iconsEvenlySpaced = false, bottomToolbar = true)
             val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
-            if (UtilityUI.isLandScape(this)) linearLayout.orientation = LinearLayout.HORIZONTAL
+            if (UtilityUI.isLandScape(this)) {
+                linearLayout.orientation = LinearLayout.HORIZONTAL
+            }
         }
         toolbarBottom.setOnMenuItemClickListener(this)
         val menu = toolbarBottom.menu
@@ -120,7 +125,6 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         miStatus.title = "in through"
         om.displayData = DisplayDataNoSpinner(this, this, om.numPanes, om)
         setupModel()
-        //favList = UtilityFavorites.setupMenuSpc(MyApplication.srefFav, om.displayData.param[om.curImg])
         favList = UtilityFavorites.setupMenu(this, MyApplication.srefFav, om.displayData.param[om.curImg], prefToken)
         UtilityModelSpcSrefInterface.createData()
         om.setUiElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2, ::getContent)
@@ -156,7 +160,6 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         }
         miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
         om.run = om.rtd.listRun.safeGet(0)
-        //om.run = "latest"
         om.setTimeIdx(Utility.readPref(this@ModelsSpcSrefActivity, om.prefRunPosn, 1))
         getContent()
     }

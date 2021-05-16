@@ -36,8 +36,13 @@ import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.VideoRecordActivity
-import joshuatee.wx.ui.*
-import joshuatee.wx.util.*
+import joshuatee.wx.ui.ObjectDialogue
+import joshuatee.wx.ui.ObjectFab
+import joshuatee.wx.ui.ObjectNavDrawerCombo
+import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityImg
+import joshuatee.wx.util.UtilityString
 
 class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
@@ -75,7 +80,9 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         } else {
             super.onCreate(savedInstanceState, R.layout.activity_models_spchrefmultipane, R.menu.models_spchref, iconsEvenlySpaced = false, bottomToolbar = true)
             val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
-            if (UtilityUI.isLandScape(this)) linearLayout.orientation = LinearLayout.HORIZONTAL
+            if (UtilityUI.isLandScape(this)) {
+                linearLayout.orientation = LinearLayout.HORIZONTAL
+            }
         }
         toolbarBottom.setOnMenuItemClickListener(this)
         title = activityArguments!![2]

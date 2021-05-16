@@ -22,6 +22,7 @@
 // TODO [REF] add ObjectLocation
 
 55544 2021_05_14    [ADD] NOAA has made changes to GLCFS https://www.glerl.noaa.gov/res/glcfs which required changes to wX
+                    [FIX] Hourly graph was not clearing old data on reload
 55543 2021_05_14    [REF] misc lint 'B'.toByte() -> 'B'.code.toByte()
                     [REF] remove unused resources related to canada radar removal
                     [REF] 'com.android.tools.build:gradle:4.2.0' -> 'com.android.tools.build:gradle:4.2.1'
