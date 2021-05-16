@@ -24,11 +24,7 @@ package joshuatee.wx.models
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
-import joshuatee.wx.Extensions.getHtml
-import joshuatee.wx.Extensions.getImage
-
 import java.util.Locale
-
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp

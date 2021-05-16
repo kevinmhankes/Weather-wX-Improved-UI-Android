@@ -26,18 +26,18 @@ import android.content.Context
 import android.graphics.PointF
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import joshuatee.wx.Extensions.startAnimation
-
 import java.sql.Date
 import java.util.Calendar
 import java.util.TimeZone
-
+import kotlinx.coroutines.*
+import joshuatee.wx.Extensions.startAnimation
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.ui.TouchImageView2
-import joshuatee.wx.util.*
-import kotlinx.coroutines.*
+import joshuatee.wx.util.UtilityTime
+
+//import joshuatee.wx.util.*
 
 object UtilityModels {
 
