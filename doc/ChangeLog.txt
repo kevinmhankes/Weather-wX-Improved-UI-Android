@@ -20,7 +20,9 @@
 // TODO [ADD] GOES option to follow location
 // TODO [ADD] allBlack refinements (Dash buttons are invisible)
 // TODO [REF] add ObjectLocation
+// TODO [FIX] 7day not honoring C/F setting
 
+55546 2021_05_20
 55545 2021_05_20    [FIX] SPC Thunderstorm outlook broke after NWS change (possible move to AWS?)
 55544 2021_05_16    [ADD] NOAA has made changes to GLCFS https://www.glerl.noaa.gov/res/glcfs which required changes to wX
                     [FIX] Hourly graph was not clearing old data on reload
