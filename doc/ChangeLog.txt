@@ -21,12 +21,12 @@
 // TODO [ADD] allBlack refinements (Dash buttons are invisible)
 // TODO [REF] add ObjectLocation
 // TODO [FIX] 7day not honoring C/F setting
-// java.lang.NullPointerException:
-//  at joshuatee.wx.external.ExternalSunriseSunsetCalculator.getOfficialSunriseCalendarForDate (ExternalSunriseSunsetCalculator.kt:35)
-//  at joshuatee.wx.util.UtilityTimeSunMoon.getSunriseSunsetFromObs (UtilityTimeSunMoon.kt:40)
-//  at joshuatee.wx.util.ObjectMetar.decodeIconFromMetar (ObjectMetar.kt:109)
+// TODO [FIX] java.lang.NullPointerException:
+// TODO at joshuatee.wx.external.ExternalSunriseSunsetCalculator.getOfficialSunriseCalendarForDate (ExternalSunriseSunsetCalculator.kt:35)
+// TODO at joshuatee.wx.util.UtilityTimeSunMoon.getSunriseSunsetFromObs (UtilityTimeSunMoon.kt:40)
+// TODO at joshuatee.wx.util.ObjectMetar.decodeIconFromMetar (ObjectMetar.kt:109)
 
-55546 2021_05_20
+55546 2021_05_29
 55545 2021_05_20    [FIX] SPC Thunderstorm outlook broke after NWS change (possible move to AWS?)
 55544 2021_05_16    [ADD] NOAA has made changes to GLCFS https://www.glerl.noaa.gov/res/glcfs which required changes to wX
                     [FIX] Hourly graph was not clearing old data on reload
