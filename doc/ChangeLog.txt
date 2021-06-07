@@ -27,7 +27,7 @@
 // TODO at joshuatee.wx.util.ObjectMetar.decodeIconFromMetar (ObjectMetar.kt:109)
 // TODO add RadarPreferences
 
-55546 2021_05_29
+55546 2021_06_07    [ADD] NCEP MAG (main NWS production model display) has replaced HRW-NMMB with HRW-FV3. This is accessible via MISC tab, top left corner
 55545 2021_05_20    [FIX] SPC Thunderstorm outlook broke after NWS change (possible move to AWS?)
 55544 2021_05_16    [ADD] NOAA has made changes to GLCFS https://www.glerl.noaa.gov/res/glcfs which required changes to wX
                     [FIX] Hourly graph was not clearing old data on reload

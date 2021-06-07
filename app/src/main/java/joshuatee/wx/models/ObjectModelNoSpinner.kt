@@ -266,9 +266,9 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
                         numberRuns = 4
                     }
                     9 -> {
-                        model = "HRW-NMMB"
-                        params = UtilityModelNcepInterface.paramsHrwNmm
-                        labels = UtilityModelNcepInterface.labelsHrwNmm
+                        model = "HRW-FV3"
+                        params = UtilityModelNcepInterface.modelHrwFv3Params
+                        labels = UtilityModelNcepInterface.modelHrwFv3Labels
                         sectors = UtilityModelNcepInterface.sectorsHrwNmm
                         startStep = 1
                         endStep = 48
