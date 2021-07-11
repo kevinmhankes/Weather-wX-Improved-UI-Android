@@ -60,6 +60,14 @@ class SevereDashboardActivity : BaseActivity() {
     private val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout> ()
     private var imagesPerRow = 2
     private lateinit var linearLayout: LinearLayout
+    private lateinit var linearLayoutWatches: ObjectLinearLayout
+    private lateinit var linearLayoutWarnings: ObjectLinearLayout
+    private val snWat = SevereNotice(PolygonType.WATCH)
+    private val snMcd = SevereNotice(PolygonType.MCD)
+    private val snMpd = SevereNotice(PolygonType.MPD)
+    private val wTor = SevereWarning(PolygonType.TOR)
+    private val wTst = SevereWarning(PolygonType.TST)
+    private val wFfw = SevereWarning(PolygonType.FFW)
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.severe_dashboard, menu)
@@ -71,6 +79,8 @@ class SevereDashboardActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout, null, false)
         linearLayout = findViewById(R.id.linearLayout)
+        linearLayoutWatches = ObjectLinearLayout(this@SevereDashboardActivity, linearLayout)
+        linearLayoutWarnings = ObjectLinearLayout(this@SevereDashboardActivity, linearLayout)
         if (UtilityUI.isLandScape(this)) {
             imagesPerRow = 3
         }
@@ -82,12 +92,13 @@ class SevereDashboardActivity : BaseActivity() {
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+    private fun getContent() {
         bitmaps.clear()
-        horizontalLinearLayouts.clear()
-        val snWat = SevereNotice(PolygonType.WATCH)
-        val snMcd = SevereNotice(PolygonType.MCD)
-        val snMpd = SevereNotice(PolygonType.MPD)
+        getContentWatch()
+        getContentWarnings()
+    }
+
+    private fun getContentWatch() = GlobalScope.launch(uiDispatcher) {
         withContext(Dispatchers.IO) {
             bitmaps.add((UtilityDownload.getImageProduct(this@SevereDashboardActivity, "USWARN")))
         }
@@ -106,26 +117,32 @@ class SevereDashboardActivity : BaseActivity() {
             UtilityDownloadMpd.get(this@SevereDashboardActivity)
             snMpd.getBitmaps(MyApplication.severeDashboardMpd.value)
         }
-        val wTor = SevereWarning(PolygonType.TOR)
-        val wTst = SevereWarning(PolygonType.TST)
-        val wFfw = SevereWarning(PolygonType.FFW)
+        updateWatch()
+    }
+
+    private fun getContentWarnings() = GlobalScope.launch(uiDispatcher) {
         withContext(Dispatchers.IO) {
             UtilityDownloadWarnings.getForSevereDashboard(this@SevereDashboardActivity)
             wTor.generateString()
             wTst.generateString()
             wFfw.generateString()
         }
-        linearLayout.removeAllViews()
+        updateWarnings()
+    }
+
+    private fun updateWatch() {
+        linearLayoutWatches.removeAllViews()
+        horizontalLinearLayouts.clear()
         numberOfImages = 0
-        listOf(0,1).forEach {
+        listOf(0, 1).forEach {
             val card: ObjectCardImage
             if (numberOfImages % imagesPerRow == 0) {
-                val objectLinearLayout = ObjectLinearLayout(this@SevereDashboardActivity, linearLayout)
+                val objectLinearLayout = ObjectLinearLayout(this@SevereDashboardActivity, linearLayoutWatches.linearLayout)
                 objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
                 horizontalLinearLayouts.add(objectLinearLayout)
-                card = ObjectCardImage(this@SevereDashboardActivity, objectLinearLayout.linearLayout, bitmaps[it], imagesPerRow)
+                card = ObjectCardImage(this@SevereDashboardActivity, objectLinearLayout.get(), bitmaps[it], imagesPerRow)
             } else {
-                card = ObjectCardImage(this@SevereDashboardActivity, horizontalLinearLayouts.last().linearLayout, bitmaps[it], imagesPerRow)
+                card = ObjectCardImage(this@SevereDashboardActivity, horizontalLinearLayouts.last().get(), bitmaps[it], imagesPerRow)
             }
             if (it == 0) {
                 card.setOnClickListener { ObjectIntent.showUsAlerts(this@SevereDashboardActivity) }
@@ -141,13 +158,21 @@ class SevereDashboardActivity : BaseActivity() {
         bitmaps.addAll(snMcd.bitmaps)
         bitmaps.addAll(snMpd.bitmaps)
         bitmaps.addAll(bitmaps)
+        watchCount = snWat.getCount()
+        mcdCount = snMcd.getCount()
+        mpdCount = snMpd.getCount()
+        toolbar.subtitle = getSubTitle()
+    }
+
+    private fun updateWarnings() {
+        linearLayoutWarnings.removeAllViews()
         var numberOfWarnings = 0
         listOf(wTor, wTst, wFfw).forEach { severeWarning ->
             if (severeWarning.getCount() > 0) {
-                ObjectCardBlackHeaderText(this@SevereDashboardActivity, linearLayout, "(" + severeWarning.getCount() + ") " + severeWarning.getName())
+                ObjectCardBlackHeaderText(this@SevereDashboardActivity, linearLayoutWarnings.get(), "(" + severeWarning.getCount() + ") " + severeWarning.getName())
                 severeWarning.warningList.forEach { w ->
                     if (w.isCurrent) {
-                        val objectCardDashAlertItem = ObjectCardDashAlertItem(this@SevereDashboardActivity, linearLayout, w)
+                        val objectCardDashAlertItem = ObjectCardDashAlertItem(this@SevereDashboardActivity, linearLayoutWarnings.get(), w)
                         objectCardDashAlertItem.setListener { showWarningDetails(w.url) }
                         objectCardDashAlertItem.radarButton.setOnClickListener {
                             ObjectIntent.showRadarBySite(this@SevereDashboardActivity, w.getClosestRadar())
@@ -162,9 +187,6 @@ class SevereDashboardActivity : BaseActivity() {
         tstCount = wTst.getCount()
         ffwCount = wFfw.getCount()
         torCount = wTor.getCount()
-        watchCount = snWat.getCount()
-        mcdCount = snMcd.getCount()
-        mpdCount = snMpd.getCount()
         toolbar.subtitle = getSubTitle()
     }
 
@@ -186,29 +208,26 @@ class SevereDashboardActivity : BaseActivity() {
     }
 
     private fun showItems(sn: SevereNotice) {
-        listOf(sn)
-                .asSequence()
-                .filter { it.bitmaps.size > 0 }
-                .forEach { severeNotice ->
-                    severeNotice.bitmaps.indices.forEach { j ->
-                        val card: ObjectCardImage
-                        if (numberOfImages % imagesPerRow == 0) {
-                            val objectLinearLayout = ObjectLinearLayout(this@SevereDashboardActivity, linearLayout)
-                            objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
-                            horizontalLinearLayouts.add(objectLinearLayout)
-                            card = ObjectCardImage(this@SevereDashboardActivity, objectLinearLayout.linearLayout, severeNotice.bitmaps[j], imagesPerRow)
-                        } else {
-                            card = ObjectCardImage(this@SevereDashboardActivity, horizontalLinearLayouts.last().linearLayout, severeNotice.bitmaps[j], imagesPerRow
-                            )
-                        }
-                        val number = severeNotice.numbers[j]
-                        card.setOnClickListener {
-                            ObjectIntent.showMcd(this@SevereDashboardActivity, arrayOf(number, "", severeNotice.toString()))
-                        }
-                        numberOfImages += 1
-                    }
-                }
-
+//        listOf(sn)
+//                .asSequence()
+//                .filter { it.bitmaps.size > 0 }
+//                .forEach { severeNotice ->
+        sn.bitmaps.indices.forEach { j ->
+            val card: ObjectCardImage
+            if (numberOfImages % imagesPerRow == 0) {
+                val objectLinearLayout = ObjectLinearLayout(this@SevereDashboardActivity, linearLayoutWatches.get())
+                objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
+                horizontalLinearLayouts.add(objectLinearLayout)
+                card = ObjectCardImage(this@SevereDashboardActivity, objectLinearLayout.linearLayout, sn.bitmaps[j], imagesPerRow)
+            } else {
+                card = ObjectCardImage(this@SevereDashboardActivity, horizontalLinearLayouts.last().get(), sn.bitmaps[j], imagesPerRow)
+            }
+            val number = sn.numbers[j]
+            card.setOnClickListener {
+                ObjectIntent.showMcd(this@SevereDashboardActivity, arrayOf(number, "", sn.toString()))
+            }
+            numberOfImages += 1
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

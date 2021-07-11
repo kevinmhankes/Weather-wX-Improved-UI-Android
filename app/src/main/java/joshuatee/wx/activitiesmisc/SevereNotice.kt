@@ -46,6 +46,8 @@ internal class SevereNotice(val type: PolygonType) {
     }
 
     fun getBitmaps(html: String) {
+        bitmaps.clear()
+        numbers.clear()
         val zeroString = when (type) {
             PolygonType.MCD -> "<center>No Mesoscale Discussions are currently in effect."
             PolygonType.WATCH -> "<center><strong>No watches are currently valid"
