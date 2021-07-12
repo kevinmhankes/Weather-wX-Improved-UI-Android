@@ -44,6 +44,8 @@ import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.GraphView
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.objects.FutureText
+import joshuatee.wx.objects.FutureVoid
 import kotlinx.coroutines.*
 
 class HourlyActivity : BaseActivity() {
@@ -94,10 +96,29 @@ class HourlyActivity : BaseActivity() {
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        htmlShare = withContext(Dispatchers.IO) {
-            UtilityUSHourly.get(locationNumber)
-        }
+    private fun getContent() {
+        FutureVoid(this, uiDispatcher, ::download, ::update)
+    }
+
+    private fun download() {
+        htmlShare = UtilityUSHourly.get(locationNumber)
+    }
+
+//    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+//        htmlShare = withContext(Dispatchers.IO) {
+//            UtilityUSHourly.get(locationNumber)
+//        }
+//        hourlyData = if (UIPreferences.useNwsApiForHourly) {
+//            UtilityUSHourly.getStringForActivity(htmlShare[1])
+//        } else {
+//            UtilityUSHourly.getStringForActivityFromOldApi(htmlShare[1])
+//        }
+//        graphCard.visibility = View.VISIBLE
+//        objectCardVerticalText.setText(listOf(hourlyData.time, hourlyData.temp, hourlyData.windSpeed, hourlyData.windDir, hourlyData.conditions))
+//        plotData()
+//    }
+
+    private fun update() {
         hourlyData = if (UIPreferences.useNwsApiForHourly) {
             UtilityUSHourly.getStringForActivity(htmlShare[1])
         } else {
