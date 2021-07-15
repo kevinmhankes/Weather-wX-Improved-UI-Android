@@ -30,6 +30,7 @@ import android.widget.ScrollView
 import androidx.appcompat.widget.Toolbar
 
 import joshuatee.wx.R
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCanadaWarnings
 import joshuatee.wx.ui.UtilityToolbar
@@ -61,11 +62,12 @@ class CanadaAlertsActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+    private fun getContent() {
         scrollView.smoothScrollTo(0, 0)
-        withContext(Dispatchers.IO) {
-            objectCanadaWarnings.getData()
-        }
+        FutureVoid(this, objectCanadaWarnings::getData, ::showText)
+    }
+
+    private fun showText() {
         objectCanadaWarnings.showData()
         if (firstTime) {
             UtilityToolbar.fullScreenMode(toolbar)

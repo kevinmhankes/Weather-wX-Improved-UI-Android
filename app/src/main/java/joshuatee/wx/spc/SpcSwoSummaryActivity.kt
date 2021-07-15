@@ -27,11 +27,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
-
+import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.R
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.ui.*
+import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.util.UtilityShortcut
 import kotlinx.coroutines.*
@@ -42,6 +44,7 @@ class SpcSwoSummaryActivity : BaseActivity() {
     private var bitmaps = mutableListOf<Bitmap>()
     private var imagesPerRow = 2
     private lateinit var linearLayout: LinearLayout
+    private lateinit var objectImageSummary: ObjectImageSummary
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.spc_swo_summary, menu)
@@ -58,6 +61,10 @@ class SpcSwoSummaryActivity : BaseActivity() {
         }
         toolbar.subtitle = "SPC"
         title = "Convective Outlooks"
+
+        bitmaps = MutableList(8){ UtilityImg.getBlankBitmap() }
+        objectImageSummary = ObjectImageSummary(this@SpcSwoSummaryActivity, linearLayout, bitmaps)
+
         getContent()
     }
 
@@ -66,21 +73,41 @@ class SpcSwoSummaryActivity : BaseActivity() {
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        bitmaps = mutableListOf()
-        withContext(Dispatchers.IO) {
-            listOf("1", "2", "3", "4-8").forEach { bitmaps.addAll(UtilitySpcSwo.getImages(it, false)) }
+    private fun getContent() {
+        // bitmaps = mutableListOf()
+//        withContext(Dispatchers.IO) {
+//            listOf("1", "2", "3", "4-8").forEach { bitmaps.addAll(UtilitySpcSwo.getImages(it, false)) }
+//        }
+
+        for (i in listOf(0, 1, 2)) {
+            FutureVoid(this, { bitmaps[i] = UtilitySpcSwo.getUrls((i + 1).toString())[0].getImage() }, { updateImage(i) })
         }
-        linearLayout.removeAllViews()
-        val objectImageSummary = ObjectImageSummary(this@SpcSwoSummaryActivity, linearLayout, bitmaps)
-        objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
-            val day = if (index < 3) {
-                    (index + 1).toString()
-            } else {
-                "4-8"
-            }
-            objectCardImage.setOnClickListener { ObjectIntent.showSpcSwo(this@SpcSwoSummaryActivity, arrayOf(day, "")) }
+
+        for (i in 3 until 8) {
+            FutureVoid(this, { bitmaps[i] = UtilitySpcSwo.getImageUrlsDays48((i + 1).toString()).getImage() }, { updateImage(i) })
         }
+
+
+//        linearLayout.removeAllViews()
+//        val objectImageSummary = ObjectImageSummary(this@SpcSwoSummaryActivity, linearLayout, bitmaps)
+//        objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
+//            val day = if (index < 3) {
+//                    (index + 1).toString()
+//            } else {
+//                "4-8"
+//            }
+//            objectCardImage.setOnClickListener { ObjectIntent.showSpcSwo(this@SpcSwoSummaryActivity, arrayOf(day, "")) }
+//        }
+    }
+
+    private fun updateImage(index: Int) {
+        val day = if (index < 3) {
+            (index + 1).toString()
+        } else {
+            "4-8"
+        }
+        objectImageSummary.objectCardImages[index].setImage2(bitmaps[index], 2)
+        objectImageSummary.objectCardImages[index].setOnClickListener { ObjectIntent.showSpcSwo(this@SpcSwoSummaryActivity, arrayOf(day, "")) }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

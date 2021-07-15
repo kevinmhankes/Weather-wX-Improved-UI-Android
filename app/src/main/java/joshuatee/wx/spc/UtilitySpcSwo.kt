@@ -24,6 +24,7 @@ package joshuatee.wx.spc
 import android.graphics.Bitmap
 
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.GlobalVariables
 import joshuatee.wx.MyApplication
 
 internal object UtilitySpcSwo {
@@ -84,6 +85,10 @@ internal object UtilitySpcSwo {
             }
             return imgUrls
         }
+    }
+
+    fun getImageUrlsDays48(day: String): String {
+        return MyApplication.nwsSPCwebsitePrefix + "/products/exper/day4-8/day" + day + "prob.gif"
     }
 }
 
