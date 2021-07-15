@@ -23,7 +23,6 @@ package joshuatee.wx.spc
 
 import android.annotation.SuppressLint
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -151,7 +150,6 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun downloadImages() {
         urls = UtilitySpcSwo.getUrls(day)
-        //bitmaps = urls.map { it.getImage() }
         for (index in urls.indices) {
             FutureVoid(this, { bitmaps[index] = urls[index].getImage() }, { showImage(index) })
         }
@@ -162,21 +160,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun showImages() {
-//        when (day) {
-//            "1", "2" -> {
-//                listOf(0, 1, 2, 3).forEach {
-//                    setImageAndClickAction(it)
-//                }
-//            }
-//            "3" -> {
-//                listOf(0, 1).forEach {
-//                    setImageAndClickAction(it)
-//                }
-//            }
-//            "4-8" -> listOf(0, 1, 2, 3, 4).forEach {
-//                setImageAndClickAction(it)
-//            }
-//        }
+        // do nothing
     }
 
     private fun showImageProduct(imageUrl: String, title: String) {
