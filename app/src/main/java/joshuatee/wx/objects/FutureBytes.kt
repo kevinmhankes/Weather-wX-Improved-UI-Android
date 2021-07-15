@@ -26,13 +26,14 @@ import android.graphics.Bitmap
 import joshuatee.wx.Extensions.getImage
 import kotlinx.coroutines.*
 
-class FutureBytes(val context: Context, val uiDispatcher: MainCoroutineDispatcher, val url: String, val updateFunc: (Bitmap) -> Unit) {
+// , val uiDispatcher: MainCoroutineDispatcher
+class FutureBytes(val context: Context, val url: String, val updateFunc: (Bitmap) -> Unit) {
 
     init {
         getContent()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+    private fun getContent() = GlobalScope.launch(Dispatchers.Main) {
         val s = withContext(Dispatchers.IO) { url.getImage() }
         updateFunc(s)
     }

@@ -97,10 +97,10 @@ class GoesActivity : VideoRecordActivity() {
         //FutureVoid(this, uiDispatcher, { bitmap = UtilityGoes.getImage(drw.url, sector) }, ::display)
 
         if (!goesFloater) {
-            FutureVoid(this, uiDispatcher, { bitmap = UtilityGoes.getImage(drw.url, sector) }, ::display)
+            FutureVoid(this, { bitmap = UtilityGoes.getImage(drw.url, sector) }, ::display)
         } else {
             UtilityLog.d("wx","NHC GOES Download " + goesFloaterUrl + "::" + drw.url)
-            FutureVoid(this, uiDispatcher, { bitmap = UtilityGoes.getImageGoesFloater(goesFloaterUrl, drw.url) }, ::display)
+            FutureVoid(this, { bitmap = UtilityGoes.getImageGoesFloater(goesFloaterUrl, drw.url) }, ::display)
             //_ = FutureBytes(UtilityGoes.getImageGoesFloater(goesFloaterUrl, productCode), display)
         }
     }

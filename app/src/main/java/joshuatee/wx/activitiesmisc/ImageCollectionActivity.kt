@@ -32,6 +32,7 @@ import joshuatee.wx.R
 import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.ObjectImagesCollection
 import joshuatee.wx.ui.ObjectNavDrawer
@@ -47,7 +48,6 @@ class ImageCollectionActivity : VideoRecordActivity() {
 
     companion object { const val TYPE = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var bitmap = UtilityImg.getBlankBitmap()
     private lateinit var img: ObjectTouchImageView
     private lateinit var drw: ObjectNavDrawer
@@ -75,9 +75,9 @@ class ImageCollectionActivity : VideoRecordActivity() {
         activityArguments = intent.getStringArrayExtra(TYPE)!!
         imageCollection = MyApplication.imageCollectionMap[activityArguments[0]]!!
         title = imageCollection.title
-        drw = ObjectNavDrawer(this, imageCollection.labels, imageCollection.urls, ::getContentFixThis)
+        drw = ObjectNavDrawer(this, imageCollection.labels, imageCollection.urls, ::getContent)
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, drw, imageCollection.prefTokenIdx)
-        img.setListener(this, drw, ::getContentFixThis)
+        img.setListener(this, drw, ::getContent)
         drw.index = Utility.readPref(this, imageCollection.prefTokenIdx, 0)
         toolbar.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
         getContent()
@@ -88,13 +88,27 @@ class ImageCollectionActivity : VideoRecordActivity() {
         super.onRestart()
     }
 
-    private fun getContentFixThis() {
-        getContent()
+//    private fun getContentFixThis() {
+//        getContent()
+//    }
+
+    private fun getContent() {
+        toolbar.subtitle = drw.getLabel()
+        //bitmap = withContext(Dispatchers.IO) { drw.url.getImage() }
+
+        FutureVoid(this, { bitmap = drw.url.getImage() }, ::showImage)
+
+//        if (drw.url.contains("large_latestsfc.gif")) {
+//            img.setMaxZoom(16f)
+//        } else {
+//            img.setMaxZoom(4f)
+//        }
+//        img.setBitmap(bitmap)
+//        img.firstRunSetZoomPosn(imageCollection.prefImagePosition)
+//        invalidateOptionsMenu()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        toolbar.subtitle = drw.getLabel()
-        bitmap = withContext(Dispatchers.IO) { drw.url.getImage() }
+    fun showImage() {
         if (drw.url.contains("large_latestsfc.gif")) {
             img.setMaxZoom(16f)
         } else {
@@ -136,7 +150,7 @@ class ImageCollectionActivity : VideoRecordActivity() {
         super.onStop()
     }
 
-    private fun getAnimate() = GlobalScope.launch(uiDispatcher) {
+    private fun getAnimate() = GlobalScope.launch(Dispatchers.Main) {
         animDrawable = withContext(Dispatchers.IO) {
             UtilityGoesFullDisk.getAnimation(this@ImageCollectionActivity, drw.url)
         }

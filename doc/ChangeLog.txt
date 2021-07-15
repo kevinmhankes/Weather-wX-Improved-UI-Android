@@ -26,8 +26,10 @@
 // TODO at joshuatee.wx.util.UtilityTimeSunMoon.getSunriseSunsetFromObs (UtilityTimeSunMoon.kt:40)
 // TODO at joshuatee.wx.util.ObjectMetar.decodeIconFromMetar (ObjectMetar.kt:109)
 // TODO add RadarPreferences
+// TODO remove uiDispatcher as arg for Future*
+// TODO FutureAnim
 
-55548 2021_07_15
+55548 2021_07_15    [ADD] refactor to use Future*
 55547 2021_07_15    [ADD] more download threads in SevereDashboard
                     [ADD] add Future* classes to mimic desktop ports, test in Hourly
                     [ADD] NHC Storm - cloud icon for GOES imagery of storm

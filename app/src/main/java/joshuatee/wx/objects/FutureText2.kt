@@ -22,17 +22,16 @@
 package joshuatee.wx.objects
 
 import android.content.Context
-import joshuatee.wx.util.UtilityDownload
 import kotlinx.coroutines.*
 
-class FutureText(val context: Context, val arg1: String, val updateFunc: (String) -> Unit) {
+class FutureText2(val context: Context, val downloadFunc: () -> String, val updateFunc: (String) -> Unit) {
 
     init {
         getContent()
     }
 
     private fun getContent() = GlobalScope.launch(Dispatchers.Main) {
-        val s = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(context, arg1) }
+        val s = withContext(Dispatchers.IO) { downloadFunc() }
         updateFunc(s)
     }
 }

@@ -24,13 +24,13 @@ package joshuatee.wx.objects
 import android.content.Context
 import kotlinx.coroutines.*
 
-class FutureVoid(val context: Context, val uiDispatcher: MainCoroutineDispatcher, val downloadFunc: () -> Unit, val updateFunc: () -> Unit) {
+class FutureVoid(val context: Context, val downloadFunc: () -> Unit, val updateFunc: () -> Unit) {
 
     init {
         getContent()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+    private fun getContent() = GlobalScope.launch(Dispatchers.Main) {
         withContext(Dispatchers.IO) { downloadFunc() }
         updateFunc()
     }

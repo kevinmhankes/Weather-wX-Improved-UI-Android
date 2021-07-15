@@ -44,9 +44,7 @@ import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.GraphView
 import joshuatee.wx.UIPreferences
-import joshuatee.wx.objects.FutureText
 import joshuatee.wx.objects.FutureVoid
-import kotlinx.coroutines.*
 
 class HourlyActivity : BaseActivity() {
 
@@ -58,7 +56,6 @@ class HourlyActivity : BaseActivity() {
 
     companion object { const val LOC_NUM = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var htmlShare = listOf<String>()
     private lateinit var objectCard: ObjectCard
     private lateinit var objectCardVerticalText: ObjectCardVerticalText
@@ -97,12 +94,12 @@ class HourlyActivity : BaseActivity() {
     }
 
     private fun getContent() {
-        FutureVoid(this, uiDispatcher, ::download, ::update)
+        FutureVoid(this, { htmlShare = UtilityUSHourly.get(locationNumber) }, ::update)
     }
 
-    private fun download() {
-        htmlShare = UtilityUSHourly.get(locationNumber)
-    }
+//    private fun download() {
+//        htmlShare = UtilityUSHourly.get(locationNumber)
+//    }
 
 //    private fun getContent() = GlobalScope.launch(uiDispatcher) {
 //        htmlShare = withContext(Dispatchers.IO) {
