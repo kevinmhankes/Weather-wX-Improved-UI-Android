@@ -29,7 +29,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
-
 import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.audio.UtilityTts
@@ -37,14 +36,13 @@ import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
 import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityShare
-
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectLinearLayout
 import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityLog
-import kotlinx.coroutines.*
 
 class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
@@ -54,12 +52,10 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     //
     // 1: day
     //
-
     companion object { const val NUMBER = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var html = ""
-    private var bitmaps = listOf<Bitmap>()
+    private var bitmaps = MutableList(5) { UtilityImg.getBlankBitmap() }
     private var urls = listOf<String>()
     private lateinit var activityArguments: Array<String>
     private var day = ""
@@ -155,25 +151,32 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     private fun downloadImages() {
         urls = UtilitySpcSwo.getUrls(day)
-        bitmaps = urls.map { it.getImage() }
+        //bitmaps = urls.map { it.getImage() }
+        for (index in urls.indices) {
+            FutureVoid(this, { bitmaps[index] = urls[index].getImage() }, { showImage(index) })
+        }
+    }
+
+    private fun showImage(i: Int) {
+        setImageAndClickAction(i)
     }
 
     private fun showImages() {
-        when (day) {
-            "1", "2" -> {
-                listOf(0, 1, 2, 3).forEach {
-                    setImageAndClickAction(it)
-                }
-            }
-            "3" -> {
-                listOf(0, 1).forEach {
-                    setImageAndClickAction(it)
-                }
-            }
-            "4-8" -> listOf(0, 1, 2, 3, 4).forEach {
-                setImageAndClickAction(it)
-            }
-        }
+//        when (day) {
+//            "1", "2" -> {
+//                listOf(0, 1, 2, 3).forEach {
+//                    setImageAndClickAction(it)
+//                }
+//            }
+//            "3" -> {
+//                listOf(0, 1).forEach {
+//                    setImageAndClickAction(it)
+//                }
+//            }
+//            "4-8" -> listOf(0, 1, 2, 3, 4).forEach {
+//                setImageAndClickAction(it)
+//            }
+//        }
     }
 
     private fun showImageProduct(imageUrl: String, title: String) {
