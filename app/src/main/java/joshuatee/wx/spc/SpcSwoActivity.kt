@@ -39,6 +39,7 @@ import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityShare
 
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectLinearLayout
 import joshuatee.wx.ui.UtilityUI
@@ -59,6 +60,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private val uiDispatcher = Dispatchers.Main
     private var html = ""
     private var bitmaps = listOf<Bitmap>()
+    private var urls = listOf<String>()
     private lateinit var activityArguments: Array<String>
     private var day = ""
     private var playlistProd = ""
@@ -66,6 +68,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private lateinit var linearLayout: LinearLayout
     private val objectCardImageList = mutableListOf<ObjectCardImage>()
     private var imagesPerRow = 2
+    private var imageLabel = ""
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,23 +134,30 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+    private fun getContent() {
         var textUrl = "SWODY$day"
-        val imageLabel = "Day $day Convective Outlook"
-        var urls: List<String>
+        imageLabel = "Day $day Convective Outlook"
         if (day == "4-8") {
             textUrl = "SWOD48"
         }
-        withContext(Dispatchers.IO) {
-            html = UtilityDownload.getTextProduct(this@SpcSwoActivity, textUrl)
-            urls = UtilitySpcSwo.getUrls(day)
-            bitmaps = urls.map { it.getImage() }
-        }
+        FutureVoid(this, ::downloadImages, ::showImages)
+        FutureVoid(this, { html = UtilityDownload.getTextProduct(this@SpcSwoActivity, textUrl) }, ::showText)
+    }
+
+    private fun showText() {
         objectCardText.text = html
         toolbar.subtitle = html.parse("(Valid.*?Z - [0-9]{6}Z)")
         if (activityArguments[1] == "sound") {
             UtilityTts.synthesizeTextAndPlay(applicationContext, html, "spcswo")
         }
+    }
+
+    private fun downloadImages() {
+        urls = UtilitySpcSwo.getUrls(day)
+        bitmaps = urls.map { it.getImage() }
+    }
+
+    private fun showImages() {
         when (day) {
             "1", "2" -> {
                 listOf(0, 1, 2, 3).forEach {
