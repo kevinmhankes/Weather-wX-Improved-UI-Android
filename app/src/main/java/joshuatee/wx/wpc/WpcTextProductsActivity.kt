@@ -109,7 +109,6 @@ class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         }
         ridFavOld = MyApplication.nwsTextFav
-        // html = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@WpcTextProductsActivity, product) }
         FutureVoid(this, { html = UtilityDownload.getTextProduct(this@WpcTextProductsActivity, product) }, ::showText)
     }
 

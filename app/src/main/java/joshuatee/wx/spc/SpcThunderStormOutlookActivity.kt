@@ -86,6 +86,14 @@ class SpcThunderStormOutlookActivity : BaseActivity() {
         }
     }
 
+    private fun getImages() {
+
+    }
+    
+    private fun updateImage(index: Int) {
+
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> UtilityShare.text(this, this, "SPC Thunderstorm Outlook", "", bitmaps)

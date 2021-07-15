@@ -60,23 +60,11 @@ class NhcActivity : BaseActivity() {
 
     private fun getContent() {
         scrollView.smoothScrollTo(0, 0)
-
-//        withContext(Dispatchers.IO) {
-//            objectNhc.getTextData()
-//        }
-//        objectNhc.showTextData()
-
         FutureVoid(this, objectNhc::getTextData,  objectNhc::showTextData)
         NhcOceanEnum.values().forEach {
-//            withContext(Dispatchers.IO) {
-//                objectNhc.regionMap[it]!!.getImages()
-//            }
-//            objectNhc.showImageData(it)
             FutureVoid(this, { objectNhc.regionMap[it]!!.getImages() },  { objectNhc.showImageData(it) } )
         }
     }
-
-
 
     private fun showTextProduct(prod: String) {
         ObjectIntent(this, WpcTextProductsActivity::class.java, WpcTextProductsActivity.URL, arrayOf(prod.lowercase(Locale.US), ""))
