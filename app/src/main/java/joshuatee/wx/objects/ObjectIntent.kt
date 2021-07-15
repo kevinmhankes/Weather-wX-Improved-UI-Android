@@ -125,6 +125,10 @@ class ObjectIntent() {
             ObjectIntent(context, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
         }
 
+        fun showVisNhc(context: Context) {
+            ObjectIntent(context, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
+        }
+
         fun showObservations(context: Context) {
             if (Location.isUS) {
                 ObjectIntent(context, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("OBSERVATIONS"))

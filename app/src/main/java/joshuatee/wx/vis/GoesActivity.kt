@@ -43,6 +43,7 @@ class GoesActivity : VideoRecordActivity() {
     // GOES 16 / GOES 17 image viewer
     // https://www.star.nesdis.noaa.gov/GOES/index.php
     //
+    // TODO document args
 
     companion object { const val RID = "" }
 

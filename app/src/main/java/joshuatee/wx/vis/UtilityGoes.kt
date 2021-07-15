@@ -30,6 +30,7 @@ import joshuatee.wx.util.UtilityImgAnim
 
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.MyApplication
+import joshuatee.wx.util.UtilityString
 
 object UtilityGoes {
 
@@ -37,6 +38,12 @@ object UtilityGoes {
         val fullSize = "latest"
         val size = sizeMap[sector] ?: fullSize
         return "$size.jpg"
+    }
+
+    fun getImageGoesFloater(url: String, product: String): String {
+        var urlFinal = url
+        urlFinal = urlFinal.replace("GEOCOLOR", product)
+        return urlFinal
     }
 
     fun getImage(product: String, sector: String): Bitmap {
@@ -78,6 +85,44 @@ object UtilityGoes {
         val imageHtml = html.parse("animationImages = \\[(.*?)\\];")
         val imageUrls = imageHtml.parseColumn("'(https.*?jpg)'")
         val bitmaps = imageUrls.map { it.getImage() }
+        return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps, UtilityImg.animInterval(context))
+    }
+
+    //    static List<String> getAnimation(String product, String sector, int frameCount) {
+//        String baseUrl = UtilityGoes.getImage(product, sector)
+//        String[] items = baseUrl.split("/")
+//        baseUrl = String.join("/", items[0..-3]) + "/" + product + "/"
+//        String html = UtilityIO.getHtml(baseUrl)
+//        List<String> urlList = UtilityString.parseColumn(html.replace("\r\n", " "), "<a href=\"([^\\s]*?1200x1200.jpg)\">")
+//        List<String> returnList = []
+//        if (urlList.size() > frameCount) {
+//            int s = -1 * frameCount
+//            for (u in urlList[s..-1]) {
+//                returnList.add(baseUrl + u)
+//            }
+//        }
+//        return returnList
+//        // <a href="20211842100_GOES16-ABI-FL-GEOCOLOR-AL052021-1000x1000.jpg">
+//    }
+
+    fun getAnimationGoesFloater(context: Context, product: String, url: String, frameCount: Int): AnimationDrawable {
+        print("getAnimationGoesFloater http: " + url)
+        print("getAnimationGoesFloater http: " + product)
+        var baseUrl = url
+        baseUrl = baseUrl.replace("GEOCOLOR", product).replace("latest.jpg", "")
+        // baseUrl += "/" + product + "/"
+        val html = baseUrl.getHtml()
+        val urlList = UtilityString.parseColumn(html.replace("\r\n", " "), "<a href=\"([^\\s]*?1000x1000.jpg)\">")
+        val returnList = mutableListOf<String>()
+        if (urlList.size > frameCount) {
+            // let s = -1 * frameCount
+            for (i in (urlList.size - frameCount) until urlList.size) {
+                returnList.add(baseUrl + urlList[i])
+            }
+        }
+        // let bitmaps = returnList.map { Bitmap($0) }
+        // return UtilityImgAnim.getAnimationDrawableFromBitmapList(bitmaps)
+        val bitmaps = returnList.map { it.getImage() }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps, UtilityImg.animInterval(context))
     }
 
