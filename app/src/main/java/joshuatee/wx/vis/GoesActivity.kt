@@ -221,7 +221,16 @@ class GoesActivity : VideoRecordActivity() {
     }
 
     private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
-        animDrawable = withContext(Dispatchers.IO) { UtilityGoes.getAnimation(this@GoesActivity, drw.url, sector, frameCount) }
+        //animDrawable = withContext(Dispatchers.IO) { UtilityGoes.getAnimation(this@GoesActivity, drw.url, sector, frameCount) }
+
+        if (!goesFloater) {
+            animDrawable = withContext(Dispatchers.IO) { UtilityGoes.getAnimation(this@GoesActivity, drw.url, sector, frameCount) }
+            //_ = FutureAnimation({ UtilityGoes.getAnimation(self.productCode, self.sectorCode, frameCount) }, image.startAnimating)
+        } else {
+            animDrawable = withContext(Dispatchers.IO) { UtilityGoes.getAnimationGoesFloater(this@GoesActivity, drw.url, sector, frameCount) }
+            //_ = FutureAnimation({ UtilityGoes.getAnimationGoesFloater(self.productCode, self.sectorCode, frameCount) }, image.startAnimating)
+        }
+
         animDrawable.startAnimation(img)
     }
 }
