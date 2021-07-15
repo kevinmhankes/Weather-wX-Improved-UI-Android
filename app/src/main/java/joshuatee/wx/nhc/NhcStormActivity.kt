@@ -142,7 +142,7 @@ class NhcStormActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_cloud -> ObjectIntent.showVisNhc(this)
+            R.id.action_cloud -> ObjectIntent.showVisNhc(this, stormData.goesUrl)
             R.id.action_share -> UtilityShare.text(this, this, stormData.name, "", bitmaps)
             R.id.action_MIATCPEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCP${stormData.binNumber}"))
             R.id.action_MIATCMEP2 -> ObjectIntent.showWpcText(this, arrayOf("MIATCM${stormData.binNumber}"))

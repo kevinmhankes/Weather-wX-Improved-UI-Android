@@ -125,8 +125,8 @@ class ObjectIntent() {
             ObjectIntent(context, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
         }
 
-        fun showVisNhc(context: Context) {
-            ObjectIntent(context, GoesActivity::class.java, GoesActivity.RID, arrayOf(""))
+        fun showVisNhc(context: Context, url: String) {
+            ObjectIntent(context, GoesActivity::class.java, GoesActivity.RID, arrayOf(url, ""))
         }
 
         fun showObservations(context: Context) {

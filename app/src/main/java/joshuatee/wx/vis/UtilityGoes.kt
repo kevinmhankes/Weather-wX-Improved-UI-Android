@@ -40,10 +40,10 @@ object UtilityGoes {
         return "$size.jpg"
     }
 
-    fun getImageGoesFloater(url: String, product: String): String {
+    fun getImageGoesFloater(url: String, product: String): Bitmap {
         var urlFinal = url
         urlFinal = urlFinal.replace("GEOCOLOR", product)
-        return urlFinal
+        return urlFinal.getImage()
     }
 
     fun getImage(product: String, sector: String): Bitmap {

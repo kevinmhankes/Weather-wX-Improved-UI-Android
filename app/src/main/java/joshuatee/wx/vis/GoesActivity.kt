@@ -31,6 +31,7 @@ import joshuatee.wx.Extensions.startAnimation
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.*
@@ -60,6 +61,9 @@ class GoesActivity : VideoRecordActivity() {
     private var savePrefs = true
     private lateinit var activityArguments: Array<String>
     private val prefImagePosition = "GOES16_IMG"
+    // NHC
+    var goesFloater = false
+    var goesFloaterUrl = ""
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.goes16, menu)
@@ -83,12 +87,25 @@ class GoesActivity : VideoRecordActivity() {
         getContent(sector)
     }
 
-    private fun getContent(sectorF: String) = GlobalScope.launch(uiDispatcher) {
+    // private fun getContent(sectorF: String) = GlobalScope.launch(uiDispatcher) {
+    private fun getContent(sectorF: String) {
         sector = sectorF
         writePrefs()
         toolbar.title = UtilityGoes.sectorToName[sector] ?: ""
         toolbar.subtitle = drw.getLabel()
-        bitmap = withContext(Dispatchers.IO) { UtilityGoes.getImage(drw.url, sector) }
+        // bitmap = withContext(Dispatchers.IO) { UtilityGoes.getImage(drw.url, sector) }
+        //FutureVoid(this, uiDispatcher, { bitmap = UtilityGoes.getImage(drw.url, sector) }, ::display)
+
+        if (!goesFloater) {
+            FutureVoid(this, uiDispatcher, { bitmap = UtilityGoes.getImage(drw.url, sector) }, ::display)
+        } else {
+            UtilityLog.d("wx","NHC GOES Download " + goesFloaterUrl + "::" + drw.url)
+            FutureVoid(this, uiDispatcher, { bitmap = UtilityGoes.getImageGoesFloater(goesFloaterUrl, drw.url) }, ::display)
+            //_ = FutureBytes(UtilityGoes.getImageGoesFloater(goesFloaterUrl, productCode), display)
+        }
+    }
+
+    private fun display() {
         img.setBitmap(bitmap)
         img.firstRunSetZoomPosn(prefImagePosition)
         if (oldSector != sector) {
@@ -118,6 +135,13 @@ class GoesActivity : VideoRecordActivity() {
         if (activityArguments.isNotEmpty() && activityArguments[0] == "") {
             sector = Utility.readPref(this@GoesActivity, "GOES16_SECTOR", sector)
             drw.index = Utility.readPref(this@GoesActivity, "GOES16_IMG_FAV_IDX", 0)
+        } else if (activityArguments.size > 1 && activityArguments[0].contains("http")) {
+            // NHC floater
+            goesFloater = true
+            goesFloaterUrl = activityArguments[0]
+            drw.index = 0
+            sector = goesFloaterUrl
+            savePrefs = false
         } else {
             if (activityArguments.size > 1) {
                 sector = activityArguments[0]
