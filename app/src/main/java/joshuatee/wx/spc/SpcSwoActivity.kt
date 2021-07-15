@@ -80,7 +80,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         toolbarBottom.setOnMenuItemClickListener(this)
         var numberOfImages = 0
         val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout>()
-        (0..4).forEach { _ ->
+        (0..4).forEach { index ->
             if (numberOfImages % imagesPerRow == 0) {
                 val objectLinearLayout = ObjectLinearLayout(this, linearLayout)
                 objectLinearLayout.linearLayout.orientation = LinearLayout.HORIZONTAL
@@ -89,6 +89,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
             } else {
                 objectCardImageList.add(ObjectCardImage(this, horizontalLinearLayouts.last().linearLayout))
             }
+            objectCardImageList[index].visibility = View.GONE
             numberOfImages += 1
         }
         objectCardText = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
@@ -161,20 +162,16 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         when (day) {
             "1", "2" -> {
                 listOf(0, 1, 2, 3).forEach {
-                    setImageAndClickAction(it, urls, imageLabel)
+                    setImageAndClickAction(it)
                 }
-                objectCardImageList[4].visibility = View.GONE
             }
             "3" -> {
                 listOf(0, 1).forEach {
-                    setImageAndClickAction(it, urls, imageLabel)
-                }
-                (2..4).forEach {
-                    objectCardImageList[it].visibility = View.GONE
+                    setImageAndClickAction(it)
                 }
             }
             "4-8" -> listOf(0, 1, 2, 3, 4).forEach {
-                setImageAndClickAction(it, urls, imageLabel)
+                setImageAndClickAction(it)
             }
         }
     }
@@ -183,10 +180,11 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         ObjectIntent.showImage(this, arrayOf(imageUrl, title))
     }
 
-    private fun setImageAndClickAction(index: Int, urls: List<String>, textUrl: String) {
+    private fun setImageAndClickAction(index: Int) {
+        objectCardImageList[index].visibility = View.VISIBLE
         objectCardImageList[index].setImage(bitmaps[index], imagesPerRow)
         objectCardImageList[index].setOnClickListener {
-            showImageProduct(urls[index], textUrl)
+            showImageProduct(urls[index], imageLabel)
         }
     }
 
