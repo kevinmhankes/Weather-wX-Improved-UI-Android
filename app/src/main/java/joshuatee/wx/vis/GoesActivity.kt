@@ -43,7 +43,6 @@ class GoesActivity : VideoRecordActivity() {
     // GOES 16 / GOES 17 image viewer
     // https://www.star.nesdis.noaa.gov/GOES/index.php
     //
-    // TODO document args
     // Misc tab and ObjectWidgetGeneric.kt have:
     //    GoesActivity::class.java,
     //    GoesActivity.RID,
