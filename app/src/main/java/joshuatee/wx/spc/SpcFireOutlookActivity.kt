@@ -31,6 +31,7 @@ import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.audio.UtilityTts
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectCardImage
 import joshuatee.wx.ui.ObjectCardText
@@ -38,7 +39,6 @@ import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
-import kotlinx.coroutines.*
 
 class SpcFireOutlookActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
@@ -51,7 +51,6 @@ class SpcFireOutlookActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     companion object { const val NUMBER = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var textProduct = ""
     private var imageUrl = ""
     private var bitmap = UtilityImg.getBlankBitmap()
@@ -60,10 +59,18 @@ class SpcFireOutlookActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private lateinit var objectCardText: ObjectCardText
     private lateinit var linearLayout: LinearLayout
     private var tabletInLandscape = false
+    private var html = ""
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_bottom_toolbar, R.menu.spcmcdshowdetail)
+        activityArguments = intent.getStringArrayExtra(NUMBER)!!
+        textProduct = activityArguments[0]
+        imageUrl = activityArguments[1]
+
+        title = "Fire Weather Outlook"
+        toolbar.subtitle = "SPC $textProduct"
+
         linearLayout = findViewById(R.id.linearLayout)
         toolbarBottom.setOnMenuItemClickListener(this)
         tabletInLandscape = UtilityUI.isTablet() && UtilityUI.isLandScape(this)
@@ -73,22 +80,35 @@ class SpcFireOutlookActivity : AudioPlayActivity(), OnMenuItemClickListener {
         } else {
             objectCardImage = ObjectCardImage(this, linearLayout)
         }
+
         objectCardText = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
-        activityArguments = intent.getStringArrayExtra(NUMBER)!!
-        textProduct = activityArguments[0]
-        imageUrl = activityArguments[1]
-        title = "Fire Weather Outlook"
-        toolbar.subtitle = "SPC $textProduct"
+
         getContent()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        bitmap = withContext(Dispatchers.IO) {
-            imageUrl.getImage()
-        }
-        objectCardText.text = withContext(Dispatchers.IO) {
-            UtilityDownload.getTextProduct(this@SpcFireOutlookActivity, textProduct)
-        }
+    private fun getContent() {
+
+        FutureVoid(this, { bitmap = imageUrl.getImage() }, ::showImage)
+        FutureVoid(this, { html = UtilityDownload.getTextProduct(this@SpcFireOutlookActivity, textProduct) }, ::showText)
+
+//        bitmap = withContext(Dispatchers.IO) {
+//            imageUrl.getImage()
+//        }
+//        objectCardText.text = withContext(Dispatchers.IO) {
+//            UtilityDownload.getTextProduct(this@SpcFireOutlookActivity, textProduct)
+//        }
+//        if (tabletInLandscape) {
+//            objectCardImage.setImage(bitmap, 2)
+//        } else {
+//            objectCardImage.setImage(bitmap)
+//        }
+//        objectCardImage.setOnClickListener {
+//            ObjectIntent.showImage(this@SpcFireOutlookActivity, arrayOf(imageUrl, textProduct, "true"))
+//        }
+//        UtilityTts.conditionalPlay(activityArguments, 1, applicationContext, objectCardText.text, textProduct)
+    }
+
+    private fun showImage() {
         if (tabletInLandscape) {
             objectCardImage.setImage(bitmap, 2)
         } else {
@@ -97,6 +117,10 @@ class SpcFireOutlookActivity : AudioPlayActivity(), OnMenuItemClickListener {
         objectCardImage.setOnClickListener {
             ObjectIntent.showImage(this@SpcFireOutlookActivity, arrayOf(imageUrl, textProduct, "true"))
         }
+    }
+
+    private fun showText() {
+        objectCardText.text = html
         UtilityTts.conditionalPlay(activityArguments, 1, applicationContext, objectCardText.text, textProduct)
     }
 

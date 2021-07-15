@@ -31,6 +31,7 @@ import joshuatee.wx.Extensions.safeGet
 
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.*
 import joshuatee.wx.ui.*
@@ -81,11 +82,21 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+    private fun getContent() {
         locations = UtilityFavorites.setupMenu(this@SpcSoundingsActivity, MyApplication.sndFav, office, prefToken)
         invalidateOptionsMenu()
-        if (MyApplication.sndFav.contains(":$office:")) star.setIcon(MyApplication.STAR_ICON) else star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        bitmap = withContext(Dispatchers.IO) { UtilitySpcSoundings.getImage(this@SpcSoundingsActivity, office) }
+        if (MyApplication.sndFav.contains(":$office:")) {
+            star.setIcon(MyApplication.STAR_ICON)
+        } else {
+            star.setIcon(MyApplication.STAR_OUTLINE_ICON)
+        }
+
+        // bitmap = withContext(Dispatchers.IO) { UtilitySpcSoundings.getImage(this@SpcSoundingsActivity, office) }
+
+        FutureVoid(this, { bitmap = UtilitySpcSoundings.getImage(this@SpcSoundingsActivity, office) }, ::showImage)
+    }
+
+    private fun showImage() {
         img.img.visibility = View.VISIBLE
         img.setBitmap(bitmap)
         img.setMaxZoom(4f)

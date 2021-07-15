@@ -29,17 +29,16 @@ import android.view.MenuItem
 import android.widget.AdapterView
 
 import joshuatee.wx.R
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectNavDrawer
 import joshuatee.wx.ui.ObjectTouchImageView
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
-import kotlinx.coroutines.*
 
 class SpcCompmapActivity : BaseActivity() {
 
-    private val uiDispatcher = Dispatchers.Main
     private var layerStr = ""
     private lateinit var img: ObjectTouchImageView
     private var bitmap = UtilityImg.getBlankBitmap()
@@ -81,7 +80,9 @@ class SpcCompmapActivity : BaseActivity() {
 
     private fun setupInitLayerString() {
         val items = layerStr.split(":").dropLastWhile { it.isEmpty() }
-        items.forEach { selectItemNoGet(it.replace("a", "").toIntOrNull() ?: 0) }
+        items.forEach {
+            selectItemNoGet(it.replace("a", "").toIntOrNull() ?: 0)
+        }
     }
 
     private fun selectItemNoGet(positionF: Int) {
@@ -102,8 +103,11 @@ class SpcCompmapActivity : BaseActivity() {
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        bitmap = withContext(Dispatchers.IO) { UtilitySpcCompmap.getImage(this@SpcCompmapActivity, layerStr) }
+    private fun getContent() {
+        FutureVoid(this, { bitmap = UtilitySpcCompmap.getImage(this@SpcCompmapActivity, layerStr) }, ::showImage)
+    }
+
+    private fun showImage() {
         img.setBitmap(bitmap)
         img.firstRunSetZoomPosn("SPCCOMPMAP")
         Utility.writePref(this@SpcCompmapActivity, "SPCCOMPMAP_LAYERSTR", layerStr)

@@ -44,6 +44,7 @@ import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.MyApplication
 import joshuatee.wx.external.UtilityStringExternal
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.radar.WXGLNexrad
 import joshuatee.wx.radar.LatLon
@@ -52,7 +53,6 @@ import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.settings.Location
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
-import kotlinx.coroutines.*
 
 class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
@@ -64,7 +64,6 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     companion object { const val NO = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var no = ""
     private var imgUrl = ""
     private var textUrl = ""
@@ -130,15 +129,23 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+    private fun getContent() {
         scrollView.smoothScrollTo(0, 0)
-        withContext(Dispatchers.IO) {
-            if (firstRun) {
-                text = textUrl.getHtmlSep()
-                bitmap = imgUrl.getImage()
-            }
+        FutureVoid(this, ::download, ::displayData)
+//        withContext(Dispatchers.IO) {
+//            if (firstRun) {
+//                text = textUrl.getHtmlSep()
+//                bitmap = imgUrl.getImage()
+//            }
+//        }
+//        displayData()
+    }
+
+    private fun download() {
+        if (firstRun) {
+            text = textUrl.getHtmlSep()
+            bitmap = imgUrl.getImage()
         }
-        displayData()
     }
 
     private fun displayData() {
