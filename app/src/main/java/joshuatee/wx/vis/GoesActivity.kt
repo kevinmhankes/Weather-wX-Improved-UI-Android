@@ -44,6 +44,10 @@ class GoesActivity : VideoRecordActivity() {
     // https://www.star.nesdis.noaa.gov/GOES/index.php
     //
     // TODO document args
+    // Misc tab and ObjectWidgetGeneric.kt have:
+    //    GoesActivity::class.java,
+    //    GoesActivity.RID,
+    //    arrayOf("CONUS", "09"),
 
     companion object { const val RID = "" }
 
