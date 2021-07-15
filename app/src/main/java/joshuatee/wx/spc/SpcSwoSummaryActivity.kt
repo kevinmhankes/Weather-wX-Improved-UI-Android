@@ -36,11 +36,9 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.util.UtilityShortcut
-import kotlinx.coroutines.*
 
 class SpcSwoSummaryActivity : BaseActivity() {
 
-    private val uiDispatcher = Dispatchers.Main
     private var bitmaps = mutableListOf<Bitmap>()
     private var imagesPerRow = 2
     private lateinit var linearLayout: LinearLayout
