@@ -30,6 +30,7 @@ import android.view.MenuItem
 
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import kotlinx.coroutines.*
@@ -80,11 +81,15 @@ class AwcRadarMosaicActivity : VideoRecordActivity() {
         super.onRestart()
     }
 
-    private fun getContent(productLocal: String) = GlobalScope.launch(uiDispatcher) {
+    private fun getContent(productLocal: String) {
         product = productLocal
         toolbar.subtitle = objectNavDrawer.getLabel()
         title = product
-        bitmap = withContext(Dispatchers.IO) { UtilityAwcRadarMosaic.get(objectNavDrawer.url, product) }
+        //bitmap = withContext(Dispatchers.IO) { UtilityAwcRadarMosaic.get(objectNavDrawer.url, product) }
+        FutureVoid(this, { bitmap = UtilityAwcRadarMosaic.get(objectNavDrawer.url, product) }, ::showImage)
+    }
+
+    private fun showImage() {
         img.setBitmap(bitmap)
         animRan = false
         img.firstRunSetZoomPosn(prefImagePosition)
