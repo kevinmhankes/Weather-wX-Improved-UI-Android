@@ -29,7 +29,7 @@
 // TODO remove uiDispatcher as arg for Future*
 // TODO FutureAnim
 
-55548 2021_07_15    [ADD] refactor to use Future*, more threads in various activities
+55548 2021_07_16    [ADD] refactor to use Future*, more threads in various activities
 55547 2021_07_15    [ADD] more download threads in SevereDashboard
                     [ADD] add Future* classes to mimic desktop ports, test in Hourly
                     [ADD] NHC Storm - cloud icon for GOES imagery of storm
