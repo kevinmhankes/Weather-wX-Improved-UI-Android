@@ -67,6 +67,9 @@ class GoesActivity : VideoRecordActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.goes16, menu)
+        if (goesFloater) {
+            menu.setGroupVisible(R.id.sectors, false)
+        }
         return true
     }
 
