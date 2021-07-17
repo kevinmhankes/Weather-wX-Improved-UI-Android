@@ -63,7 +63,7 @@ class GoesActivity : VideoRecordActivity() {
     private val prefImagePosition = "GOES16_IMG"
     // NHC
     var goesFloater = false
-    var goesFloaterUrl = ""
+    private var goesFloaterUrl = ""
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.goes16, menu)
