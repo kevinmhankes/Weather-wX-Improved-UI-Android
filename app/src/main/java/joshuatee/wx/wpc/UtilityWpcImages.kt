@@ -198,9 +198,14 @@ internal object UtilityWpcImages {
         "${MyApplication.nwsWPCwebsitePrefix}/wwd/lowtrack_circles.gif",
         "${MyApplication.nwsWPCwebsitePrefix}/lowtracks/lowtrack_ensembles.gif",
 
-        MyApplication.nwsWPCwebsitePrefix + "/noaa/noaad1.gif",
-        MyApplication.nwsWPCwebsitePrefix + "/noaa/noaad2.gif",
-        MyApplication.nwsWPCwebsitePrefix + "/noaa/noaad3.gif",
+//        MyApplication.nwsWPCwebsitePrefix + "/noaa/noaad1.gif",
+//        MyApplication.nwsWPCwebsitePrefix + "/noaa/noaad2.gif",
+//        MyApplication.nwsWPCwebsitePrefix + "/noaa/noaad3.gif",
+
+        MyApplication.nwsWPCwebsitePrefix + "/NationalForecastChart/staticmaps/noaad1.png",
+        MyApplication.nwsWPCwebsitePrefix + "/NationalForecastChart/staticmaps/noaad2.png",
+        MyApplication.nwsWPCwebsitePrefix + "/NationalForecastChart/staticmaps/noaad3.png",
+
         MyApplication.nwsWPCwebsitePrefix + "/basicwx/92fwbg.gif",
         MyApplication.nwsWPCwebsitePrefix + "/basicwx/94fwbg.gif",
         MyApplication.nwsWPCwebsitePrefix + "/basicwx/96fwbg.gif",
