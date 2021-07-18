@@ -30,6 +30,12 @@
 // TODO FutureAnim
 
 55549 2021_07_18    [FIX] WPC Forecast chart day1-3 URL has changed
+                    [ADD] NAMER domain to RAP Model in NCEP
+                    [ADD] Alask domain to HRRR Model in NCEP
+                    [ADD] NAMER domain to RAP Model in NCEP
+                    [ADD] Alask domain to HRRR Model in NCEP
+                    [ADD] Accumulated Maximum Updraft Helicity (accu_max_updraft_hlcy) to HRRR model (NCEP)
+                    [ADD] prob_cref_40dbz and prob_max_hlcy_75 to HREF model (NCEP)
 55548 2021_07_16    [ADD] refactor to use Future*, more threads in various activities
 55547 2021_07_15    [ADD] more download threads in SevereDashboard
                     [ADD] add Future* classes to mimic desktop ports, test in Hourly

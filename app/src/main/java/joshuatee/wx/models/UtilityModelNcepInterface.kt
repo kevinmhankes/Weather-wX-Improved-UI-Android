@@ -81,7 +81,10 @@ internal object UtilityModelNcepInterface {
             "US-SE"
     )
 
-    val sectorsRap = listOf("CONUS")
+    val sectorsRap = listOf(
+            "CONUS",
+            "NAMER"
+    )
 
     val sectorsHrrr = listOf(
             "CONUS",
@@ -90,7 +93,8 @@ internal object UtilityModelNcepInterface {
             "US-NC",
             "US-SC",
             "US-NE",
-            "US-SE"
+            "US-SE",
+            "ALASKA"
     )
 
     val sectorsSref = listOf(
@@ -424,6 +428,7 @@ internal object UtilityModelNcepInterface {
             "helicity_1km",
             "helicity_3km",
             "max_updraft_hlcy",
+            "accu_max_updraft_hlcy",
             "10m_wnd",
             "10m_maxwnd",
             "2m_temp_10m_wnd",
@@ -459,6 +464,7 @@ internal object UtilityModelNcepInterface {
             "0-1km Helicity and Storm Motion",
             "0-3km Helicity and Storm Motion",
             "Max 2-5km Updraft Helicity ",
+            "Accumulated Maximum Updraft Helicity",
             "10 meter Wind",
             "Max 10m Wind Speed",
             "2 meter Temperature and 10 meter Wind",
@@ -996,6 +1002,7 @@ internal object UtilityModelNcepInterface {
             "pmm_refd_max",
             "prob_refd_40dbz",
             "prob_refd_max_40dbz",
+            "prob_cref_40dbz",
             "prob_cref_50dbz",
             "prob_rain",
             "prob_snow",
@@ -1038,6 +1045,7 @@ internal object UtilityModelNcepInterface {
             "mean_vwshr",
             "prob_vwshr_30kt",
             "prob_max_hlcy_25",
+            "prob_max_hlcy_75",
             "prob_max_hlcy_100"
     )
 
@@ -1052,6 +1060,7 @@ internal object UtilityModelNcepInterface {
             "PMM COL MAX REFD",
             "Probability of 1km REFD greater than 40dBZ",
             "Probability of 1km MAX REFD greater than 40dBZ",
+            "Probability of COMP MAX REFC greater than 40dBZ",
             "Probability of COMP MAX REFC greater than 50dBZ",
             "Probability of rain",
             "Probability of snow",
@@ -1094,6 +1103,7 @@ internal object UtilityModelNcepInterface {
             "Mean vertical wind shear ",
             "Probability of vertical wind shear greater than 30kts",
             "Probability of max updraft helicity greater than 25m**2/s**2",
+            "Probability of max updraft helicity greater than 75m**2/s**2",
             "Probability of max updraft helicity greater than 100m**2/s**2"
     )
 
