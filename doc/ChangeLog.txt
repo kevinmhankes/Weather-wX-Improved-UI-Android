@@ -30,6 +30,7 @@
 // TODO FutureAnim
 
 55550 2021_07_31    [ADD] update ESRL HRRR/RAP after NOAA changes
+                    [ADD] androidx.recyclerview:recyclerview:1.2.0 -> 1.2.1
 55549 2021_07_18    [FIX] WPC Forecast chart day1-3 URL has changed
                     [ADD] NAMER domain to RAP Model in NCEP
                     [ADD] Alask domain to HRRR Model in NCEP
