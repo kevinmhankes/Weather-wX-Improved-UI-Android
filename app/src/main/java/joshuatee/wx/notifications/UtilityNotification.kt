@@ -318,7 +318,7 @@ object UtilityNotification {
                         .setAutoCancel(MyApplication.alertAutocancel)
                         .setColor(UIPreferences.colorNotif)
                         .setLargeIcon(bitmap)
-        ).bigPicture(bitmap).build()
+        ).bigPicture(bitmap).build()!!
         noti2.flags = noti2.flags or Notification.FLAG_ONLY_ALERT_ONCE
         noti2.contentIntent = resultPendingIntent2
         return noti2
@@ -347,7 +347,7 @@ object UtilityNotification {
                             )
                             .setLights(notification.color, onMs, offMs)
                             .setSmallIcon(notification.iconAlert)
-            ).bigText(notification.noSummary).build()
+            ).bigText(notification.noSummary).build()!!
             if (MyApplication.notifSoundRepeat) noti.flags = noti.flags or Notification.FLAG_INSISTENT
             if (MyApplication.notifTts) UtilityTts.synthesizeTextAndPlay(notification.context, notification.noMain, notification.noMain)
         } else {
@@ -364,7 +364,7 @@ object UtilityNotification {
                             .addAction(notification.iconAction, notification.buttonStr, notification.actionPendingIntent)
                             .setLights(notification.color, onMs, offMs)
                             .setSmallIcon(notification.iconAlert)
-            ).bigText(notification.noSummary).build()
+            ).bigText(notification.noSummary).build()!!
         }
         return noti
     }
@@ -447,7 +447,7 @@ object UtilityNotification {
                             .setPriority(prio)
                             .setSmallIcon(smallIcon)
                             .setLargeIcon(bitmap)
-            ).bigText(noSummary).build()
+            ).bigText(noSummary).build()!!
             if (MyApplication.notifSoundRepeat)
                 noti.flags = noti.flags or Notification.FLAG_INSISTENT
             if (MyApplication.notifTts)
@@ -465,7 +465,7 @@ object UtilityNotification {
                             .setPriority(prio)
                             .setSmallIcon(smallIcon)
                             .setLargeIcon(bitmap)
-            ).bigText(noSummary).build()
+            ).bigText(noSummary).build()!!
         }
         return noti
     }
