@@ -29,9 +29,8 @@
 // TODO remove uiDispatcher as arg for Future*
 // TODO FutureAnim
 // TODO Aviation images don't work in Nation Images
-// TODO decom : [ADD] NSSL WRF_3KM has been discontinued by the upstream provider https://cams.nssl.noaa.gov/
 
-
+55552 2021_08_02    [FIX] Aviation images don't work in Nation Images
 55551 2021_08_02    [ADD] org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.0 -> 1.5.10
                           com.google.android.material:material:1.3.0 -> 1.4.0
                             this required adding "!!" after notification builders in UtilityNotification.kt (needs testing as emulator was not sufficient)

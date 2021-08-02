@@ -22,6 +22,7 @@
 package joshuatee.wx.wpc
 
 import android.util.SparseArray
+import joshuatee.wx.GlobalVariables
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Group
@@ -319,9 +320,9 @@ internal object UtilityWpcImages {
         "https://www.cpc.ncep.noaa.gov/products/predictions/threats/hazards_d8_14_contours.png",
         "${MyApplication.nwsCPCNcepWebsitePrefix}/products/precip/CWlink/ghazards/images/gth_full_update.png",
 
-        "${MyApplication.nwsAWCwebsitePrefix}/adds/data/airmets/airmets_CB.gif",
-        "${MyApplication.nwsAWCwebsitePrefix}/adds/data/airmets/airmets_TB.gif",
-        "${MyApplication.nwsAWCwebsitePrefix}/adds/data/airmets/airmets_IC.gif",
+        GlobalVariables.nwsAWCwebsitePrefix + "/data/products/sigmet/sigmet_cb.gif",
+        GlobalVariables.nwsAWCwebsitePrefix + "/data/products/sigmet/sigmet_tb.gif",
+        GlobalVariables.nwsAWCwebsitePrefix + "/data/products/sigmet/sigmet_ic.gif",
         "${MyApplication.nwsAWCwebsitePrefix}/adds/data/progs/hpc_sfc_analysis.gif",
         "${MyApplication.nwsAWCwebsitePrefix}/data/products/progs/F006_wpc_prog.gif",
         "${MyApplication.nwsAWCwebsitePrefix}/data/products/progs/F012_wpc_prog.gif",
