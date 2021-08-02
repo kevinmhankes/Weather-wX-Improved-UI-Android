@@ -323,7 +323,7 @@ internal object UtilityWpcImages {
         GlobalVariables.nwsAWCwebsitePrefix + "/data/products/sigmet/sigmet_cb.gif",
         GlobalVariables.nwsAWCwebsitePrefix + "/data/products/sigmet/sigmet_tb.gif",
         GlobalVariables.nwsAWCwebsitePrefix + "/data/products/sigmet/sigmet_ic.gif",
-        "${MyApplication.nwsAWCwebsitePrefix}/adds/data/progs/hpc_sfc_analysis.gif",
+        "${MyApplication.nwsAWCwebsitePrefix}/data/products/progs/F000_wpc_sfc.gif",
         "${MyApplication.nwsAWCwebsitePrefix}/data/products/progs/F006_wpc_prog.gif",
         "${MyApplication.nwsAWCwebsitePrefix}/data/products/progs/F012_wpc_prog.gif",
         "${MyApplication.nwsAWCwebsitePrefix}/data/products/progs/F018_wpc_prog.gif",
