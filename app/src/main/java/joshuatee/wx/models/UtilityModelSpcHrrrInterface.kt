@@ -58,7 +58,7 @@ internal object UtilityModelSpcHrrrInterface {
         "cape",
         "proxy",
         "wmax",
-        "scp",
+//        "scp",
         "uh",
         "ptype",
         "ttd"
@@ -71,7 +71,7 @@ internal object UtilityModelSpcHrrrInterface {
         "Thermo Parameters",
         "Proxy Indicators",
         "Max Surface Wind",
-        "SCP / STP",
+//        "SCP / STP",
         "Updraft Helicity",
         "Winter Parameters",
         "Temp/Dwpt"
