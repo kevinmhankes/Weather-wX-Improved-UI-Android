@@ -33,6 +33,7 @@ import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityImgAnim
 import joshuatee.wx.util.UtilityTime
 import joshuatee.wx.Extensions.*
+import joshuatee.wx.GlobalVariables
 import joshuatee.wx.MyApplication
 
 internal object UtilityModelSpcHrrrInputOutput {
@@ -40,15 +41,29 @@ internal object UtilityModelSpcHrrrInputOutput {
     val runTime: RunTimeData
         get() {
             val runData = RunTimeData()
-            val htmlRunStatus = "${MyApplication.nwsSPCwebsitePrefix}/exper/hrrr/data/hrrr3/latestHour.php".getHtml()
-            val html = htmlRunStatus.parse(".*?.LatestFile.: .s[0-9]{2}/R([0-9]{10})_F[0-9]{3}_V[0-9]{10}_S[0-9]{2}_.*?.gif..*?")
-            runData.imageCompleteStr = htmlRunStatus.parse(".*?.LatestFile.: .s[0-9]{2}/R[0-9]{10}_F([0-9]{3})_V[0-9]{10}_S[0-9]{2}_.*?.gif..*?")
-            runData.validTime = htmlRunStatus.parse(".*?.LatestFile.: .s[0-9]{2}/R[0-9]{10}_F[0-9]{3}_V([0-9]{10})_S[0-9]{2}_.*?.gif..*?")
-            runData.listRunClear()
-            runData.listRunAdd(html)
-            runData.listRunAddAll(UtilityTime.genModelRuns(html, 1))
-            runData.mostRecentRun = html
+            val htmlRunStatus = (GlobalVariables.nwsSPCwebsitePrefix + "/exper/hrrr/data/hrrr3/cron.log").getHtml()
+            runData.validTime = htmlRunStatus.parse("Latest Run: ([0-9]{10})")
+            runData.mostRecentRun = runData.validTime
+            runData.listRunAdd(runData.mostRecentRun)
+            val runTimes = htmlRunStatus.parseColumn("Run: ([0-9]{8}/[0-9]{4})")
+            for (time in runTimes.reversed()) {
+                var t = time.replace("/", "")
+                if (t != (runData.mostRecentRun + "00")) {
+                    t = t.dropLast(2)
+                    runData.listRunAdd(t)
+                }
+            }
             return runData
+//            val runData = RunTimeData()
+//            val htmlRunStatus = "${MyApplication.nwsSPCwebsitePrefix}/exper/hrrr/data/hrrr3/latestHour.php".getHtml()
+//            val html = htmlRunStatus.parse(".*?.LatestFile.: .s[0-9]{2}/R([0-9]{10})_F[0-9]{3}_V[0-9]{10}_S[0-9]{2}_.*?.gif..*?")
+//            runData.imageCompleteStr = htmlRunStatus.parse(".*?.LatestFile.: .s[0-9]{2}/R[0-9]{10}_F([0-9]{3})_V[0-9]{10}_S[0-9]{2}_.*?.gif..*?")
+//            runData.validTime = htmlRunStatus.parse(".*?.LatestFile.: .s[0-9]{2}/R[0-9]{10}_F[0-9]{3}_V([0-9]{10})_S[0-9]{2}_.*?.gif..*?")
+//            runData.listRunClear()
+//            runData.listRunAdd(html)
+//            runData.listRunAddAll(UtilityTime.genModelRuns(html, 1))
+//            runData.mostRecentRun = html
+//            return runData
         }
 
     fun getImage(context: Context, om: ObjectModelNoSpinner, time: String, overlayImg: List<String>): Bitmap {

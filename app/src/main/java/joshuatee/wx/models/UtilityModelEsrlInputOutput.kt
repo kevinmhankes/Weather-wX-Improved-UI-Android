@@ -113,7 +113,7 @@ internal object UtilityModelEsrlInputOutput {
         if (parentModel.contains("RAP")) {
             imgUrl = "$urlBase/" + parentModel + "/for_web/" + om.model.lowercase(Locale.US) +
                     "_jet/" + om.run.replace("Z", "") +
-                    "/" + sectorLocal + "/" + param + "_f0" + time + ".png"
+                    "/" + sectorLocal + "/" + param + "_f" + time + ".png"
             onDemandUrl = "$urlBase/" + parentModel + "/" +
                     "displayMapUpdated" + ".cgi?keys=" +
                     om.model.lowercase(Locale.US) + "_jet:&runtime=" + om.run.replace("Z", "") +
@@ -125,7 +125,7 @@ internal object UtilityModelEsrlInputOutput {
         } else {
             imgUrl = "$urlBase/hrrr/" + parentModel.uppercase(Locale.US) + "/for_web/" +
                     om.model.lowercase(Locale.US) + "_jet/" + om.run.replace("Z", "") +
-                    "/" + sectorLocal + "/" + param + "_f0" + time + ".png"
+                    "/" + sectorLocal + "/" + param + "_f" + time + ".png"
             onDemandUrl = "$urlBase/hrrr/" + parentModel.uppercase(Locale.US) + "/" +
                     "displayMapUpdated" + ".cgi?keys=" +
                     om.model.lowercase(Locale.US) + "_jet:&runtime=" + om.run.replace("Z", "") +

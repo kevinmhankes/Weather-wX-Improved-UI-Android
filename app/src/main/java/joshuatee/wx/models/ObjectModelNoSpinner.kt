@@ -480,8 +480,8 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
                         startStep = 0
                         endStep = 39
                         stepAmount = 1
-                        format = "%02d"
-                        timeTruncate = 2
+                        format = "%03d"
+                        timeTruncate = 3
                     }
                     2 -> {
                         model = "RAP_NCEP"
@@ -491,8 +491,8 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
                         startStep = 0
                         endStep = 39
                         stepAmount = 1
-                        format = "%02d"
-                        timeTruncate = 2
+                        format = "%03d"
+                        timeTruncate = 3
                     }
                     0 -> {
                         model = "HRRR_NCEP"
@@ -502,8 +502,8 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
                         startStep = 0
                         endStep = 36
                         stepAmount = 1
-                        format = "%02d"
-                        timeTruncate = 2
+                        format = "%03d"
+                        timeTruncate = 3
                     }
                 }
             }

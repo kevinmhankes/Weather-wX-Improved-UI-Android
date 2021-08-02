@@ -25,7 +25,7 @@ internal object UtilityModelEsrlInterface {
 
     val models = listOf(
         "HRRR_NCEP",
-        "RAP",
+        // "RAP",
         "RAP_NCEP"
     )
 

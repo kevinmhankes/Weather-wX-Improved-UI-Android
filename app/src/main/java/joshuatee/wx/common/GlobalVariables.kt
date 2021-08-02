@@ -23,5 +23,6 @@ package joshuatee.wx
 
 object GlobalVariables {
 
+    const val nwsSPCwebsitePrefix = "https://www.spc.noaa.gov"
 
 }
