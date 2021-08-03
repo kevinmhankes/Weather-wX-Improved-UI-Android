@@ -28,13 +28,15 @@ import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import java.util.Locale
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityImgAnim
 import joshuatee.wx.util.UtilityTime
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.GlobalVariables
 import joshuatee.wx.MyApplication
+import joshuatee.wx.util.UtilityLog
+import java.text.SimpleDateFormat
+import java.util.*
 
 internal object UtilityModelSpcHrrrInputOutput {
 
@@ -98,20 +100,50 @@ internal object UtilityModelSpcHrrrInputOutput {
             ?: "S19"
 
     private fun getValidTime(run: String, validTimeForecast: String, validTime: String): String {
-        var validTimeCurrent = ""
-        if (run.length == 10 && validTime.length == 10) {
-            val runTimePrefix = run.substring(0, 8)
-            val runTimeHr = run.substring(8, 10)
-            val endTimePrefix = validTime.substring(0, 8)
-            val runTimeHrInt = runTimeHr.toIntOrNull() ?: 0
-            val forecastInt = validTimeForecast.toIntOrNull() ?: 0
-            validTimeCurrent = if (runTimeHrInt + forecastInt > 23) {
-                endTimePrefix + String.format(Locale.US, "%02d", runTimeHrInt + forecastInt - 24)
-            } else {
-                runTimePrefix + String.format(Locale.US, "%02d", runTimeHrInt + forecastInt)
-            }
+//        var validTimeCurrent = ""
+//        if (run.length == 10 && validTime.length == 10) {
+//            val runTimePrefix = run.substring(0, 8)
+//            val runTimeHr = run.substring(8, 10)
+//            val endTimePrefix = validTime.substring(0, 8)
+//            val runTimeHrInt = runTimeHr.toIntOrNull() ?: 0
+//            val forecastInt = validTimeForecast.toIntOrNull() ?: 0
+//            validTimeCurrent = if (runTimeHrInt + forecastInt > 23) {
+//                endTimePrefix + String.format(Locale.US, "%02d", runTimeHrInt + forecastInt - 24)
+//            } else {
+//                runTimePrefix + String.format(Locale.US, "%02d", runTimeHrInt + forecastInt)
+//            }
+//        }
+//        return validTimeCurrent
+
+        val format = SimpleDateFormat("yyyyMMddHH", Locale.US)
+        val parsed: Date
+        val oneMinuteInMillis: Long = 60000
+        var t: Long = 0
+        try {
+            parsed = format.parse(run)!!
+            t = parsed.time
+        } catch (e: Exception) {
+            UtilityLog.handleException(e)
         }
-        return validTimeCurrent
+        return format.format(Date(t  + 60 * oneMinuteInMillis * validTimeForecast.toLong()))
+    }
+
+    fun genModelRuns(time: String, hours: Int): List<String> {
+        val listRun = mutableListOf<String>()
+        val format = SimpleDateFormat("yyyyMMddHH", Locale.US)
+        var parsed: Date
+        val oneMinuteInMillis: Long = 60000
+        var t: Long = 0
+        (1 until 4).forEach {
+            try {
+                parsed = format.parse(time)!!
+                t = parsed.time
+            } catch (e: Exception) {
+                UtilityLog.handleException(e)
+            }
+            listRun.add(format.format(Date(t - 60 * oneMinuteInMillis * it.toLong() * hours.toLong())))
+        }
+        return listRun
     }
 
     private fun formatTime(time: String) = "0$time"
