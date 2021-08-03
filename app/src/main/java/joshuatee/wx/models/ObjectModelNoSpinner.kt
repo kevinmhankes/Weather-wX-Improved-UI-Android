@@ -139,8 +139,8 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
                 sectors = UtilityModelSpcHrrrInterface.sectors
                 defaultModel = "HRRR"
                 timeTruncate = 2
-                startStep = 2
-                endStep = 16
+                startStep = 1
+                endStep = 14
             }
         }
         model = Utility.readPref(context, prefModel, defaultModel)
@@ -205,8 +205,8 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
                         params = UtilityModelSpcHrrrInterface.models
                         labels = UtilityModelSpcHrrrInterface.labels
                         sectors = UtilityModelSpcHrrrInterface.sectors
-                        startStep = 2
-                        endStep = 16
+                        startStep = 1
+                        endStep = 14
                         stepAmount = 1
                         numberRuns = 4
                     }

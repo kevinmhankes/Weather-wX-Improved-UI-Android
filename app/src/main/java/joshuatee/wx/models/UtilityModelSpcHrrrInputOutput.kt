@@ -122,28 +122,11 @@ internal object UtilityModelSpcHrrrInputOutput {
         try {
             parsed = format.parse(run)!!
             t = parsed.time
+            return format.format(Date(t  + 60 * oneMinuteInMillis * validTimeForecast.toLong()))
         } catch (e: Exception) {
             UtilityLog.handleException(e)
         }
-        return format.format(Date(t  + 60 * oneMinuteInMillis * validTimeForecast.toLong()))
-    }
-
-    fun genModelRuns(time: String, hours: Int): List<String> {
-        val listRun = mutableListOf<String>()
-        val format = SimpleDateFormat("yyyyMMddHH", Locale.US)
-        var parsed: Date
-        val oneMinuteInMillis: Long = 60000
-        var t: Long = 0
-        (1 until 4).forEach {
-            try {
-                parsed = format.parse(time)!!
-                t = parsed.time
-            } catch (e: Exception) {
-                UtilityLog.handleException(e)
-            }
-            listRun.add(format.format(Date(t - 60 * oneMinuteInMillis * it.toLong() * hours.toLong())))
-        }
-        return listRun
+        return ""
     }
 
     private fun formatTime(time: String) = "0$time"
