@@ -32,21 +32,21 @@ import joshuatee.wx.radar.LatLon
 
 object UtilityCanada {
 
-    private val provinceToSector = mapOf(
-        "AB" to "PAC",
-        "BC" to "PAC",
-        "MB" to "PAC",
-        "NB" to "ERN",
-        "NL" to "ERN",
-        "NS" to "ERN",
-        "NT" to "CAN",
-        "NU" to "CAN",
-        "ON" to "ONT",
-        "PE" to "ERN",
-        "QC" to "ERN",
-        "SK" to "PAC",
-        "YT" to "CAN"
-    )
+//    private val provinceToSector = mapOf(
+//        "AB" to "PAC",
+//        "BC" to "PAC",
+//        "MB" to "PAC",
+//        "NB" to "ERN",
+//        "NL" to "ERN",
+//        "NS" to "ERN",
+//        "NT" to "CAN",
+//        "NU" to "CAN",
+//        "ON" to "ONT",
+//        "PE" to "ERN",
+//        "QC" to "ERN",
+//        "SK" to "PAC",
+//        "YT" to "CAN"
+//    )
 
     fun getRadarLabel(radarSite: String): String {
         val label = GlobalArrays.canadaRadars.findLast { it.startsWith(radarSite) }
