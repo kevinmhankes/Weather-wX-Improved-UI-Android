@@ -36,7 +36,7 @@ import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.util.UtilityDownload
 
-class ObjectNhc(val context: Context, private val linearLayout1: LinearLayout) {
+class ObjectNhc(val context: Context, linearLayout1: LinearLayout) {
 
     private var notificationCard: ObjectCardText? = null
     private val cardNotificationHeaderText = "Currently blocked storm notifications, tap this text to clear all blocks "
