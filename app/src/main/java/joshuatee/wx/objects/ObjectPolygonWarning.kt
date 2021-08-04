@@ -61,13 +61,12 @@ class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
         return longName[type] ?: ""
     }
 
-    fun getUrl(): String {
+    private fun getUrl(): String {
         return baseUrl + getUrlToken()
     }
 
-    fun getTypeName(): String {
-        val name: String = type.toString().replace("PolygonType.", "")
-        return name
+    private fun getTypeName(): String {
+        return type.toString().replace("PolygonType.", "")
     }
 
     val name get() = type.urlToken.replace("%20", " ")

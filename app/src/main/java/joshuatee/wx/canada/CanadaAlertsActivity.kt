@@ -35,11 +35,9 @@ import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCanadaWarnings
 import joshuatee.wx.ui.UtilityToolbar
 import joshuatee.wx.util.Utility
-import kotlinx.coroutines.*
 
 class CanadaAlertsActivity : BaseActivity(), Toolbar.OnMenuItemClickListener {
 
-    private val uiDispatcher = Dispatchers.Main
     private var firstTime = true
     private lateinit var objectCanadaWarnings: ObjectCanadaWarnings
     private lateinit var scrollView: ScrollView

@@ -350,7 +350,7 @@ object UtilityCanada {
         return warningData
     }
 
-    fun getSectorFromProvince(prov: String) = provinceToSector[prov] ?: ""
+//    fun getSectorFromProvince(prov: String) = provinceToSector[prov] ?: ""
 
     fun isLabelPresent(label: String): Boolean {
         UtilityCitiesCanada.initialize()

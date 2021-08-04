@@ -40,11 +40,9 @@ import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.util.UtilityString
 import joshuatee.wx.wpc.UtilityWpcText
-import kotlinx.coroutines.*
 
 class CanadaTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
-    private val uiDispatcher = Dispatchers.Main
     private var product = "focn45"
     private var html = ""
     private lateinit var objectCardText: ObjectCardText

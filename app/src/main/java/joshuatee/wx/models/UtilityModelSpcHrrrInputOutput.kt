@@ -30,7 +30,6 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityImgAnim
-import joshuatee.wx.util.UtilityTime
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.GlobalVariables
 import joshuatee.wx.MyApplication
