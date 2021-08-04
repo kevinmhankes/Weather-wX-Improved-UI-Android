@@ -336,10 +336,10 @@ class ObjectModelNoSpinner(val context: Context, var prefModel: String, numPanes
                         numberRuns = 1
                     }
                     17 -> {
-                        model = "WW3"
-                        params = UtilityModelNcepInterface.paramsWw3
-                        labels = UtilityModelNcepInterface.labelsWw3
-                        sectors = UtilityModelNcepInterface.sectorsWw3
+                        model = "GFS-WAVE"
+                        params = UtilityModelNcepInterface.paramsGfsWave
+                        labels = UtilityModelNcepInterface.labelsGfsWave
+                        sectors = UtilityModelNcepInterface.sectorsGfsWave
                         startStep = 0
                         endStep = 127
                         stepAmount = 6

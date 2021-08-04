@@ -41,7 +41,7 @@ internal object UtilityModelNcepInterface {
             "POLAR",
             "RAP",
             "SREF",
-            "WW3"
+            "GFS-WAVE"
     )
 
     val sectorsGfs = listOf(
@@ -187,35 +187,36 @@ internal object UtilityModelNcepInterface {
             "ARCTIC"
     )
 
-    val sectorsWw3 = listOf(
-            "ATLANTIC",
+    val sectorsGfsWave = listOf(
+            "ALASKA",
+            "ARCTIC",
             "ATL-PAC",
-            "NORTH-PAC",
+            "ATLANTIC",
             "EAST-PAC",
+            "GOM",
+            "HAWAII",
+            "NE-COAST",
+            "NORTH-CAL",
+            "NORTH-PAC",
+            "PAC-REGION",
+            "SE-COAST",
+            "SOUTH-CAL",
+            "WA-OR",
             "WEST-ATL"
     )
 
-   /* val sectorsWw3Enp = listOf(
-            "NORTH-PAC",
-            "EAST-PAC"
-    )
-
-    val sectorsWw3Wna = listOf(
-            "WN-ATL"
-    )*/
-
     val sectorsEstofs = listOf(
-            "WEST-GOA",
             "EAST-GOA",
-            "WA-OR",
-            "NORTH-CAL",
-            "SOUTH-CAL",
-            "NE-COAST",
+            "EAST-GOM",
+            "HAWAII",
             "MID-ATL",
+            "NE-COAST",
+            "NORTH-CAL",
             "SE-COAST",
-            "EGOM",
-            "WGOM",
-            "HAWAII"
+            "SOUTH-CAL",
+            "WA-OR",
+            "WEST-GOA",
+            "WEST-GOM"
     )
 
     val sectorsFirewx = listOf(
@@ -851,16 +852,26 @@ internal object UtilityModelNcepInterface {
             "925mb Winds"
     )
 
-    val paramsWw3 = listOf(
+    val paramsGfsWave = listOf(
             "peak_dir_per",
             "sig_wv_ht",
-            "wnd_wv_dir_per"
+            "wsea_dir_per",
+            "wsea_wv_ht",
+            "swell1_wv_ht",
+            "swell1_dir_per",
+            "swell2_wv_ht",
+            "swell2_dir_per"
     )
 
-    val labelsWw3 = listOf(
+    val labelsGfsWave = listOf(
             "Peak Wave Direction and Period (sec)",
             "Significant Wave Height and Wind",
-            "Wind Wave Direction and Period (sec)"
+            "Wind Sea Direction and Period (sec)",
+            "Wind Sea Wave Height and Wind (sec)",
+            "Primary Swell Wave Height and Wind Image (sec)",
+            "Primary Swell Direction and Period (sec)",
+            "Secondary Swell Wave Height and Wind (sec)",
+            "Secondary Swell Direction and Period (sec)"
     )
 
     val paramsEstofs = listOf(
@@ -1114,8 +1125,8 @@ internal object UtilityModelNcepInterface {
             "2m_dewp_10m_wnd",
             "2m_relh_10m_wnd",
             "2m_apparent_temp",
-            "2m_min_temp",
-            "2m_max_temp",
+//            "2m_min_temp",
+//            "2m_max_temp",
             "10m_wnd_gust",
             "total_cloud_cover"
     )
@@ -1127,8 +1138,8 @@ internal object UtilityModelNcepInterface {
             "2 meter dew point temp and 10 meter wind",
             "2 meter Relative Humidity and 10 meter Wind",
             "2 meter Apparent Temperature and 10 meter Wind",
-            "2 meter minimum Temperature",
-            "2 meter maximum temperature",
+//            "2 meter minimum Temperature",
+//            "2 meter maximum temperature",
             "10 meter wind and gust",
             "Total Cloud Cover"
     )
