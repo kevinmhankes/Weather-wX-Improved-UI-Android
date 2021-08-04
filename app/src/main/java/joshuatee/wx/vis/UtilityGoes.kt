@@ -106,8 +106,8 @@ object UtilityGoes {
 //    }
 
     fun getAnimationGoesFloater(context: Context, product: String, url: String, frameCount: Int): AnimationDrawable {
-        print("getAnimationGoesFloater http: " + url)
-        print("getAnimationGoesFloater http: " + product)
+//        print("getAnimationGoesFloater http: " + url)
+//        print("getAnimationGoesFloater http: " + product)
         var baseUrl = url
         baseUrl = baseUrl.replace("GEOCOLOR", product).replace("latest.jpg", "")
         // baseUrl += "/" + product + "/"

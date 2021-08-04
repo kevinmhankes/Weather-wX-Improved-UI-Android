@@ -101,7 +101,7 @@ class NhcStormActivity : BaseActivity() {
         FutureText(this, product, ::showText)
     }
 
-    fun downloadImages() {
+    private fun downloadImages() {
         bitmaps.clear()
         imageUrls.forEach {
             var url = stormData.baseUrl

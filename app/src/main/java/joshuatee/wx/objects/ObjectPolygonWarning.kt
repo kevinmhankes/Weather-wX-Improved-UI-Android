@@ -97,7 +97,7 @@ class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
 //            PolygonType.ffw: "Flash%20Flood%20Warning",
         )
 
-        val baseUrl: String = "https://api.weather.gov/alerts/active?event="
+        const val baseUrl: String = "https://api.weather.gov/alerts/active?event="
 
         fun areAnyEnabled(): Boolean {
             var anyEnabled = false
