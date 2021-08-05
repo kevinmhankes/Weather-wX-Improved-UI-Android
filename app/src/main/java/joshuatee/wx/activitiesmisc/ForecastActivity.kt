@@ -99,9 +99,9 @@ class ForecastActivity : BaseActivity() {
     }
 
     private fun getContent() {
-        FutureVoid(this, ::download, ::update)
         FutureVoid(this, ::downloadCc, ::updateCc)
         FutureVoid(this, ::downloadHazards, ::updateHazards)
+        FutureVoid(this, ::download7Day, ::update7Day)
     }
 
     private fun downloadCc() {
@@ -115,20 +115,25 @@ class ForecastActivity : BaseActivity() {
     }
 
     private fun downloadHazards() {
-
+        objectHazards = ObjectHazards(latLon)
     }
 
     private fun updateHazards() {
-
+        if (objectHazards.titles.isEmpty()) {
+            linearLayoutHazards.removeAllViews()
+            linearLayoutHazards.visibility = View.GONE
+        } else {
+            linearLayoutHazards.visibility = View.VISIBLE
+            setupHazardCards()
+        }
     }
 
-    private fun download() {
-        objectHazards = ObjectHazards(latLon)
+    private fun download7Day() {
         objectSevenDay = ObjectSevenDay(latLon)
         bitmaps = objectSevenDay.icons.map { UtilityNws.getIcon(this@ForecastActivity, it) }
     }
 
-    private fun update() = GlobalScope.launch(uiDispatcher) {
+    private fun update7Day() {
         // 7day
         //
         linearLayoutForecast.removeAllViewsInLayout()
@@ -146,16 +151,6 @@ class ForecastActivity : BaseActivity() {
             UtilityLog.handleException(e)
         }
         linearLayoutForecast.addView(objectCardText.card)
-        //
-        // hazards
-        //
-        if (objectHazards.titles.isEmpty()) {
-            linearLayoutHazards.removeAllViews()
-            linearLayoutHazards.visibility = View.GONE
-        } else {
-            linearLayoutHazards.visibility = View.VISIBLE
-            setupHazardCards()
-        }
     }
 
     private fun setupHazardCards() {
