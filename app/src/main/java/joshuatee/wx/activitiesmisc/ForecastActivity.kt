@@ -100,25 +100,35 @@ class ForecastActivity : BaseActivity() {
 
     private fun getContent() {
         FutureVoid(this, ::download, ::update)
+        FutureVoid(this, ::downloadCc, ::updateCc)
+        FutureVoid(this, ::downloadHazards, ::updateHazards)
+    }
+
+    private fun downloadCc() {
+        objectCurrentConditions = ObjectCurrentConditions(this@ForecastActivity, latLon)
+        bitmapForCurrentCondition = UtilityNws.getIcon(this@ForecastActivity, objectCurrentConditions.iconUrl)
+    }
+
+    private fun updateCc() {
+        currentConditionsTime = objectCurrentConditions.status
+        objectCardCurrentConditions.updateContent(bitmapForCurrentCondition, objectCurrentConditions, true, currentConditionsTime, radarTime)
+    }
+
+    private fun downloadHazards() {
+
+    }
+
+    private fun updateHazards() {
+
     }
 
     private fun download() {
-        objectCurrentConditions = ObjectCurrentConditions(this@ForecastActivity, latLon)
         objectHazards = ObjectHazards(latLon)
         objectSevenDay = ObjectSevenDay(latLon)
-        bitmapForCurrentCondition = UtilityNws.getIcon(this@ForecastActivity, objectCurrentConditions.iconUrl)
         bitmaps = objectSevenDay.icons.map { UtilityNws.getIcon(this@ForecastActivity, it) }
     }
 
     private fun update() = GlobalScope.launch(uiDispatcher) {
-        //
-        // CC
-        //
-        objectCardCurrentConditions.let {
-            currentConditionsTime = objectCurrentConditions.status
-            it.updateContent(bitmapForCurrentCondition, objectCurrentConditions, true, currentConditionsTime, radarTime)
-        }
-        //
         // 7day
         //
         linearLayoutForecast.removeAllViewsInLayout()
