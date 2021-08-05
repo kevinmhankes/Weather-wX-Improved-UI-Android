@@ -134,8 +134,6 @@ class ForecastActivity : BaseActivity() {
     }
 
     private fun update7Day() {
-        // 7day
-        //
         linearLayoutForecast.removeAllViewsInLayout()
         bitmaps.forEachIndexed { index, bitmap ->
             val objectCard7Day = ObjectCard7Day(this@ForecastActivity, bitmap, true, index, objectSevenDay.forecastList)
