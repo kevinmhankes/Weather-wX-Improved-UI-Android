@@ -57,11 +57,7 @@ class CanadaHourlyActivity : BaseActivity() {
     }
 
     private fun getContent() {
-//        objectCardText.text = withContext(Dispatchers.IO) {
-//            UtilityCanadaHourly.getString(locationNumber)
-//        }
         objectCardText.typefaceMono()
         FutureText2(this, { UtilityCanadaHourly.getString(locationNumber) }, objectCardText::setText1)
-        // FutureText2(this, uiDispatcher, { UtilityCanadaHourly.getString(locationNumber) }, { s -> objectCardText.setText1(s) })
     }
 }

@@ -85,7 +85,6 @@ class AwcRadarMosaicActivity : VideoRecordActivity() {
         product = productLocal
         toolbar.subtitle = objectNavDrawer.getLabel()
         title = product
-        //bitmap = withContext(Dispatchers.IO) { UtilityAwcRadarMosaic.get(objectNavDrawer.url, product) }
         FutureVoid(this, { bitmap = UtilityAwcRadarMosaic.get(objectNavDrawer.url, product) }, ::showImage)
     }
 
