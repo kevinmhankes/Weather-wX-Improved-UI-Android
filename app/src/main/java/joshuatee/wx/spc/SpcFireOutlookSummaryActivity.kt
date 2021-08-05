@@ -60,10 +60,8 @@ class SpcFireOutlookSummaryActivity : BaseActivity() {
         }
         toolbar.subtitle = "SPC"
         title = "Fire Weather Outlooks"
-
         bitmaps = MutableList(UtilitySpcFireOutlook.urls.size){ UtilityImg.getBlankBitmap() }
         objectImageSummary = ObjectImageSummary(this@SpcFireOutlookSummaryActivity, linearLayout, bitmaps)
-
         getContent()
     }
 
@@ -84,7 +82,6 @@ class SpcFireOutlookSummaryActivity : BaseActivity() {
             val textProduct = UtilitySpcFireOutlook.textProducts[index]
             val imageUrl = UtilitySpcFireOutlook.urls[index]
             ObjectIntent(this@SpcFireOutlookSummaryActivity, SpcFireOutlookActivity::class.java, SpcFireOutlookActivity.NUMBER, arrayOf(textProduct, imageUrl))
-
         }
     }
 

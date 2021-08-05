@@ -132,13 +132,6 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private fun getContent() {
         scrollView.smoothScrollTo(0, 0)
         FutureVoid(this, ::download, ::displayData)
-//        withContext(Dispatchers.IO) {
-//            if (firstRun) {
-//                text = textUrl.getHtmlSep()
-//                bitmap = imgUrl.getImage()
-//            }
-//        }
-//        displayData()
     }
 
     private fun download() {

@@ -90,9 +90,6 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
         } else {
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
         }
-
-        // bitmap = withContext(Dispatchers.IO) { UtilitySpcSoundings.getImage(this@SpcSoundingsActivity, office) }
-
         FutureVoid(this, { bitmap = UtilitySpcSoundings.getImage(this@SpcSoundingsActivity, office) }, ::showImage)
     }
 
