@@ -89,11 +89,20 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private var stormReports = mutableListOf<StormReport>()
     private lateinit var objectNavDrawer: ObjectNavDrawer
     private lateinit var scrollView: ScrollView
+    private lateinit var linearLayoutMain: LinearLayout
+    private lateinit var objectCardImage: ObjectCardImage
+    private lateinit var boxImages: ObjectLinearLayout
+    private lateinit var boxText: ObjectLinearLayout
+
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_linear_layout_show_navdrawer_bottom_toolbar, R.menu.spc_stormreports)
         scrollView = findViewById(R.id.scrollView)
+        linearLayoutMain = findViewById(R.id.linearLayout)
+        boxImages = ObjectLinearLayout(this, linearLayoutMain)
+        boxText = ObjectLinearLayout(this, linearLayoutMain)
+        objectCardImage = ObjectCardImage(this@SpcStormReportsActivity, boxImages.get(), UtilityImg.getBlankBitmap())
         toolbarBottom.setOnMenuItemClickListener(this)
         toolbarBottom.menu.findItem(R.id.action_playlist).isVisible = false
         val activityArguments = intent.getStringArrayExtra(NO)
@@ -132,22 +141,10 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private fun getContent() {
         scrollView.smoothScrollTo(0, 0)
         FutureVoid(this, ::download, ::displayData)
+        FutureVoid(this, ::downloadImage, ::updateImage)
     }
 
-    private fun download() {
-        if (firstRun) {
-            text = textUrl.getHtmlSep()
-            bitmap = imgUrl.getImage()
-        }
-    }
-
-    private fun displayData() {
-        out.setLength(0)
-        val linesOfData = text.split("<br>").dropLastWhile { it.isEmpty() }
-        mapState.clear()
-        val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
-        linearLayout.removeAllViews()
-        val objectCardImage = ObjectCardImage(this@SpcStormReportsActivity, linearLayout, bitmap)
+    private fun addListener() {
         objectCardImage.setOnClickListener {
             val stDatePicker = DatePickerDialog(this, pDateSetListener, year, month, day)
             val cal = Calendar.getInstance()
@@ -159,8 +156,46 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
             stDatePicker.setCanceledOnTouchOutside(true)
             stDatePicker.show()
         }
+    }
+
+    private fun downloadImage() {
+        if (firstRun) {
+            bitmap = imgUrl.getImage()
+        }
+    }
+
+    private fun updateImage() {
+        //objectCardImage = ObjectCardImage(this@SpcStormReportsActivity, linearLayout, bitmap)
+        objectCardImage.setImage2(bitmap)
+        addListener()
+    }
+
+    private fun download() {
+        if (firstRun) {
+            text = textUrl.getHtmlSep()
+        }
+    }
+
+    private fun displayData() {
+        out.setLength(0)
+        val linesOfData = text.split("<br>").dropLastWhile { it.isEmpty() }
+        mapState.clear()
+        boxText.removeAllViews()
+        // objectCardImage = ObjectCardImage(this@SpcStormReportsActivity, linearLayout, bitmap)
+        addListener()
+//        objectCardImage.setOnClickListener {
+//            val stDatePicker = DatePickerDialog(this, pDateSetListener, year, month, day)
+//            val cal = Calendar.getInstance()
+//            cal.set(Calendar.YEAR, 2004) // 2011-05-27 was the earliest date for filtered, moved to non-filtered and can go back to 2004-03-23
+//            cal.set(Calendar.MONTH, 2)
+//            cal.set(Calendar.DAY_OF_MONTH, 23)
+//            stDatePicker.datePicker.minDate = cal.timeInMillis - 1000
+//            stDatePicker.datePicker.maxDate = UtilityTime.currentTimeMillis()
+//            stDatePicker.setCanceledOnTouchOutside(true)
+//            stDatePicker.show()
+//        }
         objectCardImage.resetZoom()
-        val objectCardText = ObjectCardText(this@SpcStormReportsActivity, linearLayout)
+        val objectCardText = ObjectCardText(this@SpcStormReportsActivity, boxText.get())
         objectCardText.visibility = View.GONE
         objectCardText.setOnClickListener {
             filter = "All"
@@ -178,7 +213,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 }
                 val stormCard = ObjectCardStormReportItem(this@SpcStormReportsActivity)
                 stormCard.setId(k)
-                linearLayout.addView(stormCard.card)
+                boxText.addView(stormCard.card)
                 stormCard.setTextFields(stormReport)
                 if (!isHeader) registerForContextMenu(stormCard.card)
                 val xStr = stormReport.lat
