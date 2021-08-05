@@ -33,13 +33,13 @@ import android.widget.ScrollView
 import joshuatee.wx.Extensions.getImage
 
 import joshuatee.wx.R
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectAlertSummary
 import joshuatee.wx.ui.ObjectNavDrawer
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.util.UtilityImg
-import kotlinx.coroutines.*
 
 // FIXME rename USWarningsWithRadarActivity
 class USWarningsWithRadarActivity : BaseActivity() {
@@ -53,7 +53,6 @@ class USWarningsWithRadarActivity : BaseActivity() {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var html = ""
     private var usDownloaded = false
     private var usDataStr = ""
@@ -102,19 +101,24 @@ class USWarningsWithRadarActivity : BaseActivity() {
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        withContext(Dispatchers.IO) {
-            bitmap = "https://forecast.weather.gov/wwamap/png/US.png".getImage()
-            if (turlLocal[1] == "us" && usDownloaded) {
-                html = usDataStr
-            } else {
-                html = UtilityDownloadNws.getCap(turlLocal[1])
-                if (turlLocal[1] == "us") {
-                    usDataStr = html
-                    usDownloaded = true
-                }
+    private fun getContent() {
+        FutureVoid(this, ::download, ::update)
+    }
+
+    private fun download() {
+        bitmap = "https://forecast.weather.gov/wwamap/png/US.png".getImage()
+        if (turlLocal[1] == "us" && usDownloaded) {
+            html = usDataStr
+        } else {
+            html = UtilityDownloadNws.getCap(turlLocal[1])
+            if (turlLocal[1] == "us") {
+                usDataStr = html
+                usDownloaded = true
             }
         }
+    }
+
+    private fun update() {
         objectAlertSummary.updateContent(bitmap, html, turlLocal[0], firstRun)
         title = objectAlertSummary.getTitle(turlLocal[1])
         if (firstRun) {
