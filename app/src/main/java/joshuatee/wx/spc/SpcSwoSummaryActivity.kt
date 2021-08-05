@@ -72,30 +72,12 @@ class SpcSwoSummaryActivity : BaseActivity() {
     }
 
     private fun getContent() {
-        // bitmaps = mutableListOf()
-//        withContext(Dispatchers.IO) {
-//            listOf("1", "2", "3", "4-8").forEach { bitmaps.addAll(UtilitySpcSwo.getImages(it, false)) }
-//        }
-
         for (i in listOf(0, 1, 2)) {
             FutureVoid(this, { bitmaps[i] = UtilitySpcSwo.getUrls((i + 1).toString())[0].getImage() }, { updateImage(i) })
         }
-
         for (i in 3 until 8) {
             FutureVoid(this, { bitmaps[i] = UtilitySpcSwo.getImageUrlsDays48((i + 1).toString()).getImage() }, { updateImage(i) })
         }
-
-
-//        linearLayout.removeAllViews()
-//        val objectImageSummary = ObjectImageSummary(this@SpcSwoSummaryActivity, linearLayout, bitmaps)
-//        objectImageSummary.objectCardImages.forEachIndexed { index, objectCardImage ->
-//            val day = if (index < 3) {
-//                    (index + 1).toString()
-//            } else {
-//                "4-8"
-//            }
-//            objectCardImage.setOnClickListener { ObjectIntent.showSpcSwo(this@SpcSwoSummaryActivity, arrayOf(day, "")) }
-//        }
     }
 
     private fun updateImage(index: Int) {
