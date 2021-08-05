@@ -103,10 +103,19 @@ class USWarningsWithRadarActivity : BaseActivity() {
 
     private fun getContent() {
         FutureVoid(this, ::download, ::update)
+        FutureVoid(this, ::downloadImage, ::updateImage)
+    }
+
+    private fun downloadImage() {
+        bitmap = "https://forecast.weather.gov/wwamap/png/US.png".getImage()
+    }
+
+    private fun updateImage() {
+        objectAlertSummary.updateImage(bitmap)
     }
 
     private fun download() {
-        bitmap = "https://forecast.weather.gov/wwamap/png/US.png".getImage()
+        // bitmap = "https://forecast.weather.gov/wwamap/png/US.png".getImage()
         if (turlLocal[1] == "us" && usDownloaded) {
             html = usDataStr
         } else {
@@ -119,7 +128,7 @@ class USWarningsWithRadarActivity : BaseActivity() {
     }
 
     private fun update() {
-        objectAlertSummary.updateContent(bitmap, html, turlLocal[0], firstRun)
+        objectAlertSummary.updateContent(html, turlLocal[0], firstRun)
         title = objectAlertSummary.getTitle(turlLocal[1])
         if (firstRun) {
             objectNavDrawer.updateLists(this@USWarningsWithRadarActivity, objectAlertSummary.navList.toList())

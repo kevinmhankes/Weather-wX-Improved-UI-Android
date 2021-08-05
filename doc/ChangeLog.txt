@@ -35,6 +35,7 @@
                     [FIX] NCEP - remove params that aren't working
                     [FIX] NCEP - correct 2 sectors in ESTOFS and sort list
                     [ADD] Adhoc forecast (long press nexrad) - add multiple download threads to speed up data display
+                    [ADD] US Alerts - add multiple download threads to speed up data display
                     [FIX] url had changed in OPC for Alaska/Arctic Analysis Latest SST/Ice Edge Analysis
                     [ADD] OPC - add 72 hour charts for most products
                     [ADD] OPC - add lightning strike density - 15min for multiple sectors (bottom of list)

@@ -36,6 +36,7 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.CapAlert
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityLog
 import joshuatee.wx.util.UtilityString
 
@@ -54,13 +55,25 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
     val mapButtonState: MutableMap<Int, String> = mutableMapOf()
     @SuppressLint("UseSparseArrays")
     val mapButtonCounty: MutableMap<Int, String> = mutableMapOf()
+    var bitmap = UtilityImg.getBlankBitmap()
+    var objectCardImageView = ObjectCardImage(context, bitmap)
+    private val cardText = ObjectCardText(context)
 
-    fun updateContent(bitmap: Bitmap, data: String, filterOriginal: String, firstRun: Boolean) {
+    init {
+        linearLayout.addView(cardText.card)
+        linearLayout.addView(objectCardImageView.card)
+    }
+
+    fun updateImage(bitmap: Bitmap) {
+        this.bitmap = bitmap
+        objectCardImageView.setImage(bitmap)
+    }
+
+    fun updateContent(data: String, filterOriginal: String, firstRun: Boolean) {
         linearLayout.removeAllViews()
         scrollView.smoothScrollTo(0, 0)
-        val cardText = ObjectCardText(context)
         linearLayout.addView(cardText.card)
-        val objectCardImageView = ObjectCardImage(context, bitmap)
+        objectCardImageView = ObjectCardImage(context, bitmap)
         objectCardImageView.setOnClickListener { ObjectIntent.showImage(context, arrayOf("https://forecast.weather.gov/wwamap/png/US.png", "US Alerts", "true")) }
         linearLayout.addView(objectCardImageView.card)
         totalAlertsCnt = 0
