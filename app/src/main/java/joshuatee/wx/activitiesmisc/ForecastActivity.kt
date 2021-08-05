@@ -40,6 +40,7 @@ import joshuatee.wx.util.*
 import java.util.*
 
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.LatLon
 import kotlinx.coroutines.*
@@ -68,6 +69,8 @@ class ForecastActivity : BaseActivity() {
     private val hazardCards = mutableListOf<ObjectCardText>()
     private lateinit var scrollView: ScrollView
     private lateinit var linearLayout: LinearLayout
+    private var bitmapForCurrentCondition: Bitmap = UtilityImg.getBlankBitmap()
+    var bitmaps = listOf<Bitmap>()
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.adhoc_forecast, menu)
@@ -95,30 +98,25 @@ class ForecastActivity : BaseActivity() {
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        var bitmapForCurrentCondition: Bitmap?
-        var bitmaps = listOf<Bitmap>()
-        withContext(Dispatchers.IO) {
-            //
-            // Current conditions
-            //
-            objectCurrentConditions = ObjectCurrentConditions(this@ForecastActivity, latLon)
-            objectHazards = ObjectHazards(latLon)
-            objectSevenDay = ObjectSevenDay(latLon)
-            bitmapForCurrentCondition = UtilityNws.getIcon(this@ForecastActivity, objectCurrentConditions.iconUrl)
-            //
-            // 7day
-            //
-            bitmaps = objectSevenDay.icons.map { UtilityNws.getIcon(this@ForecastActivity, it) }
-        }
+    private fun getContent() {
+        FutureVoid(this, ::download, ::update)
+    }
+
+    private fun download() {
+        objectCurrentConditions = ObjectCurrentConditions(this@ForecastActivity, latLon)
+        objectHazards = ObjectHazards(latLon)
+        objectSevenDay = ObjectSevenDay(latLon)
+        bitmapForCurrentCondition = UtilityNws.getIcon(this@ForecastActivity, objectCurrentConditions.iconUrl)
+        bitmaps = objectSevenDay.icons.map { UtilityNws.getIcon(this@ForecastActivity, it) }
+    }
+
+    private fun update() = GlobalScope.launch(uiDispatcher) {
         //
         // CC
         //
         objectCardCurrentConditions.let {
             currentConditionsTime = objectCurrentConditions.status
-            if (bitmapForCurrentCondition != null) {
-                it.updateContent(bitmapForCurrentCondition!!, objectCurrentConditions, true, currentConditionsTime, radarTime)
-            }
+            it.updateContent(bitmapForCurrentCondition, objectCurrentConditions, true, currentConditionsTime, radarTime)
         }
         //
         // 7day

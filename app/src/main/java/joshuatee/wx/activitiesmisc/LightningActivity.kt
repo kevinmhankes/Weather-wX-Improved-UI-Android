@@ -66,10 +66,6 @@ class LightningActivity : VideoRecordActivity() {
         getContent()
     }
 
-//    private fun getContentFixThis() {
-//        getContent()
-//    }
-
     override fun onRestart() {
         getContent()
         super.onRestart()
@@ -79,15 +75,9 @@ class LightningActivity : VideoRecordActivity() {
         title = "Lightning " + objectNavDrawer.getLabel()
         toolbar.subtitle = periodPretty
         FutureVoid(this, { bitmap = UtilityLightning.getImage(objectNavDrawer.url, period) }, ::showImage)
-
-//        bitmap = withContext(Dispatchers.IO) {
-//            UtilityLightning.getImage(objectNavDrawer.url, period)
-//        }
-
-
     }
 
-    fun showImage() {
+    private fun showImage() {
         img.setBitmap(bitmap)
         img.firstRunSetZoomPosn("LIGHTNING")
         Utility.writePref(this@LightningActivity, "LIGHTNING_PERIOD", period)

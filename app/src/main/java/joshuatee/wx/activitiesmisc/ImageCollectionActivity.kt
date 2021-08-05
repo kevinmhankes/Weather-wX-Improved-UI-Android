@@ -88,27 +88,12 @@ class ImageCollectionActivity : VideoRecordActivity() {
         super.onRestart()
     }
 
-//    private fun getContentFixThis() {
-//        getContent()
-//    }
-
     private fun getContent() {
         toolbar.subtitle = drw.getLabel()
-        //bitmap = withContext(Dispatchers.IO) { drw.url.getImage() }
-
         FutureVoid(this, { bitmap = drw.url.getImage() }, ::showImage)
-
-//        if (drw.url.contains("large_latestsfc.gif")) {
-//            img.setMaxZoom(16f)
-//        } else {
-//            img.setMaxZoom(4f)
-//        }
-//        img.setBitmap(bitmap)
-//        img.firstRunSetZoomPosn(imageCollection.prefImagePosition)
-//        invalidateOptionsMenu()
     }
 
-    fun showImage() {
+    private fun showImage() {
         if (drw.url.contains("large_latestsfc.gif")) {
             img.setMaxZoom(16f)
         } else {
