@@ -102,7 +102,7 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
     }
 
     private fun getContentSPCPlot() {
-        FutureVoid(this, ::downloadSpcPlot, ::updateSpcPlot)
+        FutureVoid(this, ::downloadSpcPlot, ::showSpcPlot)
     }
 
     private fun downloadSpcPlot() {
@@ -112,7 +112,7 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
         bitmap = UtilityImg.getBitmapAddWhiteBackground(this@SpcSoundingsActivity, imgUrl + "_" + date + ".gif")
     }
 
-    private fun updateSpcPlot() {
+    private fun showSpcPlot() {
         img.img.visibility = View.VISIBLE
         img.setBitmap(bitmap)
         img.setMaxZoom(4f)
