@@ -38,13 +38,11 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.*
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
-import kotlinx.coroutines.*
 
 class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var imgUrl = ""
     private lateinit var img: ObjectTouchImageView
     private lateinit var imageMap: ObjectImageMap
