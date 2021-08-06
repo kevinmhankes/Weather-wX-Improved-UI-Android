@@ -29,7 +29,6 @@
 // TODO remove uiDispatcher as arg for Future*
 // TODO FutureAnim
 // TODO [FIX] NCEP - adjust NMB time periods
-// TODO [FIX] OPC - one image URL and add 72 hrs and Lightning
 // TODO thread enhancements: Model , Lsr, Mcd, Meso, Spc Soundings
 
 55553 2021_08_05    [FIX] NCEP - rename WW3 to GFS-WAVE and add additional sectors/products
