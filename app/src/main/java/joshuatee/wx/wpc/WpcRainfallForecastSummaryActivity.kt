@@ -56,10 +56,8 @@ class WpcRainfallForecastSummaryActivity : BaseActivity() {
         }
         title = "Excessive Rainfall Outlooks"
         toolbar.subtitle = "WPC"
-
         bitmaps = MutableList(UtilityWpcRainfallForecast.urls.size){ UtilityImg.getBlankBitmap() }
         objectImageSummary = ObjectImageSummary(this@WpcRainfallForecastSummaryActivity, linearLayout, bitmaps)
-
         getContent()
     }
 

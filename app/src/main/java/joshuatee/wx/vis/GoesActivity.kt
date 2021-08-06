@@ -90,21 +90,15 @@ class GoesActivity : VideoRecordActivity() {
         getContent(sector)
     }
 
-    // private fun getContent(sectorF: String) = GlobalScope.launch(uiDispatcher) {
     private fun getContent(sectorF: String) {
         sector = sectorF
         writePrefs()
         toolbar.title = UtilityGoes.sectorToName[sector] ?: ""
         toolbar.subtitle = drw.getLabel()
-        // bitmap = withContext(Dispatchers.IO) { UtilityGoes.getImage(drw.url, sector) }
-        //FutureVoid(this, uiDispatcher, { bitmap = UtilityGoes.getImage(drw.url, sector) }, ::display)
-
         if (!goesFloater) {
             FutureVoid(this, { bitmap = UtilityGoes.getImage(drw.url, sector) }, ::display)
         } else {
-            // UtilityLog.d("wx","NHC GOES Download " + goesFloaterUrl + "::" + drw.url)
             FutureVoid(this, { bitmap = UtilityGoes.getImageGoesFloater(goesFloaterUrl, drw.url) }, ::display)
-            //_ = FutureBytes(UtilityGoes.getImageGoesFloater(goesFloaterUrl, productCode), display)
         }
     }
 

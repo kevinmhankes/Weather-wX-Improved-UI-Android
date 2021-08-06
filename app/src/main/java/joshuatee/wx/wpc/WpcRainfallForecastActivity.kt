@@ -82,10 +82,6 @@ class WpcRainfallForecastActivity : AudioPlayActivity(), OnMenuItemClickListener
     }
 
     private fun getContent() {
-//        bitmap = withContext(Dispatchers.IO) {
-//            imageUrl.getImage()
-//        }
-        // objectCardText.text = withContext(Dispatchers.IO) { UtilityDownload.getTextProduct(this@WpcRainfallForecastActivity, textProduct) }
         FutureVoid(this, { html = UtilityDownload.getTextProduct(this@WpcRainfallForecastActivity, textProduct) }, ::showText)
         FutureVoid(this, { bitmap = imageUrl.getImage()}, ::showImage)
     }
