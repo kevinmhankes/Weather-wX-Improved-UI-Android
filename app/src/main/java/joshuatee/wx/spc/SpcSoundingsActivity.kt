@@ -27,6 +27,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
+import joshuatee.wx.Extensions.getHtml
+import joshuatee.wx.Extensions.parse
 import joshuatee.wx.Extensions.safeGet
 
 import joshuatee.wx.R
@@ -101,12 +103,18 @@ class SpcSoundingsActivity : BaseActivity(), OnMenuItemClickListener {
         Utility.writePref(this@SpcSoundingsActivity, "SOUNDING_SECTOR", office)
     }
 
-    private fun getContentSPCPlot() = GlobalScope.launch(uiDispatcher) {
+    private fun getContentSPCPlot() {
+        FutureVoid(this, ::downloadSpcPlot, ::updateSpcPlot)
+    }
+
+    private fun downloadSpcPlot() {
         imgUrl = "${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/$upperAir"
-        withContext(Dispatchers.IO) {
-            val date = UtilityString.getHtmlAndParse("${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/", "/obswx/maps/" + upperAir + "_([0-9]{6}_[0-9]{2}).gif")
-            bitmap = UtilityImg.getBitmapAddWhiteBackground(this@SpcSoundingsActivity, imgUrl + "_" + date + ".gif")
-        }
+        val html = "${MyApplication.nwsSPCwebsitePrefix}/obswx/maps/".getHtml()
+        val date = html.parse("/obswx/maps/" + upperAir + "_([0-9]{6}_[0-9]{2}).gif")
+        bitmap = UtilityImg.getBitmapAddWhiteBackground(this@SpcSoundingsActivity, imgUrl + "_" + date + ".gif")
+    }
+
+    private fun updateSpcPlot() {
         img.img.visibility = View.VISIBLE
         img.setBitmap(bitmap)
         img.setMaxZoom(4f)
