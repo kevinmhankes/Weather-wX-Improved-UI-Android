@@ -30,8 +30,9 @@
 // TODO FutureAnim
 // TODO [FIX] NCEP - adjust NMB time periods
 // TODO thread enhancements: Model , Lsr, Mcd, Meso
+// TODO GOES GLM
 
-55553 2021_08_06    [FIX] NCEP - rename WW3 to GFS-WAVE and add additional sectors/products
+55553 2021_08_12    [FIX] NCEP - rename WW3 to GFS-WAVE and add additional sectors/products
                     [FIX] NCEP - remove params that aren't working
                     [FIX] NCEP - correct 2 sectors in ESTOFS and sort list
                     [FIX] SPC SREF - navigation drawer colors were not matching
