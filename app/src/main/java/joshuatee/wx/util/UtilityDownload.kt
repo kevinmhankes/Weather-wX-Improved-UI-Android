@@ -249,10 +249,15 @@ object UtilityDownload {
                 bitmap = UtilityGoes.getImage("09", "CONUS")
             }
             "LTG" -> {
-                needsBitmap = false
-                bitmap = UtilityLightning.getImage(
-                        Utility.readPref(context, "LIGHTNING_SECTOR", "usa_big"), Utility.readPref(context, "LIGHTNING_PERIOD", "0.25")
-                )
+                if (UIPreferences.lightningUseGoes) {
+                    needsBitmap = false
+                    bitmap = UtilityGoes.getImage("GLM", "CONUS")
+                } else {
+                    needsBitmap = false
+                    bitmap = UtilityLightning.getImage(
+                            Utility.readPref(context, "LIGHTNING_SECTOR", "usa_big"), Utility.readPref(context, "LIGHTNING_PERIOD", "0.25")
+                    )
+                }
             }
             "SND" -> {
                 needsBitmap = false

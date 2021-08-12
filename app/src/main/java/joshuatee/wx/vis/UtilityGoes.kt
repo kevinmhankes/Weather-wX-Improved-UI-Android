@@ -66,7 +66,11 @@ object UtilityGoes {
         // https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/cgl/12/latest.jpg
         // https://cdn.star.nesdis.noaa.gov/GOES17/ABI/CONUS/GEOCOLOR/1250x750.jpg
         // https://cdn.star.nesdis.noaa.gov/GOES16/ABI/CONUS/GEOCOLOR/1250x750.jpg
-        val url = MyApplication.goes16Url + "/" + satellite + "/ABI/" + sectorLocal + "/" + product + "/" + getImageFileName(sector)
+        var url = MyApplication.goes16Url + "/" + satellite + "/ABI/" + sectorLocal + "/" + product + "/" + getImageFileName(sector)
+        if (product == "GLM") {
+            url = url.replace("ABI", "GLM")
+            url = url.replace(sectorLocal + "/GLM", sectorLocal + "/EXTENT")
+        }
         return url.getImage()
     }
 
@@ -75,11 +79,12 @@ object UtilityGoes {
     fun getAnimation(context: Context, product: String, sector: String, frameCount: Int): AnimationDrawable {
         val frameCountString = frameCount.toString()
         val satellite = if (sectorsInGoes17.contains(sector)) "G17" else "G16"
+        val productLocal = product.replace("GLM", "EXTENT")
         val url = when (sector) {
             // https://www.star.nesdis.noaa.gov/GOES/fulldisk_band.php?sat=G17&band=GEOCOLOR&length=12
-            "FD", "FD-G17" -> MyApplication.goes16AnimUrl + "/GOES/fulldisk_band.php?sat=$satellite&band=$product&length=$frameCountString"
-            "CONUS", "CONUS-G17" -> MyApplication.goes16AnimUrl + "/GOES/conus_band.php?sat=$satellite&band=$product&length=$frameCountString"
-            else -> MyApplication.goes16AnimUrl + "/GOES/sector_band.php?sat=$satellite&sector=$sector&band=$product&length=$frameCountString"
+            "FD", "FD-G17" -> MyApplication.goes16AnimUrl + "/GOES/fulldisk_band.php?sat=$satellite&band=$productLocal&length=$frameCountString"
+            "CONUS", "CONUS-G17" -> MyApplication.goes16AnimUrl + "/GOES/conus_band.php?sat=$satellite&band=$productLocal&length=$frameCountString"
+            else -> MyApplication.goes16AnimUrl + "/GOES/sector_band.php?sat=$satellite&sector=$sector&band=$productLocal&length=$frameCountString"
         }
         val html = url.getHtml().replace("\n", "").replace("\r", "")
         val imageHtml = html.parse("animationImages = \\[(.*?)\\];")
@@ -87,6 +92,8 @@ object UtilityGoes {
         val bitmaps = imageUrls.map { it.getImage() }
         return UtilityImgAnim.getAnimationDrawableFromBitmapList(context, bitmaps, UtilityImg.animInterval(context))
     }
+
+    // https://www.star.nesdis.noaa.gov/GOES/conus_band.php?sat=G16&band=EXTENT&length=24
 
     //    static List<String> getAnimation(String product, String sector, int frameCount) {
 //        String baseUrl = UtilityGoes.getImage(product, sector)
@@ -147,7 +154,8 @@ object UtilityGoes {
         "AirMass - RGB composite based on the data from IR and WV",
         "Sandwich RGB - Bands 3 and 13 combo",
         "Day Cloud Phase",
-        "Night Microphysics"
+        "Night Microphysics",
+        "GLM - CONUS only"
     )
 
     val codes = listOf(
@@ -171,7 +179,8 @@ object UtilityGoes {
         "AirMass",
         "Sandwich",
         "DayCloudPhase",
-        "NightMicrophysics"
+        "NightMicrophysics",
+        "GLM"
     )
 
     private val sectorsInGoes17 = listOf(

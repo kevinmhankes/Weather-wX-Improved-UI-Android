@@ -335,7 +335,18 @@ class SettingsUIActivity : BaseActivity() {
                         R.string.use_nws_api_hourly
                 ).card
         )
+        linearLayout.addView(
+                ObjectSettingsCheckBox(
+                        this,
+                        "Use GOES GLM for lightning",
+                        "LIGHTNING_USE_GOES",
+                        R.string.use_goes_for_lightning
+                ).card
+        )
 
+        //
+        // sliders
+        //
         linearLayout.addView(
                 ObjectSettingsSeekBar(
                         this,

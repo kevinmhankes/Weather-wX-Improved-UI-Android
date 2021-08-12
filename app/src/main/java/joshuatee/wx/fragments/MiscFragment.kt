@@ -125,16 +125,26 @@ class MiscFragment : Fragment() {
                     R.drawable.goes,
                     GoesActivity::class.java,
                     GoesActivity.RID,
-                    arrayOf("CONUS", "09"),
+                    arrayOf("CONUS", "9"),
                     "goes", "GOES"
             )
-            hm["lightning"] = TileObject(
+            if (UIPreferences.lightningUseGoes) {
+                hm["lightning"] = TileObject(
+                    R.drawable.lightning,
+                    GoesActivity::class.java,
+                    GoesActivity.RID,
+                    arrayOf("CONUS", "21"),
+                    "lightning", "lightning"
+                )
+            } else {
+                hm["lightning"] = TileObject(
                     R.drawable.lightning,
                     LightningActivity::class.java,
                     "",
                     arrayOf(),
                     "lightning", "lightning"
-            )
+                )
+            }
             hm["wpcimages"] = TileObject(
                     R.drawable.fmap,
                     WpcImagesActivity::class.java,

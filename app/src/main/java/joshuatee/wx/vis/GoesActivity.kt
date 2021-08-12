@@ -36,6 +36,7 @@ import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
+import joshuatee.wx.util.to
 import kotlinx.coroutines.*
 
 class GoesActivity : VideoRecordActivity() {
@@ -142,7 +143,7 @@ class GoesActivity : VideoRecordActivity() {
         } else {
             if (activityArguments.size > 1) {
                 sector = activityArguments[0]
-                drw.index = 9
+                drw.index = to.Int(activityArguments[1])
                 savePrefs = false
             }
         }
