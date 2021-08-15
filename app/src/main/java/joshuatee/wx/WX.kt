@@ -209,7 +209,13 @@ class WX : CommonActionBarFragment() {
                     R.id.glcfs -> ObjectIntent.showModel(this, arrayOf("1", "GLCFS", "GLCFS"))
                     R.id.goes_conus_wv -> ObjectIntent(this, GoesActivity::class.java, GoesActivity.RID, arrayOf("CONUS", "09"))
                     R.id.goes_global -> ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("GOESFD"))
-                    R.id.lightning -> ObjectIntent(this,LightningActivity::class.java)
+                    R.id.lightning -> {
+                        if (UIPreferences.lightningUseGoes) {
+                            ObjectIntent(this, GoesActivity::class.java, GoesActivity.RID, arrayOf("CONUS", "21"))
+                        } else {
+                            ObjectIntent(this, LightningActivity::class.java)
+                        }
+                    }
                     R.id.national_images -> ObjectIntent(this, WpcImagesActivity::class.java, "", arrayOf())
                     R.id.national_text -> ObjectIntent(this, WpcTextProductsActivity::class.java, WpcTextProductsActivity.URL, arrayOf("pmdspd", "Short Range Forecast Discussion"))
                     R.id.ncep_models -> ObjectIntent.showModel(this, arrayOf("1", "NCEP", "NCEP"))
