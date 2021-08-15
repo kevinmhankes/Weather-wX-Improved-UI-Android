@@ -32,6 +32,7 @@
 // TODO thread enhancements: Model , Lsr, Mcd, Meso
 // TODO GOES GLM ( homescreen does not honor new setting, setupMap ordering in myApp)
 
+55557 2021_08_15
 55556 2021_08_15    [FIX] nav drawer was not respecting new lighting GOES GLM option
 55555 2021_08_15    [FIX] nav draw hide items was not working
                     [ADD] more work on GLM
