@@ -105,9 +105,15 @@ internal object UtilityHomeScreen {
         MyApplication.HM_CLASS_ARGS["STRPT"] = arrayOf("today")
         MyApplication.HM_CLASS_ID["STRPT"] = SpcStormReportsActivity.NO
 
-        MyApplication.HM_CLASS["LTG"] = LightningActivity::class.java
-        MyApplication.HM_CLASS_ARGS["LTG"] = arrayOf("")
-        MyApplication.HM_CLASS_ID["LTG"] = ""
+        if (UIPreferences.lightningUseGoes) {
+            MyApplication.HM_CLASS["LTG"] = GoesActivity::class.java
+            MyApplication.HM_CLASS_ARGS["LTG"] = arrayOf("CONUS", "21")
+            MyApplication.HM_CLASS_ID["LTG"] = GoesActivity.RID
+        } else {
+            MyApplication.HM_CLASS["LTG"] = LightningActivity::class.java
+            MyApplication.HM_CLASS_ARGS["LTG"] = arrayOf("")
+            MyApplication.HM_CLASS_ID["LTG"] = ""
+        }
 
         MyApplication.HM_CLASS["CONUSWV"] = GoesActivity::class.java
         MyApplication.HM_CLASS_ARGS["CONUSWV"] = arrayOf("CONUS", "09")

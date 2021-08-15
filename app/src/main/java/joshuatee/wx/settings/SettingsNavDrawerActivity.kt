@@ -54,7 +54,7 @@ class SettingsNavDrawerActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        // val newTokenList = UtilityNavDrawer.generateNewTokenList(this)
+        val newTokenList = UtilityNavDrawer.generateNewTokenList(this)
         // if (tokenList != newTokenList && tokenList != "") {
             UtilityAlertDialog.restart()
         // } else {

@@ -338,7 +338,7 @@ class SettingsUIActivity : BaseActivity() {
         linearLayout.addView(
                 ObjectSettingsCheckBox(
                         this,
-                        "Use GOES GLM for lightning",
+                        "Use GOES GLM for lightning, requires restart",
                         "LIGHTNING_USE_GOES",
                         R.string.use_goes_for_lightning
                 ).card
