@@ -322,7 +322,8 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private fun checkForCliSite() = GlobalScope.launch(uiDispatcher) {
         if (product == "CLI") {
             val cliHtml = withContext(Dispatchers.IO) {
-                ("https://w2.weather.gov/climate/index.php?wfo=" + wfo.lowercase(Locale.US)).getHtml()
+                // ("https://www.weather.gov/climate/index.php?wfo=" + wfo.lowercase(Locale.US)).getHtml()
+                ("https://www.weather.gov/wrh/Climate?wfo=" + wfo.lowercase(Locale.US)).getHtml()
             }
             val cliSites = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('.*?','(.*?)'\\)")
             val cliNames = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('(.*?)','.*?'\\)")

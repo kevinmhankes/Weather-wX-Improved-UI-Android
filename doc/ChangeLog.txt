@@ -32,6 +32,8 @@
 // TODO thread enhancements: Model , Lsr, Mcd, Meso
 // TODO GOES GLM ( homescreen does not honor new setting, setupMap ordering in myApp)
 // TODO usalerts sps don't show radar icon if no poly
+// TODO [FIX] NWS change website and broke CLI in WFO, use https://api.weather.gov/products/types/cli
+// TODO       Using the API is not a good solution, might need to just remove
 
 55557 2021_09_03    [FIX] add to UtilityMetarConditions "Patches Of Fog"
                     [ADD] classpath 'com.android.tools.build:gradle:7.0.1' to classpath 'com.android.tools.build:gradle:7.0.2'
