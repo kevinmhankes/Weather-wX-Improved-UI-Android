@@ -100,24 +100,24 @@ android {
         jvmTarget = "1.8"
     }
 
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
+//    dexOptions {
+//        javaMaxHeapSize "4g"
+//    }
 }
 
 // https://developer.android.com/jetpack/androidx/versions
 dependencies {
 
     // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.21"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1' // was 1.3.6
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.31"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6'
 
     // Support libraries
     // https://developer.android.com/jetpack/androidx/versions
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.media:media:1.4.0'
+    implementation 'androidx.media:media:1.4.2'
     implementation 'androidx.preference:preference:1.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 

@@ -53,7 +53,9 @@ internal object UtilityRadarUI {
         var radarStatus = withContext(Dispatchers.IO) {
             UtilityDownload.getRadarStatusMessage(context, wxglRender.rid)
         }
-        if (radarStatus == "") radarStatus = "The current radar status for " + wxglRender.rid + " is not available."
+        if (radarStatus == "") {
+            radarStatus = "The current radar status for " + wxglRender.rid + " is not available."
+        }
         ObjectDialogue(activity, Utility.fromHtml(radarStatus))
     }
 
