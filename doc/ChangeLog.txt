@@ -32,8 +32,7 @@
 // TODO thread enhancements: Model , Lsr, Mcd, Meso
 // TODO GOES GLM ( homescreen does not honor new setting, setupMap ordering in myApp)
 // TODO usalerts sps don't show radar icon if no poly
-// TODO [FIX] NWS change website and broke CLI in WFO, use https://api.weather.gov/products/types/cli
-// TODO       Using the API is not a good solution, might need to just remove
+// TODO [FIX] see if more changes are needed: https://developer.android.com/about/versions/12/approximate-location
 
 55559 2021_09_22    [FIX] remove CLI "Daily Climate Report" from Local text products since NWS no longer provides WFO to site mapping
                     [ADD] per https://developer.android.com/about/versions/12/approximate-location
