@@ -103,6 +103,8 @@ class LocationFragment : Fragment() {
     private var locationChangedSevenDay = false
     private var locationChangedHazards = false
     private var paneList = listOf<Int>()
+    private var bitmapForCurrentConditions: Bitmap? = null
+    private var objectCurrentConditions = ObjectCurrentConditions()
 
     private fun addDynamicCards() {
         var currentConditionsAdded = false
@@ -687,31 +689,27 @@ class LocationFragment : Fragment() {
     }
 
     private fun getForecastData() {
-        getLocationForecast()
+        FutureVoid(MyApplication.appContext, ::getCc, ::updateCc)
         getLocationForecastSevenDay()
         getLocationHazards()
     }
 
-    private fun getLocationForecast() = GlobalScope.launch(uiDispatcher) {
-        var bitmapForCurrentConditions: Bitmap? = null
-        var objectCurrentConditions = ObjectCurrentConditions()
-        //
-        // Current Conditions
-        //
-        withContext(Dispatchers.IO) {
-            try {
-                objectCurrentConditions = ObjectCurrentConditions(activityReference, Location.currentLocation)
-                if (homescreenFavLocal.contains("TXT-CC2")) {
-                    bitmapForCurrentConditions = if (Location.isUS) {
-                        UtilityNws.getIcon(activityReference, objectCurrentConditions.iconUrl)
-                    } else {
-                        UtilityNws.getIcon(activityReference, UtilityCanada.translateIconNameCurrentConditions(objectCurrentConditions.data, objectCurrentConditions.status))
-                    }
+    private fun getCc() {
+        try {
+            objectCurrentConditions = ObjectCurrentConditions(activityReference, Location.currentLocation)
+            if (homescreenFavLocal.contains("TXT-CC2")) {
+                bitmapForCurrentConditions = if (Location.isUS) {
+                    UtilityNws.getIcon(activityReference, objectCurrentConditions.iconUrl)
+                } else {
+                    UtilityNws.getIcon(activityReference, UtilityCanada.translateIconNameCurrentConditions(objectCurrentConditions.data, objectCurrentConditions.status))
                 }
-            } catch (e: Exception) {
-                UtilityLog.handleException(e)
             }
+        } catch (e: Exception) {
+            UtilityLog.handleException(e)
         }
+    }
+
+    private fun updateCc() {
         if (isAdded) {
             //
             // Current Conditions
