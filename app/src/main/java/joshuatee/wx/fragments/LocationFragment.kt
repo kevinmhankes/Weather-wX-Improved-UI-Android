@@ -38,7 +38,6 @@ import androidx.fragment.app.Fragment
 import androidx.cardview.widget.CardView
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
-import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.canada.UtilityCanada
@@ -277,7 +276,7 @@ class LocationFragment : Fragment() {
         }
         homeScreenTextCards.indices.forEach { getTextProduct(it.toString()) }
         homeScreenImageCards.indices.forEach { getImageProduct(it.toString()) }
-        homeScreenWebViews.indices.forEach { getWebProduct(it.toString()) }
+        homeScreenWebViews.indices.forEach { getWebProduct() }
         x = Location.x
         y = Location.y
         if (MyApplication.locDisplayImg) {
@@ -438,7 +437,7 @@ class LocationFragment : Fragment() {
         }
     }
 
-    private fun getWebProduct(productString: String) {
+    private fun getWebProduct() {
         val forecastUrl = "https://forecast.weather.gov/MapClick.php?lat=" + Location.x + "&lon=" + Location.y + "&unit=0&lg=english&FcstType=text&TextType=2"
         homeScreenWebViews.last().loadUrl(forecastUrl)
     }
