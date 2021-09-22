@@ -43,6 +43,7 @@ import joshuatee.wx.util.*
 
 class WpcTextProductsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
+    //
     // Display WPC ( and other ) text products
     // last used product is first shown on re-entry
     //
