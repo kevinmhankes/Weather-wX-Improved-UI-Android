@@ -799,7 +799,7 @@ class LocationFragment : Fragment() {
             UtilityLog.handleException(e)
         }
     }
-    
+
     private fun updateHazards() {
         if (isAdded) {
             if (Location.isUS) {
