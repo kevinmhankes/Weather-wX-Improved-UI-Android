@@ -25,7 +25,6 @@ import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.view.View
 import android.widget.RemoteViews
 import joshuatee.wx.*
@@ -65,32 +64,12 @@ class ObjectWidgetCCLegacy(context: Context, allWidgetIds: IntArray) {
         val wfo = Utility.readPref(context, "NWS$widgetLocationNumber", "")
         val radarSite = Location.getRid(context, widgetLocationNumber)
         val locLabel = Utility.readPref(context, "LOC" + widgetLocationNumber + "_LABEL", "")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            remoteViews.setImageViewResource(R.id.b_radar, R.drawable.ic_flash_on_24dp_white)
-            remoteViews.setImageViewResource(R.id.b_cloud, R.drawable.ic_cloud_24dp_white)
-            remoteViews.setImageViewResource(R.id.b_afd, R.drawable.ic_info_outline_24dp_white)
-            remoteViews.setImageViewResource(R.id.b_hourly, R.drawable.ic_place_24dp)
-            remoteViews.setImageViewResource(R.id.b_alert, R.drawable.ic_warning_24dp)
-            remoteViews.setImageViewResource(R.id.b_dash, R.drawable.ic_report_24dp_white)
-        } else {
-            val icons = listOf(
-                    R.drawable.ic_flash_on_24dp,
-                    R.drawable.ic_cloud_24dp,
-                    R.drawable.ic_info_outline_24dp,
-                    R.drawable.ic_place_24dp,
-                    R.drawable.ic_warning_24dp,
-                    R.drawable.ic_report_24dp
-            )
-            val buttons = listOf(
-                    R.id.b_radar,
-                    R.id.b_cloud,
-                    R.id.b_afd,
-                    R.id.b_hourly,
-                    R.id.b_alert,
-                    R.id.b_dash
-            )
-            icons.indices.forEach { UtilityUI.setResDrawable(context, remoteViews, buttons[it], icons[it]) }
-        }
+        remoteViews.setImageViewResource(R.id.b_radar, R.drawable.ic_flash_on_24dp_white)
+        remoteViews.setImageViewResource(R.id.b_cloud, R.drawable.ic_cloud_24dp_white)
+        remoteViews.setImageViewResource(R.id.b_afd, R.drawable.ic_info_outline_24dp_white)
+        remoteViews.setImageViewResource(R.id.b_hourly, R.drawable.ic_place_24dp)
+        remoteViews.setImageViewResource(R.id.b_alert, R.drawable.ic_warning_24dp)
+        remoteViews.setImageViewResource(R.id.b_dash, R.drawable.ic_report_24dp_white)
         remoteViews.setTextViewText(R.id.cc, cc)
         remoteViews.setTextViewText(R.id.updtime, updateTime)
         var hazardSum = ""

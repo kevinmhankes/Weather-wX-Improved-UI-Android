@@ -24,7 +24,6 @@ package joshuatee.wx.spc
 import android.graphics.Bitmap
 
 import joshuatee.wx.Extensions.*
-import joshuatee.wx.GlobalVariables
 import joshuatee.wx.MyApplication
 
 internal object UtilitySpcSwo {

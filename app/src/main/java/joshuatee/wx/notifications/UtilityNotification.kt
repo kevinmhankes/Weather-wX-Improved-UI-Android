@@ -144,8 +144,6 @@ object UtilityNotification {
                 val stackBuilder2 = TaskStackBuilder.create(context)
                 if (Location.isUS(locNumInt)) {
                     stackBuilder2.addParentStack(WX::class.java)
-                } else {
-//                    stackBuilder2.addParentStack(CanadaRadarActivity::class.java)
                 }
                 stackBuilder2.addNextIntent(resultIntent2)
                 val resultPendingIntent2 = stackBuilder2.getPendingIntent(y, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)

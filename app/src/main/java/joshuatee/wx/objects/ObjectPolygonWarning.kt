@@ -53,9 +53,9 @@ class ObjectPolygonWarning(val context: Context, val type: PolygonWarningType) {
     }
 
     // Not currently used
-    fun getData(): String {
-        return storage.value
-    }
+//    fun getData(): String {
+//        return storage.value
+//    }
 
     fun getUrlToken(): String {
         return longName[type] ?: ""

@@ -56,7 +56,7 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
     @SuppressLint("UseSparseArrays")
     val mapButtonCounty: MutableMap<Int, String> = mutableMapOf()
     var bitmap = UtilityImg.getBlankBitmap()
-    var objectCardImageView = ObjectCardImage(context, bitmap)
+    private var objectCardImageView = ObjectCardImage(context, bitmap)
     private val cardText = ObjectCardText(context)
 
     init {

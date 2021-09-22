@@ -419,7 +419,7 @@ internal class RecordingSession(
             .setAutoCancel(true)
             .addAction(actionShare)
         if (bitmap != null) {
-            builder!!.setLargeIcon(createSquareBitmap(bitmap))
+            builder.setLargeIcon(createSquareBitmap(bitmap))
                 .setStyle(
                     NotificationCompat.BigPictureStyle()
                         .setBigContentTitle(title)
@@ -427,7 +427,7 @@ internal class RecordingSession(
                         .bigPicture(bitmap)
                 )
         }
-        notificationManager.notify(uri!!.toString(), NOTIFICATION_ID, builder!!.build())
+        notificationManager.notify(uri!!.toString(), NOTIFICATION_ID, builder.build())
         if (bitmap != null) {
             listener.onEnd()
             return

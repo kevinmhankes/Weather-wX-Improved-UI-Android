@@ -35,7 +35,7 @@
 // TODO [FIX] NWS change website and broke CLI in WFO, use https://api.weather.gov/products/types/cli
 // TODO       Using the API is not a good solution, might need to just remove
 
-55558 2021_09_20    [ADD] classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21" to
+55558 2021_09_21    [ADD] classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21" to
                           classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
 
                           implementation 'androidx.media:media:1.4.0' to
@@ -47,6 +47,18 @@
                     +    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
 
                     [FIX] comment out dexOptions in build.gradle (obsolete/ignored)
+                    [REF] other misc lint fix
+
+                    -    compileSdkVersion 30
+                    -    buildToolsVersion '30.0.3'
+                    +    compileSdkVersion 31
+                    +    buildToolsVersion '31.0.0'
+
+                    -        targetSdkVersion 30
+                    +        targetSdkVersion 31
+
+                    Android NDK android-ndk-r22 -> android-ndk-r23
+
 55557 2021_09_18  tag  [FIX] add to UtilityMetarConditions "Patches Of Fog"
                     [ADD] classpath 'com.android.tools.build:gradle:7.0.1' to classpath 'com.android.tools.build:gradle:7.0.2'
 55556 2021_08_15    [FIX] nav drawer was not respecting new lighting GOES GLM option
