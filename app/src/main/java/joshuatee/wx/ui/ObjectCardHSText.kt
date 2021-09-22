@@ -27,6 +27,8 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import joshuatee.wx.MyApplication
+import joshuatee.wx.UIPreferences
+import joshuatee.wx.external.UtilityStringExternal
 
 import joshuatee.wx.util.Utility
 
@@ -60,6 +62,20 @@ class ObjectCardHSText(context: Context, val product: String) {
             textView.text = Utility.fromHtml(text)
         } else {
             textView.text = text
+        }
+    }
+
+    fun setup(longTextDownload: String) {
+        var longText = longTextDownload
+        if (product=="NFDOFFN31" || product=="NFDOFFN32") {
+            longText = Utility.fromHtml(longTextDownload)
+        }
+        setTextLong(longText)
+        val shortText = UtilityStringExternal.truncate(longText, UIPreferences.homescreenTextLength)
+        setTextShort(shortText)
+        setText(shortText)
+        if (product == "HOURLY") {
+            typefaceMono()
         }
     }
 

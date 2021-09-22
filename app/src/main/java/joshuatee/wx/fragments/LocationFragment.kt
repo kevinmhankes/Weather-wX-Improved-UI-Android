@@ -23,7 +23,6 @@ package joshuatee.wx.fragments
 
 import android.content.*
 import java.util.Locale
-
 import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
@@ -37,7 +36,6 @@ import android.widget.RelativeLayout
 import android.widget.ScrollView
 import androidx.fragment.app.Fragment
 import androidx.cardview.widget.CardView
-
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.external.UtilityStringExternal
@@ -45,13 +43,10 @@ import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.canada.UtilityCanada
 import joshuatee.wx.util.*
-
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.notifications.UtilityNotificationTools
-import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.objects.PolygonType
-import joshuatee.wx.objects.TextSize
+import joshuatee.wx.objects.*
 import joshuatee.wx.radar.*
 import joshuatee.wx.ui.*
 import kotlinx.coroutines.*
@@ -448,30 +443,46 @@ class LocationFragment : Fragment() {
         homeScreenWebViews.last().loadUrl(forecastUrl)
     }
 
-    private fun getTextProduct(productString: String) = GlobalScope.launch(uiDispatcher) {
-        val productIndex = productString.toIntOrNull() ?: 0
-        val longTextDownload = withContext(Dispatchers.IO) {
-            UtilityDownload.getTextProduct(MyApplication.appContext, homeScreenTextCards[productIndex].product)
-        }
-        var longText = longTextDownload
-        if (homeScreenTextCards[productIndex].product=="NFDOFFN31" || homeScreenTextCards[productIndex].product=="NFDOFFN32") {
-            longText = Utility.fromHtml(longTextDownload)
-        }
-        homeScreenTextCards[productIndex].setTextLong(longText)
-        val shortText = UtilityStringExternal.truncate(longText, UIPreferences.homescreenTextLength)
-        homeScreenTextCards[productIndex].setTextShort(shortText)
-        homeScreenTextCards[productIndex].setText(shortText)
-        if (homeScreenTextCards[productIndex].product == "HOURLY") {
-            homeScreenTextCards[productIndex].typefaceMono()
-        }
+//    private fun getTextProduct(productString: String) = GlobalScope.launch(uiDispatcher) {
+//        val productIndex = productString.toIntOrNull() ?: 0
+//        val longTextDownload = withContext(Dispatchers.IO) {
+//            UtilityDownload.getTextProduct(MyApplication.appContext, homeScreenTextCards[productIndex].product)
+//        }
+//        var longText = longTextDownload
+//        if (homeScreenTextCards[productIndex].product=="NFDOFFN31" || homeScreenTextCards[productIndex].product=="NFDOFFN32") {
+//            longText = Utility.fromHtml(longTextDownload)
+//        }
+//        homeScreenTextCards[productIndex].setTextLong(longText)
+//        val shortText = UtilityStringExternal.truncate(longText, UIPreferences.homescreenTextLength)
+//        homeScreenTextCards[productIndex].setTextShort(shortText)
+//        homeScreenTextCards[productIndex].setText(shortText)
+//        if (homeScreenTextCards[productIndex].product == "HOURLY") {
+//            homeScreenTextCards[productIndex].typefaceMono()
+//        }
+//    }
+
+    private fun getTextProduct(productString: String) {
+        val productIndex = to.Int(productString)
+        FutureText2(MyApplication.appContext,
+            { UtilityDownload.getTextProduct(MyApplication.appContext, homeScreenTextCards[productIndex].product) },
+            homeScreenTextCards[productIndex]::setup
+        )
     }
 
-    private fun getImageProduct(productString: String) = GlobalScope.launch(uiDispatcher) {
-        val productIndex = productString.toIntOrNull() ?: 0
-        val bitmap = withContext(Dispatchers.IO) {
-            UtilityDownload.getImageProduct(MyApplication.appContext, homeScreenImageCards[productIndex].product)
-        }
-        homeScreenImageCards[productIndex].setImage(bitmap)
+//    private fun getImageProduct(productString: String) = GlobalScope.launch(uiDispatcher) {
+//        val productIndex = productString.toIntOrNull() ?: 0
+//        val bitmap = withContext(Dispatchers.IO) {
+//            UtilityDownload.getImageProduct(MyApplication.appContext, homeScreenImageCards[productIndex].product)
+//        }
+//        homeScreenImageCards[productIndex].setImage(bitmap)
+//    }
+
+    private fun getImageProduct(productString: String) {
+        val productIndex = to.Int(productString)
+        FutureBytes2(MyApplication.appContext,
+                { UtilityDownload.getImageProduct(MyApplication.appContext, homeScreenImageCards[productIndex].product) },
+                homeScreenImageCards[productIndex]::setImage
+        )
     }
 
     private val changeListener = object : WXGLSurfaceView.OnProgressChangeListener {

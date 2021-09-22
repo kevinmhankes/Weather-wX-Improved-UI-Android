@@ -28,7 +28,7 @@
 // TODO usalerts sps don't show radar icon if no poly
 // TODO [FIX] see if more changes are needed: https://developer.android.com/about/versions/12/approximate-location
 // TODO [FIX] main screen navdrawer icons are small
-// TODO [REF] migrate all to Future* (models/radar/LocationFragment/ForecastActivity/SevereDashboardActivity)
+// TODO [REF] migrate all to Future* (models/radar/LocationFragment/SevereDashboardActivity)
 
 55561 2021_09_22
 55560 2021_09_22    [REF] convert multiple activities to use Future*

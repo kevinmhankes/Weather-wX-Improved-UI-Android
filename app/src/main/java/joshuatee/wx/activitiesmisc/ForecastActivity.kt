@@ -31,19 +31,16 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import joshuatee.wx.MyApplication
-
 import joshuatee.wx.R
 import joshuatee.wx.fragments.UtilityNws
 import joshuatee.wx.settings.Location
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import java.util.*
-
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.LatLon
-import kotlinx.coroutines.*
 
 class ForecastActivity : BaseActivity() {
 
@@ -55,7 +52,6 @@ class ForecastActivity : BaseActivity() {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private lateinit var activityArguments: Array<String>
     private var latLon = LatLon()
     private var objectCurrentConditions = ObjectCurrentConditions()
@@ -167,16 +163,14 @@ class ForecastActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_save -> saveLocation()
+            R.id.action_save -> FutureVoid.immediate { saveLocation() }
             else -> return super.onOptionsItemSelected(item)
         }
         return true
     }
 
-    private fun saveLocation() = GlobalScope.launch(uiDispatcher) {
-        withContext(Dispatchers.IO) {
-            val message = Location.save(this@ForecastActivity, latLon)
-            UtilityUI.makeSnackBar(linearLayout, message)
-        }
+    private fun saveLocation() {
+        val message = Location.save(this@ForecastActivity, latLon)
+        UtilityUI.makeSnackBar(linearLayout, message)
     }
 }
