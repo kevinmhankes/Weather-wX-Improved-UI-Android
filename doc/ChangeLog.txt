@@ -30,7 +30,7 @@
 // TODO [FIX] main screen navdrawer icons are small
 // TODO [REF] migrate all to Future* (models/radar/LocationFragment)
 
-55561 2021_09_22
+55561 2021_09_22    [REF] convert multiple activities to use Future*
 55560 2021_09_22    [REF] convert multiple activities to use Future*
 55559 2021_09_22    [FIX] remove CLI "Daily Climate Report" from Local text products since NWS no longer provides WFO to site mapping
                     [ADD] per https://developer.android.com/about/versions/12/approximate-location
