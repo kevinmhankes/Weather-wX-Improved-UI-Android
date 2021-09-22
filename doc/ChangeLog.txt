@@ -35,6 +35,7 @@
 // TODO [FIX] see if more changes are needed: https://developer.android.com/about/versions/12/approximate-location
 // TODO [REF] migrate all to Future*
 
+55560 2021_09_22
 55559 2021_09_22    [FIX] remove CLI "Daily Climate Report" from Local text products since NWS no longer provides WFO to site mapping
                     [ADD] per https://developer.android.com/about/versions/12/approximate-location
                     if you request ACCESS_FINE_LOCATION you must also request ACCESS_COARSE_LOCATION
