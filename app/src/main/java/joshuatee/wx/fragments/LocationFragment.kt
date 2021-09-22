@@ -697,7 +697,13 @@ class LocationFragment : Fragment() {
         }
         FutureVoid(MyApplication.appContext, ::get7day, ::update7day)
         //getLocationForecastSevenDay()
-        getLocationHazards()
+        // getLocationHazards()
+        if (locationChangedHazards) {
+            linearLayoutHazards?.removeAllViewsInLayout()
+            linearLayoutHazards?.visibility = View.GONE
+            locationChangedHazards = false
+        }
+        FutureVoid(MyApplication.appContext, ::getHazards, ::updateHazards)
     }
 
     private fun getCc() {
@@ -748,7 +754,7 @@ class LocationFragment : Fragment() {
             UtilityLog.handleException(e)
         }
     }
-    
+
     private fun update7day() {
         if (isAdded) {
             if (homescreenFavLocal.contains("TXT-7DAY")) {
@@ -781,24 +787,20 @@ class LocationFragment : Fragment() {
         }
     }
 
-    private fun getLocationHazards() = GlobalScope.launch(uiDispatcher) {
-        if (locationChangedHazards) {
-            linearLayoutHazards?.removeAllViewsInLayout()
-            linearLayoutHazards?.visibility = View.GONE
-            locationChangedHazards = false
-        }
-        withContext(Dispatchers.IO) {
-            try {
-                objectHazards = if (Location.isUS(Location.currentLocation)) {
-                    ObjectHazards(Location.currentLocation)
-                } else {
-                    val html = UtilityCanada.getLocationHtml(Location.getLatLon(Location.currentLocation))
-                    ObjectHazards(html)
-                }
-            } catch (e: Exception) {
-                UtilityLog.handleException(e)
+    private fun getHazards() {
+        try {
+            objectHazards = if (Location.isUS(Location.currentLocation)) {
+                ObjectHazards(Location.currentLocation)
+            } else {
+                val html = UtilityCanada.getLocationHtml(Location.getLatLon(Location.currentLocation))
+                ObjectHazards(html)
             }
+        } catch (e: Exception) {
+            UtilityLog.handleException(e)
         }
+    }
+    
+    private fun updateHazards() {
         if (isAdded) {
             if (Location.isUS) {
                 if (objectHazards.titles.isEmpty()) {
