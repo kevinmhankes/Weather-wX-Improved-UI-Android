@@ -23,7 +23,6 @@ package joshuatee.wx.spc
 
 import android.annotation.SuppressLint
 import java.util.Locale
-
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -32,14 +31,13 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import joshuatee.wx.Extensions.safeGet
-
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
 import joshuatee.wx.audio.AudioPlayActivity
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
-import kotlinx.coroutines.*
 
 class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
@@ -52,7 +50,6 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var firstTime = true
     private var prod = ""
     private var wfo = ""
@@ -170,7 +167,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         objectDialogue.show()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+    private fun getContent() {
         locations = UtilityFavorites.setupMenu(this@LsrByWfoActivity, MyApplication.wfoFav, wfo, prefToken)
         invalidateOptionsMenu()
         if (MyApplication.wfoFav.contains(":$wfo:")) {
@@ -181,32 +178,32 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         scrollView.smoothScrollTo(0, 0)
         ridFavOld = MyApplication.wfoFav
         linearLayout.removeAllViewsInLayout()
-        wfoProd = withContext(Dispatchers.IO) {
-            lsrFromWfo
-        }
+        FutureVoid(this, ::getLsrFromWfo, ::update)
+    }
+
+    private fun update() {
         wfoProd.forEach {
             val objectCardText = ObjectCardText(this@LsrByWfoActivity, linearLayout, Utility.fromHtml(it))
             objectCardText.typefaceMono()
         }
     }
 
-    private val lsrFromWfo: List<String>
-        get() {
-            val localStormReports: List<String>
-            val numberLSR = UtilityString.getHtmlAndParseLastMatch(
-                    "https://forecast.weather.gov/product.php?site=$wfo&issuedby=$wfo&product=LSR&format=txt&version=1&glossary=0",
-                    "product=LSR&format=TXT&version=(.*?)&glossary"
-            )
-            if (numberLSR == "") {
-                localStormReports = listOf("None issued by this office recently.")
-            } else {
-                var maxVersions = numberLSR.toIntOrNull() ?: 0
-                if (maxVersions > 30) {
-                    maxVersions = 30
-                }
-                localStormReports = (1..maxVersions + 1 step 2).map { UtilityDownload.getTextProduct("LSR$wfo", it) }
+    private fun getLsrFromWfo() {
+        val numberLSR = UtilityString.getHtmlAndParseLastMatch(
+                "https://forecast.weather.gov/product.php?site=$wfo&issuedby=$wfo&product=LSR&format=txt&version=1&glossary=0",
+                "product=LSR&format=TXT&version=(.*?)&glossary"
+        )
+        if (numberLSR == "") {
+            wfoProd = listOf("None issued by this office recently.")
+        } else {
+            var maxVersions = numberLSR.toIntOrNull() ?: 0
+            if (maxVersions > 30) {
+                maxVersions = 30
             }
-            return localStormReports
+            wfoProd = (1..maxVersions + 1 step 2).map {
+                UtilityDownload.getTextProduct("LSR$wfo", it)
+            }
         }
+    }
 }
 
