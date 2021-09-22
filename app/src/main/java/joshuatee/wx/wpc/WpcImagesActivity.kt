@@ -29,7 +29,6 @@ import android.view.MenuItem
 import android.view.View
 import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.GlobalArrays
-
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.radar.VideoRecordActivity
