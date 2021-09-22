@@ -35,8 +35,8 @@ import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.radar.*
 import joshuatee.wx.spc.UtilitySpc
 import joshuatee.wx.ui.*
-import kotlinx.coroutines.*
 import joshuatee.wx.R
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.util.*
 
 class SevereDashboardActivity : BaseActivity() {
@@ -48,7 +48,6 @@ class SevereDashboardActivity : BaseActivity() {
     // All data items can be tapped on for further exploration
     //
 
-    private val uiDispatcher = Dispatchers.Main
     private val bitmaps = mutableListOf<Bitmap>()
     private var watchCount = 0
     private var mcdCount = 0
@@ -94,40 +93,26 @@ class SevereDashboardActivity : BaseActivity() {
 
     private fun getContent() {
         bitmaps.clear()
-        getContentWatch()
-        getContentWarnings()
+        FutureVoid(this, ::downloadWatch, ::updateWatch)
+        FutureVoid(this, ::downloadWarnings, ::updateWarnings)
     }
 
-    private fun getContentWatch() = GlobalScope.launch(uiDispatcher) {
-        withContext(Dispatchers.IO) {
-            bitmaps.add((UtilityDownload.getImageProduct(this@SevereDashboardActivity, "USWARN")))
-        }
-        withContext(Dispatchers.IO) {
-            bitmaps.add((UtilitySpc.getStormReportsTodayUrl()).getImage())
-        }
-        withContext(Dispatchers.IO) {
-            UtilityDownloadWatch.get(this@SevereDashboardActivity)
-            snWat.getBitmaps(MyApplication.severeDashboardWat.value)
-        }
-        withContext(Dispatchers.IO) {
-            UtilityDownloadMcd.get(this@SevereDashboardActivity)
-            snMcd.getBitmaps(MyApplication.severeDashboardMcd.value)
-        }
-        withContext(Dispatchers.IO) {
-            UtilityDownloadMpd.get(this@SevereDashboardActivity)
-            snMpd.getBitmaps(MyApplication.severeDashboardMpd.value)
-        }
-        updateWatch()
+    private fun downloadWatch() {
+        bitmaps.add((UtilityDownload.getImageProduct(this@SevereDashboardActivity, "USWARN")))
+        bitmaps.add((UtilitySpc.getStormReportsTodayUrl()).getImage())
+        UtilityDownloadWatch.get(this@SevereDashboardActivity)
+        snWat.getBitmaps(MyApplication.severeDashboardWat.value)
+        UtilityDownloadMcd.get(this@SevereDashboardActivity)
+        snMcd.getBitmaps(MyApplication.severeDashboardMcd.value)
+        UtilityDownloadMpd.get(this@SevereDashboardActivity)
+        snMpd.getBitmaps(MyApplication.severeDashboardMpd.value)
     }
 
-    private fun getContentWarnings() = GlobalScope.launch(uiDispatcher) {
-        withContext(Dispatchers.IO) {
-            UtilityDownloadWarnings.getForSevereDashboard(this@SevereDashboardActivity)
-            wTor.generateString()
-            wTst.generateString()
-            wFfw.generateString()
-        }
-        updateWarnings()
+    private fun downloadWarnings() {
+        UtilityDownloadWarnings.getForSevereDashboard(this@SevereDashboardActivity)
+        wTor.generateString()
+        wTst.generateString()
+        wFfw.generateString()
     }
 
     private fun updateWatch() {
