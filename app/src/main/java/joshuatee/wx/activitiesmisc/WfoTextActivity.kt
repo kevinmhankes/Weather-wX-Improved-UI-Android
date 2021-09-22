@@ -136,10 +136,6 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private fun getContentFixThis() {
         invalidateOptionsMenu()
         when (drw.token) {
-//            "CLI" -> {
-//                product = drw.token
-//                checkForCliSite()
-//            }
             "RTPZZ" -> {
                 val state = Utility.getWfoSiteName(wfo).split(",")[0]
                 getProduct(drw.token.replace("ZZ", state))
@@ -317,25 +313,6 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
         }
     }
 
-//    private fun checkForCliSite() = GlobalScope.launch(uiDispatcher) {
-//        if (product == "CLI") {
-//            val cliHtml = withContext(Dispatchers.IO) {
-//                // ("https://www.weather.gov/climate/index.php?wfo=" + wfo.lowercase(Locale.US)).getHtml()
-//                ("https://www.weather.gov/wrh/Climate?wfo=" + wfo.lowercase(Locale.US)).getHtml()
-//            }
-//            val cliSites = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('.*?','(.*?)'\\)")
-//            val cliNames = cliHtml.parseColumn("cf6PointArray\\[.\\] = new Array\\('(.*?)','.*?'\\)")
-//            val dialogueMain = ObjectDialogue(this@WfoTextActivity, "Select site from $wfo:", cliNames)
-//            dialogueMain.setSingleChoiceItems { dialog, index ->
-//                wfo = Utility.safeGet(cliSites, index)
-//                dialog.dismiss()
-//                getContent()
-//            }
-//            originalWfo = wfo
-//            dialogueMain.show()
-//        }
-//    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true
@@ -355,11 +332,6 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
                                 product = "RTP$state"
                             }
                             getContent()
-//                            if (product == "CLI") {
-//                                checkForCliSite()
-//                            } else {
-//                                getContent()
-//                            }
                         }
                     }
                     if (firstTime) {

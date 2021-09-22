@@ -51,7 +51,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     companion object { const val URL = "" }
 
     private var firstTime = true
-    private var prod = ""
+//    private var prod = ""
     private var wfo = ""
     private lateinit var imageMap: ObjectImageMap
     private var mapShown = false
@@ -87,12 +87,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         if (wfo == "") {
             wfo = "OUN"
         }
-        prod = if (activityArguments[1] == "") {
-            MyApplication.wfoTextFav
-        } else {
-            activityArguments[1]
-        }
-        toolbar.title = prod
+        title = "LSR"
         locations = UtilityFavorites.setupMenu(this, MyApplication.wfoFav, wfo, prefToken)
         imageMap = ObjectImageMap(this, this, R.id.map, toolbar, toolbarBottom, listOf<View>(scrollView))
         imageMap.addClickHandler(::mapSwitch, UtilityImageMap::mapToWfo)
@@ -107,13 +102,13 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, lsrList.toString(), prod, prod + wfo)) {
+        if (audioPlayMenu(item.itemId, lsrList.toString(), "LSR",  wfo)) {
             return true
         }
         when (item.itemId) {
             R.id.action_fav -> toggleFavorite()
             R.id.action_map -> imageMap.toggleMap()
-            R.id.action_share -> UtilityShare.text(this, prod + wfo, Utility.fromHtml(lsrList.toString()))
+            R.id.action_share -> UtilityShare.text(this, "LSR$wfo", Utility.fromHtml(lsrList.toString()))
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -204,8 +199,10 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         textList.clear()
         if (numberLSR == "") {
             lsrList = mutableListOf("None issued by this office recently.")
+            toolbar.subtitle = "Showing: None"
         } else {
             var maxVersions = to.Int(numberLSR)
+            toolbar.subtitle = "Showing: " + (maxVersions - 1).toString()
             if (maxVersions > 30) {
                 maxVersions = 30
             }
