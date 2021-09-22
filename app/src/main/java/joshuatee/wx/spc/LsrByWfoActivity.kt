@@ -198,11 +198,12 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     private fun download(i: Int , version: Int) {
-        lsrList[i] = UtilityDownload.getTextProduct("LSR" + wfo, version)
+        lsrList[i] = UtilityDownload.getTextProduct("LSR$wfo", version)
     }
 
     private fun update(i: Int) {
         textList[i].setText1(Utility.fromHtml(lsrList[i]))
+        textList[i].typefaceMono()
     }
 
     private fun getLsrFromWfo() {

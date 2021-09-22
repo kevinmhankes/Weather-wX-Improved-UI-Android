@@ -37,7 +37,7 @@
 55559 2021_09_22    [FIX] remove CLI "Daily Climate Report" from Local text products since NWS no longer provides WFO to site mapping
                     [ADD] per https://developer.android.com/about/versions/12/approximate-location
                     if you request ACCESS_FINE_LOCATION you must also request ACCESS_COARSE_LOCATION
-                    [REF] LsrByWfoActivity to FutureVoid
+                    [REF] LsrByWfoActivity refactor to use Future* and parallel download threads
 55558 2021_09_21    [ADD] classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21" to
                           classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
 
