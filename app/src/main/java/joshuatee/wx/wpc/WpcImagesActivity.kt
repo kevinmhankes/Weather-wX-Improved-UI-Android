@@ -31,19 +31,18 @@ import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.ObjectNavDrawerCombo
 import joshuatee.wx.ui.OnSwipeTouchListener
 import joshuatee.wx.ui.TouchImageView2
 import joshuatee.wx.ui.UtilityToolbar
 import joshuatee.wx.util.*
-import kotlinx.coroutines.*
 
 class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var bitmap = UtilityImg.getBlankBitmap()
     private var timePeriod = 1
     private var firstRun = false
@@ -108,10 +107,19 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener {
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+    private fun getContent() {
         if (!calledFromHomeScreen) {
             title = "Images"
             toolbar.subtitle = drw.getLabel()
+        } else {
+            title = "Images"
+            toolbar.subtitle = GlobalArrays.nwsImageProducts.findLast { it.startsWith("$homeScreenId:") }!!.split(":")[1]
+        }
+        FutureVoid(this, ::download, ::update)
+    }
+
+    private fun download() {
+        if (!calledFromHomeScreen) {
             val getUrl = when {
                 drw.getUrl().contains("https://graphical.weather.gov/images/conus/") -> drw.getUrl() + timePeriod + "_conus.png"
                 drw.getUrl().contains("aviationweather") -> drw.getUrl()
@@ -120,17 +128,14 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener {
             Utility.writePref(this@WpcImagesActivity, "WPG_IMG_FAV_URL", drw.getUrl())
             Utility.writePref(this@WpcImagesActivity, "WPG_IMG_IDX", drw.imgIdx)
             Utility.writePref(this@WpcImagesActivity, "WPG_IMG_GROUPIDX", drw.imgGroupIdx)
-            bitmap = withContext(Dispatchers.IO) {
-                getUrl.getImage()
-            }
+            bitmap = getUrl.getImage()
         } else {
-            title = "Images"
-            toolbar.subtitle = GlobalArrays.nwsImageProducts.findLast { it.startsWith("$homeScreenId:") }!!.split(":")[1]
-            bitmap = withContext(Dispatchers.IO) {
-                UtilityDownload.getImageProduct(this@WpcImagesActivity, homeScreenId)
-            }
+            bitmap = UtilityDownload.getImageProduct(this@WpcImagesActivity, homeScreenId)
             calledFromHomeScreen = false
         }
+    }
+
+    private fun update() {
         img.setImageBitmap(bitmap)
         if (!firstRun && activityArguments.size < 2) {
             img.setZoom("WPCIMG")

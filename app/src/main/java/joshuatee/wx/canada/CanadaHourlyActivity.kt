@@ -24,7 +24,6 @@ package joshuatee.wx.canada
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.LinearLayout
-
 import joshuatee.wx.R
 import joshuatee.wx.objects.FutureText2
 import joshuatee.wx.settings.Location

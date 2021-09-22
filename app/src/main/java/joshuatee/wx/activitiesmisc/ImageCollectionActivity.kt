@@ -27,7 +27,6 @@ import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-
 import joshuatee.wx.R
 import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.MyApplication
@@ -135,10 +134,10 @@ class ImageCollectionActivity : VideoRecordActivity() {
         super.onStop()
     }
 
-    private fun getAnimate() = GlobalScope.launch(Dispatchers.Main) {
-        animDrawable = withContext(Dispatchers.IO) {
-            UtilityGoesFullDisk.getAnimation(this@ImageCollectionActivity, drw.url)
-        }
-        UtilityImgAnim.startAnimation(animDrawable, img)
+    private fun getAnimate() {
+        FutureVoid(this@ImageCollectionActivity,
+            { animDrawable = UtilityGoesFullDisk.getAnimation(this@ImageCollectionActivity, drw.url) },
+            { UtilityImgAnim.startAnimation(animDrawable, img) }
+        )
     }
 }

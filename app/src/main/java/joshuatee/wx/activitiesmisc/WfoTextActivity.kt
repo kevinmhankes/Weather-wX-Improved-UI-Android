@@ -24,7 +24,6 @@ package joshuatee.wx.activitiesmisc
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import java.util.Locale
-
 import androidx.cardview.widget.CardView
 import android.os.Bundle
 import android.view.KeyEvent
@@ -36,7 +35,6 @@ import android.widget.ScrollView
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.view.GravityCompat
 import joshuatee.wx.Extensions.safeGet
-
 import joshuatee.wx.R
 import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.notifications.UtilityNotificationTextProduct
@@ -44,15 +42,15 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.GlobalArrays
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.ui.*
-
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.ShortcutType
 import joshuatee.wx.util.*
-import kotlinx.coroutines.*
 
 class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
+    //
     // The primary purpose of this activity is to view AFD from location's NWS office
     // However, other NWS office text products are also available from the AB menu
     // A map icon is also provided to select an office different from your current location
@@ -64,7 +62,6 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var firstTime = true
     private lateinit var activityArguments: Array<String>
     private var product = ""
@@ -88,6 +85,7 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private lateinit var linearLayout: LinearLayout
     private var originalWfo = ""
     private val fixedWidthProducts = listOf("RTP", "RWR", "CLI", "RVA")
+    private var wfoProd = mutableListOf<String>()
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.afd_top, menu)
@@ -151,7 +149,7 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+    private fun getContent() {
         locationList = UtilityFavorites.setupMenu(this@WfoTextActivity, MyApplication.wfoFav, wfo, prefToken)
         updateSubmenuNotificationText()
         invalidateOptionsMenu()
@@ -168,26 +166,27 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
         if (wfo != oldWfo) {
             version = 1
         }
-        html = withContext(Dispatchers.IO) {
-            when {
-                product == "CLI" -> UtilityDownload.getTextProduct(this@WfoTextActivity, product + wfo + originalWfo)
-                product.startsWith("RTP") && product.length == 5 -> UtilityDownload.getTextProduct(this@WfoTextActivity, product)
-                else -> {
-                    if (version == 1) {
-                        UtilityDownload.getTextProduct(this@WfoTextActivity, product + wfo)
-                    } else {
-                        UtilityDownload.getTextProduct(product + wfo, version)
-                    }
+        FutureVoid(this@WfoTextActivity, ::download, ::update)
+    }
+
+    private fun download() {
+        html = when {
+            product == "CLI" -> UtilityDownload.getTextProduct(this@WfoTextActivity, product + wfo + originalWfo)
+            product.startsWith("RTP") && product.length == 5 -> UtilityDownload.getTextProduct(this@WfoTextActivity, product)
+            else -> {
+                if (version == 1) {
+                    UtilityDownload.getTextProduct(this@WfoTextActivity, product + wfo)
+                } else {
+                    UtilityDownload.getTextProduct(product + wfo, version)
                 }
             }
         }
+    }
+
+    private fun update() {
         title = when {
             product.startsWith("RTP") && product.length == 5 -> product
             else -> product + wfo
-        }
-        // restore the WFO as CLI modifies to a sub-region
-        if (product == "CLI") {
-            wfo = originalWfo
         }
         toolbar.subtitle = UtilityWfoText.codeToName[product]
         cardList.forEach { linearLayout.removeView(it) }
@@ -282,8 +281,7 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
         wfoListPerState.sort()
     }
 
-    private fun getContentByState() = GlobalScope.launch(uiDispatcher) {
-        val wfoProd = mutableListOf<String>()
+    private fun getContentByState() {
         scrollView.smoothScrollTo(0, 0)
         ridFavOld = MyApplication.wfoFav
         if (product != oldProduct) {
@@ -293,17 +291,23 @@ class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
             version = 1
         }
         title = product
-        withContext(Dispatchers.IO) {
-            html = ""
-            wfoListPerState.forEach {
-                html = if (version == 1) {
-                    UtilityDownload.getTextProduct(this@WfoTextActivity, product + it)
-                } else {
-                    UtilityDownload.getTextProduct(product + it, version)
-                }
-                wfoProd.add(html)
+        wfoProd.clear()
+        FutureVoid(this@WfoTextActivity, ::downloadState, ::updateState)
+    }
+
+    private fun downloadState() {
+        html = ""
+        wfoListPerState.forEach {
+            html = if (version == 1) {
+                UtilityDownload.getTextProduct(this@WfoTextActivity, product + it)
+            } else {
+                UtilityDownload.getTextProduct(product + it, version)
             }
+            wfoProd.add(html)
         }
+    }
+
+    private fun updateState() {
         objectCardText.visibility = View.GONE
         cardList.clear()
         wfoProd.forEach {

@@ -28,7 +28,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import joshuatee.wx.Extensions.startAnimation
-
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.FutureVoid
@@ -37,7 +36,6 @@ import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
 import joshuatee.wx.util.to
-import kotlinx.coroutines.*
 
 class GoesActivity : VideoRecordActivity() {
 
@@ -49,10 +47,10 @@ class GoesActivity : VideoRecordActivity() {
     //    GoesActivity::class.java,
     //    GoesActivity.RID,
     //    arrayOf("CONUS", "09"),
+    //
 
     companion object { const val RID = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var bitmap = UtilityImg.getBlankBitmap()
     private lateinit var img: ObjectTouchImageView
     private var animDrawable = AnimationDrawable()
@@ -218,17 +216,17 @@ class GoesActivity : VideoRecordActivity() {
         super.onStop()
     }
 
-    private fun getAnimate(frameCount: Int) = GlobalScope.launch(uiDispatcher) {
-        //animDrawable = withContext(Dispatchers.IO) { UtilityGoes.getAnimation(this@GoesActivity, drw.url, sector, frameCount) }
-
-        animDrawable = if (!goesFloater) {
-            withContext(Dispatchers.IO) { UtilityGoes.getAnimation(this@GoesActivity, drw.url, sector, frameCount) }
-            //_ = FutureAnimation({ UtilityGoes.getAnimation(self.productCode, self.sectorCode, frameCount) }, image.startAnimating)
+    private fun getAnimate(frameCount: Int) {
+        if (!goesFloater) {
+            FutureVoid(this@GoesActivity,
+                { animDrawable = UtilityGoes.getAnimation(this@GoesActivity, drw.url, sector, frameCount) },
+                { animDrawable.startAnimation(img) }
+            )
         } else {
-            withContext(Dispatchers.IO) { UtilityGoes.getAnimationGoesFloater(this@GoesActivity, drw.url, sector, frameCount) }
-            //_ = FutureAnimation({ UtilityGoes.getAnimationGoesFloater(self.productCode, self.sectorCode, frameCount) }, image.startAnimating)
+            FutureVoid(this@GoesActivity,
+                { animDrawable = UtilityGoes.getAnimationGoesFloater(this@GoesActivity, drw.url, sector, frameCount) },
+                { animDrawable.startAnimation(img) }
+            )
         }
-
-        animDrawable.startAnimation(img)
     }
 }

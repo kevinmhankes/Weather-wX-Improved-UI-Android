@@ -31,7 +31,6 @@ import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import joshuatee.wx.Extensions.getImage
-
 import joshuatee.wx.R
 import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
@@ -41,9 +40,9 @@ import joshuatee.wx.ui.ObjectNavDrawer
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.util.UtilityImg
 
-// FIXME rename USWarningsWithRadarActivity
 class USWarningsWithRadarActivity : BaseActivity() {
 
+    //
     // US weather alert interface
     //
     // Arguments

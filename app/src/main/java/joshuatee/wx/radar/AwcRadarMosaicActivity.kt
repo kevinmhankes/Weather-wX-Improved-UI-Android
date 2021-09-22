@@ -27,24 +27,23 @@ import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.*
-import kotlinx.coroutines.*
 
 class AwcRadarMosaicActivity : VideoRecordActivity() {
 
+    //
     // Provides native interface to AWC radar mosaics along with animations
     //
     // arg1: "widget" (optional) - if this arg is specified it will show mosaic for widget location
     //       "location" for current location
+    //
 
     companion object { const val URL = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var animRan = false
     private var animDrawable = AnimationDrawable()
     private lateinit var img: ObjectTouchImageView
@@ -96,11 +95,11 @@ class AwcRadarMosaicActivity : VideoRecordActivity() {
         Utility.writePref(this@AwcRadarMosaicActivity, prefTokenProduct, product)
     }
 
-    private fun getAnimate() = GlobalScope.launch(uiDispatcher) {
-        animDrawable = withContext(Dispatchers.IO) {
-            UtilityAwcRadarMosaic.getAnimation(this@AwcRadarMosaicActivity, objectNavDrawer.url, product)
-        }
-        animRan = UtilityImgAnim.startAnimation(animDrawable, img)
+    private fun getAnimate() {
+        FutureVoid(this@AwcRadarMosaicActivity,
+            { animDrawable = UtilityAwcRadarMosaic.getAnimation(this@AwcRadarMosaicActivity, objectNavDrawer.url, product) },
+            { animRan = UtilityImgAnim.startAnimation(animDrawable, img) }
+        )
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

@@ -28,7 +28,6 @@ import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.appcompat.widget.Toolbar
-
 import joshuatee.wx.R
 import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.ui.BaseActivity
