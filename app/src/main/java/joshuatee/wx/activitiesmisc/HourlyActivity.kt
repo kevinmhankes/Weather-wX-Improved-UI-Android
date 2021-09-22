@@ -97,24 +97,6 @@ class HourlyActivity : BaseActivity() {
         FutureVoid(this, { htmlShare = UtilityUSHourly.get(locationNumber) }, ::update)
     }
 
-//    private fun download() {
-//        htmlShare = UtilityUSHourly.get(locationNumber)
-//    }
-
-//    private fun getContent() = GlobalScope.launch(uiDispatcher) {
-//        htmlShare = withContext(Dispatchers.IO) {
-//            UtilityUSHourly.get(locationNumber)
-//        }
-//        hourlyData = if (UIPreferences.useNwsApiForHourly) {
-//            UtilityUSHourly.getStringForActivity(htmlShare[1])
-//        } else {
-//            UtilityUSHourly.getStringForActivityFromOldApi(htmlShare[1])
-//        }
-//        graphCard.visibility = View.VISIBLE
-//        objectCardVerticalText.setText(listOf(hourlyData.time, hourlyData.temp, hourlyData.windSpeed, hourlyData.windDir, hourlyData.conditions))
-//        plotData()
-//    }
-
     private fun update() {
         hourlyData = if (UIPreferences.useNwsApiForHourly) {
             UtilityUSHourly.getStringForActivity(htmlShare[1])

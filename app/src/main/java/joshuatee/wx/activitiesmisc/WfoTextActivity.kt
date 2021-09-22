@@ -35,8 +35,6 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.view.GravityCompat
-import joshuatee.wx.Extensions.getHtml
-import joshuatee.wx.Extensions.parseColumn
 import joshuatee.wx.Extensions.safeGet
 
 import joshuatee.wx.R

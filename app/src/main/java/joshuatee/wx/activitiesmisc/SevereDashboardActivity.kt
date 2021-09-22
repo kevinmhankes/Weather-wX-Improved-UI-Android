@@ -208,10 +208,6 @@ class SevereDashboardActivity : BaseActivity() {
     }
 
     private fun showItems(sn: SevereNotice) {
-//        listOf(sn)
-//                .asSequence()
-//                .filter { it.bitmaps.size > 0 }
-//                .forEach { severeNotice ->
         sn.bitmaps.indices.forEach { j ->
             val card: ObjectCardImage
             if (numberOfImages % imagesPerRow == 0) {

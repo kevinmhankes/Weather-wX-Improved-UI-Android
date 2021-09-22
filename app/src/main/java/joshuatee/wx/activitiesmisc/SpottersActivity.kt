@@ -99,7 +99,6 @@ class SpottersActivity : BaseActivity() {
     }
 
     private fun getContent() {
-        //spotterList = withContext(Dispatchers.IO) { UtilitySpotter.get(this@SpottersActivity) }.toMutableList()
         FutureVoid(this, { spotterList = UtilitySpotter.get(this@SpottersActivity) }, ::showText)
     }
 
