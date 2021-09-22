@@ -183,13 +183,6 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         FutureVoid(this, ::downloadFirst, ::getLsrFromWfo)
     }
 
-//    private fun update() {
-//        wfoProd.forEach {
-//            val objectCardText = ObjectCardText(this@LsrByWfoActivity, linearLayout, Utility.fromHtml(it))
-//            objectCardText.typefaceMono()
-//        }
-//    }
-
     private fun downloadFirst() {
         numberLSR = UtilityString.getHtmlAndParseLastMatch(
                 "https://forecast.weather.gov/product.php?site=$wfo&issuedby=$wfo&product=LSR&format=txt&version=1&glossary=0",
