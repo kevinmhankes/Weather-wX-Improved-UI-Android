@@ -23,7 +23,6 @@ package joshuatee.wx.objects
 
 import android.content.Context
 import android.graphics.Bitmap
-import joshuatee.wx.Extensions.getImage
 import kotlinx.coroutines.*
 
 // , val uiDispatcher: MainCoroutineDispatcher
