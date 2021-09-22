@@ -61,7 +61,9 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     private var locations = listOf<String>()
     private val prefToken = "WFO_FAV"
     private var ridFavOld = ""
-    private var wfoProd = listOf<String>()
+    private var lsrList = mutableListOf<String>()
+    private var textList = mutableListOf<ObjectCardText>()
+    private var numberLSR = ""
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.afd_top, menu)
@@ -105,13 +107,13 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        if (audioPlayMenu(item.itemId, wfoProd.toString(), prod, prod + wfo)) {
+        if (audioPlayMenu(item.itemId, lsrList.toString(), prod, prod + wfo)) {
             return true
         }
         when (item.itemId) {
             R.id.action_fav -> toggleFavorite()
             R.id.action_map -> imageMap.toggleMap()
-            R.id.action_share -> UtilityShare.text(this, prod + wfo, Utility.fromHtml(wfoProd.toString()))
+            R.id.action_share -> UtilityShare.text(this, prod + wfo, Utility.fromHtml(lsrList.toString()))
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -178,30 +180,48 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
         scrollView.smoothScrollTo(0, 0)
         ridFavOld = MyApplication.wfoFav
         linearLayout.removeAllViewsInLayout()
-        FutureVoid(this, ::getLsrFromWfo, ::update)
+        FutureVoid(this, ::downloadFirst, ::getLsrFromWfo)
     }
 
-    private fun update() {
-        wfoProd.forEach {
-            val objectCardText = ObjectCardText(this@LsrByWfoActivity, linearLayout, Utility.fromHtml(it))
-            objectCardText.typefaceMono()
-        }
-    }
+//    private fun update() {
+//        wfoProd.forEach {
+//            val objectCardText = ObjectCardText(this@LsrByWfoActivity, linearLayout, Utility.fromHtml(it))
+//            objectCardText.typefaceMono()
+//        }
+//    }
 
-    private fun getLsrFromWfo() {
-        val numberLSR = UtilityString.getHtmlAndParseLastMatch(
+    private fun downloadFirst() {
+        numberLSR = UtilityString.getHtmlAndParseLastMatch(
                 "https://forecast.weather.gov/product.php?site=$wfo&issuedby=$wfo&product=LSR&format=txt&version=1&glossary=0",
                 "product=LSR&format=TXT&version=(.*?)&glossary"
         )
+    }
+
+    private fun download(i: Int , version: Int) {
+        lsrList[i] = UtilityDownload.getTextProduct("LSR" + wfo, version)
+    }
+
+    private fun update(i: Int) {
+        textList[i].setText1(Utility.fromHtml(lsrList[i]))
+    }
+
+    private fun getLsrFromWfo() {
+        lsrList.clear()
+        textList.clear()
         if (numberLSR == "") {
-            wfoProd = listOf("None issued by this office recently.")
+            lsrList = mutableListOf("None issued by this office recently.")
         } else {
-            var maxVersions = numberLSR.toIntOrNull() ?: 0
+            var maxVersions = to.Int(numberLSR)
             if (maxVersions > 30) {
                 maxVersions = 30
             }
-            wfoProd = (1..maxVersions + 1 step 2).map {
-                UtilityDownload.getTextProduct("LSR$wfo", it)
+            var i = 0
+            (1..maxVersions + 1 step 2).forEach { version ->
+                lsrList.add("")
+                textList.add(ObjectCardText(this@LsrByWfoActivity, linearLayout))
+                val iFinal = i
+                FutureVoid(this, { download(iFinal, version) }, { update(iFinal) })
+                i += 1
             }
         }
     }

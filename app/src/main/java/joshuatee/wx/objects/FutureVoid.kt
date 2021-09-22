@@ -34,5 +34,11 @@ class FutureVoid(val context: Context, val downloadFunc: () -> Unit, val updateF
         withContext(Dispatchers.IO) { downloadFunc() }
         updateFunc()
     }
+
+    companion object {
+        fun immediate(downloadFunc: () -> Unit) = GlobalScope.launch(Dispatchers.Main) {
+            withContext(Dispatchers.IO) { downloadFunc() }
+        }
+    }
 }
 
