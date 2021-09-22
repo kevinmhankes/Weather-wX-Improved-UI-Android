@@ -105,6 +105,7 @@ class LocationFragment : Fragment() {
     private var paneList = listOf<Int>()
     private var bitmapForCurrentConditions: Bitmap? = null
     private var objectCurrentConditions = ObjectCurrentConditions()
+    var bitmaps = listOf<Bitmap>()
 
     private fun addDynamicCards() {
         var currentConditionsAdded = false
@@ -690,7 +691,12 @@ class LocationFragment : Fragment() {
 
     private fun getForecastData() {
         FutureVoid(MyApplication.appContext, ::getCc, ::updateCc)
-        getLocationForecastSevenDay()
+        if (locationChangedSevenDay) {
+            linearLayoutForecast?.removeAllViewsInLayout()
+            locationChangedSevenDay = false
+        }
+        FutureVoid(MyApplication.appContext, ::get7day, ::update7day)
+        //getLocationForecastSevenDay()
         getLocationHazards()
     }
 
@@ -711,9 +717,6 @@ class LocationFragment : Fragment() {
 
     private fun updateCc() {
         if (isAdded) {
-            //
-            // Current Conditions
-            //
             objectCardCurrentConditions?.let {
                 if (homescreenFavLocal.contains("TXT-CC2")) {
                     currentConditionsTime = objectCurrentConditions.status
@@ -729,28 +732,24 @@ class LocationFragment : Fragment() {
         }
     }
 
-    private fun getLocationForecastSevenDay() = GlobalScope.launch(uiDispatcher) {
-        var bitmaps = listOf<Bitmap>()
-        if (locationChangedSevenDay) {
-            linearLayoutForecast?.removeAllViewsInLayout()
-            locationChangedSevenDay = false
+    private fun get7day() {
+        try {
+            objectSevenDay = ObjectSevenDay(Location.currentLocation)
+            Utility.writePref(activityReference, "FCST", objectSevenDay.sevenDayLong)
+        } catch (e: Exception) {
+            UtilityLog.handleException(e)
         }
-        withContext(Dispatchers.IO) {
-            try {
-                objectSevenDay = ObjectSevenDay(Location.currentLocation)
-                Utility.writePref(activityReference, "FCST", objectSevenDay.sevenDayLong)
-            } catch (e: Exception) {
-                UtilityLog.handleException(e)
+        try {
+            Utility.writePref(activityReference, "FCST", objectSevenDay.sevenDayLong)
+            if (homescreenFavLocal.contains("TXT-7DAY")) {
+                bitmaps = objectSevenDay.icons.map { UtilityNws.getIcon(activityReference, it) }
             }
-            try {
-                Utility.writePref(activityReference, "FCST", objectSevenDay.sevenDayLong)
-                if (homescreenFavLocal.contains("TXT-7DAY")) {
-                    bitmaps = objectSevenDay.icons.map { UtilityNws.getIcon(activityReference, it) }
-                }
-            } catch (e: Exception) {
-                UtilityLog.handleException(e)
-            }
+        } catch (e: Exception) {
+            UtilityLog.handleException(e)
         }
+    }
+    
+    private fun update7day() {
         if (isAdded) {
             if (homescreenFavLocal.contains("TXT-7DAY")) {
                 linearLayoutForecast?.removeAllViewsInLayout()
