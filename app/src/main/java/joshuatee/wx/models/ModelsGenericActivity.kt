@@ -37,6 +37,7 @@ import kotlinx.coroutines.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.ObjectDialogue
@@ -48,11 +49,13 @@ import joshuatee.wx.util.UtilityImg
 
 class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
+    //
     // This code provides a native android interface to Weather Models
     //
     // arg1 - number of panes, 1 or 2
     // arg2 - pref model token and hash lookup
     // arg3 - title string
+    //
 
     companion object { const val INFO = "" }
 
@@ -191,9 +194,20 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
         return true
     }
 
-    private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
+    private fun getRunStatus() {
+        FutureVoid(this, ::getRunStatusDownload, ::getRunStatusUpdate)
+    }
+
+    private fun getRunStatusDownload() {
         if (om.modelType == ModelType.NCEP) {
-            om.rtd = withContext(Dispatchers.IO) { UtilityModelNcepInputOutput.getRunTime(om.model, om.displayData.param[0], om.sectors[0]) }
+            om.rtd = UtilityModelNcepInputOutput.getRunTime(om.model, om.displayData.param[0], om.sectors[0])
+        } else {
+            om.rtd = om.getRunTime()
+        }
+    }
+
+    private fun getRunStatusUpdate() {
+        if (om.modelType == ModelType.NCEP) {
             om.run = om.rtd.mostRecentRun
             om.rtd.listRun = om.ncepRuns
             //spRun.setSelection(om.rtd.mostRecentRun)
@@ -204,7 +218,6 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
                 om.times[it] = "$items " + UtilityModels.convertTimeRunToTimeString(om.rtd.mostRecentRun.replace("Z", ""), items, true)
             }
         } else {
-            om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
             om.run = om.rtd.mostRecentRun
             miStatus.isVisible = true
             miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
