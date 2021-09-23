@@ -36,6 +36,7 @@ import joshuatee.wx.Extensions.safeGet
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.ObjectDialogue
@@ -46,10 +47,12 @@ import joshuatee.wx.util.*
 
 class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
+    //
     // native interface to the mobile SPC SREF website
     //
     // arg1 - number of panes, 1 or 2
     // arg2 - pref model token and hash lookup
+    //
 
     companion object { const val INFO = "" }
 
@@ -147,16 +150,22 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
     }
 
-    private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
-        om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
-        UtilityLog.d("wx", "DEBUG: " + om.rtd.listRun)
+    private fun getRunStatus() {
+        FutureVoid(this, ::getRunStatusDownload, ::getRunStatusUpdate)
+    }
+
+    private fun getRunStatusDownload() {
+        om.rtd = om.getRunTime()
+    }
+
+    private fun getRunStatusUpdate() {
         (0 until om.times.size).forEach {
             om.times[it] = om.times[it] + " " +
-                    UtilityModels.convertTimeRunToTimeString(
-                            om.rtd.mostRecentRun.replace("z", ""),
-                            om.times[it].replace("f", ""),
-                            false
-                    )
+            UtilityModels.convertTimeRunToTimeString(
+                    om.rtd.mostRecentRun.replace("z", ""),
+                    om.times[it].replace("f", ""),
+                    false
+            )
         }
         miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
         om.run = om.rtd.listRun.safeGet(0)

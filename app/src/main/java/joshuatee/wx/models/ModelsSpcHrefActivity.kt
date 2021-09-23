@@ -34,6 +34,7 @@ import java.util.Locale
 import kotlinx.coroutines.*
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.ObjectDialogue
@@ -177,8 +178,15 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         return true
     }
 
-    private fun getRunStatus() = GlobalScope.launch(uiDispatcher) {
-        om.rtd = withContext(Dispatchers.IO) { om.getRunTime() }
+    private fun getRunStatus() {
+        FutureVoid(this, ::getRunStatusDownload, ::getRunStatusUpdate)
+    }
+
+    private fun getRunStatusDownload() {
+        om.rtd = om.getRunTime()
+    }
+
+    private fun getRunStatusUpdate() {
         miStatus.title = om.rtd.mostRecentRun + " - " + om.rtd.imageCompleteStr
         om.run = om.rtd.mostRecentRun
         (om.startStep until om.endStep).forEach { om.times.add(String.format(Locale.US, "%02d", it)) }
