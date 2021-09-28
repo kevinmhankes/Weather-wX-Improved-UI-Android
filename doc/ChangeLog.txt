@@ -27,9 +27,9 @@
 // TODO GOES GLM ( homescreen does not honor new setting, setupMap ordering in myApp)
 // TODO usalerts sps don't show radar icon if no poly
 // TODO [FIX] see if more changes are needed: https://developer.android.com/about/versions/12/approximate-location
-// TODO [FIX] main screen navdrawer icons are small
 // TODO [REF] migrate all to Future* (models/radar/LocationFragment)
 
+55563 2021_09_28
 55562 2021_09_28    [REF] convert multiple activities to use Future*
                     [FIX] icon size on main window navigation drawer if using that option
 55561 2021_09_22    [REF] convert multiple activities to use Future*
