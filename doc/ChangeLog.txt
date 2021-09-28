@@ -31,7 +31,7 @@
 
 55563 2021_09_28
 55562 2021_09_28    [REF] convert multiple activities to use Future*
-                    [FIX] icon size on main window navigation drawer if using that option
+                    [FIX] fix icon size on main window navigation drawer if using that option
 55561 2021_09_22    [REF] convert multiple activities to use Future*
 55560 2021_09_22    [REF] convert multiple activities to use Future*
 55559 2021_09_22    [FIX] remove CLI "Daily Climate Report" from Local text products since NWS no longer provides WFO to site mapping
