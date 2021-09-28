@@ -125,6 +125,7 @@ class WX : CommonActionBarFragment() {
             navigationView = findViewById(R.id.nav_view)
             drawerLayout = findViewById(R.id.drawer_layout)
             navigationView.itemIconTintList = null
+            navigationView.setItemIconSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40.0f, MyApplication.dm).toInt())
             if (!UIPreferences.themeIsWhite) {
                 navigationView.itemTextColor = ColorStateList.valueOf(Color.WHITE)
             }
