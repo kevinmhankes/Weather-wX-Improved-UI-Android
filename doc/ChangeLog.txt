@@ -26,6 +26,7 @@
 // TODO [FIX] NCEP - adjust NMB time periods
 // TODO GOES GLM ( homescreen does not honor new setting, setupMap ordering in myApp)
 // TODO usalerts sps don't show radar icon if no poly
+// TODO [REF] revert premature optimizations particularly in mode space, make local, use String
 // TODO [FIX] see if more changes are needed: https://developer.android.com/about/versions/12/approximate-location
 // TODO [REF] migrate all to Future* (models/radar/LocationFragment)
 
