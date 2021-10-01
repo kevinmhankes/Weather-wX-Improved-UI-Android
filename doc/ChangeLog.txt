@@ -34,6 +34,7 @@
 // TODO [FIX] deprecate UtilityUI.makeToastLegacy
 // TODO [FIX] NHC ordering of images is not static
 
+55564 2021_10_01
 55563 2021_10_01    [ADD] Provide more data in Alert detail screen (vtec, storm motion, headline, max hail/wind, etc)
                     [REF] change override fun onClick(v: View) { myClickListener!!.onItemClick(adapterPosition) } to
                           override fun onClick(v: View) { myClickListener!!.onItemClick(layoutPosition) }
