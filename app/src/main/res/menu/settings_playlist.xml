@@ -30,11 +30,11 @@
         android:icon="@drawable/ic_add2_box_24dp"
         android:title="Add"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/action_autodownload"
-        android:icon="@drawable/ic_access_alarm_24dp"
-        android:title="Manage auto-downloads"
-        app:showAsAction="always" />
+<!--    <item-->
+<!--        android:id="@+id/action_autodownload"-->
+<!--        android:icon="@drawable/ic_access_alarm_24dp"-->
+<!--        android:title="Manage auto-downloads"-->
+<!--        app:showAsAction="always" />-->
     <!--<item
         android:id="@+id/action_downloadall"
         android:icon="@drawable/ic_get_app_24dp"

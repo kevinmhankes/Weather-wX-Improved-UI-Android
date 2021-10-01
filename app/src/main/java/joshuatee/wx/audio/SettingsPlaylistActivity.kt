@@ -24,7 +24,6 @@ package joshuatee.wx.audio
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.*
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -32,6 +31,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.app.ActivityCompat
+import java.util.Locale
+import kotlinx.coroutines.*
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
@@ -41,8 +42,6 @@ import joshuatee.wx.settings.BottomSheetFragment
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import joshuatee.wx.wpc.UtilityWpcText
-import kotlinx.coroutines.*
-import java.util.*
 import joshuatee.wx.R
 
 class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
@@ -133,7 +132,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_autodownload -> ObjectIntent(this, SettingsPlaylistAutodownloadActivity::class.java)
+//            R.id.action_autodownload -> ObjectIntent(this, SettingsPlaylistAutodownloadActivity::class.java)
             R.id.action_add -> diaMain.show()
             R.id.action_afd -> diaAfd.show()
             else -> return super.onOptionsItemSelected(item)

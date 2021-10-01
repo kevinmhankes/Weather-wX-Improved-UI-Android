@@ -25,7 +25,6 @@ import android.annotation.SuppressLint
 import android.app.TimePickerDialog
 import java.util.Calendar
 import android.os.Bundle
-
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.ui.BaseActivity
@@ -61,7 +60,9 @@ class SettingsPlaylistAutodownloadActivity : BaseActivity() {
         recyclerView = ObjectRecyclerView(this, this, R.id.cardList, ridArr, ::pickItem)
     }
 
-    private fun updateList() { ridArr = ridFav.split(tokenSep.toRegex()).dropLastWhile { it.isEmpty() }.toMutableList() }
+    private fun updateList() {
+        ridArr = ridFav.split(tokenSep.toRegex()).dropLastWhile { it.isEmpty() }.toMutableList()
+    }
 
     private fun deleteFAB() {
         if (deleteMode) {
@@ -91,7 +92,7 @@ class SettingsPlaylistAutodownloadActivity : BaseActivity() {
                 hour,
                 minute,
                 false
-        )//no not 24 hour time
+        ) //no not 24 hour time
         mTimePicker.updateTime(hour, minute)
         mTimePicker.setCanceledOnTouchOutside(true)
         mTimePicker.setCancelable(true)
