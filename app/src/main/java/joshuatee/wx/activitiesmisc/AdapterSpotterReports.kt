@@ -49,7 +49,7 @@ internal class AdapterSpotterReports(private val dataSet: List<SpotterReports>) 
             itemView.setOnClickListener(this)
         }
 
-        override fun onClick(v: View) { myClickListener!!.onItemClick(adapterPosition) }
+        override fun onClick(v: View) { myClickListener!!.onItemClick(layoutPosition) }
     }
 
     fun setOnItemClickListener(myClickListenerloc: MyClickListener) { myClickListener = myClickListenerloc }
