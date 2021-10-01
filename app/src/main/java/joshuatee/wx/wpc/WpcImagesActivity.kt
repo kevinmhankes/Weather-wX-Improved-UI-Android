@@ -37,7 +37,10 @@ import joshuatee.wx.ui.ObjectNavDrawerCombo
 import joshuatee.wx.ui.OnSwipeTouchListener
 import joshuatee.wx.ui.TouchImageView2
 import joshuatee.wx.ui.UtilityToolbar
-import joshuatee.wx.util.*
+import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityDownload
+import joshuatee.wx.util.UtilityImg
+import joshuatee.wx.util.UtilityShare
 
 class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener {
 

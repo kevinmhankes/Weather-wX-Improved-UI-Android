@@ -41,6 +41,7 @@ import joshuatee.wx.util.UtilityShare
 
 class WpcRainfallForecastActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
+    //
     // show a rainfall outlook for a specific day
     //
     // Arguments
