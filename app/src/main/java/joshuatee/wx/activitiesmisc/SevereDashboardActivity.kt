@@ -56,11 +56,12 @@ class SevereDashboardActivity : BaseActivity() {
     private var ffwCount = 0
     private var torCount = 0
     private var numberOfImages = 0
-    private val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout> ()
+    private val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout>()
     private var imagesPerRow = 2
     private lateinit var linearLayout: LinearLayout
     private lateinit var linearLayoutWatches: ObjectLinearLayout
     private lateinit var linearLayoutWarnings: ObjectLinearLayout
+    // TODO FIXME use enum
     private val snWat = SevereNotice(PolygonType.WATCH)
     private val snMcd = SevereNotice(PolygonType.MCD)
     private val snMpd = SevereNotice(PolygonType.MPD)
@@ -98,6 +99,7 @@ class SevereDashboardActivity : BaseActivity() {
     }
 
     private fun downloadWatch() {
+        // TODO FIXME use enum
         bitmaps.add((UtilityDownload.getImageProduct(this@SevereDashboardActivity, "USWARN")))
         bitmaps.add((UtilitySpc.getStormReportsTodayUrl()).getImage())
         UtilityDownloadWatch.get(this@SevereDashboardActivity)
@@ -109,6 +111,7 @@ class SevereDashboardActivity : BaseActivity() {
     }
 
     private fun downloadWarnings() {
+        // TODO FIXME use enum
         UtilityDownloadWarnings.getForSevereDashboard(this@SevereDashboardActivity)
         wTor.generateString()
         wTst.generateString()

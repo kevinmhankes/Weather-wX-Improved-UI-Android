@@ -43,10 +43,20 @@ import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.settings.Location
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.objects.FutureVoid
-import joshuatee.wx.ui.*
+import joshuatee.wx.ui.ObjectImageMap
+import joshuatee.wx.ui.ObjectCardText
+import joshuatee.wx.ui.ObjectNavDrawer
+import joshuatee.wx.ui.ObjectDialogue
+import joshuatee.wx.ui.UtilityToolbar
+import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.objects.ShortcutType
-import joshuatee.wx.util.*
+import joshuatee.wx.util.UtilityShare
+import joshuatee.wx.util.UtilityDownload
+import joshuatee.wx.util.UtilityShortcut
+import joshuatee.wx.util.UtilityFavorites
+import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityImageMap
 
 class WfoTextActivity : AudioPlayActivity(), OnMenuItemClickListener {
 

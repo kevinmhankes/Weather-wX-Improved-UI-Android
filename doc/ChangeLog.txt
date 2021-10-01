@@ -29,6 +29,7 @@
 // TODO [REF] revert premature optimizations particularly in mode space, make local, use String
 // TODO [FIX] see if more changes are needed: https://developer.android.com/about/versions/12/approximate-location
 // TODO [REF] migrate all to Future* (models/radar/LocationFragment)
+// TODO [FIX] NHC ordering of images is not static
 
 55563 2021_10_01    [ADD] Provide more data in Alert detail screen (vtec, storm motion, headline, max hail/wind, etc)
 55562 2021_09_28    [REF] convert multiple activities to use Future*

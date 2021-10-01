@@ -26,19 +26,17 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import java.util.Locale
 import joshuatee.wx.Extensions.truncate
-
 import joshuatee.wx.R
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.util.UtilityIO
-
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.UtilityMetar
 import joshuatee.wx.settings.Location
 import joshuatee.wx.ui.ObjectRecyclerView
 import joshuatee.wx.util.Utility
-import java.util.*
 
 class NwsObsSitesActivity : BaseActivity() {
 

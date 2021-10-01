@@ -21,13 +21,13 @@
 
 package joshuatee.wx.activitiesmisc
 
+import java.util.Calendar
 import joshuatee.wx.Extensions.parseColumn
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.settings.Location
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownloadNws
-import java.util.*
 
 object UtilityUSHourly {
 
@@ -129,6 +129,7 @@ object UtilityUSHourly {
         return content
     }
 
+    // TODO FIXME move to UtilityTime
     private fun translateTime(originalTime: String): String {
         val originalTimeComponents = originalTime.replace("T", "-").split("-")
         val year = originalTimeComponents[0].toIntOrNull() ?: 0

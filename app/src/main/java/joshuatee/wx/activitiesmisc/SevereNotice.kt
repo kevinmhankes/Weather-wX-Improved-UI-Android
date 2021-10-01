@@ -22,12 +22,12 @@
 package joshuatee.wx.activitiesmisc
 
 import android.graphics.Bitmap
+import java.util.regex.Pattern
 import joshuatee.wx.Extensions.getImage
 import joshuatee.wx.MyApplication
 import joshuatee.wx.RegExp
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.util.UtilityString
-import java.util.regex.Pattern
 
 internal class SevereNotice(val type: PolygonType) {
 
