@@ -30,13 +30,23 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import java.util.Locale
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.fragments.UtilityNws
 import joshuatee.wx.settings.Location
-import joshuatee.wx.ui.*
-import joshuatee.wx.util.*
-import java.util.*
+import joshuatee.wx.ui.ObjectLinearLayout
+import joshuatee.wx.ui.ObjectCardCurrentConditions
+import joshuatee.wx.ui.ObjectCardText
+import joshuatee.wx.ui.ObjectCard7Day
+import joshuatee.wx.ui.BaseActivity
+import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.util.ObjectCurrentConditions
+import joshuatee.wx.util.ObjectHazards
+import joshuatee.wx.util.ObjectSevenDay
+import joshuatee.wx.util.UtilityImg
+import joshuatee.wx.util.UtilityTimeSunMoon
+import joshuatee.wx.util.UtilityTime
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
@@ -139,11 +149,11 @@ class ForecastActivity : BaseActivity() {
         // sunrise card
         val objectCardText = ObjectCardText(this@ForecastActivity)
         objectCardText.center()
-        try {
-            objectCardText.text = (UtilityTimeSunMoon.getSunriseSunset(this@ForecastActivity, Location.currentLocationStr, false) + MyApplication.newline + UtilityTime.gmtTime())
-        } catch (e: Exception) {
-            UtilityLog.handleException(e)
-        }
+//        try {
+        objectCardText.text = (UtilityTimeSunMoon.getSunriseSunset(this@ForecastActivity, Location.currentLocationStr, false) + MyApplication.newline + UtilityTime.gmtTime())
+//        } catch (e: Exception) {
+//            UtilityLog.handleException(e)
+//        }
         linearLayoutForecast.addView(objectCardText.card)
     }
 

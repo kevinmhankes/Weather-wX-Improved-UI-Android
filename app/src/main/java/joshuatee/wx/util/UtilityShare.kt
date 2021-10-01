@@ -22,17 +22,15 @@
 package joshuatee.wx.util
 
 import android.app.Activity
-import java.io.File
-import java.io.FileOutputStream
-
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
-import joshuatee.wx.MyApplication
-
-import joshuatee.wx.ui.UtilityUI
 import androidx.core.app.ShareCompat.IntentBuilder
+import java.io.File
+import java.io.FileOutputStream
+import joshuatee.wx.MyApplication
+import joshuatee.wx.ui.UtilityUI
 
 object UtilityShare {
 

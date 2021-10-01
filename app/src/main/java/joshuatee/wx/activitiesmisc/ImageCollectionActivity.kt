@@ -41,7 +41,6 @@ import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityImgAnim
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.vis.UtilityGoesFullDisk
-import kotlinx.coroutines.*
 
 class ImageCollectionActivity : VideoRecordActivity() {
 

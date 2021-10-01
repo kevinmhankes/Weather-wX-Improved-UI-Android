@@ -21,33 +21,24 @@
 
 package joshuatee.wx.ui
 
-import joshuatee.wx.R
-
 import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.util.TypedValue
 import android.view.View
-import android.widget.*
+import android.widget.LinearLayout
+import android.widget.Toast
+import android.widget.TextView
+import kotlin.math.sqrt
+import kotlin.math.pow
 import com.google.android.material.snackbar.Snackbar
+import joshuatee.wx.R
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.util.Utility
 
-import kotlin.math.*
-
 object UtilityUI {
-
-//    fun setResDrawable(context: Context, fab: RemoteViews, ib: Int, resourceDrawable: Int) {
-//        val wrappedContext = ContextWrapper(context)
-//        val drawable = ContextCompat.getDrawable(wrappedContext, resourceDrawable)!!
-//        val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
-//        val canvas = Canvas(bitmap)
-//        drawable.setBounds(0, 0, canvas.width, canvas.height)
-//        drawable.draw(canvas)
-//        fab.setImageViewBitmap(ib, bitmap)
-//    }
 
     fun makeToastLegacy(context: Context, message: String) {
         val view = View.inflate(context, R.layout.toast, null)

@@ -22,15 +22,13 @@
 package joshuatee.wx.nhc
 
 import android.annotation.SuppressLint
-import java.util.Locale
-
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import java.util.Locale
 import joshuatee.wx.MyApplication
-
 import joshuatee.wx.R
 import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.util.UtilityShare
