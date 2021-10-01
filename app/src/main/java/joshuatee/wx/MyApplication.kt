@@ -30,21 +30,22 @@ import androidx.preference.PreferenceManager
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.util.TypedValue
-import joshuatee.wx.audio.UtilityTts
-
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
-
+import joshuatee.wx.audio.UtilityTts
 import joshuatee.wx.notifications.UtilityNotificationTextProduct
 import joshuatee.wx.objects.GeographyType
 import joshuatee.wx.objects.ObjectPolygonWarning
 import joshuatee.wx.objects.PolygonType
 import joshuatee.wx.objects.PolygonWarningType
-import joshuatee.wx.radar.*
+import joshuatee.wx.radar.UtilityMetar
+import joshuatee.wx.radar.UtilitySpotter
+import joshuatee.wx.radar.WXGLNexrad
 import joshuatee.wx.radar.UtilityDownloadMcd
 import joshuatee.wx.radar.UtilityDownloadMpd
 import joshuatee.wx.radar.UtilityDownloadWarnings
 import joshuatee.wx.radar.UtilityDownloadWatch
+import joshuatee.wx.radar.UtilitySwoDayOne
 import joshuatee.wx.radarcolorpalettes.ObjectColorPalette
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityHomeScreen

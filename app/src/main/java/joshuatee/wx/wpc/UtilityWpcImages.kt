@@ -22,8 +22,7 @@
 package joshuatee.wx.wpc
 
 import android.util.SparseArray
-import joshuatee.wx.GlobalVariables
-
+import joshuatee.wx.common.GlobalVariables
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.Group
 import joshuatee.wx.ui.ObjectMenuTitle

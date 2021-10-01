@@ -28,14 +28,15 @@ import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.Date
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityImgAnim
 import joshuatee.wx.Extensions.*
-import joshuatee.wx.GlobalVariables
+import joshuatee.wx.common.GlobalVariables
 import joshuatee.wx.MyApplication
 import joshuatee.wx.util.UtilityLog
-import java.text.SimpleDateFormat
-import java.util.*
 
 internal object UtilityModelSpcHrrrInputOutput {
 
@@ -55,16 +56,6 @@ internal object UtilityModelSpcHrrrInputOutput {
                 }
             }
             return runData
-//            val runData = RunTimeData()
-//            val htmlRunStatus = "${MyApplication.nwsSPCwebsitePrefix}/exper/hrrr/data/hrrr3/latestHour.php".getHtml()
-//            val html = htmlRunStatus.parse(".*?.LatestFile.: .s[0-9]{2}/R([0-9]{10})_F[0-9]{3}_V[0-9]{10}_S[0-9]{2}_.*?.gif..*?")
-//            runData.imageCompleteStr = htmlRunStatus.parse(".*?.LatestFile.: .s[0-9]{2}/R[0-9]{10}_F([0-9]{3})_V[0-9]{10}_S[0-9]{2}_.*?.gif..*?")
-//            runData.validTime = htmlRunStatus.parse(".*?.LatestFile.: .s[0-9]{2}/R[0-9]{10}_F[0-9]{3}_V([0-9]{10})_S[0-9]{2}_.*?.gif..*?")
-//            runData.listRunClear()
-//            runData.listRunAdd(html)
-//            runData.listRunAddAll(UtilityTime.genModelRuns(html, 1))
-//            runData.mostRecentRun = html
-//            return runData
         }
 
     fun getImage(context: Context, om: ObjectModelNoSpinner, time: String, overlayImg: List<String>): Bitmap {
@@ -76,7 +67,7 @@ internal object UtilityModelSpcHrrrInputOutput {
             bitmaps.add(UtilityImg.eraseBackground(url.getImage(), -1))
         }
         val backgroundUrl = "${MyApplication.nwsSPCwebsitePrefix}/exper/hrrr/data/hrrr3/" + getSectorCode(om.sector).lowercase(Locale.US) + "/R" +
-                om.run.replace("Z", "") + "_F" + formatTime(time) + "_V" + getValidTime(om.run, time, om.rtd.validTime) +
+                om.run.replace("Z", "") + "_F" + formatTime(time) + "_V" + getValidTime(om.run, time) +
                 "_" + getSectorCode(om.sector) + "_" + om.currentParam + ".gif"
         bitmaps.add(UtilityImg.eraseBackground(backgroundUrl.getImage(), -1))
         layers.add(ColorDrawable(Color.WHITE))
@@ -98,26 +89,11 @@ internal object UtilityModelSpcHrrrInputOutput {
             ?.let { UtilityModelSpcHrrrInterface.sectorCodes[it] }
             ?: "S19"
 
-    private fun getValidTime(run: String, validTimeForecast: String, validTime: String): String {
-//        var validTimeCurrent = ""
-//        if (run.length == 10 && validTime.length == 10) {
-//            val runTimePrefix = run.substring(0, 8)
-//            val runTimeHr = run.substring(8, 10)
-//            val endTimePrefix = validTime.substring(0, 8)
-//            val runTimeHrInt = runTimeHr.toIntOrNull() ?: 0
-//            val forecastInt = validTimeForecast.toIntOrNull() ?: 0
-//            validTimeCurrent = if (runTimeHrInt + forecastInt > 23) {
-//                endTimePrefix + String.format(Locale.US, "%02d", runTimeHrInt + forecastInt - 24)
-//            } else {
-//                runTimePrefix + String.format(Locale.US, "%02d", runTimeHrInt + forecastInt)
-//            }
-//        }
-//        return validTimeCurrent
-
+    private fun getValidTime(run: String, validTimeForecast: String): String {
         val format = SimpleDateFormat("yyyyMMddHH", Locale.US)
         val parsed: Date
         val oneMinuteInMillis: Long = 60000
-        var t: Long = 0
+        val t: Long
         try {
             parsed = format.parse(run)!!
             t = parsed.time

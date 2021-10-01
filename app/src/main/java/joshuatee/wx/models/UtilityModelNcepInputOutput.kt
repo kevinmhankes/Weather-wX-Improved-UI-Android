@@ -66,7 +66,6 @@ internal object UtilityModelNcepInputOutput {
             else -> "${MyApplication.nwsMagNcepWebsitePrefix}/data/" + om.model.lowercase(Locale.US) + "/" + om.run.replace("Z", "") +
                     "/" + om.model.lowercase(Locale.US) + "_" + om.sector.lowercase(Locale.US) + "_" + time + "_" + om.currentParam + ".gif"
         }
-        // UtilityLog.d("wx", imgUrl)
         return imgUrl.getImage()
     }
 

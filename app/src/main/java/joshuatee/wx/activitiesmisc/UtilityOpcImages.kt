@@ -21,7 +21,7 @@
 
 package joshuatee.wx.activitiesmisc
 
-import joshuatee.wx.GlobalVariables
+import joshuatee.wx.common.GlobalVariables
 
 internal object UtilityOpcImages {
 

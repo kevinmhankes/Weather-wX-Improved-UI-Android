@@ -31,14 +31,12 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.cardview.widget.CardView
 import joshuatee.wx.MyApplication
-
 import joshuatee.wx.R
 import joshuatee.wx.settings.Location
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCard
 import joshuatee.wx.ui.ObjectCardVerticalText
 import joshuatee.wx.util.UtilityShare
-
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.DefaultLabelFormatter
