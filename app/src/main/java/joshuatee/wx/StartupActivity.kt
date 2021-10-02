@@ -2,7 +2,6 @@ package joshuatee.wx
 
 import android.os.Bundle
 import android.app.Activity
-
 import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.notifications.UtilityWXJobService
 import joshuatee.wx.objects.ObjectIntent
