@@ -32,21 +32,24 @@ import android.view.View
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import androidx.core.app.ActivityCompat
 import java.util.Locale
-import kotlinx.coroutines.*
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.BottomSheetFragment
-import joshuatee.wx.ui.*
+import joshuatee.wx.ui.BaseActivity
+import joshuatee.wx.ui.ObjectDialogue
+import joshuatee.wx.ui.ObjectFab
+import joshuatee.wx.ui.ObjectRecyclerViewGeneric
+import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
 import joshuatee.wx.wpc.UtilityWpcText
 import joshuatee.wx.R
+import joshuatee.wx.objects.FutureVoid
 
 class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
-    private val uiDispatcher = Dispatchers.Main
     private var playListItems = mutableListOf<String>()
     private var ridFav = ""
     private val prefToken = "PLAYLIST"
@@ -112,10 +115,15 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
         getContent()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
-        withContext(Dispatchers.IO) { UtilityPlayList.downloadAll(this@SettingsPlaylistActivity) }
-        updateListNoInit()
-        ca.notifyDataSetChanged()
+    private fun getContent() {
+        FutureVoid(
+                this@SettingsPlaylistActivity,
+                { UtilityPlayList.downloadAll(this@SettingsPlaylistActivity) },
+                {
+                    updateListNoInit()
+                    ca.notifyDataSetChanged()
+                }
+        )
     }
 
     private fun updateList() {
