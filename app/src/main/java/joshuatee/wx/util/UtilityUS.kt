@@ -184,7 +184,7 @@ object UtilityUS {
             m = MyApplication.utilUS_weather_summary_pattern.matcher(raw_data[18])
             weatherSummaryList.add("")
             while (m.find()) {
-                weatherSummaryList.add(m.group(1).replace("\"",""))
+                weatherSummaryList.add((m.group(1) ?: "").replace("\"",""))
             }
         } catch (e: Exception) {
         }
@@ -193,7 +193,7 @@ object UtilityUS {
             m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[15])
             timeP12n13List.add("")
             while (m.find()) {
-                timeP12n13List.add(m.group(1).replace("\"",""))
+                timeP12n13List.add((m.group(1) ?: "").replace("\"",""))
             }
         } catch (e: Exception) {
         }
@@ -201,7 +201,7 @@ object UtilityUS {
             m = MyApplication.utilUS_period_name_pattern.matcher(raw_data[16])
             timeP24n7List.add("")
             while (m.find()) {
-                timeP24n7List.add(m.group(1).replace("\"",""))
+                timeP24n7List.add((m.group(1) ?: "").replace("\"",""))
             }
         } catch (e: Exception) {
         }
