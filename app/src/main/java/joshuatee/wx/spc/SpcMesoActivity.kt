@@ -39,6 +39,7 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.models.DisplayDataNoSpinner
 import joshuatee.wx.models.ObjectModelNoSpinner
 import joshuatee.wx.models.UtilityModels
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.*
@@ -196,39 +197,45 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
         super.onRestart()
     }
 
-    private fun getContent() = GlobalScope.launch(uiDispatcher) {
+    private fun getContent() {
         favListParm = UtilityFavorites.setupMenu(this@SpcMesoActivity, MyApplication.spcMesoFav, displayData.param[curImg], prefToken)
         invalidateOptionsMenu()
         if (MyApplication.spcMesoFav.contains(":" + displayData.param[curImg] + ":"))
             star.setIcon(MyApplication.STAR_ICON)
         else
             star.setIcon(MyApplication.STAR_OUTLINE_ICON)
-        withContext(Dispatchers.IO) {
-            (0 until numPanes).forEach { displayData.bitmap[it] = UtilitySpcMesoInputOutput.getImage(this@SpcMesoActivity, displayData.param[it], sector) }
-        }
-        (0 until numPanes).forEach {
-            if (numPanes > 1) {
-                UtilityImg.resizeViewAndSetImage(this@SpcMesoActivity, displayData.bitmap[it], displayData.img[it])
-            } else {
-                displayData.img[it].setImageBitmap(displayData.bitmap[it])
+        FutureVoid(this@SpcMesoActivity,
+                {
+                    (0 until numPanes).forEach {
+                        displayData.bitmap[it] = UtilitySpcMesoInputOutput.getImage(this@SpcMesoActivity, displayData.param[it], sector)
+                    }
+                },
+                {
+                    (0 until numPanes).forEach {
+                    if (numPanes > 1) {
+                        UtilityImg.resizeViewAndSetImage(this@SpcMesoActivity, displayData.bitmap[it], displayData.img[it])
+                    } else {
+                        displayData.img[it].setImageBitmap(displayData.bitmap[it])
+                    }
+                    displayData.img[it].maxZoom = 4f
+                    animRan = false
+                }
+                if (!firstRun) {
+                    (0 until numPanes).forEach {
+                        displayData.img[it].setZoom(
+                                Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_ZOOM", 1.0f),
+                                Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_X", 0.5f),
+                                Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_Y", 0.5f)
+                        )
+                    }
+                    firstRun = true
+                }
+                imageLoaded = true
+                Utility.writePref(this@SpcMesoActivity, prefParam + curImg, displayData.param[curImg])
+                Utility.writePref(this@SpcMesoActivity, prefParamLabel + curImg, displayData.paramLabel[curImg])
+                setTitle()
             }
-            displayData.img[it].maxZoom = 4f
-            animRan = false
-        }
-        if (!firstRun) {
-            (0 until numPanes).forEach {
-                displayData.img[it].setZoom(
-                        Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_ZOOM", 1.0f),
-                        Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_X", 0.5f),
-                        Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_Y", 0.5f)
-                )
-            }
-            firstRun = true
-        }
-        imageLoaded = true
-        Utility.writePref(this@SpcMesoActivity, prefParam + curImg, displayData.param[curImg])
-        Utility.writePref(this@SpcMesoActivity, prefParamLabel + curImg, displayData.paramLabel[curImg])
-        setTitle()
+        )
     }
 
     private fun getAnimate(frames: Int) = GlobalScope.launch(uiDispatcher) {
