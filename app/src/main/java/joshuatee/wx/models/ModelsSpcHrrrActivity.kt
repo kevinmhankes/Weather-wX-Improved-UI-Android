@@ -33,7 +33,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.LinearLayout
 import java.util.Locale
-import kotlinx.coroutines.*
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.FutureVoid
@@ -51,7 +50,6 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
 
     companion object { const val INFO = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var fab1: ObjectFab? = null
     private var fab2: ObjectFab? = null
     private val overlayImg = mutableListOf<String>()
@@ -124,7 +122,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
             drw.drawerLayout.closeDrawer(drw.listView)
             om.displayData.param[om.curImg] = drw.tokens[position]
             om.displayData.paramLabel[om.curImg] = drw.getLabel(position)
-            UtilityModels.getContentNonSpinner(this, om, overlayImg, uiDispatcher)
+            UtilityModels.getContentNonSpinner(this, om, overlayImg)
             updateMenuTitles()
         }
         setupModel()
@@ -161,7 +159,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
             R.id.action_layer_cnty -> overlaySelected("cnty")
             R.id.action_layer_clear -> {
                 overlayImg.clear()
-                UtilityModels.getContentNonSpinner(this, om, overlayImg, uiDispatcher)
+                UtilityModels.getContentNonSpinner(this, om, overlayImg)
             }
             R.id.action_multipane -> ObjectIntent(this, ModelsSpcHrrrActivity::class.java, INFO, arrayOf("2", activityArguments[1], activityArguments[2]))
             R.id.action_back -> om.leftClick()
@@ -213,7 +211,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
     }
 
     private fun getContent() {
-        UtilityModels.getContentNonSpinner(this, om, overlayImg, uiDispatcher)
+        UtilityModels.getContentNonSpinner(this, om, overlayImg)
         updateMenuTitles()
     }
 

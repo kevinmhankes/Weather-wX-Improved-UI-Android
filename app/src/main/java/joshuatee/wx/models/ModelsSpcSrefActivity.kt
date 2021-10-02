@@ -31,7 +31,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import java.util.Locale
-import kotlinx.coroutines.*
 import joshuatee.wx.Extensions.safeGet
 import joshuatee.wx.R
 import joshuatee.wx.MyApplication
@@ -56,7 +55,6 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     companion object { const val INFO = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var favList = listOf<String>()
     private lateinit var star: MenuItem
     private var fab1: ObjectFab? = null
@@ -177,7 +175,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
         favList = UtilityFavorites.setupMenu(this, MyApplication.srefFav, om.displayData.param[om.curImg], prefToken)
         updateMenuTitles()
         updateStarIcon()
-        UtilityModels.getContentNonSpinner(this, om, listOf(""), uiDispatcher)
+        UtilityModels.getContentNonSpinner(this, om, listOf(""))
     }
 
     private fun updateMenuTitles() {

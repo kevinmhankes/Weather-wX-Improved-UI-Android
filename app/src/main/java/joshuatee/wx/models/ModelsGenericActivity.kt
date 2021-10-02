@@ -33,7 +33,6 @@ import android.widget.AdapterView
 import android.widget.LinearLayout
 import androidx.core.view.GravityCompat
 import java.util.Locale
-import kotlinx.coroutines.*
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
@@ -59,7 +58,6 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     companion object { const val INFO = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var fab1: ObjectFab? = null
     private var fab2: ObjectFab? = null
     private var activityArguments: Array<String>? = arrayOf()
@@ -239,7 +237,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun getContent() {
-        UtilityModels.getContentNonSpinner(this, om, listOf(""), uiDispatcher)
+        UtilityModels.getContentNonSpinner(this, om, listOf(""))
         updateMenuTitles()
     }
 

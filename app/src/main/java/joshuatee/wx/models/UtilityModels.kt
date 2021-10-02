@@ -29,7 +29,6 @@ import androidx.appcompat.widget.Toolbar
 import java.sql.Date
 import java.util.Calendar
 import java.util.TimeZone
-import kotlinx.coroutines.*
 import joshuatee.wx.Extensions.startAnimation
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
@@ -43,14 +42,16 @@ import joshuatee.wx.util.UtilityTime
 
 object UtilityModels {
 
-    fun getContentNonSpinner(context: Context, om: ObjectModelNoSpinner, overlayImg: List<String>, uiDispatcher: CoroutineDispatcher): Job =
-            GlobalScope.launch(uiDispatcher) {
-                om.sectorInt = om.sectors.indexOf(om.sector)
-                if (om.truncateTime) {
-                    om.time = UtilityStringExternal.truncate(om.time, om.timeTruncate)
-                }
-                writePrefs(context, om)
-                withContext(Dispatchers.IO) { (0 until om.numPanes).forEach { om.displayData.bitmap[it] = om.getImage(it, overlayImg) } }
+    fun getContentNonSpinner(context: Context, om: ObjectModelNoSpinner, overlayImg: List<String>) {
+        om.sectorInt = om.sectors.indexOf(om.sector)
+        if (om.truncateTime) {
+            om.time = UtilityStringExternal.truncate(om.time, om.timeTruncate)
+        }
+        writePrefs(context, om)
+        FutureVoid(
+            context,
+            { (0 until om.numPanes).forEach { om.displayData.bitmap[it] = om.getImage(it, overlayImg) } },
+            {
                 (0 until om.numPanes).forEach {
                     if (om.numPanes > 1) {
                         UtilityImg.resizeViewAndSetImage(context, om.displayData.bitmap[it], om.displayData.img[it])
@@ -72,6 +73,8 @@ object UtilityModels {
                 updateToolbarLabels(om)
                 om.imageLoaded = true
             }
+        )
+    }
 
     private fun updateToolbarLabels(om: ObjectModelNoSpinner) {
         if (om.numPanes > 1) {

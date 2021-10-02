@@ -31,7 +31,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import java.util.Locale
-import kotlinx.coroutines.*
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.FutureVoid
@@ -49,7 +48,6 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     companion object { const val INFO = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var fab1: ObjectFab? = null
     private var fab2: ObjectFab? = null
     private lateinit var miStatus: MenuItem
@@ -125,7 +123,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
             objectNavDrawerCombo.drawerLayout.closeDrawer(objectNavDrawerCombo.listView)
             om.displayData.param[om.curImg] = objectNavDrawerCombo.getToken(groupPosition, childPosition)
             om.displayData.paramLabel[om.curImg] = objectNavDrawerCombo.getLabel(groupPosition, childPosition)
-            UtilityModels.getContentNonSpinner(this, om, listOf(""), uiDispatcher)
+            UtilityModels.getContentNonSpinner(this, om, listOf(""))
             true
         }
         setupModel()
@@ -196,7 +194,7 @@ class ModelsSpcHrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
     }
 
     private fun getContent() {
-        UtilityModels.getContentNonSpinner(this, om, listOf(""), uiDispatcher)
+        UtilityModels.getContentNonSpinner(this, om, listOf(""))
         updateMenuTitles()
     }
 
