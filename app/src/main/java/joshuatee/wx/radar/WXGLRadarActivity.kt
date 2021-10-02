@@ -878,7 +878,6 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
                     this@WXGLRadarActivity,
                     wxglSurfaceView,
                     wxglRender,
-                    uiDispatcher,
                     ::longPressRadarSiteSwitch
             )
             dialog.dismiss()

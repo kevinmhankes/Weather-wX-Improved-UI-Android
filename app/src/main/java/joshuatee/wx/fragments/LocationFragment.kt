@@ -635,7 +635,7 @@ class LocationFragment : Fragment() {
         dialogRadarLongPress!!.setNegativeButton { dialog, _ -> dialog.dismiss() }
         dialogRadarLongPress!!.setSingleChoiceItems { dialog, which ->
             val item = radarLongPressItems[which]
-            UtilityRadarUI.doLongPressAction(item, activityReference, activityReference, wxglSurfaceViews[idxIntG], wxglRenders[idxIntG], uiDispatcher, ::longPressRadarSiteSwitch)
+            UtilityRadarUI.doLongPressAction(item, activityReference, activityReference, wxglSurfaceViews[idxIntG], wxglRenders[idxIntG], ::longPressRadarSiteSwitch)
             dialog.dismiss()
         }
     }

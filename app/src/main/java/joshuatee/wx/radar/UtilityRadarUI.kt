@@ -49,19 +49,25 @@ internal object UtilityRadarUI {
 
     fun getLastRadarTime(context: Context) = Utility.readPref(context, lastRadarTimePref, "")
 
-    private fun getRadarStatus(activity: Activity, context: Context, uiDispatcher: CoroutineDispatcher, wxglRender: WXGLRender) = GlobalScope.launch(uiDispatcher) {
-        var radarStatus = withContext(Dispatchers.IO) {
-            UtilityDownload.getRadarStatusMessage(context, wxglRender.rid)
-        }
-        if (radarStatus == "") {
-            radarStatus = "The current radar status for " + wxglRender.rid + " is not available."
-        }
-        ObjectDialogue(activity, Utility.fromHtml(radarStatus))
+    private fun getRadarStatus(activity: Activity, context: Context, wxglRender: WXGLRender) {
+        FutureText2(context,
+                { UtilityDownload.getRadarStatusMessage(context, wxglRender.rid) },
+                { s ->
+                    var radarStatus = s
+                    if (radarStatus == "") {
+                        radarStatus = "The current radar status for " + wxglRender.rid + " is not available."
+                    }
+                    ObjectDialogue(activity, Utility.fromHtml(radarStatus))
+                }
+        )
     }
 
-    private fun getMetar(wxglSurfaceView: WXGLSurfaceView, activity: Activity, context: Context, uiDispatcher: CoroutineDispatcher) = GlobalScope.launch(uiDispatcher) {
-        val string = withContext(Dispatchers.IO) { UtilityMetar.findClosestMetar(context, wxglSurfaceView.latLon) }
-        ObjectDialogue(activity, string)
+    private fun getMetar(wxglSurfaceView: WXGLSurfaceView, activity: Activity, context: Context) {
+        FutureText2(
+                context,
+                { UtilityMetar.findClosestMetar(context, wxglSurfaceView.latLon) },
+                { s -> ObjectDialogue(activity, s) }
+        )
     }
 
     private fun showNearestForecast(context: Context, wxglSurfaceView: WXGLSurfaceView) {
@@ -132,17 +138,23 @@ internal object UtilityRadarUI {
         longPressDialogue.show()
     }
 
-    fun doLongPressAction(string: String, context: Context, activity: Activity, wxglSurfaceView: WXGLSurfaceView, wxglRender: WXGLRender,
-            uiDispatcher: CoroutineDispatcher, function: (strName: String) -> Unit) {
+    fun doLongPressAction(
+            string: String,
+            context: Context,
+            activity: Activity,
+            wxglSurfaceView: WXGLSurfaceView,
+            wxglRender: WXGLRender,
+            function: (String) -> Unit
+    ) {
         when {
             string.contains("miles from") -> {}
             string.contains("Show Warning text") -> showNearestWarning(context, wxglSurfaceView)
-            string.contains("Show Watch text") -> showNearestProduct(context, PolygonType.WATCH, wxglSurfaceView, uiDispatcher)
-            string.contains("Show MCD text") -> showNearestProduct(context, PolygonType.MCD, wxglSurfaceView, uiDispatcher)
-            string.contains("Show MPD text") -> showNearestProduct(context, PolygonType.MPD, wxglSurfaceView, uiDispatcher)
-            string.contains("Show nearest observation") -> getMetar(wxglSurfaceView, activity, context, uiDispatcher)
+            string.contains("Show Watch text") -> showNearestProduct(context, PolygonType.WATCH, wxglSurfaceView)
+            string.contains("Show MCD text") -> showNearestProduct(context, PolygonType.MCD, wxglSurfaceView)
+            string.contains("Show MPD text") -> showNearestProduct(context, PolygonType.MPD, wxglSurfaceView)
+            string.contains("Show nearest observation") -> getMetar(wxglSurfaceView, activity, context)
             string.contains("Show nearest meteogram") -> showNearestMeteogram(context, wxglSurfaceView)
-            string.contains("Show radar status message") -> getRadarStatus(activity, context, uiDispatcher, wxglRender)
+            string.contains("Show radar status message") -> getRadarStatus(activity, context, wxglRender)
             string.contains("Show nearest forecast") -> showNearestForecast(context, wxglSurfaceView)
             else -> function(string)
         }
@@ -309,10 +321,15 @@ internal object UtilityRadarUI {
         wxglSurfaceView.requestRender()
     }
 
-    private fun showNearestProduct(context: Context, polygonType: PolygonType, wxglSurfaceView: WXGLSurfaceView, uiDispatcher: CoroutineDispatcher) = GlobalScope.launch(uiDispatcher) {
-        val text = withContext(Dispatchers.IO) { UtilityWatch.show(wxglSurfaceView.latLon, polygonType) }
-        if (text != "") {
-            ObjectIntent.showMcd(context, arrayOf(text, "", polygonType.toString()))
-        }
+    private fun showNearestProduct(context: Context, polygonType: PolygonType, wxglSurfaceView: WXGLSurfaceView) {
+        FutureText2(
+                context,
+                { UtilityWatch.show(wxglSurfaceView.latLon, polygonType) },
+                { text ->
+                    if (text != "") {
+                        ObjectIntent.showMcd(context, arrayOf(text, "", polygonType.toString()))
+                    }
+                }
+        )
     }
 }
