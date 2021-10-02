@@ -34,6 +34,7 @@ import joshuatee.wx.Extensions.startAnimation
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.external.UtilityStringExternal
+import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.ui.TouchImageView2
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityImg
@@ -87,15 +88,16 @@ object UtilityModels {
         }
     }
 
-
-    fun getAnimate(om: ObjectModelNoSpinner, overlayImg: List<String>, uiDispatcher: CoroutineDispatcher): Job =
-            GlobalScope.launch(uiDispatcher) {
-                withContext(Dispatchers.IO) {
-                    (0 until om.numPanes).forEach { om.displayData.animDrawable[it] = om.getAnimate(it, overlayImg) }
-                }
+    fun getAnimate(context: Context, om: ObjectModelNoSpinner, overlayImg: List<String>) {
+        FutureVoid(
+            context,
+            { (0 until om.numPanes).forEach { om.displayData.animDrawable[it] = om.getAnimate(it, overlayImg) } },
+            {
                 (0 until om.numPanes).forEach { om.displayData.animDrawable[it].startAnimation(om.displayData.img[it]) }
                 om.animRan = true
             }
+        )
+    }
 
     private fun writePrefs(context: Context, om: ObjectModelNoSpinner) {
         Utility.writePref(context, om.prefSector, om.sector)

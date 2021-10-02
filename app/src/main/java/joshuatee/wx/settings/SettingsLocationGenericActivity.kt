@@ -509,29 +509,6 @@ class SettingsLocationGenericActivity : BaseActivity(), OnMenuItemClickListener 
         }
     }
 
-   /* private fun gpsAndSave(locNum: String, labelStr: String) =
-            GlobalScope.launch(uiDispatcher) {
-                var toastStr = ""
-                var goodLocation = false
-                val xy = UtilityLocation.getGps(this@SettingsLocationGenericActivity)
-                locXEt.setText(xy[0].toString())
-                locYEt.setText(xy[1].toString())
-                withContext(Dispatchers.IO) {
-                    val xyStr = listOf(xy[0].toString(), xy[1].toString())
-                    if (xyStr.size > 1) {
-                        toastStr = Location.locationSave(this@SettingsLocationGenericActivity, locNum, xyStr[0], xyStr[1], labelStr)
-                        goodLocation = true
-                    }
-                }
-                if (goodLocation) {
-                    showMessage(toastStr)
-                    Utility.writePref(this@SettingsLocationGenericActivity, "ALERT" + locNum + "_NOTIFICATION", "true")
-                    Utility.writePref(this@SettingsLocationGenericActivity, "CURRENT_LOC_FRAGMENT", locNum)
-                    Location.currentLocationStr = locNum
-                }
-                finish()
-            }*/
-
     private fun notificationsCanada(hide: Boolean) {
         var visibility = View.VISIBLE
         if (hide) visibility = View.GONE

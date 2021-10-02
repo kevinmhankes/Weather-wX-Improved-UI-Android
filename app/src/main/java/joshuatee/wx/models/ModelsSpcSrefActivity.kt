@@ -224,7 +224,7 @@ class ModelsSpcSrefActivity : VideoRecordActivity(), OnMenuItemClickListener {
                     UtilityModels.legacyShare(this, this, om.animRan, om)
                 }
             }
-            R.id.action_animate -> UtilityModels.getAnimate(om, listOf(""), uiDispatcher)
+            R.id.action_animate -> UtilityModels.getAnimate(this@ModelsSpcSrefActivity, om, listOf(""))
             R.id.action_help -> showHelpTextDialog()
             else -> return super.onOptionsItemSelected(item)
         }

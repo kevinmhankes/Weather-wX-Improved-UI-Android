@@ -445,24 +445,6 @@ class LocationFragment : Fragment() {
         homeScreenWebViews.last().loadUrl(forecastUrl)
     }
 
-//    private fun getTextProduct(productString: String) = GlobalScope.launch(uiDispatcher) {
-//        val productIndex = productString.toIntOrNull() ?: 0
-//        val longTextDownload = withContext(Dispatchers.IO) {
-//            UtilityDownload.getTextProduct(MyApplication.appContext, homeScreenTextCards[productIndex].product)
-//        }
-//        var longText = longTextDownload
-//        if (homeScreenTextCards[productIndex].product=="NFDOFFN31" || homeScreenTextCards[productIndex].product=="NFDOFFN32") {
-//            longText = Utility.fromHtml(longTextDownload)
-//        }
-//        homeScreenTextCards[productIndex].setTextLong(longText)
-//        val shortText = UtilityStringExternal.truncate(longText, UIPreferences.homescreenTextLength)
-//        homeScreenTextCards[productIndex].setTextShort(shortText)
-//        homeScreenTextCards[productIndex].setText(shortText)
-//        if (homeScreenTextCards[productIndex].product == "HOURLY") {
-//            homeScreenTextCards[productIndex].typefaceMono()
-//        }
-//    }
-
     private fun getTextProduct(productString: String) {
         val productIndex = to.Int(productString)
         FutureText2(MyApplication.appContext,
@@ -470,14 +452,6 @@ class LocationFragment : Fragment() {
             homeScreenTextCards[productIndex]::setup
         )
     }
-
-//    private fun getImageProduct(productString: String) = GlobalScope.launch(uiDispatcher) {
-//        val productIndex = productString.toIntOrNull() ?: 0
-//        val bitmap = withContext(Dispatchers.IO) {
-//            UtilityDownload.getImageProduct(MyApplication.appContext, homeScreenImageCards[productIndex].product)
-//        }
-//        homeScreenImageCards[productIndex].setImage(bitmap)
-//    }
 
     private fun getImageProduct(productString: String) {
         val productIndex = to.Int(productString)

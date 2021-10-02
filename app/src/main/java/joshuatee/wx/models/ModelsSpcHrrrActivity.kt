@@ -166,7 +166,7 @@ class ModelsSpcHrrrActivity : VideoRecordActivity(), OnMenuItemClickListener { /
             R.id.action_multipane -> ObjectIntent(this, ModelsSpcHrrrActivity::class.java, INFO, arrayOf("2", activityArguments[1], activityArguments[2]))
             R.id.action_back -> om.leftClick()
             R.id.action_forward -> om.rightClick()
-            R.id.action_animate -> UtilityModels.getAnimate(om, overlayImg, uiDispatcher)
+            R.id.action_animate -> UtilityModels.getAnimate(this@ModelsSpcHrrrActivity, om, overlayImg)
             R.id.action_time -> genericDialog(om.times) { om.setTimeIdx(it) }
             R.id.action_run -> genericDialog(om.rtd.listRun) { om.run = om.rtd.listRun[it] }
             R.id.action_share -> {

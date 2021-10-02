@@ -145,7 +145,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
             R.id.action_forward -> om.rightClick()
             R.id.action_time -> genericDialog(om.times) { om.setTimeIdx(it) }
             R.id.action_run -> genericDialog(om.rtd.listRun) { om.run = om.rtd.listRun[it] }
-            R.id.action_animate -> UtilityModels.getAnimate(om, listOf(""), uiDispatcher)
+            R.id.action_animate -> UtilityModels.getAnimate(this@ModelsGenericActivity ,om, listOf(""))
             R.id.action_img1 -> {
                 om.curImg = 0
                 UtilityModels.setSubtitleRestoreIMGXYZOOM(
