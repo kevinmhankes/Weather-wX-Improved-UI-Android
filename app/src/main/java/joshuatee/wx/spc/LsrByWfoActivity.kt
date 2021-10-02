@@ -51,7 +51,6 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     companion object { const val URL = "" }
 
     private var firstTime = true
-//    private var prod = ""
     private var wfo = ""
     private lateinit var imageMap: ObjectImageMap
     private var mapShown = false

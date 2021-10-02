@@ -27,7 +27,6 @@ import android.content.res.Configuration
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.AdapterView
-
 import joshuatee.wx.R
 import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.ui.BaseActivity
@@ -53,7 +52,6 @@ class SpcCompmapActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer, R.menu.shared_multigraphics, false)
-        //toolbarBottom.setOnMenuItemClickListener(this)
         paramList = UtilitySpcCompmap.labels.toMutableList()
         drw = ObjectNavDrawer(this, paramList)
         drw.listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -122,8 +120,6 @@ class SpcCompmapActivity : BaseActivity() {
         super.onConfigurationChanged(newConfig)
         drw.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
-
-    //override fun onOptionsItemSelected(item: MenuItem) = drw.actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drw.actionBarDrawerToggle.onOptionsItemSelected(item)) return true

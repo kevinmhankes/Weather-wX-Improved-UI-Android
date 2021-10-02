@@ -51,6 +51,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     //
     // 1: day
     //
+
     companion object { const val NUMBER = "" }
 
     private var html = ""

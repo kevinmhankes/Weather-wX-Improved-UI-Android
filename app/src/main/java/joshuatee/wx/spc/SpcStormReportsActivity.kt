@@ -25,7 +25,6 @@ import android.annotation.SuppressLint
 import java.util.Calendar
 import java.util.Locale
 import java.util.TreeMap
-
 import android.os.Bundle
 import android.app.DatePickerDialog
 import android.content.res.Configuration
@@ -39,7 +38,6 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import joshuatee.wx.Extensions.getHtmlSep
 import joshuatee.wx.Extensions.getImage
-
 import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.MyApplication
@@ -56,6 +54,7 @@ import joshuatee.wx.util.*
 
 class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
+    //
     // SPC storm reports. Touch image for data selector
     //
     // Arguments

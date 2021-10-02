@@ -27,12 +27,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import joshuatee.wx.Extensions.getImage
-
 import joshuatee.wx.R
 import joshuatee.wx.settings.Location
 import joshuatee.wx.util.UtilityImg
 import joshuatee.wx.util.UtilityShare
-
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.radar.VideoRecordActivity
@@ -41,10 +39,12 @@ import joshuatee.wx.util.Utility
 
 class SpcSwoStateGraphicsActivity : VideoRecordActivity() {
 
+    //
     // Show state level SPC SWO graphics for D1-3
     //
     // Arguments
     // 1: day
+    //
 
     companion object { const val NO = "" }
 

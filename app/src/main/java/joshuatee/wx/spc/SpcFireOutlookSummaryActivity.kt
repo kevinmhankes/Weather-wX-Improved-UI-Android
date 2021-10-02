@@ -28,7 +28,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
 import joshuatee.wx.Extensions.getImage
-
 import joshuatee.wx.R
 import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
@@ -41,6 +40,7 @@ class SpcFireOutlookSummaryActivity : BaseActivity() {
     //
     // SPC Fire Weather Outlooks
     //
+
     private var bitmaps = mutableListOf<Bitmap>()
     private var imagesPerRow = 2
     private lateinit var linearLayout: LinearLayout

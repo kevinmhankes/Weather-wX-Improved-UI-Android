@@ -27,7 +27,6 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.view.MenuItem
 import android.widget.LinearLayout
 import joshuatee.wx.Extensions.getImage
-
 import joshuatee.wx.R
 import joshuatee.wx.audio.AudioPlayActivity
 import joshuatee.wx.audio.UtilityTts
@@ -42,6 +41,7 @@ import joshuatee.wx.util.UtilityShare
 
 class SpcFireOutlookActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
+    //
     // show a fire outlook for a specific day
     //
     // Arguments
