@@ -31,9 +31,7 @@ import joshuatee.wx.activitiesmisc.ForecastActivity
 import joshuatee.wx.external.UtilityStringExternal
 import joshuatee.wx.ui.ObjectDialogue
 import joshuatee.wx.ui.ObjectImageMap
-
 import joshuatee.wx.util.*
-import kotlinx.coroutines.*
 import kotlin.math.roundToInt
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.objects.*
@@ -188,13 +186,22 @@ internal object UtilityRadarUI {
         wxglSurfaceView.archiveMode = archiveMode
     }
 
-    fun initWxOglGeom(wxglSurfaceView: WXGLSurfaceView, wxglRender: WXGLRender, index: Int, oldRadarSites: Array<String>, wxglRenders: MutableList<WXGLRender>,
-            wxglTextObjects: MutableList<WXGLTextObject>, paneList: List<Int>, imageMap: ObjectImageMap?, wxglSurfaceViews: MutableList<WXGLSurfaceView>,
-            fnGps: () -> Unit, fnGetLatLon: () -> LatLon, archiveMode: Boolean = false) {
+    fun initWxOglGeom(
+            wxglSurfaceView: WXGLSurfaceView,
+            wxglRender: WXGLRender,
+            index: Int,
+            oldRadarSites: Array<String>,
+            wxglRenders: MutableList<WXGLRender>,
+            wxglTextObjects: MutableList<WXGLTextObject>,
+            paneList: List<Int>,
+            imageMap: ObjectImageMap?,
+            wxglSurfaceViews: MutableList<WXGLSurfaceView>,
+            fnGps: () -> Unit,
+            fnGetLatLon: () -> LatLon,
+            archiveMode: Boolean = false
+    ) {
         wxglRender.initializeGeometry()
-        // UtilityLog.d("wx", "DEBUG: redraw geo called " + oldRadarSites[index] + " " + wxglRenders[index].rid)
         if (oldRadarSites[index] != wxglRenders[index].rid) {
-            // UtilityLog.d("wx", "DEBUG: redraw geo")
             wxglRender.setChunkCount(0)
             wxglRender.setChunkCountSti(0)
             wxglRender.setHiInit(false)
