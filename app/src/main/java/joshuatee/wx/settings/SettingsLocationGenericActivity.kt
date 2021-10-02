@@ -42,12 +42,12 @@ import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.canada.UtilityCitiesCanada
 import joshuatee.wx.notifications.UtilityWXJobService
+import joshuatee.wx.objects.FutureText2
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.UtilityCitiesExtended
 import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityMap
-import kotlinx.coroutines.*
 
 class SettingsLocationGenericActivity : BaseActivity(), OnMenuItemClickListener { // OnCheckedChangeListener OnClickListener
 
@@ -61,7 +61,6 @@ class SettingsLocationGenericActivity : BaseActivity(), OnMenuItemClickListener 
         const val LOC_NUM = ""
     }
 
-    private val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
     private var locXStr = ""
     private var locYStr = ""
     private val requestOk = 1
@@ -291,21 +290,21 @@ class SettingsLocationGenericActivity : BaseActivity(), OnMenuItemClickListener 
         hideNonUSNotifications()
     }
 
-    private fun saveLocation(locNum: String, xStr: String, yStr: String, labelStr: String) = GlobalScope.launch(uiDispatcher) {
-        var toastStr: String
-        var xLoc: String
-        withContext(Dispatchers.IO) {
-            toastStr = Location.save(this@SettingsLocationGenericActivity, locNum, xStr, yStr, labelStr)
-            xLoc = xStr
-        }
-        showMessage(toastStr)
-        updateTitle = true
-        updateSubTitle()
-        if (xLoc.startsWith("CANADA:")) {
-            notificationsCanada(true)
-        } else {
-            notificationsCanada(false)
-        }
+    private fun saveLocation(locNum: String, xStr: String, yStr: String, labelStr: String) {
+        FutureText2(
+                this@SettingsLocationGenericActivity,
+                { Location.save(this@SettingsLocationGenericActivity, locNum, xStr, yStr, labelStr) },
+                { toastStr ->
+                    showMessage(toastStr)
+                    updateTitle = true
+                    updateSubTitle()
+                    if (xStr.startsWith("CANADA:")) {
+                        notificationsCanada(true)
+                    } else {
+                        notificationsCanada(false)
+                    }
+                }
+        )
     }
 
     override fun onStop() {
