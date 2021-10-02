@@ -238,14 +238,24 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
         )
     }
 
-    private fun getAnimate(frames: Int) = GlobalScope.launch(uiDispatcher) {
-        withContext(Dispatchers.IO) {
-            (0 until numPanes).forEach {
-                displayData.animDrawable[it] = UtilitySpcMesoInputOutput.getAnimation(this@SpcMesoActivity, displayData.param[it], sector, frames)
-            }
-        }
-        (0 until numPanes).forEach { displayData.animDrawable[it].startAnimation(displayData.img[it]) }
-        animRan = true
+    private fun getAnimate(frames: Int) {
+        FutureVoid(
+                this@SpcMesoActivity,
+                {
+                    (0 until numPanes).forEach {
+                        displayData.animDrawable[it] = UtilitySpcMesoInputOutput.getAnimation(
+                                this@SpcMesoActivity,
+                                displayData.param[it],
+                                sector,
+                                frames
+                        )
+                    }
+                },
+                {
+                    (0 until numPanes).forEach { displayData.animDrawable[it].startAnimation(displayData.img[it]) }
+                    animRan = true
+                }
+        )
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
