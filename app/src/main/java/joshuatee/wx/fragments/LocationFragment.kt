@@ -200,7 +200,7 @@ class LocationFragment : Fragment() {
         paneList = (0 until wxglSurfaceViews.size).toList()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         setupAlertDialogStatus()
         setupAlertDialogRadarLongPress()
         val view: View =
@@ -279,7 +279,7 @@ class LocationFragment : Fragment() {
         }
         homeScreenTextCards.indices.forEach { getTextProduct(it.toString()) }
         homeScreenImageCards.indices.forEach { getImageProduct(it.toString()) }
-        homeScreenWebViews.indices.forEach { getWebProduct() }
+        homeScreenWebViews.indices.forEach { _ -> getWebProduct() }
         x = Location.x
         y = Location.y
         if (MyApplication.locDisplayImg) {
