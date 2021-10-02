@@ -32,19 +32,21 @@ import android.widget.LinearLayout
 import joshuatee.wx.Extensions.getHtml
 import joshuatee.wx.Extensions.safeGet
 import joshuatee.wx.Extensions.startAnimation
-
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.models.DisplayDataNoSpinner
 import joshuatee.wx.models.ObjectModelNoSpinner
 import joshuatee.wx.models.UtilityModels
+import joshuatee.wx.objects.FutureText2
 import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.VideoRecordActivity
 import joshuatee.wx.ui.*
-import joshuatee.wx.util.*
-import kotlinx.coroutines.*
+import joshuatee.wx.util.Utility
+import joshuatee.wx.util.UtilityFavorites
+import joshuatee.wx.util.UtilityImg
+import joshuatee.wx.util.UtilityShare
 
 class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
@@ -57,7 +59,6 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     companion object { var INFO = "" }
 
-    private val uiDispatcher = Dispatchers.Main
     private var animRan = false
     private var showRadar = true
     private var showOutlook = true
@@ -424,14 +425,18 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
         drw.actionBarDrawerToggle.onConfigurationChanged(newConfig)
     }
 
-    private fun getHelp() = GlobalScope.launch(uiDispatcher) {
-        var helpText = withContext(Dispatchers.IO) {
-            ("${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/help/help_" + displayData.param[curImg] + ".html").getHtml()
-        }
-        if (helpText.contains("Page Not Found")) {
-            helpText = "Help is not available for this parameter."
-        }
-        ObjectDialogue(this@SpcMesoActivity, Utility.fromHtml(helpText))
+    private fun getHelp() {
+        FutureText2(
+                this@SpcMesoActivity,
+                { ("${MyApplication.nwsSPCwebsitePrefix}/exper/mesoanalysis/help/help_" + displayData.param[curImg] + ".html").getHtml() },
+                { s ->
+                    var helpText = s
+                    if (helpText.contains("Page Not Found")) {
+                        helpText = "Help is not available for this parameter."
+                    }
+                    ObjectDialogue(this@SpcMesoActivity, Utility.fromHtml(helpText))
+                }
+        )
     }
 
     private fun setAndLaunchParam(param: String, a: Int, b: Int) {
