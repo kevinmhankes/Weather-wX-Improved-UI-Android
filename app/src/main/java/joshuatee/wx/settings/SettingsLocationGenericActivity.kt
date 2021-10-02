@@ -51,9 +51,11 @@ import kotlinx.coroutines.*
 
 class SettingsLocationGenericActivity : BaseActivity(), OnMenuItemClickListener { // OnCheckedChangeListener OnClickListener
 
+    //
     // manual interface for searching and saving a location
     //
     // arg1 location number
+    //
 
     companion object {
         const val LOC_NUM = ""

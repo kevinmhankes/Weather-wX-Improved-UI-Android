@@ -38,8 +38,10 @@ import java.util.*
 
 class SettingsLocationCanadaMapActivity : BaseActivity(), OnClickListener {
 
+    //
     // Use image maps to select locations for canada to save
     // arg1: province or territory
+    //
     //
 
     companion object {

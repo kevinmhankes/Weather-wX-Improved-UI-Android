@@ -112,7 +112,8 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
         if (settingsLocationAdapterList.itemCount > 1) {
             Location.delete(this, (position + 1).toString())
             settingsLocationAdapterList.deleteItem(position)
-            settingsLocationAdapterList.notifyDataSetChanged()
+//            settingsLocationAdapterList.notifyDataSetChanged()
+            settingsLocationAdapterList.notifyItemRemoved(position)
             updateTitle()
             UtilityWXJobService.startService(this)
         } else {

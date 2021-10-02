@@ -70,7 +70,8 @@ internal class SettingsLocationAdapterList(private val dataSet: MutableList<Stri
     fun deleteItem(index: Int) {
         if (index < dataSet.count()) {
             dataSet.removeAt(index)
-            notifyDataSetChanged()
+//            notifyDataSetChanged()
+            notifyItemRemoved(index)
         }
     }
 
