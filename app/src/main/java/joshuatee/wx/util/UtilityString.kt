@@ -288,7 +288,7 @@ object UtilityString {
                 p = Pattern.compile(regexpList[i], Pattern.DOTALL)
                 val m = p.matcher(html)
                 while (m.find()) {
-                    items[i] = m.group(1)
+                    items[i] = m.group(1) ?: ""
                 }
             } catch (e: Exception) {
             }
