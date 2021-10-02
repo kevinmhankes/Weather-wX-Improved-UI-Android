@@ -69,7 +69,7 @@ object UtilityGoes {
         var url = MyApplication.goes16Url + "/" + satellite + "/ABI/" + sectorLocal + "/" + product + "/" + getImageFileName(sector)
         if (product == "GLM") {
             url = url.replace("ABI", "GLM")
-            url = url.replace(sectorLocal + "/GLM", sectorLocal + "/EXTENT")
+            url = url.replace("$sectorLocal/GLM", "$sectorLocal/EXTENT")
         }
         return url.getImage()
     }
