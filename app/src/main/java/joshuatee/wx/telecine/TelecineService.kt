@@ -50,7 +50,9 @@ class TelecineService : Service() {
         }
 
         override fun onStop() {
-            if (MyApplication.telecineSwitchShowTouches) Settings.System.putInt(MyApplication.contentResolverLocal, SHOW_TOUCHES, 0)
+            if (MyApplication.telecineSwitchShowTouches) {
+                Settings.System.putInt(MyApplication.contentResolverLocal, SHOW_TOUCHES, 0)
+            }
         }
 
         override fun onEnd() { stopSelf() }

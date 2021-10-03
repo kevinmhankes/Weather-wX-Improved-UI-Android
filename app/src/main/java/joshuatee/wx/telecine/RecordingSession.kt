@@ -194,6 +194,7 @@ internal class RecordingSession(
         }
         val recordingInfo = recordingInfo
         recorder = MediaRecorder()
+        // recorder = MediaRecorder(context)
         recorder!!.setVideoSource(SURFACE)
         recorder!!.setOutputFormat(MPEG_4)
         recorder!!.setVideoFrameRate(recordingInfo.frameRate)
