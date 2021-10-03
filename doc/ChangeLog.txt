@@ -33,6 +33,7 @@
 // TODO [ADD] turn UtilityUI.makeSnackBar into object
 // TODO [FIX] deprecate UtilityUI.makeToastLegacy
 // TODO [FIX] NHC ordering of images is not static
+// TODO [REF] break up MyApp
 // TODO [FIX] getContentFixThis
 
 55565 2021_10_02

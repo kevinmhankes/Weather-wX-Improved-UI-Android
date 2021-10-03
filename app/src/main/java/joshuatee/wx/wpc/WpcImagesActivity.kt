@@ -100,7 +100,7 @@ class WpcImagesActivity : VideoRecordActivity(), View.OnClickListener {
         toolbar.setOnClickListener { drw.drawerLayout.openDrawer(drw.listView) }
         getContent()
     }
-    
+
     override fun onRestart() {
         getContent()
         super.onRestart()
