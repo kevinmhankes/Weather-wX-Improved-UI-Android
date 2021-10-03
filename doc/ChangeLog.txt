@@ -35,7 +35,7 @@
 // TODO [FIX] NHC ordering of images is not static
 // TODO [REF] break up MyApp
 
-55565 2021_10_02
+55565 2021_10_03    [REF] misc
 55564 2021_10_02    [REF] migrate all to Future* (models/radar/LocationFragment) (continued)
                     [REF] misc lint
 55563 2021_10_01    [ADD] Provide more data in Alert detail screen (vtec, storm motion, headline, max hail/wind, etc)
