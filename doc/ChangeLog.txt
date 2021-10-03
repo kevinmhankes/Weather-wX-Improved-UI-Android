@@ -1,4 +1,3 @@
-// TODO [FIX] Canada - some radars have changed code names - need to change maps.xml as well
 // TODO [FIX] dual/quad pane radar don't take up the entire screen on chromeOS
 // TODO [FIX] chromeOS: text size for observations in nexrad
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
@@ -14,7 +13,6 @@
 // TODO [ADD] 'getter for defaultDisplay: Display!' is deprecated. Deprecated in Java
 // TODO [ADD] 'getMetrics(DisplayMetrics!): Unit' is deprecated. Deprecated in Java
 // TODO [REF] move radarColorPalette,colorMap to ObjectColorPalette
-// TODO [FIX] Hourly onrestart graph
 // TODO [FIX] code cleanup in utilDownloadMcd/w/mpd
 // TODO [REF] add ObjectLocation
 // TODO [FIX] 7day not honoring C/F setting
