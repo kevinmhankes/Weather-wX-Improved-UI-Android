@@ -35,7 +35,8 @@
 // TODO [FIX] NHC ordering of images is not static
 // TODO [FIX] getContentFixThis
 
-55564 2021_10_01    [REF] migrate all to Future* (models/radar/LocationFragment) (continued)
+55565 2021_10_02
+55564 2021_10_02    [REF] migrate all to Future* (models/radar/LocationFragment) (continued)
                     [REF] misc lint
 55563 2021_10_01    [ADD] Provide more data in Alert detail screen (vtec, storm motion, headline, max hail/wind, etc)
                     [REF] change override fun onClick(v: View) { myClickListener!!.onItemClick(adapterPosition) } to
