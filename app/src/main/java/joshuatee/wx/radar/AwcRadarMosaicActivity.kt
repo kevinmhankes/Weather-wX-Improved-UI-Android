@@ -63,17 +63,15 @@ class AwcRadarMosaicActivity : VideoRecordActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer, R.menu.awcmosaic, iconsEvenlySpaced = true, bottomToolbar = false)
-        objectNavDrawer = ObjectNavDrawer(this, UtilityAwcRadarMosaic.labels, UtilityAwcRadarMosaic.sectors, ::getContentFixThis)
+        objectNavDrawer = ObjectNavDrawer(this, UtilityAwcRadarMosaic.labels, UtilityAwcRadarMosaic.sectors) { getContent(product) }
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, objectNavDrawer, "")
         img.setMaxZoom(8.0f)
-        img.setListener(this, objectNavDrawer, ::getContentFixThis)
+        img.setListener(this, objectNavDrawer) { getContent(product) }
         sector = Utility.readPref(this, prefTokenSector, sector)
         product = Utility.readPref(this, prefTokenProduct, product)
         objectNavDrawer.index = UtilityAwcRadarMosaic.sectors.indexOf(sector)
         getContent(product)
     }
-
-    private fun getContentFixThis() { getContent(product) }
 
     override fun onRestart() {
         getContent(product)
