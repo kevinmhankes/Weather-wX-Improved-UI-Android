@@ -77,15 +77,11 @@ class GoesActivity : VideoRecordActivity() {
         super.onCreate(savedInstanceState, R.layout.activity_image_show_navdrawer, R.menu.goes16, iconsEvenlySpaced = true, bottomToolbar = false)
         UtilityShortcut.hidePinIfNeeded(toolbarBottom)
         activityArguments = intent.getStringArrayExtra(RID)!!
-        drw = ObjectNavDrawer(this, UtilityGoes.labels, UtilityGoes.codes, ::getContentFixThis)
+        drw = ObjectNavDrawer(this, UtilityGoes.labels, UtilityGoes.codes) { getContent(sector) }
         img = ObjectTouchImageView(this, this, toolbar, toolbarBottom, R.id.iv, drw, "")
         img.setMaxZoom(8f)
-        img.setListener(this, drw, ::getContentFixThis)
+        img.setListener(this, drw) { getContent(sector) }
         readPrefs()
-        getContent(sector)
-    }
-
-    private fun getContentFixThis() {
         getContent(sector)
     }
 
