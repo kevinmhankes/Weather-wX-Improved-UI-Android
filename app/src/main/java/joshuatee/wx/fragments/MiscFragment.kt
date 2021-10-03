@@ -55,7 +55,7 @@ class MiscFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = gridLayoutManager
-        val tileAdapter = TileAdapter(context!!, tileObjects, UIPreferences.tilesPerRow, "FRAGMENT_MISC_ORDER")
+        val tileAdapter = TileAdapter(requireContext(), tileObjects, UIPreferences.tilesPerRow, "FRAGMENT_MISC_ORDER")
         recyclerView.adapter = tileAdapter
         val callback = SimpleItemTouchHelperCallback(tileAdapter)
         val touchHelper = ItemTouchHelper(callback)

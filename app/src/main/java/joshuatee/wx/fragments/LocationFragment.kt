@@ -670,8 +670,6 @@ class LocationFragment : Fragment() {
             locationChangedSevenDay = false
         }
         FutureVoid(MyApplication.appContext, ::get7day, ::update7day)
-        //getLocationForecastSevenDay()
-        // getLocationHazards()
         if (locationChangedHazards) {
             linearLayoutHazards?.removeAllViewsInLayout()
             linearLayoutHazards?.visibility = View.GONE
