@@ -76,7 +76,7 @@ class ForecastActivity : BaseActivity() {
     private lateinit var scrollView: ScrollView
     private lateinit var linearLayout: LinearLayout
     private var bitmapForCurrentCondition: Bitmap = UtilityImg.getBlankBitmap()
-    var bitmaps = listOf<Bitmap>()
+    private var bitmaps = listOf<Bitmap>()
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.adhoc_forecast, menu)
@@ -149,11 +149,7 @@ class ForecastActivity : BaseActivity() {
         // sunrise card
         val objectCardText = ObjectCardText(this@ForecastActivity)
         objectCardText.center()
-//        try {
         objectCardText.text = (UtilityTimeSunMoon.getSunriseSunset(this@ForecastActivity, Location.currentLocationStr, false) + MyApplication.newline + UtilityTime.gmtTime())
-//        } catch (e: Exception) {
-//            UtilityLog.handleException(e)
-//        }
         linearLayoutForecast.addView(objectCardText.card)
     }
 

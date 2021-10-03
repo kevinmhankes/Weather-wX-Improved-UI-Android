@@ -53,7 +53,7 @@ class NwsObsSitesActivity : BaseActivity() {
     private var stateSelected = ""
     private lateinit var objectRecyclerView: ObjectRecyclerView
     private val titleString = "Obs sites"
-    val prefToken = "NWS_OBSSITE_LAST_USED"
+    private val prefToken = "NWS_OBSSITE_LAST_USED"
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.nwsobssites, menu)
