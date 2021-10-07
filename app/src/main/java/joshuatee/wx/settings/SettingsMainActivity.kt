@@ -61,7 +61,9 @@ class SettingsMainActivity : BaseActivity() {
         cardCtoF.setOnClickListener {
             ObjectIntent.showText(this, arrayOf(UtilityMath.celsiusToFahrenheitTable(), "Celsius to Fahrenheit table"))
         }
-        cardAbout.setOnClickListener { ObjectIntent(this, SettingsAboutActivity::class.java) }
+        cardAbout.setOnClickListener {
+            ObjectIntent(this, SettingsAboutActivity::class.java)
+        }
         listOf(
                 cardAbout.card,
                 cardLocations.card,
