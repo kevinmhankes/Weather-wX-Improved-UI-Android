@@ -457,7 +457,9 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     override fun onStop() {
         if (imageLoaded) {
-            (0 until numPanes).forEach { UtilityImg.imgSavePosnZoom(this, displayData.img[it], prefModel + numPanes.toString() + it.toString()) }
+            (0 until numPanes).forEach {
+                UtilityImg.imgSavePosnZoom(this, displayData.img[it], prefModel + numPanes.toString() + it.toString())
+            }
         }
         super.onStop()
     }
