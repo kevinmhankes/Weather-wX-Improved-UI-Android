@@ -44,9 +44,9 @@ class SettingsAboutActivity : BaseActivity() {
 
     private var html = ""
     private lateinit var textCard: ObjectCardText
-    private val faqUrl = "https://docs.google.com/document/u/1/d/e/2PACX-1vQVkTWlnpRZCSn-ZI7tNLMDHUq-oWp9i1bf8e1yFf1ebEA2CFMapVUsALGJASj2aNhEMYAwBMs4GstL/pub"
+    private val faqUrl = "https://gitlab.com/joshua.tee/wxl23/-/tree/master/doc/FAQ.md"
     private val iOSUrl = "https://apps.apple.com/us/app/wxl23/id1171250052"
-    private val releaseNotesUrl = "https://docs.google.com/document/u/1/d/e/2PACX-1vT-YfH9yH_qmxLHe25UGlJvHHj_25qmTHJoeWPBbNWlvS4nm0YBmFeAnEpeel3GTL3OYKnvXkMNbnOX/pub"
+    private val releaseNotesUrl = "https://gitlab.com/joshua.tee/wx/-/tree/master/doc/ChangeLog_User.md"
     private lateinit var linearLayout: LinearLayout
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
