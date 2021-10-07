@@ -1,3 +1,4 @@
+```
 // TODO [FIX] dual/quad pane radar don't take up the entire screen on chromeOS
 // TODO [FIX] chromeOS: text size for observations in nexrad
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
@@ -32,8 +33,14 @@
 // TODO [FIX] deprecate UtilityUI.makeToastLegacy
 // TODO [FIX] NHC ordering of images is not static
 // TODO [REF] break up MyApp
+```
 
 55566 2021_10_03
+* Add additional GOES products FireTemperature, Dust, GLM
+* Move ChangeLog and FAQ to Gitlab
+* Settings -> About, open browser when viewing FAQ or ChangeLog
+
+```
 55565 2021_10_03    [REF] misc
 55564 2021_10_02    [REF] migrate all to Future* (models/radar/LocationFragment) (continued)
                     [REF] misc lint
@@ -805,3 +812,4 @@
 55238 2019_06_21    [ADD] kotlin plugin 1.3.31 -> 1.3.40
                     [FIX] at joshuatee.wx.models.UtilityModels.setSubtitleRestoreIMGXYZOOM(UtilityModels.kt:294)
                             java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+                            ```

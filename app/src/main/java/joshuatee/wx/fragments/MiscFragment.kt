@@ -133,7 +133,7 @@ class MiscFragment : Fragment() {
                     R.drawable.lightning,
                     GoesActivity::class.java,
                     GoesActivity.RID,
-                    arrayOf("CONUS", "21"),
+                    arrayOf("CONUS", "23"),
                     "lightning", "lightning"
                 )
             } else {

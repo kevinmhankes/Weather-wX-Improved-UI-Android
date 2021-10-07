@@ -60,14 +60,21 @@ class SettingsAboutActivity : BaseActivity() {
         linearLayout = findViewById(R.id.linearLayout)
         val version = Utility.getVersion(this)
         toolbar.subtitle = "version: $version"
+
         val faqButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         faqButton.setTextColor(UIPreferences.textHighlightColor)
         faqButton.text = "View FAQ (Outage notifications listed at top if any current)"
-        faqButton.setOnClickListener { ObjectIntent.showWebView(this, arrayOf(faqUrl, "Frequently Asked Questions")) }
+        faqButton.setOnClickListener {
+            ObjectIntent.showWeb(this, faqUrl)
+        }
+
         val releaseNotesButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         releaseNotesButton.setTextColor(UIPreferences.textHighlightColor)
         releaseNotesButton.text = "View release notes"
-        releaseNotesButton.setOnClickListener { ObjectIntent.showWebView(this, arrayOf(releaseNotesUrl, "Release Notes")) }
+        releaseNotesButton.setOnClickListener {
+            ObjectIntent.showWeb(this, releaseNotesUrl)
+        }
+
         val emailButton = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         emailButton.setTextColor(UIPreferences.textHighlightColor)
         emailButton.text = "Email developer joshua.tee@gmail.com"
@@ -78,15 +85,20 @@ class SettingsAboutActivity : BaseActivity() {
             intent.putExtra(Intent.EXTRA_SUBJECT, "wX version $version")
             startActivity(Intent.createChooser(intent, "Send Email"))
         }
+
         val iOSVersion = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         iOSVersion.setTextColor(UIPreferences.textHighlightColor)
         iOSVersion.text = "iOS port of wX is called wXL23"
-        iOSVersion.setOnClickListener { ObjectIntent.showWebView(this, arrayOf(iOSUrl, "wXL23 for iOS")) }
+        iOSVersion.setOnClickListener {
+            ObjectIntent.showWeb(this, iOSUrl)
+        }
+
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
-        val cardDeleteFiles = ObjectCardText(this, "Delete old radar files", MyApplication.textSizeNormal, MyApplication.paddingSettings)
+        val cardDeleteFiles = ObjectCardText(this, "Delete old radar files (should not be needed)", MyApplication.textSizeNormal, MyApplication.paddingSettings)
         cardDeleteFiles.setOnClickListener {
             UtilityUI.makeSnackBar(linearLayout, "Deleted old radar files: " + UtilityFileManagement.deleteCacheFiles(this))
         }
+
         linearLayout.addView(cardDeleteFiles.card)
         displayContent()
     }

@@ -155,7 +155,10 @@ object UtilityGoes {
         "Sandwich RGB - Bands 3 and 13 combo",
         "Day Cloud Phase",
         "Night Microphysics",
-        "GLM - CONUS only"
+        "Fire Temperature",
+        "Dust RGB",
+        "GLM FED+GeoColor",
+        "DMW"
     )
 
     val codes = listOf(
@@ -180,7 +183,10 @@ object UtilityGoes {
         "Sandwich",
         "DayCloudPhase",
         "NightMicrophysics",
-        "GLM"
+        "FireTemperature",
+        "Dust",
+        "GLM",
+        "DMW"
     )
 
     private val sectorsInGoes17 = listOf(
