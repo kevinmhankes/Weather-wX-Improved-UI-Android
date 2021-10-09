@@ -43,7 +43,7 @@ class ObjectNhc(val context: Context, linearLayout1: LinearLayout) {
     private var numberOfImages = 0
     var imagesPerRow = 2
     private val horizontalLinearLayouts = mutableListOf<ObjectLinearLayout>()
-    val regionMap = mutableMapOf<NhcOceanEnum, ObjectNhcRegionSummary>()
+    private val regionMap = mutableMapOf<NhcOceanEnum, ObjectNhcRegionSummary>()
     private var stormDataList = mutableListOf<ObjectNhcStormDetails>()
     private var ids = listOf<String>()
     private var binNumbers = listOf<String>()
@@ -58,9 +58,9 @@ class ObjectNhc(val context: Context, linearLayout1: LinearLayout) {
     private var lastUpdates = listOf<String>()
     private var statusList = mutableListOf<String>()
     val bitmaps = mutableListOf<Bitmap>()
-    val objectCardImages = mutableListOf<ObjectCardImage>()
+    private val objectCardImages = mutableListOf<ObjectCardImage>()
     val urls = mutableListOf<String>()
-    val imageTitles = mutableListOf<String>()
+    private val imageTitles = mutableListOf<String>()
     private val linearLayoutText: ObjectLinearLayout = ObjectLinearLayout(context, linearLayout1)
     private val linearLayoutImages: ObjectLinearLayout = ObjectLinearLayout(context, linearLayout1)
 
