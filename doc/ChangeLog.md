@@ -31,7 +31,6 @@
 // TODO [REF] migrate all to Future* (models/radar/LocationFragment)
 // TODO [ADD] turn UtilityUI.makeSnackBar into object
 // TODO [FIX] deprecate UtilityUI.makeToastLegacy
-// TODO [FIX] NHC ordering of images is not static
 // TODO [REF] break up MyApp
 ```
 [[_TOC_]]
