@@ -30,6 +30,7 @@ import android.widget.ScrollView
 import java.util.Locale
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
+import joshuatee.wx.objects.FutureBytes
 import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.util.UtilityShare
 import joshuatee.wx.objects.ObjectIntent
@@ -59,9 +60,10 @@ class NhcActivity : BaseActivity() {
     private fun getContent() {
         scrollView.smoothScrollTo(0, 0)
         FutureVoid(this, objectNhc::getTextData,  objectNhc::showTextData)
-        NhcOceanEnum.values().forEach {
-            FutureVoid(this, { objectNhc.regionMap[it]!!.getImages() },  { objectNhc.showImageData(it) } )
+        objectNhc.urls.forEachIndexed { index, url ->
+            FutureBytes(this, url) { s -> objectNhc.updateImageData(index, s) }
         }
+
     }
 
     private fun showTextProduct(prod: String) {

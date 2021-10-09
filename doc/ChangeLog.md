@@ -36,7 +36,8 @@
 ```
 [[_TOC_]]
 
-## 55567 2021_10_07
+## 55567 2021_10_09
+* [FIX] NHC - ordering of images was not consistent, implement fully parallel downloads
 
 ## 55566 2021_10_07
 * Add additional GOES products FireTemperature, Dust, GLM
