@@ -73,10 +73,10 @@ class SpcSwoSummaryActivity : BaseActivity() {
 
     private fun getContent() {
         for (i in listOf(0, 1, 2)) {
-            FutureVoid(this, { bitmaps[i] = UtilitySpcSwo.getUrls((i + 1).toString())[0].getImage() }, { updateImage(i) })
+            FutureVoid(this, { bitmaps[i] = UtilitySpcSwo.getUrls((i + 1).toString())[0].getImage() }) { updateImage(i) }
         }
         for (i in 3 until 8) {
-            FutureVoid(this, { bitmaps[i] = UtilitySpcSwo.getImageUrlsDays48((i + 1).toString()).getImage() }, { updateImage(i) })
+            FutureVoid(this, { bitmaps[i] = UtilitySpcSwo.getImageUrlsDays48((i + 1).toString()).getImage() }) { updateImage(i) }
         }
     }
 

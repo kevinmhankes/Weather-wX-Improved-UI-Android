@@ -183,7 +183,10 @@ class CapAlert {
         private fun getWarningsFromJson(html: String): List<String> {
             val data = html.replace("\n", "").replace(" ", "")
             var points = data.parseFirst(RegExp.warningLatLonPattern)
-            points = points.replace("[", "").replace("]", "").replace(",", " ").replace("-", "")
+            points = points.replace("[", "")
+                    .replace("]", "")
+                    .replace(",", " ")
+                    .replace("-", "")
             return points.split(" ")
         }
     }

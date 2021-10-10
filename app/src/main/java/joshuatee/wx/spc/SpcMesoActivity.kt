@@ -210,33 +210,32 @@ class SpcMesoActivity : VideoRecordActivity(), OnMenuItemClickListener {
                     (0 until numPanes).forEach {
                         displayData.bitmap[it] = UtilitySpcMesoInputOutput.getImage(this@SpcMesoActivity, displayData.param[it], sector)
                     }
-                },
-                {
-                    (0 until numPanes).forEach {
-                    if (numPanes > 1) {
-                        UtilityImg.resizeViewAndSetImage(this@SpcMesoActivity, displayData.bitmap[it], displayData.img[it])
-                    } else {
-                        displayData.img[it].setImageBitmap(displayData.bitmap[it])
-                    }
-                    displayData.img[it].maxZoom = 4f
-                    animRan = false
                 }
-                if (!firstRun) {
-                    (0 until numPanes).forEach {
-                        displayData.img[it].setZoom(
-                                Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_ZOOM", 1.0f),
-                                Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_X", 0.5f),
-                                Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_Y", 0.5f)
-                        )
-                    }
-                    firstRun = true
+        )  {
+                (0 until numPanes).forEach {
+                if (numPanes > 1) {
+                    UtilityImg.resizeViewAndSetImage(this@SpcMesoActivity, displayData.bitmap[it], displayData.img[it])
+                } else {
+                    displayData.img[it].setImageBitmap(displayData.bitmap[it])
                 }
-                imageLoaded = true
-                Utility.writePref(this@SpcMesoActivity, prefParam + curImg, displayData.param[curImg])
-                Utility.writePref(this@SpcMesoActivity, prefParamLabel + curImg, displayData.paramLabel[curImg])
-                setTitle()
+                displayData.img[it].maxZoom = 4f
+                animRan = false
             }
-        )
+            if (!firstRun) {
+                (0 until numPanes).forEach {
+                    displayData.img[it].setZoom(
+                            Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_ZOOM", 1.0f),
+                            Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_X", 0.5f),
+                            Utility.readPref(this@SpcMesoActivity, prefModel + numPanes + it.toString() + "_Y", 0.5f)
+                    )
+                }
+                firstRun = true
+            }
+            imageLoaded = true
+            Utility.writePref(this@SpcMesoActivity, prefParam + curImg, displayData.param[curImg])
+            Utility.writePref(this@SpcMesoActivity, prefParamLabel + curImg, displayData.paramLabel[curImg])
+            setTitle()
+        }
     }
 
     private fun getAnimate(frames: Int) {

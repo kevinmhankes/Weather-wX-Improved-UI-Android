@@ -72,7 +72,7 @@ class SpcFireOutlookSummaryActivity : BaseActivity() {
 
     private fun getContent() {
         for (i in UtilitySpcFireOutlook.urls.indices) {
-            FutureVoid(this, { bitmaps[i] = UtilitySpcFireOutlook.urls[i].getImage() }, { updateImage(i) })
+            FutureVoid(this, { bitmaps[i] = UtilitySpcFireOutlook.urls[i].getImage() }) { updateImage(i) }
         }
     }
 
