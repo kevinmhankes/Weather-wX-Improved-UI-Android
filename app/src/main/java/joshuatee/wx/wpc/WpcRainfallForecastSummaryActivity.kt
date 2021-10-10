@@ -68,7 +68,7 @@ class WpcRainfallForecastSummaryActivity : BaseActivity() {
 
     private fun getContent() {
         for (i in UtilityWpcRainfallForecast.urls.indices) {
-            FutureVoid(this, { bitmaps[i] = UtilityWpcRainfallForecast.urls[i].getImage() }, { updateImage(i) })
+            FutureVoid(this, { bitmaps[i] = UtilityWpcRainfallForecast.urls[i].getImage() }) { updateImage(i) }
         }
     }
 
