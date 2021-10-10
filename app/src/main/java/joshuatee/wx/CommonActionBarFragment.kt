@@ -39,6 +39,7 @@ import joshuatee.wx.canada.*
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.SettingsMainActivity
+import joshuatee.wx.ui.ObjectPopupMessage
 import joshuatee.wx.ui.UtilityUI
 
 open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListener {
@@ -101,7 +102,7 @@ open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListene
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == requestOk && resultCode == Activity.RESULT_OK) {
             val thingsYouSaid = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-            UtilityUI.makeSnackBar(view, thingsYouSaid!![0])
+            ObjectPopupMessage(view, thingsYouSaid!![0])
             val string = thingsYouSaid[0]
             UtilityVoiceCommand.processCommand(this, view, string, Location.rid, Location.wfo, Location.state)
         }

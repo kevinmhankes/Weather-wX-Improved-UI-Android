@@ -38,15 +38,11 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.notifications.UtilityNotification
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.BottomSheetFragment
-import joshuatee.wx.ui.BaseActivity
-import joshuatee.wx.ui.ObjectDialogue
-import joshuatee.wx.ui.ObjectFab
-import joshuatee.wx.ui.ObjectRecyclerViewGeneric
-import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
 import joshuatee.wx.wpc.UtilityWpcText
 import joshuatee.wx.R
 import joshuatee.wx.objects.FutureVoid
+import joshuatee.wx.ui.*
 
 class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
@@ -84,7 +80,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
             } else {
                 dialog.dismiss()
                 val rootView: View = (this as Activity).window.decorView.findViewById(android.R.id.content)
-                UtilityUI.makeSnackBar(rootView, "$product already in playlist")
+                ObjectPopupMessage(rootView, "$product already in playlist")
             }
         }
         diaMain = ObjectDialogue(this, "Select text products:", UtilityWpcText.labels)
@@ -101,7 +97,7 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
             } else {
                 dialog.dismiss()
                 val rootView: View = (this as Activity).window.decorView.findViewById(android.R.id.content)
-                UtilityUI.makeSnackBar(rootView, "$product already in playlist")
+                ObjectPopupMessage(rootView, "$product already in playlist")
             }
         }
         toolbar.subtitle = "Tap item to play, view, delete or move."

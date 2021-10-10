@@ -35,7 +35,7 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.BaseActivity
 import joshuatee.wx.ui.ObjectCardText
-import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.ui.ObjectPopupMessage
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityFileManagement
 import joshuatee.wx.util.UtilityShare
@@ -96,7 +96,7 @@ class SettingsAboutActivity : BaseActivity() {
         textCard = ObjectCardText(this, linearLayout, toolbar, toolbarBottom)
         val cardDeleteFiles = ObjectCardText(this, "Delete old radar files (should not be needed)", MyApplication.textSizeNormal, MyApplication.paddingSettings)
         cardDeleteFiles.setOnClickListener {
-            UtilityUI.makeSnackBar(linearLayout, "Deleted old radar files: " + UtilityFileManagement.deleteCacheFiles(this))
+            ObjectPopupMessage(linearLayout, "Deleted old radar files: " + UtilityFileManagement.deleteCacheFiles(this))
         }
 
         linearLayout.addView(cardDeleteFiles.card)

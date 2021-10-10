@@ -35,12 +35,6 @@ import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.fragments.UtilityNws
 import joshuatee.wx.settings.Location
-import joshuatee.wx.ui.ObjectLinearLayout
-import joshuatee.wx.ui.ObjectCardCurrentConditions
-import joshuatee.wx.ui.ObjectCardText
-import joshuatee.wx.ui.ObjectCard7Day
-import joshuatee.wx.ui.BaseActivity
-import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.ObjectCurrentConditions
 import joshuatee.wx.util.ObjectHazards
 import joshuatee.wx.util.ObjectSevenDay
@@ -51,6 +45,7 @@ import joshuatee.wx.UIPreferences
 import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.radar.LatLon
+import joshuatee.wx.ui.*
 
 class ForecastActivity : BaseActivity() {
 
@@ -177,6 +172,6 @@ class ForecastActivity : BaseActivity() {
 
     private fun saveLocation() {
         val message = Location.save(this@ForecastActivity, latLon)
-        UtilityUI.makeSnackBar(linearLayout, message)
+        ObjectPopupMessage(linearLayout, message)
     }
 }

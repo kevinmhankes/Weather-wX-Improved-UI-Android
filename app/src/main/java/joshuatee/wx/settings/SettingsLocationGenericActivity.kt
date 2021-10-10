@@ -555,7 +555,7 @@ class SettingsLocationGenericActivity : BaseActivity(), OnMenuItemClickListener 
         ObjectIntent(this, SettingsLocationCanadaMapActivity::class.java, SettingsLocationCanadaMapActivity.URL, arrayOf(s))
     }
 
-    private fun showMessage(string: String) = UtilityUI.makeSnackBar(rl, string)
+    private fun showMessage(string: String) = ObjectPopupMessage(rl, string)
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {

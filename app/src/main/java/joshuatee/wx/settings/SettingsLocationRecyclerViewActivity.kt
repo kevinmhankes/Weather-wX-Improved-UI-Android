@@ -28,10 +28,7 @@ import joshuatee.wx.R
 import joshuatee.wx.notifications.UtilityWXJobService
 import joshuatee.wx.objects.FutureVoid
 import joshuatee.wx.objects.ObjectIntent
-import joshuatee.wx.ui.BaseActivity
-import joshuatee.wx.ui.ObjectFab
-import joshuatee.wx.ui.ObjectRecyclerViewGeneric
-import joshuatee.wx.ui.UtilityUI
+import joshuatee.wx.ui.*
 import joshuatee.wx.util.ObjectCurrentConditions
 
 class SettingsLocationRecyclerViewActivity : BaseActivity() {
@@ -121,7 +118,7 @@ class SettingsLocationRecyclerViewActivity : BaseActivity() {
             updateTitle()
             UtilityWXJobService.startService(this)
         } else {
-            UtilityUI.makeSnackBar(recyclerView.recyclerView, "Must have at least one location.")
+            ObjectPopupMessage(recyclerView.recyclerView, "Must have at least one location.")
         }
     }
 

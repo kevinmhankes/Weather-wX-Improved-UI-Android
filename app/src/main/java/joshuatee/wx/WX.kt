@@ -286,7 +286,7 @@ class WX : CommonActionBarFragment() {
     override fun onBackPressed() {
         if (UIPreferences.prefPreventAccidentalExit) {
             if (backButtonCounter < 1) {
-                UtilityUI.makeSnackBar(slidingTabLayout, "Please tap the back button one more time to close wX.")
+                ObjectPopupMessage(slidingTabLayout, "Please tap the back button one more time to close wX.")
                 backButtonCounter += 1
             } else {
                 finish()

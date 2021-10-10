@@ -29,7 +29,6 @@
 // TODO [FIX] see if more changes are needed: https://developer.android.com/about/versions/12/approximate-location
 // TODO [REF] deprecate SettingsPlaylistAutodownloadActivity
 // TODO [REF] migrate all to Future* (models/radar/LocationFragment)
-// TODO [ADD] turn UtilityUI.makeSnackBar into object
 // TODO [FIX] deprecate UtilityUI.makeToastLegacy
 // TODO [REF] break up MyApp
 ```
@@ -37,6 +36,7 @@
 
 ## 55567 2021_10_09
 * [FIX] NHC - ordering of images was not consistent, implement fully parallel downloads
+* [REF] ObjectPopupMessage instead of static method in UtilityUI
 
 ## 55566 2021_10_07
 * Add additional GOES products FireTemperature, Dust, GLM
