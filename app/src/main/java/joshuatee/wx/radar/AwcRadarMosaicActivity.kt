@@ -95,9 +95,8 @@ class AwcRadarMosaicActivity : VideoRecordActivity() {
 
     private fun getAnimate() {
         FutureVoid(this@AwcRadarMosaicActivity,
-            { animDrawable = UtilityAwcRadarMosaic.getAnimation(this@AwcRadarMosaicActivity, objectNavDrawer.url, product) },
+            { animDrawable = UtilityAwcRadarMosaic.getAnimation(this@AwcRadarMosaicActivity, objectNavDrawer.url, product) })
             { animRan = UtilityImgAnim.startAnimation(animDrawable, img) }
-        )
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

@@ -135,8 +135,7 @@ class ImageCollectionActivity : VideoRecordActivity() {
 
     private fun getAnimate() {
         FutureVoid(this@ImageCollectionActivity,
-            { animDrawable = UtilityGoesFullDisk.getAnimation(this@ImageCollectionActivity, drw.url) },
+            { animDrawable = UtilityGoesFullDisk.getAnimation(this@ImageCollectionActivity, drw.url) })
             { UtilityImgAnim.startAnimation(animDrawable, img) }
-        )
     }
 }

@@ -215,14 +215,12 @@ class GoesActivity : VideoRecordActivity() {
     private fun getAnimate(frameCount: Int) {
         if (!goesFloater) {
             FutureVoid(this@GoesActivity,
-                { animDrawable = UtilityGoes.getAnimation(this@GoesActivity, drw.url, sector, frameCount) },
+                { animDrawable = UtilityGoes.getAnimation(this@GoesActivity, drw.url, sector, frameCount) })
                 { animDrawable.startAnimation(img) }
-            )
         } else {
             FutureVoid(this@GoesActivity,
-                { animDrawable = UtilityGoes.getAnimationGoesFloater(this@GoesActivity, drw.url, sector, frameCount) },
+                { animDrawable = UtilityGoes.getAnimationGoesFloater(this@GoesActivity, drw.url, sector, frameCount) })
                 { animDrawable.startAnimation(img) }
-            )
         }
     }
 }
