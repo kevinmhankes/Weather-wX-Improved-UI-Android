@@ -155,22 +155,22 @@ class CapAlert {
 
             capAlert.extended += GlobalVariables.newline + GlobalVariables.newline
             if (capAlert.windThreat != "") {
-                capAlert.extended += "WIND THREAT...$capAlert.windThreat"
+                capAlert.extended += "WIND THREAT...${capAlert.windThreat}"
                 capAlert.extended += GlobalVariables.newline
             }
             if (capAlert.maxWindGust != "" && capAlert.maxWindGust != "0") {
-                capAlert.extended += "MAX WIND GUST...$capAlert.maxWindGust"
+                capAlert.extended += "MAX WIND GUST...${capAlert.maxWindGust}"
                 capAlert.extended += GlobalVariables.newline
             }
             if (capAlert.hailThreat != "") {
-                capAlert.extended += "HAIL THREAT...$capAlert.hailThreat"
+                capAlert.extended += "HAIL THREAT...${capAlert.hailThreat}"
                 capAlert.extended += GlobalVariables.newline
 
-                capAlert.extended += "MAX HAIL SIZE...$capAlert.maxHailSize in"
+                capAlert.extended += "MAX HAIL SIZE...${capAlert.maxHailSize} in"
                 capAlert.extended += GlobalVariables.newline
             }
             if (capAlert.tornadoThreat != "") {
-                capAlert.extended += "TORNADO THREAT...$capAlert.tornadoThreat"
+                capAlert.extended += "TORNADO THREAT...${capAlert.tornadoThreat}"
                 capAlert.extended += GlobalVariables.newline
             }
             capAlert.extended += capAlert.motion + GlobalVariables.newline
