@@ -22,7 +22,6 @@
 package joshuatee.wx.activitiesmisc
 
 import android.annotation.SuppressLint
-
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
