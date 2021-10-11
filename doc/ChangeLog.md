@@ -3,30 +3,15 @@
 // TODO [FIX] chromeOS: text size for observations in nexrad
 // TODO [FIX] storm reports - having location follow gps breaks the location marker
 // TODO [REF] WXGLRender rename rid to radarSite
-// TODO [REF] rename files/classes in radar folder
-// TODO [ADD] Remove all non nws embedded websites
-// TODO [ADD] for alert closest radar use polygon center like mcd
-// TODO [ADD] certain GOES regions like CONUS have additional products (GLM, DMW)
 // TODO [FIX] NSSL WRF needs better runtime detection (reference C++ code)
-// TODO [ADD] update copyright 2021
 // TODO [ADD] 'IntentService' is deprecated. Deprecated in Jav
     https://stackoverflow.com/questions/62138507/intentservice-is-deprecated-how-do-i-replace-it-with-jobintentservice
 // TODO [ADD] 'getter for defaultDisplay: Display!' is deprecated. Deprecated in Java
 // TODO [ADD] 'getMetrics(DisplayMetrics!): Unit' is deprecated. Deprecated in Java
-// TODO [REF] move radarColorPalette,colorMap to ObjectColorPalette
 // TODO [FIX] code cleanup in utilDownloadMcd/w/mpd
 // TODO [REF] add ObjectLocation
 // TODO [FIX] 7day not honoring C/F setting
-// TODO [FIX] java.lang.NullPointerException:
-// TODO at joshuatee.wx.external.ExternalSunriseSunsetCalculator.getOfficialSunriseCalendarForDate (ExternalSunriseSunsetCalculator.kt:35)
-// TODO at joshuatee.wx.util.UtilityTimeSunMoon.getSunriseSunsetFromObs (UtilityTimeSunMoon.kt:40)
-// TODO at joshuatee.wx.util.ObjectMetar.decodeIconFromMetar (ObjectMetar.kt:109)
-// TODO add RadarPreferences
-// TODO [FIX] NCEP - adjust NMB time periods
-// TODO GOES GLM ( homescreen does not honor new setting, setupMap ordering in myApp)
-// TODO usalerts sps don't show radar icon if no poly
-// TODO [REF] revert premature optimizations particularly in mode space, make local, use String
-// TODO [FIX] see if more changes are needed: https://developer.android.com/about/versions/12/approximate-location
+// TODO [FIX] usalerts sps don't show radar icon if no poly
 // TODO [REF] deprecate SettingsPlaylistAutodownloadActivity
 // TODO [REF] migrate all to Future* (models/radar/LocationFragment)
 // TODO [FIX] deprecate UtilityUI.makeToastLegacy
