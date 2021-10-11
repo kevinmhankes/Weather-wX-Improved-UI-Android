@@ -30,7 +30,6 @@
 // TODO [REF] deprecate SettingsPlaylistAutodownloadActivity
 // TODO [REF] migrate all to Future* (models/radar/LocationFragment)
 // TODO [FIX] deprecate UtilityUI.makeToastLegacy
-// TODO [REF] break up MyApp
 ```
 [[_TOC_]]
 
