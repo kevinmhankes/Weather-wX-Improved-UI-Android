@@ -4,7 +4,8 @@
 Service outages with NWS data will be posted in the [FAQ](https://gitlab.com/joshua.tee/wxl23/-/tree/master/doc/FAQ.md) as I become aware of them.
 FAQ can be accessed via Settings -> About
 
-**beta** version 55566 - released on 2021/10/TBD
+**beta** version 55568 - released on 2021/10/21
+* FIX - NWS html format changed caused 7 day forecast icons to break
 * Additional GOES products FireTemperature, Dust, GLM
 * Move ChangeLog and FAQ to Gitlab
 * Settings -> About, open browser when viewing FAQ or ChangeLog
