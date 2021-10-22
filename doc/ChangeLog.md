@@ -18,8 +18,8 @@
 ```
 [[_TOC_]]
 
-## 55570 2021_10_21
-* 
+## 55570 2021_10_22
+* [FIX] wx.kt nav draw lightning entry was not correct, now matches misc frag
 
 ## 55569 2021_10_21
 * release to fdroid (tag)

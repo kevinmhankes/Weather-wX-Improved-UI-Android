@@ -210,7 +210,7 @@ class WX : CommonActionBarFragment() {
                     R.id.goes_global -> ObjectIntent(this, ImageCollectionActivity::class.java, ImageCollectionActivity.TYPE, arrayOf("GOESFD"))
                     R.id.lightning -> {
                         if (UIPreferences.lightningUseGoes) {
-                            ObjectIntent(this, GoesActivity::class.java, GoesActivity.RID, arrayOf("CONUS", "21"))
+                            ObjectIntent(this, GoesActivity::class.java, GoesActivity.RID, arrayOf("CONUS", "23"))
                         } else {
                             ObjectIntent(this, LightningActivity::class.java)
                         }
