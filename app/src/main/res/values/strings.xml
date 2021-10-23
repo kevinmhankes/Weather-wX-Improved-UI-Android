@@ -227,4 +227,10 @@
     <string name="twitter_tornado">Twitter tornado</string>
     <string name="us_alerts">US Alerts</string>
     <string name="wpc_gefs">WPC GEFS</string>
+    <string name="tab_1">Tab 1</string>
+    <string name="local">LOCAL</string>
+    <string name="tab_2">Tab 2</string>
+    <string name="spc">SPC</string>
+    <string name="tab_3">Tab 3</string>
+    <string name="misc">MISC</string>
 </resources>
