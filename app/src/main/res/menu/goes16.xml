@@ -73,143 +73,143 @@
     <group android:id="@+id/sectors">
         <item
             android:id="@+id/action_FD"
-            android:title="Full Disk: GOES-East"
+            android:title="@string/full_disk_goes_east"
             app:showAsAction="never" />
         <item
             android:id="@+id/action_FD_G17"
-            android:title="Full Disk: GOES-West"
+            android:title="@string/full_disk_goes_west"
             app:showAsAction="never" />
         <item
             android:id="@+id/action_CONUS"
-            android:title="CONUS: GOES-East"
+            android:title="@string/conus_goes_east"
             app:showAsAction="never" />
         <item
             android:id="@+id/action_CONUS_G17"
-            android:title="PACUS: GOES-West"
+            android:title="@string/pacus_goes_west"
             app:showAsAction="never" />
         <item
             android:id="@+id/action_regionalSectors"
-            android:title="Regional Views"
+            android:title="@string/regional_views"
             app:showAsAction="never">
             <menu>
                 <item
                     android:id="@+id/action_pnw"
-                    android:title="Pacific Northwest"
+                    android:title="@string/pacific_northwest"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_nr"
-                    android:title="Northern Rockies"
+                    android:title="@string/northern_rockies"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_umv"
-                    android:title="Upper Mississippi Valley"
+                    android:title="@string/upper_mississippi_valley"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_cgl"
-                    android:title="Central Great Lakes"
+                    android:title="@string/central_great_lakes"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_ne"
-                    android:title="Northeast"
+                    android:title="@string/northeast"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_psw"
-                    android:title="Pacific Southwest"
+                    android:title="@string/pacific_southwest"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_sr"
-                    android:title="Southern Rockies"
+                    android:title="@string/southern_rockies"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_sp"
-                    android:title="Southern Plains"
+                    android:title="@string/southern_plains"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_smv"
-                    android:title="Southern Mississippi Valley"
+                    android:title="@string/southern_mississippi_valley"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_se"
-                    android:title="Southeast"
+                    android:title="@string/southeast"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_ak"
-                    android:title="Alaska"
+                    android:title="@string/alaska"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_cak"
-                    android:title="Central Alaska"
+                    android:title="@string/central_alaska"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_sea"
-                    android:title="Southeastern Alaska"
+                    android:title="@string/southeastern_alaska"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_hi"
-                    android:title="Hawaii"
+                    android:title="@string/hawaii"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_can"
-                    android:title="Canada"
+                    android:title="@string/canada"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_mex"
-                    android:title="Mexico"
+                    android:title="@string/mexico"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_cam"
-                    android:title="Central America"
+                    android:title="@string/central_america"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_nsa"
-                    android:title="South America (north)"
+                    android:title="@string/south_america_north"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_ssa"
-                    android:title="South America (south)"
+                    android:title="@string/south_america_south"
                     app:showAsAction="never" />
             </menu>
         </item>
         <item
             android:id="@+id/action_ca"
-            android:title="Caribbean / Atlantic / Pacific"
+            android:title="@string/caribbean_atlantic_pacific"
             app:showAsAction="never">
             <menu>
                 <item
                     android:id="@+id/action_gm"
-                    android:title="Gulf of Mexico"
+                    android:title="@string/gulf_of_mexico"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_car"
-                    android:title="Caribbean"
+                    android:title="@string/caribbean"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_eus"
-                    android:title="U.S. Atlantic Coast"
+                    android:title="@string/u_s_atlantic_coast"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_pr"
-                    android:title="Puerto Rico"
+                    android:title="@string/puerto_rico"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_taw"
-                    android:title="Tropical Atlantic: wide view"
+                    android:title="@string/tropical_atlantic_wide_view"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_wus"
-                    android:title="US Pacific Coast"
+                    android:title="@string/us_pacific_coast"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_tpw"
-                    android:title="Tropical Pacific"
+                    android:title="@string/tropical_pacific"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_eep"
-                    android:title="Eastern Pacific"
+                    android:title="@string/eastern_pacific"
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/action_np"
-                    android:title="Northern Pacific"
+                    android:title="@string/northern_pacific"
                     app:showAsAction="never" />
             </menu>
         </item>
