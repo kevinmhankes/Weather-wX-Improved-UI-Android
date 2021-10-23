@@ -274,4 +274,22 @@
     <string name="tropical_pacific">Tropical Pacific</string>
     <string name="eastern_pacific">Eastern Pacific</string>
     <string name="northern_pacific">Northern Pacific</string>
+    <string name="wx_logo">wX Logo</string>
+    <string name="visible_sat">Visible Sat</string>
+    <string name="area_forecast_discussion">Area Forecast Discussion</string>
+    <string name="hourly_forecast">Hourly Forecast</string>
+    <string name="alerts">Alerts</string>
+    <string name="severe_dashboard">Severe Dashboard</string>
+    <string name="weather_image">weather image</string>
+    <string name="nexrad_radar_image">Nexrad Radar image</string>
+    <string name="wind_direction">Wind Direction</string>
+    <string name="conditions_icon">Conditions icon</string>
+    <string name="launch_external_browser">Launch external browser</string>
+    <string name="tdwr_products">TDWR Products</string>
+    <string name="quad_pane_radar">Quad Pane Radar</string>
+    <string name="dual_pane_radar">Dual Pane Radar</string>
+    <string name="show_hide_color_legend">Show/Hide Color Legend</string>
+    <string name="conus_warning_map">CONUS warning map</string>
+    <string name="ak_warning_map">AK warning map</string>
+    <string name="hi_warning_map">HI warning map</string>
 </resources>

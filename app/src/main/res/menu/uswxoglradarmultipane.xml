@@ -154,7 +154,7 @@
     </item>
     <item
         android:id="@+id/action_tdwr"
-        android:title="TDWR Products"
+        android:title="@string/tdwr_products"
         app:showAsAction="never">
         <menu>
             <item
@@ -271,7 +271,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_radar_4"
-        android:title="Quad Pane Radar"
+        android:title="@string/quad_pane_radar"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_tools"

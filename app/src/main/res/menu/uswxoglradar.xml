@@ -146,7 +146,7 @@
     </item>
     <item
         android:id="@+id/action_tdwr"
-        android:title="TDWR Products"
+        android:title="@string/tdwr_products"
         app:showAsAction="never">
         <menu>
             <item
@@ -263,11 +263,11 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_radar_2"
-        android:title="Dual Pane Radar"
+        android:title="@string/dual_pane_radar"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_radar_4"
-        android:title="Quad Pane Radar"
+        android:title="@string/quad_pane_radar"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_tools"
@@ -276,7 +276,7 @@
         <menu>
             <item
                 android:id="@+id/action_legend"
-                android:title="Show/Hide Color Legend"
+                android:title="@string/show_hide_color_legend"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_about"

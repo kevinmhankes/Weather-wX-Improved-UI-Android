@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|start"
-            android:contentDescription="Conditions icon"
+            android:contentDescription="@string/conditions_icon"
             android:gravity="center_vertical|start"
             android:maxWidth="80dip"
             android:maxHeight="80dip"

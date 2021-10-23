@@ -26,7 +26,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/action_browser"
-        android:title="Launch external browser"
+        android:title="@string/launch_external_browser"
         app:showAsAction="never" />
 </menu>
 
