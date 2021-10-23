@@ -309,4 +309,11 @@
     <string name="state_graphics">State graphics</string>
     <string name="all_recent_lsr_by_wfo">All recent LSR by WFO</string>
     <string name="add_afd">Add afd</string>
+    <string name="search">Search</string>
+    <string name="locate">Locate</string>
+    <string name="web">Web</string>
+    <string name="add_img">Add img</string>
+    <string name="set_to_default">Set to default</string>
+    <string name="set_to_default_canada">Set to default (Canada)</string>
+    <string name="load_from_file">Load from file</string>
 </resources>
