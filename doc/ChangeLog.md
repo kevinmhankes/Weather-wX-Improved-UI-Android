@@ -20,6 +20,7 @@
 
 ## 55572 2021_10_23
 * [REF] Lint fix especially move aware from hardcoded text in layout/menu
+* [REF] Lint fix - for menu items change from always to ifRoom if it won't impact anything
 
 ## 55571 2021_10_23
 * [FIX] GOES Viewer, eep Eastern East Pacific image was not working after NOAA changed image resolution
