@@ -27,7 +27,6 @@ import android.view.View
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.ui.ObjectPopupMessage
-import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownload
 import joshuatee.wx.util.UtilityTime

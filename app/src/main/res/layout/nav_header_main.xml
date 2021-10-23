@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/severeDashboardButton"
             android:backgroundTint="@color/bg_blue"
-            app:srcCompat="@drawable/ic_report_24dp_white"/>
+            app:srcCompat="@drawable/ic_report_24dp_white"
+            android:contentDescription="TODO" />
         <TextView
             android:id="@+id/severeDashboardText"
             android:layout_width="match_parent"
@@ -48,7 +49,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/visibleSatelliteButton"
             android:backgroundTint="@color/bg_blue"
-            app:srcCompat="@drawable/ic_cloud_24dp_white"/>
+            app:srcCompat="@drawable/ic_cloud_24dp_white"
+            android:contentDescription="TODO" />
         <TextView
             android:id="@+id/visibleSatelliteText"
             android:layout_width="match_parent"
@@ -69,7 +71,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/wfoButton"
             android:backgroundTint="@color/bg_blue"
-            app:srcCompat="@drawable/ic_info_outline_24dp_white"/>
+            app:srcCompat="@drawable/ic_info_outline_24dp_white"
+            android:contentDescription="TODO" />
         <TextView
             android:id="@+id/wfoText"
             android:layout_width="match_parent"
@@ -90,7 +93,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/hourlyButton"
             android:backgroundTint="@color/bg_blue"
-            app:srcCompat="@drawable/ic_place_24dp_white"/>
+            app:srcCompat="@drawable/ic_place_24dp_white"
+            android:contentDescription="TODO" />
         <TextView
             android:id="@+id/hourlyText"
             android:layout_width="match_parent"
@@ -111,7 +115,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/settingsButton"
             android:backgroundTint="@color/bg_blue"
-            app:srcCompat="@drawable/ic_settings_24dp_white"/>
+            app:srcCompat="@drawable/ic_settings_24dp_white"
+            android:contentDescription="TODO" />
         <TextView
             android:id="@+id/settingsText"
             android:layout_width="match_parent"

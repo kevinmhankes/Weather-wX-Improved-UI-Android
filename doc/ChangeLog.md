@@ -20,6 +20,8 @@
 
 ## 55571 2021_10_23
 * [FIX] GOES Viewer, eep Eastern East Pacific image was not working after NOAA changed image resolution
+* [ADD] implementation 'androidx.media:media:1.4.2' -> implementation 'androidx.media:media:1.4.3'
+* [REF] Lint fix
 
 ## 55570 2021_10_22
 * [FIX] wx.kt nav draw lightning entry was not correct, now matches misc frag

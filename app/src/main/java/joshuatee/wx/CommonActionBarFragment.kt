@@ -40,7 +40,6 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.SettingsMainActivity
 import joshuatee.wx.ui.ObjectPopupMessage
-import joshuatee.wx.ui.UtilityUI
 
 open class CommonActionBarFragment : AppCompatActivity(), OnMenuItemClickListener {
 

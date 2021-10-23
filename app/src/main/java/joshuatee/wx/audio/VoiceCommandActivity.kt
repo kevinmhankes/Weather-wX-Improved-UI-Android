@@ -30,8 +30,6 @@ import android.widget.Toast
 import joshuatee.wx.settings.Location
 import joshuatee.wx.ui.ObjectPopupMessage
 
-import joshuatee.wx.ui.UtilityUI
-
 class VoiceCommandActivity : Activity() {
 
     private val requestOk = 1

@@ -112,5 +112,6 @@
         app:layout_anchor="@id/rl"
         app:layout_anchorGravity="bottom|center"
         app:pressedTranslationZ="@dimen/fab_elevation_pressed"
-        app:srcCompat="@drawable/ic_done_24dp" />
+        app:srcCompat="@drawable/ic_done_24dp"
+        android:contentDescription="@string/save" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -34,7 +34,8 @@
             android:adjustViewBounds="true"
             android:padding="12dp"
             android:scaleType="fitStart"
-            android:src="@drawable/few" />
+            android:src="@drawable/few"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/city_name"
