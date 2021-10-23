@@ -18,6 +18,9 @@
 ```
 [[_TOC_]]
 
+## 55572 2021_10_23
+* [REF] Lint fix especially move aware from hardcoded text in layout/menu
+
 ## 55571 2021_10_23
 * [FIX] GOES Viewer, eep Eastern East Pacific image was not working after NOAA changed image resolution
 * [ADD] implementation 'androidx.media:media:1.4.2' -> implementation 'androidx.media:media:1.4.3'
