@@ -28,7 +28,7 @@
             android:id="@+id/severeDashboardButton"
             android:backgroundTint="@color/bg_blue"
             app:srcCompat="@drawable/ic_report_24dp_white"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/todo" />
         <TextView
             android:id="@+id/severeDashboardText"
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
             android:id="@+id/visibleSatelliteButton"
             android:backgroundTint="@color/bg_blue"
             app:srcCompat="@drawable/ic_cloud_24dp_white"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/todo" />
         <TextView
             android:id="@+id/visibleSatelliteText"
             android:layout_width="match_parent"
@@ -72,7 +72,7 @@
             android:id="@+id/wfoButton"
             android:backgroundTint="@color/bg_blue"
             app:srcCompat="@drawable/ic_info_outline_24dp_white"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/todo" />
         <TextView
             android:id="@+id/wfoText"
             android:layout_width="match_parent"
@@ -94,7 +94,7 @@
             android:id="@+id/hourlyButton"
             android:backgroundTint="@color/bg_blue"
             app:srcCompat="@drawable/ic_place_24dp_white"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/todo" />
         <TextView
             android:id="@+id/hourlyText"
             android:layout_width="match_parent"
@@ -116,7 +116,7 @@
             android:id="@+id/settingsButton"
             android:backgroundTint="@color/bg_blue"
             app:srcCompat="@drawable/ic_settings_24dp_white"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/todo" />
         <TextView
             android:id="@+id/settingsText"
             android:layout_width="match_parent"

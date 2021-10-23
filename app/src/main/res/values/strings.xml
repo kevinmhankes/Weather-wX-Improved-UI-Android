@@ -366,4 +366,11 @@
     <string name="longitude_you_are_not_required_to_enter">Longitude, you are not required to enter.</string>
     <string name="notifications">Notifications</string>
     <string name="radar_icon">Radar Icon</string>
+    <string name="spc_convective_outlook_day_2">SPC Convective outlook day 2</string>
+    <string name="spc_convective_outlook_day_1">SPC Convective outlook day 1</string>
+    <string name="spc_convective_outlook_day_3">SPC Convective outlook day 3</string>
+    <string name="spc_convective_outlook_day_4">SPC Convective outlook day 4</string>
+    <string name="todo">TODO</string>
+    <string name="radar">Radar</string>
+    <string name="search_by_name">Search by name</string>
 </resources>
