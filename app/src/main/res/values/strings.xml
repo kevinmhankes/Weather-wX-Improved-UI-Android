@@ -292,4 +292,21 @@
     <string name="conus_warning_map">CONUS warning map</string>
     <string name="ak_warning_map">AK warning map</string>
     <string name="hi_warning_map">HI warning map</string>
+    <string name="surface">Surface</string>
+    <string name="spc_help">SPC Help</string>
+    <string name="layers">Layers</string>
+    <string name="topography">Topography</string>
+    <string name="tornado">Tornado</string>
+    <string name="hail">Hail</string>
+    <string name="wind">Wind</string>
+    <string name="categorical">Categorical</string>
+    <string name="probabilistic">Probabilistic</string>
+    <string name="day_4_image">Day 4 Image</string>
+    <string name="day_5_image">Day 5 Image</string>
+    <string name="day_6_image">Day 6 Image</string>
+    <string name="day_7_image">Day 7 Image</string>
+    <string name="day_8_image">Day 8 Image</string>
+    <string name="state_graphics">State graphics</string>
+    <string name="all_recent_lsr_by_wfo">All recent LSR by WFO</string>
+    <string name="add_afd">Add afd</string>
 </resources>
