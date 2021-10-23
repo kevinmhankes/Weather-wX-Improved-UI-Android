@@ -346,4 +346,24 @@
     <string name="region">Region</string>
     <string name="latest_sfc_obs">Latest Sfc Obs</string>
     <string name="model">Model</string>
+    <string name="tiles">Tiles</string>
+    <string name="reflectivity">Reflectivity</string>
+    <string name="composite_reflectivity">Composite Reflectivity</string>
+    <string name="echo_tops">Echo Tops</string>
+    <string name="infrared_bw">Infrared (BW)</string>
+    <string name="infrared_col">Infrared (Col)</string>
+    <string name="infrared_nws">Infrared (NWS)</string>
+    <string name="visible">Visible</string>
+    <string name="water_vapor">Water Vapor</string>
+    <string name="text_prod_by_state">Text Prod by state</string>
+    <string name="back">Back</string>
+    <string name="forward">Forward</string>
+    <string name="nws_office_website">NWS Office website</string>
+    <string name="nws_office_hazards_map">NWS Office hazards map</string>
+    <string name="save_location">Save Location</string>
+    <string name="name_of_location">Name of location</string>
+    <string name="latitude_you_are_not_required_to_enter">Latitude, you are not required to enter.</string>
+    <string name="longitude_you_are_not_required_to_enter">Longitude, you are not required to enter.</string>
+    <string name="notifications">Notifications</string>
+    <string name="radar_icon">Radar Icon</string>
 </resources>

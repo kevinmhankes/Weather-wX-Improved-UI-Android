@@ -64,7 +64,7 @@
         android:id="@+id/action_share"
         android:icon="@drawable/ic_share_24dp"
         android:title="@string/label_share"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_pin"
         android:icon="@drawable/ic_touch_app_24dp"
@@ -215,5 +215,3 @@
         </item>
     </group>
 </menu>
-
-
