@@ -224,7 +224,7 @@ object UtilityGoes {
         "can" to "1125x560",
         "mex" to "1000x1000",
         "cam" to "1000x1000",
-        "eep" to "1000x1000",
+        "eep" to "1800x1080",
         "wus" to "1000x1000",
         "nsa" to "1800x1080",
         "ssa" to "1800x1080",
