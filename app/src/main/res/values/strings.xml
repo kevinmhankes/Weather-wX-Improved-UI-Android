@@ -336,4 +336,14 @@
     <string name="atl_7_day_analysis">ATL 7-Day Analysis</string>
     <string name="epac_sst_anomaly">EPAC SST Anomaly</string>
     <string name="atl_sst_anomaly">ATL SST Anomaly</string>
+    <string name="severe">Severe</string>
+    <string name="visible_satellite">Visible Satellite</string>
+    <string name="local_text_products">Local Text Products</string>
+    <string name="settings">Settings</string>
+    <string name="fav">Fav</string>
+    <string name="time">Time</string>
+    <string name="run">Run</string>
+    <string name="region">Region</string>
+    <string name="latest_sfc_obs">Latest Sfc Obs</string>
+    <string name="model">Model</string>
 </resources>

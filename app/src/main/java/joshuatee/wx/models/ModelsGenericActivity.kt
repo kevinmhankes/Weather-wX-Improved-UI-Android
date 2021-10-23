@@ -121,7 +121,7 @@ class ModelsGenericActivity : VideoRecordActivity(), OnMenuItemClickListener {
         }
         miStatus = menu.findItem(R.id.action_status)
         miStatus.title = "in through"
-        menu.findItem(R.id.action_map).isVisible = false
+//        menu.findItem(R.id.action_map).isVisible = false
         om.displayData = DisplayDataNoSpinner(this, this, om.numPanes, om)
         drw = ObjectNavDrawer(this, om.labels, om.params)
         om.setUiElements(toolbar, fab1, fab2, miStatusParam1, miStatusParam2, ::getContent)
