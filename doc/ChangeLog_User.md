@@ -17,6 +17,3 @@ if you request ACCESS_FINE_LOCATION you must also request ACCESS_COARSE_LOCATION
 * [FIX] add to UtilityMetarConditions "Patches Of Fog"
 * [REF] Numerous changes to make the source code base easier to support in the long run and changes required by google to keep the app active on the playstore (ie target a new version of Android, etc)
 
-
-
-Older change log data can be found [here](https://docs.google.com/document/u/1/d/e/2PACX-1vT-YfH9yH_qmxLHe25UGlJvHHj_25qmTHJoeWPBbNWlvS4nm0YBmFeAnEpeel3GTL3OYKnvXkMNbnOX/pub)
