@@ -14,6 +14,7 @@
 // TODO [FIX] usalerts sps don't show radar icon if no poly
 // TODO [REF] deprecate SettingsPlaylistAutodownloadActivity
 // TODO [REF] migrate all to Future* (models/radar/LocationFragment)
+// TODO [FIX] textual vwp is not looking to good
 // TODO [FIX] deprecate UtilityUI.makeToastLegacy
 ```
 [[_TOC_]]
