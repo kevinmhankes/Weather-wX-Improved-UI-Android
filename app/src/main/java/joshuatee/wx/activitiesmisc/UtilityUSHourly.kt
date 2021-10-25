@@ -21,13 +21,14 @@
 
 package joshuatee.wx.activitiesmisc
 
-import java.util.Calendar
 import joshuatee.wx.Extensions.parseColumn
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.settings.Location
+import joshuatee.wx.util.to
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownloadNws
+import joshuatee.wx.util.UtilityTime
 
 object UtilityUSHourly {
 
@@ -43,7 +44,7 @@ object UtilityUSHourly {
         var windDirData = "WindDir" + MyApplication.newline
         var conditionData = "Condition" + MyApplication.newline
         startTimes.indices.forEach {
-            val time = translateTime(startTimes[it])
+            val time = UtilityTime.translateTimeForHourly(startTimes[it])
             val temperature = Utility.safeGet(temperatures, it).replace("\"","")
             val windSpeed = Utility.safeGet(windSpeeds, it).replace(" to ", "-")
             val windDirection = Utility.safeGet(windDirections, it)
@@ -98,7 +99,12 @@ object UtilityUSHourly {
 
     private fun getString(locationNumber: Int): List<String> {
         val html = UtilityDownloadNws.getHourlyData(Location.getLatLon(locationNumber))
-        val header = String.format("%-7s", "Time") + " " + String.format("%-5s", "Temp") + String.format("%-9s", "WindSpd") + String.format("%-8s", "WindDir") + MyApplication.newline
+        // val header = String.format("%-7s", "Time") + " " + String.format("%-5s", "Temp") + String.format("%-9s", "WindSpd") + String.format("%-8s", "WindDir") + MyApplication.newline
+        val header = to.StringPadLeft("Time", 7) + " " +
+                to.StringPadLeft("Temp", 5) +
+                to.StringPadLeft("WindSpd", 9) +
+                to.StringPadLeft("WindDir", 8) +
+                MyApplication.newline
         return listOf(header + parse(html), html)
     }
 
@@ -110,46 +116,28 @@ object UtilityUSHourly {
         val shortForecast = html.parseColumn("\"shortForecast\": \"(.*?)\"")
         var content = ""
         startTime.indices.forEach {
-            val time = translateTime(startTime[it].replace(Regex("-0[0-9]:00"), ""))
-            content += String.format("%-8s", time)
+            val time = UtilityTime.translateTimeForHourly(startTime[it].replace(Regex("-0[0-9]:00"), ""))
+            // content += String.format("%-8s", time)
+            content += joshuatee.wx.util.to.StringPadLeft(time, 8)
             if (temperature.size > it) {
-                content += String.format("%-5s", temperature[it].replace("\"",""))
+                // content += String.format("%-5s", temperature[it].replace("\"",""))
+                content += to.StringPadLeft(temperature[it].replace("\"",""), 5)
             }
             if (windSpeed.size > it) {
-                content += String.format("%-9s", windSpeed[it])
+                // content += String.format("%-9s", windSpeed[it])
+                content += to.StringPadLeft(windSpeed[it], 9)
             }
             if (windDirection.size > it) {
-                content += String.format("%-7s", windDirection[it])
+                // content += String.format("%-7s", windDirection[it])
+                content += to.StringPadLeft(windDirection[it], 7)
             }
             if (shortForecast.size > it) {
-                content += String.format("%-12s", shortenConditions(shortForecast[it]))
+                // content += String.format("%-12s", shortenConditions(shortForecast[it]))
+                content += to.StringPadLeft(shortenConditions(shortForecast[it]), 12)
             }
             content += MyApplication.newline
         }
         return content
-    }
-
-    // TODO FIXME move to UtilityTime
-    private fun translateTime(originalTime: String): String {
-        val originalTimeComponents = originalTime.replace("T", "-").split("-")
-        val year = originalTimeComponents[0].toIntOrNull() ?: 0
-        val month = originalTimeComponents[1].toIntOrNull() ?: 0
-        val day = originalTimeComponents[2].toIntOrNull() ?: 0
-        val hour = originalTimeComponents[3].replace(":00:00", "").toIntOrNull() ?: 0
-        val hourString = hour.toString()
-        val calendar = Calendar.getInstance()
-        calendar.set(year - 1900, month - 1, day, 0, 0)
-        val dayOfTheWeek = when (calendar.get(Calendar.DAY_OF_WEEK)) {
-            6 -> "Mon"
-            7 -> "Tue"
-            1 -> "Wed"
-            2 -> "Thu"
-            3 -> "Fri"
-            4 -> "Sat"
-            5 -> "Sun"
-            else -> ""
-        }
-        return "$dayOfTheWeek $hourString"
     }
 }
 

@@ -208,4 +208,26 @@ object UtilityTime {
     }
 
     fun currentTimeMillis() = System.currentTimeMillis() // Long
+
+    fun translateTimeForHourly(originalTime: String): String {
+        val originalTimeComponents = originalTime.replace("T", "-").split("-")
+        val year = originalTimeComponents[0].toIntOrNull() ?: 0
+        val month = originalTimeComponents[1].toIntOrNull() ?: 0
+        val day = originalTimeComponents[2].toIntOrNull() ?: 0
+        val hour = originalTimeComponents[3].replace(":00:00", "").toIntOrNull() ?: 0
+        val hourString = hour.toString()
+        val calendar = Calendar.getInstance()
+        calendar.set(year - 1900, month - 1, day, 0, 0)
+        val dayOfTheWeek = when (calendar.get(Calendar.DAY_OF_WEEK)) {
+            6 -> "Mon"
+            7 -> "Tue"
+            1 -> "Wed"
+            2 -> "Thu"
+            3 -> "Fri"
+            4 -> "Sat"
+            5 -> "Sun"
+            else -> ""
+        }
+        return "$dayOfTheWeek $hourString"
+    }
 }

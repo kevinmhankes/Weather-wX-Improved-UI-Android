@@ -30,6 +30,18 @@ object to {
     fun Double(s: String): Double {
         return s.toDoubleOrNull() ?: 0.0
     }
+
+    fun StringPadLeft(s: String, padAmount: Int): String {
+        return String.format("%-" + padAmount.toString() + "s", s)
+    }
+
+    fun StringPadLeftZeros(s: Int, padAmount: Int): String {
+        return String.format("%0" + padAmount.toString() + "d", s)
+    }
+
+    fun StringFromFloatFixed(d: Double, precision: Int): String {
+        return String.format(  "%." + precision.toString() + "f", d)
+    }
 }
 
 
