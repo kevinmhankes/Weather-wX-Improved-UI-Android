@@ -22,7 +22,6 @@
 package joshuatee.wx.spc
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -41,7 +40,7 @@ class SpcFireOutlookSummaryActivity : BaseActivity() {
     // SPC Fire Weather Outlooks
     //
 
-    private var bitmaps = mutableListOf<Bitmap>()
+    private val bitmaps = MutableList(UtilitySpcFireOutlook.urls.size){ UtilityImg.getBlankBitmap() }
     private var imagesPerRow = 2
     private lateinit var linearLayout: LinearLayout
     private lateinit var objectImageSummary: ObjectImageSummary
@@ -60,7 +59,6 @@ class SpcFireOutlookSummaryActivity : BaseActivity() {
         }
         toolbar.subtitle = "SPC"
         title = "Fire Weather Outlooks"
-        bitmaps = MutableList(UtilitySpcFireOutlook.urls.size){ UtilityImg.getBlankBitmap() }
         objectImageSummary = ObjectImageSummary(this@SpcFireOutlookSummaryActivity, linearLayout, bitmaps)
         getContent()
     }
