@@ -93,9 +93,9 @@ class ImageCollectionActivity : VideoRecordActivity() {
 
     private fun showImage() {
         if (drw.url.contains("large_latestsfc.gif")) {
-            img.setMaxZoom(16f)
+            img.setMaxZoom(16.0f)
         } else {
-            img.setMaxZoom(4f)
+            img.setMaxZoom(4.0f)
         }
         img.setBitmap(bitmap)
         img.firstRunSetZoomPosn(imageCollection.prefImagePosition)
