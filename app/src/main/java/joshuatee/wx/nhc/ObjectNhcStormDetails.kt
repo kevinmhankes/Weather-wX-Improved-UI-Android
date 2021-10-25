@@ -43,8 +43,8 @@ class ObjectNhcStormDetails(
         var status: String): Serializable {
 
     var center: String = "$lat $lon"
-    var dateTime: String = lastUpdate
-    var movement: String = UtilityMath.convertWindDir(movementDir.toDoubleOrNull() ?: 0.0) + " at " + movementSpeed + " mph"
+    var dateTime = lastUpdate
+    var movement = UtilityMath.convertWindDir(movementDir.toDoubleOrNull() ?: 0.0) + " at " + movementSpeed + " mph"
     var baseUrl: String
     var goesUrl: String
 

@@ -68,7 +68,7 @@ object UtilityHourlyOldApi {
             val timeSplit2 = timeSplit[0].split("-")
             val month = timeSplit2[0].toIntOrNull() ?: 0
             val day = timeSplit2[1].toIntOrNull() ?: 0
-            val dayOfTheWeek: String = UtilityTime.dayOfWeek(year, month, day)
+            val dayOfTheWeek = UtilityTime.dayOfWeek(year, month, day)
             var temp3Val = "."
             var temp4Val = "."
             var temp5Val = "."

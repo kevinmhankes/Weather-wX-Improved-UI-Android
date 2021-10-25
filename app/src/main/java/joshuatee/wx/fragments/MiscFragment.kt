@@ -239,7 +239,7 @@ class MiscFragment : Fragment() {
                     "wpc_rainfall", "WPC RAINFALL"
             )
             val tileOrder = "model_ncep:model_hrrr:model_ncar_ensemble:uswarn:wpctext:nhc:nwsmosaic:goes:lightning:wpcimages:twitter_state:twitter_tornado:opc:goesfulldisk:nwsobs:wxogl:wxoglquad:wpc_rainfall:"
-            var miscPref: String = Utility.readPref("FRAGMENT_MISC_ORDER", tileOrder)
+            var miscPref = Utility.readPref("FRAGMENT_MISC_ORDER", tileOrder)
             if (!miscPref.contains("wxoglquad")) {
                 miscPref += "wxoglquad:"
                 Utility.writePref("FRAGMENT_MISC_ORDER", miscPref)

@@ -34,9 +34,9 @@ import joshuatee.wx.objects.TextSize
 class ObjectAlertDetail(val context: Context, linearLayout: LinearLayout) {
 
     private val objectTextViews = mutableListOf<ObjectTextView>()
-    var title: String = ""
+    var title = ""
         private set
-    var wfoTitle: String = ""
+    var wfoTitle = ""
         private set
 
     init {

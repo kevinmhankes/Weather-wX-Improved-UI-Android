@@ -50,14 +50,14 @@ class CapAlert {
     var effective = ""
     var expires = ""
     var points = listOf<String>()
-    private var nwsHeadLine: String = ""
-    var windThreat: String = ""
-    private var maxWindGust: String = ""
-    var hailThreat: String = ""
-    private var maxHailSize: String = ""
-    private var tornadoThreat: String = ""
-    var motion: String = ""
-    var extended: String = ""
+    private var nwsHeadLine = ""
+    var windThreat = ""
+    private var maxWindGust = ""
+    var hailThreat = ""
+    private var maxHailSize = ""
+    private var tornadoThreat = ""
+    var motion = ""
+    var extended = ""
 
     fun getClosestRadar(): String {
         return ObjectWarning.getClosestRadarCompute(points)
