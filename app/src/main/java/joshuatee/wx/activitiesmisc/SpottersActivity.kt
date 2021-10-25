@@ -80,7 +80,9 @@ class SpottersActivity : BaseActivity() {
                 return true
             }
         })
-        if (UIPreferences.themeIsWhite) changeSearchViewTextColor(searchView)
+        if (UIPreferences.themeIsWhite) {
+            changeSearchViewTextColor(searchView)
+        }
         return true
     }
 
