@@ -92,7 +92,9 @@ class SpcCompmapActivity : BaseActivity() {
         }
         drw.listView.setItemChecked(position, false)
         drw.drawerLayout.closeDrawer(drw.listView)
-        if (!paramList[position].contains("(on)")) paramList[position] = "(on) " + paramList[position]
+        if (!paramList[position].contains("(on)")) {
+            paramList[position] = "(on) " + paramList[position]
+        }
     }
 
     override fun onRestart() {
