@@ -37,7 +37,7 @@ import joshuatee.wx.util.UtilityShare
 
 class WpcRainfallForecastSummaryActivity : BaseActivity() {
 
-    private var bitmaps = mutableListOf<Bitmap>()
+    private val bitmaps = MutableList(UtilityWpcRainfallForecast.urls.size){ UtilityImg.getBlankBitmap() }
     private var imagesPerRow = 2
     private lateinit var linearLayout: LinearLayout
     private lateinit var objectImageSummary: ObjectImageSummary
@@ -56,7 +56,6 @@ class WpcRainfallForecastSummaryActivity : BaseActivity() {
         }
         title = "Excessive Rainfall Outlooks"
         toolbar.subtitle = "WPC"
-        bitmaps = MutableList(UtilityWpcRainfallForecast.urls.size){ UtilityImg.getBlankBitmap() }
         objectImageSummary = ObjectImageSummary(this@WpcRainfallForecastSummaryActivity, linearLayout, bitmaps)
         getContent()
     }

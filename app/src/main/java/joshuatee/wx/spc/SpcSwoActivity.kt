@@ -41,7 +41,6 @@ import joshuatee.wx.objects.ObjectIntent
 import joshuatee.wx.ui.ObjectLinearLayout
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.UtilityImg
-import joshuatee.wx.util.UtilityLog
 
 class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
@@ -55,7 +54,7 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
     companion object { const val NUMBER = "" }
 
     private var html = ""
-    private var bitmaps = MutableList(5) { UtilityImg.getBlankBitmap() }
+    private val bitmaps = MutableList(5) { UtilityImg.getBlankBitmap() }
     private var urls = listOf<String>()
     private lateinit var activityArguments: Array<String>
     private var day = ""
@@ -178,7 +177,6 @@ class SpcSwoActivity : AudioPlayActivity(), OnMenuItemClickListener {
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         val textToShare = UtilityShare.prepTextForShare(html)
-        UtilityLog.d("wx", textToShare)
         if (audioPlayMenu(item.itemId, html, playlistProd, playlistProd)) {
             return true
         }
