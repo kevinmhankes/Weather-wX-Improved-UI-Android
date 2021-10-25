@@ -22,7 +22,6 @@
 package joshuatee.wx.spc
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -39,7 +38,7 @@ import joshuatee.wx.util.UtilityShortcut
 
 class SpcSwoSummaryActivity : BaseActivity() {
 
-    private var bitmaps = mutableListOf<Bitmap>()
+    private val bitmaps = MutableList(8){ UtilityImg.getBlankBitmap() }
     private var imagesPerRow = 2
     private lateinit var linearLayout: LinearLayout
     private lateinit var objectImageSummary: ObjectImageSummary
@@ -59,10 +58,7 @@ class SpcSwoSummaryActivity : BaseActivity() {
         }
         toolbar.subtitle = "SPC"
         title = "Convective Outlooks"
-
-        bitmaps = MutableList(8){ UtilityImg.getBlankBitmap() }
         objectImageSummary = ObjectImageSummary(this@SpcSwoSummaryActivity, linearLayout, bitmaps)
-
         getContent()
     }
 
