@@ -83,7 +83,7 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
         mapButtonState.clear()
         mapButtonCounty.clear()
         mapButtonZone.clear()
-        val map = TreeMap<String, Int>()
+        val map = mutableMapOf<String, Int>()
         var i = 0
         try {
             val capAlerts = mutableListOf<CapAlert>()
@@ -96,7 +96,7 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
                 val firstZone = if (zones.isNotEmpty()) zones[0] else ""
                 totalAlertsCnt += 1
                 val tmpStateList = zones.asSequence().filter { it.length > 1 }.map { it.substring(0, 2) }
-                val uniqueStates = HashSet(tmpStateList.toMutableList())
+                val uniqueStates = tmpStateList.toSet()
                 uniqueStates.forEach {
                     val frequency = mapState[it]
                     mapState[it] = if (frequency == null) 1 else frequency + 1
@@ -114,7 +114,7 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
                         nwsLoc = ""
                     }
                     val tmp2StateList = zones.asSequence().filter { it.length > 1 }.map { it.substring(0, 2) }
-                    val unique2States = HashSet(tmp2StateList.toMutableList())
+                    val unique2States = tmp2StateList.toSet()
                     unique2States.forEach { state ->
                         val frequencyLocal = map[state]
                         map[state] = if (frequencyLocal == null) 1 else frequencyLocal + 1
