@@ -42,13 +42,9 @@ class ObjectAlertSummary(private val context: Context, private val linearLayout:
         private set
     var filterArray = listOf<String>()
         private set
-//    @SuppressLint("UseSparseArrays")
     private val mapButtonZone = mutableMapOf<Int, String>()
-//    @SuppressLint("UseSparseArrays")
     private val mapButtonNws = mutableMapOf<Int, String>()
-//    @SuppressLint("UseSparseArrays")
     private val mapButtonState = mutableMapOf<Int, String>()
-//    @SuppressLint("UseSparseArrays")
     private val mapButtonCounty = mutableMapOf<Int, String>()
     var bitmap = UtilityImg.getBlankBitmap()
     private var objectCardImageView = ObjectCardImage(context, bitmap)
