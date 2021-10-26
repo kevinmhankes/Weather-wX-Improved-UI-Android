@@ -61,8 +61,8 @@ class ObjectNhc(val context: Context, linearLayout1: LinearLayout) {
     private val objectCardImages = mutableListOf<ObjectCardImage>()
     val urls = mutableListOf<String>()
     private val imageTitles = mutableListOf<String>()
-    private val linearLayoutText: ObjectLinearLayout = ObjectLinearLayout(context, linearLayout1)
-    private val linearLayoutImages: ObjectLinearLayout = ObjectLinearLayout(context, linearLayout1)
+    private val linearLayoutText = ObjectLinearLayout(context, linearLayout1)
+    private val linearLayoutImages = ObjectLinearLayout(context, linearLayout1)
 
     init {
         if (UtilityUI.isLandScape(context)) {
