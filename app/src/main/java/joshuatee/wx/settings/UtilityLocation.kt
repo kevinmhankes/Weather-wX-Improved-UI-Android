@@ -125,7 +125,8 @@ object UtilityLocation {
             currentDistance = LatLon.distance(location, it.location, DistanceUnit.MILE)
             it.distance = currentDistance.toInt()
         }
-        Collections.sort(radarSites, RID.DESCENDING_COMPARATOR)
+//        Collections.sort(radarSites, RID.DESCENDING_COMPARATOR)
+        radarSites.sortBy { it.distance }
         return radarSites.subList(0, count)
     }
 

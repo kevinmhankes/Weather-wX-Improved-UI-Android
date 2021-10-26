@@ -20,7 +20,7 @@
 ```
 [[_TOC_]]
 
-## 55572 2021_10_23
+## 55572 2021_10_26
 * [REF] Lint fix especially move aware from hardcoded text in layout/menu
 * [REF] Lint fix - for menu items change from always to ifRoom if it won't impact anything
 

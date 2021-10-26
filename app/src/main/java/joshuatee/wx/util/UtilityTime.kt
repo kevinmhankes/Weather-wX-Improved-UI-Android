@@ -27,9 +27,7 @@ import java.util.Date
 import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.TimeZone
-
 import joshuatee.wx.Extensions.*
-
 
 object UtilityTime {
 
@@ -182,7 +180,7 @@ object UtilityTime {
 
     fun isVtecCurrent(vtec: String ): Boolean {
         // example 190512T1252Z-190512T1545Z
-        val timeRange = (vtec).parse("-([0-9]{6}T[0-9]{4})Z")
+        val timeRange = vtec.parse("-([0-9]{6}T[0-9]{4})Z")
         val timeInMinutes = decodeVtecTime(timeRange)
         val currentTimeInMinutes = decodeVtecTime(getGmtTimeForVtec())
         return currentTimeInMinutes.before(timeInMinutes)
@@ -191,11 +189,11 @@ object UtilityTime {
     private fun decodeVtecTime(timeRangeOriginal: String): Calendar {
         // Y2K issue
         val timeRange = timeRangeOriginal.replace("T","")
-        val year = ("20" + (timeRange).parse("([0-9]{2})[0-9]{4}[0-9]{4}")).toIntOrNull() ?: 0
-        val month = ((timeRange).parse("[0-9]{2}([0-9]{2})[0-9]{2}[0-9]{4}")).toIntOrNull() ?: 0
-        val day = ((timeRange).parse("[0-9]{4}([0-9]{2})[0-9]{4}")).toIntOrNull() ?: 0
-        val hour = ((timeRange).parse("[0-9]{6}([0-9]{2})[0-9]{2}")).toIntOrNull() ?: 0
-        val minute = ((timeRange).parse("[0-9]{6}[0-9]{2}([0-9]{2})")).toIntOrNull() ?: 0
+        val year = to.Int("20" + timeRange.parse("([0-9]{2})[0-9]{4}[0-9]{4}"))
+        val month = to.Int(timeRange.parse("[0-9]{2}([0-9]{2})[0-9]{2}[0-9]{4}"))
+        val day = to.Int(timeRange.parse("[0-9]{4}([0-9]{2})[0-9]{4}"))
+        val hour = to.Int(timeRange.parse("[0-9]{6}([0-9]{2})[0-9]{2}"))
+        val minute = to.Int(timeRange.parse("[0-9]{6}[0-9]{2}([0-9]{2})"))
         val cal = Calendar.getInstance()
         cal.set(year, month - 1, day, hour, minute)
         return cal
