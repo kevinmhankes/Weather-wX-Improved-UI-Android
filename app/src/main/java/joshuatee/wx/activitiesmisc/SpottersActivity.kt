@@ -160,6 +160,7 @@ class SpottersActivity : BaseActivity() {
             if (res != 0) return@Comparator res
             p1.firstName.compareTo(p2.firstName, ignoreCase = true)
         })
+        // spotterList = spotterList.sortedWith(compareBy({ it.lastName.lowercase() }, { it.firstName.lowercase() })).toMutableList()
         if (firstTime) {
             spotterList2 = mutableListOf()
             spotterList.indices.forEach { spotterList2.add(spotterList[it]) }
