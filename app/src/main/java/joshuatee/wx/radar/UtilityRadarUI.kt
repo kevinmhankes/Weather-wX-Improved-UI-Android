@@ -87,13 +87,13 @@ internal object UtilityRadarUI {
     fun addItemsToLongPress(longPressList: MutableList<String>, lat: String, lon: String, context: Context, wxglSurfaceView: WXGLSurfaceView,
             wxglRender: WXGLRender, longPressDialogue: ObjectDialogue) {
         longPressList.clear()
-        val locX = lat.toDoubleOrNull() ?: 0.0
-        val locY = lon.toDoubleOrNull() ?: 0.0
+        val locX = to.Double(lat)
+        val locY = to.Double(lon)
         val pointX = wxglSurfaceView.newY.toDouble()
         val pointY = wxglSurfaceView.newX * -1.0
         val dist = LatLon.distance(LatLon(locX, locY), LatLon(pointX, pointY), DistanceUnit.MILE)
-        val ridX = Utility.getRadarSiteX(wxglRender.rid).toDoubleOrNull() ?: 0.0
-        val ridY = -1.0 * (Utility.getRadarSiteY(wxglRender.rid).toDoubleOrNull() ?: 0.0)
+        val ridX = to.Double(Utility.getRadarSiteX(wxglRender.rid))
+        val ridY = -1.0 * to.Double(Utility.getRadarSiteY(wxglRender.rid))
         val distRid = LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.MILE)
         val distRidKm = LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.KM)
         // FIXME look at iOS version and try to match in data provided and improve formatting
