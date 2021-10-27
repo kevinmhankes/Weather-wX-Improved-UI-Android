@@ -862,7 +862,7 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
     }
 
     fun constructSwoLines() {
-        val hashSwo = UtilitySwoDayOne.HASH_SWO.toMap()
+        val hashSwo = UtilitySwoDayOne.hashSwo.toMap()
         var coordinates: DoubleArray
         val fSize = (0..4).filter { hashSwo[it] != null }.sumBy { hashSwo.getOrElse(it) { listOf() }.size }
         swoBuffers.breakSize = 15000

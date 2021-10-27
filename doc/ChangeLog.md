@@ -16,6 +16,7 @@
 // TODO [REF] migrate all to Future* (models/radar/LocationFragment)
 // TODO [FIX] textual vwp is not looking to good
 // TODO [FIX] deprecate UtilityUI.makeToastLegacy
+// TODO [ADD] alphabetize prefs in settings
 // TODO [REF] replace String.format with stuff in to.
 ```
 [[_TOC_]]
