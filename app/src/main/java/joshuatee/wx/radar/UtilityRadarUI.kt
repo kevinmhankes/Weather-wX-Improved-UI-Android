@@ -96,7 +96,7 @@ internal object UtilityRadarUI {
         val ridY = -1.0 * to.Double(Utility.getRadarSiteY(wxglRender.rid))
         val distRid = LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.MILE)
         val distRidKm = LatLon.distance(LatLon(ridX, ridY), LatLon(pointX, pointY), DistanceUnit.KM)
-        // FIXME look at iOS version and try to match in data provided and improve formatting
+        // TODO FIXME look at iOS version and try to match in data provided and improve formatting
         val latLonTitle = UtilityStringExternal.truncate(wxglSurfaceView.newY.toString(), 6) + ", -" + UtilityStringExternal.truncate(wxglSurfaceView.newX.toString(), 6)
         longPressDialogue.setTitle(latLonTitle)
         longPressList.add(UtilityStringExternal.truncate(dist.toString(), 6) + " miles from location")
@@ -114,6 +114,7 @@ internal object UtilityRadarUI {
         }
         longPressList += wxglRender.ridNewList.map { "Radar: (" + it.distance + " mi) " + it.name + " " + Utility.getRadarSiteName(it.name) }
         val obsSite = UtilityMetar.findClosestObservation(context, wxglSurfaceView.latLon)
+        // FIXME TODO what is this doing?
         ObjectPolygonWarning.isCountNonZero()
         if ((MyApplication.radarWarnings || ObjectPolygonWarning.areAnyEnabled()) && ObjectPolygonWarning.isCountNonZero()) {
             longPressList.add("Show Warning text")
