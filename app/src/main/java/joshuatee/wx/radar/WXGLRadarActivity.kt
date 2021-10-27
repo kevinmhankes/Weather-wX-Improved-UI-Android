@@ -23,7 +23,6 @@ package joshuatee.wx.radar
 
 import android.annotation.SuppressLint
 import java.io.File
-
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -41,17 +40,14 @@ import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import android.os.Handler
 import android.os.Looper
 import android.view.*
-
 import joshuatee.wx.R
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.telecine.TelecineService
 import joshuatee.wx.MyApplication
 import joshuatee.wx.settings.SettingsRadarActivity
 import joshuatee.wx.ui.*
-
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.UIPreferences
-
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.activitiesmisc.SevereDashboardActivity
 import joshuatee.wx.objects.ObjectIntent
@@ -61,6 +57,7 @@ import kotlinx.coroutines.*
 
 class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
+    //
     // This activity is a general purpose viewer of nexrad and mosaic content
     // nexrad data is downloaded from NWS FTP, decoded and drawn using OpenGL ES
     //
@@ -163,6 +160,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
         toolbar.setOnClickListener { ObjectIntent(this, SevereDashboardActivity::class.java) }
         UtilityUI.immersiveMode(this)
         if (UIPreferences.radarStatusBarTransparent) {
+//            This constant was deprecated in API level 30.
+//            Use Window#setStatusBarColor(int) with a half-translucent color instead.
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             window.statusBarColor = Color.TRANSPARENT
         }

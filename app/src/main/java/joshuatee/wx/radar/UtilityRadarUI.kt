@@ -129,7 +129,7 @@ internal object UtilityRadarUI {
             longPressList.add("Show MPD text")
         }
         // end Thanks to Ely
-        longPressList.add("Show nearest observation: " + obsSite.name)
+        longPressList.add("Show nearest observation: " + obsSite.name + " (" + obsSite.distance.toString() + " mi)")
         longPressList.add("Show nearest forecast: $latLonTitle")
         longPressList.add("Show nearest meteogram: " + obsSite.name)
         longPressList.add("Show radar status message: " + wxglRender.rid)
