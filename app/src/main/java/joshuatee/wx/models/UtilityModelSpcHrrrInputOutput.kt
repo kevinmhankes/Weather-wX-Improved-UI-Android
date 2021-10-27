@@ -93,10 +93,9 @@ internal object UtilityModelSpcHrrrInputOutput {
         val format = SimpleDateFormat("yyyyMMddHH", Locale.US)
         val parsed: Date
         val oneMinuteInMillis: Long = 60000
-        val t: Long
         try {
             parsed = format.parse(run)!!
-            t = parsed.time
+            val t = parsed.time
             return format.format(Date(t  + 60 * oneMinuteInMillis * validTimeForecast.toLong()))
         } catch (e: Exception) {
             UtilityLog.handleException(e)
