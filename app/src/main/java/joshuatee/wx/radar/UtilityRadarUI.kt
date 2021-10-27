@@ -159,8 +159,14 @@ internal object UtilityRadarUI {
         }
     }
 
-    fun initGlviewFragment(wxglSurfaceView: WXGLSurfaceView, index: Int, wxglRenders: MutableList<WXGLRender>, wxglSurfaceViews: MutableList<WXGLSurfaceView>,
-            wxglTextObjects: MutableList<WXGLTextObject>, changeListener: WXGLSurfaceView.OnProgressChangeListener): Boolean {
+    fun initGlviewFragment(
+            wxglSurfaceView: WXGLSurfaceView,
+            index: Int,
+            wxglRenders: MutableList<WXGLRender>,
+            wxglSurfaceViews: MutableList<WXGLSurfaceView>,
+            wxglTextObjects: MutableList<WXGLTextObject>,
+            changeListener: WXGLSurfaceView.OnProgressChangeListener
+    ): Boolean {
         wxglSurfaceView.setEGLContextClientVersion(2)
         wxglTextObjects[index].setWXGLRender(wxglRenders[index])
         wxglRenders[index].indexString = index.toString()
@@ -173,9 +179,17 @@ internal object UtilityRadarUI {
         return true
     }
 
-    fun initGlView(wxglSurfaceView: WXGLSurfaceView, wxglSurfaceViews: MutableList<WXGLSurfaceView>, wxglRender: WXGLRender,
-            wxglRenders: MutableList<WXGLRender>, activity: Activity, toolbar: Toolbar, toolbarBottom: Toolbar,
-            changeListener: WXGLSurfaceView.OnProgressChangeListener, archiveMode: Boolean = false) {
+    fun initGlView(
+            wxglSurfaceView: WXGLSurfaceView,
+            wxglSurfaceViews: MutableList<WXGLSurfaceView>,
+            wxglRender: WXGLRender,
+            wxglRenders: MutableList<WXGLRender>,
+            activity: Activity,
+            toolbar: Toolbar,
+            toolbarBottom: Toolbar,
+            changeListener: WXGLSurfaceView.OnProgressChangeListener,
+            archiveMode: Boolean = false
+    ) {
         wxglSurfaceView.setEGLContextClientVersion(2)
         wxglSurfaceView.setRenderer(wxglRender)
         wxglSurfaceView.setRenderVar(wxglRender, wxglRenders, wxglSurfaceViews, activity)
@@ -288,7 +302,15 @@ internal object UtilityRadarUI {
         }.start()
     }
 
-    fun plotRadar(wxglRender: WXGLRender, urlString: String, context: Context, fnGps: () -> Unit, fnGetLatLon: () -> LatLon, showExtras: Boolean, archiveMode: Boolean = false) {
+    fun plotRadar(
+            wxglRender: WXGLRender,
+            urlString: String,
+            context: Context,
+            fnGps: () -> Unit,
+            fnGetLatLon: () -> LatLon,
+            showExtras: Boolean,
+            archiveMode: Boolean = false
+    ) {
         wxglRender.constructPolygons("", urlString, true)
         // work-around for a bug in which raster doesn't show on first launch
         if (wxglRender.product == "NCR" || wxglRender.product == "NCZ") wxglRender.constructPolygons("", urlString, true)
