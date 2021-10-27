@@ -17,6 +17,7 @@
 // TODO [FIX] textual vwp is not looking to good
 // TODO [FIX] deprecate UtilityUI.makeToastLegacy
 // TODO [ADD] alphabetize prefs in settings
+// TODO [ADD] have nexrad long press verbiage match iOS version
 // TODO [REF] replace String.format with stuff in to.
 ```
 [[_TOC_]]
