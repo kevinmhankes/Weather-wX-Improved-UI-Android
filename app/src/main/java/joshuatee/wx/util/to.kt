@@ -27,6 +27,10 @@ object to {
         return s.toIntOrNull() ?: 0
     }
 
+    fun Float(s: String): Float {
+        return s.toFloatOrNull() ?: 0.0f
+    }
+
     fun Double(s: String): Double {
         return s.toDoubleOrNull() ?: 0.0
     }
