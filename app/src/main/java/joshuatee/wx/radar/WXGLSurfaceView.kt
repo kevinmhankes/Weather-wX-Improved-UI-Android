@@ -31,13 +31,11 @@ import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.TextView
-
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.ui.UtilityUI
 import joshuatee.wx.util.Utility
-
 import kotlin.math.*
 
 class WXGLSurfaceView : GLSurfaceView, GestureDetector.OnGestureListener,

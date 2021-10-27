@@ -27,7 +27,6 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
-
 import joshuatee.wx.MyApplication
 import joshuatee.wx.R
 import joshuatee.wx.objects.GeographyType
@@ -51,14 +50,14 @@ class WXGLTextObject(
     private var citiesInitialized = false
     private var countyLabelsInitialized = false
     private var observationsInitialized = false
-    private var spotterLat = 0.toDouble()
-    private var spotterLon = 0.toDouble()
+    private var spotterLat = 0.0
+    private var spotterLon = 0.0
     private var maxCitiesPerGlview = 16
     private val glviewWidth: Int
     private val glviewHeight: Int
-    private var scale = 0.toFloat()
-    private var oglrZoom = 0.toFloat()
-    private var textSize = 0.toFloat()
+    private var scale = 0.0f
+    private var oglrZoom = 0.0f
+    private var textSize = 0.0f
     private var projectionNumbers: ProjectionNumbers
     private val textViewFudgeFactor = 4.05f
 
@@ -85,7 +84,7 @@ class WXGLTextObject(
             if (wxglRender.zoom < 1.00f) oglrZoom = wxglRender.zoom * 0.8f
             textSize = MyApplication.textSizeSmall * oglrZoom * 0.75f * MyApplication.radarTextSize
             val cityMinZoom = 0.50
-            UtilityLog.d("WX", "DEBUG: " + wxglRender.zoom.toString() + " " + cityMinZoom.toString())
+            // UtilityLog.d("WX", "DEBUG: " + wxglRender.zoom.toString() + " " + cityMinZoom.toString())
             if (wxglRender.zoom > cityMinZoom) {
                 val cityExtLength = UtilityCitiesExtended.cities.size
                 for (index in 0 until cityExtLength) {

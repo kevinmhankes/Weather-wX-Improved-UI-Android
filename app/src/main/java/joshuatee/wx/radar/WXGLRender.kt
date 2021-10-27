@@ -25,14 +25,12 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
-
 import android.content.Context
 import android.graphics.Color
 import android.opengl.GLSurfaceView.Renderer
 import android.opengl.GLES20
 import android.opengl.Matrix
 import joshuatee.wx.Extensions.isEven
-
 import joshuatee.wx.Jni
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.GeographyType
@@ -44,9 +42,12 @@ import joshuatee.wx.util.*
 
 class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
 
+    //
     // The is the OpenGL rendering engine that is used on the main screen and the main radar interface
-    // The goal is to be highly performant and configurable as such this module relies on C code accessed via JNI extensively
-    // Java can also be used in set in settings->radar
+    // The goal is to be highly performant and configurable as such this module used to rely on C code accessed via JNI extensively
+    // Kotlin can also be used in set in settings->radar and has been the default since 2017 as the performance is quite good
+    // and it's much easier to debug issue
+    //
 
     companion object {
         var ridGlobal = ""
