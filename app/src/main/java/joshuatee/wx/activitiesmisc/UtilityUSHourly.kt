@@ -118,7 +118,7 @@ object UtilityUSHourly {
         startTime.indices.forEach {
             val time = UtilityTime.translateTimeForHourly(startTime[it].replace(Regex("-0[0-9]:00"), ""))
             // content += String.format("%-8s", time)
-            content += joshuatee.wx.util.to.StringPadLeft(time, 8)
+            content += to.StringPadLeft(time, 8)
             if (temperature.size > it) {
                 // content += String.format("%-5s", temperature[it].replace("\"",""))
                 content += to.StringPadLeft(temperature[it].replace("\"",""), 5)

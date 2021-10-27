@@ -39,9 +39,9 @@ object to {
         return String.format("%0" + padAmount.toString() + "d", s)
     }
 
-    fun StringFromFloatFixed(d: Double, precision: Int): String {
-        return String.format(  "%." + precision.toString() + "f", d)
-    }
+//    fun stringFromFloatFixed(d: Double, precision: Int): String {
+//        return String.format(  "%." + precision.toString() + "f", d)
+//    }
 }
 
 
