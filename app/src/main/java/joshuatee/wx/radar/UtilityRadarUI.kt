@@ -206,44 +206,44 @@ internal object UtilityRadarUI {
             wxglRender.setChunkCountSti(0)
             wxglRender.setHiInit(false)
             wxglRender.setTvsInit(false)
-            Thread(Runnable {
+            Thread {
                 wxglRender.constructStateLines()
                 wxglSurfaceView.requestRender()
-            }).start()
-            Thread(Runnable {
+            }.start()
+            Thread {
                 if (GeographyType.LAKES.pref) wxglRender.constructLakes() else wxglRender.deconstructLakes()
-            }).start()
-            Thread(Runnable {
+            }.start()
+            Thread {
                 if (GeographyType.COUNTY_LINES.pref) {
                     wxglRender.constructCounty()
                     wxglSurfaceView.requestRender()
                 } else
                     wxglRender.deconstructCounty()
-            }).start()
-            Thread(Runnable {
+            }.start()
+            Thread {
                 if (GeographyType.HIGHWAYS.pref) {
                     wxglRender.constructHWLines()
                     wxglSurfaceView.requestRender()
                 } else
                     wxglRender.deconstructHWLines()
-            }).start()
-            Thread(Runnable {
+            }.start()
+            Thread {
                 if (MyApplication.radarHwEnhExt) {
                     wxglRender.constructHWEXTLines()
                     wxglSurfaceView.requestRender()
                 } else
                     wxglRender.deconstructHWEXTLines()
-            }).start()
+            }.start()
             wxglTextObjects[index].addLabels()
             oldRadarSites[index] = wxglRenders[index].rid
         }
-        Thread(Runnable {
+        Thread {
             if (PolygonType.TST.pref && !archiveMode) wxglRender.constructWarningLines() else wxglRender.deconstructWarningLines()
             if (PolygonType.MCD.pref && !archiveMode) wxglRender.constructWatchMcdLines() else wxglRender.deconstructWatchMcdLines()
             if (PolygonType.MPD.pref && !archiveMode) wxglRender.constructMpdLines() else wxglRender.deconstructMpdLines()
             wxglRender.constructGenericWarningLines()
             wxglSurfaceView.requestRender()
-        }).start()
+        }.start()
         if (MyApplication.locationDotFollowsGps) fnGps()
         if (PolygonType.LOCDOT.pref || MyApplication.locationDotFollowsGps) {
             val latLon = fnGetLatLon()
@@ -257,34 +257,34 @@ internal object UtilityRadarUI {
     }
 
     fun plotWarningPolygons(wxglSurfaceView: WXGLSurfaceView, wxglRender: WXGLRender, archiveMode: Boolean = false) {
-        Thread(Runnable {
+        Thread {
             if (PolygonType.TST.pref && !archiveMode) wxglRender.constructWarningLines() else wxglRender.deconstructWarningLines()
             wxglRender.constructGenericWarningLines()
             wxglSurfaceView.requestRender()
-        }).start()
+        }.start()
     }
 
     fun plotMcdWatchPolygons(wxglSurfaceView: WXGLSurfaceView, wxglRender: WXGLRender, archiveMode: Boolean = false) {
-        Thread(Runnable {
+        Thread {
             if (PolygonType.MCD.pref && !archiveMode) wxglRender.constructWatchMcdLines() else wxglRender.deconstructWatchMcdLines()
             wxglRender.constructGenericWarningLines()
             wxglSurfaceView.requestRender()
-        }).start()
+        }.start()
     }
 
     fun plotMpdPolygons(wxglSurfaceView: WXGLSurfaceView, wxglRender: WXGLRender, archiveMode: Boolean = false) {
-        Thread(Runnable {
+        Thread {
             if (PolygonType.MPD.pref && !archiveMode) wxglRender.constructMpdLines() else wxglRender.deconstructMpdLines()
             wxglRender.constructGenericWarningLines()
             wxglSurfaceView.requestRender()
-        }).start()
+        }.start()
     }
 
     fun plotWpcFronts(wxglSurfaceView: WXGLSurfaceView, wxglRender: WXGLRender, archiveMode: Boolean = false) {
-        Thread(Runnable {
+        Thread {
             if (MyApplication.radarShowWpcFronts && !archiveMode) wxglRender.constructWpcFronts() else wxglRender.deconstructWpcFronts()
             wxglSurfaceView.requestRender()
-        }).start()
+        }.start()
     }
 
     fun plotRadar(wxglRender: WXGLRender, urlString: String, context: Context, fnGps: () -> Unit, fnGetLatLon: () -> LatLon, showExtras: Boolean, archiveMode: Boolean = false) {
