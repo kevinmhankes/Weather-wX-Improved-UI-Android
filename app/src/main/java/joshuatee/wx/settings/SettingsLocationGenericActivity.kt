@@ -49,7 +49,7 @@ import joshuatee.wx.ui.*
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityMap
 
-class SettingsLocationGenericActivity : BaseActivity(), OnMenuItemClickListener { // OnCheckedChangeListener OnClickListener
+class SettingsLocationGenericActivity : BaseActivity(), OnMenuItemClickListener {
 
     //
     // manual interface for searching and saving a location
@@ -106,15 +106,15 @@ class SettingsLocationGenericActivity : BaseActivity(), OnMenuItemClickListener 
         title = "Location $locNum"
         locXStr = Utility.readPref(this, "LOC" + locNum + "_X", "")
         locYStr = Utility.readPref(this, "LOC" + locNum + "_Y", "")
-        var alertNotificationCurrent: String = Utility.readPref(this, "ALERT" + locNum + "_NOTIFICATION", "false")
-        var alertNotificationRadarCurrent: String = Utility.readPref(this, "ALERT_NOTIFICATION_RADAR$locNum", "false")
-        var alertCcNotificationCurrent: String = Utility.readPref(this, "ALERT_CC" + locNum + "_NOTIFICATION", "false")
-        var alert7Day1NotificationCurrent: String = Utility.readPref(this, "ALERT_7DAY_" + locNum + "_NOTIFICATION", "false")
-        var alertNotificationSoundCurrent: String = Utility.readPref(this, "ALERT_NOTIFICATION_SOUND$locNum", "false")
-        var alertNotificationMcdCurrent: String = Utility.readPref(this, "ALERT_NOTIFICATION_MCD$locNum", "false")
-        var alertNotificationSwoCurrent: String = Utility.readPref(this, "ALERT_NOTIFICATION_SWO$locNum", "false")
-        var alertNotificationSpcfwCurrent: String = Utility.readPref(this, "ALERT_NOTIFICATION_SPCFW$locNum", "false")
-        var alertNotificationWpcmpdCurrent: String = Utility.readPref(this, "ALERT_NOTIFICATION_WPCMPD$locNum", "false")
+        var alertNotificationCurrent = Utility.readPref(this, "ALERT" + locNum + "_NOTIFICATION", "false")
+        var alertNotificationRadarCurrent = Utility.readPref(this, "ALERT_NOTIFICATION_RADAR$locNum", "false")
+        var alertCcNotificationCurrent = Utility.readPref(this, "ALERT_CC" + locNum + "_NOTIFICATION", "false")
+        var alert7Day1NotificationCurrent = Utility.readPref(this, "ALERT_7DAY_" + locNum + "_NOTIFICATION", "false")
+        var alertNotificationSoundCurrent = Utility.readPref(this, "ALERT_NOTIFICATION_SOUND$locNum", "false")
+        var alertNotificationMcdCurrent = Utility.readPref(this, "ALERT_NOTIFICATION_MCD$locNum", "false")
+        var alertNotificationSwoCurrent = Utility.readPref(this, "ALERT_NOTIFICATION_SWO$locNum", "false")
+        var alertNotificationSpcfwCurrent = Utility.readPref(this, "ALERT_NOTIFICATION_SPCFW$locNum", "false")
+        var alertNotificationWpcmpdCurrent = Utility.readPref(this, "ALERT_NOTIFICATION_WPCMPD$locNum", "false")
         locLabelCurrent = Utility.readPref(this, "LOC" + locNum + "_LABEL", "")
         // If this this is a new location
         if (locNumInt == Location.numLocations + 1) {
