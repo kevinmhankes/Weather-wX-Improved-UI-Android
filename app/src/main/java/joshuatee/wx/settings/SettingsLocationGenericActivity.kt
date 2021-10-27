@@ -227,16 +227,6 @@ class SettingsLocationGenericActivity : BaseActivity(), OnMenuItemClickListener 
             linearLayout.addView(it.card)
         }
         hideNonUSNotifications()
-        /*if (locNumArr[1] != "") {
-            if (locNumArr[1] == " roaming") {
-                locLabelEt.setText(locNumArr[1].toUpperCase(Locale.US))
-                gpsAndSave(locNum, locNumArr[1].toUpperCase(Locale.US))
-            } else {
-                val addrSend = locNumArr[1].replace(" ", "+")
-                locLabelEt.setText(locNumArr[1])
-                addressSearchAndSave(locNum, addrSend, locNumArr[1])
-            }
-        }*/
     }
 
     override fun onRestart() {
@@ -358,8 +348,6 @@ class SettingsLocationGenericActivity : BaseActivity(), OnMenuItemClickListener 
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 locLabelEt.setText(query)
-                //val addressToSend = query.replace(" ", "+")
-                //addressSearch(addressToSend)
                 val searchViewLocal = menuLocal!!.findItem(R.id.ab_search).actionView as SearchView
                 searchViewLocal.onActionViewCollapsed()
                 return false
@@ -502,10 +490,8 @@ class SettingsLocationGenericActivity : BaseActivity(), OnMenuItemClickListener 
         if (requestCode == requestOk && resultCode == Activity.RESULT_OK) {
             val thingsYouSaid = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
             showMessage(thingsYouSaid!![0])
-            val addrStrTmp = thingsYouSaid[0]
-            locLabelEt.setText(addrStrTmp)
-            //val addrSend = addrStrTmp.replace(" ", "+")
-            //addressSearchAndSave(locNum, addrSend, addrStrTmp)
+            val addressStrTmp = thingsYouSaid[0]
+            locLabelEt.setText(addressStrTmp)
         }
     }
 
