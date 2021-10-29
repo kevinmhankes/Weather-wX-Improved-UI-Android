@@ -38,7 +38,7 @@ internal object UtilityModelNsslWrfInputOutput {
     val runTime: RunTimeData
         get() {
             val runData = RunTimeData()
-            val htmlRunStatus = (baseUrl).getHtml()
+            val htmlRunStatus = baseUrl.getHtml()
             val html = htmlRunStatus.parse("\\{model: \"fv3_nssl\",(rd: .[0-9]{8}\",rt: .[0-9]{4}\",)")
             val day = html.parse("rd:.(.*?),.*?").replace("\"", "")
             val time = html.parse("rt:.(.*?)00.,.*?").replace("\"", "")
