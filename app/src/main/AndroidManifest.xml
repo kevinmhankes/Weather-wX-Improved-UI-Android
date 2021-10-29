@@ -273,11 +273,6 @@
       android:label="@string/title_activity_uswarnings_with_radar_v3"
       android:parentActivityName="WX" >
   </activity>
-<!--  <activity
-      android:name=".activitiesmisc.USWarningsImpactActivity"
-      android:label=""
-      android:parentActivityName="WX" >
-  </activity>-->
   <activity
       android:name=".spc.SpcCompmapActivity"
       android:label="@string/title_activity_spccompmap"
@@ -308,11 +303,6 @@
       android:label="@string/title_activity_spcsoundings"
       android:parentActivityName="WX" >
   </activity>
-<!--  <activity
-      android:name=".radar.USNwsMosaicActivity"
-      android:label="@string/title_activity_nwsmosaic"
-      android:parentActivityName="WX" >
-  </activity>-->
   <activity
       android:name=".activitiesmisc.WfoTextActivity"
       android:label=""
@@ -496,10 +486,6 @@
       android:label=""
       android:parentActivityName="WX" >
   </activity>
-<!--  <activity-->
-<!--      android:name=".canada.CanadaRadarActivity"-->
-<!--      android:parentActivityName="WX" >-->
-<!--  </activity>-->
   <activity
       android:name=".settings.SettingsLocationCanadaActivity"
       android:parentActivityName="WX" >
@@ -624,10 +610,6 @@
       android:theme="@style/Theme.Telecine.Transparent"
       android:parentActivityName="WX"
       />
-
-
-
-
 
   <!-- The widget provider android:icon="@drawable/widgetsevenday" -->
   <receiver
