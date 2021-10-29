@@ -79,7 +79,6 @@ object UIPreferences {
         MyApplication.textSizeSmall = UtilityUI.spToPx(normalTextSize - 2, context)
         MyApplication.textSizeNormal = UtilityUI.spToPx(normalTextSize, context)
         MyApplication.textSizeLarge = UtilityUI.spToPx(normalTextSize + 5, context)
-        // useAwcRadarMosaic = Utility.readPref(context, "USE_AWC_RADAR_MOSAIC", "false").startsWith("t")
         locfragDontShowIcons = Utility.readPref(context, "UI_LOCFRAG_NO_ICONS", "false").startsWith("t")
         mainScreenRadarFab = Utility.readPref(context, "UI_MAIN_SCREEN_RADAR_FAB", "true").startsWith("t")
         homescreenTextLength = Utility.readPref(context, "HOMESCREEN_TEXT_LENGTH_PREF", 500)
