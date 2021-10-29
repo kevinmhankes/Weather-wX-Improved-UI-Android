@@ -24,7 +24,6 @@ package joshuatee.wx.util
 import java.util.Locale
 import android.content.Context
 import android.graphics.Bitmap
-
 import joshuatee.wx.MyApplication
 import joshuatee.wx.activitiesmisc.UtilityLightning
 import joshuatee.wx.activitiesmisc.UtilityUSHourly
@@ -32,7 +31,6 @@ import joshuatee.wx.audio.UtilityPlayList
 import joshuatee.wx.settings.Location
 import joshuatee.wx.settings.UtilityLocation
 import joshuatee.wx.spc.*
-
 import joshuatee.wx.Extensions.*
 import joshuatee.wx.RegExp
 import joshuatee.wx.UIPreferences
@@ -44,44 +42,18 @@ object UtilityDownload {
     private const val useNwsApi = false
 
     fun getRadarMosaic(context: Context): Bitmap {
-        val location = Location.currentLocationStr
-        val radarSite = Location.getRid(context, location)
-        var bitmap = UtilityImg.getBlankBitmap()
-        try {
-            if (!UIPreferences.useAwcRadarMosaic) {
-                val ridLoc = Utility.getRadarSiteName(radarSite)
-                // val nwsLocationArr = ridLoc.split(",").dropLastWhile { it.isEmpty() }
-                // val state = nwsLocationArr[0]
-                var k = Utility.readPref(context, "WIDGET_RADAR_LEVEL", "1km")
-                when (k) {
-                    "regional" -> k = "regional"
-                    "usa" -> k = "usa"
-                }
-                bitmap = if (Location.isUS(location)) {
-//                    if (k == "usa") {
-//                        UtilityUSImgNwsMosaic.get(context, "latest", false)
-//                    } else {
-//                        UtilityUSImgNwsMosaic.get(context, UtilityUSImgNwsMosaic.getSectorFromState(state), false)
-//                    }
-                    UtilityImg.getBlankBitmap()
-                } else {
-                    val province = Utility.readPref(context, "NWS" + location + "_STATE", "")
-//                    UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, UtilityCanada.getSectorFromProvince(province))
-                    UtilityImg.getBlankBitmap()
-                }
-            } else {
-                var product = "rad_rala"
-                val prefTokenSector = "AWCMOSAIC_SECTOR_LAST_USED"
-                val prefTokenProduct = "AWCMOSAIC_PRODUCT_LAST_USED"
-                var sector = "us"
-                sector = Utility.readPref(context, prefTokenSector, sector)
-                product = Utility.readPref(context, prefTokenProduct, product)
-                bitmap = UtilityAwcRadarMosaic.get(sector, product)
-            }
+        return try {
+            var product = "rad_rala"
+            val prefTokenSector = "AWCMOSAIC_SECTOR_LAST_USED"
+            val prefTokenProduct = "AWCMOSAIC_PRODUCT_LAST_USED"
+            var sector = "us"
+            sector = Utility.readPref(context, prefTokenSector, sector)
+            product = Utility.readPref(context, prefTokenProduct, product)
+            UtilityAwcRadarMosaic.get(sector, product)
         } catch (e: Exception) {
             UtilityLog.handleException(e)
+            UtilityImg.getBlankBitmap()
         }
-        return bitmap
     }
 
     fun getImageProduct(context: Context, product: String): Bitmap {
@@ -97,13 +69,7 @@ object UtilityDownload {
             "VIS_1KM", "VIS_MAIN" -> needsBitmap = false
             "CARAIN" -> if (Location.x.contains("CANADA")) {
                 needsBitmap = false
-                var rid = Location.rid
-                if (rid == "NAT") rid = "CAN"
-                bitmap = when (rid) {
-//                    "CAN", "PAC", "WRN", "ONT", "QUE", "ERN" -> UtilityCanadaImg.getRadarMosaicBitmapOptionsApplied(context, rid)
-//                    else -> UtilityCanadaImg.getRadarBitmapOptionsApplied(context, rid, "")
-                    else -> UtilityImg.getBlankBitmap()
-                }
+                bitmap = UtilityImg.getBlankBitmap()
             }
             "RAD_2KM" -> {
                 needsBitmap = false
