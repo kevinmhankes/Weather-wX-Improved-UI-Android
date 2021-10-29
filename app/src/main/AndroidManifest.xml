@@ -348,11 +348,6 @@
       android:parentActivityName="WX" >
   </activity>
   <activity
-      android:name=".audio.SettingsPlaylistAutodownloadActivity"
-      android:label="@string/title_activity_settings_playlist_autodownload"
-      android:parentActivityName="WX" >
-  </activity>
-  <activity
       android:name=".activitiesmisc.ImageShowActivity"
       android:parentActivityName="WX" >
   </activity>

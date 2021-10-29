@@ -136,7 +136,6 @@ class SettingsPlaylistActivity : BaseActivity(), OnMenuItemClickListener {
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-//            R.id.action_autodownload -> ObjectIntent(this, SettingsPlaylistAutodownloadActivity::class.java)
             R.id.action_add -> diaMain.show()
             R.id.action_afd -> diaAfd.show()
             else -> return super.onOptionsItemSelected(item)
