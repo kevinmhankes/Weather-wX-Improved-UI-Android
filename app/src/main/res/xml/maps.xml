@@ -1,6 +1,5 @@
 <!--?xml version="1.0" encoding="utf-8"?-->
 <maps>
-
     <map name="soundings">
         <area
             coords="47,10,5"
@@ -3287,6 +3286,4 @@ oodland, KS"
             shape="rect"
             title="Whitehorse" />
     </map>
-
-
 </maps>
