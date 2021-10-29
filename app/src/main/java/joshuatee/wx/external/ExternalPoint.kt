@@ -21,7 +21,7 @@ https://github.com/sromku/polygon-contains-point
 */
 
 import joshuatee.wx.radar.LatLon
-import java.util.Locale
+//import java.util.Locale
 
 /**
  * Point on 2D landscape
@@ -32,5 +32,5 @@ class ExternalPoint(val x: Float, val y: Float) {
 
     constructor(latLon: LatLon): this(latLon.lat.toFloat(), latLon.lon.toFloat())
 
-    override fun toString() = String.format(Locale.US, "(%.2f,%.2f)", x, y)
+//    override fun toString() = String.format(Locale.US, "(%.2f,%.2f)", x, y)
 }
