@@ -10,8 +10,8 @@
 package joshuatee.wx.external
 
 import joshuatee.wx.radar.LatLon
-import java.io.Serializable
-import kotlin.math.abs
+//import java.io.Serializable
+//import kotlin.math.abs
 
 /**
  *
@@ -39,7 +39,7 @@ import kotlin.math.abs
  */
 /** Latitude in degrees. Negative latitude is southern hemisphere.  */
 /** Longitude in degrees. Negative longitude is western hemisphere.  */
-open class ExternalGlobalCoordinates (private var mLatitude: Double, private var mLongitude: Double) : Comparable<ExternalGlobalCoordinates>, Serializable {
+open class ExternalGlobalCoordinates (private var mLatitude: Double, private var mLongitude: Double)  { // : Comparable<ExternalGlobalCoordinates>, Serializable
     /**
      * Get latitude.
      *
@@ -108,44 +108,44 @@ open class ExternalGlobalCoordinates (private var mLatitude: Double, private var
      * are less than eastern logitudes. If longitudes are equal, then southern
      * latitudes are less than northern latitudes.
      *
-     * @param other instance to compare to
-     * @return -1, 0, or +1 as per Comparable contract
+     * param: other instance to compare to
+     * return: -1, 0, or +1 as per Comparable contract
      */
-    override fun compareTo(other: ExternalGlobalCoordinates) = when {
-            mLongitude < other.mLongitude -> -1
-            mLongitude > other.mLongitude -> +1
-            mLatitude < other.mLatitude -> -1
-            mLatitude > other.mLatitude -> +1
-            else -> 0
-        }
+//    override fun compareTo(other: ExternalGlobalCoordinates) = when {
+//            mLongitude < other.mLongitude -> -1
+//            mLongitude > other.mLongitude -> +1
+//            mLatitude < other.mLatitude -> -1
+//            mLatitude > other.mLatitude -> +1
+//            else -> 0
+//        }
     /**
      * Get a hash code for these coordinates.
      *
      * @return
      */
-    override fun hashCode() = (mLongitude * mLatitude * 1000000.0 + 1021).toInt() * 1000033
+//    override fun hashCode() = (mLongitude * mLatitude * 1000000.0 + 1021).toInt() * 1000033
     /**
      * Compare these coordinates to another object for equality.
      *
      * @param
      * @return
      */
-    override fun equals(obj: Any?): Boolean {
-        if (obj !is ExternalGlobalCoordinates) return false
-        val other = obj as ExternalGlobalCoordinates?
-        return mLongitude == other!!.mLongitude && mLatitude == other.mLatitude
-    }
+//    override fun equals(obj: Any?): Boolean {
+//        if (obj !is ExternalGlobalCoordinates) return false
+//        val other = obj as ExternalGlobalCoordinates?
+//        return mLongitude == other!!.mLongitude && mLatitude == other.mLatitude
+//    }
     /**
      * Get coordinates as a string.
      */
-    override fun toString(): String {
-        val buffer = StringBuffer()
-        buffer.append(abs(mLatitude))
-        buffer.append(if (mLatitude >= 0) 'N' else 'S')
-        buffer.append(';')
-        buffer.append(abs(mLongitude))
-        buffer.append(if (mLongitude >= 0) 'E' else 'W')
-        buffer.append(';')
-        return buffer.toString()
-    }
+//    override fun toString(): String {
+//        val buffer = StringBuffer()
+//        buffer.append(abs(mLatitude))
+//        buffer.append(if (mLatitude >= 0) 'N' else 'S')
+//        buffer.append(';')
+//        buffer.append(abs(mLongitude))
+//        buffer.append(if (mLongitude >= 0) 'E' else 'W')
+//        buffer.append(';')
+//        return buffer.toString()
+//    }
 }
