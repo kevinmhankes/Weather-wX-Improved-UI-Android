@@ -25,13 +25,14 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
 import joshuatee.wx.Extensions.getImage
+import joshuatee.wx.util.to
 import joshuatee.wx.util.UtilityImgAnim
 
 internal object UtilityModelGlcfsInputOutput {
 
     fun getImage(om: ObjectModelNoSpinner, timeOriginal: String): Bitmap {
         var time = timeOriginal.replace("00", "0")
-        val timeInt = time.toIntOrNull() ?: 0
+        val timeInt = to.Int(time)
         if (timeInt > 9) {
             time = time.replace(Regex("^0"), "")
         }

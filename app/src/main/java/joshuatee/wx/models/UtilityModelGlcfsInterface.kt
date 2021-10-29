@@ -25,7 +25,9 @@ internal object UtilityModelGlcfsInterface {
 
     // http://www.glerl.noaa.gov/res/glcfs
 
-    val models = listOf("GLCFS")
+    val models = listOf(
+            "GLCFS"
+    )
 
     val sectors = listOf(
         "All Lakes"

@@ -94,9 +94,6 @@ internal object UtilityModelEsrlInputOutput {
         return runData
     }
 
-    // https://rapidrefresh.noaa.gov/RAP/for_web/rap_jet/2016091600/full/cref_sfc_f00.png
-    // https://rapidrefresh.noaa.gov/HRRR/for_web/hrrr_jet/2016091607/full/1ref_sfc_f00.png
-
     fun getImage(om: ObjectModelNoSpinner, time: String): Bitmap {
         var parentModel = ""
         when (om.model) {
