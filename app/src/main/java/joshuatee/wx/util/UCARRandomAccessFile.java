@@ -80,7 +80,7 @@ public class UCARRandomAccessFile implements DataInput, DataOutput {
 	private static final List<String> openFiles = Collections.synchronizedList(new ArrayList<>());
 	static private final AtomicInteger debug_nseeks = new AtomicInteger();
 	static private final AtomicLong debug_nbytes = new AtomicLong();
-	
+
 	/**
 	 * Debugging, do not use.
 	 *
