@@ -22,10 +22,8 @@ package joshuatee.wx.external;
 
 import java.io.InputStream;
 import java.util.Vector;
-
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
-
 import joshuatee.wx.util.UtilityLog;
 
 // From https://code.google.com/p/android-gifview/source/browse/GifPlayer/src/jp/tomorrowkey/android/gifplayer/GifDecoder.java?r=3
