@@ -54,12 +54,6 @@ object Utility {
 
     fun getRadarSiteName(radarSite: String) = UtilityRadar.radarIdToName[radarSite] ?: ""
 
-    /* fun getRadarSiteLatLon(radarSite: String): LatLon {
-         val lat = UtilityRadar.radarSiteToLat[radarSite] ?: ""
-         val lon = UtilityRadar.radarSiteToLon[radarSite] ?: ""
-         return LatLon(lat, lon)
-     }*/
-
     fun getRadarSiteX(radarSite: String) = UtilityRadar.radarSiteToLat[radarSite] ?: ""
 
     fun getRadarSiteY(radarSite: String) = UtilityRadar.radarSiteToLon[radarSite] ?: ""
@@ -73,33 +67,14 @@ object Utility {
     fun getSoundingSiteX(site: String) = UtilityRadar.soundingSiteToLat[site] ?: ""
 
     fun getSoundingSiteY(site: String) = UtilityRadar.soundingSiteToLon[site] ?: ""
-
-   /* fun getWfoSiteLatLon(wfo: String): LatLon {
-        val lat = UtilityRadar.wfoSitetoLat[wfo] ?: ""
-        val lon = UtilityRadar.wfoSitetoLon[wfo] ?: ""
-        return LatLon(lat, lon)
-    }*/
-
-    /*fun getSoundingSiteLatLon(wfo: String): LatLon {
-        val lat = UtilityRadar.soundingSiteToLat[wfo] ?: ""
-        val lon = "-" + (UtilityRadar.soundingSiteToLon[wfo] ?: "")
-        return LatLon(lat, lon)
-    }*/
-
-     fun getSoundingSiteName(wfo: String): String {
-          var site = UtilityRadar.wfoIdToName[wfo] ?: ""
-          if (site == "") site = UtilityRadar.soundingIdToName[wfo] ?: ""
-          return site
-      }
-
-    /* fun generateSoundingNameList(): List<String> {
-        val list = mutableListOf<String>()
-        GlobalArrays.soundingSites.sorted()
-        GlobalArrays.soundingSites.forEach {
-            list.add(it + ": " + getSoundingSiteName(it))
+    
+    fun getSoundingSiteName(wfo: String): String {
+        var site = UtilityRadar.wfoIdToName[wfo] ?: ""
+        if (site == "") {
+            site = UtilityRadar.soundingIdToName[wfo] ?: ""
         }
-        return list
-    }*/
+        return site
+    }
 
     fun getVersion(context: Context): String {
         var version = ""
@@ -156,21 +131,6 @@ object Utility {
         MyApplication.editor.putString(key, value)
         MyApplication.editor.apply()
     }
-
-    //fun writePref(key: String, value: Int){
-    //    MyApplication.editor.putInt(key, value)
-    //    MyApplication.editor.apply()
-    //}
-
-    //fun writePref(key: String, value: Float){
-    //    MyApplication.editor.putFloat(key, value)
-    //    MyApplication.editor.apply()
-    //}
-
-    //fun writePref(key: String, value: Long){
-    //    MyApplication.editor.putLong(key, value)
-    //    MyApplication.editor.apply()
-    //}
 
     fun readPref(context: Context, key: String, value: String): String {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
