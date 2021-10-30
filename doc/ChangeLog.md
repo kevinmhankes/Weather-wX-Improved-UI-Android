@@ -23,7 +23,7 @@
 [[_TOC_]]
 
 ## 55575 2021_10_29
-*
+* [FIX] remove unprintable chars in `app/src/main/res/raw/gaz_counties_national.txt`
 
 ## 55574 2021_10_29
 * [ADD] in nexrad long press show how far away nearest observation point is
