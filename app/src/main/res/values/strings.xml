@@ -116,7 +116,6 @@
     <string name="label_share_and_tools">Share/Drawing Tools</string>
     <string name="label_tdwr_sites">TDWR Sites</string>
     <string name="title_activity_settings_playlist">PlayList</string>
-    <string name="title_activity_settings_playlist_autodownload">PlayList Autodownload</string>
     <string name="back_arrow">Back</string>
     <string name="forward_arrow">Forward</string>
     <string name="animate_icon">Animate</string>

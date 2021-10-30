@@ -25,11 +25,18 @@
 ## 55575 2021_10_29
 * [FIX] remove unprintable chars in `app/src/main/res/raw/gaz_counties_national.txt`
 * [REF] remove the following unused resources
-```aidl
+```
 	deleted:    app/src/main/res/drawable/ic_access_alarm_24dp.xml
 	deleted:    app/src/main/res/drawable/ic_alarm_add_24dp.xml
 	deleted:    app/src/main/res/drawable/ic_flash_on_24dp_black.xml
 	deleted:    app/src/main/res/drawable/ic_info_outline_24dp_black.xml
+	
+	deleted:    app/src/main/res/mipmap-anydpi-v26/ic_launcher_new_round.xml
+	deleted:    app/src/main/res/mipmap-hdpi/ic_launcher_new_round.png
+	deleted:    app/src/main/res/mipmap-mdpi/ic_launcher_new_round.png
+	deleted:    app/src/main/res/mipmap-xhdpi/ic_launcher_new_round.png
+	deleted:    app/src/main/res/mipmap-xxhdpi/ic_launcher_new_round.png
+	deleted:    app/src/main/res/mipmap-xxxhdpi/ic_launcher_new_round.png
 ```
 
 ## 55574 2021_10_29
