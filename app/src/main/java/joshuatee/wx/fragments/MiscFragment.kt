@@ -104,23 +104,13 @@ class MiscFragment : Fragment() {
                     arrayOf(),
                     "nhc", "NHC"
             )
-            if (!UIPreferences.useAwcRadarMosaic) {
-//                hm["nwsmosaic"] = TileObject(
-//                        R.drawable.nws_sector,
-//                        USNwsMosaicActivity::class.java,
-//                        USNwsMosaicActivity.URL,
-//                        arrayOf("", ""),
-//                        "nwsmosaic", "AWC Radar Mosaics"
-//                )
-            } else {
-                hm["nwsmosaic"] = TileObject(
-                        R.drawable.nws_sector,
-                        AwcRadarMosaicActivity::class.java,
-                        AwcRadarMosaicActivity.URL,
-                        arrayOf(""),
-                        "nwsmosaic", "NWS Radar Mosaics"
-                )
-            }
+            hm["nwsmosaic"] = TileObject(
+                    R.drawable.nws_sector,
+                    AwcRadarMosaicActivity::class.java,
+                    AwcRadarMosaicActivity.URL,
+                    arrayOf(""),
+                    "nwsmosaic", "NWS Radar Mosaics"
+            )
             hm["goes"] = TileObject(
                     R.drawable.goes,
                     GoesActivity::class.java,

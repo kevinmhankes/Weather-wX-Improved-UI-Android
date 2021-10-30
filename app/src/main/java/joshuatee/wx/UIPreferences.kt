@@ -56,7 +56,6 @@ object UIPreferences {
     var hideTopToolbar = false
     var mainScreenRadarFab = true
     var locfragDontShowIcons = false
-    var useAwcRadarMosaic = true
     var nwsIconSizeDefault = 20
     var normalTextSizeDefault = 16
     var normalTextSize = 16
