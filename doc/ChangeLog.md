@@ -22,7 +22,10 @@
 ```
 [[_TOC_]]
 
-## 55575 2021_10_29
+## 55576 2021_10_30
+* 
+
+## 55575 2021_10_30
 * [FIX] remove unprintable chars in `app/src/main/res/raw/gaz_counties_national.txt`
 * [REF] remove the following unused resources
 ```
