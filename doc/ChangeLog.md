@@ -24,6 +24,13 @@
 
 ## 55575 2021_10_29
 * [FIX] remove unprintable chars in `app/src/main/res/raw/gaz_counties_national.txt`
+* [REF] remove the following unused resources
+```aidl
+	deleted:    app/src/main/res/drawable/ic_access_alarm_24dp.xml
+	deleted:    app/src/main/res/drawable/ic_alarm_add_24dp.xml
+	deleted:    app/src/main/res/drawable/ic_flash_on_24dp_black.xml
+	deleted:    app/src/main/res/drawable/ic_info_outline_24dp_black.xml
+```
 
 ## 55574 2021_10_29
 * [ADD] in nexrad long press show how far away nearest observation point is
