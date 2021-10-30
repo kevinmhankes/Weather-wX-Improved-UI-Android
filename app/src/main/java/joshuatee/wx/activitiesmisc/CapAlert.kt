@@ -123,18 +123,6 @@ class CapAlert {
             capAlert.nwsHeadLine = UtilityString.parse(html, "\"NWSheadline\": \\[.*?\"(.*?)\".*?\\],")
             capAlert.motion = UtilityString.parse(html, "\"eventMotionDescription\": \\[.*?\"(.*?)\".*?\\],")
 
-//            capAlert.text = ""
-//            capAlert.text += capAlert.title
-//            capAlert.text += MyApplication.newline + MyApplication.newline
-//            capAlert.text += "Counties: "
-//            capAlert.text += capAlert.area
-//            capAlert.text += MyApplication.newline + MyApplication.newline
-//            capAlert.text += capAlert.summary
-//            capAlert.text += MyApplication.newline + MyApplication.newline
-//            capAlert.text += capAlert.instructions
-//            capAlert.text += MyApplication.newline + MyApplication.newline
-
-
             capAlert.text = ""
             capAlert.text += capAlert.title
             capAlert.text += GlobalVariables.newline

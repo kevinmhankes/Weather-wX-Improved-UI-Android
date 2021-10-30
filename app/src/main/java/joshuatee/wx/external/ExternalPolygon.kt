@@ -21,7 +21,6 @@ https://github.com/sromku/polygon-contains-point
  */
 
 import joshuatee.wx.radar.LatLon
-//import java.util.ArrayList
 
 /**
  * The 2D polygon. <br></br>
