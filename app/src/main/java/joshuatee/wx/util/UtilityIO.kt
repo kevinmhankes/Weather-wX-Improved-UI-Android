@@ -130,7 +130,6 @@ object UtilityIO {
         return content
     }
 
-    fun getHtml(url: String): String {
-        return UtilityNetworkIO.getStringFromUrl(url)
-    }
+    fun getHtml(url: String) = UtilityNetworkIO.getStringFromUrl(url)
+
 }
