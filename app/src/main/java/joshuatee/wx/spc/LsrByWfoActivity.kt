@@ -200,7 +200,7 @@ class LsrByWfoActivity : AudioPlayActivity(), OnMenuItemClickListener {
             lsrList = mutableListOf("None issued by this office recently.")
             toolbar.subtitle = "Showing: None"
         } else {
-            var maxVersions = to.Int(numberLSR)
+            var maxVersions = To.int(numberLSR)
             toolbar.subtitle = "Showing: " + (maxVersions - 1).toString()
             if (maxVersions > 30) {
                 maxVersions = 30

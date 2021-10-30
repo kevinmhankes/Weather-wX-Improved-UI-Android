@@ -446,7 +446,7 @@ class LocationFragment : Fragment() {
     }
 
     private fun getTextProduct(productString: String) {
-        val productIndex = to.Int(productString)
+        val productIndex = To.int(productString)
         FutureText2(MyApplication.appContext,
             { UtilityDownload.getTextProduct(MyApplication.appContext, homeScreenTextCards[productIndex].product) },
             homeScreenTextCards[productIndex]::setup
@@ -454,7 +454,7 @@ class LocationFragment : Fragment() {
     }
 
     private fun getImageProduct(productString: String) {
-        val productIndex = to.Int(productString)
+        val productIndex = To.int(productString)
         FutureBytes2(MyApplication.appContext,
                 { UtilityDownload.getImageProduct(MyApplication.appContext, homeScreenImageCards[productIndex].product) },
                 homeScreenImageCards[productIndex]::setImage

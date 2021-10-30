@@ -21,25 +21,25 @@
 
 package joshuatee.wx.util
 
-object to {
+object To {
 
-    fun Int(s: String): Int {
+    fun int(s: String): Int {
         return s.toIntOrNull() ?: 0
     }
 
-    fun Float(s: String): Float {
+    fun float(s: String): Float {
         return s.toFloatOrNull() ?: 0.0f
     }
 
-    fun Double(s: String): Double {
+    fun double(s: String): Double {
         return s.toDoubleOrNull() ?: 0.0
     }
 
-    fun StringPadLeft(s: String, padAmount: Int): String {
+    fun stringPadLeft(s: String, padAmount: Int): String {
         return String.format("%-" + padAmount.toString() + "s", s)
     }
 
-    fun StringPadLeftZeros(s: Int, padAmount: Int): String {
+    fun stringPadLeftZeros(s: Int, padAmount: Int): String {
         return String.format("%0" + padAmount.toString() + "d", s)
     }
 

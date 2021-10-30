@@ -31,7 +31,7 @@ import android.view.View
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.DistanceUnit
 import joshuatee.wx.radar.LatLon
-import joshuatee.wx.util.to
+import joshuatee.wx.util.To
 import joshuatee.wx.util.Utility
 import kotlin.math.*
 
@@ -78,8 +78,8 @@ class DrawLineView : View {
         this.oneDegreeScaleFactor = oneDegreeScaleFactor
         val xStr = Utility.getRadarSiteX(radarSite)
         val yStr = Utility.getRadarSiteY(radarSite)
-        centerX = to.Float(xStr)
-        centerY = to.Float(yStr)
+        centerX = To.float(xStr)
+        centerY = To.float(yStr)
         xMiddle = width / 2.0f
         yMiddle = height / 2.0f
         setup()

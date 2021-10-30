@@ -189,11 +189,11 @@ object UtilityTime {
     private fun decodeVtecTime(timeRangeOriginal: String): Calendar {
         // Y2K issue
         val timeRange = timeRangeOriginal.replace("T","")
-        val year = to.Int("20" + timeRange.parse("([0-9]{2})[0-9]{4}[0-9]{4}"))
-        val month = to.Int(timeRange.parse("[0-9]{2}([0-9]{2})[0-9]{2}[0-9]{4}"))
-        val day = to.Int(timeRange.parse("[0-9]{4}([0-9]{2})[0-9]{4}"))
-        val hour = to.Int(timeRange.parse("[0-9]{6}([0-9]{2})[0-9]{2}"))
-        val minute = to.Int(timeRange.parse("[0-9]{6}[0-9]{2}([0-9]{2})"))
+        val year = To.int("20" + timeRange.parse("([0-9]{2})[0-9]{4}[0-9]{4}"))
+        val month = To.int(timeRange.parse("[0-9]{2}([0-9]{2})[0-9]{2}[0-9]{4}"))
+        val day = To.int(timeRange.parse("[0-9]{4}([0-9]{2})[0-9]{4}"))
+        val hour = To.int(timeRange.parse("[0-9]{6}([0-9]{2})[0-9]{2}"))
+        val minute = To.int(timeRange.parse("[0-9]{6}[0-9]{2}([0-9]{2})"))
         val cal = Calendar.getInstance()
         cal.set(year, month - 1, day, hour, minute)
         return cal

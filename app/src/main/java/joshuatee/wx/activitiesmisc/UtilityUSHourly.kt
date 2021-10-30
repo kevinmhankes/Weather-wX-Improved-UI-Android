@@ -25,7 +25,7 @@ import joshuatee.wx.Extensions.parseColumn
 import joshuatee.wx.MyApplication
 import joshuatee.wx.UIPreferences
 import joshuatee.wx.settings.Location
-import joshuatee.wx.util.to
+import joshuatee.wx.util.To
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityDownloadNws
 import joshuatee.wx.util.UtilityTime
@@ -100,10 +100,10 @@ object UtilityUSHourly {
     private fun getString(locationNumber: Int): List<String> {
         val html = UtilityDownloadNws.getHourlyData(Location.getLatLon(locationNumber))
         // val header = String.format("%-7s", "Time") + " " + String.format("%-5s", "Temp") + String.format("%-9s", "WindSpd") + String.format("%-8s", "WindDir") + MyApplication.newline
-        val header = to.StringPadLeft("Time", 7) + " " +
-                to.StringPadLeft("Temp", 5) +
-                to.StringPadLeft("WindSpd", 9) +
-                to.StringPadLeft("WindDir", 8) +
+        val header = To.stringPadLeft("Time", 7) + " " +
+                To.stringPadLeft("Temp", 5) +
+                To.stringPadLeft("WindSpd", 9) +
+                To.stringPadLeft("WindDir", 8) +
                 MyApplication.newline
         return listOf(header + parse(html), html)
     }
@@ -118,22 +118,22 @@ object UtilityUSHourly {
         startTime.indices.forEach {
             val time = UtilityTime.translateTimeForHourly(startTime[it].replace(Regex("-0[0-9]:00"), ""))
             // content += String.format("%-8s", time)
-            content += to.StringPadLeft(time, 8)
+            content += To.stringPadLeft(time, 8)
             if (temperature.size > it) {
                 // content += String.format("%-5s", temperature[it].replace("\"",""))
-                content += to.StringPadLeft(temperature[it].replace("\"",""), 5)
+                content += To.stringPadLeft(temperature[it].replace("\"",""), 5)
             }
             if (windSpeed.size > it) {
                 // content += String.format("%-9s", windSpeed[it])
-                content += to.StringPadLeft(windSpeed[it], 9)
+                content += To.stringPadLeft(windSpeed[it], 9)
             }
             if (windDirection.size > it) {
                 // content += String.format("%-7s", windDirection[it])
-                content += to.StringPadLeft(windDirection[it], 7)
+                content += To.stringPadLeft(windDirection[it], 7)
             }
             if (shortForecast.size > it) {
                 // content += String.format("%-12s", shortenConditions(shortForecast[it]))
-                content += to.StringPadLeft(shortenConditions(shortForecast[it]), 12)
+                content += To.stringPadLeft(shortenConditions(shortForecast[it]), 12)
             }
             content += MyApplication.newline
         }

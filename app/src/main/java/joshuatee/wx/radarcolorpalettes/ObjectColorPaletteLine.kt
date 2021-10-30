@@ -22,7 +22,7 @@
 package joshuatee.wx.radarcolorpalettes
 
 import android.graphics.Color
-import joshuatee.wx.util.to
+import joshuatee.wx.util.To
 
 // represents the items in a single line of a colorpal file
 // dbz r g b
@@ -34,24 +34,24 @@ class ObjectColorPaletteLine {
     val blue: Int
 
     constructor(items: List<String>) {
-        dbz = to.Int(items[1])
-        red = to.Int(items[2])
-        green = to.Int(items[3])
-        blue = to.Int(items[4])
+        dbz = To.int(items[1])
+        red = To.int(items[2])
+        green = To.int(items[3])
+        blue = To.int(items[4])
     }
 
     constructor(items: List<String>, fn: (List<String>) -> Int) {
         dbz = fn(items)
-        red = to.Int(items[2])
-        green = to.Int(items[3])
-        blue = to.Int(items[4])
+        red = To.int(items[2])
+        green = To.int(items[3])
+        blue = To.int(items[4])
     }
 
     constructor(dbz: Int, red: String, green: String, blue: String) {
         this.dbz = dbz
-        this.red = to.Int(red)
-        this.green = to.Int(green)
-        this.blue = to.Int(blue)
+        this.red = To.int(red)
+        this.green = To.int(green)
+        this.blue = To.int(blue)
     }
 
     val asInt get() = Color.rgb(red, green, blue)
