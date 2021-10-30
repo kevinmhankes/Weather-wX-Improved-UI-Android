@@ -148,7 +148,7 @@ object UtilityUS {
     }
 
     private fun get7DayExt(rawData: Array<String>): String {
-        val forecast: Array<String> = UtilityString.parseXml(rawData[11], "text")
+        val forecast = UtilityString.parseXml(rawData[11], "text")
         val timeP12n13List = UtilityString.parseColumnMutable(rawData[15], MyApplication.utilUS_period_name_pattern)
         timeP12n13List.add(0, "")
         var forecastString = ""
