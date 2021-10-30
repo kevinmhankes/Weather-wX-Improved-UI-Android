@@ -182,7 +182,7 @@ class SpottersActivity : BaseActivity() {
     }
 
     private fun showItemOnMap(position: Int) {
-        ObjectIntent.showWebView(this, arrayOf(UtilityMap.getMapUrl(spotterList[position].lat, spotterList[position].lon, "9"),
+        ObjectIntent.showWebView(this, arrayOf(UtilityMap.getUrl(spotterList[position].lat, spotterList[position].lon, "9"),
                 spotterList[position].lastName + ", " + spotterList[position].firstName)
         )
     }

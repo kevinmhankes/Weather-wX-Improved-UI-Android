@@ -218,7 +218,7 @@ class SpcStormReportsActivity : AudioPlayActivity(), OnMenuItemClickListener {
                 val xStr = stormReport.lat
                 val yStr = stormReport.lon
                 stormCard.setListener {
-                    ObjectIntent.showWebView(this@SpcStormReportsActivity, arrayOf(UtilityMap.getMapUrl(xStr, yStr, "10"), "$xStr,$yStr"))
+                    ObjectIntent.showWebView(this@SpcStormReportsActivity, arrayOf(UtilityMap.getUrl(xStr, yStr, "10"), "$xStr,$yStr"))
                 }
                 if (!(stormReport.description.contains("(") && stormReport.description.contains(")"))) {
                     stormCard.setTextHeader(stormReport)

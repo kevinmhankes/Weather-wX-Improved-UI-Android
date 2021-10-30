@@ -401,10 +401,10 @@ class SettingsLocationGenericActivity : BaseActivity(), OnMenuItemClickListener 
         val yStr = locYEt.text.toString()
         if (xStr.isNotEmpty() && yStr.isNotEmpty()) {
             if (Location.us(xStr)) {
-                ObjectIntent.showWebView(this, arrayOf(UtilityMap.getMapUrl(xStr, yStr, "9"), Location.name))
+                ObjectIntent.showWebView(this, arrayOf(UtilityMap.getUrl(xStr, yStr, "9"), Location.name))
             } else {
                 val addressForMap = locLabelEt.text.toString()
-                ObjectIntent.showWebView(this, arrayOf(UtilityMap.getMapUrlFromStreetAddress(addressForMap), Location.name))
+                ObjectIntent.showWebView(this, arrayOf(UtilityMap.getUrlFromAddress(addressForMap), Location.name))
             }
         }
     }
