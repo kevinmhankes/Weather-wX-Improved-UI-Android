@@ -376,12 +376,9 @@ public class ImageMap extends ImageView
 				}
 				eventType = xpp.next();
 			}
-		} catch (XmlPullParserException | IOException xppe) {
+		}  // Having trouble loading? Log this exception
+		catch (Exception xppe) {
 			UtilityLog.INSTANCE.handleException(xppe);
-		} // Having trouble loading? Log this exception
-        catch (Exception ioe) {
-			// Having trouble loading? Log this exception
-			UtilityLog.INSTANCE.handleException(ioe);
 		}
 	}
 
