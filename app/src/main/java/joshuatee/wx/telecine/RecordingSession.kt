@@ -94,7 +94,7 @@ internal class RecordingSession(
     private var projection: MediaProjection? = null
     private var display: VirtualDisplay? = null
     private var outputFile: String? = null
-    private var running: Boolean = false
+    private var running = false
     private var drawToolActive = false
     private var distanceToolActive = false
     private var drawObject: DrawView? = null
@@ -144,7 +144,9 @@ internal class RecordingSession(
     }
 
     init {
-        if (showRecordingTools) projectionManager = context.getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
+        if (showRecordingTools) {
+            projectionManager = context.getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
+        }
     }
 
     fun showOverlay() {
@@ -253,8 +255,9 @@ internal class RecordingSession(
                 }
             }
         }
-        // FIXME let
-        if (recorder != null) recorder!!.release()
+        if (recorder != null) {
+            recorder!!.release()
+        }
         display!!.release()
         val uri = FileProvider.getUriForFile(context, "${MyApplication.packageNameAsString}.fileprovider", File(outputFile!!))
         mainThread.post {showNotification(uri, null)}
@@ -523,7 +526,6 @@ internal class RecordingSession(
 
         override fun onReceive(context: Context, intent: Intent) {
             val uriData = intent.dataString
-            //UtilityLog.d("wx", "cancel" + uriData!!)
             val notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.cancel(uriData, NOTIFICATION_ID)
             notificationManager.cancel(uriData, NOTIFICATION_ID_SCREENSHOT)

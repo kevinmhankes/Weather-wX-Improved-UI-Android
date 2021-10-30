@@ -108,10 +108,6 @@ object UtilitySpcMeso {
         "mcon",
         "thea",
         "mxth",
-        // "temp_chg",
-        // "dwpt_chg",
-        // "mixr_chg",
-        // "thte_chg",
         "925mb",
         "850mb",
         "850mb2",
@@ -263,7 +259,7 @@ object UtilitySpcMeso {
         "effh",
         "srh3",
         "srh1",
-        "srh5", // may 2020
+        "srh5",
         "llsr",
         "mlsr",
         "ulsr",
@@ -278,11 +274,11 @@ object UtilitySpcMeso {
         "lscp",
         "stor",
         "stpc",
-        "stpc5", // may 2020
+        "stpc5",
         "sigt1",
         "sigt2",
         "nstp",
-        "vtp", // Feb 2021
+        "vtp",
         "sigh",
         "sars1",
         "sars2",
@@ -430,7 +426,7 @@ object UtilitySpcMeso {
         "SR Helicity - Effective",
         "SR Helicity - Sfc-3km",
         "SR Helicity - Sfc-1km",
-        "SR Helicity - Sfc-500m", // may 2020
+        "SR Helicity - Sfc-500m",
         "SR Wind - Sfc-2km",
         "SR Wind - 4-6km",
         "SR Wind - 9-11km",
@@ -445,11 +441,11 @@ object UtilitySpcMeso {
         "Supercell Composite (left-moving)",
         "Sgfnt Tornado (fixed layer)",
         "Sgfnt Tornado (effective layer)",
-        "Sgfnt Tornado (0-500m SRH)", // may 2020
+        "Sgfnt Tornado (0-500m SRH)",
         "Cond. Prob. Sigtor (Eqn 1)",
         "Cond. Prob. Sigtor (Eqn 2)",
         "Non-Supercell Tornado",
-        "Violent Tornado Parameter (VTP)", // Feb 2021
+        "Violent Tornado Parameter (VTP)",
         "Sgfnt Hail",
         "SARS Hail Size",
         "SARS Sig. Hail Percentage",

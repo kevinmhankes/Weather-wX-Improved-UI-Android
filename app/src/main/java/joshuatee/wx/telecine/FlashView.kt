@@ -30,7 +30,6 @@ internal class FlashView private constructor(context: Context, private val liste
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        // animate().alpha(100f).setDuration(200).withEndAction { listener.onFlashComplete() }.interpolator = DecelerateInterpolator()
         animate().alpha(1.0f).setDuration(200).withEndAction { listener.onFlashComplete() }.interpolator = DecelerateInterpolator()
     }
 
