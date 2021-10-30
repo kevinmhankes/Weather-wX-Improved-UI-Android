@@ -678,8 +678,8 @@ public class ImageMap extends ImageView
 
 					mResizeFactorX = ((float) newWidth / mImageWidth);
 					mResizeFactorY = ((float) newHeight / mImageHeight);
-					mRightBound = 0 - (mExpandWidth - mViewWidth);
-					mBottomBound = 0 - (mExpandHeight - mViewHeight);
+					mRightBound = -(mExpandWidth - mViewWidth);
+					mBottomBound = -(mExpandHeight - mViewHeight);
 				}
 			}
 		}
@@ -727,8 +727,8 @@ public class ImageMap extends ImageView
 				mResizeFactorX = ((float) newWidth / mImageWidth);
 				mResizeFactorY = ((float) newHeight / mImageHeight);
 
-				mRightBound = mExpandWidth>mViewWidth ? 0 - (mExpandWidth - mViewWidth) : 0;
-				mBottomBound = mExpandHeight>mViewHeight ? 0 - (mExpandHeight - mViewHeight) : 0;
+				mRightBound = mExpandWidth>mViewWidth ? -(mExpandWidth - mViewWidth) : 0;
+				mBottomBound = mExpandHeight>mViewHeight ? -(mExpandHeight - mViewHeight) : 0;
 			}
 		}
 	}
