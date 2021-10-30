@@ -176,7 +176,7 @@ object UtilityLocation {
         return LatLon(x, y)
     }
 
-    fun hasAlerts(locNum: Int): Boolean = MyApplication.locations[locNum].notification
+    fun hasAlerts(locNum: Int) = MyApplication.locations[locNum].notification
         || MyApplication.locations[locNum].notificationMcd
         || MyApplication.locations[locNum].ccNotification
         || MyApplication.locations[locNum].sevenDayNotification
