@@ -45,7 +45,9 @@ object UtilityUS {
         var locationName: String? = OBS_CODE_TO_LOCATION[obsClosestClass]
         if (locationName == null) {
             locationName = findObsName(context, obsClosestClass)
-            if (locationName != "" && obsClosestClass != "") OBS_CODE_TO_LOCATION[obsClosestClass] = locationName
+            if (locationName != "" && obsClosestClass != "") {
+                OBS_CODE_TO_LOCATION[obsClosestClass] = locationName
+            }
         }
         return conditionsTimeStr + " " + UtilityString.capitalizeString(locationName).trim { it <= ' ' } + " (" + obsClosestClass + ") "
     }
@@ -109,9 +111,8 @@ object UtilityUS {
     //
     // Legacy forecast support
     //
-    fun getLocationHtml(x: String, y: String): String {
-        return UtilityNetworkIO.getStringFromUrlWithNewLine("https://forecast.weather.gov/MapClick.php?lat=$x&lon=$y&unit=0&lg=english&FcstType=dwml")
-    }
+    fun getLocationHtml(x: String, y: String) =
+        UtilityNetworkIO.getStringFromUrlWithNewLine("https://forecast.weather.gov/MapClick.php?lat=$x&lon=$y&unit=0&lg=english&FcstType=dwml")
 
     fun getCurrentConditionsUS(html: String): Array<String> {
         val result = Array(6) {""}
