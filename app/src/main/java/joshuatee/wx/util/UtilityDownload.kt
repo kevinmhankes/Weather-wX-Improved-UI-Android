@@ -531,9 +531,6 @@ object UtilityDownload {
         text = text.substring(text.indexOf('>') + 1)
         text = text.substring(text.indexOf('>') + 1)
         text = text.substring(text.indexOf('>') + 1)
-        //text = text.replace("^<br>".toRegex(), "")
-        //text = text.replace("<br><br>", MyApplication.newline)
-        //text = text.replace("<br>", " ")
         return text
     }
 

@@ -67,7 +67,7 @@ object Utility {
     fun getSoundingSiteX(site: String) = UtilityRadar.soundingSiteToLat[site] ?: ""
 
     fun getSoundingSiteY(site: String) = UtilityRadar.soundingSiteToLon[site] ?: ""
-    
+
     fun getSoundingSiteName(wfo: String): String {
         var site = UtilityRadar.wfoIdToName[wfo] ?: ""
         if (site == "") {
