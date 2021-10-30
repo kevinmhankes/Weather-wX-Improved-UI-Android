@@ -135,24 +135,15 @@ internal object UtilityHomeScreen {
         MyApplication.HM_CLASS_ARGS["OBS"] = arrayOf("STATE_LOWER", "")
         MyApplication.HM_CLASS_ID["OBS"] = SpcSoundingsActivity.URL
 
-//        MyApplication.HM_CLASS["CARAIN"] = CanadaRadarActivity::class.java
-//        MyApplication.HM_CLASS_ARGS["CARAIN"] = arrayOf("RID_FOR_CA", "rad")
-//        MyApplication.HM_CLASS_ID["CARAIN"] = CanadaRadarActivity.RID
-
         // FIXME this one should be removed
         MyApplication.HM_CLASS["RAD_1KM"] = SpcSoundingsActivity::class.java
         MyApplication.HM_CLASS_ARGS["RAD_1KM"] = arrayOf("1km", "rad", "ONEK", "STATE_UPPER")
         MyApplication.HM_CLASS_ID["RAD_1KM"] = SpcSoundingsActivity.URL
 
-        if (!UIPreferences.useAwcRadarMosaic) {
-//            MyApplication.HM_CLASS["RAD_2KM"] = USNwsMosaicActivity::class.java
-//            MyApplication.HM_CLASS_ARGS["RAD_2KM"] = arrayOf("location")
-//            MyApplication.HM_CLASS_ID["RAD_2KM"] = USNwsMosaicActivity.URL
-        } else {
-            MyApplication.HM_CLASS["RAD_2KM"] = AwcRadarMosaicActivity::class.java
-            MyApplication.HM_CLASS_ARGS["RAD_2KM"] = arrayOf("")
-            MyApplication.HM_CLASS_ID["RAD_2KM"] = AwcRadarMosaicActivity.URL
-        }
+        MyApplication.HM_CLASS["RAD_2KM"] = AwcRadarMosaicActivity::class.java
+        MyApplication.HM_CLASS_ARGS["RAD_2KM"] = arrayOf("")
+        MyApplication.HM_CLASS_ID["RAD_2KM"] = AwcRadarMosaicActivity.URL
+
         listOf(
             "FMAP",
             "FMAPD2",

@@ -26,14 +26,12 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import androidx.core.content.ContextCompat
-
 import joshuatee.wx.MyApplication
 import joshuatee.wx.GlobalArrays
 import joshuatee.wx.radar.LatLon
-
 import joshuatee.wx.radar.RID
-
 import joshuatee.wx.objects.DistanceUnit
+import joshuatee.wx.util.To
 import joshuatee.wx.util.Utility
 import joshuatee.wx.util.UtilityLog
 import java.util.*
@@ -55,8 +53,8 @@ object UtilityLocation {
                     val tmpYArr = joshuatee.wx.settings.Location.getY(it).replace("-", "").split(":")
                     lon = if (tmpYArr.size > 1) tmpYArr[1] else ""
                 }
-                latLon.add(lat.toDoubleOrNull() ?: 0.0)
-                latLon.add(lon.toDoubleOrNull() ?: 0.0)
+                latLon.add(To.double(lat))
+                latLon.add(To.double(lon))
             }
             return latLon
         }
