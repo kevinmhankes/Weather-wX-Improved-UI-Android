@@ -21,6 +21,7 @@
 
 package joshuatee.wx.util
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Build
 import androidx.preference.PreferenceManager
@@ -86,6 +87,7 @@ object Utility {
         return version
     }
 
+    @SuppressLint("ApplySharedPref")
     fun commitPref(context: Context) {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = preferences.edit()
