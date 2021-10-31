@@ -23,7 +23,6 @@ package joshuatee.wx.util
 
 import joshuatee.wx.MyApplication
 import joshuatee.wx.objects.ProjectionType
-import joshuatee.wx.util.To
 
 class ProjectionNumbers {
 
