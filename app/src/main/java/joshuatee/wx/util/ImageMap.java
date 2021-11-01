@@ -311,7 +311,26 @@ public class ImageMap extends ImageView
 	private void loadMap(String map) {
 		boolean loading = false;
 		try {
-			XmlResourceParser xpp = getResources().getXml(R.xml.maps);
+			int mapRes;
+			switch (map) {
+				case "cwamap":
+					mapRes = R.xml.map_wfo;
+					break;
+				case "soundings":
+					mapRes = R.xml.map_soundings;
+					break;
+				case "ncar_nexrad_sites":
+					mapRes = R.xml.map_radarsite;
+					break;
+				case "cwamap3":
+					mapRes = R.xml.map_states;
+					break;
+				default:
+					mapRes = R.xml.map_ca;
+					break;
+			}
+			UtilityLog.INSTANCE.d("IMAGEMAP", map);
+			XmlResourceParser xpp = getResources().getXml(mapRes);
 
 			int eventType = xpp.getEventType();
 			while (eventType != XmlPullParser.END_DOCUMENT) {

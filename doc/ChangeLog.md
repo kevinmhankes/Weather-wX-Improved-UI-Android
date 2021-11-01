@@ -23,8 +23,11 @@
 ```
 [[_TOC_]]
 
-## 55578 2021_10_31
-* 
+## 55578 2021_11_01
+* [REF] move imagemap xml file to multiple files to remove lint errors
+* [REF] "com.squareup.okhttp3:okhttp:4.9.1" upgrade to "com.squareup.okhttp3:okhttp:4.9.2"
+* [REF] changes in app/src/main/res/values/dimens.xml to reduce lint
+* [REF] changes in app/src/main/java/joshuatee/wx/settings/Location.kt to reduce lint
 
 ## 55576 2021_10_31
 * [REF] misc refactor/lint
