@@ -794,7 +794,7 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
 
     private val handler = Handler(Looper.getMainLooper())
 
-    private var mStatusChecker: Runnable = object : Runnable {
+    private val mStatusChecker: Runnable = object : Runnable {
         override fun run() {
             if (mHandler != null) {
                 if (loopCount > 0) {

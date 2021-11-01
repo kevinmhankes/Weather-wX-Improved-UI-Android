@@ -152,12 +152,7 @@ import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
 import android.widget.ImageView;
 import android.widget.Scroller;
-
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
-//import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
