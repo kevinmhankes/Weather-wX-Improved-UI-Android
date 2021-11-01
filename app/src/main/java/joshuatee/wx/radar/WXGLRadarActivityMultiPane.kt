@@ -271,8 +271,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 }
             }
         }
-        UtilityLog.d("wx", "DEBUG1: " + MyApplication.dm.heightPixels.toString())
-        UtilityLog.d("wx", "DEBUG2: " + resources.displayMetrics.heightPixels.toString())
+        // UtilityLog.d("wx", "DEBUG1: " + MyApplication.dm.heightPixels.toString())
+        // UtilityLog.d("wx", "DEBUG2: " + resources.displayMetrics.heightPixels.toString())
         //UtilityLog.d("wx", "DEBUG2: " + this.resources.configuration.screenHeightDp)
         panesList.forEach {
             UtilityRadarUI.initGlView(
