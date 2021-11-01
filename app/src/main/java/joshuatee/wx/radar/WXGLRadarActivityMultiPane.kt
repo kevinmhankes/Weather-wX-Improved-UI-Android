@@ -60,6 +60,7 @@ import java.io.File
 
 class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListener {
 
+    //
     // This activity is a general purpose viewer of nexrad and mosaic content
     // nexrad data is downloaded from NWS FTP, decoded and drawn using OpenGL ES
     // Unlike the traditional viewer this one shows multiple nexrad radars at the same time
@@ -70,6 +71,7 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
     // 2: State NO LONGER NEEDED
     // 3: number of panes
     // 4: coming from single pane
+    //
 
     companion object { const val RID = "" }
 
