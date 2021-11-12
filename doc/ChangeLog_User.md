@@ -4,6 +4,14 @@
 Service outages with NWS data will be posted in the [FAQ](https://gitlab.com/joshua.tee/wxl23/-/tree/master/doc/FAQ.md) as I become aware of them.
 FAQ can be accessed via Settings -> About
 
+### *BETA* version **55580** - released on 2021/11/12
+* [ADD] in nexrad long press show how far away nearest observation point is
+* [ADD] National Images - add "_conus" to end of filename for SNOW/ICE Day1-3 for better graphic
+* [ADD] SPC HRRR - add back SCP/STP param
+* [FIX] GOES Viewer, eep Eastern East Pacific image was not working after NOAA changed image resolution
+* [FIX] remove external links in Color Palette editor
+* [FIX] remove unprintable chars in nexrad county labels
+
 ### version **55570** - released on 2021/10/22
 * [FIX] NWS html format changed caused 7 day forecast icons to break
 * [ADD] Additional GOES products FireTemperature, Dust, GLM
