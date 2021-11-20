@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.util.Vector;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
-import joshuatee.wx.util.UtilityLog;
+// import joshuatee.wx.util.UtilityLog;
 
 // From https://code.google.com/p/android-gifview/source/browse/GifPlayer/src/jp/tomorrowkey/android/gifplayer/GifDecoder.java?r=3
 // https://code.google.com/p/android-gifview/
@@ -226,7 +226,7 @@ public class ExternalGifDecoder {
 		try {
 			is.close();
 		} catch (Exception e) {
-			UtilityLog.INSTANCE.handleException(e);
+			// UtilityLog.INSTANCE.handleException(e);
 		}
 		return status;
 	}
