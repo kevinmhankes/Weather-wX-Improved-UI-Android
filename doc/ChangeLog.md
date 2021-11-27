@@ -23,8 +23,10 @@
 ```
 [[_TOC_]]
 
-## 55581 2021_11_20
+## 55581 2021_11_27
 * [ADD] NDK 23 -> 23b
+* [ADD] first build with Mac M1
+* [ADD] switch to non-experimental WPC winter weather forecasts day 4-7
 
 ## 55580 2021_11_11
 * release
