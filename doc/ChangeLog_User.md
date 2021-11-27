@@ -4,7 +4,8 @@
 Service outages with NWS data will be posted in the [FAQ](https://gitlab.com/joshua.tee/wxl23/-/tree/master/doc/FAQ.md) as I become aware of them.
 FAQ can be accessed via Settings -> About
 
-### *BETA* version **55580** - released on 2021/11/12
+### *BETA* version **55581** - released on 2021/11/27
+* new in 55581 [ADD] switch to non-experimental WPC winter weather forecasts day 4-7
 * [ADD] in nexrad long press show how far away nearest observation point is
 * [ADD] National Images - add "_conus" to end of filename for SNOW/ICE Day1-3 for better graphic
 * [ADD] SPC HRRR - add back SCP/STP param
