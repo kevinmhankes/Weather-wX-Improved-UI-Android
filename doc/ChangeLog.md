@@ -24,7 +24,7 @@
 [[_TOC_]]
 
 ## 55582 2021_11_27
-*
+* [ADD] SPC Meso in "Multi-Parameter Fields" add "Bulk Shear - Sfc-3km / Sfc-3km MLCAPE"
 
 ## 55581 2021_11_27
 * [ADD] NDK 23 -> 23b
