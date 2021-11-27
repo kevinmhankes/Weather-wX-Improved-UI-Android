@@ -142,8 +142,8 @@ object UtilitySpcMeso {
         "fzlv",
         "les1",
         "tadv_925",
-        "7tad",
-        "tadv"
+//        "7tad",
+//        "tadv"
     )
 
     internal fun setParamFromFav(token: String): String {
