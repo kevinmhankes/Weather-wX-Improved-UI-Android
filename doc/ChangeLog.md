@@ -20,6 +20,8 @@
 // TODO [ADD] have nexrad long press verbiage match iOS version
 // TODO [REF] replace String.format with stuff in to.
 // TODO [FIX] review multipane data usage
+// TODO [FIX] snow squall warning enabled - no way to long press
+// TODO [FIX] usalerts filter is not sorted
 ```
 [[_TOC_]]
 
