@@ -25,9 +25,11 @@
 ```
 [[_TOC_]]
 
-## 55582 2021_11_27
+## 55582 2021_01_15
 * [ADD] SPC Meso in "Multi-Parameter Fields" add "Bulk Shear - Sfc-3km / Sfc-3km MLCAPE"
 * [FIX] SPC Meso in "Upper Air" change ordering for "Sfc Frontogenesis" to match SPC website
+* [FIX] Creating desktop shortcuts was not working on Android version 12
+* [ADD] CONUS sector to NAM in NCEP Models
 
 ## 55581 2021_11_27
 * [ADD] NDK 23 -> 23b
