@@ -10,6 +10,7 @@ new in 55582
 * [FIX] SPC Meso in "Upper Air" change ordering for "Sfc Frontogenesis" to match SPC website
 * [FIX] Creating desktop shortcuts was not working on Android version 12
 * [ADD] CONUS sector to NAM in NCEP Models
+
 new in 55581
 * [ADD] switch to non-experimental WPC winter weather forecasts day 4-7
 * [ADD] in nexrad long press show how far away nearest observation point is
