@@ -25,8 +25,9 @@
 ```
 [[_TOC_]]
 
-## 55583 2021_01_16
-*
+## 55583 2021_01_17
+* [ADD] In Settings -> UI -> Navdrawer config, have top arrow respond in the same way that bottom arrow does when pressed
+* [ADD] In Settings -> about, add navdrawer token string to assist in troubleshooting
 
 ## 55582 2021_01_15
 * [ADD] SPC Meso in "Multi-Parameter Fields" add "Bulk Shear - Sfc-3km / Sfc-3km MLCAPE"
