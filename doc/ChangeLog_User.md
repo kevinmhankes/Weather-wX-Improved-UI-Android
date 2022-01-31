@@ -4,7 +4,15 @@
 Service outages with NWS data will be posted in the [FAQ](https://gitlab.com/joshua.tee/wxl23/-/tree/master/doc/FAQ.md) as I become aware of them.
 FAQ can be accessed via Settings -> About
 
-### *BETA* version **55582** - released on 2022/01/16
+### *BETA* version **55584** - released on 2022/01/31
+## 55584 2021_01_31
+* [ADD] In Settings -> UI -> Navdrawer config, have top arrow respond in the same way that bottom arrow does when pressed
+* [ADD] In Settings -> about, add navdrawer token string to assist in troubleshooting
+* [FIX] remove observation point KSTF (Starkville, MS) as it's impacting users.
+* [FIX] remove decomissioned text products
+  - "mimpac: Marine Weather disc for N PAC Ocean"
+  - "mimatn: Marine disc for N Atlantic Ocean"
+
 new in 55582
 * [ADD] SPC Meso in "Multi-Parameter Fields" add "Bulk Shear - Sfc-3km / Sfc-3km MLCAPE"
 * [FIX] SPC Meso in "Upper Air" change ordering for "Sfc Frontogenesis" to match SPC website
