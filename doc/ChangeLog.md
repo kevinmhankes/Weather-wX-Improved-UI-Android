@@ -32,7 +32,7 @@
 * [FIX] remove observation point KSTF (Starkville, MS) as it's impacting users.
 * [FIX] remove decomissioned text products
   - "mimpac: Marine Weather disc for N PAC Ocean"
-  - "mimatn: Marine disc for N Atlantic Ocean",
+  - "mimatn: Marine disc for N Atlantic Ocean"
 
 ## 55582 2021_01_15
 * [ADD] SPC Meso in "Multi-Parameter Fields" add "Bulk Shear - Sfc-3km / Sfc-3km MLCAPE"
