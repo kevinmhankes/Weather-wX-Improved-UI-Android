@@ -25,7 +25,7 @@
 ```
 [[_TOC_]]
 
-## 55583 2021_01_31
+## 55584 2021_01_31
 * [ADD] In Settings -> UI -> Navdrawer config, have top arrow respond in the same way that bottom arrow does when pressed
 * [ADD] In Settings -> about, add navdrawer token string to assist in troubleshooting
 * [ADD] com.android.tools.build:gradle:7.0.4 -> com.android.tools.build:gradle:7.1.0
