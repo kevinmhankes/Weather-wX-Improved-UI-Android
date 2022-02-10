@@ -640,6 +640,8 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
             R.id.action_radar_site_status_l2 -> ObjectIntent.showWebView(this, arrayOf("http://radar2pub.ncep.noaa.gov", resources.getString(R.string.action_radar_site_status_l2), "extended"))
             R.id.action_n0q, R.id.action_n0q_menu  -> getReflectivity()
             R.id.action_n0u, R.id.action_n0u_menu -> getVelocity()
+            R.id.action_n0b -> changeProd("N" + tilt + "B", true)
+            R.id.action_n0g -> changeProd("N" + tilt + "G", true)
             R.id.action_tz0 -> changeProd("TZ$tilt", true)
             R.id.action_tv0 -> changeProd("TV$tilt", true)
             R.id.action_tzl -> changeProd("TZL", true)

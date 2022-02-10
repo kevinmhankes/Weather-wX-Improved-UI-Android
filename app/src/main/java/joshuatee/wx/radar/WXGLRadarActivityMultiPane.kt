@@ -708,6 +708,8 @@ class WXGLRadarActivityMultiPane : VideoRecordActivity(), OnMenuItemClickListene
                 }
                 getContentIntelligent()
             }
+            R.id.action_n0b -> changeProd("N" + tilt + "B")
+            R.id.action_n0g -> changeProd("N" + tilt + "G")
             R.id.action_n0s -> changeProd("N" + tilt + "S")
             R.id.action_net -> changeProd("EET")
             R.id.action_N0X -> changeProd("N" + tilt + "X")

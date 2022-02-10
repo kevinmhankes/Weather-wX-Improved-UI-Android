@@ -44,6 +44,9 @@ class ObjectOglRadarBuffers(val context: Context, var bgColor: Int) : ObjectOglB
         productCode = rd.productCode
         binSize = rd.binSize
         numRangeBins = rd.numberOfRangeBins.toInt()
+        if (productCode == 2153.toShort() || productCode == 2154.toShort()) {
+            numberOfRadials = 720
+        }
     }
 
     fun extractL2Data(rd: WXGLNexradLevel2) {

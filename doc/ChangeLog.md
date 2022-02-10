@@ -25,8 +25,24 @@
 ```
 [[_TOC_]]
 
-## 55585 2021_01_31
-*
+## 55585 2021_02_10 (release should not be used for production yet due to N0B/N0G integration)
+* [ADD] NXB and NXG framework, Level3 super-res
+  - https://www.weather.gov/media/notification/pdf2/scn21-96_sbn_super-res.pdf
+  - only at KRAX so far https://tgftp.nws.noaa.gov/SL.us008001/DF.of/DC.radar/DS.00n1b/ missing lowest tilt
+  - changes in the following to accommodate:
+	modified:   app/src/main/java/joshuatee/wx/ColorPalettes.kt
+	modified:   app/src/main/java/joshuatee/wx/GlobalDictionaries.kt
+	modified:   app/src/main/java/joshuatee/wx/radar/ObjectOglRadarBuffers.kt
+	modified:   app/src/main/java/joshuatee/wx/radar/UtilityWXOGLPerf.kt
+	modified:   app/src/main/java/joshuatee/wx/radar/WXGLNexrad.kt
+	modified:   app/src/main/java/joshuatee/wx/radar/WXGLNexradLevel3.kt
+	modified:   app/src/main/java/joshuatee/wx/radar/WXGLRadarActivity.kt
+	modified:   app/src/main/java/joshuatee/wx/radar/WXGLRadarActivityMultiPane.kt
+	modified:   app/src/main/jni/decode8BitAndGenRadials.c
+	modified:   app/src/main/res/menu/uswxoglradar.xml
+	modified:   app/src/main/res/menu/uswxoglradarmultipane.xml
+	modified:   app/src/main/res/values/strings.xml
+
 
 ## 55584 2021_01_31
 * [ADD] In Settings -> UI -> Navdrawer config, have top arrow respond in the same way that bottom arrow does when pressed

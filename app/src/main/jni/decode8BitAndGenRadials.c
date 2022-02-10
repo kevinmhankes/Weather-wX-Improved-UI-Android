@@ -64,7 +64,9 @@ JNIEXPORT jint JNICALL Java_joshuatee_wx_Jni_decode8BitAndGenRadials
 	if ( fp_src == NULL ){
 		return -1;
 	}
-	int ret_size = 1000000;
+	// int ret_size = 1000000;
+        // Feb 22, increase for L3 super-res
+	int ret_size = 2000000;
 	int seek_return = fseek(fp_src, seek_start, SEEK_SET);
 	if ( seek_return != 0 ){
     	return -1;
