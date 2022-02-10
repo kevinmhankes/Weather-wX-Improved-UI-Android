@@ -4,22 +4,17 @@
 Service outages with NWS data will be posted in the [FAQ](https://gitlab.com/joshua.tee/wxl23/-/tree/master/doc/FAQ.md) as I become aware of them.
 FAQ can be accessed via Settings -> About
 
-### *BETA* version **55584** - released on 2022/01/31
-## 55584 2021_01_31
+### version **55584** - released on 2022/02/10
 * [ADD] In Settings -> UI -> Navdrawer config, have top arrow respond in the same way that bottom arrow does when pressed
 * [ADD] In Settings -> about, add navdrawer token string to assist in troubleshooting
 * [FIX] remove observation point KSTF (Starkville, MS) as it's impacting users.
 * [FIX] remove decomissioned text products
   - "mimpac: Marine Weather disc for N PAC Ocean"
   - "mimatn: Marine disc for N Atlantic Ocean"
-
-new in 55582
 * [ADD] SPC Meso in "Multi-Parameter Fields" add "Bulk Shear - Sfc-3km / Sfc-3km MLCAPE"
 * [FIX] SPC Meso in "Upper Air" change ordering for "Sfc Frontogenesis" to match SPC website
 * [FIX] Creating desktop shortcuts was not working on Android version 12
 * [ADD] CONUS sector to NAM in NCEP Models
-
-new in 55581
 * [ADD] switch to non-experimental WPC winter weather forecasts day 4-7
 * [ADD] in nexrad long press show how far away nearest observation point is
 * [ADD] National Images - add "_conus" to end of filename for SNOW/ICE Day1-3 for better graphic
