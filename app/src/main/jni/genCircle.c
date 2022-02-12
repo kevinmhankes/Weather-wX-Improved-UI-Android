@@ -60,7 +60,7 @@ JNIEXPORT void JNICALL Java_joshuatee_wx_Jni_genCircle(JNIEnv * env, jclass claz
 			iBuff[ix_count] = ix_count;
 			iBuff[ix_count + 1] = ix_count + 1;
 			iBuff[ix_count + 2] = ix_count + 2;
-			ix_count +=  3;
+			ix_count += 3;
 			cBuff[c_count] = col_arr[0];
 			cBuff[c_count + 1] = col_arr[1];
 			cBuff[c_count + 2] = col_arr[2];
