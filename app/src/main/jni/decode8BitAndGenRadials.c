@@ -128,8 +128,8 @@ JNIEXPORT jint JNICALL Java_joshuatee_wx_Jni_decode8BitAndGenRadials
 			} else {
 				bin_size_times_level_count = bin_size * level_count;
 
-				rBuff[r_i++] = bin_start * cos((angle_v) / (W_180_DIV_PI));
-				rBuff[r_i++] = bin_start * sin(( angle_v) / (W_180_DIV_PI));
+				rBuff[r_i++] = bin_start * cos(angle_v / W_180_DIV_PI);
+				rBuff[r_i++] = bin_start * sin(angle_v / W_180_DIV_PI);
 
 				rBuff[r_i++] = (bin_start + (bin_size_times_level_count)) * cos((angle_v) / (W_180_DIV_PI));
 				rBuff[r_i++] = (bin_start + (bin_size_times_level_count)) * sin((angle_v) / (W_180_DIV_PI));
