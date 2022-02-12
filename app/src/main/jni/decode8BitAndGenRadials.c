@@ -155,9 +155,3 @@ JNIEXPORT jint JNICALL Java_joshuatee_wx_Jni_decode8BitAndGenRadials
 	fclose(fp_src);
 	return total_bins;
 }
-
-
-
-
-
-

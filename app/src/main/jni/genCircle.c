@@ -22,9 +22,9 @@
 #include "genCircle.h"
 
 JNIEXPORT void JNICALL Java_joshuatee_wx_Jni_genCircle(JNIEnv * env, jclass clazz, jobject loc_buff, jobject index_buff, jfloat center_x, jfloat center_y, jfloat x_image_center_pixels, jfloat y_image_center_pixels,  jfloat one_degree_scale_factor, jdoubleArray x, jdoubleArray y, jint count, jfloat len, int triangleAmount, jobject color_buff, jbooleanArray col) {
-	jfloat* lBuff = (*env)-> GetDirectBufferAddress(env, loc_buff);
-	jshort* iBuff = (*env)-> GetDirectBufferAddress(env, index_buff);
-	jbyte* cBuff = (*env)-> GetDirectBufferAddress(env, color_buff);
+	jfloat* lBuff = (*env)->GetDirectBufferAddress(env, loc_buff);
+	jshort* iBuff = (*env)->GetDirectBufferAddress(env, index_buff);
+	jbyte* cBuff = (*env)->GetDirectBufferAddress(env, color_buff);
 	jdouble* x_arr = (*env)->GetDoubleArrayElements(env, x, 0);
 	jdouble* y_arr = (*env)->GetDoubleArrayElements(env, y, 0);
 	jbyte* col_arr = (*env)->GetByteArrayElements(env, col, 0);
@@ -50,8 +50,7 @@ JNIEXPORT void JNICALL Java_joshuatee_wx_Jni_genCircle(JNIEnv * env, jclass claz
 		test2 = W_180_DIV_PI * log(tan(W_PI_DIV_4+center_x*W_PI_DIV_360));
 		pix_y_d = -((test1 - test2) *  one_degree_scale_factor ) + y_image_center_pixels;
 		pix_x_d = -((point_y - center_y ) * one_degree_scale_factor ) + x_image_center_pixels;
-		int i;
-		for(i = 0; i < triangleAmount; i++) {
+		for(int i = 0; i < triangleAmount; i++) {
 			lBuff[l_count++] = pix_x_d;
 			lBuff[l_count++] = -pix_y_d;
 			lBuff[l_count++] = pix_x_d + (len * cos(i *  twicePi / triangleAmount));
@@ -75,5 +74,3 @@ JNIEXPORT void JNICALL Java_joshuatee_wx_Jni_genCircle(JNIEnv * env, jclass claz
 		}
 	}
 }
-
-

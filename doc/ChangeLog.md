@@ -26,7 +26,8 @@
 [[_TOC_]]
 
 ## 55587 2021_02_12
-*
+* [ADD] nexrad: force 2153/2154 to use Kotlin and avoid native since we shouldn't need to use native anymore
+* [REF] native c code format cleanup
 
 ## 55586 2021_02_12 (release should not be used for production yet due to N0B/N0G integration)
 * [ADD] work in native C code (via JNI) to support super-res products
