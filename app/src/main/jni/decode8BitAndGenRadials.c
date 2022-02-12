@@ -34,7 +34,7 @@ unsigned short toShort(char* value){
 }
 
 JNIEXPORT jint JNICALL Java_joshuatee_wx_Jni_decode8BitAndGenRadials
-(JNIEnv * env, jclass clazz, jstring src, jlong seek_start, jint length, jobject i_buff, jobject o_buff, jobject rad_buff, jobject color_buff, jfloat bin_size, jbyte bg_color_red, jbyte bg_color_green, jbyte bg_color_blue, jobject colormap_r, jobject colormap_g, jobject colormap_b) {
+(JNIEnv * env, jclass clazz, jstring src, jlong seek_start, jint length, jobject i_buff, jobject o_buff, jobject rad_buff, jobject color_buff, jfloat bin_size, jbyte bg_color_red, jbyte bg_color_green, jbyte bg_color_blue, jobject colormap_r, jobject colormap_g, jobject colormap_b, jint productCode) {
 	jbyte* color_r =  (*env)-> GetDirectBufferAddress(env,colormap_r);
 	jbyte* color_g =  (*env)-> GetDirectBufferAddress(env,colormap_g);
 	jbyte* color_b =  (*env)-> GetDirectBufferAddress(env,colormap_b);
@@ -65,7 +65,7 @@ JNIEXPORT jint JNICALL Java_joshuatee_wx_Jni_decode8BitAndGenRadials
 		return -1;
 	}
 	// int ret_size = 1000000;
-        // Feb 22, increase for L3 super-res
+	// Feb 22, increase for L3 super-res
 	int ret_size = 2000000;
 	int seek_return = fseek(fp_src, seek_start, SEEK_SET);
 	if ( seek_return != 0 ){
@@ -87,6 +87,9 @@ JNIEXPORT jint JNICALL Java_joshuatee_wx_Jni_decode8BitAndGenRadials
 	array[0] = oBuff[o_idx++];
 	array[1] = oBuff[o_idx++];
 	int number_of_radials  = 360;
+	if (productCode == 2153 || productCode == 2154) {
+	    number_of_radials = 720;
+	}
 	o_idx += 8; // skip 4 short or unsigned short
 	int r;
 	unsigned short number_of_rle_halfwords = 0;

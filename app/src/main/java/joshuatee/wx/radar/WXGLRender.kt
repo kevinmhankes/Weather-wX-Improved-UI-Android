@@ -290,7 +290,8 @@ class WXGLRender(private val context: Context, val paneNumber: Int) : Renderer {
                                 Color.blue(radarBuffers.bgColor).toByte(),
                                 objectColorPalette.redValues,
                                 objectColorPalette.greenValues,
-                                objectColorPalette.blueValues
+                                objectColorPalette.blueValues,
+                                radarBuffers.productCode.toInt()
                         )
                     }
                 } else {
