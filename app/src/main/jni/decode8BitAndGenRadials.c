@@ -91,13 +91,13 @@ JNIEXPORT jint JNICALL Java_joshuatee_wx_Jni_decode8BitAndGenRadials
 	    number_of_radials = 720;
 	}
 	o_idx += 8; // skip 4 short or unsigned short
-	int r;
+	// int r;
 	unsigned short number_of_rle_halfwords = 0;
 	unsigned short tn = 0;
 	unsigned short tn_next = 0;
 	float angle_0 = 0.0f;
 	float angle_next;
-	for (r = 0; r < number_of_radials; r++) {
+	for (int r = 0; r < number_of_radials; r++) {
 		array[0] = oBuff[o_idx++];
 		array[1] = oBuff[o_idx++];
 		number_of_rle_halfwords = toShort(array);
@@ -116,7 +116,7 @@ JNIEXPORT jint JNICALL Java_joshuatee_wx_Jni_decode8BitAndGenRadials
 		level = 0;
 		level_count = 0;
 		bin_start = bin_size;
-		if (r < 359){
+		if (r < 359) {
 			angle_v = angle_next;
 		} else {
 			angle_v = angle_0;
