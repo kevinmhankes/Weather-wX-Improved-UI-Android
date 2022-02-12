@@ -35,9 +35,9 @@ unsigned short toShort(char* value){
 
 JNIEXPORT jint JNICALL Java_joshuatee_wx_Jni_decode8BitAndGenRadials
 (JNIEnv * env, jclass clazz, jstring src, jlong seek_start, jint length, jobject i_buff, jobject o_buff, jobject rad_buff, jobject color_buff, jfloat bin_size, jbyte bg_color_red, jbyte bg_color_green, jbyte bg_color_blue, jobject colormap_r, jobject colormap_g, jobject colormap_b, jint productCode) {
-	jbyte* color_r =  (*env)-> GetDirectBufferAddress(env,colormap_r);
-	jbyte* color_g =  (*env)-> GetDirectBufferAddress(env,colormap_g);
-	jbyte* color_b =  (*env)-> GetDirectBufferAddress(env,colormap_b);
+	jbyte* color_r = (*env)-> GetDirectBufferAddress(env, colormap_r);
+	jbyte* color_g = (*env)-> GetDirectBufferAddress(env, colormap_g);
+	jbyte* color_b = (*env)-> GetDirectBufferAddress(env, colormap_b);
 	color_r[0] = bg_color_red;
 	color_g[0] = bg_color_green;
 	color_b[0] = bg_color_blue;
@@ -51,8 +51,8 @@ JNIEXPORT jint JNICALL Java_joshuatee_wx_Jni_decode8BitAndGenRadials
 	int color_for = 0;
 	float bin_size_times_level_count;
 	double W_180_DIV_PI = 180.0 / M_PI;
-	jfloat* rBuff = (*env)-> GetDirectBufferAddress(env,rad_buff);
-	jbyte* cBuff = (*env)-> GetDirectBufferAddress(env,color_buff);
+	jfloat* rBuff = (*env)-> GetDirectBufferAddress(env, rad_buff);
+	jbyte* cBuff = (*env)-> GetDirectBufferAddress(env, color_buff);
 	int r_i = 0;
 	int c_i = 0;
 	int cur_level;
@@ -61,18 +61,18 @@ JNIEXPORT jint JNICALL Java_joshuatee_wx_Jni_decode8BitAndGenRadials
 	jbyte* iBuff = (*env)-> GetDirectBufferAddress(env, i_buff);
 	FILE *fp_src;
 	fp_src = fopen(src_path, "r");
-	if ( fp_src == NULL ){
+	if (fp_src == NULL) {
 		return -1;
 	}
 	// int ret_size = 1000000;
 	// Feb 22, increase for L3 super-res
 	int ret_size = 2000000;
 	int seek_return = fseek(fp_src, seek_start, SEEK_SET);
-	if ( seek_return != 0 ){
+	if (seek_return != 0) {
     	return -1;
     }
 	size_t fread_return = fread(iBuff, sizeof(char), length, fp_src);
-	if(fread_return != length ) {
+	if (fread_return != length) {
 	    return -1;
         //} else {
         //   if (feof(fp_src))
@@ -81,7 +81,7 @@ JNIEXPORT jint JNICALL Java_joshuatee_wx_Jni_decode8BitAndGenRadials
         //      perror("error reading file");
         //}
     }
-	BZ2_bzBuffToBuffDecompress((char*)oBuff, (unsigned int*)&ret_size, (char*)iBuff, length, 1, 0); //  1 for small, 0 verbosity
+	BZ2_bzBuffToBuffDecompress((char*)oBuff, (unsigned int*)&ret_size, (char*)iBuff, length, 1, 0); // 1 for small, 0 verbosity
 	int o_idx=20;
 	char array[2];
 	array[0] = oBuff[o_idx++];
