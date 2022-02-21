@@ -216,6 +216,11 @@ class WXGLRadarActivity : VideoRecordActivity(), OnMenuItemClickListener {
             menu.findItem(R.id.action_tools_blank).isVisible = false
         }
         menu.findItem(R.id.action_jellybean_drawtools).isVisible = false
+
+        // disable new Level3 super-res until NWS is past deployment phase
+        menu.findItem(R.id.action_n0b).isVisible = false
+        menu.findItem(R.id.action_n0g).isVisible = false
+
         delay = UtilityImg.animInterval(this)
         img = findViewById(R.id.iv)
         img.maxZoom = 6.0f
