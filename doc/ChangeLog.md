@@ -25,8 +25,13 @@
 ```
 [[_TOC_]]
 
-## 55588 2021_02_12
-*
+## 55588 2021_02_21
+* [ADD] disable new super-res products as NWS has not fully reployed
+* [FIX] remove the following weather obs point in `stations_us4.txt` and `us_metar3.txt` as user reported it has not updated since Jan 26
+```
+IL,ROMEOVILLE/CHI  ,KLOT
+KLOT 41.6 -88.1
+```
 
 ## 55587 2021_02_12
 * [ADD] nexrad: force 2153/2154 to use Kotlin and avoid native since we shouldn't need to use native anymore
