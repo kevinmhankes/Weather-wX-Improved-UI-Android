@@ -4,6 +4,13 @@
 Service outages with NWS data will be posted in the [FAQ](https://gitlab.com/joshua.tee/wxl23/-/tree/master/doc/FAQ.md) as I become aware of them.
 FAQ can be accessed via Settings -> About
 
+## 55588 2021_02_22 (BETA)
+* [FIX] remove the following weather obs point in `stations_us4.txt` and `us_metar3.txt` as user reported it has not updated since Jan 26
+```
+IL,ROMEOVILLE/CHI  ,KLOT
+KLOT 41.6 -88.1
+```
+NOTE: I'm going to audit the 2400+ obs sites and remove stale entries for the next planned release.
 ### version **55584** - released on 2022/02/10
 * [ADD] In Settings -> UI -> Navdrawer config, have top arrow respond in the same way that bottom arrow does when pressed
 * [ADD] In Settings -> about, add navdrawer token string to assist in troubleshooting
