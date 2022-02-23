@@ -26,8 +26,11 @@
 [[_TOC_]]
 
 ## 55590 2021_02_23
-*
-
+* [ADD] software upgrades that wX uses (in this case to just keep the linter happy)
+```
+-    implementation 'androidx.preference:preference:1.2.0'
++    implementation 'androidx.preference:preference-ktx:1.2.0'
+```
 ## 55589 2021_02_23
 * [ADD] software upgrades that wX uses
 ```
