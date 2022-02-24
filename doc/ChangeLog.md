@@ -26,6 +26,9 @@
 [[_TOC_]]
 
 ## 55590 2021_02_23
+* [FIX] prune the list of Observation points by removing 57 sites that had not updated in the past 28 days
+        This pruning will occur more frequently in the future to avoid a bad user experience
+        In the future as the new NWS API stabilizes there might be a less manual (but still performant) way to handle this
 * [ADD] software upgrades that wX uses (in this case to just keep the linter happy)
 ```
 -    implementation 'androidx.preference:preference:1.2.0'
