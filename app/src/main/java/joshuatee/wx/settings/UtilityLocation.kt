@@ -126,24 +126,33 @@ object UtilityLocation {
     }
 
     fun getNearestSoundingSite(location: LatLon): String {
-        val sites = GlobalArrays.soundingSites.map { RID(it, getSiteLocation(it, "SND")) }
-        var shortestDistance = 1000.00
-        var currentDistance: Double
-        var bestRid = -1
+        val sites = GlobalArrays.soundingSites.map { RID(it, getSiteLocation(it, "SND")) } as MutableList<RID>
+//        var shortestDistance = 1000.00
+//        var currentDistance: Double
+//        var bestRid = -1
+
+//        GlobalArrays.soundingSites.indices.forEach {
+//            currentDistance = LatLon.distance(location, sites[it].location, DistanceUnit.KM)
+//            if (currentDistance < shortestDistance) {
+//                shortestDistance = currentDistance
+//                bestRid = it
+//            }
+//        }
+
         GlobalArrays.soundingSites.indices.forEach {
-            currentDistance = LatLon.distance(location, sites[it].location, DistanceUnit.KM)
-            if (currentDistance < shortestDistance) {
-                shortestDistance = currentDistance
-                bestRid = it
-            }
+            sites[it].distance = LatLon.distance(location, sites[it].location, DistanceUnit.KM).toInt()
         }
-        if (bestRid == -1) {
-            return "BLAH"
-        }
-        if (sites[bestRid].name == "MFX") {
-            return "MFL"
-        }
-        return sites[bestRid].name
+        sites.sortBy { it.distance }
+        return sites[0].name
+
+
+//        if (bestRid == -1) {
+//            return "BLAH"
+//        }
+//        if (sites[bestRid].name == "MFX") {
+//            return "MFL"
+//        }
+//        return sites[bestRid].name
     }
 
     fun getSiteLocation(site: String, officeType: String = "RID"): LatLon {
