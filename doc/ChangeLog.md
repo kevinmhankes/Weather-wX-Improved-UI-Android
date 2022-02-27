@@ -23,6 +23,7 @@
 // TODO [FIX] snow squall warning enabled - no way to long press
 // TODO [FIX] settings label for C/F to indicate what it modifies
 // TODO [FIX] usalerts filter is not sorted
+// TODO [ADD] user request for metar homescreen widget
 ```
 [[_TOC_]]
 
