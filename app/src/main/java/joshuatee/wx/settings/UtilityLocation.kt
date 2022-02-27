@@ -93,20 +93,8 @@ object UtilityLocation {
             val labelArr = it.split(":")
             sites.add(RID(labelArr[0], getSiteLocation(labelArr[0], prefToken)))
         }
-//        var shortestDistance = 30000.00
-//        var currentDistance: Double
-//        var bestRid = -1
-//        sites.indices.forEach {
-//            currentDistance = LatLon.distance(location, sites[it].location, DistanceUnit.KM)
-//            if (currentDistance < shortestDistance) {
-//                shortestDistance = currentDistance
-//                bestRid = it
-//            }
-//        }
-//        return sites[bestRid].name
-
-        sites.indices.forEach {
-            sites[it].distance = LatLon.distance(location, sites[it].location, DistanceUnit.KM).toInt()
+        sites.forEach {
+            it.distance = LatLon.distance(location, it.location, DistanceUnit.KM).toInt()
         }
         sites.sortBy { it.distance }
         return sites[0].name
