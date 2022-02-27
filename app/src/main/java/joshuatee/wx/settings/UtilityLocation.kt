@@ -93,17 +93,23 @@ object UtilityLocation {
             val labelArr = it.split(":")
             sites.add(RID(labelArr[0], getSiteLocation(labelArr[0], prefToken)))
         }
-        var shortestDistance = 30000.00
-        var currentDistance: Double
-        var bestRid = -1
+//        var shortestDistance = 30000.00
+//        var currentDistance: Double
+//        var bestRid = -1
+//        sites.indices.forEach {
+//            currentDistance = LatLon.distance(location, sites[it].location, DistanceUnit.KM)
+//            if (currentDistance < shortestDistance) {
+//                shortestDistance = currentDistance
+//                bestRid = it
+//            }
+//        }
+//        return sites[bestRid].name
+
         sites.indices.forEach {
-            currentDistance = LatLon.distance(location, sites[it].location, DistanceUnit.KM)
-            if (currentDistance < shortestDistance) {
-                shortestDistance = currentDistance
-                bestRid = it
-            }
+            sites[it].distance = LatLon.distance(location, sites[it].location, DistanceUnit.KM).toInt()
         }
-        return sites[bestRid].name
+        sites.sortBy { it.distance }
+        return sites[0].name
     }
 
     fun getNearestRadarSites(location: LatLon, count: Int, includeTdwr: Boolean = true): List<RID> {
@@ -127,32 +133,11 @@ object UtilityLocation {
 
     fun getNearestSoundingSite(location: LatLon): String {
         val sites = GlobalArrays.soundingSites.map { RID(it, getSiteLocation(it, "SND")) } as MutableList<RID>
-//        var shortestDistance = 1000.00
-//        var currentDistance: Double
-//        var bestRid = -1
-
-//        GlobalArrays.soundingSites.indices.forEach {
-//            currentDistance = LatLon.distance(location, sites[it].location, DistanceUnit.KM)
-//            if (currentDistance < shortestDistance) {
-//                shortestDistance = currentDistance
-//                bestRid = it
-//            }
-//        }
-
         GlobalArrays.soundingSites.indices.forEach {
             sites[it].distance = LatLon.distance(location, sites[it].location, DistanceUnit.KM).toInt()
         }
         sites.sortBy { it.distance }
         return sites[0].name
-
-
-//        if (bestRid == -1) {
-//            return "BLAH"
-//        }
-//        if (sites[bestRid].name == "MFX") {
-//            return "MFL"
-//        }
-//        return sites[bestRid].name
     }
 
     fun getSiteLocation(site: String, officeType: String = "RID"): LatLon {
