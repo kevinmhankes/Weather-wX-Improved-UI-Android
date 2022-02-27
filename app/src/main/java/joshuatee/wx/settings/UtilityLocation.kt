@@ -118,12 +118,9 @@ object UtilityLocation {
                 radarSites.add(RID(labels[0], getSiteLocation(labels[0])))
             }
         }
-        var currentDistance: Double
         radarSites.forEach {
-            currentDistance = LatLon.distance(location, it.location, DistanceUnit.MILE)
-            it.distance = currentDistance.toInt()
+            it.distance = LatLon.distance(location, it.location, DistanceUnit.MILE).toInt()
         }
-//        Collections.sort(radarSites, RID.DESCENDING_COMPARATOR)
         radarSites.sortBy { it.distance }
         return radarSites.subList(0, count)
     }
