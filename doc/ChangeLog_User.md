@@ -4,6 +4,13 @@
 Service outages with NWS data will be posted in the [FAQ](https://gitlab.com/joshua.tee/wxl23/-/tree/master/doc/FAQ.md) as I become aware of them.
 FAQ can be accessed via Settings -> About
 
+
+## 55592 2021_02_27 (BETA)
+* [ADD] (main screen) if closest observation point has data older then 2 hours, show data for the 2nd closest obs point instead
+* [FIX] prune the list of Observation points by removing 57 sites that had not updated in the past 28 days
+        This pruning will occur more frequently in the future to avoid a bad user experience
+* [ADD] upgrade software that wX uses
+
 ## 55588 2021_02_22 (BETA)
 * [FIX] remove the following weather obs point in `stations_us4.txt` and `us_metar3.txt` as user reported it has not updated since Jan 26
 ```
