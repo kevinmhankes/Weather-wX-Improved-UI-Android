@@ -29,7 +29,7 @@ import joshuatee.wx.Extensions.*
 import joshuatee.wx.radar.RID
 import java.util.*
 
-internal class ObjectMetar(context: Context, location: LatLon) {
+internal class ObjectMetar(context: Context, location: LatLon, index: Int = 0) {
 
 
     //
@@ -78,6 +78,7 @@ internal class ObjectMetar(context: Context, location: LatLon) {
     var windChill = ""
     var heatIndex = ""
     var conditionsTimeStr = ""
+    var timeStringUtc = ""
     var icon = ""
     private var rawMetar = ""
     private var metarSkyCondition = ""
@@ -125,7 +126,7 @@ internal class ObjectMetar(context: Context, location: LatLon) {
     }
 
     init {
-        val obsClosest = UtilityMetar.findClosestObservation(context, location)
+        val obsClosest = UtilityMetar.findClosestObservation(context, location, index)
         UtilityUS.obsClosestClass = obsClosest.name
         //val url = MyApplication.nwsApiUrl + "/stations/" + obsClosest.name + "/observations/current"
         //val observationData = url.getNwsHtml()
@@ -163,6 +164,7 @@ internal class ObjectMetar(context: Context, location: LatLon) {
             val localStatus = metarDataList[1].split("/")
             if (localStatus.size > 1) {
                 conditionsTimeStr = UtilityTime.convertFromUtcForMetar(localStatus[1].replace(" UTC", ""))
+                timeStringUtc = localStatus[1].trim()
             }
         }
         seaLevelPressure = changePressureUnits(seaLevelPressure)

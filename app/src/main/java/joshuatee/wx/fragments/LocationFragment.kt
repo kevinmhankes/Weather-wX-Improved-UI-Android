@@ -681,6 +681,7 @@ class LocationFragment : Fragment() {
     private fun getCc() {
         try {
             objectCurrentConditions = ObjectCurrentConditions(activityReference, Location.currentLocation)
+            objectCurrentConditions.timeCheck()
             if (homescreenFavLocal.contains("TXT-CC2")) {
                 bitmapForCurrentConditions = if (Location.isUS) {
                     UtilityNws.getIcon(activityReference, objectCurrentConditions.iconUrl)

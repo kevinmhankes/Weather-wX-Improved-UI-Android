@@ -243,21 +243,28 @@ internal object UtilityMetar {
         }
     }
 
-    fun findClosestObservation(context: Context, location: LatLon): RID {
+    fun findClosestObservation(context: Context, location: LatLon, index: Int = 0): RID {
         readMetarData(context)
-        var shortestDistance = 1000.00
-        var currentDistance: Double
-        var bestRid = -1
-        metarSites.indices.forEach {
-            currentDistance = LatLon.distance(location, metarSites[it].location, DistanceUnit.MILE)
-            metarSites[it].distance = currentDistance.toInt()
-            if (currentDistance < shortestDistance) {
-                shortestDistance = currentDistance
-                bestRid = it
-            }
+        val localMetarSites = metarSites.toMutableList()
+        localMetarSites.indices.forEach { i ->
+            localMetarSites[i].distance = LatLon.distance(location, localMetarSites[i].location, DistanceUnit.MILE).toInt()
         }
-        // In the unlikely event no closest site is found just return the first one
-        return if (bestRid == -1) metarSites[0] else metarSites[bestRid]
+        localMetarSites.sortBy { it.distance }
+        return localMetarSites[index]
+
+//        var shortestDistance = 1000.00
+//        var currentDistance: Double
+//        var bestRid = -1
+//        metarSites.indices.forEach {
+//            currentDistance = LatLon.distance(location, metarSites[it].location, DistanceUnit.MILE)
+//            metarSites[it].distance = currentDistance.toInt()
+//            if (currentDistance < shortestDistance) {
+//                shortestDistance = currentDistance
+//                bestRid = it
+//            }
+//        }
+//        // In the unlikely event no closest site is found just return the first one
+//        return if (bestRid == -1) metarSites[0] else metarSites[bestRid]
     }
 
     //

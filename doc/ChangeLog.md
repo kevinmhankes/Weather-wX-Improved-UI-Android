@@ -26,8 +26,8 @@
 ```
 [[_TOC_]]
 
-## 55592 2021_02_23
-*
+## 55592 2021_02_26
+* [ADD] (main screen) if closest observation point has data older then 2 hours, show data for the 2nd closest obs point
 
 ## 55590 2021_02_23
 * [FIX] prune the list of Observation points by removing 57 sites that had not updated in the past 28 days
