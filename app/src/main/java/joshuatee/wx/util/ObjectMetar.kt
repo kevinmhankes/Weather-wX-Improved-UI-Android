@@ -31,40 +31,9 @@ import java.util.*
 
 internal class ObjectMetar(context: Context, location: LatLon, index: Int = 0) {
 
-
     //
     // This is used to show the current conditions on the main screen of the app
     //
-
-/*
- ANN ARBOR MUNICIPAL AIRPORT, MI, United States (KARB) 42-13N 083-45W 251M
- Feb 11, 2018 - 06:53 PM EST / 2018.02.11 2353 UTC
- Wind: from the WSW (250 degrees) at 9 MPH (8 KT):0
- Visibility: 10 mile(s):0
- Sky conditions: clear
- Temperature: 24.1 F (-4.4 C)
- Windchill: 14 F (-10 C):1
- Dew Point: 19.9 F (-6.7 C)
- Relative Humidity: 83%
- Pressure (altimeter): 30.02 in. Hg (1016 hPa)
- Pressure tendency: 0.12 inches (4.1 hPa) higher than three hours ago
- ob: KARB 112353Z 25008KT 10SM CLR M04/M07 A3002 RMK AO2 SLP177 60000 T10441067 11033 21044 51041
- cycle: 0
-
- Oceanside, Oceanside Municipal Airport, CA, United States (KOKH) 33-13-10N 117-20-58W 8M
- Dec 31, 2008 - 10:56 AM EST / 2008.12.31 1556 UTC
- Wind: from the SW (230 degrees) at 16 MPH (14 KT) gusting to 26 MPH (23 KT):0
- Visibility: 10 mile(s):0
- Sky conditions: overcast
- Temperature: 37 F (3 C)
- Dew Point: 32 F (0 C)
- Relative Humidity: 80%
- Pressure (altimeter): 29.95 in. Hg (1014 hPa)
- ob: KOKH 311556Z AUTO 23014G23KT 10SM SCT017 BKN041 OVC065 03/00 A2995 RMK FIRST
- cycle: 16
-
- https://stackoverflow.com/questions/42803349/swift-3-0-convert-server-utc-time-to-local-time-and-visa-versa/42811162
- */
 
     var condition = ""
     var temperature = ""
@@ -176,6 +145,36 @@ internal class ObjectMetar(context: Context, location: LatLon, index: Int = 0) {
         return MyApplication.nwsApiUrl + "/icons/land/$timeOfDay/$shortCondition?size=medium"
     }
 }
+
+/*
+ ANN ARBOR MUNICIPAL AIRPORT, MI, United States (KARB) 42-13N 083-45W 251M
+ Feb 11, 2018 - 06:53 PM EST / 2018.02.11 2353 UTC
+ Wind: from the WSW (250 degrees) at 9 MPH (8 KT):0
+ Visibility: 10 mile(s):0
+ Sky conditions: clear
+ Temperature: 24.1 F (-4.4 C)
+ Windchill: 14 F (-10 C):1
+ Dew Point: 19.9 F (-6.7 C)
+ Relative Humidity: 83%
+ Pressure (altimeter): 30.02 in. Hg (1016 hPa)
+ Pressure tendency: 0.12 inches (4.1 hPa) higher than three hours ago
+ ob: KARB 112353Z 25008KT 10SM CLR M04/M07 A3002 RMK AO2 SLP177 60000 T10441067 11033 21044 51041
+ cycle: 0
+
+ Oceanside, Oceanside Municipal Airport, CA, United States (KOKH) 33-13-10N 117-20-58W 8M
+ Dec 31, 2008 - 10:56 AM EST / 2008.12.31 1556 UTC
+ Wind: from the SW (230 degrees) at 16 MPH (14 KT) gusting to 26 MPH (23 KT):0
+ Visibility: 10 mile(s):0
+ Sky conditions: overcast
+ Temperature: 37 F (3 C)
+ Dew Point: 32 F (0 C)
+ Relative Humidity: 80%
+ Pressure (altimeter): 29.95 in. Hg (1014 hPa)
+ ob: KOKH 311556Z AUTO 23014G23KT 10SM SCT017 BKN041 OVC065 03/00 A2995 RMK FIRST
+ cycle: 16
+
+ https://stackoverflow.com/questions/42803349/swift-3-0-convert-server-utc-time-to-local-time-and-visa-versa/42811162
+ */
 
 
 
