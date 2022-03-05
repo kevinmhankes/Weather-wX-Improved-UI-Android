@@ -4,6 +4,8 @@
 Service outages with NWS data will be posted in the [FAQ](https://gitlab.com/joshua.tee/wxl23/-/tree/master/doc/FAQ.md) as I become aware of them.
 FAQ can be accessed via Settings -> About
 
+## 55593 2021_03_05 (BETA)
+* [FIX] GOES GLM (lightning) animation was not working
 
 ## 55592 2021_02_27 (BETA)
 * [ADD] (main screen) if closest observation point has data older then 2 hours, show data for the 2nd closest obs point instead
