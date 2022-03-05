@@ -28,8 +28,8 @@
 ```
 [[_TOC_]]
 
-## 55593 2021_02_26
-*
+## 55593 2021_03_05
+* [FIX] GOES GLM (lightning) animation was not working
 
 ## 55592 2021_02_26
 * [ADD] (main screen) if closest observation point has data older then 2 hours, show data for the 2nd closest obs point
