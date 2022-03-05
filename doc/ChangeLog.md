@@ -24,6 +24,7 @@
 // TODO [FIX] settings label for C/F to indicate what it modifies
 // TODO [FIX] usalerts filter is not sorted
 // TODO [ADD] user request for metar homescreen widget
+// TODO [REF] ExternalGeodeticCalculator -> convert from class to object since all static
 ```
 [[_TOC_]]
 
